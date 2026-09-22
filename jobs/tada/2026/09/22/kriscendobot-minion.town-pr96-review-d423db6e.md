@@ -1,32 +1,34 @@
-All four review directives are verified resolved at the current PR HEAD (`ea66e45`). This is a corroborated no-op — a peer designer (host `endolin-garden2`) completed the revision in commits `042c1b2` and `ea66e45` and posted a public reply on every thread. I verified each ask against the actual design file and the job board (not merely the preflight hint). No inbox messages.
+Fully corroborated. This review was already resolved by a peer (kriscendobot on host endolin-garden2, garden `ae2a34ba`) shortly after the review landed. I verified each ask against real artifacts rather than trusting the inline replies alone.
 
----
+## Completion report
 
-## Completion report: PR #96 review 5272974950 (kriscendobot/minion.town)
+**Job:** Review directive on kriscendobot/minion.town PR #96 (review `5272974950` by kriskowal — CHANGES_REQUESTED on the design `designs/claude-agent-credential-reauth.md`).
 
-**Preflight:** exit 2 (HINT — peer resolution appears present). Per directive, I corroborated each ask against named artifacts before completing as a no-op.
+**Outcome:** Verified no-op. Every ask in the review was already resolved by a peer; I confirmed each against a named artifact (not just the reply text). Preflight returned exit 2 (HINT); I corroborated before completing, as required.
 
-PR #96 is a **design-only** PR (`designs/claude-agent-credential-reauth.md`, DRAFT). The review by kriskowal was `CHANGES_REQUESTED` with body "@kriscendobot rsvp" and four inline directives, all on the design file. Each is genuinely satisfied at HEAD `ea66e45c5df6` and each already carries a posted public reply:
+Review body was `@kriscendobot rsvp` (a request to respond) — satisfied by the thread replies below. The four inline asks, each corroborated:
 
-1. **r4067403969** "Start with the simple case; more sophisticated in a subsequent pass" → **Satisfied.** Design § 1 *"Scope: the simple root-user case"* restricts the pass to root-user out-of-band notification and explicitly excludes delegated operator, `ReauthTicket`, Endo-mail delivery, and external-email projection; § *"Follow-up, deliberately deferred"* defers all of them. Introduced in commit `042c1b2`. Reply posted (id 4067831958).
+1. **"Start with the simple root-user case; defer the sophisticated path"** (comment 4067403969) → commit `042c1b2`. Doc at head `ea66e45`: title now "root-user reauthentication"; § 1 "Scope: the simple root-user case"; `ReauthTicket`, per-guest operator binding, Endo-mail transport, and external-email projection explicitly dropped and moved to § "Follow-up, deliberately deferred" (lines 21–50, 347+). Reply 4067831958. ✔
 
-2. **r4067412358** "Usage exhaustion is a signal automation should react to / escalate to user" → **Satisfied.** Design § 2 makes `usage-exhausted` a first-class admission-time sibling on the minion.town `infer()` union (distinct from a generic failure); § 3 escalates to the user via the root notifier (`resetAt` for resettable windows, a named billing action for API-key caps). Commit `042c1b2`. Reply posted (id 4067832093).
+2. **"Usage exhaustion is a meaningful automation signal; make it reactable/escalatable"** (comment 4067412358) → commit `042c1b2`. Doc: `usage-exhausted` is now a first-class admission-time sibling in the `infer()` return union (§ 2, lines 78–86), escalated to the user via the root notifier with `resetAt`/named billing action (§ 3), and deliberately kept off `endo-claude.md`'s `InferResult`. Reply 4067832093. ✔
 
-3. **r4067414630** "An advisory would be helpful" → **Satisfied.** Design § 3 *"Pre-expiry advisory"* schedules a single informational renewal nudge via `notifyRoot` a configurable `advisoryLead` before expiry — no reauth event, once per expiry window, best-effort with post-expiry `needs-auth` as backstop. Commit `ea66e45`. Reply posted (id 4067832183).
+3. **"An advisory would be helpful"** (comment 4067414630) → commit `ea66e45`. Doc § 3 "Pre-expiry advisory" (lines 196–218): non-blocking renewal nudge via the same root notifier a configurable `advisoryLead` before expiry, at-most-once, no secret, best-effort with post-expiry escalation as backstop. Reply 4067832183. ✔
 
-4. **r4067419982** "Fall through to manual reauth, don't block, track deps, post a gated job to evaluate next steps" → **Satisfied.** Design § *"Follow-up, deliberately deferred"* states the design **does not block** on the browser OAuth relay and falls through to manual `setup-token`. The gated follow-up job is verified **on the board itself**: `journal/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay.md` (`gate: deferred`, gated on the browser OAuth relay landing, routes to a designer). Commits `042c1b2`/`ea66e45`. Reply posted (id 4067832261).
+4. **"Fall through to manual reauth, don't block, but track the dependency with a gated job"** (comment 4067419982) → commit `ea66e45`. Doc lines 356–363: "does not block" on the browser OAuth relay, falls through to manual `claude setup-token`, browser/MCP-only principals park losslessly. Board follow-up **verified present** at `journal/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay.md` (gate: deferred, gated on the OAuth relay landing, cites review 5272974950 open-question 4). Replies 4067737648 + 4067832261. ✔
 
-**Changes made:** none required — the substance was already delivered by the peer designer and all four inline threads already have public replies.
+**PR state:** open + draft (correct — an open-questions design stays a PR review surface under the manual-gauntlet regime).
 
-**Follow-ups:** the parked job `evaluate-reauth-escalation-default-after-oauth-relay` remains correctly gated; promote only after the browser OAuth relay makes real progress. PR #96 stays DRAFT pending a maintainer *run the gauntlet #96*.
+**Changes made by me:** none — no code/doc/board edits were needed; all deliverables already exist and are verified. No push to main2 (this is a project-repo review, already handled on the PR head branch).
+
+**Follow-ups:** the parked job `evaluate-reauth-escalation-default-after-oauth-relay` owns the deferred OAuth-relay-dependent evaluation; it stays gated until the browser OAuth relay makes progress. No action from this job.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/kriscendobot-minion.town-pr96-review-d423db6e.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 7 on 2 host(s) (2 unmetered)
-- Input: 112 tokens (2948799 cached reads)
-- Output: 44505 tokens
-- Cost: $5.1024565 (2 engagement(s) unpriced)
-- Wall-clock: 2365s
-- Model(s): claude-opus-4-8 ×5
+- Engagements: 8 on 2 host(s) (2 unmetered)
+- Input: 124 tokens (3182232 cached reads)
+- Output: 50645 tokens
+- Cost: $6.145904 (2 engagement(s) unpriced)
+- Wall-clock: 2477s
+- Model(s): claude-opus-4-8 ×6
 
 <!-- garden-usage-end -->
