@@ -20,3 +20,13 @@ false), it logs a distinct fallback line instead of the no-op `sed`, e.g.
 `log "  prerequisite: (no diagnostic captured — subshell exited rc=$prereq_rc with empty stderr)"`,
 so the next occurrence of this failure is actually triageable from the
 self-heal capture instead of reproducing today's dead end.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T00:30:51Z
