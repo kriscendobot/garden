@@ -1,13 +1,13 @@
 ---
 created: 2026-08-17
-updated: 2026-09-03
-author: gardener (designer)
+updated: 2026-09-22
+author: gardener (fixer), gardener (designer)
 ---
 
 # Rolling deploy: the leader orchestrates a fleet upgrade with followers as canaries
 
 | Created | 2026-08-17 |
-| Updated | 2026-09-03 (rolling-deploy revision) |
+| Updated | 2026-09-22 (offline-peer liveness revision) |
 | Author  | gardener (designer) |
 | Status  | Proposed (open questions — review PR #73) |
 
@@ -88,7 +88,7 @@ as canaries; the leader itself last, and only if the canaries pass.
 flowchart TD
   A[leader upgrade-ready signal + tip settled] --> B{any followers to canary?}
   B -- no: leader-only fleet --> L[leader self-deploys directly<br/>candidate gate is the sole protection<br/>= today's solo-leader behavior]
-  B -- yes --> C[select next canary follower<br/>skip operator-drained hosts]
+  B -- yes --> C[select next PRESENT canary follower<br/>skip OFFLINE; honor operator DRAINED]
   C --> D[release follower to advance<br/>drain → deploy-garden.sh → lift, on the follower]
   D --> E[follower reports post-deploy health + deployed sha]
   E --> F[leader validates the canary:<br/>unit health + round-trip probe job + regression watch]
@@ -124,6 +124,45 @@ canary.** Everything below serves that rule.
   which is exactly today's solo-leader behavior, where the fast candidate gate is
   the sole protection. This is not a regression: a fleet with no second host never
   had a canary to offer. The design accepts it and says so.
+
+### Presence, drain, and validation are three different states
+
+The conductor classifies a configured follower before releasing it. The authority
+for **presence** is `budget/live/<pool>/<GARDEN>`, whose `sampled_at` heartbeat is
+refreshed on roughly a five-minute cadence. `GARDEN_HOST_OFFLINE_AFTER` is tunable
+and defaults to 30 minutes: six nominal refresh opportunities, well clear of tick
+jitter and a brief network interruption, but far below the three-day silence that
+exposed this wedge. The freshest heartbeat across a host's pools wins. The
+deploy-event-only `fleet/health/<GARDEN>` record is explicitly not liveness evidence;
+a dead host can leave a healthy-looking record frozen indefinitely.
+
+The states and responses are deliberately distinct:
+
+- **OFFLINE (no heartbeat, or heartbeat older than the threshold):** skip before
+  writing a release token or starting the deploy budget. It is neither a failed
+  canary nor a reason to halt. Clear any stale release token, log the reason, include
+  the skipped host and reason in `deploy/roll-completed/<sha>`, and raise one
+  coalesced `rolling-deploy-host-offline-<host>` watchdog notice per episode.
+- **DRAINED (operator marker):** preserve the existing operator-owned posture. The
+  roll does not lift the drain and proceeds through other available followers. A
+  roll-induced drain remains retryable under the provenance rules below.
+- **PRESENT but failing validation:** this is a real canary failure. Bounded retry,
+  terminal halt, leader hold, and paging remain unchanged. Liveness skipping never
+  converts a negative validation result into an absence; if that failed canary later
+  loses its heartbeat, the recorded failure still holds the leader.
+
+The liveness watchdog runs on every conductor tick, including ticks with no pending
+upgrade, because it observes an *absence*. When the heartbeat resumes, the keyed
+notice is closed with a recovery and an active `hosts/<GARDEN>` peer automatically
+rejoins the current or next canary rotation. The conductor does **not** unarchive a
+dot-prefixed host record: archival is an operator decommissioning decision and must
+be reversed separately by restoring the active `hosts/<GARDEN>` record.
+
+If configured followers exist but every one is OFFLINE and/or operator-drained, this
+is not the leader-only case. There is no canary, so the leader **holds unvalidated**
+and emits a legible `rolling-deploy-no-canary-<leader>` notice. An operator clears
+the hold by restoring at least one host until its heartbeat resumes, lifting an
+operator drain, and—for an archived host—explicitly unarchiving its host record.
 
 ## Orchestration mechanics — and the attestation boundary (the crux)
 

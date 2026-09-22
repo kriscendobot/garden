@@ -276,6 +276,12 @@ export GARDEN
 # excluded the canary (designs/follower-self-deploy.md § Failure handling).
 : "${GARDEN_CANARY_MAX_RETRIES:=3}"                  # roll-induced canary drain retries before hold+escalate
 : "${GARDEN_CANARY_RETRY_BACKOFF:=900}"              # 15 min between roll-induced-drain retries
+# budget/live/<pool>/<host> is refreshed about every five minutes. Six missed
+# refresh opportunities is long enough to absorb scheduler jitter and short network
+# blips, while detecting a vanished host far sooner than the multi-day wedge that
+# motivated the predicate.
+: "${GARDEN_HOST_OFFLINE_AFTER:=1800}"               # 30 min: heartbeat age that makes a peer OFFLINE
+: "${GARDEN_ROLL_COMPLETED_PATH:=deploy/roll-completed}" # durable per-target roll outcome
 # Provenance token the conductor stamps into a roll-induced drain marker's `source:`
 # line; every other drain (operator, deploy-in-progress, maintenance) is `operator`,
 # the inviolable default. self-deploy/rolling-deploy key retryability on this exact value.

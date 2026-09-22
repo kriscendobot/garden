@@ -58,9 +58,9 @@ SEED="$TR/seed"; git init -q "$SEED"
 git -C "$SEED" checkout -q -b "$BRANCH"
 ( cd "$SEED"
   mkdir -p jobs/todo jobs/doin jobs/tada jobs/plan jobs/index msgs hosts config \
-           deploy/roll fleet/health fleet/deployed inbox/maintainer/unread inbox/maintainer/read
+           deploy/roll deploy/roll-completed fleet/health fleet/deployed budget/live/pool-a inbox/maintainer/unread inbox/maintainer/read
   for d in jobs/todo jobs/doin jobs/tada jobs/plan jobs/index msgs hosts config \
-           deploy/roll fleet/health fleet/deployed inbox/maintainer/unread inbox/maintainer/read; do
+           deploy/roll deploy/roll-completed fleet/health fleet/deployed budget/live/pool-a inbox/maintainer/unread inbox/maintainer/read; do
     touch "$d/.gitkeep"; done )
 git -C "$SEED" add -A
 git -C "$SEED" "${git_id[@]}" commit -q -m "seed: rolling-deploy fixtures"
@@ -83,7 +83,18 @@ from_bare() { git -C "$BARE" show "$BRANCH:$1" 2>/dev/null; }
 tada_tree_path() { git -C "$BARE" ls-tree -r --name-only "$BRANCH" 2>/dev/null | grep -E "jobs/tada/(.*/)?$1\.md$" | head -1; }
 tada_from_bare() { local p; p="$(tada_tree_path "$1")"; [ -n "$p" ] && from_bare "$p" || true; }
 seed_fleet_hosts() {  # every host present in the fleet
-  local h; for h in "$@"; do push_change "hosts/$h" $'gardeners: 1\nupdated_by: test' "seed host $h"; done
+  local h; for h in "$@"; do
+    push_change "hosts/$h" $'gardeners: 1\nupdated_by: test' "seed host $h"
+    set_heartbeat "$h" 1900
+  done
+}
+set_heartbeat() {  # <host> <sampled_at_epoch|@DELETE>
+  local h="$1" at="$2"
+  if [ "$at" = @DELETE ]; then
+    push_change "budget/live/pool-a/$h" @DELETE "remove heartbeat $h"
+  else
+    push_change "budget/live/pool-a/$h" "host: $h"$'\n'"sampled_at_epoch: $at"$'\n'"sampled_at: $(date -u -d "@$at" +%FT%TZ)"$'\n' "heartbeat $h @ $at"
+  fi
 }
 simulate_follower_deploy() {  # <host> <sha> [roll_status] [unit_failures] [first_bad]
   local h="$1" sha="$2" status="${3:-deployed}" failures="${4:-0}" firstbad="${5:--}"
@@ -121,6 +132,7 @@ run_conductor() {  # run_conductor [EXTRA_ENV=VAL...]
   env -i PATH="$PATH" HOME="$HOME" \
     GARDEN_TEST=1 GARDEN_ROOT="$ROOT" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN="$LEADER" GARDEN_STATE="$state" GARDEN_LEADER="$LEADER" \
+    GARDEN_ROLLING_NOW=2000 GARDEN_HOST_OFFLINE_AFTER=1800 \
     GARDEN_SELF_DEPLOY_SETTLE=0 GARDEN_CANARY_PROBE_DEADLINE=600 GARDEN_CANARY_WATCH=0 \
     GARDEN_UNIT_CTL="$MOCK" GARDEN_MOCK_STATE="$TR/mock-state" GARDEN_MOCK_LOG="$TR/mock-log" \
     GARDEN_UPGRADE_READY_MARKER="$state/deploy/upgrade-ready" \
@@ -254,6 +266,70 @@ run_conductor                     # F2 passes → all canaries passed → leader
 if grep -q "deploy-invoked host=$LEADER" "$DEPLOY_LOG"; then
   ok "all canaries passed → leader self-deployed LAST (deploy-garden.sh invoked on the leader)"
 else bad "leader did not self-deploy after all canaries passed (deploy log: $(cat "$DEPLOY_LOG"))"; fi
+
+# ============================================================================
+hr; echo "OFFLINE — stale heartbeat skips without release/failure; live canary completes the roll"; hr
+push_change "deploy/roll/$F1" @DELETE "clear F1 release for offline test"
+push_change "deploy/roll/$F2" @DELETE "clear F2 release for offline test"
+push_change "fleet/deployed/$F1" @DELETE "clear F1 deploy for offline test"
+push_change "fleet/deployed/$F2" @DELETE "clear F2 deploy for offline test"
+push_change "fleet/health/$F1" @DELETE "clear F1 health for offline test"
+push_change "fleet/health/$F2" @DELETE "clear F2 health for offline test"
+set_heartbeat "$F1" 0                         # 2000s old > 1800s threshold
+set_heartbeat "$F2" 1900                      # fresh
+: > "$DEPLOY_LOG"; : > "$ALERT_LOG"
+clear_leader_signal
+run_conductor
+if grep -q "key=rolling-deploy-host-offline-$F1" "$ALERT_LOG"; then
+  ok "absence watchdog alerts for OFFLINE F1 even when there is no upgrade to roll"
+else bad "offline watchdog was suppressed by the no-upgrade fast path"; fi
+set_leader_signal "$TARGET"; reset_leader_roll_state
+run_conductor
+if [ -z "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" ] \
+   && [ "$(from_bare "deploy/roll/$F2" | tr -d '[:space:]')" = "$TARGET" ]; then
+  ok "OFFLINE F1 received no release token or deploy budget; PRESENT F2 was released"
+else bad "offline selection wrong (F1=$(from_bare deploy/roll/$F1), F2=$(from_bare deploy/roll/$F2))"; fi
+if grep -q "key=rolling-deploy-host-offline-$F1" "$ALERT_LOG"; then
+  ok "OFFLINE F1 raised a keyed host-liveness notice"
+else bad "offline host notice missing (alerts: $(cat "$ALERT_LOG"))"; fi
+simulate_follower_deploy "$F2" "$TARGET"
+run_conductor; run_conductor
+record="$(from_bare "deploy/roll-completed/$TARGET")"
+if grep -q "deploy-invoked host=$LEADER" "$DEPLOY_LOG" \
+   && grep -q "skipped_peers: $F1 (offline:" <<<"$record"; then
+  ok "roll completed through F2 and durable completion record names offline-skipped F1 with reason"
+else bad "offline roll did not complete/record skip (deploy=$(cat "$DEPLOY_LOG"), record=$record)"; fi
+
+# A heartbeat can be later than its expected five-minute tick without being OFFLINE.
+push_change "deploy/roll/$F1" @DELETE "clear F1 release for jitter test"
+push_change "deploy/roll/$F2" @DELETE "clear F2 release for jitter test"
+set_heartbeat "$F1" 1300                      # 700s old: briefly late, well under 30m
+set_heartbeat "$F2" 0
+set_leader_signal "$TARGET"; reset_leader_roll_state
+run_conductor
+if [ "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" = "$TARGET" ]; then
+  ok "briefly-late 700s heartbeat remains PRESENT (30m threshold); F1 enters rotation"
+else bad "brief heartbeat delay was misclassified offline"; fi
+
+# If every follower is absent the leader holds unvalidated. Once a heartbeat resumes,
+# the active (non-archived) host rejoins automatically and its watchdog episode closes.
+push_change "deploy/roll/$F1" @DELETE "clear F1 release for all-offline hold"
+set_heartbeat "$F1" 0; set_heartbeat "$F2" 0
+set_leader_signal "$TARGET"; reset_leader_roll_state
+: > "$DEPLOY_LOG"; : > "$ALERT_LOG"
+run_conductor; run_conductor
+offline_alerts="$(grep -c "key=rolling-deploy-host-offline-$F1" "$ALERT_LOG" || true)"
+if ! grep -q deploy-invoked "$DEPLOY_LOG" \
+   && grep -q "key=rolling-deploy-no-canary-$LEADER" "$ALERT_LOG" \
+   && [ "$offline_alerts" -eq 1 ]; then
+  ok "all-followers-OFFLINE holds leader and coalesces to one keyed host notice per episode"
+else bad "all-offline hold/coalescing failed (deploy=$(cat "$DEPLOY_LOG"), alerts=$(cat "$ALERT_LOG"))"; fi
+set_heartbeat "$F1" 1900
+run_conductor
+if [ "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" = "$TARGET" ] \
+   && grep -q "key=rolling-deploy-host-offline-$F1" "$ALERT_LOG"; then
+  ok "resumed heartbeat closes the offline episode and automatically rejoins active F1"
+else bad "returned peer did not rejoin/close its notice (alerts=$(cat "$ALERT_LOG"))"; fi
 
 # ============================================================================
 hr; echo "RETRY + RECOVER — a failed canary is DRAINED (roll provenance), retried on its own, and recovers"; hr
@@ -462,6 +538,7 @@ printf 'Upgrade ready\n\navailable: %s\n' "$TARGET" > "$TR/state-deadline/deploy
 env -i PATH="$PATH" HOME="$HOME" \
   GARDEN_TEST=1 GARDEN_ROOT="$ROOT" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
   GARDEN="$LEADER" GARDEN_STATE="$TR/state-deadline" GARDEN_LEADER="$LEADER" \
+  GARDEN_ROLLING_NOW=2000 GARDEN_HOST_OFFLINE_AFTER=1800 \
   GARDEN_SELF_DEPLOY_SETTLE=0 GARDEN_CANARY_PROBE_DEADLINE=600 GARDEN_CANARY_WATCH=0 \
   GARDEN_UNIT_CTL="$MOCK" GARDEN_MOCK_STATE="$TR/mock-state" GARDEN_MOCK_LOG="$TR/mock-log" \
   GARDEN_UPGRADE_READY_MARKER="$TR/state-deadline/deploy/upgrade-ready" \

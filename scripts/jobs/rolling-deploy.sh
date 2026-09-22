@@ -38,6 +38,7 @@
 #   GARDEN_ROLL_REGRESSION_CMD  optional deterministic regression check <host> <sha> (default: pass)
 #   GARDEN_ROLL_PREDRAIN        1 → send a benign `drain on` before releasing a canary (default 0)
 #   GARDEN_ROLLING_NOW          fixed epoch seconds (default: date +%s)
+#   GARDEN_HOST_OFFLINE_AFTER   max budget/live heartbeat age (default: 30 min)
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -130,8 +131,10 @@ follower_deployed_sha() { rdsha "$DIR/$GARDEN_FLEET_DEPLOYED_PATH/$1"; }
 follower_health_field() { local f="$DIR/$GARDEN_FLEET_HEALTH_PATH/$1"; [ -f "$f" ] && sed -n "s/^$2:[[:space:]]*//p" "$f" 2>/dev/null | head -1 || true; }
 release_token() { rdsha "$DIR/$GARDEN_DEPLOY_ROLL_PATH/$1"; }
 
-# The follower set: every host with a hosts/<h> record, minus the leader, sorted.
-follower_hosts() {
+# Every configured follower, including an offline one. Dot-prefixed archived host
+# records are deliberately outside the glob: returning from offline does NOT undo an
+# operator's archival decision.
+all_follower_hosts() {
   local h b
   for h in "$DIR"/hosts/*; do
     [ -e "$h" ] || continue
@@ -140,6 +143,68 @@ follower_hosts() {
     [ "$b" = "$GARDEN" ] && continue
     printf '%s\n' "$b"
   done | sort
+}
+
+# The authoritative liveness fact is the periodically refreshed budget heartbeat,
+# NOT fleet/health (which is deploy-event-only and can look healthy for days after a
+# host dies). A host can contribute to more than one pool; its freshest heartbeat is
+# authoritative. Legacy flat budget/live/<host> records remain readable during the
+# rolling format migration.
+host_heartbeat_epoch() {  # host_heartbeat_epoch <host>
+  local host="$1" file at latest=""
+  for file in "$DIR"/budget/live/*/"$host" "$DIR"/budget/live/"$host"; do
+    [ -f "$file" ] || continue
+    at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
+    if ! [[ "$at" =~ ^[0-9]+$ ]]; then
+      at="$(sed -n 's/^sampled_at:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
+      at="$(date -u -d "$at" +%s 2>/dev/null || true)"
+    fi
+    [[ "$at" =~ ^[0-9]+$ ]] || continue
+    { [ -z "$latest" ] || [ "$at" -gt "$latest" ]; } && latest="$at"
+  done
+  printf '%s\n' "$latest"
+}
+
+HOST_LIVENESS_DETAIL=""
+host_is_online() {  # host_is_online <host>; detail is suitable for logs/records
+  local host="$1" sampled age
+  sampled="$(host_heartbeat_epoch "$host")"
+  if ! [[ "$sampled" =~ ^[0-9]+$ ]]; then
+    HOST_LIVENESS_DETAIL="no budget/live heartbeat"
+    return 1
+  fi
+  age=$(( now - sampled )); [ "$age" -lt 0 ] && age=0
+  if [ "$age" -gt "$GARDEN_HOST_OFFLINE_AFTER" ]; then
+    HOST_LIVENESS_DETAIL="heartbeat stale by ${age}s (offline threshold ${GARDEN_HOST_OFFLINE_AFTER}s; sampled_at_epoch=$sampled)"
+    return 1
+  fi
+  HOST_LIVENESS_DETAIL="heartbeat fresh (${age}s old; sampled_at_epoch=$sampled)"
+  return 0
+}
+
+# Public selection predicate: only PRESENT peers enter the canary rotation. Offline
+# peers are classified before a release/deploy budget can begin.
+follower_hosts() {
+  local h
+  while IFS= read -r h; do
+    host_is_online "$h" && printf '%s\n' "$h"
+  done < <(all_follower_hosts)
+}
+
+roll_completion_record() {  # roll_completion_record <target>
+  local target="$1" h st reason passed="" skipped=""
+  while IFS= read -r h; do
+    st="$(rstat_get "$target" "$h")"
+    case "$st" in
+      passed) passed="${passed}${passed:+,}$h" ;;
+      skipped)
+        reason="$(rfield_get "$target" "$h" skip_reason)"; : "${reason:=drained}"
+        skipped="${skipped}${skipped:+; }$h ($reason)"
+        ;;
+    esac
+  done < <(all_follower_hosts)
+  printf 'target: %s\nleader: %s\ncompleted_at: %s\npassed_canaries: %s\nskipped_peers: %s\n' \
+    "$target" "$GARDEN" "$(date -u -d "@$now" +%FT%TZ)" "${passed:--}" "${skipped:--}"
 }
 
 # --- host-local per-target roll state ----------------------------------------
@@ -327,6 +392,28 @@ on $host, then lift its drain and re-trigger, or hold the tip. (leader=$GARDEN)"
 # =============================================================================
 # --- the tick ---------------------------------------------------------------
 
+# Observe absence even when there is no upgrade pending. The rolling-deploy timer is
+# the fleet's first periodic host-liveness watchdog, so "nothing to roll" must not
+# suppress an offline alert. The stable per-host key makes one notice per episode;
+# alert_maintainer_clear closes it when any authoritative pool heartbeat resumes.
+now="$(now_s)"
+while IFS= read -r f; do
+  if host_is_online "$f"; then
+    alert_maintainer_clear "rolling-deploy-host-offline-$f" \
+      "heartbeat resumed for $f; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/$f record remains active. Archived records are not unarchived automatically." || true
+  else
+    [ -z "$(release_token "$f")" ] || journal_rm "$GARDEN_DEPLOY_ROLL_PATH/$f" "deploy/roll($f) cleared (peer offline) by $GARDEN" || true
+    alert_maintainer "rolling-deploy-host-offline-$f" \
+"Host $f is OFFLINE: $HOST_LIVENESS_DETAIL.
+The authority is budget/live/<pool>/$f, refreshed periodically; fleet/health/$f is
+not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+no release token, deploy budget, failed-canary count, or halt. Restore the host and
+its heartbeat to rejoin automatically. If hosts/$f was archived, unarchive it as a
+separate operator decision; this watchdog never reverses decommissioning. (leader=$GARDEN)"
+    log "peer $f is OFFLINE; watchdog open and any stale release cleared: $HOST_LIVENESS_DETAIL"
+  fi
+done < <(all_follower_hosts)
+
 # The leader's own host-local upgrade-ready signal is the deploy DECISION (a
 # cryptographic ancestry fact, never a bus message). Absent → the leader is current.
 if [ ! -e "$GARDEN_UPGRADE_READY_MARKER" ]; then
@@ -339,7 +426,6 @@ target="$( { sed -n 's/^available:[[:space:]]*//p' "$GARDEN_UPGRADE_READY_MARKER
 # --- settle window (a FLOOR on tip age; the clock restarts on a new target) ---
 settle_file="$STATE/settle/$(sd "$target")"
 mkdir -p "$(dirname "$settle_file")" 2>/dev/null || true
-now="$(now_s)"
 first_seen="$(rdline "$settle_file")"
 if ! [[ "$first_seen" =~ ^[0-9]+$ ]]; then first_seen="$now"; printf '%s\n' "$now" > "$settle_file"; fi
 waited=$(( now - first_seen ))
@@ -349,12 +435,51 @@ if [ "$waited" -lt "$GARDEN_SELF_DEPLOY_SETTLE" ]; then
 fi
 
 # --- degenerate fleet: leader-only (no followers = no canary by construction) -
-mapfile -t followers < <(follower_hosts)
-if [ "${#followers[@]}" -eq 0 ]; then
+mapfile -t all_followers < <(all_follower_hosts)
+if [ "${#all_followers[@]}" -eq 0 ]; then
   log "leader-only fleet (no followers to canary); self-deploying directly on the settled upgrade-ready — today's solo-leader behavior"
   "$DEPLOY_CMD" || log "WARN: leader self-deploy returned non-zero (deploy-garden.sh manages its own drain/abort)"
   exit 0
 fi
+
+# Classify liveness before selecting/releasing a canary. This also runs on every
+# active-roll tick, so a heartbeat recovery closes its keyed watchdog episode and an
+# offline-skipped host automatically rejoins if the roll is still holding. A host
+# record archived by an operator is absent from all_followers and is never unarchived.
+offline_count=0
+offline_blocking_failure=""
+for f in "${all_followers[@]}"; do
+  if host_is_online "$f"; then
+    if [ "$(rstat_get "$target" "$f")" = skipped ] \
+       && [[ "$(rfield_get "$target" "$f" skip_reason)" = offline:* ]]; then
+      rstat_set "$target" "$f" pending
+      rfield_set "$target" "$f" skip_reason ""
+      log "canary $f RECOVERED from OFFLINE ($HOST_LIVENESS_DETAIL); rejoining this roll"
+    fi
+  else
+    offline_count=$(( offline_count + 1 ))
+    prior="$(rstat_get "$target" "$f")"
+    case "$prior" in
+      passed)
+        log "canary $f is now OFFLINE, but its completed PASS for ${target:0:12} remains valid: $HOST_LIVENESS_DETAIL"
+        ;;
+      failed|retry-wait)
+        # Liveness loss after an observed validation failure must never erase the
+        # safety result. Hold until the failure is resolved; do not relabel it as
+        # an innocent pre-participation absence.
+        offline_blocking_failure="$f ($prior)"
+        log "canary $f is now OFFLINE after a real validation failure ($prior); preserving the failure and HOLDING"
+        ;;
+      *)
+        rstat_set "$target" "$f" skipped
+        rfield_set "$target" "$f" skip_reason "offline: $HOST_LIVENESS_DETAIL"
+        log "canary $f is OFFLINE; SKIPPING without release or failure: $HOST_LIVENESS_DETAIL"
+        ;;
+    esac
+  fi
+done
+mapfile -t followers < <(follower_hosts)
+[ -z "$offline_blocking_failure" ] || { log "HOLDING leader: $offline_blocking_failure went offline after failing validation; failure safety gate remains in force"; exit 0; }
 
 # --- roll the followers, one canary at a time (default batch=1) --------------
 # Walk followers in deterministic order. For the current canary: release it if not
@@ -392,6 +517,7 @@ for f in "${followers[@]}"; do
   # cannot validate, and self-deploying it out from under an operator is forbidden.
   if [ "$(follower_health_field "$f" roll_status)" = operator-drained ]; then
     rstat_set "$target" "$f" skipped
+    rfield_set "$target" "$f" skip_reason "operator-drained"
     log "canary $f is operator-drained; SKIPPING it (roll proceeds with the remaining followers)"
     continue
   fi
@@ -439,23 +565,27 @@ done
 # --- every follower passed or was skipped ------------------------------------
 if [ "$passed_any" -eq 1 ]; then
   log "all required canaries passed for ${target:0:12}; leader self-deploying LAST"
-  "$DEPLOY_CMD" || log "WARN: leader self-deploy returned non-zero (deploy-garden.sh manages its own drain/abort)"
+  if "$DEPLOY_CMD"; then
+    record="$(roll_completion_record "$target")"
+    journal_put "$GARDEN_ROLL_COMPLETED_PATH/$target" "$record" "deploy roll ${target:0:12} completed by $GARDEN" || true
+    log "roll completion recorded for ${target:0:12}; skipped peers: $(sed -n 's/^skipped_peers: //p' <<<"$record")"
+  else
+    log "WARN: leader self-deploy returned non-zero (deploy-garden.sh manages its own drain/abort)"
+  fi
   # On success deploy-garden.sh records the new sha; the upgrade-monitor clears the
   # signal next tick and this roll's state ages out.
   exit 0
 fi
 
-# Every follower was operator-drained → the fleet has NO available canary because a
-# human paused them all. Design open question — leaning HOLD: treat "a human paused
-# all followers" as a signal to WAIT for the human, not to deploy the leader
-# unvalidated. Page once so the operator knows the leader is holding.
+# Every follower was offline and/or operator-drained: HOLD. Absence is not a failed
+# canary, but neither is it validation permission for the leader.
 if [ "$skipped_all" -eq 1 ] || [ "$passed_any" -eq 0 ]; then
-  alert_maintainer "rolling-deploy-all-followers-drained-$GARDEN" \
-"Rolling deploy is HOLDING the leader: every follower is operator-drained, so there
-is no available canary to validate ${target:0:12}. Per designs/follower-self-deploy.md
-this is treated as a signal to wait for you, not to advance the leader unvalidated.
-Lift a follower's drain to give the roll a canary, or deploy the leader by hand if you
-accept an unvalidated advance. (leader=$GARDEN)"
-  log "HOLDING leader: all followers operator-drained; no canary available for ${target:0:12}"
+  alert_maintainer "rolling-deploy-no-canary-$GARDEN" \
+"Rolling deploy is HOLDING the leader: every configured follower is OFFLINE or
+operator-drained, so there is no canary to validate ${target:0:12}. The leader will
+not advance unvalidated. Restore any offline host until budget/live heartbeats resume,
+or lift an operator drain. An archived host additionally needs a separate operator
+unarchive; this roll never reverses archival. (leader=$GARDEN, offline=$offline_count)"
+  log "HOLDING leader: no PRESENT, undrained canary available for ${target:0:12} (offline=$offline_count); restore a heartbeat or lift a drain"
 fi
 exit 0
