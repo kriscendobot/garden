@@ -1,32 +1,34 @@
-Every ask in the directive is corroborated as already satisfied by a prior claimant of **this** job (a reaper-requeue left #1328 in place). No further work is needed.
+Inbox is empty. The work is done and I've corroborated it directly. Writing the report.
+
+---
 
 ## Completion report
 
-**Directive** (PR #1290 inline comment `r4066300501` by kriskowal, on `packages/sha256/test/browser-entry.js`): *"This seems extraneous. The importer could import these facets directly."*
+**Directive:** attention on endojs/endo-but-for-bots PR #1290, kriskowal's inline review comment on `packages/sha256/test/browser-entry.js` (comment `4066300501`): *"This seems extraneous. The importer could import these facets directly."*
 
-**Preflight**: exit 2 (HINT). I corroborated rather than closing on the hint.
+**Preflight:** `pr-feedback-preflight.sh` returned exit 2 (HINT — a correlated reply exists on the thread). Per the directive I treated this as PROCEED and corroborated the resolution artifact myself rather than closing on the hint alone.
 
-**State found** — #1290 itself is already **merged/closed**, so the fix could only land as a follow-up against `llm`. Two follow-ups exist; I verified both against the board/GitHub directly:
-- **#1326** — closed, superseded (earlier attempt on base `llm-38cce7e`).
-- **#1328** — **open**, draft, `mergeable: clean`, base `llm-db664fa`, head `pr1290-inline-browser-entry`, commit `d9077c4d08`. Carries **this job's durable marker** `<!-- garden-job: endojs-endo-but-for-bots-pr1290-87327676 -->`; `ensure-pr.sh --find-only` adopts it (creates nothing).
+**Finding — the single ask is already resolved by a prior claimant of THIS job:**
 
-**Each ask, corroborated by the #1328 diff:**
-- *Delete the extraneous file* → `packages/sha256/test/browser-entry.js` is removed (−7 lines).
-- *Importer imports the facets directly* → the two re-export lines (`sha256` from `@endo/sha256`, `sha256Async` from `@endo/sha256/async`) are inlined into the sole importer's `read` power in `browser-test/tests/sha256.spec.js`, served from a **virtual** location under `packages/sha256/test/` (never written to disk), preserving package-self-import resolution so conditional-export selection stays exercised.
+- **Artifact:** endojs/endo-but-for-bots **PR #1328** — `refactor(sha256): inline the browser test entry, drop browser-entry.js`, head `pr1290-inline-browser-entry` @ `d9077c4d08cb`, base `llm-db664fa`, **open/draft**. It carries this job's durable marker `<!-- garden-job: endojs-endo-but-for-bots-pr1290-87327676 -->`, so it was opened by an earlier claim of this same base (not a duplicate to be re-opened).
+- **How it satisfies the ask (verified from the actual diff, not the reply text):**
+  - `packages/sha256/test/browser-entry.js` is **deleted** (−7, the committed two-line re-export module).
+  - Its two re-export lines are **inlined** into the browser Playwright test's `read` power (`browser-test/tests/sha256.spec.js`, +12 −1) as an in-memory `entrySource`, served from a **virtual** `entryLocation` under `packages/sha256/test/` that is never written to disk. This removes the extraneous committed file while preserving conditional-export coverage (self-imports `@endo/sha256` and `@endo/sha256/async` still resolve through the bundle).
+- **Maintainer notified:** thread reply `4067990104` on comment `4066300501` already announced the landing as #1328, following the earlier reversal (`4067459383`) that conceded kriskowal's point after the initial "kept it" (`4066821098`).
 
-**Reply to maintainer** → already posted on the same inline thread (`in_reply_to=4066300501`, comment id `4067990104`) pointing to #1328.
+**Why this is complete as a no-op:** #1290 itself merged (2026-09-21) with the file still present, so the resolution correctly rides a follow-up PR against `llm`. #1328 implements exactly the agreed resolution, carries the correct job marker, and the review thread is up to date. #1328 remaining a **draft** is the expected terminal state under the manual-gauntlet regime — promotion to review is the maintainer's call (`run the gauntlet #1328`), not this job's.
 
-**Outcome**: no-op — the directive's deliverable (follow-up PR #1328 deleting the file and inlining the imports) already exists, is mergeable, and is tied to this job. It remains a **draft** per the manual-gauntlet regime; promotion to review is a maintainer trigger (`run the gauntlet #1328`), not this job's scope.
+**Changes made this run:** none — the deliverable pre-existed and was verified. No new commits, PRs, or thread replies were needed.
 
-**Follow-up for maintainer**: #1328 is ready for review/gauntlet whenever desired.
+**Follow-up (maintainer-owned):** promote #1328 for review when ready (`run the gauntlet #1328`); it is a draft against the frozen base `llm-db664fa`.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1290-87327676.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 11 on 2 host(s) (3 unmetered)
-- Input: 154 tokens (3474874 cached reads)
-- Output: 47712 tokens
-- Cost: $6.884186999999999 (3 engagement(s) unpriced)
-- Wall-clock: 1830s
-- Model(s): claude-opus-4-8 ×8
+- Engagements: 12 on 2 host(s) (3 unmetered)
+- Input: 172 tokens (3858640 cached reads)
+- Output: 53544 tokens
+- Cost: $7.632294999999999 (3 engagement(s) unpriced)
+- Wall-clock: 1946s
+- Model(s): claude-opus-4-8 ×9
 
 <!-- garden-usage-end -->
