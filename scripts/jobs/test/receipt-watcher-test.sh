@@ -103,6 +103,26 @@ if [ "${FAIL_GIT_RESET:-0}" = 1 ]; then
     exit 128
   fi
 fi
+# Model an ENVIRONMENTAL CUT of the prerequisite subshell (a signal — one of the causes the
+# empty-stderr WARN names) at ensure_clone's `git config user.name` WRITE, which runs as a
+# direct child of that subshell. Match `config` WITHOUT `--get`, so bot_name/bot_email's own
+# `config --get user.*` READS (run inside a command-substitution subshell — a DIFFERENT
+# $PPID) pass through and only the write is intercepted. SIGTERM fells the subshell with
+# rc=143 and an EMPTY captured stderr: no command failed under errexit, so neither the ERR
+# trap nor any die()/log() fires — exactly the undiagnosable shape the receipt-watcher's
+# empty-$PREREQ_ERR guard must handle (2026-09-22 kriscendobot-ymax-e2e captures, rc=1, 0 B).
+if [ "${FAIL_GIT_CONFIG_KILL:-0}" = 1 ]; then
+  is_config=0; is_get=0
+  for a in "$@"; do
+    case "$a" in
+      config) is_config=1 ;;
+      --get)  is_get=1 ;;
+    esac
+  done
+  if [ "$is_config" = 1 ] && [ "$is_get" = 0 ]; then
+    kill -TERM "$PPID"; exit 0
+  fi
+fi
 exec /usr/bin/git "$@"
 EOF
 chmod +x "$TR/bin/"*
@@ -231,6 +251,31 @@ else
   bad "second-reset failure lost its diagnostic, priority tag, or hit the empty-stderr path"
 fi
 unset FAIL_GIT_RESET
+
+# An EMPTY-STDERR nonzero prerequisite exit — the subshell felled by an environmental
+# interruption (a signal, a fork failure, ENOSPC on $TMPDIR, an OOM kill) BEFORE any
+# command could fail-and-report — must take the LOUD resource-check diagnostic path, not a
+# die() that falsely points at a "prerequisite stderr above" that does not exist. This is
+# the 2026-09-22 garden-receipt-watcher@kriscendobot-ymax-e2e regression (rc=1 with zero
+# bytes captured). The git stub TERMs the prerequisite subshell at ensure_clone's `git
+# config user.name` write, so the subshell dies rc=143 with a COMPLETELY EMPTY $PREREQ_ERR;
+# 143 is not a transient code (75/124/137), so shared_availability_failure declines it and
+# the empty-stderr guard must fire: a WARN pointing at a resource check, and a die() whose
+# wording says "no diagnostic captured" — never the inaccurate "see prerequisite stderr
+# above".
+rm -f "$STATE/gh-api-cooldown/marker"
+export FAIL_GIT_CONFIG_KILL=1
+if run_watch kriscendobot-source "$TR/empty-prereq.err" "$TR/bin/empty-source"; then
+  bad "empty-stderr prerequisite failure was swallowed (must die loud)"
+elif grep -q 'produced NO diagnostic output (rc=143)' "$TR/empty-prereq.err" \
+     && grep -q 'FATAL: receipt journal prerequisite failed' "$TR/empty-prereq.err" \
+     && grep -q 'no diagnostic captured' "$TR/empty-prereq.err" \
+     && ! grep -q 'see prerequisite stderr above' "$TR/empty-prereq.err"; then
+  ok "empty-stderr prerequisite exit dies loud with the resource-check diagnostic (no false 'stderr above')"
+else
+  bad "empty-stderr prerequisite exit lost its WARN/no-diagnostic wording or falsely cited 'stderr above'"
+fi
+unset FAIL_GIT_CONFIG_KILL
 
 # The EXIT-path cgroup sweep must wait until the service cgroup is empty, not merely
 # signal one snapshot. A fixture cgroup.procs file lets the test exercise the loop
