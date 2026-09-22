@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: PR #1290 merged 2026-09-21T23:57:20Z (merge 38cce7ebba19); this orphaned orchestrated child (orchestration never posted) is moot — retcon already done on branch (commits 67a1dd6c feat(sha256) / 74fbf137 test(browser-test) / 5cf47322 chore lockfile), net diff merged clean.
+withdrawn_by: gardener
+withdrawn_at: 2026-09-22T00:03:00Z
+withdrawn_from_gate: orchestrated
+---
+
+---
 gate: orchestrated
 orchestrated_by: endojs-endo-but-for-bots-pr1290-review-5271710675-chain
 priority: urgent
