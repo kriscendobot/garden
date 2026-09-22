@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T11:15:03Z_
+_As of 2026-09-22T11:18:36Z_
 
 ## Latest
 
@@ -3543,6 +3543,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > triager: fetch for kriscendobot-endo at /home/kris/garden/worktrees/kriscendobot-endo.git is SUCCEEDING again; kriscendobot-endo is being triaged normally.
 
+- `msg-endojs-endo-but-for-bots-pr1327-shepherd-d62c434ea2b7` — from gardener:endojs-endo-but-for-bots-pr1327-shepherd, reply_to `endojs-endo-but-for-bots-pr1327-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1327-shepherd-d62c434ea2b7.md)
+
+> Shepherd on [endojs/endo-but-for-bots#1327](https://github.com/endojs/endo-but-for-bots/issues/1327) (hashline edit phase 2, DRAFT).
+>
+> Fixed inline: the `lint` red was a prettier wrap in packages/daemon/test/endo.test.js — pushed as a fixup! commit (561ab6f66); lint + node-20/22 + all other legs are now GREEN.
+>
+> Remaining red = base-staleness, NOT this PR's diff (the diff touches only packages/daemon; the failing tests are in the untouched packages/cli). Both `test (24.x, *)` legs fail with "Daemon failed to spawn ... exited null" — the better-sqlite3@11 Node-24 teardown abort (Assertion (env) != nullptr in RemoveEnvironmentCleanupHook). llm already fixed this in:
+>   - 725a6b1911 fix(daemon): bump better-sqlite3 to ^12 for Node 24 teardown abort
+>   - 427952c23f fix(ci): unpin Node 24 now that better-sqlite3 12 survives teardown
+> This PR's FROZEN base llm-c36b4249 predates both (base is ~3977 commits behind llm), so it inherits the crash; llm HEAD passes node-24.
+>
+> next: weaver — repin the frozen base past 725a6b1911 (pick a newer llm-<sha> snapshot that still carries the Phase-1 skeleton, i.e. reconstruct base = newer-llm-point + Phase-1, then rebase the Phase-2 head). Snapshot choice touches the design phasing, so flagging rather than auto-posting the repin. Alternative if the minimal-diff intent is relaxed: cherry-pick the sqlite ^12 bump onto the head (adds a dep + lockfile-regen to the review diff). PR is a non-blocking draft; recommend the repin happen before "run the gauntlet".
+
 - `msg-wire-siwe-onchain-authz-minion-town-followup-4c95a89e5d97` — from gardener:wire-siwe-onchain-authz-minion-town-followup, reply_to `wire-siwe-onchain-authz-minion-town-followup` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-wire-siwe-onchain-authz-minion-town-followup-4c95a89e5d97.md)
 
 > SIWE on-chain authz (minion.town) — the maintainer-gated remainder is BLOCKED on two decisions that only you can make. This followup was auto-promoted from the deferred reservoir on 2026-09-16 with gate `cleared=none`; the predecessor already shipped ALL address-independent work (policy layer keys on iss+sub with intersection semantics, needs no code change for Tier 1; test/policy.test.ts covers the SIWE address-keyed shape, green). Nothing further can be built responsibly without your input — the addresses are production authorization identities and must not be invented.
@@ -3913,7 +3926,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.7M | $371.05 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Claude | 37.6M | $368.80 _(notional, rate-card)_ | 26% of 143.0M (ok) |
 | Codex | 16.5M _(+371.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35887619 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -3922,17 +3935,16 @@ _Fleet token-unlock pace: 35887619 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1325-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1325-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1325
-- [`endojs-endo-but-for-bots-pr1327-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1327-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1327
 
-### tada (8672)
+### tada (8673)
+- [`endojs-endo-but-for-bots-pr1327-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1327-shepherd.md) — Shepherd report — endojs/endo-but-for-bots#1327 (hashline edit phase 2, DRAFT)
 - [`claude-on-minion-town-completion-press-20260922-103505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-103505.md) — Completion report — completion-press tick 20260922-103505
 - [`improve-triager-pace-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-pace-lock-contention.md) — Completion report
 - [`claude-on-minion-town-press-20260922-095053`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-095053.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-762390ec8e44`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-762390ec8e44.md) — rolling-deploy canary probe — round trip OK
-- [`improve-triager-tick-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-tick-deadline.md) — Completion report
-- … and 8667 more
+- … and 8668 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
