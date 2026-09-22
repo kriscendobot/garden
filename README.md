@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T05:29:52Z_
+_As of 2026-09-22T06:09:15Z_
 
 ## Latest
 
@@ -2888,6 +2888,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > scripts/jobs/gardener.sh
 > Both elapsed-constancy early-escalation sites (the exit-0-unsatisfying branch ~line 944-977 and the rc!=0 overrun-suspect branch ~line 1465-1495) build a prose-only transcript for `report-error.sh` describing the symptom (near-constant elapsed across N cycles) but never include the actual handler output captured in `$capture` for that cycle — even though the rc!=0 branch's own gate (`[ -s "$capture" ]`) already confirms non-empty output exists at escalation time. `$capture` is an ephemeral `mktemp` file cleaned up each gardener cycle, so once the escalation fires this is the *last* moment the real stderr/stdout is available; a human or mentor triaging the resulting `elapsed-constancy-overrun-suspect`/`elapsed-constancy-exit0-wedge-suspect` inbox entry afterward has only the generic "died at a near-constant elapsed" prose and must guess the root cause blind. Concrete case: `improve-receipt-watcher-direct-dispatch` tripped exactly this overrun-suspect path twice (rc=1, elapsed=3s, both a kimi-k3 attempt and an opus fallback) with `usage_measurement` recording `source:none` (zero output captured by any usage-accounting layer) — the only path left to diagnose it is gone. Fix: append a bounded tail of `$capture` (e.g. last 40-60 lines, redacting nothing since this is the bot's own handler output) into both escalation transcripts before calling `report-error.sh`, so the inbox entry itself carries the evidence needed to triage.
 
+- `watchdog-self-heal-garden-receipt-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-receipt-watcher-kriscendobot-minion-town.md)
+
+> self-heal: garden-receipt-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 6c06d5a1f304dca3d7725fa53146fed4edaa5712 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 6c06d5a1f304dca3d7725fa53146fed4edaa5712). Diagnosis: This is confirmed as pure deploy lag, not a new bug. This exact failure signature — empty `$PREREQ_ERR`, single "FATAL: receipt journal prerequisite failed" line — was already root-caused and fixed on `main2` five hours ago:
+>
+> - **`06690f63fa`** — fixed the actual root cause: `clone_lock`'s flock-timeout branch ran `exec {fd}>&- 2>/dev/null`, and since `exec` with only redirections applies them *permanently*, this silenced the subshell's stderr for the rest of the run, so the `die()`/`log()` calls on the lock-contention path (very plausible here given many receipt-watcher instances share the same unsuffixed clone directory `$GARDEN_STATE/receipt-watcher/journal` and contend for its `clone_lock`) wrote to nowhere. Also added a fallback diagnostic line for when `$PREREQ_ERR` is genuinel
+
 - `minion-town-clipometer-esbuild-orchestration-resume-halted` — from orchestrator:minion-town-clipometer-esbuild-orchestration-resume-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-clipometer-esbuild-orchestration-resume-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -3120,6 +3126,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `watchdog-self-heal-garden-receipt-watcher-kriscendobot-oros-ckm-data-readiness` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-receipt-watcher-kriscendobot-oros-ckm-data-readiness.md)
+
+> self-heal: garden-receipt-watcher@kriscendobot-oros-ckm-data-readiness exited rc=1 with no scoped fix. Capture: 9300a0d5317832a228e8eb1443a691263dedea02 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 9300a0d5317832a228e8eb1443a691263dedea02). Diagnosis: Confirmed the diagnosis. This is a deploy-lag recurrence, not a new code bug.
+>
+> **Diagnosis:** the receipt-watcher instance for `kriscendobot/oros-ckm-data-readiness` FATAL'd with `rc=1` and empty prerequisite stderr — the exact signature of the shared-journal-clone `clone_lock` contention already diagnosed twice before (see the completed jobs `self-heal-fix-garden-receipt-watcher-kriscendobot-test262-shared-clone-lock-retries` and `self-heal-fix-garden-receipt-watcher-shared-clone-lock-contention` in `journal/jobs/tada/`). The real fix — per-slug clone directories (`GARDEN_RECEIPT_WATCH_CLONE` defaulting to `journal-$slug` instead of one shared `journal` dir) — was already landed on `origin/main2` at commit `05c22e5c0e`, now folded into tip `508cebc676`. But this host's **deployed ro
 
 - `20260920T164516Z-f38bb1` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T164516Z-f38bb1.md)
 
@@ -3859,25 +3871,25 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.5M | $833.34 _(notional, rate-card)_ | no quota set |
-| Codex | 32.6M _(+774.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
+| Claude | 129.2M | $840.02 _(notional, rate-card)_ | no quota set |
+| Codex | 32.8M _(+777.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (3)
-- [`kriscendobot-minion.town-pr104-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr104-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #104 (mer...
 - [`orchestrate-claude-cli-signal-upgrade-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/orchestrate-claude-cli-signal-upgrade-20260922.md) — Work item 1 — READ THE ENVELOPE FIELDS WE ALREADY RECEIVE (do this first)
-- [`self-heal-fix-garden-receipt-watcher-kriscendobot-ymax-e2e-empty-prereq-diagnostic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-receipt-watcher-kriscendobot-ymax-e2e-empty-prereq-diagnostic.md) — ---
+- [`endojs-endo-but-for-bots-pr1089-review-5bf63a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1089-review-5bf63a47.md) — Review directive on endojs/endo-but-for-bots PR #1089
+- [`build-minion-town-vitest-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-vitest-migration.md) — build: repo-wide vitest migration on kriscendobot/minion.town
 
-### tada (8647)
-- [`dependabotany-recheck-endo-but-for-bots-20260922-050722`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/dependabotany-recheck-endo-but-for-bots-20260922-050722.md) — Completion report
-- [`self-heal-fix-garden-receipt-watcher-endojs-endo-but-for-bots-empty-prereq-err-diagnostic`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/self-heal-fix-garden-receipt-watcher-endojs-endo-but-for-bots-empty-prereq-err-diagnostic.md) — What I found
-- [`minion-town-guest-web-invite-accept-fallback-fix-post104`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/minion-town-guest-web-invite-accept-fallback-fix-post104.md) — Completion report
-- [`self-heal-fix-garden-receipt-watcher-kriscendobot-test262-sync-clone-silent-reset-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/self-heal-fix-garden-receipt-watcher-kriscendobot-test262-sync-clone-silent-reset-retry.md) — Completion report
-- [`endojs-endo-but-for-bots-pr256-review-d46e607a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr256-review-d46e607a.md) — Completion report: Review directive on endojs/endo-but-for-bots#256 (review 5...
-- … and 8642 more
+### tada (8651)
+- [`kriscendobot-minion.town-pr96-review-d423db6e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr96-review-d423db6e.md) — Cost
+- [`endojs-endo-but-for-bots-pr1226-review-adf95686`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1226-review-adf95686.md) — Completion report
+- [`kriscendobot-minion.town-pr87-b8a7509c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr87-b8a7509c.md) — What the directive was
+- [`endojs-endo-but-for-bots-pr256-review-d46e607a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr256-review-d46e607a.md) — Review directive resolved — endojs/endo-but-for-bots PR #256
+- [`endojs-endo-but-for-bots-pr1227-review-5194e7b0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1227-review-5194e7b0.md) — Corroboration (per-ask)
+- … and 8646 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
