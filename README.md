@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T07:18:26Z_
+_As of 2026-09-22T07:41:16Z_
 
 ## Latest
 
@@ -3901,8 +3901,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 36.6M | $362.44 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 16.1M _(+369.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+| Claude | 36.7M | $363.15 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Codex | 16.2M _(+369.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 40464135 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -3913,13 +3913,13 @@ _Fleet token-unlock pace: 40464135 tokens/day lower bound; incomplete where a su
 ### doin (0)
 (none)
 
-### tada (8661)
+### tada (8662)
+- [`improve-cursor-io-lock-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-cursor-io-lock-recovery.md) — Completion report
 - [`finish-rollout-leader-postdeploy-probe-e43c28386fae`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/finish-rollout-leader-postdeploy-probe-e43c28386fae.md) — rolling-deploy canary probe — round trip OK
 - [`finish-claude-cli-signal-rollout-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/finish-claude-cli-signal-rollout-20260922.md) — Completion report: finish-claude-cli-signal-rollout-20260922
 - [`daily-progress-summary-20260922-070554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/daily-progress-summary-20260922-070554.md) — Completion report
 - [`kriscendobot-minion.town-pr110-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr110-shepherd.md) — Completion report
-- [`kriscendobot-minion.town-pr96-review-d423db6e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr96-review-d423db6e.md) — Cost
-- … and 8656 more
+- … and 8657 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
