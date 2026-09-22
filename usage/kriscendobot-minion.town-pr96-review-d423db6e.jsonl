@@ -14,3 +14,4 @@
 {"ts":"2026-09-22T06:08:13Z","base":"kriscendobot-minion.town-pr96-review-d423db6e","host":"endolin-garden2-5bcdff64","outcome":"tada","source":"none","elapsed_s":153}
 {"ts":"2026-09-22T06:18:36Z","base":"kriscendobot-minion.town-pr96-review-d423db6e","host":"endolin-garden2-5bcdff64","outcome":"tada","source":"none","elapsed_s":184}
 {"ts":"2026-09-22T06:34:17Z","base":"kriscendobot-minion.town-pr96-review-d423db6e","host":"endolin-garden2-5bcdff64","outcome":"tada","source":"none","elapsed_s":143}
+{"source":"result","model":"claude-opus-4-8","num_turns":8,"elapsed_s":91,"input_tokens":16,"output_tokens":5397,"cache_creation_tokens":43836,"cache_read_tokens":361318,"total_cost_usd":0.75738,"ts":"2026-09-22T06:42:09Z","base":"kriscendobot-minion.town-pr96-review-d423db6e","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
