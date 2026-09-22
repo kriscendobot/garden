@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":8,"elapsed_s":54,"input_tokens":16,"output_tokens":3004,"cache_creation_tokens":68492,"cache_read_tokens":313796,"total_cost_usd":0.919997,"ts":"2026-09-22T03:47:09Z","base":"self-heal-fix-garden-triager-cursor-set-unguarded-pipefail","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}
