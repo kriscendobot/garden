@@ -88,9 +88,14 @@ if [ "$prereq_rc" -ne 0 ]; then
     rm -f "$PREREQ_ERR"
     exit 0
   fi
-  sed -E 's/^(<[0-9]>)?/\1  prerequisite: /' "$PREREQ_ERR" >&2 || true
+  if [ -s "$PREREQ_ERR" ]; then
+    sed -E 's/^(<[0-9]>)?/\1  prerequisite: /' "$PREREQ_ERR" >&2 || true
+    rm -f "$PREREQ_ERR"
+    die "receipt journal prerequisite failed for $repo (rc=$prereq_rc; see prerequisite stderr above)"
+  fi
   rm -f "$PREREQ_ERR"
-  die "receipt journal prerequisite failed for $repo (rc=$prereq_rc; see prerequisite stderr above)"
+  log "  prerequisite: (no diagnostic captured — subshell exited rc=$prereq_rc with empty stderr; likely an unclassified set -e exit in ensure_clone/sync_clone/journal_fetch)"
+  die "receipt journal prerequisite failed for $repo (rc=$prereq_rc; no diagnostic captured — see prerequisite line above)"
 fi
 cat "$PREREQ_ERR" >&2
 rm -f "$PREREQ_ERR"

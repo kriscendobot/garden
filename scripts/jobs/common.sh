@@ -3839,7 +3839,14 @@ clone_lock() {
       export "$key=held"
       return 0
     fi
-    exec {fd}>&- 2>/dev/null || true                   # release our failed attempt before deciding
+    # Release our failed attempt before deciding. NOTE: no `2>...` on this exec —
+    # exec with only redirections applies them PERMANENTLY (see clone_unlock /
+    # cursor_io_lock), so `2>/dev/null` here would silence this (sub)shell's stderr
+    # for the rest of the run, sending the die below (and the logs) to nowhere. That
+    # is the empty-$PREREQ_ERR / rc=1 dead-end the receipt-watcher observed on the
+    # lock-contention path. The fd was just opened successfully above, so closing it
+    # is clean and needs no suppression.
+    exec {fd}>&- || true
     if [ "$steals" -lt "$GARDEN_LOCK_STEALS" ] && _clone_lock_is_stale "$lf"; then
       log "clone lock $lf stale (holder dead or >${GARDEN_LOCK_TTL}s old); reclaiming ($((steals+1))/$GARDEN_LOCK_STEALS)"
       rm -f "$lf"; steals=$((steals+1)); continue       # drop the tombstone, reopen a fresh inode, retry now
