@@ -1,31 +1,42 @@
-Completion report:
+All asks are verified as already resolved. Corroboration complete:
 
-## Review directive on endojs/endo-but-for-bots PR #1226 — done
+- **PR head** (`c1df1296ee`) is **identical** to the peer's resolving commit — the commit is the current PR tip, not a stale ancestor.
+- The commit touches only `designs/endo-guest-stdio-mcp.md` and its message maps 1:1 to the six asks.
+- Spot-checked the file at head: every claimed change is actually present.
+- A reply was posted on **all six** inline threads (2026-09-22T00:53–00:54Z, after the review), each naming the commit.
 
-**Preflight:** exit 0 (PROCEED, no peer resolution). The review (`5273006881`, body `@kriscendobot rsvp`, CHANGES_REQUESTED, by kriskowal) targets the design PR `docs(designs): a stdio MCP server scoped to one guest's tool surface` on the `design/endo-guest-stdio-mcp` branch. Treated as design revision work (design doc, no code build). All fetched bodies handled as untrusted data.
+No further work is warranted, and I will not resolve threads or re-request review — those are the maintainer's calls on a `CHANGES_REQUESTED`.
 
-**Enumerated all 6 inline comments + review body, and resolved each:**
+---
 
-1. **superfluous meta-narrative (line 35)** → removed the "Updated 2026-09-21" revision-narrative paragraph from § Status (its design content already lives in § Scoping).
-2. **"don't consolidate these yet… more than one way to use Claude" (line 748)** → struck the reconcile-to-single-model open question; both topologies (harness-owned broker / server-held connection) now stand as coexisting across § Scoping, the cross-document note, Dependencies, and Design Decision 1.
-3. **"MCP server reaches daemon via UDS, drill down to the guest facet, always dispatch through that guest and no other" (line 757)** → stated directly in § Scoping; confined `claude` free to use any authority the guest holds (facet is the ceiling); scoped-bootstrap named as the clean confined-shape realization.
-4. **"pin this down now… investigate options" (config intake, line 763)** → decided: `--mcp-config` file path backed by anonymous pipe/`memfd` (no on-disk file, no inline JSON on argv, no shell `<(…)`), matching endo-claude's already-pinned contract; formula id in `env`.
-5. **"claude must be denied arbitrary socket access, else forfeit" (line 770)** → struck the "rely on formula-id secrecy" fallback; restored the non-negotiable confinement premise (sandbox denies the confined tree the daemon socket); daemon connection lives outside the confined tree in the confined shape; updated the endo-posix-sandbox dependency row to make socket-denial load-bearing.
-6. **"expose a logging facet, mechanism immaterial" (line 775)** → resolved: server exposes a logging facet + advertises MCP `logging`; log source left an implementation detail.
+## Completion report
 
-**Changes landed:** one commit `c1df1296ee62ffa49fba4e2efdfd133ae5e1e343` pushed to `design/endo-guest-stdio-mcp` (rebase-CAS). Only `designs/endo-guest-stdio-mcp.md` committed; an unrelated `packages/floot/package.json` unicode-escape rewrite from the warm-cache install was left uncommitted. Mermaid re-validated parse-only (`flowchart-v2 OK`).
+**Job:** Review directive on endojs/endo-but-for-bots PR #1226, review `5273006881` by kriskowal (`CHANGES_REQUESTED`, "@kriscendobot rsvp") on the design doc `designs/endo-guest-stdio-mcp.md`.
 
-**RSVP:** 6 SHA-citing threaded replies posted (via `/replies`, bodies passed as files; backticks verified intact) + 1 top-level summary comment (`#issuecomment-5769713564`) mapping every ask to its outcome.
+**Outcome: verified no-op — a peer worker already resolved the entire review.** The preflight returned exit 2 (HINT); per directive I corroborated each ask against a named artifact rather than trusting it.
 
-**Follow-ups (genuinely open, narrowed to schedule/verification):** (a) scoped-bootstrap timing — daemon-issued guest-scoped bootstrap now vs. broker-narrows-host-root first; (b) sandbox verification with endo-posix-sandbox that the slice denies the confined tree the socket while the harness-owned connection process reaches it from outside. Both are surfaced in the design's Open Questions and the summary. PR remains DRAFT (design-stage; no build).
+The whole review (top-level body + all 6 inline comments) is a single unit, resolved by commit **`c1df1296ee`** (now the PR head, `status: identical`, touches only the design file) and a per-thread reply. Ask-by-ask corroboration:
+
+| Inline ask (original_line) | Resolving artifact | Verified in file at head |
+|---|---|---|
+| "superfluous meta-narrative" (35) | `c1df1296ee` + reply `4067647565` | `grep "Updated 2026-09-21"` → NONE; narrative dropped from § Status |
+| "don't consolidate these yet" (748) | `c1df1296ee` + reply `4067647652` | both topologies retained (commit msg + § Scoping) |
+| "always dispatch through the one guest facet" (757) | `c1df1296ee` + reply `4067647806` | § Scoping states drill-down + always-dispatch (line 687) |
+| "pin down the carrier now, investigate options" (763) | `c1df1296ee` + reply `4067647918` | `--mcp-config` carrier pinned to pipe/memfd-backed file path (lines 330–331) |
+| "claude not confined; if it can open a socket, design is forfeit" (770) | `c1df1296ee` + reply `4067648039` | "forfeit" premise restored non-negotiably (lines 226/233/746/830/874); endo-posix-sandbox dep row updated |
+| "expose a logging facet; how logs obtained is immaterial" (775) | `c1df1296ee` + reply `4067648141` | MCP `logging` capability advertised, source left as impl detail (lines 465–468, 839–840) |
+
+**Changes made by me:** none (no code/design change and no PR/thread mutation was needed; the deliverable was already complete and correct on the branch).
+
+**Follow-ups:** none owed by this job. The PR remains an open draft with `CHANGES_REQUESTED` standing until kriskowal re-reviews the pushed revision — that re-review is the maintainer's action, not a gardener task.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1226-review-adf95686.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 122 tokens (7152883 cached reads)
-- Output: 52838 tokens
-- Cost: $6.3357105
-- Wall-clock: 954s
-- Model(s): claude-opus-4-8 ×1
+- Engagements: 2 on 2 host(s)
+- Input: 134 tokens (7400471 cached reads)
+- Output: 57975 tokens
+- Cost: $7.0247645
+- Wall-clock: 1059s
+- Model(s): claude-opus-4-8 ×2
 
 <!-- garden-usage-end -->
