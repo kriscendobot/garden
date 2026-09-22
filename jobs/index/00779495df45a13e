@@ -1,2 +1,2 @@
-base: improve-issue-inbox-cursor-timeout-alignment
+base: improve-issue-inbox-cursor-timeout-floor
 identity: mentor:scripts/jobs/issue-inbox-watcher.sh
