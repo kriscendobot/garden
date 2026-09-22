@@ -19,3 +19,13 @@ advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"; exit 0`
 instead of letting set -e crash the unit. A stalled cursor is safe to leave behind:
 the next tick re-triages the same old→new range, and post-job.sh's deterministic
 basename makes the re-post idempotent.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T03:45:04Z
