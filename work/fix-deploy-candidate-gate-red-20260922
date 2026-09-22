@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-09-22T04:48:42Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-fix-deploy-candidate-gate-red-20260922
