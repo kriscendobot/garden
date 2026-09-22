@@ -20,3 +20,13 @@ so a re-run never double-posts. Report the archive path and the posted comment
 URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/1309
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T01:23:17Z
