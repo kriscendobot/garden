@@ -534,8 +534,22 @@ if "$GARDEN_TRIAGE_HANDLER" "$slug" "${old_sha:-}" "$new_sha" "$BARE"; then
       | "$HERE/cursor-set.sh" "$FAIL_KEY" \
       || log "WARN: could not clear failcount for $slug (non-fatal)"
   fi
-  printf 'last_sha: %s\nref: %s\nlast_polled_at: %s\n' "$new_sha" "$ref" "$(date -u +%FT%TZ)" \
-    | "$HERE/cursor-set.sh" "$CURSOR_KEY"
+  # Advance the cursor best-effort: cursor-set.sh can return nonzero on journal
+  # push contention or a temporary outage (GARDEN_OFFLINE_RC=75). Under
+  # `set -euo pipefail` a bare piped call would hard-crash the whole tick with
+  # NO follow-up log line — even though triage already succeeded and posted its
+  # job — leaving the unit Failed. Capture the rc and WARN-and-continue cleanly,
+  # mirroring the cursor-read side above (and comment-watcher.sh): a stalled
+  # cursor re-triages the same old→new range next tick, and post-job.sh's
+  # deterministic basename makes the re-post idempotent, so nothing is lost. The
+  # shared temporary-unavailable rc is quiet — one journal outage should not warn.
+  if printf 'last_sha: %s\nref: %s\nlast_polled_at: %s\n' "$new_sha" "$ref" "$(date -u +%FT%TZ)" \
+    | "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi
+  if [ "$rc" -ne 0 ]; then
+    [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
+      || log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"
+    exit 0
+  fi
   log "triaged $slug:$ref up to $new_sha"
   triager_pace_schedule "$new_sha" "$ref"
   exit 0
