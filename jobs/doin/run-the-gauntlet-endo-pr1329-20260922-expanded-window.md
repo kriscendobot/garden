@@ -64,6 +64,7 @@ Procedure:
 <!-- garden-plain-retry-not-before: 2026-09-22T21:04:19Z -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
