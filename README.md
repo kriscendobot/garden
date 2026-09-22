@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T22:06:10Z_
+_As of 2026-09-22T22:17:36Z_
 
 ## Latest
 
@@ -1013,19 +1013,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 38727669 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
-### todo (0)
+### todo (1)
+- [`run-the-gauntlet-endo-pr1329-20260922-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/run-the-gauntlet-endo-pr1329-20260922-expanded-window.md) — Expanded-window gauntlet for endojs/endo-but-for-bots PR #1329
+
+### doin (0)
 (none)
 
-### doin (1)
-- [`run-the-gauntlet-endo-pr1329-20260922-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-endo-pr1329-20260922-expanded-window.md) — Expanded-window gauntlet for endojs/endo-but-for-bots PR #1329
-
-### tada (8702)
+### tada (8703)
+- [`canary-probe-endolin-garden2-5bcdff64-2d6a96b95925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-2d6a96b95925.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-58c9c6c2d8a5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-58c9c6c2d8a5.md) — rolling-deploy canary probe — round trip OK
 - [`improve-decision-append-outage-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-decision-append-outage-dedup.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-6fbfd0834eca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-6fbfd0834eca.md) — rolling-deploy canary probe — round trip OK
 - [`improve-triager-pace-contention-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-pace-contention-backoff.md) — Completion report
-- [`fix-rolling-deploy-skip-offline-peers-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/fix-rolling-deploy-skip-offline-peers-20260922.md) — Cost
-- … and 8697 more
+- … and 8698 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
