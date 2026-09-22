@@ -4387,6 +4387,11 @@ journal_push_is_server_rejection() {  # <diagnostic>
     '\[remote rejected\]|pre-receive hook declined|protected branch hook declined|GH00[0-9]|GH01[0-9]|remote: error:|deny updating a hidden ref'
 }
 
+journal_push_is_definite_failure() {  # <diagnostic>
+  journal_diagnostic_is_definite_failure "$1" \
+    || journal_push_is_server_rejection "$1"
+}
+
 # A bounded journal fetch OR clone can finish with the otherwise-ambiguous rc=1 and
 # a transport diagnostic outside the stable offline-signature set — journal_fetch's
 # bounded-retry summary ("journal fetch in … failed after N attempt(s)") or a bounded
@@ -4457,10 +4462,10 @@ ensure_clone_or_latch_outage() {
 #     so an in-tick retry is guaranteed to short-circuit to the same rc. Return the
 #     rc; the caller skips QUIETLY and re-advances next cadence.
 #   * a positively-identified DEFINITE failure (auth drift, gone/forbidden upstream,
-#     local corruption, or a local checkout/config fault — cursor-set prints the
-#     signature to stderr before re-raising): retrying is futile. WARN ONCE with the
-#     captured diagnostic so the failure is identifiable, and return 1 WITHOUT
-#     retrying.
+#     local corruption, a local checkout/config fault, or a server-side push
+#     rejection — cursor-set prints the signature to stderr before re-raising):
+#     retrying is futile. WARN ONCE with the captured diagnostic so the failure is
+#     identifiable, and return 1 WITHOUT retrying.
 #   * any other nonzero rc (the ambiguous CAS-contention shape): retry up to
 #     <retries> (default GARDEN_CURSOR_ADVANCE_RETRIES) fresh invocations under
 #     backoff. A retry that succeeds returns 0; a retry that latches an outage
@@ -4498,7 +4503,7 @@ advance_cursor_with_retry() {  # <cursor-key> [<retries>]; body on stdin
       # same verdict, so stop and skip quietly.
       rm -f "$diag_file"; return "$rc"
     fi
-    if journal_diagnostic_is_definite_failure "$diag"; then
+    if journal_push_is_definite_failure "$diag"; then
       log "WARN: cursor advance failed for $key (rc=$rc, DEFINITE: $(_cursor_advance_diag_tail "$diag")); NOT retrying — needs repair, not a re-poll"
       rm -f "$diag_file"; return 1
     fi

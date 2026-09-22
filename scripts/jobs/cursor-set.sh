@@ -121,8 +121,7 @@ for attempt in $(seq 1 50); do
   # fifty generic rc=1 retries. Re-raise them on the first observation. Unknown
   # failures retain the conservative retry behavior used by the silent-loss guard.
   combined_diagnostic="${GARDEN_PUSH_STDERR}${GARDEN_FETCH_STDERR}${push_diagnostic}"
-  if journal_diagnostic_is_definite_failure "$combined_diagnostic" \
-    || journal_push_is_server_rejection "$GARDEN_PUSH_STDERR"; then
+  if journal_push_is_definite_failure "$combined_diagnostic"; then
     [ -z "$combined_diagnostic" ] || printf '%s\n' "$combined_diagnostic" >&2
     exit "$rc"
   fi
