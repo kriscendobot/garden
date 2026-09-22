@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T19:56:13Z_
+_As of 2026-09-22T20:00:38Z_
 
 ## Latest
 
@@ -3940,7 +3940,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.9M | $370.56 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 17.7M _(+380.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
+| Codex | 17.7M _(+382.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35681488 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -3948,17 +3948,16 @@ _Fleet token-unlock pace: 35681488 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`run-the-gauntlet-endo-pr1329-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-endo-pr1329-20260922.md) — ---
-- [`improve-followup-handoff-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-followup-handoff-detection.md) — ---
 
-### tada (8694)
+### tada (8695)
+- [`improve-followup-handoff-detection`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-followup-handoff-detection.md) — Cost
 - [`claude-on-minion-town-press-20260922-193551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-193551.md) — Cost
 - [`shepherd-endo-pr1329-registry-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/shepherd-endo-pr1329-registry-migration.md) — Cost
 - [`claude-on-minion-town-completion-press-20260922-163506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-163506.md) — Completion report — completion-press tick 20260922-163506 (Claude-on-minion.t...
 - [`claude-on-minion-town-press-20260922-162051`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-162051.md) — Cost
-- [`endo-revive-registry-host-formula-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endo-revive-registry-host-formula-migration.md) — Completion report
-- … and 8689 more
+- … and 8690 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
