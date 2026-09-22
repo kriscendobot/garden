@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T06:09:15Z_
+_As of 2026-09-22T06:22:08Z_
 
 ## Latest
 
@@ -534,6 +534,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `watchdog-self-heal-garden-receipt-watcher-kriscendobot-finbot` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-receipt-watcher-kriscendobot-finbot.md)
+
+> self-heal: garden-receipt-watcher@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: da0dacd96d453dd34b9d9e98f9eaa17955005862 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p da0dacd96d453dd34b9d9e98f9eaa17955005862). Diagnosis: Diagnosis: this is **deploy lag on an already-fixed bug**, not a new failure.
+>
+> The capture blob has exactly one line — `FATAL: receipt journal prerequisite failed for kriscendobot/finbot (rc=1; see prerequisite stderr above)` — with nothing actually above it. That's the signature of a known bug in `clone_lock` (`scripts/jobs/common.sh`): its flock-timeout retry branch ran `exec {fd}>&- 2>/dev/null || true`. Since `exec` with only redirections applies them *permanently* to the shell, that `2>/dev/null` silenced the (sub)shell's stderr for the rest of the run, so every subsequent `log`/`die` in `ensure_clone`/`sync_clone` — including receipt-watcher.sh's own prerequisite `die` — wrote to nowhere, leaving `$PREREQ_ERR` empty and the diagnostic blank.
+>
+> I confirmed this was already fixe
 
 - `20260921T162736Z-1e81b2` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260921T162736Z-1e81b2.md)
 
@@ -2363,6 +2371,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
+- `msg-build-minion-town-vitest-migration-7ebdf0209f5a` — from gardener:build-minion-town-vitest-migration, reply_to `build-minion-town-vitest-migration` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-vitest-migration-7ebdf0209f5a.md)
+
+> build-minion-town-vitest-migration ([kriscendobot/minion.town#87](https://github.com/kriscendobot/minion.town/issues/87) directive "repo-wide migration to vitest") — one architectural fork I'm resolving with a conservative default; flag if you disagree.
+>
+> The 4 node:test holdouts are: tools/claude-harness/{install,release-verifier}.test.mjs and deploy/thunks/siwe/test/{oidc-face,siwe-verify}.test.js. Migrating all 4 to vitest, behaviour-invariant.
+>
+> The fork: claude-harness tests import only node builtins + local files, so I drop the `tools/claude-harness/**` root exclude and they join the root `npm test` (root has vitest) — clean. But deploy/thunks/siwe is a SELF-CONTAINED sub-package with its OWN package.json + deps (viem, not in the root install); vitest.config.ts documents `deploy/**` as a deliberate exclusion for exactly that reason, and CI has never run the siwe suite via root.
+>
+> Conservative default I'm taking: migrate siwe to vitest with its own vitest devDep + `test: vitest run`, run standalone via `npm --prefix deploy/thunks/siwe test`, and keep it OUT of the root vitest glob (config-level `deploy/**` exclude stays; I drop the now-redundant `--exclude 'deploy/thunks/siwe/test/**'` CLI flag). So both CLI --exclude flags are gone and root npm test is repo-wide over everything that doesn't need sibling-package deps.
+>
+> The alternative (pull siwe into the root/CI gate) means converting to npm workspaces or adding a `npm --prefix deploy/thunks/siwe ci` step to test.yml so viem is present — a bigger, riskier diff. I'll ship the conservative default unless you want siwe wired into the root/CI run. PR will note this.
+
 - `msg-clipometer-reanchor-followthrough-20260917-2c57182e8954` — from gardener:clipometer-reanchor-followthrough-20260917, reply_to `clipometer-reanchor-followthrough-20260917` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-clipometer-reanchor-followthrough-20260917-2c57182e8954.md)
 
 > CLIPOMETER re-anchor follow-through — decisive outcome (campaign BLOCKED on a minion.town server change).
@@ -3871,24 +3891,23 @@ _Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.2M | $840.02 _(notional, rate-card)_ | no quota set |
-| Codex | 32.8M _(+777.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
+| Claude | 129.5M | $844.93 _(notional, rate-card)_ | no quota set |
+| Codex | 32.9M _(+784.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`orchestrate-claude-cli-signal-upgrade-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/orchestrate-claude-cli-signal-upgrade-20260922.md) — Work item 1 — READ THE ENVELOPE FIELDS WE ALREADY RECEIVE (do this first)
-- [`endojs-endo-but-for-bots-pr1089-review-5bf63a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1089-review-5bf63a47.md) — Review directive on endojs/endo-but-for-bots PR #1089
 - [`build-minion-town-vitest-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-vitest-migration.md) — build: repo-wide vitest migration on kriscendobot/minion.town
 
 ### tada (8651)
 - [`kriscendobot-minion.town-pr96-review-d423db6e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr96-review-d423db6e.md) — Cost
+- [`kriscendobot-minion.town-pr87-b8a7509c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr87-b8a7509c.md) — Cost
+- [`endojs-endo-but-for-bots-pr1089-review-5bf63a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1089-review-5bf63a47.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1226-review-adf95686`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1226-review-adf95686.md) — Completion report
-- [`kriscendobot-minion.town-pr87-b8a7509c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr87-b8a7509c.md) — What the directive was
 - [`endojs-endo-but-for-bots-pr256-review-d46e607a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr256-review-d46e607a.md) — Review directive resolved — endojs/endo-but-for-bots PR #256
-- [`endojs-endo-but-for-bots-pr1227-review-5194e7b0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1227-review-5194e7b0.md) — Corroboration (per-ask)
 - … and 8646 more
 
 ## Plan queue (parked — not claimable until promoted)
