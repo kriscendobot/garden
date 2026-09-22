@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T09:25:16Z_
+_As of 2026-09-22T09:41:15Z_
 
 ## Latest
 
@@ -2495,7 +2495,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
-> budget-level changed endolin-garden-ece02cb4 monk workers 4 -> 3 (target 2): budget pool anthropic:endolin-garden-ece02cb4 spend=2648177 cap=143000000 ceiling=2 target=2
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-12T03:35:10Z, latest 2026-09-22T09:36:07Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-3`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=36913374 cap=143000000 pace-bias=0.307423 ceiling=4 target=3
 
 - `20260921T213458Z-6eeea8` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260921T213458Z-6eeea8.md)
 
@@ -3910,24 +3914,24 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 36.9M | $364.39 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 16.4M _(+370.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Codex | 16.4M _(+370.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 40515581 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 40168372 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-triager-tick-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-triager-tick-deadline.md) — ---
+### doin (0)
+(none)
 
-### tada (8667)
+### tada (8668)
+- [`improve-triager-tick-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-tick-deadline.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-46660318274b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-46660318274b.md) — rolling-deploy canary probe — round trip OK
 - [`improve-issue-inbox-cursor-timeout-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-issue-inbox-cursor-timeout-floor.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-1d7a9fc94a43`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-1d7a9fc94a43.md) — rolling-deploy canary probe — round trip OK
 - [`improve-issue-inbox-cursor-timeout-alignment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-issue-inbox-cursor-timeout-alignment.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-7fa754ed367a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-7fa754ed367a.md) — rolling-deploy canary probe — round trip OK
-- … and 8662 more
+- … and 8663 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
