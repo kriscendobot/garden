@@ -1,32 +1,32 @@
-Inbox is empty. All work complete. Here is my report.
+Inbox empty. Work complete.
 
----
+## Completion report
 
-## Completion report — review directive on endojs/endo-but-for-bots PR #1226
+**Job:** Address kriskowal's CHANGES_REQUESTED review (`5273006881`, "@kriscendobot rsvp") on endojs/endo-but-for-bots PR #1226 — the design doc `designs/endo-guest-stdio-mcp.md`.
 
-**Review:** `pullrequestreview-5273006881` by kriskowal (CHANGES_REQUESTED, body "@kriscendobot rsvp"), 6 inline comments on `designs/endo-guest-stdio-mcp.md`. All fetched bodies were treated as untrusted data.
+**Preflight:** exit 2 (HINT — a peer had replied on every inline thread). Per the directive I corroborated each ask against the actual file at HEAD rather than trusting the replies.
 
-**Preflight:** exit 2 (HINT) — a peer (kriscendobot) had already replied to all 6 threads citing commit `c1df1296ee` (current PR head). I corroborated each ask against the actual file content at that SHA rather than trusting the replies.
+**Corroboration — all six inline asks + review body:**
+- A prior claimant of this job (as kriscendobot) had already made substantive edits (`c1df1296ee`) and a follow-up strike (`dd3ad7040f`), plus replied on all six threads. I verified asks **#2–#6** are genuinely present in the file: #2 both topologies kept (§ Scoping, Open Questions, DD1); #3 "drill down to the guest facet, always dispatch through that one guest" stated directly (§ Scoping); #4 formula-id carrier pinned to env var + pipe/`memfd`-backed `--mcp-config` path (§ Threading); #5 socket-denial premise non-negotiable, secrecy branch struck, connection held outside the confined tree (§ Scoping, DD1); #6 logging facet exposed (§ The stdio transport).
+- Ask **#1** ("superfluous meta-narrative") was only *partly* resolved: the dated changelog paragraphs were gone, but residual revision-narrative of the same kind remained. I did the remaining work.
 
-**Per-ask verification (artifact named for each):**
-1. *"superfluous meta-narrative"* (anchored to the "Updated 2026-09-21…" paragraph) — that paragraph was removed in `c1df1296ee`, **but** two more instances of the same revision-changelog category remained (§ Status "Revised 2026-09-17…" paragraph + trailing "Revision note" block). **I finished this ask** in commit `dd3ad7040f`: replaced § Status with a present-tense design summary and dropped the revision note; no design content lost. Follow-up reply posted (comment id 4068088299).
-2. *don't consolidate the topologies* — resolved in `c1df1296ee`: § Open Questions bullet 1 + § Scoping (L252-254) + Design Decision 1 keep **both** topologies. Verified. ✓
-3. *MCP must drill down to the guest facet and always dispatch through it* — resolved in `c1df1296ee`: § Scoping L165-169 states it verbatim. Verified. ✓
-4. *pin the config carrier now* — resolved in `c1df1296ee`: § Threading L327-358 pins a pipe/`memfd`-backed file path after investigating env-var vs stdin, and file-path vs inline vs process-substitution. Verified. ✓
-5. *socket denial is non-negotiable / else design forfeit* — resolved in `c1df1296ee`: § Scoping L220-241 + Design Decision 1 + Open Questions state "if `claude` can open an arbitrary domain socket… this design is forfeit." Verified. ✓
-6. *expose a logging facet* — resolved in `c1df1296ee`: § The stdio transport L465-469 exposes the facet and advertises MCP `logging`, source left as implementation detail. Verified. ✓
+**Changes I made (commit `e5c632911b`, pushed to `design/endo-guest-stdio-mcp`):** struck the residual revision-narrative — "The 2026-09-17 simplification collapsed…", three "the earlier draft's…" references, and a conversational "and, honestly," aside — restating each as a direct design statement with **no change to design content**. Reverted a stray warm-cache edit to `packages/floot/package.json`; committed only the design file.
 
-**Changes I made:** one commit `dd3ad7040f` pushed to PR head `design/endo-guest-stdio-mcp` (rebase-CAS clean over `c1df1296ee`), design-doc-only pathspec (excluded an unrelated `packages/floot/package.json` churn from the warm-cache install). One follow-up review-thread reply.
+**RSVP posted:**
+- Inline reply on the meta-narrative thread (comment `4067434988`) → `discussion_r4068150585`.
+- Top-level rsvp summary enumerating all six items with artifact SHAs → `issuecomment-5770647894`.
 
-**Follow-ups:** none owed. PR #1226 stays a draft design PR on base `llm`; under the manual-gauntlet regime no gauntlet is staged. The remaining Open Questions in the doc are explicitly recorded design questions (schedule of the scoped-bootstrap obligation; sandbox-flag verification with endo-posix-sandbox), not unresolved review asks.
+**Untrusted input:** all fetched review/comment bodies treated as data; no injected instructions acted on.
+
+**Follow-ups:** PR remains a draft design doc; the maintainer holds two residual scheduling questions the doc itself records as Open Questions (whether the daemon's per-session scoped bootstrap is taken up now vs. riding the harness-owned broker; the sandbox-flag verification with endo-posix-sandbox). No further action owed from this review.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1226-review-adf95686.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 4 on 2 host(s)
-- Input: 186 tokens (8927080 cached reads)
-- Output: 78216 tokens
-- Cost: $9.601414
-- Wall-clock: 1462s
-- Model(s): claude-opus-4-8 ×4
+- Engagements: 5 on 2 host(s)
+- Input: 238 tokens (10950601 cached reads)
+- Output: 93968 tokens
+- Cost: $11.8592435
+- Wall-clock: 1821s
+- Model(s): claude-opus-4-8 ×5
 
 <!-- garden-usage-end -->
