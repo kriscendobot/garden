@@ -1,2 +1,2 @@
-base: improve-followup-decision-disposition
+base: improve-followup-handoff-detection
 identity: mentor:scripts/jobs/assert-followup-posted.sh
