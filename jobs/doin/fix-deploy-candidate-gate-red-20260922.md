@@ -69,3 +69,13 @@ correctness problem for every behavior that has landed since.
 Do not bypass the gate with `GARDEN_DEPLOY_TEST_OVERRIDE=1`. That is reserved for a
 deliberate emergency deploy by the maintainer after assessing the failure, and
 using it here would deploy code whose own tests are failing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T04:48:42Z
