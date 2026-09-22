@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-22T14:46:12Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-endo-daemon-deploy-fail-89481580
+pr_number: 111
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/111
+pr_head: revert-endo-pin-89481580
