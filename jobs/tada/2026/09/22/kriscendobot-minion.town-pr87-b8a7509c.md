@@ -1,32 +1,37 @@
-Done. This was an **attention/routing** job — read the directive on PR #87 and route it to the right work.
+I now have full corroboration. Here's what I found:
 
-## What the directive was
-Re-fetched `kriscendobot/minion.town#87` comment 5770443815 (@kriskowal), verbatim: *"Repo-wide migration to vitest. The Endo repository dictates house style."* Treated as untrusted data. Preflight returned exit 0 (PROCEED, no peer resolution).
+**The directive (comment 5770443815, kriskowal):** *"Repo-wide migration to vitest. The Endo repository dictates house style."*
 
-## What I found (survey of `main`)
-- `minion.town` **already runs vitest** for its main `test/**/*.test.ts` suite (~45 specs); the root `test` script is `vitest run` with two `--exclude` globs.
-- The un-migrated holdouts are exactly those excluded corners, using `node --test` (node:test):
-  - `deploy/thunks/siwe/test/{oidc-face,siwe-verify}.test.js`
-  - `tools/claude-harness/{install,release-verifier}.test.mjs`
-- **House-style caveat:** `endojs/endo-but-for-bots@llm` uses **AVA**, not vitest — so "Endo dictates house style" cannot mean "copy Endo's runner." Flagged the sensible reading (migrate to vitest, carry runner-agnostic Endo conventions, match minion.town's existing vitest specs) into the routed job with an instruction to ping the maintainer on any real fork.
+**My job type:** an *attention* directive on PR #87 — its deliverable is to **read the directive and route it to the right work**, not to perform the migration itself.
 
-## What I did
-1. **Posted the successor build job** `build-minion-town-vitest-migration` (`--role builder` → Opus; identity `…#87:comment:5770443815:vitest-build` to avoid deduping against this attention job). Confirmed live on `origin/journal2` at `jobs/todo/build-minion-town-vitest-migration.md` (3718 bytes). Body carries the survey, the 4-file scope, the "drop both `--exclude` flags" requirement, DoD (both CI gates green, draft-PR-only under the manual-gauntlet regime), and the house-style caveat.
-2. **Closed the loop on the PR** with a routing acknowledgment reply: https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5771926072
+**Corroboration for the single ask (repo-wide vitest migration):** the routing already exists and I verified it on the board itself, not via the preflight:
 
-No garden-repo (`main2`) changes were needed, so nothing to commit/push from this worktree. Inbox drained (empty).
+- **Board artifact:** `journal/jobs/doin/build-minion-town-vitest-migration.md` (confirmed present via `git ls-tree origin/journal2`). This is a `builder` job whose body cites the exact source comment (`#issuecomment-5770443815`), surveys the repo state, and defines the full repo-wide-migration deliverable (convert the remaining `node --test` holdouts, drop the root `--exclude` flags). It is the routing an attention directive would itself produce, and it is **in progress** (heartbeat 2026-09-22 06:03:50Z, actively claimed). Re-posting it would be a silent no-op collision, so I did not.
+- The substantive migration is already **materialized in two draft PRs**, both open with green CI: **#107** "test: migrate remaining suites to Vitest" (`fix/repo-wide-vitest`, all 3 checks SUCCESS) and **#108** "test: finish repo-wide vitest migration (node:test holdouts)" (`vitest-repo-wide-holdouts`, from the completed `tada/…/fix-minion-town-vitest-repo-wide-holdouts` job, 14 files, all gates green locally).
 
-## Follow-ups
-- The substantive migration is owned by the posted build job; a gardener will claim it and open a draft PR.
-- Maintainer decision still open (non-blocking): confirm the vitest-vs-Endo-AVA house-style reading; the build proceeds on the conservative default absent a reply.
+PR #87 itself is **MERGED**; the directive's target is the whole repo, and that whole-repo work is owned by the in-flight build job above.
+
+I made no edits and pushed nothing: the correct output of this attention directive (a routed build job) already exists and is being worked. Doing the migration here would duplicate the claimed builder job.
+
+**Follow-up (noted, not acted on — outside an attention router's scope):** there is now redundancy worth the builder/maintainer's awareness — the still-in-`doin` `build-minion-town-vitest-migration` job overlaps the already-completed `fix-minion-town-vitest-repo-wide-holdouts` (→ PR #108) *and* draft PR #107. All three implement the same vitest migration. Reconciling #107 vs #108 (which to gauntlet/merge, close the other) is a maintainer decision at "run the gauntlet" time and is already visible on the PR list; the board comments record the same.
+
+---
+
+**Completion report**
+
+- **Job:** attention directive on kriscendobot/minion.town PR #87 (route the "repo-wide vitest migration" directive to the right work).
+- **What I did:** re-fetched the directive comment (treated as untrusted data), ran the preflight (exit 2 = HINT), and corroborated on the board that the directive is already routed and in progress.
+- **What changed:** nothing — no commits, no new board entry, no PR. The routing artifact (`build-minion-town-vitest-migration`, in `doin/`) already exists and owns the deliverable; the migration is already implemented in green draft PRs #107 and #108.
+- **Verified no-op** with named artifacts per the exit-2 corroboration requirement.
+- **Follow-ups:** maintainer/builder should reconcile the duplicate migration surfaces (build-job-in-doin + PR #107 + PR #108) at gauntlet time; not blocking.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/kriscendobot-minion.town-pr87-b8a7509c.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 8 on 2 host(s) (2 unmetered)
-- Input: 210 tokens (6012832 cached reads)
-- Output: 90258 tokens
-- Cost: $9.205562 (2 engagement(s) unpriced)
-- Wall-clock: 3170s
-- Model(s): claude-opus-4-8 ×6
+- Engagements: 9 on 2 host(s) (2 unmetered)
+- Input: 224 tokens (6307742 cached reads)
+- Output: 97897 tokens
+- Cost: $9.983362 (2 engagement(s) unpriced)
+- Wall-clock: 3298s
+- Model(s): claude-opus-4-8 ×7
 
 <!-- garden-usage-end -->
