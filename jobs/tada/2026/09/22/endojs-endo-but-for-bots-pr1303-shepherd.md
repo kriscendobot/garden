@@ -1,28 +1,27 @@
-CI is fully green on the head SHA — nothing to drive. This is a clean-state shepherd outcome, not watch-only monitoring.
+CI is already fully green on the current head SHA `107ec8db75` — the run at `35658949064` matches the PR head exactly, with 27 checks passing, 7 skipping, and 0 failing. The PR is `MERGEABLE`/`CLEAN`. There is nothing for the shepherd to fix.
 
-## Report
+I did not post a comment on the PR (no per-action external-repo authorization in the job body), and did not touch the draft state (not the shepherd's job).
 
-**Job:** shepherd endojs/endo-but-for-bots PR #1303 ("test(ironhorse): add object-capability benchmark corpus") — drive CI to green.
+---
 
-**Finding:** CI is **already fully green** on the current head SHA `107ec8db75fdb0d9e1682298654bc633c4524821`. No failing or pending checks exist.
+**Shepherd report — endojs/endo-but-for-bots PR #1303**
 
-- PR state: OPEN, DRAFT, `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`, base `llm-387ea66`, head branch `feat/ironhorse-ocap-benchmark-corpus` (in-repo `endojs/endo-but-for-bots`).
-- Check-runs on head: 23 success, 7 skipped, 0 failing, 0 pending (34 total across pages; verified via both `gh pr checks` and the check-runs API with `--paginate`).
-- All substantive legs pass: `lint`, `test (22.x/24.x × ubuntu/macos)`, `test-xs`, `test-ironhorse*` suite (incl. `-macos`, `-oracle`, `-release`, `-calibration`, `-thixotrope`, oracle-sanitizers), `cover`, `build-xsnap`, `zizmor`, `format-ironhorse`, `viable-release`, `compare-ironhorse-math`. Standard conditional legs (`build-wasm`, `test-hermes`, `test-async-hooks`, `test-ocapn-*`, `check-action-pins`) are skipping as designed.
+- **Target:** PR #1303 "test(ironhorse): add object-capability benchmark corpus" — draft, base `llm-387ea66`, head `feat/ironhorse-ocap-benchmark-corpus`.
+- **Head SHA:** `107ec8db75fdb0d9e1682298654bc633c4524821`.
+- **CI state:** already green. 27 pass / 7 skip / 0 fail. Verified the passing run (`35658949064`) is on the current head SHA, not a stale one.
+- **Mergeability:** `MERGEABLE`, `mergeStateStatus: CLEAN`.
+- **Action taken:** none needed — no red checks, no flakes, no conflicts. No fix commit, no push.
+- **`next: none`** — CI is green on the current head; the shepherd's "drive CI to green" objective is already satisfied.
 
-**Action taken:** None required. No fix commit, no push — CI needs no repair, and fabricating a nudge commit on a green PR would be out of scope. The PR correctly remains a DRAFT; un-drafting is the gauntlet/un-draft stage's responsibility, not the shepherd's.
-
-**Escalation classification:** `next: none` — CI is green on the head SHA (run https://github.com/endojs/endo-but-for-bots/actions/runs/35658949064). The shepherd gate is satisfied; the PR is clear of red-CI ambiguity for the maintainer's review queue. If the maintainer wants it promoted, that's a **run the gauntlet #1303** directive, not further shepherding.
-
-**Follow-ups:** None. No comment posted (no per-action authorization in the job body, and there's no shepherd push to summarize).
+Follow-up (informational, not a shepherd action): the PR remains a **draft**. Promoting it to review would be a maintainer decision ("run the gauntlet #1303") — outside this job's scope.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1303-shepherd.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 10 on 2 host(s)
-- Input: 146 tokens (3372870 cached reads)
-- Output: 29742 tokens
-- Cost: $7.845155
-- Wall-clock: 2987s
-- Model(s): claude-opus-4-8 ×10
+- Engagements: 11 on 2 host(s)
+- Input: 156 tokens (3575494 cached reads)
+- Output: 31807 tokens
+- Cost: $8.398796
+- Wall-clock: 3033s
+- Model(s): claude-opus-4-8 ×11
 
 <!-- garden-usage-end -->
