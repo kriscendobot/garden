@@ -1,33 +1,37 @@
-All six asks are corroborated as genuinely resolved in the doc at head `e5c632911b`, with a reply on every inline thread. This is a verified no-op — no further edits are warranted (an additional reply would just add the superfluous meta-narrative the maintainer flagged). Completion report follows.
+Verification complete. The only grep hit (line 704) is legitimate design content ("not one collapsed `malformed-catalog`"), not revision-narrative. All six review threads are `outdated: true` (PR head moved past the commented lines) with peer replies on each, and HEAD `e5c632911b` equals `origin/design/endo-guest-stdio-mcp` — everything is pushed.
 
----
+A prior claimant of **this exact job** (commit `c1df1296ee` "rsvp PR #1226 review on endo-guest-stdio-mcp") already did the complete work. I corroborated every ask against the actual PR-branch file content and commit existence, not the replies alone. This is a verified no-op.
 
-## Completion report: PR #1226 review directive (kriskowal, review 5273006881)
+<<<GARDEN-JOB-COMPLETE>>>
 
-**Outcome: verified no-op.** Every ask in this `CHANGES_REQUESTED` review was already resolved on the PR head branch (`design/endo-guest-stdio-mcp`, HEAD `e5c632911b`) by prior claimants (the rsvp commit `c1df1296ee`, plus follow-up strikes `dd3ad7040f` — provenance-tagged to *this* job base — and `e5c632911b`). Preflight returned exit 2 (hint); I corroborated each ask against the actual doc content rather than trusting the reply text.
+Wait — I need to place the completion signal as the very last line. Let me write the proper report.
 
-**Review body:** `@kriscendobot rsvp` → satisfied; every inline thread carries a substantive reply and the requested changes landed.
+## Completion report
 
-**The six inline asks, each with the artifact that resolves it:**
+**Job:** Review directive on endojs/endo-but-for-bots PR #1226 (design `designs/endo-guest-stdio-mcp.md`), review 5273006881 by kriskowal (`@kriscendobot rsvp`, CHANGES_REQUESTED).
 
-1. **`4067434988` "superfluous meta-narrative"** — resolved. Revision/changelog narrative fully struck across `c1df1296ee` → `dd3ad7040f` → `e5c632911b`. Grep at head for `updated 2026 | revised 2026 | revision note | earlier draft | the 2026-09-17 | and, honestly | simplification collapsed` returns **zero hits**. § Status now reads as a present-tense spec.
-2. **`4067449945` "don't consolidate endo-claude yet"** — resolved. Open Questions entry "Do NOT consolidate…" + § Scoping now carries **both** topologies (harness-owned broker *and* server-held connection) as legitimate; no reconciliation owed.
-3. **`4067463888` "drill down to the guest facet, dispatch through that one guest and no other"** — resolved. § Scoping lines 15/127-128/161-162: "against that one facet and no other… drills down to the guest facet and always dispatches through that guest (maintainer, PR #1226)."
-4. **`4067466288` "pin this down now… investigate options"** — resolved. § *Threading the formula id from configuration* investigates env-var vs stdin-handshake carriers (recommends `ENDO_GUEST_FORMULA_ID` env var) and file-path-via-pipe/`memfd` vs inline-JSON vs shell `<(…)` (rejects the latter two). Open Questions marked resolved.
-5. **`4067474722` "claude must not reach the socket / design forfeit"** — resolved. Open Questions "The daemon socket must NOT be reachable by `claude` from inside the slice"; the "rely on formula-id secrecy" branch struck; connection held **outside** the confined tree; endo-posix-sandbox bwrap isolation named as load-bearing.
-6. **`4067480364` "expose a logging facet"** — resolved. Doc lines 459-462 + 833-834: server exposes a logging facet and advertises the MCP `logging` capability; log source left as an implementation choice per the maintainer's steer.
+**Outcome: verified no-op.** A prior claimant of this exact job (commits `c1df1296ee` → `dd3ad7040f` → `e5c632911b`, now HEAD of `design/endo-guest-stdio-mcp` and equal to `origin`) already resolved the review and posted an rsvp reply on every inline thread. Preflight returned exit 2 (HINT); I corroborated each ask against the actual branch file content + commit existence rather than trusting the replies. No GARDEN (`main2`) changes were needed; nothing to commit or push.
 
-**Changed:** nothing by me — no commits, no new replies (the rsvp is complete; adding another would be the very meta-narrative flagged). Inbox drained, empty.
+**Per-ask corroboration** (artifact → how it satisfies the ask):
 
-**Follow-ups:** none required for this review. The doc remains a design-stage draft PR; two Open Questions carry a *remaining-verification* note (bwrap socket-denial to be confirmed with endo-posix-sandbox; scoped-bootstrap-vs-broker scheduling) but these are forward design work, not asks of this review, and are recorded in the doc.
+1. **"This is superfluous meta-narrative"** (§ Status revision paragraph) → commits `c1df1296ee`, `dd3ad7040f`, `e5c632911b`. § Status (file lines 10–20) is now a present-tense design summary; grep for every revision-narrative marker ("Updated 2026-09-21", "Revised 2026-09-17", "Revision note", "earlier draft", "and, honestly") finds none. Clean.
+2. **"Let's not try to consolidate these yet…"** → `c1df1296ee`. Cross-document note (lines 62–73) + Open Questions bullet 1 (lines 785–795): both topologies stand, no consolidation owed.
+3. **"MCP drills to the guest facet, always dispatches through that guest and no other; confined claude free to use any authority via its guest"** → `c1df1296ee`. § Scoping (lines 160–164) states it verbatim in design terms.
+4. **"Pin this down now… investigate options"** (--mcp-config carrier) → `c1df1296ee`. § Threading (lines 321–352) + Open Questions "intake (resolved)" (lines 810–818): pinned to a file *path* backed by anonymous pipe/`memfd`, no temp file, no inline JSON, no shell process substitution.
+5. **"Confine claude; deny the socket; if claude can open an arbitrary domain socket this design is forfeit"** → `c1df1296ee`. § Scoping (lines 215–236) + Open Questions "socket must NOT be reachable" (lines 819–832): premise stated non-negotiable, "accept and rely on secrecy" branch struck.
+6. **"Expose a logging facet; how logs are obtained is immaterial"** → `c1df1296ee`. § The stdio transport / `initialize` (lines 459–463) + Open Questions "Logging (resolved)": logging facet exposed, `logging` capability advertised, source left as implementation choice.
+
+**Review-body ask** (`@kriscendobot rsvp`): satisfied by the six posted inline replies (ids 4067647565, 4067647652, 4067647806, 4067647918, 4067648039, 4067648141, plus follow-ups 4068088299, 4068150585).
+
+**State/follow-ups:** All six threads are `outdated: true` but `resolved: false` — resolution is the maintainer's to click; the bot correctly does not self-resolve. PR remains an open draft, as expected for a design PR awaiting maintainer acceptance. No further action.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1226-review-adf95686.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 9 on 2 host(s) (1 unmetered)
-- Input: 302 tokens (12552542 cached reads)
-- Output: 118422 tokens
-- Cost: $15.237542 (1 engagement(s) unpriced)
-- Wall-clock: 2667s
-- Model(s): claude-opus-4-8 ×8
+- Engagements: 10 on 2 host(s) (1 unmetered)
+- Input: 316 tokens (12856697 cached reads)
+- Output: 125123 tokens
+- Cost: $16.5465485 (1 engagement(s) unpriced)
+- Wall-clock: 2855s
+- Model(s): claude-opus-4-8 ×9
 
 <!-- garden-usage-end -->
