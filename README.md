@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T23:46:07Z_
+_As of 2026-09-22T23:48:20Z_
 
 ## Latest
 
@@ -1037,16 +1037,16 @@ _Fleet token-unlock pace: 38691414 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1329-review-65578408`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1329-review-65578408.md) — Review directive on endojs/endo-but-for-bots PR #1329
+### doin (0)
+(none)
 
-### tada (8707)
+### tada (8708)
+- [`endojs-endo-but-for-bots-pr1329-review-65578408`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1329-review-65578408.md) — Cost
 - [`claude-on-minion-town-completion-press-20260922-223629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-223629.md) — Completion report — completion-press tick 20260922-223629 (Claude-on-minion.t...
 - [`claude-on-minion-town-press-20260922-223629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-press-20260922-223629.md) — Cost
 - [`run-the-gauntlet-endo-pr1329-20260922-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/run-the-gauntlet-endo-pr1329-20260922-split.md) — orchestration run-the-gauntlet-endo-pr1329-20260922-split — complete
 - [`run-the-gauntlet-endo-pr1329-20260922-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/run-the-gauntlet-endo-pr1329-20260922-expanded-window.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-2d6a96b95925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-2d6a96b95925.md) — rolling-deploy canary probe — round trip OK
-- … and 8702 more
+- … and 8703 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
