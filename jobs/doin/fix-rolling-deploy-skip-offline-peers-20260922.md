@@ -105,3 +105,13 @@ decision. Include a test that a fresh-but-briefly-late heartbeat does NOT trip t
 offline predicate.
 
 Update `designs/follower-self-deploy.md` to record the offline-skip semantics.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-22T20:51:45Z
