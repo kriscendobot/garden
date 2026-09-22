@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T22:17:36Z_
+_As of 2026-09-22T22:24:21Z_
 
 ## Latest
 
@@ -150,6 +150,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `minion-town-clipometer-esbuild-pipeline-gauntlet-review-budget-reached` — from gauntlet:minion-town-clipometer-esbuild-pipeline-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-clipometer-esbuild-pipeline-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet minion-town-clipometer-esbuild-pipeline-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
+
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=50930534 cap=143000000 pace-bias=0.309409 ceiling=3 target=2
 
 - `build-rbra-cleanbreak-20260916-halted` — from orchestrator:build-rbra-cleanbreak-20260916-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-rbra-cleanbreak-20260916-halted.md)
 
@@ -1007,17 +1011,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.9M | $514.38 _(notional, rate-card)_ | 36% of 143.0M (ok) |
-| Codex | 18.0M _(+387.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
+| Claude | 51.1M | $515.89 _(notional, rate-card)_ | 36% of 143.0M (ok) |
+| Codex | 18.1M _(+387.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 38727669 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 39122785 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
-### todo (1)
-- [`run-the-gauntlet-endo-pr1329-20260922-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/run-the-gauntlet-endo-pr1329-20260922-expanded-window.md) — Expanded-window gauntlet for endojs/endo-but-for-bots PR #1329
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`run-the-gauntlet-endo-pr1329-20260922-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-endo-pr1329-20260922-expanded-window.md) — Expanded-window gauntlet for endojs/endo-but-for-bots PR #1329
 
 ### tada (8703)
 - [`canary-probe-endolin-garden2-5bcdff64-2d6a96b95925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-2d6a96b95925.md) — rolling-deploy canary probe — round trip OK
