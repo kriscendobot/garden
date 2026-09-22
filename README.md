@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T23:54:21Z_
+_As of 2026-09-22T23:59:04Z_
 
 ## Latest
 
@@ -1027,7 +1027,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 51.5M | $512.00 _(notional, rate-card)_ | 36% of 143.0M (ok) |
+| Claude | 51.6M | $513.78 _(notional, rate-card)_ | 36% of 143.0M (ok) |
 | Codex | 18.3M _(+388.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 62% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38691414 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1036,9 +1036,10 @@ _Fleet token-unlock pace: 38691414 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`fix-comment-watcher-blockquote-address-drop`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-comment-watcher-blockquote-address-drop.md) — comment-watcher drops a genuine @kriscendobot address when preceded by a quot...
 - [`investigate-stylist-db-initialism-miss`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/investigate-stylist-db-initialism-miss.md) — Investigate: why did the stylist juror miss the "db" initialism?
+- [`scholar-ingest-source-opus-sol-luna-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-source-opus-sol-luna-20260922.md) — Ingest source: Simon Willison — "opus-and-sol-and-luna"
 
 ### tada (8708)
 - [`endojs-endo-but-for-bots-pr1329-review-65578408`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1329-review-65578408.md) — Cost
