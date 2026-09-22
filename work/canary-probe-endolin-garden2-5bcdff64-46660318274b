@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-09-22T09:14:18Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-canary-probe-endolin-garden2-5bcdff64-46660318274b
