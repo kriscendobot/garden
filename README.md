@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T08:36:35Z_
+_As of 2026-09-22T08:55:48Z_
 
 ## Latest
 
@@ -928,6 +928,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > I am implementing the awaiting-maintainer gate. The SIWE successor apply-siwe-onchain-authz-maintainer-decisions was asked only through maintainer inbox message 20260822T055203Z-ae527d, but the new gate must record an issue/PR/comment URL. Which existing GitHub URL should be the answer location? If none exists, please name where you want the two SIWE decisions posted; I will leave its synthetic blocked gate intact until it has a truthful URL.
 
+- `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
+
+> budget-level changed endolin-garden2-5bcdff64 monk workers 3 -> 2 (target 2): subscription claude-endolin2 spend=4604399 cap=64000000 pace-bias=0.570197 ceiling=2 target=2
+
 - `20260920T072416Z-a07134` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T072416Z-a07134.md)
 
 > kind: error
@@ -1232,7 +1236,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
-> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): budget pool anthropic:endolin-garden-ece02cb4 spend=2648177 cap=143000000 ceiling=2 target=2
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-12T03:20:10Z, latest 2026-09-22T08:51:14Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-2`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=36792089 cap=143000000 pace-bias=0.300158 ceiling=3 target=2
 
 - `build-rbra-cleanbreak-20260916-halted` — from orchestrator:build-rbra-cleanbreak-20260916-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-rbra-cleanbreak-20260916-halted.md)
 
@@ -3902,16 +3910,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 36.8M | $363.74 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 16.3M _(+370.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Codex | 16.3M _(+370.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 40488724 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 40049355 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-issue-inbox-cursor-timeout-floor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-issue-inbox-cursor-timeout-floor.md) — ---
 
 ### tada (8665)
 - [`canary-probe-endolin-garden2-5bcdff64-1d7a9fc94a43`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-1d7a9fc94a43.md) — rolling-deploy canary probe — round trip OK
