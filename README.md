@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T14:27:19Z_
+_As of 2026-09-22T14:49:52Z_
 
 ## Latest
 
@@ -17,7 +17,7 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 20d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 20d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 21d)
-- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 23d)
+- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 24d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -3913,8 +3913,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.6M | $368.80 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 16.9M _(+373.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
+| Claude | 37.7M | $369.98 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Codex | 16.9M _(+373.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35759779 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -3922,8 +3922,9 @@ _Fleet token-unlock pace: 35759779 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`minion-town-endo-daemon-deploy-fail-89481580`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-endo-daemon-deploy-fail-89481580.md) — ---
+- [`kriscendobot-minion.town-pr110-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr110-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #110 (mer...
 
 ### tada (8685)
 - [`canary-probe-endolin-garden2-5bcdff64-5118c1cf1da7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-5118c1cf1da7.md) — rolling-deploy canary probe — round trip OK
