@@ -42,6 +42,19 @@
 # work to the next timer tick and exit cleanly (0). The cursor stays unadvanced, so the
 # next tick re-triages the identical, idempotent transition — nothing is lost, exactly
 # like the crash-then-re-triage guarantee the cursor already provides.
+#
+# Shared pacing-refresh cooldown gate: every per-repo triager on a host shares ONE pace
+# clone ($GARDEN_STATE/triager-pace/journal). The pacing refresh is nonessential (it only
+# computes the next ordinary wake), yet when many per-repo ticks come due together — the
+# timers spread over a 30s RandomizedDelaySec window and then drift — each independently
+# takes that clone's lock. Even in soft mode (GARDEN_CLONE_LOCK_SOFT, one short bounded
+# attempt) a herd repeatedly contends on the one lock and latches per-repo WARNs merely to
+# schedule a wake. A host-shared, short cooldown gate (GARDEN_TRIAGE_PACE_COOLDOWN, default
+# 30s) collapses that herd: an flock'd expiry stamp lets AT MOST ONE tick per cooldown
+# window actually refresh the pace clone; every other concurrent/near-term tick skips the
+# refresh cleanly (no lock, no warning, no journal round-trip) and keeps the fixed timer
+# cadence, and a later tick refreshes once the gate expires. Normal event triage and the
+# steady fetch are untouched — only the optional wake computation is gated.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -65,6 +78,11 @@ export GARDEN_TAG="triager/$slug"
 : "${GARDEN_TRIAGE_PACE_ROLE:=triager}"
 : "${GARDEN_TRIAGE_PACE_ENABLED:=1}"
 : "${GARDEN_TRIAGE_PACE_PROJECTOR:=$HERE/triager-pace.sh}"
+# Shared cooldown (seconds) for the nonessential pacing-clone refresh: at most one tick
+# per host per window touches the shared pace clone; concurrent/near-term ticks skip the
+# refresh and keep the fixed timer cadence (see the header). 0 (or unparseable) disables
+# the gate entirely — every tick refreshes, the pre-gate behavior.
+: "${GARDEN_TRIAGE_PACE_COOLDOWN:=30}"
 # Internal tick deadline (see the header). Once a tick has spent this many wall-clock
 # seconds, it defers the remaining nested journal/fetch/pace work to the next timer tick
 # and exits cleanly (0) rather than run into the unit's 900s TimeoutStartSec and be
@@ -79,6 +97,10 @@ PACE_STATE_DIRECTORY="$GARDEN_STATE/triager/pace"
 PACE_MARKER="$PACE_STATE_DIRECTORY/${slug//[^A-Za-z0-9._-]/_}"
 PACE_WARNING_LATCH="$PACE_STATE_DIRECTORY/warning-${slug//[^A-Za-z0-9._-]/_}"
 PACE_PROBE_WARNING_LATCH="$PACE_STATE_DIRECTORY/probe-warning-${slug//[^A-Za-z0-9._-]/_}"
+# Host-shared (NOT per-slug): the whole host's triager fleet gates its refresh of the ONE
+# shared pace clone through this single expiry stamp + flock (see the header).
+PACE_REFRESH_GATE="$PACE_STATE_DIRECTORY/refresh-gate"
+PACE_REFRESH_GATE_LOCK="$PACE_STATE_DIRECTORY/refresh-gate.lock"
 PACE_PREEMPTED=0
 PACE_EXPECTED_SHA=""
 PACE_OBSERVED_SHA=""
@@ -143,6 +165,31 @@ triager_pace_record_preemption() {
   PACE_PREEMPTED=0
 }
 
+# Shared cooldown gate for the nonessential pace-clone refresh (see the header). rc 0 =
+# THIS tick may perform the refresh (it just re-armed the gate); rc 1 = a peer refreshed
+# within GARDEN_TRIAGE_PACE_COOLDOWN seconds, so skip cleanly and keep the fixed cadence.
+# Mirrors common.sh's start_journal_outage_cooldown: an flock makes the expiry check +
+# re-arm atomic so a herd of concurrent ticks cannot all pass. Fails OPEN toward refreshing
+# (rc 0) on a disabled/unparseable cooldown or an unwritable state dir — never wedges pacing.
+triager_pace_gate_open() {
+  local cooldown; cooldown="${GARDEN_TRIAGE_PACE_COOLDOWN:-30}"
+  { [[ "$cooldown" =~ ^[0-9]+$ ]] && [ "$cooldown" -gt 0 ]; } || return 0
+  mkdir -p "$PACE_STATE_DIRECTORY" 2>/dev/null || return 0
+  (
+    flock 9
+    local now expiry new_expiry tmp
+    now="$(triager_pace_now)"
+    [[ "$now" =~ ^[0-9]+$ ]] || exit 0          # unparseable clock → fail open (refresh)
+    expiry="$(sed -n '1p' "$PACE_REFRESH_GATE" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
+    [ "$expiry" -le "$now" ] || exit 1          # a peer's cooldown is still active → skip
+    new_expiry=$((now + cooldown))
+    tmp="$PACE_REFRESH_GATE.$$"
+    printf '%s\n' "$new_expiry" > "$tmp" && mv -f "$tmp" "$PACE_REFRESH_GATE" || rm -f "$tmp"
+    exit 0
+  ) 9>"$PACE_REFRESH_GATE_LOCK"
+}
+
 triager_pace_schedule() { # <observed-sha> <ref>
   local observed_sha="$1" observed_ref="$2" clone projection status reason wake now next_wake
   local input_json temporary_marker decision_name
@@ -151,6 +198,14 @@ triager_pace_schedule() { # <observed-sha> <ref>
     triager_pace_note_warning projector-unavailable
     return 0
   }
+  # Shared cooldown gate BEFORE touching the one shared pace clone: if a peer tick already
+  # refreshed within the cooldown window, skip this refresh cleanly — no clone lock, no
+  # warning, no journal round-trip — and keep the fixed timer cadence. A later tick
+  # refreshes once the gate expires. This is the herd-collapse the header describes.
+  if ! triager_pace_gate_open; then
+    log "pace refresh gated for $slug (shared cooldown active); keeping the fixed timer cadence, a later tick refreshes"
+    return 0
+  fi
   clone="${GARDEN_TRIAGE_PACE_CLONE:-$GARDEN_STATE/triager-pace/journal}"
   # The pacing refresh is NONESSENTIAL — it only computes the next ordinary wake — so
   # it must fail fast under live lock contention rather than burning the default 3×60s

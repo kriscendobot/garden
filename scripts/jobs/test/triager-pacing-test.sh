@@ -171,6 +171,9 @@ printf '%s\n' '{"status":"fallback","role":"triager","wake_after_seconds":120,"f
 EOF
 chmod +x "$FALLBACK_PROJECTOR"
 FALLBACK_OUTPUT="$TEMPORARY_ROOT/fallback-output"
+# Disable the shared cooldown gate here so BOTH iterations reach the projector and this
+# test isolates the WARNING-LATCH dedup (the gate has its own coverage below); with the
+# gate on and a frozen clock the second tick would be gate-skipped instead.
 for iteration in 1 2; do
   env GARDEN_TEST=1 GARDEN="$HOST" GARDEN_STATE="$TEMPORARY_ROOT/state" \
       JOURNAL_REMOTE="$JOURNAL_REMOTE" JOURNAL_BRANCH=journal2 \
@@ -178,6 +181,7 @@ for iteration in 1 2; do
       GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_CALLS="$HANDLER_CALLS" \
       GARDEN_DECISION_APPEND="$DECISION_STUB" DECISIONS="$DECISIONS" \
       GARDEN_TRIAGE_PACE_NOW="$NOW" GARDEN_TRIAGE_PACE_PROJECTOR="$FALLBACK_PROJECTOR" \
+      GARDEN_TRIAGE_PACE_COOLDOWN=0 \
       "$JOBS/triager.sh" "$SLUG" >>"$FALLBACK_OUTPUT" 2>&1
 done
 if [ "$(grep -c 'triager pacing unavailable.*using the current timer cadence' "$FALLBACK_OUTPUT")" -eq 1 ]; then
@@ -219,6 +223,67 @@ else
 fi
 kill "$HOLDER_PID" 2>/dev/null || true
 wait "$HOLDER_PID" 2>/dev/null || true
+
+# The shared cooldown gate collapses a herd of concurrent per-repo ticks onto the ONE
+# shared pace clone: only the FIRST tick within the window performs the refresh (touches
+# the projector/clone); every other tick inside the window skips it cleanly and keeps the
+# fixed timer cadence. A frozen clock keeps the gate from expiring, so ticks 2+ are gated.
+# A FALLBACK projector keeps triager_pace_schedule from writing a per-slug marker, so the
+# top paced-defer never short-circuits and every tick actually reaches the gate.
+GATE_STATE="$TEMPORARY_ROOT/gate-state"
+GATE_PROJECTOR_CALLS="$TEMPORARY_ROOT/gate-projector-calls"
+GATE_PROJECTOR="$TEMPORARY_ROOT/gate-projector"
+cat > "$GATE_PROJECTOR" <<EOF
+#!/bin/bash
+echo call >> "$GATE_PROJECTOR_CALLS"
+printf '%s\n' '{"status":"fallback","role":"triager","wake_after_seconds":120,"floor_seconds":120,"ceiling_seconds":3600,"reason":"missing-pace-calibration"}'
+EOF
+chmod +x "$GATE_PROJECTOR"
+GATE_OUTPUT="$TEMPORARY_ROOT/gate-output"
+for iteration in 1 2 3; do
+  env GARDEN_TEST=1 GARDEN="$HOST" GARDEN_STATE="$GATE_STATE" \
+      JOURNAL_REMOTE="$JOURNAL_REMOTE" JOURNAL_BRANCH=journal2 \
+      GARDEN_REPOS="$REPOSITORIES" GARDEN_WATCH_REF="$REF" \
+      GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_CALLS="$HANDLER_CALLS" \
+      GARDEN_DECISION_APPEND="$DECISION_STUB" DECISIONS="$DECISIONS" \
+      GARDEN_TRIAGE_PACE_NOW="$NOW" GARDEN_TRIAGE_PACE_PROJECTOR="$GATE_PROJECTOR" \
+      GARDEN_TRIAGE_PACE_COOLDOWN=300 \
+      "$JOBS/triager.sh" "$SLUG" >>"$GATE_OUTPUT" 2>&1
+done
+GATE_CALLS="$(awk 'END {print NR}' "$GATE_PROJECTOR_CALLS" 2>/dev/null || echo 0)"
+GATE_SKIPS="$(grep -c 'pace refresh gated' "$GATE_OUTPUT" || true)"
+if [ "$GATE_CALLS" -eq 1 ] && [ "$GATE_SKIPS" -ge 2 ]; then
+  ok "shared cooldown gate lets one tick refresh and gate-skips the rest within the window"
+else
+  bad "gate did not collapse the herd (projector calls=$GATE_CALLS, gate-skips=$GATE_SKIPS): $(tr '\n' ' ' < "$GATE_OUTPUT")"
+fi
+
+# With the gate DISABLED (cooldown 0) every tick refreshes — the pre-gate behavior — so a
+# deployment can turn the gate off entirely.
+NOGATE_CALLS_FILE="$TEMPORARY_ROOT/nogate-projector-calls"
+NOGATE_PROJECTOR="$TEMPORARY_ROOT/nogate-projector"
+cat > "$NOGATE_PROJECTOR" <<EOF
+#!/bin/bash
+echo call >> "$NOGATE_CALLS_FILE"
+printf '%s\n' '{"status":"fallback","role":"triager","wake_after_seconds":120,"floor_seconds":120,"ceiling_seconds":3600,"reason":"missing-pace-calibration"}'
+EOF
+chmod +x "$NOGATE_PROJECTOR"
+NOGATE_STATE="$TEMPORARY_ROOT/nogate-state"
+for iteration in 1 2; do
+  env GARDEN_TEST=1 GARDEN="$HOST" GARDEN_STATE="$NOGATE_STATE" \
+      JOURNAL_REMOTE="$JOURNAL_REMOTE" JOURNAL_BRANCH=journal2 \
+      GARDEN_REPOS="$REPOSITORIES" GARDEN_WATCH_REF="$REF" \
+      GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_CALLS="$HANDLER_CALLS" \
+      GARDEN_DECISION_APPEND="$DECISION_STUB" DECISIONS="$DECISIONS" \
+      GARDEN_TRIAGE_PACE_NOW="$NOW" GARDEN_TRIAGE_PACE_PROJECTOR="$NOGATE_PROJECTOR" \
+      GARDEN_TRIAGE_PACE_COOLDOWN=0 \
+      "$JOBS/triager.sh" "$SLUG" >/dev/null 2>&1
+done
+if [ "$(awk 'END {print NR}' "$NOGATE_CALLS_FILE" 2>/dev/null || echo 0)" -eq 2 ]; then
+  ok "cooldown 0 disables the gate: every tick refreshes (pre-gate behavior)"
+else
+  bad "disabled gate did not refresh every tick: calls=$(awk 'END {print NR}' "$NOGATE_CALLS_FILE" 2>/dev/null || echo 0)"
+fi
 
 echo "RESULT: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
