@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-claude-inference-exploration-20260922
-priority: normal
-posted_by: producer
-posted_at: 2026-09-22T00:33:31Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-22T00:37:42Z cleared=none -->
 
 ---
 role: builder
