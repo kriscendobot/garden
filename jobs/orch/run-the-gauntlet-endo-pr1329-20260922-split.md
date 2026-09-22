@@ -1,4 +1,5 @@
 ---
+child-run-the-gauntlet-endo-pr1329-20260922-expanded-window-host: endolin-garden-ece02cb4
 child-run-the-gauntlet-endo-pr1329-20260922-expanded-window-reap-count: 0
 order: serial
 children: run-the-gauntlet-endo-pr1329-20260922-expanded-window
