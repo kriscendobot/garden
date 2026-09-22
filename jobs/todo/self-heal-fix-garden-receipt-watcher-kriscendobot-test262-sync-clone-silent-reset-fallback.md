@@ -1,0 +1,6 @@
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+scripts/jobs/common.sh's sync_clone() (~line 6013-6024): the fallback hard-reset after a failed first reset + successful re-fetch is a bare `git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH"` with no error handling. If it fails again, `set -e` silently propagates its raw exit code with no `log`/`die` call, so the caller (e.g. receipt-watcher.sh's `die "receipt journal prerequisite failed for $repo (rc=$prereq_rc; see prerequisite stderr above)"`) has nothing to show "above" — exactly the empty-diagnostic FATAL captured in blob d068fd78de55654bcec06dc3f452f0c7470f6723 for garden-receipt-watcher@kriscendobot-test262 (01:41:20, rc=1, 157-byte capture with zero prerequisite content). Fix: wrap the final reset so a persistent failure is diagnosed, e.g. `git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" || die "hard reset of $dir onto origin/$JOURNAL_BRANCH failed after re-fetch retry"` (or capture+log its stderr before dying), matching the comment's own stated intent that this path should "surface" the failure. This is shared code (`common.sh`), so the fix benefits every sync_clone caller, not just receipt-watcher.
