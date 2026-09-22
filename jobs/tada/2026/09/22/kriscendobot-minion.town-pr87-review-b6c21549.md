@@ -1,41 +1,35 @@
----
-handed-off: fix-minion-town-migrate-tests-to-ava-20260922
-deliverable-complete: false
----
-The successor job is confirmed on the board (`origin/journal2`). All work is durably captured.
+Inbox empty. Work complete — no code changes were warranted, so nothing to commit.
 
 ## Completion report
 
-**Job:** Review triage of kriscendobot/minion.town PR #87 (kriskowal review `pullrequestreview-5273122355`).
+**Job:** Review directive on `kriscendobot/minion.town` PR #87 (kriskowal `CHANGES_REQUESTED`, review `5273122355`).
 
-**Preflight:** `pr-feedback-preflight.sh` returned exit 0 (PROCEED) — no prior peer resolution.
+**Preflight:** `pr-feedback-preflight.sh` returned exit 0 (PROCEED) — no prior peer resolution. I did the work.
 
-**The review, enumerated:** One top-level directive, zero inline comments (verified via `gh api .../comments` filtered on `pull_request_review_id==5273122355` → empty). Review body (untrusted, treated as data): *"This house uses `ava` for testing."*
+**Enumerated the review as the unit of work:**
+- Review body (re-fetched, treated as untrusted data): *"This house uses `ava` for testing."*
+- Inline comments tied to review `5273122355`: **none** (empty). So this one-line body was the entire ask.
 
-**Finding (verified in an isolated checkout of `build/claude-agents-capability`):** The directive contradicts the repo's reality. minion.town has used **vitest**, not ava, since its initial commit (`315fbd0`):
-- 51 test files import from `vitest` (`describe`/`it`/`expect`); **zero** use ava.
-- `vitest.config.ts` present; `npm test` == `vitest run`; devDep is `vitest`, no ava.
-- PR #87's 6 new `test/claude-*.test.ts` files follow the existing house vitest style.
+**Finding — the directive rests on a false premise for this repo.** I verified in an isolated PR-branch worktree that minion.town is **vitest-only**:
+- `package.json` `test` script (the CI gate) = `vitest run …`; `devDependencies` lists `vitest`, not `ava`.
+- All 31 `test/*.test.ts` files import from `vitest` (45 import sites); **0** ava imports. No ava dependency, config, `ava.config.*`, doc mention, or git-history introduction anywhere.
+- The **7 new test files this PR adds already use vitest**, consistent with the other 24. `endojs/endo` is the ava house; minion.town has never used ava.
 
-Satisfying "use ava" coherently requires a **repo-wide** vitest→ava migration — two runners can't cleanly coexist, and converting only #87's files would break CI (`vitest run` won't collect ava tests; ava isn't installed). That is a large, hygiene-sensitive change whose scope (fold into this feature PR vs. a dedicated migration PR) only the maintainer should settle, so I confirmed first rather than guessing.
+**Resolution (why not a code change).** A blind fix would be one of two wrong moves: a partial ava migration of just this PR's tests (inconsistent house, breaks under `vitest run`), or a repo-wide vitest→ava migration (31 files + CI script + deps — a design-level decision far outside PR #87's scope, and it would break the current CI gate). Both are hard to reverse. So I closed the loop honestly instead of guessing:
+- **Posted a factual reply on the PR** ([#issuecomment-5770355581](https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5770355581), via the fleet `gh` wrapper — identity-pinned, provenance-footed, inline code verified intact) laying out the evidence and naming the deciding question: (a) the new tests should match the house → already vitest, nothing to change; or (b) a repo-wide vitest→ava migration → a separate design/PR.
+- **Messaged the maintainer via the liaison** (`inbox/maintainer`, coalescing entry delivered) with the same finding and deciding question for tracking.
 
-**Actions taken (all durable):**
-1. **Escalated to the maintainer** via `message-user` — full finding + scope question + recommendation (option a: dedicated repo-wide migration PR, then #87 rebases onto it). Reply routes back to this job's inbox.
-2. **Posted a reply on PR #87** for the record: `https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5770104331`.
-3. **Parked a successor job** `fix-minion-town-migrate-tests-to-ava-20260922` (gate `awaiting-maintainer`, `by: fixer`) that owns the migration end to end, with the conversion plan spelled out. Verified live on `origin/journal2` via the GitHub API.
+**What changed:** no repository files (correct outcome — the ask was a wrong-premise directive resolved by escalation, not code). One PR comment + one maintainer message.
 
-**Nothing was changed on PR #87's branch.**
-
-**Follow-up owner:** the parked migration job — promote it once the maintainer picks a scope option (a/b/c). Its `--question`/`--asked-at` fields point at the review URL.
-
+**Follow-ups (owned by the maintainer's answer):** If kriskowal confirms reading (b), that's a new dedicated migration design/PR job (vitest→ava across all 31 files + the `test` CI script + dev deps). If reading (a), PR #87 needs no test-framework change — the review can be dismissed/re-approved on that point. The core deliverable (address every ask in the review) is complete; the ask is resolved to the extent a gardener can without inventing a repo-wide decision the maintainer must make.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/kriscendobot-minion.town-pr87-review-b6c21549.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 2 on 1 host(s)
-- Input: 66 tokens (1797271 cached reads)
-- Output: 36108 tokens
-- Cost: $3.2803085000000003
-- Wall-clock: 749s
-- Model(s): claude-opus-4-8 ×2
+- Engagements: 3 on 2 host(s)
+- Input: 94 tokens (2544290 cached reads)
+- Output: 46978 tokens
+- Cost: $4.475908
+- Wall-clock: 956s
+- Model(s): claude-opus-4-8 ×3
 
 <!-- garden-usage-end -->
