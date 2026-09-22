@@ -23,6 +23,10 @@
 #      not abort the tick or corrupt the surviving session's index entry.
 #   H. CAS RETRY: a racing peer commit landing between our fetch and push is
 #      absorbed by the fetch/reset/reapply retry; both files end up on the branch.
+#   I. RESUMABLE BATCH: a spool backlog larger than the per-tick cap is archived
+#      across successive ticks, with the unprocessed suffix retained meanwhile.
+#   J. TICK DEADLINE: a wedged remote push is killed below the tick budget and
+#      leaves spool + ledger state untouched for a later retry.
 #
 # Usage: transcript-capture-test.sh
 set -uo pipefail
@@ -287,6 +291,54 @@ if tview; then
     && ok "both the peer's and our transcript are on transcripts2 (reapply preserved the peer)" \
     || bad "CAS reapply lost a side (peer or ours missing)"
 else bad "transcripts2 unreadable after the race"; fi
+
+# ============================================================================
+hr; echo "SCENARIO I — RESUMABLE BATCH LIMIT"; hr
+fresh i
+for sid in one two three; do
+  sp="$FHOME/.claude/projects/-scratch-gardener-wt-batch/sid-$sid.jsonl"
+  mk_session "$sp" "{\"sid\":\"$sid\"}"
+  spool_hook "$sp" batch
+  rm -f "$sp"
+done
+run_capture GARDEN_TRANSCRIPTS_REMOTE="$TBARE" GARDEN_TRANSCRIPT_BATCH_MAX=2 >/dev/null 2>&1
+pending1=$(wc -l < "$STATE/transcripts/spool/pending.tsv" | tr -d ' ')
+if tview; then rows_i1=$(grep -c $'\tbatch\t' "$TR/tv/index/testhost.tsv" 2>/dev/null || true); else rows_i1=0; fi
+{ [ "$pending1" -eq 1 ] && [ "$rows_i1" -eq 2 ]; } \
+  && ok "first capped tick archives two sessions and retains one pending spool row" \
+  || bad "first capped tick checkpoint wrong (pending=$pending1 rows=$rows_i1)"
+run_capture GARDEN_TRANSCRIPTS_REMOTE="$TBARE" GARDEN_TRANSCRIPT_BATCH_MAX=2 >/dev/null 2>&1
+pending2=$(wc -l < "$STATE/transcripts/spool/pending.tsv" | tr -d ' ')
+if tview; then rows_i2=$(grep -c $'\tbatch\t' "$TR/tv/index/testhost.tsv" 2>/dev/null || true); else rows_i2=0; fi
+{ [ "$pending2" -eq 0 ] && [ "$rows_i2" -eq 3 ]; } \
+  && ok "next tick resumes and archives the retained spool suffix exactly once" \
+  || bad "second capped tick did not resume cleanly (pending=$pending2 rows=$rows_i2)"
+
+# ============================================================================
+hr; echo "SCENARIO J — WEDGED REMOTE PUSH STOPS AT TICK DEADLINE"; hr
+fresh j
+JSESS="$FHOME/.claude/projects/-scratch-gardener-wt-deadline/sid-deadline.jsonl"
+mk_session "$JSESS"
+spool_hook "$JSESS" deadline
+rm -f "$JSESS"
+SLOW_PUSH="$TR/j/slow-push.sh"
+printf '#!/bin/bash\nsleep 30\n' > "$SLOW_PUSH"
+chmod +x "$SLOW_PUSH"
+j_started=$(date +%s)
+run_capture GARDEN_TRANSCRIPTS_REMOTE="$TBARE" \
+  GARDEN_TRANSCRIPT_TICK_SECS=4 GARDEN_TRANSCRIPT_FINISH_RESERVE_SECS=1 \
+  GARDEN_TRANSCRIPT_STAGE_SECS=2 GARDEN_TRANSCRIPT_GIT_SECS=1 \
+  GARDEN_TRANSCRIPTS_PUSH_CMD="$SLOW_PUSH" GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0
+rcJ=$?; j_elapsed=$(( $(date +%s) - j_started ))
+if [ "$rcJ" -eq 0 ] && [ "$j_elapsed" -lt 10 ]; then
+  ok "wedged push is bounded by the tick deadline (elapsed=${j_elapsed}s, rc=0)"
+else bad "wedged push escaped tick bound (elapsed=${j_elapsed}s rc=$rcJ)"; fi
+[ -s "$STATE/transcripts/spool/pending.tsv" ] \
+  && ok "deadline stop retains the unverified spool entry" \
+  || bad "deadline stop cleared the unverified spool entry"
+[ ! -s "$STATE/transcripts/captured.tsv" ] \
+  && ok "deadline stop leaves the capture ledger untouched" \
+  || bad "deadline stop advanced the ledger without a verified push"
 
 # ============================================================================
 hr

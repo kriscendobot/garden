@@ -31,7 +31,58 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"
 export GARDEN_TAG="transcript-capture"
 
-require_tools git gzip jq sed
+require_tools git gzip jq sed timeout
+
+# Keep the whole tick comfortably inside the service's 900-second start timeout.
+# The first armed sweep can contain thousands of sessions and remote git can be
+# degraded rather than cleanly offline, so neither a per-command network timeout
+# nor a capture count alone is enough.  The soft deadline bounds every remote git
+# call and every redact/gzip pipeline; the batch cap checkpoints the backlog for
+# the next tick through the existing spool + ledger state.  Reserve time after
+# enumeration so a partial batch still has time to commit, push, verify, and fold
+# its ledger/spool checkpoint.  All knobs are positive integers.
+: "${GARDEN_TRANSCRIPT_TICK_SECS:=720}"
+: "${GARDEN_TRANSCRIPT_BATCH_MAX:=32}"
+: "${GARDEN_TRANSCRIPT_STAGE_SECS:=120}"
+: "${GARDEN_TRANSCRIPT_GIT_SECS:=120}"
+: "${GARDEN_TRANSCRIPT_FINISH_RESERVE_SECS:=180}"
+: "${GARDEN_TRANSCRIPT_KILL_AFTER:=10s}"
+case "$GARDEN_TRANSCRIPT_TICK_SECS:$GARDEN_TRANSCRIPT_BATCH_MAX:$GARDEN_TRANSCRIPT_STAGE_SECS:$GARDEN_TRANSCRIPT_GIT_SECS:$GARDEN_TRANSCRIPT_FINISH_RESERVE_SECS" in
+  *[!0-9:]*|0:*|*:0:*|*:0) die "transcript capture tick, batch, stage, git, and finish-reserve bounds must be positive integers" ;;
+esac
+GARDEN_TRANSCRIPT_TICK_SECS=$((10#$GARDEN_TRANSCRIPT_TICK_SECS))
+GARDEN_TRANSCRIPT_BATCH_MAX=$((10#$GARDEN_TRANSCRIPT_BATCH_MAX))
+GARDEN_TRANSCRIPT_STAGE_SECS=$((10#$GARDEN_TRANSCRIPT_STAGE_SECS))
+GARDEN_TRANSCRIPT_GIT_SECS=$((10#$GARDEN_TRANSCRIPT_GIT_SECS))
+GARDEN_TRANSCRIPT_FINISH_RESERVE_SECS=$((10#$GARDEN_TRANSCRIPT_FINISH_RESERVE_SECS))
+[ "$GARDEN_TRANSCRIPT_FINISH_RESERVE_SECS" -lt "$GARDEN_TRANSCRIPT_TICK_SECS" ] \
+  || die "GARDEN_TRANSCRIPT_FINISH_RESERVE_SECS must be smaller than GARDEN_TRANSCRIPT_TICK_SECS"
+TICK_STARTED="$(date +%s 2>/dev/null || echo 0)"
+TICK_DEADLINE=$((TICK_STARTED + GARDEN_TRANSCRIPT_TICK_SECS))
+
+tick_remaining() {
+  local now remaining
+  now="$(date +%s 2>/dev/null || echo "$TICK_DEADLINE")"
+  remaining=$((TICK_DEADLINE - now))
+  [ "$remaining" -gt 0 ] || return 1
+  printf '%s\n' "$remaining"
+}
+
+# bounded_run <per-call-cap-seconds> <command...>
+# Clips a blocking command to both its own cap and the whole-tick deadline.
+bounded_run() {
+  local cap="$1" remaining limit; shift
+  remaining="$(tick_remaining)" || return 124
+  limit="$cap"; [ "$remaining" -lt "$limit" ] && limit="$remaining"
+  timeout --signal=TERM --kill-after="$GARDEN_TRANSCRIPT_KILL_AFTER" "${limit}s" "$@"
+}
+
+capture_budget_remains() {
+  local remaining
+  [ "$n" -lt "$GARDEN_TRANSCRIPT_BATCH_MAX" ] || return 1
+  remaining="$(tick_remaining)" || return 1
+  [ "$remaining" -gt "$GARDEN_TRANSCRIPT_FINISH_RESERVE_SECS" ]
+}
 
 # --- 1. reconcile cleanupPeriodDays (unconditional, first) -------------------
 # read-modify-write via jq so Claude Code's other keys (theme, …) survive — the
@@ -73,12 +124,21 @@ read_remote() {
   if [ -n "${GARDEN_TRANSCRIPTS_REMOTE:-}" ]; then
     printf '%s\n' "$GARDEN_TRANSCRIPTS_REMOTE"; return 0
   fi
-  ensure_clone "$JCLONE"
-  journal_fetch "$JCLONE" >/dev/null 2>&1 || true
-  git -C "$JCLONE" show "origin/$JOURNAL_BRANCH:config/transcripts-remote" 2>/dev/null \
-    | sed -e 's/#.*//' | tr -d '[:space:]' | head -1
+  # Contain clone creation AND the journal fetch in one deadline-clipped child.
+  # journal_fetch bounds each attempt, but its retries (plus a first clone) can
+  # otherwise cumulatively consume the service's whole 900-second allowance.
+  bounded_run "$GARDEN_TRANSCRIPT_GIT_SECS" bash -c '
+    source "$1"
+    ensure_clone "$2"
+    journal_fetch "$2" >/dev/null 2>&1 || exit $?
+    git -C "$2" show "origin/$3:config/transcripts-remote" 2>/dev/null \
+      | sed -e "s/#.*//" | tr -d "[:space:]" | head -1
+  ' _ "$HERE/common.sh" "$JCLONE" "$JOURNAL_BRANCH"
 }
-REMOTE="$(read_remote || true)"
+if REMOTE="$(read_remote)"; then :; else
+  log "WARN: transcript remote configuration read timed out/failed; skipping tick with spool + ledger untouched"
+  exit 0
+fi
 if [ -z "$REMOTE" ]; then
   log "inert: no config/transcripts-remote set (run set-transcripts-remote.sh <url> to arm); spooling continues, pushing nothing"
   exit 0
@@ -89,8 +149,9 @@ fi
 # list of shapes; each keeps a short identifying prefix and replaces the token
 # tail with …REDACTED. Residual risk (shapes the list does not know) is accepted;
 # the private remote is the primary guarantee. LC_ALL=C keeps sed byte-oriented.
-redact_stream() {
-  LC_ALL=C sed -E \
+redact_stream() { # redact_stream <timeout-seconds>
+  local cap="$1"
+  bounded_run "$cap" env LC_ALL=C sed -E \
     -e 's/(gh[pousr]_)[A-Za-z0-9]{20,}/\1…REDACTED/g' \
     -e 's/(github_pat_)[A-Za-z0-9_]{20,}/\1…REDACTED/g' \
     -e 's/(sk-ant-)[A-Za-z0-9-]{20,}/\1…REDACTED/g' \
@@ -110,9 +171,15 @@ SPOOL="$GARDEN_TRANSCRIPTS_SPOOL"
 # on the remote yet, init a local orphan; the first push creates it. A genuine
 # connectivity outage skips the tick cleanly.
 ls_branch() {  # 0 = branch present on remote, 1 = absent, 75 = network outage
-  local out err
-  err="$(mktemp)"; out="$(git ls-remote --heads "$REMOTE" "$BRANCH" 2>"$err" || true)"
-  if [ -s "$err" ] && is_transient_net_error "$err"; then rm -f "$err"; return 75; fi
+  local out err rc
+  err="$(mktemp)"
+  if out="$(bounded_run "$GARDEN_TRANSCRIPT_GIT_SECS" git ls-remote --heads "$REMOTE" "$BRANCH" 2>"$err")"; then
+    rc=0
+  else
+    rc=$?
+  fi
+  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; then rm -f "$err"; return 75; fi
+  if [ "$rc" -ne 0 ] && { [ -s "$err" ] && is_transient_net_error "$err"; }; then rm -f "$err"; return 75; fi
   rm -f "$err"
   [ -n "$out" ]
 }
@@ -141,8 +208,8 @@ ensure_clone_ready() {
     fi
     if [ "$rc" -eq 0 ]; then
       local tmp="${CLONE}.tmp.$$"; rm -rf "$tmp"
-      if git clone -q --single-branch --branch "$BRANCH" --filter=blob:none "$REMOTE" "$tmp" 2>/dev/null \
-         || git clone -q --single-branch --branch "$BRANCH" "$REMOTE" "$tmp" 2>/dev/null; then
+      if bounded_run "$GARDEN_TRANSCRIPT_GIT_SECS" git clone -q --single-branch --branch "$BRANCH" --filter=blob:none "$REMOTE" "$tmp" 2>/dev/null \
+         || { rm -rf "$tmp"; bounded_run "$GARDEN_TRANSCRIPT_GIT_SECS" git clone -q --single-branch --branch "$BRANCH" "$REMOTE" "$tmp" 2>/dev/null; }; then
         mv "$tmp" "$CLONE"
         git -C "$CLONE" sparse-checkout init >/dev/null 2>&1 || true
         sparse_set
@@ -162,8 +229,13 @@ ensure_clone_ready() {
 
 # reset the working clone to the remote tip (best-effort). Returns 0 when ready.
 sync_transcripts() {
-  git -C "$CLONE" fetch -q --filter=blob:none origin "$BRANCH" 2>/dev/null \
-    || git -C "$CLONE" fetch -q origin "$BRANCH" 2>/dev/null || true
+  if ! bounded_run "$GARDEN_TRANSCRIPT_GIT_SECS" git -C "$CLONE" fetch -q --filter=blob:none origin "$BRANCH" 2>/dev/null \
+    && ! bounded_run "$GARDEN_TRANSCRIPT_GIT_SECS" git -C "$CLONE" fetch -q origin "$BRANCH" 2>/dev/null; then
+    # A freshly-created orphan has no remote branch to fetch until its first
+    # push.  Every established clone must fetch successfully; using a stale tip
+    # would only waste the remaining tick on guaranteed CAS failures.
+    git -C "$CLONE" rev-parse --verify -q HEAD >/dev/null 2>&1 && return 1
+  fi
   if git -C "$CLONE" rev-parse --verify -q "refs/remotes/origin/$BRANCH" >/dev/null 2>&1; then
     git -C "$CLONE" reset -q --hard "origin/$BRANCH" 2>/dev/null || true
     sparse_set
@@ -171,7 +243,10 @@ sync_transcripts() {
 }
 
 ensure_clone_ready
-sync_transcripts
+if ! sync_transcripts; then
+  log "WARN: transcripts remote sync timed out/failed; skipping tick with spool + ledger untouched"
+  exit 0
+fi
 
 # --- 4. drain the spool + sweep idle/changed sessions ------------------------
 # Everything is staged into a tmp workdir FIRST (redacted, gzipped), together with
@@ -203,8 +278,14 @@ declare -a ST_DROP_PENDING=() # stale pending rows (blob vanished) to drop after
 # the staging area and records all the parallel-array bookkeeping.
 stage() {
   local enc="$1" sid="$2" base="$3" raw="$4" mtime="$5" spool="$6" pending="$7"
-  local blob="$WORK/blobs/$n.gz" gzb
-  redact_stream | gzip -n > "$blob" 2>/dev/null || { log "WARN: stage: redact/gzip failed for $sid"; return 0; }
+  local blob="$WORK/blobs/$n.gz" gzb remaining work_limit
+  remaining="$(tick_remaining)" || return 75
+  work_limit=$((remaining - GARDEN_TRANSCRIPT_FINISH_RESERVE_SECS))
+  [ "$work_limit" -gt 0 ] || return 75
+  [ "$work_limit" -gt "$GARDEN_TRANSCRIPT_STAGE_SECS" ] && work_limit="$GARDEN_TRANSCRIPT_STAGE_SECS"
+  redact_stream "$work_limit" \
+    | bounded_run "$work_limit" gzip -n > "$blob" 2>/dev/null \
+    || { rm -f "$blob"; log "WARN: stage: redact/gzip failed or timed out for $sid; retaining source for a later tick"; return 1; }
   gzb="$(stat -c %s "$blob" 2>/dev/null || echo 0)"
   ST_DEST[$n]="transcripts/$GARDEN/$enc/$sid.jsonl.gz"
   ST_BLOB[$n]="$blob"
@@ -223,6 +304,7 @@ stage() {
 # it is recorded as '-'; raw_bytes is the decompressed size.
 if [ -f "$SPOOL/pending.tsv" ]; then
   while IFS=$'\t' read -r sp_at sid base enc; do
+    capture_budget_remains || break
     [ -n "${sid:-}" ] && [ -n "${enc:-}" ] || continue
     local_gz="$SPOOL/$enc/$sid.jsonl.gz"
     if [ ! -f "$local_gz" ]; then
@@ -230,11 +312,19 @@ if [ -f "$SPOOL/pending.tsv" ]; then
       ST_DROP_PENDING+=("$sid"$'\t'"$enc")
       continue
     fi
-    raw="$(gzip -dc -- "$local_gz" 2>/dev/null | wc -c | tr -d ' ')"
-    # Feed via process substitution, NOT a pipe: a `... | stage` runs stage in a
-    # subshell and its parallel-array writes would be lost.
-    stage "$enc" "$sid" "${base:--}" "${raw:-0}" "-" "$local_gz" "$sid"$'\t'"$enc" \
-      < <(gzip -dc -- "$local_gz" 2>/dev/null)
+    source_tmp="$WORK/source.$n.jsonl"
+    if ! bounded_run "$GARDEN_TRANSCRIPT_STAGE_SECS" gzip -dc -- "$local_gz" > "$source_tmp" 2>/dev/null; then
+      rm -f "$source_tmp"
+      log "WARN: spool decompress failed or timed out for $sid; retaining it for a later tick"
+      capture_budget_remains || break
+      continue
+    fi
+    raw="$(stat -c %s "$source_tmp" 2>/dev/null || echo 0)"
+    if ! stage "$enc" "$sid" "${base:--}" "${raw:-0}" "-" "$local_gz" "$sid"$'\t'"$enc" \
+      < "$source_tmp"; then
+      capture_budget_remains || break
+    fi
+    rm -f "$source_tmp"
   done < "$SPOOL/pending.tsv"
 fi
 
@@ -253,6 +343,7 @@ fi
 PROJECTS="${GARDEN_CLAUDE_PROJECTS:-$HOME/.claude/projects}"
 if [ -d "$PROJECTS" ]; then
   while IFS= read -r -d '' jsonl; do
+    capture_budget_remains || break
     enc="$(basename "$(dirname "$jsonl")")"
     sid="$(basename "$jsonl" .jsonl)"
     mtime="$(stat -c %Y "$jsonl" 2>/dev/null)" || continue
@@ -270,19 +361,23 @@ if [ -d "$PROJECTS" ]; then
       *) base="-" ;;
     esac
     redact_in="$jsonl"
-    stage "$enc" "$sid" "$base" "$raw" "$mtime" "" "" < "$redact_in" || {
-      log "WARN: live sweep: $jsonl vanished mid-tick (job completion race); skipping"
+    if ! stage "$enc" "$sid" "$base" "$raw" "$mtime" "" "" < "$redact_in"; then
+      log "WARN: live sweep: $jsonl vanished mid-tick (job completion race); skipping (the same safe retry applies when staging timed out)"
       continue
-    }
+    fi
     # record the ledger update for AFTER a verified push.
     ST_LEDGERKEY[$((n-1))]="$key"
     ST_LEDGERVAL[$((n-1))]="$(printf '%s\t%s' "$raw" "$mtime")"
-  done < <(find "$PROJECTS" -type f -name '*.jsonl' -print0 2>/dev/null)
+  done < <(bounded_run "$GARDEN_TRANSCRIPT_TICK_SECS" find "$PROJECTS" -type f -name '*.jsonl' -print0 2>/dev/null)
 fi
 
 # --- 5. nothing new → quiet exit ---------------------------------------------
 if [ "$n" -eq 0 ]; then
-  log "nothing to capture (spool empty, no idle/changed sessions)"
+  if ! tick_remaining >/dev/null || ! capture_budget_remains; then
+    log "capture budget exhausted before a session could be staged; spool + ledger retained for the next tick"
+  else
+    log "nothing to capture (spool empty, no idle/changed sessions)"
+  fi
   exit 0
 fi
 
@@ -308,15 +403,15 @@ apply_staged() {
 push_transcripts() {  # test seam mirrors _push_journal's GARDEN_PUSH_CMD
   if [ -n "${GARDEN_TRANSCRIPTS_PUSH_CMD:-}" ]; then
     GARDEN_TRANSCRIPTS_PUSH_DIR="$CLONE" GARDEN_TRANSCRIPTS_PUSH_BRANCH="$BRANCH" \
-      GARDEN_TRANSCRIPTS_PUSH_REMOTE="$REMOTE" "$GARDEN_TRANSCRIPTS_PUSH_CMD"
+      GARDEN_TRANSCRIPTS_PUSH_REMOTE="$REMOTE" bounded_run "$GARDEN_TRANSCRIPT_GIT_SECS" "$GARDEN_TRANSCRIPTS_PUSH_CMD"
   else
-    git -C "$CLONE" push -q origin "HEAD:$BRANCH" 2>/dev/null
+    bounded_run "$GARDEN_TRANSCRIPT_GIT_SECS" git -C "$CLONE" push -q origin "HEAD:$BRANCH" 2>/dev/null
   fi
 }
 verify_pushed() {
   local head remote
   head="$(git -C "$CLONE" rev-parse HEAD 2>/dev/null)" || return 1
-  git -C "$CLONE" fetch -q origin "$BRANCH" 2>/dev/null || return 1
+  bounded_run "$GARDEN_TRANSCRIPT_GIT_SECS" git -C "$CLONE" fetch -q origin "$BRANCH" 2>/dev/null || return 1
   remote="$(git -C "$CLONE" rev-parse "origin/$BRANCH" 2>/dev/null)" || return 1
   [ "$head" = "$remote" ] && return 0
   git -C "$CLONE" merge-base --is-ancestor "$head" "$remote" 2>/dev/null
@@ -324,7 +419,11 @@ verify_pushed() {
 
 pushed=0
 for attempt in $(seq 1 "${GARDEN_TRANSCRIPTS_PUSH_RETRIES:-8}"); do
-  sync_transcripts
+  if ! tick_remaining >/dev/null; then
+    log "tick deadline reached before push attempt $attempt; retaining spool + ledger for the next tick"
+    break
+  fi
+  sync_transcripts || { log "transcripts sync failed/timed out on push attempt $attempt"; continue; }
   apply_staged
   if ! git -C "$CLONE" diff --cached --quiet 2>/dev/null; then
     git -C "$CLONE" commit -q -m "transcripts($GARDEN): capture $n session(s) at $CAPTURED_AT" || true
@@ -382,5 +481,9 @@ if [ -n "$ltmp" ]; then
   mv -f "$ltmp" "$LEDGER" 2>/dev/null || rm -f "$ltmp" 2>/dev/null || true
 fi
 
-log "captured $n transcript session(s) → $BRANCH on $REMOTE"
+if [ "$n" -ge "$GARDEN_TRANSCRIPT_BATCH_MAX" ]; then
+  log "captured bounded batch of $n transcript session(s) → $BRANCH on $REMOTE; remaining spool/live sessions wait for the next tick"
+else
+  log "captured $n transcript session(s) → $BRANCH on $REMOTE"
+fi
 exit 0
