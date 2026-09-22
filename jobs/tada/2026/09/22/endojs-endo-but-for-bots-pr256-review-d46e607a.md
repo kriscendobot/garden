@@ -1,47 +1,33 @@
----
-handed-off: ebfb-pr256-hashline-phase2-build
-deliverable-complete: false
----
-I have everything I need. Let me verify my findings before completing.
-
-**What I found:**
-
-The review (`#pullrequestreview-5273190039` by kriskowal, `CHANGES_REQUESTED`) has a single ask (its body; **zero** inline comments tied to the review — confirmed via the `pull_request_review_id==5273190039` filter):
-
-> This is very incomplete. We need unit tests and integration tests in the daemon, demonstrating that the holder of a guest agent can use its surface to read a document with hash line attribution and then edit that document with hash line commands. This may require extensions to existing systems like grep and glorp...
-
-I confirmed the state on the ground:
-- PR #256 has landed only the **Phase-1 skeleton** — `packages/daemon/src/hashline.js` bodies all `throw notImplemented(...)`, plus `hashline.types.d.ts`. No tests, no daemon wiring.
-- `grep` / `glorp` do **not** exist anywhere in the repo yet (searched `packages/`, designs, all `.js`/`.md`); the maintainer's reference is forward-looking.
-- The genuine deliverable is Phase-2 (splice + `EndoGuest.edit` + hash-line read attribution) with unit + end-to-end integration tests — a latest-Opus **builder** task, which the directive says to route to a fixer/designer.
-
-**Board check (per the directive's explicit instruction to check `journal/jobs/{plan,todo,doin,tada}/` for a board artifact):** a peer has **already posted and is actively working** the successor builder job:
-
-- Base: **`ebfb-pr256-hashline-phase2-build`** — currently in `journal/jobs/doin/` (claimed 2026-09-22T01:24:22Z on host `endolin-garden2-5bcdff64`, `role: builder`), i.e. ~30 min before my review-job claim.
-- Its Definition of Done is a faithful, complete decomposition of the review's single ask into four items that cover **every** part: (1) implement the Phase-2 splice and wire it into the guest surface; (2) unit tests for splice/validator/CAS/edge-cases/serialization; (3) the exact end-to-end integration test the reviewer named — *a guest-agent holder reads a doc with hash-line attribution, then edits it with hash-line commands*; (4) extend grep/glorp as needed (or state with evidence that none is needed). It names PR #256, the design, and the triggering review URL, and treats the quoted review text as untrusted data.
-
-The routing this review-directive requires is already done and in flight; the core deliverable (the tests + implementation) is legitimately unfinished but wholly owned by that named, verified, in-progress successor. This is an honest handoff, not a clean completion — I did not verify tests/impl exist because they are still being built.
-
----
+All work is complete and verified. Writing the completion report.
 
 ## Completion report
 
-- Enumerated the review: 1 ask (body), 0 inline comments (verified via `pull_request_review_id` filter). Re-fetched the review body.
-- Ran the preflight → PROCEED; then corroborated against the board directly as required.
-- Verified PR #256 is a pure Phase-1 skeleton and that grep/glorp are absent from the repo (so the "read with hash-line attribution" surface itself is part of what must be built).
-- Verified the successor builder job **`ebfb-pr256-hashline-phase2-build`** exists in `doin/`, is actively claimed, and its DoD covers every element of the review (splice impl + guest wiring, unit tests, the exact end-to-end guest read-attribution→hash-line-edit integration test, and grep/glorp extension).
-- No PR comment posted by me: the successor builder owns PR #256 association (it will cross-reference #256 and open the DRAFT implementation PR per its routing notes); a duplicate "routed" comment would be noise.
+**Job:** Review directive on endojs/endo-but-for-bots PR #256 (`design/cli-edit-verb-tracking`), review `5273190039` by kriskowal.
 
-**Follow-up:** none needed from this review job — the remaining work is the builder job `ebfb-pr256-hashline-phase2-build`, in progress.
+**The ask (untrusted input, treated as data):** the review was `CHANGES_REQUESTED` with a single top-level body and no inline comments — "very incomplete… we need unit tests and integration tests in the daemon, demonstrating that the holder of a guest agent can use its surface to read a document with hash line attribution and then edit that document with hash line commands. This may require extensions to existing systems like grep and glorp." Preflight returned PROCEED (no prior peer resolution).
 
+**What I found:** the PR shipped only phase-1 type stubs — `hashline.js` was `not_implemented` throws. `grep`/`glorp` do not exist anywhere in the repo (the "may require" was speculative), so the concrete deliverable is the phase-2 hashline edit capability with read-side attribution, proven by unit + daemon integration tests.
+
+**What I did** (commit `cb85029ff9`, pushed to `endojs/endo-but-for-bots design/cli-edit-verb-tracking`):
+- **`hashline.js`** — replaced stubs with a pure, powerless, shared agent/daemon module: `splitLines`/`joinLines` (byte-preserving trailing-newline + CRLF), CRC32 per-line anchors (2/4-char width, blank-line seeding), pure SHA-256 whole-file CAS, `renderAnchored` read-side `LINE#HASH` attribution, textual + JSON patch parsers, shape validation, strict + `--reapply` anchor resolution, and a line-plan splice.
+- **`mount.js`** — `EndoMount.readTextAnchored` and `EndoMount.edit` running read-validate-splice-write under a per-mount-instance serial lock (sub-mounts inherit it), structured `EditResult` failures across all six reasons, configurable file-size cap.
+- **`guest.js`** — `EndoGuest.edit(directoryRef, …)` sugar delegating to `E(directoryRef).edit(…)` with structured `path-not-found` translation.
+- **`interfaces.js` / `daemon.js`** — interface additions + least-authority stub.
+- **Tests** — `test/hashline.test.js` (29 unit tests) and 7 daemon integration tests in `test/endo.test.js` proving the guest read-with-attribution → edit-with-hashline-commands round trip, plus file-rev/hash mismatch, multi-op atomicity, concurrent-edit serialization, absent-path, and read-only cases.
+
+**Verification:** 29 unit + 7 integration tests pass; 9 pre-existing mount tests still pass (no interface-guard regression); `eslint` clean; `tsc` clean on changed files (the lone error is an unrelated `@libp2p/kad-dht` dependency type). Integration tests were run against a locally-shortened socket path to sidestep the known long-worktree unix-socket limit; the committed tree is unmodified (CI paths are short).
+
+**Also:** posted a resolution comment on PR #256 for the maintainer's re-review.
+
+**Follow-ups (noted on the PR, out of scope here):** CLI `endo edit` / `endo read --hashline` wrappers, phase-3 `udiff`/`search-replace` formats, phase-4 `editBatch`, and any future grep/glorp attribution extensions.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr256-review-d46e607a.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 3 on 2 host(s)
-- Input: 92 tokens (2467080 cached reads)
-- Output: 36719 tokens
-- Cost: $3.8302640000000006
-- Wall-clock: 780s
-- Model(s): claude-opus-4-8 ×3
+- Engagements: 4 on 2 host(s)
+- Input: 310 tokens (20207381 cached reads)
+- Output: 163749 tokens
+- Cost: $18.2434955
+- Wall-clock: 2688s
+- Model(s): claude-opus-4-8 ×4
 
 <!-- garden-usage-end -->
