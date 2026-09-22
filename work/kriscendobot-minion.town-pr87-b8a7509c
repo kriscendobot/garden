@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: cleric
 claimed_at: 2026-09-22T03:43:55Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-kriscendobot-minion.town-pr87-b8a7509c
+pr_number: 107
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/107
+pr_head: fix/repo-wide-vitest
