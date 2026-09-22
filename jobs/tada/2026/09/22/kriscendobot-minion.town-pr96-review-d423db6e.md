@@ -1,34 +1,31 @@
-All four inline asks plus the review body are fully corroborated as already resolved by a peer. This is a verified no-op — I did not redo work and did not post duplicate replies.
+All four inline comments and the review body are genuinely resolved — each corroborated by a real artifact I inspected directly (not inferred from the preflight or the replies alone):
 
-## Completion report
+**Corroboration per ask (review 5272974950 on kriscendobot/minion.town#96, design `designs/claude-agent-credential-reauth.md`):**
 
-**Job:** Review directive on kriscendobot/minion.town PR #96 (review `5272974950` by kriskowal, `CHANGES_REQUESTED`, body "@kriscendobot rsvp").
+1. **r4067403969** — "start with the simple case; root user receives link out of band; more sophisticated later" → **commit `042c1b295`**. Design retitled to "root-user reauthentication"; new § 1 "Scope: the simple root-user case"; drops the delegated/replaceable operator, the per-guest operator binding, and the `ReauthTicket` capability. Verified in patch. Reply `4067831958`.
 
-**Preflight:** `pr-feedback-preflight.sh` returned **exit 2** (HINT — correlated peer resolution present). Per directive, treated as PROCEED and corroborated every ask with a named artifact before completing as a no-op.
+2. **r4067412358** — "usage exhaustion is a signal automation should react/escalate on" → **commit `042c1b295`**. `usage-exhausted` added as a first-class admission-time sibling of `needs-auth`/`subscription-busy`/`unavailable` on the `infer()` return union. Verified in patch. Reply `4067832093`.
 
-**PR state:** design PR (`designs/claude-agent-credential-reauth.md`), still DRAFT, head `ea66e45`. A peer gardener (kriscendobot on host `endolin-garden2-5bcdff64`) landed the fixes in commits `042c1b2` + `ea66e45` and replied on all four inline threads. I verified the commits exist on the PR branch and that the design content at head reflects each claim.
+3. **r4067414630** — "an advisory would be helpful" → **commit `ea66e45c5`**. § 3 "Pre-expiry advisory" renewal nudge via the same `notifyRoot` adapter, best-effort/non-blocking. Verified in patch. Reply `4067832183`.
 
-**Per-ask corroboration:**
+4. **r4067419982** — "fall through to manual reauth, don't block, track dependencies, post a gated job" → **commit `ea66e45c5`** (design states it "does not block"; falls through to manual `setup-token`) **plus board job `journal/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay.md`** with `gate: deferred`, which I read directly on the board (not inferred) — it parks the escalation-default evaluation until the browser OAuth relay lands. Replies `4067737648`, `4067832261`.
 
-1. **r4067403969** "start with the simple root-user case, root receives link out of band" → **Resolved.** Commit `042c1b2`; design retitled "…root-user reauthentication", §1 "Scope: the simple root-user case", §3 out-of-band account-page link; delegated-operator / `ReauthTicket` / Endo-mail moved to §"Follow-up, deliberately deferred". Reply `4067831958`.
+Review body was `@kriscendobot rsvp` — a request to respond, satisfied by the four inline replies posted by the peer designer.
 
-2. **r4067412358** "usage exhaustion is a signal automation must react to / escalate to user" → **Resolved.** Commit `042c1b2`; §2 (lines 78–86) makes `usage-exhausted` a first-class admission-time sibling on the `infer()` return union (kept off `endo-claude.md`'s `InferResult`); §3 escalates via the root notifier with `resetAt` / named billing action. Reply `4067832093`.
+I made no changes and pushed nothing: this review was already fully addressed by the prior designer's two commits on the PR head (`042c1b295`, `ea66e45c5`), the four inline replies, and the parked gated board job. Nothing remained for me to do.
 
-3. **r4067414630** "an advisory would be helpful" → **Resolved.** Commit `ea66e45`; §3 "Pre-expiry advisory" (line 196) schedules a single renewal nudge `advisoryLead` before a known expiry, informational only. Reply `4067832183`.
-
-4. **r4067419982** "fall through to manual reauth, don't block, track deps, post a gated job" → **Resolved.** Commit `ea66e45`; §4 lossless park + §6 line 357 "does not block" on the OAuth relay + manual `setup-token` fallback (line 155). Board follow-up **verified on the board itself**: `journal/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay.md` (`gate: deferred`, gated on the browser OAuth relay landing, routes to designer). Reply `4067832261`.
-
-**Actions taken:** none required — all directives were already satisfied and acknowledged on-thread by the peer, and the gated successor job is durably parked. No duplicate replies or commits posted.
-
-**Follow-ups:** none for this job. The parked `evaluate-reauth-escalation-default-after-oauth-relay` remains gated on the browser OAuth relay and owns the deferred delegated-operator work; the PR stays draft pending the maintainer's gauntlet trigger.
+Completion report:
+- **What I did:** Enumerated all 4 inline comments + the review body; ran the preflight (exit 2 = HINT); corroborated every ask against named artifacts by inspecting the actual commit patches on the PR head and reading the board job file directly.
+- **What changed:** Nothing — verified no-op. All work pre-existing.
+- **Follow-ups:** The parked job `evaluate-reauth-escalation-default-after-oauth-relay` (in `journal/jobs/plan/`, `gate: deferred`) owns the deferred escalation-default evaluation; it should be promoted only once a usable browser OAuth relay lands. PR #96 remains a draft design PR (correct under the manual-gauntlet regime).
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/kriscendobot-minion.town-pr96-review-d423db6e.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 17 on 2 host(s) (6 unmetered)
-- Input: 200 tokens (4898804 cached reads)
-- Output: 78696 tokens
-- Cost: $9.964421999999999 (6 engagement(s) unpriced)
-- Wall-clock: 3629s
-- Model(s): claude-opus-4-8 ×11
+- Engagements: 18 on 2 host(s) (6 unmetered)
+- Input: 210 tokens (5094114 cached reads)
+- Output: 84447 tokens
+- Cost: $10.621153999999999 (6 engagement(s) unpriced)
+- Wall-clock: 3712s
+- Model(s): claude-opus-4-8 ×12
 
 <!-- garden-usage-end -->
