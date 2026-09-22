@@ -51,6 +51,7 @@ done
 
 case "$(uname -s):$(uname -m)" in
   Linux:x86_64|Linux:amd64) asset=xst-lin64.zip ;;
+  Linux:aarch64|Linux:arm64) asset=xst-lin64arm.zip ;;
   *)
     echo "provision-moddable-xst: Moddable release binaries are not configured for $(uname -s)/$(uname -m)" >&2
     exit 1 ;;

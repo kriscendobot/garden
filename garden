@@ -309,10 +309,10 @@ ensure_container() {
             -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
             --tmpfs /run --tmpfs /run/lock --tmpfs /tmp \
             --stop-signal SIGRTMIN+3 \
-            "${dns_args[@]}" \
+            ${dns_args[@]+"${dns_args[@]}"} \
             -e "GARDEN_HOME=${INSTANCE_PATH}" \
             -v "${INSTANCE_PATH}:${INSTANCE_PATH}" \
-            "${api_key_args[@]}" \
+            ${api_key_args[@]+"${api_key_args[@]}"} \
             "$IMAGE_NAME" >/dev/null
     elif [[ "$(docker container inspect -f '{{.State.Running}}' "$CONTAINER_NAME")" != "true" ]]; then
         docker start "$CONTAINER_NAME" >/dev/null
