@@ -126,9 +126,12 @@ kill "$holder" 2>/dev/null || true; wait "$holder" 2>/dev/null || true
   || bad "clone B was blocked by clone A's lock (rc=$brc elapsed=${elapsed}s) — the lock is not per-clone"
 
 # ============================================================================
-hr; echo "SUBTEST 3 — a WEDGED holder surfaces (bounded wait, not an infinite hang)"; hr
-# Hold clone A's cursor-IO lock and confirm a competing cursor-set fails LOUD within
-# a short bounded wait rather than hanging forever.
+hr; echo "SUBTEST 3 — a WEDGED holder is TEMPORARY-unavailable (bounded, quiet skip, holder named)"; hr
+# Hold clone A's cursor-IO lock and confirm a competing cursor-set returns the
+# temporary-unavailable verdict (GARDEN_OFFLINE_RC) within a short bounded wait — NOT
+# a fatal die, and NOT an infinite hang — logging a safe holder diagnostic with NO
+# `rm -f` advice. This is the improve-cursor-io-lock-recovery contract: a 5-minute lock
+# wedge must not hard-fail cursor advancement across watchers.
 ( exec {h}<>"$lf_a"; flock "$h"; sleep 20 ) >/dev/null 2>&1 &
 holder=$!
 sleep 1
@@ -137,9 +140,23 @@ if printf 'last_polled_at: wedged\n' \
     | GARDEN_CURSOR_LOCK_WAIT=3 timeout 30 "$JOBS/cursor-set.sh" wedged-key >"$LOGDIR/wedged.out" 2>"$LOGDIR/wedged.err"; then wrc=0; else wrc=$?; fi
 elapsed=$(( $(date +%s) - start ))
 kill "$holder" 2>/dev/null || true; wait "$holder" 2>/dev/null || true
-{ [ "$wrc" -ne 0 ] && [ "$wrc" -ne 124 ] && [ "$elapsed" -lt 15 ] && grep -qi "could not acquire cursor-IO lock" "$LOGDIR/wedged.err"; } \
-  && ok "cursor-set failed loud in ${elapsed}s on a wedged holder (rc=$wrc, not an infinite hang)" \
-  || bad "cursor-set did not fail loud+bounded on a wedged holder (rc=$wrc elapsed=${elapsed}s)"
+{ [ "$wrc" -eq "${GARDEN_OFFLINE_RC:-75}" ] && [ "$elapsed" -lt 15 ] \
+    && grep -qi "cursor-IO lock for .* busy" "$LOGDIR/wedged.err"; } \
+  && ok "cursor-set skipped temporary-unavailable (rc=$wrc) in ${elapsed}s on a wedged holder (not a die, not a hang)" \
+  || bad "cursor-set did not return temporary-unavailable+bounded on a wedged holder (rc=$wrc elapsed=${elapsed}s)"
+# The diagnostic must NEVER advise deleting the lock file (rm on an flock'd file does
+# not free the flock and can hand two writers the shared index at once).
+if grep -qi "rm -f" "$LOGDIR/wedged.err"; then
+  bad "wedged-holder diagnostic still advises 'rm -f' the lock file (unsafe recovery advice)"
+else
+  ok "wedged-holder diagnostic carries NO 'rm -f' lock-deletion advice"
+fi
+# The diagnostic must NAME the holder (a live pid), so a real wedge is actionable.
+if grep -qiE "held by live pid [0-9]+|last holder pid [0-9]+|holder unknown|no holder stamp" "$LOGDIR/wedged.err"; then
+  ok "wedged-holder diagnostic names the lock holder (safe recovery diagnostic present)"
+else
+  bad "wedged-holder diagnostic did not describe the lock holder"
+fi
 
 # ============================================================================
 hr

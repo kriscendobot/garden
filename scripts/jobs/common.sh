@@ -3934,18 +3934,57 @@ clone_unlock() {
 # tick), so a real wedge surfaces instead of hanging forever.
 CURSOR_IO_LOCK_FD=""
 _cursor_io_lockfile() { printf '%s' "${1%/}.cursor-io.lock"; }
+# _cursor_io_lock_holder <clone-dir> — a SAFE, read-only, bounded one-line description
+# of who currently holds (or last stamped) the cursor-IO lock, for the diagnostic a
+# waiter emits when it times out. Reads ONLY the "PID EPOCH" stamp cursor_io_lock writes
+# (best-effort; the file is <>-opened so the peek never wipes it); never blocks, never
+# mutates, and deliberately NEVER advises deleting the lock file. `rm -f` on an flock'd
+# file does NOT free the flock — the holder keeps its lock on the now-unlinked inode
+# while the next waiter opens a fresh inode and acquires immediately, so two processes
+# then mutate the shared index at once (exactly the corruption this lock exists to
+# prevent). flock frees the lock only when the holder's fd closes, which happens
+# automatically on holder exit or crash. So this reports, it does not prescribe removal:
+# a dead recorded holder means flock has already freed the lock (the next acquire wins);
+# a live one names the process (pid + age + command) to inspect or signal.
+_cursor_io_lock_holder() {
+  local dir="$1" lf pid ts now age cmd=""
+  lf="$(_cursor_io_lockfile "$dir")"
+  [ -f "$lf" ] || { printf 'no holder stamp (lock file absent)'; return 0; }
+  read -r pid ts _ < "$lf" 2>/dev/null || true
+  case "${pid:-}" in
+    ''|*[!0-9]*) printf 'holder unknown (lock not yet stamped)'; return 0 ;;
+  esac
+  if ! kill -0 "$pid" 2>/dev/null; then
+    printf 'last holder pid %s is gone — flock already freed the lock; the next acquire wins' "$pid"
+    return 0
+  fi
+  if [ -r "/proc/$pid/cmdline" ]; then
+    cmd="$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null || true)"
+  elif command -v ps >/dev/null 2>&1; then
+    cmd="$(ps -o args= -p "$pid" 2>/dev/null || true)"
+  fi
+  case "${ts:-}" in
+    ''|*[!0-9]*) printf 'held by live pid %s (%s)' "$pid" "${cmd:-cmd unknown}" ;;
+    *) now="$(date +%s 2>/dev/null || echo 0)"; age=$(( now - ts ))
+       printf 'held by live pid %s for ~%ss (%s); inspect or signal that process to recover' \
+         "$pid" "$age" "${cmd:-cmd unknown}" ;;
+  esac
+}
 # cursor_io_lock <clone-dir> — acquire the cursor-IO lock, holding it (fd stays open)
 # until this process exits or cursor_io_unlock is called. Returns 0 on acquire, 1 on
 # a GARDEN_CURSOR_LOCK_WAIT timeout (a wedged peer). Dies only on an unopenable lock
-# file (a local fault, not weather).
+# file (a local fault, not weather). On acquire it stamps "PID EPOCH" into the lock
+# file (like clone_lock) so a timed-out waiter can name the holder via
+# _cursor_io_lock_holder rather than guess.
 cursor_io_lock() {
   local dir="$1" lf
   lf="$(_cursor_io_lockfile "$dir")"
   mkdir -p "$(dirname "$lf")" 2>/dev/null || true
-  # Open NON-truncating (<>) and create on demand; the file is a pure mutex, its
-  # contents are never read.
+  # Open NON-truncating (<>) and create on demand; the file holds only the holder
+  # stamp (read by a timed-out waiter's _cursor_io_lock_holder), never for exclusion.
   exec {CURSOR_IO_LOCK_FD}<>"$lf" || die "cannot open cursor-IO lock $lf"
   if flock -w "$GARDEN_CURSOR_LOCK_WAIT" "$CURSOR_IO_LOCK_FD"; then
+    _clone_lock_stamp "$CURSOR_IO_LOCK_FD"   # record pid + time for a future waiter's diagnostic
     return 0
   fi
   # NOTE: no `2>...` on this exec — exec makes a redirection PERMANENT (it would

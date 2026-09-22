@@ -35,9 +35,20 @@ journal_outage_active && exit "${GARDEN_OFFLINE_RC:-75}"
 # ensure_clone, every sync_clone, the working-tree write, and the CAS push — so no
 # peer can mutate the shared index underneath us ("fatal: unable to write new index
 # file"). The fd stays open until this process exits, releasing the lock on every
-# path. Fail LOUD on a bounded-wait timeout so a wedged holder surfaces.
-cursor_io_lock "$DIR" \
-  || die "cursor-set: could not acquire cursor-IO lock for $DIR within ${GARDEN_CURSOR_LOCK_WAIT}s (a concurrent cursor-get/cursor-set is wedged holding the shared clone; if crashed, rm -f $(_cursor_io_lockfile "$DIR"))"
+# path. On a bounded-wait timeout, treat the busy lock as TEMPORARY unavailability,
+# not a fatal failure: a peer holds the shared clone this tick, and dying loud here
+# (rc=1) blocked cursor advancement for the whole GARDEN_CURSOR_LOCK_WAIT window and
+# fed retry noise across every watcher. Instead skip this advance as
+# temporary-unavailable (GARDEN_OFFLINE_RC, the same quiet verdict cursor-get returns)
+# and let the caller re-advance next cadence — the cursor only advances after its work
+# is durably done, so a skipped advance re-processes the same range idempotently. Emit
+# ONE bounded, read-only holder diagnostic (never `rm -f` advice: deleting an flock'd
+# lock file does not free the flock and can hand two writers the shared index at once;
+# flock frees the lock automatically when the holder's fd closes on exit/crash).
+if ! cursor_io_lock "$DIR"; then
+  log "cursor-set: cursor-IO lock for $DIR busy >${GARDEN_CURSOR_LOCK_WAIT}s ($(_cursor_io_lock_holder "$DIR")); skipping advance of cursor $key this tick (rc=${GARDEN_OFFLINE_RC:-75}); caller re-advances next cadence"
+  exit "${GARDEN_OFFLINE_RC:-75}"
+fi
 
 # Clone creation/repair runs before any fetch/push. A local checkout, ownership, or
 # configuration fault here stays LOUD and never poisons the host-wide latch — but a

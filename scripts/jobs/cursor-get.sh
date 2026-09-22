@@ -41,7 +41,7 @@ fi
 # temporary-unavailable rather than hard-failing the watcher; a concurrent cursor-set
 # still advances the cursor, and the caller retries next cadence.
 if ! cursor_io_lock "$DIR"; then
-  log "cursor-get: cursor-IO lock for $DIR busy >${GARDEN_CURSOR_LOCK_WAIT}s (a concurrent cursor-get/cursor-set is wedged holding the shared clone); skipping tick (rc=${GARDEN_OFFLINE_RC:-75})"
+  log "cursor-get: cursor-IO lock for $DIR busy >${GARDEN_CURSOR_LOCK_WAIT}s ($(_cursor_io_lock_holder "$DIR")); skipping tick (rc=${GARDEN_OFFLINE_RC:-75})"
   exit "${GARDEN_OFFLINE_RC:-75}"
 fi
 
