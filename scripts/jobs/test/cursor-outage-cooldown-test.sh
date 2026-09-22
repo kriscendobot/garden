@@ -648,5 +648,60 @@ run_cursor_set retry-latch GARDEN_PUSH_CMD="$PUSH_LATCH" \
   && ok "cursor-set honors a newly-opened cooldown before retrying a CAS write" \
   || bad "cursor-set retried through a sibling cooldown (rc=$rc pushes=$(cat "$PUSH_COUNT" 2>/dev/null || echo 0))"
 
+# (t) Git's ordinary non-fast-forward diagnostic includes the alarming generic
+#     "failed to push some refs" trailer. It is still a lost CAS, so cursor-set
+#     must re-sync and reconcile rather than report a repair-only failure.
+rm -f "$MARKER"
+CAS_PUSH_COUNT="$TR/cas-push-count"
+PUSH_CAS_ONCE="$TR/push-cas-once.sh"
+cat > "$PUSH_CAS_ONCE" <<EOF
+#!/bin/bash
+n=0; [ ! -f "$CAS_PUSH_COUNT" ] || n=\$(cat "$CAS_PUSH_COUNT")
+n=\$((n + 1)); printf '%s\n' "\$n" > "$CAS_PUSH_COUNT"
+if [ "\$n" -eq 1 ]; then
+  cat >&2 <<'DIAGNOSTIC'
+To /tmp/journal.git
+ ! [rejected]        HEAD -> journal2 (non-fast-forward)
+error: failed to push some refs to '/tmp/journal.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes before pushing again.
+DIAGNOSTIC
+  exit 1
+fi
+git -C "\$GARDEN_PUSH_DIR" push -q origin HEAD:journal2
+EOF
+chmod +x "$PUSH_CAS_ONCE"
+rc=0
+run_cursor_set push-cas GARDEN_PUSH_CMD="$PUSH_CAS_ONCE" \
+  >"$TR/set-push-cas.out" 2>"$TR/set-push-cas.err" || rc=$?
+[ "$rc" -eq 0 ] && [ "$(cat "$CAS_PUSH_COUNT")" -eq 2 ] \
+  && git --git-dir="$BARE" show "journal2:cursors/$SET_KEY" | grep -q 'last_sha: write-push-cas' \
+  && ok "cursor-set retries and reconciles the ordinary failed-to-push-some-refs CAS diagnostic" \
+  || bad "cursor-set treated ordinary push CAS contention as definite (rc=$rc pushes=$(cat "$CAS_PUSH_COUNT" 2>/dev/null || echo 0))"
+
+# (u) A server-side hook rejection has the same generic trailer but is not a CAS
+#     loss. It remains loud and is not retried.
+SERVER_PUSH_COUNT="$TR/server-push-count"
+PUSH_SERVER_REJECT="$TR/push-server-reject.sh"
+cat > "$PUSH_SERVER_REJECT" <<EOF
+#!/bin/bash
+n=0; [ ! -f "$SERVER_PUSH_COUNT" ] || n=\$(cat "$SERVER_PUSH_COUNT")
+printf '%s\n' \$((n + 1)) > "$SERVER_PUSH_COUNT"
+cat >&2 <<'DIAGNOSTIC'
+remote: error: protected branch policy refused this update
+ ! [remote rejected] HEAD -> journal2 (pre-receive hook declined)
+error: failed to push some refs to '/tmp/journal.git'
+DIAGNOSTIC
+exit 1
+EOF
+chmod +x "$PUSH_SERVER_REJECT"
+rc=0
+run_cursor_set push-server-reject GARDEN_PUSH_CMD="$PUSH_SERVER_REJECT" \
+  >"$TR/set-push-server.out" 2>"$TR/set-push-server.err" || rc=$?
+[ "$rc" -eq 1 ] && [ "$(cat "$SERVER_PUSH_COUNT")" -eq 1 ] \
+  && grep -q 'pre-receive hook declined' "$TR/set-push-server.err" \
+  && ok "cursor-set preserves a loud server-side push rejection" \
+  || bad "cursor-set retried or swallowed a server-side rejection (rc=$rc pushes=$(cat "$SERVER_PUSH_COUNT" 2>/dev/null || echo 0))"
+
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

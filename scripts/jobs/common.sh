@@ -4369,6 +4369,24 @@ journal_diagnostic_is_definite_failure() {  # <diagnostic>
     || journal_diagnostic_is_local_failure "$1"
 }
 
+# Classify the ordinary git push rejection produced when another writer advances
+# journal2 between our fetch and push. Do not use the generic trailing
+# "failed to push some refs" line as evidence: authentication, policy, and hook
+# rejections end with that line too. The porcelain rejection reason is the narrow
+# signal that this is a lost compare-and-swap and can be reconciled by re-syncing.
+journal_push_is_cas_contention() {  # <diagnostic>
+  printf '%s\n' "$1" | grep -qiE \
+    '\[rejected\].*\((non-fast-forward|fetch first)\)|Updates were rejected because (the tip of your current branch is behind|the remote contains work)'
+}
+
+# A receive-side policy or hook rejection is not CAS contention. Keep this set
+# separate from journal_diagnostic_is_definite_failure because these signatures
+# describe push-only failures, not fetch/clone diagnostics.
+journal_push_is_server_rejection() {  # <diagnostic>
+  printf '%s\n' "$1" | grep -qiE \
+    '\[remote rejected\]|pre-receive hook declined|protected branch hook declined|GH00[0-9]|GH01[0-9]|remote: error:|deny updating a hidden ref'
+}
+
 # A bounded journal fetch OR clone can finish with the otherwise-ambiguous rc=1 and
 # a transport diagnostic outside the stable offline-signature set — journal_fetch's
 # bounded-retry summary ("journal fetch in … failed after N attempt(s)") or a bounded

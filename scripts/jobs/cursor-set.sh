@@ -117,13 +117,23 @@ for attempt in $(seq 1 50); do
     cursor_set_latch_outage "${GARDEN_PUSH_STDERR:-${GARDEN_FETCH_STDERR:-$push_diagnostic}}"
   fi
 
-  # Positive structural/authentication diagnostics must not be diluted into fifty
-  # generic rc=1 retries. Re-raise them on the first observation. An ordinary CAS
-  # rejection has neither signature and retains the existing retry behavior.
+  # Positive structural/authentication/server diagnostics must not be diluted into
+  # fifty generic rc=1 retries. Re-raise them on the first observation. Unknown
+  # failures retain the conservative retry behavior used by the silent-loss guard.
   combined_diagnostic="${GARDEN_PUSH_STDERR}${GARDEN_FETCH_STDERR}${push_diagnostic}"
-  if journal_diagnostic_is_definite_failure "$combined_diagnostic"; then
+  if journal_diagnostic_is_definite_failure "$combined_diagnostic" \
+    || journal_push_is_server_rejection "$GARDEN_PUSH_STDERR"; then
     [ -z "$combined_diagnostic" ] || printf '%s\n' "$combined_diagnostic" >&2
     exit "$rc"
+  fi
+
+  # A normal non-fast-forward is the compare-and-swap doing its job: another
+  # journal writer won this round. Git appends "failed to push some refs" to this
+  # diagnostic, but that generic trailer also appears on auth and server-policy
+  # failures, so retry only when the ordinary porcelain rejection reason is present.
+  if journal_push_is_cas_contention "$GARDEN_PUSH_STDERR"; then
+    backoff "$attempt"
+    continue
   fi
   backoff "$attempt"
 done
