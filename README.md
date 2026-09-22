@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T23:41:10Z_
+_As of 2026-09-22T23:46:07Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 5d)
-- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 5d)
+- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 6d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 11d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 19d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 21d)
@@ -1037,8 +1037,8 @@ _Fleet token-unlock pace: 38691414 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1329-review-65578408`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1329-review-65578408.md) — Review directive on endojs/endo-but-for-bots PR #1329
 
 ### tada (8707)
 - [`claude-on-minion-town-completion-press-20260922-223629`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-223629.md) — Completion report — completion-press tick 20260922-223629 (Claude-on-minion.t...
@@ -1327,6 +1327,7 @@ _Fleet token-unlock pace: 38691414 tokens/day lower bound; incomplete where a su
 - [`endojs-endo-but-for-bots-pr1227-review-5194e7b0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1227-review-5194e7b0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1227 (primary: endojs-endo-but-...
 - [`kriscendobot-minion.town-pr104-review-d1b5207f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr104-review-d1b5207f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #104 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr110-review-24e9aba3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr110-review-24e9aba3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #110 (primary: kriscendobot-mini...
+- [`endojs-endo-but-for-bots-pr1329-review-65578408-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1329-review-65578408-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1329 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
