@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T06:43:08Z_
+_As of 2026-09-22T07:18:26Z_
 
 ## Latest
 
@@ -14,9 +14,9 @@ The foreman promoted ~60 ironhorse fuzz repairs to the queue with ~15 in progres
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 18d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 20d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 20d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 21d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 20d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 20d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 21d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 23d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
@@ -1758,6 +1758,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
 
+- `watchdog-self-heal-garden-receipt-watcher-kriscendobot-garden` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-receipt-watcher-kriscendobot-garden.md)
+
+> self-heal: garden-receipt-watcher@kriscendobot-garden exited rc=1 with no scoped fix. Capture: 0800c267b98006b91ae885f0ed1f357d243f403e (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0800c267b98006b91ae885f0ed1f357d243f403e). Diagnosis: Confirmed: this is the known, already-fixed `clone_lock` permanent-stderr-silencing bug (commit `06690f63fa`, landed on `origin/main2` 6 hours ago), and this host's deployed garden root (HEAD `917115c9b7`, 2 days old) simply hasn't rolled forward yet — deploy lag, not a fresh bug. Per the existing memory, I won't post another `self-heal-fix-garden-receipt-watcher-*` job (it would just rediscover the same already-landed fix at needless cost).
+>
+> No job posted. This is expected to self-resolve once this host's rolling-deploy cycle advances its root checkout past `06690f63fa`.
+
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
 > root repo /home/kris/garden deploy has been STALLED for ~2d / 26 commits behind (leader commits-fuse 25): deployed sha 917115c9b77234e4a05db68e8c5111fe6e5b305f is 26 commit(s) behind origin/main2 (85ae2f878c47ba1a050496c31b770867113aaea1) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. This host is the LEADER: it runs every singleton producer (foreman, scheduler, watchers), so while it is stale it is NOT honoring any directive newer than its deployed sha — a PROJECT PAUSE among them. This is the shape that let a stale leader run ~60 IronHorse fuzz jobs a week after the 09-09 pause (designs/project-pause-enforcement.md). DEPLOY IT. (host=endolin-garden-ece02cb4)
@@ -2981,11 +2987,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-preflight` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-preflight.md)
 
-> WATCHDOG notice — occurrence #39 (first seen 2026-09-17T02:20:04Z, latest 2026-09-20T06:05:12Z).
-> The SAME condition (`budget-level-monk-preflight`) has now been observed 39 times; this is ONE
-> coalesced notice that updates in place, not 39 messages. Latest detail:
+> RECOVERED — the watchdog condition `budget-level-monk-preflight` has CLEARED (first seen 2026-09-17T02:20:04Z, cleared 2026-09-22T07:05:07Z).
+> It was observed 39 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> fleet monk allocation frozen: monk fleet ceiling exceeds physical capacity. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.
+> budget-level: fleet monk allocation recovered on endolin-garden-ece02cb4; a calibrated, physically-backed monk configuration returned and leveling has resumed.
 
 - `20260920T162415Z-7372a2` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260920T162415Z-7372a2.md)
 
@@ -3072,11 +3078,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1.md)
 
-> WATCHDOG notice — occurrence #16 (first seen 2026-09-09T20:50:24Z, latest 2026-09-22T04:22:32Z).
-> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 16 times; this is ONE
-> coalesced notice that updates in place, not 16 messages. Latest detail:
+> WATCHDOG notice — occurrence #18 (first seen 2026-09-09T20:50:24Z, latest 2026-09-22T07:05:45Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 18 times; this is ONE
+> coalesced notice that updates in place, not 18 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 cleric workers 0 -> 1 (target 1): shared cleric demand active=2 queue=2 fleet-envelope=5 target=1
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 0 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=5 target=1
 
 - `20260922T043030Z-b17429` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260922T043030Z-b17429.md)
 
@@ -3784,26 +3790,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
-- `msg-kriscendobot-minion.town-pr87-b8a7509c-f0e1b470984b` — from gardener:kriscendobot-minion.town-pr87-b8a7509c, reply_to `kriscendobot-minion.town-pr87-b8a7509c` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr87-b8a7509c-f0e1b470984b.md)
-
-> attention directive "repo-wide migration to vitest" (minion.town PR [kriscendobot/minion.town#87](https://github.com/kriscendobot/minion.town/issues/87) comment 5770443815) — ALREADY DONE, and fanned out into THREE competing green draft PRs. Routing/triage only, no fourth PR posted.
->
-> Reality check: minion.town's root suite was already on vitest; the only holdouts were two self-contained sub-packages still on `node --test` — `tools/claude-harness` (.test.mjs) and `deploy/thunks/siwe` (test/*.test.js). Three separate job bases each built that same conversion:
->
->   [kriscendobot/minion.town#107](https://github.com/kriscendobot/minion.town/issues/107)  fix/repo-wide-vitest    base kriscendobot-minion.town-pr87-b8a7509c (THIS job's own base)  +2884/-18 (11 files)
->   [kriscendobot/minion.town#108](https://github.com/kriscendobot/minion.town/issues/108)  vitest-repo-wide-holdouts    base fix-minion-town-vitest-repo-wide-holdouts  +3052/-161 (14 files)
->   [kriscendobot/minion.town#109](https://github.com/kriscendobot/minion.town/issues/109)  garden/build-minion-town-vitest-migration    base build-minion-town-vitest-migration  +565/-555 (8 files)
->
-> All three: DRAFT, CI fully green (test + claude-harness amd64/arm64), zero reviews, none gauntleted.
->
-> Recommendation: keep ONE, close the other two, then run the gauntlet on the keeper.
->
-> My pick: [kriscendobot/minion.town#109](https://github.com/kriscendobot/minion.town/issues/109). Far cleanest (+565/-555 vs ~+3000 — the others carry big regenerated lockfile diffs), folds claude-harness into the ROOT vitest gate (drops both root --exclude flags; one gate, not a bolted-on per-package CI step), and is the only one that squarely addresses the directive's ambiguity: Endo (@llm) runs AVA, not vitest, so "Endo dictates house style" can't mean "copy Endo's runner" — it reads it as vitest (the explicit target) + Endo's runner-agnostic conventions (spec-spelling titles, one-behaviour-per-assertion, expect(...).toThrow), matched to minion.town's own existing vitest specs.
->
-> One tradeoff to decide: [kriscendobot/minion.town#109](https://github.com/kriscendobot/minion.town/issues/109) deliberately leaves the SIWE thunk OUT of the root/CI gate (it has its own dep `viem` the root install lacks; it still runs on vitest via its own `npm --prefix` run). [kriscendobot/minion.town#108](https://github.com/kriscendobot/minion.town/issues/108) instead ADDS a dedicated `Test SIWE OIDC thunk` CI step so SIWE gets first-ever CI coverage under vitest. If you want SIWE gated in CI, promote [kriscendobot/minion.town#108](https://github.com/kriscendobot/minion.town/issues/108), or ask for [kriscendobot/minion.town#109](https://github.com/kriscendobot/minion.town/issues/109) plus that one CI step. Otherwise take the [kriscendobot/minion.town#109](https://github.com/kriscendobot/minion.town/issues/109) default as-is.
->
-> Say the word and I'll close the two losers; I did not close anything unilaterally since picking among three green impls is your taste call.
-
 - `20260922T045755Z-71316b` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260922T045755Z-71316b.md)
 
 > kind: error
@@ -3911,29 +3897,29 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 
 ## Spend & quota
-_Trailing 7d; billable tokens (cache reads excluded). Leader-host local spend._
+_Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.6M | $843.73 _(notional, rate-card)_ | no quota set |
-| Codex | 33.0M _(+793.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+| Claude | 36.6M | $362.44 _(notional, rate-card)_ | 26% of 143.0M (ok) |
+| Codex | 16.1M _(+369.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 55% _(plan; codex-reported)_ |
+
+_Fleet token-unlock pace: 40464135 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
-### todo (1)
-- [`canary-probe-endolin-garden2-5bcdff64-e43c28386fae-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-e43c28386fae-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ e43c28386fae
+### todo (0)
+(none)
 
-### doin (3)
-- [`orchestrate-claude-cli-signal-upgrade-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/orchestrate-claude-cli-signal-upgrade-20260922.md) — Work item 1 — READ THE ENVELOPE FIELDS WE ALREADY RECEIVE (do this first)
-- [`kriscendobot-minion.town-pr87-b8a7509c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr87-b8a7509c.md) — attention directive on kriscendobot/minion.town PR #87
-- [`claude-on-minion-town-press-20260922-063659`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260922-063659.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (8653)
-- [`kriscendobot-minion.town-pr96-review-d423db6e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr96-review-d423db6e.md) — Completion report
-- [`self-heal-fix-garden-triager-kriscendobot-minion-town-cursor-key-unguarded`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/self-heal-fix-garden-triager-kriscendobot-minion-town-cursor-key-unguarded.md) — Report
-- [`kriscendobot-minion.town-pr87-b8a7509c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr87-b8a7509c.md) — Completion report
-- [`build-minion-town-vitest-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/build-minion-town-vitest-migration.md) — What I did
-- [`endojs-endo-but-for-bots-pr1089-review-5bf63a47`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1089-review-5bf63a47.md) — Completion report
-- … and 8648 more
+### tada (8661)
+- [`finish-rollout-leader-postdeploy-probe-e43c28386fae`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/finish-rollout-leader-postdeploy-probe-e43c28386fae.md) — rolling-deploy canary probe — round trip OK
+- [`finish-claude-cli-signal-rollout-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/finish-claude-cli-signal-rollout-20260922.md) — Completion report: finish-claude-cli-signal-rollout-20260922
+- [`daily-progress-summary-20260922-070554`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/daily-progress-summary-20260922-070554.md) — Completion report
+- [`kriscendobot-minion.town-pr110-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr110-shepherd.md) — Completion report
+- [`kriscendobot-minion.town-pr96-review-d423db6e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/kriscendobot-minion.town-pr96-review-d423db6e.md) — Cost
+- … and 8656 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -4231,6 +4217,6 @@ kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oro
 ## Hosts
 - [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 3 gardeners
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 gardeners
+- [.archived-oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-oros-studio-garden-ce242c49): 4 gardeners
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): 8 gardeners
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): 1 gardeners
-- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 4 gardeners
