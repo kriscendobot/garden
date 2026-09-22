@@ -52,6 +52,18 @@ board_put() {  # board_put <subdir> <base>
   git -C "$w" -c user.name=t -c user.email=t@t.invalid commit -q -m "put $sub/$base"
   git -C "$w" push -q origin HEAD:journal2
 }
+# Create the durable first-claim anchor used to decide which board identities are
+# newly posted by a running job. This mirrors claim-job.sh's doin/ + work/ commit.
+board_claim() {  # board_claim <base>
+  local base="$1" w="$TR/put"
+  rm -rf "$w"; git clone -q --single-branch --branch journal2 "$TR/journal.git" "$w" >/dev/null 2>&1
+  mkdir -p "$w/jobs/doin" "$w/work"
+  printf -- '---\nrole: gardener\n---\nclaimed job.\n' >"$w/jobs/doin/$base.md"
+  printf 'host: test\ngardener: 1\nclaimed_at: 2026-08-19T00:00:00Z\n' >"$w/work/$base"
+  git -C "$w" add -A
+  git -C "$w" -c user.name=t -c user.email=t@t.invalid commit -q -m "claim($base) test/gardener-1"
+  git -C "$w" push -q origin HEAD:journal2
+}
 # Deposit a maintainer-inbox message tagged reply_to=<base>, as message-user.sh does.
 inbox_put() {  # inbox_put <reply-to-base>
   local base="$1" w="$TR/put"
@@ -140,6 +152,86 @@ reset_clone
 "$GATE" pr876-rebase "$JOB" "$TR/r3.md" \
   || fail 'gate wrongly blocked a handoff to a real orchestration record'
 echo '   gate passed on an orchestration handoff'
+
+echo '== (c1) PASS: a newly posted, uniquely identifiable successor repairs an omitted marker =='
+board_claim omitted-marker-source
+board_put todo omitted-marker-successor
+cat >"$TR/r3a.md" <<'EOF'
+Completed the safe first part.
+
+## Follow-ups
+- Posted `omitted-marker-successor` to own the remaining work.
+EOF
+reset_clone
+"$GATE" omitted-marker-source "$JOB" "$TR/r3a.md" \
+  || fail 'gate blocked a uniquely named successor posted after the source job was claimed'
+[ "$(awk 'NF{line=$0} END{print line}' "$TR/r3a.md")" = \
+    '<<<GARDEN-JOB-HANDED-OFF: omitted-marker-successor>>>' ] \
+  || fail 'gate accepted the inferred handoff without recording its successor marker'
+echo '   gate inferred the handoff and recorded its successor identity'
+
+echo '== (c1a) PASS: a sole new successor plus explicit posted prose is identifiable =='
+board_claim sole-post-source
+board_put orch sole-post-orchestration
+cat >"$TR/r3a-sole.md" <<'EOF'
+Completed the safe first part.
+
+## Follow-ups
+- Posted an orchestration to own the remaining work.
+EOF
+reset_clone
+"$GATE" sole-post-source "$JOB" "$TR/r3a-sole.md" \
+  || fail 'gate blocked the sole newly posted successor described as posted'
+[ "$(awk 'NF{line=$0} END{print line}' "$TR/r3a-sole.md")" = \
+    '<<<GARDEN-JOB-HANDED-OFF: sole-post-orchestration>>>' ] \
+  || fail 'gate did not record the sole inferred orchestration identity'
+echo '   gate inferred the sole newly posted orchestration'
+
+echo '== (c1b) BLOCK: multiple unnamed new board identities remain ambiguous =='
+board_claim ambiguous-post-source
+board_put todo ambiguous-successor-one
+board_put todo ambiguous-successor-two
+cat >"$TR/r3a-ambiguous.md" <<'EOF'
+Completed the safe first part.
+
+## Follow-ups
+- Posted a job to own the remaining work.
+EOF
+reset_clone
+if "$GATE" ambiguous-post-source "$JOB" "$TR/r3a-ambiguous.md"; then
+  fail 'gate accepted an ambiguous inferred handoff with two unnamed new identities'
+fi
+echo '   gate kept the ambiguous handoff blocked (rc 1)'
+
+echo '== (c1c) BLOCK: a needed follow-up cannot capture an unrelated new board job =='
+board_claim unrelated-post-source
+board_put todo unrelated-concurrent-job
+cat >"$TR/r3a-unrelated.md" <<'EOF'
+Completed the safe first part.
+
+## Follow-ups
+- A conductor job is warranted next.
+EOF
+reset_clone
+if "$GATE" unrelated-post-source "$JOB" "$TR/r3a-unrelated.md"; then
+  fail 'gate treated an unrelated new board identity as the unposted warranted follow-up'
+fi
+echo '   gate required posted prose or a literal successor identity (rc 1)'
+
+echo '== (c1d) BLOCK: a named board identity that predates the claim is not a new successor =='
+board_put todo preexisting-board-job
+board_claim preexisting-source
+cat >"$TR/r3a-preexisting.md" <<'EOF'
+Completed the safe first part.
+
+## Follow-ups
+- Posted `preexisting-board-job` to own the remaining work.
+EOF
+reset_clone
+if "$GATE" preexisting-source "$JOB" "$TR/r3a-preexisting.md"; then
+  fail 'gate inferred a handoff to a board identity that predated the source claim'
+fi
+echo '   gate kept the pre-existing identity blocked (rc 1)'
 
 echo '== (c2) PASS: an active staged-gauntlet record also satisfies the handoff =='
 board_put gauntlet ironhorse-fuzz-case-gauntlet

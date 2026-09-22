@@ -28,15 +28,17 @@
 #   rc 0: no declared handoff and nothing owed — no substantive `## Follow-ups`
 #         section; a declared handoff / substantive section has a valid, CHECKABLE
 #         disposition (a verified handoff, a maintainer-inbox message actually
-#         sent, or an explicit override); the section is purely INFORMATIONAL (a
-#         completed gauntlet stage's driver-owned transition, or a section that
-#         only surfaces an already-raised maintainer decision closed for the
-#         fleet); or the determination is inconclusive (journal clone offline).
+#         sent, an explicit override, or one deterministically identifiable
+#         successor newly posted after this job's first claim); the section is
+#         purely INFORMATIONAL (a completed gauntlet stage's driver-owned
+#         transition, or a section that only surfaces an already-raised
+#         maintainer decision closed for the fleet); or the determination is
+#         inconclusive (journal clone offline).
 #   rc 1: a declared handoff names an absent successor, regardless of whether a
 #         `## Follow-ups` section exists; or a substantive follow-up section has
 #         NO checkable disposition — block completion (leave in doin for retry).
 #
-# The three accepted dispositions:
+# The four accepted dispositions:
 #   1. HANDOFF   — the report ends with <<<GARDEN-JOB-HANDED-OFF: successor>>> AND
 #      that successor is durably posted on the board (handoff_successor_posted,
 #      the SAME existence check complete-job.sh --handed-off enforces). Checked
@@ -52,6 +54,12 @@
 #   3. INBOX     — a maintainer-inbox message tagged reply_to=<base> exists
 #      (the worker actually ran message-user.sh), the checkable form of the
 #      non-board-postable disposition.
+#   4. INFERRED HANDOFF: after the first durable claim of this job, exactly one
+#      board identity was newly posted and the report says it posted work, OR one
+#      of several new identities is named literally in the report. The gate adds
+#      the ordinary handoff marker to the report, so gardener.sh and
+#      complete-job.sh verify and record the same successor. Pre-existing and
+#      ambiguous candidates never pass.
 #
 # Two INFORMATIONAL carve-outs additionally pass without a checkable disposition,
 # because they name no owed successor work (both deterministic, deliberately
@@ -140,7 +148,7 @@ if reason="$(report_followup_override_reason "$report" 2>/dev/null)"; then
   exit 0
 fi
 
-# 4. INBOX needs board/inbox state. Read the producer clone the worker just
+# 4. Board-backed dispositions need board/inbox state. Read the producer clone the worker just
 #    posted to. An unreachable clone is INCONCLUSIVE: pass rather than wedge (the
 #    async sweep is the backstop).
 if ! ensure_clone "$DIR" 2>/dev/null; then
@@ -155,5 +163,64 @@ if maintainer_message_from "$DIR" "$base"; then
   exit 0
 fi
 
-log "gate: BLOCK — '$base' completion report describes a substantive follow-up but posted no board job (no handoff), sent no maintainer-inbox message, and set no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason."
+# 5. INFERRED HANDOFF: recover the common honest-reporting mistake where the
+# worker posted its successor and described that fact, but omitted the exact
+# handoff marker. Anchor "new" to this job's FIRST durable claim, not its latest
+# retry: a gate-blocked attempt may be reaped and claimed again after the
+# successor was posted, and using the latest claim would recreate the retry loop
+# this recovery path exists to stop.
+#
+# A literal candidate basename in the report disambiguates concurrent posts. If
+# no basename is named, accept only a single new candidate and only when the
+# follow-up section itself says work was posted/parked/staged. Merely saying a job
+# is needed or warranted must not capture an unrelated concurrent board post.
+claim_commit="$(
+  git -C "$DIR" log --format=%H --diff-filter=A -- "work/$base" 2>/dev/null \
+    | tail -1
+)"
+if [ -n "$claim_commit" ]; then
+  board_identities_at() { # <git-ref>
+    git -C "$DIR" ls-tree -r --name-only "$1" -- \
+      "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN" "$JOBS_TADA" "$JOBS_ORCH" "$JOBS_GAUNTLET" \
+      2>/dev/null \
+      | awk -F/ '
+          $NF == ".gitkeep" || $NF !~ /[.]md$/ { next }
+          $2 == "plan" || $2 == "todo" || $2 == "doin" || $2 == "orch" || $2 == "gauntlet" {
+            if (NF == 3) { sub(/[.]md$/, "", $NF); print $NF }
+            next
+          }
+          $2 == "tada" { sub(/[.]md$/, "", $NF); print $NF }
+        ' \
+      | sort -u
+  }
+
+  before="$(board_identities_at "$claim_commit")"
+  after="$(board_identities_at HEAD)"
+  candidates="$(comm -13 <(printf '%s\n' "$before") <(printf '%s\n' "$after") | grep -vxF "$base" || true)"
+  named=""
+  while IFS= read -r candidate; do
+    [ -n "$candidate" ] || continue
+    if grep -Fq -- "$candidate" "$report"; then
+      named="${named}${named:+$'\n'}$candidate"
+    fi
+  done <<< "$candidates"
+
+  successor=""
+  if [ "$(printf '%s\n' "$named" | grep -c . || true)" -eq 1 ]; then
+    successor="$named"
+  elif [ -z "$named" ] \
+    && [ "$(printf '%s\n' "$candidates" | grep -c . || true)" -eq 1 ] \
+    && printf '%s\n' "$section" | grep -Eqi \
+      '(^|[^[:alpha:]])(post(ed|ing)?|park(ed|ing)?|stag(ed|ing)?)([^[:alpha:]]|$)'; then
+    successor="$candidates"
+  fi
+
+  if [ -n "$successor" ] && handoff_successor_posted "$DIR" "$successor"; then
+    printf '\n%s %s>>>\n' "$GARDEN_HANDOFF_MARKER_PREFIX" "$successor" >> "$report"
+    log "gate: '$base' omitted its handoff marker; inferred and recorded newly posted successor '$successor'"
+    exit 0
+  fi
+fi
+
+log "gate: BLOCK — '$base' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason."
 exit 1
