@@ -1,2 +1,2 @@
-base: improve-cursor-write-outage-classification
+base: improve-cursor-io-lock-recovery
 identity: mentor:scripts/jobs/cursor-set.sh
