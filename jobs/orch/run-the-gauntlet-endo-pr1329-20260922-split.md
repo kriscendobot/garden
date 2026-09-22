@@ -2,7 +2,7 @@
 order: serial
 children: run-the-gauntlet-endo-pr1329-20260922-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-09-22T20:36:58Z
 ---
