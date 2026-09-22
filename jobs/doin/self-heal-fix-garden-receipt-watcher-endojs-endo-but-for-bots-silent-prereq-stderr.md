@@ -15,3 +15,13 @@ Fix (diagnostics only, no behavior change on success): wrap the prerequisite sub
     ensure_clone "$DIR"; sync_clone "$DIR" ) 2>"$PREREQ_ERR" || prereq_rc=$?
 
 so the next occurrence of this failure signature actually shows which command/line failed instead of an empty capture.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-22T01:17:27Z
