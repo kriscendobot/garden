@@ -1,30 +1,38 @@
+Verification complete. The source at HEAD (858996f8cd) fully implements everything gibson042 requested, and both inline replies are already posted. This is a genuine duplicate directive — a peer resolved it after kriskowal's review but the preflight missed it (the replies are correlated to gibson042's comment ids, not kriskowal's review id). No further action is needed; posting anything would be duplicate noise.
+
 ## Completion report
 
-**Directive:** kriskowal's `CHANGES_REQUESTED` review 5271785979 on endojs/endo-but-for-bots#1289 (2026-09-21T20:58:29Z), body: "@kriscendobot Please respond to @gibson042". No inline comments were tied to this review (confirmed via `pull_request_review_id==5271785979` filter — empty). The single ask is: respond to @gibson042's outstanding feedback.
+**Job:** Review directive on endojs/endo-but-for-bots PR #1289 — kriskowal's CHANGES_REQUESTED review 5271785979: "@kriscendobot Please respond to @gibson042".
 
-**Preflight:** `pr-feedback-preflight.sh` returned exit 0 (PROCEED — no correlated peer resolution keyed to the maintainer's review cid). I did not treat this as blocking; I corroborated each ask against artifacts directly.
+**Finding: already resolved by a peer. Verified, not inferred. Completed as a corroborated no-op.**
 
-**@gibson042's feedback (review 5225048373) and its resolution — both verified:**
+The preflight returned exit 0 (PROCEED), so I did the full corroboration rather than trusting a hint. Enumeration of kriskowal's review 5271785979 found **no inline comments** attached to it — the sole ask is the body directive to respond to gibson042. gibson042's substantive feedback lives in his earlier review 5225048373 (2026-09-16), two inline comments on `packages/marshal/test/passables-equal.js`:
 
-1. **Comment 4028017366** (`passables-equal.js:45`): "missing identity tracking for passStyle 'error'/'promise'/'remotable' … and a case to throw on unknown pass style."
-   - **Resolved.** Verified in the current PR HEAD `858996f8cd` file content: `makeProjector()` now holds a per-operand `WeakMap` (`seen`) assigning stable indices; `remotable`/`promise` project to `{ index }` markers, `error` to `{ index, name, message }`; the `switch` has an explicit `default: throw Fail\`Unexpected pass style ${q(passStyle)}\``. Reply artifact: inline reply **4066557913** (posted 21:25, after the maintainer's directive), citing `858996f8cd`.
+1. **Comment #4028017366** — "missing identity tracking for passStyle values error/promise/remotable (e.g. a WeakMap from value to seen index), and a case to throw on an unknown pass style."
+2. **Comment #4028022312** — the helper doc is "slightly inaccurate."
 
-2. **Comment 4028022312** (`passables-equal.js:12`): "Slightly inaccurate" (docstring claiming non-byte-array passables retain plain `deepEqual` behavior).
-   - **Resolved.** Verified: the rewritten module docstring now enumerates the per-pass-style projection (byte-array → hex, containers rebuilt recursively, remotable/promise/error → identity markers, only atomic leaves pass through unchanged). Reply artifact: inline reply **4066559217** (posted 21:25), citing `858996f8cd`.
+Both are resolved by artifacts already on the PR (all created after kriskowal's 20:58 directive, so they satisfy it):
 
-**Conclusion:** The maintainer's directive ("respond to @gibson042") is satisfied by existing, verified artifacts — commit `858996f8cd` (= current PR HEAD, so the code changes are live on the branch, not stale) plus substantive inline replies 4066557913 and 4066559217, all posted *after* the maintainer's request. I independently read the file at HEAD and confirmed the identity-tracking WeakMap, the unknown-pass-style throw, and the corrected docstring are all present — I did not rely on the peer's reply text alone.
+- **Commit `858996f8cd`** (current PR HEAD, authored 2026-09-21T21:25:05Z, msg "test(marshal): track identity and reject unknown pass styles"). I fetched and read the source at that SHA and confirmed:
+  - Per-operand `WeakMap` (`seen` + `indexOf`) assigning stable identity indices for `remotable`, `promise`, and `error` leaves → satisfies the identity-tracking ask.
+  - `error` leaves additionally carry copied `name`/`message` alongside the index.
+  - `default:` arm `throw Fail\`Unexpected pass style ${q(passStyle)}\`` → satisfies the throw-on-unknown ask.
+  - Rewritten helper doc enumerating the per-pass-style projection and noting only atomic leaves pass through unchanged → satisfies the "slightly inaccurate" ask.
+  - +53 lines of new coverage in `passables-equal.test.js` (sharing topology, error diagnostics).
+- **Inline reply #4066557913** (kriscendobot review 5272005046) responds to gibson042 comment #4028017366, citing `858996f8cd`.
+- **Inline reply #4066559217** (kriscendobot review 5272006521) responds to gibson042 comment #4028022312, citing `858996f8cd`.
 
-**No new work performed** (no code changes, no duplicate replies — a second reply would only spam gibson042). PR remains an open DRAFT awaiting gibson042's re-review; that is out of scope for this directive.
+Every ask in the directive maps to a named, verified artifact. No commit, push, PR, or board job was needed; I deliberately did not post duplicate replies or route a fixer, which would only add noise and redundant work to an already-answered review.
 
-**Follow-ups:** None owed by the fleet. gibson042 has not yet re-reviewed since the 21:25 replies; if the maintainer wants that chased, it would be a separate ask.
+**Follow-ups:** None for this directive. The PR remains an open draft awaiting kriskowal/gibson042 to re-review the posted responses; that is the maintainers' turn, not garden work. (Minor, non-actionable: `pr-feedback-preflight.sh` correlates only on the triggering review's id, so a peer resolution routed as replies to the *underlying* reviewer's older comment ids reads as PROCEED — worth noting but not fixing under this job.)
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1289-review-f5a08880.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 19 on 2 host(s) (4 unmetered)
-- Input: 324 tokens (8395832 cached reads)
-- Output: 140312 tokens
-- Cost: $15.047882999999999 (4 engagement(s) unpriced)
-- Wall-clock: 3653s
-- Model(s): claude-opus-4-8 ×15
+- Engagements: 20 on 2 host(s) (4 unmetered)
+- Input: 336 tokens (8646751 cached reads)
+- Output: 145968 tokens
+- Cost: $15.730565499999999 (4 engagement(s) unpriced)
+- Wall-clock: 3758s
+- Model(s): claude-opus-4-8 ×16
 
 <!-- garden-usage-end -->
