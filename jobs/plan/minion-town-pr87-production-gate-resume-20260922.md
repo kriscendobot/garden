@@ -60,3 +60,7 @@ local run) and whether credentials/entitlement are provided.
    green, dispatch the conductor to un-draft and merge (do not name a merge method).
    Reconcile the existing kriscendobot-minion.town-pr87-conduct job rather than posting
    a duplicate.
+
+<!-- garden-annotation: key=pr87-merged-before-production-gate by=gardener at=2026-09-22T03:23:45Z -->
+
+State change observed 2026-09-22T03:13:57Z: PR #87 was merged as merge commit `287af35b9a1b168f7fcb4375c0c79b2721b9e9e4` by a concurrently running conductor, despite the production-reality gate remaining open. The successor still owns the unresolved top-level review ask, but must now treat integration of the chosen real backend and genuine end-to-end production evidence as post-merge remediation (most likely a follow-up PR), then post the evidence back to PR #87. Do not attempt to un-draft or merge #87; it is already merged. Inline fixture ask remains resolved by `8a0bf2bb02769b4e7d91d94003f38388d51163d4` and reply `4067792020`.
