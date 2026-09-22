@@ -2,7 +2,7 @@
 order: serial
 children: merge-endojs-endo-but-for-bots-pr1317-20260921-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-22T01:53:57Z
 ---
