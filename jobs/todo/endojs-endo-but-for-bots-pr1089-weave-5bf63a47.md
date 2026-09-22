@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1089-conduct-chain-5bf63a47
-priority: normal
 role: weaver
-posted_by: producer
-posted_at: 2026-09-22T01:20:24Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-22T01:22:29Z cleared=none -->
 
 ---
 tier: mentor
