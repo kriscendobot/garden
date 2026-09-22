@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-22T12:09:25Z_
+_As of 2026-09-22T12:31:03Z_
 
 ## Latest
 
@@ -3914,7 +3914,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.6M | $368.80 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 16.6M _(+371.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
+| Codex | 16.7M _(+371.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35873265 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -3925,13 +3925,13 @@ _Fleet token-unlock pace: 35873265 tokens/day lower bound; incomplete where a su
 ### doin (0)
 (none)
 
-### tada (8676)
+### tada (8677)
+- [`improve-triager-pacing-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-triager-pacing-contention.md) — Completion report
 - [`canary-probe-endolin-garden2-5bcdff64-c0369b58a570`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/canary-probe-endolin-garden2-5bcdff64-c0369b58a570.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1325-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1325-shepherd.md) — Cost
 - [`improve-comment-cursor-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/improve-comment-cursor-retry.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1327-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/endojs-endo-but-for-bots-pr1327-shepherd.md) — Shepherd report — endojs/endo-but-for-bots#1327 (hashline edit phase 2, DRAFT)
-- [`claude-on-minion-town-completion-press-20260922-103505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/claude-on-minion-town-completion-press-20260922-103505.md) — Completion report — completion-press tick 20260922-103505
-- … and 8671 more
+- … and 8672 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
