@@ -61,7 +61,7 @@ exit 128
 EOF
 cat > "$TR/bin/structural-fetch" <<'EOF'
 #!/bin/bash
-echo 'fatal: Authentication failed for journal remote' >&2
+echo '<3>FATAL: Authentication failed for journal remote' >&2
 exit 128
 EOF
 cat > "$TR/bin/empty-source" <<'EOF'
@@ -183,11 +183,11 @@ fi
 rm -f "$STATE/gh-api-cooldown/marker"
 if run_watch kriscendobot-source "$TR/struct-journal.err" "$TR/bin/structural-fetch"; then
   bad "structural journal failure was swallowed"
+elif grep -q '^<3>  prerequisite: .*FATAL: fetch failed in .* after bounded retries' "$TR/struct-journal.err" \
+     && grep -q 'FATAL: receipt journal prerequisite failed' "$TR/struct-journal.err"; then
+  ok "structural journal failure preserves its priority-tagged diagnostic"
 else
-  grep -q 'prerequisite:.*Authentication failed for journal remote' "$TR/struct-journal.err" \
-    && grep -q 'FATAL: receipt journal prerequisite failed' "$TR/struct-journal.err" \
-    && ok "structural journal failure stays loud with its diagnostic" \
-    || bad "structural journal failure lost its diagnostic"
+  bad "structural journal failure lost its diagnostic or priority tag"
 fi
 
 # The EXIT-path cgroup sweep must wait until the service cgroup is empty, not merely
