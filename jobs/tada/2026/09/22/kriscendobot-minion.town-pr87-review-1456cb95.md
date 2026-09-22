@@ -2,32 +2,34 @@
 handed-off: minion-town-pr87-production-gate-resume-20260922
 deliverable-complete: false
 ---
-Both asks in review 5273131188 are accounted for, verified against the code and board. I did not merge (the maintainer's approval body is an explicit "close the gap before we commit" hold), and I warned the live conduct peer against a premature merge. The core reality-gap deliverable is durably owned by a named successor job.
+No replies yet. The remaining work (ask 2) is durably owned by an existing successor plan job. This is an honest handoff.
 
-## Completion report
+---
 
-**Job:** Handle maintainer review 5273131188 (kriskowal, APPROVED-with-asks) on kriscendobot/minion.town#87.
+## Completion report — review 5273131188 on kriscendobot/minion.town#87
 
-**Preflight:** exit 2 (HINT). Corroborated every ask against code + board rather than closing as a no-op.
+**Enumerated the whole review** (body + all inline comments tied to review id 5273131188):
 
-**Enumerated the review's asks and their disposition:**
+1. **Inline comment** (`src/endo/claude/wiring.ts`, kriskowal): *"Keep test fixtures under test."* — **RESOLVED**. Verified directly in PR head `8a0bf2b`: `makeInMemoryChildHost` no longer lives in production `wiring.ts` (it's now `test/helpers/claude-child-host.ts`, injected via the `childProviderFor` seam); the production default is `makeUnavailableChildProvider` (throws — fail-closed), and the credential-store default is `makeUnavailableCredentialStore` (permanently `needs-auth`, holds no token). No test double is reached on the shipped path. Peer reply 4067792020 corroborates and I confirmed it in the code, not just the reply.
 
-1. **Inline — `src/endo/claude/wiring.ts`: "Keep test fixtures under test."** (comment `4067543918`) → **RESOLVED at head `8a0bf2b`.** Verified in an isolated project worktree: `makeInMemoryChildHost` now lives in `test/helpers/claude-child-host.ts` (test tree), production defaults to `makeUnavailableChildProvider()` and `makeUnavailableCredentialStore` (both fail-closed, never persist a token). HEAD commit `8a0bf2b` "refactor(claude): keep the wiring test doubles under test, fail closed in production". Two peer replies already document this on the thread; no further reply needed.
+2. **Review body** (kriskowal): *"Let's evaluate this end to end in production. This code does not yet connect to reality. Let's close that gap before we commit."* — **genuinely UNRESOLVED, correctly parked, NOT merged.** The code cannot connect to reality yet: the real inference/child/credential/probe seams all default fail-closed pending the unlanded step-1 substrate `endojs/endo-but-for-bots#1015`, and the production backend (CLI vs Agent SDK) is undecided (CLI track is a draft prototype, the SDK track failed). A durable successor plan job — `minion-town-pr87-production-gate-resume-20260922` (gate: `awaiting-maintainer`) — already owns all remaining work (integrate the chosen real backend, obtain genuine production evidence, post authorized completion replies, then dispatch the conductor) and has posted the blocking maintainer question at PR #87 issue-comment 5770203120.
 
-2. **Body — "This code does not yet connect to reality. Let's close that gap before we commit."** → **UNRESOLVED by design; parked on a maintainer decision, durably owned.** Closing the gap requires the real step-1 provider from endojs/endo-but-for-bots#1015 (still OPEN/unmerged) plus a live production evaluation, and the CLI-vs-Agent-SDK backend choice is undecided. A prior attempt already posted the maintainer question (PR #87 issue comment `5770203120`, "Held DRAFT / unmerged") and a durable successor job **`minion-town-pr87-production-gate-resume-20260922`** (`jobs/plan/`, `gate: awaiting-maintainer`) that owns all remaining work and will reconcile the conduct job once the maintainer answers.
+**Did NOT merge.** The review is an APPROVAL but its body explicitly says "before we commit," and the PR is deliberately still draft. Dispatching the conductor now would violate that instruction.
 
-**Merge NOTE — deliberately NOT actioned.** The generic "approval → dispatch conductor to merge" step is overridden by the maintainer's explicit "before we commit." Because ask #2 is unresolved, the merge precondition ("after resolving EVERY ask") is not met. An auto-posted `kriscendobot-minion.town-pr87-conduct` job was live in `doin/` (posted by the approval reconciler, which didn't parse the hold); I messaged that peer to stand down and not un-draft/merge until the production-reality gate resolves. PR remains correctly DRAFT/unmerged; checks green.
+**Merge-hazard mitigation:** The approval reconciler had mechanically queued a live `kriscendobot-minion.town-pr87-conduct` job to un-draft+merge #87 — unaware of the "before we commit" clause. I messaged that conductor to stand down and flagged the hazard to the maintainer via the liaison for a cancel-or-hold decision.
 
-**Follow-ups:** None new — the reality-gap is owned by the existing parked successor; the sibling "use ava" review is separately owned by `fix-minion-town-migrate-tests-to-ava-20260922`.
+**No garden code changed** (this was a review-resolution/coordination job); nothing to commit to main2.
+
+**Follow-ups:** Ask 2 is owned end-to-end by `minion-town-pr87-production-gate-resume-20260922`, blocked only on the maintainer's production-gate answer. No new job needed.
 
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/kriscendobot-minion.town-pr87-review-1456cb95.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 3 on 2 host(s) (1 unmetered)
-- Input: 54 tokens (1569049 cached reads)
-- Output: 37248 tokens
-- Cost: $3.0394075 (1 engagement(s) unpriced)
-- Wall-clock: 1816s
-- Model(s): claude-opus-4-8 ×2
+- Engagements: 4 on 2 host(s) (1 unmetered)
+- Input: 86 tokens (2467124 cached reads)
+- Output: 52428 tokens
+- Cost: $4.491991 (1 engagement(s) unpriced)
+- Wall-clock: 2084s
+- Model(s): claude-opus-4-8 ×3
 
 <!-- garden-usage-end -->
