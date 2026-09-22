@@ -1,4 +1,5 @@
 ---
+child-build-minion-town-claude-agent-sdk-inference-20260922-failure-notified: true
 child-build-minion-town-claude-agent-sdk-inference-20260922-host: endolin-garden2-5bcdff64
 child-build-minion-town-claude-cli-inference-20260922-host: endolin-garden-ece02cb4
 order: parallel
