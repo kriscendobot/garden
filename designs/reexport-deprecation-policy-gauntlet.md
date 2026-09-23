@@ -4,7 +4,7 @@
 
 | Created | 2026-09-16 |
 | Author  | designer   |
-| Status  | Proposed — awaiting review by @kriskowal and @erights |
+| Status  | Accepted — reviewed and approved by @kriskowal on 2026-09-23 (PR #95); all Open questions resolved, see [Decisions](#decisions-resolved-2026-09-23-by-kriskowal) |
 
 ## Origin
 
@@ -87,8 +87,9 @@ The single documented home for the rule so it is auditable and extensible from
 one file (the `american-english-normalization` skill's role for its word list).
 It states the policy, enumerates the `export … from` forms, defines what a
 **compliant deprecation** looks like (a `@deprecated` tag naming the canonical
-module), lists the **exemptions** (see Open questions — the maintainers set the
-boundary), and defines the **file opt-out marker** (`reexport-policy-exempt` in
+module), lists the **exemptions** (per **Decisions**: barrels are *not* exempt;
+type-only re-exports *are*), and defines the **file opt-out marker**
+(`reexport-policy-exempt` in
 the first five lines, mirroring `no-inline-import-jsdoc`'s `inline-import-exempt`)
 for the deliberate, reviewed barrel. The builder / fixer / web-builder roles link
 it; it is the "so that you do not author new violations" half of the ask.
@@ -119,8 +120,11 @@ a sanctioned public barrel), is the deprecation actually present and does it poi
 at the right original, and are importers still coupled to the re-export? It owns
 its per-juror block in every branch (approve when clean; the deterministic
 summary when `claude` is unavailable) and is added to `GARDEN_CODE_SEATS` in
-`panel.sh`. Whether this LLM seat is worth building on top of the deterministic
-probe, or the probe alone suffices, is an Open question.
+`panel.sh`. **Resolved (Decision 3): the seat is built**, and its detector uses
+the maintainer's three-stage pipeline — heuristic grep, then a Babel full-parse
+set-difference of qualified re-exports (after − before) to catch only *newly
+introduced* ones, then a low-tier `claude -p` responder that files the complaint
+for the jury.
 
 ### Author-facing memory edits ("do not author new violations")
 
@@ -138,13 +142,19 @@ probe, or the probe alone suffices, is an Open question.
 
 ## Scope
 
-The policy is an **Endo-project** convention, so the probe and seat activate on
-the endo forks (`endojs/endo-but-for-bots`, and the endo ecosystem the garden
-forks). The probe already runs only inside a project worktree's pre-push gate, so
-it is naturally scoped to whatever repo is being pushed; the design does **not**
-propose enforcing it on non-endo projects without a maintainer widening (Open
-questions). It does **not** touch the garden's own `main2` (this repo has no
-`export … from` source of its own to police).
+**Resolved (Decision 4): this is a garden-universal rule.** @kriskowal directed
+that the policy be captured as **a skill of the garden proper, with all necessary
+tooling carried in the garden** — because the garden does not rebuild its own
+scripts or fetch its own dependencies at run time, the skill must **bundle the
+tooling it needs** (notably a vendored Babel parser for the qualified-re-export
+detection in Decision 3) rather than assume an installable dependency is
+reachable. The probe and seat therefore activate fleet-wide across every project
+worktree the garden pushes, not only the endo forks, with the per-file
+`reexport-policy-exempt` opt-out marker as the sole escape hatch (there is no
+per-project opt-out — the rule is universal). The probe runs inside a project
+worktree's pre-push gate, so it is naturally scoped to whatever repo is being
+pushed; it does **not** touch the garden's own `main2` (this repo has no `export
+… from` source of its own to police).
 
 ## Test plan
 
@@ -163,58 +173,70 @@ questions). It does **not** touch the garden's own `main2` (this repo has no
 ## Alternatives considered
 
 - **Fold the check into an existing seat (`packager` / `pruner`)** rather than a
-  new seat. Rejected as the default because the `orthographer` precedent shows a
-  dedicated cost-gated seat keeps the rule legible and independently tunable;
-  offered as an Open question since it is a real option.
+  new seat. Rejected: the `orthographer` precedent shows a dedicated cost-gated
+  seat keeps the rule legible and independently tunable, and Decision 3 confirms a
+  dedicated `reexport-auditor` seat.
 - **A blocking pre-push gate only, no seat.** The probe alone prevents *authoring*
-  a violation, which may fully satisfy the ask; the seat only adds nuance
-  adjudication (barrel vs. plain, deprecation adequacy). Its necessity is an Open
-  question, so the design specifies it but does not assume it.
+  a violation; the seat adds nuance adjudication (barrel vs. plain, deprecation
+  adequacy). Decision 3 resolved this in favour of building both — the
+  deterministic probe/parse core **and** the LLM seat.
 - **An `americanizer`-style auto-fixing role.** Rejected: unlike a spelling
   swap, complying requires migrating importers and choosing a deprecation message
   — judgment, not a mechanical replacement. Left to the ordinary `fixer`.
 
-## Open questions
+## Decisions (resolved 2026-09-23 by @kriskowal)
 
-1. **Are public-API barrel / index files exempt?** Many packages surface their
-   public API through an `index.js` of `export * from './internal.js'`. Is such a
-   barrel a *plain re-export that must be deprecated*, or is the package barrel the
-   canonical origin and therefore exempt? The originating comment was on a source
-   file (`compare.js`), not an index barrel, so the barrel case is undecided. The
-   answer sets the probe's default scope and the `reexport-policy-exempt` marker's
-   role. Recommendation: exempt a package's declared entry-point barrel; police
-   intra-package `export … from` in non-entry modules.
+All five questions below were answered by @kriskowal in the PR #95 review
+(approval). Each answer is authoritative and, where it differs from the original
+design recommendation, **overrides** it. The build follows these decisions.
 
-2. **What syntactic form of "deprecation" counts as compliant?** Is an adjacent
-   `@deprecated` JSDoc tag that names the original module sufficient, or must the
-   deprecation take a specific machine-checkable shape (e.g. `@deprecated Import
-   {x} from './original.js' instead`)? The probe's precision depends on this.
-   Recommendation: require `@deprecated` in the JSDoc immediately preceding the
-   re-export; have the LLM seat judge whether the message points at the right
-   original.
+1. **Barrel / index files are NOT exempt — barrel index files are banned going
+   forward.** This **overrides** the original recommendation (which proposed
+   exempting a package's declared entry-point barrel). New barrel `index.js`
+   re-export files are a violation like any other plain re-export; the probe and
+   seat treat a barrel as in-scope, not as a sanctioned canonical origin. The
+   per-file `reexport-policy-exempt` marker remains the only escape hatch for a
+   deliberately-reviewed exception, but it is not granted to barrels by default.
 
-3. **Is the LLM `reexport-auditor` seat worth building, or is the deterministic
-   pre-push probe enough?** The probe prevents authoring; the seat only adds
-   barrel-vs-plain and deprecation-adequacy judgment at review. Build both, or
-   ship the probe alone first and add the seat only if false positives prove it
-   needed?
+2. **Compliant deprecation = a `@deprecated` JSDoc immediately preceding the
+   re-export that names the original module** ("Agreed" with the recommendation).
+   The deterministic probe requires the adjacent `@deprecated` block; the LLM seat
+   judges whether the message actually points at the right original.
 
-4. **Should this be Endo-only or a garden-universal rule?** Stated as an Endo
-   policy; other forks the garden works (e.g. `Agoric/agoric-sdk`,
-   `kriscendobot/minion.town`) may or may not want it. Enforce only on endo
-   forks, or fleet-wide with a per-project opt-out?
+3. **Build the LLM seat, with a three-stage detection pipeline.** @kriskowal:
+   *"I would like to use deterministic automation to detect the introduction of
+   new reexport patterns. This can lead with a heuristic search for the existence
+   of `export` as a bare word on an additive line in the diff. Then, we can narrow
+   that with a full parse, using Babel, to sense the introduction of qualified
+   reexport, taking the set difference of those after from before. Then, we can
+   dispatch a low-tier LLM responder to file the complaint for the jury."* So the
+   detector is not a bare grep: **(a)** a cheap heuristic grep for `export` as a
+   bare word on additive diff lines, gating **(b)** a Babel full-parse that
+   computes the set difference of qualified re-exports (after − before) to
+   identify *newly introduced* qualified re-exports, feeding **(c)** a low-tier
+   `claude -p` responder that files the complaint for the jury. The probe from
+   artifact 2 is the stage-(a)/(b) deterministic core; the seat is stage (c).
 
-5. **`.d.ts` / TypeScript type-only re-exports.** `export type { T } from …` and
-   `export * from` in declaration files re-export *types*, where a second path is
-   often the intended surface. In scope for the policy, or exempt as a distinct
-   concern from value re-exports?
+4. **Garden-universal rule, captured as a garden skill that carries its own
+   tooling.** @kriskowal: *"Garden universal rule. Capture this as a skill of the
+   garden proper, with all the necessary tooling in the garden. The garden does
+   not rebuild its own scripts or fetch its own dependencies, so the skill will
+   need to fill that gap."* The rule applies fleet-wide (see updated **Scope**),
+   and because the garden does not `npm install` at run time, the skill must
+   **bundle / vendor the Babel parser** (and any other tooling the Decision-3
+   pipeline needs) inside the garden rather than assume a reachable dependency.
+
+5. **Type-only re-exports are exempt.** @kriskowal: *"Type reexports are exempt
+   from the rule."* `export type { T } from …`, `export type * from …`, and
+   re-exports in `.d.ts` declaration files are out of scope; the probe and seat
+   skip type-only re-export forms and only police value re-exports.
 
 ## What this job did NOT do
 
 - It did **not** implement the probe, the seat, the gate, or the skill, and did
-  **not** wire `reexport-auditor` into `GARDEN_CODE_SEATS`. This is a proposal;
-  those land in a follow-up `build` after @kriskowal and @erights answer the Open
-  questions.
+  **not** wire `reexport-auditor` into `GARDEN_CODE_SEATS`. This is the proposal;
+  the Open questions are now resolved (see **Decisions**), so those artifacts land
+  in the follow-up `build` this design gates.
 - It did **not** fix the `compare.js` re-export on `endojs/endo-but-for-bots`
   #475 — that is a separate `fixer`/`retcon` concern the maintainer dispatches.
 - It did **not** fetch or quote the untrusted PR thread beyond the policy
