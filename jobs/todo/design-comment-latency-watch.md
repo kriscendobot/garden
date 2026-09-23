@@ -79,13 +79,6 @@ there are none; review PR if there are). Keep open questions to genuine maintain
 decisions. Everything else should be decided in the design so the build can proceed.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=565 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-23T16:31:10Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-23T16:53:05Z -->
