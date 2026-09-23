@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T23:22:25Z_
+_As of 2026-09-23T23:23:33Z_
 
 ## Latest
 
@@ -528,6 +528,58 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment condition cleared.
 
+- `doomed-ebfb-exo-stream-pr1100-gauntlet-20260923-clean-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ebfb-exo-stream-pr1100-gauntlet-20260923-clean-requeue-exhausted.md)
+
+> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
+> The reaper spent no generic retry and applied no ordinary split; gauntlet ebfb-exo-stream-pr1100-gauntlet-20260923 exclusively owns retry through max_stage_retries.
+> The work is preserved at jobs/plan/ebfb-exo-stream-pr1100-gauntlet-20260923-clean; it stays HELD until a human promotes it
+> (promote-plan.sh ebfb-exo-stream-pr1100-gauntlet-20260923-clean) or removes it, so nothing is lost.
+> Original job base: ebfb-exo-stream-pr1100-gauntlet-20260923-clean
+>
+> --- original job body ---
+> ---
+> role: gardener
+> handler-budget-role: shepherd
+> handler-timeout: 7200
+> gauntlet: ebfb-exo-stream-pr1100-gauntlet-20260923
+> gauntlet_stage: clean
+> gauntlet_iteration: 0
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/1100](https://github.com/endojs/endo-but-for-bots/pull/1100)
+> ---
+>
+> # Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
+>
+> You are ONE stage of a staged gauntlet (ebfb-exo-stream-pr1100-gauntlet-20260923). Do ONLY the clean stage, then STOP.
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Idempotence first. `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1100 --json isDraft,state,statusCheckRollup`. If the
+>    PR is already the right shape (coverage already pushed, CI GREEN at the current
+>    head), this stage is a NO-OP: skip to the marker with clean=done.
+> 2. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh ebfb-exo-stream-pr1100-gauntlet-20260923-clean <pr-head-owner>/<repo-name> <pr-head-branch>`.
+>    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/1100 --json headRepositoryOwner,headRefName`;
+>    do not pass the base repo when the PR head belongs to a fork.
+> 3. In that checkout: run the coverage pass on the touched packages
+>    (skills/coverage-driven-testing) and remove any dead code the change orphaned.
+> 4. If you changed anything, push follow-ups to the PR head with
+>    `scripts/jobs/gardening/safe-push-pr-head.sh`.
+> 5. Watch CI to a terminal state, BOUNDED so this handler is never killed mid-wait:
+>    `GARDEN_CI_DEADLINE_SECS=3600 \
+>      scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 1100 --no-merge`
+>    - rc 0 (GREEN): success.
+>    - rc 4 (still PENDING at the deadline): CI is not terminal — report still-pending
+>      so the driver re-posts this stage on a fresh budget (do NOT emit clean=done).
+>    - rc 3 (RED): this stage FAILS. Begin your report with a line
+>      `orchestration-failed: true` and describe the failing checks; do NOT emit any
+>      clean=done marker (the driver halts the gauntlet and surfaces it).
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
+>   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
+
 - `watchdog-comment-watcher-dead-kriscendobot-proposal-compartments` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-proposal-compartments.md)
 
 > RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-proposal-compartments` has CLEARED (first seen 2026-09-23T22:36:08Z, cleared 2026-09-23T22:53:44Z).
@@ -785,16 +837,16 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-comment-latency-notice-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-latency-notice-failure.md) — ---
+### doin (0)
+(none)
 
-### tada (8787)
+### tada (8788)
+- [`improve-comment-latency-notice-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/improve-comment-latency-notice-failure.md) — Cost
 - [`diagnose-hourly-graphql-quota-exhaustion-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/diagnose-hourly-graphql-quota-exhaustion-20260923.md) — Cost
 - [`fix-e2e-fixtures-budget-pool-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-e2e-fixtures-budget-pool-admission.md) — Cost
 - [`cybernetics-audit-remediation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cybernetics-audit-remediation.md) — orchestration cybernetics-audit-remediation — complete
 - [`minion-town-claude-inference-exploration-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/minion-town-claude-inference-exploration-20260922.md) — orchestration minion-town-claude-inference-exploration-20260922 — complete
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923.md) — gauntlet ebfb-exo-stream-pr1100-gauntlet-20260923 — HALTED
-- … and 8782 more
+- … and 8783 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
