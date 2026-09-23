@@ -25,6 +25,7 @@ decomplector	opus
 
 # --- haiku: mechanical / narrow / pre-pass-gated -------------------------------
 orthographer	haiku
+reexport-auditor	haiku
 coverage-auditor	haiku
 archivist	haiku
 pruner	haiku

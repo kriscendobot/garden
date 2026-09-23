@@ -129,11 +129,13 @@ fi
 # seat-gate that runs a deterministic pre-pass (c8 coverage of new lines; grep for
 # British spellings; grep for Botese clichés) and only spends a `claude -p` when
 # there is something to judge (see seat-gate-coverage-auditor.sh,
-# seat-gate-orthographer.sh, seat-gate-thesaurus.sh, and the seat_review gate below).
+# seat-gate-orthographer.sh, seat-gate-thesaurus.sh, seat-gate-reexport-auditor.sh,
+# and the seat_review gate below).
 : "${GARDEN_CODE_SEATS:=assessor typist stylist packager archivist prover curator \
 migrator locksmith warden saboteur breaker purist spec-keeper wire-watcher \
 engine-realist integrator duality-auditor benchmarker changeset-auditor surfacer scribe pruner \
-gateway corner-prober fast-checker releaser transplanter coverage-auditor orthographer thesaurus}"
+gateway corner-prober fast-checker releaser transplanter coverage-auditor orthographer thesaurus \
+reexport-auditor}"
 
 # Design panel (9 seats) — design-only PRs (paths under designs/). The orthographer
 # and the thesaurus sit here too ("all documents"); cost-gated, so a design with no

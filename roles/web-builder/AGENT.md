@@ -65,6 +65,20 @@ what is specific to the web-frontend surface; it does not repeat the base role.
 - **Accessibility and responsiveness are acceptance criteria, not polish.**
   Semantic markup, keyboard reachability, and contrast ship with the feature, not
   in a follow-up.
+- **Never add a bare plain re-export; a re-export must be a `@deprecated`
+  compatibility shim pointing importers at the original, and importers must be
+  migrated to the original.** When a frontend or bundled module edits its exports,
+  do not write a plain `export … from '…'` (named, renamed, `default as`,
+  `export *`, `export * as ns`) that re-emits another module's binding unchanged as
+  a live second import path — every binding keeps one explicit provenance. A
+  re-export is allowed only as a deprecated shim: a `@deprecated` JSDoc immediately
+  above it naming the canonical module to import from instead, with importers moved
+  to that original. Barrels / `index.js` are not exempt; type-only re-exports
+  (`export type …`, `.d.ts`) are. See [re-export-deprecation-policy]. The
+  [pre-push-gates] `no-plain-reexport` probe enforces this deterministically;
+  `reexport-policy-exempt` in a file's first five lines is the per-file escape
+  hatch. Provenance: @erights on `endojs/endo-but-for-bots#475`, design
+  `designs/reexport-deprecation-policy-gauntlet.md` (approved PR #95).
 
 ## Selection
 
