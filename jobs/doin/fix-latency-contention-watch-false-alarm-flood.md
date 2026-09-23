@@ -49,3 +49,13 @@ for exact details. Fix every defect below, with a regression test for each.
 
 Run the new and existing test suites for both watches, then push to `main2`. Rollout goes through the
 normal rolling deploy. Complete the job via the normal completion path when done.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T21:05:26Z
