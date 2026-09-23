@@ -20,3 +20,13 @@ The required canonical check is still outstanding because the predecessor's Code
 Leave the PR DRAFT. If the canonical run passes, report that parked child `minion-town-clipometer-primer-esbuild-update` should be promoted next; the issue-report child follows only after the primer. Do not promote either.
 
 Cleanup owned by this successor: unpublish the predecessor's two disposable diagnostic sites `zpzugyjldktj7dxwfiiguw2hqxfsv6ygwk4rb62juyhrggqjeezq` and `j3u43sdyjajwxpjf46k4pjoq3afmqthf44b3pvlicpywtx5hmlcq`, and remove test-guest pet name `clipometer-revalidate-count-20260923`, after preserving the cited evidence. Do not unpublish the canonical real-guest result.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T21:09:49Z
