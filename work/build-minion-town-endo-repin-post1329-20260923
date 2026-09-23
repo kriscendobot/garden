@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-09-23T16:00:50Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-minion-town-endo-repin-post1329-20260923
+pr_number: 112
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/112
+pr_head: build/endo-repin-f9cbcfc
