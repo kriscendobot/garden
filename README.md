@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:57:20Z_
+_As of 2026-09-23T18:58:52Z_
 
 ## Latest
 
@@ -758,7 +758,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.6M | $570.87 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 56.7M | $571.15 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 22.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38015567 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -767,7 +767,8 @@ _Fleet token-unlock pace: 38015567 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`conduct-garden-pr95-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/conduct-garden-pr95-20260923.md) — Conduct (finalize) garden PR #95 — re-export deprecation policy design
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
 
 ### tada (8743)
