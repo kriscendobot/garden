@@ -360,5 +360,58 @@ else
   bad "contention backoff did not recover after expiry (projector-calls=$CB_CALLS_AFTER_RECOVERY): $(tr '\n' ' ' < "$CB_TICK4")"
 fi
 
+# --- no-op churn guard: an UNCHANGED pacing decision is not re-recorded ----------
+# Every paced tick used to append a `triager-pacing:current-cadence` decision, and each
+# decision is a journal COMMIT: 12,125 of the journal's 12,267 decision commits over
+# 2026-09-20..23 (78% of ALL journal traffic) were this one no-op, driving the journal
+# to 146k commits and wedging every consumer clone's capped fetch. A repeated, unchanged
+# decision must now be suppressed; a CHANGED one must still be recorded.
+NC_STATE="$TEMPORARY_ROOT/nochurn-state"
+NC_DECISIONS="$TEMPORARY_ROOT/nochurn-decisions"
+NC_PROJECTOR="$TEMPORARY_ROOT/nochurn-projector"
+NC_WAKE_FILE="$TEMPORARY_ROOT/nochurn-wake"
+printf '120\n' > "$NC_WAKE_FILE"
+cat > "$NC_PROJECTOR" <<'EOF'
+#!/bin/bash
+wake="$(cat "$NC_WAKE_FILE")"
+printf '{"status":"paced","role":"triager","wake_after_seconds":%s,"floor_seconds":120,"ceiling_seconds":3600,"reason":"calibrated"}\n' "$wake"
+EOF
+chmod +x "$NC_PROJECTOR"
+
+nc_tick() { # <output-file> <now>
+  timeout 45 env GARDEN_TEST=1 GARDEN="$HOST" GARDEN_STATE="$NC_STATE" \
+      JOURNAL_REMOTE="$JOURNAL_REMOTE" JOURNAL_BRANCH=journal2 \
+      GARDEN_REPOS="$REPOSITORIES" GARDEN_WATCH_REF="$REF" \
+      GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_CALLS="$HANDLER_CALLS" \
+      GARDEN_DECISION_APPEND="$DECISION_STUB" DECISIONS="$NC_DECISIONS" \
+      NC_WAKE_FILE="$NC_WAKE_FILE" \
+      GARDEN_TRIAGE_PACE_NOW="$2" GARDEN_TRIAGE_PACE_PROJECTOR="$NC_PROJECTOR" \
+      GARDEN_TRIAGE_PACE_COOLDOWN=0 \
+      "$JOBS/triager.sh" "$SLUG" >"$1" 2>&1 || true
+}
+
+: > "$NC_DECISIONS"
+# Three consecutive ticks at an unchanged cadence (wake == floor -> current-cadence).
+nc_tick "$TEMPORARY_ROOT/nc-tick1" "$NOW"
+nc_tick "$TEMPORARY_ROOT/nc-tick2" "$((NOW + 200))"
+nc_tick "$TEMPORARY_ROOT/nc-tick3" "$((NOW + 400))"
+NC_CURRENT="$(grep -c -- '--decision current-cadence' "$NC_DECISIONS" || true)"
+if [ "$NC_CURRENT" -eq 1 ] && [ -r "$NC_STATE/triager/pace/$SLUG" ]; then
+  ok "an unchanged pacing decision is recorded once, not on every tick"
+else
+  bad "no-op pacing churn not suppressed (current-cadence records=$NC_CURRENT, want 1): $(tr '\n' ' ' < "$NC_DECISIONS")"
+fi
+
+# A CHANGED decision must still be recorded: raise the projected wake above the floor
+# so the branch flips to defer-wake.
+printf '900\n' > "$NC_WAKE_FILE"
+nc_tick "$TEMPORARY_ROOT/nc-tick4" "$((NOW + 600))"
+NC_DEFER="$(grep -c -- '--decision defer-wake' "$NC_DECISIONS" || true)"
+if [ "$NC_DEFER" -eq 1 ]; then
+  ok "a CHANGED pacing decision is still recorded through the churn guard"
+else
+  bad "changed pacing decision was suppressed (defer-wake records=$NC_DEFER, want 1): $(tr '\n' ' ' < "$NC_DECISIONS")"
+fi
+
 echo "RESULT: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

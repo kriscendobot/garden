@@ -132,6 +132,11 @@ PACE_REFRESH_GATE_LOCK="$PACE_STATE_DIRECTORY/refresh-gate.lock"
 # refresh failure, read by every tick to skip the optional refresh quietly until it expires.
 PACE_CONTENTION_GATE="$PACE_STATE_DIRECTORY/contention-gate"
 PACE_CONTENTION_GATE_LOCK="$PACE_STATE_DIRECTORY/contention-gate.lock"
+
+# How long a repeated, UNCHANGED pacing decision may go unrecorded before one is
+# written anyway, so a healthy steady state still leaves a periodic trace in the
+# journal. Only the repeat is suppressed; a CHANGED decision is always recorded.
+: "${PACE_DECISION_HEARTBEAT_SECS:=21600}"   # 6h
 PACE_PREEMPTED=0
 PACE_EXPECTED_SHA=""
 PACE_OBSERVED_SHA=""
@@ -345,25 +350,60 @@ triager_pace_schedule() { # <observed-sha> <ref>
     triager_pace_note_warning pace-state-unwritable
     return 0
   }
+  # `|| true` on BOTH: the marker is absent on a cold first tick, and a failing
+  # command substitution in an assignment aborts the function under set -e/pipefail
+  # — which would skip the marker write below entirely and leave pacing stateless.
+  previous_decision="$(sed -n 's/^last_decision:[[:space:]]*//p' "$PACE_MARKER" 2>/dev/null | head -1 || true)"
+  previous_decision_epoch="$(sed -n 's/^last_decision_epoch:[[:space:]]*//p' "$PACE_MARKER" 2>/dev/null | head -1 || true)"
+  [[ "$previous_decision_epoch" =~ ^[0-9]+$ ]] || previous_decision_epoch=0
+  if [ "$wake" -gt "$(jq -r '.floor_seconds' <<<"$projection")" ]; then
+    decision_name=defer-wake
+  else
+    decision_name=current-cadence
+  fi
+  # Record ONLY on a transition (or a rare heartbeat) — see the no-op-churn note below.
+  record_this_decision=1
+  if [ "$decision_name" = "$previous_decision" ] \
+     && [ $((now - previous_decision_epoch)) -lt "$PACE_DECISION_HEARTBEAT_SECS" ]; then
+    record_this_decision=0
+  fi
+  if [ "$record_this_decision" -eq 1 ]; then
+    decision_epoch="$now"
+  else
+    decision_epoch="$previous_decision_epoch"
+  fi
   temporary_marker="$PACE_MARKER.$$"
   {
     printf 'next_wake_epoch: %s\n' "$next_wake"
     printf 'expected_sha: %s\n' "$observed_sha"
     printf 'ref: %s\n' "$observed_ref"
     printf 'role: %s\n' "$GARDEN_TRIAGE_PACE_ROLE"
+    printf 'last_decision: %s\n' "$decision_name"
+    printf 'last_decision_epoch: %s\n' "$decision_epoch"
   } > "$temporary_marker" && mv "$temporary_marker" "$PACE_MARKER" || {
     rm -f "$temporary_marker" 2>/dev/null || true
     triager_pace_note_warning pace-state-unwritable
     return 0
   }
+  # NO-OP CHURN GUARD. This is the steady-state path: every triager tick that finds
+  # the cadence unchanged used to write a `triager-pacing:current-cadence` decision,
+  # and each decision is a JOURNAL COMMIT. With one triager per watched repo ticking
+  # every ~90s, that was 12,125 of the journal's 12,267 decision commits over
+  # 2026-09-20..23 — 78% of ALL journal traffic, ~4k commits/day of pure "nothing
+  # changed". The journal reached 146,290 commits, which is not merely disk: every
+  # consumer's $GARDEN_STATE clone fetches under a 45s cap, so once a clone is big
+  # enough the fetch never finishes and the caller SILENTLY falls back to a stale ref
+  # — a wedged leader marker (is-main-host reporting follower on the true leader) and
+  # comment cursors that stopped advancing for hours while systemd recorded success.
+  # So a decision is recorded only when it CHANGES, plus a rare heartbeat so a healthy
+  # steady state is still observable. The pacing behaviour itself is untouched; only
+  # the journal write is gated.
+  if [ "$record_this_decision" -eq 0 ]; then
+    return 0
+  fi
   input_json="$(jq -cn --arg slug "$slug" --arg ref "$observed_ref" \
     --arg sha "$observed_sha" --argjson projection "$projection" \
     '{slug:$slug,ref:$ref,observed_sha:$sha,projection:$projection}')"
-  if [ "$wake" -gt "$(jq -r '.floor_seconds' <<<"$projection")" ]; then
-    decision_name=defer-wake
-  else
-    decision_name=current-cadence
-  fi
   record_decision --loop triager-pacing --input-json "$input_json" \
     --decision "$decision_name" --from-json "$now" --to-json "$next_wake" \
     --reason "$reason" --outcome applied \
