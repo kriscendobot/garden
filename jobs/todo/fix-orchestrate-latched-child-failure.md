@@ -2,8 +2,9 @@
 role: fixer
 priority: normal
 posted_by: liaison
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Fix: orchestrate.sh reports a child "failed" after it later reached a clean tada
@@ -43,13 +44,5 @@ for the final disposition of a parallel run.
    still fails; a vanished child still fails. Run the orchestrate suites and push.
 5. Complete the job via the normal completion path when done.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-23T20:35:59Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-23T21:03:05Z -->
