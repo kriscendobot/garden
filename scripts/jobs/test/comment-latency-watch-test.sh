@@ -142,4 +142,32 @@ grep -q -- '^--recovered comment-latency-storm-dead ' "$NOTICES" || { echo 'FAIL
 [ "$(grep -c '^comment-watcher-dead-owner-r[123] ' "$NOTICES")" -eq 3 ] || { echo 'FAIL: sub-storm dead notices not individual'; cat "$NOTICES"; exit 1; }
 unset ARMED
 
+# A failing notice handler (journal/push outage) is nonfatal: the tick exits 0,
+# writes its liveness heartbeat, and keeps alert state so the next tick retries.
+FAIL_NOTICE="$TR/notice-fail.sh"
+cat > "$FAIL_NOTICE" <<'EOF'
+#!/bin/bash
+printf '%s\n' "$*" >> "$CLW_NOTICES"
+exit 1
+EOF
+chmod +x "$FAIL_NOTICE"
+heartbeat example-repo
+row 2026-09-23T17:30:00Z 103 trusted https://example/103 '@kriscendobot please build this' > "$FIXTURE"
+: > "$REACTIONS"; : > "$NOTICES"; rm -rf "$STATE/latency"
+NOTICE_STUB_SAVED="$NOTICE_STUB"; NOTICE_STUB="$FAIL_NOTICE"
+run_watch 2>/dev/null || { echo 'FAIL: notice failure aborted the tick'; exit 1; }
+[ -s "$STATE/latency/heartbeat" ] || { echo 'FAIL: heartbeat not written after notice failure'; exit 1; }
+grep -q '^comment-ack-blind-example-repo ' "$NOTICES" || { echo 'FAIL: failing notice not attempted'; exit 1; }
+[ -e "$STATE/latency/alerts/comment-ack-blind-example-repo" ] || { echo 'FAIL: alert state lost on failed open'; exit 1; }
+# The condition clears but the recovery delivery fails: the marker is retained...
+printf '103\t2026-09-23T17:59:00Z\n' > "$REACTIONS"; : > "$NOTICES"
+run_watch 2>/dev/null || { echo 'FAIL: recovery failure aborted the tick'; exit 1; }
+grep -q -- '^--recovered comment-ack-blind-example-repo ' "$NOTICES" || { echo 'FAIL: recovery not attempted'; exit 1; }
+[ -e "$STATE/latency/alerts/comment-ack-blind-example-repo" ] || { echo 'FAIL: alert state dropped on failed recovery'; exit 1; }
+# ...and the next tick, with delivery restored, retries and closes it.
+NOTICE_STUB="$NOTICE_STUB_SAVED"; : > "$NOTICES"
+run_watch
+grep -q -- '^--recovered comment-ack-blind-example-repo ' "$NOTICES" || { echo 'FAIL: failed recovery not retried'; exit 1; }
+[ ! -e "$STATE/latency/alerts/comment-ack-blind-example-repo" ] || { echo 'FAIL: retried recovery left marker'; exit 1; }
+
 echo 'PASS: comment latency watch scenarios'

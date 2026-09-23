@@ -354,11 +354,21 @@ write_stats() {
   } > "$GARDEN_COMMENT_LATENCY_STATE/stats/$slug"
 }
 
+# Notice delivery is best-effort: watchdog-notice.sh pushes to the journal, and a
+# journal/push outage must not abort the tick (set -e) before the liveness
+# heartbeat below is written, or systemd restart-loops this service. A failed
+# delivery is logged and the alert marker is kept so the next tick retries: a
+# failed open still records the marker (a later clear is a no-op for a notice
+# that never opened, per RECOVERY_IF_OPEN_ONLY), and a failed clear leaves it.
+NOTICE_FAILURES=0
 notice_set() { # key body
   local key="$1" body="$2" marker bf
   marker="$GARDEN_COMMENT_LATENCY_STATE/alerts/$key"
   bf="$(mktemp)"; printf '%b' "$body" > "$bf"
-  "$GARDEN_COMMENT_LATENCY_NOTICE" "$key" "$bf"
+  if ! "$GARDEN_COMMENT_LATENCY_NOTICE" "$key" "$bf"; then
+    log "WARN: watchdog notice for $key failed; will retry next tick"
+    NOTICE_FAILURES=$(( NOTICE_FAILURES + 1 ))
+  fi
   : > "$marker"; rm -f "$bf"
 }
 notice_clear() {
@@ -366,8 +376,13 @@ notice_clear() {
   marker="$GARDEN_COMMENT_LATENCY_STATE/alerts/$key"
   [ -e "$marker" ] || return 0
   bf="$(mktemp)"; printf 'Comment acknowledgment condition cleared.\n' > "$bf"
-  GARDEN_WATCHDOG_RECOVERY_IF_OPEN_ONLY=1 "$GARDEN_COMMENT_LATENCY_NOTICE" --recovered "$key" "$bf"
-  rm -f "$marker" "$bf"
+  if GARDEN_WATCHDOG_RECOVERY_IF_OPEN_ONLY=1 "$GARDEN_COMMENT_LATENCY_NOTICE" --recovered "$key" "$bf"; then
+    rm -f "$marker"
+  else
+    log "WARN: watchdog recovery notice for $key failed; alert state kept for retry"
+    NOTICE_FAILURES=$(( NOTICE_FAILURES + 1 ))
+  fi
+  rm -f "$bf"
 }
 
 # Per-repo classes, with the storm guard: when more than STORM_MAX repos carry the
@@ -433,3 +448,4 @@ else
   notice_clear comment-ack-muted-drain
 fi
 watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" full-poll
+[ "$NOTICE_FAILURES" -eq 0 ] || log "WARN: $NOTICE_FAILURES watchdog notice delivery failure(s) this tick; heartbeat written, retrying next tick"
