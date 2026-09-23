@@ -83,6 +83,7 @@ silently missed for this same reason — grep recent
 any starting with `>` and flag any that look like a genuine missed
 directive, not just this one instance.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
