@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-23T20:37:11Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-minion-town-codex-subscription-inference-20260923
+pr_number: 116
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/116
+pr_head: codex-subscription-inference
