@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T20:25:43Z_
+_As of 2026-09-23T20:26:21Z_
 
 ## Latest
 
@@ -744,6 +744,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monitors/monk-2/journal: oldest-third median=1.442805s newest-third median=1.734479s; 1.5x floor=10s; projected-to-guard=57761s.
 
+- `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_unblock_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_unblock_journal.md)
+
+> Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/unblock/journal: oldest-third median=1.330787s newest-third median=1.982374s; 1.5x floor=10s; projected-to-guard=54407s.
+
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
 > RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-09-23T19:48:03Z, cleared 2026-09-23T19:51:26Z).
@@ -1078,13 +1082,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.8M | $575.17 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 56.8M | $575.41 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 23.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38052757 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 10 open notice(s); checker healthy
+worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 11 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
