@@ -50,6 +50,7 @@ for exact details. Fix every defect below, with a regression test for each.
 Run the new and existing test suites for both watches, then push to `main2`. Rollout goes through the
 normal rolling deploy. Complete the job via the normal completion path when done.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=677 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
