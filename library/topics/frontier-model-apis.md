@@ -11,6 +11,10 @@
 | [access-and-api](../sections/web--meta-muse-spark-1-1-blog--access-and-api.md) | Meta launch blog | Access via the OpenAI-compatible Meta Model API (public preview, per-team gated); no published pricing; output-token rate limit charged before a request runs. |
 | [safety-and-agentic-robustness](../sections/web--meta-muse-spark-1-1-eval-report--safety-and-agentic-robustness.md) | Muse Spark 1.1 Evaluation Report | Tool calling as attack surface; prompt-injection robustness improved over 1.0 but trailing SOTA on file injection; Meta recommend system-level tool allowlists + workspace isolation; coding/computer-use benchmarks trail the Claude Opus tier. |
 | [attractor-states](../sections/web--meta-muse-spark-1-1-eval-report--attractor-states.md) | Muse Spark 1.1 Evaluation Report | The self-conversation "attractor state" behavioral profile, including an "anti-usefulness" strand — an out-of-distribution artifact worth flagging for long-running autonomous loops. |
+| [price-war overview](../sections/web--willison-opus-sol-luna-price-war--overview.md) | Willison link post | Same-day Opus 5.5 / GPT-6 Sol / GPT-6 Luna releases framed as a price war in the tier below the top-priced models. |
+| [pricing and the price war](../sections/web--willison-opus-sol-luna-price-war--pricing-and-the-price-war.md) | Willison link post | The 2026-09-22 price table: GPT-6 Luna at $0.10/$0.50 (half of 5.6 Luna), Sol and Grok converging at $2/M input. |
+| [Opus 5.5 price cut](../sections/web--willison-opus-sol-luna-price-war--opus-5-5-price-cut.md) | Willison link post | Opus 5.5's first price cut since 4.5: 20% to $4/$20 plus a 60% cache-read drop; clearer communication, works across effort levels. |
+| [Opus 5.5 max over-thinks](../sections/web--willison-opus-sol-luna-price-war--opus-5-5-max-over-thinks.md) | Willison link post | Opus 5.5 at "max" exhausted the 128k output-token budget while reasoning and returned nothing, twice; a caution on highest-effort reasoning. |
 
 ## See also
 
