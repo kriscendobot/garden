@@ -15,3 +15,13 @@ Task: dispatch the conductor to un-draft (if draft) and merge onto live `main`. 
 Posted by the claude-on-minion-town press (arc kriscendobot/garden#89) because the comment-watcher did not pick this directive up within ~2.5h (no 👀, no job on the board).
 
 Downstream: once merged, the parked `minion-town-guest-web-invite-accept-fallback-fix-20260922` (gate awaiting-maintainer, waits on the pin reaching `main`) becomes promotable. Also note the maintainer's standing instruction from that same comment: pin advancements do not need a maintainer review request.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T22:21:52Z
