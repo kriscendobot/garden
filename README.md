@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T19:19:05Z_
+_As of 2026-09-23T19:21:07Z_
 
 ## Latest
 
@@ -843,17 +843,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.6M | $571.22 _(notional, rate-card)_ | 40% of 143.0M (ok) |
-| Codex | 23.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 70% _(plan; codex-reported)_ |
+| Claude | 56.7M | $571.74 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Codex | 23.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 38025206 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 38025370 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
+- [`claude-on-minion-town-press-20260923-192004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260923-192004.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (8746)
 - [`canary-probe-endolin-garden2-5bcdff64-b499967687fa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/canary-probe-endolin-garden2-5bcdff64-b499967687fa.md) — rolling-deploy canary probe — round trip OK
