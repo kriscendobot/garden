@@ -1,0 +1,2 @@
+base: improve-bulletin-fetch-outage-backoff
+identity: mentor:scripts/jobs/bulletin.sh
