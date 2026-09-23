@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T21:35:29Z_
+_As of 2026-09-23T21:36:46Z_
 
 ## Latest
 
@@ -64,7 +64,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_maintainer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_maintainer_journal.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/maintainer/journal: packs 50 >= 50; size=73689088B packs=50 gc.log=0; automatic remedy=applied.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_maintainer_journal` has CLEARED (first seen 2026-09-23T21:26:03Z, cleared 2026-09-23T21:35:54Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_maintainer_journal` cleared on endolin-garden-ece02cb4.
 
 - `doomed-kriscendobot-garden-pr109-conduct-20260923-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-garden-pr109-conduct-20260923-requeue-exhausted.md)
 
@@ -372,6 +376,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment dead anomaly for kriscendobot/list:
 > watcher heartbeat (age=-8s outcome=cooldown)
+
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_monks_2_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_monks_2_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monks/2/journal: p95=0.002007s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_requirements_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_requirements_watch_journal.md)
 
@@ -1157,7 +1165,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_monks_2_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_monks_2_journal.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monks/2/journal: packs 50 >= 50; size=54017024B packs=50 gc.log=0; automatic remedy=deferred.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_monks_2_journal` has CLEARED (first seen 2026-09-23T21:30:56Z, cleared 2026-09-23T21:36:10Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_monks_2_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_budget_refresh_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_budget_refresh_journal.md)
 
@@ -1215,24 +1227,24 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 34371276 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 15 open notice(s); checker healthy
+worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 14 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (3)
+- [`endo-ocapn-gateway-session-binding-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-ocapn-gateway-session-binding-build.md) — Endo: bind the OCapN peer gateway to the authenticated session; add an advert...
 - [`mentat-ebfb-pr1100-carry-over-line-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-ebfb-pr1100-carry-over-line-20260923.md) — Carry endojs/endo-but-for-bots#1100 over the line (mentat fixer, then a fresh...
-- [`endo-minion-town-federation-town-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-minion-town-federation-town-build.md) — Minion Town account guest locator and deployment wiring
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1100
 
-### tada (8772)
+### tada (8773)
+- [`endo-minion-town-federation-town-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/endo-minion-town-federation-town-build.md) — Stage 2 (minion.town account locator and deployment wiring): draft PR ready, ...
 - [`fix-latency-contention-watch-false-alarm-flood`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-latency-contention-watch-false-alarm-flood.md) — Completion report
 - [`minion-town-codex-inference-exploration-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/minion-town-codex-inference-exploration-20260923.md) — orchestration minion-town-codex-inference-exploration-20260923 — complete
 - [`build-minion-town-codex-subscription-inference-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-minion-town-codex-subscription-inference-20260923.md) — Cost
 - [`minion-town-clipometer-pr84-canonical-real-guest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/minion-town-clipometer-pr84-canonical-real-guest.md) — Cost
-- [`endo-minion-town-federation-endo-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/endo-minion-town-federation-endo-build.md) — Stage 1 (Endo guest-locator adoption and daemon bridge): draft PR open, local...
-- … and 8767 more
+- … and 8768 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
