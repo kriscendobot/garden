@@ -37,3 +37,13 @@ remember that override.
   suites and push to `main2`.
 
 Report: commit sha and which paths still assume Yarn, if any.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T16:22:49Z
