@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T21:09:15Z_
+_As of 2026-09-23T21:11:26Z_
 
 ## Latest
 
@@ -305,11 +305,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` has CLEARED (first seen 2026-09-23T19:48:28Z, cleared 2026-09-23T20:36:02Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-23T19:48:28Z, latest 2026-09-23T21:10:57Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/triager-pace/journal: packs 55 >= 50; size=138047488B packs=55 gc.log=0; automatic remedy=backoff.
 
 - `watchdog-comment-watcher-dead-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-minion.town.md)
 
@@ -1151,32 +1151,31 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.1M | $587.12 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 57.2M | $588.42 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 24.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38107275 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 12 open notice(s); checker healthy
+worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 13 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
 - [`build-minion-town-codex-subscription-inference-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-codex-subscription-inference-20260923.md) — Explore a **Codex on ChatGPT subscription** inference backend in minion.town
 
-### doin (5)
+### doin (4)
 - [`endo-minion-town-federation-endo-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-minion-town-federation-endo-build.md) — Endo guest-locator adoption and daemon bridge
+- [`minion-town-clipometer-pr84-canonical-publish-validate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-pr84-canonical-publish-validate.md) — CLIPOMETER: canonical real-guest publish and final live validation
 - [`mentat-ebfb-pr1100-carry-over-line-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-ebfb-pr1100-carry-over-line-20260923.md) — Carry endojs/endo-but-for-bots#1100 over the line (mentat fixer, then a fresh...
-- [`fix-orchestrate-blocked-gate-refusal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-orchestrate-blocked-gate-refusal.md) — ---
-- [`minion-town-clipometer-pr84-rebase-revalidate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-pr84-rebase-revalidate.md) — CLIPOMETER: rebase kriscendobot/minion.town#84 and re-run the live publish va...
 - [`fix-latency-contention-watch-false-alarm-flood`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-latency-contention-watch-false-alarm-flood.md) — Fix: comment-latency-watch and journal-contention-watch are flooding the main...
 
-### tada (8764)
+### tada (8766)
+- [`fix-orchestrate-blocked-gate-refusal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-orchestrate-blocked-gate-refusal.md) — Cost
+- [`minion-town-clipometer-pr84-rebase-revalidate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/minion-town-clipometer-pr84-rebase-revalidate.md) — Cost
 - [`fix-orchestrate-latched-child-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-orchestrate-latched-child-failure.md) — Completion report: fix-orchestrate-latched-child-failure
 - [`fix-frozen-base-sweep-close-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-frozen-base-sweep-close-race.md) — Cost
 - [`endo-minion-town-guest-locator-federation-supervisor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/endo-minion-town-guest-locator-federation-supervisor.md) — Cost
-- [`build-minion-town-codex-api-key-inference-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-minion-town-codex-api-key-inference-20260923.md) — Completion report: build-minion-town-codex-api-key-inference-20260923
-- [`improve-promote-plan-doom-reset-fixture`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/improve-promote-plan-doom-reset-fixture.md) — Cost
-- … and 8759 more
+- … and 8761 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
