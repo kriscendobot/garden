@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T23:11:31Z_
+_As of 2026-09-23T23:12:33Z_
 
 ## Latest
 
@@ -773,7 +773,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.8M | $596.06 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 57.8M | $596.22 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 26.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34323246 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -785,16 +785,16 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### todo (0)
 (none)
 
-### doin (1)
-- [`diagnose-hourly-graphql-quota-exhaustion-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-hourly-graphql-quota-exhaustion-20260923.md) — Diagnose: the bot's GitHub GraphQL bucket is exhausted every hour
+### doin (0)
+(none)
 
-### tada (8786)
+### tada (8787)
+- [`diagnose-hourly-graphql-quota-exhaustion-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/diagnose-hourly-graphql-quota-exhaustion-20260923.md) — Cost
 - [`fix-e2e-fixtures-budget-pool-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-e2e-fixtures-budget-pool-admission.md) — Cost
 - [`cybernetics-audit-remediation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cybernetics-audit-remediation.md) — orchestration cybernetics-audit-remediation — complete
 - [`minion-town-claude-inference-exploration-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/minion-town-claude-inference-exploration-20260922.md) — orchestration minion-town-claude-inference-exploration-20260922 — complete
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923.md) — gauntlet ebfb-exo-stream-pr1100-gauntlet-20260923 — HALTED
-- [`minion-town-endo-pin-f9cbcfc-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/minion-town-endo-pin-f9cbcfc-verify.md) — Completion report: minion-town-endo-pin-f9cbcfc-verify
-- … and 8781 more
+- … and 8782 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
