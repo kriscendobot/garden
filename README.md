@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T21:20:29Z_
+_As of 2026-09-23T21:21:43Z_
 
 ## Latest
 
@@ -24,7 +24,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_decisions_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_decisions_journal.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/decisions/journal: packs 50 >= 50; size=66840576B packs=50 gc.log=0; automatic remedy=applied.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_decisions_journal` has CLEARED (first seen 2026-09-23T21:06:13Z, cleared 2026-09-23T21:20:54Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_decisions_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-fetch-drift-_home_kris_garden2__garden_state_inbox_minion_town_clipometer_pr84_rebase_revalidate_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden2__garden_state_inbox_minion_town_clipometer_pr84_rebase_revalidate_journal.md)
 
@@ -118,6 +122,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_deadmail_verify` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_inbox_endo_minion_town_federation_endo_build_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_inbox_endo_minion_town_federation_endo_build_journal.md)
+
+> Journal fetch drift on endolin-garden-ece02cb4 for _home_kris_garden__garden_state_inbox_endo_minion_town_federation_endo_build_journal: oldest-third median=1.692146s newest-third median=2.403142s; 1.5x floor=10s; projected-to-guard=46858s.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_clerics_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_clerics_1_journal.md)
 
@@ -1169,7 +1177,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.8M | $580.02 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 56.8M | $580.31 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 25.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38157840 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
