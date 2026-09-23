@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T21:04:49Z_
+_As of 2026-09-23T21:05:52Z_
 
 ## Latest
 
@@ -1134,10 +1134,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.0M | $584.26 _(notional, rate-card)_ | 40% of 143.0M (ok) |
-| Codex | 24.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 73% _(plan; codex-reported)_ |
+| Claude | 57.0M | $584.81 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Codex | 24.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 38101098 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 38107275 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 12 open notice(s); checker healthy
@@ -1146,12 +1146,13 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### todo (1)
 - [`build-minion-town-codex-subscription-inference-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-codex-subscription-inference-20260923.md) — Explore a **Codex on ChatGPT subscription** inference backend in minion.town
 
-### doin (5)
+### doin (6)
 - [`endo-minion-town-federation-endo-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-minion-town-federation-endo-build.md) — Endo guest-locator adoption and daemon bridge
 - [`mentat-ebfb-pr1100-carry-over-line-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-ebfb-pr1100-carry-over-line-20260923.md) — Carry endojs/endo-but-for-bots#1100 over the line (mentat fixer, then a fresh...
 - [`fix-orchestrate-blocked-gate-refusal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-orchestrate-blocked-gate-refusal.md) — ---
 - [`fix-orchestrate-latched-child-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-orchestrate-latched-child-failure.md) — Fix: orchestrate.sh reports a child "failed" after it later reached a clean tada
 - [`minion-town-clipometer-pr84-rebase-revalidate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-pr84-rebase-revalidate.md) — CLIPOMETER: rebase kriscendobot/minion.town#84 and re-run the live publish va...
+- [`fix-latency-contention-watch-false-alarm-flood`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-latency-contention-watch-false-alarm-flood.md) — Fix: comment-latency-watch and journal-contention-watch are flooding the main...
 
 ### tada (8763)
 - [`fix-frozen-base-sweep-close-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-frozen-base-sweep-close-race.md) — Cost
