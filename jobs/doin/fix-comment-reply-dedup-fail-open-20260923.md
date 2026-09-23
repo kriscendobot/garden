@@ -64,3 +64,13 @@ ACCEPTANCE:
 CONTEXT: the comment watcher is a leader-only singleton and, by standing
 maintainer instruction (2026-09-23), runs on the leader host. It is currently
 ARMED on endolin-garden2-5bcdff64, so this defect is live in production.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-23T00:24:22Z
