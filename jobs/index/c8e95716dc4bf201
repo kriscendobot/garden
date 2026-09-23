@@ -1,0 +1,2 @@
+base: improve-comment-latency-notice-failure
+identity: mentor:scripts/jobs/comment-latency-watch.sh
