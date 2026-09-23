@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-09-17
+updated: 2026-09-23
 author: gardener
 ---
 
@@ -306,6 +306,12 @@ same `<base>-<sha>` branch name. This is benign — both PRs share the frozen ba
 it reuses the existing branch. A collision across forks (different work, same
 SHA) is invisible because the bot's fork only sees its own.
 
+The garden open-questions answer-surface exception is **not** benign when two
+open PRs share the snapshot: merging one PR against the frozen base advances the
+base ref and changes the other PR's comparison. Retain the shared ref while the
+other PR is open, report the changed comparison, and repin that PR before it is
+conducted.
+
 ## Not applicable
 
 - **Upstream PRs after ferry.** The boatman ferries from the bot-side
@@ -355,6 +361,13 @@ SHA) is invisible because the bot's fork only sees its own.
 
 (Append; terse and dated.)
 
+- _2026-09-23_: garden PRs #108 and #109 shared `main2-7446197`. Merging the
+  approved #109 answer-surface advanced that base to its merge commit while #108
+  remained open; #108's two-tip comparison then gained a deletion of #109's
+  TypeSafe design. The ordinary "collision is benign" claim depends on
+  unfreezing before merge and does not hold for answer-surfaces, which merge
+  against the snapshot by exception. The conductor retained the still-used base
+  and surfaced #108 for repinning.
 - _2026-09-17_: `kriscendobot/garden` open-questions design PRs are answer-surfaces over content already landed on `main2`. At conduct time, verify the marker and byte-identical design on `main2`, then merge against the frozen review base rather than retargeting to `main2` (which would collapse the comparison to empty). PR #87 was the first approved answer-surface finalized this way.
 - _2026-09-17_: closed the roadmap-design contradiction. `roles/designer/AGENT.md`
   said "open a draft PR against the roadmap branch" (read as bare `llm`), while
