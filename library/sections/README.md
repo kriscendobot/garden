@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7191 (530 parent indexes + 6661 children).
+Total section files: 7195 (530 parent indexes + 6665 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -10173,6 +10173,13 @@ Total section files: 7191 (530 parent indexes + 6661 children).
 ### web--willison-muse-spark-1-1
 
 - [web--willison-muse-spark-1-1--overview](web--willison-muse-spark-1-1--overview.md)
+
+### web--willison-opus-sol-luna-price-war
+
+- [web--willison-opus-sol-luna-price-war--opus-5-5-max-over-thinks](web--willison-opus-sol-luna-price-war--opus-5-5-max-over-thinks.md)
+- [web--willison-opus-sol-luna-price-war--opus-5-5-price-cut](web--willison-opus-sol-luna-price-war--opus-5-5-price-cut.md)
+- [web--willison-opus-sol-luna-price-war--overview](web--willison-opus-sol-luna-price-war--overview.md)
+- [web--willison-opus-sol-luna-price-war--pricing-and-the-price-war](web--willison-opus-sol-luna-price-war--pricing-and-the-price-war.md)
 
 ### webpack--config-resolve
 
