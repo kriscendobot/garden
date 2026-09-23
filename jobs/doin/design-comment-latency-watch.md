@@ -78,6 +78,7 @@ Follow `roles/designer/AGENT.md` for the open-questions carve-out (land bare if
 there are none; review PR if there are). Keep open questions to genuine maintainer
 decisions. Everything else should be decided in the design so the build can proceed.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=565 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
