@@ -79,3 +79,13 @@ not a genuine maintainer decision.
 **IMPORTANT, a known fleet bug:** when you finish, you MUST complete the job (report via the
 normal completion path). Two designs today did their work but exited without completing, so the
 reaper doomed a finished job and halted the orchestration.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T17:22:13Z
