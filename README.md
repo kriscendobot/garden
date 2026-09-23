@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T21:05:52Z_
+_As of 2026-09-23T21:09:15Z_
 
 ## Latest
 
@@ -22,9 +22,17 @@ Garden infrastructure work completed on Opus 5.5 tier ([#108](https://github.com
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_decisions_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_decisions_journal.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/decisions/journal: packs 50 >= 50; size=66840576B packs=50 gc.log=0; automatic remedy=applied.
+
 - `watchdog-journal-fetch-drift-_home_kris_garden2__garden_state_inbox_minion_town_clipometer_pr84_rebase_revalidate_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden2__garden_state_inbox_minion_town_clipometer_pr84_rebase_revalidate_journal.md)
 
-> Journal fetch drift on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/inbox/minion-town-clipometer-pr84-rebase-revalidate/journal: oldest-third median=1.197083s newest-third median=1.537402s; 1.5x floor=10s; projected-to-guard=48776s.
+> RECOVERED — the watchdog condition `journal-fetch-drift-_home_kris_garden2__garden_state_inbox_minion_town_clipometer_pr84_rebase_revalidate_journal` has CLEARED (first seen 2026-09-23T21:01:53Z, cleared 2026-09-23T21:06:47Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-drift-_home_kris_garden2__garden_state_inbox_minion_town_clipometer_pr84_rebase_revalidate_journal` cleared on endolin-garden2-5bcdff64.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_issue_inbox_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_issue_inbox_verify.md)
 
@@ -96,11 +104,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-endo-but-for-bots.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-endo-but-for-bots` has CLEARED (first seen 2026-09-23T18:38:00Z, cleared 2026-09-23T20:48:45Z).
-> It was observed 18 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #19 (first seen 2026-09-23T18:38:00Z, latest 2026-09-23T21:08:32Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-endo-but-for-bots`) has now been observed 19 times; this is ONE
+> coalesced notice that updates in place, not 19 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment acknowledgment dead anomaly for kriscendobot/endo-but-for-bots:
+> watcher heartbeat (age=-40s outcome=cooldown)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_deadmail_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_deadmail_verify.md)
 
@@ -170,11 +179,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-ocapn` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ocapn.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ocapn` has CLEARED (first seen 2026-09-23T19:01:56Z, cleared 2026-09-23T20:47:20Z).
-> It was observed 21 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #22 (first seen 2026-09-23T19:01:56Z, latest 2026-09-23T21:07:13Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-ocapn`) has now been observed 22 times; this is ONE
+> coalesced notice that updates in place, not 22 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment acknowledgment dead anomaly for kriscendobot/ocapn:
+> watcher heartbeat (age=-36s outcome=cooldown)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_maintainer_approval_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_maintainer_approval_verify.md)
 
@@ -266,11 +276,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` has CLEARED (first seen 2026-09-23T18:37:30Z, cleared 2026-09-23T20:47:45Z).
-> It was observed 22 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #23 (first seen 2026-09-23T18:37:30Z, latest 2026-09-23T21:07:35Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-oros-ckm-data-readiness`) has now been observed 23 times; this is ONE
+> coalesced notice that updates in place, not 23 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment acknowledgment dead anomaly for kriscendobot/oros-ckm-data-readiness:
+> watcher heartbeat (age=34s outcome=cooldown)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_pages_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_pages_watcher_verify.md)
 
@@ -302,23 +313,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #21 (first seen 2026-09-23T18:37:55Z, latest 2026-09-23T21:03:21Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-minion.town`) has now been observed 21 times; this is ONE
-> coalesced notice that updates in place, not 21 messages. Latest detail:
+> WATCHDOG notice — occurrence #22 (first seen 2026-09-23T18:37:55Z, latest 2026-09-23T21:08:20Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-minion.town`) has now been observed 22 times; this is ONE
+> coalesced notice that updates in place, not 22 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/112](https://github.com/kriscendobot/minion.town/pull/112)#issuecomment-5801839646 (age=4251s; heartbeat=cooldown)
-> [https://github.com/kriscendobot/minion.town/pull/112](https://github.com/kriscendobot/minion.town/pull/112)#issuecomment-5801839646 (age=4251s; heartbeat=missing)
-> watcher heartbeat (age=-30s outcome=cooldown)
+> [https://github.com/kriscendobot/minion.town/pull/112](https://github.com/kriscendobot/minion.town/pull/112)#issuecomment-5801839646 (age=4552s; heartbeat=cooldown)
+> [https://github.com/kriscendobot/minion.town/pull/112](https://github.com/kriscendobot/minion.town/pull/112)#issuecomment-5801839646 (age=4552s; heartbeat=missing)
+> watcher heartbeat (age=-37s outcome=cooldown)
 
 - `watchdog-comment-watcher-dead-kriscendobot-list` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-list.md)
 
-> WATCHDOG notice — occurrence #26 (first seen 2026-09-23T18:37:42Z, latest 2026-09-23T21:02:58Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-list`) has now been observed 26 times; this is ONE
-> coalesced notice that updates in place, not 26 messages. Latest detail:
+> WATCHDOG notice — occurrence #27 (first seen 2026-09-23T18:37:42Z, latest 2026-09-23T21:08:03Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-list`) has now been observed 27 times; this is ONE
+> coalesced notice that updates in place, not 27 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/list:
-> watcher heartbeat (age=-29s outcome=cooldown)
+> watcher heartbeat (age=53s outcome=cooldown)
 
 - `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_requirements_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_requirements_watch_journal.md)
 
@@ -382,12 +393,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-ymax-e2e` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ymax-e2e.md)
 
-> WATCHDOG notice — occurrence #21 (first seen 2026-09-23T19:02:28Z, latest 2026-09-23T21:02:36Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-ymax-e2e`) has now been observed 21 times; this is ONE
-> coalesced notice that updates in place, not 21 messages. Latest detail:
+> WATCHDOG notice — occurrence #22 (first seen 2026-09-23T19:02:28Z, latest 2026-09-23T21:07:41Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-ymax-e2e`) has now been observed 22 times; this is ONE
+> coalesced notice that updates in place, not 22 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/ymax-e2e:
-> watcher heartbeat (age=-43s outcome=cooldown)
+> watcher heartbeat (age=-39s outcome=cooldown)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_approval_reconciler_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_approval_reconciler_verify.md)
 
@@ -541,11 +552,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-endojs-endo-but-for-bots.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-dead-endojs-endo-but-for-bots` has CLEARED (first seen 2026-09-23T18:37:35Z, cleared 2026-09-23T20:47:57Z).
-> It was observed 22 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #23 (first seen 2026-09-23T18:37:35Z, latest 2026-09-23T21:07:47Z).
+> The SAME condition (`comment-watcher-dead-endojs-endo-but-for-bots`) has now been observed 23 times; this is ONE
+> coalesced notice that updates in place, not 23 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment acknowledgment dead anomaly for endojs/endo-but-for-bots:
+> watcher heartbeat (age=-15s outcome=cooldown)
 
 - `reexport-policy-automation-20260923-terminal-complete` — from orchestrator:reexport-policy-automation-20260923-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/reexport-policy-automation-20260923-terminal-complete.md)
 
@@ -790,21 +802,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-endo` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-endo.md)
 
-> WATCHDOG notice — occurrence #25 (first seen 2026-09-23T19:02:55Z, latest 2026-09-23T21:03:04Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-endo`) has now been observed 25 times; this is ONE
-> coalesced notice that updates in place, not 25 messages. Latest detail:
+> WATCHDOG notice — occurrence #26 (first seen 2026-09-23T19:02:55Z, latest 2026-09-23T21:08:09Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-endo`) has now been observed 26 times; this is ONE
+> coalesced notice that updates in place, not 26 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/endo:
-> watcher heartbeat (age=22s outcome=cooldown)
+> watcher heartbeat (age=8s outcome=cooldown)
 
 - `watchdog-comment-watcher-dead-kriscendobot-proposal-compartments` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-proposal-compartments.md)
 
-> WATCHDOG notice — occurrence #24 (first seen 2026-09-23T19:07:42Z, latest 2026-09-23T21:02:53Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-proposal-compartments`) has now been observed 24 times; this is ONE
-> coalesced notice that updates in place, not 24 messages. Latest detail:
+> WATCHDOG notice — occurrence #25 (first seen 2026-09-23T19:07:42Z, latest 2026-09-23T21:07:58Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-proposal-compartments`) has now been observed 25 times; this is ONE
+> coalesced notice that updates in place, not 25 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/proposal-compartments:
-> watcher heartbeat (age=-20s outcome=cooldown)
+> watcher heartbeat (age=-18s outcome=cooldown)
 
 - `doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted.md)
 
@@ -826,7 +838,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: packs 50 >= 50; size=51049472B packs=50 gc.log=0; automatic remedy=applied.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-23T21:01:06Z, cleared 2026-09-23T21:05:53Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
 
 - `doomed-foreman-requiesce-target-0-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-foreman-requiesce-target-0-requeue-exhausted.md)
 
@@ -907,12 +923,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-ymax-stdio-mcp` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ymax-stdio-mcp.md)
 
-> WATCHDOG notice — occurrence #25 (first seen 2026-09-23T19:02:39Z, latest 2026-09-23T21:02:47Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-ymax-stdio-mcp`) has now been observed 25 times; this is ONE
-> coalesced notice that updates in place, not 25 messages. Latest detail:
+> WATCHDOG notice — occurrence #26 (first seen 2026-09-23T19:02:39Z, latest 2026-09-23T21:07:52Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-ymax-stdio-mcp`) has now been observed 26 times; this is ONE
+> coalesced notice that updates in place, not 26 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/ymax-stdio-mcp:
-> watcher heartbeat (age=29s outcome=cooldown)
+> watcher heartbeat (age=8s outcome=cooldown)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_monitors_cleric_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_monitors_cleric_1_journal.md)
 
@@ -1052,21 +1068,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-moddable` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-moddable.md)
 
-> WATCHDOG notice — occurrence #26 (first seen 2026-09-23T18:37:16Z, latest 2026-09-23T21:02:21Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-moddable`) has now been observed 26 times; this is ONE
-> coalesced notice that updates in place, not 26 messages. Latest detail:
+> WATCHDOG notice — occurrence #27 (first seen 2026-09-23T18:37:16Z, latest 2026-09-23T21:07:25Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-moddable`) has now been observed 27 times; this is ONE
+> coalesced notice that updates in place, not 27 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/moddable:
-> watcher heartbeat (age=27s outcome=cooldown)
+> watcher heartbeat (age=19s outcome=cooldown)
 
 - `watchdog-comment-watcher-dead-kriscendobot-test262` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-test262.md)
 
-> WATCHDOG notice — occurrence #16 (first seen 2026-09-23T19:02:00Z, latest 2026-09-23T21:02:16Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-test262`) has now been observed 16 times; this is ONE
-> coalesced notice that updates in place, not 16 messages. Latest detail:
+> WATCHDOG notice — occurrence #17 (first seen 2026-09-23T19:02:00Z, latest 2026-09-23T21:07:19Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-test262`) has now been observed 17 times; this is ONE
+> coalesced notice that updates in place, not 17 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/test262:
-> watcher heartbeat (age=-38s outcome=cooldown)
+> watcher heartbeat (age=-37s outcome=cooldown)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_sysop_journal.md)
 
@@ -1078,12 +1094,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-finbot` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-finbot.md)
 
-> WATCHDOG notice — occurrence #26 (first seen 2026-09-23T18:37:23Z, latest 2026-09-23T21:02:27Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-finbot`) has now been observed 26 times; this is ONE
-> coalesced notice that updates in place, not 26 messages. Latest detail:
+> WATCHDOG notice — occurrence #27 (first seen 2026-09-23T18:37:23Z, latest 2026-09-23T21:07:30Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-finbot`) has now been observed 27 times; this is ONE
+> coalesced notice that updates in place, not 27 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/finbot:
-> watcher heartbeat (age=-38s outcome=cooldown)
+> watcher heartbeat (age=43s outcome=cooldown)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_budget_refresh_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_budget_refresh_journal.md)
 
@@ -1099,12 +1115,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-cosgov` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-cosgov.md)
 
-> WATCHDOG notice — occurrence #26 (first seen 2026-09-23T18:36:59Z, latest 2026-09-23T21:02:08Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-cosgov`) has now been observed 26 times; this is ONE
-> coalesced notice that updates in place, not 26 messages. Latest detail:
+> WATCHDOG notice — occurrence #27 (first seen 2026-09-23T18:36:59Z, latest 2026-09-23T21:07:07Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-cosgov`) has now been observed 27 times; this is ONE
+> coalesced notice that updates in place, not 27 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/cosgov:
-> watcher heartbeat (age=16s outcome=cooldown)
+> watcher heartbeat (age=-8s outcome=cooldown)
 
 - `msg-minion-town-clipometer-pr84-rebase-revalidate-e1dd24ede1a2` — from gardener:minion-town-clipometer-pr84-rebase-revalidate, reply_to `minion-town-clipometer-pr84-rebase-revalidate` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-clipometer-pr84-rebase-revalidate-e1dd24ede1a2.md)
 
@@ -1112,21 +1128,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-vattr97` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-vattr97.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-vattr97` has CLEARED (first seen 2026-09-23T19:03:15Z, cleared 2026-09-23T20:48:40Z).
-> It was observed 16 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #17 (first seen 2026-09-23T19:03:15Z, latest 2026-09-23T21:08:26Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-vattr97`) has now been observed 17 times; this is ONE
+> coalesced notice that updates in place, not 17 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment acknowledgment dead anomaly for kriscendobot/vattr97:
+> watcher heartbeat (age=-26s outcome=cooldown)
 
 - `watchdog-comment-watcher-dead-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-garden.md)
 
-> WATCHDOG notice — occurrence #26 (first seen 2026-09-23T18:37:49Z, latest 2026-09-23T21:03:10Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-garden`) has now been observed 26 times; this is ONE
-> coalesced notice that updates in place, not 26 messages. Latest detail:
+> WATCHDOG notice — occurrence #27 (first seen 2026-09-23T18:37:49Z, latest 2026-09-23T21:08:15Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-garden`) has now been observed 27 times; this is ONE
+> coalesced notice that updates in place, not 27 messages. Latest detail:
 >
 > Comment acknowledgment dead anomaly for kriscendobot/garden:
-> watcher heartbeat (age=-13s outcome=cooldown)
-> watcher heartbeat (age=-36s outcome=cooldown)
+> watcher heartbeat (age=-25s outcome=cooldown)
+> watcher heartbeat (age=24s outcome=cooldown)
 
 
 ## Spend & quota
@@ -1134,7 +1151,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.0M | $584.81 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 57.1M | $587.12 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 24.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38107275 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1146,21 +1163,20 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### todo (1)
 - [`build-minion-town-codex-subscription-inference-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-codex-subscription-inference-20260923.md) — Explore a **Codex on ChatGPT subscription** inference backend in minion.town
 
-### doin (6)
+### doin (5)
 - [`endo-minion-town-federation-endo-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-minion-town-federation-endo-build.md) — Endo guest-locator adoption and daemon bridge
 - [`mentat-ebfb-pr1100-carry-over-line-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-ebfb-pr1100-carry-over-line-20260923.md) — Carry endojs/endo-but-for-bots#1100 over the line (mentat fixer, then a fresh...
 - [`fix-orchestrate-blocked-gate-refusal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-orchestrate-blocked-gate-refusal.md) — ---
-- [`fix-orchestrate-latched-child-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-orchestrate-latched-child-failure.md) — Fix: orchestrate.sh reports a child "failed" after it later reached a clean tada
 - [`minion-town-clipometer-pr84-rebase-revalidate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-pr84-rebase-revalidate.md) — CLIPOMETER: rebase kriscendobot/minion.town#84 and re-run the live publish va...
 - [`fix-latency-contention-watch-false-alarm-flood`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-latency-contention-watch-false-alarm-flood.md) — Fix: comment-latency-watch and journal-contention-watch are flooding the main...
 
-### tada (8763)
+### tada (8764)
+- [`fix-orchestrate-latched-child-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-orchestrate-latched-child-failure.md) — Completion report: fix-orchestrate-latched-child-failure
 - [`fix-frozen-base-sweep-close-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-frozen-base-sweep-close-race.md) — Cost
 - [`endo-minion-town-guest-locator-federation-supervisor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/endo-minion-town-guest-locator-federation-supervisor.md) — Cost
 - [`build-minion-town-codex-api-key-inference-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-minion-town-codex-api-key-inference-20260923.md) — Completion report: build-minion-town-codex-api-key-inference-20260923
 - [`improve-promote-plan-doom-reset-fixture`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/improve-promote-plan-doom-reset-fixture.md) — Cost
-- [`design-minion-town-siwe-guest-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/design-minion-town-siwe-guest-recovery.md) — Cost
-- … and 8758 more
+- … and 8759 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
