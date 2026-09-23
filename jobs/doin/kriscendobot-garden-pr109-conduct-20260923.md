@@ -40,3 +40,13 @@ wait/recheck rather than claiming the pilot is ready. Once deployed, post a
 top-level PR comment naming the deployed commit, the live TypeSafe smoke result
 (`jev-1.13.0`, 1670 input / 423 output tokens on two synthetic messages), and the
 targeted test result (4 passed, 0 failed), then conduct the approved PR.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-23T18:37:00Z
