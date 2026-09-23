@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T21:50:01Z_
+_As of 2026-09-23T21:51:38Z_
 
 ## Latest
 
@@ -539,7 +539,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_monks_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_monks_1_journal.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monks/1/journal: packs 50 >= 50; size=55460864B packs=50 gc.log=0; automatic remedy=applied.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_monks_1_journal` has CLEARED (first seen 2026-09-23T21:46:06Z, cleared 2026-09-23T21:50:56Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_monks_1_journal` cleared on endolin-garden-ece02cb4.
 
 - `doomed-fix-worktree-sweeper-leader-only-misgating-20260919-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-worktree-sweeper-leader-only-misgating-20260919-requeue-exhausted.md)
 
@@ -1286,12 +1290,12 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 56.9M | $584.86 _(notional, rate-card)_ | 40% of 143.0M (ok) |
-| Codex | 25.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 52% _(plan; codex-reported)_ |
+| Codex | 25.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34371276 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34359061 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 17 open notice(s); checker healthy
+worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 16 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
@@ -1302,13 +1306,13 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 - [`endo-ocapn-gateway-session-binding-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-ocapn-gateway-session-binding-build.md) — Endo: bind the OCapN peer gateway to the authenticated session; add an advert...
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
 
-### tada (8775)
+### tada (8776)
+- [`canary-probe-endolin-garden2-5bcdff64-987bb13b9b5a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/canary-probe-endolin-garden2-5bcdff64-987bb13b9b5a.md) — rolling-deploy canary probe — round trip OK
 - [`mentat-ebfb-pr1100-carry-over-line-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/mentat-ebfb-pr1100-carry-over-line-20260923.md) — Completion report — mentat-ebfb-pr1100-carry-over-line-20260923
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923-viability.md) — Cost
 - [`endo-minion-town-federation-town-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/endo-minion-town-federation-town-build.md) — Stage 2 (minion.town account locator and deployment wiring): draft PR ready, ...
 - [`fix-latency-contention-watch-false-alarm-flood`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-latency-contention-watch-false-alarm-flood.md) — Completion report
-- [`minion-town-codex-inference-exploration-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/minion-town-codex-inference-exploration-20260923.md) — orchestration minion-town-codex-inference-exploration-20260923 — complete
-- … and 8770 more
+- … and 8771 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
