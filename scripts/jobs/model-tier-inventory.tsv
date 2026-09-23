@@ -12,6 +12,7 @@
 # job_tier, tier_model_for_provider in common.sh) read a throwaway fourth field so
 # the size never leaks into the dispatch tier.
 anthropic	claude-fable-5	mentat
+anthropic	claude-opus-5-5	mentor
 anthropic	claude-opus-5	mentor
 anthropic	claude-opus-4-8	minion
 anthropic	claude-opus-4-8[1m]	minion

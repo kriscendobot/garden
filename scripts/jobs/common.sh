@@ -7798,7 +7798,7 @@ _model_routing_table() {
   alert_maintainer "model-routing-fallback" \
     "model-routing table unresolved (no journal override, no $f); using inline built-in — routing may be stale" 2>/dev/null || true
   printf '%s\n' \
-    'anthropic	claude-fable-5 claude-opus-4-8 claude-opus-4-8[1m] claude-opus-4-7 claude-sonnet-5 claude-sonnet-4-6 claude-haiku-4-5 claude-haiku-4-5-20251001 claude-mythos-5	' \
+    'anthropic	claude-fable-5 claude-opus-5-5 claude-opus-4-8 claude-opus-4-8[1m] claude-opus-4-7 claude-sonnet-5 claude-sonnet-4-6 claude-haiku-4-5 claude-haiku-4-5-20251001 claude-mythos-5	' \
     'openai	gpt-5.6-terra gpt-5.6-luna gpt-5.5 gpt-5.4-mini	gpt-5.6-terra' \
     'local	qwen3.6	qwen3.6' \
     'moonshot	kimi-k3' \
@@ -7890,6 +7890,7 @@ resolve_model_tier() {
         mentat|fable) printf '%s\n' "claude-fable-5" ;;  # manual-only tier -> concrete id
         opus)     printf '%s\n' "claude-opus-4-8" ;;
         opus5)    printf '%s\n' "claude-opus-5" ;;
+        opus55)   printf '%s\n' "claude-opus-5-5" ;;
         sonnet)   printf '%s\n' "claude-sonnet-4-6" ;;
         haiku)    printf '%s\n' "claude-haiku-4-5-20251001" ;;
         # a concrete id passes through iff the table CLASSIFIES it as anthropic.

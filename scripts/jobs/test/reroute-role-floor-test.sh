@@ -1,23 +1,25 @@
 #!/bin/bash
 # reroute-role-floor-test.sh — the reaper's one-hop model reroute must respect a
-# per-ROLE tier FLOOR and must not BURN a tier that was only ever served at a lower
-# one under the anthropic automatic-work cost ceiling.
+# per-ROLE tier FLOOR.
 #
 # Motivating incident (job garden-reroute-respect-role-tier-floor, 2026-08-17): the
 # DESIGNER job `proposal-compartments-xs-source-phase-design` failed once transiently,
 # the reaper demoted it mentor -> minion (a tier no worker can DESIGN at), recorded
 # `model-burned: mentor`, and then doomed it after four wasted impossible-tier cycles.
-# Two distinct defects:
+# The defect:
 #
-#   1. NO CANONICAL FLOOR. reroute_job_model advanced the pin down the fallback chain
-#      with no regard to the job's role. skills/model-selection is explicit that
-#      `designer`/`builder` ride the latest Opus (mentor); demoting below that makes
-#      success impossible.  role_tier_floor now names the floor and reroute_job_model
-#      refuses (rc 2) any below-floor demotion.
-#   2. BURNING A TIER NEVER SERVED. The Claude handler serves an AUTOMATIC mentor job
-#      at the MINION model (monk-claude.sh anthropic ceiling). A failure there is
-#      evidence about minion, not mentor, so the reaper must NOT burn mentor / demote
-#      on its strength when the failed claim was anthropic-served.
+#   NO CANONICAL FLOOR. reroute_job_model advanced the pin down the fallback chain
+#   with no regard to the job's role. skills/model-selection is explicit that
+#   `designer`/`builder` ride the latest Opus (mentor); demoting below that makes
+#   success impossible.  role_tier_floor now names the floor and reroute_job_model
+#   refuses (rc 2) any below-floor demotion.
+#
+# NOTE (opus55-tier Option B, 2026-09-23): the former anthropic ceiling-suppression
+# case is retired. An automatic mentor job is now SERVED at mentor (claude-opus-5-5)
+# by an anthropic worker too, so a mentor failure is genuine evidence about mentor and
+# the ordinary role-floor reroute applies to every provider uniformly — an
+# anthropic-served fixer mentor job is demoted to its floor exactly like an
+# openai-served one (see B2 below).
 #
 # Hermetic: throwaway bare git origins, no network, no systemd, no `claude`.
 
@@ -110,7 +112,7 @@ out6="$(route "$mb" mentor)"; rc6=$?
   || bad "A6 floor wrongly blocked a model-pinned reroute (rc=$rc6): $out6"
 
 # ============================================================================
-hr; echo "PART B — the reaper: floor honoured, and no burn of an unserved tier"; hr
+hr; echo "PART B — the reaper: floor honoured; mentor reroute uniform across providers"; hr
 # seed_and_reap <label> <role> <tier> <fallback-tier> <provider> — a stale claim in
 # doin carrying a reap-now hint (requeued this tick), served by <provider>. Returns
 # the verify clone path.
@@ -158,14 +160,15 @@ grep -q '^fallback-tier: minion$' "$J" 2>/dev/null && ok "B1 fallback chain inta
 grep -q '^model-burned:'          "$J" 2>/dev/null && bad "B1 burned a tier that was refused" || ok "B1 nothing burned"
 ls "$V/reputation/events/"*kimi-fallback.md >/dev/null 2>&1 && bad "B1 wrote a fallback event on a refused reroute" || ok "B1 no fallback reputation event"
 
-# B2 (bug #2) — a FIXER mentor job whose failed claim was ANTHROPIC-served (the
-# minion-model ceiling): mentor was never actually tried, so it is NOT burned and the
-# job stays at mentor for a true-mentor provider.
+# B2 (Option B) — a FIXER mentor job whose failed claim was ANTHROPIC-served is now
+# served AT mentor (claude-opus-5-5), so mentor WAS genuinely tried: it is demoted to
+# its floor (minion) with mentor burned, exactly like the openai-served control in B3.
+# No ceiling-suppression exception applies anymore.
 V="$(seed_and_reap anthropic fixer mentor minion anthropic)"; base=rrf-anthropic
 J="$V/jobs/todo/$base.md"
-grep -q '^tier: mentor$' "$J" 2>/dev/null && ok "B2 anthropic-served mentor job stays mentor (ceiling-suppress)" || bad "B2 tier changed: $(grep '^tier:' "$J" 2>/dev/null)"
-grep -q '^model-burned:' "$J" 2>/dev/null && bad "B2 burned mentor though it was served at the minion model" || ok "B2 mentor NOT burned (unserved tier)"
-ls "$V/reputation/events/"*kimi-fallback.md >/dev/null 2>&1 && bad "B2 wrote a fallback event under the ceiling" || ok "B2 no fallback reputation event"
+grep -q '^tier: minion$'         "$J" 2>/dev/null && ok "B2 anthropic-served fixer demoted mentor->minion (no ceiling-suppress under Option B)" || bad "B2 tier not demoted: $(grep '^tier:' "$J" 2>/dev/null)"
+grep -q '^model-burned: mentor$' "$J" 2>/dev/null && ok "B2 mentor burned (it was genuinely served at claude-opus-5-5)" || bad "B2 mentor not burned though it was served at mentor"
+ls "$V/reputation/events/"*kimi-fallback.md >/dev/null 2>&1 && ok "B2 fallback reputation event written for the genuine reroute" || bad "B2 no fallback reputation event on a genuine reroute"
 
 # B3 (control) — a FIXER mentor job that failed on a TRUE-mentor provider (openai) IS
 # demoted to its floor (minion), mentor burned, chain emptied: the genuine, intended

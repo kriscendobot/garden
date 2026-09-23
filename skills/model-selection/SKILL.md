@@ -15,7 +15,7 @@ unclassified and cannot acquire an automatic route.
 | Tier | Fleet models | Dispatch boundary |
 | --- | --- | --- |
 | mentat | Anthropic Fable 5 (`claude-fable-5`; Mythos is equivalent when enabled), OpenAI GPT-6 Astra (`gpt-6-astra`) | Manual only. Use `post-manual-job.sh`; it stamps `dispatch: manual`. Multi-provider like mentor: a manual mentat job is claimable by whichever provider's worker is live (monk on Fable, cleric on GPT-6 Astra); the manual-dispatch gate is keyed on the tier string, not a provider, so no automatic path reaches any mentat model regardless of provider. |
-| mentor | Anthropic Opus 5 (`claude-opus-5`), OpenAI Sol (`gpt-5.6-sol`), Moonshot Kimi K3 (`kimi-k3`), Fireworks GLM 5.2 (`fireworks/accounts/fireworks/models/glm-5p2`) and Kimi K3 (`fireworks/accounts/fireworks/models/kimi-k3`) | Highest tier automatic producers may emit. Multi-provider: a mentor job is claimable by whichever provider's worker is live (monk on Opus 5, cleric on Sol, mystic on Kimi, fireworker on Fireworks). See the collision note below: a Fireworks mentor job resolves to GLM 5.2, so the registered Fireworks K3 is not yet independently selectable. |
+| mentor | Anthropic Opus 5.5 (`claude-opus-5-5`; Opus 5 `claude-opus-5` stays selectable behind it), OpenAI Sol (`gpt-5.6-sol`), Moonshot Kimi K3 (`kimi-k3`), Fireworks GLM 5.2 (`fireworks/accounts/fireworks/models/glm-5p2`) and Kimi K3 (`fireworks/accounts/fireworks/models/kimi-k3`) | Highest tier automatic producers may emit, and the anthropic automatic ceiling. Multi-provider: a mentor job is claimable by whichever provider's worker is live (monk on Opus 5.5, cleric on Sol, mystic on Kimi, fireworker on Fireworks). Opus 5.5 is the first-match anthropic mentor row, so it is the anthropic mentor default; Opus 5 remains selectable by the `opus5` alias / concrete pin. See the collision note below: a Fireworks mentor job resolves to GLM 5.2, so the registered Fireworks K3 is not yet independently selectable. |
 | minion | Anthropic Opus 4.x, OpenAI/Codex models below Sol, served local Qwen (`hermit` lane RETIRED 2026-09-13 — pool pinned 0, no worker claims it), Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`), OpenRouter GLM 5.2 free (`openrouter/z-ai/glm-5.2:free`), Ollama Cloud Qwen 3.5 (`qwen3.5:cloud`) | The tier below mentor; the automatic fallback tier. |
 | myrmidon | Sonnet, Haiku, Fireworks gpt-oss-120b (`fireworks/accounts/fireworks/models/gpt-oss-120b`) | Expedient tier; not an automatic escalation path. |
 
@@ -83,9 +83,9 @@ activation: [`context/operations/ollama-cloud.md`](../../context/operations/olla
 rewrite every body to `tier: mentor`, `fallback-tier: minion`, and `dispatch:
 automatic`. They never pin a provider or concrete model. `tier:` is authoritative.
 This covers schedules, watchers, foreman, follow-ups, auctions, and role-produced
-jobs. Mentor is now a multi-provider tier (Opus 5, Sol, Kimi K3), so a mentor job
+jobs. Mentor is now a multi-provider tier (Opus 5.5, Sol, Kimi K3), so a mentor job
 makes progress on whichever provider's worker is live: a monk claims it on
-`claude-opus-5`, a cleric on `gpt-5.6-sol`, a mystic on `kimi-k3`. On a genuine
+`claude-opus-5-5`, a cleric on `gpt-5.6-sol`, a mystic on `kimi-k3`. On a genuine
 failure the reaper advances only the qualified non-Claude fallback. This routing is
 reversible by changing the choke-point policy; the four-tier inventory remains
 unchanged.
@@ -104,22 +104,25 @@ across the whole board in a hot loop. That is why both endolin hosts sat at
 `gardeners: 0`. The two are now consistent, and
 `test/gardener-claude-tier-serving-test.sh` asserts the agreement per tier.
 
-### The anthropic automatic-work cost ceiling
+### The anthropic automatic ceiling (claude-opus-5-5)
 
-The closed inventory puts `claude-opus-5` at mentor, but the standing ceiling for
-**automatic** fleet work is `claude-opus-4-8`. Rather than restate the inventory —
-which the auction, the claim predicate, and the rate card all read — the Claude
-handler **serves an automatic mentor job at the minion model** and logs that it
-did. An explicit `dispatch: manual` mentor job is still honoured at mentor: a
-human asking for Opus 5 by hand is not the automatic path this ceiling governs.
+The anthropic automatic ceiling is **`claude-opus-5-5`** — the mentor model itself
+(design [`opus55-tier.md`](../../designs/opus55-tier.md), Option B, resolved
+2026-09-23). Opus 5.5 is cheaper than the former ceiling model (Opus 4.8) and
+succeeds the mentor-tier Opus 5, so there is **no longer a mentor→minion
+downshift**: an automatic mentor job is served AT mentor by every provider,
+anthropic included. A monk resolves a mentor job to `claude-opus-5-5` (the
+first-match anthropic mentor row); Opus 5 stays selectable behind it via the
+`opus5` alias or a concrete pin. Automatic effort is `medium`, which is Opus 5.5's
+own default, so no effort flag is plumbed through the handler.
 
-Consequence for the other providers: a mentor job claimed by a cleric, mystic, or
-fireworker resolves at mentor as before. The downshift is anthropic-only, because
-the ceiling is about Claude spend.
+*(History: until this change the handler downshifted an automatic anthropic mentor
+job to the minion model — `claude-opus-4-8` — because the inventory's mentor model,
+Opus 5, cost more than the standing ceiling. Opus 5.5 removed that gap, so the
+downshift and its reaper mirror are retired.)*
 
-Two invariants keep the reaper's one-hop reroute (`reroute_job_model`,
-`scripts/jobs/common.sh`) honest about this downshift and about the per-role tier
-map above:
+One invariant keeps the reaper's one-hop reroute (`reroute_job_model`,
+`scripts/jobs/common.sh`) honest about the per-role tier map above:
 
 - **Per-role floor.** The reroute refuses to demote a job below its role's
   canonical tier (`role_tier_floor`): `designer`/`builder` (and their web variants)
@@ -128,12 +131,11 @@ map above:
   dropped to a tier that cannot design or build — which would convert one transient
   failure into a guaranteed doom (the `proposal-compartments-xs-source-phase-design`
   designer doom, 2026-08-17).
-- **Never burn an unserved tier.** Because an anthropic worker serves an automatic
-  mentor job at the minion model (above), a failure of an **anthropic-served** mentor
-  job is evidence about minion, not mentor. The reaper suppresses the reroute in that
-  case — it does not record `model-burned: mentor` or demote — and requeues at mentor
-  so a true-mentor provider (cleric/mystic/fireworker) can still take a genuine mentor
-  attempt.
+
+The former "never burn an unserved tier" ceiling-suppression case is gone: because a
+mentor job is now genuinely served at mentor on anthropic too, a mentor failure is
+real evidence about mentor and the per-role floor reroute applies uniformly across
+providers.
 
 Coverage: `scripts/jobs/test/reroute-role-floor-test.sh`.
 

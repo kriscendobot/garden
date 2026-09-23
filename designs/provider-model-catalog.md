@@ -78,7 +78,8 @@ generic pairings remain ❓ and direct but unintegrated pairings remain 🔬.
 
 The executable closed inventory is `scripts/jobs/model-tier-inventory.tsv`.
 Its tiers are: mentat = Anthropic Fable (and Mythos) plus OpenAI GPT-6 Astra
-(`gpt-6-astra`), all manual-only and multi-provider like mentor, mentor = Anthropic Opus 5, OpenAI
+(`gpt-6-astra`), all manual-only and multi-provider like mentor, mentor = Anthropic Opus 5.5
+(with Opus 5 selectable behind it), OpenAI
 Sol, Moonshot Kimi K3, and Fireworks Kimi K3 / GLM 5.2 (the multi-provider automatic
 ceiling), minion = Opus 4.x, the OpenAI/Codex models below Sol, Fireworks Deepseek
 V4 Pro, and OpenRouter DeepSeek V3 free (the automatic fallback), and myrmidon = the
@@ -86,9 +87,12 @@ expedient Sonnet/Haiku/local models plus Fireworks gpt-oss-120b and OpenRouter L
 3.3 70B free. The OpenRouter minion/myrmidon rows are explicit-model-only (no
 automatic job reaches them). Unknown ids are unclassified, not wildcarded. All
 automatic producer output has durable `tier: mentor` intent with no concrete model pin,
-so a mentor job is claimable by whichever provider's worker is live (monk on Opus 5,
+so a mentor job is claimable by whichever provider's worker is live (monk on Opus 5.5,
 cleric on Sol, mystic on Kimi, fireworker on Fireworks Kimi/GLM); only
-`post-manual-job.sh` may create a Fable job.
+`post-manual-job.sh` may create a Fable job. The anthropic automatic ceiling is
+`claude-opus-5-5` (design [`opus55-tier.md`](opus55-tier.md), Option B, 2026-09-23):
+Opus 5.5 succeeds Opus 5 at a lower price, so automatic mentor work runs at mentor
+with no mentor→minion downshift.
 
 **Provenance.** Every id below is transcribed from a live query, not from memory:
 
@@ -117,7 +121,9 @@ parameter cannot be disabled); depth is still controlled by `effort`.
 | Tier | Concrete id | Context / max output | Effort levels | Input/Output $ per MTok | Relative capability & intended use |
 | --- | --- | --- | --- | --- | --- |
 | Fable 5 | `claude-fable-5` | 1M / 128K | low·medium·high·xhigh·max (thinking always on) | $10 / $50 | Most capable widely-released model; hardest reasoning and long-horizon agentic work. Highest cost. |
-| Opus 4.8 | `claude-opus-4-8` (1M-context variant `claude-opus-4-8[1m]`) | 1M / 128K | low·medium·high·xhigh·max | $5 / $25 | Top Opus tier; state-of-the-art agentic execution, knowledge work, memory. The garden's default Opus. |
+| Opus 5.5 | `claude-opus-5-5` | 1M / 128K | low·medium·high·xhigh·max (thinking always on; default `medium`) | $4 / $20 (cache read $0.20) | Successor to Opus 5 in the Opus line; same context/output/tokenizer at a lower price. The garden's **mentor** default and the anthropic automatic ceiling. |
+| Opus 5 | `claude-opus-5` | 1M / 128K | low·medium·high·xhigh·max | $5 / $25 | Prior Opus-line model; still selectable via the `opus5` alias or a concrete pin, no longer the mentor default. |
+| Opus 4.8 | `claude-opus-4-8` (1M-context variant `claude-opus-4-8[1m]`) | 1M / 128K | low·medium·high·xhigh·max | $5 / $25 | Top Opus 4.x tier; state-of-the-art agentic execution, knowledge work, memory. The `opus` alias binds here (`designer`/`builder` default). |
 | Opus 4.7 | `claude-opus-4-7` | 1M / 128K | low·medium·high·xhigh·max | $5 / $25 | Previous-generation Opus; highly autonomous. |
 | Sonnet 5 | `claude-sonnet-5` | 1M / 128K | low·medium·high·xhigh·max | $3 / $15 ($2 / $10 intro through 2026-08-31) | Near-Opus quality on coding/agentic work at Sonnet cost; adaptive thinking on by default. |
 | Sonnet 4.6 | `claude-sonnet-4-6` | 1M / 128K | low·medium·high·xhigh·max | $3 / $15 | Previous-generation Sonnet. **The `sonnet` tier in `common.sh` still binds here** — see §4. |
@@ -138,6 +144,8 @@ in `scripts/jobs/common.sh`, mirrored in prose by
 | Garden tier | Binds to | Roles defaulting here |
 | --- | --- | --- |
 | `fable` | `claude-fable-5` | *(none — no role defaults to Fable as of 2026-07-13)* |
+| `opus55` | `claude-opus-5-5` | *(the mentor/anthropic default; hand-pin alias)* |
+| `opus5` | `claude-opus-5` | *(explicit `model: opus5` pins only)* |
 | `opus` | `claude-opus-4-8` | `designer`, `builder` |
 | `sonnet` | `claude-sonnet-4-6` | *(none — explicit `model: sonnet` pins only)* |
 | `haiku` | `claude-haiku-4-5-20251001` | *(none)* |

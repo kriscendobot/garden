@@ -202,21 +202,14 @@ if [ "$requested_tier" = mentat ] && [ "$(plan_field "$jobfile" dispatch)" != ma
   die "Claude handler accepts tier: mentat only on an explicit manual dispatch"
 fi
 if [ -n "$requested_tier" ]; then
-  # ANTHROPIC MENTOR DOWNSHIFT (maintainer directive 2026-08-01). The closed
-  # inventory puts claude-opus-5 at mentor, but the standing cost ceiling for
-  # automatic fleet work is claude-opus-4-8. Rather than restate the inventory
-  # (which the auction, the claim predicate, and the rate card all read), the
-  # handler serves an AUTOMATIC mentor job at the minion model and says so.
-  # An explicit `dispatch: manual` mentor job is honoured at mentor: a human
-  # asking for Opus 5 by hand is not the automatic path this ceiling governs.
+  # ANTHROPIC AUTOMATIC CEILING = claude-opus-5-5 (design opus55-tier.md, Option B,
+  # resolved 2026-09-23). Opus 5.5 is cheaper than the former ceiling (Opus 4.8) and
+  # succeeds the mentor-tier Opus 5, so automatic mentor work now runs at the mentor
+  # model itself — the first-match anthropic mentor row (claude-opus-5-5). There is
+  # no longer an anthropic mentor->minion downshift: the tier a job requests is the
+  # tier it is served at, for every provider. Automatic effort is `medium`, which is
+  # Opus 5.5's own default, so no effort flag is plumbed here.
   serve_tier="$requested_tier"
-  if [ "$provider" = anthropic ] && [ "$requested_tier" = mentor ] && [ "$(plan_field "$jobfile" dispatch)" != manual ]; then
-    # The cost ceiling is an ANTHROPIC policy (claude-opus-4-8 is the automatic
-    # ceiling below the closed inventory's mentor-tier claude-opus-5). It does not
-    # apply to the friar, whose ollama-cloud tier map is priced separately.
-    serve_tier=minion
-    log "job '$base' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)"
-  fi
   resolved_model="$(tier_model_for_provider "$serve_tier" "$provider")"
   if [ -n "$resolved_model" ]; then
     model_args=(--model "$resolved_model"); log "job '$base' resolved tier '$requested_tier' -> claude --model $resolved_model"
