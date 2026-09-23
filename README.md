@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:33:31Z_
+_As of 2026-09-23T17:37:56Z_
 
 ## Latest
 
-Two design jobs completed (journal contention watch, container hardening), moving comment-latency-watch orchestration into build. The minion.town esbuild campaign halted decisively on a 413 publish-body-limit gate (express.json() defaults to 100 KB, bundle is 206 KB); unblocking it requires a server-side change and maintainer decision. Eight garden infrastructure jobs parked for maintainer promotion after dooming on retry budgets or timeout: elapsed-constancy capture logging, ci-watcher quota cooldown, worktree-sweeper gating, budget-level isolation, self-heal handler timeout, and three others. PR [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (@endo/claude confinement refresh) held awaiting go-ahead after backing off. minion.town guest peer-fetch and web-invite accept both blocked on unresolved preconditions (infrastructure exposure + endo daemon pin). ReadableBlob range-attenuation stage 2 (clean break) doomed on 10.8 ks wall timeout; Ironhorse ocap frozen-objects likewise exhausted its 7.2 ks budget. Fleet at 37% Claude quota (143M), 65% Codex plan; foreman quiesced to target 0 + brake applied per quota pressure.
+Garden container hardening shipped today (no `--privileged`, no bot-user sudo); journal contention watch designed and comment latency watch initiated (orchestration now halted). Fleet infrastructure improvements are stacked in plan/ awaiting promotion: quota-driven budget/ci-watcher tuning, self-heal handler timeout wrapping, worktree-sweeper leader-only misgating, and miscellaneous automation hardening across 15+ parked split-eligible jobs. Clipometer blocked decisively on a minion.town server change (express.json body limit too low for bundle publish; currently 100 KB, needs ~512 KB for esbuild output). Endo-bot PRs await review: [endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) (SES silence intrinsics, 5d), [endo#3367](https://github.com/endojs/endo/pull/3367) (immutable-arraybuffer props, 6d); minion.town projects remain gated on three maintainer decisions (land endo pin 89481580…, authorize guest daemon public route, clarify production backend for PR #87). One orchestration halted: minion-town-claude-inference-exploration split-eligible after child build failure.
 
 ## Parked for maintainer feedback
 
@@ -626,18 +626,21 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.4M | $548.54 _(notional, rate-card)_ | 37% of 143.0M (ok) |
-| Codex | 21.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
+| Claude | 53.8M | $550.29 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Codex | 22.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 35178944 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34270796 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (1)
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-comment-latency-watch.md) — Build: comment latency watch
 
-### doin (2)
+### doin (5)
+- [`kriscendobot-garden-pr95-review-6266ce72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr95-review-6266ce72.md) — Review directive on kriscendobot/garden PR #95
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
 - [`fix-container-hardening-probe-maintainer-substring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-container-hardening-probe-maintainer-substring.md) — Fix: check-container-hardening.sh check 6 flags "kriskowal" by substring (fal...
+- [`kriscendobot-garden-pr108-review-2c6f2fa0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr108-review-2c6f2fa0.md) — Review directive on kriscendobot/garden PR #108
+- [`kriscendobot-garden-pr109-review-0310bc76`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-review-0310bc76.md) — Review directive on kriscendobot/garden PR #109
 
 ### tada (8732)
 - [`design-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/design-journal-contention-watch.md) — Completion report
@@ -929,6 +932,9 @@ _Fleet token-unlock pace: 35178944 tokens/day lower bound; incomplete where a su
 - [`kriscendobot-minion.town-pr87-review-1456cb95-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr87-review-1456cb95-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #87 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr87-review-b6c21549-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr87-review-b6c21549-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #87 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr96-review-d423db6e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr96-review-d423db6e-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #96 (primary: kriscendobot-minio...
+- [`kriscendobot-garden-pr109-review-0310bc76-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr109-review-0310bc76-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #109 (primary: kriscendobot-garden-pr...
+- [`kriscendobot-garden-pr108-review-2c6f2fa0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr108-review-2c6f2fa0-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #108 (primary: kriscendobot-garden-pr...
+- [`kriscendobot-garden-pr95-review-6266ce72-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr95-review-6266ce72-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #95 (primary: kriscendobot-garden-pr9...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
