@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by guest-native invite/accept (endojs/endo-but-for-bots#1310) and capability-first onboarding (kriscendobot/minion.town#56, #81): invitation delivers peer<->guest reach without a public formula-id resolution route, mooting the daemon-exposure question as asked; the remote-reach residual is owned in invitation terms by minion.town designs/remote-guest-endo-cli.md §5 (evaluation: mentat-guest-peer-fetch-vs-invitation-20260923, maintainer directive 2026-09-23)
+withdrawn_by: designer
+withdrawn_at: 2026-09-23T19:55:47Z
+withdrawn_from_gate: awaiting-maintainer
+---
+
+---
 gate: awaiting-maintainer
 priority: normal
 role: mentor
