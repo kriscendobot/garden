@@ -44,6 +44,14 @@ export GARDEN_NO_LLM=1
 repo="${1:?owner/name}"; surface="${2:?surface}"; cid="${3:?comment-id}"; pr="${4:?pr}"; bf="${5:?body-file}"
 [ -f "$bf" ] || die "reply body file not found: $bf"
 
+# This is a real GitHub mutation sink. A watcher test once omitted its reply stub
+# and sent fixture cid=1601 to this handler on every suite run, producing the #600
+# comment storm. Tests that exercise this handler itself must opt in explicitly and
+# still put a fake gh first on PATH; ordinary watcher tests must inject a reply stub.
+if [ "${GARDEN_TEST:-0}" = 1 ] && [ "${GARDEN_ALLOW_TEST_COMMENT_REPLY:-0}" != 1 ]; then
+  die "REFUSING real comment-reply handler in a test context; inject GARDEN_COMMENT_REPLY (or explicitly set GARDEN_ALLOW_TEST_COMMENT_REPLY=1 with a fake gh)"
+fi
+
 case "$surface" in
   issue-comment|pr-comment) mode=conversation ;;
   pr-review-comment)        mode=inline ;;
@@ -57,16 +65,15 @@ marker="<!-- garden-reply:$cid -->"
 
 # --- idempotency: already replied to THIS comment? -> no-op -------------------
 # List existing comment bodies on the same surface and look for our marker. A read
-# failure fails OPEN toward NOT-already-replied only if it is a transient blip —
-# but to avoid a double-reply on a flaky read we treat any nonzero read as "skip
-# the post this tick" (the watcher re-polls): a missed reply is recoverable, a
-# duplicate reply is the spiral we are guarding against.
+# failure must fail CLOSED: to avoid a double-reply on a flaky read we treat any
+# nonzero read as "skip the post this tick" (the watcher re-polls). Capture the
+# exit status out-of-band; an in-band sentinel can be prefixed by stdout from
+# earlier pagination pages and make an incomplete read look successful.
 case "$mode" in
   conversation) list_path="repos/$repo/issues/$pr/comments" ;;
   inline)       list_path="repos/$repo/pulls/$pr/comments" ;;
 esac
-existing="$(gh api --paginate "$list_path" --jq '.[].body' 2>/dev/null || printf '__READ_FAILED__')"
-if [ "$existing" = "__READ_FAILED__" ]; then
+if ! existing="$(gh api --paginate "$list_path" --jq '.[].body' 2>/dev/null)"; then
   log "could not list existing replies on $list_path (transient); deferring reply to next poll"
   exit 0
 fi

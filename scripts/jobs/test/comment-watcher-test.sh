@@ -1228,6 +1228,7 @@ run_mentiononly() {  # run_mentiononly <state> <bare> <fixture> <reactlog>
       CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
       GARDEN_COMMENT_SOURCE="$SRCSTUB" \
       GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG="${CW_REPLY_LOG:-/dev/null}" \
       GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
       GARDEN_MENTION_ONLY_ALLOWLIST="$MOLIST" \
       GARDEN_PR_AUTHOR="$PRAUTHOR" \
@@ -1251,12 +1252,14 @@ hr; echo "BB — SAME directive WITH @bot on the listed author's PR → dispatch
 BARE_BB="$TR/bb.git"; seed_bare "$BARE_BB"
 FIX_BB="$TR/fix-bb.tsv"; RLOG_BB="$TR/react-bb.log"; : > "$RLOG_BB"
 printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
-  2026-06-26T10:30:00Z issue-comment 1601 600 kriskowal \
-  https://github.com/endojs/endo-but-for-bots/pull/600#issuecomment-1601 \
+  2026-06-26T10:30:00Z pr-comment 4871559130 600 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/600#issuecomment-4871559130 \
   '@kriscendobot please rebase #475' > "$FIX_BB"
-run_mentiononly "$TR/state-bb" "$BARE_BB" "$FIX_BB" "$RLOG_BB"
+RPLOG_BB="$TR/reply-bb.log"; : > "$RPLOG_BB"
+CW_REPLY_LOG="$RPLOG_BB" run_mentiononly "$TR/state-bb" "$BARE_BB" "$FIX_BB" "$RLOG_BB"
 board_has "$BARE_BB" "$SLUG-pr600-rebase" && ok "an @bot mention overrides the filter (job dispatched)" || bad "@bot mention did not override the mention-only filter"
-grep -qx "issue-comment 1601 eyes" "$RLOG_BB" && ok "reactji acked the @bot comment" || bad "no reactji on the @bot override ($(cat "$RLOG_BB"))"
+grep -qx "pr-comment 4871559130 eyes" "$RLOG_BB" && ok "reactji received the real GitHub comment id" || bad "reactji did not receive the real GitHub id ($(cat "$RLOG_BB"))"
+grep -qx "pr-comment 4871559130 600" "$RPLOG_BB" && ok "reply handler received the real GitHub comment id" || bad "reply handler did not receive the real GitHub id ($(cat "$RPLOG_BB"))"
 
 hr; echo "CC — directive on a NON-listed author's PR → unaffected"; hr
 BARE_CC="$TR/cc.git"; seed_bare "$BARE_CC"
@@ -2330,6 +2333,30 @@ grep -q 'FOLD:' "$DUP4LOG" && ok "tick 2: the inline-comment fold is LOGGED" || 
 [ "$(cursor_seen "$TR/state-dup4" "$BARE_DUP4")" = 2026-06-30T22:00:01Z ] && ok "cursor advanced past the inline comment" || bad "cursor not advanced ($(cursor_seen "$TR/state-dup4" "$BARE_DUP4"))"
 
 # ============================================================================
+# REPLY0 — the reply handler's marker scan must fail closed on a PARTIAL paginated
+# read. The historical in-band sentinel was appended to the first page's stdout, so
+# "<partial>__READ_FAILED__" looked like a successful negative scan and posted a
+# duplicate. Emit one page then fail and prove that no POST is attempted.
+hr; echo "REPLY0 — partial dedup read fails closed (zero POSTs)"; hr
+REPLY0_BIN="$TR/reply0-bin"; mkdir -p "$REPLY0_BIN"
+REPLY0_POSTS="$TR/reply0-posts.log"; : > "$REPLY0_POSTS"
+cat > "$REPLY0_BIN/gh" <<'EOF'
+#!/bin/bash
+case " $* " in
+  *" -X POST "*) printf '%s\n' "$*" >> "${REPLY0_POSTS:?}"; exit 0 ;;
+  *) printf '%s\n' 'an older comment from the first page'; exit 1 ;;
+esac
+EOF
+chmod +x "$REPLY0_BIN/gh"
+REPLY0_BODY="$TR/reply0-body.md"; printf '%s\n' 'On it.' > "$REPLY0_BODY"
+REPLY0_LOG="$TR/reply0.stderr"
+env PATH="$REPLY0_BIN:$PATH" REPLY0_POSTS="$REPLY0_POSTS" GARDEN_STATE="$TR/state-reply0" \
+  GARDEN_ALLOW_TEST_COMMENT_REPLY=1 \
+  "$JOBS/handlers/comment-reply-gh.sh" endojs/endo-but-for-bots pr-comment 5786588027 600 "$REPLY0_BODY" \
+  >/dev/null 2>"$REPLY0_LOG"
+[ ! -s "$REPLY0_POSTS" ] && ok "partial/nonzero marker scan attempted zero POSTs" || bad "partial marker scan posted a duplicate ($(cat "$REPLY0_POSTS"))"
+grep -q 'deferring reply to next poll' "$REPLY0_LOG" && ok "partial read is logged as deferred" || bad "partial read was not logged as deferred ($(cat "$REPLY0_LOG"))"
+
 # REPLY1–REPLY5 — an ACKNOWLEDGED comment gets AT LEAST a REPLY, not just a reactji
 # (kriskowal directive, 2026-06-30, re endo-but-for-bots #58 comment 4848100199 — a
 # status question that got only a 👀). Now that the observe→post-job path is fully
