@@ -33,6 +33,7 @@ top-level PR comment naming the deployed commit, the live TypeSafe smoke result
 (`jev-1.13.0`, 1670 input / 423 output tokens on two synthetic messages), and the
 targeted test result (4 passed, 0 failed), then conduct the approved PR.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=316 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
