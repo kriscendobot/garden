@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-09-23T19:43:07Z
+sent_at: 2026-09-23T19:47:51Z
 watchdog_key: comment-watcher-dead-kriscendobot-ymax-e2e
 notice_count: 9
 first_seen: 2026-09-23T19:02:28Z
-last_seen: 2026-09-23T19:43:07Z
+last_seen: 2026-09-23T19:47:51Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #9 (first seen 2026-09-23T19:02:28Z, latest 2026-09-23T19:43:07Z).
-The SAME condition (`comment-watcher-dead-kriscendobot-ymax-e2e`) has now been observed 9 times; this is ONE
-coalesced notice that updates in place, not 9 messages. Latest detail:
+RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ymax-e2e` has CLEARED (first seen 2026-09-23T19:02:28Z, cleared 2026-09-23T19:47:51Z).
+It was observed 9 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Comment acknowledgment dead anomaly for kriscendobot/ymax-e2e:
-watcher heartbeat (age=69s outcome=cooldown)
+Comment acknowledgment condition cleared.
