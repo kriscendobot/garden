@@ -64,3 +64,13 @@ stating: reachable yes/no, raw evidence (verbatim output/response), and one
 sentence of interpretation. This is input to design-typesafe-jev-opus55-tier's
 open questions, not a fix-it task — do not attempt to register either model in
 the inventory or modify any fleet routing code.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T15:55:18Z
