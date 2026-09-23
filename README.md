@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:58:49Z_
+_As of 2026-09-23T18:02:00Z_
 
 ## Latest
 
-Multiple high-value work streams are blocked on maintainer decisions: [minion.town#87](https://github.com/kriscendobot/minion.town/pull/87) production-gate resume (backend choice + credentials), [minion.town#104](https://github.com/kriscendobot/minion.town/pull/104) pin landing (EndoGuest.accept onto main), guest peer-fetch daemon exposure scope, SIWE tier/allowlist, and ocap.site DNSSEC. Several orchestrated jobs hit handler timeouts or retry exhaustion—[ironhorse-ocap-frozen-objects](https://github.com/endojs/endo-but-for-bots/issues/1300) milestone 3 and [readableblob range attenuation step 2](https://github.com/endojs/endo-but-for-bots/pull/1301) now parked awaiting split or scope—and [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (@endo/claude confinement build) was queued for preliminary review refresh but failed on requeue. Quota at 39% Claude / 65% Codex. No board transitions since last bulletin; deferred reservoir stable at ~200 items.
+`build-opus55-tier` completed. Blocking work: minion-town-claude-inference-exploration hit a child failure; [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) (CLIPOMETER) awaits a minion.town server-change decision (express.json limit of 100kb vs. 206kb bundle); and minion.town main needs the refreshed Endo daemon pin from [kriscendobot/minion.town#104](https://github.com/kriscendobot/minion.town/pull/104) (currently merged to frozen base only). Infrastructure fixes remain parked: worktree-sweeper ungating, self-heal-run handler deadline, CI watcher quota/outage improvements, budget-level cap isolation, and foreman active-target reset.
 
 ## Parked for maintainer feedback
 
@@ -630,7 +630,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.1M | $555.03 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Claude | 55.3M | $556.18 _(notional, rate-card)_ | 39% of 143.0M (ok) |
 | Codex | 22.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38031698 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -639,20 +639,19 @@ _Fleet token-unlock pace: 38031698 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (5)
-- [`build-opus55-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-opus55-tier.md) — ---
+### doin (4)
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
 - [`build-reexport-deprecation-policy-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-reexport-deprecation-policy-20260923.md) — Build the re-export deprecation policy automation (garden-internal)
 - [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-conduct-20260923.md) — Finalize the approved TypeSafe Muster pilot answer-surface
 
-### tada (8737)
+### tada (8738)
+- [`build-opus55-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-opus55-tier.md) — Completion report
 - [`kriscendobot-garden-pr109-review-0310bc76`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr109-review-0310bc76.md) — Cost
 - [`mentat-opus55-tier-open-questions-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/mentat-opus55-tier-open-questions-20260923.md) — What I did
 - [`kriscendobot-garden-pr95-review-6266ce72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr95-review-6266ce72.md) — Completion report
 - [`kriscendobot-garden-pr108-review-2c6f2fa0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr108-review-2c6f2fa0.md) — Completion report — kriscendobot-garden-pr108-review-2c6f2fa0
-- [`fix-container-hardening-probe-maintainer-substring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-container-hardening-probe-maintainer-substring.md) — Completion report
-- … and 8732 more
+- … and 8733 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
