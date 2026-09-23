@@ -38,3 +38,13 @@ This is a VALIDATION artifact: keep the PR DRAFT, never merge it, and NEVER merg
 or push to endojs/endo (upstream). Report the PR URL and a pass/fail line per
 bullet. If a decision's behaviour is wrong, emit the orchestration-failed signal
 so the campaign halts and surfaces to the maintainer rather than silently passing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-23T18:46:08Z
