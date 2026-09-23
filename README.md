@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T20:44:41Z_
+_As of 2026-09-23T20:45:33Z_
 
 ## Latest
 
@@ -1089,7 +1089,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.9M | $579.46 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 57.0M | $580.64 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 24.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38059363 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1101,10 +1101,11 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`build-minion-town-codex-subscription-inference-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-codex-subscription-inference-20260923.md) — Explore a **Codex on ChatGPT subscription** inference backend in minion.town
 - [`fix-orchestrate-latched-child-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-orchestrate-latched-child-failure.md) — Fix: orchestrate.sh reports a child "failed" after it later reached a clean tada
 - [`build-minion-town-codex-api-key-inference-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-codex-api-key-inference-20260923.md) — Explore a **Codex / OpenAI API-key** inference backend in minion.town
+- [`endo-minion-town-guest-locator-federation-supervisor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-minion-town-guest-locator-federation-supervisor.md) — Supervisor: minion.town guest-locator federation (endo M4 exit criterion)
 
 ### tada (8759)
 - [`design-minion-town-siwe-guest-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/design-minion-town-siwe-guest-recovery.md) — Cost
