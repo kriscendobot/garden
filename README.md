@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:59:41Z_
+_As of 2026-09-23T19:01:42Z_
 
 ## Latest
 
@@ -323,6 +323,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `reexport-policy-automation-20260923-terminal-complete` — from orchestrator:reexport-policy-automation-20260923-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/reexport-policy-automation-20260923-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: reexport-policy-automation-20260923
+> orchestration-status: complete
+> order: serial
+> children-total: 3
+> children-failed: 0
+> failed-children: 
+>
+> Orchestration reexport-policy-automation-20260923 complete (serial): all 3 children reached tada without a machine-readable failure declaration.
 
 - `doomed-improve-ci-watcher-outage-latch-flap-dedup-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-ci-watcher-outage-latch-flap-dedup-requeue-exhausted.md)
 
@@ -770,13 +782,13 @@ _Fleet token-unlock pace: 38015567 tokens/day lower bound; incomplete where a su
 ### doin (1)
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
 
-### tada (8744)
+### tada (8745)
+- [`reexport-policy-automation-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/reexport-policy-automation-20260923.md) — orchestration reexport-policy-automation-20260923 — complete
 - [`conduct-garden-pr95-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/conduct-garden-pr95-20260923.md) — Cost
 - [`validate-reexport-policy-ebfb-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/validate-reexport-policy-ebfb-20260923.md) — Cost
 - [`kriscendobot-garden-pr108-repin-base-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr108-repin-base-20260923.md) — Completion report: PR #108 base repin
 - [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr109-conduct-20260923.md) — Cost
-- [`build-reexport-deprecation-policy-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-reexport-deprecation-policy-20260923.md) — Cost
-- … and 8739 more
+- … and 8740 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
