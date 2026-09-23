@@ -39,3 +39,13 @@ Report: commit sha(s), the thresholds as built, and a one-shot run of the probe 
 showing current per-clone stats.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T18:13:18Z
