@@ -1,4 +1,5 @@
 ---
+child-design-journal-contention-watch-reap-count: 0
 order: serial
 children: design-journal-contention-watch build-journal-contention-watch
 on-child-failure: halt
