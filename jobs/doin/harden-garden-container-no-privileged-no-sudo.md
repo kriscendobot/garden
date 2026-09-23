@@ -58,6 +58,7 @@ not defend against deliberate escalation.
 Report: commit sha(s), the final docker run flags with a justification for each, every former
 sudo user and where it went, the probe output, and what verification was and was not possible.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
