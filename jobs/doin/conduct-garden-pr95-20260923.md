@@ -26,3 +26,13 @@ design-open-questions PR whose content is already on `main2` over a frozen base,
 that is either a merge or a close-as-resolved; pick what is correct and record why.
 Bot repo (`kriscendobot/garden`) — safe to finalize. NEVER merge agoric-sdk or the
 endojs/endo upstream.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T18:58:09Z
