@@ -33,3 +33,13 @@ twice-daily `garden-container-hardening` timer would false-alarm.
 - If you can learn what actually matched on the leader, say so in the report (read-only).
   Run the hardening probe tests and push to `main2`.
 - **Complete the job via the normal completion path when done.**
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T17:30:59Z
