@@ -129,11 +129,11 @@ aggregate_live() {
   local live_dir="$1"
   spend=""; win=""; sampled_at=""; sampled_ep=""; meter_hosts_json=""; agg_note=""; agg_spread=0
   [ -d "$live_dir" ] || return 0
-  local recs="" f l fspend fwin fat fatep fstatus ref_win="" freshest=-1
+  local recs="" f l fspend fwin fat fatep _fstatus ref_win="" freshest=-1
   for f in "$live_dir"/*; do
     [ -f "$f" ] || continue
     l="$(read_live "$f" 2>/dev/null)" || continue
-    IFS=$'\t' read -r fspend fwin fat fatep fstatus <<<"$l"
+    IFS=$'\t' read -r fspend fwin fat fatep _fstatus <<<"$l"
     [[ "$fspend" =~ ^[0-9]+$ ]] && [[ "$fwin" =~ ^[0-9]+$ ]] && [[ "$fatep" =~ ^[0-9]+$ ]] || continue
     recs+="$(basename "$f")"$'\t'"$fspend"$'\t'"$fwin"$'\t'"$fat"$'\t'"$fatep"$'\n'
     # Reference window = the anchor of the freshest sample (README: shared-subscription

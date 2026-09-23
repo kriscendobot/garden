@@ -12,7 +12,7 @@ sync_clone "$DIR"
 
 read -r finals demerits < <(qwen_mentor_trial_score "$DIR")
 attempts="$(qwen_mentor_trial_attempts "$DIR")"
-read -r measured sittings comments max_s max_c breached clean balanced \
+read -r measured sittings comments max_s max_c _breached clean balanced \
   < <(qwen_mentor_trial_measurement "$DIR")
 slots=""
 for f in "$DIR"/jobs/{plan,todo,doin,tada}/*.md; do

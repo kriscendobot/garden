@@ -1099,7 +1099,7 @@ claude_call_budget_usd() {
 budget_fleet_status() {
   local dir="${1:-}" file pool _provider kind _cap status seen=0
   file="$(budget_pool_file "$dir")" || { printf 'off\n'; return 0; }
-  while IFS=$'\t ' read -r pool _provider third fourth fifth _rest; do
+  while IFS=$'\t ' read -r pool _provider third fourth _fifth _rest; do
     case "$pool" in ''|'#'*) continue ;; esac
     case "$third" in weekly-tokens|weekly-usd|percent|unmetered) kind="$third";; *) kind="$fourth";; esac
     [ "$kind" != unmetered ] || continue

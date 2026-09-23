@@ -22,7 +22,8 @@ for spec in "$@";do IFS=: read -r host mc cc extra <<<"$spec";[[ "$host" =~ ^[A-
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}";ensure_clone "$DIR"
 
 validate_pool_hosts() { # proposed-worker-leveling budget-pools
- local proposed="$1" pools="$2" mapping="$(dirname "$2")/subscription-mapping"
+ local proposed="$1" pools="$2" mapping
+ mapping="$(dirname "$2")/subscription-mapping"
  local pool provider third kind _cap provenance _rest monk_cap host mapped_subscription worker_kind
  [ -f "$pools" ] || return 0
  while IFS=$'\t ' read -r pool provider third fourth fifth sixth _rest; do

@@ -136,7 +136,7 @@ fi
 # PR it actually opened).
 override_file="$dir/receipts/base-pr-overrides.tsv"
 if [ -f "$override_file" ]; then
-  while IFS=$'\t' read -r b pr evidence rest; do
+  while IFS=$'\t' read -r b pr _evidence _rest; do
     case "$b" in ''|'#'*) continue ;; esac
     [[ "$pr" =~ ^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+#[0-9]+$ ]] || \
       die "invalid receipt base-PR override for '$b': '$pr'"

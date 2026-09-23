@@ -70,7 +70,7 @@ snapshot="$({
  pools="$(budget_pool_file "$DIR" 2>/dev/null || true)"; [ -n "$pools" ] || exit 3
  cfg="${GARDEN_WORKER_LEVELING_FILE:-$DIR/$GARDEN_WORKER_LEVELING_PATH}"; [ -f "$cfg" ] || exit 4
  mapping="$DIR/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
- while IFS=$'\t ' read -r pool provider third fourth fifth sixth seventh _; do
+ while IFS=$'\t ' read -r pool provider third fourth fifth sixth _seventh _; do
    case "$pool" in ''|'#'*)continue;;esac
    if [ "$third" = weekly-tokens ] || [ "$third" = weekly-usd ] || [ "$third" = percent ] || [ "$third" = unmetered ]; then kind="$third";cap="$fourth";prov="$fifth"; else kind="$fourth";cap="$fifth";prov="$sixth"; fi
    [ "$provider" = anthropic ]&&[ "$kind" = weekly-tokens ]||continue

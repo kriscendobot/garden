@@ -5340,11 +5340,11 @@ reap_stale_worker_cgroup() {
   done
 
   _worker_pid_is_current() { # <pid>; true when its ancestry reaches $root
-    local candidate="$1" seen=" "
+    local candidate="$1" seen_candidates=" "
     while [[ "$candidate" =~ ^[1-9][0-9]*$ ]]; do
       [ "$candidate" = "$root" ] && return 0
-      case "$seen" in *" $candidate "*) return 1 ;; esac
-      seen="$seen$candidate "
+      case "$seen_candidates" in *" $candidate "*) return 1 ;; esac
+      seen_candidates="$seen_candidates$candidate "
       candidate="$(awk '/^PPid:/{print $2}' "$proc_root/$candidate/status" 2>/dev/null || true)"
     done
     return 1

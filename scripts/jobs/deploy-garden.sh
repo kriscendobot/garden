@@ -435,7 +435,10 @@ run_candidate_gate() { # <candidate-sha>
   # failed_suites, so the equality below is false and we reject straight away.
   if [ "${#failed_suites[@]}" -gt 0 ] && [ "${#failed[@]}" -eq "${#failed_suites[@]}" ]; then
     log "candidate test gate: ${#failed_suites[@]} suite(s) failed on attempt 1 for $candidate (${failed[*]}); retrying ONLY those once in a fresh gate root to distinguish a one-off host-side flake from a real regression"
-    local -a retry_failed=() retry_failed_suites=()
+    local -a retry_failed=()
+    # Populated through execute_gate_suites' nameref argument.
+    # shellcheck disable=SC2034
+    local -a retry_failed_suites=()
     if unpack_candidate_gate_tree "$candidate"; then
       gate_root="$candidate_gate_root"
       deadline=$(( $(date +%s) + GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT ))
