@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:39:43Z_
+_As of 2026-09-23T17:42:23Z_
 
 ## Latest
 
-Container hardening and monitoring completed; one dashboard-scraping orchestration halted when clipometer hit HTTP 413 on the publish endpoint. Infrastructure gaps surfaced across quota-cooldown windows (too short), watcher latch flap (intermittent journal episodes trigger repeated warnings), worktree-sweeper misgate (leader-only when it should run on every host), and self-heal handlers lacking deadline wrapping. Several minion.town decisions await: guest daemon exposure strategy, Endo daemon pin advancement to main, and express.json body-size increase.
+Garden hardening (dropping `--privileged` and sudo from the container) landed; journal contention watch design shipped and its build is active. Multiple infrastructure improvements—worktree sweeper gating, self-heal timeout wrapping, CI watcher cooldowns, outage-latch hysteresis—hit resource walls during development and are queued for splitting or designer guidance. The immediate production blocker is minion.town's `express.json()` limit (413 on a 206 KB bundle), preventing live CLIPOMETER validation; a separate stale Endo daemon pin blocks the guest invite fallback fix and awaits a maintainer decision to land it onto `main`.
 
 ## Parked for maintainer feedback
 
@@ -626,7 +626,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.8M | $548.88 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 54.0M | $549.23 _(notional, rate-card)_ | 38% of 143.0M (ok) |
 | Codex | 22.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34270796 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -638,16 +638,16 @@ _Fleet token-unlock pace: 34270796 tokens/day lower bound; incomplete where a su
 ### doin (4)
 - [`kriscendobot-garden-pr95-review-6266ce72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr95-review-6266ce72.md) — Review directive on kriscendobot/garden PR #95
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
-- [`kriscendobot-garden-pr108-review-2c6f2fa0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr108-review-2c6f2fa0.md) — Review directive on kriscendobot/garden PR #108
+- [`mentat-opus55-tier-open-questions-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-opus55-tier-open-questions-20260923.md) — Mentat: answer the open questions in designs/opus55-tier.md with empirical data
 - [`kriscendobot-garden-pr109-review-0310bc76`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-review-0310bc76.md) — Review directive on kriscendobot/garden PR #109
 
-### tada (8733)
+### tada (8734)
+- [`kriscendobot-garden-pr108-review-2c6f2fa0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr108-review-2c6f2fa0.md) — Completion report — kriscendobot-garden-pr108-review-2c6f2fa0
 - [`fix-container-hardening-probe-maintainer-substring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-container-hardening-probe-maintainer-substring.md) — Completion report
 - [`design-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/design-journal-contention-watch.md) — Completion report
 - [`harden-garden-container-no-privileged-no-sudo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/harden-garden-container-no-privileged-no-sudo.md) — Completion report
 - [`comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/comment-latency-watch.md) — orchestration comment-latency-watch — HALTED
-- [`xst-validation-orchestrator-20260711-153502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-153502.md) — XS-validation orchestrator — tick report (2026-07-11 ~15:35Z)
-- … and 8728 more
+- … and 8729 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
