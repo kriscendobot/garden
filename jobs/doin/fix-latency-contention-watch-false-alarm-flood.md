@@ -51,6 +51,7 @@ Run the new and existing test suites for both watches, then push to `main2`. Rol
 normal rolling deploy. Complete the job via the normal completion path when done.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=677 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
