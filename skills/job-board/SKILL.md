@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-19
+updated: 2026-09-23
 author: gardener
 ---
 
@@ -291,7 +291,7 @@ posted_at: <iso8601>
     identity scheme so a doubly-observed comment collapses onto one job). Coverage:
     the `PK`/`PKR` cases in `scripts/jobs/test/comment-watcher-test.sh` and `PK` in
     `scripts/jobs/test/mention-watcher-test.sh`.
-- **Promote** (`promote-plan.sh [--maintainer] <base>`): move `plan/<base>` → `todo/<base>`,
+- **Promote** (`promote-plan.sh [--maintainer|--unblock] <base>`): move `plan/<base>` → `todo/<base>`,
   stripping the plan frontmatter so the todo job is the clean work body; then a
   gardener claims it normally. It also **clears the reaper/gardener cycle markers**
   (`garden-reaped`, `garden-deadline-overrun`, `garden-elapsed-constancy`, and the
@@ -315,6 +315,10 @@ posted_at: <iso8601>
   3. **maintainer answer** — an `awaiting-maintainer` job refuses promotion
      unless the caller passes `--maintainer` after the answer lands at `asked_at:`.
      The foreman and all other automatic callers omit this flag.
+  4. **artifact unblock** — a `blocked` job refuses every ordinary promotion,
+     including an orchestration watcher's retry. Only `unblock.sh` passes
+     `--unblock`, after it verifies the job or PR named by `blocked_on:` has
+     completed. This keeps orchestration cadence from bypassing the artifact gate.
 - **Return doomed holds to paced work** (`defer-doomed-plan.sh [--dry-run]`):
   atomically change every `go-ahead` plan job carrying `doomed: true` (or legacy
   `poisoned: true`) to `deferred`. This is a queue-wide maintainer disposition,

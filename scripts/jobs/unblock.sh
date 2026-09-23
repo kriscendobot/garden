@@ -160,7 +160,7 @@ while IFS= read -r j; do
   fi
 
   if [ "$do_promote" = yes ]; then
-    if "$HERE/promote-plan.sh" "$base" >/dev/null 2>&1; then
+    if "$HERE/promote-plan.sh" --unblock "$base" >/dev/null 2>&1; then
       log "unblocked '$base' (blocker '$artifact' completed); promoted plan→todo"
       promoted=$((promoted+1))
     else

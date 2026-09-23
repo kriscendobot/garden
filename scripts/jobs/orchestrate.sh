@@ -755,6 +755,14 @@ advance_serial() {  # <base> <policy> <child>...
         log "orchestration '$base': child $((i+1))/$total '$c' board snapshot unreadable/inconsistent; retrying next tick"
         return 0;;
       parked)
+        # A child can re-park itself behind an external artifact after the
+        # orchestration promoted it. That changes its gate from orchestrated to
+        # blocked; only unblock.sh may release it after checking blocked_on.
+        # Do not let the campaign cadence turn that state back into todo/. The
+        # matching check in promote-plan.sh closes the sync-to-promotion race.
+        if [ "$(plan_gate "$DIR/$JOBS_PLAN/$c.md")" = blocked ]; then
+          return 0
+        fi
         # DEFENSE-IN-DEPTH serial gate: a serial run must have AT MOST ONE child in
         # flight. The ordered loop above already returns at the first active child, but
         # if an earlier sibling were momentarily MISCLASSIFIED as terminal (a live child

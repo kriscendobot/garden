@@ -2,7 +2,7 @@
 # promote-plan.sh — move a parked plan job into the live queue: plan/<base> →
 # todo/<base>, so a gardener can claim it normally.
 #
-# Usage: promote-plan.sh [--maintainer]
+# Usage: promote-plan.sh [--maintainer] [--unblock]
 #                        [--require-tada <predecessor>]...
 #                        [--require-failed <predecessor>]... <basename>
 #
@@ -15,6 +15,10 @@
 #   3. MAINTAINER DECISION — an `awaiting-maintainer` job requires the explicit
 #      `--maintainer` flag. This makes the human-only clearing path mechanical;
 #      a watcher or foreman call without that attestation is refused.
+#   4. ARTIFACT UNBLOCK — a `blocked` job requires the explicit `--unblock` flag,
+#      which only unblock.sh supplies after checking the named blocked_on artifact.
+#      This prevents another promoter (notably an orchestration that still names a
+#      child re-parked while blocked) from bypassing the artifact check.
 #
 # On promotion the leading plan frontmatter (gate/priority/roadmap/provenance) is
 # stripped so the todo job is the clean work body the gardener acts on; a one-line
@@ -77,6 +81,7 @@ export GARDEN_TAG="promote-plan"
 required_tada=()
 required_failed=()
 maintainer_promotion=0
+unblock_promotion=0
 # The derived leaf-first omega rank of this job, when a ranked promoter selected it
 # (the foreman's deferred-admission loop passes it). Recorded in the decision ledger
 # so the ranked ordering is auditable (designs/cybernetics-economic-resilience.md
@@ -86,6 +91,10 @@ while [ $# -gt 0 ]; do
   case "$1" in
     --maintainer)
       maintainer_promotion=1
+      shift
+      ;;
+    --unblock)
+      unblock_promotion=1
       shift
       ;;
     --omega-rank)
@@ -107,7 +116,7 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-base="${1:?usage: promote-plan.sh [--maintainer] [--require-tada <predecessor>]... [--require-failed <predecessor>]... <basename>}"
+base="${1:?usage: promote-plan.sh [--maintainer] [--unblock] [--require-tada <predecessor>]... [--require-failed <predecessor>]... <basename>}"
 case "$base" in
   -*)        die "illegal basename: '$base'";;
   */*|.*|'') die "illegal basename: '$base'";;
@@ -205,6 +214,16 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     clone_unlock "$DIR"
     log "refusing to promote '$base': gate=awaiting-maintainer requires an explicit maintainer decision (re-run with --maintainer after the answer at $(plan_field "$src" asked_at))"
     exit 5
+  fi
+  if [ "$gate" = blocked ] && [ "$unblock_promotion" != 1 ]; then
+    clone_unlock "$DIR"
+    log "refusing to promote '$base': gate=blocked waits for unblock.sh to verify blocked_on=$(plan_blocked_on "$src")"
+    exit 6
+  fi
+  if [ "$unblock_promotion" = 1 ] && [ "$gate" != blocked ]; then
+    clone_unlock "$DIR"
+    log "refusing unblock promotion of '$base': expected gate=blocked, found gate=$gate"
+    exit 6
   fi
   # Preserve the EXECUTION keys across promotion. strip_frontmatter drops the
   # whole plan block (gate/priority are provenance, correctly consumed here),

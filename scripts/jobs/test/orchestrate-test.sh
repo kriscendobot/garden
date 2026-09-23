@@ -6,6 +6,8 @@
 # Subtests (all hermetic; no systemd, no network — a local bare journal):
 #   1. SERIAL     — children promoted ONE AT A TIME, each only after the prior
 #                   reaches jobs/tada/; the orchestration completes when all do.
+#   1b. BLOCKED   — a promoted serial child that re-parks on an external artifact
+#                   waits for unblock.sh instead of being re-promoted each tick.
 #   2. PARALLEL   — all children promoted at once on the first tick.
 #   3. HALT       — a child that FAILS (vanishes without tada) halts a serial run
 #                   (policy=halt): the next child is NOT promoted, downstream
@@ -145,6 +147,22 @@ complete_child() {  # complete_child <base>
   printf '# %s done\n\nwork complete\n' "$1" > "$wt/jobs/tada/$1.md"
   git -C "$wt" add "jobs/tada/$1.md"
   git -C "$wt" "${git_id[@]}" commit -q -m "tada($1)"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+
+# Simulate proxy.sh parking a previously-promoted child behind an artifact.
+block_child() {  # block_child <base> <artifact>
+  local wt body; wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  body="$(cat "$wt/jobs/todo/$1.md")"
+  git -C "$wt" rm -q "jobs/todo/$1.md"
+  {
+    printf '%s\n' '---' 'gate: blocked' "blocked_on: $2" 'priority: normal' '---'
+    printf '\n%s\n' "$body"
+  } > "$wt/jobs/plan/$1.md"
+  git -C "$wt" add "jobs/plan/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "block($1) on $2"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
 }
@@ -309,6 +327,28 @@ notice_with_fields 'orchestration-event: orchestration-terminal' \
   'orchestration: orch-serial' 'orchestration-status: complete' \
   && ok "successful unbudgeted completion emits a structured terminal notice" \
   || bad "successful unbudgeted completion did not emit its structured terminal notice"
+
+# ============================================================================
+hr; echo "SUBTEST 1b — BLOCKED SERIAL CHILD: wait for unblock.sh"; hr
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-blocked blocked-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by orch-blocked blocked-b >/dev/null
+"$JOBS/post-orchestration.sh" --serial orch-blocked blocked-a blocked-b >/dev/null
+tick
+block_child blocked-a upstream-merge
+tick
+{ in_dir jobs/plan blocked-a && ! in_dir jobs/todo blocked-a \
+  && in_dir jobs/plan blocked-b && ! in_dir jobs/todo blocked-b \
+  && [ ! -s "$TR/tick.log" ]; } \
+  && ok "blocked serial child stayed parked pending its artifact; no child was promoted" \
+  || bad "blocked serial child was re-promoted (todo=[$(board jobs/todo)] plan=[$(board jobs/plan)])"
+"$JOBS/promote-plan.sh" --unblock blocked-a >/dev/null
+complete_child blocked-a
+tick
+complete_child blocked-b
+tick
+in_dir jobs/tada orch-blocked \
+  && ok "artifact-unblocked serial child resumed and the orchestration completed" \
+  || bad "orchestration did not resume after the unblock path released its child"
 
 # ============================================================================
 hr; echo "SUBTEST 2 — PARALLEL: promote all children at once"; hr

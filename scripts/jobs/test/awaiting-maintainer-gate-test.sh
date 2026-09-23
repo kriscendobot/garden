@@ -1,11 +1,13 @@
 #!/bin/bash
 # Regression coverage for the first-class pending-maintainer-decision gate.
 #
-# Pins four invariants:
+# Pins six invariants:
 #   1. the gate cannot be posted without both an answerable question and URL;
 #   2. annotate-plan can atomically repair a wrongly deferred/synthetic-blocked job;
 #   3. promotion requires the explicit maintainer path; and
-#   4. an awaiting-maintainer job survives a real foreman tick in plan/, unclaimed.
+#   4. an awaiting-maintainer job survives a real foreman tick in plan/, unclaimed;
+#   5. ordinary promoters cannot clear a blocked artifact gate; and
+#   6. unblock.sh's explicit promotion path can clear that gate.
 set -euo pipefail
 export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -100,6 +102,21 @@ got="$(show_path "$BARE" jobs/todo/pending-answer.md)"
   && ! grep -q '^gate:' <<<"$got"; } \
   && ok "explicit maintainer promotion releases the job with provenance" \
   || bad "maintainer promotion did not produce a clean todo job: $got"
+
+"$JOBS/post-plan.sh" --blocked --blocked-on upstream-merge blocked-artifact "$TR/body" >/dev/null
+rc=0
+"$JOBS/promote-plan.sh" blocked-artifact >/dev/null 2>&1 || rc=$?
+{ [ "$rc" -eq 6 ] && has_path "$BARE" jobs/plan/blocked-artifact.md \
+  && ! has_path "$BARE" jobs/todo/blocked-artifact.md; } \
+  && ok "ordinary promotion cannot clear a blocked artifact gate" \
+  || bad "ordinary promotion cleared or mishandled the blocked gate (rc=$rc)"
+
+"$JOBS/promote-plan.sh" --unblock blocked-artifact >/dev/null
+got="$(show_path "$BARE" jobs/todo/blocked-artifact.md)"
+{ grep -q 'garden-promoted-from-plan: gate=blocked ' <<<"$got" \
+  && ! grep -q '^blocked_on:' <<<"$got"; } \
+  && ok "explicit unblock promotion releases the blocked job with a clean body" \
+  || bad "unblock promotion did not produce a clean todo job: $got"
 
 # End-to-end foreman regression on an otherwise empty board. A zero settle window
 # takes two ticks: settle-start, then pump. The handler may mint unrelated work;
