@@ -22,7 +22,9 @@
 #                                       when GARDEN_DEVICES opts in; they are not
 #                                       block devices, so they never trip this).
 #   5. mounting a block device fails  — even if a node appeared, mount is denied.
-#   6. no maintainer gh credential    — no kriskowal account/token in the bot env.
+#   6. no maintainer gh credential    — no maintainer (default kriskowal) account or
+#                                       token reachable, compared by ACCOUNT LOGIN
+#                                       (structural), never by substring text.
 #   7. no human SSH key / agent       — no id_* private key, no SSH_AUTH_SOCK.
 #
 # Deterministic, read-only, no LLM. Cheap enough to run on a timer
@@ -35,6 +37,130 @@ PASS=0
 FAIL=0
 ok()  { PASS=$((PASS+1)); printf '  PASS: %s\n' "$1"; }
 ko()  { FAIL=$((FAIL+1)); printf '  FAIL: %s\n' "$1" >&2; }
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# --- maintainer-credential detection (check 6 internals) ----------------------
+# These functions compare gh ACCOUNT LOGINS structurally against the maintainer
+# set. They exist as functions (rather than inline in check 6) so the test suite
+# can drive them via the `--maintainer-cred-selftest` seam below, and so the
+# structural-vs-substring intent is unmistakable: at NO point do we `grep` free
+# text for a name — a `kriskowal/garden` repo path, a gh-wrapper notice, or a
+# config comment must never trip the check (that false positive is why this
+# rewrite exists).
+
+# real_gh_bin — the real gh binary, SKIPPING the fleet identity wrapper
+# (…/scripts/jobs/bin/gh). The wrapper pins every call to the bot identity, which
+# would mask the truth we are trying to read (a leaked maintainer login). Echoes
+# the path; rc 1 if no gh at all.
+real_gh_bin() {
+  local cand
+  while IFS= read -r cand; do
+    case "$cand" in */scripts/jobs/bin/gh) continue;; esac
+    printf '%s\n' "$cand"; return 0
+  done < <(type -aP gh 2>/dev/null)
+  return 1
+}
+
+# maintainer_logins — the login set to guard against, one per line, lowercased.
+# Precedence: explicit GARDEN_MAINTAINER_LOGIN (comma/space/newline separated) →
+# the journal maintainers/allowlist (GARDEN_MAINTAINERS_ALLOWLIST or the journal
+# worktree beside this checkout) → the safe default `kriskowal`.
+maintainer_logins() {
+  {
+    if [ -n "${GARDEN_MAINTAINER_LOGIN:-}" ]; then
+      printf '%s\n' "$GARDEN_MAINTAINER_LOGIN" | tr ', \t' '\n\n\n'
+    else
+      local allow="${GARDEN_MAINTAINERS_ALLOWLIST:-}" src
+      if [ -z "$allow" ]; then
+        for src in "${GARDEN_ROOT:-}/journal/maintainers/allowlist" \
+                   "$SCRIPT_DIR/../journal/maintainers/allowlist" \
+                   "$HOME/journal/maintainers/allowlist"; do
+          [ -n "$src" ] && [ -f "$src" ] && { allow="$src"; break; }
+        done
+      fi
+      if [ -n "$allow" ] && [ -f "$allow" ]; then
+        grep -vE '^[[:space:]]*(#|$)' "$allow" | awk '{print $1}'
+      else
+        printf 'kriskowal\n'
+      fi
+    fi
+  } | tr '[:upper:]' '[:lower:]' | awk 'NF'
+}
+
+# logged_in_gh_logins — every gh account logged in on this host, one login per
+# line, lowercased, enumerated STRUCTURALLY. Primary path: `gh auth status --json
+# hosts` (gh >= ~2.66), read with the store only (env tokens stripped; those are
+# evaluated separately by env_token_maintainer_login). Fallback for an older/absent
+# gh: parse hosts.yml's per-host `user:` field and the `users:` map keys by
+# strictly-anchored position — never a raw substring scan.
+logged_in_gh_logins() {
+  local gh json; gh="$(real_gh_bin || true)"
+  if [ -n "$gh" ]; then
+    if json="$(env -u GH_TOKEN -u GITHUB_TOKEN "$gh" auth status --json hosts --jq '.hosts[][].login' 2>/dev/null)" \
+       && [ -n "$json" ]; then
+      printf '%s\n' "$json" | tr '[:upper:]' '[:lower:]' | awk 'NF'
+      return 0
+    fi
+  fi
+  local hosts_yml="${GH_CONFIG_DIR:-$HOME/.config/gh}/hosts.yml"
+  [ -f "$hosts_yml" ] || return 0
+  {
+    # per-host active account:  "    user: <login>"
+    grep -oE '^[[:space:]]+user:[[:space:]]+[A-Za-z0-9._-]+' "$hosts_yml" 2>/dev/null | awk '{print $2}'
+    # users: map keys (indented >= 6, a bare "<login>:" with no inline value); this
+    # excludes the 0-indent host key, the 4-indent "users:" line, and value-bearing
+    # fields like "oauth_token: …".
+    grep -oE '^[[:space:]]{6,}[A-Za-z0-9._-]+:[[:space:]]*$' "$hosts_yml" 2>/dev/null \
+      | sed -E 's/^[[:space:]]+//; s/:[[:space:]]*$//'
+  } | tr '[:upper:]' '[:lower:]' | awk 'NF' | sort -u
+}
+
+# env_token_maintainer_login — for each of GH_TOKEN / GITHUB_TOKEN present in the
+# env, resolve the token's OWNING login via the real gh (`gh api user`) and echo
+# it, lowercased. Resolving the token beats grepping for a name: a maintainer PAT
+# named nothing suggestive is still caught.
+env_token_maintainer_login() {
+  local gh; gh="$(real_gh_bin || true)"
+  [ -n "$gh" ] || return 0
+  local var tok login
+  for var in GH_TOKEN GITHUB_TOKEN; do
+    tok="$(printenv "$var" 2>/dev/null || true)"
+    [ -n "$tok" ] || continue
+    login="$(GH_TOKEN="$tok" GITHUB_TOKEN="$tok" "$gh" api user --jq .login 2>/dev/null | tr '[:upper:]' '[:lower:]')"
+    [ -n "$login" ] && printf '%s\n' "$login"
+  done
+}
+
+# maintainer_gh_credential_reachable — echoes each offending "<source>:<login>"
+# (a logged-in account or a resolved env token whose login is a maintainer) and
+# returns 0 iff at least one was found; rc 1 when clean.
+maintainer_gh_credential_reachable() {
+  local -A maint=()
+  local m login found=1
+  while IFS= read -r m; do [ -n "$m" ] && maint["$m"]=1; done < <(maintainer_logins)
+  while IFS= read -r login; do
+    [ -n "$login" ] || continue
+    [ -n "${maint[$login]:-}" ] && { printf 'gh-account:%s\n' "$login"; found=0; }
+  done < <(logged_in_gh_logins)
+  while IFS= read -r login; do
+    [ -n "$login" ] || continue
+    [ -n "${maint[$login]:-}" ] && { printf 'env-token:%s\n' "$login"; found=0; }
+  done < <(env_token_maintainer_login)
+  return "$found"
+}
+
+# Test seam: run ONLY the maintainer-credential detection (no container guard, no
+# other checks) so the hardening-probe test can drive it on host fixtures. Prints
+# "REACHABLE <offenders…>" + exit 1 when a maintainer credential is reachable, or
+# "CLEAN" + exit 0 otherwise.
+if [ "${1:-}" = "--maintainer-cred-selftest" ]; then
+  offenders="$(maintainer_gh_credential_reachable || true)"
+  if [ -n "$offenders" ]; then
+    printf 'REACHABLE %s\n' "$(printf '%s' "$offenders" | tr '\n' ' ')"; exit 1
+  fi
+  echo CLEAN; exit 0
+fi
 
 echo "=== container hardening probe ($(id -un)@$(hostname -s 2>/dev/null)) ==="
 
@@ -106,19 +232,20 @@ else
 fi
 rmdir "$mnt" 2>/dev/null || true
 
-# --- 6. no maintainer (kriskowal) gh credential ------------------------------
-# `gh auth status` must not report the human account, and no token file may name
-# it. The bot's own login (kriscendobot) is fine and expected.
-gh_bad=0
-if command -v gh >/dev/null 2>&1; then
-    if gh auth status 2>&1 | grep -qi 'kriskowal'; then gh_bad=1; fi
-fi
-gh_hosts="$HOME/.config/gh/hosts.yml"
-if [ -f "$gh_hosts" ] && grep -qi 'kriskowal' "$gh_hosts"; then gh_bad=1; fi
-if [ "$gh_bad" -eq 0 ]; then
-    ok "no maintainer (kriskowal) gh account/token in the bot environment"
+# --- 6. no maintainer gh credential ------------------------------------------
+# No gh account logged in on this host, and no GH_TOKEN/GITHUB_TOKEN in the env,
+# may resolve to a MAINTAINER login (default kriskowal; overridable via
+# GARDEN_MAINTAINER_LOGIN or the journal maintainers/allowlist). The comparison is
+# structural — account LOGINS, not substring text — so an incidental "kriskowal"
+# in a repo path (kriskowal/garden), a gh-wrapper notice, or a config comment can
+# never false-alarm (the bug this rewrite fixes). The bot's own login
+# (kriscendobot) is fine and expected. Uses the REAL gh, not the fleet wrapper,
+# so the wrapper's identity pin cannot mask a leaked maintainer credential.
+offenders="$(maintainer_gh_credential_reachable || true)"
+if [ -z "$offenders" ]; then
+    ok "no maintainer gh account/token reachable (logins checked structurally)"
 else
-    ko "a kriskowal gh account/token is reachable from the bot environment"
+    ko "a maintainer gh credential is reachable: $(printf '%s' "$offenders" | tr '\n' ' ')"
 fi
 
 # --- 7. no loaded SSH agent identity -----------------------------------------
