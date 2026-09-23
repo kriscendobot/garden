@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T22:04:29Z_
+_As of 2026-09-23T22:06:29Z_
 
 ## Latest
 
@@ -1097,7 +1097,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_maintainer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_maintainer_journal.md)
 
-> Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/maintainer/journal: oldest-third median=1.986654s newest-third median=2.568310s; 1.5x floor=10s; projected-to-guard=59987s.
+> RECOVERED — the watchdog condition `journal-fetch-drift-_home_kris_garden__garden_state_maintainer_journal` has CLEARED (first seen 2026-09-23T22:00:57Z, cleared 2026-09-23T22:05:57Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-drift-_home_kris_garden__garden_state_maintainer_journal` cleared on endolin-garden-ece02cb4.
 
 - `doomed-improve-ci-watcher-primary-quota-cooldown-too-short-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-ci-watcher-primary-quota-cooldown-too-short-requeue-exhausted.md)
 
@@ -1345,20 +1349,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 57.0M | $586.76 _(notional, rate-card)_ | 40% of 143.0M (ok) |
-| Codex | 25.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 78% _(plan; codex-reported)_ |
+| Codex | 25.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34359061 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34343211 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 16 open notice(s); checker healthy
+worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 15 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (4)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-minion-town-federation-release-gate.md) — Gate: reviewed and deployable federation release
+- [`fix-finished-but-not-completed-requeue`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-finished-but-not-completed-requeue.md) — Fix: jobs that finish their work but end without completing get requeued, the...
 - [`endo-ocapn-gateway-session-binding-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-ocapn-gateway-session-binding-build.md) — Endo: bind the OCapN peer gateway to the authenticated session; add an advert...
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
 
 ### tada (8777)
 - [`ebfb-lockdown-ava-snapshot-uint8array-corruption`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-lockdown-ava-snapshot-uint8array-corruption.md) — Completion report: ebfb-lockdown-ava-snapshot-uint8array-corruption
@@ -1397,7 +1403,6 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-exo-stream-pr1100-gauntlet-20260923-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-subscription-model-deploy-gate-regression.md) — _normal_ · Fix deploy-gate regression from subscription-based-budget-model
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper.md) — _normal_ · Build: SES import attributes — Phase 3 (compartment-mapper plumbing)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
