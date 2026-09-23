@@ -73,6 +73,24 @@ else
   bad 'spelled-out address fired'
 fi
 
+db_output=$(printf '%s\n' \
+  'const openTestDb = statePath => makeDaemonDatabase({ path: statePath });' \
+  'const db = openTestDb(config.statePath);' \
+  | "$SPELL" --scan-stdin fixture.js 2>&1) || true
+printf '%s\n' "$db_output" | grep -Fq '`openTestDb` (`db`' \
+  && ok 'spell-out probe catches Db from PR 1329' \
+  || bad 'spell-out probe missed openTestDb'
+printf '%s\n' "$db_output" | grep -Fq '`db` (`db`' \
+  && ok 'spell-out probe catches bare db from PR 1329' \
+  || bad 'spell-out probe missed bare db'
+
+if printf '%s\n' 'const database = openTestDatabase(config.statePath);' \
+    | "$SPELL" --scan-stdin fixture.js | grep -qx pass; then
+  ok 'spelled-out database abstains'
+else
+  bad 'spelled-out database fired'
+fi
+
 if printf '%s\n' \
     '/** @typedef {{ name: string, count: number }} SharedShape */' \
     'export {};' \

@@ -24,6 +24,17 @@
 #     `subDir` -> spelled out.
 #   * consolidated 2026-08-04 recurrence: #684 `listenAddr` ->
 #     `listenAddress`; #806 `pendingIdx` was already covered by `idx`.
+#   * 2026-09-22 recurrence: #1329 added `openTestDb`/`db` (segment `db`) in
+#     packages/daemon/test/registry-endo.test.js — a panelled miss the stylist
+#     let through because `db` was on neither the blocklist here nor the stylist
+#     brief's example list, and the identifiers mirror an established
+#     `openTestDb`/`db` convention in the sibling endo.test.js. Maintainer:
+#     "expand the abbreviation to Database". Added `db:database` below. NOTE: a
+#     product/platform name whose uppercase run spells DB — `IndexedDB`,
+#     `LevelDB`, `MongoDB` — now fires as a segment `db`; that is a rare
+#     false-positive in this daemon codebase (its own store is spelled
+#     `manager-database`), waivable via the `spell-out-exempt` marker per the
+#     probe's documented bias-toward-firing.
 #
 # HOW IT WORKS: for each ADDED line of a changed source file the probe strips
 # string literals and comments (a char scanner that skips `//`, `/* */`, and
@@ -72,7 +83,7 @@ classify() {
       # from the observed set plus obvious siblings; keep it documented and
       # low-false-positive. Add here (and to the SKILL table) when a new
       # abbreviation trips a review.
-      split("dir:directory cmd:command temp:temporary tmp:temporary arg:argument subdir:subdirectory cfg:configuration ctx:context idx:index msg:message btn:button impl:implementation mgr:manager num:number str:string val:value resp:response req:request addr:address", pairs, " ")
+      split("dir:directory cmd:command temp:temporary tmp:temporary arg:argument subdir:subdirectory cfg:configuration ctx:context idx:index msg:message btn:button impl:implementation mgr:manager num:number str:string val:value resp:response req:request addr:address db:database", pairs, " ")
       for (p in pairs) { split(pairs[p], kv, ":"); BLOCK[kv[1]] = kv[2] }
       findings = 0
       sq = sprintf("%c", 39); bt = sprintf("%c", 96)
