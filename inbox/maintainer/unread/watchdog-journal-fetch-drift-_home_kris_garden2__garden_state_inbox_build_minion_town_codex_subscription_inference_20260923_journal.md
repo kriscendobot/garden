@@ -1,9 +1,14 @@
 from_host: endolin-garden2-5bcdff64
 from: watchdog:journal-contention-watch
-sent_at: 2026-09-23T20:56:46Z
+sent_at: 2026-09-23T21:51:50Z
 watchdog_key: journal-fetch-drift-_home_kris_garden2__garden_state_inbox_build_minion_town_codex_subscription_inference_20260923_journal
 notice_count: 1
 first_seen: 2026-09-23T20:56:46Z
-last_seen: 2026-09-23T20:56:46Z
+last_seen: 2026-09-23T21:51:50Z
+recovered: true
 ---
-Journal fetch drift on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/inbox/build-minion-town-codex-subscription-inference-20260923/journal: oldest-third median=1.513821s newest-third median=2.397249s; 1.5x floor=10s; projected-to-guard=26321s.
+RECOVERED — the watchdog condition `journal-fetch-drift-_home_kris_garden2__garden_state_inbox_build_minion_town_codex_subscription_inference_20260923_journal` has CLEARED (first seen 2026-09-23T20:56:46Z, cleared 2026-09-23T21:51:50Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+Journal contention condition `journal-fetch-drift-_home_kris_garden2__garden_state_inbox_build_minion_town_codex_subscription_inference_20260923_journal` cleared on endolin-garden2-5bcdff64.
