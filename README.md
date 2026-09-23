@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T20:20:51Z_
+_As of 2026-09-23T20:21:43Z_
 
 ## Latest
 
@@ -736,6 +736,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > GAUNTLET TRACK: still ACTIVE. PR [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) remains open+DRAFT (mergeable_state=dirty — base conflicts). The gauntlet driver is at fix iteration 3 of 6, gh-GraphQL rate-limited ~60 min. OPEN QUESTION: do you want the gauntlet to keep driving [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) to un-draft as reviewed code (deployment is blocked regardless), or pause it pending your server-limit decision? I will keep monitoring to terminal unless you say otherwise.
 
+- `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_monitors_monk_2_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_monitors_monk_2_journal.md)
+
+> Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monitors/monk-2/journal: oldest-third median=1.442805s newest-third median=1.734479s; 1.5x floor=10s; projected-to-guard=57761s.
+
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
 > RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-09-23T19:48:03Z, cleared 2026-09-23T19:51:26Z).
@@ -1083,20 +1087,20 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.6M | $572.59 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 56.6M | $572.84 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 23.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38052757 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 9 open notice(s); checker healthy
+worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 10 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-triager-cgroup-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-triager-cgroup-cleanup.md) — ---
 
 ### tada (8753)
 - [`canary-probe-endolin-garden2-5bcdff64-a4befb2be434`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/canary-probe-endolin-garden2-5bcdff64-a4befb2be434.md) — rolling-deploy canary probe — round trip OK
