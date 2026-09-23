@@ -72,6 +72,7 @@ pass locally, and your report names the commit SHAs.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-23T18:23:05Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
