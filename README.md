@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T19:55:30Z_
+_As of 2026-09-23T19:56:12Z_
 
 ## Latest
 
@@ -158,7 +158,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_requirements_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_requirements_watch_journal.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/requirements-watch/journal: packs 53 >= 50; size=70519808B packs=53 gc.log=0; automatic remedy=applied.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_requirements_watch_journal` has CLEARED (first seen 2026-09-23T19:47:46Z, cleared 2026-09-23T19:55:49Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_requirements_watch_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-comment-watcher-dead-kriscendobot-ocapn` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ocapn.md)
 
@@ -1037,7 +1041,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 38025919 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 9 open notice(s); checker healthy
+worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 8 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
@@ -1091,7 +1095,6 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### awaiting maintainer decision (answer at the linked question)
-- [`minion-town-guest-peer-fetch-verify-await-auth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-guest-peer-fetch-verify-await-auth.md) - [Should the guest run on the already-public pet daemon, or should the guest-substrate daemon get its own public OCapN-CBOR-Noise route?](https://github.com/kriscendobot/garden/issues/58#issuecomment-5447765615)
 - [`minion-town-guest-web-invite-accept-fallback-fix-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-guest-web-invite-accept-fallback-fix-20260922.md) - [Land the refreshed Endo daemon pin 89481580… (EndoGuest.accept) onto minion.town main. It is MERGED into frozen base main-45e43bb via PR #104 but main (HEAD 287af35) still pins the stale f66505034…. Promote this job only once git show origin/main:src/endo/captp-client.ts shows PINNED_ENDO_COMMIT = 89481580….](https://github.com/kriscendobot/minion.town/pull/104)
 - [`minion-town-pr87-production-gate-resume-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr87-production-gate-resume-20260922.md) - [PR #87 production-reality gate: which backend is the production provider (CLI/Agent-SDK; re-run failed SDK track first?), proceed before endo#1015 lands or gate on it, and what counts as production evidence + are credentials provided?](https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5770203120)
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
