@@ -121,10 +121,23 @@ verdict="$(jq -s \
       cap_low:  (.meter_spend_tokens / ((.weekly_percent + 0.5) / 100)),
       cap_point:(.meter_spend_tokens / (.weekly_percent / 100)),
       cap_high: (.meter_spend_tokens / ((.weekly_percent - 0.5) / 100)) };
+  # Drop superseded rows first: a corrected checkpoint (append-quota-checkpoint.sh or
+  # a hand correction) carries supersedes = the original row checked_at, and the
+  # original is a wholesale replacement that must not enter the fit. Index-aware so a
+  # correction that reuses the same checked_at is NOT dropped by its own back-reference:
+  # row i is dropped only when some OTHER row supersedes field names its checked_at.
+  # (No apostrophes here: this comment lives inside the single-quoted jq program.)
+  ( . as $all
+    | [ range(0; ($all|length)) as $i
+        | $all[$i] as $row
+        | $row
+        | select( ( [ range(0; ($all|length)) | select(. != $i) | $all[.].supersedes? // empty ]
+                    | index($row.checked_at) ) | not ) ]
+  ) as $rows
   # Observe every valid anchor transition before dropping unusable pairings. A
   # flagged B row in an A,B,A sequence still proves that the two A runs are not
   # temporally contiguous.
-  (reduce .[] as $row
+  | (reduce $rows[] as $row
       ({runs:[], have_previous:false, previous_window:null, next_run_index:0};
        if (($row.meter_window_start_epoch | type) != "number") then .
        else

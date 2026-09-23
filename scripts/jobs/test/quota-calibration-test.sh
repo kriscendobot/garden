@@ -148,6 +148,88 @@ else
   bad "unmetered ingestion or pool configuration was incorrect"
 fi
 
+# Shared subscription: append-quota-checkpoint SUMS spend across every mapped host on
+# the freshest window anchor and EXCLUDES a host on a mismatched (stale) window, so the
+# implied cap reflects the true shared-account total, not one host's slice. Regression
+# for the codex-endolin undercount (a 64% read paired with one host's 3M instead of the
+# ~21.5M aggregate).
+SUB=shared-sub
+mkdir -p "$WORK/budget/live/$SUB"
+# host-a + host-b share window 700, sampled at the same instant; host-c is on a stale
+# window 999 with an older sample and must be excluded from the sum (and noted).
+printf 'status: ok\nspend: 1000\nwindow_start_epoch: 700\nsampled_at: 2026-09-05T00:00:00Z\nsampled_at_epoch: 1788566400\n' > "$WORK/budget/live/$SUB/host-a"
+printf 'status: ok\nspend: 500\nwindow_start_epoch: 700\nsampled_at: 2026-09-05T00:00:00Z\nsampled_at_epoch: 1788566400\n' > "$WORK/budget/live/$SUB/host-b"
+printf 'status: ok\nspend: 9999\nwindow_start_epoch: 999\nsampled_at: 2026-09-04T22:00:00Z\nsampled_at_epoch: 1788559200\n' > "$WORK/budget/live/$SUB/host-c"
+commit_fixture
+"$JOBS/append-quota-checkpoint.sh" "$SUB" 30 --checked-at 2026-09-05T00:05:00Z >/dev/null 2>&1
+git -C "$WORK" fetch -q origin journal2
+git -C "$WORK" reset -q --hard origin/journal2
+if jq -se '
+    length == 1 and
+    .[0].meter_spend_tokens == 1500 and
+    .[0].meter_window_start_epoch == 700 and
+    .[0].meter_sampled_at == "2026-09-05T00:00:00Z" and
+    .[0].implied_weekly_cap_tokens == 5000 and
+    .[0].pairing_confidence == "medium" and
+    (.[0].meter_hosts | length) == 3 and
+    ([.[0].meter_hosts[] | select(.included)] | map(.spend) | add) == 1500 and
+    ([.[0].meter_hosts[] | select(.included | not) | .host] == ["host-c"]) and
+    (.[0].notes | contains("excluded"))
+  ' "$WORK/budget/manual-checkpoints/$SUB.jsonl" >/dev/null; then
+  ok "shared subscription sums mapped hosts on the freshest window and excludes a mismatched window"
+else
+  bad "shared-subscription aggregation was $(jq -c . "$WORK/budget/manual-checkpoints/$SUB.jsonl" 2>/dev/null)"
+fi
+
+# A single-host subscription must behave exactly as the pre-aggregation script did: no
+# meter_hosts audit array, and the same spend/confidence/implied values as reading the
+# one file directly.
+SOLO=solo-sub
+mkdir -p "$WORK/budget/live/$SOLO"
+printf 'status: ok\nspend: 600\nwindow_start_epoch: 700\nsampled_at: 2026-09-05T00:00:00Z\nsampled_at_epoch: 1788566400\n' > "$WORK/budget/live/$SOLO/only-host"
+commit_fixture
+"$JOBS/append-quota-checkpoint.sh" "$SOLO" 30 --checked-at 2026-09-05T00:05:00Z >/dev/null 2>&1
+git -C "$WORK" fetch -q origin journal2
+git -C "$WORK" reset -q --hard origin/journal2
+if jq -se '
+    length == 1 and
+    .[0].meter_spend_tokens == 600 and
+    .[0].implied_weekly_cap_tokens == 2000 and
+    .[0].pairing_confidence == "medium" and
+    (.[0] | has("meter_hosts") | not)
+  ' "$WORK/budget/manual-checkpoints/$SOLO.jsonl" >/dev/null; then
+  ok "single-host subscription aggregation is byte-compatible with the pre-aggregation read"
+else
+  bad "single-host aggregation regressed: $(jq -c . "$WORK/budget/manual-checkpoints/$SOLO.jsonl" 2>/dev/null)"
+fi
+
+# A superseded checkpoint is ignored by the fit: the first row carries a WRONG spend
+# (a wild outlier that, if fitted, would blow the spread tolerance and add a fourth
+# point); a corrected row REUSING its checked_at supersedes it with the right value.
+# The fit must drop the original (n_points 3, not 4) and never let the outlier count.
+HOST=supersede-host
+write_live "$HOST" 700
+{
+  checkpoint 2026-09-06T00:00:00Z 700 64 99000000 medium
+  checkpoint 2026-09-06T01:00:00Z 700 64 3100000 medium
+  checkpoint 2026-09-06T02:00:00Z 700 64 3200000 medium
+  # A corrected row supersedes the first (wrong) row, reusing its checked_at.
+  jq -cn '{checked_at:"2026-09-06T00:00:00Z",meter_window_start_epoch:700,weekly_percent:64,meter_spend_tokens:3000000,pairing_confidence:"medium",supersedes:"2026-09-06T00:00:00Z"}'
+} > "$WORK/budget/manual-checkpoints/$HOST.jsonl"
+commit_fixture
+verdict="$($JOBS/fit-quota-calibration.sh "$HOST" --dry-run --json-only)"
+if jq -e '
+    (.governing_segment.n_points == 3) and
+    ([.segments[].n_points] | add == 3) and
+    .checks.spread_within_tolerance and
+    (.governing_point.meter_spend_tokens == 3200000)
+  ' <<<"$verdict" >/dev/null; then
+  ok "fit ignores a superseded row (same checked_at) so the outlier never governs"
+else
+  bad "supersession fit verdict was $(jq -c . <<<"$verdict")"
+fi
+HOST=claude-endolin1   # restore for the promotion regressions below
+
 # Promotion remains an explicit setter action with complete provenance. A mutable
 # narrative calibration for the promoted host must not survive beside the new row;
 # unrelated header comments remain verbatim.

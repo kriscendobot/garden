@@ -102,6 +102,71 @@ derive_confidence() {
   fi
 }
 
+# downgrade_confidence <level> — knock a confidence down one notch. Used when a shared
+# subscription's host samples are far apart (the aggregate pairing is looser than any
+# single-host reading would be).
+downgrade_confidence() {
+  case "$1" in high) echo medium;; medium) echo low;; low) echo none;; *) echo none;; esac
+}
+
+# aggregate_live <live-dir> — for a (possibly shared) subscription, SUM spend across
+# every mapped host contribution in budget/live/<subscription>/* whose meter window
+# anchor matches the freshest sample's, and set the pairing globals for _append_once:
+#   spend          the AGGREGATE token total across included hosts
+#   win            the shared window_start_epoch (the reference anchor)
+#   sampled_at     the OLDEST included sample's wall-clock time (conservative pairing instant)
+#   sampled_ep     the OLDEST included sample's epoch (drives the age/confidence)
+#   meter_hosts_json  an auditable per-host array (only when >1 host file exists), or ""
+#   agg_note       free text about exclusions / a wide sample spread, or ""
+#   agg_spread     seconds between the oldest and newest included sample (0 for one host)
+# A host on a different (or stale) window anchor is EXCLUDED from the sum and noted,
+# never summed — rows across a window change are not comparable. Leaves spend empty
+# when no usable contribution exists. A single readable file behaves exactly like the
+# pre-aggregation single-host read (no meter_hosts, no agg_note).
+# NB: assigns the pairing globals WITHOUT `local` so bash dynamic scope reaches the
+# caller's locals; its own scratch vars ARE local.
+aggregate_live() {
+  local live_dir="$1"
+  spend=""; win=""; sampled_at=""; sampled_ep=""; meter_hosts_json=""; agg_note=""; agg_spread=0
+  [ -d "$live_dir" ] || return 0
+  local recs="" f l fspend fwin fat fatep fstatus ref_win="" freshest=-1
+  for f in "$live_dir"/*; do
+    [ -f "$f" ] || continue
+    l="$(read_live "$f" 2>/dev/null)" || continue
+    IFS=$'\t' read -r fspend fwin fat fatep fstatus <<<"$l"
+    [[ "$fspend" =~ ^[0-9]+$ ]] && [[ "$fwin" =~ ^[0-9]+$ ]] && [[ "$fatep" =~ ^[0-9]+$ ]] || continue
+    recs+="$(basename "$f")"$'\t'"$fspend"$'\t'"$fwin"$'\t'"$fat"$'\t'"$fatep"$'\n'
+    # Reference window = the anchor of the freshest sample (README: shared-subscription
+    # percent observations track the freshest sample).
+    if [ "$fatep" -gt "$freshest" ]; then freshest="$fatep"; ref_win="$fwin"; fi
+  done
+  [ -n "$ref_win" ] || return 0
+  local agg total inc exc minep oldest refw spread
+  agg="$(printf '%s' "$recs" | awk -F'\t' -v ref="$ref_win" '
+    { if ($3==ref) { tot+=$2; inc++; if(minep==""||$5<minep){minep=$5;oldest=$4}; if(maxep==""||$5>maxep){maxep=$5} }
+      else { exc++ } }
+    END { printf "%d\t%d\t%d\t%s\t%s\t%s\t%d",
+                 tot, inc, exc, (minep==""?"":minep), (oldest==""?"":oldest), ref,
+                 (maxep==""?0:maxep)-(minep==""?0:minep) }')"
+  IFS=$'\t' read -r total inc exc minep oldest refw spread <<<"$agg"
+  [ "${inc:-0}" -ge 1 ] || return 0
+  spend="$total"; win="$refw"; sampled_ep="$minep"; sampled_at="$oldest"; agg_spread="${spread:-0}"
+  # Only surface the per-host audit array and aggregation notes when aggregation is
+  # actually meaningful (more than one host file). A single-host subscription stays
+  # byte-for-byte as before.
+  if [ "$(( inc + exc ))" -gt 1 ]; then
+    meter_hosts_json="$(printf '%s' "$recs" | jq -R -s --argjson ref "$refw" '
+      split("\n") | map(select(length>0)) | map(split("\t")) |
+      map({host:.[0], spend:(.[1]|tonumber), window_start_epoch:(.[2]|tonumber),
+           sampled_at:.[3], included:((.[2]|tonumber)==$ref)}
+          + (if (.[2]|tonumber)==$ref then {} else {excluded_reason:"window \(.[2]) != reference \($ref)"} end))' 2>/dev/null || true)"
+    local notes=()
+    [ "${exc:-0}" -gt 0 ] && notes+=("$exc host(s) excluded from the sum on a mismatched meter window (see meter_hosts)")
+    [ "${agg_spread:-0}" -gt 900 ] && notes+=("contributing samples span ${agg_spread}s; oldest used as the pairing instant and confidence lowered")
+    if [ "${#notes[@]}" -gt 0 ]; then local IFS='; '; agg_note="${notes[*]}"; fi
+  fi
+}
+
 _append_once() {
   local dir="$1"
   local cp_dir="$dir/budget/manual-checkpoints" cp_file
@@ -109,12 +174,16 @@ _append_once() {
   mkdir -p "$cp_dir" || return 1
 
   local live spend win sampled_at sampled_ep status age confidence implied prev_win osc_note=""
-  local lf="${host_file:-$dir/budget/live/$subscription/$GARDEN}"
-  if [ -z "$host_file" ] && [ ! -r "$lf" ]; then
-    lf="$(find "$dir/budget/live/$subscription" -maxdepth 1 -type f -print -quit 2>/dev/null || true)"
-  fi
-  if live="$(read_live "$lf" 2>/dev/null)"; then
-    IFS=$'\t' read -r spend win sampled_at sampled_ep status <<<"$live"
+  local meter_hosts_json="" agg_note="" agg_spread=0
+  if [ -n "$host_file" ]; then
+    # Single-file test mode: read exactly this one host, no aggregation (behaves as
+    # the pre-aggregation script did; keeps --host-file usable for tests).
+    if live="$(read_live "$host_file" 2>/dev/null)"; then
+      IFS=$'\t' read -r spend win sampled_at sampled_ep status <<<"$live"
+    fi
+  else
+    # Aggregate across every mapped host of this (possibly shared) subscription.
+    aggregate_live "$dir/budget/live/$subscription"
   fi
   # Sanitize: only accept numeric spend / epoch; otherwise the pairing is unusable.
   [[ "${spend:-}" =~ ^[0-9]+$ ]] || spend=""
@@ -124,6 +193,11 @@ _append_once() {
   if [ -n "$spend" ] && [ -n "$sampled_ep" ]; then
     age=$(( checked_epoch - sampled_ep ))
     confidence="$(derive_confidence "$age")"
+    # Shared subscription with widely-separated host samples: the aggregate pairing is
+    # looser than any single reading, so knock the auto-derived confidence down a notch.
+    if [ -n "$meter_hosts_json" ] && [ "${agg_spread:-0}" -gt 900 ] && [ "$confidence" != none ]; then
+      confidence="$(downgrade_confidence "$confidence")"
+    fi
   else
     confidence="none"; spend=""; sampled_at=""; win=""
   fi
@@ -147,15 +221,18 @@ _append_once() {
   fi
 
   local full_note="$note"
-  [ -z "$osc_note" ] || full_note="${note:+$note }$osc_note"
+  [ -z "$osc_note" ] || full_note="${full_note:+$full_note }$osc_note"
+  [ -z "$agg_note" ] || full_note="${full_note:+$full_note }$agg_note"
 
+  local mh="${meter_hosts_json:-}"; [ -n "$mh" ] || mh=null
   local row
   row="$(jq -cn \
     --arg checked_at "$checked_at" --arg subscription "$subscription" --arg reported_by "$reported_by" \
     --arg weekly_percent "$weekly_percent" --arg weekly_resets_at "$weekly_resets_at" \
     --arg session_percent "$session_percent" --arg session_resets_at "$session_resets_at" \
     --arg spend "$spend" --arg sampled_at "$sampled_at" --arg win "$win" \
-    --arg confidence "$confidence" --arg implied "$implied" --arg notes "$full_note" '
+    --arg confidence "$confidence" --arg implied "$implied" --arg notes "$full_note" \
+    --argjson meter_hosts "$mh" '
     {checked_at:$checked_at, subscription_id:$subscription, reported_by:$reported_by,
      weekly_percent:($weekly_percent|tonumber)}
     + (if $weekly_resets_at != "" then {weekly_resets_at:$weekly_resets_at} else {} end)
@@ -166,6 +243,7 @@ _append_once() {
        meter_window_start_epoch:(if $win != "" then ($win|tonumber) else null end),
        pairing_confidence:$confidence,
        implied_weekly_cap_tokens:(if $implied != "" then ($implied|tonumber) else null end)}
+    + (if $meter_hosts != null then {meter_hosts:$meter_hosts} else {} end)
     + (if $notes != "" then {notes:$notes} else {} end)' 2>/dev/null)" || return 1
   [ -n "$row" ] || return 1
 
