@@ -1361,6 +1361,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   fi
 
   if commit_and_push "$DIR" "requeue: reaped $staged stale claim(s) by $GARDEN"; then
+    contention_record "$DIR" push-attempts "$attempt"
     doomed=${#DOOM_BASE[@]}
     reaped=$(( staged - doomed ))
     # The reap batch CAS is the actuation point. Record each job that moved into
@@ -1582,6 +1583,7 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
 done
 
 if [ "$reaped" -eq 0 ] && [ "$doomed" -eq 0 ] && [ "$staged" -ne 0 ]; then
+  contention_record "$DIR" push-attempts "$GARDEN_REAP_PUSH_ATTEMPTS"   # reached the CAS cap: a push wedge
   log "FAILED to land requeue of ${#STALE[@]} stale claim(s) after $GARDEN_REAP_PUSH_ATTEMPTS attempts"
   exit 1
 fi

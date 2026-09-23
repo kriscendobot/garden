@@ -90,9 +90,10 @@ for attempt in $(seq 1 50); do
   # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
   # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
   rc=0; commit_and_push "$DIR" "hosts($host) $count_key=$n" || rc=$?
-  [ "$rc" -eq 0 ] && { log "declared $host $count_key=$n"; exit 0; }
+  [ "$rc" -eq 0 ] && { contention_record "$DIR" push-attempts "$attempt"; log "declared $host $count_key=$n"; exit 0; }
   [ "$rc" -eq 2 ] && { log "$host already at $count_key=$n"; exit 0; }
   log "set-workers lost a push race (attempt $attempt); retrying"
   backoff "$attempt"
 done
+contention_record "$DIR" push-attempts 50   # reached the CAS cap: a push wedge (hard guard)
 die "could not declare $count_key for $host after retries"

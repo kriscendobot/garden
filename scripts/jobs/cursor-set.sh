@@ -103,7 +103,7 @@ for attempt in $(seq 1 50); do
   : > "$diagnostic_file"
   rc=0; commit_and_push "$DIR" "cursor($key) advanced on $GARDEN" 2>"$diagnostic_file" || rc=$?
   push_diagnostic="$(cat "$diagnostic_file")"
-  [ "$rc" -eq 0 ] && { log "advanced cursor $key"; exit 0; }
+  [ "$rc" -eq 0 ] && { contention_record "$DIR" push-attempts "$attempt"; log "advanced cursor $key"; exit 0; }
   [ "$rc" -eq 2 ] && exit 0
 
   # A push transport failure and the verification fetch after an apparently
@@ -136,4 +136,5 @@ for attempt in $(seq 1 50); do
   fi
   backoff "$attempt"
 done
+contention_record "$DIR" push-attempts 50   # reached the CAS cap: a push wedge (hard guard)
 die "could not advance cursor $key after retries"

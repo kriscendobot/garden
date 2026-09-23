@@ -424,6 +424,19 @@ export GARDEN
 # advance_cursor_with_retry).
 : "${GARDEN_CURSOR_ADVANCE_RETRIES:=3}"
 
+# --- journal-contention instrumentation knobs (host-local; NO journal writes) -
+# A single cheap sensor (contention_record, below) is called from the hot journal
+# functions — clone_lock, the fetches, the CAS push loops, and the outage latch — to
+# append a contention sample to a host-local ring. journal-contention-watch.sh reads,
+# trims, and anomaly-checks these rings out of band (a per-host timer); NOTHING here
+# ever touches the journal, forks on the enabled path, or blocks/fails the caller. The
+# journal was just rebuilt to escape churn, so there are deliberately no per-event or
+# per-tick journal commits — the only journal writes are the watcher's watchdog alerts.
+# See designs/journal-contention-watch.md.
+: "${GARDEN_CONTENTION_INSTRUMENT:=1}"                 # 0 = disable all recording (recorder is a no-op)
+: "${GARDEN_CONTENTION_DIR:=$GARDEN_STATE/journal-contention}"   # host-local ring root
+: "${GARDEN_CONTENTION_RING:=512}"                     # samples the checker keeps per ring (it trims)
+
 # Belt: teach git itself to abort a stalled transfer rather than rely solely on
 # the `timeout` wrapper. For https remotes, treat a transfer slower than
 # ~1KB/s sustained for GARDEN_FETCH_TIMEOUT seconds as dead. For the
@@ -510,6 +523,50 @@ log() {
   printf '%s%s [%s] %s\n' "$prefix" "$(date -u +%H:%M:%S)" "${GARDEN_TAG:-jobs}" "$*" >&2
 }
 die()  { log "FATAL: $*"; exit 1; }
+
+# --- journal-contention sensor (the recorder + its fork-free time helpers) -----
+# These live here (right after log/die) so every hot journal function below can call
+# them. Design contract (designs/journal-contention-watch.md § 1): the enabled path is
+# a bash-builtin time read (no fork) plus one append (atomic for a sub-PIPE_BUF line on
+# a local fs); the disabled path is a single string compare.
+
+# contention_clone_slug <dir> — the ring basename for a clone path: the SAME sanitize
+# shape _clone_lock_envkey uses (tr -c 'A-Za-z0-9' '_'), done with a bash builtin
+# substitution so per-clone/per-caller rings stay separate without a fork. The
+# checker/probe call this by name; contention_record inlines the identical mapping.
+contention_clone_slug() {
+  local s="${1%/}"
+  printf '%s' "${s//[!A-Za-z0-9]/_}"
+}
+
+# _contention_stamp_us — set the global _CONTENTION_US to the current time in integer
+# MICROSECONDS from $EPOCHREALTIME (a bash builtin: no fork, no subshell). Robust to a
+# locale decimal separator (some locales render EPOCHREALTIME with ','); falls back to
+# whole seconds when the builtin is unavailable. Used to time lock-wait and each fetch.
+_CONTENTION_US=0
+_contention_stamp_us() {
+  local e="${EPOCHREALTIME:-}" sec frac
+  if [ -z "$e" ]; then _CONTENTION_US=$(( ${EPOCHSECONDS:-0} * 1000000 )); return 0; fi
+  sec="${e%%[.,]*}"; frac="${e#*[.,]}"
+  [ "$frac" = "$e" ] && frac=0            # no separator present
+  frac="${frac}000000"; _CONTENTION_US="${sec}${frac:0:6}"
+}
+
+# contention_record <clone> <signal> <value...> — append one "<epoch> <value...>"
+# sample to the host-local ring for <signal>/<clone-slug>. Time signals record integer
+# microseconds (the checker converts to seconds); count signals record an integer;
+# push-class records a word. A no-op when GARDEN_CONTENTION_INSTRUMENT != 1. NEVER fails
+# the caller: every error is swallowed. Zero forks on the enabled path (mkdir runs only
+# the first time a signal dir is created; the slug is an inline builtin substitution).
+contention_record() {
+  [ "${GARDEN_CONTENTION_INSTRUMENT:-1}" = 1 ] || return 0
+  local clone="${1%/}" signal="$2"; shift 2
+  local slug="${clone//[!A-Za-z0-9]/_}"
+  local dir="${GARDEN_CONTENTION_DIR:-$GARDEN_STATE/journal-contention}/$signal"
+  [ -d "$dir" ] || mkdir -p "$dir" 2>/dev/null || true
+  printf '%s %s\n' "${EPOCHSECONDS:-0}" "$*" >> "$dir/$slug" 2>/dev/null || true
+  return 0
+}
 
 # record_decision <decision-append arguments...> — best-effort cybernetic output
 # recording.  Actuators call this only after they have made (or deliberately
@@ -756,7 +813,11 @@ journal_outage_active() {  # rc 0 = a non-expired shared window exists → skip 
   # is no marker at all — which is every tick outside an outage.
   [ -e "$GARDEN_JOURNAL_OUTAGE_MARKER" ] || return 1
   mkdir -p "$GARDEN_JOURNAL_OUTAGE_DIR"
-  (
+  # rc 0 from the subshell = a live window exists → this caller skips the fetch QUIETLY.
+  # Count that quiet skip (host-level ring) so a sustained silent-skip episode is
+  # visible to journal-contention-watch (§ 4, the 4.5h class). The `if` keeps the
+  # subshell's non-zero (no live window) from tripping the caller's set -e.
+  if (
     flock 9
     local now expiry
     now="$(date +%s 2>/dev/null || echo 0)"
@@ -765,7 +826,11 @@ journal_outage_active() {  # rc 0 = a non-expired shared window exists → skip 
     if [ "$expiry" -gt "$now" ]; then exit 0; fi
     rm -f "$GARDEN_JOURNAL_OUTAGE_MARKER"
     exit 1
-  ) 9>"$GARDEN_JOURNAL_OUTAGE_LOCK"
+  ) 9>"$GARDEN_JOURNAL_OUTAGE_LOCK"; then
+    contention_record host outage-skip 1
+    return 0
+  fi
+  return 1
 }
 
 start_journal_outage_cooldown() {  # rc 0 = THIS tick latched the window (owns the warning)
@@ -774,7 +839,12 @@ start_journal_outage_cooldown() {  # rc 0 = THIS tick latched the window (owns t
   # disabled cooldown still surfaces the outage per detector (herd suppression OFF).
   [ "$secs" -gt 0 ] || return 0
   mkdir -p "$GARDEN_JOURNAL_OUTAGE_DIR"
-  (
+  # rc 0 from the subshell = THIS tick latched a fresh window (won the race), so it
+  # owns the single warning; record ONE outage-latch sample (host-level ring, tagged
+  # with the window length) only on that winning transition — never on the "a live
+  # window already exists" path. The `if` shields the caller's set -e from the losing
+  # subshell's exit 1, and this function still returns 1 to a loser exactly as before.
+  if (
     flock 9
     local now expiry new_expiry tmp
     now="$(date +%s 2>/dev/null || echo 0)"
@@ -786,7 +856,11 @@ start_journal_outage_cooldown() {  # rc 0 = THIS tick latched the window (owns t
     printf '%s\n%s\n' "$new_expiry" "$tag" > "$tmp"
     mv -f "$tmp" "$GARDEN_JOURNAL_OUTAGE_MARKER"
     exit 0
-  ) 9>"$GARDEN_JOURNAL_OUTAGE_LOCK"
+  ) 9>"$GARDEN_JOURNAL_OUTAGE_LOCK"; then
+    contention_record host outage-latch "$secs"
+    return 0
+  fi
+  return 1
 }
 
 clear_journal_outage_cooldown() {  # cooldown disabled + successful read → drop stale latch
@@ -2483,15 +2557,18 @@ derive_clone_url() {
 # clone-keeper, the triager and root-repo-guard: a network blip must not leave a
 # timer running until systemd kills it.
 bounded_fetch() {
-  local dir="$1" attempt=1 rc=0
+  local dir="$1" attempt=1 rc=0 _bf_t0
   shift
   while :; do
+    _contention_stamp_us; _bf_t0="$_CONTENTION_US"
     if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
          git -C "$dir" fetch -q "$@" 2>/dev/null; then
+      _contention_stamp_us; contention_record "$dir" fetch "$(( _CONTENTION_US - _bf_t0 ))" 0
       return 0
     else
       rc=$?
     fi
+    _contention_stamp_us; contention_record "$dir" fetch "$(( _CONTENTION_US - _bf_t0 ))" "$rc"
     { [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; } \
       && log "fetch $* in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$rc) on attempt $attempt"
     if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
@@ -3876,6 +3953,10 @@ clone_lock() {
     return 0
   fi
   lf="$(_clone_lockfile "$dir")"; mkdir -p "$(dirname "$lf")"
+  # journal-contention: stamp the first-flock-attempt time so lock-wait is measured
+  # from here to acquisition (the borrowed/already-held fast paths above made no
+  # flock attempt, so they are correctly excluded).
+  local _lock_t0; _contention_stamp_us; _lock_t0="$_CONTENTION_US"
   # Bound the wait, then RECLAIM a stale holder rather than wedge. Two ways a lock
   # outlives its usefulness: (a) a stuck holder (a hung fetch) blocks a waiter —
   # how one stale connection wedged the whole fleet; (b) a KILLED run leaves the
@@ -3895,6 +3976,8 @@ clone_lock() {
       _clone_lock_stamp "$fd"                          # record our pid + time for the next waiter
       _CLONE_LOCK_FD["$dir"]="$fd"
       export "$key=held"
+      _contention_stamp_us
+      contention_record "$dir" lock-wait "$(( _CONTENTION_US - _lock_t0 ))"
       return 0
     fi
     # Release our failed attempt before deciding. NOTE: no `2>...` on this exec —
@@ -3906,10 +3989,12 @@ clone_lock() {
     # is clean and needs no suppression.
     exec {fd}>&- || true
     if [ "$steals" -lt "$GARDEN_LOCK_STEALS" ] && _clone_lock_is_stale "$lf"; then
+      contention_record "$dir" lock-steal 1
       log "clone lock $lf stale (holder dead or >${GARDEN_LOCK_TTL}s old); reclaiming ($((steals+1))/$GARDEN_LOCK_STEALS)"
       rm -f "$lf"; steals=$((steals+1)); continue       # drop the tombstone, reopen a fresh inode, retry now
     fi
     if [ "$n" -ge "$retries" ]; then
+      contention_record "$dir" lock-giveup 1
       if [ "${GARDEN_CLONE_LOCK_SOFT:-0}" = 1 ]; then
         log "WARN: clone lock $lf busy >${wait}s; abandoning this OPTIONAL refresh (fail-open, no retry ladder)"
         exit "$GARDEN_OFFLINE_RC"
@@ -4132,8 +4217,13 @@ ensure_clone() {
 # untouched (caller redirects); the exit code is timeout's: the git rc on success,
 # 124 if SIGTERM ended it at the deadline, 137 if the --kill-after SIGKILL had to.
 _journal_git_fetch() {
+  local _t0 _rc=0
+  _contention_stamp_us; _t0="$_CONTENTION_US"
   timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-    git -C "$1" fetch -q origin "$JOURNAL_BRANCH"
+    git -C "$1" fetch -q origin "$JOURNAL_BRANCH" || _rc=$?
+  _contention_stamp_us
+  contention_record "$1" fetch "$(( _CONTENTION_US - _t0 ))" "$_rc"
+  return "$_rc"
 }
 
 # leader_host — echo the configured leader's GARDEN identity. Resolution order:
@@ -6723,6 +6813,16 @@ commit_and_push() {
     else
       log "ALERT: push of '$msg' reported success but did NOT land on origin/$JOURNAL_BRANCH; re-syncing (silent-loss guard)"
       rc=1
+    fi
+  else
+    # journal-contention: classify the rejection for the watch (host-local ring; never
+    # fails us). Reuses the existing predicates — no new classification logic, so the
+    # recorder and the retry logic in the CAS-loop callers can never drift. One record
+    # per classified rejection; a lost CAS (`cas`) is the normal retry, a `definite-fail`
+    # is a hard-guard signal, `server-reject` is a policy/hook wall.
+    if   journal_push_is_cas_contention  "$GARDEN_PUSH_STDERR"; then contention_record "$dir" push-class cas
+    elif journal_push_is_server_rejection "$GARDEN_PUSH_STDERR"; then contention_record "$dir" push-class server-reject
+    elif journal_push_is_definite_failure "$GARDEN_PUSH_STDERR"; then contention_record "$dir" push-class definite-fail
     fi
   fi
   clone_unlock "$dir"
