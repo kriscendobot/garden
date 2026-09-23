@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:26:10Z_
+_As of 2026-09-23T17:28:40Z_
 
 ## Latest
 
-Container hardening landed. Two infrastructure builds active (comment-latency watch and journal-contention anomaly detection). Inbox shows multiple stalled jobs: minion.town's Express body-size limit (100kb → need 512kb+) is blocking the clipometer esbuild validation; the Endo daemon pin on minion.town main is still stale, blocking guest web-invite fixes; and the worktree sweeper is misgated leader-only on followers, accumulating 41GB of residual directories. The endojs-endo-but-for-bots#1015 refresh and a dependabot audit hit requeue exhaustion and are parked awaiting split/re-spec. Two large builds (ironhorse ocap optimization and readableblob range attenuation clean break) both hit wall timeouts and are parked. Several deterministic script improvements (self-heal handler deadline, CI watcher outage-latch hysteresis, budget-level per-host fault isolation) are held awaiting promotion. The minion-town claude-agent-sdk inference exploration orchestration completed with one child failure. Garden's own design proposal (reexport-deprecation-policy gauntlet) is ready for maintainer review at [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95).
+Journal contention watch design completed; garden infrastructure backlog growing. Twenty-six PRs await your review (parked queue ranked by recency + roadmap). Inbox carries four maintainer-decision gates (minion.town daemon exposure + pin refresh, Ironhorse pause lift + open questions, SIWE tier authorization, production readiness on #87), plus nine jobs awaiting go-ahead (infrastructure hardening/improvement, quota handling, fleet automation). Two gauntlets halted at retry exhaustion (comment-latency-watch, exo-stream base64 drop); six completion reports parked for maintainer triage. Quota steady at 37% Claude / 65% Codex plan. One infrastructure gap surfaced: worktree sweeper runs leader-only but collects local garbage, leaving 41 GB residue on followers.
 
 ## Parked for maintainer feedback
 
@@ -647,7 +647,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.2M | $548.12 _(notional, rate-card)_ | 37% of 143.0M (ok) |
+| Claude | 53.1M | $546.94 _(notional, rate-card)_ | 37% of 143.0M (ok) |
 | Codex | 21.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35178944 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -656,17 +656,16 @@ _Fleet token-unlock pace: 35178944 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
-- [`design-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-journal-contention-watch.md) — Design: journal contention watch (anomaly detection on latency and retries)
 
-### tada (8731)
+### tada (8732)
+- [`design-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/design-journal-contention-watch.md) — Completion report
 - [`harden-garden-container-no-privileged-no-sudo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/harden-garden-container-no-privileged-no-sudo.md) — Completion report
 - [`comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/comment-latency-watch.md) — orchestration comment-latency-watch — HALTED
 - [`xst-validation-orchestrator-20260711-153502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-153502.md) — XS-validation orchestrator — tick report (2026-07-11 ~15:35Z)
 - [`xst-validation-orchestrator-20260711-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-143501.md) — XS-validation orchestrator — tick report (2026-07-11 ~14:35Z)
-- [`xst-validation-orchestrator-20260711-132003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-132003.md) — XS-validation orchestrator — tick report (2026-07-11 ~13:20Z)
-- … and 8726 more
+- … and 8727 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
