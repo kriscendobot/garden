@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: design LANDED: designs/comment-latency-watch.md on main2 (becaf0ffc52) + open-questions PR kriscendobot/garden#110; the session exited without complete-job twice so the reaper doomed a finished job. Build promoted by liaison per maintainer's 'design ... and build it'.
+withdrawn_by: liaison
+withdrawn_at: 2026-09-23T17:12:46Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: designer
