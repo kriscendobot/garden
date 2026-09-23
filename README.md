@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T21:14:46Z_
+_As of 2026-09-23T21:16:47Z_
 
 ## Latest
 
@@ -257,6 +257,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > failed-children: 
 >
 > Orchestration journal-contention-watch complete (serial): all 2 children reached tada without a machine-readable failure declaration.
+
+- `msg-endo-minion-town-federation-endo-build-9f02874b402c` — from gardener:endo-minion-town-federation-endo-build, reply_to `endo-minion-town-federation-endo-build` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endo-minion-town-federation-endo-build-9f02874b402c.md)
+
+> Stage 1 (Endo build) of guest-locator federation: draft [https://github.com/endojs/endo-but-for-bots/pull/1333](https://github.com/endojs/endo-but-for-bots/pull/1333) is up. It adds endo adopt-locator, a strict adoptFromLocator, and bounded formula fetch composed behind endo-peer-entry, with real two-daemon tests passing. The build surfaced three authority questions, posted at [https://github.com/endojs/endo-but-for-bots/pull/1332](https://github.com/endojs/endo-but-for-bots/pull/1332)#issuecomment-5803040971 . They are (1) the locator's guest key is not bound to the hosting key, (2) the greeter/gateway path on a public endpoint is not bounded by the miss limit from [https://github.com/endojs/endo-but-for-bots/pull/1124](https://github.com/endojs/endo-but-for-bots/pull/1124) , and (3) no remote retention for anonymous adopters. Your answers to (1) and (2) are needed before stage 2 exposes a public endpoint. No action is needed on [https://github.com/endojs/endo-but-for-bots/pull/1333](https://github.com/endojs/endo-but-for-bots/pull/1333) until you choose to run the gauntlet.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_leader_journal.md)
 
@@ -1151,7 +1155,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.2M | $591.52 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 57.1M | $585.00 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 24.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38107275 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1160,22 +1164,23 @@ _Fleet token-unlock pace: 38107275 tokens/day lower bound; incomplete where a su
 worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 13 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`minion-town-clipometer-pr84-canonical-real-guest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clipometer-pr84-canonical-real-guest.md) — CLIPOMETER: canonical REAL-guest publish + live validation (pinned to the hos...
+### todo (0)
+(none)
 
-### doin (4)
+### doin (5)
 - [`build-minion-town-codex-subscription-inference-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-codex-subscription-inference-20260923.md) — Explore a **Codex on ChatGPT subscription** inference backend in minion.town
-- [`endo-minion-town-federation-endo-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-minion-town-federation-endo-build.md) — Endo guest-locator adoption and daemon bridge
+- [`minion-town-clipometer-pr84-canonical-real-guest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-clipometer-pr84-canonical-real-guest.md) — CLIPOMETER: canonical REAL-guest publish + live validation (pinned to the hos...
 - [`mentat-ebfb-pr1100-carry-over-line-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-ebfb-pr1100-carry-over-line-20260923.md) — Carry endojs/endo-but-for-bots#1100 over the line (mentat fixer, then a fresh...
+- [`endo-minion-town-federation-town-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-minion-town-federation-town-build.md) — Minion Town account guest locator and deployment wiring
 - [`fix-latency-contention-watch-false-alarm-flood`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-latency-contention-watch-false-alarm-flood.md) — Fix: comment-latency-watch and journal-contention-watch are flooding the main...
 
-### tada (8767)
+### tada (8768)
+- [`endo-minion-town-federation-endo-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/endo-minion-town-federation-endo-build.md) — Stage 1 (Endo guest-locator adoption and daemon bridge): draft PR open, local...
 - [`minion-town-clipometer-pr84-canonical-publish-validate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/minion-town-clipometer-pr84-canonical-publish-validate.md) — Completion report: minion-town-clipometer-pr84-canonical-publish-validate
 - [`fix-orchestrate-blocked-gate-refusal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-orchestrate-blocked-gate-refusal.md) — Cost
 - [`minion-town-clipometer-pr84-rebase-revalidate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/minion-town-clipometer-pr84-rebase-revalidate.md) — Cost
 - [`fix-orchestrate-latched-child-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-orchestrate-latched-child-failure.md) — Completion report: fix-orchestrate-latched-child-failure
-- [`fix-frozen-base-sweep-close-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-frozen-base-sweep-close-race.md) — Cost
-- … and 8762 more
+- … and 8763 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
