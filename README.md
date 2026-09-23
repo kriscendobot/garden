@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T23:47:18Z_
+_As of 2026-09-23T23:49:08Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Garden infrastructure work completed on Opus 5.5 tier ([#108](https://github.com
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 6d)
-- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 6d)
+- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 7d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 12d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 20d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 22d)
@@ -789,19 +789,18 @@ worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
 ### todo (1)
 - [`fix-rolling-deploy-canary-stranded-on-advanced-target`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-rolling-deploy-canary-stranded-on-advanced-target.md) — Fix: a follower canary strands when main2 advances between the roll release a...
 
-### doin (4)
+### doin (3)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1100
 - [`kriscendobot-minion.town-pr112-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr112-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #112 (mer...
 - [`kriscendobot-garden-pr109-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-receipt.md) — receipt (auto) — completion receipt for kriscendobot/garden PR #109 (merged)
-- [`kriscendobot-garden-pr95-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr95-receipt.md) — receipt (auto) — completion receipt for kriscendobot/garden PR #95 (closed)
 
-### tada (8791)
+### tada (8792)
+- [`kriscendobot-garden-pr95-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr95-receipt.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923b-clean.md) — Clean-stage report: endojs/endo-but-for-bots PR #1100 (gauntlet ebfb-exo-stre...
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923b-viability.md) — Cost
 - [`improve-comment-latency-notice-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/improve-comment-latency-notice-failure.md) — Cost
-- [`diagnose-hourly-graphql-quota-exhaustion-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/diagnose-hourly-graphql-quota-exhaustion-20260923.md) — Cost
-- … and 8786 more
+- … and 8787 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
