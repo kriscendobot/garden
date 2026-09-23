@@ -38,6 +38,7 @@ for journal transaction **latency and retries**.
 Report: commit sha(s), the thresholds as built, and a one-shot run of the probe on your host
 showing current per-clone stats.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
