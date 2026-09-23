@@ -1,0 +1,40 @@
+<6>23:24:23 [monk/2] job 'fix-rolling-deploy-canary-stranded-on-advanced-target' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>23:24:23 [monk/2] job 'fix-rolling-deploy-canary-stranded-on-advanced-target' call ceiling: tier=mentor max-budget-usd=9.40 (scaled by fresh seven-day headroom when available)
+<6>23:35:09 [assert-followup-posted] gate: BLOCK — 'fix-rolling-deploy-canary-stranded-on-advanced-target' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+The fix is pushed to `main2` as `f5f59c3307`. The deploy suites pass: rolling-deploy 67/67 (15 new checks) and deploy-garden 156/156 (7 new). sysop-test (56/56) and scheduler-preflight-deploy-lag-test (14/14) also pass.
+
+## Q2: why the leader went ahead of its canary
+This was not the rolling-deploy conductor. The evidence:
+- **Timing:** 0558c12a landed at 22:50:58 and the leader published its deploy at 22:52:00, about a minute later. The conductor runs at :02/3 past the hour (so 22:50 and 22:53), and its 22:50 tick had just released the canary to d1bb5185.
+- **No completion record:** the conductor's success path writes one, and none exists for d1bb5185 or 0558c12a.
+- **Other paths ruled out:**
+  - The leader's own `self-deploy` holds whenever it is the leader, and its fallback gate would have blocked d1bb5185 anyway.
+  - The sysop `deploy` op leaves an entry in `sysop-log/endolin-garden-ece02cb4`, and there is none.
+
+So it was almost certainly a hand-run `deploy-garden.sh` on the leader, i.e. the liaison or maintainer override. The motive fits: the release-gate gardener kept reporting "leader still runs a4befb2be4" while waiting for the urgent 44ed0aa fix. I can't read the leader's logs from this host, so the liaison should confirm who ran it.
+
+The investigation also found two real bugs that let the leader run ahead of its canaries:
+- **The leader deployed newer code than the canary validated.** `deploy-garden.sh` always advances to whatever `main2` is at that moment, not the sha that was validated. Roll 48ee7a completed at 17:11, then the leader landed 3d453e, which no canary had run.
+- **A deferred deploy was recorded as a completed roll.** `deploy-garden.sh` exits 0 when it defers behind a long job. Roll 987bb13 was recorded "completed" ten times (21:53–22:20) while the leader never moved.
+
+## Fixes
+- **Pinned deploys (`deploy-garden.sh`):** a new `GARDEN_DEPLOY_TARGET=<sha>` makes it deploy exactly that sha. It refuses a sha that isn't on `main2`, and a sha at or behind the current checkout does nothing, so a deploy never goes backwards. Deploys without it still take the tip, so the hand override and the sysop op behave as before.
+- **Conductor (`rolling-deploy.sh`):**
+  - The leader's deploy is pinned to the validated sha.
+  - A roll is recorded complete only if the leader's deployed sha then reads back as that sha.
+  - **Catch-up:** when the leader is already current, any follower behind it on `main2` is released to the leader's sha. Stale release tokens are cleared.
+- **Stuck-canary watchdog (Q3):** runs on every conductor tick, including when there is nothing to roll. A follower that holds an undeployed release for 20 minutes (`GARDEN_ROLL_STUCK_CANARY_AFTER`, default 1200s) raises one coalesced notice, keyed `rolling-deploy-canary-stuck-<host>`. It closes when the follower deploys. Offline and operator-drained hosts are excluded.
+- **Follower (`self-deploy.sh`), Q1:** if its release is older than its upgrade-ready sha (on the same line of history), it now deploys the **released** sha, pinned.
+  - **Why not the newer sha:** that would put commits on the canary that no release covers. It would also report a deployed sha the leader doesn't recognise, which looks like a stuck or failed canary.
+  - The leader re-releases the newer sha on its next roll, or through catch-up.
+  - A release the follower has already reached is ignored, and every follower deploy is now pinned.
+- **Docs:** added a section to `designs/follower-self-deploy.md` and a note in `context/operations/deploy.md`.
+
+With these changes, the 22:52 incident resolves within a tick or two: the follower deploys d1bb5185, then catch-up releases it to 0558c12a. Before, it waited the full 60-minute leaderless grace.
+
+## Follow-ups
+- `timeout-classifier-test.sh` fails 14 checks in this worktree. That suite tests the gardener's timeout wrapper and doesn't touch these scripts, but I didn't get a clean run on unmodified `main2` to prove it fails there too.
+- Until hosts deploy this commit, a follower still on the old code only deploys when its release exactly matches its upgrade-ready sha. The live strand should clear on the next settled roll of the new tip.
+- Someone should confirm with the liaison or maintainer that the 22:51 leader deploy was a hand override.
