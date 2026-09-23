@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: comment-latency-watch
-priority: normal
-posted_by: producer
-posted_at: 2026-09-23T16:28:32Z
+role: designer
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-23T16:31:04Z cleared=none -->
 
 ---
 role: designer
