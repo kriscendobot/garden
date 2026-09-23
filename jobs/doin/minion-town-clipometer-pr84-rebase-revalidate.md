@@ -32,3 +32,13 @@ removes the HTTP 413 that halted orchestration `minion-town-clipometer-esbuild-o
    report) of `minion-town-clipometer-esbuild-orchestration-resume` should proceed only if
    validation passes. Say in your report which one to promote next; do not promote either yourself.
 Complete the job via the normal completion path when done.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-23T20:46:27Z
