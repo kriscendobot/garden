@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:19:23Z_
+_As of 2026-09-23T18:20:27Z_
 
 ## Latest
 
-Three infrastructure jobs exhausted their retry budgets and are now parked pending split or re-specification: refresh for [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (@endo/claude confinement-core), ReadableBlob range attenuation clean break, and Ironhorse ocap frozen-object optimization. The [ebfb-exo-stream gauntlet](https://github.com/endojs/endo-but-for-bots/pull/1100) halted at fix iteration 3 after three stage retries. The [CLIPOMETER re-anchor campaign](https://github.com/kriscendobot/minion.town/pull/84) hit a decisive blocker: minion.town's /mcp endpoint rejects payloads over ~100 KB, which blocks publishing the esbuild/captp bundle at 206 KB. Three decisions remain open to proceed with parked work: whether the guest runs on the public pet daemon or needs its own route, whether to authorize SIWE identity provisioning tier 1 (and the allowlist), and whether to advance the Claude inference harness before or after [endo#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) lands. The journal worktree is stale on one follower. The quota outlook remains stable at 39% of Claude weekly capacity.
+Garden infrastructure work completed on Opus 5.5 tier ([#108](https://github.com/kriscendobot/garden/pull/108)) and reviews of [#95](https://github.com/kriscendobot/garden/pull/95), [#109](https://github.com/kriscendobot/garden/pull/109); three jobs in progress on watchers and conducting [#109](https://github.com/kriscendobot/garden/pull/109). Maintainer inbox reports critical blockers: minion.town Endo pin not on main (blocks [#81](https://github.com/kriscendobot/minion.town/issues/81)), journal worktree staleness, CLIPOMETER orchestration halted awaiting server change, and several garden infrastructure fixes needed. Spend: Claude 39% of quota.
 
 ## Parked for maintainer feedback
 
@@ -638,10 +638,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.3M | $564.70 _(notional, rate-card)_ | 39% of 143.0M (ok) |
-| Codex | 22.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
+| Claude | 56.4M | $565.14 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Codex | 22.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 38115130 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34411953 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (1)
