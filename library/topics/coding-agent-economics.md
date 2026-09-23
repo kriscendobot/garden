@@ -18,6 +18,9 @@ The cost and economics of running LLM coding agents at scale: how spend accrues,
 | [unum: cost attribution and aggregation](../sections/unum--cost-attribution-and-aggregation.md) | coding-agent-economics | Grouping the ledger by task/day/model; the three surfaces (invoke cost table, per-task TADA cost stanza, live operator chip). |
 | [unum: per-persona model tiers](../sections/unum--per-persona-model-tiers.md) | coding-agent-economics | Right-sizing the model per persona in durable config (liaison/foreman sonnet, steward opus, invoker fable); a coarse instance of model-routing. |
 | [Systemd resource-slice quotas — a non-token budget](../sections/unum--make-user-host-resource-quota.md) | coding-agent-economics, agent-fleet-orchestration | A different budget kind than the token/compute cost ledger: per-agent host CPU/memory/task slice quotas (light 200%/2G, medium 400%/4G, heavy 800%/8G), validated against host capacity. |
+| [Willison price-war overview](../sections/web--willison-opus-sol-luna-price-war--overview.md) | coding-agent-economics, frontier-model-apis | Same-day frontier releases framed as a price war; a dated snapshot of the model-pricing landscape. |
+| [Willison 2026-09 price landscape](../sections/web--willison-opus-sol-luna-price-war--pricing-and-the-price-war.md) | coding-agent-economics, frontier-model-apis | The 2026-09-22 price table one snapshot after Allen Pike's mid-2026 spread; GPT-6 Luna at $0.10/$0.50. |
+| [Opus 5.5 price cut](../sections/web--willison-opus-sol-luna-price-war--opus-5-5-price-cut.md) | coding-agent-economics, frontier-model-apis | Opus 5.5's 20% cut to $4/$20 and 60% cache-read drop; the tier the garden runs its designer and builder on. |
 
 ## See also
 
