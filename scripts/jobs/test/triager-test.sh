@@ -958,6 +958,86 @@ set +e; run_triager_deadline 780 "$(date -u +%s)" "$O5OUT"; rc=$?; set -e
 [ -n "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "retry advances activity cursor only after handler success" || bad "retry did not advance activity cursor"
 
 # ============================================================================
+hr; echo "P — a stop mid-handler reaps the tick's whole subtree before the triager exits"; hr
+# garden-triager@.service runs KillMode=mixed: the stop TERM reaches only the main
+# process chain, so triager.sh's trap must interrupt its wait on the handler, TERM the
+# handler's process group, escalate a TERM-ignoring descendant (a git mid-syscall) to
+# SIGKILL, and return only once it is gone. The old `trap 'exit 143' TERM` was
+# deferred until the foreground handler returned and reaped nothing.
+proc_running() {  # rc 0 iff <pid> is alive and not a zombie
+  local st
+  kill -0 "$1" 2>/dev/null || return 1
+  st="$(awk '{ s=$0; sub(/^.*\) /,"",s); print substr(s,1,1) }' "/proc/$1/stat" 2>/dev/null || echo Z)"
+  [ "$st" != Z ]
+}
+rm -rf "$TR/state-stop"; STATE="$TR/state-stop"; rm -rf "$BARE"; seed_journal
+seed_watched_bare
+STOP_HANDLER="$TR/handler-stop.sh"; STOP_CHILD="$TR/stop-child.pid"; rm -f "$STOP_CHILD"
+cat > "$STOP_HANDLER" <<HEOF
+#!/bin/bash
+( trap '' TERM; exec sleep 600 ) &
+echo \$! > "$STOP_CHILD"
+wait
+HEOF
+chmod +x "$STOP_HANDLER"
+P1OUT="$TR/triager-stop.out"; : > "$P1OUT"
+env GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+    GARDEN_TRIAGE_HANDLER="$STOP_HANDLER" GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+    GARDEN_TRIAGE_HANDLER_KILL_AFTER=1 \
+    "$JOBS/triager.sh" "$SLUG" >>"$P1OUT" 2>&1 &
+TPID=$!
+for _ in $(seq 1 200); do [ -s "$STOP_CHILD" ] && break || sleep 0.1; done
+SCPID="$(cat "$STOP_CHILD" 2>/dev/null || true)"
+[ -n "$SCPID" ] && proc_running "$SCPID" \
+  && ok "TERM-ignoring handler child alive mid-tick (pid $SCPID)" \
+  || bad "handler child never started (SCPID='$SCPID', out: $(cat "$P1OUT"))"
+t0="$(date +%s)"
+kill -TERM "$TPID" 2>/dev/null || true
+set +e; wait "$TPID"; rc=$?; set -e
+elapsed=$(( $(date +%s) - t0 ))
+[ "$rc" -eq 143 ] && ok "stopped tick exits with the clean signal status (143)" || bad "stopped tick exit = $rc (want 143)"
+[ "$elapsed" -le 8 ] && ok "trap fired without waiting for the handler (${elapsed}s)" || bad "stop took ${elapsed}s — trap deferred behind the foreground handler"
+if [ -n "$SCPID" ] && proc_running "$SCPID"; then
+  bad "handler descendant survived the stop (pid $SCPID) — subtree not reaped"
+  kill -KILL "$SCPID" 2>/dev/null || true
+else
+  ok "no handler descendant outlives the stopped tick"
+fi
+[ -z "$(cursor_field "activity/$SLUG" last_sha)" ] && ok "stopped tick leaves the activity cursor unadvanced" || bad "stopped tick advanced the activity cursor"
+
+# --- P2: the exit-path cgroup sweep fells a straggler in ANOTHER process group -------
+# A descendant that setpgid'd away escapes the group reap; the EXIT-path sweep of the
+# service cgroup must fell it even on a NORMAL tick. Exercised through the test-only
+# GARDEN_TRIAGER_CGROUP_PROCS_FILE fixture, which also lists this test shell (an
+# ancestor of the triager, which must be kept). The straggler is an ORPHAN (its
+# parent subshell exits at once), as a leaked git is once its parent has died.
+CGPROCS="$TR/triager-cgroup.procs"; SPIDF="$TR/straggler.pid"; rm -f "$SPIDF"
+( setsid bash -c 'echo $$ > "'"$SPIDF"'"; exec sleep 600' </dev/null >/dev/null 2>&1 & )
+for _ in $(seq 1 100); do [ -s "$SPIDF" ] && break || sleep 0.1; done
+SPID="$(cat "$SPIDF" 2>/dev/null || true)"
+printf '%s\n%s\n' "$$" "$SPID" > "$CGPROCS"
+proc_running "$SPID" && ok "straggler alive before the tick (pid $SPID)" || bad "straggler never started"
+P2OUT="$TR/triager-sweep.out"; : > "$P2OUT"
+set +e
+env GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 GARDEN_TEST=1 GARDEN_TRIAGER_CGROUP_PROCS_FILE="$CGPROCS" \
+    "$JOBS/triager.sh" "$SLUG" >>"$P2OUT" 2>&1
+rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "normal tick with a fixture cgroup exits 0" || bad "sweep tick exit = $rc (out: $(cat "$P2OUT"))"
+if proc_running "$SPID"; then
+  bad "cgroup straggler still running after a normal tick (pid $SPID)"
+  kill -KILL "$SPID" 2>/dev/null || true
+else
+  ok "cgroup straggler felled before the tick exited"
+fi
+ok "the test shell listed in the fixture cgroup survived the sweep (ancestor kept)"
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

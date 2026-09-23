@@ -4,6 +4,31 @@ Description=Garden triager for repo %i
 
 [Service]
 Type=oneshot
+# A systemd stop mid-tick SIGTERMs the run; a signalled shutdown is a CLEAN exit,
+# not a failure. self-heal-run.sh already normalizes 143/130; this keeps a SIGTERM
+# stop from marking the unit Failed even if the wrapper is bypassed.
+SuccessExitStatus=143 130 SIGTERM SIGINT
+# Graceful drain on stop, the comment-watcher/receipt-watcher shape. The default
+# KillMode=control-group TERMs the whole cgroup at once, including self-heal-run.sh's
+# output `tee` (so the trap's cleanup logging can SIGPIPE) and git children that
+# may ignore or outrace the TERM and linger into the next start ("Found left-over
+# process (git) in control group while starting unit"). KillMode=mixed sends the
+# initial SIGTERM only to the main process (self-heal-run.sh, which forwards it to
+# triager.sh); triager.sh's trap then TERMs the fetch/handler process group, WAITS
+# for it to drain (bounded by the fetch/handler `timeout --kill-after`, 10s), group-
+# SIGKILLs it, and sweeps this unit's cgroup for any straggler in another group
+# (bounded by GARDEN_TRIAGER_CGROUP_REAP_DEADLINE_SECS, 3s) before exiting. The
+# cgroup-wide SIGKILL at TimeoutStopSec is the backstop.
+KillMode=mixed
+# The tick holds no in-flight work worth waiting for: the activity cursor advances
+# only after a successful handler, so a killed tick re-triages the same idempotent
+# transition next firing. Bound the stop well below the 2m timer cadence (the
+# implicit 90s default raced it) yet above the trap's worst drain (10s kill-after +
+# 3s sweep). A stop that lands in a FOREGROUND journal round-trip (cursor-get/set,
+# pacing refresh; each separately bounded by GARDEN_FETCH_TIMEOUT) defers the trap
+# until that returns; if it outlasts this bound, the SIGKILL backstop empties the
+# cgroup before the next start.
+TimeoutStopSec=30s
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # Leader-only singleton: run only on the host whose GARDEN identity matches the
 # journal `leader` marker. On a follower the timer still fires but this

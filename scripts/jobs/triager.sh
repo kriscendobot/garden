@@ -118,6 +118,10 @@ export GARDEN_TAG="triager/$slug"
 # This is outside the 780s work budget but comfortably inside the unit's default
 # 900s wall. It bounds descendants involved in posting as well as the agent itself.
 : "${GARDEN_TRIAGE_HANDLER_KILL_AFTER:=10}"
+# Upper bound (seconds) on the exit-path cgroup straggler sweep (see the trap block).
+# Kept small so the TERM drain (--kill-after) plus this sweep fit inside
+# garden-triager@.service's TimeoutStopSec.
+: "${GARDEN_TRIAGER_CGROUP_REAP_DEADLINE_SECS:=3}"
 TICK_START="${GARDEN_TRIAGE_TICK_START:-$(date -u +%s)}"
 
 PACE_STATE_DIRECTORY="$GARDEN_STATE/triager/pace"
@@ -456,16 +460,147 @@ triager_pace_schedule() { # <observed-sha> <ref>
     --outcome-detail "next ordinary wake scheduled in ${wake}s; watched events may preempt"
 }
 
-# A systemd stop (KillMode default SIGTERM) or a Ctrl-C (SIGINT) can land while this
-# tick runs — most visibly during the steady-state `git fetch`, which then dies with
-# rc=143 (128+SIGTERM) or rc=130 (128+SIGINT). That is an INTERRUPTED tick, not a
-# fetch failure. If bash itself catches the signal, exit with the corresponding clean
-# signal status so systemd records a normal signal-caused stop instead of a failure —
-# the same trap shape ci-watcher.sh / comment-watcher.sh use. (If only the fetch child
-# caught it and bash did not, the rc==143/130 guard after the fetch loop below catches
-# it before the fetch-failure classifier turns an expected stop into a WARN + page.)
-trap 'exit 143' TERM
-trap 'exit 130' INT
+# A systemd stop or a Ctrl-C (SIGINT) can land while this tick runs — most visibly
+# during the steady-state `git fetch` or the triage handler. That is an INTERRUPTED
+# tick, not a failure: exit with the corresponding clean signal status (143/130) so
+# systemd records a normal signal-caused stop. (If only the fetch child caught it and
+# bash did not, the rc==143/130 guard after the fetch loop below catches it before the
+# fetch-failure classifier turns an expected stop into a WARN + page.)
+#
+# Reap the tick's fetch/handler subtree on TERM *and* on every exit, the hardened
+# shape comment-watcher.sh / receipt-watcher.sh use. The prior bare
+# `trap 'exit 143' TERM` had two gaps that let git descendants survive a tick and
+# trigger systemd's "Found left-over process (git) in control group while starting
+# unit" on the next start:
+#   1. DEFERRED TRAP. bash runs a trap only after the FOREGROUND command returns, so
+#      a TERM landing mid-`timeout git fetch` (or mid-handler, up to the whole
+#      780s tick budget) waited for that child, which under KillMode=mixed never
+#      received the TERM at all.
+#   2. NO REAP. Even once it ran, the trap exited without signalling or waiting for
+#      the child's process group, and never swept descendants that left it.
+# Fix: every network/handler child runs through triager_run_reaped, which launches
+# `timeout` in the BACKGROUND and `wait`s on it. A trapped signal interrupts `wait`
+# immediately, and because `timeout` (not --foreground) `setpgid(0,0)`s itself, its
+# PID is the PGID of the whole subtree (timeout → git/handler → ssh/credential
+# helpers/claude). triager_cleanup then TERMs the negated PGID, WAITS for timeout to
+# drain (bounded by its --kill-after), SIGKILLs the group as a hard backstop, and
+# finally sweeps this service's own cgroup for any straggler that setpgid'd into a
+# different group — on EVERY exit path, including a normal tick, since the unit's
+# cgroup-wide SIGKILL only fires on a systemd stop. Journal round-trips
+# (cursor-get/set, pacing) stay foreground; a stop landing in one of those is bounded
+# by garden-triager@.service's TimeoutStopSec backstop.
+TRIAGER_CHILD_PID=""
+# triager_run_reaped <duration> <kill-after> <cmd...> — run <cmd> under `timeout` in
+# its own process group, trap-interruptibly; returns the command's rc (124/137 on a
+# timeout as usual). <duration> 0 disables the wall clock but keeps the group. Callers
+# redirect stdout/stderr to files: a `$(...)` capture would put the background job in
+# a subshell the parent's trap cannot see, and re-defer the trap on the substitution.
+triager_run_reaped() {
+  local duration="$1" kill_after="$2" rc=0
+  shift 2
+  timeout --signal=TERM --kill-after="$kill_after" "$duration" "$@" &
+  TRIAGER_CHILD_PID=$!
+  wait "$TRIAGER_CHILD_PID" || rc=$?
+  TRIAGER_CHILD_PID=""
+  return "$rc"
+}
+# rc 0 iff <pid> is a still-RUNNING, non-zombie process: a SIGKILLed zombie has
+# already left the cgroup even though kill -0 still finds it.
+_triager_straggler_alive() {
+  local p="$1" st
+  kill -0 "$p" 2>/dev/null || return 1
+  st="$(awk '{ s=$0; sub(/^.*\) /,"",s); print substr(s,1,1) }' "/proc/$p/stat" 2>/dev/null || echo Z)"
+  [ "$st" != Z ]
+}
+# rc 0 iff <pid> is part of the CURRENT invocation that must survive this tick: this
+# shell, an ancestor (self-heal-run.sh, the unit's main process), or a descendant of
+# the topmost in-cgroup ancestor that is NOT our own descendant — self-heal-run.sh's
+# process-substitution `tee`, a sibling that carries our output to journald and the
+# self-heal capture. Our own descendants, and orphans reparented out of the tree, are
+# stragglers.
+_triager_pid_is_kept() {  # <pid> <in-cgroup-root> <ancestors>
+  local c="$1" root="$2" ancestors="$3" seen=" "
+  [ "$c" = "$$" ] && return 0
+  case "$ancestors" in *" $c "*) return 0 ;; esac
+  while [[ "$c" =~ ^[1-9][0-9]*$ ]]; do
+    [ "$c" = "$$" ] && return 1
+    [ "$c" = "$root" ] && return 0
+    case "$seen" in *" $c "*) return 1 ;; esac
+    seen="$seen$c "
+    c="$(awk '/^PPid:/{print $2; exit}' "/proc/$c/status" 2>/dev/null || true)"
+  done
+  return 1
+}
+triager_reap_cgroup_stragglers() {
+  local procs
+  # Test-only fixture seam, honored only in a test context.
+  if [ -n "${GARDEN_TRIAGER_CGROUP_PROCS_FILE:-}" ] && _in_test_context; then
+    procs="$GARDEN_TRIAGER_CGROUP_PROCS_FILE"
+    [ -r "$procs" ] || return 0
+  else
+    local line cgpath leaf
+    line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
+    [ -n "$line" ] || return 0
+    cgpath="${line#0::}"
+    leaf="${cgpath##*/}"
+    # Only our own service cgroup; a shared session/scope cgroup is never swept.
+    case "$leaf" in
+      garden-triager@*.service) ;;
+      *) return 0 ;;
+    esac
+    procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
+    [ -r "$procs" ] || return 0
+  fi
+  local ancestors=" " root="$$" p ppid
+  p="$$"
+  while :; do
+    ppid="$(awk '/^PPid:/{print $2; exit}' "/proc/$p/status" 2>/dev/null || true)"
+    [[ "$ppid" =~ ^[1-9][0-9]*$ ]] || break
+    ancestors="$ancestors$ppid "
+    grep -qx "$ppid" "$procs" 2>/dev/null && root="$ppid"
+    [ "$ppid" = 1 ] && break
+    p="$ppid"
+  done
+  # Bounded wait-until-empty: re-read cgroup.procs each pass (a child forked after
+  # the last snapshot is caught) and return only once no live straggler remains, or
+  # at the deadline for an unkillable (D-state) pid.
+  local deadline_secs="$GARDEN_TRIAGER_CGROUP_REAP_DEADLINE_SECS"
+  local now start pid remaining
+  start="$(date +%s 2>/dev/null || echo 0)"
+  while :; do
+    remaining=0
+    while read -r pid; do
+      [[ "$pid" =~ ^[1-9][0-9]*$ ]] || continue
+      _triager_pid_is_kept "$pid" "$root" "$ancestors" && continue
+      _triager_straggler_alive "$pid" || continue
+      kill -KILL "$pid" 2>/dev/null || true
+      remaining=$((remaining + 1))
+    done < "$procs"
+    [ "$remaining" -eq 0 ] && return 0
+    now="$(date +%s 2>/dev/null || echo 0)"
+    if [ $((now - start)) -ge "$deadline_secs" ]; then
+      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; next start may migrate them"
+      return 0
+    fi
+    sleep 0.1 2>/dev/null || sleep 1
+  done
+}
+triager_cleanup() {
+  local pid="$TRIAGER_CHILD_PID"
+  TRIAGER_CHILD_PID=""                  # idempotent: the TERM and EXIT traps both fire
+  rm -f "${pace_probe_out:-}" "${fetch_err:-}" 2>/dev/null || true
+  if [ -n "$pid" ]; then
+    kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
+    # timeout's --kill-after only escalates while its monitored child lives; the
+    # group SIGKILL after the wait fells a TERM-ignoring grandchild it left behind.
+    wait "$pid" 2>/dev/null || true
+    kill -KILL "-$pid" 2>/dev/null || true
+  fi
+  triager_reap_cgroup_stragglers
+}
+trap 'triager_cleanup' EXIT
+trap 'triager_cleanup; exit 143' TERM
+trap 'triager_cleanup; exit 130' INT
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
@@ -553,8 +688,11 @@ if [ "$GARDEN_TRIAGE_PACE_ENABLED" = 1 ] && [ -r "$PACE_MARKER" ]; then
   if [[ "$pace_next_wake" =~ ^[0-9]+$ ]] && [[ "$pace_expected_sha" =~ ^[0-9a-f]{40}$ ]] \
      && [ -n "$pace_ref" ] && [[ "$pace_now" =~ ^[0-9]+$ ]] \
      && [ "$pace_now" -lt "$pace_next_wake" ]; then
-    if pace_observed_line="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-        git --git-dir="$BARE" ls-remote origin "refs/heads/$pace_ref" 2>/dev/null)"; then
+    pace_probe_out="$(mktemp)"
+    if triager_run_reaped "$GARDEN_FETCH_TIMEOUT" "$GARDEN_FETCH_KILL_AFTER" \
+        git --git-dir="$BARE" ls-remote origin "refs/heads/$pace_ref" >"$pace_probe_out" 2>/dev/null; then
+      pace_observed_line="$(cat "$pace_probe_out")"
+      rm -f "$pace_probe_out"
       pace_observed_sha="$(awk 'NR == 1 {print $1}' <<<"$pace_observed_line")"
       if [ -d "$PACE_PROBE_WARNING_LATCH" ]; then rmdir "$PACE_PROBE_WARNING_LATCH" 2>/dev/null || true; fi
       if [ "$pace_observed_sha" = "$pace_expected_sha" ]; then
@@ -567,6 +705,7 @@ if [ "$GARDEN_TRIAGE_PACE_ENABLED" = 1 ] && [ -r "$PACE_MARKER" ]; then
       PACE_EXPECTED_WAKE="$pace_next_wake"
       log "watched event on $slug:$pace_ref preempts cost-aware wake deferred until $(date -u -d "@$pace_next_wake" +%FT%TZ)"
     else
+      rm -f "$pace_probe_out"
       mkdir -p "$PACE_STATE_DIRECTORY" 2>/dev/null || true
       if mkdir "$PACE_PROBE_WARNING_LATCH" 2>/dev/null; then
         log "WARN: paced event probe failed for $slug:$pace_ref; failing open to the current full-fetch cadence (further repeats suppressed until recovery)"
@@ -601,13 +740,15 @@ else
   fetch_target=(--all)
 fi
 fetch_attempt=1
+fetch_err="$(mktemp)"
 while :; do
-  if GARDEN_FETCH_STDERR="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-      git --git-dir="$BARE" fetch -q "${fetch_target[@]}" --prune 2>&1 1>/dev/null)"; then
+  if triager_run_reaped "$GARDEN_FETCH_TIMEOUT" "$GARDEN_FETCH_KILL_AFTER" \
+      git --git-dir="$BARE" fetch -q "${fetch_target[@]}" --prune >/dev/null 2>"$fetch_err"; then
     rc=0
   else
     rc=$?
   fi
+  GARDEN_FETCH_STDERR="$(cat "$fetch_err" 2>/dev/null || true)"
   [ "$rc" -eq 0 ] && break
 
   # Missing-repository diagnostics need an API confirmation, not blind retries.
@@ -624,6 +765,7 @@ while :; do
   fi
   break
 done
+rm -f "$fetch_err"
 # TERM/INT handled BEFORE fetch classification. A systemd stop that SIGTERMs the fetch
 # child (KillMode default) or a Ctrl-C leaves rc=143 (128+SIGTERM) / rc=130 (128+SIGINT).
 # If the signal reached only the child — bash was not signalled, so the TERM/INT trap
@@ -845,7 +987,7 @@ log "change on $slug:$ref: ${old_sha:-<none>} → $new_sha; triaging"
 handler_rc=0
 remaining_rc=0
 if handler_remaining="$(triager_tick_remaining)"; then
-  if timeout --kill-after="${GARDEN_TRIAGE_HANDLER_KILL_AFTER}s" "${handler_remaining}s" \
+  if triager_run_reaped "${handler_remaining}s" "${GARDEN_TRIAGE_HANDLER_KILL_AFTER}s" \
       "$GARDEN_TRIAGE_HANDLER" "$slug" "${old_sha:-}" "$new_sha" "$BARE"; then
     handler_rc=0
   else
@@ -856,8 +998,10 @@ else
   if [ "$remaining_rc" -eq 2 ]; then
     triager_tick_defer_if_past_deadline "the triage handler"
   fi
-  # Disabled or unparseable deadlines preserve the pre-deadline behavior.
-  if "$GARDEN_TRIAGE_HANDLER" "$slug" "${old_sha:-}" "$new_sha" "$BARE"; then
+  # Disabled or unparseable deadlines preserve the pre-deadline behavior (no wall
+  # clock: duration 0), but still run in a reaped process group so a stop can drain it.
+  if triager_run_reaped 0 "${GARDEN_TRIAGE_HANDLER_KILL_AFTER}s" \
+      "$GARDEN_TRIAGE_HANDLER" "$slug" "${old_sha:-}" "$new_sha" "$BARE"; then
     handler_rc=0
   else
     handler_rc=$?
