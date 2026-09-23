@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":64,"elapsed_s":721,"input_tokens":120,"output_tokens":43664,"cache_creation_tokens":101398,"cache_read_tokens":5167686,"total_cost_usd":4.6928610000000015,"ts":"2026-08-12T23:50:29Z","base":"endo-upstream-llm-retention-set-peer-binding","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}

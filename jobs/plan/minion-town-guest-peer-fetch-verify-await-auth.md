@@ -1,0 +1,68 @@
+---
+gate: awaiting-maintainer
+priority: normal
+role: mentor
+posted_by: producer
+posted_at: 2026-09-16T13:19:17Z
+maintainer_question: 'Should the guest run on the already-public pet daemon, or should the guest-substrate daemon get its own public OCapN-CBOR-Noise route?'
+asked_at: https://github.com/kriscendobot/garden/issues/58#issuecomment-5447765615
+---
+
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+# Verify peer enlivenSturdyRef fetch of a minion.town guest by formula id
+
+GATE: go-ahead — needs an explicit maintainer decision on the daemon-exposure
+question before ANY work runs. Re-parked from `minion-town-guest-peer-fetch-verify`
+on 2026-09-16 after that job was auto-promoted off the `deferred` plan queue by the
+foreman while the maintainer's answer was still outstanding. `deferred` was the
+wrong gate (the foreman auto-selects the top deferred job and does not read the
+prose "promote only after the maintainer answers" condition); `go-ahead` is the
+correct gate, so it now waits for a real maintainer authorization and will not be
+auto-promoted again.
+
+BLOCKING QUESTION (asked kriscendobot/garden#58 comment 5447765615, 2026-08-28;
+relayed to the maintainer inbox 2026-08-28; still UNANSWERED as of 2026-09-16):
+authorize exposing the guest-substrate daemon (`endo-daemon.service`) over a public
+OCapN-CBOR-Noise route so a peer can `enlivenSturdyRef` a revealed guest by its
+formula id — OR did you intend the app to run on the already-public pet-daemon?
+Promote this job only after that decision lands.
+
+Context: the reveal half of kriscendobot/garden#58's chain is DONE and verified
+live — `GET /account/guest-formula-id` on minion.town returns a signed-in
+guest's own daemon guest-agent formula identifier, self-scoped
+(kriscendobot/minion.town#61, merged, deployed). What remains is the peer fetch:
+from a peer, `enlivenSturdyRef(<public OCapN-CBOR-Noise location>,
+<revealed guest formula id>)` and invoke a harmless guest method to prove the
+guest was fetched.
+
+BLOCKER diagnosed: the app provisions/reveals guests in `endo-daemon.service`
+(loopback `127.0.0.1:8920` only, state `/var/lib/endo-daemon/state/endo`), but
+the public OCapN routes (`/.well-known/ocapn-cbor-np`, `/ocapn-daemon` → `:8931`;
+`/ocapn` → `:8930`) front a SEPARATE `endo-pet-daemon` container — a different
+graph, different node id (`a6cd6e01…`). A guest id minted by `endo-daemon@8920`
+is not resolvable at the public pet-daemon, so the peer fetch cannot succeed as
+deployed.
+
+Task once authorized: per the maintainer's answer, either (a) expose
+`endo-daemon.service` over a public OCapN-CBOR-Noise route (its own Caddy route +
+an `@nets/ocapn` netlayer on that daemon), or (b) unify the app onto the
+already-public pet-daemon; then run the end-to-end peer fetch from a garden-host
+peer using a freshly-revealed guest id and report exact evidence
+(location, id, method invoked, result) on kriscendobot/garden#58. Coordinate with
+the standing `ocapn-cbor-noise-press` (owner of host↔minion.town daemon reach)
+and the endo-CLI remote-interaction work (kriscendobot/garden#58 comment
+5447329184).
+
+----- ISSUE NOTE (copy this block VERBATIM into every follow-on job) -----
+issue_spine: issue-kriscendobot-garden-58
+issue_url: https://github.com/kriscendobot/garden/issues/58#issuecomment-5447180549
+submitter: kriskowal
+----- END ISSUE NOTE -----
+
+<!-- garden-annotation: key=awaiting-maintainer-migration-20260916 by=gardener at=2026-09-16T23:39:38Z fields=gate=awaiting-maintainer -->
+
+<!-- garden-annotation: key=awaiting-maintainer-yaml-quote-20260916 by=gardener at=2026-09-16T23:45:34Z fields=gate=awaiting-maintainer -->

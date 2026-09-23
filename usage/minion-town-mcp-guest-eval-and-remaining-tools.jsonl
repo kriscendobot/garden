@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":216,"elapsed_s":1813,"input_tokens":399,"output_tokens":127899,"cache_creation_tokens":281624,"cache_read_tokens":40343811,"total_cost_usd":26.1904465,"ts":"2026-08-27T23:23:59Z","base":"minion-town-mcp-guest-eval-and-remaining-tools","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

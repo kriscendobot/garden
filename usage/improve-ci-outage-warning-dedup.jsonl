@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":26,"elapsed_s":259,"input_tokens":49,"output_tokens":17642,"cache_creation_tokens":86792,"cache_read_tokens":2134157,"total_cost_usd":2.3785435,"ts":"2026-08-30T06:01:34Z","base":"improve-ci-outage-warning-dedup","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

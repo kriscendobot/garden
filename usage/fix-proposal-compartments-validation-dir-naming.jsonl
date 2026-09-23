@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":7,"elapsed_s":38,"input_tokens":14,"output_tokens":1791,"cache_creation_tokens":31773,"cache_read_tokens":252788,"total_cost_usd":0.49171600000000004,"ts":"2026-08-31T02:57:13Z","base":"fix-proposal-compartments-validation-dir-naming","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

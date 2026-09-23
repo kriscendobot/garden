@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":84,"elapsed_s":1404,"input_tokens":137,"output_tokens":74403,"cache_creation_tokens":219356,"cache_read_tokens":11633322,"total_cost_usd":11.4697755,"ts":"2026-07-28T16:33:42Z","base":"kimi-k3-takes-opus-work-with-opus-fallback","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"designer"}

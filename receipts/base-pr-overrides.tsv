@@ -1,0 +1,20 @@
+# Historical base-to-PR corrections. Columns: base, owner/repo#N, evidence URL.
+deadmail-issue-comment-5043116290	kriscendobot/minion.town#13	https://github.com/kriscendobot/minion.town/pull/13
+ebfb-retire-master-pr-379	endojs/endo-but-for-bots#379	https://github.com/endojs/endo-but-for-bots/pull/379#issuecomment-4999480861
+finbot-progress-20260721-030507	kriscendobot/finbot#1	https://github.com/kriscendobot/finbot/pull/1
+finbot-progress-20260721-092001	kriscendobot/finbot#1	https://github.com/kriscendobot/finbot/pull/1
+finbot-progress-20260721-213504	kriscendobot/finbot#2	https://github.com/kriscendobot/finbot/pull/2
+finbot-progress-20260722-035001	kriscendobot/finbot#3	https://github.com/kriscendobot/finbot/pull/3
+finbot-progress-20260722-095006	kriscendobot/finbot#4	https://github.com/kriscendobot/finbot/pull/4
+finbot-progress-20260722-160501	kriscendobot/finbot#4	https://github.com/kriscendobot/finbot/pull/4
+finbot-progress-20260722-220501	kriscendobot/finbot#4	https://github.com/kriscendobot/finbot/pull/4
+finbot-progress-20260723-040502	kriscendobot/finbot#4	https://github.com/kriscendobot/finbot/pull/4
+finbot-progress-20260723-100531	kriscendobot/finbot#4	https://github.com/kriscendobot/finbot/pull/4
+finbot-progress-20260723-162019	kriscendobot/finbot#4	https://github.com/kriscendobot/finbot/pull/4
+finbot-progress-20260723-223502	kriscendobot/finbot#4	https://github.com/kriscendobot/finbot/pull/4
+finbot-progress-20260724-043515	kriscendobot/finbot#4	https://github.com/kriscendobot/finbot/pull/4
+kriscendobot-agoric-sdk-pr16-review-d584f885-retro	kriscendobot/agoric-sdk#16	https://github.com/kriscendobot/agoric-sdk/pull/16
+minion-town-daemon-guest-mcp-b4-gauntlet	kriscendobot/minion.town#19	https://github.com/kriscendobot/minion.town/pull/19
+minion-town-mcp-b3-daemon-standup	kriscendobot/minion.town#16	https://github.com/kriscendobot/minion.town/pull/16
+mirror-endo-2780-cache-globals-gauntlet	endojs/endo-but-for-bots#764	https://github.com/endojs/endo-but-for-bots/pull/764
+reconstruct-ebfb-pr69-pass-style-document-all	endojs/endo-but-for-bots#759	https://github.com/endojs/endo-but-for-bots/pull/759

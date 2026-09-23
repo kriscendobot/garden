@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":12,"elapsed_s":75,"input_tokens":23,"output_tokens":4454,"cache_creation_tokens":32882,"cache_read_tokens":514406,"total_cost_usd":0.7017430000000001,"ts":"2026-08-16T16:12:54Z","base":"garden-encode-muster-vocabulary","host":"endolin-garden2-5bcdff64","outcome":"tada"}

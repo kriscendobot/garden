@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":18,"elapsed_s":221,"input_tokens":33,"output_tokens":15173,"cache_creation_tokens":65309,"cache_read_tokens":1031415,"total_cost_usd":1.5512694999999999,"ts":"2026-08-15T05:54:18Z","base":"daily-progress-summary-20260815-055003","host":"endolin-garden-ece02cb4","outcome":"tada"}

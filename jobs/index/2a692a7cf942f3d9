@@ -1,0 +1,2 @@
+base: improve-foreman-heredoc-backtick-exec
+identity: mentor:scripts/jobs/handlers/foreman-claude.sh

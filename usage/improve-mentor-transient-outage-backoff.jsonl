@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":28,"elapsed_s":285,"input_tokens":53,"output_tokens":19049,"cache_creation_tokens":59589,"cache_read_tokens":1701370,"total_cost_usd":1.9253289999999998,"ts":"2026-08-24T00:56:24Z","base":"improve-mentor-transient-outage-backoff","host":"endolin-garden2-5bcdff64","outcome":"tada"}

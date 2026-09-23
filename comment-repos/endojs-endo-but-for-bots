@@ -1,0 +1,6 @@
+# garden-comment-watcher arming record
+repo: endojs/endo-but-for-bots
+armed_at: 2026-06-24T22:14:51Z
+authorized_by: kriskowal
+authorization: "fix the monitors" (2026-06-24); endo-but-for-bots is the one repo
+  meeting the monitoring-safety bar (CLAUDE.md § Monitoring safety constraint).

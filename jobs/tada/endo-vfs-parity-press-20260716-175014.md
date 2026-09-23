@@ -1,0 +1,13 @@
+New CI run is live on `85f262135d` (all checks pending), inbox empty, peer notified. This dispatch's work is complete.
+
+## Completion report: endo-vfs-parity-press-20260716-175014 (dispatch 1)
+
+**Assessment.** The front moved just before this first dispatch: kriskowal APPROVED endojs/endo-but-for-bots#714 ("Please conduct") at 17:42Z, so the changes-requested state named in the job spec is resolved. A peer cleric (`endojs-endo-but-for-bots-pr714-review-902775bf`, claimed 17:43Z) owns the conduct-to-merge; I deferred on that scope. #656, #713, #655, and #657 are all CLEAN/MERGEABLE and awaiting maintainer review — nothing garden-side to do. The JSON tool layer is parked (issue #731; code-mode consolidation), so parity work correctly proceeds at the capability level, which is what the open PR set does.
+
+**Action taken.** #714's CI was red: all three failing test jobs were one deterministic failure, agentry's code-mode-types divergence gate (checked-in `git-types.js` stale). I reproduced it locally at head `66b5f9ae03` (regenerating changed the file), established the cause — the PR's new platform read methods (`listTree`/`rangeRead`/`rangeReadText`) flow into agentry's generated git code-mode declarations and the artifact wasn't regenerated after the branch's rebase onto current `llm` — and pushed the mechanical fix `85f262135d` (generator output only, 18 added lines). Verified: `yarn ava test/code-mode-types.test.js` in `packages/agentry` passes 10/10 including the previously failing gate. Posted the standing summary comment (#714, issuecomment-4995063971), messaged the peer with the diagnosis and clearance to conduct once green, and confirmed a fresh CI run started on the new head. CI green itself is **not verified** (run was pending at handoff; the peer owns watching it).
+
+**Journal.** Result entry `entries/2026/07/16/180343Z-result-gardener-285b90.md`; structural lesson to liaison in `180400Z-message-gardener-25cb11.md` (post-rebase regen of agentry's generated code-mode artifacts as a project note).
+
+**Follow-ups (for the next 6h dispatch).** After #714 merges, the next unblocked parity increments are its two documented follow-ups (designs/platform-range-and-tree-reads.md), neither of which has an open PR: (1) propagate `listTree`/`rangeRead`/`rangeReadText` to the daemon/git/mount blob and tree exos so the conveniences are identical over CapTP — the direct mount+daemon vs platform-fs parity gap; (2) the `getInfo` -> `contentAddress` rename as its own PR with a deprecation-alias window.
+
+Self-improvement: routed to liaison (post-rebase generated-artifact regen note for endo-but-for-bots).

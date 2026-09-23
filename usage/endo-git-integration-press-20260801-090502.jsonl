@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":13,"elapsed_s":88,"input_tokens":21,"output_tokens":4965,"cache_creation_tokens":32989,"cache_read_tokens":449548,"total_cost_usd":0.681727,"ts":"2026-08-01T09:23:52Z","base":"endo-git-integration-press-20260801-090502","host":"endolin-garden-ece02cb4","outcome":"tada"}

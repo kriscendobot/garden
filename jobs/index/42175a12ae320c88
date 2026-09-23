@@ -1,0 +1,2 @@
+base: improve-cursor-set-push-cas
+identity: mentor:scripts/jobs/cursor-set.sh

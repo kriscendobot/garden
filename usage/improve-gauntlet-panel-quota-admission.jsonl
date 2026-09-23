@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":48,"elapsed_s":643,"input_tokens":88,"output_tokens":46137,"cache_creation_tokens":175940,"cache_read_tokens":5065015,"total_cost_usd":5.448370499999999,"ts":"2026-09-17T10:33:07Z","base":"improve-gauntlet-panel-quota-admission","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

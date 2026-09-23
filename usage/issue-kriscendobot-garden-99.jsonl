@@ -1,0 +1,2 @@
+{"ts":"2026-09-17T13:43:50Z","base":"issue-kriscendobot-garden-99","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":2}
+{"source":"result","model":"claude-opus-4-8","num_turns":37,"elapsed_s":377,"input_tokens":70,"output_tokens":17584,"cache_creation_tokens":57676,"cache_read_tokens":1940835,"total_cost_usd":1.9900394999999995,"ts":"2026-09-17T14:09:50Z","base":"issue-kriscendobot-garden-99","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

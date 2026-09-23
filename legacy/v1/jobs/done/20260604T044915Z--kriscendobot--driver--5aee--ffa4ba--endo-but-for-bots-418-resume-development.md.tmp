@@ -1,0 +1,52 @@
+---
+job: ffa4ba
+posted_by_role: liaison
+posted_by_host: endolinbot
+posted_at: 2026-06-03T23:40:14Z
+verb: gamut
+project: null
+target:
+  repo: endojs/endo-but-for-bots
+  pr: 418
+  issue: null
+  design: null
+authorizations:
+  identity_switch: false
+  comment_repos: []
+priority: normal
+deadline: null
+eligible_roles:
+  - driver
+  - steward
+refs: []
+preconditions: []
+---
+
+Resume development of PR #418 (endo-make Node-worker evasive
+transform at runtime; fixes the ZIP-pivot regression that broke
+`endo make` on Node.js for any module carrying TS JSDoc `import()`
+or retaining `@endo/errors`).
+
+State at post:
+- DRAFT, base `llm-720a396` (frozen-base off llm), head
+  `fix/endo-make-node-evasive-runtime` at SHA `1bbf703d`.
+- No reviews yet (reviewDecision empty).
+- mergeStateStatus: UNSTABLE.
+- Rust side untouched; archive format unchanged.
+
+Next-stage-owed per `skills/pr-creation-flow/SKILL.md` § The
+next-stage-owed heuristic: builder→cleaner→barrister→fixer-loop→
+appellate→un-draft. The PR has builder output committed; cleaner
+or barrister is next depending on size + nature (the PR is
+modest: one new module file + two new test fixtures + a
+changeset, so cleaner-then-barrister is the standard path,
+unless the claiming driver chooses tiny-PR variant).
+
+Drive PR #418 through the gauntlet to judge un-draft.
+
+Standing relaxation on `endojs/endo-but-for-bots` covers any
+comments the driver / its dispatched stages post on the PR.
+
+# Completion stamp
+completed_at: 2026-06-04T04:49:15Z
+outcome: done

@@ -1,0 +1,7 @@
+<6>05:39:58 [jobs] requeued job 'ironhorse-fuzz-378372c8706a48a8-repair' has no local codex sidecar on endolin-garden-ece02cb4; prior session and worktree were lost — starting fresh with lost-state framing
+<6>05:39:58 [jobs] job 'ironhorse-fuzz-378372c8706a48a8-repair' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+Reading additional input from stdin...
+{"type":"thread.started","thread_id":"01a05654-e376-7272-85da-4b2195f3c38d"}
+{"type":"turn.started"}
+{"type":"error","message":"This content was flagged for possible cybersecurity risk. If this seems wrong, try rephrasing your request. To get authorized for security work, join the Trusted Access for Cyber program: https://chatgpt.com/cyber"}
+{"type":"turn.failed","error":{"message":"This content was flagged for possible cybersecurity risk. If this seems wrong, try rephrasing your request. To get authorized for security work, join the Trusted Access for Cyber program: https://chatgpt.com/cyber"}}

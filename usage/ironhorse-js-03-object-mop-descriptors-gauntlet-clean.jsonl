@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":26,"elapsed_s":481,"input_tokens":50,"output_tokens":12498,"cache_creation_tokens":48554,"cache_read_tokens":1315991,"total_cost_usd":1.4587765000000001,"ts":"2026-08-08T08:58:40Z","base":"ironhorse-js-03-object-mop-descriptors-gauntlet-clean","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}

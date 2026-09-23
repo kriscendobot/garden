@@ -1,0 +1,9 @@
+# watch-optout tombstone
+repo: kriscendobot/agoric-3-proposals
+opted_out_at: 2026-09-04T12:35:00Z
+authorized_by: kriskowal
+reason: >
+  Same family as kriscendobot/agoric-sdk (Agoric ecosystem), swept into the
+  same "archive all engagements on agoric-sdk" directive since it was
+  auto-provisioned alongside it and a dedicated garden covers this scope
+  too. Durable opt-out per designs/auto-provision-fork-watchers.md.

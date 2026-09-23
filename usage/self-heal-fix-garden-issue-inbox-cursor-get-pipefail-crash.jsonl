@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":11,"elapsed_s":67,"input_tokens":12,"output_tokens":5145,"cache_creation_tokens":37157,"cache_read_tokens":231660,"total_cost_usd":0.616085,"ts":"2026-09-19T00:42:43Z","base":"self-heal-fix-garden-issue-inbox-cursor-get-pipefail-crash","host":"oros-studio-garden-ce242c49","outcome":"tada","provider":"anthropic"}

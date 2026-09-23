@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":127,"elapsed_s":1706,"input_tokens":217,"output_tokens":102143,"cache_creation_tokens":270839,"cache_read_tokens":24283850,"total_cost_usd":17.408095999999993,"ts":"2026-08-22T09:06:00Z","base":"openrouter-stealth-lane","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}

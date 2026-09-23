@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":22,"elapsed_s":329,"input_tokens":37,"output_tokens":19807,"cache_creation_tokens":56420,"cache_read_tokens":1071478,"total_cost_usd":1.5982480000000001,"ts":"2026-08-06T15:16:33Z","base":"decommission-cxs-rust-default-xst-ci-parity","host":"endolin-garden2-5bcdff64","outcome":"tada"}

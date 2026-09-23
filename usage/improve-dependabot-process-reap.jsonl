@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":23,"elapsed_s":427,"input_tokens":46,"output_tokens":28102,"cache_creation_tokens":112752,"cache_read_tokens":2212919,"total_cost_usd":2.9393705,"ts":"2026-09-17T03:00:14Z","base":"improve-dependabot-process-reap","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

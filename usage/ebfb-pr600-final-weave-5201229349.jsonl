@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":27,"elapsed_s":417,"input_tokens":46,"output_tokens":22990,"cache_creation_tokens":65178,"cache_read_tokens":1472044,"total_cost_usd":1.964798,"ts":"2026-08-06T07:38:31Z","base":"ebfb-pr600-final-weave-5201229349","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"weaver"}

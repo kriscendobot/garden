@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":33,"elapsed_s":671,"input_tokens":57,"output_tokens":31964,"cache_creation_tokens":80139,"cache_read_tokens":2113017,"total_cost_usd":2.6592784999999997,"ts":"2026-08-09T17:55:00Z","base":"kriscendobot-minion.town-pr19-shepherd","host":"endolin-garden2-5bcdff64","outcome":"tada"}

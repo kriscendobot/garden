@@ -1,0 +1,2 @@
+base: improve-local-verify-regen-clean-gate
+identity: mentor:scripts/jobs/gardening/local-verify.sh

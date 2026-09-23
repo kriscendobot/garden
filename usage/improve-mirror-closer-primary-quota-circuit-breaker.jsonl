@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":20,"elapsed_s":262,"input_tokens":40,"output_tokens":19672,"cache_creation_tokens":76261,"cache_read_tokens":1427788,"total_cost_usd":1.9711629999999998,"ts":"2026-09-16T18:56:41Z","base":"improve-mirror-closer-primary-quota-circuit-breaker","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

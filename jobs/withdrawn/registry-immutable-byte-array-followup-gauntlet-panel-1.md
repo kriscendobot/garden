@@ -1,0 +1,81 @@
+---
+withdrawn: true
+withdrawn_reason: orphaned gauntlet STAGE fragment: its parent gauntlet already halted, so promoting a lone stage cannot advance anything — the remedy for the underlying PR is a fresh gauntlet, not this stage (2026-09-01 muster, maintainer-authorized)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:09:00Z
+withdrawn_from_gate: go-ahead
+---
+
+---
+gate: go-ahead
+priority: normal
+role: gardener
+tier: minion
+handler-timeout: 7200
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-23T04:43:06Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-23T04:43:06Z
+---
+
+---
+role: gardener
+tier: minion
+handler-timeout: 7200
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:58:44Z cleared=deadline-overrun=1 -->
+
+handler-timeout: 7200
+<!-- liaison 2026-08-06: this job was DOOMED by the reaper after a
+     deterministic deadline overrun at the 2400s default. It carried no
+     handler-timeout: header and its role does not qualify for the 7200s
+     builder default (landed 2026-08-01), so it was SIGTERM-killed at the
+     wall on every requeue. The budget is the fix; the work is wanted.
+     If it overruns 7200s too, that is a REAL overrun -- diagnose it, do
+     not raise the budget again. -->
+
+---
+role: gardener
+tier: minion
+model-burned: mentor
+fallback-tier: 
+dispatch: automatic
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-07-30T16:18:15Z cleared=none -->
+
+---
+role: gardener
+gauntlet: registry-immutable-byte-array-followup-gauntlet
+gauntlet_stage: panel
+gauntlet_iteration: 1
+pr: https://github.com/endojs/endo-but-for-bots/pull/888
+---
+
+# Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #888
+
+You are ONE stage of a staged gauntlet (registry-immutable-byte-array-followup-gauntlet). Run EXACTLY ONE panel round, post the
+verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
+
+1. Get an ISOLATED project checkout of the PR head:
+   `/home/kris/garden2/scripts/jobs/ensure-project-worktree.sh registry-immutable-byte-array-followup-gauntlet-panel-1 endojs/endo-but-for-bots <pr-head-branch>`.
+2. Run the panel in SINGLE-ROUND mode against that worktree:
+   `GARDEN_PANEL_SINGLE_ROUND=1 \
+     /home/kris/garden2/scripts/jobs/gardening/panel.sh <worktree> 888 <base-ref>`
+   It fans the seats, aggregates, and prints its disposition as the terminal line's
+   last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
+3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on https://github.com/endojs/endo-but-for-bots/pull/888 — the
+   panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
+   review on must-fix, a comment/approve on pass).
+4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
+   report with `orchestration-failed: true` and do NOT emit a panel marker.
+
+END your completion report with EXACTLY ONE of these marker lines (last line):
+  <!-- gauntlet-stage-result: panel=pass -->
+  <!-- gauntlet-stage-result: panel=must-fix -->

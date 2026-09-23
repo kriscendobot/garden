@@ -1,0 +1,1 @@
+Completed corpus cycle 8: ingested Bollerslev 1986 original GARCH paper as the specified fallback after Fama 1970 could not yield usable extracted text. Added five cross-linked sections, updated indexes/concept links, and passed link/count integrity checks. Posted follow-on `scholar-ingest-financial-forecasting-corpus-9`.

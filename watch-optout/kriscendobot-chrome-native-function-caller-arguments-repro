@@ -1,0 +1,15 @@
+# watch-optout tombstone — durable unwatch of an auto-provisioned own fork.
+#
+# The maintainer (kriskowal) deleted the chrome-native-function-caller-arguments-repro
+# experiment on 2026-07-27/28; gh api repos/kriscendobot/chrome-native-function-caller-arguments-repro
+# -> 404. All four per-repo watcher families had been armed since 2026-07-17
+# (garden-triager@, garden-comment-watcher@, garden-ci-watcher@,
+# garden-dependabot-watcher@) and FATAL-flapped against the 404 every tick.
+#
+# NOTE the auto-tombstone in fork-watch-provisioner.sh did NOT fire here: its
+# dead-upstream check is gated behind `! tip_has repos/$slug || ! tip_has
+# comment-repos/$slug` (§ DISCOVER), so it only classifies a slug MISSING from a
+# watch set. A slug already armed in BOTH sets whose upstream is deleted later is
+# never re-checked, so it flaps indefinitely. Tombstoned by hand by the liaison at
+# the maintainer's request; see designs/auto-provision-fork-watchers.md.
+unwatched: kriscendobot/chrome-native-function-caller-arguments-repro (repo deleted by maintainer, upstream 404)

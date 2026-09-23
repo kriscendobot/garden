@@ -1,0 +1,13 @@
+kind: hermit
+provider: local
+model: qwen3.6
+thoughtfulness: medium
+work_class: weave:m
+target: main2
+attempts: 1
+accepts: 1
+censored: 1
+estimated: 1
+mean_dollars: 0.114048
+m2: 0.000000
+acceptance_rate: 1.0000

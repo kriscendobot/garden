@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":45,"elapsed_s":695,"input_tokens":88,"output_tokens":41254,"cache_creation_tokens":122401,"cache_read_tokens":4360363,"total_cost_usd":5.1046665,"ts":"2026-09-16T05:25:43Z","base":"ironhorse-computron-benchmark-baseline-design","host":"endolin-garden-ece02cb4","outcome":"tada","role":"designer","provider":"anthropic"}

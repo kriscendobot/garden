@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":13,"elapsed_s":234,"input_tokens":22,"output_tokens":10303,"cache_creation_tokens":44944,"cache_read_tokens":584926,"total_cost_usd":1.002096,"ts":"2026-08-22T15:29:38Z","base":"kriscendobot-minion.town-pr37-conduct-20260822","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"conductor"}

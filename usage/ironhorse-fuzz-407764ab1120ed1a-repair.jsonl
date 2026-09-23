@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":64,"elapsed_s":943,"input_tokens":120,"output_tokens":46417,"cache_creation_tokens":125850,"cache_read_tokens":5594641,"total_cost_usd":5.2199975,"ts":"2026-08-30T06:44:01Z","base":"ironhorse-fuzz-407764ab1120ed1a-repair","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder","provider":"anthropic"}

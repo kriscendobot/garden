@@ -1,0 +1,286 @@
+# cap-talk provenance for Endo's capability model
+
+> Abstract: What the cap-talk mailing-list archive (founded 1998 by Jonathan Shapiro of EROS) says that bears directly on Endo's design and open questions. Endo is an object-capability platform; several of its load-bearing patterns, including caretaker revocation, connectivity discipline, distributed capability transport, durable retention, eventual send, powerboxes, and refusal to designate authority by identity, were argued out on cap-talk years before or while they were formalized in the Miller and Close papers Endo cites. This file flags the concrete connections so an Endo contributor can reach the primary sources from the project tree, not only from the library. The era indexes run from [`../../library/sources/cap-talk-1998.md`](../../library/sources/cap-talk-1998.md) through [`../../library/sources/cap-talk-2009-2012.md`](../../library/sources/cap-talk-2009-2012.md).
+
+## Revocation: destroyable indirection is the caretaker
+
+Shapiro's 1998 EROS revocation primitive hands the holder a capability to a *destroyable indirection object* rather than to the target, so destroying the indirection rescinds access without disturbing any other reference. This is the primary-source ancestor of the pattern Endo and Agoric call the **caretaker**, and of the library's [revocation-by-withdrawal](../../library/concepts/revocation-by-withdrawal.md) concept. Charles Landau's companion point says a *rescinded key must return a message just like any other key*. Endo and E instead make a broken reference a *distinguishable* terminal state a client can react to (`_whenBroken`). The tension between transparent revocation and reactable broken references matters for Endo's disconnection and disincarnation semantics.
+
+- [`../../library/sections/cap-talk-1998--capability-ids-and-indirection-revocation.md`](../../library/sections/cap-talk-1998--capability-ids-and-indirection-revocation.md)
+- [`../../library/sections/cap-talk-1998--rescinded-keys.md`](../../library/sections/cap-talk-1998--rescinded-keys.md)
+
+## The connectivity discipline
+
+"You can only transmit a capability by invoking some other capability that you already have" (Shapiro, 1998) is the operational statement of *only connectivity begets connectivity*, the axiom Endo's whole reachability and retention story rests on. The corollary that objects are *allocated, not created* (a space bank sells storage; the payer can reclaim it) is a direct antecedent of Endo's explicit-storage-accounting stance over transparent garbage collection.
+
+- [`../../library/sections/cap-talk-1998--creating-and-granting-capabilities.md`](../../library/sections/cap-talk-1998--creating-and-granting-capabilities.md)
+
+## Designation, not identity
+
+Endo's refusal to grant authority by ambient identity is exactly Shapiro's argument that a capability fuses designation and authority while an ACL must reconstruct "who is calling" and can be fooled. The later proxy-attribution debate adds a limit to telemetry claims: an audit record can prove which reference was exercised, but not whether its named holder acted directly, delegated, proxied, or was confused.
+
+- [`../../library/sections/cap-talk-1998--card-keys-are-capabilities.md`](../../library/sections/cap-talk-1998--card-keys-are-capabilities.md)
+- [`../../library/sections/cap-talk-1998--acls-on-capabilities.md`](../../library/sections/cap-talk-1998--acls-on-capabilities.md)
+- [`../../library/sections/cap-talk-1999--principal-attribution-proxies-and-confinement.md`](../../library/sections/cap-talk-1999--principal-attribution-proxies-and-confinement.md)
+
+## Authentication produces a capability set
+
+The April 1998 CGI thread gives Endo a practical gateway rule: authenticate at the protocol edge, then deliberately map the result to the smallest and weakest **bucket of capabilities** sufficient for the session. The bucket is the operational identity past the authenticator. Authentication does not justify ambient socket creation, file-system access, or a machine-wide user object.
+
+- [`../../library/sections/cap-talk-1998--cgi-confinement-and-capability-buckets.md`](../../library/sections/cap-talk-1998--cgi-confinement-and-capability-buckets.md)
+
+## Distributed references are more than RPC object identifiers
+
+The October 1999 thread names the distinction Endo's CapTP must preserve. The tuple "object ID, method ID, arguments" only has capability meaning if possession authorizes invocation, an endpoint cannot forge designation of an arbitrary hidden object, reference identity survives transport, and introductions are mediated. Miller's closure connection gives the local half of the same model: a closure's captured state is its authority-bearing acquaintance set.
+
+- [`../../library/sections/cap-talk-1999--distributed-capabilities-rpc-and-closures.md`](../../library/sections/cap-talk-1999--distributed-capabilities-rpc-and-closures.md)
+
+## Retention, reclamation, and covert channels
+
+Landau's shared-object puzzle shows why cross-peer retention needs explicit per-holder state and a cleanup signal when a holder disappears. Shapiro, Miller, and Frantz then expose a second-order hazard: returning storage when the last capability disappears can reveal that event through observable quota. Endo's formula retention graph should therefore treat retention changes as authority-sensitive state and avoid promising that local reclamation is information-free.
+
+- [`../../library/sections/cap-talk-1999--shared-object-lifetime-reference-counting.md`](../../library/sections/cap-talk-1999--shared-object-lifetime-reference-counting.md)
+- [`../../library/sections/cap-talk-1999--storage-gc-and-covert-channels.md`](../../library/sections/cap-talk-1999--storage-gc-and-covert-channels.md)
+
+## Durable state is not transaction agreement
+
+System-wide persistence can preserve a circular capability graph, but it does not eliminate lost commit acknowledgments, network failure, or check-then-update races. Endo's durable vats and formulas need application operations with explicit retry and idempotency semantics. Reconstructing the object graph after a restart answers "what survived," not "what did the remote caller learn before the failure."
+
+- [`../../library/sections/cap-talk-1999--persistence-and-transaction-failure.md`](../../library/sections/cap-talk-1999--persistence-and-transaction-failure.md)
+
+## Brands and generic makers
+
+The 1999 Trusty Scheme exchange makes a subtle Endo API property explicit: the operation that creates sealer/unsealer or brand pairs may be generally available without weakening any generated pair. Authority comes from holding one of the matching references, not from exclusive access to the generic maker.
+
+- [`../../library/sections/cap-talk-1999--rights-amplification-from-seals-and-equality.md`](../../library/sections/cap-talk-1999--rights-amplification-from-seals-and-equality.md)
+
+## Off-line representation versus on-line protocol (the CapTP split)
+
+The July 2001 web-standardization thread draws the distinction Endo's transport layer keeps to this day: a serialized, storable capability (an off-line *representation*, like a sturdyref or a swiss-number URL) is a different artifact from the live protocol that makes possession authorize invocation (an on-line *protocol*, like CapTP). Miller's own survey names E's `cap://` URI over Pluribus and Waterken's `https:` encoding as the two working instances, and rates SPKI only "approximately a capability system." Endo's OCapN inherits exactly this two-layer shape (locator/sturdyref plus CapTP), and the SPKI verdict is the primary-source ancestor of the reasons Endo does not treat authorization certificates as object capabilities.
+
+- [`../../library/sections/cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol.md`](../../library/sections/cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol.md)
+
+## A reference is its behavior, and facets are distinct capabilities
+
+Landau's November 2000 argument that a capability is defined by its behavior under a message (not by an underlying object reference, and not by interface thinning) is the primary-source root of Endo's facet discipline and its `Far`/`Remotable` model: a read facet and a write facet over one state are genuinely different capabilities, not thinned views of a shared identity, and reference equality is behavioral (E's `==`, Endo's marshal identity). It also underwrites why Endo can pass different facets to different clients without leaking that they share an implementation.
+
+- [`../../library/sections/cap-talk-2000-2001--a-capability-is-behavior-not-an-object-reference.md`](../../library/sections/cap-talk-2000-2001--a-capability-is-behavior-not-an-object-reference.md)
+
+## The lambda-calculus lineage and confinement by immutability
+
+Miller's July 2001 "two threads" history places the object-capability model Endo realizes in the lambda-calculus / Actors lineage (Rees's W7, Joule, E) rather than the OS access-matrix one, which is why a hardened lambda language (SES) can be capability-secure at all. The companion 2000 confinement thread shows E achieving confinement through *observable pure immutability* rather than kernel weakening, the direct ancestor of using `harden` and transitively-frozen objects as Endo's confinement lever.
+
+- [`../../library/sections/cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md`](../../library/sections/cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md)
+- [`../../library/sections/cap-talk-2000-2001--confinement-the-sw-model-e-immutability-and-keybits.md`](../../library/sections/cap-talk-2000-2001--confinement-the-sw-model-e-immutability-and-keybits.md)
+
+## CapDesk and Polaris: dynamic authority at desktop scale
+
+The 2004 discussion is the live workshop around *The Structure of Authority*: Shapiro's non-transferability/confinement doubts do not invalidate POLA, while the CapDesk demonstration makes just-in-time authority legible to practitioners who had rejected the abstract argument. The 2005 shatter-attack thread then shows the hard engineering boundary. A shared GUI message channel lets a low-authority application drive a high-authority PowerBox unless Polaris mediates or removes it.
+
+- [`../../library/sections/cap-talk-2004-2008--confinement-crisis-and-capdesk-pola.md`](../../library/sections/cap-talk-2004-2008--confinement-crisis-and-capdesk-pola.md)
+- [`../../library/sections/cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement.md`](../../library/sections/cap-talk-2004-2008--polaris-shatter-attacks-and-gui-confinement.md)
+
+## Web-keys and petnames: designation, authority, and human meaning
+
+Endo's sturdy references inherit the web-key split: an unguessable reference supplies secure designation and authorization, but it does not supply a human-recognizable relationship name. Petnames layer user-controlled meaning over the reference through a trusted path. The 2008 web-key thread also supplies the application caveat that Close later formalizes: delegation, revocation, and persistent restoration must be explicit, and an ACL-shaped application can recreate a confused deputy on an ocap substrate.
+
+- [`../../library/sections/cap-talk-2004-2008--firefox-identifiability-and-idn-spoofing.md`](../../library/sections/cap-talk-2004-2008--firefox-identifiability-and-idn-spoofing.md)
+- [`../../library/sections/cap-talk-2004-2008--petname-toolbar-as-trusted-path.md`](../../library/sections/cap-talk-2004-2008--petname-toolbar-as-trusted-path.md)
+- [`../../library/sections/cap-talk-2004-2008--web-keys-mashing-with-permission.md`](../../library/sections/cap-talk-2004-2008--web-keys-mashing-with-permission.md)
+- [`../../library/sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md`](../../library/sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md)
+
+## Eventual references and the named pattern lineage
+
+Waterken's `ref_send` is a direct Java-library ancestor of Endo's eventual-send surface: sends return promises, permit pipelining, and carry failure through the reference protocol. The 2008 historical inventory then names the wider reusable family Endo draws on: sealers/trademarks, revocable forwarders/caretakers, membranes, powerboxes, and eventual references.
+
+- [`../../library/sections/cap-talk-2004-2008--ref-send-eventual-reference-api.md`](../../library/sections/cap-talk-2004-2008--ref-send-eventual-reference-api.md)
+- [`../../library/sections/cap-talk-2004-2008--object-capability-patterns-historical-inventory.md`](../../library/sections/cap-talk-2004-2008--object-capability-patterns-historical-inventory.md)
+
+## Facets, endowments, and enforced dependency injection
+
+The 2006 object/facet debate gives Endo's exo model a precise reading: each facet reference is a distinct authority-bearing object, even when several facets close over one state record. The 2008 dependency-injection comparison then explains SES compartments in familiar engineering terms. Constructor injection makes dependencies visible, but only an ocap runtime ensures omitted powers cannot be recovered through globals, reflection, or an untamed container. Endo endowments are dependency injection plus enforcement.
+
+- [`../../library/sections/cap-talk-2004-2008--objects-facets-and-behavioral-identity.md`](../../library/sections/cap-talk-2004-2008--objects-facets-and-behavioral-identity.md)
+- [`../../library/sections/cap-talk-2004-2008--object-capabilities-versus-dependency-injection.md`](../../library/sections/cap-talk-2004-2008--object-capabilities-versus-dependency-injection.md)
+- [`../../library/sections/cap-talk-2004-2008--database-query-authority.md`](../../library/sections/cap-talk-2004-2008--database-query-authority.md)
+
+## Budgets must travel with authority
+
+The space-bank and memory-accounting threads are direct antecedents of explicit Endo resource powers. A service capability answers what an object may do; a separate sub-budget answers who sponsors the CPU, storage, or durable retention it consumes. Shared references prevent reachability alone from assigning responsibility, so Endo formula retention and quota designs should preserve visible sponsorship and reclamation authority.
+
+- [`../../library/sections/cap-talk-2004-2008--capability-accounting.md`](../../library/sections/cap-talk-2004-2008--capability-accounting.md)
+- [`../../library/sections/cap-talk-2004-2008--memory-accounting-without-partitions.md`](../../library/sections/cap-talk-2004-2008--memory-accounting-without-partitions.md)
+
+## Deep attenuation and trusted user gestures
+
+Deep attenuation says a restriction follows references obtained through the wrapper, but the 2007 thread shows why Endo cannot implement this as global method-name filtering: each interface must define its own read-only, revocable, or otherwise narrowed facet. The companion UI discussions generalize PowerBoxes. A trusted gesture can convey a narrow facet through file-open or drag-and-drop, while an untrusted application must not counterfeit the endpoint or upgrade the grant.
+
+- [`../../library/sections/cap-talk-2004-2008--deep-attenuation-and-typed-operations.md`](../../library/sections/cap-talk-2004-2008--deep-attenuation-and-typed-operations.md)
+- [`../../library/sections/cap-talk-2004-2008--user-intent-as-authorization.md`](../../library/sections/cap-talk-2004-2008--user-intent-as-authorization.md)
+- [`../../library/sections/cap-talk-2004-2008--attenuated-drag-and-drop.md`](../../library/sections/cap-talk-2004-2008--attenuated-drag-and-drop.md)
+
+## Transport and policy boundaries
+
+Several late-era threads sharpen boundaries around CapTP and sturdyrefs. SAML or another signed assertion can bootstrap an offline delegation, but the live object protocol should remain reference-based. Bearer capabilities leak through `argv`, logs, and URL machinery that assumes identifiers are public. ACL-like tenant policy can safely narrow an already-designated reference, but must not turn a powerless name into stronger authority. Authority-analysis tools must also state whether incoming messages and amplifiers are excluded before claiming authority cannot grow.
+
+- [`../../library/sections/cap-talk-2004-2008--saml-assertions-versus-object-capabilities.md`](../../library/sections/cap-talk-2004-2008--saml-assertions-versus-object-capabilities.md)
+- [`../../library/sections/cap-talk-2004-2008--capabilities-in-argv-leakage.md`](../../library/sections/cap-talk-2004-2008--capabilities-in-argv-leakage.md)
+- [`../../library/sections/cap-talk-2004-2008--capability-urls-in-practice.md`](../../library/sections/cap-talk-2004-2008--capability-urls-in-practice.md)
+- [`../../library/sections/cap-talk-2004-2008--acls-and-object-capabilities-coexistence.md`](../../library/sections/cap-talk-2004-2008--acls-and-object-capabilities-coexistence.md)
+- [`../../library/sections/cap-talk-2004-2008--principal-authority-monotonicity.md`](../../library/sections/cap-talk-2004-2008--principal-authority-monotonicity.md)
+
+## Concurrency assumptions are part of a pattern
+
+Authodox's CSP models show that a caretaker or membrane can preserve its advertised property under one concurrency model and fail under another. Endo pattern documentation should name turn, reentrancy, and callback assumptions. Chrome's renderer sandbox supplies the systems-level analogue: process separation helps, but the broker protocol and stripped ambient powers determine the actual authority boundary.
+
+- [`../../library/sections/cap-talk-2004-2008--authodox-object-capability-analysis.md`](../../library/sections/cap-talk-2004-2008--authodox-object-capability-analysis.md)
+- [`../../library/sections/cap-talk-2004-2008--chrome-sandbox-and-brokered-authority.md`](../../library/sections/cap-talk-2004-2008--chrome-sandbox-and-brokered-authority.md)
+
+## Persistence does not erase partial failure
+
+The 2008 persistence exchange reinforces the earlier transaction lesson. A durable reference graph and causally consistent checkpoints do not tell a caller whether an unacknowledged operation happened. Endo's durable promises, formulas, and vats still need explicit retry and idempotency semantics. A persisted project must restore actual references through a PowerBox-like trusted mechanism rather than turn them into editable ambient names.
+
+- [`../../library/sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md`](../../library/sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md)
+
+## The web era: ACLs-don't, web-keys, and confused deputies inside ocap
+
+The 2009 archive is where the capability argument meets the Web that Endo now targets, and it sharpens four things Endo still has to get right. First, **the equivalence is still not settled in the wider world**: Tyler Close's "ACLs don't" paper is rejected from Oakland-09 as "probably done before" even as reviewers concede the access-matrix equivalence is "incorrect" — the same fight Shapiro had in 1998, and the reason Endo's docs must keep making the capabilities-vs-ACLs case explicitly rather than assuming it. Second, **object capabilities are not automatically confused-deputy-proof**: Toby Murray shows a service that performs rights amplification (an unsealer, a mint, a facet that upgrades a client reference) can be confused if it does not validate the capabilities it accepts — the primary-source argument for Endo's `Far`/`Remotable` marking, brand/trademark checks, and pattern guards. Third, **CSRF is sharing seen from the attacker's side** (Zooko): the defense is unforgeable references, not unshareable ones, and an authority-carrying session cookie is "in essence a webkey held in a cookie" — a caution for any Endo web gateway not to default the powerbox into an ambient credential. Fourth, **a capability whose whole representation is a URL has nowhere stable to live in a browser session** (Chip Morningstar's web-key/powerbox problem) — precisely the tension Endo's OCapN answers by keeping a durable locator/sturdyref separate from the live CapTP protocol.
+
+- [`../../library/sections/cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md`](../../library/sections/cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md)
+- [`../../library/sections/cap-talk-2009-2012--confused-deputies-in-capability-systems.md`](../../library/sections/cap-talk-2009-2012--confused-deputies-in-capability-systems.md)
+- [`../../library/sections/cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable.md`](../../library/sections/cap-talk-2009-2012--solve-csrf-unforgeable-not-unshareable.md)
+- [`../../library/sections/cap-talk-2009-2012--webkeys-vs-the-web.md`](../../library/sections/cap-talk-2009-2012--webkeys-vs-the-web.md)
+- [`../../library/concepts/web-key.md`](../../library/concepts/web-key.md)
+
+## Ambient authority is the hazard; defensive consistency is what Endo guarantees
+
+The rest of 2009 makes two design invariants that Endo enacts explicit. First, **ambient authority is defined by the absence of designation, and eliminating it is the whole point**. The June 2009 encyclopedia thread rejects "shared-with-all" and "no-credential" definitions and settles on *designation* as the discriminator — authority is ambient exactly when the caller does not designate the specific capability an action needs, so a system that presents tokens still has ambient authority if a "helper" facility auto-selects which one to apply. This is precisely what Hardened JavaScript's `lockdown()` reverses (no ambient IO, no mutable shared globals, modules receive only explicitly-passed endowments), and the caution — beware any framework that *automatically* attaches authority on a caller's behalf — is why Endo prefers statically-wired, designated endowments and a `package.json` `powers` manifest over runtime authority-escalation dialogs (the December 2009 "reducing ambient user authority" thread's install-time manifest is the same idea, and its unresolved "consent prompts habituate re-granting" worry is the argument against runtime escalation). Miller's June 2009 CORS/Origin critique — origin-based cross-site access decisions *amplify* ambient authority and leave the browser-as-confused-deputy (CSRF) in place; "a mashup is a self inflicted cross site script" — is the browser-platform motivation for the whole SES/compartment program: code composed into a context must receive only what it was given, not the context's ambient origin-authority. Second, **defensive consistency is what an object-capability language guarantees; defensive correctness is not free**. The July 2009 "controversial article" thread pins the safety/liveness split: SES delivers defensive consistency by construction, but defensive correctness (no client can *deny* another correct service) fails for co-located clients (infinite loop, memory exhaustion) and is impossible over unreliable networks — so Endo/Agoric adopt Miller's third approximation, *budgeted, preemptively-reclaimable resources* (metering and per-vat budgets), and favor Functionally-Pure exos across separate vats.
+
+- [`../../library/sections/cap-talk-2009-2012--defining-ambient-authority.md`](../../library/sections/cap-talk-2009-2012--defining-ambient-authority.md)
+- [`../../library/sections/cap-talk-2009-2012--origin-header-amplifies-ambient-authority.md`](../../library/sections/cap-talk-2009-2012--origin-header-amplifies-ambient-authority.md)
+- [`../../library/sections/cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest.md`](../../library/sections/cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest.md)
+- [`../../library/sections/cap-talk-2009-2012--hiding-webkeys-from-the-address-bar.md`](../../library/sections/cap-talk-2009-2012--hiding-webkeys-from-the-address-bar.md)
+- [`../../library/sections/cap-talk-2009-2012--defensive-correctness-versus-consistency.md`](../../library/sections/cap-talk-2009-2012--defensive-correctness-versus-consistency.md)
+- [`../../library/concepts/ambient-authority.md`](../../library/concepts/ambient-authority.md)
+
+## Petnames name objects; the wire names references
+
+Endo's petname layer (petnames, petname-paths, edgenames) and its formula/locator naming inherit the 2009 warning that per-holder, object-identifying naming can *hide* distinctions the machine layer needs — Karp's petname-versus-E-order question shows two references to the same object obtained by different delegation paths carry different ordering guarantees a single petname would erase. Zooko's Tahoe file-API experience gives the concrete pattern for code that needs relative naming: pass a *(container capability, leaf name)* tuple, not a bare self-reference or an ambient path.
+
+- [`../../library/sections/cap-talk-2009-2012--petnames-versus-e-order.md`](../../library/sections/cap-talk-2009-2012--petnames-versus-e-order.md)
+- [`../../library/sections/cap-talk-2009-2012--file-api-taming-tahoe.md`](../../library/sections/cap-talk-2009-2012--file-api-taming-tahoe.md)
+- [`../../library/concepts/petname.md`](../../library/concepts/petname.md)
+
+## Managed references, guards, and compilation boundaries
+
+The August-October 2009 threads spell out three assumptions behind Hardened JavaScript. First, an ordinary managed-language object reference can be the capability only after unsafe pointer construction, ambient statics, reflection escapes, and untamed host APIs are removed. Second, well-known guards for pure data are designated validators, not ambient authority, while a guard that recognizes a "real" file or another external power must itself be explicitly endowed. Third, a bytecode verifier that prevents memory corruption is not enough: compiled or supplied bytecode must preserve the source language's semantic invariants, because verifier-accepted target code may construct values no source program can express. SES transforms, bundles, XS bytecode, and serialization boundaries all inherit that full-abstraction obligation.
+
+- [`../../library/sections/cap-talk-2009-2012--managed-language-object-references-as-capabilities.md`](../../library/sections/cap-talk-2009-2012--managed-language-object-references-as-capabilities.md)
+- [`../../library/sections/cap-talk-2009-2012--guards-well-known-not-ambient.md`](../../library/sections/cap-talk-2009-2012--guards-well-known-not-ambient.md)
+- [`../../library/sections/cap-talk-2009-2012--full-abstraction-at-the-bytecode-boundary.md`](../../library/sections/cap-talk-2009-2012--full-abstraction-at-the-bytecode-boundary.md)
+
+## Browser and broker grants should be explicit, narrow, and visible
+
+The CORS and geolocation threads show the same deputy failure at two browser surfaces. Origin policy automatically supplies cookies or sensitive device authority when the requesting component did not designate a particular grant, while multi-origin composition prevents the user from seeing which principal receives it. Endo powerboxes and web gateways should instead return a narrow session facet, keep sensitive use visible and revocable, and restore persistent authority only through a specifically designated sturdy reference. The RabbitMQ case adds the deployment warning: if a protocol starts with broker-side ACLs, later capability adoption can require coordinated changes across every client even when the checking mechanism itself is small.
+
+- [`../../library/sections/cap-talk-2009-2012--cors-open-review-and-ambient-cookies.md`](../../library/sections/cap-talk-2009-2012--cors-open-review-and-ambient-cookies.md)
+- [`../../library/sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md`](../../library/sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md)
+- [`../../library/sections/cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md`](../../library/sections/cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md)
+
+## Process confinement and object-capability protocols are separate layers
+
+Native Client's brokered sandbox demonstrates why Endo should not call every handle a capability. An OS or process boundary limits effects after compromise, but only the broker protocol determines whether possession designates and authorizes one object or whether ambient identity and names still manufacture authority. XS workers and native subprocess brokers need both layers: coarse machine isolation outside and an explicitly reference-based message surface inside.
+
+- [`../../library/sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md`](../../library/sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md)
+
+## The 2010 web-platform arc: cookies, the powerbox, and the naming of the discipline
+
+By 2010 the list is arguing the web platform directly. RFC 6265's own security-considerations text (Adam Barth, with Miller's input) names cookies a form of ambient authority and CSRF the browser confused deputy, and recommends treating URLs as capabilities: an IETF standard carrying cap-talk's diagnosis. The Web Powerbox (Seaborn, Varda, Close, Miller) is designed here as a browser-held capability introducer with a revocable-connection UI, and shown to dominate OAuth's ambient-cookie and bearer-token model on clickjacking, phishing, XSRF, and asynchrony: a direct ancestor of Endo's powerbox pattern and of the position that authority travels only as an explicitly granted reference. Two foundational framings are also settled or sharpened: only *mutable* globally-accessible singletons are ambient authority (constant ones are fine, which is exactly why SES freezes the primordials), and a "safe language" (Pierce: one that protects its own abstractions) is the prerequisite ocap enforcement rests on. Miller's Three Laws of Security (Integrity over Availability over Confidentiality) state defensive correctness as an ordered obligation. The garden's own bias toward running code over marketing echoes Reid's answer to the object-oriented-security rename. Endo constraints, not historical resemblance.
+
+- [`../../library/sections/cap-talk-2009-2012--cookies-as-ambient-authority.md`](../../library/sections/cap-talk-2009-2012--cookies-as-ambient-authority.md)
+- [`../../library/sections/cap-talk-2009-2012--web-powerbox-and-oauth.md`](../../library/sections/cap-talk-2009-2012--web-powerbox-and-oauth.md)
+- [`../../library/sections/cap-talk-2009-2012--hashcode-collisions-and-the-weakest-link.md`](../../library/sections/cap-talk-2009-2012--hashcode-collisions-and-the-weakest-link.md)
+- [`../../library/sections/cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md`](../../library/sections/cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md)
+- [`../../library/sections/cap-talk-2009-2012--safe-language-defined-and-ocap.md`](../../library/sections/cap-talk-2009-2012--safe-language-defined-and-ocap.md)
+- [`../../library/sections/cap-talk-2009-2012--three-laws-of-security.md`](../../library/sections/cap-talk-2009-2012--three-laws-of-security.md)
+- [`../../library/sections/cap-talk-2009-2012--acl-model-incomplete-owner-admin.md`](../../library/sections/cap-talk-2009-2012--acl-model-incomplete-owner-admin.md)
+- [`../../library/sections/cap-talk-2009-2012--object-oriented-security-naming.md`](../../library/sections/cap-talk-2009-2012--object-oriented-security-naming.md)
+
+## The 2010 lighter-month arc: platform reality, accountability, and the concrete powerbox
+
+The lighter May-December 2010 threads carry several direct antecedents. The Android arc (May-July) is the sharpest confrontation of ocap discipline with a shipping platform: an Android engineer reports the team *rejected* user-facing partial permission grants because attenuating a declared coarse manifest backfires into over-asking and untested permission subsets — a real argument that Endo dissolves not by toggling subsets of a manifest but by attenuating at object-reference granularity (hand out a specific facet, so each attenuated capability is an ordinary, tested object). Tyler Close's Web Introducer (December) is the concrete browser powerbox whose lesson is that the *cost of the granting gesture* decides whether least authority is actually practiced — the UX principle for any Endo surface where a user grants capabilities to guest code. Horton (November) shows accountability can be added as a separable membrane over the capability graph (the introducer stays liable until the introduced party is independently known), without ambient identity. The December sensory-objects thread is a direct ancestor of Endo hardening: transitive read-only is best delivered as deep immutability plus passStyle (hardened copy-data has no methods, hence no authority) rather than a `readonly T` type qualifier or a per-method audit. Capsicum (August) is the OS-layer analogue of lockdown: `cap_enter()` irreversibly drops ambient authority, leaving only descriptor-capabilities. Cornell's Fabric (October) is a worked instance of the litmus test Endo applies before accepting a system as capability-based (Fabric's own paper says "oids are not capabilities"). And Karp's authority-carrying-URL evidence (October) confirms the "capability *is* a URL" model was already mainstreaming, making the design question how to make such a URL scoped and revocable, not whether to use one. Endo constraints, not historical resemblance.
+
+- [`../../library/sections/cap-talk-2009-2012--android-capability-discipline-and-pola.md`](../../library/sections/cap-talk-2009-2012--android-capability-discipline-and-pola.md)
+- [`../../library/sections/cap-talk-2009-2012--web-browser-powerbox-web-introducer.md`](../../library/sections/cap-talk-2009-2012--web-browser-powerbox-web-introducer.md)
+- [`../../library/sections/cap-talk-2009-2012--horton-accountability-and-contract-law.md`](../../library/sections/cap-talk-2009-2012--horton-accountability-and-contract-law.md)
+- [`../../library/sections/cap-talk-2009-2012--system-enforced-sensory-objects.md`](../../library/sections/cap-talk-2009-2012--system-enforced-sensory-objects.md)
+- [`../../library/sections/cap-talk-2009-2012--capsicum-practical-capabilities-for-unix.md`](../../library/sections/cap-talk-2009-2012--capsicum-practical-capabilities-for-unix.md)
+- [`../../library/sections/cap-talk-2009-2012--fabric-security-language-capabilities-or-acls.md`](../../library/sections/cap-talk-2009-2012--fabric-security-language-capabilities-or-acls.md)
+- [`../../library/sections/cap-talk-2009-2012--authority-carrying-urls-in-the-wild.md`](../../library/sections/cap-talk-2009-2012--authority-carrying-urls-in-the-wild.md)
+- [`../../library/sections/cap-talk-2009-2012--networking-named-content-self-authenticating-names.md`](../../library/sections/cap-talk-2009-2012--networking-named-content-self-authenticating-names.md)
+
+## The 2011 arc: what counts as a capability, and delegation done right
+
+By 2011 the list is re-examining its own foundations with unusual precision, and several threads bear directly on Endo's design choices. The year's longest thread ("Capabilities for immutable data") argues over whether a *sealed value* is a capability, and while the list does not converge, it sharpens exactly the distinction Endo's `passStyle` classification later mechanizes: hardened copy-data is passable but carries no authority (it has no methods to invoke), while a reference does, and a sealed box is inert data until it reaches the matching unsealer. Alan Karp's permission-versus-authority correction and David Barbour's implementation-versus-abstraction rule (modeling X with a capability does not make X a capability) are the reasoning discipline behind treating Endo's data and its object references as genuinely different pass styles. The companion type-passing thread pins down rights amplification precisely (authority arising only from *combining* references), which is the property Endo preserves and audits, with the sealer/unsealer and WeakMap patterns as the deliberate exceptions.
+
+The delegation threads are the most directly applicable. "Avoiding excess authority in chained access" is the Alice-Bob-Carol confused-deputy question in full, and Barbour's principle (the choice of whose authority an intermediary uses must be static, so a caller can never gain authority by discarding a capability) is a design rule for any Endo intermediary that forwards requests; Bill Frantz's observation that facets have no single maximum is why Endo prefers narrow purpose-built facets to one powerful reference clients then attenuate. "Comparison of Models" is the argument for authorizing with references rather than identities, roles, or attributes: the DoD cross-service role-agreement failure is exactly the cross-domain vocabulary problem capabilities dissolve. "Capabilities and re-authentication" recasts the web's browsing-versus-buying step-up as minting a fresh, short-lived, narrowly-scoped powerbox capability rather than re-proving identity, with David Wagner's caution that the step-up must match a real threat. Two infrastructure threads point at Endo's peer identity: Tyler Close's YURLs (a public-key hash in the hostname, self-authenticating without DNS or a CA) sized against parallelizable multi-target preimage attacks, and Seth Purcell's Sitelier (apps installed onto a user-owned site, storing the user's data there, with PGP for decentralized identity), a 2011 sketch of the Endo daemon-and-guests arrangement. The provability-of-defensive-correctness thread supplies the reasoning method: defensive consistency is proved *locally*, by examining the capabilities an object exposes, not the behavior of its clients, which is exactly why Endo's hardened, narrowly-reachable objects are tractable to reason about. Endo constraints, not historical resemblance.
+
+- [`../../library/sections/cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values.md`](../../library/sections/cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values.md)
+- [`../../library/sections/cap-talk-2009-2012--type-passing-and-rights-amplification.md`](../../library/sections/cap-talk-2009-2012--type-passing-and-rights-amplification.md)
+- [`../../library/sections/cap-talk-2009-2012--avoiding-excess-authority-in-chained-access.md`](../../library/sections/cap-talk-2009-2012--avoiding-excess-authority-in-chained-access.md)
+- [`../../library/sections/cap-talk-2009-2012--comparing-models-zbac-versus-capabilities.md`](../../library/sections/cap-talk-2009-2012--comparing-models-zbac-versus-capabilities.md)
+- [`../../library/sections/cap-talk-2009-2012--re-authentication-and-time-limited-capabilities.md`](../../library/sections/cap-talk-2009-2012--re-authentication-and-time-limited-capabilities.md)
+- [`../../library/sections/cap-talk-2009-2012--yurls-hash-length-and-self-authenticating-names.md`](../../library/sections/cap-talk-2009-2012--yurls-hash-length-and-self-authenticating-names.md)
+- [`../../library/sections/cap-talk-2009-2012--sitelier-capability-os-for-the-web.md`](../../library/sections/cap-talk-2009-2012--sitelier-capability-os-for-the-web.md)
+- [`../../library/sections/cap-talk-2009-2012--defensive-correctness-provability.md`](../../library/sections/cap-talk-2009-2012--defensive-correctness-provability.md)
+- [`../../library/sections/cap-talk-2009-2012--gc-versus-raii-resource-lifetime.md`](../../library/sections/cap-talk-2009-2012--gc-versus-raii-resource-lifetime.md)
+- [`../../library/sections/cap-talk-2009-2012--examples-of-capabilities-for-outsiders.md`](../../library/sections/cap-talk-2009-2012--examples-of-capabilities-for-outsiders.md)
+
+## The late-2011 and early-2012 arc: web authentication, propagation, and the OAuth verdict
+
+The August-2011-through-March-2012 threads turn from *what counts as a capability* to *how the capability web actually authenticates, propagates, and reclaims authority* — and several land directly on Endo's design surface. Kevin Reid's "designing new language" reply is a 2011 statement of Endo's own philosophy: design security in rather than add it on, and the language should make cheap exactly what Hardened JavaScript makes cheap — strong encapsulation, immutable-by-default objects, cheap multi-facet objects, and interposition (membranes) — while an authority-carrying implicit parameter like JavaScript's `this` is the hazard SES tames. The authentication threads form a coherent lesson: web-keys supplant per-resource passwords, but a single master-capability bootstrap is irreducible (the daemon unlock and onboarding surface Endo treats carefully), OpenID's redirect-and-type-your-password design trains the phishing reflex and re-centralizes authority into one credential (why Endo introduces by passing capabilities, never a global identity), and "nothing in the URL is safe" is why Endo carries references over an authenticated OCapN connection rather than as URL-borne bearer secrets. The propagation threads are the most directly load-bearing: Thomas Leonard's SAM modeller confirms capability propagation is predictably auditable while RBAC needs bolted-on confused-deputy checks (Endo's reachable-authority graph is inspectable for the same reason), and the Horton exception-leak result is the standing warning that a membrane is defeated the instant an un-wrapped reference escapes through an argument, a return, or a thrown value — the completeness invariant Endo's membranes must hold, made concrete by Tom Van Cutsem's E-style JavaScript membranes (the immediate ancestor of the SES/Endo Proxy membrane). Alan Karp's introduction-by-default versus proxy-by-default distinction places CapTP/OCapN precisely (introduction-by-default: direct three-party handoff, revocation supplied by caretakers rather than by routing), and the distributed-GC thread names the open problem Endo answers with explicit lifecycle rather than system-wide collection. The "Opinions of OAuth" thread is the direct ancestor of Endo's OAuth stance: OAuth 2 is a usable-but-wrong bearer-token substitute, and the web-key / YURL is the capability-native alternative, so where Endo must interoperate it wraps the token behind a revocable reference. Endo constraints, not historical resemblance.
+
+- [`../../library/sections/cap-talk-2009-2012--language-support-for-object-capabilities.md`](../../library/sections/cap-talk-2009-2012--language-support-for-object-capabilities.md)
+- [`../../library/sections/cap-talk-2009-2012--limits-of-program-verification-and-policy-verification.md`](../../library/sections/cap-talk-2009-2012--limits-of-program-verification-and-policy-verification.md)
+- [`../../library/sections/cap-talk-2009-2012--supplanting-passwords-and-the-master-capability.md`](../../library/sections/cap-talk-2009-2012--supplanting-passwords-and-the-master-capability.md)
+- [`../../library/sections/cap-talk-2009-2012--openid-single-sign-on-critique.md`](../../library/sections/cap-talk-2009-2012--openid-single-sign-on-critique.md)
+- [`../../library/sections/cap-talk-2009-2012--capabilities-for-legacy-web-programs.md`](../../library/sections/cap-talk-2009-2012--capabilities-for-legacy-web-programs.md)
+- [`../../library/sections/cap-talk-2009-2012--modeling-capability-propagation-and-horton.md`](../../library/sections/cap-talk-2009-2012--modeling-capability-propagation-and-horton.md)
+- [`../../library/sections/cap-talk-2009-2012--introduction-by-default-versus-proxy-by-default.md`](../../library/sections/cap-talk-2009-2012--introduction-by-default-versus-proxy-by-default.md)
+- [`../../library/sections/cap-talk-2009-2012--opinions-of-oauth.md`](../../library/sections/cap-talk-2009-2012--opinions-of-oauth.md)
+- [`../../library/sections/cap-talk-2009-2012--distributed-reference-counting-garbage-collection.md`](../../library/sections/cap-talk-2009-2012--distributed-reference-counting-garbage-collection.md)
+- [`../../library/sections/cap-talk-2009-2012--js-membranes-and-fine-grained-object-views.md`](../../library/sections/cap-talk-2009-2012--js-membranes-and-fine-grained-object-views.md)
+- [`../../library/sections/cap-talk-2009-2012--what-parts-of-a-url-are-safe-for-secrets.md`](../../library/sections/cap-talk-2009-2012--what-parts-of-a-url-are-safe-for-secrets.md)
+
+## The 2012 close: self-authenticating transport, the enforcement locus, and the ocaps/crypto-caps line
+
+The April-through-December 2012 threads close the Pipermail archive on several notes that are Endo's design surface almost verbatim. The most load-bearing is Brian Warner's September proposal to secure Ken channels with djb's NaCl `box`/`unbox` *per message* instead of verified-certificate TLS *per connection*, making the **VatID the base32-encoded public key itself**: this is Endo's peer identity — a per-agent keypair, the node named by its public key, no certificate authority — and the OCapN-over-Noise transport the garden later builds, down to the store-and-forwardable, connectionless framing that lets `captp` run over an asynchronous or relayed transport rather than a live socket. December's "The Bits of Capabilities" gives Mark Miller's crisp statement of the seam Endo's marshal layer straddles: **object-capabilities are unforgeable, cryptographic capabilities merely unguessable** (transmissible as bits, knowledge-limited), and Boebert's *-property is impossible for crypto-caps — so Endo gets strong confinement for in-vat ocaps and honestly forgoes it for the swissnum-style crypto-caps that cross the wire. December's "Microsoft Paper" enforcement-locus debate is Endo's own bet argued in the open: David Barbour's "start high (VM/language/web), refuse code in insecure languages, and treat authorization/authentication as symptoms of a system whose real security basis is dataflow and modular structure" is the Hardened-JavaScript, admit-only-confined-guests, security-is-extreme-modularity thesis, with OS confinement (Capsicum) a complementary layer rather than a substitute. The SQL-storage thread supplies the negative result that keeps Endo's authority out of relational tables — fine-grained capabilities have no clean relational encoding, so authority lives in the formula graph and SQL holds only copy-data — and the permissive-POLA-stack post-mortem (AppArmor/MinorFs/E went unadopted because it demanded a specific distro *and* a new language) is exactly the adoption trap Endo's "run on stock Node, no OS or language transition" deployment strategy is built to avoid. Three smaller threads round out the constraints: Miller's April answer that Data is unforgeable-plus-identity-free (Endo's `passStyle` and transitive `harden()` make deeply-frozen aggregates first-class copy-data, sidestepping Joe-E's "only scalars are Data"); the May KeyKOS space-bank thread (reclamation is a per-tenant *accounting* property, never a POLA-violating graph inspection — Endo's budget-and-formula-storage model); and June's attenuation taxonomy (generic attenuation is only caretaker + membrane; anything richer is API-coupled — why Endo attenuates by *writing a caplet*). Endo constraints, not historical resemblance.
+
+- [`../../library/sections/cap-talk-2009-2012--nacl-per-message-crypto-for-ken-channels.md`](../../library/sections/cap-talk-2009-2012--nacl-per-message-crypto-for-ken-channels.md)
+- [`../../library/sections/cap-talk-2009-2012--bits-of-capabilities-ocaps-versus-crypto-caps.md`](../../library/sections/cap-talk-2009-2012--bits-of-capabilities-ocaps-versus-crypto-caps.md)
+- [`../../library/sections/cap-talk-2009-2012--capability-enforcement-language-os-or-hardware.md`](../../library/sections/cap-talk-2009-2012--capability-enforcement-language-os-or-hardware.md)
+- [`../../library/sections/cap-talk-2009-2012--sql-storage-of-a-capability-application.md`](../../library/sections/cap-talk-2009-2012--sql-storage-of-a-capability-application.md)
+- [`../../library/sections/cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e.md`](../../library/sections/cap-talk-2009-2012--permissive-pola-stack-apparmor-minorfs-e.md)
+- [`../../library/sections/cap-talk-2009-2012--immutable-instances-and-the-data-boundary.md`](../../library/sections/cap-talk-2009-2012--immutable-instances-and-the-data-boundary.md)
+- [`../../library/sections/cap-talk-2009-2012--space-recovery-in-mutually-suspicious-systems.md`](../../library/sections/cap-talk-2009-2012--space-recovery-in-mutually-suspicious-systems.md)
+- [`../../library/sections/cap-talk-2009-2012--implementing-attenuated-delegation.md`](../../library/sections/cap-talk-2009-2012--implementing-attenuated-delegation.md)
+- [`../../library/sections/cap-talk-2009-2012--password-as-designation-not-authentication.md`](../../library/sections/cap-talk-2009-2012--password-as-designation-not-authentication.md)
+
+## The final Pipermail era: direct Endo design antecedents
+
+The 2013-2016 archive lands close to Endo's present architecture. Persistent objects do not erase the need for an explicit upgrade schema; hostile transport bytes should become validated immutable values before ordinary code sees them; and a return continuation is a narrower capability than a callback reference. `DeepFrozen` receiver **and arguments** can relax E-order because no stateful effect remains to reorder. WeakMaps make identity-based rights amplification and private state direct JavaScript patterns. These are design constraints, not merely historical resemblance.
+
+The same era supplies two cautions for Endo reference identity. A filesystem facet reached through a chain of redirects carries revocation-path provenance, and two remote references to one endpoint are not interchangeable when their membranes carry different revocation, ordering, or audit conditions. Transport-level endpoint discovery must not silently canonicalize away those distinctions.
+
+Finally, the Capper experiment is an application-level sketch: keep durable credentials in a dedicated secret service, derive one narrow account facet, pass module authority explicitly, and store upgradeable state separately from live closure layout.
+
+- [`../../library/sections/cap-talk-2013-2016--persistent-objects-schema-evolution-and-portability.md`](../../library/sections/cap-talk-2013-2016--persistent-objects-schema-evolution-and-portability.md)
+- [`../../library/sections/cap-talk-2013-2016--capn-proto-zero-copy-at-untrusted-boundaries.md`](../../library/sections/cap-talk-2013-2016--capn-proto-zero-copy-at-untrusted-boundaries.md)
+- [`../../library/sections/cap-talk-2013-2016--return-paths-are-limited-capabilities.md`](../../library/sections/cap-talk-2013-2016--return-paths-are-limited-capabilities.md)
+- [`../../library/sections/cap-talk-2013-2016--deepfrozen-e-order-optimization.md`](../../library/sections/cap-talk-2013-2016--deepfrozen-e-order-optimization.md)
+- [`../../library/sections/cap-talk-2013-2016--taming-constructors-and-weakmap-amplification.md`](../../library/sections/cap-talk-2013-2016--taming-constructors-and-weakmap-amplification.md)
+- [`../../library/sections/cap-talk-2013-2016--filesystem-redirect-revocation-paths.md`](../../library/sections/cap-talk-2013-2016--filesystem-redirect-revocation-paths.md)
+- [`../../library/sections/cap-talk-2013-2016--joining-references-across-membranes.md`](../../library/sections/cap-talk-2013-2016--joining-references-across-membranes.md)
+- [`../../library/sections/cap-talk-2013-2016--capper-credentials-persistence-and-module-authority.md`](../../library/sections/cap-talk-2013-2016--capper-credentials-persistence-and-module-authority.md)
+
+Scholar jobs `scholar-ingest-cap-talk`, `scholar-ingest-cap-talk-1999`, `scholar-ingest-cap-talk-2000-2003`, `scholar-ingest-cap-talk-2004-2008`, and `scholar-ingest-cap-talk-2004-2008-remainder` (2026-09-16), through the complete 2004-2008 monthly index; `scholar-ingest-cap-talk-2009-2012` (2026-09-16), the JavaScript / Caja / SES / web-key era first pass (2009 Q1); `scholar-ingest-cap-talk-2009-2012-remainder` (2026-09-16), the rest of 2009's fetchable standout threads (April webkey-hiding, June ambient-authority definition and Origin/CORS critique, July defensive correctness, December ambient-user-authority reduction) plus the `ambient-authority` concept page; `scholar-ingest-cap-talk-2010-2012-remainder` (2026-09-16), all twelve 2010 bundles anchored and the dense-front 2010 threads sectioned (February cookies-as-ambient-authority, hashcodes, and Web-Powerbox-versus-OAuth; March object-oriented-security naming and singletons; April safe-language, Three-Laws-of-Security, and ACL-incompleteness) plus open questions 50-53; `scholar-ingest-cap-talk-2011-2012` (2026-09-16), the eight standout threads of the lighter May-December 2010 months (Android capability-discipline arc, Capsicum, Cornell's Fabric, authority-carrying URLs, Horton accountability, system-enforced sensory objects, Networking Named Content, and Tyler Close's browser powerbox) plus open questions 54-55, completing all of 2010; `scholar-ingest-cap-talk-2013-2016` (2026-09-16), the final Pipermail slice through January 2016; `scholar-ingest-cap-talk-2012-remainder` (2026-09-16, the 2011 January-March cycle), service-chain adoption, Zooko-triangle and petname mappings, the copy-data versus authority boundary, covert channels, Waterken transactional persistence, and the seL4 verification boundary; `scholar-ingest-cap-talk-2011-2012-remainder` (2026-09-16), the April-July 2011 standout threads (the immutable-data / sealed-value debate, type-passing and rights amplification, YURL hash length, GC versus RAII, provability of defensive correctness, ZBAC versus capabilities, chained-access delegation, re-authentication as time-limited capabilities, and Sitelier) plus open questions 56-59, with August-December 2011 and January-March 2012 anchored and surveyed; `scholar-ingest-cap-talk-2012` (2026-09-16), the eleven standout threads of August-December 2011 and January-March 2012 (language support for object capabilities, the limits of program verification, supplanting passwords and the master-capability bootstrap, the OpenID critique, HMAC-signed URLs for legacy web programs, modeling capability propagation and Horton, introduction-by-default versus proxy-by-default, the 72-message "Opinions of OAuth" thread, distributed reference-counting GC, E-style JS membranes, and which parts of a URL are safe), folding the October chained-access continuation into its June section and adding open questions 60-63 and the `introduction-by-default` concept page, completing all of 2011 and 2012 January-March; `scholar-ingest-cap-talk-2012-april-onward` (2026-09-16), the remaining fetchable 2012 months (April-December except IA-unavailable October), anchoring eight bundles and sectioning nine standout threads (April's data-versus-immutable-instance boundary, May's KeyKOS space-bank space recovery, June's attenuated-delegation taxonomy, September's NaCl-per-message-crypto-for-Ken-channels transport antecedent, November's password-as-designation, and December's language-versus-OS-versus-hardware enforcement locus, ocaps-versus-crypto-caps, SQL storage of a capability application, and permissive-POLA-stack adoption) plus open questions 64-67, completing the Pipermail cap-talk archive. 2012-October remains unavailable via the Internet Archive: a deferred eighth attempt was not made because IA was globally offline at the CDX-confirmation step (per the job's ask, October is treated as unavailable until a capture is confirmed when IA is stable). The post-2016 Google Groups era stays not fetchable from the sandbox (`cap-talk-1998.md`).

@@ -1,0 +1,20 @@
+<6>16:28:56 [monk/3] resuming session 4c7f74c5-b289-5e9a-9561-42b48e1f73e6 for requeued job 'endojs-endo-but-for-bots-pr1098-gauntlet-panel-4' in worktree /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-pr1098-gauntlet-panel-4
+<6>16:28:56 [monk/3] job 'endojs-endo-but-for-bots-pr1098-gauntlet-panel-4' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>16:28:56 [monk/3] job 'endojs-endo-but-for-bots-pr1098-gauntlet-panel-4' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>16:29:44 [assert-followup-posted] gate: BLOCK — 'endojs-endo-but-for-bots-pr1098-gauntlet-panel-4' completion report describes a substantive follow-up but posted no board job (no handoff), sent no maintainer-inbox message, and set no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+PR #1098 (`design(endo-claude): fold sibling provider-adapter lessons into residuals`) was **merged at 2026-08-31T18:55:30Z** — roughly two hours before this panel round 4 was first claimed, and now well before this resume. The panel stage exists to gate un-drafting/merge; there is nothing left to gate. Running a fresh panel against a merged, closed PR would burn seats and post a request-changes/comment review on a landed change (pure noise, potentially confusing), so I did not fan the seats or post a review.
+
+## What I did
+- Confirmed PR state: `state=MERGED`, `isDraft=false`, merge commit `e1d5fd83a32efa644c3cfb887ff766f6961cdf4d`, base `llm`, head `endojs:design/endo-claude-sibling-notes`.
+- Drained the job inbox (empty).
+- Verified no prior panel rundir was pending for this base and that the worktree is clean.
+
+## Disposition
+The change landed on `llm`, so the gauntlet's terminal condition is already satisfied. Recording this round as **pass** — the panel had nothing to reject on an already-merged PR.
+
+## Follow-ups
+- The `endojs-endo-but-for-bots-pr1098-gauntlet` orchestration should recognize the merged PR and wind down; no further panel/fix/un-draft stages are needed. Any remaining scheduled stages for #1098 can be treated as moot.
+
+<!-- gauntlet-stage-result: panel=pass -->

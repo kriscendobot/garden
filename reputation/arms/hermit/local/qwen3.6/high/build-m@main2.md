@@ -1,0 +1,13 @@
+kind: hermit
+provider: local
+model: qwen3.6
+thoughtfulness: high
+work_class: build:m
+target: main2
+attempts: 5
+accepts: 5
+censored: 5
+estimated: 5
+mean_dollars: 0.180355
+m2: 0.125791
+acceptance_rate: 1.0000

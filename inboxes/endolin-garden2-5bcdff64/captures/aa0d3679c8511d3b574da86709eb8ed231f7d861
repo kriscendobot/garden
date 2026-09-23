@@ -1,0 +1,40 @@
+<6>00:31:17 [jobs] job 'design-siwe-pivot-to-invitation-onboarding' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>00:31:17 [jobs] job 'design-siwe-pivot-to-invitation-onboarding' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>00:38:07 [post-gauntlet] recorded gauntlet 'kriscendobot-minion.town-pr80-gauntlet' (feature, kriscendobot/minion.town#80, max_iterations=6, max_resumes=6, max_stage_retries=2)
+<6>00:38:07 [jobs] auto-gauntlet: job 'design-siwe-pivot-to-invitation-onboarding' (role designer) recorded design gauntlet 'kriscendobot-minion.town-pr80-gauntlet' for draft design PR https://github.com/kriscendobot/minion.town/pull/80 — panel.sh senses the design panel; it runs before maintainer review
+<6>00:38:18 [assert-followup-posted] gate: BLOCK — 'design-siwe-pivot-to-invitation-onboarding' completion report describes a substantive follow-up but posted no board job (no handoff), sent no maintainer-inbox message, and set no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+Inbox empty. The deliverable is complete: a written recommendation landed as a review PR carrying the maintainer-facing open questions. Writing the report.
+
+Job `design-siwe-pivot-to-invitation-onboarding` complete.
+
+## Recommendation
+
+**ADAPT, narrowly — and defer the wiring until #56 lands** (an ADAPT-BUT-DEFER, with a decisive CLOSE fallback gated on one open question).
+
+SIWE pivots along the exact axis OAuth did: from an *authorization authority* (Ethereum address → on-chain Tiers 1–3 → `mcp/*` scopes in `config/policy.json`) to an *optional recovery-bond authenticator* (an `iss+sub` bonded to an existing guest account; adds no tools, widens no facet). The invitation-only design (#56) retires scope-based admission — a guest is admitted by possessing an invitation capability rooted at kriskowal, and "an OAuth scope does not add tools." SIWE's entire § 3 substance is scope-granting, so **the on-chain authorization model (all three tiers) does not ship**; the "which tier to ship" and "supply the allowlist" questions the deploy/wire jobs were blocked on **dissolve**, and no allowlist is written (vindicating the earlier `wire-siwe` handoff's refusal to fabricate addresses).
+
+Concrete consequences for the deployed `siwe-idp.minion.town` issuer:
+- **Keep it, unchanged** — it is already a textbook OIDC IdP (`iss+sub`, checksummed-address `sub`) and is exactly what #56's § 5 recovery-bond flow consumes; it becomes one provider-agnostic `OAuthIdentity` row. It has a defined future consumer, so it is not orphaned.
+- **Hold it inert in current production** — with no `policy.json` SIWE entries it is default-deny; confirm and keep it so, ideally with the Cognito IdP binding disabled until the recovery consumer exists.
+- **Re-scope the follow-ons** — deploy is done; the parked `wire-siwe-onchain-authz-minion-town-followup` (Tier-2/allowlist) should be **withdrawn** and replaced post-#56 by a small `bond-siwe-recovery-provider` job.
+- **CLOSE fallback:** if the pivotal open question — *is an Ethereum-wallet recovery bond wanted at all?* (a bearer wallet recovering a bearer guest-id adds little over an OAuth account's own recovery infra) — is answered "no," decommission the issuer (Cognito binding, Lambda/API-GW/Caddy, secrets), retaining the local toy as a dormant, re-deployable capability. Leaving a live IdP with zero future consumers is the one outcome to avoid.
+
+Also noted: Tier 3's ocap ambition is **fulfilled by Endo, not Ethereum** — the guest formula identifier is the unforgeable bearer capability; the future handshake is Ed25519 proof-of-possession (#56 § 8), not an on-chain registry contract.
+
+## What changed
+
+Opened **[kriscendobot/minion.town#80](https://github.com/kriscendobot/minion.town/pull/80)** (draft review PR, head `design/siwe-invitation-pivot` → `main`), two files:
+- `designs/siwe-invitation-pivot.md` — the full recommendation: the axis, ADAPT reasoning, survives/dissolves table, what an Ethereum identity binds to (a guest *account*, not a node in the invitation graph — SIWE is off the invitation/accept path just as OAuth now is), the Endo-fulfills-Tier-3 argument, issuer consequences, rejected alternatives, and an `## Open questions` section.
+- `designs/siwe-onchain-authz.md` — a status banner marking § 3 and the tier decisions superseded pending this review (mirroring the repo's supersession pattern).
+
+Presented as a **review PR rather than landed bare** per the CLAUDE.md open-questions carve-out and the job's explicit instruction, because it decides an authorization boundary and carries three genuine maintainer-facing questions (chiefly the wallet-recovery-bond fork between ADAPT and CLOSE).
+
+## Follow-ups (for the maintainer / liaison, not auto-posted)
+
+- Answer the § 8 open questions on #80, primarily *whether an Ethereum recovery bond is wanted* (ADAPT vs CLOSE).
+- If ADAPT: withdraw `wire-siwe-onchain-authz-minion-town-followup`; after #56's recovery layer lands, post `bond-siwe-recovery-provider`.
+- If CLOSE: post a decommission job for `siwe-idp.minion.town`.
+
+I did not make live changes to the deployed issuer and wrote no allowlist, per the constraints.

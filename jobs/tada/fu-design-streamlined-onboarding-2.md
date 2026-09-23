@@ -1,0 +1,12 @@
+## Completion report
+
+**Job:** fix the `garden-journal-worktree-keeper` defect on host endolinbot2 where live per-job `gardener-wt-*` worktree admin entries were pruned out from under running gardeners.
+
+**Diagnosis (empirically reproduced).** The keeper runs a defensive `git worktree prune` on `$GARDEN_ROOT` every tick to clear a stale journal-worktree sibling registration left by a garden-root relocation. I reproduced the relocation in a throwaway repo: an `mv` of the whole tree (`/home/kris/garden2` → `/home/kris`) stales **every** worktree admin entry's recorded path at once, so `git worktree list` marks a **live** `gardener-wt-<base>` worktree `prunable` right next to the stale journal sibling. A blanket prune cannot tell them apart and deletes the gardener's admin entry; once the entry is gone `git worktree repair` can no longer recover it, so the running job's commits fail irrecoverably. That is exactly the endolinbot2 symptom (dangling gitdir → `/home/kris/garden2/.git/worktrees/journal` each tick + pruned live entries). I also confirmed that **repairing the live checkout first** re-links both cross-pointers and makes the entry non-prunable, and that prune-before-repair is unrecoverable.
+
+**Fix (landed on main2, `cf86c478f`).**
+- New shared helper `prune_worktrees_preserving_live` in `scripts/jobs/common.sh`: enumerates live per-job checkouts (`$GARDEN_SCRATCH/gardener-wt-*`, dispatch triples), runs `git worktree repair` on them **first** (lossless near-no-op on healthy trees), then prunes — so only genuinely-dead entries are cleared and every live gardener survives.
+- Routed all three blanket-prune call sites through it: `repair_journal_worktree_gitdir` and `ensure_journal_worktree_linked` (common.sh) and `jw_rebuild_dangling_worktree` (journal-worktree-keeper.sh). Updated the now-inaccurate header comments that claimed prune "never touches a live worktree."
+- Added a regression test in `journal-worktree-keeper-test.sh`: a relocation-staled live `gardener-wt` worktree reporting `prunable` must keep its admin entry, re-link, and preserve in-flight WIP across a tick. Suite: **94/94 pass**.
+
+**Follow-ups.** None required. The fix deploys to every host via the deliberate-deploy path on the next `deploy-garden.sh`. Note this addresses the collateral pruning; the underlying garden-root relocation on endolinbot2 is a separate operational event — the keeper now self-heals its aftermath losslessly rather than corrupting live jobs.

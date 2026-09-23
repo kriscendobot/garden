@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":28,"elapsed_s":642,"input_tokens":56,"output_tokens":26675,"cache_creation_tokens":82135,"cache_read_tokens":1744834,"total_cost_usd":2.0562347500000002,"ts":"2026-09-04T06:30:55Z","base":"minion-town-reminders-daemon-redeploy-unblock","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

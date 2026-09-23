@@ -1,0 +1,2 @@
+{"ts":"2026-09-17T17:45:09Z","base":"kriscendobot-garden-pr83-review-f6162506-retro","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":6}
+{"source":"result","model":"claude-opus-4-8","num_turns":11,"elapsed_s":104,"input_tokens":18,"output_tokens":6575,"cache_creation_tokens":55197,"cache_read_tokens":458632,"total_cost_usd":0.948957,"ts":"2026-09-17T18:06:01Z","base":"kriscendobot-garden-pr83-review-f6162506-retro","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"prosecutor","provider":"anthropic"}

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-fable-5","num_turns":42,"elapsed_s":805,"input_tokens":60,"output_tokens":51674,"cache_creation_tokens":133953,"cache_read_tokens":3427889,"total_cost_usd":8.695722,"ts":"2026-09-01T19:42:38Z","base":"design-minion-town-eval-campaign","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

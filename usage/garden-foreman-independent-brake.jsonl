@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":74,"elapsed_s":1048,"input_tokens":130,"output_tokens":60570,"cache_creation_tokens":167685,"cache_read_tokens":9132979,"total_cost_usd":7.761696499999999,"ts":"2026-08-05T15:14:10Z","base":"garden-foreman-independent-brake","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}

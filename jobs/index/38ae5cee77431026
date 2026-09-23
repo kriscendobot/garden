@@ -1,0 +1,2 @@
+base: improve-local-provider-model-presence-preflight
+identity: mentor:scripts/jobs/handlers/codex-provider-common.sh

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":24,"elapsed_s":259,"input_tokens":37,"output_tokens":10867,"cache_creation_tokens":70652,"cache_read_tokens":1454865,"total_cost_usd":1.7080684999999995,"ts":"2026-08-01T10:09:16Z","base":"finbot-pr4-harness-doc-drift","host":"endolin-garden2-5bcdff64","outcome":"tada"}

@@ -1,0 +1,1 @@
+Reviewed agenda, journal, repository, PRs, deployment workflow, and live edge. Posted substantive status to https://github.com/kriskowal/garden/issues/58#issuecomment-5045304107. No deployment initiated; B2 remains in progress and is the next action.

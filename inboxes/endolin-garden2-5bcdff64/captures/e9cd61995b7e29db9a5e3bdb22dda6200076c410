@@ -1,0 +1,29 @@
+<6>01:46:37 [cleric/1] job 'build-minion-town-web-invite-accept-slice-20260916' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>02:16:33 [assert-producer-pr-draft] draft-gate: BLOCK — https://github.com/kriscendobot/minion.town/pull/81 (kriscendobot/minion.town#81) named by completing job 'build-minion-town-web-invite-accept-slice-20260916' is a bot-authored OPEN NON-DRAFT PR with NO staged or completed gauntlet. Under the manual-gauntlet regime a producer PR may complete without a gauntlet only while DRAFT; a ready PR needs an explicit 'run the gauntlet #N'. Refusing to record the job complete. (Not re-drafting: the PR may be under maintainer review.)
+
+--- handler report (partial) ---
+Completed the minion.town web invite/accept slice in PR #81:
+https://github.com/kriscendobot/minion.town/pull/81
+
+- Added bearer-authenticated guest creation, resume, invitation acceptance, and mail APIs.
+- Added the public browser workflow with localStorage credential persistence.
+- Implemented the local fast path using independent pet names without network introduction.
+- Added the remote invitation seam with explicit graceful degradation pending endojs/endo-but-for-bots#1125.
+- Added optional OAuth recovery bonding with encrypted-at-rest credentials.
+- Added HTTPS, cache, referrer, CSP, deployment, and IAM protections.
+- Updated documentation and added HTTP integration coverage.
+
+End-to-end browser transcript:
+
+```text
+alice created local invitation naming peer 'bob'
+bob accepted as a new guest naming inviter 'alice'
+alice -> bob: hello bob from the web
+bob -> alice: hello alice from the web
+```
+
+Verification: 408 tests passed, 5 skipped; typecheck and all pre-push gates passed; Playwright two-context workflow passed; CI passed. Commit `e3c84775b338d730b86abb6892292c34c85d521f` is pushed and PR #81 is ready for review.
+
+Follow-ups: remote invitations await #1125; horizontal scaling will require a shared invitation-claim store.
+
+Self-improvement: reported npm-runner detection and live-daemon CI parity gaps to the liaison.

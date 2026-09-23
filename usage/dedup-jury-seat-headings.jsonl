@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":40,"elapsed_s":426,"input_tokens":78,"output_tokens":27040,"cache_creation_tokens":87790,"cache_read_tokens":2936662,"total_cost_usd":3.0259179999999994,"ts":"2026-09-17T20:04:26Z","base":"dedup-jury-seat-headings","host":"endolin-garden-ece02cb4","outcome":"tada","role":"fixer","provider":"anthropic"}

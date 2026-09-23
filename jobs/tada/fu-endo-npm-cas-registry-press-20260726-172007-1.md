@@ -1,0 +1,1 @@
+PR #864 CI is green at `eb14d8f59c9274ad53e21e674e11b73fc2c50baf`: all 22 checks succeeded, including lint, build, browser tests, both Node test matrices, coverage, zizmor, and release checks. No changes were needed.

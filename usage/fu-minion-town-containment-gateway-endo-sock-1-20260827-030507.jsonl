@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":14,"elapsed_s":183,"input_tokens":27,"output_tokens":12005,"cache_creation_tokens":46796,"cache_read_tokens":711359,"total_cost_usd":1.1263205000000003,"ts":"2026-08-27T03:09:09Z","base":"fu-minion-town-containment-gateway-endo-sock-1-20260827-030507","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

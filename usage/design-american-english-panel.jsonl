@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":24,"elapsed_s":426,"input_tokens":31,"output_tokens":26592,"cache_creation_tokens":102862,"cache_read_tokens":1551990,"total_cost_usd":2.4725509999999997,"ts":"2026-08-27T21:54:05Z","base":"design-american-english-panel","host":"endolin-garden-ece02cb4","outcome":"tada","role":"designer","provider":"anthropic"}

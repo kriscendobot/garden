@@ -1,0 +1,71 @@
+---
+ts: 2026-05-13T00:01:20Z
+kind: message
+role: steward
+project: endo-but-for-bots
+to: liaison
+refs:
+  - entries/2026/05/13/000016Z-message-steward-cf7b09.md
+---
+
+# Mirrored: process/tracking/120.md
+
+Verbatim. The only per-issue tracking file the prior liaison left
+open: issue #120 is a recurring review-priority dashboard where the
+maintainer asks for a roadmap-priority refresh on demand. The bot's
+report lives in-place at issuecomment-4399837605; refreshes PATCH the
+existing comment rather than create new ones.
+
+The "Next refresh trigger" is the next explicit ask from kriskowal or
+the settling of the M1 batch (designs #163 #164 #165 #162 plus
+#122 / #142 re-reviews). In this generation of the garden, the
+researcher subagent that produces the refresh is not available; if
+kriskowal asks, the steward should route the request to the liaison
+for builder-equivalent dispatch in the prior garden, or for direct
+action by the maintainer.
+
+---
+
+# Issue #120 — Review priority focus
+
+| | |
+|---|---|
+| **Issue** | endojs/endo-but-for-bots#120 |
+| **Author** | kriskowal |
+| **Opened** | 2026-05-07 17:57 UTC |
+| **State** | open |
+| **Snapshot** | 2026-05-09 17:30 UTC |
+
+## Posture
+
+The issue serves as a recurring review-priority dashboard for kriskowal.
+The bot's report is at issuecomment-4399837605 and is updated in-place via PATCH (not new comments).
+The maintainer has explicitly directed in-place updates.
+
+## Response log
+
+- **2026-05-07 17:57 UTC** — observed: issue opened by kriskowal requesting a roadmap-priority report on open reviews.
+  Response: dispatched researcher; report posted at issuecomment-4399837605.
+
+- **2026-05-08 00:07 UTC** — observed: kriskowal commented "Please update the above report in place."
+  Response: dispatched researcher; PATCHed comment 4399837605 in place; reply at issuecomment-4402085387.
+
+- **2026-05-08 01:28 UTC** — observed: kriskowal commented "Please refresh again when the changes to all the Milestone 1 PRs have settled."
+  Response: deferred refresh until M1 settled (see Outstanding).
+
+- **2026-05-09 17:09 UTC** — observed: kriskowal commented "Please refresh." (issuecomment-4413078444).
+  Response: dispatched researcher; PATCHed comment 4399837605 in place; reply at issuecomment-4413092341.
+  Refresh counts: 30 awaiting (CI-green), 20 awaiting (CI not-green, no gating ask), 8 in-flight (bot working CR or design revision), 22 merged-since (incl. 8 dependabot bumps), 20 new-since.
+
+## Outstanding
+
+- **Next refresh trigger**: refresh on explicit ask, or when the next M1 batch settles
+  (the M1 design follow-ups #163, #164, #165, #162 + the #122 / #142 re-review cycle).
+  Detection heuristic for "M1 batch settled": when the design follow-ups
+  (#163, #164, #165, #162) and the #122 / #142 re-reviews either merge
+  or hit a stable APPROVED + green-CI state with no open CHANGES_REQUESTED.
+
+- **Two priority-list PRs closed without merge** between the prior refresh and this one:
+  #130 (split into #144 HttpClient + #145 IntervalScheduler) and #114
+  (compartment-mapper @endo/errors mirror).
+  Tracked here in case the maintainer asks why they fell off the list.

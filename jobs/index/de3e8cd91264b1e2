@@ -1,0 +1,2 @@
+base: improve-proxy-qualified-replies
+identity: mentor:scripts/jobs/handlers/proxy-claude.sh

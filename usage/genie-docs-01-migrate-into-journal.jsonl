@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":8,"elapsed_s":90,"input_tokens":16,"output_tokens":6272,"cache_creation_tokens":34149,"cache_read_tokens":324397,"total_cost_usd":0.6632875,"ts":"2026-08-13T21:53:10Z","base":"genie-docs-01-migrate-into-journal","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder"}

@@ -1,0 +1,70 @@
+---
+withdrawn: true
+withdrawn_reason: weave directive SATISFIED: endojs/endo-but-for-bots#897 is mergeable=MERGEABLE against llm with 4 commits and no conflicts left to resolve, so the rebase this job existed to perform has no work to do. The comment-watcher will re-post on a fresh directive if it drifts (2026-09-01 muster)
+withdrawn_by: producer
+withdrawn_at: 2026-09-01T20:39:55Z
+withdrawn_from_gate: go-ahead
+---
+
+---
+gate: go-ahead
+priority: normal
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+requeue_cycles: 5
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-08-23T03:43:16Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-08-23T03:43:16Z
+---
+
+---
+tier: minion
+token-budget: 100000
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-08-22T13:58:11Z cleared=none -->
+
+---
+tier: minion
+model-burned: mentor
+fallback-tier: 
+dispatch: automatic
+---
+# weave directive on endojs/endo-but-for-bots PR #897
+
+Map: **weave/rebase** → rebase the PR branch onto a fresh base, resolving
+conflicts by honoring both sides (never `--ours`/`--theirs`).
+
+Repo: endojs/endo-but-for-bots
+PR: https://github.com/endojs/endo-but-for-bots/pull/897
+Head branch: fix/mount-glorp-713-followup
+Base branch: llm
+
+Task: PR #897 was APPROVED by kriskowal
+(https://github.com/endojs/endo-but-for-bots/pull/897#pullrequestreview-4947210677)
+but its head (03d75fd1) is **CONFLICTING** with base `llm`
+(`mergeable: false`, `mergeable_state: dirty`): 4 ahead / 274 behind,
+diverged. GitHub therefore builds no merge ref and dispatches no CI on new
+pushes, so the branch cannot be driven to green until the conflict is resolved.
+
+Rebase `fix/mount-glorp-713-followup` onto current `llm`, resolving all
+conflicts, force-push with `--force-with-lease`, and confirm `mergeable`
+returns to true so CI re-dispatches. If the rebase reveals the branch's premise
+no longer holds (the #713 panel must-fix bundle already landed upstream, or a
+conflict needs interpretation beyond mechanical resolution), escalate per the
+weaver→fixer/liaison chain rather than force a resolution.
+
+After the rebase lands mergeable and CI green, the PR is ready for a merge job
+(it is already approved).
+
+Context: handed off from the shepherd job
+endojs-endo-but-for-bots-pr897-shepherd, which found the PR conflicting (a
+weaver task per roles/shepherd/AGENT.md "Conflicting PRs block CI dispatch").
+The prior CI run also showed a `test (22.x, macos-15)` timeout flake
+("Timed out while running tests" in the @endo/agentry eval suite) — after the
+rebase re-dispatches CI, treat a recurrence as an operational flake and re-run.

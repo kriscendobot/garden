@@ -1,0 +1,15 @@
+Design job complete — draft PR [#675](https://github.com/endojs/endo-but-for-bots/pull/675) (`designs/platform-search-pushdown.md` on `design/platform-search-pushdown` → `llm`, endojs/endo-but-for-bots).
+
+**What I did**
+
+- Located the live stack: the job's "endo #127 on kriscendobot/endo" is stale — #127 lives on `endojs/endo-but-for-bots`, was closed 2026-07-09, and is reconstructed as #650 (revocation/deny) → #653 (glob) → #655 (grep) → #657 (JSON), with sibling designs #648 (reconstruction plan) and #647 (streaming). Designed against those live layers.
+- Surveyed `@endo/platform` (lite/node split, the PR #592 `makeWatchDirectory` factoring precedent), `@endo/exo-stream` (protocol carries one element per CapTP message regardless of `buffer` — pipelining, never batching), the #653/#655 mount implementations (ReDoS-safe matcher, `mount-glob-contract.json`, `grep(pattern, {glob})`), the PR #654 `rust/mount_parity` crate, and the agent-tools/primer surface (empty "Search" group in `designs/daemon-agent-tools.md`).
+- Wrote the design resolving all six constraints: normative JS engine moves to `@endo/platform/fs/search` as **batch-yielding async generators** over narrowed powers with declarative deny/confinement inputs; daemon reveals it on `EndoMount` via `provideSearch(filePowers)` with optional per-platform native override; **`Promise<Array>` kept**, grep decoupled to `grep(pattern, paths?, options?)` (`M.callWhen`+`M.await` guard, `options.glob` deleted); streaming variants forward-designed with **intrinsic batching** (stream element = hardened batch, `readPattern: M.arrayOf(…)`) and the glob→grep pipeline (`streamGrep` accepts a reader of path batches) — superseding #647's one-element-per-message surface; per-platform pushdown table (Node = JS floor, native `fs.glob` rejected for dialect/engine-floor reasons; XS/Rust = native `hostGlob` + pattern-granular `hostGrepFiles` with JS fallback outside a conservative regex subset); `mountGlob`/`mountGrep` agent tools with tool-level `filesGlob` sugar and verbatim primer copy for `packages/lal/primer/tools.md`.
+
+**Per-layer implementation map** (for the builder and per-layer gauntlet): A #650 untouched (merging) → **P new** `feat/platform-search` (platform engine + case tables) → B′ #653 revised in place (glob delegates) → C′ #655 revised in place (grep decoupled + delegates) → D #657 rebase only → **T new** `feat/agent-tools-mount-search` (tools + primer); follow-ups S (streaming + exo-stream `batching.js`; update/close #647) and R (Rust-native, promoting the #654 mirror to a live host function).
+
+**Open questions named** for maintainer/panels: grep `paths` default-whole-tree vs required; canonical home of the fixture/case tables (platform vs daemon); batch-size constants; whether to pin the conservative-regex grammar now.
+
+**Follow-ups**: the build child implements layers P/B′/C′/T; design PR #647 needs updating or closing per the superseding streaming section.
+
+Self-improvement: added a design-dependency-walk field note (closed-and-reconstructed seed PRs — walk closure comments to the live stack; verify the fork) to `main2`.

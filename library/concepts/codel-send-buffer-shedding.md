@@ -1,0 +1,37 @@
+---
+id: codel-send-buffer-shedding
+aliases: ["CoDel", "codel", "controlled delay", "send-buffer shedding", "load shedding", "load-shedding", "sendbuffer", "recvbuffer", "priority load shedding", "TrafficClass", "traffic class", "256-bit priority", "parasitic eviction", "cohort shedding", "backpressure", "drainNotify", "drainWaiterCount", "notifyDrain", "PopPriority", "wake by traffic class", "WithTrafficClass", "TrafficClassFromContext", "bestTrafficClass", "BestTrafficClass", "traffic class clamp", "traffic class clamping", "claimable priority"]
+topics: [networking, data-structures]
+status: current
+---
+
+# codel-send-buffer-shedding
+
+CASK's approach to bounding latency and shedding load under pressure, borrowing the CoDel (controlled-delay) idea and grounding it in a priority ordering. Each message carries a one-byte **TrafficClass** (0–128) and a 128-bit **Trace**; its **Priority** is `Trace >> (128 - TrafficClass)`, and `(TrafficClass, Trace)` forms a single 256-bit ordering key where lower-class, lower-trace traffic is least likely to be evicted (maximizing overall system health). The send and receive buffers are fixed-size parallel-array tables with priority heaps over the columns, so when a buffer fills, a higher-priority span **parasitically evicts** lower-priority entries (and, in the telemetry buffer, their associated log blocks) rather than blocking. Traffic classes 0–5 are reserved for acknowledgements; the ack class for any other class is that class minus 5, sized so acks roughly outrank the traffic they confirm and suppress retries. At the RPC layer the same idea appears as **cohort-based shedding**: requests are bucketed into healthy/unhealthy cohorts by `hash(user_id, priority) & mask`, and an overloaded node sheds unhealthy cohorts first while continuing to serve healthy ones. The dequeue side (the Peer sends by `PopPriority()`, highest priority first) is complemented by an **enqueue-side backpressure** mechanism (`net-design.md`): when the send queue is full a Peer blocks `Store()` callers instead of growing the buffer, and wakes them in TrafficClass order via a bank of 129 per-class notifier channels (`drainNotify[0..128]`) and atomic waiter counters that `notifyDrain()` scans low-class-first.
+
+## Sections that touch this concept
+
+| Section | One-line summary |
+|---|---|
+| [cask--trace2--traffic-class-and-priority](../sections/cask--trace2--traffic-class-and-priority.md) | trace2.md §6's restatement of the model ("unchanged from TRACE.md"), with the `<<`/`>>` shift-operator discrepancy documented; the `>>` form is canonical. |
+| [cask--trace2--buffercasktel-sampling-buffer-and-eviction](../sections/cask--trace2--buffercasktel-sampling-buffer-and-eviction.md) | buffercasktel: the parallel-array span buffer; high-priority spans parasitically evict lower-priority spans and their log blocks; Flush. |
+| [cask--trace--traffic-class-and-priority](../sections/cask--trace--traffic-class-and-priority.md) | **Superseded** by the trace2 section above. TrafficClass/Priority computation, the (TrafficClass, Trace) 256-bit eviction key, ack classes 0–5; the original `>>` form. |
+| [cask--trace--tracer-interface-and-telemetry-buffer](../sections/cask--trace--tracer-interface-and-telemetry-buffer.md) | **Superseded** by the trace2 buffercasktel section above. The original sketch of the parallel-array eviction buffer. |
+| [cask--readme--priority-load-shedding](../sections/cask--readme--priority-load-shedding.md) | Per-class backpressure and coordinated fan-out shedding over the sendbuffer priority heaps. |
+| [cask--readme--what-tcp-costs-you](../sections/cask--readme--what-tcp-costs-you.md) | The TCP critique (bufferbloat, no in-flight priority/expiry) that motivates CoDel borrowing. |
+| [cask--architecture--layers-3-4-rpc-routing-orchestration](../sections/cask--architecture--layers-3-4-rpc-routing-orchestration.md) | Cohort-based health grouping and coordinated load shedding at the RPC layer. |
+| [cask--net-design--backpressure-and-traffic-class-wake](../sections/cask--net-design--backpressure-and-traffic-class-wake.md) | Enqueue-side: block `Store()` on a full queue; wake waiters by TrafficClass via 129 per-class notifier channels. |
+| [cask--net-design--lost-notification-coordination](../sections/cask--net-design--lost-notification-coordination.md) | The increment-under-lock / notify-after-unlock proof that no drain notification is lost. |
+| [cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry](../sections/cask--net-crypto-go--membership-mutuality-traffic-class-and-key-asymmetry.md) | The per-session `bestTrafficClass` enforcement point: a session's claimed class is clamped up to its admitted ceiling (unknown sessions default to 128), so a peer cannot escalate its own priority by lying in the `casc` traffic-class byte. |
+| [cask--net-peer-go--traffic-class-send-queue-drain-prioritization](../sections/cask--net-peer-go--traffic-class-send-queue-drain-prioritization.md) | **Implementation source-of-truth** for the enqueue-side wake: the 129-element `drainNotify`/`drainWaiterCount` arrays, `notifyDrain` scanning class 0 upward to wake the highest-priority blocked `Store` waiter, `DefaultDrainTrafficClass = 64`, and `drainClassFromContext` (explicit TrafficClass → Span.TrafficClass → default). |
+
+## See also
+
+- [[casktel-span-completion]] — the *completion/progress* side of the same casktel Span: `Add`/`Done`/`Progress` and the Store/StoreWithSpan/SpanDriver layering. This concept is the *priority/eviction* side; the two meet in the Span, which carries the Priority that buffers (including buffercasktel) order by.
+- [[parallel-arrays-columnar]] — the fixed-size buffer the priority heaps order; eviction is a swap-to-end deallocation.
+- [[swap-to-end-allocation]] — how an evicted slot is reclaimed.
+- [[content-addressed-block-store]] — the 1KB block is the unit both buffered and shed.
+
+## Common confusions
+
+- **Priority shift direction (`>>` vs `<<`).** trace.md writes `Priority = Trace >> (128 - TrafficClass)` (right shift) and trace2.md §6 writes `Trace << (128 - TrafficClass)` (left shift) while labelling §6 "unchanged from TRACE.md". The **right-shift form is canonical**: it is the one internally consistent with the shared rule that a *lower* TrafficClass and *lower* Trace are *less* likely to be evicted (lower value = higher priority). A lower TrafficClass makes `128 - TrafficClass` larger; a larger *right* shift leaves the Trace with fewer significant bits and thus a smaller value. A left shift would invert that. Re-audited cycle 5; the trace2 §6 `<<` reads as a transcription slip and is a candidate upstream comment cleanup. Everything else in §6 (default class 5, ack classes 0–5, ack = T − 5, the 256-bit `(TrafficClass, Trace)` key) is genuinely unchanged.

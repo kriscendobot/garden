@@ -1,0 +1,12 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":22,"elapsed_s":300,"input_tokens":40,"output_tokens":9207,"cache_creation_tokens":49627,"cache_read_tokens":1171645,"total_cost_usd":1.3148075000000004,"ts":"2026-08-14T22:26:23Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden-ece02cb4","outcome":"requeue","role":"conductor"}
+{"ts":"2026-08-14T22:34:47Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":55}
+{"ts":"2026-08-14T22:45:00Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":71}
+{"ts":"2026-08-14T22:55:00Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":82}
+{"ts":"2026-08-14T23:06:43Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":81}
+{"ts":"2026-08-14T23:14:04Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":33}
+{"ts":"2026-08-22T14:07:27Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":31}
+{"ts":"2026-08-23T02:53:04Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":38}
+{"ts":"2026-08-23T03:08:43Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":27}
+{"ts":"2026-08-23T03:32:46Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":113}
+{"ts":"2026-08-23T03:40:06Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":84}
+{"source":"none","ts":"2026-09-01T22:17:03Z","base":"endojs-endo-but-for-bots-pr946-conduct","host":"endolin-garden-ece02cb4","outcome":"tada","elapsed_s":787,"role":"conductor","provider":"openai"}

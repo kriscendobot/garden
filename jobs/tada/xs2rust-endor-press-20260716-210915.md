@@ -1,0 +1,13 @@
+**Completion report — xs2rust-endor-press-20260716-210915**
+
+**Finding: the chain was stalled 5 days, and the stall was a garden infrastructure bug, now fixed.** The supervisor continuation `port-xs-to-rust-memory-safe-engine-s19` (which owns the stage-5 formal acceptance and the stage-6 dispatch for PR endojs/endo-but-for-bots#600) sat parked in `plan/` since 2026-07-11, blocked on `xs2rust-endor-262-smoke-corpora-repair` — a job that had already completed two minutes before s19 was posted. Root cause: the leader's `garden-unblock.timer` still carried the monotonic `OnActiveSec=3m`/`OnUnitActiveSec=5m` pair — the exact starvation class the 2026-07-03 fix closed for orchestrate/foreman/deadmail/mirror-closer but missed here. Evidence: timer active since 2026-07-14 with LastTrigger empty and zero service journal entries; daemon-reload churn re-anchored its first elapse forever.
+
+**What I did:**
+- Fixed `scripts/systemd/garden-unblock.timer` on main2 (`OnCalendar=*:01/5` + `Persistent=true`, matching the established idiom) — pushed as `6012296908` (push exit 0, `8c8c8728ec..6012296908`).
+- Installed the fixed unit on the leader (`endolin-garden2-5bcdff64`), daemon-reloaded, restarted the timer (LastTrigger now populates), and fired `garden-unblock.service` once manually (rc=0).
+- Verified the unstall: journal shows `promote(port-xs-to-rust-memory-safe-engine-s19) plan→todo` (`5080e80c6e`) followed immediately by `claim(...) endolin-garden-ece02cb4/gardener-8` — **the supervisor chain is live again**.
+- Posted progress entry `entries/2026/07/16/211414Z-progress-gardener-bcfad1.md` and messaged the maintainer (delivered `20260716T211440Z-c78e4b`). Inbox drained, empty.
+
+**Bars, per the reporting norm:** finish line NOT met — endor daemon integration, `test:rust`, and full test262 parity all lie past stage-5 acceptance, which is s19's first act. I made **no pushes to `xs2rust-endor`** and ran no tests this tick (pressing the branch would collide with the just-claimed s19). Latest real-execution evidence remains the smoke-repair fixer's report at the current head `69ec87becb`: `cargo test --workspace -- --test-threads=1` EXIT=0, all 22 `test result:` lines 0 failed — not re-verified by me.
+
+**Follow-ups:** (1) the next hourly driver should observe-only while s19 and any stage-6 orchestration it dispatches are in flight; (2) `garden-proxy`, `garden-watchman`, `garden-mention-watcher`, `garden-gardener-scaler`, and `garden-repo-watcher` timers still use the monotonic pattern — a sweep job is warranted (flagged to the maintainer); (3) the installed-unit fix on this host precedes the next deliberate deploy, which will re-render it identically from main2.

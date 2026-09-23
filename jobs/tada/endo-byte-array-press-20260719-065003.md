@@ -1,0 +1,14 @@
+Both erights-last threads are closed loops — his final replies are "That makes sense to me, thanks" and "that new wording is fine. Thanks." Nothing actionable; resolution is the reviewer's to click. The entire front remains waiting on humans, so this is an assess-only dispatch.
+
+**Byte-array press dispatch report (2026-07-19T06:50Z) — progress observation; front unchanged, still waiting on maintainer action, no code pushed.**
+
+Assessed live this run: front PRs #503/#475, blocker #671, design #572, the parked registry follow-up, and the live-agent roster. No peer is on this front (`inbox-list.sh` shows only other-domain presses and self-heal jobs); my inbox was empty at claim and drain.
+
+- **PR #475** (narrow byteArray to plain frozen Uint8Array — design-of-record per #572): head `1b1dc75ba9` unchanged since the 07-17 rebase; last comment is still our rebase report (2026-07-17T00:24Z). Re-review requested from kriskowal and erights, no verdict yet. I additionally audited all 13 unresolved review threads: 11 have the bot as last replier (awaiting reviewer), and the 2 where erights replied last (2026-07-01) are both explicit sign-offs ("That makes sense to me, thanks" on the compareBytes lexicographic-vs-shortlex rationale; "that new wording is fine" on the Stage-3 wording) — nothing to answer, resolution is theirs to click. Prior real-execution evidence stands on this unchanged head (17/17 checks green including `test-xs` run 29559159941).
+- **PR #503** (emulation + old-shape brand check): head `453f6ef0d` unchanged; the disposition question to kriskowal (close as superseded by #475 per #572 Decision 2, or narrow to an emulation-only slice) posted 2026-07-18T06:25Z is unanswered at ~24h — still under the ~48h nudge threshold (2026-07-21). Left untouched per the standing commitment not to pre-empt the maintainer's call.
+- **Blocker #671**: still OPEN, CHANGES_REQUESTED (daemon-data-plane press's territory). The registry follow-up remains correctly parked at `journal/jobs/plan/registry-immutable-byte-array-followup.md`, gated `blocked_on: PR #671`; not started, per spec.
+- **Design #572** quiet since 2026-07-01; spike **#602** dormant by design. The byteArray-view redesign has fully replaced the immutable-ArrayBuffer approach in #475; only #503's disposition is pending.
+
+**What changed this dispatch:** nothing, deliberately — every actionable item is current and awaiting human response. New information over the prior dispatch: the two erights-last threads are confirmed sign-offs, not pending questions.
+
+**Follow-ups for the next dispatch:** (1) check for kriskowal's answer to the #503 disposition question and execute the chosen path; (2) check for re-review verdicts on #475 and work any resulting threads; (3) if the disposition question is still unanswered past 2026-07-21, send a gentle `message-user.sh` nudge rather than another PR comment.

@@ -1,0 +1,2 @@
+base: improve-hermit-claims-gardener-role-jobs
+identity: mentor:scripts/jobs/claim-job.sh

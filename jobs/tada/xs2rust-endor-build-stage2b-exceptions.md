@@ -1,0 +1,25 @@
+All work is committed and pushed (local HEAD = origin), the tree is clean, PR #600 remains draft/open.
+
+## Completion report — xs2rust-endor stage 2b (child 3/3): exceptions, full opcode coverage, stage-2 bar
+
+**What landed** — 5 commits on `endojs/endo-but-for-bots` branch `xs2rust-endor` (PR #600, kept DRAFT):
+
+- `366062dd1` **exceptions via XS's jump-buffer chain**: `catch`/`uncatch`/`exception`/`throw`/`rethrow`/`throw_status` ported from `xsRun.c`, with the JS/host flag reduced to a structural predicate (each `self.jumps` entry is a JS jump; the empty chain is the host boundary). `CATCH` records target + value-stack/scope/call-frame cuts; `THROW`/`RETHROW` unwind to the innermost jump (crossing called frames), restore the cuts, resume at the catch target with a meter check; uncaught throws propagate to the host as `Halt::Throw`. `fxJump`/`c_malloc` are unmetered, so caught throws are dispatch-metered. Uncaught host-escape modeled faithfully: the escaping opcode is un-metered (its `mxBreak` bypassed by the longjmp) and a measured `THROW_HOST_ESCAPE_METERING` (1<<15) constant is accrued — verified against the pin. **Tightened `DualRun::is_bit_exact`** (observation 3): a shared `BothAbort` is bit-exact only when the thrown-value string AND computrons match, like `BothComplete`; the oracle shim now records run-only computrons at an uncaught throw (`mxCatch`) so the abort path is comparable. New `stage2b-exceptions.js` corpus (25 programs) + standing interp locks.
+- `40b681acb` **full 245-opcode decode+dispatch coverage**: the pure `_2` wide-index local variants, `swap`, and the semantics-free markers (`line`/`file`/`debugger`/`profile`) execute faithfully; every other opcode halts `Unsupported` naming itself via the catch-all. New coverage test drives all 246 bytes — each decodes, resolves a length, and dispatches to a defined outcome, never `Decode`/panic.
+- `3c7da939d` **fuzz grammar** over objects, calls, closures, thrown-and-caught exceptions (`gen_stage2b_program`), driven by the full bit-exact `differential_check`; 400-seed sweep + new `differential_stage2b` cargo-fuzz target.
+- `55e5cdcfb` **test262 `language/` dual-run runner** (`endor_262::test262` + `test262-language` binary): front-matter parse, standard harness assembly, dual-run, honest covered/divergent/skipped-by-named-reason split. The runner surfaced and I **fixed a real metering bug** — an undeclared sloppy-global CREATE via `SET_VARIABLE` under-metered by one code unit (XS's `[[Set]]`→define setter machinery); verified per-site (N fresh globals = N units, overwrite = 0, declared-`var` hoist untouched).
+- `67226d79f` docs: README (runner usage, per-subtree memory guidance) + design (stage-2b complete).
+
+**test262 language/ numbers (verbatim):**
+- Covered-grammar sections (in-CI test, 953 files): **total=953, covered=46 bit-exact, divergent=0**, skipped=907 — named: endor-aborted 341, unsupported-opcode:{global 144, string 138, array 123, generator 50, to_instance 40, typeof 21, current 17, increment 8, bigint 7, to_numeric 7, this 3, refresh_local 2, new 1}, builtin-coercion-computron-gap 2, non-primitive-completion 1, abort-value-or-cost-differs 2.
+- `language/expressions` subtree (9446 files): **total=9446, covered=155, divergent=0**, skipped=9291.
+
+**Corpora (all bit-exact — result AND computron):** stage-1 86, stage-2 23, stage-2b functions 33 / closures 10 / exceptions 25. **Fuzz:** expr 300 + stmt 300 + stage-2b 400 seeds bit-exact, decoder 2000 seeds panic-free. **Miri GC:** 8/8 green. `#![forbid(unsafe_code)]` intact on endor-vm/endor-262/endor-fuzz; endor-oracle the sole FFI seam. **Full suite: 51 tests green** (endor-vm 28, endor-262 16, endor-fuzz 4, endor-oracle 3).
+
+**Scope folds / frictions:**
+1. Oracle shim: added run-only computron capture on the uncaught-throw path (reads `meterIndex` it already computes) so `BothAbort` is comparable — needed for observation 3's computron half.
+2. Uncaught host-escape metering is a measured constant (1<<15), verified on two independent programs, in the same style as child-1's program-overhead constants.
+3. Built-in gaps in real `language/` (object `ToPrimitive` coercion, `Function.prototype.toString`, function naming via property define) manifest as completing-but-diverging; classified as **named skips** (`builtin-coercion-computron-gap`/`non-primitive-completion`), never folded into `covered` — a wrong *primitive* value stays a hard divergence (zero everywhere measured). This is honest per "built-ins stubbed."
+4. A whole-tree single-process `language/` run OOMs (C-oracle memory accumulation over ~20.6k machine cycles) and the `statements` subtree is slow (>8 min); run per subtree — documented in the binary and README. Divergences are 0 on everything swept.
+
+**Follow-ups (stage 3+):** model the built-in metering (ToPrimitive coercion, function naming via define, function toString) to graduate the currently-skipped completing cases into `covered`; a faster/batched full `statements` + `built-ins` sweep. No blocking discoveries, so nothing sent to `port-xs-to-rust-memory-safe-engine-s5`.

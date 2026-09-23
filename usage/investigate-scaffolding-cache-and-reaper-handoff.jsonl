@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":24,"elapsed_s":490,"input_tokens":46,"output_tokens":32820,"cache_creation_tokens":120045,"cache_read_tokens":1969880,"total_cost_usd":3.0106029999999997,"ts":"2026-09-06T05:46:48Z","base":"investigate-scaffolding-cache-and-reaper-handoff","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

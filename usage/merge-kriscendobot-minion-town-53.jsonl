@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":8,"elapsed_s":75,"input_tokens":13,"output_tokens":4052,"cache_creation_tokens":40110,"cache_read_tokens":319475,"total_cost_usd":0.6646305000000001,"ts":"2026-08-27T20:50:35Z","base":"merge-kriscendobot-minion-town-53","host":"endolin-garden-ece02cb4","outcome":"tada","role":"conductor","provider":"anthropic"}

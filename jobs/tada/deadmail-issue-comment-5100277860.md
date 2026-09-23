@@ -1,0 +1,16 @@
+**Completion report — `deadmail-issue-comment-5100277860`**
+
+**What I did.** This was a dead-lettered issue-inbox message for [kriscendobot/garden#34](https://github.com/kriscendobot/garden/issues/34) ("CAS and DID") whose addressee had already finished. I read the full thread (11 comments: the magnet-URN / OCapN-locator convergence and the design PR it produced), then carried the new maintainer comment's intent forward — it asked two things.
+
+1. **Answered the DID question on the thread**, grounded in primary sources I fetched rather than memory (W3C DID Core, the ATProto DID and repository specs, the UCAN spec): DIDs have *two* analogs, not one — the `service` / `serviceEndpoint` set is the connection-hint analog (optional, plural, controller-mutable, resolved indirectly, and unverified — a hint in the same sense as a magnet tracker), while `verificationMethod` plus the five verification relationships authenticate a *signature*, so they attest who vouched for the bytes and who holds authority over them, never the bytes themselves. Noted the weaker-than-they-look neighbours (`alsoKnownAs` proves nothing by spec; `versionId`/`versionTime` is a time axis over mutable state, not a content address), and that ATProto is the deployed worked example of the whole layering — DID → `#atproto_pds` endpoint hint → content-addressed signed MST repo.
+2. **Dispatched the scholar** the maintainer asked for: posted `scholar-atproto-ucan-addressing-taxonomy` to the board, carrying the ISSUE NOTE verbatim so the report comes back on issue #34. Scope: ATProto end to end, UCANs (delegation/attenuation/invocation/revocation, DAG-CBOR envelope with CIDv1-addressed tokens, 0.10-versus-1.0, honest comparison against an OCapN sturdyref/swissnum), a synthesis table extending the maintainer's four rows on explicit axes, a short "so what for Endo" against [endojs/endo-but-for-bots#662](https://github.com/endojs/endo-but-for-bots/pull/662), plus library ingestion of the primary specs — with the report to be posted first if both do not fit one cycle.
+
+**What changed.**
+- Comment posted as `kriscendobot`: https://github.com/kriscendobot/garden/issues/34#issuecomment-5101300832 (verified author and that the issue is still **OPEN** — never closed by the fleet).
+- Job on the board: `jobs/todo/scholar-atproto-ucan-addressing-taxonomy.md` (verified by an idempotent re-post reporting "already present in lifecycle").
+- No garden-library (`main2`) changes were needed, so nothing was committed or pushed from the job worktree.
+
+**Notes / follow-ups.**
+- The scholar's role brief forbids external writes, so the job body states explicitly why replying here is in bounds: the target is the garden's *own* issue inbox under `skills/issue-inbox`, not an upstream fork. If that keeps recurring, the cleaner fix is a sentence in `roles/scholar/AGENT.md` carving out the garden's own issue thread — worth a small garden-library job, not something I landed unilaterally.
+- The DID-Linked Resources work (cheqd/DIF) is a plausible but unverified lead; the job tells the scholar to confirm it is a real, current spec before citing it, rather than my asserting it here.
+- Inbox drained at completion: empty.

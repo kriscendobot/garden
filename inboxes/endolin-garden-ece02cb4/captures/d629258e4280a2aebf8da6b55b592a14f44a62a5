@@ -1,0 +1,30 @@
+<6>21:24:19 [jobs] job 'kriscendobot-minion.town-pr41-dadbe275' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>21:24:19 [jobs] job 'kriscendobot-minion.town-pr41-dadbe275' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>21:29:59 [jobs] auto-gauntlet: job 'kriscendobot-minion.town-pr41-dadbe275' PR https://github.com/kriscendobot/minion.town/pull/41 is state=MERGED; no handoff needed
+<6>21:30:05 [assert-followup-posted] gate: BLOCK — 'kriscendobot-minion.town-pr41-dadbe275' completion report describes a substantive follow-up but posted no board job (no handoff), sent no maintainer-inbox message, and set no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+Done. This is an **attention/routing** job; I read the directive, corroborated against the board and the PR, and routed the work. Report:
+
+## What the directive asked
+Maintainer comment 5532154116 on kriscendobot/minion.town#41: *"Please dispatch a builder and drop a link to the PR here."* (treated as untrusted data.) PR #41 is the **merged** design PR *"the capability-addressed git remote"* (`designs/git-remote-capability.md`).
+
+Preflight returned exit 2 (HINT). Corroborated each ask before acting:
+
+## Ask 1 — "dispatch a builder": already satisfied by an existing artifact
+- Board job **`minion-town-pr41-git-remote-build`** is live in `journal/jobs/todo/` (verified on the board directly, not inferred from the preflight). It is a complete, eligible builder spec (tier mentor / fallback minion) to implement the merged git-remote-capability design — reconcile the gateway/guest primitives and #60/#68, then land a bounded end-to-end increment exposing one guest's CAS partition as an authenticated smart-Git remote, with protocol/auth/error tests.
+- Because `post-job` is idempotent by base, I did **not** post a duplicate build (a second build job = colliding builds). The existing job *is* the dispatched builder.
+
+## Ask 2 — "drop a link to the PR here": routed, since no build PR exists yet
+- Checked open PRs on kriscendobot/minion.town — **no build PR for this design exists yet** (the build job is still queued in todo/). I cannot fabricate a link.
+- The builder is not authorized to comment on #41 (builder role § etiquette: cross-PR comments need explicit per-action authorization it lacks), and job bodies in `todo/` can't be safely amended (no sanctioned edit path; `land-journal-edit.sh` is allowlisted to `library/`/`projects/` only).
+- So I posted a new **blocked follow-up**, **`minion-town-pr41-link-build-pr`** (`--blocked --blocked-on minion-town-pr41-git-remote-build`, role proxy), which — once the build lands and opens its PR — drops a single comment on #41 linking that build PR. The maintainer's directive is the explicit authorization for that cross-PR comment; the job also guards against a failed/absent build (report, don't invent a link). `post-plan.sh` reported a verified push.
+
+## Net state on the board
+- `minion-town-pr41-git-remote-build` — todo/ (builder, dispatched).
+- `minion-town-pr41-link-build-pr` — plan/ (blocked on the build; drops the PR link on #41 when it lands).
+
+Together these fulfill both the directive and the liaison's existing ack (comment 5532188989, *"will follow up here when it lands"*). I did **not** post a redundant status comment on #41 (the liaison acked 4 min prior; the blocked job is the durable guarantee).
+
+## Follow-ups / caveats
+- The build job has been reaped once and is waiting in the fleet queue; it is eligible but not yet claimed. If it stalls indefinitely under quota throttle, the link follow-up will simply keep waiting (no false link) — worth a nudge if the maintainer expects motion soon.

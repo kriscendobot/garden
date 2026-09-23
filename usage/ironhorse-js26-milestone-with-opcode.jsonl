@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":110,"elapsed_s":1358,"input_tokens":200,"output_tokens":86634,"cache_creation_tokens":179553,"cache_read_tokens":12622716,"total_cost_usd":10.278389999999998,"ts":"2026-08-25T10:36:12Z","base":"ironhorse-js26-milestone-with-opcode","host":"endolin-garden2-5bcdff64","outcome":"tada"}

@@ -1,0 +1,2 @@
+base: improve-node-tool-shims-tsd
+identity: mentor:scripts/jobs/gardening/install-node-tool-shims.sh

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":32,"elapsed_s":664,"input_tokens":64,"output_tokens":11135,"cache_creation_tokens":60983,"cache_read_tokens":1771305,"total_cost_usd":1.7776085,"ts":"2026-09-16T01:53:14Z","base":"ses-node26-lockdown-permits-gauntlet-panel-4","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener","provider":"anthropic"}

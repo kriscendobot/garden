@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":8,"elapsed_s":114,"input_tokens":13,"output_tokens":8043,"cache_creation_tokens":35711,"cache_read_tokens":293217,"total_cost_usd":0.7078105,"ts":"2026-08-25T10:09:35Z","base":"ironhorse-campaign-paused-20260816","host":"endolin-garden2-5bcdff64","outcome":"tada"}

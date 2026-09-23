@@ -1,0 +1,2 @@
+base: improve-primary-quota-shared-cooldown
+identity: mentor:scripts/jobs/mirror-closer.sh

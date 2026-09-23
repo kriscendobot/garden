@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":13,"elapsed_s":112,"input_tokens":22,"output_tokens":7190,"cache_creation_tokens":62839,"cache_read_tokens":652753,"total_cost_usd":1.1379615,"ts":"2026-09-17T14:42:41Z","base":"kriscendobot-minion.town-pr76-review-1635fe3d-retro","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"prosecutor","provider":"anthropic"}

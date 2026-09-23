@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-fable-5","num_turns":32,"elapsed_s":305,"input_tokens":46,"output_tokens":22728,"cache_creation_tokens":81061,"cache_read_tokens":1490783,"total_cost_usd":4.252183,"ts":"2026-09-09T19:57:23Z","base":"review-proportional-worker-leveling-mentat","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

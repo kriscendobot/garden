@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":96,"elapsed_s":983,"input_tokens":168,"output_tokens":68952,"cache_creation_tokens":176539,"cache_read_tokens":11239890,"total_cost_usd":9.112486000000002,"ts":"2026-08-14T23:46:39Z","base":"endo-slots-ocapn-deliver-convention","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}

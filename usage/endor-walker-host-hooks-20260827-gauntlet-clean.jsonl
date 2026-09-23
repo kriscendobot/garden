@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":40,"elapsed_s":865,"input_tokens":75,"output_tokens":31316,"cache_creation_tokens":87780,"cache_read_tokens":2805117,"total_cost_usd":3.0666575,"ts":"2026-08-27T11:32:15Z","base":"endor-walker-host-hooks-20260827-gauntlet-clean","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener","provider":"anthropic"}

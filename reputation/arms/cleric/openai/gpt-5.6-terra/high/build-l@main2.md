@@ -1,0 +1,13 @@
+kind: cleric
+provider: openai
+model: gpt-5.6-terra
+thoughtfulness: high
+work_class: build:l
+target: main2
+attempts: 28
+accepts: 28
+censored: 26
+estimated: 26
+mean_dollars: 7.279729
+m2: 2737.535032
+acceptance_rate: 1.0000

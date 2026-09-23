@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":7,"elapsed_s":45,"input_tokens":14,"output_tokens":2076,"cache_creation_tokens":27356,"cache_read_tokens":262504,"total_cost_usd":0.458773,"ts":"2026-08-09T17:52:18Z","base":"minion-town-pr18-merge","host":"endolin-garden-ece02cb4","outcome":"tada","role":"conductor"}

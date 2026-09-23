@@ -1,0 +1,13 @@
+kind: gardener
+provider: anthropic
+model: claude-opus-5
+thoughtfulness: medium
+work_class: scholar:m
+target: main2
+attempts: 10
+accepts: 10
+censored: 10
+estimated: 10
+mean_dollars: 0.097380
+m2: 0.023118
+acceptance_rate: 1.0000

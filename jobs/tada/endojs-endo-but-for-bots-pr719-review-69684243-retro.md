@@ -1,0 +1,1 @@
+Recorded #719 as a docs-drift review miss; created open cluster `new-behavior-documentation-closure` (count 1). Threshold not met, so no improvement job dispatched. Posted result entry; no code changes.

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":118,"elapsed_s":1638,"input_tokens":236,"output_tokens":90345,"cache_creation_tokens":201021,"cache_read_tokens":16399845,"total_cost_usd":12.472858500000001,"ts":"2026-09-21T21:55:49Z","base":"build-slots-ocapn-op-lanes","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder","provider":"anthropic"}

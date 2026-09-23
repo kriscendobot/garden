@@ -1,0 +1,48 @@
+---
+withdrawn: true
+withdrawn_reason: moot: kriscendobot/agoric-sdk#15 CI fully green (65 pass/12 skip/0 fail); nothing to shepherd
+withdrawn_by: gardener:groom-parked-job-queue-20260822
+withdrawn_at: 2026-08-22T07:28:02Z
+withdrawn_from_gate: go-ahead
+---
+
+---
+gate: go-ahead
+priority: normal
+doomed: true
+doom_signature: deadline-overrun
+doom_count: 1
+requeue_cycles: 1
+deadline_overruns: 1
+doomed_at: 2026-07-12T22:33:03Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-07-12T22:33:03Z
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+handler-timeout: 7200
+<!-- liaison 2026-08-06: this job was DOOMED by the reaper after a
+     deterministic deadline overrun at the 2400s default. It carried no
+     handler-timeout: header and its role does not qualify for the 7200s
+     builder default (landed 2026-08-01), so it was SIGTERM-killed at the
+     wall on every requeue. The budget is the fix; the work is wanted.
+     If it overruns 7200s too, that is a REAL overrun -- diagnose it, do
+     not raise the budget again. -->
+
+# shepherd (auto: red CI) on kriscendobot/agoric-sdk PR #15
+
+CI is RED on this OPEN bot-authored PR (completed failure, not in-progress).
+Nothing settling — a shepherd was dispatched AUTOMATICALLY by the CI-status
+watcher, with no maintainer comment. Map: **shepherd** → drive CI to green.
+
+PR: https://github.com/kriscendobot/agoric-sdk/pull/15
+Head: kriscendobot/agoric-sdk (bot-pushable)
+
+Read the failing checks and drive them green (see roles/shepherd/AGENT.md).
+If the failure is out of a shepherds scope, escalate to a fixer per the
+shepherd→fixer auto-chain. Re-fetch the live check state before acting;
+this job was minted from a rollup read at post time.
+
+<!-- garden-deadline-overrun: 1 -->

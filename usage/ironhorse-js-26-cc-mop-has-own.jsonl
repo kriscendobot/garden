@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":94,"elapsed_s":1383,"input_tokens":175,"output_tokens":73117,"cache_creation_tokens":182874,"cache_read_tokens":11365572,"total_cost_usd":9.343041999999997,"ts":"2026-08-14T23:58:15Z","base":"ironhorse-js-26-cc-mop-has-own","host":"endolin-garden-ece02cb4","outcome":"tada","role":"mentor"}

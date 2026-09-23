@@ -1,0 +1,137 @@
+# Keywords
+
+Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.md`). Most keyword resolution is served by each concept page's `aliases:` frontmatter; this file collects a few high-value cross-term pointers explicitly. Format: `- term, term, ... -> concept-id`.
+
+- ambient authority, ambient authorities, ambient capability, ambient permission, ambient user authority, identity-based authority, no-credential authority, undesignated authority -> ambient-authority
+- object-oriented security, object oriented security, OOS, object-oriented-security.org -> object-capability
+- web powerbox, WebPowerbox, browser powerbox, powerbox dialog -> powerbox
+- OpenSandbox, opensandbox-server, execd, secure container runtime, gVisor sandbox, Kata sandbox, bubblewrap isolation session, AI code sandbox, OpenSandbox MCP, Credential Vault, Secure Access, OpenSandbox multi-tenancy -> opensandbox
+- token subspace, token space topology, LLM token topology, stratified token manifold, local token dimension, token embedding curvature, structured prompt topology recovery, behavioral embedding recovery -> token-subspace-topology
+- Alan Kay, DynaBook, Dynabook, personal computer for children, personal portable information manipulator -> dynabook
+- active medium, personal dynamic medium, computer as a better book, user-programmable medium -> active-medium
+- child as active agent, productive learning environment, clarifying environment, Computer Aided Intuition, learn by doing -> constructionist-learning-environment
+- object as process, object as computer, each object is a computer, independent control paths, data and function as processes -> object-as-process
+
+- kni, decision graph, decision-graph language, interactive fiction language, choice graph, story engine, branching narrative -> decision-graph-as-agent-context-scaffold
+- decision graph as agent context, context scaffold, task graph for agents, dig deep and develop context -> decision-graph-as-agent-context-scaffold
+- deterministic elicitation, bounded interview, structured intake, triage flow, render user feedback deterministically, automatic agentic loop, mutually reinforcing loop -> deterministic-elicitation-loop
+- kni engine, kni handler, waypoint, resume, ask/answer, kni runtime hooks -> deterministic-elicitation-loop
+- AI writing tells, LLM prose tells, AI-assisted writing, formulaic prose, detector evasion, writing style detector -> ai-writing-tells-and-avoidance
+- module harmony, module harmony intersection, intersection semantics, coherent under module harmony, minimal Compartments intersection -> module-harmony-intersection-surface
+- `ModuleSource`, ModuleSource as key, ModuleSource opaque key, `%AbstractModuleSource%`, AbstractModuleSource -> module-harmony-intersection-surface
+- source phase imports, `import source`, `import.source`, source loading phase -> module-harmony-intersection-surface
+- `import defer`, deferred module evaluation, lazy module initialization, deferred re-exports -> module-harmony-intersection-surface
+- module expressions, module blocks, `module {}` -> module-harmony-intersection-surface
+- module declarations, module fragments, `module x {}`, named inline modules -> module-harmony-intersection-surface
+- `import module`, `import.module`, module instance vs module source, `Module` vs `ModuleInstance` -> module-harmony-intersection-surface
+- import phases model, import modifiers vs attributes, phased module loading -> module-harmony-intersection-surface
+- `ModuleSource.bindings`, module bindings reflection, static analysis of module graph, Binding shapes, `needsImportMeta`, `needsImport`, `importAllFrom`, `exportAllFrom` -> module-harmony-intersection-surface
+- virtual module source, `VirtualModuleSource`, virtualize module evaluation, JSON module, CommonJS virtual source, WASM virtual module source, module loader hooks -> module-harmony-intersection-surface
+- `Evaluators`, Evaluators constructor, per-compartment evaluators, separate globalThis, shared global object, realm intrinsics sharing, identity discontinuity, principle of least authority, supply-chain isolation -> module-harmony-intersection-surface
+- Compartments layers, compartment layer 0 1 2 3 4, five-layer compartment structure, module source record, Module Imports Namespace, Module Exports Namespace -> module-harmony-intersection-surface
+- import attributes, asset references, asset modules, ShadowRealm, module-harmony neighbors -> module-harmony-intersection-surface
+- TerraLingua, artifact-mediated cultural evolution, external cultural memory, AI Anthropologist, artifact phylogeny -> artifact-mediated-cultural-evolution
+- MemGPT, MemoryGPT, Letta, LLM operating system -> memgpt
+- virtual context, context paging, LLM memory tiers, memory pressure -> virtual-context-management
+- Fireworks AI, Fireworks API, FIREWORKS_API_KEY, api.fireworks.ai, Fireworks Serverless, Fireworks deployment, OpenAI-compatible Fireworks -> fireworks-ai-integration
+- Fireworks tool calling, Fireworks function calling, Fireworks structured outputs, Fireworks response_format, Firectl, Fireworks Priority tier, Fireworks Fast serving path -> fireworks-ai-integration
+- context engineering, effective context engineering, curate context, context configuration, configuration of context -> context-engineering
+- context rot, needle in a haystack, long-context recall, recall degradation, lost in the middle -> context-rot
+- attention budget, attention scarcity, finite attention, n squared attention, n^2 pairwise relationships, transformer attention constraint, position encoding interpolation -> attention-budget
+- just in time context, just-in-time retrieval, JIT context, lightweight identifiers, runtime context loading, agentic search, hybrid retrieval -> just-in-time-context
+- compaction, context compaction, conversation summarization, context window summarization, tool result clearing, auto-compact -> context-compaction
+- progressive disclosure, incremental context discovery, layer by layer understanding, self-managed context window -> progressive-disclosure
+- structured note-taking, agentic memory, NOTES.md, memory tool, notes outside the context window -> context-engineering
+- generative agents, Generative Agents memory stream, recency importance relevance, salience-weighted retrieval, reflection tree -> salience-weighted-agent-memory
+- right altitude, Goldilocks prompt altitude, minimal system prompt, smallest set of high-signal tokens -> context-engineering
+- atproto, at protocol, bluesky, at:// uri, merkle search tree, MST, DRISL, CAR file, signed commit, PDS, personal data server, subscribeRepos, firehose, operation inversion -> atproto-repository-mst
+- did, DID document, decentralized identifier, did:plc, did:web, did:key, did:webvh, service endpoint, serviceEndpoint, atproto_pds, alsoKnownAs, connection hint for DIDs, location hint -> did-document-service-endpoint
+- content address versus signature, hash versus signature, verify-on-load, what a hash authenticates, attestation by digest, xt, exact topic, magnet xt -> content-address-versus-signature
+- ucan 1.0, ucan/dlg, ucan/inv, powerline, principal alignment, attenuation, subject command policy, varsig, zdpu -> ucan-delegation
+- at-uri scheme, at:// authority, AT URI normalization, not content-addressed, strong reference, handle-based URI, NSID, record key, rkey, DRISL-CBOR, $link, $bytes, blessed CID, cid-link, DASL, DASL-CID, atproto blob, uploadBlob, getBlob, listBlobs, AppView, atproto data model -> atproto-repository-mst
+- atproto firehose, subscribeRepos, #commit event, #sync event, #identity event, #account event, relay, full-network firehose, prevData, operation inversion, inductive verification, repo revision, Atproto-Repo-Rev, getRepo, CAR export, record-level synchronization, desynchronized -> atproto-repository-mst
+- import attributes, import assertions, `with { type: "json" }`, `assert { type: "json" }`, module type attribute, JSON modules, module cache key, attributes versus phases -> module-harmony-intersection-surface
+- asset references, `asset Foo from "foo"`, AssetReference, asset modules, require.resolve, require.resolveWeak, per-module asset authority, module identity without loading -> module-harmony-intersection-surface
+- ShadowRealm, incubator realm, callable boundary, wrapped function exotic object, identity discontinuity, importValue, distinct realm isolation, stack censoring -> module-harmony-intersection-surface
+- errors crossing the callable boundary, wrapped function threw, ShadowRealm error propagation, error replaced by TypeError, `[[ErrorData]]` slot, error message not nested, uncaught exception Object -> module-harmony-intersection-surface
+- Content-Type versus file extension, mimetype mismatch, misconfigured Content-Type header, MIME confusion, Cloudflare Content-Type distribution, extension is not the type, `.js` served as text/html, `.json` served as JavaScript -> module-harmony-intersection-surface
+- verifyPaymentProof, payment proof verification, resource ledger in gateway, PaymentProcessor -> monetization-gateway
+- XS worker metering, computrons, meter-report, budget as pre-payment, admission control eliminates embargo, worker quota refill -> worker-metering-admission-control
+- `CostRecord`, notional dollars, true-cost-vs-notional-ledger, campaign spend ledger -> cost-ledger
+- coding agent spend, token spend, spend management -> coding-agent-spend
+- relative routing, relative route, choosing a route not an address, nearest reliable path, shortest path to a peer, connection hints as routes, path-based session establishment -> relative-routing
+- donorPath, donor path, vatASearchPath, search path, searchPath, acceptFrom route list, route list, candidate routes -> relative-routing
+- formula DAG, daemon formula incarnation, reincarnation, daemon-native commit formula, synthetic refs tree -> formula-graph
+- nonce locator, formula identifier as Swiss number, formula-backed sturdyref, OCapN formula locator -> sturdyref
+- spatiotemporal composability, spatial composability, temporal composability, dynamic composability, dynamic composition -> spatiotemporal-composability
+- revertible effect, revertible effects, effect accumulator, twisted composition, effect context, track and recover -> spatiotemporal-composability
+- reactive coeffect, reactive coeffects, coeffect, coeffect system, coeffect context, activating deactivating neutral notification -> spatiotemporal-composability
+- effect system, coeffect system, graded effects, algebraic effects, effect handlers -> spatiotemporal-composability
+- Cordis, Koishi, meta-framework of composability, context paradigm -> spatiotemporal-composability
+- hot module replacement, HMR, component loader, configuration reconciliation -> spatiotemporal-composability
+- isolation realm, coeffect isolation, coeffect interception, service broker, dependency injection at runtime -> spatiotemporal-composability
+- Cloudflare OS, company OS, agent workspace, AI productivity environment -> cloudflare-os-gadget
+- gadget, Cloudflare OS gadget, personal software instance, Dynamic Worker gadget -> cloudflare-os-gadget
+- Gatekeeper, Cloudflare OS Gatekeeper, deferred approval, simulated side effect, capability-mediated integration, Email Gatekeeper, Home Assistant Gatekeeper, LLAT, long-lived access token, `GatekeeperVendor`, `GatekeeperUser`, `ApprovalQueue`, `bindHook`, `HookInitiator`, `prohibitAllSharing` -> cloudflare-os-gatekeeper
+- Blueprint, Cloudflare OS Blueprint, `.gadget`, gadget archive, bundled blueprint, output format -> cloudflare-os-blueprint
+- permission graph, permission edge, effective role graph, share-link node, `computeEffectiveRoles`, share key redemption, `redeemShareKey`, `shareKey` edge, link alias, fixed-point effective role, `minRole`, `sharerRole` -> permission-edge-graph
+- lazy revocation, reachability revocation, reversible revocation, `keepUsers`, revocation restart, `revokeShareLink`, `removeCollaborator`, soft revocation, open-time denial, re-root sugar -> lazy-graph-revocation
+- observer verification, observer record, Gatekeeper verifier, `GatekeeperUserVerifier`, `addObserver`, `removeObserver`, `excludeObservers`, data-set tracking, ACL check single unit, `hasProjectAccess`, `hasOrgAccess`, own-token verifier, `SupabaseVerifier`, forward exclusion -> observer-verification
+- Worker telemetry confinement, service-scoped telemetry, immutable service filter, defensive telemetry filtering, foreign telemetry event -> worker-telemetry-confinement
+- provisional action simulation, deferred side-effect simulation, pending action overlay, simulated pending write -> provisional-action-simulation
+- MCP Gatekeeper, MCP Server Portals gatekeeper, gatekeeper-mcp, gatekeeper-mcp-portal, Model Context Protocol connector, byo trust tier, vetted trust tier, `portal_list_servers`, `McpAccount`, `ServerTrust`, `classifyTool`, `readOnlyHint`, annotation trust boundary, `resolveConnectTarget`, `beginConnect`, endpoint immutability, credential confusion, portal repoint, `catalogRevision`, `autoApprovable`, `ClassifiedTool`, `submitAction`, `applyAction`, `rejectAction`, `revertAction` -> mcp-server-connector
+- Scheduled Tasks, Scheduler gatekeeper, gatekeeper-scheduler, `ScheduleSession`, `ScheduleDriver`, `calendarAt`, `runAt`, persistent scheduled callback -> scheduled-tasks-gatekeeper
+- authentication Gatekeeper, auth Gatekeeper, Gatekeeper sign-in, `AUTH_GATEKEEPERS`, verified-email login -> authentication-gatekeeper
+- Git-backed gadget code, git object store, gadget commit, gadget head commit, `gitObjects` -> git-backed-gadget-code
+- lazy per-gadget pinning, chat code pin, chat epoch, code-base generation, `observedCommit` -> lazy-gadget-pinning
+- code-change operational transform, `CodeChange`, `submitCodeChange`, `transformCodeChange`, `composeCodeChange`, revisioned change stream, `ChatCodeChanges`, change materialization watermark, editFile OT, code-change validation, `validateCodeChangeSchema`, `validateCodeChangeContent` -> code-change-operational-transform
+- three-way file-map merge, `threeWayMerge`, `GitStore`, `splitLines`, refless git object store, `makeGitObjectsFs`, isomorphic-git plumbing -> git-backed-gadget-code
+- `ChatCodeBase`, `mergeChanges`, `updateChatFromMainline`, `mainlineMerge`, `epochBoundary`, mainline merge, fast-forward accept, discontinuous gadgets -> lazy-gadget-pinning
+- `editPreviewStart`, `editPreviewDelta`, `AiChatStreamEvent`, live edit preview, streaming edit preview, `ChatLiveEditPreviews`, `ChatLiveChangeRows` -> code-change-operational-transform
+- `legacyChatBaseVersion`, `foldProposedChanges`, `chatChangeStatuses`, context compaction, compaction checkpoint, `COMPACTION_SYSTEM_PROMPT`, conversion boundary -> lazy-gadget-pinning
+- workpiece, `WorkpieceId`, multi-gadget workspace, gadget binding edge, named chat binding -> cloudflare-os-workpiece
+- pi-ai, pi-agent-core, `runAgentLoopContinue`, awaited agent event sink, pi migration -> pi-agent-loop
+- AI Gateway billing, AI Gateway credits, daily LLM allowance, BYOK routing, `CF_AI_GATEWAY` -> ai-gateway-credit-routing
+- `freezeTypedArray`, TypedArray hardening, integer-indexed exotic hardening, indexed cardinality -> typedarray-hardening
+- freezable TypedArray emulation, emulated TypedArray, emulated DataView, immutable ArrayBuffer view wrapper -> freezable-typedarray-emulation
+- `EndoRegistry`, MVS, minimum version selection, npm registry, registry capability -> npm-registry-proxy
+- `byteArray` -> freezable-typedarray-emulation
+- `introducedSpecialNames`, guest special names, indelible guest names, `specialNames` -> guest-special-names
+- Cedar, Cedar policy language, Cedar authorization engine, cedar-policy, Amazon Verified Permissions, Verified Permissions, AVP, PARC, principal action resource context, policy-as-code, verification-guided development -> cedar-policy-language
+- policy vs capability, policy language vs object capability, ACL vs ocap, reference monitor vs capability, access control behind the tool call, ocap behind the tool call, scope strings vs capabilities, Cedar vs ocap, attenuation vs policy -> policy-vs-capability-authorization
+- garbage collection, mark-and-sweep, mark and sweep, GC quarantine -> gc-quarantine-store
+- ordered key encoding, passable key encoding, lexicographic passable key -> rank-order-preserving-encoding
+- Cloudflare Artifacts, Artifacts, ArtifactFS -> cloudflare-artifacts
+- `formulaGraph`, `listRetentionPaths`, retention paths, retention pin -> formula-graph
+- durable set, id-keyed set, retention set -> four-tables-coordinated-retention
+- capabilities vs ACLs, capability vs ACL, ACL vs capability, access control list vs capability, ACLs on capabilities, equivalence myth, identity vs token, token vs identity -> capabilities-vs-acls
+- card keys, card key, swipe card, swipe cards, card keys are capabilities, Shapiro card key analogy -> card-keys
+- rescinded key, rescinded keys, indistinguishable revocation, `DK(0)` -> revocation-by-withdrawal
+- destroyable indirection object, indirection object revocation, EROS revocation primitive, key ID opacity -> card-keys
+- cap-talk, cap-talk mailing list, eros-os.org pipermail, EROS architects list -> capabilities-vs-acls
+- web-key, web-keys, web key, YURL, YURLs, capability URL, unguessable URL, mashing with permission -> web-keys
+- capability bucket, authenticated capability bucket, session capability set -> principle-of-least-authority
+- capability unforgeability, sparsity, partitioned capability, tagged capability -> object-capability
+- DMA authority, DMA driver trust, driver trusted computing base -> principle-of-least-authority
+- grant matcher, grant matching, nominated comparator -> object-sameness
+- principal attribution, capability provenance, proxy attribution -> capabilities-vs-acls
+- space bank, objects are allocated not created, storage accounting vs garbage collection -> capabilities-vs-acls
+- what is a capability, CAOS capable OS, syscall gating is not a capability, POSIX capabilities are not ocaps -> capabilities-vs-acls
+- lambda-capability, lambda capability, explicit descriptor binding, namespace owner assigns names -> object-capability
+- permission vs authority, permission versus authority, least permission, direct vs indirect access -> principle-of-least-authority
+- principal agent, user intent agent, pre-opened descriptor, save-as capability -> principle-of-least-authority
+- one-shot capability, non-transferable capability, limited transfer, proxy defeats non-transferability -> distributed-confinement
+- overt causality, covert causality, in-model causality, conforming-implementation channel test -> distributed-confinement
+- ad hominem security, trusted by whom, trusted computing, trusted PC, Palladium, who wrote the code -> ad-hominem-security
+- web-key, webkey, web key, webkeys, capability URL, capability-in-URL, capabilities in URLs, swiss number URL, unguessable URL, Waterken web-key, https capability -> web-key
+- petname, petnames, petname system, per-holder naming, Zooko's triangle, edgename, petname path -> petname
+- OpenID, single sign-on, SSO, single sign-out, federated identity -> oauth-client-credentials-vs-authorization-code
+- introduction by default, introduction-by-default, proxy by default, proxy-by-default, direct delegation, path-based access -> introduction-by-default
+- master capability, master web-key, capability bootstrap, last secret, borrowed-computer login -> web-keys
+- YURL, YURLs, public-key fingerprint hostname, self-authenticating URL -> web-keys
+- policy verification, confinement verification, Doerrie confinement proof, verification within a model -> distributed-confinement
+
+- Bεtree, Betree, Be-tree, B-epsilon tree, write-optimized B-tree, write buffer B-tree, pivot write buffer, upsert message, blind upsert, BetrFS tree -> betree
+- GEFS, Good Enough File System, gefs9, Plan 9 file system, 9p file system, CWFS, HJFS, fossil venti, copy-on-write file system -> gefs
+- deadlist, deadlist algorithm, birth generation, epoch-based reclamation, snapshot tree, qid namespace, base snapshot -> gefs
+- max thinking useless, over-thinks to breaking, reasoning budget overrun, thinking budget exhausts output tokens, 128000 output token limit, 128k output limit, max effort no response, reasoning token output ceiling -> thinking-budget-output-overrun

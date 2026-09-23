@@ -1,0 +1,28 @@
+# garden-comment-watcher arming record
+repo: kriscendobot/garden
+surfaces: pr-only
+sender-gate: required
+armed_at: 2026-07-28T06:45:00Z
+authorized_by: kriskowal
+authorization: carried forward unchanged from comment-repos/kriskowal-garden when
+  the repo was TRANSFERRED kriskowal/garden -> kriscendobot/garden (2026-07-28).
+  This is the SAME authorization re-keyed to the new slug, not a new widening: the
+  arming file is keyed <owner>-<name>, so a transfer strands the old slug rather
+  than updating it. Original authorization: re-arm PR-only after the issue-inbox
+  overlap (kriskowal/garden #9, 2026-06-30, which redirects to this repo).
+
+  surfaces: pr-only — the garden's own repo is ALSO watched by the issue-inbox
+  (config/garden-repo=kriscendobot/garden), which OWNS its issues + issue-comments;
+  the comment-watcher therefore runs PR-ONLY here (surface=issue-comment skipped,
+  PR conversation comments + inline review comments + review bodies kept) so the
+  two watchers never both dispatch on one comment. PR-review coverage (e.g. the #5
+  "convert to job" review) is kept without re-introducing the duplicate.
+
+  sender-gate: required — NEW at the transfer, and required by it. The garden repo
+  is public, so repo-gating cannot make its comment surfaces safe. Under the old
+  owner it sat outside config/fork-owners; under kriscendobot it is one of the
+  garden's OWN forks, which CLAUDE.md § Monitoring safety constraint requires to
+  carry this gate. comment-watcher.sh now drops any comment whose author is not on
+  trusted-senders/allowlist, maintainers/allowlist, or a current endojs/Agoric org
+  member — in plain code, before any text reaches a job, a reactji, or claude -p.
+  This NARROWS what reaches an LLM relative to the old record; it widens nothing.

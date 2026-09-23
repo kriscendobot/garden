@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":45,"elapsed_s":604,"input_tokens":90,"output_tokens":44695,"cache_creation_tokens":95941,"cache_read_tokens":3603597,"total_cost_usd":3.8816635,"ts":"2026-09-15T14:32:11Z","base":"improve-worker-cgroup-residue-reaping","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

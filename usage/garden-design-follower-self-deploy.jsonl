@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":41,"elapsed_s":516,"input_tokens":1101,"output_tokens":32890,"cache_creation_tokens":130025,"cache_read_tokens":3713572,"total_cost_usd":3.9881800000000003,"ts":"2026-08-17T21:32:31Z","base":"garden-design-follower-self-deploy","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"designer"}

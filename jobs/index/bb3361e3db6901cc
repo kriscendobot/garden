@@ -1,0 +1,2 @@
+base: improve-land-journal-edit-concurrent-guard
+identity: mentor:scripts/jobs/land-journal-edit.sh

@@ -1,0 +1,10 @@
+# watch-optout tombstone
+repo: kriscendobot/agoric-sdk
+opted_out_at: 2026-09-04T12:35:00Z
+authorized_by: kriskowal
+reason: >
+  A dedicated garden instance owns agoric-sdk engagement now; this garden
+  archives all its own engagements on the repo (jobs, watches, plan items)
+  to avoid duplicate/conflicting work. Durable opt-out per
+  designs/auto-provision-fork-watchers.md so fork-watch-provisioner.sh does
+  not silently re-add the bare deletion of repos/comment-repos entries.

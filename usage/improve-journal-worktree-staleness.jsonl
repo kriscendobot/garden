@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":24,"elapsed_s":329,"input_tokens":46,"output_tokens":24507,"cache_creation_tokens":94222,"cache_read_tokens":1937977,"total_cost_usd":2.5267245,"ts":"2026-09-15T13:27:14Z","base":"improve-journal-worktree-staleness","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

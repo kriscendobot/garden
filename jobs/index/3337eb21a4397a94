@@ -1,0 +1,2 @@
+base: garden-root-repo-guard-gc-lock-contention
+identity: garden-defect:guard-gc-lock-contention

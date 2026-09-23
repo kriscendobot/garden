@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":32,"elapsed_s":793,"input_tokens":56,"output_tokens":35607,"cache_creation_tokens":102895,"cache_read_tokens":2859709,"total_cost_usd":3.352403499999999,"ts":"2026-07-28T16:30:22Z","base":"stagger-reaper-requeue-burst","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}

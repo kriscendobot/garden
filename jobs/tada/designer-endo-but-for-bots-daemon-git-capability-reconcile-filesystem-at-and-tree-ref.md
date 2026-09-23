@@ -1,0 +1,15 @@
+Job complete. Both edits are verified on `origin/journal2` and my inbox is empty.
+
+## Completion report
+
+**Job:** `designer-endo-but-for-bots-daemon-git-capability-reconcile-filesystem-at-and-tree-ref` — reconcile the two historical-read methods in the canonical `daemon-git-capability.md` per `daemon-git-next-steps.md` Open Work item 4.
+
+**What I did.** Edited the canonical record `plan/designs/endo-but-for-bots/daemon-git-capability.md` on `journal2` so the corpus carries one historical-read API: `filesystemAt(ref)` (returning an `@endo/endo-fs` `Filesystem`) is named as the historical-read method, and `tree(ref)` (returning `ReadableTree`) as its projection for generic tree consumers. The reconciliation touches every place the doc previously spoke of `tree(ref)` as *the* historical read: the Summary, the What-You-Should-Know-First glossary (new `Filesystem` bullet), the what-changes table, the architecture diagram, § Two Git Concerns, the `Git` interface (new `filesystemAt` method with the projection relationship in the comment), Sample Use, § Git-Tree Backend › Read Surface (rewritten around the projection relationship, cross-linking `endo-fs-from-git.md` as the home of the adapter mechanics), the Security Model read-only lists, Design Decisions 3 and 8, and the Capability/Tree-Provider test plans. Design Decision 3 records the reconciliation with its 2026-07-12 provenance.
+
+**Trade-offs carried forward.** A new subsection "Trade-offs the `Filesystem` view carries" preserves the two documented compromises from the shipped `wrapBackend`-seam adapter: (1) the `Filesystem` view's QID is path-based (`synthQid(path, kind)`), not the git OID, so content-address equivalence is not preserved at that layer; (2) `BlobRef.algorithm` is `'sha256'` over raw bytes, not `git-sha1` over the framed payload. Both are noted as reintroducible via a backend-supplied QID/hash hook on `wrapBackend` (the deferred follow-up in `endo-fs-from-git.md` § Status), with the parent `Git` cap's `resolveTree`/`lsTree` primitives as the interim path to git-OID identity.
+
+**Bookkeeping.** Marked Open Work item 4 done (`[x]` with a dated "Done" note) in `daemon-git-next-steps.md` and bumped both records' `updated:` frontmatter and header tables to 2026-07-12.
+
+**Verification.** All three mermaid fences in the edited doc parse (`mermaid.parse`, all `OK flowchart-v2`, including the edited architecture diagram); the plan schema validator passes over the edited tree (141 records, 0 errors, 0 warnings). Both edits landed through the sanctioned `land-journal-edit.sh` producer-clone CAS path (with `plan` added to the editable-trees allowlist) as commits `d39608b332` and `1042b770a2`, confirmed reachable from `origin/journal2`.
+
+**Follow-ups.** None required by this job: the generated `plan/README.md` re-renders on the bulletin loop, and the endo fork's `designs/README.md` redirect plus mirrored narratives regenerate on the weekly Sunday recalibration job, so no fork push was needed. The substantive open follow-up remains the one the docs already track — the `wrapBackend` QID/hash hook that would restore git-OID identity to the `Filesystem` view.

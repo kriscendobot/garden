@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":33,"elapsed_s":438,"input_tokens":64,"output_tokens":15401,"cache_creation_tokens":67387,"cache_read_tokens":2056256,"total_cost_usd":2.090354,"ts":"2026-09-22T01:15:20Z","base":"endojs-endo-but-for-bots-pr1089-conduct","host":"endolin-garden-ece02cb4","outcome":"tada","role":"conductor","provider":"anthropic"}

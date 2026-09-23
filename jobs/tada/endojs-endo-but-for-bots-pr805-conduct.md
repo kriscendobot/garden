@@ -1,0 +1,1 @@
+Rebased PR #805 onto current `llm`, force-pushed `09540db9f`, and waited for the fresh CI run: all 24 checks passed. PR merged into `llm` as merge commit `1c45ab718d1698b2d2687cd1f13aefe7f4b86a75`; retained its branch because PR #812 depends on it. Local Yarn checks were not run because `yarn` is unavailable.

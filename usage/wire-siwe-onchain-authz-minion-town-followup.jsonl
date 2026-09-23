@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":27,"elapsed_s":1013,"input_tokens":54,"output_tokens":23259,"cache_creation_tokens":64163,"cache_read_tokens":1569380,"total_cost_usd":2.011629,"ts":"2026-09-16T14:36:53Z","base":"wire-siwe-onchain-authz-minion-town-followup","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

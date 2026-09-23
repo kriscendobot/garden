@@ -1,0 +1,13 @@
+Press dispatch complete — the arc advanced past its design finish-line and through Phase 3's build since the last dispatch; this dispatch queued the next increment and deferred to the live worker on the current one.
+
+**Assessment (evidence-checked live):**
+- **PR #662 (magnet-URN content-locator design): MERGED** — the design half of the finish line holds; no designer sub-job needed.
+- **PR #783 (Phase 2, `<verb>Content` interface methods): MERGED** at 22:53Z Jul 17 — the conductor job posted by the previous dispatch completed (its merge report is in `tada/`).
+- **Phase 3 ran and produced draft PR #789** (`@planes`, `getAllContentSources`, `ContentDataPlane` registry) — the parked blocked job was auto-promoted on #783's merge exactly as designed. Its CI went red, and the CI-status watcher auto-posted a shepherd (`endojs-endo-but-for-bots-pr789-shepherd`) that is **live in `doin/`**, claimed at 00:08:32Z by gardener 5 on this host — I deferred to it entirely.
+- **PR #739 (store→writeFile design): MERGED.** **PR #585 (node-fs content-store powers): still OPEN**; its conductor merge job remains parked in `plan/` with `gate: go-ahead` (liaison-only promotion). The maintainer was nudged at 12:24Z and again at 22:25Z; I did not send a third nudge two hours later.
+
+**What I did (the press):** parked `build-endo-content-locators-magnet-urn-phase4-http-web-seed` as a blocked plan job (`blocked_on:` PR #789, `role: builder`), verified on `origin/journal2` at commit `1a3f6fc47a`. Scope mirrors the design's § Phased implementation step 4: the Gateway `GET /content/{hash}` route over the content-addressed static-asset cache, the `@planes` HTTP sharing capability vending `ws`, and `loadContent`'s verifying fetch (blob and tar-tree) with CapTP fallback — Phase 5 and the Git/BitTorrent back-planes explicitly out of scope. The unblock watcher promotes it the moment #789 merges.
+
+**Deliberately not done:** no interference with the live #789 shepherd; no gauntlet job for #789 while its CI is red (panel on red CI is premature — the shepherd goes first); no self-promotion of the go-ahead-gated #585 merge; no Phase-5 job (one increment parked ahead, matching the arc's pattern); no new designer job.
+
+**Arc state for the next dispatch:** expect #789 CI green (shepherd) and then check whether its auto-gauntlet fired — the auto-gauntlet stalled on #749 and #783 and had to be pressed manually, so a missing gauntlet/panel on a green #789 is the likely next press point, followed by its conductor merge and Phase 4 auto-promotion. #585 merges whenever the liaison promotes its parked job. Inbox drained — empty. No garden-library changes; nothing pushed to `main2`.

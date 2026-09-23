@@ -1,0 +1,2 @@
+{"ts":"2026-09-17T19:30:53Z","base":"endojs-endo-but-for-bots-pr1262-233a2e81-retro","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
+{"source":"result","model":"claude-opus-4-8","num_turns":16,"elapsed_s":110,"input_tokens":24,"output_tokens":7109,"cache_creation_tokens":50137,"cache_read_tokens":612243,"total_cost_usd":0.9886565000000002,"ts":"2026-09-17T19:46:24Z","base":"endojs-endo-but-for-bots-pr1262-233a2e81-retro","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"prosecutor","provider":"anthropic"}

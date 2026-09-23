@@ -1,0 +1,14 @@
+elapsed-constancy overrun-suspect: endojs-endo-but-for-bots-pr1007-dependabot
+
+gardener-1 on endolin-garden2-5bcdff64: job endojs-endo-but-for-bots-pr1007-dependabot was classified TRANSIENT (rc=1) but its
+handler has now died at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 3,4s; requeue cycle 2; tolerance +/-15%).
+
+That is the signature of a DETERMINISTIC overrun MISclassified as a
+self-resolving blip (a Claude Code session/usage cap tripping at the same
+point every run, or a prompt that drives the CLI to the same failure), NOT
+an external signal-kill or wall-clock timeout (those vary in elapsed and
+are excluded). Left in doin for the reaper (requeue ownership UNCHANGED),
+with the elapsed-constancy counter stamped so it surfaces after
+GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD (2) confirmations instead of the full 5-cycle threshold. Triage the
+job spec / handler rather than waiting out the doom threshold.

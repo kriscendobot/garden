@@ -1,0 +1,15 @@
+---
+kind: error
+role: deploy-garden
+host: oros-studio-garden-ce242c49
+at: 2026-09-15T18:15:28Z
+---
+kind: error
+
+# Deploy candidate test gate rejected main2
+
+candidate: `c4bc969405828bea12db9ee6c77931a8dbd99f7c`
+failing suites: scripts/jobs/test/policy-refusal-quarantine-test.sh(rc=1)
+
+The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+for a deliberate emergency deploy after assessing this failure.

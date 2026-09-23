@@ -1,0 +1,27 @@
+---
+title: "Implementing attenuated delegation: is a generic attenuator possible?"
+source_kind: mailing-list-archive
+source_url: http://www.eros-os.org/pipermail/cap-talk/2012-June/
+source_snapshot: http://web.archive.org/web/2id_/http://www.eros-os.org/pipermail/cap-talk/2012-June.txt.gz
+source_content_sha256: ff2869ea9d897511fdf2e4203a50f7eebaf0f2433c07aab71d36a71d089fc809
+source_authors: [David Bruant, Baldur Johannsson, Kevin Reid]
+source_date: 2012-06-21
+thread_subject: "Implementing attenuated delegation"
+ingested: 2026-09-16
+ingested_by: scholar
+topics: [capability-security, patterns, revocation, cap-talk-open-questions]
+status: current
+notes: "Derived summary, not the original messages. Light month (3 messages). Author of the powerbox/proxy-era ES proxy work introduces himself."
+---
+
+Abstract: David Bruant — an es-discuss participant on the then-upcoming ECMAScript `Proxy` proposal, working with Miller and Tom Van Cutsem — set out to write a Waterken-like library in Node.js where a webkey names a run-time server object, and wanted a *generic* attenuation feature: let a user mint a new webkey from an existing one with attenuated authority. The more he thought about it, the less he could see how to make it generic: the relevant attenuations seemed "highly coupled to the object I want to attenuate and more precisely, its public API." He asked whether that conclusion was right. Kevin Reid confirmed it and drew the sharp line: the attenuations that *can* be expressed without reference to a specific protocol are exactly two families. **Caretakers/revokers** (shallow revocability): the wrapper stops forwarding on command — but this works only when the target is *cooperative and designed for it*, because an arbitrary object may have a method that returns itself or passes itself out, defeating the wrapper; the requirement is that the target never hand its callers objects that themselves carry authority. **Membranes**: like a caretaker but *transitive* — it wraps every capability the target returns and inverse-wraps every capability passed in, interposing between client and target across the whole reachable subgraph. Protocol-independent membranes buy deep revocability (all elements shut down together), translation (serialization for a distributed ocap system, or an FFI between two object systems), voluntary oblivious compliance (protecting a subsystem by making its closely-held caps fail to cross out), and — where reliable method information exists — audit-based semantic constraints such as a read-only membrane over methods an auditor certifies side-effect-free (in E, via the Auditors mechanism). Baldur Johannsson added the practical axes: filtering by allowed selectors, online-versus-offline delegation, and whether to let anyone instantiate an evaluator at the target's host.
+
+## Generic attenuation is protocol-blind; specific attenuation needs the API
+
+The thread's answer is a clean two-tier taxonomy. What a *generic* attenuator can do is limited to operations that do not need to understand the messages flowing through it: block them entirely (revoke), forward them unchanged but transitively rewrap the caps they carry (membrane), select which method names pass (filter), or — the one semantic operation available without protocol knowledge — enforce read-only when a trustworthy source certifies which methods have no side effects. Everything richer — "let this delegate read the account balance but not transfer," "expose only the first page of results" — is *coupled to the object's public API*, because the attenuator must understand what each message *means* to decide whether to permit it. Reid's caveat about self-returning methods is the deep one: attenuation by wrapping is only as strong as the target's discipline of never leaking an unwrapped authority-bearing reference, which is why membranes must be transitive and why cooperative design (or an auditor) is unavoidable for anything beyond blind forwarding.
+
+## Bearing on Endo
+
+Endo lives on exactly this boundary. Its generic attenuators are the same two families Reid named: a revoker/caretaker built from a killswitch, and a membrane for transitive revocation and for the marshal boundary itself (the `captp` serialization Reid lists as a membrane use is precisely what Endo's marshal layer is). Bruant's realization — that a truly generic attenuation feature is impossible because meaningful attenuation is API-coupled — is why Endo's answer to "attenuate this power" is *write a caplet*: a small guest object that forwards the calls it should and drops or transforms the rest, understanding the wrapped object's protocol. The read-only-via-audit route maps to Endo's hardened copy-data (no methods to invoke means nothing to audit) and to `passStyle`-gated marshalling. Reid's self-returning-method hazard is the standing reason Endo capabilities must not leak unattenuated facets, and the reason the membrane, not the bare caretaker, is the default for transitive revocation. See [avoiding-excess-authority-in-chained-access](cap-talk-2009-2012--avoiding-excess-authority-in-chained-access.md) and the concepts [[caretaker-pattern]], [[lazy-graph-revocation]], and [[revocation-by-withdrawal]].
+
+Source: [cap-talk 2012-June archive](http://www.eros-os.org/pipermail/cap-talk/2012-June/) (Internet Archive original-bytes `id_` snapshot of `2012-June.txt.gz`, sha256 `ff2869ea`), thread "Implementing attenuated delegation", 2012-06-21.

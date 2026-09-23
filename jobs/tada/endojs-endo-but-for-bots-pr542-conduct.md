@@ -1,0 +1,1 @@
+ci-wait-merge is running tracked in the background; the harness will re-invoke me when it completes (exit 0 merged / 2 already closed / 3 red→shepherd / 4 timeout→re-enqueue), with a fallback heartbeat scheduled. Nothing more to do until then.

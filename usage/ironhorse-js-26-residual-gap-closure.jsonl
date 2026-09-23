@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":72,"elapsed_s":1279,"input_tokens":129,"output_tokens":55561,"cache_creation_tokens":121180,"cache_read_tokens":5726055,"total_cost_usd":5.467317500000001,"ts":"2026-08-14T22:20:20Z","base":"ironhorse-js-26-residual-gap-closure","host":"endolin-garden-ece02cb4","outcome":"tada"}

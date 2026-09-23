@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":7,"elapsed_s":97,"input_tokens":14,"output_tokens":4398,"cache_creation_tokens":75702,"cache_read_tokens":291699,"total_cost_usd":1.0159785,"ts":"2026-09-17T15:16:13Z","base":"kriscendobot-oros-ckm-data-readiness-pr1-conduct","host":"endolin-garden-ece02cb4","outcome":"tada","role":"conductor","provider":"anthropic"}

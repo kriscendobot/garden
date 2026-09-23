@@ -1,0 +1,6 @@
+<6>11:51:29 [monk/2] job 'xs2rust-endor-press-20260904-115016' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>11:51:29 [monk/2] job 'xs2rust-endor-press-20260904-115016' resolved tier 'mentor' -> claude --model claude-opus-4-8
+⚠ claude.ai connectors are disabled because ANTHROPIC_API_KEY or another auth source is set and takes precedence over your claude.ai login · Unset it to load your organization's connectors
+
+--- handler report (partial) ---
+Credit balance is too low

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":9,"elapsed_s":113,"input_tokens":16,"output_tokens":7385,"cache_creation_tokens":41422,"cache_read_tokens":342350,"total_cost_usd":0.7731279999999999,"ts":"2026-09-21T21:51:08Z","base":"self-heal-fix-garden-receipt-watcher-prereq-err-priority-prefix","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

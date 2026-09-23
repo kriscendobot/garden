@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":21,"elapsed_s":229,"input_tokens":42,"output_tokens":15744,"cache_creation_tokens":88338,"cache_read_tokens":1752130,"total_cost_usd":2.156599,"ts":"2026-09-03T22:31:36Z","base":"self-heal-fix-garden-state-clone-keeper-head-deployed-sha-drift","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

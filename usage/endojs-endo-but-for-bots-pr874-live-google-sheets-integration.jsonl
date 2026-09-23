@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":14,"elapsed_s":165,"input_tokens":19,"output_tokens":9884,"cache_creation_tokens":44726,"cache_read_tokens":463849,"total_cost_usd":0.9285045,"ts":"2026-08-06T05:48:40Z","base":"endojs-endo-but-for-bots-pr874-live-google-sheets-integration","host":"endolin-garden-ece02cb4","outcome":"tada","role":"designer"}

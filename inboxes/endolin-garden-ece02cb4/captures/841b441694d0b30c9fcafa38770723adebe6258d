@@ -1,0 +1,25 @@
+<6>16:44:38 [monk/2] job 'endojs-endo-but-for-bots-pr1281-b2a4cb13' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>16:44:38 [monk/2] job 'endojs-endo-but-for-bots-pr1281-b2a4cb13' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>16:46:33 [assert-producer-pr-draft] draft-gate: BLOCK — https://github.com/endojs/endo-but-for-bots/pull/1281 (endojs/endo-but-for-bots#1281) named by completing job 'endojs-endo-but-for-bots-pr1281-b2a4cb13' is a bot-authored OPEN NON-DRAFT PR with NO staged or completed gauntlet. Under the manual-gauntlet regime a producer PR may complete without a gauntlet only while DRAFT; a ready PR needs an explicit 'run the gauntlet #N'. Refusing to record the job complete. (Not re-drafting: the PR may be under maintainer review.)
+
+--- handler report (partial) ---
+Done. This was a PR-metadata task (no source changes, no garden `main2` commit).
+
+## Completion report
+
+**Job:** attention directive on endojs/endo-but-for-bots PR #1281 — "update title and description to reflect the GitHub template for PRs upstream" (kriskowal, comment 5701105623).
+
+**Preflight:** `pr-feedback-preflight.sh` returned exit 2 (HINT). Corroborated directly: the PR body was still in the garden-authored `## Goal` / `## What was noisy` format, **not** the upstream template, and the only post-feedback comment was this job's own "On it" ack (16:44:02Z). No peer had resolved it → proceeded.
+
+**What I did:**
+- Fetched the authoritative upstream template from `endojs/endo` `.github/PULL_REQUEST_TEMPLATE.md`.
+- Rewrote PR #1281's description into that template: **Description** + **Security / Scaling / Documentation / Testing / Compatibility / Upgrade Considerations**, preserving every substantive detail (the two permit causes, the Node 22/24/26 identical-report finding, the test evidence, and provenance). Kept the `<!-- garden-job: ses-node26-lockdown-permits -->` adoption marker. No fabricated issue number (there is no tracking issue; used a `Refs: none` note per template guidance).
+- Applied via `gh pr edit … --body-file` and verified the new body is live.
+- Left the title `fix(ses): silence lockdown intrinsics report for the WHATWG URL family` unchanged — it already follows upstream's conventional-commit convention, which is what the template ecosystem expects; changing it would add no value.
+- Posted a concise acknowledgment comment (issuecomment-5701153034).
+
+**Artifacts:**
+- New PR body: applied to endojs/endo-but-for-bots#1281 (verified).
+- Ack comment: https://github.com/endojs/endo-but-for-bots/pull/1281#issuecomment-5701153034
+
+**Follow-ups:** none. (A separate `endojs-endo-but-for-bots-pr1281-retcon` job, acked earlier by a peer, owns the unrelated "retcon" directive — out of scope here.)

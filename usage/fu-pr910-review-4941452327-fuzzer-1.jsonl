@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":48,"elapsed_s":2026,"input_tokens":91,"output_tokens":21399,"cache_creation_tokens":77105,"cache_read_tokens":3389039,"total_cost_usd":3.0033495,"ts":"2026-08-30T06:13:53Z","base":"fu-pr910-review-4941452327-fuzzer-1","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

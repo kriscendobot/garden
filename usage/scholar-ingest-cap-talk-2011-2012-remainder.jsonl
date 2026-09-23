@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":86,"elapsed_s":2190,"input_tokens":172,"output_tokens":81447,"cache_creation_tokens":241318,"cache_read_tokens":12471754,"total_cost_usd":10.688873000000001,"ts":"2026-09-16T20:54:09Z","base":"scholar-ingest-cap-talk-2011-2012-remainder","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

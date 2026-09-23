@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":30,"elapsed_s":361,"input_tokens":53,"output_tokens":21118,"cache_creation_tokens":89069,"cache_read_tokens":2216915,"total_cost_usd":2.5299764999999996,"ts":"2026-08-09T17:50:32Z","base":"minion-town-remove-toy-tools-scopes","host":"endolin-garden-ece02cb4","outcome":"tada","role":"designer"}

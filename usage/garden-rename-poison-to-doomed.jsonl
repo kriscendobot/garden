@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":80,"elapsed_s":1844,"input_tokens":144,"output_tokens":93377,"cache_creation_tokens":214545,"cache_read_tokens":12728126,"total_cost_usd":10.847918000000004,"ts":"2026-08-04T06:01:42Z","base":"garden-rename-poison-to-doomed","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener"}

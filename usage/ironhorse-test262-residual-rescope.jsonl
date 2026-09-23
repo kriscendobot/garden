@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":23,"elapsed_s":317,"input_tokens":42,"output_tokens":19095,"cache_creation_tokens":64414,"cache_read_tokens":1278822,"total_cost_usd":1.763703,"ts":"2026-08-16T04:33:42Z","base":"ironhorse-test262-residual-rescope","host":"endolin-garden2-5bcdff64","outcome":"tada"}

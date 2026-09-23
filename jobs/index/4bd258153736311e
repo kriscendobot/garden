@@ -1,0 +1,2 @@
+base: improve-receipt-watcher-direct-dispatch
+identity: mentor:scripts/jobs/receipt-watcher.sh

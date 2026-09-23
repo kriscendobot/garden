@@ -1,0 +1,2 @@
+base: improve-mentor-claude-transient-claude-exit
+identity: mentor:scripts/jobs/handlers/mentor-claude.sh

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":19,"elapsed_s":259,"input_tokens":38,"output_tokens":13157,"cache_creation_tokens":56691,"cache_read_tokens":1056758,"total_cost_usd":1.4282280000000003,"ts":"2026-09-22T06:50:22Z","base":"build-minion-town-endo-pin-89481580-on-main","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder","provider":"anthropic"}

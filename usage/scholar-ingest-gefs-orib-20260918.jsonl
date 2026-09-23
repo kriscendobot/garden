@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":63,"elapsed_s":1142,"input_tokens":112,"output_tokens":60583,"cache_creation_tokens":219586,"cache_read_tokens":10029155,"total_cost_usd":8.7295325,"ts":"2026-09-18T22:08:15Z","base":"scholar-ingest-gefs-orib-20260918","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"scholar","provider":"anthropic"}

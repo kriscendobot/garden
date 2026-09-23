@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":51,"elapsed_s":644,"input_tokens":89,"output_tokens":35740,"cache_creation_tokens":118248,"cache_read_tokens":4612339,"total_cost_usd":4.384851500000001,"ts":"2026-08-25T10:47:35Z","base":"improve-orchestration-go-ahead-adoption","host":"endolin-garden2-5bcdff64","outcome":"tada"}

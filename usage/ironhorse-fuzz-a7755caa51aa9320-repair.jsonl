@@ -1,0 +1,2 @@
+{"ts":"2026-08-31T10:32:47Z","base":"ironhorse-fuzz-a7755caa51aa9320-repair","host":"endolin-garden2-5bcdff64","outcome":"fail","source":"none","elapsed_s":336}
+{"source":"result","model":"claude-opus-4-8","num_turns":42,"elapsed_s":613,"input_tokens":78,"output_tokens":27970,"cache_creation_tokens":92178,"cache_read_tokens":3035479,"total_cost_usd":3.1428115,"ts":"2026-09-17T02:10:23Z","base":"ironhorse-fuzz-a7755caa51aa9320-repair","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder","provider":"anthropic"}

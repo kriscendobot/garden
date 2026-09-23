@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":18,"elapsed_s":326,"input_tokens":33,"output_tokens":23658,"cache_creation_tokens":72915,"cache_read_tokens":1162465,"total_cost_usd":1.9044785,"ts":"2026-08-01T19:58:25Z","base":"self-heal-fix-garden-mentor-malformed-semantic-output","host":"endolin-garden2-5bcdff64","outcome":"tada"}

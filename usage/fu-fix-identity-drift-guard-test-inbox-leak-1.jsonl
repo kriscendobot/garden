@@ -1,0 +1,1 @@
+{"source":"result","num_turns":48,"elapsed_s":493,"input_tokens":77,"output_tokens":31591,"cache_creation_tokens":96555,"cache_read_tokens":3374457,"total_cost_usd":3.4429384999999995,"ts":"2026-07-28T12:22:09Z","base":"fu-fix-identity-drift-guard-test-inbox-leak-1","host":"endolin-garden2-5bcdff64","outcome":"tada"}

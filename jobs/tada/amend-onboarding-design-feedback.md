@@ -1,0 +1,15 @@
+Amended `designs/streamlined-onboarding.md` per the maintainer's review and pushed directly to `main2` as commit **`4772ddbfaf90dba4733a1b1a9dfe3f2eab1ca88d`** (`4772ddbfa`, "designs: streamlined onboarding — fold maintainer review feedback").
+
+All four feedback points are integrated into the design's existing structure, not appended:
+
+1. **"Starting the garden" reframe.** The bring-up concept is retitled throughout — golden-path step 3, the tutorial (old stages 4–6 merged into one conversational stage 4, "say: start the garden", the liaison doing every step and asking before consequential ones), the § 3.1 boundary table, both § 4 migration maps (the CLAUDE.md "Bringing up local systemd services" row now records the retitle), and § 5 Q5. *Start the garden* is added as liaison vocabulary (CLAUDE.md table row + `roles/liaison/AGENT.md` § Help, and the virgin-instance greeting offers it). The command detail is deemphasized out of the tutorial into a new `context/operations/starting.md`, explicitly agent-facing, never a human checklist — the `context/` tree was reshaped accordingly (`fleet/leader/monitors/inboxes.md` subsumed; now nine leaves, counts and cross-references updated).
+
+2. **Zero env vars; `.garden` file preferred.** New first bullet in § 1.1: the launcher now *reads* `.garden` (today it only writes it) and derives container name/hostname from it; `echo petunias > .garden` is the documented default, `GARDEN=petunias ./garden` kept as the belt-and-suspenders sugar that writes the same file. Golden-path prose, tutorial stage 2's rename moves, `identity.md`'s abstract, and the § 4.1 identity row all lead with the file form now. (I verified against the current `garden` script — the read-side is genuinely new behavior, correctly framed as a launcher change.)
+
+3. **`./garden` → claude directly; `./garden sh` debug shell.** Every `./garden shell` occurrence renamed to `./garden sh`; the § 1.1 exec bullet and § 6 phase 1 now name **both files** explicitly — the `garden` script (exec, `sh` subcommand, `.garden`-first identity, auto-build, settings seed) and the `Dockerfile` (the image-side half: claude CLI install and the PATH wiring the exec relies on, grounded in the actual Dockerfile's `/etc/profile.d/garden.sh` arrangement).
+
+4. **§ 5 Q2 resolved:** auto mode is the default, with the one-line residual note (liaison still asks before consequential operations; acceptEdits variant documented, not defaulted). § 1.3's "decision requested" language updated to match, and Q3 marked resolved in substance by the same review (direct entry confirmed; wrapper-not-CMD placement stands).
+
+**Process note:** as the job warned, this worktree's git registration had been swept mid-job (`fatal: not a git repository` on the admin path), so I committed and pushed from a standalone scratch clone (since removed). Inbox was empty at completion.
+
+**Follow-up:** none required by this job; the § 6 build jobs (phase 1 launcher+Dockerfile, phases 2–4 context tree and slimming) remain gated on the maintainer per the design.

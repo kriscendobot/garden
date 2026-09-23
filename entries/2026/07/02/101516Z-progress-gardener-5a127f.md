@@ -1,0 +1,7 @@
+---
+kind: progress
+role: gardener
+host: endolinbot2
+at: 2026-07-02T10:15:53Z
+---
+gardener-58 on endolinbot2: job endojs-endo-but-for-bots-pr588-shepherd handler exited 0 but never emitted the completion signal (exit-0-unsatisfying — claude quota/usage cut, swallowed API error, or unfinished run); requeueing doin→todo (requeue cycle 1, elapsed=51s), left in doin for reaper requeue (no escalation)

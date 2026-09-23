@@ -1,0 +1,8 @@
+{"ts":"2026-08-31T02:17:35Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":184}
+{"ts":"2026-08-31T06:02:35Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":200}
+{"ts":"2026-08-31T06:16:31Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"endolin-garden-ece02cb4","outcome":"fail","source":"none","elapsed_s":62}
+{"ts":"2026-08-31T10:34:06Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":440}
+{"ts":"2026-08-31T10:50:08Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"endolin-garden-ece02cb4","outcome":"fail","source":"none","elapsed_s":295}
+{"source":"result","model":"claude-opus-4-8","num_turns":1,"elapsed_s":4,"input_tokens":0,"output_tokens":0,"cache_creation_tokens":0,"cache_read_tokens":0,"total_cost_usd":0,"ts":"2026-08-31T14:55:17Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"endolin-garden-ece02cb4","outcome":"requeue","role":"builder","provider":"anthropic"}
+{"ts":"2026-08-31T17:24:53Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"endolin-garden2-5bcdff64","outcome":"fail","source":"none","elapsed_s":240}
+{"source":"result","model":"claude-opus-4-8","num_turns":85,"elapsed_s":1347,"input_tokens":166,"output_tokens":58094,"cache_creation_tokens":161048,"cache_read_tokens":9156464,"total_cost_usd":7.6418919999999995,"ts":"2026-09-17T00:56:42Z","base":"ironhorse-fuzz-557805e944888b5a-repair","host":"oros-studio-garden-ce242c49","outcome":"tada","role":"builder","provider":"anthropic"}

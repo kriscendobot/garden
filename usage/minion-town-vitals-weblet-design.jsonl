@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":28,"elapsed_s":600,"input_tokens":48,"output_tokens":30260,"cache_creation_tokens":95394,"cache_read_tokens":1903501,"total_cost_usd":2.6650614999999993,"ts":"2026-08-11T18:56:32Z","base":"minion-town-vitals-weblet-design","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"designer"}

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-fable-5","num_turns":47,"elapsed_s":562,"input_tokens":74,"output_tokens":35026,"cache_creation_tokens":106238,"cache_read_tokens":3253539,"total_cost_usd":7.132545999999999,"ts":"2026-08-09T18:30:12Z","base":"minion-town-weblet-publish-fable-review-20260809","host":"endolin-garden2-5bcdff64","outcome":"tada"}

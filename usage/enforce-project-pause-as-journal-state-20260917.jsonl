@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":99,"elapsed_s":1127,"input_tokens":194,"output_tokens":84623,"cache_creation_tokens":230830,"cache_read_tokens":16363168,"total_cost_usd":12.610150999999997,"ts":"2026-09-17T21:37:42Z","base":"enforce-project-pause-as-journal-state-20260917","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

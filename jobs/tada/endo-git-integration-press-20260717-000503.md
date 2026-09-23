@@ -1,0 +1,15 @@
+## Completion report — git-integration press dispatch (2026-07-17, 00:05Z claim, resumed 00:23Z after a reaper requeue)
+
+**Assessment.** Read the M3 roadmap (`designs/daemon-git-next-steps.md`), the sequencing design #691's phased build plan (fetched via git; the GitHub API pool was exhausted mid-dispatch by concurrent fleet jobs, so I slept through the 00:20:56Z reset and did local-git analysis meanwhile), and the live stack. No live peer holds any stack branch (board `todo/` empty, no shepherd/weave on these PRs).
+
+**State of the stack (all claims cite real output).**
+- **#706 (Phase 2, commit-identity) MERGED** 2026-07-16T22:02:59Z, merge commit `4f09410a2e` — landed by conductor job `endojs-endo-but-for-bots-pr706-conduct`, which was posted from a maintainer PR-comment directive.
+- **#705 (Phase 1, remote push tier):** 22/22 checks SUCCESS, un-drafted, `mergeStateStatus: CLEAN`, no blocking review requirement. It is the next merge in #691's sequence and the plan's only hard dependency edge (1 → 3).
+- **#707 (Phase 3, the milestone exit criterion): CI is no longer the blocker** — `statusCheckRollup`: 23/23 SUCCESS on head `479f249617`, zero unresolved review threads (GraphQL). Verified its `git-worked-loop.test.js` genuinely closes the north-star loop: provision workspace → edit via fs tools → status/diff/commit → push through a push-only bounded `GitRemote` (`allowedDirections: ['push']`, pinned refspec) → read the pushed ref back via `filesystemAt` → assert the Phase-2 identity on the pushed commit.
+- **#708** (QID/hash, parallel lane) and **#740** (endor CAS bindings design): green, zero unresolved threads, nothing in them blocks the loop; #740 needs no designer sub-job this dispatch (no feedback awaiting settlement).
+
+**Key finding for the next weave.** #707's tree is *not* reconciled with current llm: its base lineage (`feat-git-commit-identity-boundary-7e52e76` ← `llm-f7932ed`) predates #662/#714, and its tree carries byte-identical duplicates of #705's push-tier files (`git-remote-tool.js` + test identical; only `types.ts`/`index.js` carry #707-side additions). After #705 merges, #707 needs one real weave onto llm — deliberately **not** done now to avoid double CI churn and out-of-sequence rebasing.
+
+**Action taken.** No merge on my own authority: the #706 precedent was directive-driven, and the maintainer left #705 unmerged in the same pass. Sent the maintainer (via liaison, `20260717T002451Z-cb5a1b`) a status + ask: comment `merge` on #705 and the lane runs to the finish line.
+
+**Follow-ups.** (1) On the #705 merge: weave #707 onto llm (real conflict reconciliation vs #662/#714 + dropping the duplicated push tier), then #707's merge closes M3. (2) #691/#708/#740 merge disposition remains with the maintainer. (3) Phase 4 (verb gaps) is parallel-eligible per #691 but that design PR is itself unmerged — not posted, to avoid building ahead of the accepted spec. (4) 56 stale `llm-*` frozen-base branches on the fork — sweep-on-close debt, for a cleaner job someday.

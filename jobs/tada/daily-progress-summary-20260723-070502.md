@@ -1,0 +1,1 @@
+Created and pushed `periodicals/2026/07/22.md` to `journal2` (commit `3db0b365c`). It summarizes the scheduled window, project-tagged activity, board movement, completions, and operational wedges with relative source citations.

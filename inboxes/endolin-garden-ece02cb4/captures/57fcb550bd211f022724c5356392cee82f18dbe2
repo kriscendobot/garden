@@ -1,0 +1,30 @@
+<6>08:38:04 [monk/3] job 'minion-town-formula-graph-content-gc-gauntlet-fix-4' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>08:38:04 [monk/3] job 'minion-town-formula-graph-content-gc-gauntlet-fix-4' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>08:45:32 [assert-followup-posted] gate: BLOCK — 'minion-town-formula-graph-content-gc-gauntlet-fix-4' completion report describes a substantive follow-up but posted no board job (no handoff), sent no maintainer-inbox message, and set no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+Panel round-4 fix applied, pushed, CI green.
+
+## What I did
+
+Read the panel round-4 must-fix verdict on PR #83 (`build/clip-content-gc`) and applied all three blocking items plus a low-risk should-fix, with tests pinning each change.
+
+**Must-fix applied:**
+1. **Library `minimumAgeMs === 0` interlock gap** (`content-gc.ts`) — `runContentGc` now requires `> 0` not `>= 0`, so the library independently rejects the zero-grace-window value the CLI already rejects (falls back to the safe hour).
+2. **Write-side prototype-key hardening** (`publish.ts`) — `planContent`'s `entries` accumulator is now `Object.create(null)` with `Object.hasOwn` membership, so a guest path normalizing to `__proto__`/`constructor`/`toString` no longer throws a spurious "duplicate content path".
+3. **Abbreviated identifiers** (`content-gc-main.ts`) — `rejectUnknownArgs`→`rejectUnknownArguments`, `arg`→`argument`, `eq`→`equalsIndex`.
+
+**Should-fix applied (low-risk correctness):** `vhost-table.ts` `listVhostRecords` now treats a per-record `readFile` ENOENT as a benign concurrent-unpublish race (skip silently) instead of a hard error that inhibited the whole sweep — closes a GC-starvation path.
+
+**Tests added:** library `minimumAgeMs` boundary (0/negative/NaN/±Inf→hour, 1 ms verbatim), age-gate exact-equality boundary via injected clock, write-side `buildManifest` `__proto__` retention, concurrent-unpublish skip, publish-level prototype-member path acceptance, and CLI `'1'` smallest-legal window.
+
+## Verification
+- Full suite: 334 passed / 5 skipped; `typecheck` clean.
+- Pushed `6c8318a → d67f77d` to the PR head via `safe-push-pr-head.sh`.
+- `ci-wait-merge.sh` (bounded, `--no-merge`): **rc 0, CI GREEN**.
+- Posted the top-level completion-summary comment the scribe repeatedly flagged (#10), naming the head SHA, applied classes, CI status, and the explicitly-deferred doc/telemetry should-fixes (#5, #8, #9, #11).
+
+## Follow-ups (deferred, non-behavioral)
+`internBlob` dedup-hit refresh-failure diagnostic (#5), `MemoryMax=128M` store-size budget note (#8), monotonic-clock/NTP-slew note (#9), and the `content-store.ts` spec-citation verification (#11) — documentation/telemetry hardening, flagged in the summary comment so they aren't silently absorbed. The driver re-posts panel-5.
+
+<!-- gauntlet-stage-result: fix=done -->

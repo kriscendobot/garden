@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":10,"elapsed_s":108,"input_tokens":16,"output_tokens":6909,"cache_creation_tokens":56726,"cache_read_tokens":439923,"total_cost_usd":0.9637705000000001,"ts":"2026-09-13T01:22:39Z","base":"claude-on-minion-town-press-20260913-012005","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener","provider":"anthropic"}

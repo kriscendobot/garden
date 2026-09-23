@@ -1,0 +1,28 @@
+<6>20:55:49 [monk/1] job 'kriscendobot-minion.town-pr97-gauntlet-fix-4' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>20:55:49 [monk/1] job 'kriscendobot-minion.town-pr97-gauntlet-fix-4' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>21:03:06 [assert-followup-posted] gate: BLOCK — 'kriscendobot-minion.town-pr97-gauntlet-fix-4' completion report describes a substantive follow-up but posted no board job (no handoff), sent no maintainer-inbox message, and set no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+Fix round 4 complete. Applied the panel's must-fix items to `designs/claude-agents-capability.md`, pushed as a review-feedback follow-up commit, and CI is green.
+
+## What I did
+
+Read the panel round-4 request-changes verdict on PR #97 and applied every must-fix item once, in an isolated project worktree of the PR head (`design/claude-agents-root-endowment`):
+
+- **critic** (must-fix): reworded the "delegation is exactly one level deep from the root" claim (both in the `RootClaudeAgents` doc comment and § Delegation) to separate *bounded authority* (one sub-namespace, no second grant ever minted) from *unbounded, identity-unaudited forwarding reach*.
+- **skeptic** (two must-fix): (1) resolved the Decisions-vs-Open-Questions tension by marking the `delegate()` mint-and-mail *shape* provisional (settled attenuation posture vs. unconfirmed mechanism, pending maintainer sign-off); (2) named the persisted per-`delegationId` retained-child index and the call-time liveness re-check that make a forwarded, third-party-held facet actually revocable (a revoked-but-still-held reference resolves inert). Also added the singular-mandate → `rootSubjects`-set widening acknowledgment (skeptic's note).
+- **ergonomist** (two must-fix): promoted `dismiss`'s recursive/cascade blast radius to the leading doc-comment sentence; renamed `delegate`'s single-object success field `agents` → `factory` (type decl + Decisions prose).
+- **decomplector**: sorted every mutating method into gated arming/spending vs. exempted operator-cleanup after demotion, placing `dismiss` and correcting the "read-only" mislabel of `revoke`.
+- **copyeditor** (4 should-fix): fixed the broken cross-reference, the comma splice, both tangled forwarding predicates, and the satisfied/absent parallel-predicate.
+- **pedant** (2 should-fix): normalized `root/admin` → `root account` (3 spots); reformatted the Amendment front-matter label to the bare-noun sibling shape.
+- **novice**: defined "connected guest" and glossed "resolving `canceled`" on a `Promise<never>`.
+
+## What changed
+One commit (`4601f6b`) on the PR head, design file only (+102/−41). Restored an incidental `package-lock.json` change from the warm-cache install so it wasn't committed. Verified no em-dashes/curly quotes introduced; mermaid diagram untouched.
+
+## Follow-ups
+The skeptic finding-1 provisionality now points at a genuine maintainer decision — whether `delegate()`'s mint-and-mail is the intended "communicate that to connected guests" mechanism. That's flagged in § Open questions and the Decisions entry, not resolvable in this stage.
+
+Per the driver contract, I stopped after push+CI and did not re-run the panel (driver re-posts panel-5).
+
+<!-- gauntlet-stage-result: fix=done -->

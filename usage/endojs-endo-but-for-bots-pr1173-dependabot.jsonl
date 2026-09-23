@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":26,"elapsed_s":322,"input_tokens":44,"output_tokens":20213,"cache_creation_tokens":82021,"cache_read_tokens":1584822,"total_cost_usd":2.121416,"ts":"2026-09-06T20:15:49Z","base":"endojs-endo-but-for-bots-pr1173-dependabot","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"botanist","provider":"anthropic"}

@@ -1,0 +1,2 @@
+base: improve-gh-wrapper-timeout-bound
+identity: mentor:scripts/jobs/bin/gh

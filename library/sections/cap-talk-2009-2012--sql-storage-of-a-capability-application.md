@@ -1,0 +1,27 @@
+---
+title: "What does the SQL storage of a capability-based application look like?"
+source_kind: mailing-list-archive
+source_url: http://www.eros-os.org/pipermail/cap-talk/2012-December/
+source_snapshot: http://web.archive.org/web/2id_/http://www.eros-os.org/pipermail/cap-talk/2012-December.txt.gz
+source_content_sha256: 8e4ad5a7d7fa29794872101060a96a8e75cf2bb970c673211fda3150ffe9db42
+source_authors: [David Bruant, David Barbour]
+source_date: 2012-12-11
+thread_subject: "What does the SQL storage of a cap-based application looks like?"
+ingested: 2026-09-16
+ingested_by: scholar
+topics: [persistence, capability-security, patterns, cap-talk-open-questions]
+status: current
+notes: "Derived summary, not the original messages. Dense month (196 messages); this section covers the 29-message SQL-storage thread."
+---
+
+Abstract: David Bruant asked the concrete engineering question the capability literature usually skips: if I am building an ordinary web application — users, companies, groups, roles, contents, with attenuated delegation expected — and I have read that ACLs are inadequate for such sharing, what does the *relational storage* of a "capabilities-compliant" schema actually look like? He pressed two intuitions. First, that access should be *naturally transitive*: if someone can reach an entity, they should reach the entities "naturally connected" to it. Second, a skeptical one: from a storage point of view, maybe the difference between ACL and capabilities is *inexistent*, since either way there is a granularity of stored rows that directly corresponds to what you call "access" or "capability." David Barbour answered from experience that he had *not* found a satisfactory way to model *fine-grained* capabilities in a relational database. Coarse-grained capabilities work — at the level of whole tables or whole (fine-grained) databases — and you can model "distributed queries" that join across databases, or fake multiple parallel databases inside one by adding a `DB` column to every table. He rejected Bruant's transitivity intuition sharply: "Like, if I have access to your address, I should also have access to your bank account and list of favorite websites?" — in a relational database it is the *relationships* you want to secure, not the "entity." And he rejected the ACL-equals-capabilities-at-storage claim: the security models can impact schema and storage in genuinely different ways, and "it is always a bad idea to assume there isn't a significant difference without a proof."
+
+## The relational model resists fine-grained capabilities
+
+The thread's honest conclusion is a negative result with a workaround. Fine-grained object-capability structure — a distinct, separately-attenuable, separately-revocable handle per object per holder — has no clean relational encoding, because a relational database is organized around *tables of tuples* and set-oriented queries, not around a graph of individually-held references. Barbour's workarounds all *coarsen* the granularity to something relational: secure whole tables, whole databases, or partitions keyed by a `DB` column, and reach across them with explicit joins. The reason the transitivity intuition fails is instructive: "reachable entities are naturally connected" is a graph-navigation idea, but in a relational schema the connections *are* the security-relevant thing — a foreign key from `user` to `bank_account` is exactly the relationship you must *not* let authority flow across for free. So the design guidance inverts Bruant's instinct: secure the edges, not the nodes, and do not assume the storage layer makes ACLs and capabilities interchangeable without proving it for your schema. The unresolved core — a satisfactory fine-grained-capability relational schema — is left genuinely open.
+
+## Bearing on Endo
+
+Endo sidesteps the relational-storage impedance mismatch this thread diagnoses by not persisting authority as rows at all: capabilities are *formulas* in a content-addressed, capability-structured store, where a reference is a first-class persistent object with its own identity and attenuation, not a tuple whose "access" must be reconstructed from joins. Barbour's negative result — fine-grained caps do not fit a relational schema, only coarse table/DB-level ones do — is part of why Endo's persistence is formula-graph-shaped rather than table-shaped: the object graph *is* the storage model, so the per-object, per-holder handle Bruant wanted exists natively instead of being emulated with a `DB` column. Barbour's "secure the relationships, not the entities" is the same lesson as Endo's "a reference is its behavior, and facets are distinct capabilities" — authority lives on the *edge* (which facet you hold), not on the *node* (the underlying object). An application built on Endo that still needs SQL storage keeps the SQL for *data* (copy-data, Miller's knowledge-limited category) and keeps *authority* in the formula graph, which is the clean division this thread was groping toward. See [waterken-persistence-transactions-and-failure](cap-talk-2009-2012--waterken-persistence-transactions-and-failure.md) and the concepts [[formula-persistence-thesis]], [[capabilities-vs-acls]], and [[sql-language-critique]].
+
+Source: [cap-talk 2012-December archive](http://www.eros-os.org/pipermail/cap-talk/2012-December/) (Internet Archive original-bytes `id_` snapshot of `2012-December.txt.gz`, sha256 `8e4ad5a7`), thread "What does the SQL storage of a cap-based application looks like?", 2012-12-11.

@@ -1,0 +1,31 @@
+---
+title: "Opinions of OAuth: the best wrong way, and web-keys as the capability alternative"
+source_kind: mailing-list-archive
+source_url: http://www.eros-os.org/pipermail/cap-talk/2012-January/
+source_snapshot: http://web.archive.org/web/2id_/http://www.eros-os.org/pipermail/cap-talk/2012-January.txt.gz
+source_content_sha256: 52782d21e89c47e0c4931c78329d1b093de7d749722a0acc54dd4dac33a580f2
+source_authors: [Jonathan S. Shapiro, Alan Karp, Mark Miller, Marc Stiegler, Tyler Close, David Barbour, Bill Frantz, Thomas Leonard]
+source_date: 2012-01-02 to 2012-01-23
+thread_subject: "Opinions of oauth?"
+ingested: 2026-09-16
+ingested_by: scholar
+topics: [oauth-credentials, capability-security, identity, cap-talk-open-questions]
+status: current
+notes: "Derived summary, not the original messages. The densest 2012 thread (72 messages), with the OAuth/Petnames and webkey-revocation sub-threads folded in."
+---
+
+Abstract: Jonathan Shapiro asked the list for a candid assessment of OAuth "from the perspective of needing to select from solutions available to developers right now," explicitly not hypothetical better ones. The pragmatic verdict, from Alan Karp, was that OAuth 1 is a mess but OAuth 2 "isn't terrible" and, for something with industry acceptance that *can* be used properly (though often is not), you can do worse. Bill Frantz's signature line captured the ambivalence: "OAuth — It's the best that the wrong way of doing things ..." Mark Miller pushed back on the framing itself ("similar purpose" to *what* — what problem are you solving?), which is the capability community's habitual move: OAuth bundles authentication, authorization, and delegation into one redirect-and-bearer-token dance, and the capability answer separates them. The thread's constructive core is the web-key alternative, laid out by Tyler Close (Waterken's author) and Marc Stiegler: an unguessable URL that directly conveys the specific authority, with no identity round-trip — Stiegler distinguishing plain unguessable URLs (Google, CACM, IEEE style) from "modern Waterken-style webkeys" that carry a public-key fingerprint in the hostname (YURLs). Close detailed the YURL deployment machinery (the `yurl.net` DNS bridge, the client-library whitelist forced by the browser Same-Origin Policy, and the option of combining fingerprint validation with a CA certificate), and the webkey-revocation sub-thread covered expiration and session-level revocation as the capability answer to OAuth's token lifecycle.
+
+## The best wrong way of doing things
+
+The consensus is neither endorsement nor dismissal but a precise placement. OAuth 2 is *acceptable as an available, interoperable mechanism* — Karp's "you can do worse" — while remaining, in Frantz's phrase, "the wrong way of doing things" done as well as that way can be. The wrongness is structural: OAuth's authorization-code flow authenticates a resource owner to an authorization server, then issues a bearer token to a third party, mixing identity, consent, and delegation into a redirect choreography whose bearer tokens are reusable secrets with coarse scopes and awkward revocation. Miller's "solution to what problem?" is the diagnostic: much of what OAuth does is convey a *specific, delegable authority* from one party to another, and for that a capability (a web-key) is the direct expression, with the identity and consent machinery either unnecessary or separable.
+
+## Web-keys and YURLs as the capability alternative
+
+Close and Stiegler gave the constructive answer developers actually asked for. A web-key (as in "Mashing with permission") is an `https://` URL with the authority-bearing secret in the fragment, verified by the ordinary CA system. A *Waterken* YURL goes further and puts a public-key fingerprint in the hostname (`sha-256-....yurl.net`), so the client can authenticate the server by key fingerprint rather than by CA — self-authenticating in Zooko's sense. The deployment realities Close surfaced are the honest cost: `yurl.net` exists to bridge fingerprints to IP addresses and for DNS backward compatibility (and the project had "been stuck at this stage of deployment for a while"); a client-library whitelist of YURL-enabled domains is *required* because the Same-Origin Policy would otherwise let an attacker register `sha256-<theirkey>.bank.com`, shorten it via `document.domain`, and inject script into `bank.com`; and the two validation techniques compose — a YURL host can also carry a CA-signed certificate so browsers see no warning. The webkey-revocation sub-thread supplied the token-lifecycle answer OAuth handles poorly: expirations and session-level revocation implemented behind the resource the web-key names.
+
+## Bearing on Endo
+
+This thread is the direct ancestor of Endo's position on OAuth versus capabilities, already partly captured in [web-powerbox-and-oauth](cap-talk-2009-2012--web-powerbox-and-oauth.md) and the concept page [oauth-client-credentials-vs-authorization-code](../concepts/oauth-client-credentials-vs-authorization-code.md). Miller's "solution to what problem?" is Endo's separation of concerns: authority is a reference, consent is the act of granting it, and identity is a separate pet-named concern — Endo never bundles them into one bearer token. The web-key is the on-the-wire ancestor of an Endo capability: an unguessable, directly-authority-conveying handle with no identity round-trip, which is why Endo introduction passes capabilities rather than running an authorization-code redirect. Close's YURL/fingerprint-in-hostname design is the antecedent of OCapN's self-authenticating peer identity (a key, not a CA-issued name), and his Same-Origin-Policy whitelist hazard is a concrete reminder of why Endo authenticates peers by key rather than by name. Karp's "OAuth 2 isn't terrible, use it properly" remains the pragmatic bridge: where Endo must interoperate with an OAuth-guarded service it wraps the token behind a capability, giving callers a revocable reference instead of a reusable bearer secret.
+
+Source: [cap-talk 2012-January archive](http://www.eros-os.org/pipermail/cap-talk/2012-January/) (Internet Archive original-bytes `id_` snapshot of `2012-January.txt.gz`, sha256 `52782d21`), thread "Opinions of oauth?" (with "OAuth/Petnames" and "webkey revocation"), 2012-01-02 to 2012-01-23.

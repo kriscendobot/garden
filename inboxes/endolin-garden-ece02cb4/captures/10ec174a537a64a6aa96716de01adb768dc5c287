@@ -1,0 +1,38 @@
+<6>22:29:49 [jobs] job 'minion-town-serving-live-persist' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>22:29:49 [jobs] job 'minion-town-serving-live-persist' resolved tier 'mentor' -> claude --model claude-opus-4-8
+GraphQL: Could not resolve to a PullRequest with the number of 58. (repository.pullRequest)
+
+--- handler report (partial) ---
+The job is complete. Here is my report.
+
+---
+
+## Completion report — minion-town-serving-live-persist
+
+**Objective:** Leave live guest-weblet `@sites` serving ON persistently in production (maintainer-authorized on kriscendobot/garden#58), durably across reboot and CD.
+
+### Assessment (before change)
+On prod box `i-0380cd68b90020fad` (us-west-1, SSM-only): `minion-mcp`, `endo-daemon`, `endo-gateway`, `caddy` all active. `WEBLET_SITES_LIVE` was **unset** (serving off — the default-closed state restored after the earlier transient validation). The deployed unit had `# Environment=WEBLET_SITES_LIVE=1` commented with a "Default OFF" note. Powers-plane containment (`zz-containment-20260812.conf`) intact.
+
+### What I changed
+1. **Deploy-durable source change** — kriscendobot/minion.town **#55**, squash-merged to `main`:
+   - Uncommented `Environment=WEBLET_SITES_LIVE=1` in `deploy/aws/systemd/minion-mcp.service` (rewrote the comment to record the #58 authorization and the content-plane safety rationale).
+   - Updated `DEPLOYMENT.md` to describe the ON posture and how to revert.
+   - `deploy-app.sh` renders this unit and CD redeploys on every push to `main`, so the flag now survives future deploys. Merged with `[skip deploy]` (CD run confirmed **skipped**) because the box already carried the byte-identical source-rendered unit and was validated — avoiding a redundant full-stack prod redeploy.
+2. **On the box** — pushed the new source-rendered unit via SSM, `daemon-reload`, `systemctl restart minion-mcp`. Boot log: `🌐 @sites registry installed on the Endo daemon … weblet publish is LIVE`; process env carries `WEBLET_SITES_LIVE=1`. Reboot-durable (main unit file); CD-durable via #55.
+
+### Re-confirmed served hash (end-to-end, live MCP path)
+- MCP machine client (Cognito `client_credentials`, scope `mcp/tools mcp/guest`) → `weblet_publish` → **`serving: true`**
+- Hash `552uzf36343xq4iq5adsjfu4rerkrpqtjhlmc6mj36oeeuczb7sq`
+- `GET https://552uzf36343xq4iq5adsjfu4rerkrpqtjhlmc6mj36oeeuczb7sq.ocap.site/index.html` → **200**, published marker present
+- `weblet_list` contains the hash (`serving: true`)
+- Demonstration weblet left published (serving stays on).
+
+### Containment (untouched, verified)
+`zz-containment-20260812.conf` present with `UnsetEnvironment=GATEWAY_ENDO_SOCK`; the gateway boots with `GATEWAY_ENDO_SOCK` **unset** — powers plane still contained. Serving is safe because weblets serve through the content plane (content-addressed blobs), not by resolving a host capability.
+
+### Reporting
+Posted the outcome on kriscendobot/garden#58 (comment `#issuecomment-5446070587`). Left the issue **open** for the submitter (kriskowal) to close.
+
+### Follow-ups
+- None required. The next unrelated merge to `main` will trigger a full CD deploy that re-renders the unit with the flag; that's expected and idempotent (box already matches).

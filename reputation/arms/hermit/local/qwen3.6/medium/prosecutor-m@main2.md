@@ -1,0 +1,13 @@
+kind: hermit
+provider: local
+model: qwen3.6
+thoughtfulness: medium
+work_class: prosecutor:m
+target: main2
+attempts: 2
+accepts: 2
+censored: 2
+estimated: 2
+mean_dollars: 0.038192
+m2: 0.000006
+acceptance_rate: 1.0000

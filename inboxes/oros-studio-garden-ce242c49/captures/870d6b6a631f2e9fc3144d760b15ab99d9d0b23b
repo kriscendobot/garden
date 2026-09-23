@@ -1,0 +1,27 @@
+<6>23:31:12 [monk/1] job 'build-thesaurus-botese-jury-seat' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>23:31:12 [monk/1] job 'build-thesaurus-botese-jury-seat' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>23:54:28 [assert-producer-pr-draft] draft-gate: BLOCK — https://github.com/endojs/endo-but-for-bots/pull/1281 (endojs/endo-but-for-bots#1281) named by completing job 'build-thesaurus-botese-jury-seat' is a bot-authored OPEN NON-DRAFT PR with NO staged or completed gauntlet. Under the manual-gauntlet regime a producer PR may complete without a gauntlet only while DRAFT; a ready PR needs an explicit 'run the gauntlet #N'. Refusing to record the job complete. (Not re-drafting: the PR may be under maintainer review.)
+
+--- handler report (partial) ---
+The maintainer notice was delivered (rc=0). Everything is landed, verified, and tests are green.
+
+## Completion report
+
+Built the **thesaurus** jury seat for **Botese** (AI-slop cliché phrases), a direct structural port of the American-English spelling mechanism per kriskowal's directive on `endojs/endo-but-for-bots#1281` (r4028527867). Landed on `main2` at commit `e21884be41`.
+
+**What shipped** (all on `main2`):
+- `skills/botese-normalization/SKILL.md` + `cliches.tsv` — the curated, maintainer-reviewed phrase list. Seeded with exactly the two maintainer examples, `seam` and `load-bearing`.
+- `roles/jurors/thesaurus/AGENT.md` — the cost-gated jury seat (mirrors `orthographer`), on both code and design panels.
+- `roles/deslopper/AGENT.md` + the `deslop #N` verb — the myrmidon-tier fixer (mirrors `americanizer`) running the deterministic apply-then-re-grep loop to a residual⊆accept fixpoint.
+- `scripts/jobs/gardening/thesaurus-cliche-grep.sh` (no-LLM pre-pass) + `seat-gate-thesaurus.sh` (cost gate, honoring the new `GARDEN_PANEL_SEAT_MODEL` tiering).
+- `scripts/jobs/test/thesaurus-cliche-grep-test.sh` — 19 assertions, all green.
+- Wiring: `thesaurus` in `GARDEN_CODE_SEATS` (31) + `GARDEN_DESIGN_SEATS` (9) + `seat-model-tiers.tsv` (sonnet); `deslop` verb in `comment-watcher.sh` + triager map; `botese-normalization` added to panel-review external-author drop calibration; README + CLAUDE.md vocabulary rows.
+
+**Key design decision (the precision problem the maintainer flagged):** unlike a British spelling (a divergence *wherever* it appears), `seam`/`load-bearing` have genuine literal uses (a real load-bearing wall, a Feathers testing seam). So the data file enumerates the distinctive **multi-word collocation** (`load-bearing invariant`, `seam where`), *not* the bare word — the grep does whole-phrase matching, and the LLM seat still adjudicates each hit. The required regression test pins **both** a true-positive cliché and a false-positive-avoided literal use for each seed word (all pass).
+
+**Naming choices** (easily changed, as the origin design notes): seat `thesaurus` (maintainer's word), skill `botese-normalization`, fixer role/verb `deslopper`/`deslop`. The CLAUDE.md regenerable name-index was left untouched to match the existing precedent (the `orthographer`/`americanizer` siblings aren't in it either).
+
+**Follow-ups / notes:**
+- The requested closure reply on the origin thread `endojs/endo-but-for-bots#1281` **could not be posted**: the bot PAT is read-only on upstream `endojs/endo-but-for-bots` (403 on both review-comment and issue-comment creation; the fleet works via the `kriscendobot` fork). I routed the completion notice to the maintainer via the liaison instead. An upstream reply, if wanted, needs the maintainer/ferry identity.
+- The two seed concepts plus the mechanism are the deliverable; the list grows only by maintainer-reviewed `[proposed-rule]` curation, same as the orthographer word list.
+- Minor tier judgment worth a maintainer glance: I placed `thesaurus` at **sonnet** (not haiku like `orthographer`) because the seat both judges register/literal-vs-cliché *and* generates a concrete rewrite, which is a step beyond mechanical spelling lookup.

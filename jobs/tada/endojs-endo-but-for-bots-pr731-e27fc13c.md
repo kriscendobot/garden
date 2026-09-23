@@ -1,0 +1,1 @@
+Routed the directive and acknowledged it on #731. Confirmed all six named PR heads are preserved under `parked/json-agent-tools/*`; #661/#707 gauntlets remain parked. Shared capability work remains unaffected.

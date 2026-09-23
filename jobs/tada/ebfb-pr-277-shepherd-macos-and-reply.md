@@ -1,0 +1,1 @@
+I've rebased PR #277 onto current `llm` and force-pushed; CI is re-running on the fresh head. Waiting for the matrix (the `macos-15` test is the ~18min long pole) before posting the status reply. The background waiter will re-invoke me on completion.

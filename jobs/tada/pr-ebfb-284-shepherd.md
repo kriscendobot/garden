@@ -1,0 +1,1 @@
+I'll wait for the CI watch to complete. The fix is pushed (`4c40f67ee`), PR is MERGEABLE, and CI is re-running on the new head. Once the watch resolves I'll verify lint/test/cover are green and post the summary comment.

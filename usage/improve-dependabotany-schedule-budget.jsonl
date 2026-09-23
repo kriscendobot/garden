@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":23,"elapsed_s":1218,"input_tokens":46,"output_tokens":10281,"cache_creation_tokens":54627,"cache_read_tokens":1230383,"total_cost_usd":1.4213225,"ts":"2026-09-14T00:12:04Z","base":"improve-dependabotany-schedule-budget","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

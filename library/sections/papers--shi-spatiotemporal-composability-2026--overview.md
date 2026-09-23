@@ -1,0 +1,31 @@
+---
+title: Overview, the two dimensions of composability, and motivating examples
+source: "A Programming Paradigm for Spatiotemporal Composability"
+source_kind: paper
+source_authors: [Yifan Shi, Wei Zhang, Tianyi Cui]
+source_year: 2026
+source_venue: "Preprint (cordiverse/paper on GitHub)"
+source_url: https://github.com/cordiverse/paper/blob/main/paper.pdf
+source_pdf_sha256: 4d48478dc0b6222d9f74d7db10ee776449b1209eb112632336544d32a49db97f
+ingested: 2026-08-14
+ingested_by: scholar
+topics: [dynamic-composition, effect-and-coeffect-systems]
+status: current
+---
+
+Abstract: This derived scholarly digest, not the original paper, frames Shi-Zhang-Cui's central claim: dynamic composition — loading, unloading, and reconfiguring components at runtime — has two orthogonal dimensions, and each maps onto a classical program-analysis idea lifted from a compile-time annotation to a runtime mechanism. *Temporal composability* is the ability to completely and safely revert a component's side effects upon removal (effects lifted to *revertible effects*); *spatial composability* is the ability to declare and reactively manage inter-component dependencies (coeffects lifted to *reactive coeffects*). The paper's two named motivating instances are plugin systems (VSCode) and, most relevant here, *self-evolving agent harnesses* — an AI harness that generates and deploys modifications to its own components while continuously serving requests.
+
+The paper opens by observing that traditional composition is static — function calls, imports, class inheritance resolved at compile time and fixed for the run — whereas modern software increasingly demands dynamic composition, where components are loaded, unloaded, and reconfigured at runtime, yet its formal foundations remain underdeveloped. Two orthogonal dimensions are identified beyond the well-studied algebraic aspects of composition:
+
+- **Temporal composability** (the time dimension): upon removal of a component, the modifications it made to the shared environment must be completely and safely reversed. This requires tracking every resource allocation, event registration, and state mutation, and guaranteeing their orderly reclamation on removal. In the static setting this reduces to lexical scoping (RAII, bracket patterns); in the dynamic setting effects are long-lived, stateful, and not lexically bounded.
+- **Spatial composability** (the space dimension): components must declare, discover, and resolve their dependencies on one another in a structured, verifiable way, and coordinate lifecycles in response to dependency changes. In the static setting this reduces to module import resolution; in the dynamic setting dependencies appear, disappear, or change identity during execution.
+
+**Motivating example 1 — plugin systems (VSCode).** Extensions run in a shared *extension host* with no mechanism to unload an individual extension's code at runtime; among the top-100 extensions by install count, 87 carry executable code and therefore require a full host restart on removal. The `deactivate` hook is only a shutdown callback and separates effect disposal from effect creation, violating locality of concern. Spatially, VSCode exposes `extensionDependencies` but only 7 of the top-100 declare one on a non-built-in extension, and inter-extension exports are untyped (`any`), so a dependent gets no checked interface.
+
+**Motivating example 2 — self-evolving agent harnesses.** Modern AI agents rely on runtime harnesses that compose tool suites, govern permissions and sandboxing, maintain session state, provide context/memory, orchestrate subagents and multi-agent workflows, and expose interfaces. A future harness *generates and deploys modifications to its own components while continuously serving requests*; each such modification is an instance of dynamic composition. Because these modifications occur continuously and with limited human oversight, dynamic composability becomes indispensable: without temporal composability each self-modification forces a full restart that discards accumulated process-local state and can even disable the process needed to recover; without spatial composability each module must ad-hoc-detect and adapt to changes in its dependencies, and a naive code-replacement strategy may silently break dependents or introduce circular dependencies surfacing only at reload time.
+
+**The coarse-grained workaround.** Operating systems yield temporal composability at process granularity; container orchestrators yield spatial composability at service granularity. Most software tolerates the lack of fine-grained composability by deferring to these — restart the process, let the orchestrator manage a service dependency — but each restart discards process-local state (caches, connections, partial computations) that takes seconds to minutes to rebuild, and container-level orchestration cannot express dependencies between components sharing an address space and adds network overhead to interactions that could be local calls. This granularity mismatch motivates a compositional abstraction that manages effects and dependencies at the same level as the components themselves.
+
+**Contributions.** (1) *Revertible effects*: every context transformation carries an explicit inverse the runtime tracks, establishing local temporal composability. (2) *Reactive coeffects*: a component declares required coeffects as a specification and each context change notifies it as activating, deactivating, or neutral, establishing local spatial composability. (3) A *unified context type* combining both, in which an observational equivalence on the coeffects supplies the effects with independence — the programming paradigm proper. (4) A *calculus of dynamic composition* whose metatheory carries spatiotemporal composability from a single component to a whole system of interleaved components. (5) *Cordis*, a meta-framework realizing the model (effect tracking, coeffect resolution, a declarative component loader with configuration reconciliation and hot module replacement), validated on the Koishi chatbot framework's 4000+ community plugins.
+
+Source: [paper.pdf](https://github.com/cordiverse/paper/blob/main/paper.pdf) (cordiverse/paper), content SHA-256 `4d48478d…`.

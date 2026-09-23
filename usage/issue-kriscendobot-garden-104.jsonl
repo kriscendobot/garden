@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":36,"elapsed_s":370,"input_tokens":70,"output_tokens":20827,"cache_creation_tokens":63911,"cache_read_tokens":1937269,"total_cost_usd":2.1316645,"ts":"2026-09-19T06:03:46Z","base":"issue-kriscendobot-garden-104","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

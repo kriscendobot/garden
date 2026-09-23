@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":40,"elapsed_s":536,"input_tokens":78,"output_tokens":24381,"cache_creation_tokens":89936,"cache_read_tokens":2909235,"total_cost_usd":2.9674385,"ts":"2026-09-22T05:00:10Z","base":"fix-deploy-candidate-gate-red-20260922","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer","provider":"anthropic"}

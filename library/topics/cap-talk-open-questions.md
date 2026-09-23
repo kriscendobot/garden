@@ -1,0 +1,427 @@
+# Topic: cap-talk-open-questions
+
+> Abstract: Unsettled, contentious, or never-converged notions surfaced in the cap-talk mailing-list archive. The disagreements themselves are called out explicitly rather than buried in a neutral summary, because in an object-capability discussion the open disagreement is often the useful signal. Each entry names the question, where in the archive it appears, and (when known) whether and how it was later resolved. This is a growing note: each `scholar-ingest-source` cap-talk cycle appends the contentious notions it finds. Distinct from `capability-theory` (settled foundations): an idea earns a row here only while it is genuinely open or was long contested on the list.
+
+## Open / contested notions
+
+### 1. Are ACLs and capabilities equivalent? (the Equivalence question)
+
+The archive's founding dispute. A newcomer's natural intuition (Frascadore, 1998) is that ACLs and capabilities are "inseparable": the owner must consult an ACL to decide whether to grant a capability, so one reduces to the other. Shapiro argued the relationship is *asymmetric* (ACLs build on capabilities cheaply; the reverse is intractable) and posed concrete challenge problems the 1998 thread did not resolve. **Later resolution (external to the list):** Miller-Yee-Shapiro's *Capability Myths Demolished* (2003) formalizes four models and shows Model 4 (object-capabilities) is not equivalent to ACLs, refuting the Equivalence Myth. Contested on-list for years before that paper settled it.
+
+- [cap-talk-1998--acl-vs-capability-challenge-problems](../sections/cap-talk-1998--acl-vs-capability-challenge-problems.md) - the challenge problems and Frascadore's attempted ACL solution.
+- [cap-talk-1998--what-is-a-capability-swipe-cards-vs-keys](../sections/cap-talk-1998--what-is-a-capability-swipe-cards-vs-keys.md) - the seeding equivalence intuition.
+- [cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09](../sections/cap-talk-2009-2012--acls-dont-paper-rejected-oakland-09.md) - the 2009 reprise: Tyler Close's "ACLs don't" paper, rejected from Oakland-09 as "probably done before" even as reviewers conceded the access-matrix equivalence is "incorrect" — the myth dismissed as obvious yet still unabsorbed.
+
+### 2. What counts as "a capability"? (the definitional dispute)
+
+A recurring, never-fully-converged terminology fight: does syscall-gating, POSIX "capabilities," a parent-monitors-child sandbox, or a "capability URL" deserve the name? Jim Dennis (1998) argued that active syscall-monitoring "isn't a capabilities model" and that misusing the word confuses newcomers and irritates practitioners. The dispute persists in the field (POSIX capabilities, seccomp, and "capability URLs") and is only sharpened by insisting on the *object-capability* qualifier.
+
+- [cap-talk-1998--caos-capability-os-terminology](../sections/cap-talk-1998--caos-capability-os-terminology.md) - the CAOS thread.
+- [cap-talk-2000-2001--capability-representation-partitioned-tagged-and-password](../sections/cap-talk-2000-2001--capability-representation-partitioned-tagged-and-password.md) - the 2000 representation-taxonomy facet (do password/sparse capabilities count, and does a system "bottom out" only in capabilities as names?).
+- [cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus](../sections/cap-talk-2000-2001--two-threads-of-capability-thinking-os-vs-lambda-calculus.md) - Miller's 2001 diagnosis that the term carries two incompatible lineages (OS/Lampson vs lambda-calculus), which is part of why the definition never converges.
+
+### 3. Can a machine attribute an action to the human principal behind a proxy?
+
+Shapiro's July 1999 argument says no audit stamp can distinguish direct action, intentional delegation, proxying, or a confused use of authority. The November debate narrows but does not eliminate the disagreement: controlled compartments can enforce program-channel restrictions, while Gilman argues that trusted predicates and multi-party or biometric authentication can still express useful agent classes. The unresolved part is whether such a predicate proves the intended human cause or only a mediated program state.
+
+- [cap-talk-1999--principal-attribution-proxies-and-confinement](../sections/cap-talk-1999--principal-attribution-proxies-and-confinement.md)
+- [cap-talk-1999--principal-policy-and-confinement-debate](../sections/cap-talk-1999--principal-policy-and-confinement-debate.md)
+
+### 4. May persistent garbage collection reveal the last-reference event?
+
+Returning reclaimed storage to either the allocating bank or a global bank makes a capacity change observable. Frantz's clean answer is fixed, non-overcommitted pools per security compartment, but that sacrifices fungible global utilization. The archive identifies the covert channel without converging on a generally efficient policy.
+
+- [cap-talk-1999--storage-gc-and-covert-channels](../sections/cap-talk-1999--storage-gc-and-covert-channels.md)
+
+### 5. Do user-level drivers actually reduce the trusted computing base?
+
+Only when hardware constrains their effective authority. A driver for an unrestricted DMA device can alter all physical memory even outside the kernel, so moving it changes fault containment and engineering shape without reducing trust. Channel processors and modern IOMMU-like boundaries can change the answer. The unresolved engineering question is how portable and narrow that hardware interface can be.
+
+- [cap-talk-1999--driver-trust-dma-and-least-authority](../sections/cap-talk-1999--driver-trust-dma-and-least-authority.md)
+
+### 6. Does reference identity survive destruction?
+
+Hardy asks whether two references to the same destroyed object should still compare equal and references to different destroyed objects unequal. KeyKOS and EROS instead collapse them to one zero key. Preserving identity aids stable designation but delays allocation-identity reuse. The archive leaves the semantic tradeoff open.
+
+- [cap-talk-1998--dead-object-sameness](../sections/cap-talk-1998--dead-object-sameness.md)
+
+### 7. What is the right primitive for distributed object lifetime?
+
+Landau can implement shared-object reclamation with per-holder domains, nodes, and destruction callbacks, but judges the machinery expensive for a reference count. The question anticipates distributed retention protocols: explicit lifecycle signaling is understandable and capability-safe, while implicit collection promises a simpler surface but introduces liveness and covert-channel problems.
+
+- [cap-talk-1999--shared-object-lifetime-reference-counting](../sections/cap-talk-1999--shared-object-lifetime-reference-counting.md)
+
+### 8. Is a certificate-chain authorization system (SPKI) a capability system?
+
+The 2001 web-standardization threads leave this genuinely open. Miller calls SPKI "approximately a capability system" that "falls short," and Hanson (designing his own scheme, Goo) rejects it as a substrate on cost-model grounds: an SPKI certificate *chain* makes the token *grow* as authority is *attenuated*, forces disclosure of a delegatee's residual rights, and (via shortcuts) trades revocability for size. The unresolved question is whether an authorization certificate is a weak capability or a categorically different thing with the wrong attenuation economics (attenuation should shrink authority and stay cheap, not grow the token and disclose the residue).
+
+- [cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol](../sections/cap-talk-2000-2001--off-line-capability-representation-vs-on-line-protocol.md) - Miller's "approximately a capability system" survey.
+- [cap-talk-2000-2001--reviewing-a-home-rolled-capability-design-goo](../sections/cap-talk-2000-2001--reviewing-a-home-rolled-capability-design-goo.md) - Hanson's concrete SPKI critique and Shapiro's "why not SPKI?" gate.
+
+### 9. Is consuming the resume capability on use a security feature or a bug-catching feature?
+
+The November 2000 EROS "call count" exchange leaves the semantics of the once-only resume key unsettled: Bornschein reads user-level serial checking as smuggling in a brute-forceable password capability, while Shapiro argues the once-only consumption "is not a security feature" at all but a way to catch servers that return multiple times. Whether that guarantee deserves kernel enforcement or a cheaper user-level check is left open.
+
+- [cap-talk-2000-2001--process-allocation-branding-and-the-minimal-tcb](../sections/cap-talk-2000-2001--process-allocation-branding-and-the-minimal-tcb.md) - the call-count / resume-key sub-thread.
+
+### 10. What does formal verification add to convincing capability engineering?
+
+Miller argues that Hardy and the KeyKOS community already knew factories could confine through strong informal proof. Shapiro distinguishes that engineering knowledge from a published model that falsifies prior impossibility claims, generalizes beyond one implementation, and identifies preservation invariants. The archive converges on the value of both but not on a single use of "know."
+
+- [cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement](../sections/cap-talk-2002-2003--formal-proof-engineering-knowledge-and-confinement.md) - the Knowledge vs Proof exchange and the separate question of whether confinement is necessary for all security.
+
+### 11. Can an access matrix derive the object-capability model?
+
+Wilcox-O'Hearn's S0/S1/S2 construction suggests that letting normal users create fresh subjects and controlling grants by both resource and recipient turns an ACL matrix into a capability system. The list accepts the normal-user least-authority criterion but leaves the proposed equivalence and row-plus-column characterization only semiformal. Miller considers the idea while drafting *Capability Myths Demolished*.
+
+- [cap-talk-2002-2003--normal-users-can-construct-least-authority](../sections/cap-talk-2002-2003--normal-users-can-construct-least-authority.md) - the proposal, corrections, and narrowed desideratum.
+
+### 12. Why did capability critiques exclude KeyKOS counterexamples?
+
+The 2003 review of Li Gong's earlier KeyKOS paper cannot reconstruct a coherent distinction between its "fully armed system" category and an ordinary partitioned capability system. The thread diagnoses authentication/authorization conflation and model selection, but the historical reason the working counterexample was discounted remains open.
+
+- [cap-talk-2002-2003--li-gong-keykos-and-capability-myths](../sections/cap-talk-2002-2003--li-gong-keykos-and-capability-myths.md) - direct preparation for revising *Capability Myths Demolished*.
+
+### 13. Where exactly is the overt/covert boundary?
+
+Miller and Karp propose a semantics-relative test: a channel is covert if some implementation conforming to the same platform specification can make it fail. This makes the boundary precise relative to a model but does not settle terminology (overt/covert versus in-model/out-of-model), treatment of vanishing bandwidth, or which real-time and physical properties a platform should specify.
+
+- [cap-talk-2002-2003--overt-and-covert-causality-relative-to-semantics](../sections/cap-talk-2002-2003--overt-and-covert-causality-relative-to-semantics.md) - the conforming-implementation test and examples.
+
+### 14. Can non-transferability constrain effective authority?
+
+The list converges on "no" for a hostile holder that can communicate: a kernel can block copying a permission token, but the holder can proxy for another party. The remaining open boundary is the trust or confinement assumption under which a transfer restriction becomes meaningful rather than merely advisory.
+
+- [cap-talk-2002-2003--limited-transfer-permission-vs-authority](../sections/cap-talk-2002-2003--limited-transfer-permission-vs-authority.md) - the immediate post-*Paradigm Regained* application of permission versus authority.
+
+### 15. What deployment path actually gets a capability OS adopted?
+
+Legacy Unix compatibility is the obvious adoption path, but the 2002-February threads leave standing that source-level POSIX compatibility yields little real confinement, because most Unix programs were never decomposed into least-authority pieces and so are handed large bags of capabilities to run at all. Whether the answer is per-launch disposable Unix boxes, bug-for-bug emulation, mechanical source translation, or something else is unresolved.
+
+- [cap-talk-2002-2003--eros-legacy-deployment-path](../sections/cap-talk-2002-2003--eros-legacy-deployment-path.md) - Cox's be-both optimism against Laurie's decomposition skepticism.
+- [cap-talk-2002-2003--saving-the-unix-api-and-reframing-boxing](../sections/cap-talk-2002-2003--saving-the-unix-api-and-reframing-boxing.md) - the incompatible designation model and the disposable-box reframing.
+
+### 16. How can a capability system offer diagnostics without leaking authority?
+
+Exceptions with stack traces and logging are ordinary developer conveniences, but a stack trace lets an object observe its own call chain, information its callers never granted, and logging can compromise confinement if carelessly designed. The scheme that works in a strongly-typed setting is unlikely to carry over to a pure capability language; the resolution moved to e-lang and is not settled on cap-talk.
+
+- [cap-talk-2002-2003--exceptions-and-logging-in-capability-systems](../sections/cap-talk-2002-2003--exceptions-and-logging-in-capability-systems.md) - Plotnikov's framing of the stack-trace leakage problem.
+
+### 17. Do Granovetter introductions fully model human encounters?
+
+Close argues that every trust relationship aggregates introductions and that only connectivity begets connectivity. Finney, Wagner, and van Gelderen press chance meetings and gradual familiarity as counterexamples. Treating the shared physical world, proximity, or the senses as an introducer preserves the graph account, but weakens "introduction" to connectivity without endorsement. The archive converges on sparseness as the important boundary: random encounters are plausible in human spaces but negligible among cryptographic references.
+
+- [cap-talk-2002-2003--trust-introductions-and-no-omniscience](../sections/cap-talk-2002-2003--trust-introductions-and-no-omniscience.md) - the shared-world reconciliation and the sparse-reference qualification.
+
+### 18. Where was the original HRU paper available online in 2003?
+
+The October subject line contains only Ganor's request for the Harrison-Ruzzo-Ullman paper, with no answer in the captured bundle. This is an unresolved bibliographic question in the archive, not another treatment of the safety model.
+
+- [cap-talk-2002-2003--hru-paper-source-request](../sections/cap-talk-2002-2003--hru-paper-source-request.md) - the source request and pointer back to the substantive June discussion.
+
+### 19. What does confinement constrain when a hostile holder can proxy?
+
+Shapiro's 2004 "crisis of confidence" separates restricting direct capability transfer from restricting effective authority. A hostile holder with an allowed communication path can proxy an operation even when it cannot transfer the underlying reference. The list preserves POLA and controlled connectivity as useful properties, but does not recover a general non-proxying guarantee without additional confinement assumptions.
+
+- [cap-talk-2004-2008--confinement-crisis-and-capdesk-pola](../sections/cap-talk-2004-2008--confinement-crisis-and-capdesk-pola.md)
+
+### 20. Which component may convert authority into ordinary data?
+
+Descriptor systems make references non-serializable unless the environment provides a transfer operation. Password capabilities can travel through ordinary protocols but may also leak through dumps, logs, or debugging. Proxies and scrubbing can close those channels locally, at the cost of making the runtime part of the security case. The archive does not select one universally superior representation.
+
+- [cap-talk-2004-2008--capabilities-as-data-versus-descriptors](../sections/cap-talk-2004-2008--capabilities-as-data-versus-descriptors.md)
+- [cap-talk-2004-2008--password-capability-safety](../sections/cap-talk-2004-2008--password-capability-safety.md)
+
+### 21. Can a callee know the ultimate human invoker?
+
+Delegation and proxying prevent a runtime caller label from proving who intended an effect. Explicit scoped credentials can state a useful attribution claim, but the list does not converge on a universal accountability layer that recovers human causation from reference exercise.
+
+- [cap-talk-2004-2008--why-determining-the-invoker-is-the-wrong-question](../sections/cap-talk-2004-2008--why-determining-the-invoker-is-the-wrong-question.md)
+
+### 22. Can a generic wrapper mediate every object correctly?
+
+Identity tests, callbacks, returned references, exceptions, and protocol invariants defeat the idea of a completely transparent, protocol-independent wrapper. Useful membranes exist, but require a stated value-translation boundary and runtime assumptions. The universal claim remains false or underspecified.
+
+- [cap-talk-2004-2008--generic-wrapping-and-membrane-limits](../sections/cap-talk-2004-2008--generic-wrapping-and-membrane-limits.md)
+- [cap-talk-2004-2008--same-key-and-composite-identity](../sections/cap-talk-2004-2008--same-key-and-composite-identity.md)
+
+### 23. Does a pure ocap substrate prevent confused deputies in hybrid applications?
+
+No. The 2008 thread converges on the application caveat: code can rebuild an ACL lookup, firewall, or implicit rights amplification on top of object capabilities and become confusable again. What remains unsettled is how much protective machinery a platform should provide against this attractive nuisance.
+
+- [cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies](../sections/cap-talk-2004-2008--hybrid-systems-reintroduce-confused-deputies.md)
+
+### 24. Does authority imply information flow?
+
+The list distinguishes potential causal influence, possible communication, actual trace-level information transfer, and authority reachability. Small examples defeat attempts to collapse these into one relation. Authority-analysis tools must state which relation they compute.
+
+- [cap-talk-2004-2008--authority-versus-information-flow](../sections/cap-talk-2004-2008--authority-versus-information-flow.md)
+
+### 25. What durability guarantee should a persistent capability provide?
+
+Persistent reference graphs can survive restarts, and causally ordered checkpoints can recover distributed consistency, but neither eliminates uncertain remote outcomes or replay. The open design boundary is how much retry, idempotency, and reference restoration belongs in the platform versus each application protocol.
+
+- [cap-talk-2004-2008--persistence-session-failure-and-powerboxes](../sections/cap-talk-2004-2008--persistence-session-failure-and-powerboxes.md)
+
+### 26. Who pays for shared durable state?
+
+Space banks and sub-meters make allocation authority explicit, but shared references complicate responsibility after the creator delegates or disappears. Charging creators permits budget pinning; charging holders makes transfer and reclamation observable; partitions waste slack. The archive does not find a universally efficient policy.
+
+- [cap-talk-2004-2008--capability-accounting](../sections/cap-talk-2004-2008--capability-accounting.md)
+- [cap-talk-2004-2008--memory-accounting-without-partitions](../sections/cap-talk-2004-2008--memory-accounting-without-partitions.md)
+
+### 27. What does a delegation account prove?
+
+Horton can preserve a sealed chain describing who delegated a reference through which proxy, without making identity the authorization mechanism. It cannot by itself prove human intent, distinguish a compromised delegate, or prevent proxying. The right evidentiary claim for such provenance remains protocol-specific.
+
+- [cap-talk-2004-2008--horton-accountability-without-authority](../sections/cap-talk-2004-2008--horton-accountability-without-authority.md)
+
+### 28. Is trust a substitute for least authority?
+
+No consensus accepts “authority must not exceed trust” as a replacement for POLA. Trust is observer-relative, while restricting even trusted components is part of what justifies trust. The unresolved part is who defines a component's intended function when users, developers, and deployers disagree.
+
+- [cap-talk-2004-2008--authority-must-not-exceed-trust](../sections/cap-talk-2004-2008--authority-must-not-exceed-trust.md)
+
+### 29. When may a UI gesture safely mint authority?
+
+Designation-as-authorization avoids meaningless prompts, but only if a trusted path binds the user's gesture, its recipient, and its scope. The archive does not offer a universal rule for interpreting clicks, URLs, drag-and-drop, undo, and compound GUI transactions.
+
+- [cap-talk-2004-2008--user-intent-as-authorization](../sections/cap-talk-2004-2008--user-intent-as-authorization.md)
+
+### 30. Is non-delegatable authority useful beyond an expressiveness result?
+
+A membrane can prevent transfer of the exact reference while an unconfined holder can still proxy its effects. The construction refutes a narrow impossibility claim, but may force permanent mediation and obstruct refactoring. Its practical benefit over ordinary attenuation and revocation remains disputed.
+
+- [cap-talk-2004-2008--non-delegatable-authority](../sections/cap-talk-2004-2008--non-delegatable-authority.md)
+
+### 31. How much persistence belongs in the language?
+
+Transparent graph persistence preserves identity elegantly but cannot transparently restore sockets, clocks, files, remote peers, code upgrades, or uncertain outcomes. Explicit serialization exposes those boundaries at a higher programming cost. The division between platform and application remains open.
+
+- [cap-talk-2004-2008--persistent-object-capability-language](../sections/cap-talk-2004-2008--persistent-object-capability-language.md)
+
+### 32. Can ACL policy safely coexist with object capabilities?
+
+The mature hybrid rule is plausible but conditional: capability references designate and bound maximum authority; ACL-like policy may subtract rights for administration or group removal. Whether practical systems can preserve that one-way narrowing without identity lookup adding authority remains an engineering question.
+
+- [cap-talk-2004-2008--acls-and-object-capabilities-coexistence](../sections/cap-talk-2004-2008--acls-and-object-capabilities-coexistence.md)
+
+### 33. Under what assumptions is authority non-increasing?
+
+Reference reachability does not spontaneously grow in a closed graph, but active principals can receive messages, exercise amplifiers, and benefit from changing state. Any monotonicity theorem must state which inbound channels and protocols are excluded.
+
+- [cap-talk-2004-2008--principal-authority-monotonicity](../sections/cap-talk-2004-2008--principal-authority-monotonicity.md)
+
+### 34. Does per-holder petname naming conflict with provenance-sensitive message ordering?
+
+Karp (January 2009) poses a tension between a petname system's rule that the same object always gets the same name and E-order's guarantee, which rides the specific delegated *reference*, not the object. A petname collapses a reference Bob already held and one Alice just gave him into one name, but only the delegated reference carries the ordering guarantee — so a petname UI hides which reference is ordering-bearing. Landau replies that references with different properties are, operationally, different references and should have different petnames, but that concedes a strictly object-identifying petname loses information the semantics need. Left unresolved: whether human-facing naming (identity by object) and machine semantics (identity by delegation edge) can be reconciled in one layer.
+
+- [cap-talk-2009-2012--petnames-versus-e-order](../sections/cap-talk-2009-2012--petnames-versus-e-order.md) - the E-order-vs-petname statement and the is-it-a-bug-or-a-feature question.
+
+### 35. Are object-capability systems really immune to confused deputies?
+
+Toby Murray (February 2009) argues the immunity is overstated: a confused deputy can arise inside an ocap system whenever a service fails to validate a capability it is passed and that capability is more powerful in the service's hands than in the client's (via rights amplification). The defense is capability input-validation, which is why ocap systems build authentication in primitively (trademarks, final-type checks). The uncomfortable corollary: if the ocap fix reduces to "validate your inputs", an ACL/identity system can claim the same, weakening the confused-deputy argument. The replies sharpen (not settle) the distinction between eliminating a hazard by construction versus making it visible and locally guardable.
+
+- [cap-talk-2009-2012--confused-deputies-in-capability-systems](../sections/cap-talk-2009-2012--confused-deputies-in-capability-systems.md) - Murray's argument and the ensuing debate.
+
+### 36. Where does a browser hold the user's powerbox when a capability is a URL?
+
+Chip Morningstar (March 2009) shows that if all authority rides web-keys, a browser can hold authority only in bookmarks, history, or open-page state — and bookmarks/history are unreliable roots for a web UI, while a server-held powerbox handed back at login breaks on ordinary navigation (the next page lacks the authorities and cannot even synthesize a "Home" link). His two escapes each sacrifice something: never leaving the home page (breaks the web's bookmark/link nature) or a per-page powerbox module keyed by a session cookie (which is "in essence a webkey held in a cookie", reintroducing the ambient authority web-keys were meant to remove). The architectural tension between capabilities-in-URLs and the stateless, linkable Web is left open.
+
+- [cap-talk-2009-2012--webkeys-vs-the-web](../sections/cap-talk-2009-2012--webkeys-vs-the-web.md) - the three roots of browser authority, the navigation break, and the two unsatisfactory approaches.
+
+### 37. Does creating an object imply a permanent inspection capability?
+
+Creation, resource sponsorship, authorship, and reflective control are often called “parenthood,” but they need not belong to one principal. Retaining inspection helps maintenance and recovery; withholding it can be the confinement guarantee the instance was created to provide. KeyKOS's factory-plus-instance-creator construction suggests explicit cooperative debug authority, but the archive does not settle a universal default.
+
+- [cap-talk-2013-2016--pola-creator-authority-visibility-and-revocation](../sections/cap-talk-2013-2016--pola-creator-authority-visibility-and-revocation.md)
+
+### 38. Can renewable, expiring grants replace stateful membranes?
+
+Continuous renewal makes current grants visible and bounds the lifetime of a leak, but it shifts security into clocks, overlap windows, liveness, and partition behavior. The proponent did not supply the requested concrete example proving that recursive membrane behavior can be recovered without equivalent state.
+
+- [cap-talk-2013-2016--reactive-expiry-versus-stateful-membranes](../sections/cap-talk-2013-2016--reactive-expiry-versus-stateful-membranes.md)
+- [cap-talk-2013-2016--substructural-reactive-capabilities](../sections/cap-talk-2013-2016--substructural-reactive-capabilities.md)
+
+### 39. When does a cryptographic string remain an object capability?
+
+Random webkeys, signed self-describing tokens, and macaroons can all be unforgeable bearer artifacts. They differ in whether the token designates one facet, whether use requires a pool of unrelated credentials, where attenuation is interpreted, and what state is needed for revocation. The list agrees that representation alone does not decide the category, but does not produce one accepted boundary.
+
+- [cap-talk-2013-2016--iot-capabilities-as-cryptographic-strings](../sections/cap-talk-2013-2016--iot-capabilities-as-cryptographic-strings.md)
+- [cap-talk-2013-2016--macaroons-capabilities-versus-credentials](../sections/cap-talk-2013-2016--macaroons-capabilities-versus-credentials.md)
+
+### 40. Can identity policy narrow grants without recreating IBAC?
+
+The proposed rule permits identity, roles, or labels to decide whether a new reference may be minted, while possession alone decides later use. This appears capability-compatible when policy only subtracts authority, but the object-to-recipient arrow still resembles an ACL and can drift into use-time identity checks. The one-way boundary remains an engineering invariant rather than a property guaranteed by the notation.
+
+- [cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time](../sections/cap-talk-2013-2016--identity-policy-at-grant-time-not-use-time.md)
+
+### 41. What should joining two paths to one endpoint mean?
+
+References carried through different membranes have distinct revocation, attenuation, ordering, and provenance. Revoking the joined result when either path is cut and revoking it only when both are cut each violate a plausible grantor expectation. Endpoint sameness, even when tested cooperatively, does not supply a policy for merging authority.
+
+- [cap-talk-2013-2016--joining-references-across-membranes](../sections/cap-talk-2013-2016--joining-references-across-membranes.md)
+
+### 42. Which layer should own sharing and revocation?
+
+Capper can mint application-level webkeys, while Sandstorm wants the platform to provide sharing, audit, and revocation for the application. Both are capability-shaped, but composing them can produce duplicate policy, invisible outer grants, or an application protocol the platform cannot revoke precisely. The archive identifies the collision without a general layering rule.
+
+- [cap-talk-2013-2016--capper-credentials-persistence-and-module-authority](../sections/cap-talk-2013-2016--capper-credentials-persistence-and-module-authority.md)
+
+### 43. Is "defensive correctness up to resource exhaustion" usefully stricter than mere cooperative progress?
+
+The July 2009 "controversial article" thread sharpens the gap between *defensive consistency* (no client can make a server give incorrect service to another — a safety property object-capability languages deliver by construction) and *defensive correctness* (consistency plus: no client can *prevent* correct service to another — a liveness/availability property). Full correctness is unattainable for co-located clients (one can loop forever or exhaust memory) and impossible over an unreliable network "almost by definition"; Miller offers a ladder of practical approximations, the load-bearing one being *defensive correctness up to resource exhaustion*, in which non-termination is folded into "resource exhaustion" and the standard reduces to a conventional liveness requirement. Miller explicitly declines to settle whether this standard is *usefully* stricter than plain cooperative progress ("we leave [it] to the judgement of the reader"), and the related question — whether E's unbounded message-buffering requirement means sender-side buffering is better for correctness — is raised and left open.
+
+- [cap-talk-2009-2012--defensive-correctness-versus-consistency](../sections/cap-talk-2009-2012--defensive-correctness-versus-consistency.md) - the two definitions, why full correctness is not free (co-location, unreliable networks), and Miller's ladder of practical approximations.
+
+### 44. Can ambient user authority be eliminated, or only reduced and rationed?
+
+The December 2009 "Reducing Ambient user authority" thread proposes an OS with an install-time authority manifest, no command line (so no string→filename→capability resolution under ambient user authority), and an App→User→Group→Everyone escalation ladder with consent prompts. The reviewers press on the gap the thread's own title concedes — *reduce*, not *eliminate*. Two residues resist elimination: the escalation *consent prompt* is a human decision surface that "always allow" trains users to click through (ambient authority with extra steps), and *per-user application settings* keep an identity-indexed component — authority that follows the user rather than a designated reference, which is ambient by the designation criterion the June 2009 thread settled on. Whether an install-manifest-plus-escalation model genuinely removes ambient user authority or merely relocates and rations it is left unresolved.
+
+- [cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest](../sections/cap-talk-2009-2012--reducing-ambient-user-authority-install-manifest.md) - the manifest, the console-free design, the escalation ladder, and the reduce-vs-eliminate critique.
+
+### 45. Does authentication necessarily identify a remote principal?
+
+The September definition thread splits between authentication as establishing which principal is probably at the other end of a channel and authentication as validation of any security-relevant property. Hash validation, proof of age, and artifact composition can support authority or accountability without naming a person. Calling those operations "verification" preserves the narrow definition, but ordinary security usage often calls them authentication. The list does not converge on where the word's boundary belongs.
+
+- [cap-talk-2009-2012--authentication-identity-versus-property-validation](../sections/cap-talk-2009-2012--authentication-identity-versus-property-validation.md) - the channel/principal definition, the property-validation alternative, and examples that separate authorization from identity.
+
+### 46. Does CORS justify its complexity while leaving ambient cookie authority in place?
+
+Preflight protects legacy servers from cross-origin request shapes browsers could not previously issue, while a response-only opt-in could cover narrower sharing without expanding that set. The unresolved security issue is separate: automatically attached cookies let a page exercise ambient target-origin authority and preserve the browser confused deputy. The 2009 open review does not settle whether CORS's additional features justify its policy complexity or whether credential designation must be redesigned first.
+
+- [cap-talk-2009-2012--cors-open-review-and-ambient-cookies](../sections/cap-talk-2009-2012--cors-open-review-and-ambient-cookies.md) - compatibility preflight versus response opt-in, ambient cookies, and the request for explicit confused-deputy diagrams.
+
+### 47. How can a capability protocol cross the ecosystem-adoption gap?
+
+RabbitMQ's prototype had minimal checking code and a near-production API, yet ACLs won because capabilities required protocol and client-library changes, operators requested familiar ACLs, and several stakeholders were unconvinced. The capability design offered application-defined fine-grained grants, while ACLs forced the broker to predict categories centrally. The archive identifies the distributed migration cost but does not supply a compatibility path that avoids coordinated client adoption.
+
+- [cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction](../sections/cap-talk-2009-2012--rabbitmq-capabilities-rejected-by-deployment-friction.md) - the technical prototype, political and compatibility costs, and the ACL decision.
+
+### 48. Should sensitive browser grants persist beyond a visible page lifetime?
+
+Origin-persistent geolocation lets any script running as that origin recover the user's location and creates framing, clickjacking, and phishing ambiguity on multi-origin pages. A top-level-only, visibly indicated, navigation-revoked session facet is easier to reason about but costs a new user gesture each session. The thread privileges privacy but does not produce a general rule for when durable restoration of camera, location, file, or signing authority is safe.
+
+- [cap-talk-2009-2012--geolocation-origin-authority-and-ui](../sections/cap-talk-2009-2012--geolocation-origin-authority-and-ui.md) - the origin-policy hazards and Hopwood's non-persistent, visibly revocable alternative.
+
+### 49. When is a sandbox descriptor actually a capability?
+
+Native Client confines untrusted native code and brokers resources through descriptors, but representation as a descriptor does not establish object-capability semantics. The descriptor must directly designate an object, possession must authorize its use, and the broker must not recover stronger authority from ambient identity or caller-supplied names. The thread leaves the exact category boundary open while agreeing that confinement and object-capability protocol discipline are separate layers.
+
+- [cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities](../sections/cap-talk-2009-2012--nacl-descriptors-confinement-not-capabilities.md) - NaCl's confinement value and the behavioral test for capability-like descriptors.
+
+### 50. What should a URL-borne secret, and the discipline itself, be called?
+
+A terminology dispute on two scales, both raised in 2010 and neither settled on the list. At the small scale (the February cookies thread), Mark Miller notes that a secret-bearing URL is not strictly a "cryptographic capability" (his precise spoken term, objected to on reasonable grounds), that "password capability" is spoiled by history, that "sparse capability" is accurate but has become obscure, and that "web-keys by themselves are not cryptographic capabilities"; his pragmatic recommendation is the noncommittal "treating URLs as capabilities." At the large scale (the March object-oriented-security.org thread), Kenton Varda argues the whole discipline should be rebranded "object-oriented security" to reach OO programmers, while Kevin Reid objects that the name is too generic (it fails to exclude call-stack-inspection security, the model ocap opposes) and that term proliferation loses accumulated recognition. The community kept "ocap"/"object-capability" and "treating URLs as capabilities"; the precise, adoptable name for an unguessable-but-not-unforgeable secret, and for the discipline, stayed unresolved.
+
+- [cap-talk-2009-2012--cookies-as-ambient-authority](../sections/cap-talk-2009-2012--cookies-as-ambient-authority.md) - Miller's terminology note on naming a secret-bearing URL.
+- [cap-talk-2009-2012--object-oriented-security-naming](../sections/cap-talk-2009-2012--object-oriented-security-naming.md) - the rebrand proposal and the too-generic objection.
+
+### 51. In the Three Laws of Security, should confidentiality outrank availability?
+
+Mark Miller's April 2010 Asimov-styled formulation orders an object's obligations Integrity, then Availability, then Confidentiality, each subordinate to those before it. David Barbour immediately disputed the last two, being "not convinced that Confidentiality shouldn't supersede Availability." The disagreement is real: for a key-management or medical-records object, leaking a secret can be worse than refusing service (confidentiality first), while for others refusing service is the greater harm (availability first). Whether a single global ranking of the triad is even the right shape, versus a per-object or per-contract policy, is left open, as is Barbour's separate suggestion that integrity is better framed in terms of contracts than owned invariants.
+
+- [cap-talk-2009-2012--three-laws-of-security](../sections/cap-talk-2009-2012--three-laws-of-security.md) - the three ordered laws and the contested availability-versus-confidentiality ranking.
+
+### 52. Are object-capability languages a subset of safe languages, or only an overlap?
+
+Adopting Pierce's definition (a safe language protects its own abstractions), Matej Kosik proposed that "object-capability language" is a hyponym of "safe language" (the ocap languages nest inside the safe ones). Mike Samuel disputed the inclusion: an ocap language need only be safe with respect to the abstractions that preserve ocap invariants (unforgeable references, honored scopes, no ambient authority), not with respect to every abstraction, so a language could be ocap while being unsafe elsewhere. The precise relation (subset versus overlap) did not converge. The practical residue for the SES/Endo lineage is clear either way: ocap enforcement requires safety of the invariant-preserving abstractions, which is exactly what lockdown and taming secure on top of JavaScript's base memory safety.
+
+- [cap-talk-2009-2012--safe-language-defined-and-ocap](../sections/cap-talk-2009-2012--safe-language-defined-and-ocap.md) - Pierce's definition and the hyponym-versus-overlap dispute.
+
+### 53. Can benign singletons be permitted, or must ambient-authority discipline forbid all of them?
+
+The March 2010 singletons discussion converged that only *mutable* globally-accessible singletons are ambient authority (constant ones are fine), but left a second question open. David Wagner pushed back on the stronger claim that even benign singletons (those providing no sensitive access) are unacceptable and that auditing them is infeasible, offering logging as a benign singleton whose usual objections may not apply and inviting a search for other exceptions. Whether a capability discipline should tolerate audited benign singletons, or forbid the pattern outright because combinations of individually-benign privileges can surprise, is unresolved. SES resolves the mutable case mechanically (frozen primordials) but the benign-mutable-singleton judgment call remains a design question.
+
+- [cap-talk-2009-2012--mutable-singletons-are-ambient-authority](../sections/cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md) - the mutable-only distinction and Wagner's benign-singleton pushback.
+
+### 54. Should a platform permission system offer partial (attenuable) grants, or does attenuability backfire into over-asking?
+
+The capability community's default is that authority should be as attenuable as possible. Dan Bornstein, an Android engineer, reported (May-July 2010) that the Android team debated and *rejected* per-permission install-time grants — letting a user switch off individual permissions of an installed app — on two grounds: it would push developers to *ask for more* permissions ("the user can just turn off the ones they don't want"), and it would create a combinatorial explosion of untested permission subsets and thus bugs. The team judged the coarse all-or-nothing manifest, plus market pressure (users down-rank permission-heavy apps), a *better* driver toward least authority than attenuable grants. Whether user-facing attenuability of a declared coarse permission set genuinely backfires, or Android simply lacked the object-reference granularity at which attenuation composes cleanly (Endo's answer: attenuate by handing out a specific facet, so no untested-subset explosion arises), is unresolved on the list.
+
+- [cap-talk-2009-2012--android-capability-discipline-and-pola](../sections/cap-talk-2009-2012--android-capability-discipline-and-pola.md) - the rejected partial-grants argument, POLA scoring, and per-capability social voting.
+
+### 55. Should a capability language express read-only as a first-class system-verified type qualifier, or via method-level auditing plus a forwarding membrane?
+
+The December 2010 sensory-objects thread asked how to reconstruct KeyKOS's transitively-read-only *sense key* in a language-enforced capability system. Kevin Reid showed E can do it *today* with no language change: a Selfless auditor parameterized by a method's verb+arity certifies side-effect-free methods, and a membrane that forwards only audited-Sensory messages is a sense key. David Wagner offered the alternative of a first-class `readonly T` type qualifier (every type implicitly polymorphic over readwrite/readonly, compiler-verified, transitive — cf. Joe-E, Javari) but was explicitly "not sure whether the security benefits would be worth the additional complexity in the language," and noted the deeper asymmetry that OS capabilities are a *reference+rights pair* while language capabilities are *just a reference*, which "may make it harder to take ideas from EROS and translate them directly." Whether the type-qualifier route's security benefit justifies its language complexity, and whether the OS reference+rights model is even superior to the language reference-is-the-capability model, is left open. (Endo's later answer is a third route: transitive `harden()` immutability plus passStyle classification, so read-only data is hardened copy-data with no methods at all.)
+
+- [cap-talk-2009-2012--system-enforced-sensory-objects](../sections/cap-talk-2009-2012--system-enforced-sensory-objects.md) - the three constructions (E auditor+membrane, `readonly T` type qualifier, freeze-for-parallel-then-thaw) and Wagner's cost-benefit reservation.
+
+### 56. Is there a presentation of Zooko's triangle that makes every mapping and trust assumption intuitive?
+
+Preparing an RSA talk in February 2011, Alan Karp asked what the "global" corner of Zooko's triangle means and whether HTTPS names occupy all three corners. Mark Miller sharpened "global" to *globally context-free* and distinguished a name from the naming system that maps among name kinds, and petnames (which support recovery of the securely-unique referent) from SPKI-style lambda names (many-to-one, no inverse). The HTTPS case exposed why the triangle cannot be read as three informal adjectives: a memorable DNS name gains secure uniqueness only through a centralized certificate-authority trust structure, so it does not supply the decentralized property in the original formulation, and its security is conditional on authorities the relying party trusts (jurisdictional compulsion or CA compromise can rebind the name). The list converged on using the three properties precisely but not on any one presentation of the triangle that makes every mapping and every trust assumption intuitive. (Referenced but not landed by the 2011 January-March cycle; recorded here by the April-December 2011 cycle.)
+
+- [cap-talk-2009-2012--zookos-triangle-and-petname-mappings](../sections/cap-talk-2009-2012--zookos-triangle-and-petname-mappings.md) - the three properties, the several mappings, and the HTTPS counterexample.
+
+### 57. Is immutable (sealed) data a capability?
+
+The longest 2011 thread ("Capabilities for immutable data," 71 messages) did not converge on whether a *sealed value* is a capability. Sandro Magi held that a sealed value carries authority worth reasoning about, because transporting it to the right context can cause effects. David Barbour held that it is not a capability, on two grounds: it cannot be exercised directly (it must first reach the holder of the matching unsealer), and it is a value, not a reference. Alan Karp traced part of the dispute to conflating *permission* (what a capability grants: the right to invoke what it designates) with *authority* (what the designated thing can then do). David Wagner reframed the whole argument as a choice between definitions to be judged by the useful distinctions each draws, not by prior intuition. Unresolved on the list. (Endo's later working answer: hardened copy-data is *passable* but carries no authority because it has no methods to invoke, while a sealer/unsealer pair models the sealed box as inert data until presented to the unsealer, so the movement of the sealed datum is a real event to track even though the datum is not itself the capability.)
+
+- [cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values](../sections/cap-talk-2009-2012--capabilities-for-immutable-data-sealed-values.md) - the sealed-value debate, permission versus authority, and the criteria for a good definition.
+
+### 58. Can defensive correctness (and consistency) be proved, and do the competing definitions coincide?
+
+Matej Kosik asked (May 2011) whether defensive correctness and defensive consistency can be proved at all. David Barbour argued they are provable by *local* reasoning: because the definition lets a component assume its dependencies are faithful and defend only against clients, one proves a service correct by examining the capabilities it exposes, not the behavior of its clients. But two doubts were left open. First, whether the obligation admits a human-verifiable or a machine-checked proof was not settled. Second, Kosik and Kapaleeswaran Viswanathan noted that the "Concurrency Among Strangers" definition (a service never gives a well-behaved client a wrong result, only a correct one or none) and the Oz-E definition (every entity checks its well-formed inputs) may not describe the same property, so a proof would first have to fix which notion it establishes. The consistency-versus-progress split (a system can be defensively consistent yet open to client-caused denial of service) further separates the achievable target from the harder one.
+
+- [cap-talk-2009-2012--defensive-correctness-provability](../sections/cap-talk-2009-2012--defensive-correctness-provability.md) - the two definitions, the local-reasoning argument, and the provability question.
+
+### 59. In chained access, whose authority should an intermediary use, and can it safely attenuate?
+
+Alan Karp's June 2011 problem (from designers building on ZBAC): Alice holds a reference to Bob, Bob holds a reference to Carol, and Alice invokes a Bob method that requires Bob to reach Carol. Should Bob act with his own authority to Carol or with authority Alice supplies, and how does that interact with whether Alice holds nothing, a Carol facet, or full Carol? David Barbour's principle (Alice must never gain authority by discarding a capability, so the choice should be static) closes the confused-deputy hazard but does not by itself resolve the bootstrapping Mark Miller flagged (how Alice obtains a sealed, Carol-branded designation when she has never heard of Carol, and how it updates when she acquires a Carol facet by another path). David Wagner showed the problem is really a two-by-three matrix (whose authority, crossed with what reference Alice holds), and Bill Frantz rejected the premise that Bob's authority to Carol is a superset of Alice's, since facets attenuate along many independent dimensions and there need not be a single "full" facet. The general delegation-and-attenuation design was not closed on the list. (The thread continues in 2011-October, not yet sectioned.)
+
+- [cap-talk-2009-2012--avoiding-excess-authority-in-chained-access](../sections/cap-talk-2009-2012--avoiding-excess-authority-in-chained-access.md) - the Alice-Bob-Carol scenario, the static-choice principle, the two-by-three matrix, and the no-maximum-facet objection.
+
+### 60. Can space recovery (distributed garbage collection) be solved for pure capability systems without violating POLA?
+
+The January 2012 reference-counting thread left this open, and Jonathan Shapiro sharpened the stakes: in *extensible, fine-grained* capability systems, distributed garbage collection remains unsolved, and its absence "undermines one of the core arguments in favor of capability architectures." Reference counting is correct only where the routing discipline keeps counts local (Karp's proxy-by-default Client Utility), but the prevailing introduction-by-default systems send delegated references directly, leaving no local chokepoint to count against. KeyKOS avoided GC entirely by deleting an object and nulling all references, but Bill Frantz noted you cannot foresee what a deletion destroys, and examining the object graph to find out is itself a POLA violation — he called space recovery in these systems "an unsolved problem." Whether a distributed capability system can reclaim space reliably without either a proxy chokepoint or a graph inspection that breaks least authority is unresolved. (Endo's working answer is explicit lifecycle — dropping references, caretaker revoke, an object's own shutdown — rather than system-wide collection, but the general problem stays open.)
+
+- [cap-talk-2009-2012--distributed-reference-counting-garbage-collection](../sections/cap-talk-2009-2012--distributed-reference-counting-garbage-collection.md) - the reference-counting-versus-deletion debate and the POLA obstacle to space recovery.
+- [cap-talk-2009-2012--introduction-by-default-versus-proxy-by-default](../sections/cap-talk-2009-2012--introduction-by-default-versus-proxy-by-default.md) - why the routing regime decides whether reference counting is even possible.
+- [cap-talk-2009-2012--space-recovery-in-mutually-suspicious-systems](../sections/cap-talk-2009-2012--space-recovery-in-mutually-suspicious-systems.md) - the May 2012 continuation: KeyKOS space banks (per-tenant budgets) as the availability mechanism versus mark-and-sweep, and the unfinished global reconciliation.
+
+### 61. Is the master-capability bootstrap irreducible?
+
+Dan Connolly's November 2011 question — what actually supplants a password for a network service reached from a borrowed browser — produced the standard capability answer (web-keys replace per-resource passwords) and an unresolved residue. David Barbour, James Donald, and Seth Purcell converged that there must be *somewhere* a single master capability holding the rest of one's authority, and unless the user can memorize its web-key it has to live somewhere (a bookmark, a sticky note, or behind a password dialog); Purcell's sharp point is that a master web-key the user can *choose and remember* "looks suspiciously like password-based authentication by a different name." Whether the last secret at the single point of entry can be eliminated, or is genuinely irreducible (so the capability web only *relocates* rather than removes the password problem), and how to handle the borrowed-computer case without a trusted personal device, is unresolved on the list.
+
+- [cap-talk-2009-2012--supplanting-passwords-and-the-master-capability](../sections/cap-talk-2009-2012--supplanting-passwords-and-the-master-capability.md) - the web-key answer and the irreducible master-capability bootstrap.
+
+### 62. Is OAuth 2 an acceptable practical substitute for web-keys, or does its design forgo capability revocation and least authority?
+
+Shapiro's January 2012 "Opinions of OAuth?" thread asked what a developer should use *right now*, not hypothetically. Alan Karp judged OAuth 2 "isn't terrible" and usable properly given its industry acceptance; Bill Frantz called it "the best that the wrong way of doing things" can be; Mark Miller questioned the framing (solution to what problem?), and Tyler Close and Marc Stiegler offered web-keys / YURLs as the direct capability alternative. The list did not resolve whether OAuth 2's bearer-token-plus-redirect design is a *good-enough* practical substitute for capabilities, or whether its reusable coarse-scope tokens and awkward revocation forgo enough of the least-authority and clean-revocation benefits that a capability system should refuse it rather than interoperate. The practical-versus-principled tension is the standing open question every OAuth integration re-poses.
+
+- [cap-talk-2009-2012--opinions-of-oauth](../sections/cap-talk-2009-2012--opinions-of-oauth.md) - the OAuth-2-is-acceptable verdict versus the web-key alternative.
+
+### 63. Where in a URL is a secret safe, and should exfiltrating full URLs be treated as spyware?
+
+James Donald's March 2012 question — which parts of a URL are *supposed* to be safe to carry a secret — drew David Barbour's blunt "Nothing in the URL is safe," because browsers, add-ons, `Referer` headers, history, and logs disseminate URLs widely. Donald countered that login URLs routinely carry passwords, so "nothing is safe" cannot be the whole practical story. The gap between the web-key model (authority in a URL) and the web's actual leaky handling of URLs is unresolved: whether the fragment is a *reliably* safe place for a secret across all clients and extensions, and whether a norm classifying add-ons that exfiltrate full (rather than truncated) URLs as spyware could ever be established, stayed open. (This is why Endo does not rely on URL-borne bearer secrets for its primary transport.)
+
+- [cap-talk-2009-2012--what-parts-of-a-url-are-safe-for-secrets](../sections/cap-talk-2009-2012--what-parts-of-a-url-are-safe-for-secrets.md) - the URL confidentiality leak and the fragment-plus-encrypted-bookmark mitigations.
+
+### 64. Can fine-grained object capabilities be modeled in a relational (SQL) database?
+
+David Bruant's December 2012 question — what does the SQL storage of a capability-based web application actually look like — drew David Barbour's experienced negative: he had found no satisfactory way to model *fine-grained* capabilities in a relational database. Coarse-grained capabilities work at the level of whole tables or whole databases (and you can fake parallel databases with a `DB` column per table, or join across them), but the per-object, per-holder, separately-attenuable handle that fine-grained ocaps provide has no clean relational encoding, because a relational store is organized around tables of tuples and set queries rather than a graph of individually-held references. Barbour also rejected the tempting claim that ACLs and capabilities are *indistinguishable* at the storage layer ("it is always a bad idea to assume there isn't a significant difference without a proof") and the "reachable entities are naturally connected" intuition (in a relational schema it is the *relationships*, the foreign-key edges, you must secure, not the entities). Whether a satisfactory fine-grained-capability relational schema exists, or whether authority is fundamentally graph-shaped and belongs outside the relational store, stayed open. (Endo's answer keeps authority in the formula graph and uses SQL only for copy-data.)
+
+- [cap-talk-2009-2012--sql-storage-of-a-capability-application](../sections/cap-talk-2009-2012--sql-storage-of-a-capability-application.md) - the negative result, the coarse-grained workarounds, and secure-the-edges-not-the-nodes.
+
+### 65. Should capability enforcement be built up from the language/VM or down from the OS/hardware to defeat malware?
+
+Brad Cox's December 2012 challenge — how does making *languages* secure stop viruses, which are not written in secure languages, so doesn't the problem demand OS- or hardware-level capabilities — met David Barbour's inverted answer: it is far easier to ship a new VM/language runtime than a new OS or hardware, so progress should start *high* (web-apps, browsers, app-stores) and, if the platform simply refuses to admit code in insecure languages, malign code becomes much easier to prevent. Others pointed to Capsicum as the OS-level answer already shipping and noted real resistance to hardware capabilities (owners fear losing control of hardware they bought). The list did not resolve whether the language-up transition strategy or the OS/hardware-down one is the effective path to dislodging the authentication-based-security "wrong path" Cox dates to the 1970s — Cox's own "are we winning yet?" is the standing scoreboard. (Endo is the language-up bet made concrete, composing with OS confinement as a separate layer.)
+
+- [cap-talk-2009-2012--capability-enforcement-language-os-or-hardware](../sections/cap-talk-2009-2012--capability-enforcement-language-os-or-hardware.md) - the enforcement-locus debate, refuse-insecure-code, and security-as-modularity.
+
+### 66. Can a password serve as a designation (not an authentication), and can such a password-derived capability be revoked or attenuated?
+
+Rob Meijer's November 2012 MinorFs bug revealed that a password could *designate* a resource (each distinct password naming a different home directory) rather than *authenticate* an identity (one true password, all others rejected). He derived a sparse-cap root as `HMAC-SHA256(username:password, system-secret)`, making knowledge of the string the authority — capabilities-as-data in Jed Donnelley's framing (Amoeba/WalNUT). Alan Karp's core question — how would you make a *separately revocable, attenuated* capability from a password — went unanswered (Meijer had "not worried about revocation yet"), and David-Sarah Hopwood flagged the usability hazard of a wrong password silently "working." Whether a password-as-designation can be given the revocation and attenuation that reference-based capabilities get for free (caretakers, membranes), without re-deriving everything from a changed secret, and whether the no-wrong-input model is usable, stayed open. (Endo prefers a revocable reference over a bearer secret when revocation matters.)
+
+- [cap-talk-2009-2012--password-as-designation-not-authentication](../sections/cap-talk-2009-2012--password-as-designation-not-authentication.md) - the MinorFs PAM bug, the confidentiality/manageability tradeoff, and Karp's unanswered revocation question.
+
+### 67. Is object-agnostic *generic* attenuation possible, or is meaningful attenuation inherently coupled to each object's API?
+
+David Bruant's June 2012 attempt at a *generic* attenuation feature for a Waterken-like Node.js library led him to conclude that the relevant attenuations are "highly coupled to the object I want to attenuate and more precisely, its public API." Kevin Reid confirmed the boundary: the attenuations expressible *without* knowing a specific protocol are only two families — caretakers/revokers (shallow revocability, valid only when the target never leaks an authority-bearing reference) and membranes (transitive revocation, translation, voluntary oblivious compliance, and audit-based read-only where reliable method information exists) — while anything richer ("read the balance but not transfer," "only the first page") needs to understand what each message *means*, and so is API-coupled. Whether a genuinely generic attenuator beyond block/forward/filter/read-only can exist, or whether meaningful attenuation is irreducibly protocol-specific (so Endo's answer of "write a caplet" is the general case), is the standing design boundary. (Reid's self-returning-method hazard is why even the generic wrappers require cooperative target design.)
+
+- [cap-talk-2009-2012--implementing-attenuated-delegation](../sections/cap-talk-2009-2012--implementing-attenuated-delegation.md) - the two protocol-independent attenuation families and the API-coupling of everything richer.
+
+## See also
+
+- [capability-theory](capability-theory.md) - where a question moves once it is settled.
+- [[principle-of-least-authority]], [[confused-deputy]] - concepts the equivalence question turns on.

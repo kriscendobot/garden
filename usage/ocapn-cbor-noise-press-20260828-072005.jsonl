@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":14,"elapsed_s":133,"input_tokens":14,"output_tokens":9228,"cache_creation_tokens":46097,"cache_read_tokens":384866,"total_cost_usd":0.8877349999999999,"ts":"2026-08-28T07:23:36Z","base":"ocapn-cbor-noise-press-20260828-072005","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

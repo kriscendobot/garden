@@ -1,0 +1,31 @@
+<6>21:20:49 [jobs] requeued job 'kriscendobot-garden-pr73-review-6e23fb68' has no local transcript on endolin-garden-ece02cb4; prior session and worktree were lost — starting FRESH session 0abfc8ad-ac83-5400-ba7f-40ecd777c6f5 with lost-state framing
+<6>21:20:49 [jobs] job 'kriscendobot-garden-pr73-review-6e23fb68' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>21:20:49 [jobs] job 'kriscendobot-garden-pr73-review-6e23fb68' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>21:23:48 [post-gauntlet] post-gauntlet of 'kriscendobot-garden-pr73-gauntlet' lost a push race (attempt 1); re-syncing
+<6>21:23:51 [post-gauntlet] post-gauntlet of 'kriscendobot-garden-pr73-gauntlet' lost a push race (attempt 2); re-syncing
+<6>21:24:02 [post-gauntlet] recorded gauntlet 'kriscendobot-garden-pr73-gauntlet' (feature, kriscendobot/garden#73, max_iterations=6, max_resumes=6)
+<6>21:24:02 [jobs] auto-gauntlet: job 'kriscendobot-garden-pr73-review-6e23fb68' (role none) recorded design gauntlet 'kriscendobot-garden-pr73-gauntlet' for draft design PR https://github.com/kriscendobot/garden/pull/73 — panel.sh senses the design panel; it runs before maintainer review
+<6>21:24:11 [assert-followup-posted] gate: BLOCK — 'kriscendobot-garden-pr73-review-6e23fb68' completion report describes a substantive follow-up but posted no board job (no handoff), sent no maintainer-inbox message, and set no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+Done. Here's what I found and did.
+
+## State re-derived (clean requeue)
+- **PR #73** (`kriscendobot/garden`) is a **draft design PR** — `designs/follower-self-deploy.md` on branch `design/follower-self-deploy`. It lives on a review PR because it carries open questions (the design carve-out).
+- The **original design job** `garden-design-follower-self-deploy` is already complete (in `journal/jobs/tada/`); it produced this PR. Nothing further was committed by a prior attempt of *this* review-handler job.
+- **Preflight: PROCEED** (exit 0) — no correlated peer resolution on #73 for this review. I verified the board directly.
+
+## The review (untrusted input, treated as data)
+`kriskowal` review **5098606293** = CHANGES_REQUESTED. Enumerated all asks: **one body directive, zero inline comments** (the `pull_request_review_id` comment query returned empty). The directive reverses design point 2 ("leader stays session-orchestrated") — the maintainer wants the **leader to auto self-deploy too, via a rolling deploy** using followers as canaries: leader orchestrates drain → upgrade → lift-drain → validate on each follower, tests the upgraded follower by exercising new behaviors, and watches for regressions in job processing before advancing itself.
+
+## Action — routed to a designer
+This is a substantial design revision (reverses a written invariant, adds a leader-orchestrated rolling/canary deploy), so I posted a **designer job** rather than doing it inline:
+
+- **`garden-design-leader-rolling-deploy`** — live in `journal/jobs/todo/`, `role: designer`, directive identity `kriscendobot/garden#73:comment:5098606293` (derived from the body; the review URL dedups it against re-posts).
+- Its body names the repo/PR/branch/design file and the verbatim maintainer ask, and enumerates six points the revision must work out: leader self-deploy (+ update the "Narrowed by" notes it contradicts), rolling order/canary count, orchestration over the sysop `host/<GARDEN>` bus and its **attestation boundary** (which the current design's point 4 deliberately avoids — the designer must reconcile this), post-deploy validation/regression gate, failure/rollback, and the fate of the existing headless follower trigger. Instructs the designer to push to the PR head branch (stay draft, keep the open-questions marker) and reply on the review.
+
+Note: my first post attempt with an explicit `--identity` of the review key was a correct no-op — the review-handler job *itself* owns that identity in the index. Re-posting without it minted the child job cleanly.
+
+## Follow-ups
+- The designer job will be claimed by a gardener; it carries the revision to completion and replies on #73.
+- No garden `main2` changes were needed for this handler; the deliverable is the routed board job.

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-fable-5","num_turns":61,"elapsed_s":851,"input_tokens":120,"output_tokens":53745,"cache_creation_tokens":151589,"cache_read_tokens":6025835,"total_cost_usd":11.749504,"ts":"2026-09-05T15:43:13Z","base":"mentat-endolin-garden2-credit-investigation-20260905","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

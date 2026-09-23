@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":31,"elapsed_s":382,"input_tokens":58,"output_tokens":24626,"cache_creation_tokens":144438,"cache_read_tokens":3142529,"total_cost_usd":3.6343864999999997,"ts":"2026-09-05T16:10:28Z","base":"design-cybernetics-economic-resilience","host":"endolin-garden-ece02cb4","outcome":"tada","role":"designer","provider":"anthropic"}

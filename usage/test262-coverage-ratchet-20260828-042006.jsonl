@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":38,"elapsed_s":373,"input_tokens":72,"output_tokens":22263,"cache_creation_tokens":77207,"cache_read_tokens":2651512,"total_cost_usd":2.658355999999999,"ts":"2026-08-28T04:27:13Z","base":"test262-coverage-ratchet-20260828-042006","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

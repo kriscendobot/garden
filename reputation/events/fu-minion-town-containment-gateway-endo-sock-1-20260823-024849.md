@@ -1,0 +1,23 @@
+---
+base: fu-minion-town-containment-gateway-endo-sock-1-20260823-024849
+kind: gardener
+provider: anthropic
+model: claude-opus-5
+thoughtfulness: medium
+work_class: other:s
+target: main2
+accepted: true
+agentic_dollars: 0.673323
+human_dollars: 0
+aggregate_dollars: censored
+cost_source: wallclock
+estimated_dollars: 0.004830
+attempts: 1
+duration_secs: 70
+awarded_bid: 
+bidders: 0
+source: live
+recorded_by: endolin-garden2-5bcdff64/gardener-2
+recorded_at: 2026-08-23T03:15:09Z
+---
+reputation event for fu-minion-town-containment-gateway-endo-sock-1-20260823-024849: arm anthropic/claude-opus-5/medium work_class other:s target main2 accepted true

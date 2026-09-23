@@ -1,0 +1,1 @@
+{"source":"result","num_turns":31,"elapsed_s":290,"input_tokens":43,"output_tokens":18410,"cache_creation_tokens":71634,"cache_read_tokens":1504798,"total_cost_usd":1.93351,"ts":"2026-07-28T21:11:24Z","base":"endo-cbor-adopt-primitives","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"orchestrator"}

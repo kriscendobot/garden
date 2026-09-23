@@ -1,0 +1,21 @@
+# Topic: query-languages
+
+> Abstract: The design of languages and interfaces for querying data — SQL and its critics, datalog, GraphQL, dataframe/expression-embedded approaches — and the tradeoffs between them (expressiveness, compressibility, portability, porousness, and how much logic is forced into an application layer). Distinct from `persistence` (how state survives across restarts; the *storage* axis) and from `data-structures` (in-memory shapes): this topic is the *interface/language* axis over data. Cross-cuts `persistence` where a stored engine like SQLite is queried, and `spec-to-implementation` where a query language's spec size drives implementation cost. Currently seeded by a single outsider-opinion essay critiquing SQL; grow it as more query-language material is ingested.
+
+## Sections
+
+| Section | Source | One-line abstract |
+|---------|--------|-------------------|
+| [web--brandon-against-sql--overview](../sections/web--brandon-against-sql--overview.md) | Against SQL (Jamie Brandon, opinion) | The relational model is great, but SQL — its only widely-used implementation — is inexpressive, incompressible, and non-porous, with downstream complexity-drag and application-layer costs. |
+| [web--brandon-against-sql--inexpressive](../sections/web--brandon-against-sql--inexpressive.md) | Against SQL (Jamie Brandon, opinion) | SQL can't express many things at all (no sum types, linear-only recursion, no portable extensions), is verbose (no foreign-key-join syntax), and is fragile (subquery cliffs force whole-query restructuring). |
+| [web--brandon-against-sql--incompressible](../sections/web--brandon-against-sql--incompressible.md) | Against SQL (Jamie Brandon, opinion) | SQL frustrates variables (can't name a scalar without a select), functions (column names are part of types, not first-class), and expression substitution (three disjoint expression kinds; syntactic dependencies). |
+| [web--brandon-against-sql--non-porous](../sections/web--brandon-against-sql--non-porous.md) | Against SQL (Jamie Brandon, opinion) | C calling conventions, runtime extensions, and wire protocols are all unportable across databases (Stephen Kell's "porous" lens), so the spec must eat the whole world; the interface level (one relation per round-trip, text metadata, monolithic) is worst. |
+| [web--brandon-against-sql--complexity-drag](../sections/web--brandon-against-sql--complexity-drag.md) | Against SQL (Jamie Brandon, opinion) | A 1732-page-and-still-incomplete spec with ~411 implementation-defined behaviors, undefined type inference and evaluation order — a drag that hurts implementation quality, gates innovation, and makes portability a myth. |
+| [web--brandon-against-sql--application-layer](../sections/web--brandon-against-sql--application-layer.md) | Against SQL (Jamie Brandon, opinion) | The web forced a hand-written application layer plus ORMs (n+1 bugs, feral concurrency); GraphQL and Firebase show people want rich client-issued queries — but the lesson is to fix SQL and unbundle the language from the engine, not to abandon relations. |
+| [web--brandon-against-sql--after-sql-successor-design](../sections/web--brandon-against-sql--after-sql-successor-design.md) | Against SQL (Jamie Brandon, opinion) | A four-axis prescription for a relational successor (modern expression structure, simple/complete spec, compressibility via first-class functions/columns, porousness via wasm plugins and API-exposed plans) plus adoption strategies. |
+
+## See also
+
+- [`persistence`](persistence.md): the storage axis; where Endo/ocap-kernel use SQLite as an embedded backend (baggage, retention tables, savepoint crank buffering). The `web--brandon-against-sql` critique is the language/interface counterpoint a designer weighing SQLite should read — see [`sql-language-critique`](../concepts/sql-language-critique.md) for the cross-reference.
+- [`spec-to-implementation`](spec-to-implementation.md): the essay's complexity-drag argument (spec size → implementation cost) is a query-language instance of this concern.
+- [`data-structures`](data-structures.md): in-memory data shapes, the object side of the "relations bad / object-graphs good" debate the essay warns against.

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":31,"elapsed_s":433,"input_tokens":58,"output_tokens":26304,"cache_creation_tokens":65109,"cache_read_tokens":1874049,"total_cost_usd":2.2480974999999996,"ts":"2026-08-06T07:29:47Z","base":"ebfb-pr600-retcon-5201229349","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer"}

@@ -1,0 +1,2 @@
+base: improve-transcript-capture-bounded-tick
+identity: mentor:scripts/jobs/transcript-capture.sh

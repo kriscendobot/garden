@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":54,"elapsed_s":647,"input_tokens":108,"output_tokens":45601,"cache_creation_tokens":144623,"cache_read_tokens":5400333,"total_cost_usd":5.2869615,"ts":"2026-09-17T05:34:47Z","base":"improve-set-budget-pool-require-physical-cap","host":"oros-studio-garden-ce242c49","outcome":"tada","provider":"anthropic"}

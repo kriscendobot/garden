@@ -1,0 +1,16 @@
+Job complete.
+
+## Botanist verdict on endojs/endo-but-for-bots#268: REJECT (superseded), executed
+
+**The finding.** `actions/setup-node` 6.2.0 → 6.4.0 is a `github-actions` PR (no lockfile), opened 2026-05-17, sitting 1 ahead / 740 behind base `llm` with Dependabot's auto-rebase disabled after 30 days. No sibling Dependabot PR targets setup-node — but the **base branch itself** had moved past it. Census of `llm`: 22 setup-node call sites, 16 already on `249970729…` (v6.5.0), 6 on `6044e13b…` (v6.2.0), and those 6 are exactly the ones this PR touches. It would set them to `48b55a01…` (v6.4.0) — the precise hash that commit `edd97f559` ("ci: repin setup-node to v6.5.0 with exact version comments", 2026-07-14) deliberately removed after zizmor flagged a comment/hash mismatch. Merging would have partially reverted a maintainer repin.
+
+**Diligence.** Version facts resolved against the setup-node tag/release APIs rather than the Dependabot-rendered PR body. No advisory for the action in the GitHub Advisory `actions` feed or OSV, so no CVE argument either way. CI green 23/23 at head `6c8a0848`, cross-checked at the check-run level — worth noting the combined-status rollup read `pending`, exactly the case step 6 warns about.
+
+**Executed:** [verdict comment](https://github.com/endojs/endo-but-for-bots/pull/268#issuecomment-5101333677) posted, PR closed 07:40:58Z. Terminal verdict, so no embargo row or maturity one-shot. Ledger rows at `074140Z-message-gardener-0929f5` (long form) and `074339Z-message-botanist-48dfee` (tagged — `journal-entry.sh` does not emit the `project:` frontmatter the ledger sweep greps for, so the row needed a retag to be recoverable).
+
+**Two things beyond the ask, both load-bearing:**
+
+- **PR #269 is a no-op, not a MERGE-NOW.** A peer botanist rendered MERGE-NOW on the sibling `actions/checkout` PR 25 minutes earlier. All 28 `actions/checkout` sites on base already read the v6.0.2 hash it proposes, so that diff has no effect. Nothing merged (the conductor held at the approval gate), but it was headed for a maintainer approval it did not deserve. Their gardener had completed, so the finding went out dead-lettered (`20260728T074423Z-6bee53`) for `garden-deadmail` to promote into a fresh job.
+- **Role amendment landed on `main2` as `5228849d28`**, rebased over a peer's concurrent `9321496acb` so both additions survive. The supersession check added earlier today only scans sibling PRs; both stale action PRs here were superseded by the base with no sibling in sight. Added the base-ref census with its three outcomes, the `github-actions` substitutes for the lockfile-shaped steps 2–4, and two anti-patterns.
+
+**Open follow-up I did not perform** (outside a botanist's disposition set, and worth a maintainer's call): 6 sites stay on v6.2.0 — `ci.yml:140`/`:235`, `ci-docs.yml:50`/`:79`, `familiar-release.yml:46`/`:106`. Reading the repo's own automation is what makes this non-obvious: `update-action-pins.yml` re-resolves the exact tag each site's own trailing comment names, so it is a no-op for version advancement; the `--major` variant jumps to v7.0.0; and a fresh Dependabot PR would also target v7.0.0, since `.github/dependabot.yml` sets no major-ignore rule for `github-actions`. The clean fix is a deliberate one-line-per-site repin to `249970729… # v6.5.0`, finishing `edd97f559`.

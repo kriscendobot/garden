@@ -1,0 +1,2 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":119,"elapsed_s":1444,"input_tokens":238,"output_tokens":72816,"cache_creation_tokens":164609,"cache_read_tokens":13085374,"total_cost_usd":10.013545000000002,"ts":"2026-09-17T00:35:19Z","base":"ironhorse-iterator-intrinsic-metadata","host":"endolin-garden2-5bcdff64","outcome":"requeue","provider":"anthropic"}
+{"ts":"2026-09-17T01:04:56Z","base":"ironhorse-iterator-intrinsic-metadata","host":"endolin-garden-ece02cb4","outcome":"tada","source":"none","elapsed_s":1114}

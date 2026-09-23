@@ -1,0 +1,13 @@
+kind: mystic
+provider: moonshot
+model: kimi-k3
+thoughtfulness: medium
+work_class: ops:m
+target: main2
+attempts: 32
+accepts: 8
+censored: 32
+estimated: 0
+mean_dollars: 2.015000
+m2: 0.620987
+acceptance_rate: 0.2500

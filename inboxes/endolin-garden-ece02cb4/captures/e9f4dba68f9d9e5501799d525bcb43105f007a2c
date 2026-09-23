@@ -1,0 +1,23 @@
+<6>00:51:31 [jobs] job 'ocapn-cbor-noise-press-20260828-005006' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>00:51:31 [jobs] job 'ocapn-cbor-noise-press-20260828-005006' resolved tier 'mentor' -> claude --model claude-opus-4-8
+GraphQL: Could not resolve to a PullRequest with the number of 58. (repository.pullRequest)
+
+--- handler report (partial) ---
+Done with this dispatch. No garden-repo code changes were warranted (the blocker is a maintainer security decision, not engineering), so nothing to commit to `main2` and no PR to open.
+
+## Completion report
+
+**Dispatch: OCapN-CBOR-Noise press (kriscendobot/garden#58), tick 2 — 2026-08-28**
+
+**Assessment (idempotent, live-probed, quoted text treated as untrusted):**
+- Public route `https://minion.town/.well-known/ocapn-cbor-np` → bare-Caddy `404` (http form 308s to https). The 404 comes from the box-local emergency containment `/etc/caddy/conf.d/00-containment-ocapn-daemon-routes.caddy` (dated Aug 12; `respond 404` for `/ocapn-daemon*` and `/.well-known/ocapn-cbor-np*`), which outranks the real `handle → reverse_proxy 127.0.0.1:8931` route by path-specificity.
+- Backend is healthy and would serve immediately if uncontained: `endo-pet-daemon` container `Up 5 weeks`; loopback WS upgrade to `127.0.0.1:8931/.well-known/ocapn-cbor-np` returns `101 Switching Protocols` with a valid `Sec-WebSocket-Accept`.
+- Verified via AWS `garden-fleet` SSM to `i-0380cd68b90020fad` (us-west-1). Inbox and maintainer bus checked — no reply to the tick-1 ask.
+
+**Key finding / disambiguation:** The maintainer's 08-27 "Open containment and verify a weblet's CapTP…" (issuecomment 5446369936) was scoped to the **weblet powers-plane** containment (opened + round-trip-verified, 5446507693) — a *separate* surface. The blocker for **this** press is the **OCapN daemon-route** containment, which exposes the full daemon bootstrap (`endo-bootstrap`, locate-any-object) publicly behind Noise-only auth — a broader authority surface, genuinely still contained and unauthorized.
+
+**Action taken:** Did **not** lift the containment (security-posture change, outside the proxy-reviewer delegation). Posted one sharpened yes/no consolidated report + question on #58 (issuecomment-5447017458) and mirrored it to the maintainer inbox (20260828T005430Z-e0d793): does "open containment" also cover the OCapN daemon route, or should it stay contained? Updated the `ocapn-cbor-noise-minion-blocker` memory with the two-containment distinction so future ticks don't re-derive it.
+
+**Blocker / stop condition:** Genuine maintainer security decision (per the job's stop condition). Now asked; future dispatches should just check for the answer and not re-nag. On "yes" → lift drop-in, reload Caddy, persist against CD, run + post the end-to-end host-to-host proof (retirement condition). On "keep contained" → propose retiring the press.
+
+**Follow-ups:** none actionable until the maintainer answers.

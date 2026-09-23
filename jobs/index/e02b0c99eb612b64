@@ -1,0 +1,2 @@
+base: improve-panel-run-record-legacy-slug-migration
+identity: mentor:scripts/jobs/panel-run-record.sh

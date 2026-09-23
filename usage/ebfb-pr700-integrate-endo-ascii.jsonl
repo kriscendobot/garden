@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":76,"elapsed_s":1157,"input_tokens":140,"output_tokens":72636,"cache_creation_tokens":137249,"cache_read_tokens":7346383,"total_cost_usd":6.8644555,"ts":"2026-08-13T20:46:21Z","base":"ebfb-pr700-integrate-endo-ascii","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer"}

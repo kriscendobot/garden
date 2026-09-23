@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":119,"elapsed_s":2019,"input_tokens":200,"output_tokens":116743,"cache_creation_tokens":238570,"cache_read_tokens":17100110,"total_cost_usd":13.859065,"ts":"2026-07-28T16:47:06Z","base":"staged-gauntlet-build","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder"}

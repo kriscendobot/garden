@@ -1,0 +1,13 @@
+kind: fireworker
+provider: fireworks
+model: fireworks/accounts/fireworks/models/glm-5p2
+thoughtfulness: medium
+work_class: gardener:m
+target: main2
+attempts: 4
+accepts: 4
+censored: 4
+estimated: 0
+mean_dollars: 2.342500
+m2: 47.200075
+acceptance_rate: 1.0000

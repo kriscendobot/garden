@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":51,"elapsed_s":718,"input_tokens":102,"output_tokens":44751,"cache_creation_tokens":142255,"cache_read_tokens":5214385,"total_cost_usd":5.152167499999999,"ts":"2026-09-16T05:59:13Z","base":"credit-controls-fail-closed-pools","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

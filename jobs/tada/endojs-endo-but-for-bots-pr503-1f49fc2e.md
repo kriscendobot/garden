@@ -1,0 +1,1 @@
+Corrected PR #503’s Security Considerations wording and acknowledged erights’ feedback in a PR comment. Verified the updated description and comment via GitHub API. No source changes or test run were needed.

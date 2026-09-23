@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":91,"elapsed_s":1415,"input_tokens":168,"output_tokens":91691,"cache_creation_tokens":199872,"cache_read_tokens":12496449,"total_cost_usd":10.5432205,"ts":"2026-08-07T04:04:10Z","base":"pr910-mustfix-round2-02-daemon-cas","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer"}

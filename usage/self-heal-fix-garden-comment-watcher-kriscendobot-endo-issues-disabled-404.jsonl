@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":37,"elapsed_s":505,"input_tokens":69,"output_tokens":27182,"cache_creation_tokens":102242,"cache_read_tokens":3277483,"total_cost_usd":3.3443235000000002,"ts":"2026-08-17T13:43:42Z","base":"self-heal-fix-garden-comment-watcher-kriscendobot-endo-issues-disabled-404","host":"endolin-garden-ece02cb4","outcome":"tada"}

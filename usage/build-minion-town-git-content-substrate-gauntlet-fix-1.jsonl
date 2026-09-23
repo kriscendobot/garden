@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":106,"elapsed_s":1441,"input_tokens":197,"output_tokens":103217,"cache_creation_tokens":221390,"cache_read_tokens":17736320,"total_cost_usd":13.666397999999996,"ts":"2026-08-18T04:23:45Z","base":"build-minion-town-git-content-substrate-gauntlet-fix-1","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener"}

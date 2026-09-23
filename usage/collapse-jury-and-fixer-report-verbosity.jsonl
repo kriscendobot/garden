@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":80,"elapsed_s":875,"input_tokens":160,"output_tokens":54560,"cache_creation_tokens":141631,"cache_read_tokens":8594568,"total_cost_usd":7.082074999999999,"ts":"2026-09-17T19:54:23Z","base":"collapse-jury-and-fixer-report-verbosity","host":"endolin-garden-ece02cb4","outcome":"tada","role":"fixer","provider":"anthropic"}

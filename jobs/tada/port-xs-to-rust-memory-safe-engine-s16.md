@@ -1,0 +1,15 @@
+Everything is live: the orchestrate watcher already promoted child 1 (`fix5-arrow-scope` is claimed, in `doin/`), the orchestration record is on the board, and s17 is parked blocked on it. The supervision loop is handed off cleanly.
+
+## Completion report — port-xs-to-rust-memory-safe-engine-s16
+
+**Stage handoff read.** Fix-round-4 orchestration `xs2rust-endor-build-stage5-fix4` completed with all 4 children successful (no halt diagnosis needed); all tada reports read.
+
+**Independent reproduction (fresh worktree at tip `1762272561306b`, oracle pin `48ee02d8`, every bar captured to file with `$?` checked):** workspace EXIT=0 (20 suites, 371 tests, 0 failures, incl. parse-metering determinism + fuzz smokes); curated corpora 1711/1711 divergent=0 rejects=0 BAR MET; modules 45/45; the fix4 13-subtree sweep + `expressions/async-generator` all clean — the **entire class surface is byte-clean** (`statements/class` 62→0, `expressions/class` 50→0, `tco-call-args` reject closed), confirming fix4's structural field-init function-scope fold landed and held; stage-4 bars hold exactly (Object 176/0 of 3127, Function 40/0 of 511, Array 437/0 of 2625); `forbid(unsafe_code)` intact.
+
+**New review finding.** I ran the first **complete `language/` per-subtree enumeration (120 compile-diff runs)**, which refuted the fix4-verify child's "sole residual anywhere in language/" claim: beyond the known 6 arrow-function files there are 12 divergent files total (arrow scope-classification family 10, optional-chaining 1, regexp named-groups 1), ~59 endor-rejects (tagged-template 26 — a missing compile surface, template-literal TV 14, hashbang 6, module-goal pockets), and ~124 accept-disagreements, all endor-only-accept (endor's frontend laxer than XS: regexp validation ~70, string strict escapes ~20, template 13, `const x;` accepted — a real parser bug — 5, eval-code 4, plus the documented module-goal oracle-shim seam).
+
+**Verdict: STAGE-5 BAR NOT MET.** Kill-criterion judged NOT tripped: zero unattributed byte divergences anywhere, every class has a named mechanism and XS-source fix route, all disagreements are one-sided validation gaps, and the class-family convergence held at zero. Findings posted as PR #600 issuecomment-4909087288 (PR kept DRAFT; maintainer not messaged).
+
+**Dispatched:** orchestration `xs2rust-endor-build-stage5-fix5` (serial, halt, 5 opus children, one-invocation sizing, tada-only reporting): `-arrow-scope`, `-templates`, `-lexer-validation`, `-regexp-validation`, `-verify` (full 120-subtree enumeration made mandatory — the s16 process finding is now binding on verify children). Child 1 is already claimed and running.
+
+**Continuation:** `port-xs-to-rust-memory-safe-engine-s17` parked `--blocked --blocked-on xs2rust-endor-build-stage5-fix5`, carrying the full spec with updated supervisor state (acceptance review with full enumeration → seam-default-flip decision → stage-6 Snapshots dispatch). Transition journaled (`entries/2026/07/07/212234Z-progress-gardener-2707ef.md`).

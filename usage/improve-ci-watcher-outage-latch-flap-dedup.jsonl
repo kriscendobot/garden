@@ -1,0 +1,2 @@
+{"ts":"2026-09-19T05:23:17Z","base":"improve-ci-watcher-outage-latch-flap-dedup","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
+{"ts":"2026-09-19T05:43:30Z","base":"improve-ci-watcher-outage-latch-flap-dedup","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":5}

@@ -1,0 +1,24 @@
+---
+kind: panel-run
+repo: kriscendobot/minion.town
+pr: 90
+panel_kind: code
+base_ref: HEAD~1
+rounds: 1
+disposition: error
+must_fix_total: 0
+appellate_ran: false
+appellate_proposals: 0
+epoch:
+run_id: bf0d826cbfa0
+recorded_by: endolin-garden2-5bcdff64
+---
+
+# Panel run — kriscendobot/minion.town #90 (code)
+
+Terminal disposition: **error** after **1** round(s).
+
+## Round 1 — head `69a38525`
+
+seat verdicts (8): archivist=error assessor=error curator=error migrator=error packager=error prover=error stylist=error typist=error
+must-fix items (0):

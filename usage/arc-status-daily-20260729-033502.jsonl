@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-fable-5","num_turns":4,"elapsed_s":41,"input_tokens":8,"output_tokens":2178,"cache_creation_tokens":28063,"cache_read_tokens":140566,"total_cost_usd":0.8135390000000001,"ts":"2026-07-29T03:36:31Z","base":"arc-status-daily-20260729-033502","host":"endolin-garden-ece02cb4","outcome":"tada"}

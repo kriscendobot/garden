@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":43,"elapsed_s":827,"input_tokens":86,"output_tokens":37988,"cache_creation_tokens":101664,"cache_read_tokens":3665531,"total_cost_usd":3.8025514999999994,"ts":"2026-09-13T14:31:05Z","base":"retire-local-qwen-hermit-lane","host":"endolin-garden-ece02cb4","outcome":"tada","role":"gardener","provider":"anthropic"}

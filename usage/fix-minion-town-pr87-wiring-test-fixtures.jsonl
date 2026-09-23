@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":53,"elapsed_s":552,"input_tokens":106,"output_tokens":29105,"cache_creation_tokens":132060,"cache_read_tokens":4546220,"total_cost_usd":4.3254790000000005,"ts":"2026-09-22T01:38:09Z","base":"fix-minion-town-pr87-wiring-test-fixtures","host":"endolin-garden-ece02cb4","outcome":"tada","role":"fixer","provider":"anthropic"}

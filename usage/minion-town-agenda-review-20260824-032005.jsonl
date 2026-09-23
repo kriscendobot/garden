@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":12,"elapsed_s":87,"input_tokens":17,"output_tokens":5682,"cache_creation_tokens":37598,"cache_read_tokens":399613,"total_cost_usd":0.7211574999999999,"ts":"2026-08-24T03:22:20Z","base":"minion-town-agenda-review-20260824-032005","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}

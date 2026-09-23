@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":131,"elapsed_s":1752,"input_tokens":240,"output_tokens":112096,"cache_creation_tokens":217631,"cache_read_tokens":17785598,"total_cost_usd":13.875567000000002,"ts":"2026-08-12T05:26:13Z","base":"weave-ebfb-pr970-onto-llm","host":"endolin-garden-ece02cb4","outcome":"tada","role":"weaver"}

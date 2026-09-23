@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":20,"elapsed_s":250,"input_tokens":40,"output_tokens":17340,"cache_creation_tokens":57312,"cache_read_tokens":1078300,"total_cost_usd":1.5492430000000004,"ts":"2026-09-03T06:48:15Z","base":"kriscendobot-garden-pr72-review-e5ce867a","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

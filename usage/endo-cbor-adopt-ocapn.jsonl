@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":81,"elapsed_s":1420,"input_tokens":123,"output_tokens":94884,"cache_creation_tokens":236400,"cache_read_tokens":11041823,"total_cost_usd":10.2618715,"ts":"2026-07-29T01:37:25Z","base":"endo-cbor-adopt-ocapn","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}

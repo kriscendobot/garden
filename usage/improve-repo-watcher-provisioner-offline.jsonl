@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":34,"elapsed_s":1591,"input_tokens":68,"output_tokens":19928,"cache_creation_tokens":94437,"cache_read_tokens":2761153,"total_cost_usd":2.8261165,"ts":"2026-09-21T22:23:38Z","base":"improve-repo-watcher-provisioner-offline","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

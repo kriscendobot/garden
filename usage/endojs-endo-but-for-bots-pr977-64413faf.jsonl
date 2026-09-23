@@ -1,0 +1,12 @@
+{"ts":"2026-08-17T22:21:11Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":3}
+{"ts":"2026-08-17T22:24:07Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":5}
+{"source":"result","model":"claude-opus-4-8","num_turns":34,"elapsed_s":400,"input_tokens":57,"output_tokens":18848,"cache_creation_tokens":69609,"cache_read_tokens":2045807,"total_cost_usd":2.1931305,"ts":"2026-08-17T22:40:13Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden-ece02cb4","outcome":"requeue"}
+{"source":"result","model":"claude-opus-4-8","num_turns":32,"elapsed_s":365,"input_tokens":53,"output_tokens":20214,"cache_creation_tokens":62287,"cache_read_tokens":1726142,"total_cost_usd":1.9942039999999999,"ts":"2026-08-17T22:49:37Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden2-5bcdff64","outcome":"requeue"}
+{"source":"none","ts":"2026-08-17T23:13:49Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":5}
+{"source":"none","ts":"2026-08-17T23:24:31Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":24}
+{"source":"none","ts":"2026-08-22T14:08:35Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":20}
+{"source":"none","ts":"2026-08-23T02:58:37Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":86}
+{"source":"none","ts":"2026-08-23T03:09:50Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":27}
+{"source":"result","model":"claude-opus-4-8","num_turns":13,"elapsed_s":242,"input_tokens":24,"output_tokens":6492,"cache_creation_tokens":77133,"cache_read_tokens":1062182,"total_cost_usd":1.4648410000000005,"ts":"2026-08-23T03:44:38Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden2-5bcdff64","outcome":"requeue"}
+{"source":"none","ts":"2026-08-23T03:55:29Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":111}
+{"source":"none","ts":"2026-08-23T04:16:15Z","base":"endojs-endo-but-for-bots-pr977-64413faf","host":"endolin-garden-ece02cb4","outcome":"tada","elapsed_s":110,"provider":"openai"}

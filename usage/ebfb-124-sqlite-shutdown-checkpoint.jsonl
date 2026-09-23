@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":44,"elapsed_s":590,"input_tokens":78,"output_tokens":34060,"cache_creation_tokens":130599,"cache_read_tokens":4554087,"total_cost_usd":4.4368885,"ts":"2026-08-06T05:54:55Z","base":"ebfb-124-sqlite-shutdown-checkpoint","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"designer"}

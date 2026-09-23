@@ -1,0 +1,15 @@
+Done. `HISTORY.md` is committed and pushed to `origin/main2`.
+
+----- COMPLETION REPORT: research-and-write-history -----
+
+**What I did.** Researched the garden's evolution across the repo's own history, then wrote `HISTORY.md` at the garden root narrating the four metamorphoses in the journalist voice, house style applied (no em-dashes, relative links, no Latin shorthand).
+
+**Pushed SHA:** `7a4e6c59` on `main2` (fast-forward `f20a4ca7..7a4e6c59`), bot identity `endolinbot`, direct push per garden convention (no self-PR). Built in an isolated worktree off `origin/main2` and torn down after, since the shared `main2` tree is concurrently mutated by other gardeners.
+
+**Summary.** The document frames the garden as a system that repeatedly re-architects itself, then substantiates each maintainer-given stage from evidence: (1) **Genesis — the shepherd**, traced to the predecessor `endojs/endo-but-for-bots:garden` garden (commit `cc79140a6`, 2026-05-11), imported as the reference shelf 2026-05-12 and ported into this repo 2026-05-13; (2) **Containment** — the Docker `garden` launcher and per-dispatch worktree isolation (`bdac01f7`, `2f434611`, 2026-05-13), the `kriscendobot`/`endolinbot` bot identity, the boatman ferry model, and the monitoring-safety + external-repo-etiquette rules that drove the own-fork preference; (3) **Supervision** — the concurrent multi-instance / cross-host journal-bus design and the systemd-supervised `v1/driver` container; (4) **Metamorphosis** — the claude-under-script pivot (driver design 2026-05-29), realized 2026-06-24 as the orphan `main2`/`journal2` branches with the gardener fleet (inner work), the git-push-as-CAS job board (automation), and the mentor/watchman self-improvement layer (outer cognition). Each section carries dates, SHAs, and relative links to the design docs and role files. Closing section names the current stage-4 shape and what is still in flight (the live v1→v2 migration, the still-*Proposed* driver and judicial designs, and the newest `main2` seam-fillers).
+
+**Thin-evidence flag for the maintainer.** Stage 3 (tmux on an always-online server) is the one stage the committed record does **not** directly attest — there is no commit, design doc, or journal entry naming `tmux` as the supervisor anywhere in `main`/`main2`/`journal-v1`/`journal2`. The document says so explicitly and marks the tmux detail as maintainer-attested, corroborated by the repo's concurrent-instances design and the systemd-supervised driver container rather than invented. If you can point to where the tmux-supervised era is recorded (or confirm it was operational practice only), that section can be tightened.
+
+**Follow-ups.** None blocking. Two notes: the `v1/` corpus is pruned from `main2` (it lives on the `main` v1 line), so its citations are named-with-branch rather than linked to avoid broken relative links on `main2`; and `designs/driver.md` is still formally *Proposed* despite its core idea being realized in the gardener fleet — the doc status lags the running system, which the closing section calls out.
+
+Self-improvement: nothing this time.

@@ -1,0 +1,1139 @@
+---
+host: ps23
+role: gardener
+last_drained_at: 1970-01-01T00:00:00Z
+last_drained_commit:
+---
+
+# gardener inbox state on ps23
+
+Append-only failure log. Each section is a discrete failure event
+appended by a job-board service or worker via
+`skills/gardener-inbox-error-reporting/report-error.sh`. The gardener
+reads entries on its next dispatch.
+
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T20:27:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0c19e9193365e206fb504997b8fceab0ccc0f68a
+- Context: gardener-8 on ps23: job 'self-heal-fix-garden-ci-watcher-kriscendobot-garden-reconcile-disarm-list-units' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0c19e9193365e206fb504997b8fceab0ccc0f68a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T20:33:36Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 07ce1e65c5a6624c1380c7ec3a47a38a736f6cf1
+- Context: gardener-7 on ps23: job 'endojs-endo-but-for-bots-pr713-gauntlet-backfill' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 07ce1e65c5a6624c1380c7ec3a47a38a736f6cf1`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T20:54:25Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 66ab1f9273b9816c85d60104044a68b770b98eba
+- Context: gardener-5 on ps23: job 'endojs-endo-but-for-bots-pr874-8ed41495' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 66ab1f9273b9816c85d60104044a68b770b98eba`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T21:23:22Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 6ec4e2118d8bb17b83e04566cd43079db5164ac2
+- Context: gardener-7 on ps23: job 'issue-kriskowal-garden-67' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 6ec4e2118d8bb17b83e04566cd43079db5164ac2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T21:53:25Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 968e03c81825e47e71022551abf776570390188a
+- Context: gardener-8 on ps23: job 'finbot-progress-20260727-175002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 968e03c81825e47e71022551abf776570390188a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T22:04:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e58fe46d851ab34fe28212a78bd18fd9b277ffc8
+- Context: gardener-3 on ps23: job 'garden-repo-transfer-followthrough' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e58fe46d851ab34fe28212a78bd18fd9b277ffc8`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T22:19:21Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1d1d711f9dbfd587445532bde264c2909c33e9e4
+- Context: gardener-6 on ps23: job 'gnome-backend-autotune-design' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1d1d711f9dbfd587445532bde264c2909c33e9e4`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T22:28:13Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: cecbbe21614b5efa113a4dfc4b92bf099f9aef41
+- Context: gardener-4 on ps23: job 'consolidate-maintainer-inbox-20260727' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p cecbbe21614b5efa113a4dfc4b92bf099f9aef41`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T22:34:02Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a404c96381b06af4848fe427d09689a4bf85190d
+- Context: gardener-6 on ps23: job 'ollama-hermit-simple-job-capability' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a404c96381b06af4848fe427d09689a4bf85190d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-27T23:31:05Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: abfe86c07859388b062a322aefe90712097c0db4
+- Context: gardener-2 on ps23: job 'xs2rust-endor-press-20260727-182001' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p abfe86c07859388b062a322aefe90712097c0db4`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:47:30Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1a305dda6ee43f2489873d54b12e7c021cadc94f
+- Context: gardener-3 on ps23: job 'endojs-endo-but-for-bots-pr779-gauntlet-backfill' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1a305dda6ee43f2489873d54b12e7c021cadc94f`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:47:39Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 670857b7db4be95f0300081fb248e654777ff9a5
+- Context: gardener-1 on ps23: job 'endo-git-integration-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 670857b7db4be95f0300081fb248e654777ff9a5`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:47:48Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 24687274cf7bb40e192079f5d55d50620d5c7d4c
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr825-8840fcdb' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 24687274cf7bb40e192079f5d55d50620d5c7d4c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:47:54Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: ac004c344543fb945287071a1e0fa9b130200cf2
+- Context: gardener-8 on ps23: job 'endojs-endo-but-for-bots-pr705-fixer-changes-requested' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p ac004c344543fb945287071a1e0fa9b130200cf2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:48:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 54e3a2f38c33051483ac0268799e9e3b473e74d9
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr874-gauntlet-retry' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 54e3a2f38c33051483ac0268799e9e3b473e74d9`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:48:11Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: acbb372ce1f0a248b1a103d67341733d48b95d63
+- Context: gardener-5 on ps23: job 'endojs-endo-but-for-bots-pr713-gauntlet-backfill' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p acbb372ce1f0a248b1a103d67341733d48b95d63`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:48:29Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 6155bbf6b4945253a716d88b33a8475e3d0d0100
+- Context: gardener-6 on ps23: job 'endo-byte-array-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 6155bbf6b4945253a716d88b33a8475e3d0d0100`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:48:55Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 835b09215e61c20ff51edfe1b3a5af25b6ab93ce
+- Context: gardener-1 on ps23: job 'finbot-progress-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 835b09215e61c20ff51edfe1b3a5af25b6ab93ce`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:49:03Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 518d6662ae416237d98a32c09a08a37d3aa04306
+- Context: gardener-1 on ps23: job 'ocapn-noise-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 518d6662ae416237d98a32c09a08a37d3aa04306`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T00:49:47Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4b5b36c539031c64a9178ce7c52999820edecea5
+- Context: gardener-4 on ps23: job 'xs2rust-endor-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4b5b36c539031c64a9178ce7c52999820edecea5`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:00:21Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 87cbb1dd297d46bd6ae6bf40ae8d40c137c5ba3c
+- Context: gardener-7 on ps23: job 'endojs-endo-but-for-bots-pr755-review-a0778b2e' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 87cbb1dd297d46bd6ae6bf40ae8d40c137c5ba3c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:00:41Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: f4497c5b0d0434363474e14451b571b954e6070d
+- Context: gardener-3 on ps23: job 'endojs-endo-but-for-bots-pr874-8ed41495' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p f4497c5b0d0434363474e14451b571b954e6070d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:01:25Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b253ba3744131949c198ba32204aa9f53772a521
+- Context: gardener-2 on ps23: job 'xs2rust-endor-s1-daemon-integration' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b253ba3744131949c198ba32204aa9f53772a521`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:01:54Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 6067815b4568aebfd8b63ea60303bb73dcdaec3b
+- Context: gardener-8 on ps23: job 'self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 6067815b4568aebfd8b63ea60303bb73dcdaec3b`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:04:08Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: d2be48c26155b7e7dc53f19a9de7b7984c2465a6
+- Context: gardener-2 on ps23: job 'self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p d2be48c26155b7e7dc53f19a9de7b7984c2465a6`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:04:37Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: fa759460d261b6166d9ecec5094e7d30743decce
+- Context: gardener-2 on ps23: job 'endojs-endo-but-for-bots-pr869-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p fa759460d261b6166d9ecec5094e7d30743decce`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:05:10Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 2823dc5f9ef763424a1537fc44894f572075c182
+- Context: gardener-8 on ps23: job 'endojs-endo-but-for-bots-pr867-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 2823dc5f9ef763424a1537fc44894f572075c182`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:05:37Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: ff9e408b4a75fb38636e446c1e2106b319679717
+- Context: gardener-7 on ps23: job 'endojs-endo-but-for-bots-pr562-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p ff9e408b4a75fb38636e446c1e2106b319679717`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:06:03Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8ecbbd56660d471cabc3d30067d703548380405d
+- Context: gardener-2 on ps23: job 'endojs-endo-but-for-bots-pr560-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8ecbbd56660d471cabc3d30067d703548380405d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:06:25Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b3fbf4a81dcd33901079e5f89fba81f3c1560d17
+- Context: gardener-1 on ps23: job 'self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b3fbf4a81dcd33901079e5f89fba81f3c1560d17`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:06:54Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: ed4d88fb28b1b765b0019c468d59dc54732c1188
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr268-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p ed4d88fb28b1b765b0019c468d59dc54732c1188`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:11:27Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a1c015328a952410301adc6fd806aa8c558bd0ea
+- Context: gardener-7 on ps23: job 'fix-fork-watch-dead-upstream-armed-slug' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a1c015328a952410301adc6fd806aa8c558bd0ea`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:12:21Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: df42a95e3099bec6df4fe4692a7c6c30e4e81dcd
+- Context: gardener-4 on ps23: job 'endojs-endo-but-for-bots-pr868-lint-fix' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p df42a95e3099bec6df4fe4692a7c6c30e4e81dcd`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:18:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 5b5f9923f7e33bc9ed074f541d4ac62326518949
+- Context: gardener-2 on ps23: job 'fu-endo-npm-cas-registry-press-20260728-004711-1' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 5b5f9923f7e33bc9ed074f541d4ac62326518949`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:19:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 2af559d978016f01e92139b0f98d805b91b3b73a
+- Context: gardener-4 on ps23: job 'design-sysop-host-operations-daemon' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 2af559d978016f01e92139b0f98d805b91b3b73a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:20:34Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e2823804a352ea574722cc924fe0fd67a1df1b1a
+- Context: gardener-3 on ps23: job 'dependabotany-recheck-endo-but-for-bots-20260728-012002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e2823804a352ea574722cc924fe0fd67a1df1b1a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:23:53Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 3ffb0a461e44b3ed721caaebbc2475e74315fe65
+- Context: gardener-6 on ps23: job 'improve-fork-watch-provisioner-armed-recheck' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 3ffb0a461e44b3ed721caaebbc2475e74315fe65`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T01:33:15Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e8c727a5b8fea82d3af53af4ea99960a07942b8b
+- Context: gardener-8 on ps23: job 'issue-kriskowal-garden-67' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e8c727a5b8fea82d3af53af4ea99960a07942b8b`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T02:03:24Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 6828e8c482376fe88dd0903acf9f20fabe2cbb36
+- Context: gardener-5 on ps23: job 'finbot-progress-20260727-175002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 6828e8c482376fe88dd0903acf9f20fabe2cbb36`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T02:13:21Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: f103de5ebad2fb5ee6087d96f00630a2b3895eab
+- Context: gardener-2 on ps23: job 'garden-repo-transfer-followthrough' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p f103de5ebad2fb5ee6087d96f00630a2b3895eab`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T02:23:12Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 89bce4f4a6a3f10f366c6a3bc27fb68d0315ae00
+- Context: gardener-1 on ps23: job 'gnome-backend-autotune-design' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 89bce4f4a6a3f10f366c6a3bc27fb68d0315ae00`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T02:33:20Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 19a689b8f565a66e4fddd84d54e20a6283ad768d
+- Context: gardener-1 on ps23: job 'hermit-failure-reputation-followup' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 19a689b8f565a66e4fddd84d54e20a6283ad768d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T02:54:10Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 628993aaae133d7391f8174e714ebcca12ae1c6f
+- Context: gardener-8 on ps23: job 'improve-gardener-claude-bin-resolution' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 628993aaae133d7391f8174e714ebcca12ae1c6f`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T03:33:17Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 941795e78da3fd7dfa03de3bf1064718f07b69fd
+- Context: gardener-3 on ps23: job 'xs2rust-endor-press-20260727-182001' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 941795e78da3fd7dfa03de3bf1064718f07b69fd`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T03:35:13Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8f3ec208787598eed310e4d6dfdede6ea50a9fea
+- Context: gardener-1 on ps23: job 'arc-status-daily-20260728-033502' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8f3ec208787598eed310e4d6dfdede6ea50a9fea`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T03:35:21Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 696dc4e520013702ce4fbc6aedfa536224adf640
+- Context: gardener-1 on ps23: job 'esheets-supervisor-20260728-033502' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 696dc4e520013702ce4fbc6aedfa536224adf640`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:53:23Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4faf6237d6045caf5d19b02c769fc969a5928e13
+- Context: gardener-4 on ps23: job 'endojs-endo-but-for-bots-pr779-gauntlet-backfill' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4faf6237d6045caf5d19b02c769fc969a5928e13`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:53:43Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: c9417e6cb19c259d62303c5f6808c4c1849a69ec
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr705-fixer-changes-requested' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p c9417e6cb19c259d62303c5f6808c4c1849a69ec`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:53:47Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 935acd373f48faef7f877e16bf4a4085d449f233
+- Context: gardener-6 on ps23: job 'endojs-endo-but-for-bots-pr874-gauntlet-retry' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 935acd373f48faef7f877e16bf4a4085d449f233`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:54:02Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0b9a29e74ed61c81072d807fe89339e35217ae73
+- Context: gardener-1 on ps23: job 'endo-git-integration-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0b9a29e74ed61c81072d807fe89339e35217ae73`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:54:20Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: da838c8853e3db2259410a07ec4347bda93b61fd
+- Context: gardener-5 on ps23: job 'ocapn-noise-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p da838c8853e3db2259410a07ec4347bda93b61fd`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:54:29Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 69d6b732a58373a49835457405f62e77a1cf9da1
+- Context: gardener-6 on ps23: job 'endo-byte-array-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 69d6b732a58373a49835457405f62e77a1cf9da1`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:54:44Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 172c1deeca345a7d17a6dd6b8b47ce48cd18950c
+- Context: gardener-5 on ps23: job 'endo-sturdyref-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 172c1deeca345a7d17a6dd6b8b47ce48cd18950c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:54:48Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 83f23bce46a9e6d947a8bc8059a3f082d99f1858
+- Context: gardener-1 on ps23: job 'endo-vfs-parity-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 83f23bce46a9e6d947a8bc8059a3f082d99f1858`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T04:54:53Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 63f05d9ce54b0ea26c12d1fb52c3ca405de1d41b
+- Context: gardener-8 on ps23: job 'finbot-progress-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 63f05d9ce54b0ea26c12d1fb52c3ca405de1d41b`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:03:19Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 3b7e57e8a3870901b71ce0ac97e11da72f70e808
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr874-8ed41495' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 3b7e57e8a3870901b71ce0ac97e11da72f70e808`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:03:24Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1ac46f26c62f8ffdfe99396264aee41bad2bb109
+- Context: gardener-4 on ps23: job 'endojs-endo-but-for-bots-pr755-review-a0778b2e' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1ac46f26c62f8ffdfe99396264aee41bad2bb109`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:03:33Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a09062ab582e390630b5df5fc7ae0101615f3bcd
+- Context: gardener-1 on ps23: job 'xs2rust-endor-s1-daemon-integration' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a09062ab582e390630b5df5fc7ae0101615f3bcd`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:03:40Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 59978fed22a34976333e8f1bd0186e65aa0ac4fe
+- Context: gardener-7 on ps23: job 'self-heal-fix-garden-comment-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-upstream-404' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 59978fed22a34976333e8f1bd0186e65aa0ac4fe`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:08:40Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: f46a01e480ffab2d87ae0c5efc9e6bdbf30c8a83
+- Context: gardener-5 on ps23: job 'fu-endojs-endo-but-for-bots-pr825-8840fcdb-2' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p f46a01e480ffab2d87ae0c5efc9e6bdbf30c8a83`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:13:23Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 2b3198de8b3925170ea2d3bc305bdc5c73bc5d14
+- Context: gardener-4 on ps23: job 'endojs-endo-but-for-bots-pr557-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 2b3198de8b3925170ea2d3bc305bdc5c73bc5d14`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:13:36Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 355ca9829e6d2450903dfd6f79a4ebce4ea22537
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr561-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 355ca9829e6d2450903dfd6f79a4ebce4ea22537`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:13:47Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4a450c889557c2100e32f6a100cbcf0049ee8b8b
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr556-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4a450c889557c2100e32f6a100cbcf0049ee8b8b`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:13:56Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 3dd8eee820fa015bd49b2970adc6eec821de25b1
+- Context: gardener-6 on ps23: job 'endojs-endo-but-for-bots-pr870-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 3dd8eee820fa015bd49b2970adc6eec821de25b1`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:14:02Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 83149894dd8627dd7e914c709460af0f6bb870c5
+- Context: gardener-3 on ps23: job 'endojs-endo-but-for-bots-pr558-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 83149894dd8627dd7e914c709460af0f6bb870c5`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:14:14Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e0c177ad356499a5ecde519c4ee34eb34b3697c6
+- Context: gardener-1 on ps23: job 'self-heal-fix-garden-ci-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-dead-upstream-404' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e0c177ad356499a5ecde519c4ee34eb34b3697c6`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:14:21Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 968f5a488a6cf6e80dccffd40abe7cc1f15a31b2
+- Context: gardener-4 on ps23: job 'endojs-endo-but-for-bots-pr869-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 968f5a488a6cf6e80dccffd40abe7cc1f15a31b2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:14:32Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: ed661227d758145e3d0fd772f21ea5c4abff9c62
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr562-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p ed661227d758145e3d0fd772f21ea5c4abff9c62`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:14:37Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 2251f9ee83bd7a09d4a2b2a91c53ee90e25fea0c
+- Context: gardener-5 on ps23: job 'self-heal-fix-garden-dependabot-watcher-kriscendobot-chrome-native-function-caller-arguments-repro-armed-fork-upstream-404-no-disarm' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 2251f9ee83bd7a09d4a2b2a91c53ee90e25fea0c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:14:50Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 38207666bc6f23f6dc7e4cf21dee9ab7f25d1386
+- Context: gardener-7 on ps23: job 'endojs-endo-but-for-bots-pr268-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 38207666bc6f23f6dc7e4cf21dee9ab7f25d1386`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:14:56Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: d1c08e3f260dc0a97fa93f0489ce011a6ae380da
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr560-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p d1c08e3f260dc0a97fa93f0489ce011a6ae380da`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:15:05Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 3ae41a380de3b5776cb67db840f9aaa30aa56c89
+- Context: gardener-3 on ps23: job 'endojs-endo-but-for-bots-pr866-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 3ae41a380de3b5776cb67db840f9aaa30aa56c89`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:15:10Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e6f48866ef62f954cb4c79ce0c2347246c6aaaf2
+- Context: gardener-8 on ps23: job 'endojs-endo-but-for-bots-pr867-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e6f48866ef62f954cb4c79ce0c2347246c6aaaf2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:15:14Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 5ba8f368bd3db485359262b97a85bb149b8d951b
+- Context: gardener-2 on ps23: job 'endojs-endo-but-for-bots-pr868-lint-fix' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 5ba8f368bd3db485359262b97a85bb149b8d951b`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:23:22Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 88f72f03666432a0a20c8bffab6c4c0ef4371625
+- Context: gardener-5 on ps23: job 'fu-endo-npm-cas-registry-press-20260728-004711-1' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 88f72f03666432a0a20c8bffab6c4c0ef4371625`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:23:27Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: c665593cd52be1263bc13f0de6d415264023c10a
+- Context: gardener-6 on ps23: job 'dependabotany-recheck-endo-but-for-bots-20260728-012002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p c665593cd52be1263bc13f0de6d415264023c10a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:23:41Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 79a679fd1f17f35999efd33010dcc7460e70c87d
+- Context: gardener-5 on ps23: job 'design-sysop-host-operations-daemon' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 79a679fd1f17f35999efd33010dcc7460e70c87d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:26:33Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 95e0dc41586873440e79dd4f792e22616c1b9b7d
+- Context: gardener-1 on ps23: job 'fix-identity-drift-guard-test-inbox-leak' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 95e0dc41586873440e79dd4f792e22616c1b9b7d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:30:17Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: c289917408f868205b357419b9cfd0ced94e6b66
+- Context: gardener-1 on ps23: job 'deadmail-issue-comment-5100277860' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p c289917408f868205b357419b9cfd0ced94e6b66`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:30:31Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e9eb6f866f3006825c711dce76bce333655a40e3
+- Context: gardener-1 on ps23: job 'deadmail-issue-comment-5100304929' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e9eb6f866f3006825c711dce76bce333655a40e3`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:33:21Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: c1029dd4263d59a7ad5cbd197110590730bcb4a3
+- Context: gardener-1 on ps23: job 'issue-kriskowal-garden-67' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p c1029dd4263d59a7ad5cbd197110590730bcb4a3`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T05:33:24Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 58563f9f2b31e99b096539228eb4a54387509c7c
+- Context: gardener-2 on ps23: job 'improve-fork-watch-provisioner-armed-recheck' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 58563f9f2b31e99b096539228eb4a54387509c7c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:08:14Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 252a79042f7d958e7d9954e92faeca2f6f859c25
+- Context: gardener-3 on ps23: job 'suffix-github-comments-with-provenance' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 252a79042f7d958e7d9954e92faeca2f6f859c25`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:13:15Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 4ba49a0a12287615b149ee53db9f6cad763df493
+- Context: gardener-7 on ps23: job 'finbot-progress-20260727-175002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 4ba49a0a12287615b149ee53db9f6cad763df493`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:33:20Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 9b17d6f29eb60fb6ce81809095b6c8baae698a34
+- Context: gardener-7 on ps23: job 'gnome-backend-autotune-design' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 9b17d6f29eb60fb6ce81809095b6c8baae698a34`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:35:31Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: c5f313d55db4f3409a96cad7ee0a857c34e14e97
+- Context: gardener-6 on ps23: job 'fix-censored-events-frozen-reputation-arm' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p c5f313d55db4f3409a96cad7ee0a857c34e14e97`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:41:49Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 033e6398ecbf1b5dab1ed139b41bc91a67960e37
+- Context: gardener-7 on ps23: job 'wallclock-cost-proxy-for-censored-arms' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 033e6398ecbf1b5dab1ed139b41bc91a67960e37`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:42:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 9ad2f846c0e92305349e119cfc82246455fd694e
+- Context: gardener-6 on ps23: job 'migrate-garden-origins-to-kriscendobot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 9ad2f846c0e92305349e119cfc82246455fd694e`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:43:17Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 19f5a93795e6c3872c00cf7eaef157ba49349ecb
+- Context: gardener-6 on ps23: job 'consolidate-maintainer-inbox-20260727' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 19f5a93795e6c3872c00cf7eaef157ba49349ecb`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:43:22Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 083bd15d49e60fae962066406dfcb6e785f3fdd8
+- Context: gardener-2 on ps23: job 'hermit-failure-reputation-followup' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 083bd15d49e60fae962066406dfcb6e785f3fdd8`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:43:49Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 15aba695e4292d56827a69c2733fa2a587727894
+- Context: gardener-6 on ps23: job 'fix-issue-inbox-watcher-test-silent-abort' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 15aba695e4292d56827a69c2733fa2a587727894`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:49:25Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: b832fb17f349b2d63b00d9efcbfc8d1ba9c8e7d5
+- Context: gardener-8 on ps23: job 'guard-worker-self-disqualify-missing-agent-bin' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p b832fb17f349b2d63b00d9efcbfc8d1ba9c8e7d5`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:50:44Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 5d46fa9f1b0593d32becf27a26a172e9fcc0e520
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr836-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 5d46fa9f1b0593d32becf27a26a172e9fcc0e520`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:51:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: fc66f2b32de431525a076c62bc423c98893cdf19
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr825-shepherd' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p fc66f2b32de431525a076c62bc423c98893cdf19`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:51:15Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a4544c6af84b28945794861da7fadeb0c40516a8
+- Context: gardener-1 on ps23: job 'endo-sturdyref-press-20260728-065010' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a4544c6af84b28945794861da7fadeb0c40516a8`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:51:28Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 61c3eca02f00c2ed8923595f352397817c604af2
+- Context: gardener-1 on ps23: job 'endo-vfs-parity-press-20260728-065010' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 61c3eca02f00c2ed8923595f352397817c604af2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:51:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 5f569b69f3e43a33365f69ad91d6f31904b883c2
+- Context: gardener-1 on ps23: job 'finbot-progress-20260728-065010' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 5f569b69f3e43a33365f69ad91d6f31904b883c2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:52:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: d8da219698830af2a872b61c174cdacb8bb05e64
+- Context: gardener-1 on ps23: job 'ocapn-noise-press-20260728-065010' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p d8da219698830af2a872b61c174cdacb8bb05e64`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:59:28Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: aa7b992d03f6dac95c09bd6545befe85158f2a56
+- Context: gardener-1 on ps23: job 'fu-clarify-drain-moratorium-vocabulary-1' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p aa7b992d03f6dac95c09bd6545befe85158f2a56`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:59:36Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8cd4c7e0ae09ee7c5fd9c8c6b709c8ff8d3fbbb2
+- Context: gardener-1 on ps23: job 'fu-endo-npm-cas-registry-press-20260727-053502-3' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8cd4c7e0ae09ee7c5fd9c8c6b709c8ff8d3fbbb2`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T06:59:45Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 7bb5919b39148f81f77a47dee4b1d27a6d4b7edf
+- Context: gardener-1 on ps23: job 'fu-endojs-endo-but-for-bots-pr868-dependabot-3' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 7bb5919b39148f81f77a47dee4b1d27a6d4b7edf`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:05:13Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 62b358a13d5e26b7fe4dce031c7682917ebe3600
+- Context: gardener-1 on ps23: job 'daily-progress-summary-20260728-070504' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 62b358a13d5e26b7fe4dce031c7682917ebe3600`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:13:21Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 7865795c30552d0202cd6656e58619eb05bf7627
+- Context: gardener-1 on ps23: job 'deadmail-issue-comment-5100277860' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 7865795c30552d0202cd6656e58619eb05bf7627`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:13:30Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 347d3b27a55587a1a94672f5b3affeeebf151630
+- Context: gardener-1 on ps23: job 'deadmail-issue-comment-5098251895' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 347d3b27a55587a1a94672f5b3affeeebf151630`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:13:42Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: f8a3c8fe44422a895c610b6a9aae3574f7d1c498
+- Context: gardener-1 on ps23: job 'dependabotany-recheck-endo-but-for-bots-20260728-012002' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p f8a3c8fe44422a895c610b6a9aae3574f7d1c498`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:13:53Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a8d4a6edfef100b2c5b909dcb52ae36033f3ff1e
+- Context: gardener-1 on ps23: job 'endo-git-integration-press-20260728-004711' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a8d4a6edfef100b2c5b909dcb52ae36033f3ff1e`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:14:03Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a39e8fe2c227125fd999579feaea70597eadbf17
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr268-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a39e8fe2c227125fd999579feaea70597eadbf17`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:14:12Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 266920421c44b1322d762faa26ca6560c85ad65a
+- Context: gardener-1 on ps23: job 'design-sysop-host-operations-daemon' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 266920421c44b1322d762faa26ca6560c85ad65a`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:14:24Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e3cda37dde64b5c0324991f142f0f374485a422d
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr556-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p e3cda37dde64b5c0324991f142f0f374485a422d`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:14:32Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 3abff826854900cec6096720b1f314cf4793dda0
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr557-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 3abff826854900cec6096720b1f314cf4793dda0`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:14:43Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: f2dd86de77df52f2d2721ac72e4f2305e494214b
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr558-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p f2dd86de77df52f2d2721ac72e4f2305e494214b`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:14:54Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8197cec869da4af63722f90ac4f7cd15f88f1344
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr562-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8197cec869da4af63722f90ac4f7cd15f88f1344`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:15:04Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 8a3d6b9c4e65ffac062544307ca16d353b8cd1dd
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr560-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 8a3d6b9c4e65ffac062544307ca16d353b8cd1dd`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:15:15Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: ff055627ad0d1a552ba51ecdba15585f4720286c
+- Context: gardener-1 on ps23: job 'consolidate-maintainer-inbox-20260727' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p ff055627ad0d1a552ba51ecdba15585f4720286c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:15:25Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0b663ba85f86cba11e4b4e2bd7c52f8fab1a91c7
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr713-gauntlet-backfill' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0b663ba85f86cba11e4b4e2bd7c52f8fab1a91c7`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:15:39Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 20d9615b81d5022f585937d8f286bb1bf40c93b6
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr779-gauntlet-backfill' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 20d9615b81d5022f585937d8f286bb1bf40c93b6`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:15:50Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: bfc6a5801483bb08a36cec312dc5621da23d4e20
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr848-gauntlet-backfill' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p bfc6a5801483bb08a36cec312dc5621da23d4e20`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:16:01Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: a027005dbe373f9ed5a8627e6ec024e14bf983eb
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr755-review-a0778b2e' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p a027005dbe373f9ed5a8627e6ec024e14bf983eb`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:16:12Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: eb86bc1952b451ffdf7e62b72800f8f98e6f7504
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr866-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p eb86bc1952b451ffdf7e62b72800f8f98e6f7504`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:16:23Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 0a34540505e23b23908549463f9b5da392fad053
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr868-lint-fix' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 0a34540505e23b23908549463f9b5da392fad053`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:16:36Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: d7da75b4b9e9e270bcc84389ac59ccdb9a6080c4
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr870-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p d7da75b4b9e9e270bcc84389ac59ccdb9a6080c4`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:16:47Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 1a8de5dc7937d40f8a7f56dbbb0ce4ddac1052d3
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr869-dependabot' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 1a8de5dc7937d40f8a7f56dbbb0ce4ddac1052d3`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:16:57Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 410ad2702e6e3cc2085014c09f758b70af064a5c
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr874-8ed41495' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p 410ad2702e6e3cc2085014c09f758b70af064a5c`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:17:06Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: c684b869cb49e1c42a03c54c4e0629e5fda9a512
+- Context: gardener-1 on ps23: job 'endojs-endo-but-for-bots-pr874-gauntlet-retry' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p c684b869cb49e1c42a03c54c4e0629e5fda9a512`.
+
+## lane 0 -- handler-nonzero failure at 2026-07-28T07:17:16Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: cfbcec8c2779fdf9ac3b54be376b9e612dc6da79
+- Context: gardener-1 on ps23: job 'esheets-supervisor-20260728-033502' handler exited rc=1
+
+Inspect via `git -C journal cat-file -p cfbcec8c2779fdf9ac3b54be376b9e612dc6da79`.

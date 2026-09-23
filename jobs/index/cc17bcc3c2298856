@@ -1,0 +1,2 @@
+base: improve-journal-worktree-staleness
+identity: mentor:scripts/jobs/journal-worktree-keeper.sh

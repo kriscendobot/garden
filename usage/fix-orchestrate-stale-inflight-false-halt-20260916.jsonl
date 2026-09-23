@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":81,"elapsed_s":2123,"input_tokens":162,"output_tokens":89418,"cache_creation_tokens":199764,"cache_read_tokens":12073310,"total_cost_usd":10.273933999999997,"ts":"2026-09-16T23:54:08Z","base":"fix-orchestrate-stale-inflight-false-halt-20260916","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

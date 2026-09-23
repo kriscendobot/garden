@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":134,"elapsed_s":1641,"input_tokens":246,"output_tokens":107038,"cache_creation_tokens":236127,"cache_read_tokens":20416410,"total_cost_usd":15.249297999999998,"ts":"2026-08-08T05:25:56Z","base":"ironhorse-js-00-report-harness-foundation","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder"}

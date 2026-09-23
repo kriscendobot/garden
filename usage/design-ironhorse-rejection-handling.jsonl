@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":26,"elapsed_s":315,"input_tokens":41,"output_tokens":19088,"cache_creation_tokens":85026,"cache_read_tokens":1742247,"total_cost_usd":2.2025635,"ts":"2026-08-17T06:11:47Z","base":"design-ironhorse-rejection-handling","host":"endolin-garden2-5bcdff64","outcome":"tada"}

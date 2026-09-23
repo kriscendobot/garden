@@ -1,0 +1,1 @@
+Only ~3 minutes elapsed (now 22:45Z; job started 22:42:40, prior runtime ~19m). I'll stop polling and wait for the background task `bg27sufd3` to notify me when the rerun completes — that's the event that should re-engage me, around 23:01Z.

@@ -1,0 +1,2 @@
+{"ts":"2026-09-18T07:37:41Z","base":"minion-town-claude-harness-45e43bb-security-review","host":"endolin-garden2-5bcdff64","outcome":"requeue","source":"none","elapsed_s":2}
+{"source":"result","model":"claude-opus-4-8","num_turns":17,"elapsed_s":272,"input_tokens":34,"output_tokens":15407,"cache_creation_tokens":78850,"cache_read_tokens":1004179,"total_cost_usd":1.6787525,"ts":"2026-09-18T07:58:06Z","base":"minion-town-claude-harness-45e43bb-security-review","host":"endolin-garden2-5bcdff64","outcome":"tada","provider":"anthropic"}

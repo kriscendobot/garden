@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":87,"elapsed_s":913,"input_tokens":162,"output_tokens":47057,"cache_creation_tokens":138769,"cache_read_tokens":8155063,"total_cost_usd":6.6456565,"ts":"2026-08-30T06:27:08Z","base":"ironhorse-fuzz-a136f9038a1001fb-repair","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"builder","provider":"anthropic"}

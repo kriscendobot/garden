@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":13,"elapsed_s":174,"input_tokens":23,"output_tokens":11025,"cache_creation_tokens":47777,"cache_read_tokens":553768,"total_cost_usd":1.033687,"ts":"2026-08-14T23:29:42Z","base":"endo-cbor-adopt-slots","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}

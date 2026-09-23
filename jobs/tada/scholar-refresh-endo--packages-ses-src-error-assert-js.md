@@ -1,0 +1,14 @@
+Refreshed the drifted library source `endo--packages-ses-src-error-assert-js` and pushed to `origin/journal2` (commit `f81d7485`).
+
+## What changed upstream
+`packages/ses/src/error/assert.js` advanced `816bc257 → bfa149b4`. The diff is small and **functionally inert**: a TypeScript-typing refactor of `makeError` (2026-06-23, Christopher Hiller). The `optDetails`/`errConstructor` parameters lost their signature default-value expressions and now apply the same defaults internally (`details = optDetails ?? redactedDetails\`Assert failed\``, `errCtor = errConstructor ?? globalThis.Error`) behind `@type {Details}` / `@type {GenericErrorConstructor}` assertions — a workaround for a strict-mode complaint about default parameters on an `@overload`-typed method — plus an expanded `@import` block (adds `Details`, `GenericErrorConstructor`, `AssertMakeErrorOptions`). No behavioral change. File grew 604 → 633 lines.
+
+## What I did (23 files, all assert.js-scoped)
+- **Reconciled the changed section** (`logArgs…loggedErrorHandler--body.md`): re-transcribed the `makeError` code block to the new upstream, refreshed its narrative (added the typing-workaround explanation and the internal-vs-external return-type note), and corrected the now-shifted in-text line citations to the precise new line numbers.
+- **Fixed a pre-existing transcription error**: the recorded `tagError` block showed an `optErrorName = undefined` two-branch form that never matched upstream; corrected it to the actual `optErrorName = err.name` → `${optErrorName}#${errorTagNum}` form and rewrote the two-mode prose.
+- **Bumped the pin everywhere**: `source_commit` (full SHA) and `source_date` (2026-06-23) across the slug file and all section/sub-section frontmatter; updated `source_lines` section-boundary ranges (1-212 / 214-506 / 508-633).
+- **Updated the slug source file**: abstract/sectioning line counts (604 → 633) and a provenance entry recording the 2026-06-27 freshness refresh, the original commit, and the nature of the change.
+- **Updated `sources/README.md`**: assert.js row line-range `1-604 → 1-633` and `file-commit 816bc257 → bfa149b4` with a refresh note. Verified the **tame-v8 row's coincidental `816bc257` was left untouched**.
+
+## Follow-up (minor, deliberately deferred)
+The two structurally-unchanged sections (`declassifiers…` and `makeAssert…`) carry granular in-text "(lines N–M)" citations that are now offset by the upstream insertions (≈+10 before `makeError`, ≈+29/+34 after). These were already approximate at the original ingest (e.g. `quote` recorded at 70 vs actual 68) and their authoritative `source_lines` frontmatter ranges are now correct, so I left the in-text numbers rather than hand-recompute ~25 references and risk new errors on a low-priority freshness refresh. A future scholar cycle touching these sections could tighten them. The idempotency check will now pass: recorded `source_commit` matches the current upstream file-commit.

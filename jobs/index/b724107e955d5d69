@@ -1,0 +1,2 @@
+base: improve-comment-identity-tada-dedup
+identity: mentor:scripts/jobs/post-job.sh

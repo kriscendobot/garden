@@ -1,0 +1,1 @@
+Everything is staged: build host ready, both bundle JSONs built, driver written, core-eval recipe confirmed. The only remaining blocker is the snapshot download+extract+vacuum (~9 GB downloaded so far, watcher will notify on completion). I'll resume then.

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-sonnet-4-6","num_turns":48,"elapsed_s":505,"input_tokens":48,"output_tokens":15236,"cache_creation_tokens":76444,"cache_read_tokens":3387694,"total_cost_usd":1.7056422000000007,"ts":"2026-07-29T02:03:48Z","base":"endojs-endo-but-for-bots-pr761-rebase","host":"endolin-garden-ece02cb4","outcome":"tada","role":"weaver"}

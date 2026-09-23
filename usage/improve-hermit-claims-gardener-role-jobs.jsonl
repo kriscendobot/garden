@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":32,"elapsed_s":498,"input_tokens":57,"output_tokens":27047,"cache_creation_tokens":83247,"cache_read_tokens":2247445,"total_cost_usd":2.6354764999999998,"ts":"2026-08-19T03:03:42Z","base":"improve-hermit-claims-gardener-role-jobs","host":"endolin-garden-ece02cb4","outcome":"tada"}

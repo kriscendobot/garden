@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":24,"elapsed_s":524,"input_tokens":42,"output_tokens":32846,"cache_creation_tokens":92441,"cache_read_tokens":1818524,"total_cost_usd":2.6644669999999997,"ts":"2026-08-06T15:19:46Z","base":"port-xs-to-rust-memory-safe-engine-s48","host":"endolin-garden-ece02cb4","outcome":"tada"}

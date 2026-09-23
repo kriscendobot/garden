@@ -1,0 +1,7 @@
+<6>11:05:24 [monk/9] resuming session ba31d39e-8dc2-574f-9025-6bcc7ec53e2b for requeued job 'endojs-endo-but-for-bots-pr665-gauntlet-fix-1' in worktree /home/kris/garden2/scratch/gardener-wt-endojs-endo-but-for-bots-pr665-gauntlet-fix-1
+<6>11:05:24 [monk/9] job 'endojs-endo-but-for-bots-pr665-gauntlet-fix-1' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>11:05:24 [monk/9] job 'endojs-endo-but-for-bots-pr665-gauntlet-fix-1' resolved tier 'mentor' -> claude --model claude-opus-4-8
+⚠ claude.ai connectors are disabled because ANTHROPIC_API_KEY or another auth source is set and takes precedence over your claude.ai login · Unset it to load your organization's connectors
+
+--- handler report (partial) ---
+Credit balance is too low

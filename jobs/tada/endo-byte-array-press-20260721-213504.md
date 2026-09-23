@@ -1,0 +1,13 @@
+## Completion report — endo-byte-array-press-20260721-213504
+
+**Outcome: progress observation; no code changes. Both front PRs remain green, fully answered, and formally awaiting re-review — every remaining move belongs to the maintainers. Nothing has changed since the prior dispatch (endo-byte-array-press-20260721-152002), and no unblocked artifact exists this cycle.**
+
+**What I checked (evidence cited per bar):**
+
+- **#475 `feat/narrow-bytearray-to-uint8`** (the view-based implementation of record per design #572): head unchanged at `1b1dc75ba9`, OPEN, out of draft, MERGEABLE. CI re-verified this dispatch: `gh api repos/endojs/endo-but-for-bots/commits/1b1dc75…/check-runs` → `[{"conclusion":"success","count":17}]` — 17/17 green. Re-review is **formally pending from both erights and kriskowal** (`reviewRequests: ["erights","kriskowal"]`), so the CHANGES_REQUESTED decision is mechanically ball-in-reviewer's-court; no ping needed. No new issue comments, review comments, or #572 design comments since 2026-07-19 (all four `since=` queries returned empty).
+- **#503 `feat/passable-byte-arrays`**: head `453f6ef0d`, 15/15 checks SUCCESS, re-review requested from kriskowal and erights. The last activity (erights' 07-20 "read delegate" wording question) was already answered and the Security Considerations text corrected same-day by a prior job. The disposition question — close as superseded by #475 vs. retarget — still awaits kriskowal's call.
+- **Redesign status**: unchanged from the prior assessment — #475 fully carries the view-only byteArray brand (plain frozen `Uint8Array`), the freezable-TypedArray emulation, and the codec admission; the only bare-immutable-ArrayBuffer residue is #503's dual-shape helper, pending the maintainer's disposition. #602 stays draft-for-comparison; no action.
+- **Registry follow-up**: still blocked on #671 (OPEN, CHANGES_REQUESTED, unchanged since 07-18). Not started, per the standing instruction; the unblock watcher owns its promotion.
+- **No live peer** on this front — `inbox-list` showed only unrelated arcs (daemon-data-plane, git-integration, npm-cas-registry, xs2rust, self-heal) — so this was an idle check, not a takeover. Inbox drained twice; empty both times.
+
+**Follow-up note for the liaison:** the prior dispatch reported its host's journal/inbox breakage (origin missing `journal2`/`main2`, `inbox-read.sh` fataling). On this host (`endolin-garden-ece02cb4`) the bus is healthy — journal fetch, board reads, and `inbox-read.sh` all worked — so that defect is host-specific to the prior dispatch's instance, not fleet-wide; the self-heal jobs already on the bus appear to be the right vehicle.

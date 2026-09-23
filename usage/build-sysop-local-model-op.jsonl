@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":71,"elapsed_s":944,"input_tokens":133,"output_tokens":65556,"cache_creation_tokens":155971,"cache_read_tokens":8544907,"total_cost_usd":7.474039499999999,"ts":"2026-08-01T09:48:34Z","base":"build-sysop-local-model-op","host":"endolin-garden-ece02cb4","outcome":"tada","role":"builder"}

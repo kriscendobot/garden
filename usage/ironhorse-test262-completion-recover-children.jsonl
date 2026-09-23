@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":21,"elapsed_s":351,"input_tokens":33,"output_tokens":15066,"cache_creation_tokens":56964,"cache_read_tokens":997858,"total_cost_usd":1.4482499999999998,"ts":"2026-08-12T00:59:12Z","base":"ironhorse-test262-completion-recover-children","host":"endolin-garden-ece02cb4","outcome":"tada","role":"orchestrator"}

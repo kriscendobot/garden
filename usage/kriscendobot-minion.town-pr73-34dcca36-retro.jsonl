@@ -1,0 +1,2 @@
+{"ts":"2026-09-17T14:40:12Z","base":"kriscendobot-minion.town-pr73-34dcca36-retro","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":4}
+{"source":"result","model":"claude-opus-4-8","num_turns":11,"elapsed_s":95,"input_tokens":20,"output_tokens":5970,"cache_creation_tokens":83077,"cache_read_tokens":486612,"total_cost_usd":1.2266480000000002,"ts":"2026-09-17T14:55:41Z","base":"kriscendobot-minion.town-pr73-34dcca36-retro","host":"endolin-garden-ece02cb4","outcome":"tada","role":"prosecutor","provider":"anthropic"}

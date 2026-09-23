@@ -1,0 +1,2 @@
+{"ts":"2026-09-19T00:03:11Z","base":"design-cpu-back-pressure-job-dispatch-20260918","host":"endolin-garden-ece02cb4","outcome":"requeue","source":"none","elapsed_s":9}
+{"source":"result","model":"claude-opus-4-8","num_turns":23,"elapsed_s":614,"input_tokens":46,"output_tokens":25173,"cache_creation_tokens":73267,"cache_read_tokens":1562046,"total_cost_usd":3.24010325,"ts":"2026-09-19T00:38:00Z","base":"design-cpu-back-pressure-job-dispatch-20260918","host":"oros-studio-garden-ce242c49","outcome":"tada","role":"designer","provider":"anthropic"}

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":17,"elapsed_s":164,"input_tokens":28,"output_tokens":10259,"cache_creation_tokens":51345,"cache_read_tokens":796576,"total_cost_usd":1.170571,"ts":"2026-08-14T22:09:02Z","base":"endojs-endo-but-for-bots-pr124-retcon","host":"endolin-garden-ece02cb4","outcome":"tada","role":"retcon"}

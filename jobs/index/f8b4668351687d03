@@ -1,0 +1,2 @@
+base: improve-worktree-sweeper-time-budget
+identity: mentor:scripts/jobs/worktree-sweeper.sh

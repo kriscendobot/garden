@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":6,"elapsed_s":49,"input_tokens":12,"output_tokens":2420,"cache_creation_tokens":44219,"cache_read_tokens":277251,"total_cost_usd":0.6444315,"ts":"2026-09-22T02:12:21Z","base":"self-heal-fix-garden-receipt-watcher-shared-clone-lock-contention","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

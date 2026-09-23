@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":25,"elapsed_s":431,"input_tokens":34,"output_tokens":25956,"cache_creation_tokens":124152,"cache_read_tokens":1758774,"total_cost_usd":2.7737760000000002,"ts":"2026-09-18T04:57:31Z","base":"design-fq-reference-enforcement-lane","host":"endolin-garden-ece02cb4","outcome":"tada","provider":"anthropic"}

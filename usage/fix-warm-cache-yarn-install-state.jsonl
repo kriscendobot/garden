@@ -1,0 +1,1 @@
+{"source":"result","num_turns":55,"elapsed_s":533,"input_tokens":89,"output_tokens":35955,"cache_creation_tokens":118631,"cache_read_tokens":4941342,"total_cost_usd":4.5594470000000005,"ts":"2026-07-29T01:33:18Z","base":"fix-warm-cache-yarn-install-state","host":"endolin-garden2-5bcdff64","outcome":"tada"}

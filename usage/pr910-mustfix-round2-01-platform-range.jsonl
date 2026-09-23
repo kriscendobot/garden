@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":76,"elapsed_s":1425,"input_tokens":139,"output_tokens":91097,"cache_creation_tokens":186701,"cache_read_tokens":10079763,"total_cost_usd":9.188195499999997,"ts":"2026-08-07T03:37:25Z","base":"pr910-mustfix-round2-01-platform-range","host":"endolin-garden-ece02cb4","outcome":"tada","role":"fixer"}

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-fable-5","num_turns":11,"elapsed_s":921,"input_tokens":21,"output_tokens":26737,"cache_creation_tokens":55799,"cache_read_tokens":1925083,"total_cost_usd":21.52445150000001,"ts":"2026-09-01T19:35:59Z","base":"audit-garden-automation-cybernetics","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"researcher","provider":"anthropic"}

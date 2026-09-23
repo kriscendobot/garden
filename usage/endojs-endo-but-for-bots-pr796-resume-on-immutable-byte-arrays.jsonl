@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":51,"elapsed_s":818,"input_tokens":89,"output_tokens":53106,"cache_creation_tokens":106905,"cache_read_tokens":4108531,"total_cost_usd":4.4543254999999995,"ts":"2026-08-22T14:45:08Z","base":"endojs-endo-but-for-bots-pr796-resume-on-immutable-byte-arrays","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"fixer"}

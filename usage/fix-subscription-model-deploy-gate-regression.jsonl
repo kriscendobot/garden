@@ -1,0 +1,2 @@
+{"source":"none","ts":"2026-09-21T21:14:23Z","base":"fix-subscription-model-deploy-gate-regression","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":206,"role":"fixer","provider":"anthropic"}
+{"source":"none","ts":"2026-09-21T21:54:29Z","base":"fix-subscription-model-deploy-gate-regression","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":32,"role":"fixer","provider":"anthropic"}

@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":45,"elapsed_s":774,"input_tokens":76,"output_tokens":37333,"cache_creation_tokens":115582,"cache_read_tokens":3961897,"total_cost_usd":4.1679005,"ts":"2026-08-14T06:33:46Z","base":"scholar-relative-routing-miller","host":"endolin-garden-ece02cb4","outcome":"tada"}

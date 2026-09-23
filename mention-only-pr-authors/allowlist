@@ -1,0 +1,14 @@
+# mention-only-pr-authors/allowlist — GitHub logins whose authored PRs/issues are MENTION-ONLY.
+#
+# When a comment or review lands on a PR/issue AUTHORED BY one of these logins, the
+# comment-watcher/triager IGNORES it (no dispatch to triage) UNLESS the comment/review
+# body directly @-mentions kriscendobot. This honors a contributor's request that
+# kriscendobot stay out of their PRs unless explicitly pulled in by an @-mention.
+#
+# One GitHub login per line; '#' comments and blank lines ignored; case-insensitive.
+# Requested per-author. To ADD a login: append it and push to origin/journal2 — no
+# code change needed once the watcher filter (below) reads this file.
+#
+# 0xpatrickdev requested this for himself and 0xpatrickbot (2026-06-26).
+0xpatrickdev
+0xpatrickbot

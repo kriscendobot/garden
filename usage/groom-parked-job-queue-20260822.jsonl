@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":32,"elapsed_s":806,"input_tokens":59,"output_tokens":40616,"cache_creation_tokens":106421,"cache_read_tokens":2593128,"total_cost_usd":3.3812090000000006,"ts":"2026-08-22T07:29:29Z","base":"groom-parked-job-queue-20260822","host":"endolin-garden2-5bcdff64","outcome":"tada","role":"gardener"}

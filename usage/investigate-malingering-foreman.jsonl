@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":44,"elapsed_s":552,"input_tokens":82,"output_tokens":40553,"cache_creation_tokens":101212,"cache_read_tokens":3551380,"total_cost_usd":3.8062060000000004,"ts":"2026-09-16T05:21:38Z","base":"investigate-malingering-foreman","host":"endolin-garden-ece02cb4","outcome":"tada","role":"fixer","provider":"anthropic"}

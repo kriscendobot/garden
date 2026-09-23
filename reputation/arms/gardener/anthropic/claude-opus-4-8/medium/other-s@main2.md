@@ -1,0 +1,13 @@
+kind: gardener
+provider: anthropic
+model: claude-opus-4-8
+thoughtfulness: medium
+work_class: other:s
+target: main2
+attempts: 9
+accepts: 9
+censored: 9
+estimated: 9
+mean_dollars: 0.118703
+m2: 0.103357
+acceptance_rate: 1.0000

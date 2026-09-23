@@ -1,0 +1,18 @@
+CI on the final head is still queued/pending — but every gate it runs has been verified locally against the exact failing steps from the old red run, and the press re-dispatches in 6 hours to confirm the CI verdict. The dispatch's work is complete.
+
+## Completion report — `ocapn-noise-press-20260716-175014`
+
+**Assessment.** All five OCapN.md milestones (M1–M5) remain proven from the 2026-07-11 runs — nothing regressed on the proof side. Both minion.town endpoints are still alive (`https://minion.town/ocapn` and `/ocapn-daemon` both answer `426 Upgrade Required` behind Caddy — the WebSocket services are listening). The arc's degradation was structural: **PR #340**, the base of the whole stack (#340 → #684 → #688 → #693), was 488 commits behind `llm`, CONFLICTING, with lint and test-xs red since 2026-05-28.
+
+**What I did: rebased and repaired the full four-PR stack onto `llm` HEAD (`356b04fe84`).**
+
+- **#340** (transport, 28 commits after one drop): resolved conflicts in `designs/README.md` (grafted the design's table/graph rows into llm's rewritten index), `MULTIPLAYER.md` (llm replaced libp2p with iroh — OCapN docs merged alongside iroh), `packages/daemon/package.json`, composite tsconfigs (hand-merge verified byte-identical to the generator), and the `_multiplayer-suite.js` extraction (re-applied llm's `@endo/far`→`@endo/eventual-send` repoint). Dropped the stale `chore(bytes): match SECURITY.md casing` commit — llm's canonical had since fixed the casing repo-wide, so it inverted the canonical and was the cause of the first fresh-CI `check-security-md.sh` failure. Fixed new `unicorn/numeric-separators-style` errors. Head: `a3d3b414`.
+- **#684** (WS+Noise): clean replay. Head: `25aaeda1`.
+- **#688** (M5 two-daemon test): surfaced a real semantic break — **llm moved locator connection hints from `?at=` query params to `@`-delimited URL path components**, so the suite's hint assertion saw `[]` on both transports. Fixed via `parseLocator(...).hints`; same fix in the demo runner. Head: `a14054b2`.
+- **#693** (cross-host demo): same locator break in `rewritePublicWsUrl` — the public-endpoint rewrite would have silently no-opped, breaking the cross-host dial. Rewrote it for the path-component format and round-trip-validated against the daemon's own `parseLocator` (designator + formula address preserved, `ws:url` overridden). Head: `636bac2a`.
+
+**Evidence (real command output):** all four PRs now report `MERGEABLE`; `yarn install` shows zero lockfile drift; `generate-composite-tsconfigs.mjs --check`, `yarn lint:prettier`, and `check-security-md.sh` all clean at the stack tip; daemon eslint 0 errors; **27/27** OCapN daemon tests pass serially (`networks-ocapn`, `invite-retention-ocapn`, `invite-retention-ocapn-ws`); both two-daemon invite/accept demos re-run live on the rebased stack — `DEMO PASSED` over `ocapn+noise+tcp` and `ocapn+noise+ws`, with the new @-delimited hints visible in the invitation locator. First fresh CI round confirmed the old lint failure resolved down to exactly the SECURITY.md step, which is now fixed and locally green.
+
+**Recorded:** rebase summary comment on #340 (issuecomment-4995269368); `ocapn-over-noise-goal` memory and index updated (M1–M5 all demonstrated; stack heads; llm gotchas: iroh replacement, locator format, `command-executor.js` moved to `spaces-util`).
+
+**Follow-ups for the next dispatch:** (1) confirm the in-flight CI run on #340 head `a3d3b414` (all local gates green; test-xs was still queued at handoff); (2) remaining M5 refinements — CLI-level `endo invite`/`endo accept` on minion, mutual bidirectional pairing, `daemon-agent-network-identity` closure; (3) `ocapn-noise-session-reconnect` design is still Proposed/unimplemented.

@@ -1,0 +1,13 @@
+kind: gardener
+provider: anthropic
+model: claude-fable-5
+thoughtfulness: medium
+work_class: other:l
+target: main2
+attempts: 217
+accepts: 217
+censored: 217
+estimated: 217
+mean_dollars: 0.078207
+m2: 5.305761
+acceptance_rate: 1.0000

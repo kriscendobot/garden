@@ -1,0 +1,13 @@
+kind: monk
+provider: anthropic
+model: claude-default
+thoughtfulness: medium
+work_class: gardener:l
+target: main2
+attempts: 4
+accepts: 4
+censored: 4
+estimated: 4
+mean_dollars: 0.257629
+m2: 0.256631
+acceptance_rate: 1.0000

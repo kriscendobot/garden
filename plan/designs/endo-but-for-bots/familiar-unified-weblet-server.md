@@ -1,0 +1,271 @@
+---
+slug: familiar-unified-weblet-server
+repository: endo-but-for-bots
+status: In Progress
+size: M
+milestone: M7
+depends_on: []
+created: 2026-02-14
+updated: 2026-05-06
+source: imported from origin/llm designs/README.md
+---
+
+# Familiar Unified Weblet Server
+
+| | |
+|---|---|
+| **Created** | 2026-02-14 |
+| **Updated** | 2026-05-06 |
+| **Author** | Kris Kowal (prompted) |
+| **Status** | In Progress |
+
+## Status
+
+**Partially implemented; design under revision.**
+
+Chat weblets have been removed from the current codebase in order to
+regroup on the approach.
+The Familiar-side `localhttp://` protocol handler remains, but the
+daemon-side unified web server does not exist.
+
+### Key design revision (2026-04-17)
+
+The original design assumed a single unified HTTP server with
+Host-header-based virtual host routing for all weblets.
+This assumption must be revised:
+
+- **Familiar weblets** can use the unified server approach (Host-header
+  routing on the gateway port, proxied via `localhttp://`).
+  The Electron protocol handler provides origin isolation without
+  needing separate ports.
+- **Chat weblets** (standalone browser use without Electron) still need
+  a **separate HTTP port per isolated page**, with the user choosing
+  the port.
+  Browsers cannot intercept and reroute by scheme like Electron can,
+  so each weblet needs its own `http://` origin on a distinct port.
+
+### Deeper problem: gateway multiplexing and confidentiality
+
+The gateway currently listens on a single port for HTTP and WebSocket
+CapTP.
+It acts as a proxy for all users on the system and all personas
+within a single user's daemon.
+This creates a problem of:
+
+1. **Hierarchical multiplexing**: the gateway must route connections to
+   the correct user, then to the correct persona/agent within that
+   user's daemon, then to the correct weblet within that agent's scope.
+2. **Session confidentiality**: each CapTP session must be confidential
+   even over plain local HTTP.
+   Today the gateway trusts that `127.0.0.1` traffic is private, but
+   multi-user scenarios or weblet isolation require per-session
+   encryption or authentication.
+
+These problems are unlikely to be cleanly solved without the OCapN
+Network/Transport separation and the Noise Protocol Network (netlayer).
+Noise would provide per-session confidentiality and mutual
+authentication, which the gateway currently lacks.
+
+### Dependencies added
+
+| Design | Relationship |
+|--------|-------------|
+| [ocapn-network-transport-separation](ocapn-network-transport-separation.md) | The gateway needs a network-level abstraction for session establishment and authentication, not bare WebSocket. |
+| [ocapn-noise-network](ocapn-noise-network.md) | Noise Protocol would provide per-session confidentiality over the shared gateway port, enabling secure multiplexing. |
+
+### Implemented
+
+- **`localhttp://` protocol handler**
+  (`packages/familiar/src/protocol-handler.js`):
+  registers a privileged scheme, proxies `localhttp://<weblet-id>/`
+  requests to `http://127.0.0.1:{gatewayPort}` with
+  `Host: {accessToken}`, injects CSP headers on every response.
+- **Exfiltration defense**
+  (`packages/familiar/src/exfiltration-defense.js`):
+  DNS poisoning protection, request interception, permission handler.
+- **Navigation guard**
+  (`packages/familiar/src/navigation-guard.js`):
+  `will-navigate` and `setWindowOpenHandler` interception.
+
+### Not implemented
+
+- **Daemon-side unified web server:** No weblet HTTP routing or
+  `webletHandlers` map exists in the daemon.
+- **`makeWeblet` function:** No weblet creation or registration mechanism.
+- **Virtual host routing:** The gateway does not demultiplex by `Host` header.
+- **Per-weblet CapTP sessions:** No weblet-specific WebSocket handler isolation.
+- **Per-port Chat weblets:** Not designed yet; requires user-configurable ports.
+- **Noise-based session confidentiality:** Depends on OCapN networking milestones.
+
+### Previous status note
+
+The previous status section claimed full implementation in
+`packages/daemon/src/web-server-node.js`.
+This appears to have been written prospectively or to describe work on
+a different branch.
+The file does not exist on `origin/llm` as of 2026-04-17.
+
+## What is the Problem Being Solved?
+
+Each weblet currently gets its own HTTP server on a dynamically assigned port
+(`packages/daemon/src/web-server-node.js` calls `servePortHttp` per weblet).
+This means N weblets require N listening ports, each with its own access token
+in the URL path. This design doesn't work for the Familiar Electron application,
+which needs to proxy all weblet traffic through a single HTTP port using a
+Custom Protocol Handler (`localhttp://uniqueidentifier/...`).
+
+For Familiar to route requests to the correct weblet, all weblets must be served
+through a single HTTP server that uses the `Host` header (or path prefix, or
+custom protocol identifier) to demultiplex requests to the appropriate weblet
+handler.
+
+## Description of the Design
+
+### Single HTTP server for weblets
+
+Replace the per-weblet `servePortHttp` pattern with a single HTTP server
+managed by the daemon (or co-located with the gateway from
+`familiar-gateway-migration`). This server:
+
+- Listens on the gateway port (from `familiar-gateway-migration`).
+- Uses the **Host header** to route HTTP requests to the correct weblet. Each
+  weblet is identified by a unique virtual hostname:
+  `<weblet-identifier>.localhost` or `<weblet-identifier>.endo.local`.
+- Falls through to the gateway WebSocket handler for WebSocket upgrade requests
+  that don't match a weblet.
+
+### Virtual host routing
+
+When a weblet is installed (`E(apps).makeWeblet(...)`), instead of binding a
+new port, it registers a **request handler** and a **WebSocket connection
+handler** with the unified server under a unique hostname derived from the
+weblet's formula identifier:
+
+```js
+// In the unified server
+const webletHandlers = new Map(); // hostname -> { respond, connect }
+
+const registerWeblet = (webletId, respond, connect) => {
+  const hostname = `${webletId.slice(0, 32)}.localhost`;
+  webletHandlers.set(hostname, { respond, connect });
+  return hostname;
+};
+```
+
+Incoming requests are routed by extracting the `Host` header:
+
+```js
+server.on('request', (req, res) => {
+  const host = req.headers.host?.split(':')[0]; // strip port
+  const handler = webletHandlers.get(host);
+  if (handler) {
+    handler.respond(req, res);
+  } else {
+    // Default: gateway or 404
+  }
+});
+```
+
+### Weblet location format
+
+Weblet locations change from:
+```
+http://127.0.0.1:<random-port>/<access-token>/
+```
+to:
+```
+http://<weblet-id>.localhost:<gateway-port>/
+```
+
+Or, when accessed through Familiar's custom protocol:
+```
+localhttp://<weblet-id>/
+```
+
+### CapTP connection per weblet
+
+Each weblet still gets its own CapTP session over WebSocket. The unified server
+demultiplexes WebSocket upgrades by hostname and hands off to the weblet's
+`connect` handler, which sets up CapTP with the weblet's specific powers.
+
+### Backward compatibility: standalone mode
+
+For development without Familiar (e.g., `endo install` + `endo open`), the
+unified server can still be reached directly at
+`http://<weblet-id>.localhost:<port>/`. Modern browsers resolve
+`*.localhost` to 127.0.0.1 per RFC 6761, so no DNS configuration is needed.
+
+Alternatively, retain the ability to spawn per-weblet servers as a fallback
+when the unified server is not available.
+
+### Changes to `makeWeblet`
+
+The `makeWeblet` function in `packages/daemon/src/web-server-node.js` currently:
+1. Receives a bundle, powers, and port.
+2. Creates HTTP + WebSocket handlers.
+3. Calls `servePortHttp` to bind a port.
+4. Returns a `Weblet` far reference with `getLocation()`.
+
+After this change:
+1. Receives a bundle, powers, and a **server registrar** (instead of a port).
+2. Creates HTTP + WebSocket handlers (same as today).
+3. Registers handlers with the unified server under a virtual hostname.
+4. Returns a `Weblet` far reference with `getLocation()` returning the virtual
+   host URL.
+
+### Affected packages
+
+- `packages/daemon`: unified server, weblet registration,
+  `web-server-node.js` refactor.
+- `packages/cli`: `endo install` and `endo open` updated for new URL
+  format.
+
+### Dependency
+
+- **familiar-gateway-migration**: the unified server is co-located with
+  or replaces the gateway HTTP listener.
+
+## Security Considerations
+
+- Virtual host routing must prevent hostname spoofing. The weblet identifier
+  in the hostname is derived from a formula identifier (128-char hex) and is
+  unguessable.
+- The unified server must enforce that WebSocket connections to a weblet
+  hostname can only access that weblet's powers, not another weblet's or the
+  host agent's.
+- Cookies set by one weblet must not be readable by another. The `*.localhost`
+  domain isolation in browsers provides this (each subdomain is a separate
+  origin).
+
+## Scaling Considerations
+
+- A single server handling all weblets reduces resource usage (one listen
+  socket instead of N).
+- The `webletHandlers` map lookup is O(1) per request.
+- WebSocket connections are long-lived; the unified server holds all of them.
+  This is fine for typical Familiar usage (a handful of weblets).
+
+## Test Plan
+
+- Integration test: install two weblets, verify both are reachable on the same
+  port via different hostnames.
+- Integration test: WebSocket CapTP session to each weblet is isolated.
+- Integration test: gateway WebSocket still works on the same port (no Host
+  header or default host).
+- Regression: `endo install` + `endo open` workflow works with new URL format.
+
+## Compatibility Considerations
+
+- Weblet URL format changes. Any stored/bookmarked weblet URLs will break.
+  Since weblets are ephemeral (created per-install), this is acceptable.
+- The `getLocation()` return value changes. Code that parses weblet URLs will
+  need updating.
+- Browser support for `*.localhost` is excellent in modern browsers (Chrome,
+  Firefox, Safari all resolve it to 127.0.0.1).
+
+## Upgrade Considerations
+
+- Existing weblets created before this change used per-port servers. They
+  will need to be reinstalled after the daemon upgrades.
+- The `@apps` builtin formula may need versioning if the `makeWeblet` signature
+  changes.

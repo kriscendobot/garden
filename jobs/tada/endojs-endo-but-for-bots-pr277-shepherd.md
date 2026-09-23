@@ -1,0 +1,1 @@
+Pushed the three atomic fixes; CI is re-running on head `157fd818b`. I'm waiting on the background poll (task `bkecu6bl8`) to report when the `lint` and `test` jobs finish. The harness will re-invoke me when that completes or when the fallback wakeup fires. Nothing more to do until then.

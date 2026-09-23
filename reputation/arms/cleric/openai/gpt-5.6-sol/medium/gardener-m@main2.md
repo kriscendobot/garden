@@ -1,0 +1,13 @@
+kind: cleric
+provider: openai
+model: gpt-5.6-sol
+thoughtfulness: medium
+work_class: gardener:m
+target: main2
+attempts: 83
+accepts: 83
+censored: 75
+estimated: 75
+mean_dollars: 6.305536
+m2: 3976.616105
+acceptance_rate: 1.0000

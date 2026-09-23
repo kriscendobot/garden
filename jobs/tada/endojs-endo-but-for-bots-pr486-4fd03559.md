@@ -1,0 +1,1 @@
+No-op: re-fetched the trusted comment and confirmed it says PR #486 was replaced by merged PR #850. PR #486 is already closed; no edits or push were needed. Preflight exited 0 but found no citation evidence.

@@ -1,0 +1,19 @@
+Both lint jobs **pass** on the amended head. The remaining CI jobs are unaffected by a demo-only diff (they were green on the parent commit, and nothing they run imports these files). The dispatch's work is complete — writing the completion report.
+
+## Completion report — `ocapn-noise-press-20260717-122002`
+
+**Assessment.** All five OCapN.md milestones still hold. The four stack PR heads were unchanged since the 06:05 dispatch (#340 `a3d3b414`, #684 `f3a54b6b`, #688 `a6c9740c`, #693 `a371b007`; all draft, mergeable), CI was green on them, both minion.town endpoints answer 426 (listeners alive), no live peers on the branches, and the maintainer's answer to the non-443 TCP-port question (msg `20260717T001224Z-3483f4`) has still not arrived — cross-host TCP+CBOR stays blocked. The shared memory directory had been wiped at 09:31 today; I recovered the working recipe from the prior tada reports.
+
+**Substantive work: closed follow-up (1) — CLI-level `endo invite`/`endo accept`, live and cross-host.** The demo README's own "gap vs. the full CLI pet-name invitation flow" section is now empirically closed. Real runs today, all captured:
+
+- **Minion:** `endo invite garden-cli-1949543` (CLI binary in the container via `docker exec -e ENDO_SOCK=/data/endo.sock` over SSM) minted the invitation locator (node `a6cd6e01…`, designator `a677fd34…`).
+- **Local:** daemon booted and network installed **entirely by CLI** — `endo start` (isolated XDG state, ephemeral gateway port), `endo store --text '127.0.0.1:0' -n ws-listen-addr`, `endo make --UNCONFINED src/networks/ocapn.js -p '@agent' -w '@main'`, `endo mv ocapn-network '@nets/ocapn'`.
+- `ws:url` hint rewritten to `wss://minion.town/ocapn-daemon` (new standalone `rewrite-ws-url.mjs`; designator untouched), then `printf … | endo accept minion` → exit 0, `endo list` shows `minion`.
+- **Messages both directions over the single dialed session:** local `endo send` landed in minion's host inbox attributed to the invited guest identity (`"garden-cli-1949543" sent "@self" "ping …" at 12:32:43Z`); minion's CLI reply landed in the local inbox (`"minion" sent "@self" "pong …" at 12:32:48Z`) — the reverse path riding the outbound-dialed wss+Noise session.
+- Scripted end-to-end run: `run-cross-host-cli.sh` → `CROSS-HOST CLI DEMO PASSED`, exit 0.
+
+**Recorded.** Commit `8bd09ead591` pushed to #693 (`run-cross-host-cli.sh`, `rewrite-ws-url.mjs`, `transcript-cross-host-cli.txt`, README rewrite of the gap section) — a local eslint pre-check caught a `no-redeclare` on the `console` global before CI did; both CI lint jobs now **pass** on the pushed head. Evidence comment on #693: issuecomment-5003324724. Memory recreated (`ocapn-over-noise-goal` + `MEMORY.md` index) with the recipe facts a future dispatch needs (pnpm-linker node_modules hardlink copy including per-package dirs, `XDG_*`/`ENDO_SOCK`/`ENDO_ADDR` isolation env, SSM helper's SIGPIPE trap).
+
+**Tidy-ups.** Removed my stray guests from minion's pet store (`garden-cli-guest`, `garden-cli`; the scripted run cleans its own), stopped/purged both local demo daemons including one accidentally started on the user-default state path (verified nothing pre-existing was there before purging), and unblocked git gc in the shared `endojs-endo-but-for-bots.git` bare clone (`worktree prune` + cleared `gc.log`).
+
+**Follow-ups for the next dispatch:** (1) confirm full CI green on #693 head `8bd09ead591` (lint already green; rest pending at sign-off, demo-only diff); (2) the TCP-port question remains unanswered — cross-host TCP+CBOR blocked on it; (3) mutual bidirectional pairing blocked on the garden container having no public address (consider a second public peer as the path); (4) `ocapn-noise-session-reconnect` design still unimplemented; (5) `daemon-agent-network-identity` closure; (6) mixed-version locator incompatibility — consider a clearer version-mismatch error.

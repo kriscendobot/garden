@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":42,"elapsed_s":615,"input_tokens":78,"output_tokens":33136,"cache_creation_tokens":88881,"cache_read_tokens":3169556,"total_cost_usd":3.304956,"ts":"2026-08-17T04:25:45Z","base":"garden-orchestration-halt-record-accuracy","host":"endolin-garden-ece02cb4","outcome":"tada"}

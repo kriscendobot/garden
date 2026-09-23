@@ -1,0 +1,24 @@
+<6>22:26:34 [jobs] job 'deadmail-issue-comment-5445866793' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>22:26:34 [jobs] job 'deadmail-issue-comment-5445866793' resolved tier 'mentor' -> claude --model claude-opus-4-8
+GraphQL: Could not resolve to a PullRequest with the number of 58. (repository.pullRequest)
+
+--- handler report (partial) ---
+Done. Here's my completion report.
+
+## Completion report — `deadmail-issue-comment-5445866793`
+
+**Job:** a dead-lettered issue-inbox message for the already-completed doer `issue-kriscendobot-garden-58`. The maintainer (kriskowal) commented on kriscendobot/garden#58: *"I do want serving left on."* I picked up its intent and handled it per the issue-inbox consumer contract.
+
+**Context established (read from the issue + prior job reports):** This comment is the maintainer's confirmation of the one deliberate decision prior work explicitly left open. Production validation of the minion.town `@sites` weblet-publish path was run **transiently** (enable → verify → restore default-closed), so `WEBLET_SITES_LIVE` is currently **unset** on the live host. The prior deadmail job (`deadmail-issue-comment-5445035002`) surfaced the exact pending decision: whether to flip `WEBLET_SITES_LIVE=1` **persistently**, and noted that a yes makes it "a small, discrete follow-up job (systemd drop-in + restart + re-confirm a served hash)." That yes has now arrived.
+
+**What I did:**
+1. **Posted the discrete follow-up job** `minion-town-serving-live-persist` (tier mentor, automatic) that owns the actual production flip: a durable `minion-mcp` `WEBLET_SITES_LIVE=1` drop-in (persisted in deployed source so it survives CD), restart, and end-to-end re-confirmation of a served `<hash>.ocap.site` — with the gateway powers-plane containment (`zz-containment-20260812.conf`) left fully intact (serving is safe under it because weblets serve through the content plane). The ISSUE NOTE is carried verbatim so the successor reports back to the right issue.
+2. **Replied on the issue thread** — [issue-comment 5445964168](https://github.com/kriscendobot/garden/issues/58#issuecomment-5445964168) — acknowledging the directive, naming the job, and stating the current unset posture and what will change. Did **not** close the issue (submitter's prerogative).
+
+**Why a follow-on job, not an inline flip:** the flip is a security-sensitive production deploy on the minion.town AWS host (systemd drop-in + `minion-mcp` restart + a Cognito-authenticated MCP re-confirmation), which belongs in a job with the minion.town deploy tooling/context, not improvised from a garden `main2` worktree. This matches how the original doer scoped it.
+
+**Changes:** no garden `main2` code changes were required (nothing committed). One new job on the board; one issue comment.
+
+**Follow-ups:** the serving flip + served-hash re-confirmation is owned by `minion-town-serving-live-persist`. Separately-tracked, unchanged: live `weblet_upgrade`, the apex `/.well-known/ocapn-cbor-np` route (still 404), the stale `mcp/guest` scope on the test-client secret.
+
+<<<GARDEN-JOB-HANDED-OFF: minion-town-serving-live-persist>>>

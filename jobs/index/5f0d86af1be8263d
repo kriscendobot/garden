@@ -1,0 +1,2 @@
+base: improve-ci-wait-head-change
+identity: mentor:scripts/jobs/gardening/ci-wait-merge.sh

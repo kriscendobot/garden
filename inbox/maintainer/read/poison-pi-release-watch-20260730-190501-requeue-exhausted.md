@@ -1,0 +1,57 @@
+from_host: endolin-garden2-5bcdff64
+from: reaper:endolin-garden2-5bcdff64
+sent_at: 2026-08-01T12:03:07Z
+poison_base: pi-release-watch-20260730-190501
+poison_signature: requeue-exhausted
+notice_count: 1
+first_seen: 2026-08-01T12:03:07Z
+last_seen: 2026-08-01T12:03:07Z
+---
+POISON job PARKED in jobs/plan/ (held, gate=go-ahead) after 5 requeue cycles on endolin-garden2-5bcdff64.
+Its handler appears to fail every time; the reaper stopped requeueing it.
+The work is preserved at jobs/plan/pi-release-watch-20260730-190501; it stays HELD until a human promotes it
+(promote-plan.sh pi-release-watch-20260730-190501) or removes it, so nothing is lost.
+Original job base: pi-release-watch-20260730-190501
+
+--- original job body ---
+---
+tier: minion
+model-burned: mentor
+fallback-tier: 
+dispatch: automatic
+---
+WEEKLY Pi-release watch → keep the endo-but-for-bots harnesses aligned with the
+`@earendil-works/pi-*` fork the repo now depends on (genie-integration.md § 6,
+maintainer decision on PR #89: "We are embracing a dependency on Pi at this time.
+Please schedule a weekly job to watch for new releases and propose migrations if
+necessary."). Each dispatch is one engagement:
+
+1. Determine the `@earendil-works/pi-agent-core` and `@earendil-works/pi-ai`
+   versions the repo currently PINS. Read them from the endojs/endo-but-for-bots
+   fork (read-only) — search package.json files across packages (genie, lal, fae,
+   agentry) for the `@earendil-works/pi-*` dependency ranges.
+2. Watch the UPSTREAM fork releases: check the latest published versions of
+   `@earendil-works/pi-agent-core` and `@earendil-works/pi-ai` (npm registry
+   `npm view @earendil-works/pi-ai versions --json` / `npm view
+   @earendil-works/pi-agent-core version`, and the GitHub releases/tags of the
+   earendil-works/pi fork if present). Read-only.
+3. Compare: are there new releases NEWER than the pinned ranges? If a new release
+   exists, read its changelog / release notes / commit range to judge whether it
+   carries BREAKING or migration-relevant changes for our consumers (the agent
+   loop, model registry, provider adapters, tool-call/streaming event shapes the
+   harnesses depend on). Ignore pure-internal or docs-only churn.
+4. If there ARE new migration-relevant releases, POST A JOB
+   (scripts/jobs/post-job.sh) proposing the migration: name the specific
+   version range and what each change implies for the endo-but-for-bots
+   consumers. Use a DETERMINISTIC basename keyed by the target version
+   (e.g. propose-pi-bump-<version>) so a later week does NOT duplicate an
+   already-posted proposal; only post for versions not already tracked on the
+   board / in the repo.
+5. If the pinned ranges already cover the latest releases, or the only new
+   releases are non-breaking within-range patches, NO-OP: report "no new
+   migration-relevant @earendil-works/pi-* releases since pinned <X>" and
+   complete.
+
+Bounds: read-only on the pi fork (npm + GitHub) and on endo-but-for-bots; any
+experiment happens only on a bot fork; the proposal job targets the
+endo-but-for-bots project. No upstream PRs or comments from this watch itself.

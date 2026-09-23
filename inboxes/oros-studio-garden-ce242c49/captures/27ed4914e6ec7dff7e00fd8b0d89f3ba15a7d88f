@@ -1,0 +1,28 @@
+<6>23:14:43 [monk/1] requeued job 'undraft-minion-town-99-harness-provisioning-20260916' has no local transcript on oros-studio-garden-ce242c49; prior session and worktree were lost — starting FRESH session 4d3bd229-da01-5487-ae16-32778d0b559c with lost-state framing
+<6>23:14:43 [monk/1] job 'undraft-minion-town-99-harness-provisioning-20260916' tier mentor -> serving at minion (anthropic automatic-work cost ceiling)
+<6>23:14:43 [monk/1] job 'undraft-minion-town-99-harness-provisioning-20260916' resolved tier 'mentor' -> claude --model claude-opus-4-8
+<6>23:15:45 [assert-producer-pr-draft] draft-gate: BLOCK — https://github.com/kriscendobot/minion.town/pull/99 (kriscendobot/minion.town#99) named by completing job 'undraft-minion-town-99-harness-provisioning-20260916' is a bot-authored OPEN NON-DRAFT PR with NO staged or completed gauntlet. Under the manual-gauntlet regime a producer PR may complete without a gauntlet only while DRAFT; a ready PR needs an explicit 'run the gauntlet #N'. Refusing to record the job complete. (Not re-drafting: the PR may be under maintainer review.)
+
+--- handler report (partial) ---
+All work for this job was already completed and pushed/posted by the prior attempt before the reaper requeue. My re-derivation confirms it is genuinely done — no action needed to redo it.
+
+## Completion report
+
+**Job: un-draft kriscendobot/minion.town#99, route to maintainer review.**
+
+Re-deriving from durable state (the reaper requeue lost the prior session; I inspected the live PR and its comments):
+
+1. **PR state re-confirmed at current head `47821c4670a664564d3aaec57ce43e924b5f0df5`** (unchanged from the triage evidence — no drift):
+   - `isDraft: false` — already un-drafted
+   - `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN` — CLEAN implies status checks pass and no conflicts (the `gh pr checks` GraphQL rollup is blocked by PAT scope, but CLEAN + the prior triage/comment corroborate CI green: Claude harness amd64 + arm64 + test)
+   - `state: OPEN`
+
+2. **The completion-summary comment was already posted** at 2026-09-16T23:09:13Z ("Ready for review — gauntlet stopped at its round budget by maintainer decision"). It fully satisfies the task requirements:
+   - States the gauntlet ran its full 6-round budget and halted on `max_iterations=6`, never emitting `pass`, and explains *why* (29-seat panel structurally surfaces fresh nits; own-PR request-changes downgrade to comments) rather than converging.
+   - Records the maintainer decision (kriskowal, liaison muster 2026-09-16) that the recurring must-fixes are diminishing polish, not merge-blockers.
+   - Enumerates exactly what fix-round-6 folded (commit `47821c4670`): assessor, packager/migrator, archivist, breaker, purist, wire-watcher must-fixes plus the folded locksmith/saboteur should-fix items.
+   - Explicitly not merged.
+
+3. **Not merged** — merge decision left to the maintainer, as required.
+
+Nothing to redo: the PR is un-drafted, green/clean, the reviewer-facing summary is in place. I deliberately did **not** re-post the comment (would duplicate) and did **not** re-run the panel. No follow-ups.

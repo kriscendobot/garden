@@ -1,0 +1,1 @@
+{"source":"result","model":"claude-opus-4-8","num_turns":49,"elapsed_s":459,"input_tokens":98,"output_tokens":30065,"cache_creation_tokens":139957,"cache_read_tokens":4292706,"total_cost_usd":4.301453999999999,"ts":"2026-09-21T21:08:42Z","base":"register-gpt-6-astra-mentat-tier","host":"endolin-garden-ece02cb4","outcome":"tada","role":"fixer","provider":"anthropic"}
