@@ -20,7 +20,7 @@ A triager posts an ordinary `merge` job (or the terminal step of a `run the gaun
 - [review-feedback-followup-commits]: the fixer-during / conductor-tidies-before contrast.
 - [ci-status-summary]: the step-4 status check.
 - [pr-ci-watch](../../skills/pr-ci-watch/SKILL.md): the rollup-as-source-of-truth watch that step 4 blocks on when CI is in flight. The deterministic spine is `scripts/jobs/gardening/ci-wait-merge.sh` (block until CI terminal, then merge in the same job).
-- [frozen-base-branch]: after merging a fork-side PR, sweep every `<base>-<sha>` branch the PR used as base (read from the PR's `base_ref_changed` event history). Delete each branch in the fork if no other open PR uses it as base. The discipline bounds frozen-base branch proliferation to live PRs.
+- [frozen-base-branch]: after merging a fork-side PR, sweep every `<base>-<sha>` branch the PR used as base with `scripts/jobs/gardening/sweep-frozen-bases.sh <owner/repo> <N>` (reads the `base_ref_changed` history, re-checks open PRs on each base through the authoritative REST list right before deleting, and restores the ref and reopens any PR a delete raced — the minion.town#114 auto-close). Never hand-roll the delete with `gh pr list --search`: the search index lags new PRs. The discipline bounds frozen-base branch proliferation to live PRs.
 - [worktree-per-pr](../../skills/worktree-per-pr/SKILL.md): operate inside the gardener's per-job `project/` worktree.
 - [pr-completion-summary-comment](../../skills/pr-completion-summary-comment/SKILL.md): when the conductor posts a merge-context comment (a stall reason, an unblocked-downstream note) and commenting is authorized, that comment follows the summary shape: head SHA, the merge outcome, and any downstream the merge unblocked.
 

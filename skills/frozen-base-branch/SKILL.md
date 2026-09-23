@@ -237,34 +237,32 @@ for the review phase only.
 ## Sweep on PR close
 
 On PR merge or close, the merge/close job sweeps the frozen-base branches the PR
-used:
+used — with the script, never by hand:
 
 ```sh
-# 1. Read the PR's base-ref history. GitHub records every base-ref change
-#    as a PullRequestEvent with action='base_ref_changed'.
-gh api "repos/<owner>/<name>/issues/<N>/events" \
-  --jq '.[] | select(.event == "base_ref_changed") | .base_ref' \
-  > /tmp/pr-<N>-bases.list
-
-# 2. Append the final base (the PR's current baseRefName at close).
-gh pr view <N> --json baseRefName --jq .baseRefName >> /tmp/pr-<N>-bases.list
-
-# 3. Dedupe; each unique base is a frozen-base branch we created.
-sort -u /tmp/pr-<N>-bases.list > /tmp/pr-<N>-bases.uniq
-
-# 4. For each frozen-base branch, check if any other open PR uses it as base.
-#    If not, delete it from the fork.
-for fb in $(cat /tmp/pr-<N>-bases.uniq); do
-  other_users=$(gh pr list --search "base:$fb is:open" --json number --jq 'length')
-  if [ "$other_users" -eq 0 ]; then
-    gh api -X DELETE "repos/<owner>/<name>/git/refs/heads/$fb" || true
-  fi
-done
+scripts/jobs/gardening/sweep-frozen-bases.sh <owner>/<name> <N>   # --dry-run to preview
 ```
 
-Other open PRs that share a frozen-base SHA with the closing PR are spared; in
-practice this is rare because each PR's frozen base is unique to the moment it
-was created.
+It collects every base named by the PR's `base_ref_changed` events plus its
+current base, keeps only pinned `<base>-<sha>` names (a live trunk is never a
+candidate), and for each one:
+
+1. **Re-checks, immediately before the delete, the authoritative REST list**
+   `pulls?state=open&base=<ref>` — never `gh pr list --search`, whose index lags
+   PR creation and is blind to a PR opened seconds ago. Any other open PR on the
+   base, or an open PR whose *head* is the ref, retains it. A read failure
+   retains it (fail-retain).
+2. Captures the ref's SHA, then deletes it.
+3. **Post-delete race check.** GitHub ref deletion has no compare-and-swap, so a
+   PR can still land on the base between step 1 and step 2; GitHub then
+   auto-closes it with `base_ref_deleted`. After a short settle the script looks
+   for any other PR on the base that is open or was closed unmerged at/after the
+   delete; if one exists it re-creates the ref at the captured SHA and reopens
+   each victim. A failed repair exits 1 with the hand-recovery commands.
+
+The race is real, not theoretical: frozen-base names are deterministic
+(`<base>-<sha7>` at the trunk tip), so every PR opened while the trunk sits at
+one commit reuses the same ref — see the 2026-09-23 minion.town#114 note.
 
 ## Stacked PRs
 
@@ -361,6 +359,19 @@ conducted.
 
 (Append; terse and dated.)
 
+- _2026-09-23_: **close-time sweep raced a newly opened PR.** The frozen base
+  `main-8e9f2be` on `kriscendobot/minion.town` already existed, so
+  `design-minion-town-siwe-guest-recovery`'s push reported "Everything
+  up-to-date" and `ensure-pr.sh` opened #114 on the shared ref. Eight seconds
+  later a concurrent close-time sweep (its "any other open PR on this base?"
+  check read the lagging search index and answered no) deleted the ref; GitHub
+  emitted `base_ref_deleted` and auto-closed #114. Recognize it by: a PR closed
+  seconds after opening, unmerged, with a `base_ref_deleted` timeline event and
+  no human close. Recovery: re-push the base SHA
+  (`gh api -X POST repos/<r>/git/refs -f ref=refs/heads/<base> -f sha=<sha>`) and
+  reopen (`gh api -X PATCH repos/<r>/pulls/<N> -f state=open`). Fixed by
+  `sweep-frozen-bases.sh` (§ Sweep on PR close): authoritative REST re-check
+  before each delete plus automatic post-delete restore-and-reopen.
 - _2026-09-23_: garden PRs #108 and #109 shared `main2-7446197`. Merging the
   approved #109 answer-surface advanced that base to its merge commit while #108
   remained open; #108's two-tip comparison then gained a deletion of #109's
