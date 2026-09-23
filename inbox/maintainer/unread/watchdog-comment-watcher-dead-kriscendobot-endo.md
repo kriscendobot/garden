@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-09-23T19:48:33Z
+sent_at: 2026-09-23T19:53:03Z
 watchdog_key: comment-watcher-dead-kriscendobot-endo
-notice_count: 10
+notice_count: 11
 first_seen: 2026-09-23T19:02:55Z
-last_seen: 2026-09-23T19:48:33Z
+last_seen: 2026-09-23T19:53:03Z
 ---
-WATCHDOG notice — occurrence #10 (first seen 2026-09-23T19:02:55Z, latest 2026-09-23T19:48:33Z).
-The SAME condition (`comment-watcher-dead-kriscendobot-endo`) has now been observed 10 times; this is ONE
-coalesced notice that updates in place, not 10 messages. Latest detail:
+WATCHDOG notice — occurrence #11 (first seen 2026-09-23T19:02:55Z, latest 2026-09-23T19:53:03Z).
+The SAME condition (`comment-watcher-dead-kriscendobot-endo`) has now been observed 11 times; this is ONE
+coalesced notice that updates in place, not 11 messages. Latest detail:
 
 Comment acknowledgment dead anomaly for kriscendobot/endo:
-watcher heartbeat (age=11s outcome=cooldown)
+watcher heartbeat (age=3s outcome=cooldown)
