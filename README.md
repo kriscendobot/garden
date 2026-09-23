@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:32:05Z_
+_As of 2026-09-23T17:33:31Z_
 
 ## Latest
 
-Container hardening and journal-contention observability completed; comment-latency-watch orchestration halted on a probe check. Three minion.town infrastructure decisions are pending (Endo daemon pin to main, guest-daemon exposure route, express.json body-size limit), blocking the guest web-invite and clipometer arcs. Multiple infrastructure improvements stalled after transient failures; fleet quota at 65% Codex / 37% Claude with foreman quiesced.
+Two design jobs completed (journal contention watch, container hardening), moving comment-latency-watch orchestration into build. The minion.town esbuild campaign halted decisively on a 413 publish-body-limit gate (express.json() defaults to 100 KB, bundle is 206 KB); unblocking it requires a server-side change and maintainer decision. Eight garden infrastructure jobs parked for maintainer promotion after dooming on retry budgets or timeout: elapsed-constancy capture logging, ci-watcher quota cooldown, worktree-sweeper gating, budget-level isolation, self-heal handler timeout, and three others. PR [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (@endo/claude confinement refresh) held awaiting go-ahead after backing off. minion.town guest peer-fetch and web-invite accept both blocked on unresolved preconditions (infrastructure exposure + endo daemon pin). ReadableBlob range-attenuation stage 2 (clean break) doomed on 10.8 ks wall timeout; Ironhorse ocap frozen-objects likewise exhausted its 7.2 ks budget. Fleet at 37% Claude quota (143M), 65% Codex plan; foreman quiesced to target 0 + brake applied per quota pressure.
 
 ## Parked for maintainer feedback
 
@@ -626,17 +626,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.4M | $548.11 _(notional, rate-card)_ | 37% of 143.0M (ok) |
+| Claude | 53.4M | $548.54 _(notional, rate-card)_ | 37% of 143.0M (ok) |
 | Codex | 21.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35178944 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-comment-latency-watch.md) — Build: comment latency watch
 
-### doin (3)
-- [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
+### doin (2)
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
 - [`fix-container-hardening-probe-maintainer-substring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-container-hardening-probe-maintainer-substring.md) — Fix: check-container-hardening.sh check 6 flags "kriskowal" by substring (fal...
 
