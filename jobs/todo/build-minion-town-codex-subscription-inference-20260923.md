@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-codex-inference-exploration-20260923
-priority: normal
-posted_by: producer
-posted_at: 2026-09-23T20:36:18Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-23T20:37:07Z cleared=none -->
 
 ---
 role: builder
