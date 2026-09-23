@@ -1,0 +1,2 @@
+base: improve-promote-plan-doom-reset-fixture
+identity: mentor:scripts/jobs/test/promote-plan-doom-reset-test.sh
