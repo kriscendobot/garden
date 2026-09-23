@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-09-23T19:38:55Z
+sent_at: 2026-09-23T19:44:12Z
 watchdog_key: comment-watcher-dead-kriscendobot-minion.town
 notice_count: 9
 first_seen: 2026-09-23T18:37:55Z
-last_seen: 2026-09-23T19:38:55Z
+last_seen: 2026-09-23T19:44:12Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #9 (first seen 2026-09-23T18:37:55Z, latest 2026-09-23T19:38:55Z).
-The SAME condition (`comment-watcher-dead-kriscendobot-minion.town`) has now been observed 9 times; this is ONE
-coalesced notice that updates in place, not 9 messages. Latest detail:
+RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-minion.town` has CLEARED (first seen 2026-09-23T18:37:55Z, cleared 2026-09-23T19:44:12Z).
+It was observed 9 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Comment acknowledgment dead anomaly for kriscendobot/minion.town:
-watcher heartbeat (age=-25s outcome=cooldown)
+Comment acknowledgment condition cleared.
