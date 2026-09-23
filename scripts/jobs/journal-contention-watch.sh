@@ -21,10 +21,22 @@ export GARDEN_TAG=journal-contention-watch
 : "${GARDEN_CONTENTION_REMEDY_INTERVAL:=21600}"
 : "${GARDEN_CONTENTION_CADENCE:=300}"
 : "${GARDEN_CONTENTION_NOW_EPOCH:=$(date -u +%s)}"
+# Script-owned tick deadline, inside the unit's TimeoutStartSec=240: a SIGTERM
+# mid-tick would lose the heartbeat and every notice/remedy after the killed clone.
+# Stop starting clone work once less than RESERVE seconds of BUDGET remain, defer
+# the rest to the next tick (deferred clones go first then), and still write the
+# heartbeat. A clone rebuild starts only with REMEDY_MIN seconds left.
+: "${GARDEN_CONTENTION_TICK_BUDGET:=210}"
+: "${GARDEN_CONTENTION_RESERVE:=20}"
+: "${GARDEN_CONTENTION_REMEDY_MIN:=120}"
+: "${GARDEN_CONTENTION_TEST_SLUG_COST:=0}" # test hook: fake seconds charged per analyzed clone
 
 mkdir -p "$GARDEN_CONTENTION_STATE"/{stats,confirm,alerts,remedy,remedy-await}
 now="$GARDEN_CONTENTION_NOW_EPOCH"
 hard_fetch="$(awk -v cap="$GARDEN_FETCH_TIMEOUT" 'BEGIN { printf "%.6f", cap * 0.70 }')"
+
+tick_charged=0
+tick_remaining() { printf '%s' $(( GARDEN_CONTENTION_TICK_BUDGET - SECONDS - tick_charged - GARDEN_CONTENTION_RESERVE )); }
 
 float_true() { awk "BEGIN { exit !($*) }"; }
 ring() { printf '%s/%s/%s\n' "$GARDEN_CONTENTION_DIR" "$1" "$2"; }
@@ -74,6 +86,10 @@ remedy_clone() { # clone slug reason; prints applied|backoff|disabled|deferred|o
   if (
     GARDEN_CLONE_LOCK_SOFT=1 GARDEN_LOCK_SOFT_WAIT="${GARDEN_CONTENTION_REMEDY_LOCK_WAIT:-2}"
     export GARDEN_CLONE_LOCK_SOFT GARDEN_LOCK_SOFT_WAIT
+    # Fit the rebuild's bounded fetch attempts into what is left of the tick.
+    fit=$(( $(tick_remaining) / (GARDEN_FETCH_TIMEOUT + GARDEN_FETCH_KILL_AFTER) ))
+    [ "$fit" -ge 1 ] || fit=1
+    if [ "$fit" -lt "$GARDEN_FETCH_RETRIES" ]; then export GARDEN_FETCH_RETRIES="$fit"; fi
     clone_lock "$clone"
     [ -e "$clone" ] || { clone_unlock "$clone"; exit 1; }
     mv -- "$clone" "$old"
@@ -94,8 +110,10 @@ remedy_clone() { # clone slug reason; prints applied|backoff|disabled|deferred|o
   fi
 }
 
+# Returns 3 when the clone must be deferred to the next tick (deadline reached
+# before its object accounting finished); nothing is recorded for it then.
 analyze_clone() {
-  local slug="$1" clone fetch_stats lock_stats push_stats
+  local slug="$1" clone metrics budget fetch_stats lock_stats push_stats
   local fn fp50 fp95 fmed fmad fold fnew fmax ffirst flast
   local ln lp50 lp95 lmed lmad lold lnew
   local pn pp50 pp95 pmed pmad pold pnew pmax _
@@ -116,7 +134,10 @@ analyze_clone() {
   server="$(jc_ring_count "$(ring push-class "$slug")" server-reject)"
   definite="$(jc_ring_count "$(ring push-class "$slug")" definite-fail)"
   clone=""; if jc_resolve_clone "$slug"; then clone="$JC_FOUND_CLONE"; fi
-  if [ -n "$clone" ]; then IFS=$'\t' read -r bytes packs gclog <<< "$(jc_clone_metrics "$clone")"
+  if [ -n "$clone" ]; then
+    budget="$(tick_remaining)"; [ "$budget" -gt 0 ] || return 3
+    metrics="$(JC_METRICS_TIMEOUT="$budget" jc_clone_metrics "$clone")" || return 3
+    IFS=$'\t' read -r bytes packs gclog <<< "$metrics"
   else bytes=0; packs=0; gclog=0; fi
 
   if [ "$fn" -gt 0 ] && float_true "$fmax >= $hard_fetch || $fp95 >= $hard_fetch"; then fetch_hard=1; fi
@@ -159,7 +180,8 @@ analyze_clone() {
   fi
   if [ -z "$await_class" ] && [ -n "$clone" ] && { [ "$clone_bad" -eq 1 ] || [ "$fetch_hard" -eq 1 ]; }; then
     if [ "$clone_bad" -eq 1 ]; then remedy_class=clone; else remedy_class=fetch; fi
-    remedy="$(remedy_clone "$clone" "$slug" "${clone_reason:-fetch ${fmax}s near ${hard_fetch}s cap guard}")"
+    if [ "$(tick_remaining)" -lt "$GARDEN_CONTENTION_REMEDY_MIN" ]; then remedy="deferred-deadline" # no stamp: retried next tick
+    else remedy="$(remedy_clone "$clone" "$slug" "${clone_reason:-fetch ${fmax}s near ${hard_fetch}s cap guard}")"; fi
     if [ "$remedy" = applied ]; then
       printf '%s %s\n' "$now" "$remedy_class" > "$await_file"
       # Old-clone latency must not keep the rebuilt clone anomalous forever. A
@@ -192,10 +214,31 @@ analyze_clone() {
 # Trim every append-only ring before analysis. The recorder never pays this cost.
 for signal_dir in "$GARDEN_CONTENTION_DIR"/*; do
   [ -d "$signal_dir" ] || continue
+  [ "$(tick_remaining)" -gt 0 ] || break
   for sample_ring in "$signal_dir"/*; do [ -f "$sample_ring" ] && jc_trim_ring "$sample_ring"; done
 done
 
-while IFS= read -r slug; do [ -n "$slug" ] && analyze_clone "$slug"; done < <(jc_all_slugs | LC_ALL=C sort -u)
+# Clones deferred by the previous tick run first, so a slow tail is not starved.
+deferred_file="$GARDEN_CONTENTION_STATE/deferred"
+mapfile -t all_slugs < <(jc_all_slugs | LC_ALL=C sort -u)
+mapfile -t ordered < <({
+  if [ -f "$deferred_file" ]; then grep -Fxf <(printf '%s\n' "${all_slugs[@]}") "$deferred_file" || true; fi
+  printf '%s\n' "${all_slugs[@]}"
+} | awk 'NF && !seen[$0]++')
+deferred=()
+for slug in "${ordered[@]}"; do
+  if [ "${#deferred[@]}" -gt 0 ] || [ "$(tick_remaining)" -le 0 ]; then deferred+=("$slug"); continue; fi
+  rc=0; analyze_clone "$slug" || rc=$?
+  case "$rc" in 0) ;; 3) deferred+=("$slug");; *) exit "$rc";; esac
+  tick_charged=$(( tick_charged + GARDEN_CONTENTION_TEST_SLUG_COST ))
+done
+if [ "${#deferred[@]}" -gt 0 ]; then
+  printf '%s\n' "${deferred[@]}" > "$deferred_file"
+  log "tick deadline: deferred ${#deferred[@]} of ${#ordered[@]} clone(s) to the next tick (budget ${GARDEN_CONTENTION_TICK_BUDGET}s, reserve ${GARDEN_CONTENTION_RESERVE}s)"
+  outcome=partial-poll
+else
+  rm -f "$deferred_file"; outcome=full-poll
+fi
 
 # Host-level outage episode: one full checker tick without a new skip closes it.
 last_tick="$(jc_field "$GARDEN_CONTENTION_STATE/heartbeat" epoch)"; last_tick="${last_tick:-$(( now - GARDEN_CONTENTION_CADENCE ))}"
@@ -218,5 +261,8 @@ outage_age=$(( now - episode_start )); outage_stuck=0
 [ "$recent_skips" -gt 0 ] && [ "$latch_active" -eq 1 ] && [ "$outage_age" -gt "$GARDEN_CONTENTION_LATCH_MAX" ] && outage_stuck=1
 condition_update journal-outage-stuck "$outage_stuck" 1 \
   "Journal outage latch stuck on $GARDEN for ${outage_age}s (limit ${GARDEN_CONTENTION_LATCH_MAX}s); skips this tick=$recent_skips, trailing skips=$skip_total."
-printf 'epoch: %s\nlast_tick_at: %s\noutcome: full-poll\noutage_skips: %s\noutage_latch_active: %s\n' \
-  "$now" "$(date -u -d "@$now" +%FT%TZ)" "$skip_total" "$latch_active" > "$GARDEN_CONTENTION_STATE/heartbeat"
+# Two consecutive partial ticks mean this host's clones no longer fit the budget.
+condition_update journal-contention-watch-overrun "$([ "$outcome" = partial-poll ] && echo 1 || echo 0)" 0 \
+  "Journal contention checker on $GARDEN cannot finish a tick inside its ${GARDEN_CONTENTION_TICK_BUDGET}s budget: deferred ${#deferred[@]} of ${#ordered[@]} clone(s) on consecutive ticks."
+printf 'epoch: %s\nlast_tick_at: %s\noutcome: %s\ndeferred_clones: %s\ntick_elapsed_s: %s\noutage_skips: %s\noutage_latch_active: %s\n' \
+  "$now" "$(date -u -d "@$now" +%FT%TZ)" "$outcome" "${#deferred[@]}" "$SECONDS" "$skip_total" "$latch_active" > "$GARDEN_CONTENTION_STATE/heartbeat"

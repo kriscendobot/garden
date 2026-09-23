@@ -69,7 +69,11 @@ jc_clone_metrics() { # bytes packs gc-log(0/1)
   # count-objects reads Git's object accounting without walking the checked-out
   # journal tree. A recursive du of a 105G clone is itself a multi-minute outage;
   # the incident-class bloat lives in loose/packed/garbage objects, all covered.
-  objects="$(git -C "$clone" count-objects -v 2>/dev/null || true)"
+  # JC_METRICS_TIMEOUT (the checker's remaining tick budget) bounds the read; a
+  # timeout returns 1 so the caller defers the clone instead of reading "0 bytes".
+  local rc=0
+  objects="$(${JC_METRICS_TIMEOUT:+timeout -k 2 "$JC_METRICS_TIMEOUT"} git -C "$clone" count-objects -v 2>/dev/null)" || rc=$?
+  case "$rc" in 124|137) [ -n "${JC_METRICS_TIMEOUT:-}" ] && return 1;; esac
   size="$(printf '%s\n' "$objects" | sed -n 's/^size: //p')"; size="${size:-0}"
   size_pack="$(printf '%s\n' "$objects" | sed -n 's/^size-pack: //p')"; size_pack="${size_pack:-0}"
   size_garbage="$(printf '%s\n' "$objects" | sed -n 's/^size-garbage: //p')"; size_garbage="${size_garbage:-0}"

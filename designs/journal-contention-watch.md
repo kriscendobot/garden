@@ -191,6 +191,19 @@ root-repo-guard's maintenance which defers to the deploy.
   is exactly when a wedged clone must still be surfaced and rebuilt).
 - **Cadence** `GARDEN_CONTENTION_CADENCE` default 300s (slower than the producers it
   observes; anomalies are minutes-scale).
+- **Tick deadline.** The unit's `TimeoutStartSec=240` must never be the thing that
+  ends a tick: a SIGTERM mid-tick loses the heartbeat and every notice and remedy
+  after the killed clone. The script owns a shorter budget
+  (`GARDEN_CONTENTION_TICK_BUDGET`, default 210s) and stops starting clone work once
+  less than `GARDEN_CONTENTION_RESERVE` (20s) of it remains. Each clone's
+  `count-objects` read is bounded by the remaining budget; a timeout defers that
+  clone rather than reading it as 0 bytes. A clone rebuild starts only with
+  `GARDEN_CONTENTION_REMEDY_MIN` (120s) left, its fetch retries trimmed to fit, and
+  otherwise records `remedy: deferred-deadline` with no backoff stamp so the next tick
+  retries it. Deferred clones are written to `deferred` and run first next tick, so a
+  slow tail is never starved; their confirm counters and open notices are left
+  untouched. The heartbeat records `outcome: partial-poll` and `deferred_clones`, and
+  two consecutive partial ticks open `journal-contention-watch-overrun`.
 - **Its own liveness** follows comment-latency-watch's three turtles: (1) systemd
   `Restart=on-failure` + timer re-arm; (2) it writes its own host-local heartbeat
   (`$GARDEN_STATE/journal-contention-watch/heartbeat`), whose staleness the probe and

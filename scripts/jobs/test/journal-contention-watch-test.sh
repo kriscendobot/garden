@@ -111,10 +111,61 @@ env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE
   "$JOBS/journal-contention-watch.sh"
 grep -q "^--recovered journal-clone-oversized-$slug " "$NOTICES" || { echo 'FAIL: clone recovery not closed'; exit 1; }
 
+# Tick deadline: clone work stops once the budget is spent, the heartbeat is still
+# written, deferred clones go first next tick, and repeated overrun pages once.
+reset_case
+for c in aa bb cc; do sample lock-giveup 99 1 "$c"; done
+export GARDEN_CONTENTION_TICK_BUDGET=1000 GARDEN_CONTENTION_RESERVE=0 GARDEN_CONTENTION_TEST_SLUG_COST=1000
+run_watch 100
+assert_open journal-lock-contention-aa
+if grep -q 'journal-lock-contention-bb\|journal-lock-contention-cc' "$NOTICES"; then echo 'FAIL: deferred clone was analyzed'; exit 1; fi
+grep -q '^outcome: partial-poll$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: partial tick lost heartbeat'; exit 1; }
+grep -q '^deferred_clones: 2$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: deferred count missing'; exit 1; }
+[ "$(cat "$WATCH_STATE/deferred")" = $'bb\ncc' ] || { echo 'FAIL: deferred list wrong'; exit 1; }
+run_watch 400
+assert_open journal-lock-contention-bb; assert_open journal-contention-watch-overrun
+[ "$(cat "$WATCH_STATE/deferred")" = $'cc\naa' ] || { echo 'FAIL: deferred clones were not run first'; exit 1; }
+GARDEN_CONTENTION_TEST_SLUG_COST=0 run_watch 700
+assert_open journal-lock-contention-cc
+grep -q '^outcome: full-poll$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: full tick not recorded'; exit 1; }
+[ ! -e "$WATCH_STATE/deferred" ] || { echo 'FAIL: deferred list survived a full tick'; exit 1; }
+grep -q '^--recovered journal-contention-watch-overrun ' "$NOTICES" || { echo 'FAIL: overrun not recovered'; exit 1; }
+unset GARDEN_CONTENTION_TICK_BUDGET GARDEN_CONTENTION_RESERVE GARDEN_CONTENTION_TEST_SLUG_COST
+
+# A clone whose object accounting outlives the remaining budget is deferred, not
+# read as a healthy 0-byte clone.
+reset_case
+CLONE="$STATE/slowcount/journal"; mkdir -p "$CLONE"; git -C "$CLONE" init -q
+slug="${CLONE//[!A-Za-z0-9]/_}"
+SHIM="$TR/shim"; mkdir -p "$SHIM"
+printf '#!/bin/bash\ncase " $* " in *" count-objects "*) sleep 10;; esac\nexec %q "$@"\n' "$(command -v git)" > "$SHIM/git"
+chmod +x "$SHIM/git"
+PATH="$SHIM:$PATH" GARDEN_CONTENTION_TICK_BUDGET=2 GARDEN_CONTENTION_RESERVE=0 run_watch 100
+grep -qx "$slug" "$WATCH_STATE/deferred" || { echo 'FAIL: slow clone accounting was not deferred'; exit 1; }
+[ ! -e "$WATCH_STATE/stats/$slug" ] || { echo 'FAIL: slow clone recorded partial stats'; exit 1; }
+
+# Too little budget left for a rebuild defers the remedy without a backoff stamp.
+reset_case
+CLONE="$STATE/producer/journal"; mkdir -p "$CLONE"
+git -C "$CLONE" init -q
+printf '%2048s' x > "$CLONE/oversized"
+git -C "$CLONE" hash-object -w oversized >/dev/null
+slug="${CLONE//[!A-Za-z0-9]/_}"
+env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE="$WATCH_STATE" \
+  GARDEN_CONTENTION_NOTICE="$NOTICE" JC_NOTICES="$NOTICES" GARDEN_CONTENTION_NOW_EPOCH=1000 \
+  GARDEN_JOURNAL_OUTAGE_DIR="$STATE/outage" GARDEN_JOURNAL_OUTAGE_MARKER="$STATE/outage/active" \
+  GARDEN_CONTENTION_CLONE_MAX_BYTES=4096 GARDEN_CONTENTION_REMEDY_MIN=100000 \
+  GARDEN_CONTENTION_ENSURE_CLONE_CMD="$ENSURE" GARDEN_CONTENTION_DELETE_SYNC=1 \
+  "$JOBS/journal-contention-watch.sh"
+[ -e "$CLONE/oversized" ] || { echo 'FAIL: remedy ran without enough budget'; exit 1; }
+grep -q '^remedy: deferred-deadline$' "$WATCH_STATE/stats/$slug" || { echo 'FAIL: remedy deferral not recorded'; exit 1; }
+[ ! -e "$WATCH_STATE/remedy/$slug" ] || { echo 'FAIL: deferred remedy stamped a backoff'; exit 1; }
+assert_open "journal-clone-oversized-$slug"
+
 # Quiet low baselines never page.
 reset_case
 for n in $(seq 1 20); do sample lock-wait "$n" 1000 quiet; sample fetch "$n" 2000 quiet; sample push-attempts "$n" 1 quiet; done
 run_watch 100; run_watch 400
 [ ! -s "$NOTICES" ] || { echo 'FAIL: quiet baseline paged'; cat "$NOTICES"; exit 1; }
 
-echo 'PASS: contention recorder, thresholds, drift, outage latch, clone remedy, recovery, and quiet baseline'
+echo 'PASS: contention recorder, thresholds, drift, outage latch, clone remedy, recovery, tick deadline, and quiet baseline'
