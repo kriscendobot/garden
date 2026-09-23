@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:15:48Z_
+_As of 2026-09-23T18:19:23Z_
 
 ## Latest
 
-Opus 5.5 tier placement questions resolved and landed on main2; garden PR #108 awaits closure as the answer surface is complete. Journal worktree staleness alert (2h lag); fleet saw no new board transitions but accumulated 24 high-priority messages waiting on maintainer decisions: minion.town blocked on Endo daemon pin refresh (ready to land from frozen base) and express.json() body-size limit for the live CLIPOMETER (413 on 206 KB publish); three orchestration/infrastructure improvements parked as split-eligible after retry exhaustion (journal contention, ReadableBlob clean-break timeout, comment-latency); and five garden self-healing fixes needed (worktree sweeper misgated to leader-only leaking 41 GB residue, watcher outage-latch flap-dedup, handler timeout wrapper, budget cap isolation, CI quota cooldown too short). One parallel orchestration job (minion-town claude-inference) failed 1 of 2 children mid-flight.
+Three infrastructure jobs exhausted their retry budgets and are now parked pending split or re-specification: refresh for [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (@endo/claude confinement-core), ReadableBlob range attenuation clean break, and Ironhorse ocap frozen-object optimization. The [ebfb-exo-stream gauntlet](https://github.com/endojs/endo-but-for-bots/pull/1100) halted at fix iteration 3 after three stage retries. The [CLIPOMETER re-anchor campaign](https://github.com/kriscendobot/minion.town/pull/84) hit a decisive blocker: minion.town's /mcp endpoint rejects payloads over ~100 KB, which blocks publishing the esbuild/captp bundle at 206 KB. Three decisions remain open to proceed with parked work: whether the guest runs on the public pet daemon or needs its own route, whether to authorize SIWE identity provisioning tier 1 (and the allowlist), and whether to advance the Claude inference harness before or after [endo#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) lands. The journal worktree is stale on one follower. The quota outlook remains stable at 39% of Claude weekly capacity.
 
 ## Parked for maintainer feedback
 
@@ -534,6 +534,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > scripts/jobs/common.sh
 > ci-watcher.sh's rollup_hit_primary_quota() routes GitHub PRIMARY hourly-quota exhaustion (distinct from a transient 5xx/HTML blip) through common.sh's shared start_api_cooldown, whose window is hard-capped at 900s — far shorter than GitHub's real ~1hr rate-limit reset. Journalctl shows the same quota-exhaustion WARN re-firing every ~5min (12:26/12:31/12:37Z) because each short cooldown expires and re-hits the still-exhausted API, burning calls and repeating log noise for the whole outage window. mirror-closer.sh already solved this correctly with its own dedicated ~3600s cooldown (MIRROR_QUOTA_MARKER / mirror_quota_cooldown_secs, scripts/jobs/mirror-closer.sh). Add a second shared primary-quota cooldown helper to common.sh (e.g. start_primary_quota_cooldown/primary_quota_cooldown_active, default ~3600s, mirroring the existing blip-cooldown pattern) and switch ci-watcher.sh's rollup_hit_primary_quota (and any other watcher that detects the same "doomed until quota recovers" signal) onto it instead of the 900s-capped blip cooldown — retiring mirror-closer.sh's private duplicate in favor of the shared helper.
 
+- `watchdog-self-heal-garden-container-hardening` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-container-hardening.md)
+
+> self-heal: garden-container-hardening exited rc=1 with no scoped fix. Capture: 98400179762a17ff4bffc37e9470aef6858d4142 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 98400179762a17ff4bffc37e9470aef6858d4142). Diagnosis: This is the expected, documented condition, not a bug. Commit `3d453e3078` (the current `HEAD`, landed ~68 minutes ago) hardened the `garden` launcher and Dockerfile to drop `--privileged` and bot-user sudo, but per its own commit message and `context/operations/harden-container.md`, **the change takes effect only on container recreation** — "no flag day; recreate host by host." This host's container (`endolin-garden-ece02cb4`) is still running the old, privileged image/launch flags, so the twice-daily `garden-container-hardening` probe correctly still fails its two posture checks (`sudo -n true` succeeds, host block devices visible) exactly as the doc anticipates. The other five checks (including the maintainer-gh-credential check the commit message flagged as a separate concern) alread
+
 - `doomed-build-rbra-clean-break-20260916-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-rbra-clean-break-20260916-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -634,7 +638,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.0M | $560.78 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Claude | 56.3M | $564.70 _(notional, rate-card)_ | 39% of 143.0M (ok) |
 | Codex | 22.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38115130 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
