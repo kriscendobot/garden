@@ -17,9 +17,18 @@
 # follower it writes a JOURNAL release token deploy/roll/<GARDEN> — which is NOT a
 # sysop op and NOT a deploy trigger: the follower's own garden-self-deploy daemon
 # still requires its independent host-local `upgrade-ready` cryptographic fact to
-# move, and only ever advances to origin/main2's tip. A forged or stray token can
-# therefore only permit a host to reach the canonical tip it would reach anyway; it
-# cannot make a follower deploy arbitrary code. So the sysop `deploy` op and its
+# move, and only ever advances to the released sha, which deploy-garden.sh refuses
+# unless it lies on origin/main2. A forged or stray token can therefore only permit a
+# host to reach a point on the canonical branch; it cannot make a follower deploy
+# arbitrary code.
+#
+# EVERY deploy this conductor fires is PINNED (GARDEN_DEPLOY_TARGET) to the sha the
+# canaries validated. An unpinned deploy-garden.sh advances to whatever
+# origin/main2 is at that moment, so main2 advancing mid-roll put unvalidated
+# commits on the leader (roll 48ee7a on 2026-09-23 landed 3d453e). A roll is
+# recorded complete only once the leader's deployed sha is the target: deploy-garden
+# exits 0 on a DEFER too, which once logged roll 987bb13 "completed" ten times while
+# the leader never moved. So the sysop `deploy` op and its
 # maintainer attestation are never routed through by the rolling deploy.
 #
 # The conductor is DETERMINISTIC and EVENT-DRIVEN (like orchestrate.sh / unblock.sh):
@@ -38,6 +47,10 @@
 #   GARDEN_ROLL_REGRESSION_CMD  optional deterministic regression check <host> <sha> (default: pass)
 #   GARDEN_ROLL_PREDRAIN        1 → send a benign `drain on` before releasing a canary (default 0)
 #   GARDEN_ROLLING_NOW          fixed epoch seconds (default: date +%s)
+#   GARDEN_ROLLING_ANCESTOR_CMD optional <a> <b> → rc0 iff a is an ancestor-or-equal
+#                               of b (default: git in $GARDEN_ROOT)
+#   GARDEN_ROLL_STUCK_CANARY_AFTER seconds a released follower may stay undeployed
+#                               before the stuck-canary notice (default: 20 min)
 #   GARDEN_HOST_OFFLINE_AFTER   max budget/live heartbeat age (default: 30 min)
 
 set -euo pipefail
@@ -69,6 +82,22 @@ now_s() { if [ -n "${GARDEN_ROLLING_NOW:-}" ]; then printf '%s\n' "$GARDEN_ROLLI
 # pipeline under pipefail, which would abort the whole tick; these never fail).
 rdsha()  { [ -f "$1" ] && head -n1 "$1" 2>/dev/null | tr -d '[:space:]' || true; }
 rdline() { [ -f "$1" ] && head -n1 "$1" 2>/dev/null || true; }
+
+: "${GARDEN_ROLL_STUCK_CANARY_AFTER:=1200}"
+
+is_ancestor() {  # is_ancestor <a> <b> → rc0 iff a is an ancestor-or-equal of b
+  [ "$1" = "$2" ] && return 0
+  if [ -n "${GARDEN_ROLLING_ANCESTOR_CMD:-}" ]; then
+    "$GARDEN_ROLLING_ANCESTOR_CMD" "$1" "$2" >/dev/null 2>&1
+    return
+  fi
+  git -C "$GARDEN_ROOT" merge-base --is-ancestor "$1" "$2" 2>/dev/null
+}
+
+# The leader's own (last-wave or solo) deploy, pinned to the validated target.
+leader_deploy() {  # leader_deploy <target>
+  GARDEN_DEPLOY_TARGET="$1" "$DEPLOY_CMD"
+}
 
 ensure_clone "$DIR"
 sync_clone "$DIR"
@@ -389,6 +418,75 @@ on $host, then lift its drain and re-trigger, or hold the tip. (leader=$GARDEN)"
   log "HALTED: canary $host failed validation for ${target:0:12}${mode:+ ($mode)}: $reason — leader will NOT advance; canary left drained"
 }
 
+# --- stuck-canary watchdog -----------------------------------------------------
+# A follower holding a release token it has not deployed for
+# GARDEN_ROLL_STUCK_CANARY_AFTER raises ONE keyed notice per episode (alert_maintainer
+# coalesces repeats). It runs on EVERY tick, including "nothing to roll": the
+# 2026-09-23 strand happened after the leader was already current, when no roll step
+# ever looked at the canary again. The clock restarts when the token names a new sha.
+# Offline peers have their own watchdog, and an operator-drained peer is a
+# deliberate pause, so neither counts as stuck.
+stuck_canary_watch() {
+  local f tok fd rec since key d="$STATE/stuck-canary"
+  mkdir -p "$d" 2>/dev/null || true
+  while IFS= read -r f; do
+    key="rolling-deploy-canary-stuck-$f"
+    tok="$(release_token "$f")"; fd="$(follower_deployed_sha "$f")"
+    if [ -z "$tok" ] || [ "$fd" = "$tok" ] || ! host_is_online "$f" \
+       || [ "$(follower_health_field "$f" roll_status)" = operator-drained ]; then
+      if [ -e "$d/$f" ]; then
+        rm -f "$d/$f"
+        alert_maintainer_clear "$key" "canary $f is no longer stuck (release ${tok:-cleared}, deployed ${fd:-unknown})." || true
+      fi
+      continue
+    fi
+    rec="$(rdline "$d/$f")"
+    if [ "${rec%% *}" != "$tok" ]; then
+      printf '%s %s\n' "$tok" "$now" > "$d/$f"
+      continue
+    fi
+    since="${rec##* }"; [[ "$since" =~ ^[0-9]+$ ]] || since="$now"
+    [ $(( now - since )) -ge "$GARDEN_ROLL_STUCK_CANARY_AFTER" ] || continue
+    alert_maintainer "$key" \
+"Rolling-deploy canary $f is STUCK: it was released to ${tok:0:12} $(( (now - since) / 60 )) min ago
+but still reports deployed_sha ${fd:-<none>}. Check garden-self-deploy on $f
+(journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+keeps it from advancing. The leader does not advance past an undeployed canary.
+(leader=$GARDEN)"
+    log "canary $f STUCK: released to ${tok:0:12} $(( now - since ))s ago, still at ${fd:-<none>}"
+  done < <(all_follower_hosts)
+}
+
+# --- catch-up: a follower left BEHIND a leader that is already current ---------
+# The leader can reach a sha by a path other than a completed roll: the liaison's
+# hand-run deploy-garden.sh override, or the leader-only degenerate path. The
+# conductor then sees no upgrade-ready and does nothing, and the follower holds a
+# release for an OLDER sha, or none, until the 60-minute leaderless grace. That is
+# the 2026-09-23 strand. So while the leader is current, release every present follower
+# whose deployed sha is an ancestor of the leader's to the leader's sha. The leader
+# already runs that sha, so no further canary validation applies. A token the
+# follower has already reached is cleared.
+catch_up_followers() {
+  local L f fd tok
+  L="$(deployed_sha 2>/dev/null || true)"
+  [ -n "$L" ] || return 0
+  while IFS= read -r f; do
+    host_is_online "$f" || continue
+    fd="$(follower_deployed_sha "$f")"; tok="$(release_token "$f")"
+    if [ "$fd" = "$L" ]; then
+      [ -z "$tok" ] || journal_rm "$GARDEN_DEPLOY_ROLL_PATH/$f" "deploy/roll($f) cleared (at leader sha ${L:0:12}) by $GARDEN" || true
+      continue
+    fi
+    [ -n "$fd" ] && [ "$tok" != "$L" ] || continue
+    is_ancestor "$fd" "$L" || continue
+    if journal_put "$GARDEN_DEPLOY_ROLL_PATH/$f" "$L" "deploy/roll($f)=${L:0:12} (catch-up to leader by $GARDEN)"; then
+      log "follower $f is behind the current leader (${fd:0:12} < ${L:0:12}, prior release ${tok:-none}); released it to catch up"
+    else
+      log "WARN: could not write catch-up release token for $f; retrying next tick"
+    fi
+  done < <(all_follower_hosts)
+}
+
 # =============================================================================
 # --- the tick ---------------------------------------------------------------
 
@@ -414,9 +512,12 @@ separate operator decision; this watchdog never reverses decommissioning. (leade
   fi
 done < <(all_follower_hosts)
 
+stuck_canary_watch
+
 # The leader's own host-local upgrade-ready signal is the deploy DECISION (a
 # cryptographic ancestry fact, never a bus message). Absent → the leader is current.
 if [ ! -e "$GARDEN_UPGRADE_READY_MARKER" ]; then
+  catch_up_followers
   log "leader deployed version is current (no upgrade-ready signal); nothing to roll"
   exit 0
 fi
@@ -438,7 +539,7 @@ fi
 mapfile -t all_followers < <(all_follower_hosts)
 if [ "${#all_followers[@]}" -eq 0 ]; then
   log "leader-only fleet (no followers to canary); self-deploying directly on the settled upgrade-ready — today's solo-leader behavior"
-  "$DEPLOY_CMD" || log "WARN: leader self-deploy returned non-zero (deploy-garden.sh manages its own drain/abort)"
+  leader_deploy "$target" || log "WARN: leader self-deploy returned non-zero (deploy-garden.sh manages its own drain/abort)"
   exit 0
 fi
 
@@ -565,10 +666,17 @@ done
 # --- every follower passed or was skipped ------------------------------------
 if [ "$passed_any" -eq 1 ]; then
   log "all required canaries passed for ${target:0:12}; leader self-deploying LAST"
-  if "$DEPLOY_CMD"; then
-    record="$(roll_completion_record "$target")"
-    journal_put "$GARDEN_ROLL_COMPLETED_PATH/$target" "$record" "deploy roll ${target:0:12} completed by $GARDEN" || true
-    log "roll completion recorded for ${target:0:12}; skipped peers: $(sed -n 's/^skipped_peers: //p' <<<"$record")"
+  if leader_deploy "$target"; then
+    # deploy-garden.sh exits 0 on a DEFER (a long mid-job gardener) as well as on a
+    # real deploy, so success means "this host now runs the target", read back.
+    now_at="$(deployed_sha 2>/dev/null || true)"
+    if [ "$now_at" = "$target" ]; then
+      record="$(roll_completion_record "$target")"
+      journal_put "$GARDEN_ROLL_COMPLETED_PATH/$target" "$record" "deploy roll ${target:0:12} completed by $GARDEN" || true
+      log "roll completion recorded for ${target:0:12}; skipped peers: $(sed -n 's/^skipped_peers: //p' <<<"$record")"
+    else
+      log "leader deploy of ${target:0:12} did not land (deployed sha ${now_at:-unknown}; deferred or no-op); no completion recorded, retrying next tick"
+    fi
   else
     log "WARN: leader self-deploy returned non-zero (deploy-garden.sh manages its own drain/abort)"
   fi

@@ -22,6 +22,13 @@
 #   - the follower daemon's leaderless-grace HEADLESS fallback; a live-leader-no-release
 #     HOLD; and the operator-drained DECLINE (publishes operator-drained, no deploy).
 #   - the SETTLE window floors tip age before any release.
+#   - ADVANCED TARGET (the 2026-09-23 strand): a follower whose release is older than
+#     its upgrade-ready deploys the RELEASED sha, pinned; the conductor re-releases a
+#     new tip and the leader never deploys ahead of an undeployed canary.
+#   - LEADER-SELF-BEFORE-CANARY: the leader's deploy is pinned to the validated target,
+#     and a DEFERRED leader deploy is not recorded as a completed roll.
+#   - CATCH-UP: a leader already current releases a follower left behind it.
+#   - STUCK CANARY: a released-but-undeployed canary raises one coalesced notice.
 #
 # Usage: rolling-deploy-test.sh
 set -uo pipefail
@@ -73,7 +80,7 @@ push_change() {  # push_change <path> <content|@DELETE> <msg>
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
   if [ "$content" = "@DELETE" ]; then git -C "$wt" rm -q "$path" 2>/dev/null || true
   else mkdir -p "$(dirname "$wt/$path")"; printf '%s' "$content" > "$wt/$path"; git -C "$wt" add "$path"; fi
-  git -C "$wt" "${git_id[@]}" commit -q -m "$msg" 2>/dev/null || true
+  git -C "$wt" "${git_id[@]}" commit -q -m "$msg" >/dev/null 2>&1 || true
   git -C "$wt" push -q origin "HEAD:$BRANCH" 2>/dev/null || true
   rm -rf "$wt"
 }
@@ -112,9 +119,17 @@ seed_probe_tada() {  # <host> [retry-n] — seed the canary probe's tada as if t
 # Recorders for the conductor's seams.
 DEPLOY_LOG="$TR/deploy.log"; DRAIN_LOG="$TR/drain.log"; ALERT_LOG="$TR/alert.log"
 : > "$DEPLOY_LOG"; : > "$DRAIN_LOG"; : > "$ALERT_LOG"
+# The fake deploy records the pinned target and, like a landed deploy-garden.sh,
+# writes the host's deployed-sha marker; REC_DEPLOY_DEFER=1 models a DEFER (exit 0,
+# nothing advanced).
 cat > "$TR/rec-deploy.sh" <<EOF
 #!/bin/bash
-printf 'deploy-invoked host=%s\n' "\${GARDEN:-?}" >> "$DEPLOY_LOG"
+printf 'deploy-invoked host=%s target=%s\n' "\${GARDEN:-?}" "\${GARDEN_DEPLOY_TARGET:-<tip>}" >> "$DEPLOY_LOG"
+[ "\${REC_DEPLOY_DEFER:-0}" = 1 ] && exit 0
+if [ -n "\${GARDEN_DEPLOY_TARGET:-}" ]; then
+  mkdir -p "\$GARDEN_STATE/deploy"; printf '%s\n' "\$GARDEN_DEPLOY_TARGET" > "\$GARDEN_STATE/deploy/deployed-sha"
+fi
+exit 0
 EOF
 cat > "$TR/rec-drain.sh" <<EOF
 #!/bin/bash
@@ -122,7 +137,8 @@ printf 'drain %s\n' "\$*" >> "$DRAIN_LOG"
 EOF
 cat > "$TR/rec-alert.sh" <<EOF
 #!/bin/bash
-printf 'ALERT key=%s\n' "\$1" >> "$ALERT_LOG"
+case "\$2" in RECOVERED:*) tag=recovered ;; *) tag=open ;; esac
+printf 'ALERT key=%s %s\n' "\$1" "\$tag" >> "$ALERT_LOG"
 EOF
 chmod +x "$TR"/rec-*.sh
 
@@ -514,6 +530,127 @@ env -i PATH="$PATH" HOME="$HOME" \
 if ! grep -q "deploy-invoked host=$F1" "$DEPLOY_LOG" && [ "$(sed -n 's/^roll_status:[[:space:]]*//p' <<<"$(from_bare "fleet/health/$F1")" | tail -1)" = roll-drained ]; then
   ok "roll-induced-drained follower DECLINES the release and publishes roll-drained (retryable, distinct from operator-drained)"
 else bad "roll-induced decline did not publish roll-drained / deployed anyway (status: $(sed -n 's/^roll_status:[[:space:]]*//p' <<<"$(from_bare "fleet/health/$F1")" | tail -1))"; fi
+
+# ============================================================================
+# The 2026-09-23 strand: release d1bb5185 for the canary, main2 advances to 0558c12a,
+# the leader lands 0558c12a without its canary, and the canary holds forever.
+OLD="d1bb518590c763121663c43eac05cec8acb6493e"
+NEW="0558c12af2a2f7e52f82f375e7e36fa98d9836f5"
+BASE="987bb13b9b5a116c7aaf33690e85a1ef6c700146"
+# A linear main2 history BASE < OLD < NEW: <a> <b> → rc0 iff a is at or before b.
+printf '#!/bin/bash\nrank() { case "$1" in %s) echo 1 ;; %s) echo 2 ;; %s) echo 3 ;; *) echo 0 ;; esac; }\na=$(rank "$1"); b=$(rank "$2")\n[ "$a" -gt 0 ] && [ "$b" -gt 0 ] && [ "$a" -le "$b" ]\n' \
+  "$BASE" "$OLD" "$NEW" > "$TR/anc-chain.sh"; chmod +x "$TR/anc-chain.sh"
+sd_deployed() { mkdir -p "$TR/sd-state-$1/deploy"; printf '%s\n' "$2" > "$TR/sd-state-$1/deploy/deployed-sha"; }
+reset_leader_all() {  # forget the leader's roll state, stuck clock and deployed sha
+  reset_leader_roll_state
+  rm -rf "$TR/state-leader/rolling-deploy/stuck-canary" "$TR/state-leader/deploy/deployed-sha"
+}
+
+hr; echo "ADVANCED TARGET (follower) — a release OLDER than upgrade-ready deploys the RELEASED sha"; hr
+push_change "deploy/roll/$F1" "$OLD" "release F1 to OLD"
+rm -rf "$TR/sd-state-$F1"; sd_signal "$F1" "$NEW"; sd_deployed "$F1" "$BASE"; : > "$DEPLOY_LOG"
+run_self_deploy "$F1" GARDEN_LEADER="$LEADER" GARDEN_SELF_DEPLOY_ANCESTOR_CMD="$TR/anc-chain.sh"
+if grep -q "deploy-invoked host=$F1 target=$OLD" "$DEPLOY_LOG"; then
+  ok "release $(printf %.8s "$OLD") + upgrade-ready $(printf %.8s "$NEW") → follower deploys the RELEASED sha, pinned"
+else bad "advanced-target follower did not deploy the released sha (deploy log: $(cat "$DEPLOY_LOG"))"; fi
+# Having reached the release, the follower must NOT redeploy it every tick; it holds
+# for a new release of the newer tip.
+: > "$DEPLOY_LOG"
+run_self_deploy "$F1" GARDEN_LEADER="$LEADER" GARDEN_SELF_DEPLOY_ANCESTOR_CMD="$TR/anc-chain.sh"
+grep -q deploy-invoked "$DEPLOY_LOG" && bad "follower re-deployed a release it already runs" \
+  || ok "a release the follower already runs is stale: it HOLDS for a release of the newer tip"
+# A release that is NOT an ancestor of upgrade-ready (unrelated/forged) never deploys.
+rm -rf "$TR/sd-state-$F1"; sd_signal "$F1" "$NEW"; sd_deployed "$F1" "$BASE"; : > "$DEPLOY_LOG"
+run_self_deploy "$F1" GARDEN_LEADER="$LEADER" GARDEN_SELF_DEPLOY_ANCESTOR_CMD=/bin/false
+grep -q deploy-invoked "$DEPLOY_LOG" && bad "deployed a release that is not an ancestor of upgrade-ready" \
+  || ok "a release that is not on this host's upgrade-ready tip is ignored (HOLD)"
+# A release equal to upgrade-ready deploys pinned to it, so a tip that moves during
+# the deploy cannot slip onto the canary.
+push_change "deploy/roll/$F1" "$NEW" "release F1 to NEW"
+rm -rf "$TR/sd-state-$F1"; sd_signal "$F1" "$NEW"; : > "$DEPLOY_LOG"
+run_self_deploy "$F1" GARDEN_LEADER="$LEADER"
+grep -q "deploy-invoked host=$F1 target=$NEW" "$DEPLOY_LOG" \
+  && ok "release == upgrade-ready deploys PINNED to the released sha" \
+  || bad "release == upgrade-ready deploy was not pinned (deploy log: $(cat "$DEPLOY_LOG"))"
+
+hr; echo "ADVANCED TARGET (conductor) — a new tip RE-RELEASES the canary; the leader never goes first"; hr
+seed_fleet_hosts "$F1"
+push_change "hosts/$F2" "@DELETE" "single follower for advanced-target conductor test"
+push_change "deploy/roll/$F1" "$OLD" "F1 holds a release for OLD"
+simulate_follower_deploy "$F1" "$BASE"
+set_leader_signal "$NEW"; reset_leader_all
+: > "$DEPLOY_LOG"
+run_conductor
+if [ "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" = "$NEW" ] && ! grep -q deploy-invoked "$DEPLOY_LOG"; then
+  ok "leader target moved to NEW → canary re-released to NEW; leader did NOT deploy"
+else bad "advanced target not re-released / leader advanced (token=$(from_bare deploy/roll/$F1), deploy=$(cat "$DEPLOY_LOG"))"; fi
+run_conductor; run_conductor
+grep -q deploy-invoked "$DEPLOY_LOG" && bad "leader self-deployed while its canary was undeployed" \
+  || ok "leader keeps HOLDING while the released canary has not deployed"
+
+hr; echo "LEADER-SELF-BEFORE-CANARY — pinned leader deploy; a DEFER is not a completed roll"; hr
+simulate_follower_deploy "$F1" "$NEW"
+run_conductor                                  # posts F1 probe for NEW
+push_change "jobs/tada/canary-probe-$F1-${NEW:0:12}.md" "canary-probe: ok"$'\n' "sim: probe for NEW"
+: > "$DEPLOY_LOG"
+run_conductor REC_DEPLOY_DEFER=1               # canary passed; leader deploy DEFERS
+if grep -q "deploy-invoked host=$LEADER target=$NEW" "$DEPLOY_LOG"; then
+  ok "leader's last-wave deploy is PINNED to the validated target (not origin's moving tip)"
+else bad "leader deploy not pinned to the target (deploy log: $(cat "$DEPLOY_LOG"))"; fi
+[ -z "$(from_bare "deploy/roll-completed/$NEW")" ] \
+  && ok "a DEFERRED leader deploy records NO roll completion (the 987bb13 ten-completions bug)" \
+  || bad "a deferred leader deploy was recorded as a completed roll"
+run_conductor                                  # the retry lands
+[ -n "$(from_bare "deploy/roll-completed/$NEW")" ] \
+  && ok "the next tick's landed deploy records the roll completion" \
+  || bad "no completion recorded after the leader deploy landed"
+
+hr; echo "CATCH-UP — a leader already current releases a follower left behind"; hr
+# The leader reached NEW outside a completed roll (the liaison's hand-run override);
+# F1 sits at BASE holding a stale OLD release. No upgrade-ready on the leader.
+push_change "deploy/roll/$F1" "$OLD" "F1 holds stale OLD release"
+simulate_follower_deploy "$F1" "$BASE"
+clear_leader_signal; reset_leader_all
+mkdir -p "$TR/state-leader/deploy"; printf '%s\n' "$NEW" > "$TR/state-leader/deploy/deployed-sha"
+: > "$DEPLOY_LOG"
+run_conductor GARDEN_ROLLING_ANCESTOR_CMD="$TR/anc-chain.sh"
+if [ "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" = "$NEW" ] && ! grep -q deploy-invoked "$DEPLOY_LOG"; then
+  ok "current leader re-released the stranded follower to the leader's sha (catch-up)"
+else bad "no catch-up release (token=$(from_bare deploy/roll/$F1))"; fi
+simulate_follower_deploy "$F1" "$NEW"
+run_conductor GARDEN_ROLLING_ANCESTOR_CMD="$TR/anc-chain.sh"
+[ -z "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" ] \
+  && ok "once the follower reaches the leader's sha its release token is cleared" \
+  || bad "caught-up follower's release token was not cleared"
+# A follower whose sha is NOT an ancestor of the leader's is never released backwards/sideways.
+simulate_follower_deploy "$F1" "$BASE"
+run_conductor GARDEN_ROLLING_ANCESTOR_CMD=/bin/false
+[ -z "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" ] \
+  && ok "no catch-up for a follower that is not behind the leader on main2" \
+  || bad "catch-up released a follower that is not an ancestor of the leader"
+
+hr; echo "STUCK CANARY — a released-but-undeployed canary raises ONE coalesced notice"; hr
+push_change "deploy/roll/$F1" "$OLD" "F1 released, never deploys"
+simulate_follower_deploy "$F1" "$BASE"
+clear_leader_signal; reset_leader_all
+set_heartbeat "$F1" 4900
+: > "$ALERT_LOG"
+STUCK_ENV=(GARDEN_ROLL_STUCK_CANARY_AFTER=1200 GARDEN_ROLLING_ANCESTOR_CMD=/bin/false)
+run_conductor "${STUCK_ENV[@]}" GARDEN_ROLLING_NOW=5000
+run_conductor "${STUCK_ENV[@]}" GARDEN_ROLLING_NOW=5600
+grep -q "key=rolling-deploy-canary-stuck-$F1" "$ALERT_LOG" && bad "stuck notice before the threshold" \
+  || ok "no stuck notice inside the ${GARDEN_ROLL_STUCK_CANARY_AFTER:-1200}s window"
+run_conductor "${STUCK_ENV[@]}" GARDEN_ROLLING_NOW=6300
+run_conductor "${STUCK_ENV[@]}" GARDEN_ROLLING_NOW=6400
+stuck_n="$(grep -c "key=rolling-deploy-canary-stuck-$F1 open" "$ALERT_LOG" || true)"
+[ "$stuck_n" -eq 1 ] && ok "stuck canary past the threshold → exactly one coalesced notice (2 ticks)" \
+  || bad "stuck notice count $stuck_n != 1 (alerts: $(cat "$ALERT_LOG"))"
+simulate_follower_deploy "$F1" "$OLD"
+run_conductor "${STUCK_ENV[@]}" GARDEN_ROLLING_NOW=6500
+grep -q "key=rolling-deploy-canary-stuck-$F1 recovered" "$ALERT_LOG" \
+  && ok "the notice closes once the canary deploys its release" \
+  || bad "stuck notice not closed after the canary deployed (alerts: $(cat "$ALERT_LOG"))"
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release after stuck test"
 
 # ============================================================================
 hr; echo "WALL-CLOCK DEADLINE — journal_put/journal_rm bail EX_TEMPFAIL past the bound"; hr

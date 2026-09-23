@@ -365,6 +365,49 @@ is an open question; the recommendation is to keep it as an override so a presen
 operator retains a kill switch, while the autonomous rolling orchestrator is the
 primary path.
 
+### Pinned deploys and a moving tip (2026-09-23 incident)
+
+`origin/main2` keeps moving while a roll runs, and an unpinned `deploy-garden.sh`
+advances to whatever the tip is when it runs. Three defects followed from that, all
+seen on 2026-09-23:
+
+- **The leader deployed unvalidated commits.** Roll `48ee7a` completed, and then the
+  leader landed `3d453e`, the newer tip. Every deploy the conductor fires is now
+  **pinned** with `GARDEN_DEPLOY_TARGET=<target>`. `deploy-garden.sh` advances to
+  exactly that sha, refuses one that is not on `origin/main2`, and treats a pin at or
+  behind `HEAD` as a no-op.
+- **A deferred deploy counted as a completed roll.** `deploy-garden.sh` exits 0 on a
+  DEFER. Roll `987bb13` was recorded "completed" ten times while the leader never
+  moved. The conductor now records completion only when the leader's deployed sha
+  reads back as the target. Otherwise it retries on the next tick.
+- **A canary stranded on an advanced target.** The canary was released to `d1bb5185`,
+  main2 advanced to `0558c12a`, and the leader reached `0558c12a` by a **hand-run
+  `deploy-garden.sh` override**. That deploy came one minute after `0558c12a` landed,
+  off the conductor's cadence, and wrote no roll-completion record. The follower's
+  upgrade-ready (`0558c12a`) never matched its release (`d1bb5185`), and a current
+  leader has nothing to roll, so the follower held until the 60-minute leaderless
+  grace. Three fixes:
+  - **The follower deploys the released sha.** When the release is an ancestor of
+    this host's upgrade-ready tip, `self-deploy.sh` deploys the **released** sha,
+    pinned. It does not deploy the newer tip: that would put commits no release
+    covers onto the canary, and it would publish a deployed sha the conductor does
+    not recognize as its target, which reads as a stuck or failed canary. The
+    conductor re-releases the newer tip on its next settled roll. A release the
+    host is already at or past is stale and is ignored.
+  - **Catch-up.** While the leader is current, the conductor releases every present
+    follower whose deployed sha is an ancestor of the leader's to the leader's sha,
+    and clears tokens a follower has already reached. The leader already runs that
+    sha, so no further canary validation applies. This is the same bar the leaderless
+    fallback's last-known-good gate uses, applied without the 60-minute wait.
+  - **Stuck-canary watchdog.** On every tick, including "nothing to roll", a present,
+    non-operator-drained follower that has held an undeployed release for
+    `GARDEN_ROLL_STUCK_CANARY_AFTER` (default 20 min) raises one coalesced notice,
+    keyed `rolling-deploy-canary-stuck-<host>`. The notice closes once the follower
+    deploys the release.
+
+The hand-run override itself stays. It is the human kill-switch described above.
+Its cost is now bounded: followers catch up to it within a tick or two.
+
 ### Settling delay — carried forward, still argued from risk
 
 A freshly-pushed tip can be the middle of a still-landing stack or a commit

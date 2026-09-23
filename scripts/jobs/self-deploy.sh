@@ -12,10 +12,21 @@
 #   PRIMARY (mechanism the leader releases): a leader-written JOURNAL release token
 #   deploy/roll/<GARDEN> naming the sha this host is cleared to advance to. The token
 #   is a GATE, not a trigger: this host still requires its independent upgrade-ready
-#   fact to move, and only ever advances to origin/main2's tip, so the token cannot
+#   fact to move, and only ever advances to a sha on its own upgrade-ready tip of
+#   origin/main2 (deploy-garden.sh refuses a pin off main2), so the token cannot
 #   widen what code can land — the sysop `deploy` op's attestation is never routed
 #   through. When the leader releases this host, the leader supersedes the old
 #   autonomous headless behavior.
+#
+#   The deploy is PINNED to the released sha (GARDEN_DEPLOY_TARGET), never "whatever
+#   origin/main2 is now", so the canary runs exactly the sha the leader validates.
+#   ADVANCED TARGET: main2 can move between the release and this tick, so this host's
+#   upgrade-ready names a NEWER tip than the release. When the release is an ancestor
+#   of that tip, deploy the RELEASED sha (the 2026-09-23 strand: release d1bb5185,
+#   upgrade-ready 0558c12a, held forever). Deploying the newer tip instead would put
+#   commits on the canary that no release covers and publish a deployed_sha the
+#   conductor does not recognize as its target (a false stuck/failed canary). The
+#   conductor re-releases the newer tip on its next settled roll.
 #
 #   DEGRADED FALLBACK (liveness backstop): if there is NO live leader to orchestrate —
 #   the journal `leader` marker is absent, or this host has waited past
@@ -34,8 +45,8 @@
 #   GARDEN_SELF_DEPLOY_CLONE        read clone (this host's journal view)
 #   GARDEN_SELF_DEPLOY_STATE        host-local settle/backoff state
 #   GARDEN_SELF_DEPLOY_DEPLOY_CMD   invoke the real deploy (default deploy-garden.sh)
-#   GARDEN_SELF_DEPLOY_ANCESTOR_CMD optional <target> <lkg> → rc0 iff target is an
-#                                   ancestor-or-equal of lkg (default: git in $GARDEN_ROOT)
+#   GARDEN_SELF_DEPLOY_ANCESTOR_CMD optional <a> <b> → rc0 iff a is an
+#                                   ancestor-or-equal of b (default: git in $GARDEN_ROOT)
 #   GARDEN_SELF_DEPLOY_NOW          fixed epoch seconds (default: date +%s)
 
 set -euo pipefail
@@ -81,13 +92,38 @@ sync_clone "$DIR"
 
 release="$(rdsha "$DIR/$GARDEN_DEPLOY_ROLL_PATH/$GARDEN")"
 
-do_deploy() {  # do_deploy <mode>
-  log "self-deploy ($1): advancing this host to ${target:0:12} via deploy-garden.sh (host-local upgrade-ready + $1 gate)"
-  "$DEPLOY_CMD" || log "WARN: deploy-garden.sh returned non-zero (it manages its own drain/quiesce/abort)"
+is_ancestor() {  # is_ancestor <a> <b> → rc0 iff a is an ancestor-or-equal of b
+  [ "$1" = "$2" ] && return 0
+  if [ -n "${GARDEN_SELF_DEPLOY_ANCESTOR_CMD:-}" ]; then
+    "$GARDEN_SELF_DEPLOY_ANCESTOR_CMD" "$1" "$2" >/dev/null 2>&1
+    return
+  fi
+  git -C "$GARDEN_ROOT" merge-base --is-ancestor "$1" "$2" 2>/dev/null
+}
+
+do_deploy() {  # do_deploy <mode> <pinned-sha>
+  log "self-deploy ($1): advancing this host to ${2:0:12} via deploy-garden.sh (host-local upgrade-ready for ${target:0:12} + $1 gate)"
+  GARDEN_DEPLOY_TARGET="$2" "$DEPLOY_CMD" || log "WARN: deploy-garden.sh returned non-zero (it manages its own drain/quiesce/abort)"
 }
 
 # --- 3. PRIMARY: the leader released this host -------------------------------
-if [ "$release" = "$target" ]; then
+# The release counts when it names the upgrade-ready tip, or an OLDER point on it
+# (main2 advanced after the release; see the header). A release this host is already
+# at or past is stale, so fall through to the hold/leaderless logic below.
+released=0
+if [ -n "$release" ] && is_ancestor "$release" "$target"; then
+  released=1
+  if [ "$release" != "$target" ]; then
+    deployed="$(deployed_sha 2>/dev/null || true)"
+    if [ -n "$deployed" ] && is_ancestor "$release" "$deployed"; then
+      released=0
+      log "release ${release:0:12} is already deployed here (at ${deployed:0:12}); upgrade-ready ${target:0:12} awaits a new release"
+    else
+      log "release ${release:0:12} is older than upgrade-ready ${target:0:12} (main2 advanced after the release); deploying the RELEASED sha"
+    fi
+  fi
+fi
+if [ "$released" -eq 1 ]; then
   if fleet_draining; then
     # This host is draining. NEVER self-deploy out from under a drain — but the
     # conductor's SKIP-forever behavior must apply only to a genuine OPERATOR pause,
@@ -110,7 +146,7 @@ if [ "$release" = "$target" ]; then
     fi
     exit 0
   fi
-  do_deploy "leader-release"
+  do_deploy "leader-release" "$release"
   exit 0
 fi
 
@@ -160,15 +196,7 @@ if [ -z "$lkg" ]; then
   exit 0
 fi
 
-ancestor_ok=0
-if [ "$target" = "$lkg" ]; then
-  ancestor_ok=1
-elif [ -n "${GARDEN_SELF_DEPLOY_ANCESTOR_CMD:-}" ]; then
-  "$GARDEN_SELF_DEPLOY_ANCESTOR_CMD" "$target" "$lkg" >/dev/null 2>&1 && ancestor_ok=1
-elif git -C "$GARDEN_ROOT" merge-base --is-ancestor "$target" "$lkg" 2>/dev/null; then
-  ancestor_ok=1
-fi
-if [ "$ancestor_ok" -ne 1 ]; then
+if ! is_ancestor "$target" "$lkg"; then
   log "leaderless (leader='${leader:-<none>}'): target ${target:0:12} is AHEAD of last-known-good ${lkg:0:12}; HOLDING (never get ahead of a leader-validated sha)"
   exit 0
 fi
@@ -182,5 +210,5 @@ if [ $(( now - last )) -lt "$GARDEN_SELF_DEPLOY_RETRY_BACKOFF" ]; then
   exit 0
 fi
 printf '%s\n' "$now" > "$bo_file"
-do_deploy "leaderless-headless"
+do_deploy "leaderless-headless" "$target"
 exit 0

@@ -2,6 +2,8 @@
 # deploy-garden.sh — the deliberate, drained deploy of the root checkout.
 #
 # Usage: deploy-garden.sh
+#        GARDEN_DEPLOY_TARGET=<sha> deploy-garden.sh   (pinned: advance to exactly <sha>,
+#        which must be on origin/$GARDEN_MAIN_BRANCH; the rolling deploy pins every deploy)
 #
 # The root checkout (`$GARDEN_ROOT`) is a DEPLOYED version of the garden, NOT a
 # development tree. It is advanced ONLY by this script — never by a continuous
@@ -566,6 +568,30 @@ git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>/dev/null \
   || { log "WARN: fetch of origin/$GARDEN_MAIN_BRANCH failed (offline?); aborting deploy"; exit 1; }
 candidate_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "origin/$GARDEN_MAIN_BRANCH" || true)"
 [ -n "$candidate_sha" ] || { log "FATAL: cannot resolve fetched origin/$GARDEN_MAIN_BRANCH"; exit 1; }
+
+# PINNED TARGET (GARDEN_DEPLOY_TARGET). The rolling deploy validates ONE sha on its
+# canaries, but origin/$GARDEN_MAIN_BRANCH keeps moving while the roll runs; deploying
+# "whatever the tip is now" put unvalidated commits on the leader (the 2026-09-23
+# roll of 48ee7a that landed 3d453e) and made a canary deploy a sha other than the
+# one it was released to. A pinned deploy advances to EXACTLY that sha. It must be
+# an ancestor-or-equal of the fetched tip, so a pin can only choose an older point
+# on the canonical branch, never widen what code can land. A pin at or behind HEAD
+# is a no-op: a deploy never moves the root backwards.
+if [ -n "${GARDEN_DEPLOY_TARGET:-}" ]; then
+  pinned_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "${GARDEN_DEPLOY_TARGET}^{commit}" || true)"
+  if [ -z "$pinned_sha" ] || ! git -C "$GARDEN_ROOT" merge-base --is-ancestor "$pinned_sha" "$candidate_sha" 2>/dev/null; then
+    log "REFUSED: pinned target '${GARDEN_DEPLOY_TARGET}' is not an ancestor-or-equal of origin/$GARDEN_MAIN_BRANCH ($candidate_sha); aborting deploy"
+    exit 1
+  fi
+  head_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet HEAD || true)"
+  if [ -n "$head_sha" ] && git -C "$GARDEN_ROOT" merge-base --is-ancestor "$pinned_sha" "$head_sha" 2>/dev/null; then
+    log "root ($head_sha) is already at or past pinned target $pinned_sha; nothing to deploy"
+    exit 0
+  fi
+  [ "$pinned_sha" = "$candidate_sha" ] \
+    || log "pinned deploy: advancing to $pinned_sha, NOT the newer origin/$GARDEN_MAIN_BRANCH tip $candidate_sha"
+  candidate_sha="$pinned_sha"
+fi
 run_candidate_gate "$candidate_sha" || {
   log "ABORTED: candidate test gate failed; root tree remains unchanged"
   exit 1

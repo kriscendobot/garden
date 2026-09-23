@@ -473,6 +473,30 @@ run_deploy
 grep -q "DIVERGED" <<<"$OUT" && ok "divergence abort logged" || bad "divergence abort not logged"
 
 # ============================================================================
+hr; echo "PINNED TARGET — GARDEN_DEPLOY_TARGET advances to exactly that sha, never the newer tip"; hr
+setup_fixture
+origin_commit scripts/jobs/worker-lib.sh "echo validated" "fix: validated"
+validated="$(origin_head)"
+origin_commit scripts/jobs/worker-lib.sh "echo newer" "fix: landed mid-roll"
+run_deploy GARDEN_DEPLOY_TARGET="$validated"
+[ "$RC" -eq 0 ] && ok "exit 0 on a pinned deploy" || bad "exit $RC on pinned deploy: $OUT"
+[ "$(root_head)" = "$validated" ] && ok "root advanced to the PINNED sha, not origin's newer tip" || bad "root at $(root_head), wanted pinned $validated"
+[ "$(deployed_marker)" = "$validated" ] && ok "deployed-sha marker = pinned sha" || bad "deployed marker '$(deployed_marker)' != pinned '$validated'"
+run_deploy GARDEN_DEPLOY_TARGET="$validated"
+{ [ "$RC" -eq 0 ] && [ "$(root_head)" = "$validated" ] && grep -q "already at or past pinned target" <<<"$OUT"; } \
+  && ok "re-running the same pin is a clean no-op" || bad "repeat pin not a no-op (rc=$RC): $OUT"
+seed_sha="$(git -C "$BARE" rev-list --max-parents=0 main2)"
+run_deploy GARDEN_DEPLOY_TARGET="$seed_sha"
+{ [ "$RC" -eq 0 ] && [ "$(root_head)" = "$validated" ]; } \
+  && ok "a pin behind HEAD never moves the root backwards" || bad "pin behind HEAD moved the root (rc=$RC, head=$(root_head))"
+# A sha that is not on origin/main2 is refused before any drain or swap.
+offmain="$(git -C "$TR/root" "${git_id[@]}" commit-tree "$(git -C "$TR/root" rev-parse 'HEAD^{tree}')" -p HEAD -m "off-main")"
+run_deploy GARDEN_DEPLOY_TARGET="$offmain"
+{ [ "$RC" -ne 0 ] && [ "$(root_head)" = "$validated" ] && grep -q "REFUSED: pinned target" <<<"$OUT"; } \
+  && ok "a pin that is not on origin/main2 is REFUSED; root untouched" || bad "off-main pin not refused (rc=$RC): $OUT"
+draining && bad "drain left engaged by a refused pin" || ok "no drain engaged by a refused pin"
+
+# ============================================================================
 hr; echo "PRE-DRAINED — operator pre-drained; success lifts, abort preserves"; hr
 # (a) operator pre-drained + a clean deploy → drain is lifted (deploy completes).
 setup_fixture

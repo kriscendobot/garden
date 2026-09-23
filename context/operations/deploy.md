@@ -42,7 +42,13 @@ cat "$GARDEN_STATE/deploy/upgrade-ready" 2>/dev/null   # silent when up to date
 ```
 
 To deploy or halt **by hand** as an override, run `deploy-garden.sh` (below) or
-`drain-fleet.sh on` on the host in question.
+`drain-fleet.sh on` on the host in question. A hand deploy on the leader skips the
+canaries. Once the leader is current, the conductor releases any follower left
+behind it to the leader's sha (catch-up). A follower that holds a release without
+deploying it for 20 minutes raises a `rolling-deploy-canary-stuck-<host>` notice.
+The conductor and the follower pin their deploys with `GARDEN_DEPLOY_TARGET=<sha>`,
+so a roll lands the sha it validated, not whatever `main2` has become since
+([design § Pinned deploys](../../designs/follower-self-deploy.md#pinned-deploys-and-a-moving-tip-2026-09-23-incident)).
 
 ## Deploying
 
