@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:44:39Z_
+_As of 2026-09-23T17:51:36Z_
 
 ## Latest
 
-Design for journal contention watch landed and is now queued for build; comment-latency-watch build claimed. Multiple blockers await maintainer decisions: minion.town guest infrastructure scope (pet daemon vs. public guest-substrate), Endo daemon pin 89481580… landing on minion.town main (currently pinning stale f66505034…), and SIWE allowlist configuration. Fleet infrastructure improvements parked across quota management, watcher refinements, and worktree sweeper ungating; @endo/claude build PR [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) awaits refresh for preliminary review. Spend at 38% (Claude) and 65% (Codex plan).
+Reexport deprecation policy automation (garden-internal) claimed; Opus 5.5 tier and comment latency watch builds advancing. Three minion.town priorities blocked on maintainer infrastructure decisions: guest peer-fetch (daemon exposure choice), web-invite fallback (Endo daemon pin to main), and PR #87 production gate (backend provider + credentials). Clipometer re-anchor halted decisively — esbuild bundle 2.06x over the live daemon's 100 KB JSON limit; needs express.json limit bump or chunked publish. Multiple jobs (split-eligible, deadline-expired) parked awaiting either decomposition or promotion; inbox holds structured decisions needed on SIWE tier scope, Ironhorse frozen-object optimization, and ReadableBlob range-attenuation consumer rewrites.
 
 ## Parked for maintainer feedback
 
@@ -626,28 +626,29 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.2M | $550.38 _(notional, rate-card)_ | 38% of 143.0M (ok) |
-| Codex | 22.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
+| Claude | 54.5M | $550.47 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Codex | 22.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34270796 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 38031698 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (1)
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-journal-contention-watch.md) — Build: journal contention watch
 
-### doin (4)
+### doin (5)
+- [`build-opus55-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-opus55-tier.md) — ---
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
-- [`kriscendobot-garden-pr95-review-6266ce72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr95-review-6266ce72.md) — Review directive on kriscendobot/garden PR #95
-- [`mentat-opus55-tier-open-questions-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-opus55-tier-open-questions-20260923.md) — Mentat: answer the open questions in designs/opus55-tier.md with empirical data
+- [`build-reexport-deprecation-policy-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-reexport-deprecation-policy-20260923.md) — Build the re-export deprecation policy automation (garden-internal)
+- [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-conduct-20260923.md) — Finalize the approved TypeSafe Muster pilot answer-surface
 - [`kriscendobot-garden-pr109-review-0310bc76`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-review-0310bc76.md) — Review directive on kriscendobot/garden PR #109
 
-### tada (8734)
+### tada (8736)
+- [`mentat-opus55-tier-open-questions-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/mentat-opus55-tier-open-questions-20260923.md) — What I did
+- [`kriscendobot-garden-pr95-review-6266ce72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr95-review-6266ce72.md) — Completion report
 - [`kriscendobot-garden-pr108-review-2c6f2fa0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr108-review-2c6f2fa0.md) — Completion report — kriscendobot-garden-pr108-review-2c6f2fa0
 - [`fix-container-hardening-probe-maintainer-substring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-container-hardening-probe-maintainer-substring.md) — Completion report
 - [`design-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/design-journal-contention-watch.md) — Completion report
-- [`harden-garden-container-no-privileged-no-sudo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/harden-garden-container-no-privileged-no-sudo.md) — Completion report
-- [`comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/comment-latency-watch.md) — orchestration comment-latency-watch — HALTED
-- … and 8729 more
+- … and 8731 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
