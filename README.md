@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T23:49:08Z_
+_As of 2026-09-23T23:50:44Z_
 
 ## Latest
 
@@ -777,10 +777,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.7M | $625.46 _(notional, rate-card)_ | 42% of 143.0M (ok) |
-| Codex | 26.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Claude | 60.6M | $625.23 _(notional, rate-card)_ | 42% of 143.0M (ok) |
+| Codex | 26.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34354478 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34432440 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
@@ -789,18 +789,16 @@ worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
 ### todo (1)
 - [`fix-rolling-deploy-canary-stranded-on-advanced-target`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-rolling-deploy-canary-stranded-on-advanced-target.md) — Fix: a follower canary strands when main2 advances between the roll release a...
 
-### doin (3)
+### doin (1)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1100
-- [`kriscendobot-minion.town-pr112-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr112-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #112 (mer...
-- [`kriscendobot-garden-pr109-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-receipt.md) — receipt (auto) — completion receipt for kriscendobot/garden PR #109 (merged)
 
-### tada (8792)
+### tada (8794)
+- [`kriscendobot-minion.town-pr112-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-minion.town-pr112-receipt.md) — Cost
+- [`kriscendobot-garden-pr109-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr109-receipt.md) — Cost
 - [`kriscendobot-garden-pr95-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr95-receipt.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923b-clean.md) — Clean-stage report: endojs/endo-but-for-bots PR #1100 (gauntlet ebfb-exo-stre...
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923b-viability.md) — Cost
-- [`improve-comment-latency-notice-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/improve-comment-latency-notice-failure.md) — Cost
-- … and 8787 more
+- … and 8789 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
