@@ -77,3 +77,13 @@ reaction after a threshold is the anomaly.
 Follow `roles/designer/AGENT.md` for the open-questions carve-out (land bare if
 there are none; review PR if there are). Keep open questions to genuine maintainer
 decisions. Everything else should be decided in the design so the build can proceed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T16:31:10Z
