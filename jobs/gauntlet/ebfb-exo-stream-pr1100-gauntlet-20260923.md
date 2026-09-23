@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: ebfb-exo-stream-pr1100-gauntlet-20260923-viability
+state: running
 created_by: fixer
 created_at: 2026-09-23T21:30:35Z
 ---
