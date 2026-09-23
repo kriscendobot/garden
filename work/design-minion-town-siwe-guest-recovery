@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-09-23T20:25:02Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-minion-town-siwe-guest-recovery
-pr_number: 114
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/114
-pr_head: design/siwe-guest-recovery
