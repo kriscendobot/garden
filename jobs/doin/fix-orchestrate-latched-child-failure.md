@@ -42,3 +42,13 @@ for the final disposition of a parallel run.
    tadas cleanly gives a terminal status of complete; a child whose tada has `orchestration-failed: true`
    still fails; a vanished child still fails. Run the orchestrate suites and push.
 5. Complete the job via the normal completion path when done.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T20:35:59Z
