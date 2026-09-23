@@ -600,16 +600,46 @@ parked_section() {
   if [ -f "$data" ]; then cat "$data"; else printf '(unavailable)\n'; fi
 }
 
+# One host-local line from the journal contention checker. The bulletin is the
+# leader's view, so this intentionally summarizes this host; the read-only probe
+# supplies the per-clone detail on every follower without journal summary churn.
+contention_section() {
+  local state="$GARDEN_STATE/journal-contention-watch" stats="$GARDEN_STATE/journal-contention-watch/stats"
+  local worst alerts tick now age status f rows="" clone p95 cap ratio
+  for f in "$stats"/*; do
+    [ -f "$f" ] || continue
+    clone="$(sed -n 's/^clone: *//p' "$f" | head -1)"
+    p95="$(sed -n 's/^fetch_p95_s: *//p' "$f" | head -1)"
+    cap="$(sed -n 's/^fetch_cap_s: *//p' "$f" | head -1)"
+    if [ -z "$clone" ] || [ "$p95" = - ] || [ -z "$cap" ]; then continue; fi
+    ratio="$(awk -v p="$p95" -v c="$cap" 'BEGIN { if (c+0>0) printf "%.6f", p/c; else print 0 }')"
+    rows+="${ratio}"$'\t'"${clone}"$'\t'"${p95}"$'\t'"${cap}"$'\n'
+  done
+  worst="$(printf '%s' "$rows" | LC_ALL=C sort -nr | head -1 || true)"
+  alerts="$(find "$state/alerts" -maxdepth 1 -type f 2>/dev/null | wc -l)"
+  tick="$(sed -n 's/^epoch: *//p' "$state/heartbeat" 2>/dev/null | head -1)"
+  now="$(date -u +%s)"; case "$tick" in ''|*[!0-9]*) age=-1;; *) age=$(( now - tick ));; esac
+  if [ "$age" -lt 0 ] || [ "$age" -gt $(( 3 * ${GARDEN_CONTENTION_CADENCE:-300} )) ]; then status="journal-contention-checker-stale"
+  else status="checker healthy"; fi
+  if [ -n "$worst" ]; then
+    IFS=$'\t' read -r _ clone p95 cap <<< "$worst"
+    printf 'worst fetch p95 %ss/%ss (%s); %s open notice(s); %s\n' "$p95" "$cap" "$clone" "$alerts" "$status"
+  else
+    printf 'no fetch samples; %s open notice(s); %s\n' "$alerts" "$status"
+  fi
+}
+
 # Compute the deterministic dashboard for the current synced state of $DIR and
 # print it to stdout. This is the always-works base; it reuses the v1 board logic.
 compute_dashboard() {
-  local watch hosts_block h g maint m mf rt frm repo link now board parked plan spend
+  local watch hosts_block h g maint m mf rt frm repo link now board parked plan spend contention
   board=$(render_board)
   plan=$(render_plan_queue)
   parked=$(parked_section)
   # Per-provider spend & quota (deterministic; NO claude/codex in the render path;
   # each cell degrades to "unavailable"/"no quota set"/"n/a" — never a fake number).
   spend=$(render_quota_panel 2>/dev/null || printf '(spend panel unavailable)\n')
+  contention=$(contention_section 2>/dev/null || printf 'unavailable\n')
   watch=$(list_jobs "$DIR" repos | paste -sd' ' - 2>/dev/null); [ -n "$watch" ] || watch="(none)"
 
   hosts_block=""
@@ -671,6 +701,9 @@ ${parked}
 ${maint}
 ## Spend & quota
 ${spend}
+
+## Journal contention (this host)
+${contention}
 
 ## Board
 ${board}

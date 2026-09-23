@@ -2607,8 +2607,11 @@ bounded_fetch() {
   done
 }
 
-# Bounded bare clone of <src> into <abs>, mirroring bounded_fetch's timeout+retry
-# discipline (git has no IO timeout of its own). We NEVER clone straight into the
+# Bounded clone of <src> into <abs>, mirroring bounded_fetch's timeout+retry
+# discipline (git has no IO timeout of its own). Optional trailing args are extra
+# `git clone` flags; with none it defaults to `--bare` (its original contract).
+# The journal-clone caller passes `--single-branch --branch <branch>`.
+# We NEVER clone straight into the
 # tracked path: git clone removes its own target on an internal error, but a
 # timeout SIGTERM can leave a partial tree, and a concurrent tick (or a worktree
 # being cut off this clone) could observe that half-populated $abs. So we clone into
@@ -2618,13 +2621,20 @@ bounded_fetch() {
 # dir, so if a racing tick recreated $abs first our rename fails, we discard our
 # temp, and report success. Every temp is scrubbed on failure and between retries.
 # Returns 0 on success, the last non-zero rc after the retry budget is spent.
+# The final attempt's stderr is captured for the journal clone caller's offline
+# classification (a transient SSH/DNS outage is a clean EX_TEMPFAIL skip).
+GARDEN_CLONE_STDERR=""
 bounded_clone() {
-  local src="$1" abs="$2" attempt=1 rc=0 tmp
+  local src="$1" abs="$2"; shift 2
+  local attempt=1 rc=0 tmp retries="${GARDEN_CLONE_RETRIES:-$GARDEN_FETCH_RETRIES}"
+  local flags=("$@"); [ "${#flags[@]}" -eq 0 ] && flags=(--bare)
+  GARDEN_CLONE_STDERR=""
   mkdir -p "$(dirname "$abs")"
   while :; do
     tmp="${abs%/}.reclone.$$.$attempt"
     rm -rf "$tmp"
-    if timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" git clone -q --bare "$src" "$tmp" 2>/dev/null; then
+    if GARDEN_CLONE_STDERR="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+         git clone -q "${flags[@]}" "$src" "$tmp" 2>&1 1>/dev/null)"; then
       if mv -T "$tmp" "$abs" 2>/dev/null; then
         return 0
       fi
@@ -2636,8 +2646,8 @@ bounded_clone() {
       rm -rf "$tmp"
     fi
     [ "$rc" -eq 124 ] && log "clone of $src into $abs timed out (>${GARDEN_FETCH_TIMEOUT}s) on attempt $attempt"
-    if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
-      log "clone of $src into $abs failed after $attempt attempt(s) (last rc=$rc)"
+    if [ "$attempt" -ge "$retries" ]; then
+      log "clone of $src into $abs failed after $attempt attempt(s) (last rc=$rc)${GARDEN_CLONE_STDERR:+: $GARDEN_CLONE_STDERR}"
       return "$rc"
     fi
     backoff "$attempt"; attempt=$((attempt+1))
@@ -4185,24 +4195,23 @@ clone_is_corrupt() {
   return 1
 }
 
-# reclone_clone <dir> <remote> -- replace a missing, partial, or corrupt clone
-# through a sibling temporary directory. The caller holds clone_lock, so the
-# remove/clone/rename sequence cannot race another producer using this clone.
-# The temp is a sibling (same parent, thus same filesystem) so the rename is
-# atomic: the destination only ever appears fully cloned or not at all, never
-# half-populated, so an interrupted clone leaves only a discardable temp behind.
+# reclone_clone <dir> <remote> -- replace a missing, partial, or corrupt journal
+# clone through bounded_clone's sibling-temp atomic rename. A recognized
+# connectivity failure exits EX_TEMPFAIL rather than failing every timer tick.
 reclone_clone() {
-  local dir="$1" remote="$2" tmp
+  local dir="$1" remote="$2"
   rm -rf "$dir"
-  mkdir -p "$(dirname "$dir")"
-  tmp="${dir}.tmp.$$"
-  rm -rf "$tmp"
-  if git clone -q --single-branch --branch "$JOURNAL_BRANCH" "$remote" "$tmp"; then
-    mv "$tmp" "$dir" || { rm -rf "$tmp"; die "atomic rename of fresh clone $tmp -> $dir failed"; }
-  else
-    rm -rf "$tmp"
-    die "clone of $remote ($JOURNAL_BRANCH) into $dir failed"
+  # Journal callers already own their cadence/outer clone retry policy (notably
+  # inbox-read's three-attempt cold-clone loop). Keep this primitive to one
+  # bounded network attempt so those retry budgets do not multiply 3×3.
+  if GARDEN_CLONE_RETRIES=1 bounded_clone "$remote" "$dir" --single-branch --branch "$JOURNAL_BRANCH"; then
+    return 0
   fi
+  if _fetch_stderr_is_offline "$GARDEN_CLONE_STDERR"; then
+    log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC): clone of $remote ($JOURNAL_BRANCH) into $dir"
+    exit "$GARDEN_OFFLINE_RC"
+  fi
+  die "clone of $remote ($JOURNAL_BRANCH) into $dir failed${GARDEN_CLONE_STDERR:+: $GARDEN_CLONE_STDERR}"
 }
 
 ensure_clone() {

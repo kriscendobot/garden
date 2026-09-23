@@ -24,6 +24,32 @@ a crash loop can't burn tokens) — systemd restarts, the wrapper diagnoses — 
 transient failure often clears itself. A unit that stays failed is the operator's
 cue.
 
+## Journal contention and slow clones
+
+Every host runs `garden-journal-contention-watch.timer` every five minutes,
+including followers and drained hosts. It records no periodic journal commits:
+lock waits, bounded fetches, push retries, and outage-latch skips accumulate in
+bounded host-local rings under `$GARDEN_STATE/journal-contention/`; only an open
+or recovered anomaly goes through `watchdog-notice.sh`.
+
+The read-only operator view is safe at any time:
+
+```sh
+scripts/jobs/journal-contention-probe.sh
+```
+
+It reports per-clone lock/fetch/push percentiles, push rejection classes, clone
+bytes/packs/`gc.log`, outage skips and latch state, and checker heartbeat age.
+The hard guards are: fetch at 70% of its timeout (31.5s at the 45s default), any
+lock give-up, more than three lock steals per window, a 50-attempt push or
+definite push failure, a latch episode over ten minutes, and a clone at 2 GiB,
+50 packs, or with `gc.log`. Median/MAD anomalies and a 1.5x oldest-to-newest
+drift need two checker ticks; hard guards page immediately. Affected per-instance
+clones are losslessly renamed and rebuilt at most once per six hours. Set
+`GARDEN_CONTENTION_REMEDY=0` in the service environment for alert-only operation.
+The deployed root and its shared `journal/` worktree are never remediation
+targets; `garden-root-repo-guard` owns those.
+
 ## A worker cannot find its agent CLI
 
 `FATAL: claude not on PATH`, from every worker on one host, means the spine

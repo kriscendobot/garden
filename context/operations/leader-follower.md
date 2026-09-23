@@ -31,7 +31,8 @@ bring-up is [starting.md](starting.md).
 - **Per-host local infra runs on every host** (not shared work):
   `garden-gardener@*`, `garden-gardener-scaler` (each host scales its own pool),
   `garden-upgrade-monitor`, `garden-clone-keeper`,
-  `garden-journal-worktree-keeper`, `garden-repo-watcher`, `garden-unblock`, and
+  `garden-journal-worktree-keeper`, `garden-journal-contention-watch`,
+  `garden-repo-watcher`, `garden-unblock`, and
   the fast-forward/maintenance half of `garden-watchman` (its duplicate-prone
   reread broadcast is leader-only, gated in-process).
 

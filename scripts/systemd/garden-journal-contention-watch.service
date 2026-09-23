@@ -1,0 +1,14 @@
+[Unit]
+Description=Garden per-host journal contention anomaly check and clone remedy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# Every host owns independent clones/rings. Deliberately no leader or drain gate.
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-journal-contention-watch -- @GARDEN_ROOT@/scripts/jobs/journal-contention-watch.sh
+Restart=on-failure
+RestartSec=30s
+TimeoutStartSec=240
+SuccessExitStatus=143 130 SIGTERM SIGINT

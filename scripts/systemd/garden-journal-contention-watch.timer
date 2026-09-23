@@ -1,0 +1,11 @@
+[Unit]
+Description=Garden per-host journal contention watch timer
+
+[Timer]
+Unit=garden-journal-contention-watch.service
+OnBootSec=3m
+OnUnitActiveSec=300s
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target
