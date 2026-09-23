@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-23T05:37:12Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-09-23T05:37:12Z
+---
+
+---
 role: fixer
 tier: mentor
 fallback-tier: minion
@@ -82,17 +103,3 @@ silently missed for this same reason — grep recent
 `DROP (not-addressed)` log lines (or the self-heal capture equivalent) for
 any starting with `>` and flag any that look like a genuine missed
 directive, not just this one instance.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-23T00:33:10Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-23T00:33:17Z
