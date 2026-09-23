@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: conductor
+tier: mentor
+handler-budget-role: conductor
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-23T18:23:06Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-23T18:23:06Z
+---
+
+---
 role: conductor
 handler-budget-role: conductor
 priority: urgent
@@ -32,19 +54,3 @@ wait/recheck rather than claiming the pilot is ready. Once deployed, post a
 top-level PR comment naming the deployed commit, the live TypeSafe smoke result
 (`jev-1.13.0`, 1670 input / 423 output tokens on two synthetic messages), and the
 targeted test result (4 passed, 0 failed), then conduct the approved PR.
-
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=316 -->
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-23T18:13:05Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-23T18:13:28Z
