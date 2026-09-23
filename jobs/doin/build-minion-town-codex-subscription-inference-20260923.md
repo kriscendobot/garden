@@ -49,3 +49,13 @@ Use the Codex CLI (`codex exec`, non-interactive) authenticated by a ChatGPT sub
 
 ## Definition of done
 A draft PR with the tentative backend behind a flag on the shared seam, local checks green, and a report covering the questions above plus the findings to back-fill into the Endo item-4 design. Complete the job via the normal completion path.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T20:37:11Z
