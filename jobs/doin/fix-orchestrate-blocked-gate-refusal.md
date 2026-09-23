@@ -28,3 +28,13 @@ itself) refuse to promote a still-`blocked` child, mirroring the existing
 `unblock.sh` to clear its `blocked_on` artifact rather than being promoted on
 the orchestration's own cadence. Add regression coverage alongside the
 existing orchestration/promote-plan test suites.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-23T21:00:45Z
