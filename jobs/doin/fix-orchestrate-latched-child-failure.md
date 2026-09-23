@@ -43,6 +43,7 @@ for the final disposition of a parallel run.
    still fails; a vanished child still fails. Run the orchestrate suites and push.
 5. Complete the job via the normal completion path when done.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
