@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T23:53:37Z_
+_As of 2026-09-23T23:55:27Z_
 
 ## Latest
 
@@ -789,17 +789,16 @@ worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1100
-- [`fix-rolling-deploy-canary-stranded-on-advanced-target`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-rolling-deploy-canary-stranded-on-advanced-target.md) — Fix: a follower canary strands when main2 advances between the roll release a...
 
-### tada (8794)
+### tada (8795)
+- [`fix-rolling-deploy-canary-stranded-on-advanced-target`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-rolling-deploy-canary-stranded-on-advanced-target.md) — Completion report
 - [`kriscendobot-minion.town-pr112-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-minion.town-pr112-receipt.md) — Cost
 - [`kriscendobot-garden-pr109-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr109-receipt.md) — Cost
 - [`kriscendobot-garden-pr95-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr95-receipt.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1.md) — Cost
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923b-clean.md) — Clean-stage report: endojs/endo-but-for-bots PR #1100 (gauntlet ebfb-exo-stre...
-- … and 8789 more
+- … and 8790 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
