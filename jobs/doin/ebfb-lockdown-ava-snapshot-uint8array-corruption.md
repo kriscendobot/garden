@@ -34,3 +34,13 @@ existing references to the original `Uint8Array` still match; failing that, a te
 workaround. Add a regression test that writes a snapshot under `@endo/init` and reads it back.
 Any snapshot file regenerated since #475 landed may be corrupt. Sweep for them with
 `git ls-files '*.snap'` plus a decode check, and fix any you find.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T21:49:19Z
