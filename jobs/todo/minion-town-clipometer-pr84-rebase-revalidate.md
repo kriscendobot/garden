@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: minion-town-mcp-body-limit-2mb
-priority: normal
-posted_by: producer
-posted_at: 2026-09-23T20:28:30Z
+role: fixer
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-23T20:46:10Z cleared=none -->
 
 ---
 role: fixer
