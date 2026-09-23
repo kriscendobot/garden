@@ -45,6 +45,7 @@ Initial minion.town main 3062124: guest-self-endpoint.ts and landing/shell copy 
 <!-- garden-reaped: 0 -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=72 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
