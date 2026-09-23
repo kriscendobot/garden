@@ -23,3 +23,13 @@ sensor's purpose). Record this specific failure mode in
 `skills/frozen-base-branch/SKILL.md` alongside the existing shared-base note,
 so the next incident is recognized immediately rather than re-diagnosed from
 scratch.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T21:00:32Z
