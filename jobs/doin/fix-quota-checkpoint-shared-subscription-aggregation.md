@@ -44,3 +44,13 @@ codex-endolin row has the same undercount, since it paired with just one host.
 
 Report: commit sha, the corrected implied weekly cap for codex-endolin, and whether
 fit-quota-calibration needed changes.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T16:22:44Z
