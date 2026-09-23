@@ -53,3 +53,13 @@ Instances (usage records in `journal2:usage/<base>.jsonl`; tada reports under `j
    complete-candidate does not consume the doom or stage-retry budget; a genuinely non-productive exit
    still does. Run the gardener, reaper, and gauntlet suites, then push to `main2`.
 5. Complete THIS job via the normal completion path. (Yes, really.)
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T22:06:09Z
