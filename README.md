@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:28:40Z_
+_As of 2026-09-23T17:32:05Z_
 
 ## Latest
 
-Journal contention watch design completed; garden infrastructure backlog growing. Twenty-six PRs await your review (parked queue ranked by recency + roadmap). Inbox carries four maintainer-decision gates (minion.town daemon exposure + pin refresh, Ironhorse pause lift + open questions, SIWE tier authorization, production readiness on #87), plus nine jobs awaiting go-ahead (infrastructure hardening/improvement, quota handling, fleet automation). Two gauntlets halted at retry exhaustion (comment-latency-watch, exo-stream base64 drop); six completion reports parked for maintainer triage. Quota steady at 37% Claude / 65% Codex plan. One infrastructure gap surfaced: worktree sweeper runs leader-only but collects local garbage, leaving 41 GB residue on followers.
+Container hardening and journal-contention observability completed; comment-latency-watch orchestration halted on a probe check. Three minion.town infrastructure decisions are pending (Endo daemon pin to main, guest-daemon exposure route, express.json body-size limit), blocking the guest web-invite and clipometer arcs. Multiple infrastructure improvements stalled after transient failures; fleet quota at 65% Codex / 37% Claude with foreman quiesced.
 
 ## Parked for maintainer feedback
 
@@ -411,27 +411,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > GAUNTLET TRACK: still ACTIVE. PR [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) remains open+DRAFT (mergeable_state=dirty — base conflicts). The gauntlet driver is at fix iteration 3 of 6, gh-GraphQL rate-limited ~60 min. OPEN QUESTION: do you want the gauntlet to keep driving [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/issues/84) to un-draft as reviewed code (deployment is blocked regardless), or pause it pending your server-limit decision? I will keep monitoring to terminal unless you say otherwise.
 
-- `msg-garden-gauntlet-reexport-policy-check-c841557cb265` — from gardener:garden-gauntlet-reexport-policy-check, reply_to `garden-gauntlet-reexport-policy-check` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-gauntlet-reexport-policy-check-c841557cb265.md)
-
-> Design proposal ready for review: re-export deprecation policy gate.
->
-> @erights asked on [endojs/endo-but-for-bots#475](https://github.com/endojs/endo-but-for-bots/issues/475) (comment 3450576324) for garden
-> machinery to prevent every plain-re-export policy violation and never author a
-> new one, reviewed by both @kriskowal and @erights before landing.
->
-> Deliverable: [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95) (draft, open-questions design PR) —
-> designs/reexport-deprecation-policy-gauntlet.md. Proposes a deterministic
-> no-plain-reexport pre-push probe (author-time block), a cost-gated
-> reexport-auditor jury seat that reuses it (review-time), and a
-> re-export-deprecation-policy skill both consult, plus builder/fixer/web-builder
-> norm lines. Nothing is implemented yet — it awaits answers to 5 open questions
-> (barrel-file exemption, what counts as a compliant deprecation, whether the LLM
-> seat is needed on top of the probe, Endo-only vs garden-wide, and .d.ts
-> type-only re-exports).
->
-> Please ask @kriskowal and @erights to review [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95). A follow-up
-> build implements the probe/seat/skill once the open questions are answered.
-
 - `doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -647,7 +626,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.1M | $546.94 _(notional, rate-card)_ | 37% of 143.0M (ok) |
+| Claude | 53.4M | $548.11 _(notional, rate-card)_ | 37% of 143.0M (ok) |
 | Codex | 21.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35178944 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -656,8 +635,10 @@ _Fleet token-unlock pace: 35178944 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (3)
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
+- [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
+- [`fix-container-hardening-probe-maintainer-substring`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-container-hardening-probe-maintainer-substring.md) — Fix: check-container-hardening.sh check 6 flags "kriskowal" by substring (fal...
 
 ### tada (8732)
 - [`design-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/design-journal-contention-watch.md) — Completion report
