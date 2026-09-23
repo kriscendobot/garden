@@ -40,6 +40,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: viability=overtaken -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=36 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
