@@ -1,4 +1,5 @@
 ---
+child-endo-minion-town-federation-town-build-host: endolin-garden2-5bcdff64
 child-endo-minion-town-federation-town-build-reap-count: 0
 child-endo-minion-town-federation-endo-build-host: endolin-garden-ece02cb4
 child-endo-minion-town-federation-endo-build-reap-count: 0
