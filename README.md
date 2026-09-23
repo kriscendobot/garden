@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T23:31:03Z_
+_As of 2026-09-23T23:32:55Z_
 
 ## Latest
 
@@ -773,7 +773,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.9M | $597.46 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 58.0M | $598.14 _(notional, rate-card)_ | 41% of 143.0M (ok) |
 | Codex | 26.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34328869 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -785,7 +785,8 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1100
 - [`fix-rolling-deploy-canary-stranded-on-advanced-target`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-rolling-deploy-canary-stranded-on-advanced-target.md) — Fix: a follower canary strands when main2 advances between the roll release a...
 
 ### tada (8790)
