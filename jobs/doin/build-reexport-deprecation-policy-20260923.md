@@ -69,6 +69,7 @@ Build these artifacts, each obeying the Decisions:
 Definition of done: all artifacts land on `main2`, the probe and seat-gate tests
 pass locally, and your report names the commit SHAs.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
