@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T23:23:33Z_
+_As of 2026-09-23T23:24:31Z_
 
 ## Latest
 
@@ -837,8 +837,8 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`fix-rolling-deploy-canary-stranded-on-advanced-target`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-rolling-deploy-canary-stranded-on-advanced-target.md) — Fix: a follower canary strands when main2 advances between the roll release a...
 
 ### tada (8788)
 - [`improve-comment-latency-notice-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/improve-comment-latency-notice-failure.md) — Cost
