@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T20:14:06Z_
+_As of 2026-09-23T20:15:38Z_
 
 ## Latest
 
@@ -1090,13 +1090,13 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### doin (0)
 (none)
 
-### tada (8752)
+### tada (8753)
+- [`canary-probe-endolin-garden2-5bcdff64-a4befb2be434`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/canary-probe-endolin-garden2-5bcdff64-a4befb2be434.md) — rolling-deploy canary probe — round trip OK
 - [`mentat-guest-peer-fetch-vs-invitation-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/mentat-guest-peer-fetch-vs-invitation-20260923.md) — Completion report — mentat-guest-peer-fetch-vs-invitation-20260923
 - [`improve-journal-contention-watch-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/improve-journal-contention-watch-deadline.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-5fd533bcc1d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/canary-probe-endolin-garden2-5bcdff64-5fd533bcc1d1.md) — rolling-deploy canary probe — round trip OK
 - [`journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/journal-contention-watch.md) — orchestration journal-contention-watch — complete
-- [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-journal-contention-watch.md) — Cost
-- … and 8747 more
+- … and 8748 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
