@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:42:23Z_
+_As of 2026-09-23T17:44:39Z_
 
 ## Latest
 
-Garden hardening (dropping `--privileged` and sudo from the container) landed; journal contention watch design shipped and its build is active. Multiple infrastructure improvements—worktree sweeper gating, self-heal timeout wrapping, CI watcher cooldowns, outage-latch hysteresis—hit resource walls during development and are queued for splitting or designer guidance. The immediate production blocker is minion.town's `express.json()` limit (413 on a 206 KB bundle), preventing live CLIPOMETER validation; a separate stale Endo daemon pin blocks the guest invite fallback fix and awaits a maintainer decision to land it onto `main`.
+Design for journal contention watch landed and is now queued for build; comment-latency-watch build claimed. Multiple blockers await maintainer decisions: minion.town guest infrastructure scope (pet daemon vs. public guest-substrate), Endo daemon pin 89481580… landing on minion.town main (currently pinning stale f66505034…), and SIWE allowlist configuration. Fleet infrastructure improvements parked across quota management, watcher refinements, and worktree sweeper ungating; @endo/claude build PR [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) awaits refresh for preliminary review. Spend at 38% (Claude) and 65% (Codex plan).
 
 ## Parked for maintainer feedback
 
@@ -626,18 +626,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.0M | $549.23 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 54.2M | $550.38 _(notional, rate-card)_ | 38% of 143.0M (ok) |
 | Codex | 22.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34270796 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (1)
-- [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-comment-latency-watch.md) — Build: comment latency watch
+- [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-journal-contention-watch.md) — Build: journal contention watch
 
 ### doin (4)
+- [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
 - [`kriscendobot-garden-pr95-review-6266ce72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr95-review-6266ce72.md) — Review directive on kriscendobot/garden PR #95
-- [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
 - [`mentat-opus55-tier-open-questions-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-opus55-tier-open-questions-20260923.md) — Mentat: answer the open questions in designs/opus55-tier.md with empirical data
 - [`kriscendobot-garden-pr109-review-0310bc76`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-review-0310bc76.md) — Review directive on kriscendobot/garden PR #109
 
