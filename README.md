@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T20:24:13Z_
+_As of 2026-09-23T20:25:43Z_
 
 ## Latest
 
@@ -1027,22 +1027,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden2__garden_state_sysop_journal` cleared on endolin-garden2-5bcdff64.
 
-- `msg-wire-siwe-onchain-authz-minion-town-followup-4c95a89e5d97` — from gardener:wire-siwe-onchain-authz-minion-town-followup, reply_to `wire-siwe-onchain-authz-minion-town-followup` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-wire-siwe-onchain-authz-minion-town-followup-4c95a89e5d97.md)
-
-> SIWE on-chain authz (minion.town) — the maintainer-gated remainder is BLOCKED on two decisions that only you can make. This followup was auto-promoted from the deferred reservoir on 2026-09-16 with gate `cleared=none`; the predecessor already shipped ALL address-independent work (policy layer keys on iss+sub with intersection semantics, needs no code change for Tier 1; test/policy.test.ts covers the SIWE address-keyed shape, green). Nothing further can be built responsibly without your input — the addresses are production authorization identities and must not be invented.
->
-> Please answer:
->
-> 1) DECISION 3 (tier): Tier 1 only (the design's recommendation), or Tier 1 + Tier 2? If Tier 2, which asset first — registry (design recommends a purpose-built Ownable address→scope-bitmap contract on Base), safe_signer, erc721, or erc20_min_balance?
->
-> 2) TIER 1 ALLOWLIST: for each address to authorize under iss=`https://siwe-idp.minion.town`, give:
->    - the wallet address (I will EIP-55 checksum it),
->    - scopes (mcp/tools, mcp/guest),
->    - optional guestFacetGrants (e.g. ["evaluator"]),
->    - a short note.
->
-> Once you reply, Tier 1 is minutes of work (config/policy.json entries; harness already covers the shape). If you don't intend to authorize any SIWE identities yet, say so and I'll re-park this as deferred rather than loop.
-
 - `watchdog-comment-watcher-dead-kriscendobot-finbot` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-finbot.md)
 
 > WATCHDOG notice — occurrence #18 (first seen 2026-09-23T18:37:23Z, latest 2026-09-23T20:22:27Z).
@@ -1094,7 +1078,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.7M | $574.32 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 56.8M | $575.17 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 23.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38052757 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1106,8 +1090,9 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`improve-triager-cgroup-cleanup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-triager-cgroup-cleanup.md) — ---
+- [`design-minion-town-siwe-guest-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-siwe-guest-recovery.md) — Design: SIWE as guest-identity recovery (supersedes on-chain authz) on minion...
 
 ### tada (8753)
 - [`canary-probe-endolin-garden2-5bcdff64-a4befb2be434`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/canary-probe-endolin-garden2-5bcdff64-a4befb2be434.md) — rolling-deploy canary probe — round trip OK
