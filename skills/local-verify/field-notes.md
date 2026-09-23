@@ -296,3 +296,22 @@ like one of these recurring classes.
   loud rather than guessing. General lesson: workflow audits that resolve
   external refs can turn red without a PR touching workflow YAML, so a diff gate
   is insufficient; the pre-push gate must rerun them every time.
+- _2026-09-23_: closed the package-manager coverage gap that forced every
+  `kriscendobot/minion.town` gauntlet to remember `GARDEN_YARN=npm`. The harness
+  always resolved its runner to `yarn` / `npx corepack yarn` unless `GARDEN_YARN`
+  was set, so an npm-only repository failed every step with "This package doesn't
+  seem to be present in your lockfile" (an npm error surfacing through a Yarn
+  invocation). Fix: lift pre-push-gates' package-manager selection (commit
+  0389ac0130) into a shared library `scripts/jobs/package-manager.sh`
+  (`detect_package_manager` / `package_manager_runner` /
+  `package_manager_exec_prefix`) that both gates source. Detection reads the
+  `packageManager` field, then the lockfile (`yarn.lock` / `pnpm-lock.yaml` /
+  `package-lock.json`), then defaults to Yarn; the universal `<runner> run
+  <script>` form works for all four managers. The Yarn-only spellings map per
+  manager: `root-types`' bin invocation (endo CI's `corepack yarn tsc`) runs
+  through the manager's exec verb (`npx tsc` on npm), and the workspace split (a
+  Yarn `workspaces foreach` concern) is skipped on a non-Yarn manager so the
+  project's own root `test` aggregator runs. `GARDEN_YARN` stays as the explicit
+  override and still wins. General lesson: a runner hardcoded to one ecosystem is
+  a parity defect the moment the fleet touches a repo in another; detect from the
+  project's own declaration, do not make the operator carry an env override.

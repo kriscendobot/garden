@@ -46,6 +46,11 @@
 #      local audit, whose CLI receives the zizmor action's exact static
 #      `persona` and `min-severity` inputs; unrelated `with:` blocks are ignored,
 #      failures use the ordinary SHA-only surface, and the override can skip it.
+#  15. Package-manager detection: an npm project (declared via `packageManager`,
+#      or detected from `package-lock.json`) is verified with `npm run <script>`
+#      — no `GARDEN_YARN=npm` needed — while a Yarn stub is proven never invoked;
+#      GARDEN_YARN still wins as the explicit override. Regression for job
+#      `fix-local-verify-package-manager-detection` (kriscendobot/minion.town).
 #
 # No systemd, no network: the harness is exercised against throwaway git repos
 # with a stubbed package runner (GARDEN_YARN), and — for 10 — a throwaway garden
@@ -951,6 +956,89 @@ ozs="$(LOCAL_VERIFY_ZIZMOR=- ZIZMOR_FAIL=1 ZIZMOR_TRACE="$ZIZMOR_TRACE" \
 [ "$rczs" -eq 0 ] && [ -z "$ozs" ] && [ ! -e "$ZIZMOR_TRACE" ] \
   && ok "LOCAL_VERIFY_ZIZMOR=- skips the audit" \
   || bad "zizmor override skip not honored (rc=$rczs out=[$ozs])"
+
+# --- 15: package-manager detection — an npm project is verified with npm ------
+# Regression for job fix-local-verify-package-manager-detection: local-verify.sh
+# hardcoded Yarn, so an npm-only repo (e.g. kriscendobot/minion.town) failed every
+# step ("doesn't seem to be present in your lockfile") unless the operator set
+# GARDEN_YARN=npm on every run. The harness now detects the manager from the
+# `packageManager` field / lockfiles and runs `<runner> run <script>`.
+#
+# A stub `npm` on PATH dispatches `npm run <script>`; a sibling stub `yarn` HARD
+# FAILS, so a regression to Yarn selection is caught rather than silently green.
+NPM_BIN="$TR/npm-bin"; mkdir -p "$NPM_BIN"
+cat > "$NPM_BIN/npm" <<'EOF'
+#!/bin/bash
+[ "$1" = run ] || { echo "npm: unexpected invocation: $*" >&2; exit 3; }
+case "$2" in
+  lint) echo "eslint clean" ;;
+  test)
+    if [ -n "${NPM_STUB_FAIL_TEST:-}" ]; then
+      echo "npm test 1 ok"; echo "npm test 2 FAIL boom"; exit 1
+    fi
+    echo "npm test ok" ;;
+  *) echo "npm: no such script $2" >&2; exit 1 ;;
+esac
+exit 0
+EOF
+cat > "$NPM_BIN/yarn" <<'EOF'
+#!/bin/bash
+echo "yarn must not run for an npm project" >&2; exit 7
+EOF
+chmod +x "$NPM_BIN/npm" "$NPM_BIN/yarn"
+
+make_npm_repo() {  # make_npm_repo <dir> <select-body>  (packageManager or lockfile)
+  local dir="$1" select="$2"
+  mkdir -p "$dir"; git -C "$dir" init -q
+  git -C "$dir" config user.email t@localhost; git -C "$dir" config user.name test
+  cat > "$dir/package.json" <<PKG
+{ "name": "npm-fixture", $select
+  "scripts": { "lint": "lint", "test": "test" } }
+PKG
+  git -C "$dir" add -A; git -C "$dir" commit -qm init >/dev/null
+}
+
+# 15a: a declared npm project fails at its `test` step THROUGH npm (blob proves
+# npm ran; the Yarn stub is never invoked). No GARDEN_YARN — detection alone.
+RNPM="$TR/npm-declared"
+make_npm_repo "$RNPM" '"packageManager": "npm@10.8.2",'
+onpm="$(NPM_STUB_FAIL_TEST=1 PATH="$NPM_BIN:$PATH" "$LV" "$RNPM" 2>&1)"; rcnpm=$?
+[ "$rcnpm" -ne 0 ] && printf '%s' "$onpm" | grep -q 'STEP test FAILED' \
+  && ok "npm project: failing test is reported (npm selected, not Yarn)" \
+  || bad "npm project test failure not reported (rc=$rcnpm out=[$onpm])"
+printf '%s' "$onpm" | grep -q 'yarn must not run' \
+  && bad "Yarn was invoked for an npm project" || ok "Yarn stub never ran for the npm project"
+snpm="$(printf '%s' "$onpm" | grep -oE '[0-9a-f]{40}' | head -1)"
+git -C "$RNPM" cat-file -p "$snpm" 2>/dev/null | grep -q 'npm test 2 FAIL boom' \
+  && ok "the failing step ran through npm (blob holds npm's output)" \
+  || bad "blob missing npm's captured output"
+
+# 15b: no packageManager declaration, only a package-lock.json — npm is detected
+# from the lockfile and the whole run is silent, exit 0 (no GARDEN_YARN=npm).
+RNPML="$TR/npm-lockfile"
+make_npm_repo "$RNPML" ''
+: > "$RNPML/package-lock.json"
+git -C "$RNPML" add -A; git -C "$RNPML" commit -qm lock >/dev/null
+onpml="$(PATH="$NPM_BIN:$PATH" "$LV" "$RNPML" 2>&1)"; rcnpml=$?
+[ "$rcnpml" -eq 0 ] && [ -z "$onpml" ] \
+  && ok "package-lock.json selects npm: silent, exit 0" \
+  || bad "npm lockfile detection not silent/zero (rc=$rcnpml out=[$onpml])"
+
+# 15c: GARDEN_YARN still wins as the explicit override even on an npm-declared
+# project (the legacy escape hatch / stub seam), forcing the Yarn runner.
+make_repo "$TR/npm-override" '#!/bin/bash
+echo "stub-yarn:$2"; [ "$2" = test ] && exit 4 || exit 0'
+# Re-declare npm to prove GARDEN_YARN overrides detection.
+cat > "$TR/npm-override/package.json" <<'PKG'
+{ "name": "fixture", "packageManager": "npm@10.8.2",
+  "scripts": { "lint": "lint", "test": "test" } }
+PKG
+git -C "$TR/npm-override" add -A; git -C "$TR/npm-override" commit -qm npm >/dev/null
+oovr="$(GARDEN_YARN="bash $TR/npm-override/yarn-stub.sh" "$LV" "$TR/npm-override" 2>&1)"; rcovr=$?
+sovr="$(printf '%s' "$oovr" | grep -oE '[0-9a-f]{40}' | head -1)"
+[ "$rcovr" -ne 0 ] && git -C "$TR/npm-override" cat-file -p "$sovr" 2>/dev/null | grep -q 'stub-yarn:test' \
+  && ok "GARDEN_YARN overrides detection even on an npm-declared project" \
+  || bad "GARDEN_YARN override not honored on npm project (rc=$rcovr out=[$oovr])"
 
 echo "----------------------------------------------------------------"
 echo "local-verify: $PASS passed, $FAIL failed"

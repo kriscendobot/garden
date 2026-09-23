@@ -359,8 +359,11 @@ matching primary (`test` / `test:unit`) and additive XS (`test:xs`) scripts
 directly. This prevents a fail-fast `workspaces foreach` root script from hiding
 failures in later packages. Each suite accumulates workspace output into its own
 SHA-captured failure report, and every workspace in that suite runs even after
-an earlier one fails. A project that is not a discoverable Yarn workspace tree
-retains the ordinary root-script behavior.
+an earlier one fails. A project that is not a discoverable Yarn workspace tree —
+including any project on a **non-Yarn** manager, since `yarn workspaces list
+--json` has no portable npm/pnpm/bun spelling and the fail-fast concern is Yarn's
+own — retains the ordinary root-script behavior (the ecosystem's own aggregator,
+e.g. `npm test --workspaces`).
 
 Root-types knobs: `GARDEN_ROOT_TYPES_HEAP_MB` sets the Node old-space heap the
 reconstructed root type check runs under (default `8192`);
@@ -382,13 +385,34 @@ supplies an explicit xst; `GARDEN_XST_SYSTEM_ROOT` and
 `GARDEN_XST_PROVISIONER` replaces the provisioner command for a controlled test
 or deployment.
 
-The package runner defaults to `yarn` when present, else `npx corepack yarn`
-(plain `yarn` is often absent in a fresh worktree; see
-[pre-pr-checklist](../pre-pr-checklist/SKILL.md) § Pitfalls). Override with
-`GARDEN_YARN`. A project with no `package.json` and no overrides verifies nothing
-and exits 0; wire the real commands per project via package.json scripts or the
-overrides. The candidate lists are deliberately small and extensible: add a
-project's script name to the table rather than hardcoding one project's commands.
+The **package manager is detected per project**, not hardcoded to Yarn. The
+harness reads the root `package.json` `packageManager` declaration, then the root
+lockfile (`yarn.lock` → Yarn, `pnpm-lock.yaml` → pnpm, `package-lock.json` /
+`npm-shrinkwrap.json` → npm), and falls back to Yarn only when a project declares
+neither — so an npm-only repository such as `kriscendobot/minion.town` is verified
+with `npm run <script>` and no longer needs a `GARDEN_YARN=npm` override on every
+run. Every step's `<runner> run <script>` invocation is universal across npm,
+Yarn, pnpm, and Bun; the Yarn-only spellings the parity steps need (`root-types`'
+bin invocation, spelled `corepack yarn tsc` in endo CI, and the workspace
+enumeration) map per manager — the bin invocation goes through the manager's own
+runner (`npx tsc` on npm), and the workspace split (a Yarn `workspaces foreach`
+concern) is skipped on a non-Yarn manager in favour of the project's own root
+`test` aggregator. The bare `yarn`/`pnpm` binary is often absent in a fresh
+worktree, so those fall back to `npx corepack <mgr>`; npm/bun must be on `PATH`,
+and a selected-but-unavailable manager fails loud (`PACKAGE MANAGER PARITY`,
+exit 3) rather than silently verifying under the wrong runner.
+
+The detection lives in `scripts/jobs/package-manager.sh`
+(`detect_package_manager` / `package_manager_runner` /
+`package_manager_exec_prefix`), a small sourceable library shared with
+[pre-push-gates](../pre-push-gates/SKILL.md) so both gates select the same runner
+from the same signals. Override with `GARDEN_YARN` (still wins, and still names
+the manager Yarn), `GARDEN_PACKAGE_MANAGER` (name the manager), or
+`GARDEN_PACKAGE_RUNNER` (name the runner command). A project with no
+`package.json` and no overrides verifies nothing and exits 0; wire the real
+commands per project via package.json scripts or the overrides. The candidate
+lists are deliberately small and extensible: add a project's script name to the
+table rather than hardcoding one project's commands.
 
 Discovering the real commands per project draws on `package.json` scripts, the
 repo's CI workflow, and the [pre-pr-checklist](../pre-pr-checklist/SKILL.md) /

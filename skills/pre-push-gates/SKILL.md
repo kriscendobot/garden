@@ -50,6 +50,11 @@ declaration or lockfile. npm's extra script arguments use the required `--`
 separator (`npm run lint -- --fix`). `GARDEN_PACKAGE_RUNNER` is the general test
 or escape-hatch override; the older `GARDEN_YARN` override remains supported.
 
+The detection itself lives in `scripts/jobs/package-manager.sh`
+(`detect_package_manager` / `package_manager_runner`), a small sourceable library
+shared with [local-verify](../local-verify/SKILL.md) so both pre-push gates
+select the same runner from the same signals rather than each hardcoding Yarn.
+
 ### 2. Auto-fix stage: `format`
 
 ```sh

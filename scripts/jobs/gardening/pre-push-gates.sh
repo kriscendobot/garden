@@ -5,6 +5,11 @@ set -uo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Package-manager detection shared with local-verify.sh (npm/yarn/pnpm/bun), so
+# both gates select the same runner from the same signals.
+# shellcheck source=/dev/null
+. "$HERE/../package-manager.sh"
+
 usage() {
   echo "usage: pre-push-gates.sh [--no-auto-fix] [--probes-only] [--summary] [--base-ref <ref>] [<project-root>]" >&2
 }
@@ -48,79 +53,14 @@ if [ -n "$base_ref" ]; then
   export PRE_PUSH_BASE_REF="$base_ref"
 fi
 
-declared_package_manager() {
-  local specification=""
-  [ -f "$project_root/package.json" ] || return 1
-  if command -v jq >/dev/null 2>&1; then
-    specification=$(jq -r '.packageManager // empty' \
-      "$project_root/package.json" 2>/dev/null) || return 1
-  else
-    specification=$(sed -nE \
-      's/.*"packageManager"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/p' \
-      "$project_root/package.json" | head -n 1)
-  fi
-  [ -n "$specification" ] || return 1
-  printf '%s\n' "${specification%%@*}"
-}
-
 select_package_runner() {
-  # GARDEN_YARN is retained as the test/escape hatch used by older callers.
-  if [ -n "${GARDEN_YARN:-}" ]; then
-    package_manager=yarn
-    package_runner="$GARDEN_YARN"
-    return
-  fi
-
-  package_manager="${GARDEN_PACKAGE_MANAGER:-}"
-  [ -n "$package_manager" ] \
-    || package_manager=$(declared_package_manager || true)
-  if [ -z "$package_manager" ]; then
-    if [ -f "$project_root/yarn.lock" ]; then
-      package_manager=yarn
-    elif [ -f "$project_root/pnpm-lock.yaml" ]; then
-      package_manager=pnpm
-    elif [ -f "$project_root/package-lock.json" ] \
-      || [ -f "$project_root/npm-shrinkwrap.json" ]; then
-      package_manager=npm
-    else
-      # Preserve the historical default for projects without a declaration or
-      # lockfile. New npm/pnpm projects should declare packageManager.
-      package_manager=yarn
-    fi
-  fi
-
-  if [ -n "${GARDEN_PACKAGE_RUNNER:-}" ]; then
-    package_runner="$GARDEN_PACKAGE_RUNNER"
-    return
-  fi
-
-  case "$package_manager" in
-    npm)
-      command -v npm >/dev/null 2>&1 || {
-        echo "pre-push-gates: package.json declares npm, but npm is unavailable" >&2
-        exit 2
-      }
-      package_runner=npm
-      ;;
-    yarn|pnpm)
-      if command -v "$package_manager" >/dev/null 2>&1; then
-        package_runner="$package_manager"
-      else
-        package_runner="npx corepack $package_manager"
-      fi
-      ;;
-    bun)
-      command -v bun >/dev/null 2>&1 || {
-        echo "pre-push-gates: package.json declares bun, but bun is unavailable" >&2
-        exit 2
-      }
-      package_runner=bun
-      ;;
-    *)
-      echo "pre-push-gates: unsupported package manager '$package_manager' in package.json" >&2
-      exit 2
-      ;;
-  esac
+  # Detection and runner resolution live in package-manager.sh, shared with
+  # local-verify.sh. GARDEN_YARN / GARDEN_PACKAGE_MANAGER / GARDEN_PACKAGE_RUNNER
+  # keep their meaning there. A resolution failure (a selected manager whose
+  # binary is unavailable, or an unsupported manager) prints to stderr and is
+  # fatal to this gate, as before.
+  package_manager="$(detect_package_manager "$project_root")"
+  package_runner="$(package_manager_runner "$package_manager")" || exit 2
 }
 
 select_package_runner

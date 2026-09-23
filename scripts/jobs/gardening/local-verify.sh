@@ -53,7 +53,8 @@
 #        - set to a command string  -> run that command in the worktree
 #        - set to "-"                -> skip this step
 #   2. A package.json "scripts" entry matching the step's candidate names
-#      (run as `<yarn> run <script>`).
+#      (run as `<runner> run <script>`, where <runner> is the project's detected
+#      package manager — npm/yarn/pnpm/bun — not necessarily Yarn).
 #   3. Otherwise the step is skipped (recorded, silent).
 #
 # `test:xs` is an additional suite, not an alternative spelling of `test`. When
@@ -108,6 +109,11 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # and pins the fleet gh identity onto PATH.
 # shellcheck source=/dev/null
 . "$HERE/../common.sh"
+# Package-manager detection shared with pre-push-gates.sh (npm/yarn/pnpm/bun),
+# so both select the same runner from the same signals rather than each
+# hardcoding Yarn.
+# shellcheck source=/dev/null
+. "$HERE/../package-manager.sh"
 
 wt="${1:-$PWD}"
 wt="$(cd "$wt" 2>/dev/null && pwd)" || { echo "local-verify: no such worktree: ${1:-$PWD}" >&2; exit 2; }
@@ -172,16 +178,24 @@ if [ "${GARDEN_SKIP_NODE_PARITY:-}" != 1 ]; then
   fi
 fi
 
-# The package runner: plain `yarn` is often absent in a fresh worktree, so fall
-# back to `npx corepack yarn` (see skills/pre-pr-checklist § Pitfalls). Override
-# with GARDEN_YARN for tests or a project that uses a different runner.
-if [ -n "${GARDEN_YARN:-}" ]; then
-  YARN="$GARDEN_YARN"
-elif command -v yarn >/dev/null 2>&1; then
-  YARN="yarn"
-else
-  YARN="npx corepack yarn"
+# The package manager and the command that runs it, detected from the project's
+# `packageManager` field / lockfiles (shared with pre-push-gates.sh via
+# package-manager.sh) so an npm/pnpm/bun repository is verified with its own
+# runner rather than Yarn. `$RUNNER run <script>` is universal across all four;
+# the Yarn-only bin spellings in the parity steps (root-types' `tsc`, the
+# workspace enumeration) go through PM_EXEC / a manager guard below. GARDEN_YARN
+# stays as the explicit override and still wins (it also names the manager yarn,
+# so the tests' stub runner keeps its Yarn behavior). A fresh worktree often
+# lacks a bare `yarn`/`pnpm`, so those fall back to `npx corepack <mgr>`.
+PACKAGE_MANAGER="$(detect_package_manager "$wt")"
+if ! RUNNER="$(package_manager_runner "$PACKAGE_MANAGER")"; then
+  printf 'PACKAGE MANAGER PARITY: the project selects %s but it is unavailable — install it, or set GARDEN_YARN / GARDEN_PACKAGE_RUNNER to a matching runner. Refusing to verify under the wrong package manager.\n' "$PACKAGE_MANAGER"
+  exit 3
 fi
+PM_EXEC="$(package_manager_exec_prefix "$PACKAGE_MANAGER" "$RUNNER")"
+# Retained alias: `$YARN` is the runner throughout the discovery functions below.
+# It is the selected manager's runner, not necessarily Yarn.
+YARN="$RUNNER"
 
 # Steps in execution order, and the package.json script names each maps to. The
 # first candidate that exists wins. Check-only variants come first so the harness
@@ -342,12 +356,12 @@ discover_root_types() {  # print the root type-check command, or nothing (skip)
   # than a fragile text grep of one config file. A missing/unresolvable tsc (deps
   # not installed) yields no match and the step skips — an unhealthy tree is caught
   # by the build/test steps, not misreported here.
-  if ! ( cd "$wt" && $YARN tsc --showConfig -p "$cfg" ) 2>/dev/null \
+  if ! ( cd "$wt" && $PM_EXEC tsc --showConfig -p "$cfg" ) 2>/dev/null \
         | grep -Eq '"checkJs"[[:space:]]*:[[:space:]]*true'; then
     return 0                               # root program does not check JS — skip
   fi
   heap="${GARDEN_ROOT_TYPES_HEAP_MB:-8192}"
-  printf 'NODE_OPTIONS=--max-old-space-size=%s %s tsc -p %s --noEmit\n' "$heap" "$YARN" "$cfg"
+  printf 'NODE_OPTIONS=--max-old-space-size=%s %s tsc -p %s --noEmit\n' "$heap" "$PM_EXEC" "$cfg"
 }
 
 # Discovery for the additive `zizmor` workflow-security audit. The workflow is
@@ -584,6 +598,12 @@ run_workspace_tests() {  # run_workspace_tests <test-step>
   # every package. Preserve that override contract.
   override="$(override_name "$step")"
   [ -n "${!override+x}" ] && return 2
+  # `yarn workspaces list --json` is a Yarn-only enumeration with no portable
+  # npm/pnpm/bun spelling. On a non-Yarn manager, fall back (return 2) to the
+  # project's own root `test` script, which is that ecosystem's own aggregator
+  # (`npm test --workspaces`, `pnpm -r test`); the fail-fast concern this split
+  # addresses is Yarn's `workspaces foreach`.
+  [ "$PACKAGE_MANAGER" = yarn ] || return 2
   listing="$(cd "$wt" && $YARN workspaces list --json 2>/dev/null)" || return 2
   [ -n "$listing" ] || return 2
 
