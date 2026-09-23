@@ -47,3 +47,13 @@ Initial minion.town main 3062124: guest-self-endpoint.ts and landing/shell copy 
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-23T22:23:06Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T22:24:05Z
