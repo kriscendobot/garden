@@ -61,12 +61,21 @@ has_live_process() { # has_live_process <directory>
     | grep -q .
 }
 
+# Cache live PR disposition for this tick. Multiple completed jobs commonly name
+# the same PR (gauntlet stages, repeated press jobs, follow-ups), so even the
+# residue-only path below must not pay for the same remote fact repeatedly.
+declare -A PR_DISPOSITION=()
+
 # pr_disposition_allows_sweep <job-file>
 # No PR reference means a garden-internal terminal job and needs no external
 # confirmation.  If PRs are named, every unique PR must be CLOSED or MERGED in
-# live GitHub state.  A failed/ambiguous query fails safe toward retaining.
+# live GitHub state.  Read that state from the REST pull endpoint: `gh pr view`
+# uses GraphQL, and this safety-net once queried every tada report twice an hour,
+# burning the account's entire 5,000-point GraphQL bucket even when almost none
+# of those reports still had a checkout to reclaim. A failed/ambiguous query
+# fails safe toward retaining.
 pr_disposition_allows_sweep() {
-  local file="$1" refs repo number state saw=0
+  local file="$1" refs repo number state key saw=0
   refs="$(
     {
       grep -Eo 'https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/(pull|pulls)/[0-9]+' "$file" 2>/dev/null \
@@ -79,12 +88,43 @@ pr_disposition_allows_sweep() {
   while read -r repo number; do
     [ -n "${repo:-}" ] || continue
     saw=1
-    state="$(timeout 30 "${GARDEN_GH:-gh}" pr view "$number" --repo "$repo" --json state --jq .state 2>/dev/null || true)"
-    case "$state" in CLOSED|MERGED) : ;;
+    key="$repo#$number"
+    if [ -v "PR_DISPOSITION[$key]" ]; then
+      state="${PR_DISPOSITION[$key]}"
+    else
+      state="$(timeout 30 "${GARDEN_GH:-gh}" api "repos/$repo/pulls/$number" --jq .state 2>/dev/null || true)"
+      PR_DISPOSITION["$key"]="$state"
+    fi
+    case "$state" in closed|CLOSED|MERGED) : ;;
       *) log "keeping terminal checkout referenced by $file: $repo#$number is ${state:-unverifiable}"; return 1 ;;
     esac
   done <<< "$refs"
   [ "$saw" -eq 1 ]
+}
+
+# terminal_worktree_exists <base>
+# GitHub state is needed only to authorize an actual removal. Historically the
+# sweep verified every PR mentioned by every tada report before discovering that
+# no matching checkout existed. With thousands of accumulated reports, that made
+# this local cleanup safety net the fleet's dominant GraphQL consumer. Keep the
+# remote read strictly behind proof of residue.
+terminal_worktree_exists() {
+  local base="$1" key legacy path name suffix
+  [ -e "$GARDEN_SCRATCH/gardener-wt-$base" ] && return 0
+  key="$(project_worktree_base_key "$base")"
+  legacy="${base//[^A-Za-z0-9._-]/-}"
+  for path in "$GARDEN_SCRATCH/project-wt-${key}-"* \
+              "$GARDEN_SCRATCH/project-wt-${legacy}-"*; do
+    [ -e "$path" ] || continue
+    name="$(basename "$path")"
+    suffix="${name#project-wt-"${key}"-}"
+    if ! [[ "$suffix" =~ ^[0-9a-f]{8}$ ]]; then
+      suffix="${name#project-wt-"${legacy}"-}"
+      [[ "$suffix" =~ ^[0-9a-f]{8}$ ]] || continue
+    fi
+    return 0
+  done
+  return 1
 }
 
 remove_garden_worktree() { # remove_garden_worktree <path>
@@ -99,6 +139,7 @@ remove_garden_worktree() { # remove_garden_worktree <path>
 sweep_terminal_base() { # sweep_terminal_base <base> <job-file> <github-check:true|false>
   local base="$1" file="$2" verify="$3" key legacy path name suffix before
   budget_remains || return 0
+  terminal_worktree_exists "$base" || return 0
   if [ "$verify" = true ] && ! pr_disposition_allows_sweep "$file"; then return 0; fi
 
   path="$GARDEN_SCRATCH/gardener-wt-$base"
@@ -114,9 +155,9 @@ sweep_terminal_base() { # sweep_terminal_base <base> <job-file> <github-check:tr
               "$GARDEN_SCRATCH/project-wt-${legacy}-"*; do
     [ -e "$path" ] || continue
     name="$(basename "$path")"
-    suffix="${name#project-wt-${key}-}"
+    suffix="${name#project-wt-"${key}"-}"
     if ! [[ "$suffix" =~ ^[0-9a-f]{8}$ ]]; then
-      suffix="${name#project-wt-${legacy}-}"
+      suffix="${name#project-wt-"${legacy}"-}"
       [[ "$suffix" =~ ^[0-9a-f]{8}$ ]] || continue
     fi
     has_live_process "$path" && continue

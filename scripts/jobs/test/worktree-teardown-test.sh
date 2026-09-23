@@ -77,7 +77,9 @@ git init -q "$JSEED"; git -C "$JSEED" checkout -qb journal2
 mkdir -p "$JSEED/jobs/tada" "$JSEED/jobs/doin" "$JSEED/jobs/plan"
 printf 'internal terminal job\n' > "$JSEED/jobs/tada/swept.md"
 printf 'closed PR https://github.com/acme/proj/pull/10\n' > "$JSEED/jobs/tada/closed-pr.md"
+printf 'same closed PR https://github.com/acme/proj/pull/10\n' > "$JSEED/jobs/tada/closed-pr-again.md"
 printf 'open PR https://github.com/acme/proj/pull/11\n' > "$JSEED/jobs/tada/open-pr.md"
+printf 'no residue https://github.com/acme/proj/pull/12\n' > "$JSEED/jobs/tada/no-residue-pr.md"
 printf '%s\n' '---' 'doomed: true' '---' > "$JSEED/jobs/plan/doomed.md"
 printf 'still live\n' > "$JSEED/jobs/doin/live.md"
 printf '%s\n' 'complete this job' '---' 'claim:' '  host: testhost' '  gardener: 1' > "$JSEED/jobs/doin/complete-now.md"
@@ -101,8 +103,11 @@ else
   bad "completion left its project checkout or registration behind"
 fi
 
-for base in swept doomed live closed-pr open-pr; do
-  git -C "$GROOT" worktree add -q --detach "$SCRATCH/gardener-wt-$base" main2
+for base in swept doomed live closed-pr closed-pr-again open-pr; do
+  # closed-pr-again exercises project-only residue detection; every other fixture
+  # carries both checkout shapes.
+  [ "$base" = closed-pr-again ] \
+    || git -C "$GROOT" worktree add -q --detach "$SCRATCH/gardener-wt-$base" main2
   key="$(project_worktree_base_key "$base")"
   git --git-dir="$PBARE" worktree add -q --detach "$SCRATCH/project-wt-${key}-00000002" main
 done
@@ -112,7 +117,7 @@ mkdir -p "$GROOT/worktrees/acme-proj/legacy-orphan/node_modules/x"
 
 GARDEN=testhost GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_STATE="$STATE" \
   JOURNAL_REMOTE="$JBARE" JOURNAL_BRANCH=journal2 GARDEN_WORKTREE_SWEEP_MAX=100 \
-  GARDEN_GH="$HERE/worktree-sweeper-gh-stub.sh" \
+  GARDEN_GH="$HERE/worktree-sweeper-gh-stub.sh" WORKTREE_SWEEPER_GH_CALLS="$TR/gh-calls" \
   bash "$JOBS/worktree-sweeper.sh" >"$TR/sweep.log" 2>&1
 
 terminal_ok=1
@@ -142,10 +147,23 @@ if [ ! -e "$SCRATCH/gardener-wt-closed-pr" ] && [ ! -e "$SCRATCH/project-wt-${cl
 else
   bad "closed-PR completed worktrees survived"
 fi
+closedagainkey="$(project_worktree_base_key closed-pr-again)"
+if [ ! -e "$SCRATCH/gardener-wt-closed-pr-again" ] && [ ! -e "$SCRATCH/project-wt-${closedagainkey}-00000002" ]; then
+  ok "sweeper reuses one REST disposition across jobs naming the same PR"
+else
+  bad "duplicate closed-PR completed worktrees survived"
+fi
 if [ -d "$SCRATCH/gardener-wt-open-pr" ] && [ -d "$SCRATCH/project-wt-${openkey}-00000002" ]; then
   ok "sweeper fails safe and retains a completed job whose PR is still OPEN"
 else
   bad "open-PR worktrees were removed without terminal GitHub state"
+fi
+if [ "$(wc -l < "$TR/gh-calls")" -eq 2 ] \
+   && ! grep -q 'pulls/12' "$TR/gh-calls" \
+   && ! grep -q ' pr ' "$TR/gh-calls"; then
+  ok "sweeper uses cached REST reads only for jobs with checkout residue"
+else
+  bad "sweeper made avoidable or GraphQL PR-state reads ($(tr '\n' '|' < "$TR/gh-calls"))"
 fi
 
 echo
