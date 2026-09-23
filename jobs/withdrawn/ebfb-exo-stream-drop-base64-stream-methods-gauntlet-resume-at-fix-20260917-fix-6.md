@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by mentat job mentat-ebfb-pr1100-carry-over-line-20260923: the stage's fix work was already pushed as 4e0815c86b before the 09-17..19 fleet outage doomed the claimant mid-CI-watch; the PR has since been re-pinned to llm-f9cbcfc and rebased (head f8c369ddf5), and a fresh gauntlet ebfb-exo-stream-pr1100-gauntlet-20260923 owns the review pass.
+withdrawn_by: fixer
+withdrawn_at: 2026-09-23T21:30:25Z
+withdrawn_from_gate: deferred
+---
+
+---
 gate: deferred
 priority: normal
 gauntlet: ebfb-exo-stream-drop-base64-stream-methods-gauntlet-resume-at-fix-20260917
