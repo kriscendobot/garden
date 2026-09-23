@@ -68,3 +68,13 @@ Build these artifacts, each obeying the Decisions:
 
 Definition of done: all artifacts land on `main2`, the probe and seat-gate tests
 pass locally, and your report names the commit SHAs.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T17:49:31Z
