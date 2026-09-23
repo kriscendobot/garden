@@ -51,3 +51,13 @@ run the app on the already-public pet daemon? The reveal half of garden#58's cha
 
 Read-only on production; no deploys, no infrastructure changes. Complete the job via the normal
 completion path when done.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T19:52:28Z
