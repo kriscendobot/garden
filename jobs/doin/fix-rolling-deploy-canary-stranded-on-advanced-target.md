@@ -40,3 +40,13 @@ Repo: the garden itself (`kriscendobot/garden`, `main2`, push direct, no PR).
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-23T23:53:06Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T23:53:09Z
