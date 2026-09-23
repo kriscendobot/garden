@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: reexport-policy-automation-20260923
-priority: normal
-posted_by: producer
-posted_at: 2026-09-23T17:45:17Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-23T17:49:06Z cleared=none -->
 
 ---
 role: builder
