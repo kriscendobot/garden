@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: journal-contention-watch
-priority: normal
-posted_by: producer
-posted_at: 2026-09-23T17:20:57Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-23T17:31:03Z cleared=none -->
 
 ---
 role: builder
