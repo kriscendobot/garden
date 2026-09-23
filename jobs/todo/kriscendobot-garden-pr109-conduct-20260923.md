@@ -34,13 +34,6 @@ top-level PR comment naming the deployed commit, the live TypeSafe smoke result
 targeted test result (4 passed, 0 failed), then conduct the approved PR.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=316 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-23T17:51:06Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-23T18:13:05Z -->
