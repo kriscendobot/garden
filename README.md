@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T22:09:08Z_
+_As of 2026-09-23T22:12:13Z_
 
 ## Latest
 
@@ -182,6 +182,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_fork_watch_journal` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_reaper_journal.md)
+
+> Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reaper/journal: oldest-third median=1.468332s newest-third median=1.800733s; 1.5x floor=10s; projected-to-guard=55664s.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_deadmail_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_deadmail_journal.md)
 
@@ -412,6 +416,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > This job is parked on [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) (block-job.sh) and resumes automatically when that PR merges or closes. On resume it re-checks merged vs. closed.
 
+- `watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal.md)
+
+> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/reaper/journal: attempts p95=3.000000 max=3.000000 (cap 50), classes cas=2 server-reject=5 definite-fail=0.
+
 - `watchdog-journal-fetch-drift-_home_kris_garden2__garden_state_inbox_design_minion_town_siwe_guest_recovery_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden2__garden_state_inbox_design_minion_town_siwe_guest_recovery_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-drift-_home_kris_garden2__garden_state_inbox_design_minion_town_siwe_guest_recovery_journal` has CLEARED (first seen 2026-09-23T20:36:45Z, cleared 2026-09-23T20:41:46Z).
@@ -478,11 +486,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_monitors_monk_2_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_monitors_monk_2_journal.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_monitors_monk_2_journal` has CLEARED (first seen 2026-09-23T20:11:07Z, cleared 2026-09-23T20:15:49Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-23T20:11:07Z, latest 2026-09-23T22:10:58Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_monitors_monk_2_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_monitors_monk_2_journal` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/monitors/monk-2/journal: packs 50 >= 50; size=50608128B packs=50 gc.log=0; automatic remedy=backoff.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -1348,13 +1356,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.0M | $586.76 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 57.0M | $586.91 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 25.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34343211 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 15 open notice(s); checker healthy
+worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 18 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
