@@ -64,3 +64,13 @@ mechanics, real pricing evidence, and the muster-architecture question above
 at minimum), land it per the "garden's own repo carve-out" in
 `roles/designer/AGENT.md`: open questions -> PR with
 `<!-- garden-design-open-questions -->`, not a bare land to main2.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T15:54:43Z
