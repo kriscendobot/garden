@@ -2,7 +2,7 @@
 order: serial
 children: design-journal-contention-watch build-journal-contention-watch
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-23T17:21:08Z
 ---
