@@ -36,3 +36,13 @@ Repo: the garden itself (`kriscendobot/garden`, `main2`, push direct, no PR).
    one coalesced notice.
 4. Tests for the advanced-target case and the leader-self-before-canary case. Run the deploy suites
    and push. Complete the job via the normal completion path.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T23:24:02Z
