@@ -26,3 +26,13 @@ section:
 Pricing confirmed current 2026-09-23 (Opus 5.5 $4/$20, cache read $0.20). Keep
 Opus 5 selectable (do not remove its rows). Run all tier/inventory/reroute tests
 before completing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T17:48:29Z
