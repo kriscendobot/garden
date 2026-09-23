@@ -44,3 +44,13 @@ A handler-budget overrun watchdog also fired on this PR; hence the larger handle
 
 Follow the garden's upstream etiquette for endojs/endo-but-for-bots (roles/COMMON.md). Complete the
 job via the normal completion path when done.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T21:04:11Z
