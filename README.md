@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:31:26Z_
+_As of 2026-09-23T18:38:41Z_
 
 ## Latest
 
@@ -82,6 +82,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > (`jev-1.13.0`, 1670 input / 423 output tokens on two synthetic messages), and the
 > targeted test result (4 passed, 0 failed), then conduct the approved PR.
 
+- `watchdog-comment-watcher-dead-kriscendobot-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-endo-but-for-bots.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/endo-but-for-bots:
+> watcher heartbeat (age=999999999s outcome=missing)
+
 - `msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6` — from gardener:minion-town-guest-web-invite-accept-fallback-fix-post104, reply_to `minion-town-guest-web-invite-accept-fallback-fix-post104` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md)
 
 > BLOCKED (re-parked awaiting-maintainer): the guest.invite/accept fallback fix for [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/issues/81) still cannot proceed.
@@ -147,6 +152,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > #1015's head is rebased onto current `llm`, CI green, still draft, with a comment
 > inviting preliminary review. Do not un-draft and do not attempt to merge.
+
+- `watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/oros-ckm-data-readiness:
+> watcher heartbeat (age=999999999s outcome=missing)
+
+- `watchdog-comment-watcher-dead-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-minion.town.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/minion.town:
+> watcher heartbeat (age=999999999s outcome=missing)
+
+- `watchdog-comment-watcher-dead-kriscendobot-list` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-list.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/list:
+> watcher heartbeat (age=999999999s outcome=missing)
 
 - `watchdog-journal-worktree-stale-endolin-garden-ece02cb4` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-stale-endolin-garden-ece02cb4.md)
 
@@ -283,6 +303,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > ---
 > scripts/jobs/self-heal-run.sh
 > Wrap the handler invocation at line 104 (`"$@" > >(tee -a "$capture") 2>&1 &`) in a `timeout --signal=TERM --kill-after=<grace> <bound>` the same way the responder already is at line 247-250, so a wedged handler is bounded well inside each unit's `TimeoutStartSec` instead of relying on systemd's blunt job-timeout + SIGKILL backstop. Add a new tunable (e.g. `SELF_HEAL_HANDLER_TIMEOUT`, defaulting comfortably below the tightest caller's `TimeoutStartSec`, e.g. 600s) and classify a resulting rc=124/137 the same way `is_nonattributable_rc`/the offline-signature grep already do, so a timed-out handler exits clean (no responder burn, no Failed unit) rather than looking like a crash. This directly explains today's incident: `garden-comment-watcher@endojs-endo-but-for-bots` and two `garden-receipt-watcher@*` instances each ran past the full 900s `TimeoutStartSec` during a ~30min degraded-connectivity episode and required forceful termination (one needed a cgroup SIGKILL after the 20s `TimeoutStopSec` grace expired), while every other watcher on the same host failed open within seconds via its own internal cursor/fetch bounds. Since self-heal-run.sh is the shared wrapper for the whole fleet, this single change protects every service that rides it, not just these two.
+
+- `watchdog-comment-watcher-dead-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-endojs-endo-but-for-bots.md)
+
+> Comment acknowledgment dead anomaly for endojs/endo-but-for-bots:
+> watcher heartbeat (age=999999999s outcome=missing)
 
 - `doomed-improve-ci-watcher-outage-latch-flap-dedup-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-ci-watcher-outage-latch-flap-dedup-requeue-exhausted.md)
 
@@ -660,6 +685,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
+- `watchdog-comment-watcher-dead-kriscendobot-moddable` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-moddable.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/moddable:
+> watcher heartbeat (age=999999999s outcome=missing)
+
 - `msg-wire-siwe-onchain-authz-minion-town-followup-4c95a89e5d97` — from gardener:wire-siwe-onchain-authz-minion-town-followup, reply_to `wire-siwe-onchain-authz-minion-town-followup` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-wire-siwe-onchain-authz-minion-town-followup-4c95a89e5d97.md)
 
 > SIWE on-chain authz (minion.town) — the maintainer-gated remainder is BLOCKED on two decisions that only you can make. This followup was auto-promoted from the deferred reservoir on 2026-09-16 with gate `cleared=none`; the predecessor already shipped ALL address-independent work (policy layer keys on iss+sub with intersection semantics, needs no code change for Tier 1; test/policy.test.ts covers the SIWE address-keyed shape, green). Nothing further can be built responsibly without your input — the addresses are production authorization identities and must not be invented.
@@ -676,24 +706,41 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Once you reply, Tier 1 is minutes of work (config/policy.json entries; harness already covers the shape). If you don't intend to authorize any SIWE identities yet, say so and I'll re-park this as deferred rather than loop.
 
+- `watchdog-comment-watcher-dead-kriscendobot-finbot` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-finbot.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/finbot:
+> watcher heartbeat (age=999999999s outcome=missing)
+
+- `watchdog-comment-watcher-dead-kriscendobot-cosgov` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-cosgov.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/cosgov:
+> watcher heartbeat (age=999999999s outcome=missing)
+
+- `watchdog-comment-watcher-dead-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-garden.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/garden:
+> watcher heartbeat (age=999999999s outcome=missing)
+> watcher heartbeat (age=999999999s outcome=missing)
+
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.7M | $569.92 _(notional, rate-card)_ | 40% of 143.0M (ok) |
-| Codex | 22.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Claude | 56.8M | $573.78 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Codex | 22.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34411953 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34355458 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
 - [`build-reexport-deprecation-policy-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-reexport-deprecation-policy-20260923.md) — Build the re-export deprecation policy automation (garden-internal)
+- [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-conduct-20260923.md) — Finalize the approved TypeSafe Muster pilot answer-surface
 
 ### tada (8739)
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-comment-latency-watch.md) — Cost
@@ -731,7 +778,6 @@ _Fleet token-unlock pace: 34411953 tokens/day lower bound; incomplete where a su
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
-- [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr109-conduct-20260923.md) — _normal_ · Finalize the approved TypeSafe Muster pilot answer-surface
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-subscription-model-deploy-gate-regression.md) — _normal_ · Fix deploy-gate regression from subscription-based-budget-model
