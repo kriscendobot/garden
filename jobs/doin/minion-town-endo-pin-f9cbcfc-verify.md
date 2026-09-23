@@ -8,3 +8,13 @@ Repository kriscendobot/minion.town, commit 920ffcc ("chore(endo): pin daemon af
 This repeats a prior incident: a previous pin bump to `89481580` crash-looped production because `HostFormula.registry` became a required field with no upgrade/migration pass for pre-existing formulas (reverted in PR #111, commit 8e9f2be). This commit's message claims the registry migration has now landed upstream, but that has not been independently verified.
 
 Shepherd this pin bump: confirm the pinned-Endo CI job (`.github/workflows/test.yml`) is green, run `test/endo-daemon-integration.test.ts` against the new pin, and verify the AWS deploy (`deploy/aws/scripts/deploy-endo-daemon.sh`) rolls out on the daemon host without a crash-loop (check daemon logs/process status post-deploy, not just CI). If it crash-loops, revert `ENDO_COMMIT` / `PINNED_ENDO_COMMIT` in all three files back to `f66505034aaa54ac46294347b2bf0e14655b088a`, matching the prior revert pattern, and report back so the standing memory on this recurring failure mode can be updated.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T22:32:07Z
