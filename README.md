@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T21:40:26Z_
+_As of 2026-09-23T21:41:19Z_
 
 ## Latest
 
@@ -472,6 +472,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/repo-watcher/journal: packs 51 >= 50; size=98857984B packs=51 gc.log=0; automatic remedy=backoff.
+
+- `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_inbox_fix_latency_contention_watch_false_alarm_flood_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_inbox_fix_latency_contention_watch_false_alarm_flood_journal.md)
+
+> Journal fetch drift on endolin-garden-ece02cb4 for _home_kris_garden__garden_state_inbox_fix_latency_contention_watch_false_alarm_flood_journal: oldest-third median=1.425204s newest-third median=2.001671s; 1.5x floor=10s; projected-to-guard=85046s.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal.md)
 
@@ -1275,7 +1279,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 34371276 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 14 open notice(s); checker healthy
+worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 15 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
