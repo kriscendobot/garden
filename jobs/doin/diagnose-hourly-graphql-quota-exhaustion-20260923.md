@@ -11,6 +11,7 @@ Evidence (host endolin-garden-ece02cb4, 2026-09-23): ci-watcher logged "rollup h
 
 Task: find which consumers burn about 5000 GraphQL points per hour. Candidates are `gh pr view`/`gh pr list` in watchers and gardeners, and statusCheckRollup-heavy queries whose point cost scales with checks. Cut the burn (switch to REST, cache, or activity-bound the reads), or size the latch to the real `resetAt` instead of a blind 3600s. Land on main2 with tests.
 
+<!-- garden-outage-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
