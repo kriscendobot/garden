@@ -24,3 +24,13 @@ Work:
 4. Leave the PR DRAFT and do NOT unpublish the canonical result. Record the clip URL/hash, the counter values, and the console-error counts in the report, and optionally in a PR comment.
 
 If it passes, report that parked child `minion-town-clipometer-primer-esbuild-update` should be promoted next (the issue-report child comes only after the primer). Do NOT promote either one yourself. If it fails, finish with the orchestration-failed signal and include the evidence.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T21:15:28Z
