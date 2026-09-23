@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-09-23T20:07:44Z
+sent_at: 2026-09-23T20:12:45Z
 watchdog_key: comment-watcher-dead-kriscendobot-ymax-stdio-mcp
-notice_count: 14
+notice_count: 15
 first_seen: 2026-09-23T19:02:39Z
-last_seen: 2026-09-23T20:07:44Z
+last_seen: 2026-09-23T20:12:45Z
 ---
-WATCHDOG notice — occurrence #14 (first seen 2026-09-23T19:02:39Z, latest 2026-09-23T20:07:44Z).
-The SAME condition (`comment-watcher-dead-kriscendobot-ymax-stdio-mcp`) has now been observed 14 times; this is ONE
-coalesced notice that updates in place, not 14 messages. Latest detail:
+WATCHDOG notice — occurrence #15 (first seen 2026-09-23T19:02:39Z, latest 2026-09-23T20:12:45Z).
+The SAME condition (`comment-watcher-dead-kriscendobot-ymax-stdio-mcp`) has now been observed 15 times; this is ONE
+coalesced notice that updates in place, not 15 messages. Latest detail:
 
 Comment acknowledgment dead anomaly for kriscendobot/ymax-stdio-mcp:
-watcher heartbeat (age=-23s outcome=cooldown)
+watcher heartbeat (age=57s outcome=cooldown)
