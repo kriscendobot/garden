@@ -44,3 +44,13 @@ Initial minion.town main 3062124: guest-self-endpoint.ts and landing/shell copy 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=89,53 -->
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T22:03:47Z
