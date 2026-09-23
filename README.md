@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:53:01Z_
+_As of 2026-09-23T18:57:20Z_
 
 ## Latest
 
@@ -767,17 +767,16 @@ _Fleet token-unlock pace: 38015567 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
-- [`validate-reexport-policy-ebfb-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/validate-reexport-policy-ebfb-20260923.md) — Validate the re-export policy automation on a synthetic endo-but-for-bots PR
 
-### tada (8742)
+### tada (8743)
+- [`validate-reexport-policy-ebfb-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/validate-reexport-policy-ebfb-20260923.md) — Cost
 - [`kriscendobot-garden-pr108-repin-base-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr108-repin-base-20260923.md) — Completion report: PR #108 base repin
 - [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr109-conduct-20260923.md) — Cost
 - [`build-reexport-deprecation-policy-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-reexport-deprecation-policy-20260923.md) — Cost
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-comment-latency-watch.md) — Cost
-- [`build-opus55-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-opus55-tier.md) — Completion report
-- … and 8737 more
+- … and 8738 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
