@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-09-23T21:57:32Z
+sent_at: 2026-09-23T22:02:35Z
 watchdog_key: comment-watcher-dead-kriscendobot-moddable
-notice_count: 37
+notice_count: 38
 first_seen: 2026-09-23T18:37:16Z
-last_seen: 2026-09-23T21:57:32Z
+last_seen: 2026-09-23T22:02:35Z
 ---
-WATCHDOG notice — occurrence #37 (first seen 2026-09-23T18:37:16Z, latest 2026-09-23T21:57:32Z).
-The SAME condition (`comment-watcher-dead-kriscendobot-moddable`) has now been observed 37 times; this is ONE
-coalesced notice that updates in place, not 37 messages. Latest detail:
+WATCHDOG notice — occurrence #38 (first seen 2026-09-23T18:37:16Z, latest 2026-09-23T22:02:35Z).
+The SAME condition (`comment-watcher-dead-kriscendobot-moddable`) has now been observed 38 times; this is ONE
+coalesced notice that updates in place, not 38 messages. Latest detail:
 
 Comment acknowledgment dead anomaly for kriscendobot/moddable:
-watcher heartbeat (age=5s outcome=cooldown)
+watcher heartbeat (age=12s outcome=cooldown)
