@@ -121,3 +121,13 @@ evidence, not assumption), what you're launching as child jobs and in what
 order/parallelism, the orchestration base name, and any open questions for
 the maintainer (e.g., if the acceptance criterion turns out to need a design
 decision only the maintainer can make).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-23T20:44:52Z
