@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T20:33:56Z_
+_As of 2026-09-23T20:35:43Z_
 
 ## Latest
 
@@ -21,18 +21,6 @@ Garden infrastructure work completed on Opus 5.5 tier ([#108](https://github.com
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `minion-town-claude-inference-exploration-20260922-terminal-complete-with-failures` — from orchestrator:minion-town-claude-inference-exploration-20260922-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-claude-inference-exploration-20260922-terminal-complete-with-failures.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: minion-town-claude-inference-exploration-20260922
-> orchestration-status: complete-with-failures
-> order: parallel
-> children-total: 2
-> children-failed: 1
-> failed-children: build-minion-town-claude-agent-sdk-inference-20260922
->
-> Orchestration minion-town-claude-inference-exploration-20260922 complete WITH FAILURES (parallel): 1/2 failed: build-minion-town-claude-agent-sdk-inference-20260922
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_issue_inbox_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_issue_inbox_verify.md)
 
@@ -1088,10 +1076,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.6M | $573.14 _(notional, rate-card)_ | 40% of 143.0M (ok) |
-| Codex | 23.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
+| Claude | 56.6M | $573.40 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Codex | 24.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 38052757 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 38059363 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 9 open notice(s); checker healthy
