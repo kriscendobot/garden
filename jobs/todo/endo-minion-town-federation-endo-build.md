@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: endo-minion-town-guest-locator-federation
-priority: high
-roadmap: endo M4 guest-locator federation
-posted_by: orchestrator
-posted_at: 2026-09-23T20:53:21Z
+role: builder
+tier: mentor
+handler-timeout: 12600
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-09-23T20:55:07Z cleared=none -->
 
 ---
 role: builder
