@@ -38,16 +38,4 @@ for journal transaction **latency and retries**.
 Report: commit sha(s), the thresholds as built, and a one-shot run of the probe on your host
 showing current per-clone stats.
 
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-23T17:53:04Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-23T17:53:09Z
+<!-- garden-reaped: 0 -->
