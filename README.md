@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:57:17Z_
+_As of 2026-09-23T17:58:49Z_
 
 ## Latest
 
-PR [kriscendobot/garden#109](https://github.com/kriscendobot/garden/pull/109) (TypeSafe muster pilot) completed review and moved to conduct. Four infrastructure builds are underway: [comment-latency](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) and [journal-contention](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) watchers, [Opus 5.5 tier routing](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-opus55-tier.md), and [re-export deprecation policy](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-reexport-deprecation-policy-20260923.md). The maintainer inbox holds 15+ actionable messages: three infrastructure fixes exhausted their retry budgets ([worktree sweeper leader-gating](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-worktree-sweeper-leader-only-misgating-20260919-requeue-exhausted.md), [CI watcher outage-latch hysteresis](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-ci-watcher-outage-latch-flap-dedup-requeue-exhausted.md), [budget-level single-host cap freeze](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted.md)), [PR #1015 needs rebase and re-review](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919-requeue-exhausted.md), and two minion.town blockers await your decisions: [guest peer-fetch daemon exposure](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-peer-fetch-verify-a02887e8f0f8.md) and [landing the refreshed Endo daemon pin](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md). The clipometer campaign halted at a definitive blocker: [minion.town's HTTP endpoint payload limit](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-clipometer-reanchor-followthrough-20260917-2c57182e8954.md) (413 on bundles >100 KB).
+Multiple high-value work streams are blocked on maintainer decisions: [minion.town#87](https://github.com/kriscendobot/minion.town/pull/87) production-gate resume (backend choice + credentials), [minion.town#104](https://github.com/kriscendobot/minion.town/pull/104) pin landing (EndoGuest.accept onto main), guest peer-fetch daemon exposure scope, SIWE tier/allowlist, and ocap.site DNSSEC. Several orchestrated jobs hit handler timeouts or retry exhaustion—[ironhorse-ocap-frozen-objects](https://github.com/endojs/endo-but-for-bots/issues/1300) milestone 3 and [readableblob range attenuation step 2](https://github.com/endojs/endo-but-for-bots/pull/1301) now parked awaiting split or scope—and [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (@endo/claude confinement build) was queued for preliminary review refresh but failed on requeue. Quota at 39% Claude / 65% Codex. No board transitions since last bulletin; deferred reservoir stable at ~200 items.
 
 ## Parked for maintainer feedback
 
@@ -339,6 +339,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > SCOPE for this job — it's cosmetic cleanup the design says can wait "at
 > leisure." Flag it as a natural follow-up in your report; do not do it here.
 
+- `liaison-followup-c220248b2497` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-c220248b2497.md)
+
+> Follow-up from report mentat-opus55-tier-open-questions-20260923: kriscendobot/garden PR #108 ("design: Opus 5.5 tier placement (open questions)") is still OPEN. Its open questions are now resolved on main2, so the designer recommended closing it as an answer-surface PR whose purpose is served, but left the actual close to you. Want me to close PR #108?
+
 - `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -626,7 +630,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.9M | $554.28 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 55.1M | $555.03 _(notional, rate-card)_ | 39% of 143.0M (ok) |
 | Codex | 22.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38031698 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
