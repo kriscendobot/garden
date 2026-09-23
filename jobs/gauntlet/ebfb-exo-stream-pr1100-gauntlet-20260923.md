@@ -9,7 +9,7 @@ iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-stage_retries: 0
+stage_retries: 1
 max_stage_retries: 2
 current_child: ebfb-exo-stream-pr1100-gauntlet-20260923-clean
 state: running

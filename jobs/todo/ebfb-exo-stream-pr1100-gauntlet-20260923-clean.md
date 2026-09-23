@@ -1,26 +1,4 @@
 ---
-gate: go-ahead
-priority: normal
-gauntlet: ebfb-exo-stream-pr1100-gauntlet-20260923
-role: gardener
-tier: mentor
-handler-budget-role: shepherd
-handler-timeout: 7200
-token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-09-23T22:03:22Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-09-23T22:03:22Z
----
-
----
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 7200
@@ -28,9 +6,6 @@ gauntlet: ebfb-exo-stream-pr1100-gauntlet-20260923
 gauntlet_stage: clean
 gauntlet_iteration: 0
 pr: https://github.com/endojs/endo-but-for-bots/pull/1100
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
 
 # Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
