@@ -46,6 +46,12 @@
 #  27. RESUME       — a halt whose blamed child is later observed complete re-posts
 #                   the parked remainder and flips the record to halted-resumed
 #                   (the minion-town-clipometer two-week park).
+#  28. RECOVERED    — a child's FINAL disposition is re-derived from the board: a
+#                   doomed-then-re-promoted child that tadas cleanly leaves the run
+#                   `complete` with its page closed, a clean tada after the run
+#                   finished reconciles the record (current and legacy shapes),
+#                   gated-failure / vanished / still-doomed children keep failing,
+#                   and a builder is timed against its role budget, not 2400s.
 #
 # Usage: orchestrate-test.sh
 
@@ -1153,6 +1159,131 @@ n_res="$(grep -c '^RESUMED ' "$(tada_report re-orch)" 2>/dev/null || echo 0)"
 [ "$n_res" = 1 ] \
   && ok "resume is idempotent (exactly one RESUMED addendum, no duplicate campaign)" \
   || bad "resume not idempotent (RESUMED lines: $n_res)"
+
+# ============================================================================
+hr; echo "SUBTEST 28 — RECOVERED: a transient failure reading is superseded by a clean tada"; hr
+# Incident minion-town-claude-inference-exploration-20260922: a child read failed was
+# latched into the terminal record (complete-with-failures, "failure detected") and
+# paged the maintainer, yet it later delivered a CLEAN tada. The FINAL disposition
+# must be re-derived from the board, and the stale page closed.
+unread_notice() {  # unread_notice <msg-subject> → path of the unread entry under $V
+  board jobs/tada >/dev/null
+  printf '%s\n' "$V/inbox/maintainer/unread/$(printf '%s' "$1" | tr -c 'A-Za-z0-9._-' '-').md"
+}
+
+# (a) LIVE: doomed while a sibling is still running, re-promoted, then tadas cleanly.
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rc-orch rc-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rc-orch rc-b >/dev/null
+"$JOBS/post-orchestration.sh" --parallel --on-child-failure continue rc-orch rc-a rc-b >/dev/null
+tick                                  # promote both
+doom_park_child rc-a
+tick                                  # rc-a reads failed; rc-b still active → page, keep running
+live_ok=1
+in_dir jobs/orch rc-orch || { live_ok=0; echo "    orchestration finished while rc-b still active"; }
+grep -qx 'orchestration-event: orchestration-child-failure' "$(unread_notice rc-orch-child-rc-a-failed)" 2>/dev/null \
+  || { live_ok=0; echo "    doomed rc-a did not page"; }
+"$JOBS/promote-plan.sh" rc-a >/dev/null 2>&1 || true   # a human re-promotes the doomed child
+in_dir jobs/todo rc-a || { live_ok=0; echo "    rc-a was not re-promoted"; }
+tick                                  # rc-a active again
+complete_child rc-a
+tick                                  # rc-a done → the page closes, the latch flips to recovered
+n="$(unread_notice rc-orch-child-rc-a-failed)"
+{ grep -qx 'recovered: true' "$n" && grep -qx 'orchestration-event: orchestration-child-recovered' "$n"; } 2>/dev/null \
+  || { live_ok=0; echo "    rc-a failure page not closed in place"; }
+grep -qx 'child-rc-a-failure-notified: recovered' "$V/jobs/orch/rc-orch.md" 2>/dev/null \
+  || { live_ok=0; echo "    failure latch not flipped to recovered"; }
+complete_child rc-b
+tick                                  # all done → terminal
+r="$(tada_report rc-orch)"
+grep -qx 'orchestration-status: complete' "$r" 2>/dev/null || { live_ok=0; echo "    terminal status: $(grep '^orchestration-status:' "$r" 2>/dev/null)"; }
+grep -qx 'recovered-children: rc-a' "$r" 2>/dev/null || { live_ok=0; echo "    recovered-children not recorded"; }
+grep -qx -- '- rc-a: recovered after transient failure; clean tada report present' "$r" 2>/dev/null \
+  || { live_ok=0; echo "    rc-a disposition not 'recovered after transient failure'"; }
+grep -q 'failure detected' "$r" 2>/dev/null && { live_ok=0; echo "    record still says failure detected"; }
+notice_with_fields 'orchestration-event: orchestration-terminal' 'orchestration: rc-orch' \
+  'orchestration-status: complete' || { live_ok=0; echo "    terminal notice is not complete"; }
+[ "$live_ok" -eq 1 ] \
+  && ok "doomed → re-promoted → clean tada: terminal status complete, page closed, disposition recovered" \
+  || bad "a recovered parallel child was still reported failed"
+
+# (b) AFTER TERMINAL: the run finished complete-with-failures, then the blamed child
+# tadas cleanly (the incident's exact shape) → the record and pages are reconciled.
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rp-orch rp-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rp-orch rp-b >/dev/null
+"$JOBS/post-orchestration.sh" --parallel --on-child-failure continue rp-orch rp-a rp-b >/dev/null
+tick
+doom_park_child rp-a; complete_child rp-b
+tick                                  # both terminal → complete-with-failures (rp-a genuinely doomed now)
+grep -qx 'orchestration-status: complete-with-failures' "$(tada_report rp-orch)" 2>/dev/null \
+  || bad "setup: rp-orch should finish complete-with-failures while rp-a is doomed-and-parked"
+tick                                  # doomed-and-still-parked must NOT be reconciled away
+grep -qx 'orchestration-status: complete-with-failures' "$(tada_report rp-orch)" 2>/dev/null \
+  && ok "a doomed-and-still-parked child keeps the run complete-with-failures" \
+  || bad "reconcile flipped a run whose child is still doomed-and-parked"
+promote_and_complete_externally rp-a
+tick                                  # reconcile: rp-a now clean tada
+post_ok=1
+r="$(tada_report rp-orch)"
+grep -qx 'orchestration-status: complete' "$r" || { post_ok=0; echo "    status not flipped to complete"; }
+grep -qx 'failed-children: ' "$r" || { post_ok=0; echo "    failed-children not cleared"; }
+grep -qx 'recovered-children: rp-a' "$r" || { post_ok=0; echo "    recovered-children not recorded"; }
+grep -q '^- rp-a: recovered after transient failure' "$r" || { post_ok=0; echo "    disposition not rewritten"; }
+grep -q '^RECOVERED ' "$r" || { post_ok=0; echo "    no RECOVERED addendum"; }
+grep -qx 'recovered: true' "$(unread_notice rp-orch-child-rp-a-failed)" || { post_ok=0; echo "    child page not closed"; }
+grep -qx 'recovered: true' "$(unread_notice rp-orch-terminal-complete-with-failures)" || { post_ok=0; echo "    terminal page not closed"; }
+[ "$post_ok" -eq 1 ] \
+  && ok "a clean tada after the run finished reconciles the record to complete and closes both pages" \
+  || bad "post-terminal recovery not reconciled"
+tick
+n_rec="$(grep -c '^RECOVERED ' "$(tada_report rp-orch)" 2>/dev/null || echo 0)"
+[ "$n_rec" = 1 ] && ok "completion reconcile is idempotent" || bad "reconcile not idempotent (RECOVERED lines: $n_rec)"
+
+# (c) LEGACY record shape (no failed-children field; prose disposition lines only).
+wt="$(mktemp -d "$TR/edit.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+printf '%s\n' 'orchestration-status: complete-with-failures' '# orchestration lg-orch — complete' '' \
+  'All 2 children reached a terminal state (parallel).' '2 child(ren) FAILED: lg-a lg-b' '' 'Child dispositions:' \
+  '- lg-a: failure detected' '- lg-b: failure detected' > "$wt/jobs/tada/lg-orch.md"
+printf '# lg-a done\n' > "$wt/jobs/tada/lg-a.md"
+git -C "$wt" add jobs/tada; git -C "$wt" "${git_id[@]}" commit -q -m "legacy fixture"
+git -C "$wt" push -q origin "HEAD:$BRANCH"; rm -rf "$wt"
+tick
+r="$(tada_report lg-orch)"
+{ grep -qx 'orchestration-status: complete-with-failures' "$r" \
+  && grep -qx '1 child(ren) FAILED: lg-b' "$r" \
+  && grep -qx -- '- lg-b: failure detected' "$r" \
+  && grep -q '^- lg-a: recovered after transient failure' "$r"; } \
+  && ok "legacy record: recovered child re-labeled, the vanished one still failed" \
+  || bad "legacy reconcile wrong: $(tr '\n' '|' < "$r")"
+
+# (d) REAL failures still fail: a gated-failure tada and a vanished child.
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rf-orch rf-a >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rf-orch rf-b >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rf-orch rf-c >/dev/null
+"$JOBS/post-orchestration.sh" --parallel --on-child-failure continue rf-orch rf-a rf-b rf-c >/dev/null
+tick
+complete_failed_child rf-a; fail_child rf-b; complete_child rf-c
+tick; tick
+r="$(tada_report rf-orch)"
+{ grep -qx 'orchestration-status: complete-with-failures' "$r" \
+  && grep -qx -- '- rf-a: failure detected' "$r" \
+  && grep -qx -- '- rf-b: failure detected' "$r" \
+  && grep -qx 'recovered-children: ' "$r"; } \
+  && ok "orchestration-failed: true and a vanished child both still fail (no false recovery)" \
+  || bad "real failures were weakened: $(tr '\n' '|' < "$r")"
+
+# (e) The in-flight wall is the role budget the gardener enforces, not the 2400s
+# fleet default: a builder claimed 42 minutes ago (the incident) is still active.
+bb="$TR/builder-body.md"; printf '%s\n' '---' 'role: builder' '---' '# long build' > "$bb"
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rb-orch rb-a "$bb" >/dev/null
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by rb-orch rb-b >/dev/null
+"$JOBS/post-orchestration.sh" --parallel --on-child-failure continue rb-orch rb-a rb-b >/dev/null
+tick
+claim_child rb-a "$(date -u -d '2520 seconds ago' +%FT%TZ)"
+complete_child rb-b
+tick
+{ in_dir jobs/orch rb-orch && ! in_dir jobs/tada rb-orch && ! grep -q 'stalled in flight' "$TR/tick.log"; } \
+  && ok "a builder 2520s into its 7200s role budget is not declared stalled" \
+  || bad "live builder misread as stalled against the fleet default (tada=$(board jobs/tada))"
 
 # ============================================================================
 hr

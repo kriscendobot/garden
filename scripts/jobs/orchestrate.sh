@@ -49,6 +49,12 @@
 #                 rather than a silent stall (or, for a doomed child, rather than an
 #                 endless re-promote loop).
 #
+# A failed reading is never final on its own: a child's FINAL disposition is
+# re-derived from the board. One that later reaches a clean tada (no gated-failure
+# declaration) is `recovered after transient failure`; its open failure page is
+# closed in place, and a run whose every child ended done is `complete`. This holds
+# at terminal time (complete_done) and after it (reconcile_recovered_completions).
+#
 # On completion the watcher writes tada/<base> (a progress/outcome summary) and
 # removes the orch record, so the orchestration shows as done on the board and is
 # no longer scanned. A child FAILURE always surfaces to the maintainer inbox.
@@ -232,11 +238,13 @@ set_orch_field() {  # <base> <field> <value>; CAS-retried, leading frontmatter o
 child_reap_count() { reap_count "$1"; }
 child_claim_host() { sed -n 's/^  host:[[:space:]]*//p' "$1" | tail -1; }
 child_claimed_at() { sed -n 's/^  claimed_at:[[:space:]]*//p' "$1" | tail -1; }
-child_handler_timeout() {
-  local n
-  n="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$1" | head -1 | tr -dc '0-9')"
-  printf '%s\n' "${n:-$GARDEN_HANDLER_TIMEOUT}"
-}
+# The in-flight wall is the SAME budget the gardener enforces and the reaper honors
+# (applied_handler_budget: per-role base + a valid `handler-timeout:` header, clamped
+# to one claim). Reading only the header and falling back to the 2400s fleet default
+# declared a live builder (7200s role base) "stalled in flight" at 2520s — the
+# minion-town-claude-inference-exploration-20260922 false failure, whose child went
+# on to tada cleanly 30 minutes after the orchestration finished blaming it.
+child_handler_timeout() { applied_handler_budget "$1"; }
 
 set_orch_reap_baseline() {  # <orch-base> <child>; record the child's current reap count as the floor
   # Called immediately after promotion (child is in todo) AND when a progressing child
@@ -535,6 +543,81 @@ notify_child_failure() {  # <base> <order> <policy> <child> <detail>
   set_orch_field "$base" "child-$child-failure-notified" true || true
 }
 
+# close_orch_notice — CLOSE an open orchestration notice in place when the condition
+# it paged about turned out to be transient (the watchdog-notice.sh --recovered
+# pattern). The notice is keyed by its subject exactly as orch_notify files it
+# (inbox-send.sh's GARDEN_MSG_ID sanitization), so amend-or-skip is a file test:
+# still UNREAD → rewrite it as a recovered entry (header kept, `recovered: true`
+# stamped, body replaced) so the maintainer reads one closed entry, not a stale
+# page; already ARCHIVED (or never posted) → stay quiet, there is no page left to
+# correct. Deliberately NOT routed through inbox-send's coalescing path: its
+# one-hour per-key throttle would silently swallow a recovery that follows the
+# failure within the hour. Idempotent (a recovered entry is left alone).
+close_orch_notice() {  # <subject>; replacement body on stdin
+  local subject="$1" id rel body hdr attempt rc
+  id="$(printf '%s' "$subject" | tr -c 'A-Za-z0-9._-' '-')"
+  rel="inbox/maintainer/unread/$id.md"
+  body="$(cat)"
+  for attempt in $(seq 1 20); do
+    sync_clone "$DIR"
+    [ -f "$DIR/$rel" ] || return 0
+    grep -qx 'recovered: true' "$DIR/$rel" && return 0
+    grep -qx -- '---' "$DIR/$rel" || return 0   # not an envelope we wrote; never mangle it
+    hdr="$(sed '/^---$/q' "$DIR/$rel" | sed '$d' | sed '/^last_seen:/d')"
+    {
+      printf '%s\n' "$hdr"
+      printf 'last_seen: %s\nrecovered: true\n---\n' "$(date -u +%FT%TZ)"
+      printf '%s\n' "$body"
+    } > "$DIR/$rel"
+    git -C "$DIR" add "$rel"
+    rc=0; commit_and_push "$DIR" "orch notice $id closed (recovered) by $GARDEN" || rc=$?
+    { [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; } && return 0
+    backoff "$attempt"
+  done
+  log "orchestration notice '$id': recovery close failed (non-fatal)"
+}
+
+child_recovery_body() {  # <base> <child> <orchestration-status> <sentence>
+  printf 'orchestration-event: orchestration-child-recovered\n'
+  printf 'orchestration: %s\n' "$1"
+  printf 'orchestration-status: %s\n' "$3"
+  printf 'child: %s\n' "$2"
+  printf 'recovered: true\n\n'
+  printf 'RECOVERED — %s\n' "$4"
+}
+
+# child_clean_tada_now <child> — one FRESH read (re-sync, single snapshot): 0 iff the
+# child sits in jobs/tada WITHOUT a gated-failure declaration. The board is the
+# authority for a child's FINAL disposition; an earlier failure reading (a doom
+# park later re-promoted by hand, an inferred stall, a reaper requeue) is superseded
+# by a clean completion record. Unlike child_completed_on_resync it does not sleep:
+# it is the terminal-time re-derivation, not a race guard.
+child_clean_tada_now() {  # <child>
+  local c="$1" view loc snapshot jf rc
+  sync_clone "$DIR" >/dev/null 2>&1 || true
+  view="$(child_board_view_once "$c")"; read -r loc snapshot <<<"$view"
+  [ "$loc" = tada ] || return 1
+  jf="$(mktemp "${TMPDIR:-/tmp}/orch-final.XXXXXX")"
+  if ! child_snapshot_file "$snapshot" tada "$c" "$jf"; then rm -f "$jf"; return 1; fi
+  rc=1; tada_failed "$jf" || rc=0
+  rm -f "$jf"
+  return "$rc"
+}
+
+# note_child_recovered — a child whose failure this orchestration already PAGED
+# about now reads done. Close the page and latch `recovered` in place of `true`, so
+# the terminal record can say "recovered after transient failure" and a genuine
+# later re-failure would page afresh.
+note_child_recovered() {  # <base> <child>
+  local base="$1" c="$2" record="$DIR/$JOBS_ORCH/$1.md"
+  [ "$(plan_field "$record" "child-$c-failure-notified")" = true ] || return 0
+  child_recovery_body "$base" "$c" running \
+    "orchestration $base had reported child $c as failed; it has since reached a clean tada (no gated-failure declaration). The earlier failure reading was transient and is superseded." \
+    | close_orch_notice "$base-child-$c-failed"
+  set_orch_field "$base" "child-$c-failure-notified" recovered || true
+  log "orchestration '$base': child '$c' recovered after a transient failure reading"
+}
+
 # --- budgeted-campaign reporting and terminal transitions ------------------
 campaign_spend() {  # <base> — one JSON object, from this tick's synced checkout
   "$HERE/campaign-spend.sh" --dir "$DIR" "$1"
@@ -655,6 +738,7 @@ advance_serial() {  # <base> <policy> <child>...
     case "$st" in
       done)
         done_count=$((done_count+1))
+        note_child_recovered "$base" "$c"
         predecessor_requirements+=(--require-tada "$c")
         continue;;
       active|progressing)
@@ -812,7 +896,7 @@ advance_parallel() {  # <base> <policy> <child>...
   for c in "${kids[@]}"; do
     st="$(child_state "$c" "$DIR/$JOBS_ORCH/$base.md")"
     case "$st" in
-      done)   done_count=$((done_count+1));;
+      done)   done_count=$((done_count+1)); note_child_recovered "$base" "$c";;
       failed)
         failed+=("$c")
         notify_child_failure "$base" parallel "$policy" "$c" \
@@ -835,8 +919,27 @@ advance_parallel() {  # <base> <policy> <child>...
 complete_done() {  # <base> <total> <order> [<failed-child>...]
   local base="$1" total="$2" order="$3"; shift 3
   local failed=("$@") sf budget snapshot reason_file c f disposition
-  local completion_kids=()
+  local completion_kids=() still_failed=() recovered=()
+  # FINAL disposition is re-derived from the board, not inherited from this tick's
+  # tally: a failed reading whose child now has a clean tada (no gated-failure
+  # declaration) is superseded — it recovered after a transient failure. Genuine
+  # failures (vanished, `orchestration-failed: true`, doomed-and-still-parked, a
+  # stall with no completion record) have no clean tada and stay failed.
+  for f in "${failed[@]}"; do
+    if child_clean_tada_now "$f"; then
+      note_child_recovered "$base" "$f"
+      recovered+=("$f")
+    else
+      still_failed+=("$f")
+    fi
+  done
+  failed=("${still_failed[@]}")
   read -ra completion_kids <<<"$(orch_children "$DIR/$JOBS_ORCH/$base.md")"
+  # Children recovered on EARLIER ticks carry the latched `recovered` marker.
+  for c in "${completion_kids[@]}"; do
+    [ "$(plan_field "$DIR/$JOBS_ORCH/$base.md" "child-$c-failure-notified")" = recovered ] || continue
+    case " ${recovered[*]} " in *" $c "*) ;; *) recovered+=("$c") ;; esac
+  done
   budget="$(orch_budget_tokens "$DIR/$JOBS_ORCH/$base.md")"
   if orch_has_budget "$DIR/$JOBS_ORCH/$base.md"; then
     reason_file="$(mktemp "${TMPDIR:-/tmp}/orch-budget-reason.XXXXXX")"
@@ -852,6 +955,8 @@ complete_done() {  # <base> <total> <order> [<failed-child>...]
   {
     if [ "${#failed[@]}" -gt 0 ]; then printf 'orchestration-status: complete-with-failures\n'
     else printf 'orchestration-status: complete\n'; fi
+    printf 'failed-children: %s\n' "${failed[*]}"
+    printf 'recovered-children: %s\n' "${recovered[*]}"
     printf '# orchestration %s — complete\n\n' "$base"
     printf 'All %d children reached a terminal state (%s).\n' "$total" "$order"
     if [ "${#failed[@]}" -gt 0 ]; then
@@ -860,6 +965,9 @@ complete_done() {  # <base> <total> <order> [<failed-child>...]
     printf '\nChild dispositions:\n'
     for c in "${completion_kids[@]}"; do
       disposition='tada report present; no machine-readable failure declaration detected'
+      for f in "${recovered[@]}"; do
+        [ "$c" = "$f" ] && disposition='recovered after transient failure; clean tada report present'
+      done
       for f in "${failed[@]}"; do
         [ "$c" = "$f" ] && disposition='failure detected'
       done
@@ -885,6 +993,7 @@ complete_done() {  # <base> <total> <order> [<failed-child>...]
     printf 'children-total: %s\n' "$total"
     printf 'children-failed: %s\n' "${#failed[@]}"
     printf 'failed-children: %s\n' "${failed[*]}"
+    printf 'recovered-children: %s\n' "${recovered[*]}"
     [ -z "$budget" ] || print_campaign_quantities "$snapshot"
     printf '\n'
     if [ "${#failed[@]}" -gt 0 ]; then
@@ -893,6 +1002,9 @@ complete_done() {  # <base> <total> <order> [<failed-child>...]
     else
       printf 'Orchestration %s complete (%s): all %d children reached tada without a machine-readable failure declaration.\n' \
         "$base" "$order" "$total"
+    fi
+    if [ "${#recovered[@]}" -gt 0 ]; then
+      printf 'Recovered after a transient failure reading (superseded by a clean tada): %s\n' "${recovered[*]}"
     fi
     if [ -n "$budget" ]; then
       printf 'Campaign budget: %s tokens; %s recorded tokens spent; %s token(s) remain unused.\n' \
@@ -1057,6 +1169,106 @@ supersede_stale_halts() {
   done
 }
 
+# --- reconcile a finished run whose blamed child later completed -------------
+# A finished `complete-with-failures` record is only as current as the tick that
+# wrote it. A child blamed there can still land a CLEAN tada afterwards (incident
+# minion-town-claude-inference-exploration-20260922: its builder was misread as
+# stalled at 2520s against a 2400s wall, the run finished blaming it at 01:43, and
+# it delivered minion.town#106 cleanly at 02:13 — the record and the maintainer
+# page both kept reporting a success as a failure). This pass re-derives each
+# blamed child from the board: one now in tada WITHOUT a gated-failure declaration
+# is re-labeled "recovered after transient failure", its still-open failure page is
+# closed, and when no failure remains the record flips to `complete` (closing the
+# open terminal page too). Real failures — vanished, `orchestration-failed: true`,
+# doomed-and-still-parked — have no clean tada and are left standing. Idempotent: a
+# recovered child's disposition line no longer reads "failure detected".
+record_failed_children() {  # <tada-record> → blamed children, current or legacy shape
+  if grep -q '^failed-children:' "$1"; then
+    plan_field "$1" failed-children | tr ' ' '\n' | sed '/^$/d'
+  else
+    sed -n 's/^- \([A-Za-z0-9._-]*\): failure detected$/\1/p' "$1"
+  fi
+}
+
+reconcile_recovered_completions() {
+  local rec base attempt path child ts rc landed prior
+  local recovered remaining
+  local _recs; _recs="$(tada_list "$DIR" | sed "s#^#$DIR/#")"
+  for rec in $_recs; do
+    [ -f "$rec" ] || continue
+    [ "$(plan_field "$rec" orchestration-status)" = complete-with-failures ] || continue
+    base="$(basename "$rec" .md)"
+    landed=0
+    for attempt in $(seq 1 20); do
+      sync_clone "$DIR"
+      path="$(tada_find_tree "$DIR" HEAD "$base" 2>/dev/null || true)"
+      [ -n "$path" ] || break
+      [ "$(plan_field "$DIR/$path" orchestration-status)" = complete-with-failures ] || break
+      recovered=(); remaining=()
+      for child in $(record_failed_children "$DIR/$path"); do
+        if child_clean_tada_now "$child"; then recovered+=("$child"); else remaining+=("$child"); fi
+      done
+      [ "${#recovered[@]}" -gt 0 ] || break
+      # child_clean_tada_now re-synced; re-resolve the record path on that checkout.
+      path="$(tada_find_tree "$DIR" HEAD "$base" 2>/dev/null || true)"
+      [ -n "$path" ] || break
+      ts="$(date -u +%FT%TZ)"
+      for child in "${recovered[@]}"; do
+        sed -i "s|^- ${child}: failure detected\$|- ${child}: recovered after transient failure; clean tada report landed after the orchestration finished|" "$DIR/$path"
+      done
+      if grep -q '^failed-children:' "$DIR/$path"; then
+        sed -i "0,/^failed-children:.*/s||failed-children: ${remaining[*]}|" "$DIR/$path"
+      fi
+      prior="$(plan_field "$DIR/$path" recovered-children)"
+      if grep -q '^recovered-children:' "$DIR/$path"; then
+        sed -i "0,/^recovered-children:.*/s||recovered-children: ${prior:+$prior }${recovered[*]}|" "$DIR/$path"
+      else
+        sed -i "0,/^orchestration-status:.*/s||&\nrecovered-children: ${recovered[*]}|" "$DIR/$path"
+      fi
+      if [ "${#remaining[@]}" -gt 0 ]; then
+        sed -i "s|^[0-9]* child(ren) FAILED: .*|${#remaining[@]} child(ren) FAILED: ${remaining[*]}|" "$DIR/$path"
+      else
+        sed -i '/^[0-9]* child(ren) FAILED: /d' "$DIR/$path"
+        sed -i '0,/^orchestration-status: complete-with-failures$/s//orchestration-status: complete/' "$DIR/$path"
+      fi
+      {
+        printf '\n---\n\n'
+        printf 'RECOVERED %s: %d child(ren) reported FAILED above have since reached a\n' "$ts" "${#recovered[@]}"
+        printf 'clean tada (no gated-failure declaration); the failure reading was transient\n'
+        printf 'and is superseded:\n\n'
+        printf -- '- %s\n' "${recovered[@]}"
+        if [ "${#remaining[@]}" -gt 0 ]; then
+          printf '\nStill failed: %s\n' "${remaining[*]}"
+        else
+          printf '\nEvery child ended done; the orchestration status is now complete.\n'
+        fi
+      } >> "$DIR/$path"
+      git -C "$DIR" add "$path"
+      rc=0; commit_and_push "$DIR" "orch($base) completion reconciled — ${#recovered[@]} blamed child(ren) recovered by $GARDEN" || rc=$?
+      if [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; then landed=1; break; fi
+      backoff "$attempt"
+    done
+    [ "$landed" -eq 1 ] || continue
+    log "orchestration '$base': completion reconciled — recovered: ${recovered[*]}; still failed: ${remaining[*]:-none}"
+    for child in "${recovered[@]}"; do
+      child_recovery_body "$base" "$child" \
+        "$([ "${#remaining[@]}" -gt 0 ] && echo complete-with-failures || echo complete)" \
+        "orchestration $base finished reporting child $child as failed; it has since reached a clean tada (no gated-failure declaration). The completion record now reads 'recovered after transient failure'." \
+        | close_orch_notice "$base-child-$child-failed"
+    done
+    if [ "${#remaining[@]}" -eq 0 ]; then
+      {
+        printf 'orchestration-event: orchestration-terminal\n'
+        printf 'orchestration: %s\n' "$base"
+        printf 'orchestration-status: complete\n'
+        printf 'recovered-children: %s\n' "${recovered[*]}"
+        printf 'recovered: true\n\n'
+        printf 'RECOVERED — orchestration %s was reported complete WITH FAILURES, but every blamed child has since reached a clean tada. Final status: complete.\n' "$base"
+      } | close_orch_notice "$base-terminal-complete-with-failures"
+    fi
+  done
+}
+
 # --- the tick ---------------------------------------------------------------
 for j in $(list_jobs "$DIR" "$JOBS_ORCH"); do
   case "$j" in *.md) ;; *) continue;; esac
@@ -1086,5 +1298,6 @@ done
 # continues rather than merely having its narrative annotated.
 resume_recovered_halts
 supersede_stale_halts
+reconcile_recovered_completions
 
 exit 0
