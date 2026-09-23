@@ -56,6 +56,8 @@ export GARDEN_TEST=1
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"   # sourced BEFORE the exec-base probe: it defines the
                            # GARDEN_SCRATCH fallback the probe needs after the scrub
+# shellcheck source=test-fixture-helpers.sh
+source "$HERE/test-fixture-helpers.sh"
 
 # The fixtures below are probed with `[ -x ]`, which honors a mount's noexec flag —
 # and the sandbox mounts /tmp noexec, so a fixture there would read as "present but
@@ -83,13 +85,14 @@ git_id=(-c user.name=test -c user.email=test@localhost)
 # seed_board <dir> <base> — throwaway origin + board holding ONE todo job.
 # Prints the bare repo path.
 seed_board() {
-  local tr="$1" base="$2" bare="$1/journal.git" seed="$1/seed" branch=journal2 d
+  local tr="$1" base="$2" host="${3:-healthhost}" bare="$1/journal.git" seed="$1/seed" branch=journal2 d
   git init -q --bare "$bare"
   git init -q "$seed"; git -C "$seed" checkout -q -b "$branch"
   ( cd "$seed"
     mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
     for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
     printf '# %s\n\ndo the work for %s\n' "$base" "$base" > "jobs/todo/$base.md" )
+  seed_calibrated_test_pool "$seed" "$host" gardener
   git -C "$seed" add -A
   git -C "$seed" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
   git -C "$seed" remote add origin "$bare"
@@ -207,7 +210,7 @@ sim() { # sim <name> <handler|DEFAULT>
   local name="$1" handler="$2" bare base=simjob
   local dir="$TR/$name"
   mkdir -p "$dir"
-  bare="$(seed_board "$dir" "$base")"
+  bare="$(seed_board "$dir" "$base" "simhost-$name")"
   local -a envv=(
     GARDEN="simhost-$name" GARDEN_STATE="$dir/gstate"
     JOURNAL_REMOTE="$bare" JOURNAL_BRANCH=journal2 GARDEN_TEST=1
@@ -238,7 +241,7 @@ for case_ in "stub|$TATTLE" "default|DEFAULT"; do
   cname="${case_%%|*}"; chandler="${case_##*|}"
   IFS='|' read -r dir bare base <<< "$(sim "$cname" "$chandler")"
   V="$dir/verify"; verify_clone "$bare" "$V"
-  if [ -f "$V/jobs/todo/$base.md" ] && [ ! -f "$V/jobs/doin/$base.md" ] && [ ! -f "$V/jobs/tada/$base.md" ]; then
+  if [ -f "$V/jobs/todo/$base.md" ] && [ ! -f "$V/jobs/doin/$base.md" ] && ! fixture_has_tada "$V" "$base"; then
     ok "[$cname] the board is UNTOUCHED — job still in todo/, no doin/ entry, no tada/ entry"
   else
     bad "[$cname] the board MOVED (todo=$([ -f "$V/jobs/todo/$base.md" ] && echo y || echo n) doin=$([ -f "$V/jobs/doin/$base.md" ] && echo y || echo n) tada=$([ -f "$V/jobs/tada/$base.md" ] && echo y || echo n))"
@@ -261,7 +264,7 @@ done
 hr; echo "SUBTEST 4 — a parked worker STAYS parked, then un-parks BY ITSELF"; hr
 
 D="$TR/heal"; mkdir -p "$D"
-BARE="$(seed_board "$D" healjob)"
+BARE="$(seed_board "$D" healjob healhost)"
 LATE="$D/late/claude"          # created MID-RUN: the `npm install -g` window closing
 
 set -m
@@ -299,7 +302,7 @@ mkdir -p "$(dirname "$LATE")"; printf '#!/bin/sh\nexit 0\n' > "$LATE"; chmod +x 
 claimed=0
 for _ in $(seq 1 40); do
   verify_clone "$BARE" "$D/v2"
-  [ -f "$D/v2/jobs/tada/healjob.md" ] && { claimed=1; break; }
+  fixture_has_tada "$D/v2" healjob && { claimed=1; break; }
   sleep 1
 done
 kill -TERM "$GPID" 2>/dev/null || true
@@ -329,7 +332,7 @@ fi
 hr; echo "SUBTEST 5 — UNCHANGED: a host whose CLI resolves claims exactly as before"; hr
 
 D5="$TR/healthy"; mkdir -p "$D5"
-BARE5="$(seed_board "$D5" okjob)"
+BARE5="$(seed_board "$D5" okjob okhost)"
 mkdir -p "$D5/bin"; printf '#!/bin/sh\nexit 0\n' > "$D5/bin/claude"; chmod +x "$D5/bin/claude"
 env GARDEN=okhost GARDEN_STATE="$D5/gstate" \
     JOURNAL_REMOTE="$BARE5" JOURNAL_BRANCH=journal2 GARDEN_TEST=1 \
@@ -339,7 +342,7 @@ env GARDEN=okhost GARDEN_STATE="$D5/gstate" \
     "$JOBS/gardener.sh" 1 > "$D5/g.log" 2>&1 || true
 
 V5="$D5/verify"; verify_clone "$BARE5" "$V5"
-if [ -f "$V5/jobs/tada/okjob.md" ]; then
+if fixture_has_tada "$V5" okjob; then
   ok "the job was claimed and completed to tada/ — the gate is a no-op when healthy"
 else
   bad "the healthy worker did not complete the job: $(tail -4 "$D5/g.log" | tr '\n' ' ')"

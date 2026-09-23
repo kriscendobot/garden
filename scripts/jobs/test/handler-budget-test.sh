@@ -53,6 +53,8 @@ BRANCH=journal2
 #   ALERT — a GARDEN_ALERT_CMD recorder: appends key+msg to $GARDEN_ALERT_RECORD.
 STUB="$HERE/budget-sleep-complete-handler-stub.sh"
 ALERT="$HERE/budget-alert-record-stub.sh"
+# shellcheck source=test-fixture-helpers.sh
+source "$HERE/test-fixture-helpers.sh"
 
 # seed_board <workdir> <jobname> <body> — a throwaway origin with the board
 # structure and one todo job carrying <body>.
@@ -77,6 +79,9 @@ seed_board() {
     else
       { printf -- '---\ntier: mentor\ndispatch: automatic\n---\n'; printf '%s' "$body"; } > "jobs/todo/$job.md"
     fi )
+  for host in honorhost bighost zerohost overrunhost; do
+    seed_calibrated_test_pool "$seed" "$host" gardener
+  done
   git -C "$seed" add -A
   git -C "$seed" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
   git -C "$seed" remote add origin "$bare"
@@ -101,7 +106,7 @@ else
   bad "no 'honoring' log line. log: $(grep -i 'handler-timeout\|budget\|working' "$D1/gardener.log" | tail -3)"
 fi
 V1="$D1/verify"; git clone -q --single-branch --branch "$BRANCH" "$BARE1" "$V1" 2>/dev/null
-if [ -f "$V1/jobs/tada/honorjob.md" ] && [ ! -f "$V1/jobs/doin/honorjob.md" ]; then
+if fixture_has_tada "$V1" honorjob && [ ! -f "$V1/jobs/doin/honorjob.md" ]; then
   ok "job completed to tada (the 5s budget outlived the 3s handler; the 1s default would have killed it)"
 else
   bad "job not completed to tada (doin=$([ -f "$V1/jobs/doin/honorjob.md" ] && echo y || echo n) tada=$([ -f "$V1/jobs/tada/honorjob.md" ] && echo y || echo n)) — declared budget may not have been used"
@@ -155,7 +160,7 @@ else
   ok "no maintainer escalation for an ignored header"
 fi
 V3="$D3/verify"; git clone -q --single-branch --branch "$BRANCH" "$BARE3" "$V3" 2>/dev/null
-if [ -f "$V3/jobs/tada/zerojob.md" ]; then
+if fixture_has_tada "$V3" zerojob; then
   ok "job completed normally under the default budget"
 else
   bad "job did not complete under the default budget"

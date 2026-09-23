@@ -22,6 +22,8 @@ mkdir -p "$ROOT/scratch"
 TR="$(mktemp -d "$ROOT/scratch/garden-mystic-kimi.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 BIN="$TR/bin"; mkdir -p "$BIN"
+# shellcheck source=test-fixture-helpers.sh
+source "$HERE/test-fixture-helpers.sh"
 
 cat > "$BIN/kimi" <<'EOF'
 #!/bin/bash
@@ -194,8 +196,9 @@ git init -q "$SPINE/seed"; git -C "$SPINE/seed" checkout -q -b journal2
   cd "$SPINE/seed"
   mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
   for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
-  printf '%s\n' '---' 'model: kimi-k3' 'role: gardener' '---' 'complete the offline Mystic spine canary' > jobs/todo/mystic-spine.md
+  printf '%s\n' '---' 'model: kimi-k3' 'role: fixer' '---' 'complete the offline Mystic spine canary' > jobs/todo/mystic-spine.md
 )
+seed_calibrated_test_pool "$SPINE/seed" mystic-test mystic
 git -C "$SPINE/seed" add -A
 git -C "$SPINE/seed" -c user.name=test -c user.email=test@localhost commit -q -m seed
 git -C "$SPINE/seed" remote add origin "$SPINE/journal.git"
@@ -213,7 +216,9 @@ spine_rc=$?
 set -e
 [ "$spine_rc" -eq 0 ] && ok "real gardener Mystic call path exited cleanly" || bad "real gardener Mystic call path exited rc=$spine_rc ($(tail -3 "$SPINE/gardener.log"))"
 git clone -q --single-branch --branch journal2 "$SPINE/journal.git" "$SPINE/verify"
-[ -f "$SPINE/verify/jobs/tada/mystic-spine.md" ] && ok "real gardener completed the Mystic canary to tada" || bad "real gardener did not complete Mystic canary (see $SPINE/gardener.log)"
+SPINE_TADA="$(fixture_tada_file "$SPINE/verify" mystic-spine || true)"
+[ -n "$SPINE_TADA" ] && ok "real gardener completed the Mystic canary to tada" \
+  || bad "real gardener did not complete Mystic canary ($(tail -4 "$SPINE/gardener.log" | tr '\n' ' '))"
 # The moonshot/kimi lane's cost-ledger capture: the completed engagement must carry
 # a REAL token row measured from the kimi wire log, not a censored/tokenless one.
 krow="$SPINE/verify/usage/mystic-spine.jsonl"
@@ -228,7 +233,7 @@ if [ -s "$krow" ] && jq -e '.total_cost_usd == null' "$krow" >/dev/null 2>&1; th
 else
   bad "kimi lane row fabricated a dollar figure: $(cat "$krow" 2>/dev/null)"
 fi
-grep -q 'Output: 34 tokens' "$SPINE/verify/jobs/tada/mystic-spine.md" \
+grep -q 'Output: 34 tokens' "$SPINE_TADA" \
   && ok "kimi lane tokens reach the tada ## Cost footer" \
   || bad "kimi tokens absent from tada footer"
 if grep -q 'reap_process_group: command not found' "$SPINE/gardener.log"; then

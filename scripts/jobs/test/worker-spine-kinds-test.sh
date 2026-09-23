@@ -37,12 +37,14 @@ unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' |
 export GARDEN_TEST=1
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
+# shellcheck source=test-fixture-helpers.sh
+source "$HERE/test-fixture-helpers.sh"
 
 STUB="$HERE/stub-handler.sh"
 
 # seed_board <dir> <base> [frontmatter] — throwaway origin + board with one todo job.
 seed_board() {
-  local tr="$1" base="$2" front="${3:-}" bare="$1/journal.git" seed="$1/seed" branch=journal2
+  local tr="$1" base="$2" front="${3:-}" kind="${4:-gardener}" host="${5:-ehost}" bare="$1/journal.git" seed="$1/seed" branch=journal2
   local -a git_id=(-c user.name=test -c user.email=test@localhost)
   git init -q --bare "$bare"
   git init -q "$seed"; git -C "$seed" checkout -q -b "$branch"
@@ -50,6 +52,7 @@ seed_board() {
     mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
     for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
     { [ -n "$front" ] && printf -- '---\n%s\n---\n' "$front"; printf '# %s\n\ndo the work for %s\n' "$base" "$base"; } > "jobs/todo/$base.md" )
+  seed_calibrated_test_pool "$seed" "$host" "$kind"
   git -C "$seed" add -A
   git -C "$seed" "${git_id[@]}" commit -q -m "seed"
   git -C "$seed" remote add origin "$bare"
@@ -337,7 +340,7 @@ hr; echo "ONE SPINE — the SAME gardener.sh completes a job as gardener AND as 
 run_kind() {  # run_kind <kind> <base> <host> [frontmatter] [promos-ledger-file]
   local kind="$1" base="$2" host="$3" front="${4:-}" ledger="${5:-}" tr bare
   tr="$(mktemp -d "${TMPDIR:-/tmp}/garden-spine-$kind.XXXXXX")"
-  bare="$(seed_board "$tr" "$base" "$front")"
+  bare="$(seed_board "$tr" "$base" "$front" "$kind" "$host")"
   env GARDEN="$host" GARDEN_STATE="$tr/state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH=journal2 \
       GARDEN_WORKER_KIND="$kind" GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
       GARDEN_JOB_HANDLER="$STUB" \
@@ -345,7 +348,7 @@ run_kind() {  # run_kind <kind> <base> <host> [frontmatter] [promos-ledger-file]
       "$JOBS/gardener.sh" 1 > "$tr/worker.log" 2>&1 || true
   local v="$tr/verify"; git clone -q --single-branch --branch journal2 "$bare" "$v" 2>/dev/null
   # completed doin→tada
-  if [ -f "$v/jobs/tada/$base.md" ] && [ ! -e "$v/jobs/doin/$base.md" ]; then
+  if fixture_has_tada "$v" "$base" && [ ! -e "$v/jobs/doin/$base.md" ]; then
     ok "$kind: claimed + completed '$base' doin→tada (shared spine)"
   else
     bad "$kind: '$base' not completed (tada=$([ -f "$v/jobs/tada/$base.md" ] && echo y || echo n) doin=$([ -e "$v/jobs/doin/$base.md" ] && echo y || echo n))"
@@ -389,7 +392,7 @@ hr; echo "ELIGIBILITY — §1.3 backend-fit filter keeps a kind off a foreign-pi
 elig_case() {  # elig_case <kind> <base> <front> <expect: claimed|left> [promos-ledger-file]
   local kind="$1" base="$2" front="$3" expect="$4" ledger="${5:-}" tr bare
   tr="$(mktemp -d "${TMPDIR:-/tmp}/garden-elig.XXXXXX")"
-  bare="$(seed_board "$tr" "$base" "$front")"
+  bare="$(seed_board "$tr" "$base" "$front" "$kind" ehost)"
   # An optional promos ledger fixture (5th arg) lets a promo-lane case exercise a
   # fresh/stale cloaked id without a live journal; GARDEN_OPENROUTER_PROMOS_FILE wins
   # over any clone lookup in _openrouter_promos_file.
@@ -399,7 +402,7 @@ elig_case() {  # elig_case <kind> <base> <front> <expect: claimed|left> [promos-
       ${ledger:+GARDEN_OPENROUTER_PROMOS_FILE="$ledger"} \
       "$JOBS/gardener.sh" 1 > "$tr/worker.log" 2>&1 || true
   local v="$tr/verify"; git clone -q --single-branch --branch journal2 "$bare" "$v" 2>/dev/null
-  local claimed=no; { [ -f "$v/jobs/tada/$base.md" ] || [ -e "$v/jobs/doin/$base.md" ]; } && claimed=yes
+  local claimed=no; { fixture_has_tada "$v" "$base" || [ -e "$v/jobs/doin/$base.md" ]; } && claimed=yes
   if [ "$expect" = claimed ] && [ "$claimed" = yes ]; then
     ok "$kind claimed '$base' ($front) as expected"
   elif [ "$expect" = left ] && [ "$claimed" = no ] && [ -f "$v/jobs/todo/$base.md" ]; then

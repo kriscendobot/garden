@@ -44,6 +44,8 @@ unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_)' || tru
 rm -rf "$TR"; mkdir -p "$TR"
 BARE="$TR/journal.git"
 git_id=(-c user.name=test -c user.email=test@localhost)
+# shellcheck source=test-fixture-helpers.sh
+source "$HERE/test-fixture-helpers.sh"
 
 # --- seed the shared origin -------------------------------------------------
 git init -q --bare "$BARE"
@@ -54,6 +56,7 @@ git -C "$SEED" checkout -q -b "$BRANCH"
            inbox/maintainer/unread inbox/maintainer/read
   for d in jobs/todo jobs/doin jobs/tada jobs/plan jobs/gauntlet jobs/index work \
            inbox/maintainer/unread inbox/maintainer/read; do touch "$d/.gitkeep"; done )
+seed_calibrated_test_pool "$SEED" testhost gardener
 git -C "$SEED" add -A
 git -C "$SEED" "${git_id[@]}" commit -q -m "seed: board + gauntlet structure"
 git -C "$SEED" remote add origin "$BARE"
@@ -80,15 +83,20 @@ export GARDEN_SHEPHERD_HANDLER_TIMEOUT=7200
 V="$TR/verify"
 board() {  # board <subdir> → basenames present (no .gitkeep, no .md suffix)
   rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
-  # shellcheck disable=SC2010  # test-only convenience over a controlled dir
-  ls -1 "$V/$1" 2>/dev/null | grep -v -x '.gitkeep' | sed 's/\.md$//' | sort | tr '\n' ' '
+  find "$V/$1" -type f ! -name .gitkeep -printf '%f\n' 2>/dev/null \
+    | sed 's/\.md$//' | sort | tr '\n' ' '
 }
 in_dir() { board "$1" | tr ' ' '\n' | grep -qx "$2"; }   # in_dir <subdir> <base>
 record_field() {  # record_field <g> <key>
   rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
   sed -n "s/^$2:[[:space:]]*//p" "$V/jobs/gauntlet/$1.md" 2>/dev/null | head -1
 }
-tada_body() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; cat "$V/jobs/tada/$1.md" 2>/dev/null; }
+tada_body() {
+  local path
+  rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
+  path="$(fixture_tada_file "$V" "$1" || true)"
+  [ -n "$path" ] && cat "$path"
+}
 todo_body() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; cat "$V/jobs/todo/$1.md" 2>/dev/null; }
 # handler_timeout <todo-base> → the handler-timeout header value, or empty if none.
 handler_timeout() { todo_body "$1" | sed -n 's/^handler-timeout:[[:space:]]*//p' | head -1; }
@@ -148,8 +156,16 @@ fail_stage() {  # fail_stage <base>
 
 tick() { "$JOBS/gauntlet.sh" >"$TR/tick.log" 2>&1 || { echo "  (gauntlet.sh rc=$? — see below)"; cat "$TR/tick.log"; }; }
 
-post_gauntlet() {  # post_gauntlet <g> <pr-url> [extra-args...]
+post_gauntlet() {  # [options] <g> <pr-url>
+  local base="${*: -2:1}"
   "$JOBS/post-gauntlet.sh" "$@" >/dev/null
+  # Every current gauntlet starts with the cheap viability gate. Complete that
+  # prerequisite as fixture setup so the historical stage-machine assertions
+  # below continue to begin at clean. The earlier `todo=[g1-viability]` failure
+  # was expectation drift, not budget-pool admission: gauntlet.sh had correctly
+  # posted the newly introduced first stage without invoking a worker claim.
+  tick
+  complete_stage "$base-viability" viability=proceed
 }
 
 # ============================================================================

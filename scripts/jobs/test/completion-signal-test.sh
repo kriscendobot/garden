@@ -54,6 +54,8 @@ unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' |
 
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
+# shellcheck source=test-fixture-helpers.sh
+source "$HERE/test-fixture-helpers.sh"
 
 STUB="$HERE/completion-signal-handler-stub.sh"
 
@@ -68,6 +70,9 @@ seed_board() {
     mkdir -p jobs/todo jobs/doin jobs/tada jobs/gauntlet work repos msgs hosts entries schedules cursors
     for d in jobs/todo jobs/doin jobs/tada jobs/gauntlet work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
     printf '# %s\n\ndo the work for %s\n' "$base" "$base" > "jobs/todo/$base.md" )
+  for host in okhost failhost handoffhost gaphost modehost doomhost; do
+    seed_calibrated_test_pool "$seed" "$host" gardener
+  done
   git -C "$seed" add -A
   git -C "$seed" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
   git -C "$seed" remote add origin "$bare"
@@ -131,9 +136,9 @@ env GARDEN="okhost" GARDEN_STATE="$T2/state" JOURNAL_REMOTE="$BARE2" JOURNAL_BRA
     GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$T2/gardener.log" 2>&1 || true
 V2="$T2/verify"; git clone -q --single-branch --branch journal2 "$BARE2" "$V2" 2>/dev/null
-{ [ -f "$V2/jobs/tada/donejob.md" ] && [ ! -e "$V2/jobs/doin/donejob.md" ] && [ ! -e "$V2/jobs/todo/donejob.md" ]; } \
+{ fixture_has_tada "$V2" donejob && [ ! -e "$V2/jobs/doin/donejob.md" ] && [ ! -e "$V2/jobs/todo/donejob.md" ]; } \
   && ok "signaled completion moved the job doin→tada" \
-  || bad "signaled job not in tada (tada=$([ -f "$V2/jobs/tada/donejob.md" ] && echo y || echo n) doin=$([ -e "$V2/jobs/doin/donejob.md" ] && echo y || echo n) todo=$([ -e "$V2/jobs/todo/donejob.md" ] && echo y || echo n))"
+  || bad "signaled job not in tada (tada=$(fixture_has_tada "$V2" donejob && echo y || echo n) doin=$([ -e "$V2/jobs/doin/donejob.md" ] && echo y || echo n) todo=$([ -e "$V2/jobs/todo/donejob.md" ] && echo y || echo n))"
 rm -rf "$T2"
 
 # ============================================================================
@@ -146,12 +151,13 @@ env GARDEN="failhost" GARDEN_STATE="$T2A/state" JOURNAL_REMOTE="$BARE2A" JOURNAL
     GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$T2A/gardener.log" 2>&1 || true
 V2A="$T2A/verify"; git clone -q --single-branch --branch journal2 "$BARE2A" "$V2A" 2>/dev/null
-{ [ -f "$V2A/jobs/tada/failedchild.md" ] \
-  && sed -n '1,3p' "$V2A/jobs/tada/failedchild.md" | grep -qx 'orchestration-failed: true' \
-  && ! grep -qF "$GARDEN_ORCHESTRATION_FAILURE_MARKER" "$V2A/jobs/tada/failedchild.md" \
-  && tada_failed "$V2A/jobs/tada/failedchild.md"; } \
+TADA2A="$(fixture_tada_file "$V2A" failedchild || true)"
+{ [ -n "$TADA2A" ] \
+  && sed -n '1,3p' "$TADA2A" | grep -qx 'orchestration-failed: true' \
+  && ! grep -qF "$GARDEN_ORCHESTRATION_FAILURE_MARKER" "$TADA2A" \
+  && tada_failed "$TADA2A"; } \
   && ok "gardener/complete-job translated the exact signal into parsed frontmatter" \
-  || bad "failure signal was not translated cleanly ($(sed -n '1,8p' "$V2A/jobs/tada/failedchild.md" 2>/dev/null | tr '\n' '|'))"
+  || bad "failure signal was not translated cleanly ($(sed -n '1,8p' "$TADA2A" 2>/dev/null | tr '\n' '|'))"
 rm -rf "$T2A"
 
 # ============================================================================
@@ -168,12 +174,13 @@ env GARDEN="handoffhost" GARDEN_STATE="$T2B/state" JOURNAL_REMOTE="$BARE2B" JOUR
     GARDEN_STUB_HANDOFF_SUCCESSOR=successor-job GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$T2B/gardener.log" 2>&1 || true
 V2B="$T2B/verify"; git clone -q --single-branch --branch journal2 "$BARE2B" "$V2B" 2>/dev/null
-{ [ -f "$V2B/jobs/tada/handoffjob.md" ] \
-  && sed -n '1,4p' "$V2B/jobs/tada/handoffjob.md" | grep -qx 'handed-off: successor-job' \
-  && sed -n '1,4p' "$V2B/jobs/tada/handoffjob.md" | grep -qx 'deliverable-complete: false' \
-  && ! grep -qF '<<<GARDEN-JOB-HANDED-OFF:' "$V2B/jobs/tada/handoffjob.md"; } \
+TADA2B="$(fixture_tada_file "$V2B" handoffjob || true)"
+{ [ -n "$TADA2B" ] \
+  && sed -n '1,4p' "$TADA2B" | grep -qx 'handed-off: successor-job' \
+  && sed -n '1,4p' "$TADA2B" | grep -qx 'deliverable-complete: false' \
+  && ! grep -qF '<<<GARDEN-JOB-HANDED-OFF:' "$TADA2B"; } \
   && ok "gardener/complete-job translated an evidenced handoff into partial-disposition frontmatter" \
-  || bad "handoff signal was not translated cleanly ($(sed -n '1,8p' "$V2B/jobs/tada/handoffjob.md" 2>/dev/null | tr '\n' '|'))"
+  || bad "handoff signal was not translated cleanly ($(sed -n '1,8p' "$TADA2B" 2>/dev/null | tr '\n' '|'))"
 rm -rf "$T2B"
 
 # ============================================================================
@@ -191,11 +198,12 @@ env GARDEN="handoffhost" GARDEN_STATE="$T2B2/state" JOURNAL_REMOTE="$BARE2B2" JO
     GARDEN_STUB_HANDOFF_SUCCESSOR=ironhorse-fuzz-case-gauntlet GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$T2B2/gardener.log" 2>&1 || true
 V2B2="$T2B2/verify"; git clone -q --single-branch --branch journal2 "$BARE2B2" "$V2B2" 2>/dev/null
-{ [ -f "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md" ] \
-  && grep -qx 'handed-off: ironhorse-fuzz-case-gauntlet' "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md" \
-  && grep -qx 'deliverable-complete: false' "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md"; } \
+TADA2B2="$(fixture_tada_file "$V2B2" ironhorse-fuzz-case-repair || true)"
+{ [ -n "$TADA2B2" ] \
+  && grep -qx 'handed-off: ironhorse-fuzz-case-gauntlet' "$TADA2B2" \
+  && grep -qx 'deliverable-complete: false' "$TADA2B2"; } \
   && ok "staged-gauntlet successor completed the repair handoff with a partial disposition" \
-  || bad "staged-gauntlet successor was not accepted ($(sed -n '1,8p' "$V2B2/jobs/tada/ironhorse-fuzz-case-repair.md" 2>/dev/null | tr '\n' '|'))"
+  || bad "staged-gauntlet successor was not accepted ($(sed -n '1,8p' "$TADA2B2" 2>/dev/null | tr '\n' '|'))"
 rm -rf "$T2B2"
 
 # ============================================================================
@@ -212,7 +220,7 @@ set -e
 V2C="$T2C/verify"; git clone -q --single-branch --branch journal2 "$BARE2C" "$V2C" 2>/dev/null
 { [ "$worker_rc" -eq 0 ] \
   && [ -f "$V2C/jobs/doin/unevidenced.md" ] \
-  && [ ! -e "$V2C/jobs/tada/unevidenced.md" ] \
+  && ! fixture_has_tada "$V2C" unevidenced \
   && grep -q "posted-follow-up GATE blocked completion" "$T2C/gardener.log"; } \
   && ok "missing successor with no Follow-ups section soft-blocked completion; worker survived and claim stayed in doin" \
   || bad "unevidenced handoff mishandled (worker rc=$worker_rc, doin=$([ -f "$V2C/jobs/doin/unevidenced.md" ] && echo y || echo n), tada=$([ -e "$V2C/jobs/tada/unevidenced.md" ] && echo y || echo n))"
@@ -240,7 +248,7 @@ set -e
 V2D="$T2D/verify"; git clone -q --single-branch --branch journal2 "$BARE2D" "$V2D" 2>/dev/null
 { [ "$worker_rc" -eq 0 ] \
   && [ -f "$V2D/jobs/doin/beltjob.md" ] \
-  && [ ! -e "$V2D/jobs/tada/beltjob.md" ] \
+  && ! fixture_has_tada "$V2D" beltjob \
   && grep -q "handoff successor not durably posted for 'beltjob' (rc=78); left in doin for TTL requeue" "$T2D/gardener.log" \
   && ! find "$T2D/tmp" -maxdepth 1 -type f \
       \( -name 'garden-report-beltjob.*' -o -name 'garden-capture-beltjob.*' \
@@ -263,7 +271,7 @@ env GARDEN="gaphost" GARDEN_STATE="$T3/state" JOURNAL_REMOTE="$BARE3" JOURNAL_BR
 
 # The gardener must NOT complete it (the whole point): not in tada, left in doin.
 V3="$T3/verify"; git clone -q --single-branch --branch journal2 "$BARE3" "$V3" 2>/dev/null
-{ [ ! -e "$V3/jobs/tada/gapjob.md" ] && [ -f "$V3/jobs/doin/gapjob.md" ]; } \
+{ ! fixture_has_tada "$V3" gapjob && [ -f "$V3/jobs/doin/gapjob.md" ]; } \
   && ok "exit-0-without-signal NOT completed to tada; left in doin" \
   || bad "exit-0-no-signal mishandled (tada=$([ -e "$V3/jobs/tada/gapjob.md" ] && echo y || echo n) doin=$([ -f "$V3/jobs/doin/gapjob.md" ] && echo y || echo n))"
 grep -q 'exit-0-unsatisfying' "$T3/gardener.log" \
@@ -373,7 +381,7 @@ run_mode() {  # run_mode <label> <base> <rc> <signal> <capture>
       GARDEN_JOB_HANDLER="$STUB" \
       "$JOBS/gardener.sh" 1 > "$tr/gardener.log" 2>&1 || true
   local v="$tr/verify"; git clone -q --single-branch --branch journal2 "$bare" "$v" 2>/dev/null
-  if [ ! -e "$v/jobs/tada/$base.md" ] && [ -f "$v/jobs/doin/$base.md" ] \
+  if ! fixture_has_tada "$v" "$base" && [ -f "$v/jobs/doin/$base.md" ] \
        && grep -Eq '^<!-- garden-(reap-now|provider-quota-backoff: .*) -->$' "$v/jobs/doin/$base.md"; then
     ok "$label -> retained for deterministic retry (not tada; retry/backoff hint stamped)"
   else
@@ -411,7 +419,7 @@ VP="$TP/verify"; git clone -q --single-branch --branch journal2 "$BAREP" "$VP" 2
 # After the doom threshold the job is neither requeued (not in todo/doin) nor
 # completed (not in tada) — it is PARKED in plan/ under a held gate so the work
 # survives for a human to resume, rather than being dropped from the board.
-{ [ ! -e "$VP/jobs/todo/doomjob.md" ] && [ ! -e "$VP/jobs/doin/doomjob.md" ] && [ ! -e "$VP/jobs/tada/doomjob.md" ] \
+{ [ ! -e "$VP/jobs/todo/doomjob.md" ] && [ ! -e "$VP/jobs/doin/doomjob.md" ] && ! fixture_has_tada "$VP" doomjob \
   && [ -f "$VP/jobs/plan/doomjob.md" ]; } \
   && ok "a job that never completes is PARKED in plan/ (held) after the doom threshold (not requeued, not in tada, not dropped)" \
   || bad "never-completing job not parked in plan/ (todo=$([ -e "$VP/jobs/todo/doomjob.md" ] && echo y || echo n) doin=$([ -e "$VP/jobs/doin/doomjob.md" ] && echo y || echo n) tada=$([ -e "$VP/jobs/tada/doomjob.md" ] && echo y || echo n) plan=$([ -f "$VP/jobs/plan/doomjob.md" ] && echo y || echo n))"

@@ -30,6 +30,8 @@ BARE="$TEST_ROOT/journal.git"
 SEED="$TEST_ROOT/seed"
 STATE="$TEST_ROOT/state"
 git_identity=(-c user.name=test -c user.email=test@localhost)
+# shellcheck source=test-fixture-helpers.sh
+source "$HERE/test-fixture-helpers.sh"
 
 write_claim() {
   local tree="$1" base="$2" role="$3" handler_timeout="$4"
@@ -63,6 +65,10 @@ run_nudge() {
 
 tip_has() { git -C "$BARE" cat-file -e "$BRANCH:$1" 2>/dev/null; }
 tip_show() { git -C "$BARE" show "$BRANCH:$1" 2>/dev/null; }
+tip_tada_path() {
+  git -C "$BARE" ls-tree -r --name-only "$BRANCH" -- jobs/tada \
+    | grep -E "(^|/)$1\\.md$" | head -1
+}
 nudge_paths() { git -C "$BARE" ls-tree -r --name-only "$BRANCH" -- "inbox/$1" 2>/dev/null | grep 'deadline-nudge-' || true; }
 add_claim_at_tip() {
   local base="$1" remaining="$2" update
@@ -94,6 +100,7 @@ write_claim "$SEED" reapnow "fixer" "" 2400 300 \
 write_claim "$SEED" badtime "fixer" "" 2400 300
 sed -i 's/^  claimed_at:.*/  claimed_at: not-a-time/' "$SEED/jobs/doin/badtime.md"
 mkdir -p "$SEED/jobs/todo" "$SEED/jobs/plan" "$SEED/jobs/tada" "$SEED/jobs/orch" "$SEED/usage" "$SEED/work" "$SEED/inbox/dead"
+seed_calibrated_test_pool "$SEED" leader-one gardener
 touch "$SEED/jobs/todo/.gitkeep" "$SEED/jobs/plan/.gitkeep" "$SEED/jobs/tada/.gitkeep" "$SEED/work/.gitkeep" "$SEED/inbox/dead/.gitkeep"
 usage_ts="$(date -u -d "@$((NOW - 1000))" +%FT%TZ)"
 printf '{"ts":"%s","source":"provider","input_tokens":150,"output_tokens":50,"cache_creation_tokens":25,"cache_read_tokens":500}\n' "$usage_ts" > "$SEED/usage/due.jsonl"
@@ -388,9 +395,11 @@ env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_ROOT="$ROOT" \
   GARDEN_WORKER_CLONE="$STATE/handoff/journal" \
   "$JOBS/complete-job.sh" --handed-off handoff-successor 3 handoff "$handoff_report" \
   > "$TEST_ROOT/handoff.out" 2>&1
-if tip_show jobs/tada/handoff.md | grep -q '^handed-off: handoff-successor$' \
-  && tip_show jobs/tada/handoff.md | grep -q '^deliverable-complete: false$' \
-  && ! tip_show jobs/tada/handoff.md | grep -qF '<<<GARDEN-JOB-HANDED-OFF:'; then
+handoff_tada="$(tip_tada_path handoff)"
+if [ -n "$handoff_tada" ] \
+  && tip_show "$handoff_tada" | grep -q '^handed-off: handoff-successor$' \
+  && tip_show "$handoff_tada" | grep -q '^deliverable-complete: false$' \
+  && ! tip_show "$handoff_tada" | grep -qF '<<<GARDEN-JOB-HANDED-OFF:'; then
   ok 'declared handoff is mechanically distinct from clean completion'
 else
   bad 'handoff disposition was not stamped or signal leaked into the report'
@@ -399,11 +408,11 @@ fi
 park_update="$TEST_ROOT/park-update"
 git clone -q --branch "$BRANCH" "$BARE" "$park_update"
 write_claim "$park_update" budgetpark "fixer" "" 2400 300 \
-  '<!-- garden-deadline-overrun: 1 -->\n<!-- garden-reap-now -->'
-sed -i '2a token-budget: 10' "$park_update/jobs/doin/budgetpark.md"
+  '<!-- garden-reaped: 1 -->\n<!-- garden-reap-now -->'
+sed -i '2a token-budget: 10\nbudget-resets-at: 2030-01-01T00:00:00Z' "$park_update/jobs/doin/budgetpark.md"
 printf '{"ts":"2026-08-13T00:00:00Z","source":"provider","input_tokens":1,"output_tokens":20,"cache_creation_tokens":0}\n' > "$park_update/usage/budgetpark.jsonl"
 write_claim "$park_update" liveprogress "fixer" "" 2400 300 \
-  '<!-- garden-deadline-overrun: 1 -->\n<!-- garden-reap-now -->'
+  '<!-- garden-reaped: 1 -->\n<!-- garden-reap-now -->'
 sed -i '2a token-budget: 10000' "$park_update/jobs/doin/liveprogress.md"
 printf '{"ts":"%s","source":"provider","input_tokens":10,"output_tokens":3000,"cache_creation_tokens":0}\n' "$usage_ts" > "$park_update/usage/liveprogress.jsonl"
 git -C "$park_update" add -A
@@ -419,7 +428,7 @@ if tip_has jobs/plan/budgetpark.md \
   && tip_show jobs/plan/budgetpark.md | grep -q '^gate: go-ahead$'; then
   ok 'over-budget progress disposition creates a held go-ahead plan'
 else
-  bad 'reaper did not create the expected budget hold'
+  bad "reaper did not create the expected budget hold ($(tail -4 "$TEST_ROOT/reaper.out" | tr '\n' ' '))"
 fi
 if tip_has jobs/todo/liveprogress.md && ! tip_has jobs/plan/liveprogress.md; then
   ok 'token-live work below budget requeues instead of elapsed-only doom'
@@ -449,16 +458,17 @@ if tip_has jobs/todo/budgetpark.md && ! tip_has jobs/plan/budgetpark.md \
   && tip_has jobs/todo/selfpark.md && ! tip_has jobs/plan/selfpark.md; then
   ok 'quota-window refresh promotes reaper and worker-created budget holds'
 else
-  bad 'budget refresh did not promote the held plan'
+  bad "budget refresh did not promote the held plan ($(tail -4 "$TEST_ROOT/refresh.out" | tr '\n' ' '))"
 fi
 budget_decision_path="$(git -C "$BARE" ls-tree -r --name-only "$BRANCH" -- budget/decisions \
   | grep -- '-leader-one.jsonl$' | tail -1)"
 if [ -n "$budget_decision_path" ] && tip_show "$budget_decision_path" | jq -e '
   select(.loop == "budget-refresh" and .decision == "release-budget-hold"
     and .input.base == "budgetpark"
-    and .input.recovery_trigger == "quota-window-or-cap-recovery"
+    and (.input.recovery_trigger == "quota-window-or-cap-recovery"
+      or .input.recovery_trigger == "explicit-reset")
     and .outcome == "applied")' >/dev/null; then
-  ok 'quota-window/cap recovery records its back-off input and applied release'
+  ok 'budget recovery records its back-off input and applied release'
 else
   bad 'budget refresh recovery decision was not durably attributable'
 fi
