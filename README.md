@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T23:20:43Z_
+_As of 2026-09-23T23:22:25Z_
 
 ## Latest
 
@@ -773,7 +773,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.8M | $596.54 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 57.8M | $596.85 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 26.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34328869 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -785,8 +785,8 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-comment-latency-notice-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-latency-notice-failure.md) — ---
 
 ### tada (8787)
 - [`diagnose-hourly-graphql-quota-exhaustion-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/diagnose-hourly-graphql-quota-exhaustion-20260923.md) — Cost
