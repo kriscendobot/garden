@@ -41,13 +41,5 @@ timestamp is the source of truth for liveness.**
 Report: commit sha(s), the thresholds as built, and a one-shot run against the live
 armed repos showing current per-repo ack latencies (read-only).
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-23T17:13:00Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-23T17:43:05Z -->
