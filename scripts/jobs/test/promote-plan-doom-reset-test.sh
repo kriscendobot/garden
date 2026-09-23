@@ -37,10 +37,12 @@
 #             work body and the execution frontmatter (role/model/handler-timeout), and
 #             records the cleared set in the provenance comment (`cleared=none` when the
 #             parked body carried none — the common non-doom promotion).
-# SUBTEST 2 — end-to-end: reaper dooms an overrunning claim → promote → the promoted
-#             job REQUEUES on its next stale cycle instead of re-dooming immediately;
-#             the control (same body with the marker still on it) DOES re-doom, so the
-#             reaper's protection is demonstrably intact.
+# SUBTEST 2 — end-to-end: reaper dooms a plain-exit-exhausted claim → promote → the
+#             promoted job REQUEUES on its next stale cycle instead of re-dooming
+#             immediately; a legacy marker-carrying park does the same; the control
+#             (same body with the counter still on it) DOES re-doom, so the reaper's
+#             protection is demonstrably intact; and an ordinary overrun takes the
+#             current split route rather than a doom park.
 # SUBTEST 3 — post-plan strips the same family at PARK time, records it in `cleared:`,
 #             leaves a marker-free post byte-identical (idempotent, no stray field), and
 #             never touches a body's own `---` rules or non-cycle HTML comments.
@@ -215,45 +217,98 @@ place_stale() {
 }
 resync2() { rm -rf "$T2/v"; git clone -q --single-branch --branch journal2 "$BARE2" "$T2/v"; }
 
-# (a) a deterministic overrunner dooms at GARDEN_REAP_OVERRUN_THRESHOLD=1. The
-#     parked frontmatter preserves the count while its body drops the stale marker.
-printf '# ovrjob\n\nthe original work body for ovrjob\n\n<!-- garden-deadline-overrun: 1 -->\n' > "$T2/ovr-body.md"
-place_stale ovrjob "$T2/ovr-body.md"
+# CURRENT REAPER SEMANTICS (improve-promote-plan-doom-reset-fixture, 2026-09-23). An
+# ordinary job's first non-productive deadline overrun no longer doom-parks: the reaper
+# re-posts the SAME base to todo/ as an orchestrator split decision. The path that
+# still PARKS an ordinary job in plan/ is plain-exit exhaustion: its one backed-off
+# retry spent (`<!-- garden-reaped: 1 -->` on the body), the next non-productive exit
+# is `requeue-exhausted` and split-eligible. That is the doom park this fixture drives;
+# the reap counter is the marker a stale promotion would carry into instant re-doom.
+
+# (a) plain-exit exhaustion doom-parks with the count in frontmatter and the body clean.
+printf '# exhjob\n\nthe original work body for exhjob\n\n<!-- garden-reaped: 1 -->\n' > "$T2/exh-body.md"
+place_stale exhjob "$T2/exh-body.md"
 "$JOBS/reaper.sh" > "$T2/reap1.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T2/reap1.log"; }
 resync2
-{ [ -f "$T2/v/jobs/plan/ovrjob.md" ] && grep -q '^doomed: true$' "$T2/v/jobs/plan/ovrjob.md" \
-  && grep -q '^deadline_overruns: 1$' "$T2/v/jobs/plan/ovrjob.md" \
-  && ! grep -Eq '^<!-- garden-deadline-overrun:' "$T2/v/jobs/plan/ovrjob.md"; } \
-  && ok "precondition: the overrunning claim is doom-parked with metadata preserved and its cycle marker stripped" \
-  || bad "doom park did not happen as expected (the fixture's premise)"
+{ [ -f "$T2/v/jobs/plan/exhjob.md" ] && [ ! -f "$T2/v/jobs/todo/exhjob.md" ] \
+  && grep -q '^doomed: true$' "$T2/v/jobs/plan/exhjob.md" \
+  && grep -q '^doom_signature: requeue-exhausted$' "$T2/v/jobs/plan/exhjob.md" \
+  && grep -q '^requeue_cycles: 2$' "$T2/v/jobs/plan/exhjob.md" \
+  && ! grep -Eq '^<!-- garden-(reaped|deadline-overrun):' "$T2/v/jobs/plan/exhjob.md"; } \
+  && ok "precondition: an exhausted plain-exit claim is doom-parked with its count in frontmatter and its cycle markers stripped" \
+  || { bad "doom park did not happen as expected (the fixture's premise)"; sed 's/^/    /' "$T2/reap1.log"; }
 
 # (b) promote it, then simulate the re-claim: the promoted body + a fresh (stale) claim
-#     block is exactly what the reaper reads next cycle.
-"$JOBS/promote-plan.sh" ovrjob > "$T2/promote.log" 2>&1 \
+#     block is exactly what the reaper reads next cycle. It must spend a REAL retry.
+"$JOBS/promote-plan.sh" exhjob > "$T2/promote.log" 2>&1 \
   || { echo "  (promote-plan rc=$?)"; sed 's/^/    /' "$T2/promote.log"; }
 resync2
-[ -f "$T2/v/jobs/todo/ovrjob.md" ] \
-  && ok "the doomed job promoted back into todo/" || bad "promotion did not land in todo/"
-cp "$T2/v/jobs/todo/ovrjob.md" "$T2/promoted-body.md"
-place_stale ovrjob "$T2/promoted-body.md"
+{ [ -f "$T2/v/jobs/todo/exhjob.md" ] && [ ! -f "$T2/v/jobs/plan/exhjob.md" ] \
+  && grep -q 'garden-promoted-from-plan:' "$T2/v/jobs/todo/exhjob.md"; } \
+  && ok "the doomed job promoted from plan/ back into todo/" || bad "promotion did not move the job plan/ → todo/"
+cp "$T2/v/jobs/todo/exhjob.md" "$T2/promoted-body.md"
+place_stale exhjob "$T2/promoted-body.md"
 "$JOBS/reaper.sh" > "$T2/reap2.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T2/reap2.log"; }
 resync2
 e2e_ok=1
-[ -f "$T2/v/jobs/todo/ovrjob.md" ] || { e2e_ok=0; echo "    promoted job was not requeued to todo/"; }
-[ -f "$T2/v/jobs/plan/ovrjob.md" ] && { e2e_ok=0; echo "    promoted job was RE-DOOMED on its first cycle (the bug)"; }
+[ -f "$T2/v/jobs/todo/exhjob.md" ] || { e2e_ok=0; echo "    promoted job was not requeued to todo/"; }
+[ -f "$T2/v/jobs/plan/exhjob.md" ] && { e2e_ok=0; echo "    promoted job was RE-DOOMED on its first cycle (the bug)"; }
+grep -q '<!-- garden-reaped: 1 -->' "$T2/v/jobs/todo/exhjob.md" 2>/dev/null \
+  || { e2e_ok=0; echo "    the requeue did not restart the count at 1"; }
+grep -q 'garden-plain-retry-not-before:' "$T2/v/jobs/todo/exhjob.md" 2>/dev/null \
+  || { e2e_ok=0; echo "    the requeue is not the scheduled sole plain retry"; }
 [ "$e2e_ok" -eq 1 ] \
-  && ok "a promoted doom job gets a REAL requeue cycle instead of being re-doomed immediately" \
-  || bad "promotion is still a no-op the job cannot escape"
+  && ok "a promoted doom job gets its REAL backed-off retry instead of being re-doomed immediately" \
+  || { bad "promotion is still a no-op the job cannot escape"; sed 's/^/    /' "$T2/reap2.log"; }
 
-# (c) control — the reaper's protection is unchanged: an identical body that STILL
-#     carries the overrun marker re-dooms at once.
-printf '# ctljob\n\nthe original work body for ctljob\n\n<!-- garden-deadline-overrun: 1 -->\n' > "$T2/ctl-body.md"
+# (c) mixed-version park — a plan body parked before the reaper stripped cycle
+#     markers at park time (or hand-edited) still carries the counter. The reaper
+#     cannot help here, so this is the case promote-plan's strip alone must defend.
+wt="$(mktemp -d "$T2/edit.XXXXXX")"
+git clone -q --single-branch --branch journal2 "$BARE2" "$wt"
+printf -- '---\ngate: go-ahead\npriority: normal\ndoomed: true\ndoom_signature: requeue-exhausted\nposted_by: reaper:oldhost\n---\n\n# legjob\n\nthe original work body for legjob\n\n<!-- garden-reaped: 2 -->\n' \
+  > "$wt/jobs/plan/legjob.md"
+git -C "$wt" add jobs/plan/legjob.md
+git -C "$wt" "${git_id[@]}" commit -q -m "legacy park legjob"
+git -C "$wt" push -q origin HEAD:journal2
+rm -rf "$wt"
+"$JOBS/promote-plan.sh" legjob > "$T2/promote-leg.log" 2>&1 \
+  || { echo "  (promote-plan rc=$?)"; sed 's/^/    /' "$T2/promote-leg.log"; }
+resync2
+grep -q 'garden-promoted-from-plan:.* cleared=reaped=2' "$T2/v/jobs/todo/legjob.md" 2>/dev/null \
+  && ok "a legacy marker-carrying park is promoted with the reset recorded" \
+  || bad "legacy park promotion provenance: $(grep -o 'garden-promoted-from-plan:.*' "$T2/v/jobs/todo/legjob.md" 2>/dev/null || echo '<none>')"
+cp "$T2/v/jobs/todo/legjob.md" "$T2/leg-promoted.md"
+place_stale legjob "$T2/leg-promoted.md"
+"$JOBS/reaper.sh" > "$T2/reap-leg.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T2/reap-leg.log"; }
+resync2
+{ [ -f "$T2/v/jobs/todo/legjob.md" ] && [ ! -f "$T2/v/jobs/plan/legjob.md" ]; } \
+  && ok "a promoted legacy park gets a real retry instead of an instant re-doom" \
+  || { bad "a legacy park's stale counter survived promotion into a re-doom"; sed 's/^/    /' "$T2/reap-leg.log"; }
+
+# (d) control — the reaper's protection is unchanged: an identical body that STILL
+#     carries the spent-retry counter re-dooms at once.
+printf '# ctljob\n\nthe original work body for ctljob\n\n<!-- garden-reaped: 1 -->\n' > "$T2/ctl-body.md"
 place_stale ctljob "$T2/ctl-body.md"
 "$JOBS/reaper.sh" > "$T2/reap3.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T2/reap3.log"; }
 resync2
 { [ -f "$T2/v/jobs/plan/ctljob.md" ] && [ ! -f "$T2/v/jobs/todo/ctljob.md" ]; } \
   && ok "control: a body that still carries the counter DOES re-doom — reaper protection intact" \
-  || bad "control failed: the reaper no longer dooms a genuine deterministic overrunner"
+  || bad "control failed: the reaper no longer dooms an exhausted plain-exit job"
+
+# (e) current overrun semantics — a first ordinary wall hit is NOT doom-parked: it is
+#     re-posted under the same base as an orchestrator split decision whose body has
+#     shed the overrun marker, so that route cannot carry a stale counter either.
+printf '# ovrjob\n\nthe original work body for ovrjob\n\n<!-- garden-deadline-overrun: 1 -->\n' > "$T2/ovr-body.md"
+place_stale ovrjob "$T2/ovr-body.md"
+"$JOBS/reaper.sh" > "$T2/reap4.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T2/reap4.log"; }
+resync2
+{ [ -f "$T2/v/jobs/todo/ovrjob.md" ] && [ ! -f "$T2/v/jobs/plan/ovrjob.md" ] \
+  && grep -q '^role: orchestrator$' "$T2/v/jobs/todo/ovrjob.md" \
+  && grep -q '^split_reason: deadline-overrun$' "$T2/v/jobs/todo/ovrjob.md" \
+  && ! grep -Eq '^<!-- garden-deadline-overrun:' "$T2/v/jobs/todo/ovrjob.md"; } \
+  && ok "an ordinary overrun routes to the split orchestrator (todo/, marker stripped), not a doom park" \
+  || { bad "ordinary overrun no longer takes the split route"; sed 's/^/    /' "$T2/reap4.log"; }
 
 # ============================================================================
 hr; echo "SUBTEST 3 — post-plan clears the same family at PARK time (the parking half)"; hr
@@ -352,8 +407,10 @@ place_stale4() {
   rm -rf "$wt"
 }
 
-# A producer re-parks a body it read off the board, counter and all.
-printf '# rpjob\n\nthe original work body for rpjob\n\n<!-- garden-deadline-overrun: 1 -->\n' > "$T4/rp-body.md"
+# A producer re-parks a body it read off the board, counter and all. The spent-retry
+# reap counter is the marker that re-dooms under current reaper semantics (a stale
+# overrun marker would take the split route to todo/, which cannot tell the bug apart).
+printf '# rpjob\n\nthe original work body for rpjob\n\n<!-- garden-reaped: 1 -->\n' > "$T4/rp-body.md"
 "$JOBS/post-plan.sh" --go-ahead rpjob "$T4/rp-body.md" > "$T4/post.log" 2>&1 \
   || { echo "  (post-plan rc=$?)"; sed 's/^/    /' "$T4/post.log"; }
 "$JOBS/promote-plan.sh" rpjob > "$T4/promote.log" 2>&1 \
