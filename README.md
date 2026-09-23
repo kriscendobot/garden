@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T23:55:27Z_
+_As of 2026-09-23T23:56:31Z_
 
 ## Latest
 
@@ -320,6 +320,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > above is why it should not wait for one. A separate design job,
 > `design-cpu-back-pressure-job-dispatch-20260918`, owns the load/memory/IO admission
 > gate; do not duplicate that work here.
+
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_receipts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_receipts_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipts/journal: p95=87.906795s, giveups=0, steals=0 (max 3/window), wait floor=60s.
 
 - `doomed-improve-self-heal-run-handler-deadline-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-self-heal-run-handler-deadline-requeue-exhausted.md)
 
