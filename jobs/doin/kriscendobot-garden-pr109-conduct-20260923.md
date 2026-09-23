@@ -38,6 +38,7 @@ targeted test result (4 passed, 0 failed), then conduct the approved PR.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-23T18:13:05Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
