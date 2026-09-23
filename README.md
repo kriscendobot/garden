@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:14:13Z_
+_As of 2026-09-23T17:22:48Z_
 
 ## Latest
 
-Several infrastructure fixes landed (local-verify package-manager detection, quota-checkpoint shared-subscription aggregation, triager pacing fail-open churn, bulletin-fetch outage backoff), and typesafe Claude Opus 5.5 access validated. Comment-latency-watch orchestration halted mid-campaign; the design proposal on re-export deprecation policy awaits review ([kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95)). Significant backlog of work parked: worktree sweeper leader-only gating needs ungating (100 worktrees accumulating on followers), self-heal-run handler needs timeout wrapping, ci-watcher latches need hysteresis, and several PR reviews await decisions (minion.town pin stale on main, [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) pending server limit change, [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) ready for preliminary review, siwe on-chain authz awaiting tier/allowlist decisions). Multiple jobs doomed with requeue-exhausted status waiting to be split or promoted; the inbox has 21+ pending maintainer decisions.
+Design and build jobs for journal contention watch entered the board today; the design is currently in flight. The comment-latency-watch orchestration halted on the associated gauntlet. Heavy inbox load: multiple orchestrations complete with failures or stalled on maintainer decisions (minion.town peer-fetch daemon exposure, minion.town pin landing on main, PR #87 backend provider clarity, Ironhorse and ReadableBlob jobs timing out at 7200–10800s), plus dozens of deferred infrastructure improvements (worktree sweeper gating, CI watcher quota cooldown, self-heal handler timeouts, budget-level isolation) waiting promotion. [endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) and [endo#3367](https://github.com/endojs/endo/pull/3367) remain parked for review. CLIPOMETER gauntlet active but delivery blocked on express.json() body-size limit (PR [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) mergeable but deploy gated on a server change). Quota stable at 37% Claude (143M) and 65% Codex (plan-metered).
 
 ## Parked for maintainer feedback
 
@@ -647,17 +647,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.5M | $541.18 _(notional, rate-card)_ | 37% of 143.0M (ok) |
+| Claude | 52.9M | $546.22 _(notional, rate-card)_ | 37% of 143.0M (ok) |
 | Codex | 21.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 35156132 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 35178944 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (1)
 - [`harden-garden-container-no-privileged-no-sudo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/harden-garden-container-no-privileged-no-sudo.md) — Build: harden the garden container: no --privileged, no passwordless sudo
 
-### doin (1)
+### doin (2)
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
+- [`design-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-journal-contention-watch.md) — Design: journal contention watch (anomaly detection on latency and retries)
 
 ### tada (8730)
 - [`comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/comment-latency-watch.md) — orchestration comment-latency-watch — HALTED
