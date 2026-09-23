@@ -1,4 +1,5 @@
 ---
+child-design-comment-latency-watch-host: endolin-garden-ece02cb4
 child-design-comment-latency-watch-reap-count: 0
 order: serial
 children: design-comment-latency-watch build-comment-latency-watch
