@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-23T15:54:43Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-design-typesafe-jev-opus55-tier
+pr_number: 108
+pr_repo: kriscendobot/garden
+pr_url: https://github.com/kriscendobot/garden/pull/108
+pr_head: design/typesafe-jev-and-opus55-tier
