@@ -1,4 +1,5 @@
 ---
+child-validate-reexport-policy-ebfb-20260923-host: endolin-garden2-5bcdff64
 child-validate-reexport-policy-ebfb-20260923-reap-count: 0
 child-build-reexport-deprecation-policy-20260923-host: endolin-garden2-5bcdff64
 child-build-reexport-deprecation-policy-20260923-reap-count: 0
