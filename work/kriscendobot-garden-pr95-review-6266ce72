@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-09-23T17:36:56Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-kriscendobot-garden-pr95-review-6266ce72
