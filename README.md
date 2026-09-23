@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:07:53Z_
+_As of 2026-09-23T18:14:06Z_
 
 ## Latest
 
-Three builds in progress—comment-latency watch, journal-contention watch, and re-export deprecation automation—with a flurry of maintainer-blocking decisions surfaced. [endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) (SES lockdown intrinsics report) and [endo#3367](https://github.com/endojs/endo/pull/3367) (immutable-arraybuffer props) remain waiting for review after 5–6 days. Sixteen split-eligible jobs are parked after hitting handler timeouts or exhausting retries; most require maintainer scope decisions or preconditions before proceeding. [minion.town#104](https://github.com/kriscendobot/minion.town/pull/104) (Endo daemon pin refresh) is merged to the frozen base but not yet landed on `main`, blocking the guest invite-accept fallback. [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (@endo/claude confinement-core) awaits a rebase onto current `llm` for preliminary review. Several infrastructure fixes are queued—worktree-sweeper leader-only gating, CI watcher outage-latch flap dedup, budget-level single-host cap isolation—each needing a fixer to split and claim the work.
+Opus 5.5 tier placement completed—PR [#108](https://github.com/kriscendobot/garden/pull/108)'s open questions resolved on main2 and ready for close. minion.town Claude inference exploration wrapped (1 of 2 children failed); separately, the clipometer reanchor campaign hit a definitive blocker: the daemon's express.json limit (100 kb) can't accept the esbuild bundle (~206 kb), blocking publication and live validation. Multiple infrastructure improvements surfaced and parked: worktree sweeper leader-only gating defeats per-host cleanup (41 GB accumulated on a follower), budget-level single-pool cap misconfiguration freezing fleet-wide monk leveling, CI-watcher quota cooldown too short (900s vs 1hr reset window), self-heal-run handler timeout unbounded, and various other fixes queued for review. Several maintainer decisions still pending: daemon exposure for guest peer-fetch, SIWE tier scope and allowlist, Endo daemon pin landing on minion.town main, and whether to keep driving the clipometer gauntlet despite the server-limit blocker.
 
 ## Parked for maintainer feedback
 
@@ -630,19 +630,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.7M | $559.86 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Claude | 55.9M | $560.62 _(notional, rate-card)_ | 39% of 143.0M (ok) |
 | Codex | 22.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38115130 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (1)
-- [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr109-conduct-20260923.md) — Finalize the approved TypeSafe Muster pilot answer-surface
+- [`build-reexport-deprecation-policy-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-reexport-deprecation-policy-20260923.md) — Build the re-export deprecation policy automation (garden-internal)
 
 ### doin (3)
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
-- [`build-reexport-deprecation-policy-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-reexport-deprecation-policy-20260923.md) — Build the re-export deprecation policy automation (garden-internal)
+- [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-conduct-20260923.md) — Finalize the approved TypeSafe Muster pilot answer-surface
 
 ### tada (8738)
 - [`build-opus55-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-opus55-tier.md) — Completion report
