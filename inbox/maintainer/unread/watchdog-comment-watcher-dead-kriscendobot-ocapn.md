@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-09-23T20:47:20Z
+sent_at: 2026-09-23T21:07:13Z
 watchdog_key: comment-watcher-dead-kriscendobot-ocapn
-notice_count: 21
+notice_count: 22
 first_seen: 2026-09-23T19:01:56Z
-last_seen: 2026-09-23T20:47:20Z
-recovered: true
+last_seen: 2026-09-23T21:07:13Z
 ---
-RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ocapn` has CLEARED (first seen 2026-09-23T19:01:56Z, cleared 2026-09-23T20:47:20Z).
-It was observed 21 time(s) while open. Nothing further is required;
-this notice closes the loop so the end of the condition is on the record.
+WATCHDOG notice — occurrence #22 (first seen 2026-09-23T19:01:56Z, latest 2026-09-23T21:07:13Z).
+The SAME condition (`comment-watcher-dead-kriscendobot-ocapn`) has now been observed 22 times; this is ONE
+coalesced notice that updates in place, not 22 messages. Latest detail:
 
-Comment acknowledgment condition cleared.
+Comment acknowledgment dead anomaly for kriscendobot/ocapn:
+watcher heartbeat (age=-36s outcome=cooldown)
