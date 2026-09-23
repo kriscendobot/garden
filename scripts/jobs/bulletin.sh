@@ -84,6 +84,8 @@ export GARDEN_TAG="bulletin"
 : "${GARDEN_BULLETIN_IDLE_SLEEP:=5}"
 : "${GARDEN_BULLETIN_ONCE:=0}"
 : "${GARDEN_BULLETIN_MAX_ITERS:=0}"   # 0 = unbounded
+: "${GARDEN_BULLETIN_FETCH_BACKOFF_BASE:=5}"  # seconds after the first failed tick
+: "${GARDEN_BULLETIN_FETCH_BACKOFF_CAP:=300}" # maximum seconds between fetch retries
 : "${GARDEN_BULLETIN_TADA_DAYS:=7}"   # date shards considered recent
 : "${GARDEN_BULLETIN_PARKED_TTL:=300}"   # seconds between parked-PR gh refreshes
 # Owners to scope the parked-PR query to (space-separated). Restricting by owner
@@ -117,6 +119,11 @@ export GARDEN_TAG="bulletin"
 # by implement-plan-in-journal). When NO mapping is available for any PR, scoring
 # degrades to recency-only — never wedges.
 : "${GARDEN_BULLETIN_PARKED_ROADMAP_CMD:=}"
+
+[[ "$GARDEN_BULLETIN_FETCH_BACKOFF_BASE" =~ ^[1-9][0-9]*$ ]] \
+  || die "GARDEN_BULLETIN_FETCH_BACKOFF_BASE must be a positive integer"
+[[ "$GARDEN_BULLETIN_FETCH_BACKOFF_CAP" =~ ^[1-9][0-9]*$ ]] \
+  || die "GARDEN_BULLETIN_FETCH_BACKOFF_CAP must be a positive integer"
 
 # Base URL for the journal2 blob links that make every bulletin bullet a
 # follow-up link the maintainer can click through to the source (a job file, a
@@ -768,6 +775,10 @@ narrate() {
 bulletin_tick() {
   local head cursor dashboard old_full prior_latest latest head_part sect_part content rc
   sync_clone "$DIR"
+  # The parent loop runs each tick in a subshell, so leave it an explicit signal
+  # that the journal sync succeeded. It uses this to end a fetch-outage episode
+  # even when some unrelated, later step in this tick fails.
+  [ -z "${BULLETIN_SYNC_MARKER:-}" ] || : > "$BULLETIN_SYNC_MARKER"
 
   head="$(git -C "$DIR" rev-parse HEAD)"
   cursor="$(read_cursor)"
@@ -845,7 +856,28 @@ bulletin_tick() {
   return 3
 }
 
+# Return the bounded exponential delay for the Nth consecutive failed journal
+# sync. The fetch itself already has a short bounded retry ladder; this is the
+# slower, service-level ladder between failed ticks (5,10,20,...,300s by default).
+bulletin_fetch_retry_delay() {
+  local attempt="$1" delay="$GARDEN_BULLETIN_FETCH_BACKOFF_BASE" n=1
+  [ "$delay" -gt "$GARDEN_BULLETIN_FETCH_BACKOFF_CAP" ] \
+    && delay="$GARDEN_BULLETIN_FETCH_BACKOFF_CAP"
+  while [ "$n" -lt "$attempt" ] && [ "$delay" -lt "$GARDEN_BULLETIN_FETCH_BACKOFF_CAP" ]; do
+    if [ "$delay" -gt $((GARDEN_BULLETIN_FETCH_BACKOFF_CAP / 2)) ]; then
+      delay="$GARDEN_BULLETIN_FETCH_BACKOFF_CAP"
+    else
+      delay=$((delay * 2))
+      [ "$delay" -gt "$GARDEN_BULLETIN_FETCH_BACKOFF_CAP" ] \
+        && delay="$GARDEN_BULLETIN_FETCH_BACKOFF_CAP"
+    fi
+    n=$((n + 1))
+  done
+  printf '%s\n' "$delay"
+}
+
 iters=0
+fetch_outage_attempt=0
 while :; do
   if fleet_draining; then
     log "fleet draining; idling"
@@ -875,18 +907,49 @@ while :; do
   # it is never fatal. (Before this, a transient `sort` broken-pipe / fetch `die`
   # exited the whole process; with Restart=always the rapid restarts then hit
   # systemd's start-limit and the dashboard went dark for ~2h on 2026-06-25.)
-  ( bulletin_tick ) & tick_pid=$!
+  # Capture a tick's diagnostics so a sustained journal-fetch outage becomes one
+  # log episode instead of replaying journal_fetch + sync_clone + loop failures
+  # every five seconds. Non-fetch failures are replayed unchanged.
+  tick_capture="$(mktemp "${TMPDIR:-/tmp}/garden-bulletin-tick.XXXXXX")"
+  BULLETIN_SYNC_MARKER="$(mktemp "${TMPDIR:-/tmp}/garden-bulletin-sync.XXXXXX")"
+  rm -f "$BULLETIN_SYNC_MARKER"
+  export BULLETIN_SYNC_MARKER
+  ( bulletin_tick ) 2>"$tick_capture" & tick_pid=$!
   tick_rc=0
   wait "$tick_pid" || tick_rc=$?
 
-  case "$tick_rc" in
-    0) idle=1 ;;                         # dashboard unchanged → idle-sleep
-    3) idle=0 ;;                         # board advanced → loop promptly
-    *) log "bulletin tick failed (rc=$tick_rc); logged, continuing to next tick"
-       idle=1 ;;                         # transient hiccup → idle-sleep, survive
-  esac
+  retry_delay=""
+  if [ -e "$BULLETIN_SYNC_MARKER" ]; then
+    cat "$tick_capture" >&2
+    if [ "$fetch_outage_attempt" -gt 0 ]; then
+      log "journal fetch outage cleared after $fetch_outage_attempt failed tick(s); resuming bulletin sync"
+      fetch_outage_attempt=0
+    fi
+    case "$tick_rc" in
+      0) idle=1 ;;                       # dashboard unchanged → idle-sleep
+      3) idle=0 ;;                       # board advanced → loop promptly
+      *) log "bulletin tick failed (rc=$tick_rc); logged, continuing to next tick"
+         idle=1 ;;                       # non-fetch hiccup → idle-sleep, survive
+    esac
+  elif [ "$tick_rc" -eq "$GARDEN_OFFLINE_RC" ]; then
+    fetch_outage_attempt=$((fetch_outage_attempt + 1))
+    retry_delay="$(bulletin_fetch_retry_delay "$fetch_outage_attempt")"
+    if [ "$fetch_outage_attempt" -eq 1 ]; then
+      log "WARN: journal fetch outage started; suppressing duplicate fetch diagnostics and retrying with exponential backoff (base=${GARDEN_BULLETIN_FETCH_BACKOFF_BASE}s cap=${GARDEN_BULLETIN_FETCH_BACKOFF_CAP}s)"
+    fi
+    idle=0
+  else
+    cat "$tick_capture" >&2
+    log "bulletin tick failed (rc=$tick_rc); logged, continuing to next tick"
+    idle=1
+  fi
+  rm -f "$tick_capture" "$BULLETIN_SYNC_MARKER"
 
   iters=$((iters+1))
   { [ "$GARDEN_BULLETIN_ONCE" = "1" ] || { [ "$GARDEN_BULLETIN_MAX_ITERS" -gt 0 ] && [ "$iters" -ge "$GARDEN_BULLETIN_MAX_ITERS" ]; }; } && exit 0
-  [ "$idle" = 1 ] && sleep "$GARDEN_BULLETIN_IDLE_SLEEP"
+  if [ -n "$retry_delay" ]; then
+    sleep "$retry_delay"
+  elif [ "$idle" = 1 ]; then
+    sleep "$GARDEN_BULLETIN_IDLE_SLEEP"
+  fi
 done

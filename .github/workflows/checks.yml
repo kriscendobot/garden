@@ -66,6 +66,7 @@ jobs:
             tests/checks/test_state_clone_keeper.sh \
             scripts/jobs/test/identity-drift-guard-test.sh \
             scripts/jobs/test/gh-credential-guard-test.sh \
+            scripts/jobs/test/bulletin-fetch-outage-backoff-test.sh \
             scripts/jobs/test/report-error-reachable-test.sh \
             scripts/jobs/test/reputation-reduce-incremental-test.sh
 
@@ -100,3 +101,4 @@ jobs:
           bash scripts/jobs/test/alert-maintainer-edge-test.sh
           bash scripts/jobs/test/docs-claim-accuracy-probe-test.sh
           bash scripts/jobs/test/cursor-outage-cooldown-test.sh
+          bash scripts/jobs/test/bulletin-fetch-outage-backoff-test.sh
