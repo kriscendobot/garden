@@ -25,3 +25,13 @@ Fix: seed a calibrated test pool in each fixture's journal, e.g.
 productive-cycle-test.sh `seed_board` now uses). A shared fixture helper is better than
 seven copies. Do NOT add a GARDEN_TEST bypass to the production gate. Run each suite to
 green and push.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-23T22:21:06Z
