@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:23:29Z_
+_As of 2026-09-23T17:26:10Z_
 
 ## Latest
 
-Container hardening progressed to active work this cycle. Three maintainer decisions unblock downstream PRs: the minion.town Endo daemon pin refresh ([kriscendobot/minion.town#104](https://github.com/kriscendobot/minion.town/pull/104)), guest-peer-fetch daemon exposure authorization ([kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58)), and SIWE allowlist tiers. A gauntlet halted for [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) at fix retry exhaustion; [#1301](https://github.com/endojs/endo-but-for-bots/pull/1301) (ReadableBlob range-attenuation) hit handler timeout and needs splitting. Infrastructure improvements (ci-watcher quotas, worktree-sweeper gating, budget isolation, self-heal timeouts) accumulated in plan. CLIPOMETER reanchor discovered a hard blocker: minion.town's /mcp endpoint enforces a 100 KB body limit, but the esbuild caplet bundle is 206 KB—publishing to production is blocked until the server limit is raised.
+Container hardening landed. Two infrastructure builds active (comment-latency watch and journal-contention anomaly detection). Inbox shows multiple stalled jobs: minion.town's Express body-size limit (100kb → need 512kb+) is blocking the clipometer esbuild validation; the Endo daemon pin on minion.town main is still stale, blocking guest web-invite fixes; and the worktree sweeper is misgated leader-only on followers, accumulating 41GB of residual directories. The endojs-endo-but-for-bots#1015 refresh and a dependabot audit hit requeue exhaustion and are parked awaiting split/re-spec. Two large builds (ironhorse ocap optimization and readableblob range attenuation clean break) both hit wall timeouts and are parked. Several deterministic script improvements (self-heal handler deadline, CI watcher outage-latch hysteresis, budget-level per-host fault isolation) are held awaiting promotion. The minion-town claude-agent-sdk inference exploration orchestration completed with one child failure. Garden's own design proposal (reexport-deprecation-policy gauntlet) is ready for maintainer review at [kriscendobot/garden#95](https://github.com/kriscendobot/garden/issues/95).
 
 ## Parked for maintainer feedback
 
@@ -647,7 +647,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.1M | $546.87 _(notional, rate-card)_ | 37% of 143.0M (ok) |
+| Claude | 53.2M | $548.12 _(notional, rate-card)_ | 37% of 143.0M (ok) |
 | Codex | 21.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35178944 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -656,18 +656,17 @@ _Fleet token-unlock pace: 35178944 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
 - [`design-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-journal-contention-watch.md) — Design: journal contention watch (anomaly detection on latency and retries)
-- [`harden-garden-container-no-privileged-no-sudo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/harden-garden-container-no-privileged-no-sudo.md) — Build: harden the garden container: no --privileged, no passwordless sudo
 
-### tada (8730)
+### tada (8731)
+- [`harden-garden-container-no-privileged-no-sudo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/harden-garden-container-no-privileged-no-sudo.md) — Completion report
 - [`comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/comment-latency-watch.md) — orchestration comment-latency-watch — HALTED
 - [`xst-validation-orchestrator-20260711-153502`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-153502.md) — XS-validation orchestrator — tick report (2026-07-11 ~15:35Z)
 - [`xst-validation-orchestrator-20260711-143501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-143501.md) — XS-validation orchestrator — tick report (2026-07-11 ~14:35Z)
 - [`xst-validation-orchestrator-20260711-132003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-132003.md) — XS-validation orchestrator — tick report (2026-07-11 ~13:20Z)
-- [`xst-validation-orchestrator-20260711-120506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/xst-validation-orchestrator-20260711-120506.md) — XS-validation orchestrator — tick report (2026-07-11 ~12:05Z, resumed after r...
-- … and 8725 more
+- … and 8726 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
