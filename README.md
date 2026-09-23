@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:14:06Z_
+_As of 2026-09-23T18:15:48Z_
 
 ## Latest
 
-Opus 5.5 tier placement completed—PR [#108](https://github.com/kriscendobot/garden/pull/108)'s open questions resolved on main2 and ready for close. minion.town Claude inference exploration wrapped (1 of 2 children failed); separately, the clipometer reanchor campaign hit a definitive blocker: the daemon's express.json limit (100 kb) can't accept the esbuild bundle (~206 kb), blocking publication and live validation. Multiple infrastructure improvements surfaced and parked: worktree sweeper leader-only gating defeats per-host cleanup (41 GB accumulated on a follower), budget-level single-pool cap misconfiguration freezing fleet-wide monk leveling, CI-watcher quota cooldown too short (900s vs 1hr reset window), self-heal-run handler timeout unbounded, and various other fixes queued for review. Several maintainer decisions still pending: daemon exposure for guest peer-fetch, SIWE tier scope and allowlist, Endo daemon pin landing on minion.town main, and whether to keep driving the clipometer gauntlet despite the server-limit blocker.
+Opus 5.5 tier placement questions resolved and landed on main2; garden PR #108 awaits closure as the answer surface is complete. Journal worktree staleness alert (2h lag); fleet saw no new board transitions but accumulated 24 high-priority messages waiting on maintainer decisions: minion.town blocked on Endo daemon pin refresh (ready to land from frozen base) and express.json() body-size limit for the live CLIPOMETER (413 on 206 KB publish); three orchestration/infrastructure improvements parked as split-eligible after retry exhaustion (journal contention, ReadableBlob clean-break timeout, comment-latency); and five garden self-healing fixes needed (worktree sweeper misgated to leader-only leaking 41 GB residue, watcher outage-latch flap-dedup, handler timeout wrapper, budget cap isolation, CI quota cooldown too short). One parallel orchestration job (minion-town claude-inference) failed 1 of 2 children mid-flight.
 
 ## Parked for maintainer feedback
 
@@ -103,6 +103,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > #1015's head is rebased onto current `llm`, CI green, still draft, with a comment
 > inviting preliminary review. Do not un-draft and do not attempt to merge.
+
+- `watchdog-journal-worktree-stale-endolin-garden-ece02cb4` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-stale-endolin-garden-ece02cb4.md)
+
+> journal worktree /home/kris/garden/journal has been STALE for ~2h (8998s since it last reconciled to origin/journal2; threshold 7200s). The keeper cannot self-resolve it: this tick could not reconcile — diverged; self-heal did not reach origin tip this tick (behind=446). Agents landing in journal/ are reading a LAGGED board and must route around it by hand. Investigate: check this host's connectivity to the journal remote, then 'git -C /home/kris/garden/journal status' and the journal-worktree-keeper log. This is one alert per staleness episode — it will NOT re-page, and clears automatically once the worktree reconciles. (host=endolin-garden-ece02cb4)
 
 - `doomed-oros-ckm-dependabot-audit-0013418-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-ckm-dependabot-audit-0013418-requeue-exhausted.md)
 
@@ -630,7 +634,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.9M | $560.62 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Claude | 56.0M | $560.78 _(notional, rate-card)_ | 39% of 143.0M (ok) |
 | Codex | 22.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38115130 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
