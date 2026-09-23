@@ -1,4 +1,5 @@
 ---
+child-endo-minion-town-federation-endo-build-host: endolin-garden-ece02cb4
 child-endo-minion-town-federation-endo-build-reap-count: 0
 order: serial
 children: endo-minion-town-federation-endo-build endo-minion-town-federation-town-build endo-minion-town-federation-release-gate endo-minion-town-federation-deploy endo-minion-town-federation-live-acceptance
