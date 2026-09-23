@@ -41,3 +41,13 @@ commit — the same churn shape the journal was just truncated to escape.
   normal upgrade-ready path — do not run deploy-garden.sh yourself.
 
 Report: commit sha, the before/after rate estimate, and the sibling-emitter verdict.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T16:14:41Z
