@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T19:53:42Z_
+_As of 2026-09-23T19:55:30Z_
 
 ## Latest
 
@@ -1031,7 +1031,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.7M | $573.19 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 56.6M | $572.20 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 23.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38025919 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1043,17 +1043,16 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-journal-contention-watch-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-contention-watch-deadline.md) — ---
+### doin (1)
 - [`mentat-guest-peer-fetch-vs-invitation-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-guest-peer-fetch-vs-invitation-20260923.md) — Evaluate: does the guest-to-guest invitation workflow overtake guest peer-fetch?
 
-### tada (8750)
+### tada (8751)
+- [`improve-journal-contention-watch-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/improve-journal-contention-watch-deadline.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-5fd533bcc1d1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/canary-probe-endolin-garden2-5bcdff64-5fd533bcc1d1.md) — rolling-deploy canary probe — round trip OK
 - [`journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/journal-contention-watch.md) — orchestration journal-contention-watch — complete
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-journal-contention-watch.md) — Cost
 - [`claude-on-minion-town-press-20260923-192004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/claude-on-minion-town-press-20260923-192004.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-b499967687fa`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/canary-probe-endolin-garden2-5bcdff64-b499967687fa.md) — rolling-deploy canary probe — round trip OK
-- … and 8745 more
+- … and 8746 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
