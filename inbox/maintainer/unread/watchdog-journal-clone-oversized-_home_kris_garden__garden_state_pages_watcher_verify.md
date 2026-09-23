@@ -1,13 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-09-23T21:26:10Z
+sent_at: 2026-09-23T21:31:02Z
 watchdog_key: journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify
 notice_count: 2
 first_seen: 2026-09-23T19:47:13Z
-last_seen: 2026-09-23T21:26:10Z
+last_seen: 2026-09-23T21:31:02Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #2 (first seen 2026-09-23T19:47:13Z, latest 2026-09-23T21:26:10Z).
-The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify`) has now been observed 2 times; this is ONE
-coalesced notice that updates in place, not 2 messages. Latest detail:
+RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` has CLEARED (first seen 2026-09-23T19:47:13Z, cleared 2026-09-23T21:31:02Z).
+It was observed 2 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/pages-watcher/verify: packs 50 >= 50; size=62861312B packs=50 gc.log=0; automatic remedy=backoff.
+Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` cleared on endolin-garden-ece02cb4.
