@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-09-23T22:51:09Z
+sent_at: 2026-09-23T22:53:15Z
 watchdog_key: comment-watcher-dead-kriscendobot-oros-ckm-data-readiness
 notice_count: 7
 first_seen: 2026-09-23T22:35:22Z
-last_seen: 2026-09-23T22:51:09Z
+last_seen: 2026-09-23T22:53:15Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #7 (first seen 2026-09-23T22:35:22Z, latest 2026-09-23T22:51:09Z).
-The SAME condition (`comment-watcher-dead-kriscendobot-oros-ckm-data-readiness`) has now been observed 7 times; this is ONE
-coalesced notice that updates in place, not 7 messages. Latest detail:
+RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` has CLEARED (first seen 2026-09-23T22:35:22Z, cleared 2026-09-23T22:53:15Z).
+It was observed 7 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Comment acknowledgment dead anomaly for kriscendobot/oros-ckm-data-readiness:
-watcher heartbeat (age=-38s outcome=cooldown)
+Comment acknowledgment condition cleared.
