@@ -67,6 +67,8 @@ jobs:
             scripts/jobs/test/identity-drift-guard-test.sh \
             scripts/jobs/test/gh-credential-guard-test.sh \
             scripts/jobs/test/bulletin-fetch-outage-backoff-test.sh \
+            scripts/jobs/test/muster-pilot-fake-curl.sh \
+            scripts/jobs/test/muster-pilot-test.sh \
             scripts/jobs/test/report-error-reachable-test.sh \
             scripts/jobs/test/reputation-reduce-incremental-test.sh
 
@@ -102,3 +104,4 @@ jobs:
           bash scripts/jobs/test/docs-claim-accuracy-probe-test.sh
           bash scripts/jobs/test/cursor-outage-cooldown-test.sh
           bash scripts/jobs/test/bulletin-fetch-outage-backoff-test.sh
+          bash scripts/jobs/test/muster-pilot-test.sh

@@ -8,9 +8,9 @@ author: gardener
 
 | Field | Value |
 | --- | --- |
-| Status | **Draft; carries open questions.** Landed on `main2` and presented as a PR answer-surface per the garden's-own-repo open-questions carve-out ([`roles/designer/AGENT.md`](../roles/designer/AGENT.md) section "Operating norms"). Not a pending merge. |
+| Status | **Accepted for a bounded Muster pilot.** This design was landed on `main2` before its review PR was opened; the PR remains an answer-surface under the garden's-own-repo open-questions carve-out, not a pending merge. |
 | Directive | kriskowal, 2026-09-23: is TypeSafe AI's Jev a fit for classification-shaped work such as triage and muster? |
-| Decision | Jev is a non-agentic structured-decision classifier, not a generative LLM. Do not onboard it as a worker kind or tier-inventory row. Consider it as a bounded classification primitive at a specific decision point. Muster remains an interactive liaison session with human disposition. |
+| Decision | Jev is a non-agentic structured-decision classifier, not a generative LLM. Do not onboard it as a worker kind or tier-inventory row. Pilot direct TypeSafe access as an optional advisory classification primitive at the beginning of Muster. Muster remains an interactive liaison session with regular-inference fallback and human disposition. |
 | Related design | [Opus 5.5 tier placement](opus55-tier.md) |
 
 ## Evidence
@@ -46,26 +46,27 @@ flowchart LR
   classify --> dispose["Human disposition"]
 ```
 
-## Onboarding shape if adopted
+## Pilot implementation
 
-- Add a `jev_decide` primitive that accepts state plus typed questions and returns a structured decision with confidence. It does not appear in `worker_kinds()`, the tier inventory, or the reputation ledger.
-- Choose direct TypeSafe access or the OpenRouter route. Keep credentials out of the repository and ship the integration inert until a host supplies them.
-- When credentials are absent or the call fails, fall through to the existing deterministic path. Classification must not block a job.
+- [`scripts/jobs/muster-pilot.sh`](../scripts/jobs/muster-pilot.sh) calls TypeSafe directly with the maintainer-provisioned `TYPESAFE_API_KEY`. It accepts a bounded batch of unread messages and returns typed compaction treatment, recurring-pattern, and muster-class labels with confidence values. It does not appear in `worker_kinds()`, the tier inventory, or the reputation ledger.
+- The liaison asks at the beginning of each muster whether to engage the pilot. It runs only when the maintainer opts in for that session.
+- The pilot is advisory and read-only. A liaison verifies external state before coalescing, archiving, or reposting any message; existing muster commands remain the only mutation path.
+- When credentials are absent, TypeSafe is unavailable, its request fails, or its response shape is invalid, the script reports the fallback and exits successfully. The liaison performs the same three passes with regular inference.
 - Record cost per decision, if needed, outside the bid-market arm rate card.
-- Before sending maintainer-inbox or PR-comment text, establish acceptable retention and training terms and record the required maintainer authorization for the wider monitoring surface.
+- The maintainer accepted TypeSafe's retention and training terms for this trial. This acceptance covers the opt-in Muster pilot, not an autonomous watcher or broader PR-comment monitoring surface.
 
 ## Alternatives considered
 
 - Considered and rejected: onboard Jev as a worker kind at a tier. Reason: it cannot drive a harness or complete a job.
 - Considered and rejected: add an autonomous Jev muster board job. Reason: disposition is a maintainer conversation, and muster is liaison-session-only.
 
-## Open questions
+## Resolved pilot questions
 
-- **Which access path should the garden use?** Direct TypeSafe API with a `TYPESAFE_API_KEY`, or OpenRouter's `typesafe/jev-1.13` route? Does the garden already have the needed credential?
-- **What retention and training terms apply?** Are TypeSafe's terms, and OpenRouter's terms if used, sufficient for maintainer-inbox and PR-comment text?
-- **Should Jev feed interactive muster?** Is pre-classification with human disposition the intended shape, should muster remain entirely hand-driven, or is another use intended?
-- **Which decision point warrants the first pilot?** Muster has the clearest candidate value; the deterministic triager already covers common directives.
-- **Are the pricing and latency figures still current?** Check the live vendor documentation before a build lands.
+- **Access:** use the garden's existing direct TypeSafe credential. Do not route the trial through OpenRouter.
+- **Retention and training:** the maintainer considers TypeSafe's terms sufficient for this trial.
+- **Muster shape:** begin with classification that helps the liaison coalesce recurring observations, recognize already-handled messages, and identify deploy-gap reposts. Keep regular inference as the fallback whenever Jev is unavailable.
+- **First decision point:** pilot at the beginning of interactive Muster, behind an explicit session question.
+- **Pricing and latency:** the reviewed figures are close enough for the trial. Recheck before any autonomous or materially larger deployment.
 
 ## Grounding
 

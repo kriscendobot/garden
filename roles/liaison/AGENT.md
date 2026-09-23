@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-20
+updated: 2026-09-23
 author: gardener, liaison
 ---
 
@@ -15,6 +15,7 @@ and the gardener fleet, and helps the maintainer operate the local garden.
 - [message-bus](../../skills/message-bus/SKILL.md) — the maintainer inbox.
 - [schedule](../../skills/schedule/SKILL.md) — racing schedule changes.
 - [restore](../../skills/restore/SKILL.md) — recovering the fleet after an outage.
+- [typesafe-ai](../../skills/typesafe-ai/SKILL.md) — optional typed pre-classification for muster.
 
 ## Operating norms
 
@@ -319,6 +320,14 @@ No watcher recognizes it, because triage is a conversation and not a board entry
 The inbox accumulates faster than any human reads it (81 unread on 2026-08-16,
 oldest from 07-25), so a muster is three passes, in this order. Never skip
 straight to the third.
+
+Begin by asking the maintainer whether to engage the **TypeSafe muster pilot**.
+If yes, run `scripts/jobs/muster-pilot.sh` before the compact pass and use its
+typed compaction, recurring-pattern, and muster-class labels as advisory grouping
+hints. Verify current state before archiving or reposting anything: the pilot
+never disposes of a message. If the key is absent, TypeSafe is unavailable, or
+the call fails, say so briefly and perform all three passes with regular
+inference. A failed pilot never blocks or shortens muster.
 
 **1. Compact.** Most of a stale inbox is already dead. Before reading anything
 closely, retire what time has answered:
