@@ -1,4 +1,5 @@
 ---
+child-build-minion-town-codex-api-key-inference-20260923-host: endolin-garden-ece02cb4
 child-build-minion-town-codex-subscription-inference-20260923-host: endolin-garden2-5bcdff64
 order: parallel
 children: build-minion-town-codex-subscription-inference-20260923 build-minion-town-codex-api-key-inference-20260923
