@@ -2,8 +2,9 @@
 role: fixer
 priority: high
 posted_by: liaison
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Fix: a follower canary strands when main2 advances between the roll release and its self-deploy
@@ -37,13 +38,5 @@ Repo: the garden itself (`kriscendobot/garden`, `main2`, push direct, no PR).
 4. Tests for the advanced-target case and the leader-self-before-canary case. Run the deploy suites
    and push. Complete the job via the normal completion path.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-23T23:24:02Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-23T23:53:06Z -->
