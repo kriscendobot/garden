@@ -413,5 +413,59 @@ else
   bad "changed pacing decision was suppressed (defer-wake records=$NC_DEFER, want 1): $(tr '\n' ' ' < "$NC_DECISIONS")"
 fi
 
+# --- no-op churn guard: the FAIL-OPEN branch is not re-recorded per tick -----------
+# When the projector cannot pace (status != paced) the tick fails open to the fixed
+# timer cadence. That branch used to record a `triager-pacing:current-cadence` /
+# `fail-open-skipped` decision on EVERY tick — 28 such journal commits in ~80 min on
+# one repo after the paced fix deployed, the same churn on the other branch. A
+# repeated fail-open with an unchanged (status,reason) must now be recorded once; a
+# reason CHANGE must produce a second record.
+FO_STATE="$TEMPORARY_ROOT/failopen-state"
+FO_DECISIONS="$TEMPORARY_ROOT/failopen-decisions"
+FO_PROJECTOR="$TEMPORARY_ROOT/failopen-projector"
+FO_REASON_FILE="$TEMPORARY_ROOT/failopen-reason"
+printf 'missing-role-cost-samples\n' > "$FO_REASON_FILE"
+cat > "$FO_PROJECTOR" <<'EOF'
+#!/bin/bash
+reason="$(cat "$FO_REASON_FILE")"
+printf '{"status":"fallback","role":"triager","wake_after_seconds":120,"floor_seconds":120,"ceiling_seconds":3600,"reason":"%s"}\n' "$reason"
+EOF
+chmod +x "$FO_PROJECTOR"
+
+fo_tick() { # <output-file> <now>
+  timeout 45 env GARDEN_TEST=1 GARDEN="$HOST" GARDEN_STATE="$FO_STATE" \
+      JOURNAL_REMOTE="$JOURNAL_REMOTE" JOURNAL_BRANCH=journal2 \
+      GARDEN_REPOS="$REPOSITORIES" GARDEN_WATCH_REF="$REF" \
+      GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_CALLS="$HANDLER_CALLS" \
+      GARDEN_DECISION_APPEND="$DECISION_STUB" DECISIONS="$FO_DECISIONS" \
+      FO_REASON_FILE="$FO_REASON_FILE" \
+      GARDEN_TRIAGE_PACE_NOW="$2" GARDEN_TRIAGE_PACE_PROJECTOR="$FO_PROJECTOR" \
+      GARDEN_TRIAGE_PACE_COOLDOWN=0 \
+      "$JOBS/triager.sh" "$SLUG" >"$1" 2>&1 || true
+}
+
+: > "$FO_DECISIONS"
+# Three consecutive fail-open ticks with an UNCHANGED reason.
+fo_tick "$TEMPORARY_ROOT/fo-tick1" "$NOW"
+fo_tick "$TEMPORARY_ROOT/fo-tick2" "$((NOW + 200))"
+fo_tick "$TEMPORARY_ROOT/fo-tick3" "$((NOW + 400))"
+FO_SKIPPED="$(grep -c -- '--outcome fail-open-skipped' "$FO_DECISIONS" || true)"
+if [ "$FO_SKIPPED" -eq 1 ] && [ -r "$FO_STATE/triager/pace/failopen-$SLUG" ]; then
+  ok "an unchanged fail-open decision is recorded once, not on every tick"
+else
+  bad "fail-open churn not suppressed (fail-open-skipped records=$FO_SKIPPED, want 1): $(tr '\n' ' ' < "$FO_DECISIONS")"
+fi
+
+# A reason CHANGE must still be recorded: flip the projector's fallback reason.
+printf 'stale-live-pace-input\n' > "$FO_REASON_FILE"
+fo_tick "$TEMPORARY_ROOT/fo-tick4" "$((NOW + 600))"
+FO_SKIPPED_AFTER="$(grep -c -- '--outcome fail-open-skipped' "$FO_DECISIONS" || true)"
+FO_NEW_REASON="$(grep -c -- '--reason stale-live-pace-input' "$FO_DECISIONS" || true)"
+if [ "$FO_SKIPPED_AFTER" -eq 2 ] && [ "$FO_NEW_REASON" -eq 1 ]; then
+  ok "a CHANGED fail-open reason is still recorded through the churn guard"
+else
+  bad "changed fail-open reason was suppressed (fail-open-skipped records=$FO_SKIPPED_AFTER want 2, new-reason=$FO_NEW_REASON want 1): $(tr '\n' ' ' < "$FO_DECISIONS")"
+fi
+
 echo "RESULT: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

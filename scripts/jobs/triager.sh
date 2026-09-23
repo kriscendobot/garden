@@ -122,6 +122,11 @@ TICK_START="${GARDEN_TRIAGE_TICK_START:-$(date -u +%s)}"
 
 PACE_STATE_DIRECTORY="$GARDEN_STATE/triager/pace"
 PACE_MARKER="$PACE_STATE_DIRECTORY/${slug//[^A-Za-z0-9._-]/_}"
+# Per-slug latch for the FAIL-OPEN decision state (status:reason), separate from the
+# paced PACE_MARKER because the fail-open branch returns before any next_wake is
+# computed and must not clobber the scheduling fields. Same record-only-on-change
+# discipline and 6h heartbeat as the paced path — see the fail-open branch below.
+PACE_FAILOPEN_MARKER="$PACE_STATE_DIRECTORY/failopen-${slug//[^A-Za-z0-9._-]/_}"
 PACE_WARNING_LATCH="$PACE_STATE_DIRECTORY/warning-${slug//[^A-Za-z0-9._-]/_}"
 PACE_PROBE_WARNING_LATCH="$PACE_STATE_DIRECTORY/probe-warning-${slug//[^A-Za-z0-9._-]/_}"
 # Host-shared (NOT per-slug): the whole host's triager fleet gates its refresh of the ONE
@@ -336,10 +341,51 @@ triager_pace_schedule() { # <observed-sha> <ref>
   wake="$(jq -r '.wake_after_seconds // empty' <<<"$projection" 2>/dev/null || true)"
   if [ "$status" != paced ] || ! [[ "$wake" =~ ^[1-9][0-9]*$ ]]; then
     triager_pace_note_warning "$reason"
-    record_decision --loop triager-pacing \
-      --input-json "$(jq -cn --arg slug "$slug" --argjson projection "$projection" '{slug:$slug,projection:$projection}')" \
-      --decision current-cadence --reason "$reason" --outcome fail-open-skipped \
-      --outcome-detail "fixed timer cadence retained"
+    # NO-OP CHURN GUARD (fail-open path). Same discipline as the paced steady state
+    # below. This branch used to record a `triager-pacing:current-cadence` /
+    # `outcome: fail-open-skipped` decision on EVERY tick whenever the projector could
+    # not pace (e.g. reason `missing-role-cost-samples`) — one JOURNAL COMMIT per
+    # ~90s tick per repo. Observed after 74461976fd deployed: 28 such commits in ~80
+    # min (~500/day), 100% fail-open-skipped, reason unchanged — the very churn shape
+    # that fix escaped on the paced path, just on the other branch. So record a
+    # fail-open decision only when the (status,reason) state CHANGES for this slug,
+    # plus the same rare heartbeat, tracked in a per-slug latch. Pacing behaviour and
+    # the latched warning (triager_pace_note_warning above) are untouched; only the
+    # journal write is gated.
+    now="$(triager_pace_now)"
+    failopen_state="${status}:${reason}"
+    # `|| true` on BOTH reads: the latch is absent on a cold first tick, and a failing
+    # command substitution in an assignment aborts the function under set -e/pipefail.
+    previous_failopen_state="$(sed -n 's/^last_failopen_state:[[:space:]]*//p' "$PACE_FAILOPEN_MARKER" 2>/dev/null | head -1 || true)"
+    previous_failopen_epoch="$(sed -n 's/^last_failopen_epoch:[[:space:]]*//p' "$PACE_FAILOPEN_MARKER" 2>/dev/null | head -1 || true)"
+    [[ "$previous_failopen_epoch" =~ ^[0-9]+$ ]] || previous_failopen_epoch=0
+    record_this_failopen=1
+    if [ "$failopen_state" = "$previous_failopen_state" ] \
+       && [ $((now - previous_failopen_epoch)) -lt "$PACE_DECISION_HEARTBEAT_SECS" ]; then
+      record_this_failopen=0
+    fi
+    if [ "$record_this_failopen" -eq 1 ]; then
+      failopen_epoch="$now"
+    else
+      failopen_epoch="$previous_failopen_epoch"
+    fi
+    # Persist the latch. If the state dir is unwritable we cannot dedup, so skip the
+    # record entirely (churn-safe) rather than write on every tick.
+    mkdir -p "$PACE_STATE_DIRECTORY" 2>/dev/null || return 0
+    temporary_failopen_marker="$PACE_FAILOPEN_MARKER.$$"
+    {
+      printf 'last_failopen_state: %s\n' "$failopen_state"
+      printf 'last_failopen_epoch: %s\n' "$failopen_epoch"
+    } > "$temporary_failopen_marker" && mv "$temporary_failopen_marker" "$PACE_FAILOPEN_MARKER" || {
+      rm -f "$temporary_failopen_marker" 2>/dev/null || true
+      return 0
+    }
+    if [ "$record_this_failopen" -eq 1 ]; then
+      record_decision --loop triager-pacing \
+        --input-json "$(jq -cn --arg slug "$slug" --argjson projection "$projection" '{slug:$slug,projection:$projection}')" \
+        --decision current-cadence --reason "$reason" --outcome fail-open-skipped \
+        --outcome-detail "fixed timer cadence retained"
+    fi
     return 0
   fi
 
