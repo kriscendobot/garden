@@ -18,8 +18,10 @@ the narrative + resource inventory. Secrets are never here, only where they live
 - **CLI**: AWS CLI v2 user-local (`~/.local/aws-cli`, shim `~/.local/bin/aws`, no
   root). Installed on the host (2026-07-06) and again in-container (host `~/.local`
   is a different home than the container). Gotchas: `/tmp` is `noexec` — extract/run
-  the installer under `$HOME`; `sudo` elevates to root in-container (used for `apt`,
-  e.g. `dnsutils`).
+  the installer under `$HOME`. NOTE: the bot user no longer has in-container sudo
+  (the container was hardened, [harden-container.md](harden-container.md)); an
+  in-container apt package (e.g. `dnsutils`) must now be added to the Dockerfile and
+  the container recreated, not `sudo apt install`-ed at runtime.
 - **Open follow-ups (maintainer, root-touching):** delete legacy root access keys;
   enable root MFA. Scope `garden-fleet` down from AdministratorAccess once a
   workload's permission surface is known.

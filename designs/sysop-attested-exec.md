@@ -287,6 +287,22 @@ invariant is **not yet proved strongly enough to ship `exec`**:
   bind-mounting a credential directory is not a security boundary if arbitrary
   code can become privileged enough to mount the host filesystem.
 
+  **UPDATE (2026-09-23, job `harden-garden-container-no-privileged-no-sudo`):** this
+  prerequisite is **addressed in the launcher and image, pending per-host container
+  recreation.** `garden` no longer passes `--privileged` (it keeps Docker's default
+  reduced cap set with seccomp + AppArmor on, adding back only `--cap-add SYS_ADMIN`
+  for systemd-as-PID-1, and exposes no host devices by default); the Dockerfile
+  removes the bot user's `-G sudo`, its `NOPASSWD:ALL` sudoers rule, and the `sudo`
+  package entirely. `scripts/check-container-hardening.sh` is the acceptance probe
+  (empty effective caps, `sudo -n` fails, no host block devices, block-device mount
+  fails, no maintainer `gh`/SSH credential, `/.dockerenv` present), wired into
+  bring-up verification and a twice-daily `garden-container-hardening` timer. The
+  change takes effect only when each host recreates its container
+  ([context/operations/harden-container.md](../context/operations/harden-container.md)).
+  The probe run on the live (still-privileged) container on 2026-09-23 also found the
+  maintainer account `kriskowal` logged into the bot's `gh` — a separate credential
+  cleanup (`gh auth logout --user kriskowal`) that recreation alone does not fix.
+
 These are build prerequisites, not an open design choice. Before `exec` is
 enabled, the ferry documentation and deployment must reflect the directive's
 separate boatman architecture, and an acceptance probe from the exact exec unit

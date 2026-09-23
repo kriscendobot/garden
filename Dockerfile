@@ -87,8 +87,15 @@ RUN apt-get update && apt-get install -y \
     shellcheck \
     fasd \
     locales \
-    sudo \
     && rm -rf /var/lib/apt/lists/*
+# NOTE: `sudo` is deliberately NOT installed. The bot user has no privilege
+# escalation path (no `-G sudo`, no NOPASSWD sudoers rule) — see the useradd step
+# below and designs/sysop-attested-exec.md. Everything that once relied on runtime
+# root is done at BUILD time (as root here) or in the ROOT entrypoint phase
+# (usermod/home relocation, GPU group grants). Removing the setuid-root sudo binary
+# entirely is defense in depth: even a future sudo CVE is not exploitable. An
+# operator who needs a one-off in-container apt install must add it to this
+# Dockerfile and recreate the container (see context/operations/harden-container.md).
 
 # Locale
 RUN locale-gen en_US.UTF-8
@@ -308,10 +315,16 @@ RUN apt-get update && apt-get install -y \
 # bind-mounted home stays writable and nothing is pinned to one account. Ubuntu
 # 24.04 ships a default `ubuntu` user at uid 1000; remove it first so USER_UID
 # (often 1000) is free.
-RUN userdel -r ubuntu 2>/dev/null || true \
-    && useradd -m -s /bin/bash -u "${USER_UID}" -G sudo "${USERNAME}" \
+# No `-G sudo` and no NOPASSWD sudoers line: the bot user is an UNPRIVILEGED
+# account with no runtime root path (hardening, designs/sysop-attested-exec.md).
+# Also chown the LTS-Node root (/usr/local/n, provisioned as root above) to the bot
+# user so a LIVE `provision-node-lts.sh` top-up can write there without sudo — the
+# script's SUDO logic then takes its writable-tree branch, never the (now removed)
+# sudo branch. /opt/rustup is chowned for the same reason (operator-added nightly).
+RUN userdel -r ubuntu 2>/dev/null || true; \
+    useradd -m -s /bin/bash -u "${USER_UID}" "${USERNAME}" \
     && chown -R "${USERNAME}:${USERNAME}" /opt/rustup \
-    && echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+    && { [ ! -d /usr/local/n ] || chown -R "${USERNAME}:${USERNAME}" /usr/local/n; }
 
 # Dotfiles in /opt so the bind mount can't mask them.
 RUN git clone "${DOTFILES_REPO}" /opt/dotfiles \

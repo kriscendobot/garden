@@ -51,6 +51,19 @@ HOSTNAME_NAME="${GARDEN_HOSTNAME:-$INSTANCE_ID}"
 # Docker choose, restoring the old behavior).
 GARDEN_DNS="${GARDEN_DNS-1.1.1.1 8.8.8.8}"
 
+# Host device passthrough — EMPTY BY DEFAULT (hardening). The container is launched
+# with NO host devices: no --privileged, no -v of /dev, no --device. A device-less
+# container has no host block device to mount even if code inside it becomes
+# container-root, which is the whole point of dropping --privileged (see the
+# docker run below). A host that needs GPU passthrough for local inference (the AMD
+# Ollama/ROCm path, context/operations/local-inference-amd/) opts in EXPLICITLY and
+# per-host via GARDEN_DEVICES — a space-separated list of `--device` targets, e.g.
+# GARDEN_DEVICES="/dev/kfd /dev/dri/renderD128". This is a deliberate,
+# operator-chosen weakening, never the default; only char GPU nodes belong here,
+# never a block device. entrypoint.sh's ensure_gpu_group then grants the bot user
+# the node group; with GARDEN_DEVICES unset the nodes are simply absent (a no-op).
+GARDEN_DEVICES="${GARDEN_DEVICES-}"
+
 usage() {
     cat <<EOF
 Usage: $(basename "$0") [command]
@@ -97,6 +110,11 @@ Environment:
   GARDEN_DNS          Space-separated DNS servers pinned into the container
                       (default: "1.1.1.1 8.8.8.8"). Empty string lets Docker
                       derive resolv.conf from the host (the old behavior).
+  GARDEN_DEVICES      Space-separated host device nodes to pass through with
+                      --device (default: NONE — the container is device-less and
+                      unprivileged). Set per-host ONLY for GPU passthrough, e.g.
+                      "/dev/kfd /dev/dri/renderD128" for AMD local inference. A
+                      deliberate, operator-chosen weakening; never a block device.
 
 Notes:
   The container runs systemd as PID 1 so the garden's user-mode units
@@ -290,11 +308,35 @@ ensure_container() {
         local _d
         for _d in $GARDEN_DNS; do dns_args+=(--dns "$_d"); done
 
-        # systemd as PID 1 needs the containerized-systemd flags: a writable
-        # cgroup mount, tmpfs at /run and /tmp, the host cgroup namespace,
-        # and its clean-shutdown stop signal. --hostname pins this instance's
-        # logical name (the location-derived INSTANCE_ID), which keys journal
-        # claim metadata, hosts/<host>, and per-host state.
+        # One --device per configured node (see GARDEN_DEVICES above). Empty by
+        # default → no host devices in the container at all.
+        local device_args=()
+        local _dev
+        for _dev in $GARDEN_DEVICES; do device_args+=(--device "$_dev"); done
+
+        # systemd as PID 1, UNPRIVILEGED. We deliberately do NOT pass --privileged.
+        # --privileged would grant EVERY capability, drop the default seccomp and
+        # AppArmor confinement, and expose ALL host devices — including the block
+        # devices a `mount` could reach — so any code a gardener runs (including code
+        # steered by injected text) could become container-root and plausibly mount
+        # the host filesystem, reaching the maintainer credentials the host-native
+        # ferry uses (designs/sysop-attested-exec.md). Instead we keep Docker's
+        # DEFAULT reduced capability set (seccomp + AppArmor profiles still in force,
+        # no host devices) and add back only the ONE capability systemd-as-PID-1
+        # provably needs:
+        #   --cap-add SYS_ADMIN — systemd needs it to mount its API filesystems and
+        #     per-service sandboxes (PrivateTmp/ProtectSystem/mount namespaces) and to
+        #     set the hostname at boot. It does NOT by itself enable a host-filesystem
+        #     escape: with no --device and no -v of /dev, there is no host block-device
+        #     node present to mount, and the default seccomp/AppArmor profiles stay on.
+        #     (SYS_ADMIN sits in the container BOUNDING set, held by root/PID-1; a
+        #     `docker exec -u <botuser>` process drops to empty EFFECTIVE caps — the
+        #     acceptance probe asserts exactly this.)
+        # cgroup v2 + --cgroupns=host + the rw cgroup mount cover the rest of systemd's
+        # needs; tmpfs at /run, /run/lock, /tmp and the SIGRTMIN+3 stop signal are the
+        # remaining containerized-systemd essentials. --hostname pins this instance's
+        # logical name (the location-derived INSTANCE_ID), which keys journal claim
+        # metadata, hosts/<host>, and per-host state.
         #
         # Home is MIRRORED: the checkout is bind-mounted at its own host path
         # (not a fixed /home/<user>), and GARDEN_HOME tells the entrypoint to
@@ -304,11 +346,12 @@ ensure_container() {
         docker run -d \
             --name "$CONTAINER_NAME" \
             --hostname "$HOSTNAME_NAME" \
-            --privileged \
+            --cap-add SYS_ADMIN \
             --cgroupns=host \
             -v /sys/fs/cgroup:/sys/fs/cgroup:rw \
             --tmpfs /run --tmpfs /run/lock --tmpfs /tmp \
             --stop-signal SIGRTMIN+3 \
+            ${device_args[@]+"${device_args[@]}"} \
             ${dns_args[@]+"${dns_args[@]}"} \
             -e "GARDEN_HOME=${INSTANCE_PATH}" \
             -v "${INSTANCE_PATH}:${INSTANCE_PATH}" \

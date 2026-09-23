@@ -44,9 +44,15 @@ major="$(printf '%s' "${major#v}" | tr -cd '0-9')"
 
 root="${NODE_LTS_INSTALL_ROOT:-/usr/local/n/versions/node}"
 
-# Mutating steps run through $SUDO: nothing if the tree is already writable (the
-# Docker build runs as root), else `sudo -n` on a live host (the bot user is in the
-# sudo group). Fail loud if neither works rather than half-provisioning.
+# Mutating steps run through $SUDO. Normally nothing is needed: at build time the
+# Docker layer runs as root, and on a live host the image chowns /usr/local/n to the
+# bot user (Dockerfile useradd step) so this bot-owned tree is directly writable — the
+# writable-tree branch below. The bot user has NO passwordless sudo anymore (the
+# container was hardened, designs/sysop-attested-exec.md), so if the tree is somehow
+# NOT writable we fail LOUD telling the operator to recreate the container from a
+# fresh image rather than half-provisioning. The `sudo -n` fallback is kept only for
+# a legacy host that still grants it; on a hardened host `command -v sudo` is false
+# and we take the clean error path.
 priv_parent="$root"
 while [ ! -d "$priv_parent" ]; do priv_parent="$(dirname "$priv_parent")"; done
 if [ -w "$priv_parent" ]; then
@@ -54,7 +60,9 @@ if [ -w "$priv_parent" ]; then
 elif command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
   SUDO="sudo"
 else
-  echo "provision-node-lts: $root is not writable and passwordless sudo is unavailable" >&2
+  echo "provision-node-lts: $root is not writable and this user has no privilege to create it." >&2
+  echo "provision-node-lts: on a hardened container recreate it from a fresh image (./garden build && ./garden reset)" >&2
+  echo "provision-node-lts: so the image bakes the LTS Node and chowns $root to the bot user." >&2
   exit 1
 fi
 

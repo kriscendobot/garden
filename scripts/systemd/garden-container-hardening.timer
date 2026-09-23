@@ -1,0 +1,14 @@
+[Unit]
+Description=Garden container-hardening probe timer
+
+[Timer]
+# Absolute wall-clock schedule (twice a day at 06:17 and 18:17), NOT a relative
+# OnActiveSec pair (see garden-root-repo-guard.timer for the re-arm-starvation
+# rationale). The posture only changes on a container RECREATION, so a frequent
+# tick buys nothing; twice a day is enough to notice a regression. Persistent=true
+# catches up a missed run after downtime.
+OnCalendar=06,18:17
+Persistent=true
+
+[Install]
+WantedBy=timers.target

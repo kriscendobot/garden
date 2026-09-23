@@ -150,6 +150,25 @@ the scaler logged `scaled gardener pool to N` yet the active count is 0 ⇒ susp
 a stale drain marker** (step 6) — the units were created but each gardener
 exited on the drain. Show the one-line counts.
 
+**Verify the container security posture** — prove this container was created from
+the hardened launcher (unprivileged, no host devices, no bot-user sudo), not an
+old privileged image:
+
+```sh
+scripts/check-container-hardening.sh   # want: all checks PASS, exit 0
+```
+
+It asserts, as the bot user inside the container: effective caps empty, `sudo -n
+true` fails, no host block devices, a block-device mount fails, no maintainer
+(kriskowal) `gh` account/token, no loaded human SSH identity, and `/.dockerenv`
+present (the guard still works). A **FAIL** on caps/sudo/block-devices means the
+container predates the hardening and must be **recreated** —
+[context/operations/harden-container.md](harden-container.md) has the per-host
+recreate procedure. A FAIL on the `gh`/SSH check means a human credential is
+reachable from the bot home and must be cleared (`gh auth logout --user
+kriskowal`). The `garden-container-hardening` timer re-runs this twice a day so a
+later regression surfaces in the failed-units check above.
+
 ## The liaison's four Monitors
 
 The liaison arms these as Claude Code **Monitor** tools in its own session. Two

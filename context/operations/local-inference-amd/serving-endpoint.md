@@ -182,8 +182,10 @@ so **ROCm inference runs in-container with no passthrough work** — confirmed.
 /dev/dri/renderD128 root <gid 992>   # the "render" group
 ```
 
-The garden bot user starts in `kris`, `sudo` — **not** `video` or `render` — so its
-first `ollama serve` discovered **0 B VRAM and fell back to CPU**.
+The garden bot user starts in its own primary group only — **not** `video` or
+`render` (and, since the container was hardened, **not** `sudo` either;
+[harden-container.md](../harden-container.md)) — so its first `ollama serve`
+discovered **0 B VRAM and fell back to CPU**.
 
 **LANDED (2026-07-14): the entrypoint now grants this automatically, host-adaptively,
 on every container start.** `entrypoint.sh` (running as root before systemd — PID 1 —
