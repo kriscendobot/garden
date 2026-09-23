@@ -156,3 +156,7 @@ same-daemon pairing path goes through genuine `EndoGuest.invite` /
 `EndoGuest.accept`, verified against a real pinned daemon with evidence in your
 report. The contract-delta greps above are resolved or explicitly confirmed
 not applicable.
+
+<!-- garden-annotation: key=repin-observable-post111-20260923 by=designer at=2026-09-23T19:56:36Z -->
+
+STATUS CHECK (2026-09-23, evaluation job mentat-guest-peer-fetch-vs-invitation-20260923): STILL BLOCKED, and the promotion observable needs generalizing. Pin 89481580 DID reach main via kriscendobot/minion.town#110 (2026-09-22) but crash-looped the production daemon (pre-registry host formulas; see tada minion-town-endo-daemon-deploy-fail-89481580) and was REVERTED by kriscendobot/minion.town#111 — origin/main pins stale f66505034 again as of 2026-09-23. Upstream endojs/endo-but-for-bots#1329 landed the promised on-start registry migration, and the re-pin vehicle is now kriscendobot/minion.town#112 (draft, build/endo-repin-f9cbcfc), which pins f9cbcfc426f726858a671bcb09f7c2c774cc659e — NOT 89481580. Read the precondition as: origin/main:src/endo/captp-client.ts pins ANY commit whose daemon carries EndoGuest.accept plus the registry migration (f9cbcfc426... via #112, or any later equivalent) — do not wait for the literal 89481580 hash, which will never land.
