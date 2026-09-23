@@ -433,6 +433,15 @@ export GARDEN
 # journal was just rebuilt to escape churn, so there are deliberately no per-event or
 # per-tick journal commits — the only journal writes are the watcher's watchdog alerts.
 # See designs/journal-contention-watch.md.
+# A test context (GARDEN_TEST=1) that did not point the rings at its own fixture dir
+# records NOTHING: a suite sourcing common.sh against the default GARDEN_STATE would
+# otherwise append its fixture clones' samples to the LIVE host's rings, and the
+# checker would page on them (2026-09-23: fetch-timeout-test's stalled-fetch fixture
+# raised journal-lock-contention-_home_kris__garden_fetch_test_clone). A test that
+# exercises the recorder sets GARDEN_CONTENTION_DIR (or the instrument knob) itself.
+if [ "${GARDEN_TEST:-0}" = 1 ] && [ -z "${GARDEN_CONTENTION_DIR:-}" ]; then
+  : "${GARDEN_CONTENTION_INSTRUMENT:=0}"
+fi
 : "${GARDEN_CONTENTION_INSTRUMENT:=1}"                 # 0 = disable all recording (recorder is a no-op)
 : "${GARDEN_CONTENTION_DIR:=$GARDEN_STATE/journal-contention}"   # host-local ring root
 : "${GARDEN_CONTENTION_RING:=512}"                     # samples the checker keeps per ring (it trims)

@@ -26,8 +26,13 @@ ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
 bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 hr()  { echo "----------------------------------------------------------------"; }
 
-TR=/home/kris/.garden-fetch-test
-rm -rf "$TR"; mkdir -p "$TR/bin"
+# An isolated temp root, and an isolated GARDEN_STATE + contention ring dir under it:
+# this suite drives real clone_lock/journal_fetch, whose contention sensor must never
+# append the fixture clones to the live host's rings (the checker paged on them).
+TR="$(mktemp -d "$HOME/.garden-fetch-test.XXXXXX")"  # $HOME, not /tmp: the fake git must be executable
+trap 'rm -rf "$TR"' EXIT
+mkdir -p "$TR/bin"
+export GARDEN_STATE="$TR/state" GARDEN_CONTENTION_DIR="$TR/state/journal-contention"
 
 # A fake `git` that hangs for 30s on any `fetch` subcommand and execs the real
 # git for everything else. The timeout wrapper must kill it long before 30s.

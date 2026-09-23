@@ -253,7 +253,9 @@ one coalesced notice per open condition, amended as it continues, closed with
 | --- | --- |
 | `comment-ack-latency-<slug>` | one or more `acked-late` comments (latency anomaly) |
 | `comment-ack-blind-<slug>` | `never-acked` with a `full-poll` heartbeat (classifier/watcher disagreement) |
-| `comment-watcher-dead-<slug>` | `never-acked` with a stale heartbeat, or a stuck `cooldown`/`offline-journal` outcome |
+| `comment-watcher-dead-<slug>` | `never-acked` with a stale heartbeat (older than `3*cadence`; ages are clamped at 0, so a heartbeat newer than the checker's clock is fresh) |
+| `comment-watcher-stuck-cooldown-host` | a `cooldown`/`offline-journal` outcome persisting past the stuck bound on one or more sources. Both latches are host-shared, so this is ONE host-level notice naming the latch and the affected repos, never N per-repo "dead" pages |
+| `comment-latency-storm-<class>` | storm guard: more than `GARDEN_COMMENT_LATENCY_STORM_MAX` (5) repos in one class this tick collapse into this one summary |
 | `comment-ack-muted-drain` | should-ack backlog suppressed by an active fleet drain (informational, fleet-level key) |
 | `comment-latency-checker-stale` | the checker's own heartbeat is stale (surfaced by the probe/bulletin, not self-posted) |
 

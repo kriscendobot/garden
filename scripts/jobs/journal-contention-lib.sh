@@ -12,13 +12,15 @@ jc_median_stream() {
 # jc_numeric_stats <ring> <divisor>
 # count, p50, p95, median, MAD, oldest-third median, newest-third median,
 # maximum, first timestamp, last timestamp. Only the trailing configured window
-# is considered. The recorder stores durations in microseconds, hence divisor.
+# is considered, and only samples at or after JC_SINCE (epoch, when set) — an old
+# sample must age out rather than keep a condition open forever. The recorder
+# stores durations in microseconds, hence divisor.
 jc_numeric_stats() {
   local ring="$1" divisor="${2:-1}" tmp sorted count p50i p95i
   local p50 p95 median mad third oldest newest maximum first_ts last_ts
   tmp="$(mktemp)"; sorted="$(mktemp)"
   { tail -n "${GARDEN_CONTENTION_WINDOW:-256}" "$ring" 2>/dev/null || true; } \
-    | awk -v d="$divisor" '$1 ~ /^[0-9]+$/ && $2 ~ /^[0-9]+([.][0-9]+)?$/ { printf "%s %.9f\n", $1, $2/d }' > "$tmp"
+    | awk -v d="$divisor" -v since="${JC_SINCE:-0}" '$1 ~ /^[0-9]+$/ && $1 >= since && $2 ~ /^[0-9]+([.][0-9]+)?$/ { printf "%s %.9f\n", $1, $2/d }' > "$tmp"
   count="$(wc -l < "$tmp")"
   if [ "$count" -eq 0 ]; then
     rm -f "$tmp" "$sorted"
@@ -44,7 +46,7 @@ jc_numeric_stats() {
 
 jc_ring_count() {
   { tail -n "${GARDEN_CONTENTION_WINDOW:-256}" "$1" 2>/dev/null || true; } \
-    | awk -v value="${2:-}" '$2 == value || value == "" { n++ } END { print n+0 }'
+    | awk -v value="${2:-}" -v since="${JC_SINCE:-0}" '$1 >= since && ($2 == value || value == "") { n++ } END { print n+0 }'
 }
 
 jc_trim_ring() {
@@ -96,6 +98,8 @@ jc_build_clone_index() {
   [ -d "$GARDEN_STATE" ] || return 0
   while IFS= read -r path; do
     path="${path%/.git}"
+    # A remedy's renamed-aside clone awaiting background deletion is not a live clone.
+    case "$path" in *.contention-old.*) continue ;; esac
     remote="$(git -C "$path" config --get remote.origin.url 2>/dev/null || true)"
     # Only the garden journal's per-service clones are actuator targets. State
     # can also contain project repos (for example ironhorse-fuzz/project); two

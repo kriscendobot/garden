@@ -116,7 +116,22 @@ with an **absolute floor** so a quiet baseline never pages on a single blip.
 | Excess steals | `lock-steal` count > `GARDEN_CONTENTION_MAX_STEALS` (default 3) per window |
 | Stuck latch | an outage episode continuously latched > `GARDEN_CONTENTION_LATCH_MAX` (default **600s / 10 min**) — see §4 |
 | Push wedge | any transaction reaching the 50-attempt CAS cap, or any `definite-fail` push class |
-| Oversized clone | bytes ≥ `GARDEN_CONTENTION_CLONE_MAX_BYTES` (default **2 GiB**), or `gc.log` present, or packs ≥ 50 |
+| Oversized clone | bytes ≥ `GARDEN_CONTENTION_CLONE_MAX_BYTES` (default **4 GiB**), or `gc.log` present, or packs ≥ `GARDEN_CONTENTION_MAX_PACKS` (default **1000**) |
+
+The clone guard was recalibrated on 2026-09-23 after the first deploy flagged ~40
+healthy clones at a 50-pack threshold. The measured population: on the leader, 121
+healthy per-service clones at 0–128 packs (median 6, p90 40), sizes up to ~240 MB
+plus one compact 1-pack 1.9 GB clone; on the follower, healthy clones at 51–71 packs
+and ≤ 335 MB, pathological clones at 4.2–90 GB with 1,391–20,536 packs (the leader's
+earlier pathological `ci-watcher/verify` held 40,806). Size and `gc.log` are the real
+signals; pack count stays only as a backstop an order of magnitude above the healthy
+maximum, so the automatic remedy never churn-rebuilds a healthy clone.
+
+Samples older than `GARDEN_CONTENTION_MAX_AGE` (default 6h) are ignored, so a single
+past give-up does not keep a condition open forever. Only rings whose slug lies under
+this garden root are analyzed; a foreign path's rings (a test fixture sourcing
+`common.sh` against the default state) are purged, and a test context
+(`GARDEN_TEST=1`) with no explicit `GARDEN_CONTENTION_DIR` records nothing.
 
 **Baseline anomalies** (page only when the trailing signal exceeds baseline *and*
 its floor, guarding against a quiet-baseline false page):
@@ -132,8 +147,12 @@ the window into an oldest third and a newest third and raises a drift notice whe
 newest-third median ≥ `1.5 ×` the oldest-third median **and** the newest-third median
 ≥ a per-signal floor (`fetch` 10s, `lock-wait` 20s, `push-attempts` 3). Drift for
 `fetch` additionally projects: if the current slope reaches `0.70 × cap` within 24h,
-it pages as drift even below the spike floor. This is what turns the 105G-clone creep
-into a warning **days** before the fetch flips the stale-ref path.
+it pages as drift even without the 1.5× rise. The floor gates both paths: a fetch
+rising from 1.2s to 2.1s is weather, however steep its projection. Fetch drift also
+needs at least `GARDEN_CONTENTION_DRIFT_MIN_SAMPLES` (12) samples spanning
+`GARDEN_CONTENTION_DRIFT_MIN_SPAN` (1h), so a short-lived per-job inbox clone never
+qualifies. This is what turns the 105G-clone creep into a warning well before the
+fetch flips the stale-ref path.
 
 **Flapping guard.** Hard guards page on the **first** confirming tick (they are the
 incident classes; fast detection wins). Baseline and drift anomalies page only after
@@ -230,6 +249,13 @@ it persists, closed with `--recovered`. Never one message per tick. Keys are per
 
 Each body names the clone, the offending signal, the observed value against its
 threshold, and — for the oversized case — the remedy applied.
+
+**Storm guard.** When more than `GARDEN_CONTENTION_STORM_MAX` (5) clones hit the same
+class in one tick, the checker opens ONE `journal-contention-storm-<class>` summary
+instead of the individual keys: a class-wide burst has one shared cause (or a
+miscalibrated threshold), not N faults. An open notice whose key is no longer
+evaluated (clone gone, samples aged out, foreign slug purged) is closed with
+`--recovered`, so a rule change retires the notices the old rule opened.
 
 ### 8. Observability
 

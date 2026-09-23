@@ -14,6 +14,9 @@ export GARDEN_TAG=comment-latency-watch
 : "${GARDEN_COMMENT_LATENCY_STATE:=$GARDEN_STATE/comment-latency-watch}"
 : "${GARDEN_COMMENT_LATENCY_LOOKBACK_SECS:=21600}"
 : "${GARDEN_COMMENT_LATENCY_STUCK_SECS:=1200}"
+# Storm guard: more than this many distinct keys of ONE class active in one tick
+# collapse into a single summary notice (a shared cause, not N independent faults).
+: "${GARDEN_COMMENT_LATENCY_STORM_MAX:=5}"
 
 mode="${1:-}"
 report_only=0
@@ -21,6 +24,35 @@ report_only=0
 
 iso_epoch() { [ -n "${1:-}" ] && date -u -d "$1" +%s 2>/dev/null || printf '0\n'; }
 field() { sed -n "s/^$2: *//p" "$1" 2>/dev/null | head -1 || true; }
+
+# age_since <now> <epoch> — seconds elapsed, 999999999 for an unreadable stamp, and
+# CLAMPED at 0: a heartbeat written after the checker sampled its clock (the
+# collection pass takes a while) or under small clock skew is fresh, never dead
+# (2026-09-23: "age=-13s" paged all 16 repos as dead).
+age_since() {
+  local n="$1" e="$2"
+  [ "$e" -gt 0 ] || { printf '999999999\n'; return; }
+  e=$(( n - e )); [ "$e" -ge 0 ] || e=0
+  printf '%s\n' "$e"
+}
+
+# heartbeat_class <cadence> <outcome> <hb-age> <outcome-age>
+#   ok | stale | stuck. `stale` (the timer is not firing) is the only "dead".
+#   A cooldown/offline-journal outcome is muted per the design (§ 2, § 4) until it
+#   persists past the stuck bound; then it is `stuck`, its own class: the shared
+#   latch is host-wide, so it is alerted once per host, never as N dead repos.
+heartbeat_class() {
+  local cadence="$1" outcome="$2" hb_age="$3" outcome_age="$4"
+  [ "$hb_age" -ge 0 ] || hb_age=0
+  [ "$outcome_age" -ge 0 ] || outcome_age=0
+  case "$outcome" in drained|not-main-host) printf 'ok\n'; return ;; esac
+  [ "$hb_age" -le $(( 3 * cadence )) ] || { printf 'stale\n'; return; }
+  case "$outcome" in
+    cooldown|offline-journal)
+      [ "$outcome_age" -le "$GARDEN_COMMENT_LATENCY_STUCK_SECS" ] && printf 'ok\n' || printf 'stuck\n' ;;
+    *) printf 'ok\n' ;;
+  esac
+}
 
 classify_state() { # age latency-or-dash cadence hb-outcome hb-age outcome-age drained
   local age="$1" latency="$2" cadence="$3" outcome="$4"
@@ -33,22 +65,13 @@ classify_state() { # age latency-or-dash cadence hb-outcome hb-age outcome-age d
   fi
   [ "$age" -gt "$never" ] || { printf 'pending\n'; return; }
   [ "$drained" = 1 ] && { printf 'muted\n'; return; }
+  case "$(heartbeat_class "$cadence" "$outcome" "$hb_age" "$outcome_age")" in
+    stale) printf 'never-acked:dead\n'; return ;;
+    stuck) printf 'never-acked:stuck\n'; return ;;
+  esac
   case "$outcome" in
-    drained|not-main-host) printf 'muted\n' ;;
-    cooldown|offline-journal)
-      if [ "$outcome_age" -le "$GARDEN_COMMENT_LATENCY_STUCK_SECS" ]; then
-        printf 'muted\n'
-      else
-        printf 'never-acked:dead\n'
-      fi
-      ;;
-    full-poll)
-      if [ "$hb_age" -gt $(( 3 * cadence )) ]; then
-        printf 'never-acked:dead\n'
-      else
-        printf 'never-acked:blind\n'
-      fi
-      ;;
+    drained|not-main-host|cooldown|offline-journal) printf 'muted\n' ;;
+    full-poll) printf 'never-acked:blind\n' ;;
     *) printf 'never-acked:dead\n' ;;
   esac
 }
@@ -194,7 +217,7 @@ heartbeat_for() { # source slug
   esac
 }
 
-declare -A SEEN=() LATE=() BLIND=() DEAD=() ACTIVE_SLUGS=() REPORTED_REPO=()
+declare -A SEEN=() LATE=() BLIND=() DEAD=() STUCK=() ACTIVE_SLUGS=() REPORTED_REPO=()
 muted_count=0
 now="${GARDEN_COMMENT_LATENCY_NOW_EPOCH:-$(date -u +%s)}"
 since="$(date -u -d "@$(( now - GARDEN_COMMENT_LATENCY_LOOKBACK_SECS ))" +%FT%TZ)"
@@ -228,8 +251,7 @@ while IFS=$'\t' read -r created source cadence repo slug surface id number autho
   hb="$(heartbeat_for "$source" "$slug")"
   outcome="$(field "$hb" outcome)"; tick="$(field "$hb" last_tick_at)"; outcome_since="$(field "$hb" outcome_since)"
   tick_epoch="$(iso_epoch "$tick")"; since_epoch="$(iso_epoch "$outcome_since")"
-  [ "$tick_epoch" -gt 0 ] && hb_age=$(( now - tick_epoch )) || hb_age=999999999
-  [ "$since_epoch" -gt 0 ] && outcome_age=$(( now - since_epoch )) || outcome_age=999999999
+  hb_age="$(age_since "$now" "$tick_epoch")"; outcome_age="$(age_since "$now" "$since_epoch")"
   drained=0; fleet_draining && drained=1
   state="$(classify_state "$age" "$latency" "$cadence" "${outcome:-missing}" "$hb_age" "$outcome_age" "$drained")"
 
@@ -253,6 +275,7 @@ while IFS=$'\t' read -r created source cadence repo slug surface id number autho
       ;;
     never-acked:blind) BLIND[$slug]="${BLIND[$slug]:-}$detail\n" ;;
     never-acked:dead) DEAD[$slug]="${DEAD[$slug]:-}$detail\n" ;;
+    never-acked:stuck) STUCK[$slug]="${STUCK[$slug]:-}$detail\n" ;;
     muted) muted_count=$(( muted_count + 1 )) ;;
   esac
 done < "$rows"
@@ -266,6 +289,9 @@ if [ "$report_only" -eq 1 ]; then
 fi
 
 # Quiet repositories still get liveness coverage from their per-tick heartbeat.
+# The heartbeat pass re-reads the clock: the collection pass above can run for a
+# minute, and heartbeats written meanwhile must not age against a stale `now`.
+hb_now="${GARDEN_COMMENT_LATENCY_NOW_EPOCH:-$(date -u +%s)}"
 check_quiet_heartbeat() { # source slug repo cadence
   local source="$1" slug="$2" repo="$3" cadence="$4" hb outcome tick outcome_since
   local tick_epoch since_epoch hb_age outcome_age
@@ -273,33 +299,38 @@ check_quiet_heartbeat() { # source slug repo cadence
   hb="$(heartbeat_for "$source" "$slug")"
   outcome="$(field "$hb" outcome)"; tick="$(field "$hb" last_tick_at)"; outcome_since="$(field "$hb" outcome_since)"
   tick_epoch="$(iso_epoch "$tick")"; since_epoch="$(iso_epoch "$outcome_since")"
-  [ "$tick_epoch" -gt 0 ] && hb_age=$(( now - tick_epoch )) || hb_age=999999999
-  [ "$since_epoch" -gt 0 ] && outcome_age=$(( now - since_epoch )) || outcome_age=999999999
-  if ! fleet_draining; then
-    if [ "$hb_age" -gt $(( 3 * cadence )) ] \
-      || { { [ "$outcome" = cooldown ] || [ "$outcome" = offline-journal ]; } \
-        && [ "$outcome_age" -gt "$GARDEN_COMMENT_LATENCY_STUCK_SECS" ]; }; then
-      DEAD[$slug]="${DEAD[$slug]:-}watcher heartbeat (age=${hb_age}s outcome=${outcome:-missing})\n"
-    fi
-  fi
+  hb_age="$(age_since "$hb_now" "$tick_epoch")"; outcome_age="$(age_since "$hb_now" "$since_epoch")"
+  fleet_draining && return 0
+  case "$(heartbeat_class "$cadence" "${outcome:-missing}" "$hb_age" "$outcome_age")" in
+    stale) DEAD[$slug]="${DEAD[$slug]:-}watcher heartbeat stale (age=${hb_age}s > $(( 3 * cadence ))s; outcome=${outcome:-missing})\n" ;;
+    stuck) STUCK[$slug]="${STUCK[$slug]:-}watcher ticking but ${outcome} for ${outcome_age}s (since ${outcome_since:-?})\n" ;;
+  esac
 }
 
-if [ -d "$JOURNAL_VIEW/.git" ]; then
+# Armed sources for the quiet pass: "source<TAB>slug<TAB>repo<TAB>cadence" rows.
+# GARDEN_COMMENT_LATENCY_ARMED (a file of such rows) is the test seam.
+armed_sources() {
+  local p slug repo
+  if [ -n "${GARDEN_COMMENT_LATENCY_ARMED:-}" ]; then cat "$GARDEN_COMMENT_LATENCY_ARMED"; return; fi
+  [ -d "$JOURNAL_VIEW/.git" ] || return 0
   while IFS= read -r p; do
     slug="${p#comment-repos/}"
     repo="$(git -C "$JOURNAL_VIEW" show "origin/$JOURNAL_BRANCH:$p" 2>/dev/null | sed -n 's/^repo: *//p' | head -1)"
-    check_quiet_heartbeat comment "$slug" "$repo" 90
+    printf 'comment\t%s\t%s\t90\n' "$slug" "$repo"
   done < <(git -C "$JOURNAL_VIEW" ls-tree -r --name-only "origin/$JOURNAL_BRANCH" comment-repos 2>/dev/null)
   repo="$(git -C "$JOURNAL_VIEW" show "origin/$JOURNAL_BRANCH:config/garden-repo" 2>/dev/null \
     | sed -e 's/#.*//' -e 's/[[:space:]]//g' | head -1)"
   if [ -n "$repo" ]; then
-    slug="$(printf '%s' "$repo" | tr '/' '-')"
-    check_quiet_heartbeat issue-inbox "$slug" "$repo" 120
+    printf 'issue-inbox\t%s\t%s\t120\n' "$(printf '%s' "$repo" | tr '/' '-')" "$repo"
   fi
   if [ -f "$(heartbeat_for mention mentions)" ]; then
-    check_quiet_heartbeat mention mentions github-wide-mentions 90
+    printf 'mention\tmentions\tgithub-wide-mentions\t90\n'
   fi
-fi
+}
+while IFS=$'\t' read -r a_source a_slug a_repo a_cadence; do
+  [ -n "$a_slug" ] || continue
+  check_quiet_heartbeat "$a_source" "$a_slug" "$a_repo" "$a_cadence"
+done < <(armed_sources)
 
 write_stats() {
   local slug="$1" repo="$2" sample_dir
@@ -339,16 +370,57 @@ notice_clear() {
   rm -f "$marker" "$bf"
 }
 
+# Per-repo classes, with the storm guard: when more than STORM_MAX repos carry the
+# same class in one tick, ONE summary notice replaces them. Individual keys of a
+# storming class are left as they are (neither opened nor falsely "recovered");
+# individual keys whose condition cleared still close normally.
+declare -A CLASS_COUNT=()
+for slug in "${!ACTIVE_SLUGS[@]}"; do
+  [ -n "${LATE[$slug]:-}" ] && CLASS_COUNT[latency]=$(( ${CLASS_COUNT[latency]:-0} + 1 ))
+  [ -n "${BLIND[$slug]:-}" ] && CLASS_COUNT[blind]=$(( ${CLASS_COUNT[blind]:-0} + 1 ))
+  [ -n "${DEAD[$slug]:-}" ] && CLASS_COUNT[dead]=$(( ${CLASS_COUNT[dead]:-0} + 1 ))
+done
+declare -A STORM_BODY=()
 for slug in "${!ACTIVE_SLUGS[@]}"; do
   repo="${ACTIVE_SLUGS[$slug]}"; write_stats "$slug" "$repo"
   for class in latency blind dead; do
     case "$class" in latency) key="comment-ack-latency-$slug"; body="${LATE[$slug]:-}" ;;
       blind) key="comment-ack-blind-$slug"; body="${BLIND[$slug]:-}" ;;
       dead) key="comment-watcher-dead-$slug"; body="${DEAD[$slug]:-}" ;; esac
-    if [ -n "$body" ]; then notice_set "$key" "Comment acknowledgment $class anomaly for $repo:\n$body"
+    if [ -n "$body" ]; then
+      if [ "${CLASS_COUNT[$class]:-0}" -gt "$GARDEN_COMMENT_LATENCY_STORM_MAX" ]; then
+        STORM_BODY[$class]="${STORM_BODY[$class]:-}- $repo: ${body%%\\n*}\n"
+      else
+        notice_set "$key" "Comment acknowledgment $class anomaly for $repo:\n$body"
+      fi
     else notice_clear "$key"; fi
   done
 done
+for class in latency blind dead; do
+  if [ -n "${STORM_BODY[$class]:-}" ]; then
+    notice_set "comment-latency-storm-$class" "Comment acknowledgment $class anomaly on ${CLASS_COUNT[$class]} repos at once on ${GARDEN:-this host} (storm guard > $GARDEN_COMMENT_LATENCY_STORM_MAX; one shared cause is likelier than ${CLASS_COUNT[$class]} independent faults):\n${STORM_BODY[$class]}"
+  else
+    notice_clear "comment-latency-storm-$class"
+  fi
+done
+
+# A stuck cooldown/offline-journal outcome is a HOST-level condition: both latches
+# (gh-api cooldown, journal-outage cooldown) are shared by every watcher on the
+# host, so N wedged repos are one fault. Alert it once, naming the latch.
+if [ "${#STUCK[@]}" -gt 0 ]; then
+  stuck_body=""
+  for slug in "${!STUCK[@]}"; do stuck_body="$stuck_body- ${ACTIVE_SLUGS[$slug]:-$slug}: ${STUCK[$slug]}"; done
+  latch=""
+  if [ -f "${GARDEN_API_COOLDOWN_MARKER:-}" ]; then
+    latch="gh-api cooldown marker: expiry=$(sed -n 1p "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null) set-by=$(sed -n 2p "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null)\n"
+  fi
+  if [ -f "${GARDEN_JOURNAL_OUTAGE_MARKER:-}" ]; then
+    latch="${latch}journal-outage marker: $(head -2 "$GARDEN_JOURNAL_OUTAGE_MARKER" 2>/dev/null | tr '\n' ' ')\n"
+  fi
+  notice_set comment-watcher-stuck-cooldown-host "Comment watchers on ${GARDEN:-this host} are ticking but have been held in a shared cooldown/outage latch longer than ${GARDEN_COMMENT_LATENCY_STUCK_SECS}s on ${#STUCK[@]} source(s); they post no acknowledgments while it holds.\n${latch}${stuck_body}"
+else
+  notice_clear comment-watcher-stuck-cooldown-host
+fi
 
 if fleet_draining && [ "$muted_count" -gt 0 ]; then
   notice_set comment-ack-muted-drain "$muted_count should-ack comment(s) are awaiting acknowledgment while the fleet is deliberately drained. This is informational; the fleet is quiescent, not dead.\n"

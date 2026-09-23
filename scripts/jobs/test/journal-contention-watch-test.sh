@@ -2,6 +2,9 @@
 # Deterministic anomaly/remedy scenarios for journal-contention-watch.
 set -euo pipefail
 export GARDEN_TEST=1
+# Fixture slugs are bare names, not paths under this garden root: disable the
+# foreign-slug filter except in the case that exercises it.
+export GARDEN_CONTENTION_SLUG_PREFIX=
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 TR="$(mktemp -d)"; trap 'rm -rf "$TR"' EXIT
@@ -67,11 +70,26 @@ assert_open journal-push-contention-wedged
 reset_case; sample fetch 1 31500000 fetchy; run_watch 100
 assert_open journal-fetch-slow-fetchy
 reset_case
-for n in 1 2 3; do sample fetch "$n" 5000000 drifty; done
-for n in 4 5 6; do sample fetch "$n" 7000000 drifty; done
-for n in 7 8 9; do sample fetch "$n" 10000000 drifty; done
-run_watch 100; if grep -q journal-fetch-drift-drifty "$NOTICES"; then echo 'FAIL: fetch drift paged before confirmation'; exit 1; fi
-run_watch 400; assert_open journal-fetch-drift-drifty
+for n in 1 2 3 4; do sample fetch "$((n * 400))" 5000000 drifty; done
+for n in 5 6 7 8; do sample fetch "$((n * 400))" 7000000 drifty; done
+for n in 9 10 11 12; do sample fetch "$((n * 400))" 10000000 drifty; done
+run_watch 5000; if grep -q journal-fetch-drift-drifty "$NOTICES"; then echo 'FAIL: fetch drift paged before confirmation'; exit 1; fi
+run_watch 5300; assert_open journal-fetch-drift-drifty
+
+# The floor GATES drift (2026-09-23: 1.20s -> 2.09s, projected to the guard in
+# ~8h, paged under a 10s floor). A steep, long, well-sampled rise below the floor
+# never pages, however near its projection.
+reset_case
+for n in $(seq 1 6); do sample fetch "$((n * 600))" 1200000 lowdrift; done
+for n in $(seq 7 12); do sample fetch "$((n * 600))" 2100000 lowdrift; done
+run_watch 8000; run_watch 8300; run_watch 8600
+if grep -q journal-fetch-drift-lowdrift "$NOTICES"; then echo 'FAIL: drift paged below its floor'; cat "$NOTICES"; exit 1; fi
+# Too few samples / too short a span (a short-lived per-job inbox clone) never drifts.
+reset_case
+for n in 1 2 3; do sample fetch "$n" 5000000 inbox; done
+for n in 4 5 6; do sample fetch "$n" 12000000 inbox; done
+run_watch 100; run_watch 400
+if grep -q journal-fetch-drift-inbox "$NOTICES"; then echo 'FAIL: drift paged on a short-lived clone'; exit 1; fi
 
 # Re-arming latch + skips opens once after ten minutes, stays coalesced, recovers.
 reset_case; mkdir -p "$STATE/outage"
@@ -167,5 +185,76 @@ reset_case
 for n in $(seq 1 20); do sample lock-wait "$n" 1000 quiet; sample fetch "$n" 2000 quiet; sample push-attempts "$n" 1 quiet; done
 run_watch 100; run_watch 400
 [ ! -s "$NOTICES" ] || { echo 'FAIL: quiet baseline paged'; cat "$NOTICES"; exit 1; }
+
+# --- 2026-09-23 false-alarm flood regressions --------------------------------
+# Clone guard thresholds: a healthy 57-pack, 55 MB clone (the flood's example) is
+# neither flagged nor rebuilt; 1,500 packs or a gc.log still is. count-objects is
+# shimmed so the fixture needs no real packs.
+countshim() { # packs size-pack-KiB
+  mkdir -p "$TR/cshim"
+  printf '#!/bin/bash\ncase " $* " in *" count-objects "*) printf "count: 0\\nsize: 0\\nin-pack: 1\\npacks: %s\\nsize-pack: %s\\nprune-packable: 0\\ngarbage: 0\\nsize-garbage: 0\\n"; exit 0;; esac\nexec %q "$@"\n' "$1" "$2" "$(command -v git)" > "$TR/cshim/git"
+  chmod +x "$TR/cshim/git"
+}
+run_remedy() { # now
+  env PATH="$TR/cshim:$PATH" GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE="$WATCH_STATE" \
+    GARDEN_CONTENTION_NOTICE="$NOTICE" JC_NOTICES="$NOTICES" GARDEN_CONTENTION_NOW_EPOCH="$1" \
+    GARDEN_JOURNAL_OUTAGE_DIR="$STATE/outage" GARDEN_JOURNAL_OUTAGE_MARKER="$STATE/outage/active" \
+    GARDEN_CONTENTION_ENSURE_CLONE_CMD="$ENSURE" GARDEN_CONTENTION_DELETE_SYNC=1 \
+    "$JOBS/journal-contention-watch.sh"
+}
+reset_case
+CLONE="$STATE/sysop/journal"; mkdir -p "$CLONE"; git -C "$CLONE" init -q; : > "$CLONE/marker-file"
+slug="${CLONE//[!A-Za-z0-9]/_}"
+mkdir -p "$WATCH_STATE/alerts"; : > "$WATCH_STATE/alerts/journal-clone-oversized-$slug"  # the deployed false notice
+countshim 57 54168; run_remedy 1000
+if grep -q "^journal-clone-oversized-$slug " "$NOTICES"; then echo 'FAIL: healthy 57-pack clone flagged'; exit 1; fi
+[ -e "$CLONE/marker-file" ] || { echo 'FAIL: healthy clone was churn-rebuilt'; exit 1; }
+grep -q "^--recovered journal-clone-oversized-$slug " "$NOTICES" || { echo 'FAIL: false oversized notice not recovered'; exit 1; }
+countshim 128 106420; : > "$NOTICES"; run_remedy 1300
+[ ! -s "$NOTICES" ] || { echo 'FAIL: healthy-population max (128 packs) flagged'; cat "$NOTICES"; exit 1; }
+countshim 1500 60000; run_remedy 1600
+assert_open "journal-clone-oversized-$slug"
+[ ! -e "$CLONE/marker-file" ] || { echo 'FAIL: pathological clone not rebuilt'; exit 1; }
+reset_case
+CLONE="$STATE/gcfail/journal"; mkdir -p "$CLONE"; git -C "$CLONE" init -q; : > "$CLONE/.git/gc.log"
+slug="${CLONE//[!A-Za-z0-9]/_}"
+countshim 3 100; run_remedy 1000
+assert_open "journal-clone-oversized-$slug"
+
+# Old samples age out: one lock give-up no longer pages forever, and its open
+# notice recovers once the sample leaves the window.
+reset_case; sample lock-giveup 1000 1 aged; run_watch 1100
+assert_open journal-lock-contention-aged
+: > "$NOTICES"; run_watch $(( 1000 + 21600 + 1 ))
+grep -q '^--recovered journal-lock-contention-aged ' "$NOTICES" || { echo 'FAIL: aged-out give-up did not recover'; cat "$NOTICES"; exit 1; }
+
+# Foreign slugs (a test fixture's path, not this garden's) are purged, not paged,
+# and an already-open notice for one closes.
+reset_case
+sample lock-giveup 99 1 _home_kris__garden_fetch_test_clone
+sample lock-giveup 99 1 _mine_journal
+mkdir -p "$WATCH_STATE/alerts"; : > "$WATCH_STATE/alerts/journal-lock-contention-_home_kris__garden_fetch_test_clone"
+GARDEN_CONTENTION_SLUG_PREFIX=_mine_ run_watch 100
+grep -q '^--recovered journal-lock-contention-_home_kris__garden_fetch_test_clone ' "$NOTICES" || { echo 'FAIL: foreign-slug notice not closed'; exit 1; }
+if grep -q '^journal-lock-contention-_home_kris__garden_fetch_test_clone ' "$NOTICES"; then echo 'FAIL: foreign slug paged'; exit 1; fi
+[ ! -e "$RINGS/lock-giveup/_home_kris__garden_fetch_test_clone" ] || { echo 'FAIL: foreign ring not purged'; exit 1; }
+assert_open journal-lock-contention-_mine_journal
+
+# A test context with no explicit ring dir records NOTHING into (live) state.
+reset_case
+env -u GARDEN_CONTENTION_DIR GARDEN_TEST=1 GARDEN_STATE="$STATE" bash -c ". '$JOBS/common.sh'; contention_record /tmp/clone lock-steal 1"
+[ ! -e "$STATE/journal-contention/lock-steal/_tmp_clone" ] || { echo 'FAIL: test context wrote the live rings'; exit 1; }
+
+# Storm guard: 7 clones hitting one class in a tick -> ONE summary, no individuals;
+# 5 stay individual; the summary closes when the burst subsides.
+reset_case
+for c in s1 s2 s3 s4 s5 s6 s7; do sample lock-giveup 99 1 "$c"; done
+run_watch 100
+[ "$(grep -c '^journal-contention-storm-lock-contention ' "$NOTICES")" -eq 1 ] || { echo 'FAIL: storm not collapsed'; cat "$NOTICES"; exit 1; }
+if grep -q '^journal-lock-contention-s' "$NOTICES"; then echo 'FAIL: storming class opened individual notices'; exit 1; fi
+rm -f "$RINGS/lock-giveup/s6" "$RINGS/lock-giveup/s7"
+: > "$NOTICES"; run_watch 400
+grep -q '^--recovered journal-contention-storm-lock-contention ' "$NOTICES" || { echo 'FAIL: storm summary not recovered'; exit 1; }
+[ "$(grep -c '^journal-lock-contention-s[1-5] ' "$NOTICES")" -eq 5 ] || { echo 'FAIL: sub-storm notices not individual'; cat "$NOTICES"; exit 1; }
 
 echo 'PASS: contention recorder, thresholds, drift, outage latch, clone remedy, recovery, tick deadline, and quiet baseline'

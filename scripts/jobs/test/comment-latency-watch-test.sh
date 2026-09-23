@@ -55,6 +55,7 @@ run_watch() {
     GARDEN_COMMENT_LATENCY_ASSUME_OPEN=1 \
     GARDEN_COMMENT_LATENCY_NOTICE="$NOTICE_STUB" \
     GARDEN_COMMENT_LATENCY_TRUSTED_FILE="$TRUSTED" \
+    GARDEN_COMMENT_LATENCY_ARMED="${ARMED:-}" \
     CLW_FIXTURE="$FIXTURE" CLW_REACTIONS="$REACTIONS" CLW_NOTICES="$NOTICES" \
     "$JOBS/comment-latency-watch.sh" >/dev/null
 }
@@ -88,5 +89,57 @@ grep -q 'comment-ack-blind-example-repo' "$NOTICES" || { echo 'FAIL: blindness n
 printf '103\t2026-09-23T17:59:00Z\n' > "$REACTIONS"
 run_watch
 grep -q -- '--recovered comment-ack-blind-example-repo' "$NOTICES" || { echo 'FAIL: recovery did not close notice'; exit 1; }
+
+# --- 2026-09-23 false-alarm flood regressions --------------------------------
+classify() { "$JOBS/comment-latency-watch.sh" --classify "$@"; }
+# (b) A cooldown inside the stuck bound is muted; beyond it, stuck — never "dead".
+[ "$(classify 2000 - 90 cooldown 30 600 0)" = muted ] || { echo 'FAIL: short cooldown not muted'; exit 1; }
+[ "$(classify 2000 - 90 cooldown 30 5000 0)" = never-acked:stuck ] || { echo 'FAIL: stuck cooldown not its own class'; exit 1; }
+# (a) A negative (future) heartbeat age is fresh, never dead.
+[ "$(classify 2000 - 90 full-poll -13 -13 0)" = never-acked:blind ] || { echo 'FAIL: negative heartbeat age classified as dead'; exit 1; }
+[ "$(classify 2000 - 90 cooldown -13 600 0)" = muted ] || { echo 'FAIL: negative-age cooldown not muted'; exit 1; }
+# A genuinely stale heartbeat is still dead, whatever its last outcome.
+[ "$(classify 2000 - 90 cooldown 1000 600 0)" = never-acked:dead ] || { echo 'FAIL: stale heartbeat not dead'; exit 1; }
+
+# The live incident: 16 armed repos, every heartbeat a few seconds in the FUTURE
+# (written after the checker read its clock) and in cooldown for 2h. Expect zero
+# dead notices, prior false dead notices recovered, and ONE host-level stuck notice.
+: > "$FIXTURE"; : > "$REACTIONS"; : > "$NOTICES"; rm -rf "$STATE/latency"
+ARMED="$TR/armed.tsv"; : > "$ARMED"
+FUTURE_ISO="$(date -u -d "@$(( NOW + 13 ))" +%FT%TZ)"; SINCE_ISO="$(date -u -d "@$(( NOW - 7200 ))" +%FT%TZ)"
+mkdir -p "$STATE/latency/alerts"
+for i in $(seq 1 16); do
+  printf 'comment\towner-r%s\towner/r%s\t90\n' "$i" "$i" >> "$ARMED"
+  printf 'last_tick_at: %s\noutcome: cooldown\noutcome_since: %s\n' "$FUTURE_ISO" "$SINCE_ISO" \
+    > "$STATE/comment-watcher/heartbeat/owner-r$i"
+  : > "$STATE/latency/alerts/comment-watcher-dead-owner-r$i"   # the deployed false notice
+done
+run_watch
+if grep -q '^comment-watcher-dead-' "$NOTICES"; then echo 'FAIL: cooldown/negative age paged dead'; cat "$NOTICES"; exit 1; fi
+[ "$(grep -c -- '^--recovered comment-watcher-dead-' "$NOTICES")" -eq 16 ] || { echo 'FAIL: false dead notices not recovered'; cat "$NOTICES"; exit 1; }
+[ "$(grep -c '^comment-watcher-stuck-cooldown-host ' "$NOTICES")" -eq 1 ] || { echo 'FAIL: stuck cooldown not ONE host-level notice'; cat "$NOTICES"; exit 1; }
+if grep -q '^comment-latency-storm-' "$NOTICES"; then echo 'FAIL: stuck cooldown raised a storm'; exit 1; fi
+# The latch clears: the host-level notice recovers.
+for i in $(seq 1 16); do
+  printf 'last_tick_at: %s\noutcome: full-poll\noutcome_since: %s\n' "$NOW_ISO" "$NOW_ISO" > "$STATE/comment-watcher/heartbeat/owner-r$i"
+done
+: > "$NOTICES"; run_watch
+grep -q -- '^--recovered comment-watcher-stuck-cooldown-host ' "$NOTICES" || { echo 'FAIL: stuck-cooldown notice not recovered'; exit 1; }
+
+# Storm guard: 7 truly stale heartbeats collapse into ONE summary; 3 stay individual.
+STALE_ISO="$(date -u -d "@$(( NOW - 3600 ))" +%FT%TZ)"
+for i in $(seq 1 7); do
+  printf 'last_tick_at: %s\noutcome: full-poll\noutcome_since: %s\n' "$STALE_ISO" "$STALE_ISO" > "$STATE/comment-watcher/heartbeat/owner-r$i"
+done
+: > "$NOTICES"; run_watch
+[ "$(grep -c '^comment-latency-storm-dead ' "$NOTICES")" -eq 1 ] || { echo 'FAIL: storm not collapsed to one summary'; cat "$NOTICES"; exit 1; }
+if grep -q '^comment-watcher-dead-' "$NOTICES"; then echo 'FAIL: storming class opened individual notices'; exit 1; fi
+for i in $(seq 4 7); do
+  printf 'last_tick_at: %s\noutcome: full-poll\noutcome_since: %s\n' "$NOW_ISO" "$NOW_ISO" > "$STATE/comment-watcher/heartbeat/owner-r$i"
+done
+: > "$NOTICES"; run_watch
+grep -q -- '^--recovered comment-latency-storm-dead ' "$NOTICES" || { echo 'FAIL: storm summary not recovered'; exit 1; }
+[ "$(grep -c '^comment-watcher-dead-owner-r[123] ' "$NOTICES")" -eq 3 ] || { echo 'FAIL: sub-storm dead notices not individual'; cat "$NOTICES"; exit 1; }
+unset ARMED
 
 echo 'PASS: comment latency watch scenarios'

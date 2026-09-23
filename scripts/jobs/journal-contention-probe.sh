@@ -9,9 +9,11 @@ source "$HERE/journal-contention-lib.sh"
 : "${GARDEN_CONTENTION_STATE:=$GARDEN_STATE/journal-contention-watch}"
 : "${GARDEN_CONTENTION_WINDOW:=256}"
 : "${GARDEN_CONTENTION_CADENCE:=300}"
+: "${GARDEN_CONTENTION_MAX_AGE:=21600}"
 
 ring() { printf '%s/%s/%s\n' "$GARDEN_CONTENTION_DIR" "$1" "$2"; }
 now="$(date -u +%s)"
+export JC_SINCE=$(( now - GARDEN_CONTENTION_MAX_AGE ))  # the checker's sample age-out
 tick="$(jc_field "$GARDEN_CONTENTION_STATE/heartbeat" epoch)"
 case "$tick" in ''|*[!0-9]*) heartbeat_age=-1;; *) heartbeat_age=$(( now - tick ));; esac
 latch=off
