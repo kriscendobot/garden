@@ -24,3 +24,13 @@ intact. Note the new frozen-base sha in your completion report.
 Context: skills/frozen-base-branch/SKILL.md was just updated (commit
 `8398e90d1d0`) with a note about exactly this shared-frozen-base hazard when
 multiple answer-surface PRs share one base — read that note first.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T18:47:03Z
