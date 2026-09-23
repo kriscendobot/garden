@@ -2,7 +2,7 @@
 order: serial
 children: build-reexport-deprecation-policy-20260923 validate-reexport-policy-ebfb-20260923 conduct-garden-pr95-20260923
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-09-23T17:46:05Z
 ---
