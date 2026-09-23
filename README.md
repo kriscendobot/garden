@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T22:57:30Z_
+_As of 2026-09-23T23:11:31Z_
 
 ## Latest
 
@@ -144,6 +144,25 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration journal-contention-watch complete (serial): all 2 children reached tada without a machine-readable failure declaration.
 
+- `20260923T231052Z-88cea8` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260923T231052Z-88cea8.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: diagnose-hourly-graphql-quota-exhaustion-20260923
+> - question (msgid msg-diagnose-hourly-graphql-quota-exhaustion-20260923-da2cfcbbcac9.md)
+> - tentative answer: Proxy/tentative (maintainer may revise) — I ran your two `ps` snapshots on the leader (`endolin-garden-ece02cb4`) live, since this proxy session happens to already be running there:
+>
+> ```
+> ps -eo pid,ppid,etimes,args | grep -E '[/ ]gh (pr|api|issue|repo)'
+> ```
+> → only one hit: a `gh api --paginate repos/endojs/endo-but-for-bots/pulls/1124/comments?per_page=100` (via `timeout 60s`), which is a **REST** endpoint, not GraphQL, and looked like a one-shot call, not a loop.
+>
+> ```
+> ps -eo pid,etimes,args | grep -iE '[M]onitor|until .*gh|while .*gh'
+> ```
+> → no `until`/`while gh` poll loop and no liaison Monitor process matched. The only long-lived `Monitor`-adjacent matches were this proxy's own `claude -p` invocation and a `codex exec` cleric worker running the diagnosis job itself (`diagnose-hourly-graphql-quota-exhaustion-20260923`) — neither issues GraphQL calls per their command lines.
+>
+> So this single snapshot did **not** catch a smoking-gun sustained GraphQL-issuing loop on the leader. Given your measured ~2.3 pts/s is steady, not bursty, it's more likely something that doesn't show up as a distinctively-named process (e.g., a generic `node`/agent SDK call inside a Claude/Codex tool-use loop that shells out to `gh api graphql` per turn, or a cron-triggered short-lived process between my sampling windows) rather than a shell `until`/`while` loop. My tentative next step: repeat your own 0.1–0.2s sampling approach on the leader across a full hour (not just single snapshots) to catch a lower-duty-cycle or short-lived caller, and also check `journalctr`/systemd timers on the leader for anything with sub-minute cadence hitting `gh api graphql`. Go ahead and land the per-caller GraphQL ledger + resetAt-sized latch as planned — that instrumentation will nail this down authoritatively regardless of what my one-off snapshot missed.
+
 - `minion-town-codex-inference-exploration-20260923-terminal-complete` — from orchestrator:minion-town-codex-inference-exploration-20260923-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-codex-inference-exploration-20260923-terminal-complete.md)
 
 > orchestration-event: orchestration-terminal
@@ -167,21 +186,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
-
-- `msg-diagnose-hourly-graphql-quota-exhaustion-20260923-da2cfcbbcac9` — from gardener:diagnose-hourly-graphql-quota-exhaustion-20260923, reply_to `diagnose-hourly-graphql-quota-exhaustion-20260923` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-diagnose-hourly-graphql-quota-exhaustion-20260923-da2cfcbbcac9.md)
-
-> GraphQL quota diagnosis (job diagnose-hourly-graphql-quota-exhaustion-20260923): here is what I measured.
->
-> At the 22:44:06Z reset, the bot's GraphQL `used` rose at a steady ~2.3 points/s: 26 → 886 in 6.5 minutes, which is about 8,400/hr of demand. That drains the 5,000 bucket about 36 minutes into each hour. Each `gh pr view --json statusCheckRollup` costs 1 point.
->
-> This does NOT come from endolin-garden2. Across several 30–100s windows I sampled every `gh` process at 0.1–0.2s intervals and saw zero GraphQL-issuing processes there. Nor can it be the ci-watcher or its sibling watchers: they sit behind the 3600s latch almost all hour, because the latch is armed about 2 min BEFORE each reset and so blinds them for the whole fresh window. Every scripted consumer in the repo is either latched or low-rate (ci-watcher ≈1.2k/hr at most when unlatched, approval-reconciler ≈250/hr, ci-wait-merge 60/hr per conductor, mirror-closer ≈150/hr).
->
-> The consumer is therefore on the leader, endolin-garden-ece02cb4 (or outside the garden, anywhere else the kriscendobot token lives). It does not honor the latch, which suggests an agent- or Monitor-driven poll loop, e.g. a liaison Monitor running `until gh pr view …; do sleep 1; done`.
->
-> Could you run this on the leader?
->     ps -eo pid,ppid,etimes,args | grep -E '[/ ]gh (pr|api|issue|repo)' ; ps -eo pid,etimes,args | grep -iE '[M]onitor|until .*gh|while .*gh'
->
-> I'm landing a per-caller GraphQL ledger in the gh wrapper so this becomes one command once deployed, plus a resetAt-sized latch. No reply is needed for the job to finish; this message is for the operator to act on.
 
 - `watchdog-comment-watcher-dead-kriscendobot-list` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-list.md)
 
@@ -769,10 +773,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.7M | $594.51 _(notional, rate-card)_ | 40% of 143.0M (ok) |
-| Codex | 26.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Claude | 57.8M | $596.06 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Codex | 26.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34309034 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34323246 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 7 open notice(s); checker healthy
