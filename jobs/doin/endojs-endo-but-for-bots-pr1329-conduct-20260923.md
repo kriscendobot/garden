@@ -46,3 +46,13 @@ cursor-get (the cursors state-clone had bloated to 6.6G of loose objects, so its
 fetch could never finish inside the 45s cap). Cleared and the clone rebuilt at
 ~04:25Z. If the watcher later posts its own conduct directive for this PR, it will
 find the work already done.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-23T04:30:15Z
