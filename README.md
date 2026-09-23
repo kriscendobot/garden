@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T21:59:13Z_
+_As of 2026-09-23T22:01:34Z_
 
 ## Latest
 
@@ -1095,6 +1095,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden2__garden_state_monitors_cleric_1_journal` cleared on endolin-garden2-5bcdff64.
 
+- `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_maintainer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_maintainer_journal.md)
+
+> Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/maintainer/journal: oldest-third median=1.986654s newest-third median=2.568310s; 1.5x floor=10s; projected-to-guard=59987s.
+
 - `doomed-improve-ci-watcher-primary-quota-cooldown-too-short-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-ci-watcher-primary-quota-cooldown-too-short-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -1346,7 +1350,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 34359061 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 15 open notice(s); checker healthy
+worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 16 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
