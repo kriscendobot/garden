@@ -70,3 +70,13 @@ Definition of done: all artifacts land on `main2`, the probe and seat-gate tests
 pass locally, and your report names the commit SHAs.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T18:43:13Z
