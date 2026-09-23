@@ -39,3 +39,13 @@ Stripe webhook raw-body route.
   fine and expected; the point is that the body is accepted by the parser and every proxy). Report
   the live status code.
 - Complete the job via the normal completion path when done.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-23T20:28:25Z
