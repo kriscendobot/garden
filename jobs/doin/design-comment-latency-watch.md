@@ -79,6 +79,7 @@ there are none; review PR if there are). Keep open questions to genuine maintain
 decisions. Everything else should be decided in the design so the build can proceed.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=565 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
