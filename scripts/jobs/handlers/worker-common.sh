@@ -73,6 +73,7 @@ worker_ensure_worktree() {
       mkdir -p "$GARDEN_SCRATCH"
       for (( attempt = 1; attempt <= max_attempts; attempt++ )); do
         if err="$(git -C "$GARDEN_ROOT" worktree add --detach "$worktree" "$ref" 2>&1 >/dev/null)"; then
+          record_worktree_start_head "$worktree"   # first-cycle productivity baseline
           return 0
         fi
         last_err="$err"
@@ -139,6 +140,25 @@ create it OUTSIDE the root (e.g. under \$TMPDIR) and 'git init' it before use.
 EOF
 }
 
+# worker_headless_note — the paragraph every job prompt carries about the one fact
+# a worker most often gets wrong: it runs headless (`claude -p` / `codex exec`), so
+# ENDING A TURN ENDS THE SESSION. The interactive harness teaches the model to
+# background a long wait (a CI watch, a Monitor) and end its turn "until notified";
+# headless, nothing ever re-invokes it, the backgrounded task is abandoned, and the
+# job ends without its completion signal and is requeued (six such jobs on
+# 2026-09-23 alone; fix-finished-but-not-completed-requeue).
+worker_headless_note() {
+  cat <<EOF
+HEADLESS SESSION: you run non-interactively, so ENDING YOUR TURN ENDS THE SESSION.
+Nothing re-invokes you afterwards: a command you ran in the background, a Monitor,
+or any "I'll wait for the notification" is abandoned the moment you stop, and no
+notification will ever arrive. Wait for CI, builds, and other long operations IN
+THE FOREGROUND (a bounded polling loop), and never end a turn in order to wait.
+Your final message IS the completion report: when the work is done, write it and
+end it with the completion signal in that same final message.
+EOF
+}
+
 # worker_job_prompt <base> <jobfile> <worktree> <main-branch> <mode> — the full
 # prompt a handler feeds its CLI. mode=fresh|resume|fallback selects the framing;
 # all three carry the SAME completion-signal contract, worktree note, messaging
@@ -161,6 +181,13 @@ EOF
 #                resume here would be false and would push the worker to trust a
 #                memory and hunt for uncommitted edits that do not exist (the gap
 #                measured in issue #62 follow-up: cross-host requeue loses both).
+#   * continue — a same-host resume (transcript attached) whose previous session
+#                ENDED ITS TURN CLEANLY without the completion signal: it was not
+#                interrupted, it stopped. Telling it "you were interrupted, carry on"
+#                is false; it is told it stopped without completing and asked to
+#                verify the deliverable and complete now (finishing any remainder in
+#                the foreground). The handler also uses this framing for its
+#                in-process completion nudge (monk-claude.sh).
 worker_job_prompt() {
   local base="${1:?}" jobfile="${2:?}" worktree="${3:?}" main_branch="${4:?}" mode="${5:-fresh}"
   local role_brief="$GARDEN_ROOT/roles/gardener/AGENT.md"
@@ -178,7 +205,48 @@ exists and stamps \`handed-off: successor-base\` plus
 clean-completion claim.
 EOF
 )"
-  if [ "$mode" = resume ]; then
+  local headless_note; headless_note="$(worker_headless_note)"
+  if [ "$mode" = continue ]; then
+    cat <<EOF
+You are CONTINUING garden job '$base'. Your previous session on this job ENDED ITS
+TURN WITHOUT EMITTING THE COMPLETION SIGNAL, so the job was NOT recorded as done
+and has come back to you. You were not interrupted; you stopped. Your session
+history is carried forward, and your cwd is the same dedicated worktree.
+
+Anything you left running in the background (a backgrounded command, a Monitor, a
+wait for a notification) was abandoned when that session ended. Do NOT redo
+finished work. VERIFY THE DELIVERABLE NOW: check what you committed and pushed,
+any PR you opened, and the job spec below.
+  * If the job is genuinely finished, write the concise completion report and end
+    it with the completion signal.
+  * If something is still outstanding, finish it IN THE FOREGROUND (poll with a
+    bounded timeout rather than backgrounding and waiting), then complete.
+
+COMPLETION SIGNAL (required): ONLY when you have GENUINELY finished the job, emit
+the exact line
+    $GARDEN_COMPLETION_MARKER
+as the very LAST line of your report, on its own line, as your final act. If you
+still did NOT finish, do NOT emit that line — the job will be requeued rather than
+falsely recorded as done.
+
+ORCHESTRATED FAILURE SIGNAL: If you genuinely finished but did NOT achieve a
+gated outcome required by an orchestration, emit the exact line
+    $GARDEN_ORCHESTRATION_FAILURE_MARKER
+immediately BEFORE the completion signal. Do not type an
+\`orchestration-failed:\` field into prose. The completion machinery stamps that
+field into report frontmatter from this exact signal.
+
+$handoff_note
+
+$headless_note
+
+$note
+
+----- JOB $base -----
+$(cat "$jobfile")
+----- END JOB -----
+EOF
+  elif [ "$mode" = resume ]; then
     cat <<EOF
 You are RESUMING garden job '$base' after a reaper requeue: your earlier session
 was interrupted before it finished and has been carried forward to you intact.
@@ -203,6 +271,8 @@ immediately BEFORE the completion signal. Do not type an
 field into report frontmatter from this exact signal.
 
 $handoff_note
+
+$headless_note
 
 $note
 
@@ -242,6 +312,8 @@ field into report frontmatter from this exact signal.
 
 $handoff_note
 
+$headless_note
+
 $note
 
 ----- JOB $base -----
@@ -271,6 +343,8 @@ immediately BEFORE the completion signal. Do not type an
 field into report frontmatter from this exact signal.
 
 $handoff_note
+
+$headless_note
 
 $note
 

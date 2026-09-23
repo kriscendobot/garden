@@ -76,6 +76,12 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
   unfinished so it requeues. Use `post-plan.sh --budget-hold` when the successor
   should return automatically after quota refresh; generic `--go-ahead` still
   requires maintainer authorization.
+- **You run headless: ending your turn ends the session.** Nothing re-invokes you,
+  so never background a CI wait or arm a Monitor and then end your turn "until
+  notified". The task is abandoned and the job requeues without its completion
+  (six jobs on 2026-09-23). Wait in the foreground with a bounded poll, and end
+  your final message, the report, with the completion signal. If you stop without
+  it anyway, the handler resumes you once with a "verify and complete" prompt.
 - To reach the user, `message-user.sh <your-base>` — the liaison surfaces it and
   routes any reply back into your inbox.
 - Before submitting to CI, err toward running **all** evaluation scripts

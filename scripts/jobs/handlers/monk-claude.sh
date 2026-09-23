@@ -123,7 +123,18 @@ worker_ensure_worktree "$worktree" "$main_branch" "$resuming"
 # means a prior attempt existed even though its session/worktree did not survive to
 # here. The session id is pinned the same either way so the NEXT death stays
 # resumable.
-if $resuming; then
+#   * resuming, and the prior attempt STOPPED (ended its turn cleanly without the
+#     completion signal, recorded by the unfinished marker below) -> continue: the
+#     session was not interrupted, so it is told it stopped without completing and
+#     asked to verify the deliverable and complete (never a bare resume of a
+#     finished session; fix-finished-but-not-completed-requeue).
+# The unfinished marker lives in the worktree's private git admin dir, so it exists
+# only while this same-host worktree does and is never committed.
+unfinished_marker="$(git -C "$worktree" rev-parse --absolute-git-dir 2>/dev/null || true)"
+[ -n "$unfinished_marker" ] && unfinished_marker="$unfinished_marker/garden-unfinished-end-turn"
+if $resuming && [ -n "$unfinished_marker" ] && [ -e "$unfinished_marker" ]; then
+  prompt_mode="continue"
+elif $resuming; then
   prompt_mode=resume
 elif [ "$(reap_count "$jobfile")" -gt 0 ]; then
   prompt_mode=fallback
@@ -244,7 +255,6 @@ export GARDEN_JOB_BASE="$base"
 journal_dir="$(dirname "$(dirname "$(dirname "$jobfile")")")"
 budget_tier="${serve_tier:-${requested_tier:-$(role_default_tier "$requested_role")}}"
 max_budget_usd="$(claude_call_budget_usd "$budget_tier" "$journal_dir")"
-budget_args=(--max-budget-usd "$max_budget_usd")
 export GARDEN_CLAUDE_CALL_BUDGET_USD="$max_budget_usd"
 log "job '$base' call ceiling: tier=$budget_tier max-budget-usd=$max_budget_usd (scaled by fresh seven-day headroom when available)"
 
@@ -334,88 +344,180 @@ claude_reap() {
   [ -n "$claude_pgid" ] || return 0
   reap_process_tree "$claude_pgid" "$GARDEN_MONK_CLAUDE_REAP_GRACE" "$GARDEN_MONK_CLAUDE_DRAIN_TIMEOUT" || true
 }
-set +e
-set -m
-if [ -x /usr/bin/time ]; then
-  ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format stream-json --verbose --dangerously-skip-permissions "${budget_args[@]}" "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope" &
-else
-  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format stream-json --verbose --dangerously-skip-permissions "${budget_args[@]}" "${session_args[@]}" "${model_args[@]}" "$prompt" ) > "$envelope" &
-fi
-claude_pgid=$!
-set +m
-# Arm cleanup now that the group id is known. On a wall signal, reap the (still-live)
-# tree, then exit with the conventional 128+signo so the outcome is unambiguous; the
-# EXIT trap re-runs the reap as a fast no-op once the tree is already gone.
+# Arm cleanup before the first launch (a no-op until a group id is known). On a wall
+# signal, reap the (still-live) tree, then exit with the conventional 128+signo so the
+# outcome is unambiguous; the EXIT trap re-runs the reap as a fast no-op once the tree
+# is already gone.
 trap 'claude_reap' EXIT
 trap 'claude_reap; exit 143' TERM
 trap 'claude_reap; exit 130' INT
 trap 'claude_reap; exit 129' HUP
-wait "$claude_pgid"; rc=$?
-set -e
-# The stream is newline-delimited events.  Validate every line and require exactly
-# one terminal result event: a truncated stream or a stream with no result is an
-# authoritative transient failure, never a clean completion.
-result_event="$(claude_stream_result "$envelope" 2>/dev/null || true)"
-rate_event=""
-if [ -n "$result_event" ]; then
-  outcome="$(claude_result_outcome "$result_event")"
-  rate_event="$(jq -cs '[.[]|select(.type=="rate_limit_event")]|last//empty' "$envelope" 2>/dev/null || true)"
-  if jq -er '.result | strings' <<<"$result_event" > "$report" 2>/dev/null; then :; else
-    jq -r '"Claude CLI ended with structured outcome: " + (.subtype//.terminal_reason//"unknown")' <<<"$result_event" > "$report"
+
+# claude_call <max-budget-usd> <prompt> <session-arg>... — run ONE `claude -p`
+# invocation into $envelope and reap its whole runtime tree before returning (so a
+# later call in this same handler never shares a worktree with a leftover writer, and
+# the background tasks an ended session abandoned die with it). Sets $rc to the CLI's
+# exit status. The handler may make up to 1 + GARDEN_COMPLETION_NUDGES calls.
+claude_call() {
+  local call_budget="$1" call_prompt="$2"; shift 2
+  set +e
+  set -m
+  if [ -x /usr/bin/time ]; then
+    ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format stream-json --verbose --dangerously-skip-permissions --max-budget-usd "$call_budget" "$@" "${model_args[@]}" "$call_prompt" ) > "$envelope" &
+  else
+    ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format stream-json --verbose --dangerously-skip-permissions --max-budget-usd "$call_budget" "$@" "${model_args[@]}" "$call_prompt" ) > "$envelope" &
   fi
-  resolved_for_usage="${resolved_model:-}"
-  usage_capture_result "${GARDEN_USAGE_FILE:-/dev/null}" "$resolved_for_usage" "$result_event" || true
-  [ -z "$rate_event" ] || usage_capture_rate_limit "${GARDEN_USAGE_FILE:-/dev/null}" "$rate_event" || true
-  if [ -s "${GARDEN_USAGE_FILE:-/dev/null}" ]; then
-    jq --arg outcome "$outcome" '. + {terminal_outcome:$outcome}' "${GARDEN_USAGE_FILE:-/dev/null}" \
-      > "${GARDEN_USAGE_FILE:-/dev/null}.tmp" 2>/dev/null \
-      && mv "${GARDEN_USAGE_FILE:-/dev/null}.tmp" "${GARDEN_USAGE_FILE:-/dev/null}" || true
+  claude_pgid=$!
+  set +m
+  wait "$claude_pgid"; rc=$?
+  claude_reap
+  claude_pgid=""
+  set -e
+}
+
+# claude_parse — classify the call just made. The stream is newline-delimited
+# events. Validate every line and require exactly one terminal result event
+# (common.sh § claude_stream_result): a truncated stream or a stream with no result
+# is an authoritative transient failure, never a clean completion. Sets $outcome and
+# $result_event, writes $report and the private usage handoff for THIS call.
+claude_parse() {
+  result_event="$(claude_stream_result "$envelope" 2>/dev/null || true)"
+  rate_event=""
+  if [ -n "$result_event" ]; then
+    outcome="$(claude_result_outcome "$result_event")"
+    rate_event="$(jq -cs '[.[]|select(.type=="rate_limit_event")]|last//empty' "$envelope" 2>/dev/null || true)"
+    if jq -er '.result | strings' <<<"$result_event" > "$report" 2>/dev/null; then :; else
+      jq -r '"Claude CLI ended with structured outcome: " + (.subtype//.terminal_reason//"unknown")' <<<"$result_event" > "$report"
+    fi
+    usage_capture_result "${GARDEN_USAGE_FILE:-/dev/null}" "${resolved_model:-}" "$result_event" || true
+    [ -z "$rate_event" ] || usage_capture_rate_limit "${GARDEN_USAGE_FILE:-/dev/null}" "$rate_event" || true
+    if [ -s "${GARDEN_USAGE_FILE:-/dev/null}" ]; then
+      jq --arg outcome "$outcome" '. + {terminal_outcome:$outcome}' "${GARDEN_USAGE_FILE:-/dev/null}" \
+        > "${GARDEN_USAGE_FILE:-/dev/null}.tmp" 2>/dev/null \
+        && mv "${GARDEN_USAGE_FILE:-/dev/null}.tmp" "${GARDEN_USAGE_FILE:-/dev/null}" || true
+    fi
+    usage_capture_rusage "${GARDEN_USAGE_FILE:-/dev/null}" "$rusage" || true
+  else
+    outcome=transient-failure
+    printf 'Claude CLI stream was truncated or ended without exactly one result event.\n' > "$report"
+    printf '{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false}}\n' > "${GARDEN_USAGE_FILE:-/dev/null}" 2>/dev/null || true
   fi
-  usage_capture_rusage "${GARDEN_USAGE_FILE:-/dev/null}" "$rusage" || true
-  # Close the nested-`claude -p` metering hole: when this handler supervised a panel
-  # (or any nested `claude -p`), the envelope just captured accounts only for the
-  # top-level session. Augment the handoff with the COMPLETE session-log delta over
-  # the job's own worktree dirs — measured before the completion teardown below
-  # retires the top-level transcript — so the per-job ledger approximates real spend
-  # (designs/panel-seat-metering-and-tiering.md). No-op for a plain job (delta ~=
-  # envelope); best-effort and never fatal.
-  usage_after_nested="$(meter_job_session_usage "$base" 2>/dev/null || true)"
-  augment_usage_with_session_delta "${GARDEN_USAGE_FILE:-/dev/null}" \
-    "$usage_before_nested" "$usage_after_nested" "$resolved_for_usage" || true
-else
-  outcome=transient-failure
-  printf 'Claude CLI stream was truncated or ended without exactly one result event.\n' > "$report"
-  printf '{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false}}\n' > "${GARDEN_USAGE_FILE:-/dev/null}" 2>/dev/null || true
-fi
+}
 
 # Feed the structured verdict into the existing requeue/quarantine/doom spine.
 # Budget exhaustion is a normal bounded stop, not a job defect; quota cuts and
 # malformed streams are likewise transient.  Policy refusals carry the existing
 # narrow control-plane wording so the reaper quarantines them.  Other API errors
 # remain real failures and surface rather than looping blindly.
-case "$outcome" in
-  complete-candidate) : ;;
-  budget-stop)
-    printf 'Claude structured budget stop: max budget USD exhausted; requeueing bounded work.\n' >&2
-    rc="${GARDEN_OFFLINE_RC:-75}"
-    ;;
-  quota-cut)
-    printf 'Claude structured quota cut: usage limit reached; requeueing after provider backoff.\n' >&2
-    rc="${GARDEN_OFFLINE_RC:-75}"
-    ;;
-  policy-refusal)
-    printf 'Claude request was blocked by our usage policy (structured provider policy refusal).\n' >&2
-    rc=1
-    ;;
-  api-error)
-    printf 'Claude structured API error (status=%s).\n' "$(jq -r '.api_error_status//"unknown"' <<<"$result_event")" >&2
-    rc=1
-    ;;
-  *)
-    printf 'Claude structured transient failure; requeueing.\n' >&2
-    rc="${GARDEN_OFFLINE_RC:-75}"
-    ;;
-esac
+claude_map_rc() {
+  case "$outcome" in
+    complete-candidate) : ;;
+    budget-stop)
+      printf 'Claude structured budget stop: max budget USD exhausted; requeueing bounded work.\n' >&2
+      rc="${GARDEN_OFFLINE_RC:-75}"
+      ;;
+    quota-cut)
+      printf 'Claude structured quota cut: usage limit reached; requeueing after provider backoff.\n' >&2
+      rc="${GARDEN_OFFLINE_RC:-75}"
+      ;;
+    policy-refusal)
+      printf 'Claude request was blocked by our usage policy (structured provider policy refusal).\n' >&2
+      rc=1
+      ;;
+    api-error)
+      printf 'Claude structured API error (status=%s).\n' "$(jq -r '.api_error_status//"unknown"' <<<"$result_event")" >&2
+      rc=1
+      ;;
+    *)
+      printf 'Claude structured transient failure; requeueing.\n' >&2
+      rc="${GARDEN_OFFLINE_RC:-75}"
+      ;;
+  esac
+}
+
+# unfinished_end_turn — 0 iff the call just made ended CLEANLY (end_turn, rc 0) but
+# its report lacks the completion marker: the session stopped rather than finished.
+unfinished_end_turn() {
+  [ "$outcome" = complete-candidate ] && [ "$rc" -eq 0 ] && ! report_has_completion_marker "$report"
+}
+
+claude_call "$max_budget_usd" "$prompt" "${session_args[@]}"
+claude_parse
+claude_map_rc
+
+# --- in-process completion nudge (fix-finished-but-not-completed-requeue) -----
+#
+# A session that ends its turn cleanly WITHOUT the completion marker has usually
+# DONE the work (committed, pushed, opened the PR) and then stopped — most often
+# after backgrounding a CI wait or a Monitor and ending its turn "until notified",
+# which headless never happens. Requeueing it costs a whole claim cycle, a doom or
+# stage-retry tick, and (before the stream fix) a resume that died in seconds. So
+# while the worktree and session are still warm, resume the SAME session once in
+# THIS process with the explicit continuation prompt: "you stopped without
+# completing; verify the deliverable and complete now". Bounded by
+# GARDEN_COMPLETION_NUDGES (default 1; 0 disables) and by the call ceiling's
+# REMAINING headroom (skipped under GARDEN_COMPLETION_NUDGE_MIN_USD), so it can
+# never spend past what a single call was allowed. The nudge's usage is summed into
+# the one handoff record so the ledger stays whole.
+: "${GARDEN_COMPLETION_NUDGES:=1}"
+: "${GARDEN_COMPLETION_NUDGE_MIN_USD:=0.50}"
+case "$GARDEN_COMPLETION_NUDGES" in ''|*[!0-9]*) GARDEN_COMPLETION_NUDGES=0 ;; esac
+nudges=0
+while [ "$nudges" -lt "$GARDEN_COMPLETION_NUDGES" ] && [ -n "$session_id" ] && unfinished_end_turn; do
+  spent="$(jq -r '.total_cost_usd // 0' <<<"${result_event:-{\}}" 2>/dev/null || echo 0)"
+  nudge_budget="$(awk -v m="$max_budget_usd" -v s="${spent:-0}" 'BEGIN{r=m-s; if (r<0) r=0; printf "%.2f", r}')"
+  if ! awk -v r="$nudge_budget" -v f="$GARDEN_COMPLETION_NUDGE_MIN_USD" 'BEGIN{exit !(r+0 >= f+0)}'; then
+    log "job '$base' ended its turn without the completion signal; no completion nudge (remaining call budget USD $nudge_budget < $GARDEN_COMPLETION_NUDGE_MIN_USD)"
+    break
+  fi
+  nudges=$((nudges + 1))
+  log "job '$base' ended its turn without the completion signal; nudging the same session to verify and complete (nudge $nudges/$GARDEN_COMPLETION_NUDGES, budget USD $nudge_budget)"
+  prior_usage=""
+  [ -s "${GARDEN_USAGE_FILE:-/dev/null}" ] && prior_usage="$(cat "$GARDEN_USAGE_FILE" 2>/dev/null || true)"
+  cp "$report" "$report.pre-nudge" 2>/dev/null || true
+  nudge_prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" continue)"
+  claude_call "$nudge_budget" "$nudge_prompt" --resume "$session_id"
+  claude_parse
+  claude_map_rc
+  # Sum the calls into one handoff: additive counters add, the terminal verdict and
+  # rate-limit sample are the last call's.
+  if [ -n "$prior_usage" ] && [ -s "${GARDEN_USAGE_FILE:-/dev/null}" ]; then
+    jq --argjson p "$prior_usage" --argjson n "$nudges" '
+      reduce ("num_turns","elapsed_s","input_tokens","output_tokens","cache_creation_tokens",
+              "cache_read_tokens","total_cost_usd","cpu_user_ms","cpu_sys_ms") as $k (.;
+        if ($p[$k] != null) then .[$k] = ((.[$k] // 0) + $p[$k]) else . end)
+      + {completion_nudges:$n}' "$GARDEN_USAGE_FILE" > "$GARDEN_USAGE_FILE.tmp" 2>/dev/null \
+      && mv "$GARDEN_USAGE_FILE.tmp" "$GARDEN_USAGE_FILE" || rm -f "$GARDEN_USAGE_FILE.tmp"
+  fi
+  # A nudge that itself failed to produce a report must not erase the first
+  # session's report (the requeue diagnostics and any later human read it).
+  if [ ! -s "$report" ] || [ "$outcome" != complete-candidate ]; then
+    { cat "$report.pre-nudge" 2>/dev/null; printf '\n[completion nudge: %s]\n' "$outcome"; cat "$report" 2>/dev/null; } > "$report.merged" \
+      && mv "$report.merged" "$report"
+  fi
+  rm -f "$report.pre-nudge"
+done
+
+# Close the nested-`claude -p` metering hole: when this handler supervised a panel
+# (or any nested `claude -p`), the envelopes just captured account only for the
+# top-level session. Augment the handoff with the COMPLETE session-log delta over
+# the job's own worktree dirs — measured before the completion teardown below
+# retires the top-level transcript — so the per-job ledger approximates real spend
+# (designs/panel-seat-metering-and-tiering.md). No-op for a plain job (delta ~=
+# envelope); best-effort and never fatal.
+if [ -n "$result_event" ]; then
+  usage_after_nested="$(meter_job_session_usage "$base" 2>/dev/null || true)"
+  augment_usage_with_session_delta "${GARDEN_USAGE_FILE:-/dev/null}" \
+    "$usage_before_nested" "$usage_after_nested" "${resolved_model:-}" || true
+fi
+
+# Remember, in the worktree's private admin dir, that this attempt STOPPED without
+# completing (as opposed to being interrupted), so the next same-host claim resumes
+# with the honest `continue` framing rather than "you were interrupted".
+if [ -n "$unfinished_marker" ]; then
+  if unfinished_end_turn; then : > "$unfinished_marker" 2>/dev/null || true
+  else rm -f "$unfinished_marker" 2>/dev/null || true; fi
+fi
 
 # --- deterministic completion signal -----------------------------------------
 #

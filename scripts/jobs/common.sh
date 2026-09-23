@@ -2268,10 +2268,21 @@ claude_result_outcome() {
 # claude_stream_result <stream-file> — validate the entire NDJSON stream and
 # print its sole terminal result event.  A truncated line, multiple result
 # events, or a missing result is untrustworthy and therefore fails closed.
+#
+# Result events whose `origin.kind` is `task-notification` are NOT the answer to
+# our prompt and are excluded before the count. Claude Code emits one when a
+# background task (a run_in_background command, a Monitor) left by an EARLIER
+# invocation of the session reports its end: resuming a session that ended its
+# turn with such a task still armed first delivers a zero-turn `result` for the
+# stale "stopped" notification, then the real result for the resume prompt. The
+# old strict count read that pair as a malformed stream, so every resume of a
+# session that had backgrounded a CI wait "died" as transient-failure in seconds
+# (fix-finished-but-not-completed-requeue, 2026-09-23).
 claude_stream_result() {
   local file="${1:-}"
   [ -s "$file" ] && command -v jq >/dev/null 2>&1 || return 1
-  jq -cse '[.[] | select(.type == "result")] | if length == 1 then .[0] else error("terminal result count") end' "$file" 2>/dev/null
+  jq -cse '[.[] | select(.type == "result") | select((.origin.kind? // "") != "task-notification")]
+    | if length == 1 then .[0] else error("terminal result count") end' "$file" 2>/dev/null
 }
 
 # provider_quota_reset_clause <text> — echoes the "resets …" clause when the
@@ -6638,16 +6649,44 @@ job_worktree_heads() {
 # where the worktree persisted from the prior cycle so it is in `before` too) are what
 # this reliably detects — precisely the resume-treadmill class it must protect.
 # Snapshots are newline-separated `path:sha` from job_worktree_heads.
+#
+# A worktree created DURING the cycle (a first claim: the handler itself creates the
+# garden worktree, and the agent creates its project checkouts) has no `before` entry,
+# so its baseline is the HEAD recorded at creation (record_worktree_start_head). A
+# first session that commits and pushes the whole deliverable, then ends without the
+# completion signal, is therefore productive too — without this it was scored a
+# no-progress failure and burned the doom / stage-retry budget (the
+# fix-finished-but-not-completed-requeue class). A new worktree with no recorded start
+# head (or one still at it) remains setup, not progress.
 job_cycle_productive() {
   local before="$1" after="$2" line path sha bsha
   while IFS= read -r line; do
     [ -n "$line" ] || continue
     path="${line%%:*}"; sha="${line##*:}"
     bsha="$(printf '%s\n' "$before" | awk -F: -v p="$path" '$1==p{print $2; exit}')"
-    [ -n "$bsha" ] || continue           # path not in `before` → newly created, not progress
-    [ "$bsha" != "$sha" ] && return 0     # a persisted worktree advanced → productive
+    [ -n "$bsha" ] || bsha="$(worktree_start_head "$path")"
+    [ -n "$bsha" ] || continue           # new, with no recorded start → setup, not progress
+    [ "$bsha" != "$sha" ] && return 0     # the worktree advanced past its baseline → productive
   done <<< "$after"
   return 1
+}
+
+# record_worktree_start_head <worktree> — remember the HEAD a per-job worktree was
+# created at, in its private admin dir (never the working tree, so it cannot be
+# committed). Best-effort; called right after `git worktree add`.
+record_worktree_start_head() {
+  local wt="${1:?record_worktree_start_head: worktree required}" gd head
+  gd="$(git -C "$wt" rev-parse --absolute-git-dir 2>/dev/null)" || return 0
+  head="$(git -C "$wt" rev-parse HEAD 2>/dev/null)" || return 0
+  printf '%s\n' "$head" > "$gd/garden-start-head" 2>/dev/null || true
+}
+
+# worktree_start_head <worktree> — print the recorded creation HEAD, or nothing.
+worktree_start_head() {
+  local wt="${1:?}" gd
+  gd="$(git -C "$wt" rev-parse --absolute-git-dir 2>/dev/null)" || return 0
+  [ -f "$gd/garden-start-head" ] && head -1 "$gd/garden-start-head"
+  return 0
 }
 
 # Hard-sync a clone to the authoritative tip. The board's true state. Acquires

@@ -27,6 +27,17 @@ printf '%s\n%s\n' '{"type":"system"}' "$clean" > "$TR/good.jsonl"
 [ "$(claude_stream_result "$TR/good.jsonl")" = "$clean" ] && ok "valid stream yields terminal result" || bad "valid stream parse"
 printf '%s\n%s\n' '{"type":"system"}' '{"type":"assistant"' > "$TR/truncated.jsonl"
 claude_stream_result "$TR/truncated.jsonl" >/dev/null 2>&1 && bad "truncated stream accepted" || ok "truncated stream rejected"
+# A resumed session that had left a background task armed first emits a zero-turn
+# result for that task's stale notification, then the real result for our prompt.
+# The notification result is not the answer; it must not invalidate the stream.
+notif='{"type":"result","subtype":"success","is_error":false,"num_turns":0,"stop_reason":null,"result":"","origin":{"kind":"task-notification"}}'
+printf '%s\n%s\n%s\n' '{"type":"system"}' "$notif" "$clean" > "$TR/notified.jsonl"
+[ "$(claude_stream_result "$TR/notified.jsonl")" = "$clean" ] && ok "task-notification result is excluded; the prompt's result is terminal" \
+  || bad "stale task-notification result invalidated the resumed stream"
+printf '%s\n' "$notif" > "$TR/notif-only.jsonl"
+claude_stream_result "$TR/notif-only.jsonl" >/dev/null 2>&1 && bad "notification-only stream accepted" || ok "notification-only stream rejected"
+printf '%s\n%s\n' "$clean" "$clean" > "$TR/double.jsonl"
+claude_stream_result "$TR/double.jsonl" >/dev/null 2>&1 && bad "two prompt results accepted" || ok "two prompt results still rejected"
 printf '%s\n' '{"type":"assistant"}' > "$TR/missing.jsonl"
 claude_stream_result "$TR/missing.jsonl" >/dev/null 2>&1 && bad "missing-result stream accepted" || ok "missing-result stream rejected"
 

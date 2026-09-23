@@ -118,6 +118,12 @@ for a in "$@"; do
 done
 pwd > "$FAKE_CWD_OUT"
 printf '%s\n' "$mode" > "$FAKE_MODE_OUT"
+# Per-run call counter + per-call mode/prompt log, so a test can see the handler's
+# in-process completion nudge (a SECOND call in the same handler run).
+calls=0; [ -f "${FAKE_CALLS_OUT:-/dev/null}" ] && calls="$(cat "$FAKE_CALLS_OUT" 2>/dev/null || echo 0)"
+calls=$((calls + 1)); printf '%s\n' "$calls" > "${FAKE_CALLS_OUT:-/dev/null}"
+printf '%s\n' "$mode" >> "${FAKE_MODES_LOG:-/dev/null}"
+printf '%s' "${@: -1}" > "${FAKE_PROMPT_DIR:-/dev/null}${FAKE_PROMPT_DIR:+/prompt.$calls}"
 printf '%s\n' "$model" > "${FAKE_MODEL_OUT:-/dev/null}"
 printf '%s\n' "$budget" > "${FAKE_BUDGET_OUT:-/dev/null}"
 # The prompt is the last positional argument the handler passes; capture it so the
@@ -139,10 +145,20 @@ if [ -n "${FAKE_BUDGET_STOP:-}" ]; then
   printf '%s\n' '{"type":"result","subtype":"error_max_budget_usd","is_error":true,"stop_reason":"end_turn","terminal_reason":"budget_exhausted","result":null,"usage":{"input_tokens":10,"output_tokens":2}}'
   exit 1
 fi
+# A resumed session whose earlier invocation left a background task armed first
+# reports that task's end as a zero-turn task-notification result (real Claude
+# Code behavior, observed 2026-09-23), then the real result.
+if [ "$mode" = resume ] && [ -n "${FAKE_STALE_NOTIFICATION:-}" ]; then
+  printf '%s\n' '{"type":"result","subtype":"success","is_error":false,"num_turns":0,"stop_reason":null,"result":"","origin":{"kind":"task-notification"}}'
+fi
 result='job done'
-[ -z "${FAKE_COMPLETION_MARKER:-}" ] || result="$result
+# FAKE_MARKER_FROM_CALL=N: the session "stops without completing" (clean end_turn,
+# no marker) on every call before the Nth.
+if [ -n "${FAKE_COMPLETION_MARKER:-}" ] && [ "$calls" -ge "${FAKE_MARKER_FROM_CALL:-1}" ]; then
+  result="$result
 $FAKE_COMPLETION_MARKER"
-jq -cn --arg result "$result" '{type:"result",subtype:"success",is_error:false,stop_reason:"end_turn",terminal_reason:"end_turn",result:$result,usage:{input_tokens:10,output_tokens:2}}'
+fi
+jq -cn --arg result "$result" '{type:"result",subtype:"success",is_error:false,stop_reason:"end_turn",terminal_reason:"end_turn",result:$result,num_turns:3,total_cost_usd:0.25,usage:{input_tokens:10,output_tokens:2}}'
 FAKE
 chmod +x "$FAKEDIR/claude"
 
@@ -165,7 +181,7 @@ run_handler() {  # run_handler <base> <jobfile> <report> ; sets global RC
   # teardown on that sentinel (written only on a genuine, marker-signaled
   # completion), so mirror that contract here: a fresh sentinel path per run, plus
   # the marker the fake claude emits on success.
-  rm -f "$SENTINEL"
+  rm -f "$SENTINEL" "$TR/calls.out" "$TR/modes.log"; rm -rf "$TR/prompts"; mkdir -p "$TR/prompts"
   # This suite invokes the legacy gardener wrapper; do not let a caller's active
   # worker kind (for example, a cleric job) change its provider/model assertions.
   HOME="$TR/home" PATH="$FAKEDIR:$PATH" \
@@ -174,7 +190,8 @@ run_handler() {  # run_handler <base> <jobfile> <report> ; sets global RC
     GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STALE_HANDLER_KILL_GRACE=1 \
     GARDEN_COMPLETION_SENTINEL="$SENTINEL" GARDEN_USAGE_FILE="$TR/usage.json" FAKE_COMPLETION_MARKER="$MARKER" \
     FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" FAKE_MODEL_OUT="$TR/model.out" FAKE_BUDGET_OUT="$TR/budget.out" FAKE_USAGE_OUT="$TR/usage.out" \
-    FAKE_PROMPT_OUT="$TR/prompt.out" \
+    FAKE_PROMPT_OUT="$TR/prompt.out" FAKE_CALLS_OUT="$TR/calls.out" FAKE_MODES_LOG="$TR/modes.log" \
+    FAKE_PROMPT_DIR="$TR/prompts" \
     bash "$HANDLER" "$1" "$2" "$3"
   RC=$?
 }
@@ -444,6 +461,75 @@ if [ -d /proc ] && command -v setsid >/dev/null 2>&1; then
 else
   echo "  SKIP: /proc or setsid unavailable; cannot exercise the predecessor-kill guard"
 fi
+
+# === 13: headless framing — every prompt says ending the turn ends the session ==
+# (fix-finished-but-not-completed-requeue: sessions backgrounded a CI wait or a
+# Monitor and ended their turn "until notified", which headless never happens.)
+HBASE="garden-infra-headless-note"
+HJOB="$TR/$HBASE.job"
+printf 'Map: build (garden infra). Headless note.\n' > "$HJOB"
+run_handler "$HBASE" "$HJOB" "$REPORT"
+grep -q 'ENDING YOUR TURN ENDS THE SESSION' "$TR/prompt.out" 2>/dev/null \
+  && ok "fresh prompt warns that ending the turn ends the headless session" \
+  || bad "fresh prompt lacks the headless-session note"
+
+# === 14: a clean end_turn WITHOUT the marker is nudged IN-PROCESS to complete ===
+# The first call stops without completing; the handler resumes the SAME session
+# once, in this process, with the continuation prompt, and the nudge completes.
+NBASE2="garden-infra-nudge"
+NWT2="$SCRATCH/gardener-wt-$NBASE2"
+NJOB2="$TR/$NBASE2.job"
+printf 'Map: build (garden infra). Nudge.\n' > "$NJOB2"
+FAKE_MARKER_FROM_CALL=2 run_handler "$NBASE2" "$NJOB2" "$REPORT"
+[ "$RC" -eq 0 ] && ok "nudged run exits 0" || bad "nudged run should exit 0 (got $RC)"
+[ "$(cat "$TR/calls.out" 2>/dev/null)" = 2 ] && ok "an unfinished end_turn gets exactly ONE in-process completion nudge" \
+  || bad "expected 2 claude calls (session + nudge), got '$(cat "$TR/calls.out" 2>/dev/null)'"
+[ "$(sed -n 2p "$TR/modes.log" 2>/dev/null)" = resume ] && ok "the nudge resumes the SAME session (--resume)" \
+  || bad "the nudge did not --resume the session (modes: $(tr '\n' ' ' < "$TR/modes.log" 2>/dev/null))"
+grep -q 'ENDED ITS' "$TR/prompts/prompt.2" 2>/dev/null && grep -q 'VERIFY THE DELIVERABLE NOW' "$TR/prompts/prompt.2" 2>/dev/null \
+  && ok "the nudge carries the continuation prompt (stopped without completing; verify and complete)" \
+  || bad "the nudge prompt is not the continuation framing"
+[ -e "$SENTINEL" ] && ok "the nudge's completion wrote the completion sentinel" \
+  || bad "no completion sentinel after a completing nudge"
+jq -e '.num_turns == 6 and .completion_nudges == 1 and (.total_cost_usd * 100 | round) == 50' "$TR/usage.json" >/dev/null 2>&1 \
+  && ok "usage handoff sums the session and its nudge" \
+  || bad "usage not summed across the nudge: $(cat "$TR/usage.json" 2>/dev/null)"
+[ ! -e "$NWT2" ] && ok "a nudge-completed run tears its worktree down" || bad "worktree survived a nudge completion"
+
+# === 15: nudges off — the requeue's next claim gets the CONTINUE framing, not a ===
+# bare resume, and a stale background-task notification no longer kills it.
+CBASE="garden-infra-continue"
+CWT="$SCRATCH/gardener-wt-$CBASE"
+CJOB="$TR/$CBASE.job"
+printf 'Map: build (garden infra). Continue.\n\n<!-- garden-reaped: 1 -->\n' > "$CJOB"
+GARDEN_COMPLETION_NUDGES=0 FAKE_MARKER_FROM_CALL=99 run_handler "$CBASE" "$CJOB" "$REPORT"
+[ "$RC" -eq 0 ] && [ ! -e "$SENTINEL" ] && ok "an unfinished end_turn with nudges off exits 0 without completing (requeue)" \
+  || bad "unfinished end_turn: rc=$RC sentinel=$([ -e "$SENTINEL" ] && echo y || echo n)"
+[ "$(cat "$TR/calls.out" 2>/dev/null)" = 1 ] && ok "GARDEN_COMPLETION_NUDGES=0 disables the in-process nudge" \
+  || bad "nudge ran despite GARDEN_COMPLETION_NUDGES=0"
+[ -e "$(git -C "$CWT" rev-parse --absolute-git-dir 2>/dev/null)/garden-unfinished-end-turn" ] \
+  && ok "the stopped-not-interrupted attempt is recorded for the next claim" \
+  || bad "no unfinished-end-turn marker left in the worktree admin dir"
+FAKE_STALE_NOTIFICATION=1 run_handler "$CBASE" "$CJOB" "$REPORT"
+[ "$(cat "$TR/mode.out" 2>/dev/null)" = resume ] && ok "the requeue resumes the session" || bad "requeue did not resume"
+grep -q 'You are CONTINUING garden job' "$TR/prompt.out" 2>/dev/null \
+  && ! grep -q 'carried forward to you intact' "$TR/prompt.out" 2>/dev/null \
+  && ok "a requeue after a clean stop gets the CONTINUE prompt, never the bare interrupted-resume framing" \
+  || bad "requeue after a clean stop did not get the continuation framing"
+[ "$RC" -eq 0 ] && [ -e "$SENTINEL" ] \
+  && ok "a resume that first replays a stale task-notification result still completes (no transient-failure)" \
+  || bad "resume with a stale task-notification result did not complete (rc=$RC)"
+
+# === 16: the created worktree records its start head (first-cycle productivity) ==
+SHBASE="garden-infra-start-head"
+SHWT="$SCRATCH/gardener-wt-$SHBASE"
+SHJOB="$TR/$SHBASE.job"
+printf 'Map: build (garden infra). Start head.\n' > "$SHJOB"
+GARDEN_COMPLETION_NUDGES=0 FAKE_MARKER_FROM_CALL=99 run_handler "$SHBASE" "$SHJOB" "$REPORT"
+sh_rec="$(cat "$(git -C "$SHWT" rev-parse --absolute-git-dir 2>/dev/null)/garden-start-head" 2>/dev/null)"
+[ -n "$sh_rec" ] && [ "$sh_rec" = "$(git -C "$GROOT" rev-parse origin/main2)" ] \
+  && ok "a freshly created per-job worktree records its start HEAD" \
+  || bad "start head not recorded (got '$sh_rec')"
 
 echo
 echo "gardener-worktree-test: $PASS passed, $FAIL failed"

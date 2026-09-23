@@ -69,7 +69,12 @@ seed_board() {
              inbox/maintainer/unread inbox/maintainer/read
     for d in jobs/todo jobs/doin jobs/tada jobs/plan work repos msgs hosts entries schedules cursors \
              inbox/maintainer/unread inbox/maintainer/read; do touch "$d/.gitkeep"; done
-    printf '# %s\n\ndo the work for %s\n' "$base" "$base" > "jobs/todo/$base.md" )
+    printf '# %s\n\ndo the work for %s\n' "$base" "$base" > "jobs/todo/$base.md"
+    # A calibrated test pool so the claim gate admits (it fails CLOSED on an
+    # unknown inference source, which left the e2e subtest claiming nothing).
+    mkdir -p config
+    printf '%s\n' 'anthropic:test anthropic weekly-tokens 73000000 measured' > config/budget-pools
+    printf '%s\n' 'anthropic:test growhost gardener' 'anthropic:test stallhost gardener' > config/subscription-mapping )
   git -C "$seed" add -A
   git -C "$seed" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
   git -C "$seed" remote add origin "$bare"
@@ -107,6 +112,21 @@ mkwt "$GARDEN_SCRATCH/gardener-wt-jobB" >/dev/null
 after3="$(job_worktree_heads jobB)"
 job_cycle_productive "$before3" "$after3" && bad "a newly-created worktree falsely flagged productive" \
   || ok "a worktree that only appears in 'after' (setup) → not productive"
+
+# (d) a worktree created DURING the cycle (a first claim) is measured against the HEAD
+# recorded at creation: committing past it is productive (a first session that pushed
+# the whole deliverable, then ended without the completion signal —
+# fix-finished-but-not-completed-requeue); sitting at it is still just setup.
+before4="$(job_worktree_heads jobC)"
+mkwt "$GARDEN_SCRATCH/gardener-wt-jobC" >/dev/null
+record_worktree_start_head "$GARDEN_SCRATCH/gardener-wt-jobC"
+after4a="$(job_worktree_heads jobC)"
+job_cycle_productive "$before4" "$after4a" && bad "a new worktree still at its recorded start head flagged productive" \
+  || ok "a new worktree at its recorded start head (setup) → not productive"
+advance "$GARDEN_SCRATCH/gardener-wt-jobC"
+after4b="$(job_worktree_heads jobC)"
+job_cycle_productive "$before4" "$after4b" && ok "a new worktree that committed past its recorded start head → productive (first-cycle work counts)" \
+  || bad "first-cycle commits past the recorded start head not seen as productive"
 
 # ============================================================================
 hr; echo "SUBTEST 2 — gardener stamps the productive marker on a resumed, advancing cycle"; hr
@@ -249,6 +269,46 @@ fo_ok=1
 [ "$fo_ok" -eq 1 ] \
   && ok "a NON-productive ordinary wall-hit re-posts the same base for orchestration decomposition" \
   || bad "non-productive overrun split route broke (plan=$([ -f "$T3/v/jobs/plan/failovr.md" ] && echo y || echo n) todo=$([ -f "$T3/v/jobs/todo/failovr.md" ] && echo y || echo n))"
+
+# ============================================================================
+hr; echo "SUBTEST 5 — reaper: a productive gauntlet stage is requeued, not handed off"; hr
+# A gauntlet stage's first NON-productive failure is handed to gauntlet.sh at once
+# (parked in plan/, consuming a max_stage_retries attempt). A stage session that
+# committed and pushed its work but ended without the completion signal is NOT a
+# failure: it must requeue to todo (the next claim gets the continuation framing)
+# without burning a stage retry (fix-finished-but-not-completed-requeue). The reaper
+# spares it through job_progress_verdict, which reads the productive hint as
+# `advancing`; this subtest guards that path for gauntlet stages specifically.
+place_stale_gauntlet() { # <base> <productive:0|1>
+  local base="$1" productive="$2" wt; wt="$(mktemp -d "$T3/edit.XXXXXX")"
+  git clone -q --single-branch --branch journal2 "$BARE3" "$wt"
+  {
+    printf -- '---\nrole: cleaner\ngauntlet: g-%s\n---\n# %s\n\nthe stage body\n\n' "$base" "$base"
+    [ "$productive" = "1" ] && printf '<!-- garden-productive-cycle -->\n'
+    printf -- '---\nclaim:\n  host: reaphost\n  gardener: 7\n  claimed_at: 2020-01-01T00:00:00Z\n'
+  } > "$wt/jobs/doin/$base.md"
+  printf 'worktree_dir: %s\n' "$T3/nonexistent-wt-$base" > "$wt/work/$base"
+  git -C "$wt" add "jobs/doin/$base.md" "work/$base"
+  git -C "$wt" "${git_id[@]}" commit -q -m "place stale gauntlet stage $base"
+  git -C "$wt" push -q origin "HEAD:journal2"
+  rm -rf "$wt"
+}
+place_stale_gauntlet gprod 1
+env GARDEN_REAP_DOOM_THRESHOLD=5 "$JOBS/reaper.sh" > "$T3/reap-gprod.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T3/reap-gprod.log"; }
+resync3
+if [ -f "$T3/v/jobs/todo/gprod.md" ] && [ ! -f "$T3/v/jobs/plan/gprod.md" ]; then
+  ok "a PRODUCTIVE gauntlet-stage cycle → requeued to todo, no driver handoff (no stage retry burned)"
+else
+  bad "productive gauntlet stage was handed off (todo=$([ -f "$T3/v/jobs/todo/gprod.md" ] && echo y || echo n) plan=$([ -f "$T3/v/jobs/plan/gprod.md" ] && echo y || echo n))"
+fi
+place_stale_gauntlet gfail 0
+env GARDEN_REAP_DOOM_THRESHOLD=5 "$JOBS/reaper.sh" > "$T3/reap-gfail.log" 2>&1 || { echo "  (reaper rc=$?)"; sed 's/^/    /' "$T3/reap-gfail.log"; }
+resync3
+if [ -f "$T3/v/jobs/plan/gfail.md" ] && [ ! -f "$T3/v/jobs/todo/gfail.md" ]; then
+  ok "a NON-productive gauntlet-stage cycle is still handed to the driver on its first failure (parked in plan/)"
+else
+  bad "non-productive gauntlet stage not handed off (todo=$([ -f "$T3/v/jobs/todo/gfail.md" ] && echo y || echo n) plan=$([ -f "$T3/v/jobs/plan/gfail.md" ] && echo y || echo n))"
+fi
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

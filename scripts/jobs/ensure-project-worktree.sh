@@ -645,6 +645,9 @@ add_ref="$ref"
 
 git --git-dir="$bare" worktree add --detach "$wt" "$add_ref" >/dev/null \
   || die "ensure-project-worktree: could not check out $repo@$ref into $wt"
+# The productive-cycle baseline for a checkout created mid-cycle (common.sh
+# § job_cycle_productive): commits past this HEAD are the job's real progress.
+record_worktree_start_head "$wt"
 
 # Pin the bot identity so a subagent's commits cannot drift to the parent shell's
 # global git identity (the maintainer identity on a maintainer host).
