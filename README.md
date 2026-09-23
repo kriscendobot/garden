@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T17:22:48Z_
+_As of 2026-09-23T17:23:29Z_
 
 ## Latest
 
-Design and build jobs for journal contention watch entered the board today; the design is currently in flight. The comment-latency-watch orchestration halted on the associated gauntlet. Heavy inbox load: multiple orchestrations complete with failures or stalled on maintainer decisions (minion.town peer-fetch daemon exposure, minion.town pin landing on main, PR #87 backend provider clarity, Ironhorse and ReadableBlob jobs timing out at 7200–10800s), plus dozens of deferred infrastructure improvements (worktree sweeper gating, CI watcher quota cooldown, self-heal handler timeouts, budget-level isolation) waiting promotion. [endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) and [endo#3367](https://github.com/endojs/endo/pull/3367) remain parked for review. CLIPOMETER gauntlet active but delivery blocked on express.json() body-size limit (PR [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) mergeable but deploy gated on a server change). Quota stable at 37% Claude (143M) and 65% Codex (plan-metered).
+Container hardening progressed to active work this cycle. Three maintainer decisions unblock downstream PRs: the minion.town Endo daemon pin refresh ([kriscendobot/minion.town#104](https://github.com/kriscendobot/minion.town/pull/104)), guest-peer-fetch daemon exposure authorization ([kriscendobot/garden#58](https://github.com/kriscendobot/garden/issues/58)), and SIWE allowlist tiers. A gauntlet halted for [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) at fix retry exhaustion; [#1301](https://github.com/endojs/endo-but-for-bots/pull/1301) (ReadableBlob range-attenuation) hit handler timeout and needs splitting. Infrastructure improvements (ci-watcher quotas, worktree-sweeper gating, budget isolation, self-heal timeouts) accumulated in plan. CLIPOMETER reanchor discovered a hard blocker: minion.town's /mcp endpoint enforces a 100 KB body limit, but the esbuild caplet bundle is 206 KB—publishing to production is blocked until the server limit is raised.
 
 ## Parked for maintainer feedback
 
@@ -647,18 +647,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.9M | $546.22 _(notional, rate-card)_ | 37% of 143.0M (ok) |
+| Claude | 53.1M | $546.87 _(notional, rate-card)_ | 37% of 143.0M (ok) |
 | Codex | 21.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35178944 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
-### todo (1)
-- [`harden-garden-container-no-privileged-no-sudo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/harden-garden-container-no-privileged-no-sudo.md) — Build: harden the garden container: no --privileged, no passwordless sudo
+### todo (0)
+(none)
 
-### doin (2)
+### doin (3)
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
 - [`design-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-journal-contention-watch.md) — Design: journal contention watch (anomaly detection on latency and retries)
+- [`harden-garden-container-no-privileged-no-sudo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/harden-garden-container-no-privileged-no-sudo.md) — Build: harden the garden container: no --privileged, no passwordless sudo
 
 ### tada (8730)
 - [`comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/comment-latency-watch.md) — orchestration comment-latency-watch — HALTED
