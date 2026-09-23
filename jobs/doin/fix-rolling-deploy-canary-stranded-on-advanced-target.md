@@ -37,6 +37,7 @@ Repo: the garden itself (`kriscendobot/garden`, `main2`, push direct, no PR).
 4. Tests for the advanced-target case and the leader-self-before-canary case. Run the deploy suites
    and push. Complete the job via the normal completion path.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
