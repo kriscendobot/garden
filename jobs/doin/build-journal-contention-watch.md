@@ -37,3 +37,13 @@ for journal transaction **latency and retries**.
 
 Report: commit sha(s), the thresholds as built, and a one-shot run of the probe on your host
 showing current per-clone stats.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T17:31:13Z
