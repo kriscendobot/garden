@@ -79,3 +79,13 @@ declarative decision is a valid answer.
 Source review (untrusted):
 https://github.com/kriscendobot/garden/pull/108#pullrequestreview-5293922082
 Design under decision: `designs/opus55-tier.md` (landed on `main2`).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T17:40:34Z
