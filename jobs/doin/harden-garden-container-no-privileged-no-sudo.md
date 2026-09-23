@@ -57,3 +57,13 @@ not defend against deliberate escalation.
 
 Report: commit sha(s), the final docker run flags with a justification for each, every former
 sudo user and where it went, the probe output, and what verification was and was not possible.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T16:59:17Z
