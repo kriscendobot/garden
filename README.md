@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:04:40Z_
+_As of 2026-09-23T18:07:53Z_
 
 ## Latest
 
-Opus 5.5 tier landed yesterday ([kriscendobot/garden#108](https://github.com/kriscendobot/garden/pull/108) design on main2, build complete); the maintainer is invited to close the PR as an answered design surface. Three watch-and-build jobs active: garden's comment-latency watcher, journal-contention watcher, and re-export deprecation policy automation. The minion.town Claude-inference orchestration completed with one child failure (agent-SDK track); the clipometer gauntlet halted — its esbuild bundle cannot publish to the live daemon (HTTP 413 body-size limit, needs maintainer authorization for server change). Guest peer-fetch and guest invite-accept both blocked on pending infrastructure decisions. Fleet infrastructure backlog grew: worktree sweeper misgatted as leader-only (should run everywhere), primary-quota cooldown far too short (~15min vs. ~1hr GitHub reset), and error escalation contexts exclude the actual handler output. [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (@endo/claude confinement-core) waiting for a rebase refresh onto current llm, then preliminary review. Several automation jobs exhausted retry budgets and await human decisions: re-land the stale endo daemon pin to minion.town main, split oversized tasks, or approve architectural changes.
+Three builds in progress—comment-latency watch, journal-contention watch, and re-export deprecation automation—with a flurry of maintainer-blocking decisions surfaced. [endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) (SES lockdown intrinsics report) and [endo#3367](https://github.com/endojs/endo/pull/3367) (immutable-arraybuffer props) remain waiting for review after 5–6 days. Sixteen split-eligible jobs are parked after hitting handler timeouts or exhausting retries; most require maintainer scope decisions or preconditions before proceeding. [minion.town#104](https://github.com/kriscendobot/minion.town/pull/104) (Endo daemon pin refresh) is merged to the frozen base but not yet landed on `main`, blocking the guest invite-accept fallback. [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (@endo/claude confinement-core) awaits a rebase onto current `llm` for preliminary review. Several infrastructure fixes are queued—worktree-sweeper leader-only gating, CI watcher outage-latch flap dedup, budget-level single-host cap isolation—each needing a fixer to split and claim the work.
 
 ## Parked for maintainer feedback
 
@@ -630,10 +630,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.6M | $558.51 _(notional, rate-card)_ | 39% of 143.0M (ok) |
-| Codex | 22.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
+| Claude | 55.7M | $559.86 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Codex | 22.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 38031698 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 38115130 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
 ### todo (1)
