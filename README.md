@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:47:43Z_
+_As of 2026-09-23T18:49:30Z_
 
 ## Latest
 
@@ -758,7 +758,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.7M | $570.55 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 56.6M | $570.38 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 22.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 68% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34355458 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -767,18 +767,17 @@ _Fleet token-unlock pace: 34355458 tokens/day lower bound; incomplete where a su
 ### todo (0)
 (none)
 
-### doin (3)
-- [`kriscendobot-garden-pr108-repin-base-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr108-repin-base-20260923.md) — ---
+### doin (2)
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
 - [`validate-reexport-policy-ebfb-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/validate-reexport-policy-ebfb-20260923.md) — Validate the re-export policy automation on a synthetic endo-but-for-bots PR
 
-### tada (8741)
+### tada (8742)
+- [`kriscendobot-garden-pr108-repin-base-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr108-repin-base-20260923.md) — Completion report: PR #108 base repin
 - [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr109-conduct-20260923.md) — Cost
 - [`build-reexport-deprecation-policy-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-reexport-deprecation-policy-20260923.md) — Cost
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-comment-latency-watch.md) — Cost
 - [`build-opus55-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-opus55-tier.md) — Completion report
-- [`kriscendobot-garden-pr109-review-0310bc76`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-garden-pr109-review-0310bc76.md) — Cost
-- … and 8736 more
+- … and 8737 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
