@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:02:00Z_
+_As of 2026-09-23T18:04:40Z_
 
 ## Latest
 
-`build-opus55-tier` completed. Blocking work: minion-town-claude-inference-exploration hit a child failure; [kriscendobot/minion.town#84](https://github.com/kriscendobot/minion.town/pull/84) (CLIPOMETER) awaits a minion.town server-change decision (express.json limit of 100kb vs. 206kb bundle); and minion.town main needs the refreshed Endo daemon pin from [kriscendobot/minion.town#104](https://github.com/kriscendobot/minion.town/pull/104) (currently merged to frozen base only). Infrastructure fixes remain parked: worktree-sweeper ungating, self-heal-run handler deadline, CI watcher quota/outage improvements, budget-level cap isolation, and foreman active-target reset.
+Opus 5.5 tier landed yesterday ([kriscendobot/garden#108](https://github.com/kriscendobot/garden/pull/108) design on main2, build complete); the maintainer is invited to close the PR as an answered design surface. Three watch-and-build jobs active: garden's comment-latency watcher, journal-contention watcher, and re-export deprecation policy automation. The minion.town Claude-inference orchestration completed with one child failure (agent-SDK track); the clipometer gauntlet halted — its esbuild bundle cannot publish to the live daemon (HTTP 413 body-size limit, needs maintainer authorization for server change). Guest peer-fetch and guest invite-accept both blocked on pending infrastructure decisions. Fleet infrastructure backlog grew: worktree sweeper misgatted as leader-only (should run everywhere), primary-quota cooldown far too short (~15min vs. ~1hr GitHub reset), and error escalation contexts exclude the actual handler output. [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (@endo/claude confinement-core) waiting for a rebase refresh onto current llm, then preliminary review. Several automation jobs exhausted retry budgets and await human decisions: re-land the stale endo daemon pin to minion.town main, split oversized tasks, or approve architectural changes.
 
 ## Parked for maintainer feedback
 
@@ -630,20 +630,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 55.3M | $556.18 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Claude | 55.6M | $558.51 _(notional, rate-card)_ | 39% of 143.0M (ok) |
 | Codex | 22.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 38031698 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr109-conduct-20260923.md) — Finalize the approved TypeSafe Muster pilot answer-surface
 
-### doin (4)
+### doin (3)
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
 - [`build-reexport-deprecation-policy-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-reexport-deprecation-policy-20260923.md) — Build the re-export deprecation policy automation (garden-internal)
-- [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-conduct-20260923.md) — Finalize the approved TypeSafe Muster pilot answer-surface
 
 ### tada (8738)
 - [`build-opus55-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-opus55-tier.md) — Completion report
