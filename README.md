@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T22:54:23Z_
+_As of 2026-09-23T22:55:54Z_
 
 ## Latest
 
@@ -777,17 +777,16 @@ worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verif
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`diagnose-hourly-graphql-quota-exhaustion-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/diagnose-hourly-graphql-quota-exhaustion-20260923.md) — Diagnose: the bot's GitHub GraphQL bucket is exhausted every hour
-- [`fix-e2e-fixtures-budget-pool-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-e2e-fixtures-budget-pool-admission.md) — Fix: e2e gardener test fixtures blocked by the fail-closed budget-pool claim ...
 
-### tada (8785)
+### tada (8786)
+- [`fix-e2e-fixtures-budget-pool-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-e2e-fixtures-budget-pool-admission.md) — Cost
 - [`cybernetics-audit-remediation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/cybernetics-audit-remediation.md) — orchestration cybernetics-audit-remediation — complete
 - [`minion-town-claude-inference-exploration-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/22/minion-town-claude-inference-exploration-20260922.md) — orchestration minion-town-claude-inference-exploration-20260922 — complete
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923.md) — gauntlet ebfb-exo-stream-pr1100-gauntlet-20260923 — HALTED
 - [`minion-town-endo-pin-f9cbcfc-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/minion-town-endo-pin-f9cbcfc-verify.md) — Completion report: minion-town-endo-pin-f9cbcfc-verify
-- [`endo-ocapn-gateway-session-binding-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/endo-ocapn-gateway-session-binding-build.md) — Cost
-- … and 8780 more
+- … and 8781 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
