@@ -31,3 +31,13 @@ Found by endo-minion-town-federation-town-build (minion.town draft https://githu
    - minion.town's box script stores exactly this name, and its preflight greps the tree for it.
 
 Report the PR URL and the commit SHAs. Stop at a draft.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-23T21:35:43Z
