@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: fix already landed on main2 as 4ebf34044e (2026-09-23 00:20Z); the reaper parked the job at 05:37Z only because the drain stranded it
+withdrawn_by: producer
+withdrawn_at: 2026-09-23T16:49:08Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: fixer
