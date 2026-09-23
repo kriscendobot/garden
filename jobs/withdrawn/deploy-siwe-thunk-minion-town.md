@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Already superseded by completed deployment job deploy-siwe-thunk-minion-town-go; its remaining on-chain authorization and chain-choice preconditions are rejected by the 2026-09-23 maintainer decision, while the new SIWE guest-recovery integration is a distinct build.
+withdrawn_by: designer
+withdrawn_at: 2026-09-23T20:29:43Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 posted_by: designer
