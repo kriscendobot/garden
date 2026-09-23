@@ -887,6 +887,72 @@ EOF
 fi
 
 # ============================================================================
+# BQ — a quote-reply (a leading markdown blockquote, then a genuine @kriscendobot
+# request on the next paragraph) must DISPATCH, not be dropped as not-addressed.
+# Regression for endojs/endo-but-for-bots#1329 issuecomment-5785807820: the body
+# began with "> @kriscendobot Please run gauntlet." (a quote of the prior comment),
+# so byte zero was '>' and the ADDRESS gate dropped the WHOLE comment even though a
+# real "@kriscendobot pardon. Please investigate ..." request followed. The SOURCE
+# now strips a leading blockquote block BEFORE single-lining (where the line
+# structure the blockquote is defined by still exists), so the reply's address
+# reaches byte zero and the strict gate passes. Runs the REAL comment-source-gh.sh
+# (gh stubbed on PATH), first standalone to prove the emitted TSV body begins with
+# the address, then THROUGH the watcher to prove the quote-reply dispatches.
+hr; echo "BQ — a blockquote-then-address quote-reply dispatches (source strips the leading quote)"; hr
+if [ "$have_jq_q" -eq 0 ]; then
+  echo "  SKIP: no jq on host"
+else
+  GHBQ="$TR/gh-bq"; mkdir -p "$GHBQ"
+  cat > "$GHBQ/gh" <<'EOF'
+#!/bin/bash
+# gh stub for the blockquote quote-reply regression. Section-1 issues/comments
+# returns ONE pr-comment whose JSON body is a CRLF (\r\n, JSON-escaped) blockquote
+# of the prior comment, a blank line, then the real address+request (the #1329
+# shape). No open PRs and no inline comments, so sections 2/3 are inert.
+ts="${TS:?TS must be set}"; args="$*"
+case "$args" in
+  *"/pulls?state=open"*) printf '[]\n'; exit 0;;
+  *"/pulls/comments"*)   printf '[]\n'; exit 0;;
+  *"/issues/comments"*)
+    printf '[{"id":5785807820,"created_at":"%s","user":{"login":"kriskowal"},"body":"> @kriscendobot Please run gauntlet.\\r\\n\\r\\n@kriscendobot pardon. Please investigate the db initialism.","html_url":"https://github.com/endojs/endo-but-for-bots/pull/1329#issuecomment-5785807820","issue_url":"https://api.github.com/repos/endojs/endo-but-for-bots/issues/1329"}]\n' "$ts"; exit 0;;
+esac
+printf '[]\n'; exit 0
+EOF
+  chmod +x "$GHBQ/gh"
+  # SOURCE-level: the emitted TSV body column must begin with the real address, not '>'.
+  SRC_BQ="$TR/bq-src.out"
+  env PATH="$GHBQ:$PATH" TS="$REV_TS" GARDEN_STATE="$TR/state-bq-src" GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+    > "$SRC_BQ" 2>/dev/null || true
+  bqbody="$(awk -F'\t' 'NR==1{print $7}' "$SRC_BQ")"
+  case "$bqbody" in
+    "@kriscendobot pardon."*) ok "source strips the leading blockquote — body begins with the real address" ;;
+    ">"*)                     bad "source left the leading blockquote — body still begins with '>' (<$bqbody>)" ;;
+    *)                        bad "source emitted an unexpected body (<$bqbody>)" ;;
+  esac
+  # END-TO-END through the watcher: the addressed reply must mint a job.
+  BARE_BQ="$TR/bq.git"; seed_bare "$BARE_BQ"
+  RLOG_BQ="$TR/react-bq.log"; : > "$RLOG_BQ"; LOG_BQ="$TR/bq.log"; : > "$LOG_BQ"
+  ALLOW_BQ="$TR/allow-bq"; printf 'kriskowal\n' > "$ALLOW_BQ"
+  env PATH="$GHBQ:$PATH" TS="$REV_TS" \
+      GARDEN_STATE="$TR/state-bq" JOURNAL_REMOTE="$BARE_BQ" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" GARDEN_NO_MAINTAINER_ALERT=1 \
+      GARDEN_EXPLICIT_ADDRESS_REQUIRED=1 \
+      GARDEN_COMMENT_SOURCE="$JOBS/handlers/comment-source-gh.sh" \
+      GARDEN_COMMENT_REACTJI="$REACTSTUB" CW_REACTJI_LOG="$RLOG_BQ" \
+      GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG=/dev/null \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_RETRO_POST="$JOBS/post-plan.sh" \
+      GARDEN_COMMENT_TRUST=/bin/false \
+      GARDEN_TRUSTED_ALLOWLIST="$ALLOW_BQ" \
+      GARDEN_PR_MERGEABLE="$MERGEABLE_OPEN" \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$LOG_BQ"
+  [ "$(todo_count "$BARE_BQ")" -ge 1 ] && ok "the quote-reply dispatched a job (byte-zero address survived the leading blockquote)" || bad "quote-reply did NOT dispatch (log: $(cat "$LOG_BQ"))"
+  grep -q 'DROP (not-addressed)' "$LOG_BQ" && bad "the quote-reply was still dropped as not-addressed" || ok "no not-addressed drop for the quote-reply"
+fi
+
+
+# ============================================================================
 # R/S — the WHOLE review is the unit: a trusted review whose body carries a VERB
 # plus other asks must mint ONE per-review `review` job (body + enumerate-ALL-inline
 # instruction, the verb noted as PRIMARY) — NOT a verb-only job that drops the rest.

@@ -84,7 +84,35 @@ if [ -z "$since" ]; then since="$cold"; fi
 # effective since = max(since, floor)
 if [ -n "$floor" ] && [ "$since" \< "$floor" ]; then since="$floor"; fi
 
-oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
+# Body normalizer. The watcher's ADDRESS gate requires a case-sensitive
+# "@$bot " at BYTE ZERO of the comment body; a body that begins with a markdown
+# blockquote (the shape GitHub produces for a quote-reply, or that a maintainer
+# types when manually quoting prior context before responding) buried a genuine
+# leading "@$bot ..." address behind a leading ">" and was silently dropped
+# (endojs/endo-but-for-bots#1329 issuecomment-5785807820). The old normalizer
+# collapsed "[\t\r\n]+" to a single space FIRST, which destroyed the line
+# structure the blockquote is defined by, so the strip must happen HERE, in the
+# source, while the raw multi-line body still exists, not downstream in the
+# watcher where every body is already single-lined.
+#
+# droplead peels a LEADING run of blank/blockquote lines line-by-line; sq then
+# joins, collapses residual tabs/CR/LF to spaces (TSV safety, a stray tab would
+# spill into the next column), and trims edge whitespace (so a leading blank line
+# or indent before the address, which the collapse would otherwise turn into a
+# leading space and still defeat the byte-zero test, no longer does). This is NOT
+# a loosening to "the name appears anywhere": only a genuine LEADING quote/blank
+# prefix is skipped, and the strict byte-zero test still applies to whatever real
+# content remains. A blockquote MID-body is left untouched.
+jqdef='
+def droplead:
+  if length == 0 then []
+  elif (.[0] | test("^[ \t]*(>|$)")) then (.[1:] | droplead)
+  else . end;
+def sq:
+  (. / "\n") | map(sub("\r$"; "")) | droplead
+  | join(" ") | gsub("[\t\r\n]+"; " ") | sub("^ +"; "") | sub(" +$"; "");
+'
+oneline='(.body // "") | sq'
 
 # --- ISSUES-DISABLED degraded mode (fork default) ----------------------------
 # A repo with the Issues feature turned OFF — the DEFAULT for a fork, so every
@@ -114,7 +142,7 @@ oneline='(.body // "") | gsub("[\t\r\n]+"; " ")'
 # by the html_url /pull/ segment. Reused so the degraded per-PR path is byte-identical
 # to the repo-level path.
 emit_pr_conversation_comments() {  # emit_pr_conversation_comments <json>
-  printf '%s' "$1" | jq -r --arg s "$since" --arg bot "$bot" "
+  printf '%s' "$1" | jq -r --arg s "$since" --arg bot "$bot" "$jqdef
       .[] | select(.created_at >= \$s)
       | select((.user.login // \"\") != \$bot)
       | [ .created_at,
@@ -347,7 +375,7 @@ while IFS=$'\t' read -r n updated; do
   # is DETECTED (fetch_failed), not lost to `| jq … || true`.
   : >"$rev_err"
   if _revs="$(gh_api_retry --paginate "repos/$repo/pulls/$n/reviews?per_page=100" 2>"$rev_err")"; then
-    printf '%s' "$_revs" | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " --arg bot "$bot" '
+    printf '%s' "$_revs" | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " --arg bot "$bot" "$jqdef"'
         .[] | select((.submitted_at // "") >= $s)
         | select((.user.login // "") != $bot)
         | (.id|tostring) as $rid
@@ -357,7 +385,7 @@ while IFS=$'\t' read -r n updated; do
             ( (if $inline then "[INLINE-REVIEW] " else "" end)
             + (if .state=="CHANGES_REQUESTED" then "[CHANGES_REQUESTED] " else "" end)
             + (if .state=="APPROVED" then "[APPROVED] " else "" end)
-            + ((.body // "") | gsub("[\t\r\n]+"; " ")) ) ] | @tsv' >> "$s3out"
+            + ((.body // "") | sq) ) ] | @tsv' >> "$s3out"
   else
     note_fetch_failure "pulls/$n/reviews" "$rev_err"
   fi
@@ -421,7 +449,7 @@ cat "$s3out"
 s2_err="$(mktemp)"
 if [ -z "$fetch_primary_quota" ]; then
   if _inline="$(gh_api_retry --paginate "repos/$repo/pulls/comments?since=$since&per_page=100" 2>"$s2_err")"; then
-    printf '%s' "$_inline" | jq -r --arg s "$since" --arg rids " $surfaced_inline_rids " --arg bot "$bot" "
+    printf '%s' "$_inline" | jq -r --arg s "$since" --arg rids " $surfaced_inline_rids " --arg bot "$bot" "$jqdef
         .[] | select(.created_at >= \$s)
         | select((.user.login // \"\") != \$bot)
         | ((.pull_request_review_id // \"\") | tostring) as \$rid
