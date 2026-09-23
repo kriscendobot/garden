@@ -195,6 +195,12 @@ crowd, is the prompt-injection defense —
   fresh job, so a late thought is never lost.
 - 👀 on your comment means "received and processing."
 
+The leader also measures that receipt from GitHub's own reaction timestamp. Run
+`scripts/jobs/comment-latency-probe.sh` for cached per-repo p50/p95 latency and
+watcher-heartbeat age, or add `--live` for a read-only GitHub lookback. The
+checker pages through one coalesced watchdog notice per condition; a deliberate
+fleet drain is shown as muted and never reported as a dead watcher.
+
 ### Other repositories: forks, PR comments, @-mentions
 
 The garden works other repos through **bot forks** — it never pushes to

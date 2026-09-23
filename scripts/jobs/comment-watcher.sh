@@ -211,6 +211,8 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
+# shellcheck source=comment-classify.sh
+source "$HERE/comment-classify.sh"
 
 slug="${1:?usage: comment-watcher.sh <repo-slug>}"
 export GARDEN_TAG="comment-watcher/$slug"
@@ -267,6 +269,16 @@ VERIFY="$GARDEN_COMMENT_VERIFY_CLONE"
 # arming file comment-repos/<slug> (`sender-gate: required`); 1 forces it on, 0
 # forces it off (the test pins both directions deterministically).
 : "${GARDEN_COMMENT_SENDER_GATE:=}"
+
+COMMENT_HEARTBEAT="$GARDEN_STATE/comment-watcher/heartbeat/$slug"
+comment_heartbeat_outcome=offline-journal
+write_comment_heartbeat() {
+  if [ "$comment_heartbeat_outcome" = offline-journal ] && api_cooldown_active; then
+    comment_heartbeat_outcome=cooldown
+  fi
+  watcher_heartbeat_write "$COMMENT_HEARTBEAT" "$comment_heartbeat_outcome"
+}
+trap 'write_comment_heartbeat' EXIT
 
 # --- shared GitHub API outage cooldown --------------------------------------
 # The host-shared cooldown (one provider blip freezes ALL gh-api watchers for one
@@ -388,11 +400,11 @@ source_path_healthy() {  # source_path_healthy <repo>
   [ -n "$id" ]                                           # empty despite a real comment → BLIND
 }
 
-fleet_draining && { log "fleet draining; skipping"; exit 0; }
+fleet_draining && { comment_heartbeat_outcome=drained; log "fleet draining; skipping"; exit 0; }
 
 # A sibling already proved GitHub's API transiently unreadable. Do no API work and
 # emit no per-repo log line; the detector's single warning owns this window.
-api_cooldown_active && exit 0
+api_cooldown_active && { comment_heartbeat_outcome=cooldown; exit 0; }
 
 # slug is <owner>-<name>; owners in our set carry no dash, so split on the first.
 owner="${slug%%-*}"; name="${slug#*-}"
@@ -747,9 +759,7 @@ OPEN_DIRECTIVE_VERBS="refactor rebuild build post continue implement reconstruct
 # (please/first/then/…). A verb preceded by an article or an ordinary word (so it
 # reads as a noun) does NOT match — that is the #513/#526 verb-as-subject guard.
 imperative_verb_present() {  # imperative_verb_present <verb> <lc-body>
-  local v="$1" lc="$2"
-  printf '%s' "$lc" \
-    | grep -Eq "(^|[.!?:;)\"] *|(^|[^a-z])(please|kindly|first|then|next|now|also|finally|and|but|so)[,:]? +)$v([^a-z]|\$)"
+  comment_classify_imperative_verb_present "$@"
 }
 
 # --- imperative-directive reading (deterministic; the SECOND half of the gate) -
@@ -759,19 +769,7 @@ imperative_verb_present() {  # imperative_verb_present <verb> <lc-body>
 # "please do the thing" shape AND a bare imperative-mood action verb ("Shepherd.",
 # "Refactor accordingly.") that carries no "please".
 reads_as_directive() {  # reads_as_directive <body-text>
-  local lc; lc="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
-  # "please" anywhere is the canonical maintainer-directive marker.
-  printf '%s' "$lc" | grep -Eq '(^|[^a-z])please([^a-z]|$)' && return 0
-  # Imperative cues without an explicit "please".
-  printf '%s' "$lc" | grep -Eq '(^|[^a-z])(apply|address|finish|complete|handle|resolve|implement|revisit|incorporate|land this|go ahead|take a look|take care of|look into|follow up|sort out|clean this up|can you|could you|would you mind)([^a-z]|$)' && return 0
-  # A bare imperative-mood action verb is itself a directive. Recognize it in
-  # CLAUSE-INITIAL position only, so a verb used as a noun/subject ("a subsequent
-  # rebase … will") never registers (the #513/#526 verb-as-subject-matter guard).
-  local v
-  for v in $BRANCH_OP_VERBS $OPEN_DIRECTIVE_VERBS; do
-    imperative_verb_present "$v" "$lc" && return 0
-  done
-  return 1
+  comment_classify_reads_as_directive "$1"
 }
 
 # --- retrospective gate-outs (deterministic; narrow the review→retro path) -----
@@ -1362,6 +1360,9 @@ post_reply() {  # post_reply <surface> <cid> <author> <pr> <reply-text>
 ack_reactji() {  # ack_reactji <surface> <cid>
   local surface="$1" cid="$2"
   [ "$surface" = pr-review-body ] && return 0
+  COMMENT_CLASSIFY_PREQUALIFIED=1 comment_should_ack \
+    "$repo" "$slug" "${COMMENT_ACK_AUTHOR:-}" "$surface" \
+    "${COMMENT_ACK_NUMBER:-0}" "${COMMENT_ACK_BODY_FILE:-/dev/null}" || return 0
   "$GARDEN_COMMENT_REACTJI" "$repo" "$surface" "$cid" eyes \
     || log "WARN: reactji failed on $surface/$cid (continuing)"
 }
@@ -1369,8 +1370,7 @@ ack_reactji() {  # ack_reactji <surface> <cid>
 ack_or_log_slide() {  # ack_or_log_slide <reason> <surface> <cid> <author> <url> <pr>
   local reason="$1" surface="$2" cid="$3" author="$4" url="$5" pr="$6"
   if [ "$surface" != pr-review-body ] && is_trusted "$author"; then
-    "$GARDEN_COMMENT_REACTJI" "$repo" "$surface" "$cid" eyes \
-      || log "WARN: ack reactji failed on $surface/$cid (continuing)"
+    ack_reactji "$surface" "$cid"
     # The reactji alone is not a response: engage with a reply too. The reader judged
     # this comment non-actionable (no job), so the reply is a light acknowledgment
     # that invites turning it into concrete work — never a silent reactji-and-slide.
@@ -1556,9 +1556,9 @@ cleanup() {
   # cgroup-wide backstop never covers. No-op outside our own service cgroup.
   reap_cgroup_stragglers
 }
-trap 'cleanup' EXIT
-trap 'cleanup; exit 143' TERM
-trap 'cleanup; exit 130' INT
+trap 'cleanup; write_comment_heartbeat' EXIT
+trap 'cleanup; write_comment_heartbeat; exit 143' TERM
+trap 'cleanup; write_comment_heartbeat; exit 130' INT
 
 # Bound the source so a hung gh/git fetch can never outlive the tick even absent a
 # stop; --kill-after escalates to SIGKILL if the source ignores the initial TERM.
@@ -1670,6 +1670,7 @@ if [ "$src_rc" -ne 0 ]; then
     die "comment source failed for $repo (rc=$src_rc; see source stderr above)"
   fi
 fi
+comment_heartbeat_outcome=full-poll
 # Defensive ascending sort by created_at (field 1); the source should already.
 sort -t$'\t' -k1,1 -o "$SRC" "$SRC"
 
@@ -1804,6 +1805,9 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   fi
 
   bf="$(mktemp)"; printf '%s\n' "$body" > "$bf"
+  COMMENT_ACK_AUTHOR="$author"
+  COMMENT_ACK_NUMBER="${pr:-0}"
+  COMMENT_ACK_BODY_FILE="$bf"
 
   # --- EXPLICIT ADDRESS gate (deterministic; before classification/react) -----
   # A watched conversation is not implicitly addressed to this bot. The exact

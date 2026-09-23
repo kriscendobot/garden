@@ -1,0 +1,11 @@
+[Unit]
+Description=Garden comment acknowledgment latency timer
+
+[Timer]
+Unit=garden-comment-latency-watch.service
+OnBootSec=6m
+OnUnitActiveSec=300s
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

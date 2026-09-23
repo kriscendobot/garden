@@ -1,0 +1,14 @@
+[Unit]
+Description=Garden comment acknowledgment latency and watcher-liveness check
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-comment-latency-watch -- @GARDEN_ROOT@/scripts/jobs/comment-latency-watch.sh
+Restart=on-failure
+RestartSec=30s
+TimeoutStartSec=900
+SuccessExitStatus=143 130 SIGTERM SIGINT

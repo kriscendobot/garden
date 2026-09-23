@@ -23,7 +23,8 @@ bring-up is [starting.md](starting.md).
   `garden-bulletin`, `garden-deadmail`, `garden-reaper`,
   `garden-deadline-nudge`, `garden-follow-up`, `garden-proxy`, `garden-mentor`,
   `garden-mirror-closer`, the
-  `garden-{comment,ci}-watcher@*` / `garden-approval-reconciler@*` /
+  `garden-{comment,ci}-watcher@*` / `garden-comment-latency-watch` /
+  `garden-approval-reconciler@*` /
   `garden-triager@*` / `garden-mention-watcher` / `garden-issue-inbox` watchers,
   `garden-orchestrate`, and the **liaison maintainer-inbox and deploy-on-upgrade
   Monitors**.

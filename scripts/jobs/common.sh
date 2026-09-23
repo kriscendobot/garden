@@ -876,6 +876,34 @@ clear_journal_outage_cooldown() {  # cooldown disabled + successful read → dro
 # deprecated legacy killswitch marker exists. Keys on EXISTENCE only — an empty
 # marker drains just as a prose-filled one does.
 fleet_draining() { [ -e "$GARDEN_DRAINING_MARKER" ] || [ -e "$GARDEN_KILLSWITCH" ]; }
+
+# watcher_heartbeat_write <file> <outcome>
+#
+# Atomically publish a host-local watcher tick. Repeated ticks preserve the time
+# at which the current outcome began, which lets a separate observer distinguish
+# a brief cooldown from a watcher stuck behind the same latch for many ticks.
+# Heartbeats are reconstructible runtime state and never enter the journal.
+watcher_heartbeat_write() {
+  local file="${1:?watcher heartbeat file required}"
+  local outcome="${2:?watcher heartbeat outcome required}"
+  local now previous="" since tmp
+  now="$(date -u +%FT%TZ)"
+  if [ -f "$file" ]; then
+    previous="$(sed -n 's/^outcome: *//p' "$file" 2>/dev/null | head -1)"
+  fi
+  if [ "$previous" = "$outcome" ]; then
+    since="$(sed -n 's/^outcome_since: *//p' "$file" 2>/dev/null | head -1)"
+  fi
+  [ -n "${since:-}" ] || since="$now"
+  mkdir -p "$(dirname "$file")"
+  tmp="$file.$$"
+  {
+    printf 'last_tick_at: %s\n' "$now"
+    printf 'outcome: %s\n' "$outcome"
+    printf 'outcome_since: %s\n' "$since"
+  } > "$tmp"
+  mv -f "$tmp" "$file"
+}
 # Deprecated alias retained so any not-yet-updated caller keeps working.
 killswitch_engaged() { fleet_draining; }
 

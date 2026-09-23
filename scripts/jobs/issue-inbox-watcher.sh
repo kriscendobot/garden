@@ -86,6 +86,8 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
+# shellcheck source=comment-classify.sh
+source "$HERE/comment-classify.sh"
 
 export GARDEN_TAG="issue-inbox"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
@@ -102,6 +104,16 @@ export GARDEN_TAG="issue-inbox"
 : "${GARDEN_ISSUE_MAINT_SEND:=$HERE/inbox-send.sh}"
 : "${GARDEN_ISSUE_REACTJI:=$HERE/handlers/comment-reactji-gh.sh}"
 : "${GARDEN_ISSUE_VERIFY_CLONE:=$GARDEN_STATE/issue-inbox/verify}"
+
+ISSUE_HEARTBEAT="$GARDEN_STATE/issue-inbox-watcher/heartbeat/garden"
+issue_heartbeat_outcome=offline-journal
+write_issue_heartbeat() {
+  if [ "$issue_heartbeat_outcome" = offline-journal ] && api_cooldown_active; then
+    issue_heartbeat_outcome=cooldown
+  fi
+  watcher_heartbeat_write "$ISSUE_HEARTBEAT" "$issue_heartbeat_outcome"
+}
+trap 'write_issue_heartbeat' EXIT
 
 # --- bound EVERY blocking stage of a tick (the 900s-SIGKILL fix) --------------
 # The SOURCE fetch is already bounded (below), yet the watcher was SIGKILLed at the
@@ -188,12 +200,12 @@ deadline_diagnostic() {  # deadline_diagnostic <where>  (e.g. "before the batch"
     "issue-inbox watcher on $GARDEN hit its ${GARDEN_ISSUE_TICK_BUDGET_SECS}s tick budget $where for ${REPO:-<unconfigured>} and stopped early to avoid the 900s systemd start-timeout SIGKILL. This means a journal/verification/dispatch path is running slow (a DEGRADED journal, not a clean outage). No maintainer interaction is lost — the cursor holds so unprocessed items re-poll — but each tick is being cut short; if this persists, the journal remote or the host's network is chronically slow."
 }
 
-fleet_draining && { log "fleet draining; skipping"; exit 0; }
+fleet_draining && { issue_heartbeat_outcome=drained; log "fleet draining; skipping"; exit 0; }
 
 # A sibling watcher already proved GitHub's API transiently unreadable this window.
 # Do no API work and emit no per-repo log line; the detector's single warning owns it.
 # (Shared host-wide across every gh-api watcher — see api_cooldown_active in common.sh.)
-api_cooldown_active && exit 0
+api_cooldown_active && { issue_heartbeat_outcome=cooldown; exit 0; }
 
 VERIFY="$GARDEN_ISSUE_VERIFY_CLONE"
 
@@ -382,6 +394,11 @@ verify_posted() {  # verify_posted <base> [fresh]
 # failure is logged as a WARN and NEVER blocks the dispatch — acknowledgment is a
 # courtesy, posting the work is the obligation.
 react_ack() {  # react_ack <surface> <id>
+  local slug
+  slug="$(printf '%s' "$REPO" | tr '/' '-')"
+  COMMENT_CLASSIFY_PREQUALIFIED=1 comment_should_ack \
+    "$REPO" "$slug" "${ISSUE_ACK_AUTHOR:-}" "$1" \
+    "${ISSUE_ACK_NUMBER:-0}" "${ISSUE_ACK_BODY_FILE:-/dev/null}" || return 0
   "${STAGE_TIMEOUT[@]}" "$GARDEN_ISSUE_REACTJI" "$REPO" "$1" "$2" eyes \
     || log "WARN: reactji failed on $1/$2 (continuing to dispatch)"
 }
@@ -562,9 +579,9 @@ cleanup() {
   fi
   reap_cgroup_stragglers
 }
-trap 'cleanup' EXIT
-trap 'cleanup; exit 143' TERM
-trap 'cleanup; exit 130' INT
+trap 'cleanup; write_issue_heartbeat' EXIT
+trap 'cleanup; write_issue_heartbeat; exit 143' TERM
+trap 'cleanup; write_issue_heartbeat; exit 130' INT
 
 # Bound the source so a hung gh/git fetch can never outlive the tick even absent a
 # stop; --kill-after escalates to SIGKILL if the source ignores the initial TERM.
@@ -603,6 +620,7 @@ if [ "$src_rc" -ne 0 ]; then
   fi
   die "issue source failed for $REPO (rc=$src_rc; see source stderr above)"
 fi
+issue_heartbeat_outcome=full-poll
 # Defensive ascending sort by created_at (field 2); the source should already.
 sort -t$'\t' -k2,2 -o "$SRC" "$SRC"
 
@@ -723,6 +741,9 @@ while IFS=$'\t' read -r kind created id number author submitter state closed_by 
   spine="issue-$slug-$number"
   nf="$(mktemp)"; write_issue_note "$nf" "$spine" "$url" "$submitter"
   bf="$(mktemp)"; printf '%s\n' "$body" > "$bf"
+  ISSUE_ACK_AUTHOR="$author"
+  ISSUE_ACK_NUMBER="$number"
+  ISSUE_ACK_BODY_FILE="$bf"
 
   case "$kind" in
     issue)

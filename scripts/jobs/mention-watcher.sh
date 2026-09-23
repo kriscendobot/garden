@@ -52,6 +52,8 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=common.sh
 source "$HERE/common.sh"
+# shellcheck source=comment-classify.sh
+source "$HERE/comment-classify.sh"
 
 export GARDEN_TAG="mention-watcher"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
@@ -74,7 +76,17 @@ export GARDEN_TAG="mention-watcher"
 : "${GARDEN_PLAN_ANNOTATE:=$HERE/annotate-plan.sh}"
 : "${GARDEN_MENTION_VERIFY_CLONE:=$GARDEN_STATE/mention-watcher/verify}"
 
-fleet_draining && { log "fleet draining; skipping"; exit 0; }
+MENTION_HEARTBEAT="$GARDEN_STATE/mention-watcher/heartbeat/github-wide"
+mention_heartbeat_outcome=offline-journal
+write_mention_heartbeat() {
+  if [ "$mention_heartbeat_outcome" = offline-journal ] && api_cooldown_active; then
+    mention_heartbeat_outcome=cooldown
+  fi
+  watcher_heartbeat_write "$MENTION_HEARTBEAT" "$mention_heartbeat_outcome"
+}
+trap 'write_mention_heartbeat' EXIT
+
+fleet_draining && { mention_heartbeat_outcome=drained; log "fleet draining; skipping"; exit 0; }
 
 VERIFY="$GARDEN_MENTION_VERIFY_CLONE"
 
@@ -194,10 +206,7 @@ gauntlet_recorded() {
 # think of the rebase eval scenario?") is not minted into a deterministic rebase
 # job — it falls to "attention" instead, where a gardener reads the body.
 reads_as_directive() {  # reads_as_directive <body-text>
-  local lc; lc="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
-  printf '%s' "$lc" | grep -Eq '(^|[^a-z])please([^a-z]|$)' && return 0
-  printf '%s' "$lc" | grep -Eq '(^|[^a-z])(apply|address|finish|complete|handle|resolve|implement|revisit|incorporate|land this|go ahead|take a look|take care of|look into|follow up|sort out|clean this up|can you|could you|would you mind)([^a-z]|$)' && return 0
-  return 1
+  comment_classify_reads_as_directive "$1"
 }
 
 # --- deterministic verb mapping (no open-ended reasoning, no claude) ---------
@@ -313,10 +322,19 @@ write_job_body() {  # write_job_body <out> <verb> <repo> <surface> <author> <num
   } > "$out"
 }
 
+mention_react_ack() {  # <repo> <surface> <cid> <number> <author> <body-file>
+  local repo="$1" surface="$2" cid="$3" number="$4" author="$5" body_file="$6" slug
+  slug="$(printf '%s' "$repo" | tr '/' '-')"
+  COMMENT_CLASSIFY_PREQUALIFIED=1 comment_should_ack \
+    "$repo" "$slug" "$author" "$surface" "$number" "$body_file" || return 0
+  "$GARDEN_MENTION_REACTJI" "$repo" "$surface" "$cid" "$number" eyes \
+    || log "WARN: reactji failed on $surface/${cid:-$number} (continuing)"
+}
+
 # --- poll, then process each mention in created_at order --------------------
 load_allowlist
 
-SRC="$(mktemp)"; ERRF="$(mktemp)"; trap 'rm -f "$SRC" "$ERRF"' EXIT
+SRC="$(mktemp)"; ERRF="$(mktemp)"; trap 'rm -f "$SRC" "$ERRF"; write_mention_heartbeat' EXIT
 # Capture the source's stderr (was 2>/dev/null — the silent-blindness signature the
 # comment-watcher fixed after the 2026-06-24 jq outage hid for ~16h: a broken source
 # emitting nothing looks identical to a quiet GitHub). On failure we echo the captured
@@ -333,6 +351,7 @@ if [ "$src_rc" -ne 0 ]; then
   fi
   die "mention source failed (rc=$src_rc; see source stderr above)"
 fi
+mention_heartbeat_outcome=full-poll
 # Defensive ascending sort by created_at (field 1); the source should already.
 sort -t$'\t' -k1,1 -o "$SRC" "$SRC"
 
@@ -426,8 +445,7 @@ while IFS=$'\t' read -r created surface cid repo number author url body; do
     if gauntlet_recorded "$base"; then
       log "gauntlet already recorded: $base (idempotent skip)"; rm -f "$bf"; slide "$created"; continue
     fi
-    "$GARDEN_MENTION_REACTJI" "$repo" "$surface" "$cid" "$number" eyes \
-      || log "WARN: reactji failed on $surface/${cid:-$number} (continuing to record)"
+    mention_react_ack "$repo" "$surface" "$cid" "$number" "$author" "$bf"
     if GARDEN_SENDER="mention-watcher:$slug" "$GARDEN_MENTION_GAUNTLET_POST" --by mention-watcher "$base" "https://github.com/$repo/pull/$number" >/dev/null 2>&1 \
        && gauntlet_recorded "$base"; then
       log "recorded gauntlet $base ($repo #$number from trusted $author) + acked"; acted=$((acted+1)); rm -f "$bf"; slide "$created"; continue
@@ -438,8 +456,7 @@ while IFS=$'\t' read -r created surface cid repo number author url body; do
   fi
 
   # Reactji FIRST (the bot's "received and processing" signal), then post.
-  "$GARDEN_MENTION_REACTJI" "$repo" "$surface" "$cid" "$number" eyes \
-    || log "WARN: reactji failed on $surface/${cid:-$number} (continuing to post)"
+  mention_react_ack "$repo" "$surface" "$cid" "$number" "$author" "$bf"
 
   jb="$(mktemp)"; write_job_body "$jb" "$VERB" "$repo" "$surface" "$author" "$number" "$url" "$bf" "$cid"
   GARDEN_JOB_IDENTITY="$IDENTITY" "$GARDEN_MENTION_POST" "$base" "$jb" >/dev/null 2>&1 || true

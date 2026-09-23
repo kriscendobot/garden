@@ -2530,9 +2530,9 @@ GREC_MP2B="$(gauntlet_record_body "$BARE_MP2B" "$SLUG-pr278-gauntlet")"
 printf '%s\n' "$GREC_MP2B" | grep -qx 'pr_number: 278' \
   && ok "the gauntlet record carries the PR number" \
   || bad "the gauntlet record is missing pr_number: 278"
-printf '%s\n' "$GREC_MP2B" | grep -qx 'stage: clean' \
-  && ok "the gauntlet record starts at the clean stage" \
-  || bad "the gauntlet record does not start at stage: clean"
+printf '%s\n' "$GREC_MP2B" | grep -qx 'stage: viability' \
+  && ok "the gauntlet record starts at the viability stage" \
+  || bad "the gauntlet record does not start at stage: viability"
 # still acked the source comment (the 👀 receipt invariant holds for the record path)
 grep -q '4900000278' "$RLOG_MP2B" \
   && ok "run-the-gauntlet still acks the source comment" \
