@@ -1,0 +1,42 @@
+<6>20:36:13 [monk/2] job 'fix-orchestrate-latched-child-failure' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>20:36:13 [monk/2] job 'fix-orchestrate-latched-child-failure' call ceiling: tier=mentor max-budget-usd=14.40 (scaled by fresh seven-day headroom when available)
+<6>20:43:36 [assert-followup-posted] gate: BLOCK — 'fix-orchestrate-latched-child-failure' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# fix-orchestrate-latched-child-failure — completion report
+
+**Result:** Fixed and pushed to `main2` as `08d5206f5e`. The orchestrate suite passes 76/76, including the new subtest 28.
+
+## Why the child was reported failed
+I rebuilt the timeline from `journal2-archive-20260923`:
+- At 01:01:18 a worker claimed `build-minion-town-claude-agent-sdk-inference-20260922`. Its job file had no `handler-timeout:` line.
+- At 01:43 the orchestrator's `child_handler_timeout` read only that line and fell back to the 2400s default. The child had been running 2520s, so it was judged "stalled in flight", even though the gardener and reaper give a builder 7200s.
+- A re-sync found no tada yet, so the child was classed failed. Its sibling was already done, so the parallel run finished on that tick as `complete-with-failures` and paged the maintainer.
+- At 02:13 the child landed a clean tada (minion.town#106). Nothing ever looked at the finished record again.
+
+## What changed in `scripts/jobs/orchestrate.sh`
+1. **Stall budget:** `child_handler_timeout` now uses `applied_handler_budget`, the same per-role budget (plus any `handler-timeout:` override) that the gardener enforces and the reaper honors. This is the direct cause of the incident.
+2. **Final disposition from the board:** at terminal time, `complete_done` re-checks each failed child against a fresh board read.
+   - A clean tada (no `orchestration-failed: true`) counts as **done**, with the disposition "recovered after transient failure; clean tada report present".
+   - If every child ends done, the status is `complete`.
+   - Records now also carry `failed-children:` and `recovered-children:` fields.
+3. **Closing stale pages:** when a child whose failure was already paged later reads done, the unread notice is rewritten in place with `recovered: true`, following the watchdog `--recovered` pattern. Two limits:
+   - Archived notices are left alone.
+   - It deliberately bypasses the one-hour coalescing throttle in `inbox-send.sh`, which would otherwise swallow a quick recovery.
+4. **Already-finished runs:** a new pass, `reconcile_recovered_completions`, fixes `complete-with-failures` records whose blamed child later tadas cleanly. It handles both the current record shape and the older one.
+   - It relabels the child, flips the status to `complete` once no failures remain, and appends a `RECOVERED` note.
+   - It also closes the child's failure notice and the terminal notice.
+   - It is idempotent.
+
+Real failures still fail: a child that vanished without a tada, one whose tada says `orchestration-failed: true`, one still doomed and parked, and one past the stall limit with no clean tada.
+
+## Tests (subtest 28)
+- **Live recovery:** a parallel child goes doomed, gets paged, is re-promoted, then tadas cleanly. The terminal status is `complete`, the page is closed, and the disposition reads recovered.
+- **Recovery after the run finished:** the record is reconciled and both pages are closed. A child that is still doomed and parked is not reconciled, and running the pass again changes nothing.
+- **Old record shape:** the recovered child is relabeled and the vanished one stays failed.
+- **Real failures:** `orchestration-failed: true` and a vanished child both still fail.
+- **Builder budget:** a builder 2520s into its 7200s budget is not declared stalled.
+
+## Follow-ups
+- On its first tick after deploy, the reconcile pass will scan the four historical `complete-with-failures` records and relabel any blamed child that now has a clean tada. That includes `minion-town-claude-inference-exploration-20260922`, which should flip to `complete`. Only notices still unread get touched; that incident's page is already archived, so nothing new reaches the maintainer from it.
+- `scripts/jobs/test/promote-plan-doom-reset-test.sh` fails 2 of 32 on the unmodified code as well: its reaper doom-park setup no longer triggers the doom its test expects. This change doesn't touch it; it's worth a separate fixer job.
