@@ -556,6 +556,10 @@ while IFS=$'\t' read -r pr author head updated _title; do
   case "$mrc" in
     2)  log "#$pr approved but already merged/closed — nothing to finalize"
         merged_closed=$((merged_closed+1)); continue ;;
+    3)  # readiness UNREADABLE (e.g. a spent GraphQL bucket) — not "not green": a
+        # shepherd here would be a guess. A reconciler re-reads next tick; skip.
+        log "#$pr approved but readiness unreadable (probe rc 3) — retrying next reconcile tick (never guess)"
+        continue ;;
     0)  # ready → conductor
         base="$slug-pr$pr-conduct"
         jb="$(mktemp)"

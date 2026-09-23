@@ -3118,5 +3118,61 @@ GARDEN_EXPLICIT_ADDRESS_REQUIRED=1 run_directive "$TR/state-address" "$BARE_ADDR
 [ "$(todo_count "$BARE_ADDR")" -eq 3 ] && ok "the specifically addressed inline comment dispatches as its own job" || bad "specifically addressed inline comment did not dispatch independently"
 
 # ============================================================================
+hr; echo "GQL — a GraphQL-only quota latch must not blind the REST comment watcher (minion.town #112)"; hr
+# 2026-09-23: kriskowal's "@kriscendobot Please conduct. In the future, please do not
+# request review for pin advancement." on kriscendobot/minion.town #112 sat ~2.5h with
+# no 👀 and no job. ci-watcher's rollup (`gh pr view`, GraphQL) hit the spent GraphQL
+# bucket and armed the ONE host-wide gh-api latch for an hour; the REST-only comment
+# watcher honored it and skipped silently, and the latch re-armed hourly. Now a
+# GraphQL refusal latches scope `graphql` only: the comment watcher still acks and
+# mints the conductor, skipping only its own (GraphQL) mergeable probe.
+BARE_GQL="$TR/gql.git"; seed_bare "$BARE_GQL"
+FIX_GQL="$TR/fix-gql.tsv"; RLOG_GQL="$TR/react-gql.log"; : > "$RLOG_GQL"
+GQL_LOG="$TR/gql.stderr"; GQL_PROBE_LOG="$TR/gql-probe.log"; : > "$GQL_PROBE_LOG"
+GQL_PROBE="$TR/gql-probe.sh"
+printf '#!/bin/bash\necho "$@" >> %q\nexit 1\n' "$GQL_PROBE_LOG" > "$GQL_PROBE"; chmod +x "$GQL_PROBE"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-09-23T19:50:33Z issue-comment 5801839646 112 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/112#issuecomment-5801839646 \
+  '@kriscendobot Please conduct. In the future, please do not request review for pin advancement.' > "$FIX_GQL"
+mkdir -p "$TR/state-gql/gh-api-cooldown"
+printf '%s\n%s\n' "$(( $(date +%s) + 3600 ))" 'ci:kriscendobot-minion.town:rollup' \
+  > "$TR/state-gql/gh-api-cooldown/marker-graphql"
+GARDEN_API_COOLDOWN_DIR="$TR/state-gql/gh-api-cooldown" GARDEN_API_COOLDOWN_SECS=300 \
+  CW_MERGEABLE="$GQL_PROBE" \
+  run_directive "$TR/state-gql" "$BARE_GQL" "$FIX_GQL" "$RLOG_GQL" "$GQL_LOG"
+board_has "$BARE_GQL" "$SLUG-pr112-conduct" \
+  && ok "trusted 'Please conduct.' + trailing sentence minted the conductor under a GraphQL latch" \
+  || bad "no conductor job under a GraphQL-only latch ($(cat "$GQL_LOG"))"
+board_has "$BARE_GQL" "$SLUG-pr112-shepherd" \
+  && bad "an unverifiable probe downgraded the explicit conduct to a shepherd" \
+  || ok "no shepherd guessed while readiness was unreadable"
+grep -qx "issue-comment 5801839646 eyes" "$RLOG_GQL" \
+  && ok "the conduct directive was acknowledged with 👀" || bad "no 👀 under a GraphQL-only latch ($(cat "$RLOG_GQL"))"
+[ ! -s "$GQL_PROBE_LOG" ] && ok "the doomed GraphQL mergeable probe was not called" \
+  || bad "the mergeable probe ran under a live GraphQL latch"
+[ "$(cursor_seen "$TR/state-gql" "$BARE_GQL")" = 2026-09-23T19:50:33Z ] \
+  && ok "cursor advanced past the actioned directive" || bad "cursor not advanced ($(cursor_seen "$TR/state-gql" "$BARE_GQL"))"
+
+# A host-wide (REST) latch still quiets the watcher exactly as before.
+BARE_GQR="$TR/gqr.git"; seed_bare "$BARE_GQR"; RLOG_GQR="$TR/react-gqr.log"; : > "$RLOG_GQR"
+mkdir -p "$TR/state-gqr/gh-api-cooldown"
+printf '%s\n%s\n' "$(( $(date +%s) + 300 ))" 'comment:blip' > "$TR/state-gqr/gh-api-cooldown/marker"
+GARDEN_API_COOLDOWN_DIR="$TR/state-gqr/gh-api-cooldown" GARDEN_API_COOLDOWN_SECS=300 \
+  run_directive "$TR/state-gqr" "$BARE_GQR" "$FIX_GQL" "$RLOG_GQR"
+[ "$(todo_count "$BARE_GQR")" -eq 0 ] && [ ! -s "$RLOG_GQR" ] \
+  && ok "a host-wide latch still skips the tick (no job, no reactji)" \
+  || bad "the host-wide latch no longer quiets the comment watcher"
+
+# An UNREADABLE probe (rc 3, e.g. the GraphQL refusal discovered by the probe itself)
+# keeps the conductor instead of guessing a shepherd.
+BARE_GQ3="$TR/gq3.git"; seed_bare "$BARE_GQ3"; RLOG_GQ3="$TR/react-gq3.log"; : > "$RLOG_GQ3"
+GQ3_PROBE="$TR/gq3-probe.sh"; printf '#!/bin/bash\nexit 3\n' > "$GQ3_PROBE"; chmod +x "$GQ3_PROBE"
+CW_MERGEABLE="$GQ3_PROBE" run_directive "$TR/state-gq3" "$BARE_GQ3" "$FIX_GQL" "$RLOG_GQ3"
+board_has "$BARE_GQ3" "$SLUG-pr112-conduct" && ! board_has "$BARE_GQ3" "$SLUG-pr112-shepherd" \
+  && ok "unreadable readiness (probe rc 3) keeps the conductor, no shepherd" \
+  || bad "probe rc 3 did not keep the conductor"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

@@ -684,10 +684,15 @@ env GARDEN_STATE="$TR/state-s" GARDEN_API_COOLDOWN_DIR="$TR/state-s/gh-api-coold
 [ "$(tr '\n' ' ' < "$CALLS_S")" = '110 111 ' ] \
   && ok "primary quota stops the sweep before the later PR rollup" \
   || bad "rollup calls continued past quota ($(tr '\n' ' ' < "$CALLS_S"))"
-[ -s "$TR/state-s/gh-api-cooldown/marker" ] \
-  && ok "primary quota opened the existing host-wide gh-api cooldown" \
-  || bad "primary quota did not create the shared cooldown marker"
-grep -qi 'primary API quota exhaustion.*stopping this sweep' "$ERR_S" \
+[ -s "$TR/state-s/gh-api-cooldown/marker-graphql" ] \
+  && ok "primary quota opened the GraphQL-scoped gh-api cooldown" \
+  || bad "primary quota did not create the GraphQL cooldown marker"
+# The rollup is GraphQL-only; its refusal must NOT arm the host-wide latch that the
+# REST-only comment watchers honor (minion.town #112: ~2.5h of blind comment ticks).
+[ ! -e "$TR/state-s/gh-api-cooldown/marker" ] \
+  && ok "a GraphQL rollup refusal leaves the host-wide (REST) latch clear" \
+  || bad "a GraphQL rollup refusal armed the host-wide latch"
+grep -qi 'primary GraphQL quota exhaustion.*stopping this sweep' "$ERR_S" \
   && ok "the quota detector logs one actionable stop warning" \
   || bad "missing primary-quota stop warning ($(cat "$ERR_S"))"
 [ "$(todo_count "$BARE_S")" -eq 0 ] \
@@ -715,9 +720,9 @@ env GARDEN_STATE="$TR/state-t" GARDEN_API_COOLDOWN_DIR="$TR/state-t/gh-api-coold
 [ "$(tr '\n' ' ' < "$CALLS_T")" = '120 ' ] \
   && ok "primary quota stops stale re-validation before the next shepherd" \
   || bad "stale re-validation continued past quota ($(tr '\n' ' ' < "$CALLS_T"))"
-[ -s "$TR/state-t/gh-api-cooldown/marker" ] \
-  && ok "stale re-validation quota opened the host-wide cooldown" \
-  || bad "stale re-validation did not create the shared cooldown marker"
+[ -s "$TR/state-t/gh-api-cooldown/marker-graphql" ] \
+  && ok "stale re-validation quota opened the GraphQL-scoped cooldown" \
+  || bad "stale re-validation did not create the GraphQL cooldown marker"
 in_lane "$BARE_T" todo "$SLUG-pr120-shepherd" \
   && in_lane "$BARE_T" todo "$SLUG-pr121-shepherd" \
   && ok "quota leaves both unclaimed shepherds untouched" \

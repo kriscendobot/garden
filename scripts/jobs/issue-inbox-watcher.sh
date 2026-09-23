@@ -108,7 +108,7 @@ export GARDEN_TAG="issue-inbox"
 ISSUE_HEARTBEAT="$GARDEN_STATE/issue-inbox-watcher/heartbeat/garden"
 issue_heartbeat_outcome=offline-journal
 write_issue_heartbeat() {
-  if [ "$issue_heartbeat_outcome" = offline-journal ] && api_cooldown_active; then
+  if [ "$issue_heartbeat_outcome" = offline-journal ] && api_cooldown_active rest; then
     issue_heartbeat_outcome=cooldown
   fi
   watcher_heartbeat_write "$ISSUE_HEARTBEAT" "$issue_heartbeat_outcome"
@@ -205,7 +205,9 @@ fleet_draining && { issue_heartbeat_outcome=drained; log "fleet draining; skippi
 # A sibling watcher already proved GitHub's API transiently unreadable this window.
 # Do no API work and emit no per-repo log line; the detector's single warning owns it.
 # (Shared host-wide across every gh-api watcher — see api_cooldown_active in common.sh.)
-api_cooldown_active && { issue_heartbeat_outcome=cooldown; exit 0; }
+# Scope `rest`: the issue source, reactji, and replies are all REST (gh api), so a
+# GraphQL-only latch never blinds the maintainer's issue inbox.
+api_cooldown_active rest && { issue_heartbeat_outcome=cooldown; exit 0; }
 
 VERIFY="$GARDEN_ISSUE_VERIFY_CLONE"
 

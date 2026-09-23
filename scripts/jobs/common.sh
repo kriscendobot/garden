@@ -696,9 +696,32 @@ is_transient_gh_source_error() {
 # so the shared latch outlives the whole quota window and every sibling gh-api watcher
 # skips its doomed retries. The short default clamp still applies when no window is
 # requested, so an ordinary blip cannot snowball into an hour-long local blackout.
+#
+# SCOPE — the GraphQL bucket is its own latch. GitHub meters GraphQL and REST core
+# as SEPARATE hourly buckets, so exhausting one says nothing about the other. The
+# ci-watcher's rollup read (`gh pr view`, GraphQL-only) used to arm the one host-wide
+# marker for a full hour on a GraphQL-quota refusal, which silenced the REST-only
+# comment/issue-inbox watchers too; with GraphQL spent every hour, the latch re-armed
+# the moment it expired and the comment watchers went blind for hours with a full
+# REST bucket (2026-09-23, kriskowal's "Please conduct" on kriscendobot/minion.town
+# #112 sat ~2.5h unacknowledged). A detector that KNOWS its failure is GraphQL-only
+# passes scope `graphql` to start_api_cooldown, which writes the separate
+# marker-graphql. api_cooldown_active's scope argument names what the CALLER needs:
+#   all (default) — honors both markers (a watcher that makes GraphQL calls)
+#   rest          — honors only the host-wide marker (a REST-only watcher)
+#   graphql       — honors both (GraphQL calls are refused under either latch)
+# Unscoped callers keep the pre-split behavior exactly.
 : "${GARDEN_API_COOLDOWN_DIR:=$GARDEN_ROOT/.garden-state/gh-api-cooldown}"
 GARDEN_API_COOLDOWN_MARKER="$GARDEN_API_COOLDOWN_DIR/marker"
+GARDEN_API_COOLDOWN_GRAPHQL_MARKER="$GARDEN_API_COOLDOWN_DIR/marker-graphql"
 GARDEN_API_COOLDOWN_LOCK="$GARDEN_API_COOLDOWN_DIR/marker.lock"
+
+_api_cooldown_marker_for() {  # _api_cooldown_marker_for <scope> → the marker path it writes
+  case "${1:-all}" in
+    graphql) printf '%s' "$GARDEN_API_COOLDOWN_GRAPHQL_MARKER" ;;
+    *)       printf '%s' "$GARDEN_API_COOLDOWN_MARKER" ;;
+  esac
+}
 
 _api_cooldown_secs() {  # echo the validated, clamped DEFAULT window in seconds
   local v="${GARDEN_API_COOLDOWN_SECS:-300}"
@@ -727,49 +750,61 @@ api_primary_quota_secs() {
   printf '%s' "$v"
 }
 
-api_cooldown_active() {  # rc 0 = a non-expired shared window exists → skip this tick
-  local secs; secs="$(_api_cooldown_secs)"
+api_cooldown_active() {  # api_cooldown_active [all|rest|graphql]; rc 0 = a live window covers the caller → skip
+  local need="${1:-all}" secs markers m
+  secs="$(_api_cooldown_secs)"
   [ "$secs" -gt 0 ] || return 1
+  case "$need" in
+    rest) markers=("$GARDEN_API_COOLDOWN_MARKER") ;;
+    *)    markers=("$GARDEN_API_COOLDOWN_MARKER" "$GARDEN_API_COOLDOWN_GRAPHQL_MARKER") ;;
+  esac
   mkdir -p "$GARDEN_API_COOLDOWN_DIR"
   (
     flock 9
-    local now expiry
+    local now expiry live=1
     now="$(date +%s 2>/dev/null || echo 0)"
-    expiry="$(sed -n '1p' "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null || true)"
-    case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
-    if [ "$expiry" -gt "$now" ]; then exit 0; fi
-    rm -f "$GARDEN_API_COOLDOWN_MARKER"
-    exit 1
+    for m in "${markers[@]}"; do
+      [ -e "$m" ] || continue
+      expiry="$(sed -n '1p' "$m" 2>/dev/null || true)"
+      case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
+      if [ "$expiry" -gt "$now" ]; then live=0; else rm -f "$m"; fi
+    done
+    exit "$live"
   ) 9>"$GARDEN_API_COOLDOWN_LOCK"
 }
 
-# start_api_cooldown [tag] [requested-secs] — rc 0 = THIS tick recorded the window
+# start_api_cooldown [tag] [requested-secs] [all|graphql] — rc 0 = THIS tick recorded the window
 # (and owns the single warning a caller emits); rc 1 = a live window already exists (an
 # observer NEVER extends it). The window is <requested-secs> when given and valid — for
 # a KNOWN long outage like a primary-quota refusal a detector passes api_primary_quota_secs
 # so the shared latch outlives the doomed retries — clamped to GARDEN_API_COOLDOWN_MAX_SECS
 # and floored at 1s; without a request the SHORT default window (_api_cooldown_secs) stands.
 # The disable escape hatch (default window 0) wins over a request: it still no-ops.
+# The scope (default all) picks the marker; `graphql` records the GraphQL-only latch
+# (see SCOPE above). Liveness is judged per marker, so a live GraphQL latch never
+# stops a REST blip from opening the host-wide window.
 start_api_cooldown() {
-  local tag="${1:-}" req="${2:-}" secs cap; secs="$(_api_cooldown_secs)"
+  local tag="${1:-}" req="${2:-}" scope="${3:-all}" secs cap marker
+  secs="$(_api_cooldown_secs)"
   [ "$secs" -gt 0 ] || return 0
   case "$req" in
     ''|*[!0-9]*) : ;;                                  # no request → the short default
     *) secs="$req"; [ "$secs" -ge 1 ] || secs=1
        cap="$(_api_cooldown_max_secs)"; [ "$secs" -le "$cap" ] || secs="$cap" ;;
   esac
+  marker="$(_api_cooldown_marker_for "$scope")"
   mkdir -p "$GARDEN_API_COOLDOWN_DIR"
   (
     flock 9
     local now expiry new_expiry tmp
     now="$(date +%s 2>/dev/null || echo 0)"
-    expiry="$(sed -n '1p' "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null || true)"
+    expiry="$(sed -n '1p' "$marker" 2>/dev/null || true)"
     case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
     [ "$expiry" -le "$now" ] || exit 1
     new_expiry=$((now + secs))
-    tmp="$GARDEN_API_COOLDOWN_MARKER.$$"
+    tmp="$marker.$$"
     printf '%s\n%s\n' "$new_expiry" "$tag" > "$tmp"
-    mv -f "$tmp" "$GARDEN_API_COOLDOWN_MARKER"
+    mv -f "$tmp" "$marker"
     exit 0
   ) 9>"$GARDEN_API_COOLDOWN_LOCK"
 }

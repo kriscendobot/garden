@@ -120,5 +120,38 @@ env GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state/off" GARDEN_API_COOLDOWN_SECS=0 
 [ ! -e "$MARKER" ] && ok "the disable escape hatch (secs=0) no-ops even with a requested window" \
   || bad "a requested window bypassed the disable escape hatch"
 
+# SCOPE — a GraphQL-only latch (the ci-watcher's `gh pr view` rollup refusal) must
+# not blind REST-only watchers: GitHub meters the buckets separately. 2026-09-23: the
+# host-wide latch re-armed hourly off a spent GraphQL bucket and kept the REST comment
+# watchers silent ~2.5h past a trusted "Please conduct" (kriscendobot/minion.town #112).
+GQL_MARKER="$ROOT/.garden-state/gh-api-cooldown/marker-graphql"
+rm -f "$MARKER" "$GQL_MARKER"
+run_common ci 'start_api_cooldown "ci:rollup" "$(api_primary_quota_secs)" graphql'
+[ -s "$GQL_MARKER" ] && [ ! -e "$MARKER" ] \
+  && ok "a graphql-scoped start writes only the GraphQL marker" \
+  || bad "graphql-scoped start wrote the wrong marker(s)"
+run_common comment 'api_cooldown_active rest' \
+  && bad "a GraphQL-only latch blinded a REST-only watcher" \
+  || ok "a REST-only watcher ignores the GraphQL-only latch"
+run_common ci 'api_cooldown_active' \
+  && ok "an unscoped (GraphQL-using) watcher still honors the GraphQL latch" \
+  || bad "the unscoped check missed the GraphQL latch"
+run_common comment 'api_cooldown_active graphql' \
+  && ok "a GraphQL call site honors the GraphQL latch" \
+  || bad "the graphql-scoped check missed the GraphQL latch"
+# A REST blip still opens the host-wide window while the GraphQL latch is live.
+run_common comment 'start_api_cooldown "comment:blip"' \
+  && ok "a live GraphQL latch does not stop a REST blip opening the host-wide window" \
+  || bad "the GraphQL latch suppressed the host-wide window"
+run_common comment 'api_cooldown_active rest' \
+  && ok "the host-wide window quiets REST-only watchers" \
+  || bad "REST-only watcher missed the host-wide window"
+# Expiry reaps each marker independently.
+printf '0\nexpired\n' > "$GQL_MARKER"; printf '0\nexpired\n' > "$MARKER"
+run_common ci 'api_cooldown_active' && bad "expired markers still read live" \
+  || ok "expired host-wide and GraphQL markers read inactive"
+[ ! -e "$GQL_MARKER" ] && [ ! -e "$MARKER" ] && ok "expired markers are reaped" \
+  || bad "expired markers were not reaped"
+
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

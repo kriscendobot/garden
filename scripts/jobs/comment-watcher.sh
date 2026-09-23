@@ -273,7 +273,7 @@ VERIFY="$GARDEN_COMMENT_VERIFY_CLONE"
 COMMENT_HEARTBEAT="$GARDEN_STATE/comment-watcher/heartbeat/$slug"
 comment_heartbeat_outcome=offline-journal
 write_comment_heartbeat() {
-  if [ "$comment_heartbeat_outcome" = offline-journal ] && api_cooldown_active; then
+  if [ "$comment_heartbeat_outcome" = offline-journal ] && api_cooldown_active rest; then
     comment_heartbeat_outcome=cooldown
   fi
   watcher_heartbeat_write "$COMMENT_HEARTBEAT" "$comment_heartbeat_outcome"
@@ -404,7 +404,13 @@ fleet_draining && { comment_heartbeat_outcome=drained; log "fleet draining; skip
 
 # A sibling already proved GitHub's API transiently unreadable. Do no API work and
 # emit no per-repo log line; the detector's single warning owns this window.
-api_cooldown_active && { comment_heartbeat_outcome=cooldown; exit 0; }
+# Scope `rest`: every read this watcher needs to DETECT and ACK a comment is REST
+# (gh api), a separately metered bucket, so a GraphQL-only latch (the ci-watcher's
+# rollup refusal) must not blind it — that is how kriskowal's "Please conduct" on
+# kriscendobot/minion.town #112 sat ~2.5h unacknowledged on 2026-09-23 while the
+# GraphQL latch re-armed hourly. The one GraphQL read (the mergeable probe) checks
+# the GraphQL latch itself at its call site.
+api_cooldown_active rest && { comment_heartbeat_outcome=cooldown; exit 0; }
 
 # slug is <owner>-<name>; owners in our set carry no dash, so split on the first.
 owner="${slug%%-*}"; name="${slug#*-}"
@@ -1982,11 +1988,23 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
       log "approval on non-bot repo $repo — never autonomously merge upstream/agoric; skipping"
       rm -f "$bf"; slide "$created"; continue
     fi
-    set +e; "$GARDEN_PR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; mrc=$?; set -e
+    # The probe is GraphQL (`gh pr view`). Under a live GraphQL latch it is doomed,
+    # and an UNREADABLE probe (rc 3) says nothing about readiness: downgrading to a
+    # shepherd there is a guess (a green PR's shepherd is a no-op, and the explicit
+    # "conduct" is lost). Keep the conductor — its merge spine (ci-wait-merge.sh)
+    # independently enforces green CI, mergeability, and maintainer approval, so
+    # minting it never forces a merge.
+    if api_cooldown_active graphql; then
+      mrc=3
+      log "approval/conduct on #$pr: GraphQL quota latch live — mergeable probe skipped; minting the conductor (it re-verifies CI + approval)"
+    else
+      set +e; "$GARDEN_PR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; mrc=$?; set -e
+    fi
     case "$mrc" in
       0) : ;;                                    # ready → conductor
       2) log "approval on #$pr but it is already merged/closed — nothing to finalize"
          rm -f "$bf"; slide "$created"; continue ;;
+      3) log "approval/conduct on #$pr: readiness unreadable — keeping the conductor (it re-verifies; never guess a shepherd)" ;;
       *) log "approval on #$pr but not mergeable/green (rc=$mrc) — dispatching shepherd, not forcing"
          VERB=shepherd ;;
     esac
@@ -2005,7 +2023,9 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   # target has nothing to check and the probe would only emit a misleading failure.
   case "$VERB" in
     rebase|retcon|refresh|gauntlet|pinbase)
-      if [ "$pr" != 0 ]; then
+      # Under a live GraphQL latch the (GraphQL) probe is doomed; skip it and proceed
+      # as for any unreadable probe — only a PROVEN merged/closed PR is dropped.
+      if [ "$pr" != 0 ] && ! api_cooldown_active graphql; then
         set +e; "$GARDEN_PR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; drc=$?; set -e
         if [ "$drc" -eq 2 ]; then
           log "$VERB directive on #$pr but it is already merged/closed — dropping stale directive (no live job)"

@@ -414,6 +414,11 @@ if [ "${#STUCK[@]}" -gt 0 ]; then
   if [ -f "${GARDEN_API_COOLDOWN_MARKER:-}" ]; then
     latch="gh-api cooldown marker: expiry=$(sed -n 1p "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null) set-by=$(sed -n 2p "$GARDEN_API_COOLDOWN_MARKER" 2>/dev/null)\n"
   fi
+  # The GraphQL-only latch no longer holds the REST comment watchers, but name it
+  # when present: a stuck host-wide latch next to it is the pre-split signature.
+  if [ -f "${GARDEN_API_COOLDOWN_GRAPHQL_MARKER:-}" ]; then
+    latch="${latch}gh-api GraphQL-only marker: expiry=$(sed -n 1p "$GARDEN_API_COOLDOWN_GRAPHQL_MARKER" 2>/dev/null) set-by=$(sed -n 2p "$GARDEN_API_COOLDOWN_GRAPHQL_MARKER" 2>/dev/null)\n"
+  fi
   if [ -f "${GARDEN_JOURNAL_OUTAGE_MARKER:-}" ]; then
     latch="${latch}journal-outage marker: $(head -2 "$GARDEN_JOURNAL_OUTAGE_MARKER" 2>/dev/null | tr '\n' ' ')\n"
   fi

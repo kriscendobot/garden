@@ -122,9 +122,12 @@ rollup_hit_primary_quota() {  # rollup_hit_primary_quota <captured-stderr> <cont
   # would expire and the next sweep would retry a known-doomed call inside the same
   # quota hour. api_primary_quota_secs() is the shared policy every primary-quota
   # detector requests (see common.sh start_api_cooldown / mirror-closer.sh).
+  # The rollup is `gh pr view` — GraphQL only — so the refusal proves only the
+  # GraphQL bucket spent: latch scope `graphql`, never the host-wide marker, or the
+  # REST-only comment watchers go blind with a full REST bucket (minion.town #112).
   secs="$(api_primary_quota_secs)"
-  if start_api_cooldown "ci:$slug:rollup" "$secs"; then
-    log "WARN: $context hit GitHub primary API quota exhaustion — cooling all gh-api watchers for ${secs}s and stopping this sweep"
+  if start_api_cooldown "ci:$slug:rollup" "$secs" graphql; then
+    log "WARN: $context hit GitHub primary GraphQL quota exhaustion — cooling GraphQL gh-api watchers for ${secs}s and stopping this sweep"
   fi
   return 0
 }
