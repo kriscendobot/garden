@@ -49,3 +49,13 @@ Use an OpenAI **API key**: either the Codex CLI in API-key mode or the OpenAI Ag
 
 ## Definition of done
 A draft PR with the tentative backend behind a flag on the shared seam, local checks green, and a report covering the questions above, the provider-neutral broker shape, and the findings to back-fill into the Endo item-4 design. Complete the job via the normal completion path.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-23T20:38:04Z
