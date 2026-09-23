@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T23:36:05Z_
+_As of 2026-09-23T23:44:38Z_
 
 ## Latest
 
@@ -773,7 +773,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.2M | $609.56 _(notional, rate-card)_ | 41% of 143.0M (ok) |
+| Claude | 60.6M | $624.91 _(notional, rate-card)_ | 42% of 143.0M (ok) |
 | Codex | 26.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34354478 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -782,20 +782,19 @@ _Fleet token-unlock pace: 34354478 tokens/day lower bound; incomplete where a su
 worst fetch p95 32.979979s/45s (/home/kris/garden/.garden-state/ci-watcher/verify); 7 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`fix-rolling-deploy-canary-stranded-on-advanced-target`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-rolling-deploy-canary-stranded-on-advanced-target.md) — Fix: a follower canary strands when main2 advances between the roll release a...
 
-### doin (2)
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1100
-- [`fix-rolling-deploy-canary-stranded-on-advanced-target`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-rolling-deploy-canary-stranded-on-advanced-target.md) — Fix: a follower canary strands when main2 advances between the roll release a...
+### doin (1)
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1100
 
-### tada (8790)
+### tada (8791)
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-1.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923b-clean.md) — Clean-stage report: endojs/endo-but-for-bots PR #1100 (gauntlet ebfb-exo-stre...
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/ebfb-exo-stream-pr1100-gauntlet-20260923b-viability.md) — Cost
 - [`improve-comment-latency-notice-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/improve-comment-latency-notice-failure.md) — Cost
 - [`diagnose-hourly-graphql-quota-exhaustion-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/diagnose-hourly-graphql-quota-exhaustion-20260923.md) — Cost
-- [`fix-e2e-fixtures-budget-pool-admission`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-e2e-fixtures-budget-pool-admission.md) — Cost
-- … and 8785 more
+- … and 8786 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
