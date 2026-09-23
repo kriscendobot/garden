@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T18:20:27Z_
+_As of 2026-09-23T18:25:07Z_
 
 ## Latest
 
@@ -37,6 +37,50 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
 > Identity A's authenticated tools/list succeeded. The send schema says recipients are only @self, @host, or a pet name already held for another party; it has no discovery or attachment field. Please arrange a host-side introduction that gives identity A a pet name for identity B and identity B a reciprocal pet name for identity A, then complete the requested GitHub-federation login checkpoint for B. I will not send to @host because the evaluation cannot clean up a host-inbox message.
+
+- `doomed-kriscendobot-garden-pr109-conduct-20260923-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-garden-pr109-conduct-20260923-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/kriscendobot-garden-pr109-conduct-20260923; it stays HELD until a human promotes it
+> (promote-plan.sh kriscendobot-garden-pr109-conduct-20260923) or removes it, so nothing is lost.
+> Original job base: kriscendobot-garden-pr109-conduct-20260923
+>
+> --- original job body ---
+> ---
+> role: conductor
+> handler-budget-role: conductor
+> priority: urgent
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Finalize the approved TypeSafe Muster pilot answer-surface
+>
+> Repository: `kriscendobot/garden`
+> Pull request: [https://github.com/kriscendobot/garden/pull/109](https://github.com/kriscendobot/garden/pull/109)
+>
+> The complete review directive at review 5293869021 has been implemented on
+> `main2` in commit `064df94e81`, and the frozen answer-surface head was updated in
+> commit `5aed242a`. The design file on the PR head is byte-identical to current
+> `origin/main2`; the PR is OPEN, draft, MERGEABLE/CLEAN, has no pending or failing
+> checks, and retains effective APPROVED review state.
+>
+> This is a garden open-questions answer-surface. Follow the conductor exception
+> for `<!-- garden-design-open-questions -->`: un-draft if needed, merge against
+> the frozen review base, and clean unused frozen/head branches. Do not retarget it
+> to live `main2`.
+>
+> Before posting the pilot-ready report requested by the review, verify the leader
+> host has deployed an `origin/main2` descendant of `064df94e81` so a liaison can
+> actually run `scripts/jobs/muster-pilot.sh`. A maintainer-authorized sysop deploy
+> was queued by predecessor job
+> `kriscendobot-garden-pr109-review-0310bc76`. If deployment has not converged yet,
+> wait/recheck rather than claiming the pilot is ready. Once deployed, post a
+> top-level PR comment naming the deployed commit, the live TypeSafe smoke result
+> (`jev-1.13.0`, 1670 input / 423 output tokens on two synthetic messages), and the
+> targeted test result (4 passed, 0 failed), then conduct the approved PR.
 
 - `msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6` — from gardener:minion-town-guest-web-invite-accept-fallback-fix-post104, reply_to `minion-town-guest-web-invite-accept-fallback-fix-post104` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md)
 
@@ -638,19 +682,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.4M | $565.14 _(notional, rate-card)_ | 39% of 143.0M (ok) |
+| Claude | 56.6M | $568.15 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 22.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34411953 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Board
-### todo (1)
-- [`build-reexport-deprecation-policy-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-reexport-deprecation-policy-20260923.md) — Build the re-export deprecation policy automation (garden-internal)
+### todo (0)
+(none)
 
 ### doin (3)
 - [`build-comment-latency-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-comment-latency-watch.md) — Build: comment latency watch
 - [`build-journal-contention-watch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-journal-contention-watch.md) — Build: journal contention watch
-- [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr109-conduct-20260923.md) — Finalize the approved TypeSafe Muster pilot answer-surface
+- [`build-reexport-deprecation-policy-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-reexport-deprecation-policy-20260923.md) — Build the re-export deprecation policy automation (garden-internal)
 
 ### tada (8738)
 - [`build-opus55-tier`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/build-opus55-tier.md) — Completion report
@@ -688,6 +732,7 @@ _Fleet token-unlock pace: 34411953 tokens/day lower bound; incomplete where a su
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`kriscendobot-garden-pr109-conduct-20260923`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr109-conduct-20260923.md) — _normal_ · Finalize the approved TypeSafe Muster pilot answer-surface
 - [`deploy-siwe-thunk-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-siwe-thunk-minion-town.md) — _normal_ · Deploy the SIWE OIDC thunk (mirroring the GitHub thunk's AWS path)
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-subscription-model-deploy-gate-regression.md) — _normal_ · Fix deploy-gate regression from subscription-based-budget-model
