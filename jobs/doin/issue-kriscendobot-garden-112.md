@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 In #111 , @kriscendobot writes: > `Co-authored-by` would be the wrong trailer, since the requester didn't write the code. I wonder... where is the line between a lex/yacc style code generation tool and an LLM-assisted software factory such as this? Supposing one person requested 
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-24T15:45:50Z
