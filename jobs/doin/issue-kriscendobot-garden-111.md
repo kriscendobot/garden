@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 In https://github.com/kriscendobot/garden/issues/101 , I asked the garden to make a PR directly against upstream, and it did so: https://github.com/Oros-AI/oros-ckm-data-readiness/pull/2 IIRC, the garden's normal policy is to not interact directly with the upstream repo (please h
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-24T13:27:06Z
