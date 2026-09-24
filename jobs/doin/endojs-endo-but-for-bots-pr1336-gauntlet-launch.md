@@ -22,3 +22,13 @@ Do this, from the garden root:
   scripts/jobs/post-gauntlet.sh endojs-endo-but-for-bots-pr1336-gauntlet https://github.com/endojs/endo-but-for-bots/pull/1336
 
 The command is idempotent on the base. Afterward, post one short PR comment on #1336 that says the gauntlet is staged and names the record base. If the fixer job was doomed and did NOT complete (it has no `jobs/tada/` entry), still post the gauntlet. The viability stage will surface any problem with the head. Say in the PR comment that the fixer did not finish.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-24T20:56:18Z
