@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T04:14:59Z_
+_As of 2026-09-24T04:16:19Z_
 
 ## Latest
 
@@ -194,6 +194,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
+
+> subscription codex-endolin changed zone ok -> backoff at spend=22487026 of cap=100.
+
+- `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
+
+> subscription codex-endolin changed zone ok -> backoff at spend=4871978 of cap=100.
 
 - `watchdog-journal-worktree-stale-endolin-garden-ece02cb4` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-stale-endolin-garden-ece02cb4.md)
 
@@ -777,7 +785,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.8M | $697.93 _(notional, rate-card)_ | 47% of 143.0M (ok) |
+| Claude | 66.8M | $697.81 _(notional, rate-card)_ | 47% of 143.0M (ok) |
 | Codex | 27.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35084647 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -789,18 +797,17 @@ worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1226-review-179ff5ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1226-review-179ff5ab.md) — Review directive on endojs/endo-but-for-bots PR #1226
 - [`merge-endojs-endo-but-for-bots-pr1226-20260924`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endojs-endo-but-for-bots-pr1226-20260924.md) — Conduct endojs/endo-but-for-bots PR #1226
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1100
 
-### tada (8811)
+### tada (8812)
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1226-review-aaba6e78`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1226-review-aaba6e78.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-4.md) — Fix round 4 for endojs/endo-but-for-bots#1100: done, CI green
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-4.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots#1100
-- [`minion-town-guest-web-invite-accept-fallback-fix-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/minion-town-guest-web-invite-accept-fallback-fix-20260922.md) — Cost
-- … and 8806 more
+- … and 8807 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
