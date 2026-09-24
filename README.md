@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T01:37:02Z_
+_As of 2026-09-24T01:38:14Z_
 
 ## Latest
 
@@ -777,7 +777,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.3M | $659.34 _(notional, rate-card)_ | 44% of 143.0M (ok) |
+| Claude | 63.8M | $664.05 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 26.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34741737 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -789,18 +789,17 @@ worst fetch p95 10.092131s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`minion-town-guest-web-invite-accept-fallback-fix-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-web-invite-accept-fallback-fix-20260922.md) — Replace PR #81's app-mediated guest-pairing fallback with real guest.invite/a...
-- [`claude-on-minion-town-press-20260924-013504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260924-013504.md) — Press the Claude-on-minion.town arc forward
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1100
 
-### tada (8804)
+### tada (8805)
+- [`claude-on-minion-town-press-20260924-013504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-press-20260924-013504.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-b20b86cd5432`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-b20b86cd5432.md) — rolling-deploy canary probe — round trip OK
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-2.md) — Gauntlet fix round 2: endojs/endo-but-for-bots#1100
 - [`improve-comment-latency-primary-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/improve-comment-latency-primary-quota-cooldown.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2.md) — Cost
-- [`self-heal-fix-garden-comment-latency-watch-write-stats-empty-sample-glob`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/self-heal-fix-garden-comment-latency-watch-write-stats-empty-sample-glob.md) — Cost
-- … and 8799 more
+- … and 8800 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
