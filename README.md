@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T04:23:57Z_
+_As of 2026-09-24T04:38:11Z_
 
 ## Latest
 
@@ -788,7 +788,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 66.9M | $698.83 _(notional, rate-card)_ | 47% of 143.0M (ok) |
 | Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34956500 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34979225 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 2 open notice(s); checker healthy
@@ -797,17 +797,16 @@ worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-endo-guest-stdio-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-guest-stdio-mcp.md) — Build the endo-guest-stdio-mcp design (endojs/endo-but-for-bots)
+### doin (1)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1100
 
-### tada (8816)
+### tada (8818)
+- [`claude-on-minion-town-press-20260924-043507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-press-20260924-043507.md) — Cost
+- [`build-endo-guest-stdio-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/build-endo-guest-stdio-mcp.md) — Completion report: build-endo-guest-stdio-mcp
 - [`claude-on-minion-town-completion-press-20260924-042005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-completion-press-20260924-042005.md) — Cost
 - [`endojs-endo-but-for-bots-pr1226-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1226-receipt.md) — Cost
 - [`merge-endojs-endo-but-for-bots-pr1226-20260924`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/merge-endojs-endo-but-for-bots-pr1226-20260924.md) — Cost
-- [`endojs-endo-but-for-bots-pr1226-review-179ff5ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1226-review-179ff5ab.md) — Cost
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-5.md) — Cost
-- … and 8811 more
+- … and 8813 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
