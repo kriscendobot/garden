@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T01:35:57Z_
+_As of 2026-09-24T01:37:02Z_
 
 ## Latest
 
@@ -777,19 +777,20 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.1M | $655.90 _(notional, rate-card)_ | 44% of 143.0M (ok) |
+| Claude | 63.3M | $659.34 _(notional, rate-card)_ | 44% of 143.0M (ok) |
 | Codex | 26.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34741737 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
+worst fetch p95 10.092131s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`minion-town-guest-web-invite-accept-fallback-fix-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-guest-web-invite-accept-fallback-fix-20260922.md) — Replace PR #81's app-mediated guest-pairing fallback with real guest.invite/a...
 - [`claude-on-minion-town-press-20260924-013504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260924-013504.md) — Press the Claude-on-minion.town arc forward
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1100
 
@@ -838,7 +839,6 @@ worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
 - [`build-claude-usage-dashboard-scraper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-usage-dashboard-scraper.md) — _normal_ · ---
 
 ### awaiting maintainer decision (answer at the linked question)
-- [`minion-town-guest-web-invite-accept-fallback-fix-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-guest-web-invite-accept-fallback-fix-20260922.md) - [Land the refreshed Endo daemon pin 89481580… (EndoGuest.accept) onto minion.town main. It is MERGED into frozen base main-45e43bb via PR #104 but main (HEAD 287af35) still pins the stale f66505034…. Promote this job only once git show origin/main:src/endo/captp-client.ts shows PINNED_ENDO_COMMIT = 89481580….](https://github.com/kriscendobot/minion.town/pull/104)
 - [`minion-town-pr87-production-gate-resume-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr87-production-gate-resume-20260922.md) - [PR #87 production-reality gate: which backend is the production provider (CLI/Agent-SDK; re-run failed SDK track first?), proceed before endo#1015 lands or gate on it, and what counts as production evidence + are credentials provided?](https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5770203120)
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
