@@ -75,7 +75,7 @@ _outage_should_warn() {
 # the caller's `exit 0` performs the retry.
 note_transient_outage() {
   local sha="$1" msg="$2" count=0 _prev
-  read -r _prev count < "$OUTAGE_STATE" 2>/dev/null || true
+  read -r _prev count 2>/dev/null < "$OUTAGE_STATE" || true
   [[ "$count" =~ ^[0-9]+$ ]] || count=0
   count=$((count + 1))
   printf '%s %s\n' "$sha" "$count" > "$OUTAGE_STATE"
@@ -90,7 +90,7 @@ note_transient_outage() {
 note_transient_recovery() {
   [ -f "$OUTAGE_STATE" ] || return 0
   local sha="" count=0
-  read -r sha count < "$OUTAGE_STATE" 2>/dev/null || true
+  read -r sha count 2>/dev/null < "$OUTAGE_STATE" || true
   [[ "$count" =~ ^[0-9]+$ ]] || count=0
   rm -f "$OUTAGE_STATE"
   log "mentor transient provider outage cleared after $count consecutive tick(s) (last digest $sha)"
@@ -217,7 +217,7 @@ else
     # same content-addressed digest forever only reproduces the same decision.
     # Bound that episode, then consume the inputs and surface one actionable page.
     prior_sha=""; reject_count=0
-    read -r prior_sha reject_count < "$REJECTION_STATE" 2>/dev/null || true
+    read -r prior_sha reject_count 2>/dev/null < "$REJECTION_STATE" || true
     [[ "$reject_count" =~ ^[0-9]+$ ]] || reject_count=0
     if [ "$prior_sha" = "$sha" ]; then reject_count=$((reject_count + 1)); else reject_count=1; fi
     printf '%s %s\n' "$sha" "$reject_count" > "$REJECTION_STATE"
