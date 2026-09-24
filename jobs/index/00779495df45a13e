@@ -1,2 +1,2 @@
-base: improve-issue-inbox-cgroup-reap-single-pass
+base: improve-issue-inbox-cursor-advance-retry
 identity: mentor:scripts/jobs/issue-inbox-watcher.sh
