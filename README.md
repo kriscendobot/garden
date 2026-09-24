@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-24T07:09:21Z_
+_As of 2026-09-24T07:12:07Z_
 
 ## Latest
 
-The exo-stream gauntlet ([endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100)) completed after six fix rounds and panel reviews; container hardening and rolling deploy probe issues resolved. The federation release gate ([endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332)) remains blocked awaiting authority answers on three open questions, blocking all downstream PRs (#1124, #1333, #117). The minion.town guest-invite fallback fix is parked awaiting the refreshed Endo daemon pin (89481580…) to land on `main` from the frozen base branch. Twenty-six PRs await maintainer feedback; nine infrastructure improvements are held pending split/scope decisions or manual promotions.
+Federation release gate is BLOCKED: [endo-minion-town-federation-release-gate](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) awaits maintainer answers on deployment authority for [endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332), plus reviews and merges of [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), a gateway session-binding fix, [endo-but-for-bots#1333](https://github.com/endojs/endo-but-for-bots/pull/1333), and [minion.town#117](https://github.com/kriscendobot/minion.town/pull/117) before deployment can proceed. Guest invite/accept fallback fix for [minion.town#81](https://github.com/kriscendobot/minion.town/issues/81) is similarly held awaiting the refreshed Endo daemon pin on `main`. Infrastructure work accumulated: worktree sweeper is leader-gated on followers (100+ stale dirs on endolin-garden2), budget-level cap-freeze affects fleet leveling, CI watcher quota cooldown is too short (repeats every 5min during outages), and a privileged container from pre-hardening is still running. Container check blocks rolling deploy; self-heal marked it for recreation. Journal worktree briefly stale; recovered. Claude quota 56%, Codex 85%.
 
 ## Parked for maintainer feedback
 
@@ -635,7 +635,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.7M | $725.47 _(notional, rate-card)_ | 56% of 143.0M (ok) |
+| Claude | 79.8M | $725.66 _(notional, rate-card)_ | 56% of 143.0M (ok) |
 | Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 36975743 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -650,13 +650,13 @@ worst fetch p95 4.302174s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### doin (0)
 (none)
 
-### tada (8825)
+### tada (8826)
+- [`canary-probe-endolin-garden2-5bcdff64-d37833ab353a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-d37833ab353a-r1.md) — rolling-deploy canary probe — round trip OK
 - [`daily-progress-summary-20260924-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/daily-progress-summary-20260924-070505.md) — Cost
 - [`fix-hardening-probe-blocks-rolling-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/fix-hardening-probe-blocks-rolling-deploy.md) — Completion report
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b.md) — gauntlet ebfb-exo-stream-pr1100-gauntlet-20260923b — review budget reached
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-6.md) — Gauntlet fix round 6 for endojs/endo-but-for-bots#1100: fix pushed, CI green
-- [`improve-container-hardening-gh-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/improve-container-hardening-gh-timeout.md) — Completion report: improve-container-hardening-gh-timeout
-- … and 8820 more
+- … and 8821 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
