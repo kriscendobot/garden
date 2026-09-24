@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T15:50:51Z_
+_As of 2026-09-24T16:24:37Z_
 
 ## Latest
 
@@ -147,6 +147,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > journal worktree /home/kris/garden/journal has been STALE for ~2h (8998s since it last reconciled to origin/journal2; threshold 7200s). The keeper cannot self-resolve it: this tick could not reconcile — diverged; self-heal did not reach origin tip this tick (behind=705). Agents landing in journal/ are reading a LAGGED board and must route around it by hand. Investigate: check this host's connectivity to the journal remote, then 'git -C /home/kris/garden/journal status' and the journal-worktree-keeper log. This is one alert per staleness episode — it will NOT re-page, and clears automatically once the worktree reconciles. (host=endolin-garden-ece02cb4)
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal.md)
+
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` has CLEARED (first seen 2026-09-24T16:02:17Z, cleared 2026-09-24T16:07:04Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify.md)
 
@@ -683,10 +691,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.1M | $775.81 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 102.2M | $777.01 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 40111485 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 40112361 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 12.523961s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 3 open notice(s); checker healthy
@@ -698,13 +706,13 @@ worst fetch p95 12.523961s/45s (/home/kris/garden/.garden-state/design-pr-gauntl
 ### doin (0)
 (none)
 
-### tada (8843)
+### tada (8845)
+- [`deadmail-issue-comment-5817602375`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/deadmail-issue-comment-5817602375.md) — Cost
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260924-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/fu-minion-town-containment-gateway-endo-sock-1-20260924-162006.md) — Cost
 - [`issue-kriscendobot-garden-112`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/issue-kriscendobot-garden-112.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-0b023dab8def`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-0b023dab8def.md) — rolling-deploy canary probe — round trip OK
 - [`self-heal-fix-garden-mentor-anthropic-truncated-job-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/self-heal-fix-garden-mentor-anthropic-truncated-job-body.md) — Cost
-- [`claude-on-minion-town-press-20260924-135006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-press-20260924-135006.md) — Cost
-- [`issue-kriscendobot-garden-111`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/issue-kriscendobot-garden-111.md) — Cost
-- … and 8838 more
+- … and 8840 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
