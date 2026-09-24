@@ -27,3 +27,13 @@ Resolve every inline ask below on the PR branch. Reply in each inline thread wit
 10. `server.test.js:25` (4098242771): replace `Far` with `makeExo` plus an interface guard in the test fakes, and anywhere else in the diff.
 
 Keep the PR draft. Do not run a gauntlet. Finish with a thread reply per comment plus one summary PR comment.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-24T20:42:48Z
