@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T00:28:55Z_
+_As of 2026-09-24T00:31:24Z_
 
 ## Latest
 
@@ -186,11 +186,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
-
-- `watchdog-comment-ack-latency-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-latency-endojs-endo-but-for-bots.md)
-
-> Comment acknowledgment latency anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1248](https://github.com/endojs/endo-but-for-bots/pull/1248)#issuecomment-5805146255 (latency=543s; heartbeat=full-poll)
 
 - `watchdog-comment-watcher-dead-kriscendobot-list` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-list.md)
 
@@ -782,7 +777,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.8M | $627.26 _(notional, rate-card)_ | 42% of 143.0M (ok) |
+| Claude | 61.1M | $632.50 _(notional, rate-card)_ | 43% of 143.0M (ok) |
 | Codex | 26.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34441923 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -794,8 +789,9 @@ worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1248-151c786d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1248-151c786d.md) — attention directive on endojs/endo-but-for-bots PR #1248
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1100
 
 ### tada (8797)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1.md) — Cost
