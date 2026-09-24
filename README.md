@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T00:33:53Z_
+_As of 2026-09-24T00:34:23Z_
 
 ## Latest
 
@@ -777,7 +777,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.2M | $634.77 _(notional, rate-card)_ | 43% of 143.0M (ok) |
+| Claude | 61.2M | $633.80 _(notional, rate-card)_ | 43% of 143.0M (ok) |
 | Codex | 26.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34441923 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -789,17 +789,16 @@ worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1248-151c786d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1248-151c786d.md) — attention directive on endojs/endo-but-for-bots PR #1248
+### doin (1)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1100
 
-### tada (8798)
+### tada (8799)
+- [`endojs-endo-but-for-bots-pr1248-151c786d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1248-151c786d.md) — PR #1248 review posted: object-capability discipline and formula patterns
 - [`canary-probe-endolin-garden2-5bcdff64-fe18c4953480`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-fe18c4953480.md) — rolling-deploy canary probe — round trip OK
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1.md) — Cost
 - [`self-heal-fix-garden-comment-latency-watch-write-stats-empty-glob`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/self-heal-fix-garden-comment-latency-watch-write-stats-empty-glob.md) — Cost
 - [`fix-rolling-deploy-canary-stranded-on-advanced-target`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-rolling-deploy-canary-stranded-on-advanced-target.md) — Completion report
-- [`kriscendobot-minion.town-pr112-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/kriscendobot-minion.town-pr112-receipt.md) — Cost
-- … and 8793 more
+- … and 8794 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
