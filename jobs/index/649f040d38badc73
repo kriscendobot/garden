@@ -1,2 +1,2 @@
-base: improve-gh-wrapper-timeout-bound
+base: improve-gh-wrapper-suppress-credential-daemon
 identity: mentor:scripts/jobs/bin/gh
