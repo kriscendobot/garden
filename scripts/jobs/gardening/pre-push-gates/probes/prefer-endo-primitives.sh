@@ -34,6 +34,7 @@ classify() {
       if (providerLine && line ~ /@endo\/ascii/) provided[file SUBSEP "@endo/ascii"] = 1
       if (providerLine && line ~ /@endo\/base64/) provided[file SUBSEP "@endo/base64"] = 1
       if (providerLine && line ~ /@endo\/errors/) provided[file SUBSEP "@endo/errors"] = 1
+      if (providerLine && line ~ /@endo\/promise-kit/) provided[file SUBSEP "@endo/promise-kit"] = 1
 
       # Do not interpret prose-only comment lines as executable signatures.
       code = line
@@ -60,6 +61,15 @@ classify() {
       }
       if (code ~ /(^|[[:space:]])(const|let|var|function)[[:space:]]+insist[A-Za-z0-9_$]*/) {
         remember(file, "@endo/errors", "hand-rolled insist/assert helper")
+      }
+      if (code ~ /(^|[[:space:]])(const|let|var|function)[[:space:]]+makePromiseKit([^A-Za-z0-9_$]|$)/ ||
+          code ~ /(^|[[:space:]])let[[:space:]]+(resolve|reject)([^A-Za-z0-9_$]|$)/) {
+        remember(file, "@endo/promise-kit", "hand-rolled promise kit")
+      }
+      # Far has no provider escape: importing @endo/exo does not license a
+      # bare Far. Only the per-file exempt marker waives it.
+      if (code ~ /(^|[^A-Za-z0-9_$.])Far[[:space:]]*\(/) {
+        remember(file, "makeExo from @endo/exo", "bare Far (use makeExo with an interface guard)")
       }
     }
     END {

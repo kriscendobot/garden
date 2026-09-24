@@ -38,6 +38,21 @@ expect_prefer_failure '@endo/ascii' \
   'const bytes = Uint8Array.from(text, character => character.charCodeAt(0));'
 expect_prefer_failure '@endo/errors' \
   'const insistNatural = value => { if (value < 0) throw Error(); };'
+# endojs/endo-but-for-bots#1336 review 5307103246: a copied promise kit and a
+# bare Far test fake.
+expect_prefer_failure '@endo/promise-kit' 'const makePromiseKit = () => {'
+expect_prefer_failure '@endo/promise-kit' '  let resolve = () => {};'
+expect_prefer_failure 'makeExo from @endo/exo' "  Far('EndoGuest', {"
+
+if printf '%s\n' \
+    "import { Far } from '@endo/far';" \
+    "import { makeExo } from '@endo/exo';" \
+    "const reference = makeExo('Thing', ThingI, {});" \
+    | "$PREFER" --scan-stdin fixture.js | grep -qx pass; then
+  ok 'importing Far and calling makeExo does not fire the Far signature'
+else
+  bad 'the Far signature fired on an import or makeExo'
+fi
 
 if printf '%s\n' \
     "import { sha256 } from '@endo/sha256';" \
@@ -83,6 +98,13 @@ printf '%s\n' "$db_output" | grep -Fq '`openTestDb` (`db`' \
 printf '%s\n' "$db_output" | grep -Fq '`db` (`db`' \
   && ok 'spell-out probe catches bare db from PR 1329' \
   || bad 'spell-out probe missed bare db'
+
+args_output=$(printf '%s\n' \
+  'argsShape: M.splitRecord({}),' \
+  | "$SPELL" --scan-stdin fixture.js 2>&1) || true
+printf '%s\n' "$args_output" | grep -Fq '`argsShape` (`args`' \
+  && ok 'spell-out probe catches args from PR 1336' \
+  || bad 'spell-out probe missed argsShape'
 
 if printf '%s\n' 'const database = openTestDatabase(config.statePath);' \
     | "$SPELL" --scan-stdin fixture.js | grep -qx pass; then

@@ -83,7 +83,7 @@ classify() {
       # from the observed set plus obvious siblings; keep it documented and
       # low-false-positive. Add here (and to the SKILL table) when a new
       # abbreviation trips a review.
-      split("dir:directory cmd:command temp:temporary tmp:temporary arg:argument subdir:subdirectory cfg:configuration ctx:context idx:index msg:message btn:button impl:implementation mgr:manager num:number str:string val:value resp:response req:request addr:address db:database", pairs, " ")
+      split("dir:directory cmd:command temp:temporary tmp:temporary arg:argument args:arguments subdir:subdirectory cfg:configuration ctx:context idx:index msg:message btn:button impl:implementation mgr:manager num:number str:string val:value resp:response req:request addr:address db:database", pairs, " ")
       for (p in pairs) { split(pairs[p], kv, ":"); BLOCK[kv[1]] = kv[2] }
       findings = 0
       sq = sprintf("%c", 39); bt = sprintf("%c", 96)
