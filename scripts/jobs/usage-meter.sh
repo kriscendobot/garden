@@ -543,13 +543,22 @@ meter_journal_failure_reason() {
     3) printf 'empty-ledger (journal unsynced?)\n' ;;
     4) printf 'unmetered-rows in window\n' ;;
     5) printf 'malformed-ledger\n' ;;
+    6) printf 'no-snapshot for pool\n' ;;
+    7) printf 'stale-snapshot beyond max-age\n' ;;
+    8) printf 'snapshot-host-coverage-mismatch\n' ;;
+    9) printf 'snapshot-field-mismatch (pool/cap/window/spend)\n' ;;
     *) printf 'unknown\n' ;;
   esac
 }
 
 # meter_remote_snapshot_total <journal-dir> <pool> <cap> <cutoff> — consume the
 # exact session-log reading published by that pool's owning host. Stale/mismatched
-# snapshots are unknown, never trusted as a lower bound.
+# snapshots are unknown, never trusted as a lower bound. Unknown causes get codes
+# disjoint from meter_journal_host_tokens' 2-5, so meter_journal_failure_reason
+# maps either family:
+#   6 no live snapshot dir/file for the pool   7 snapshot older than max_age (or future-dated)
+#   8 host-coverage mismatch (seen != mapped hosts)
+#   9 field mismatch (pool/cap/window) or non-numeric spend/sampled_at
 meter_remote_snapshot_total() {
   local dir="$1" pool="$2" cap="$3" cutoff="$4" host file p c w s at now max_age total=0 seen=0 expected mapping
   max_age="$GARDEN_BUDGET_SNAPSHOT_MAX_AGE"; [[ "$max_age" =~ ^[1-9][0-9]*$ ]] || max_age=1800
@@ -563,22 +572,24 @@ meter_remote_snapshot_total() {
       s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
       at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
       [ "$p" = "$pool" ] && { [ "$cap" = "-" ] || [ "$c" = "$cap" ]; } && [ "$w" = "$cutoff" ] \
-        && [[ "$s" =~ ^[0-9]+$ ]] && [[ "$at" =~ ^[0-9]+$ ]] && [[ "$now" =~ ^[0-9]+$ ]] \
-        && [ "$at" -le $((now + 60)) ] && [ $((now - at)) -le "$max_age" ] || return 1
+        && [[ "$s" =~ ^[0-9]+$ ]] && [[ "$at" =~ ^[0-9]+$ ]] && [[ "$now" =~ ^[0-9]+$ ]] || return 9
+      [ "$at" -le $((now + 60)) ] && [ $((now - at)) -le "$max_age" ] || return 7
       total=$((total + s)); seen=$((seen + 1))
     done
     mapping="$dir/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
     expected="$(awk -v subscription="$pool" '$0 !~ /^[[:space:]]*#/ && $1==subscription {host[$2]=1} END{for(h in host)n++;print n+0}' "$mapping" 2>/dev/null || echo 0)"
-    [ "$seen" -gt 0 ] && { [ "$expected" -eq 0 ] || [ "$seen" -eq "$expected" ]; } || return 1
+    [ "$seen" -gt 0 ] || return 6
+    [ "$expected" -eq 0 ] || [ "$seen" -eq "$expected" ] || return 8
     printf '%s\n' "$total"; return 0
   fi
   # Rolling-deploy compatibility with host-keyed snapshots.
-  host="${pool#*:}"; file="$dir/budget/live/$host"; [ -r "$file" ] || return 1
+  host="${pool#*:}"; file="$dir/budget/live/$host"; [ -r "$file" ] || return 6
   p="$(sed -n 's/^pool:[[:space:]]*//p' "$file" | head -1)"; c="$(sed -n 's/^cap:[[:space:]]*//p' "$file" | head -1)"
   w="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" | head -1)"; s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
   at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
   [ "$p" = "$pool" ] && [ "$c" = "$cap" ] && [ "$w" = "$cutoff" ] && [[ "$s" =~ ^[0-9]+$ ]] \
-    && [[ "$at" =~ ^[0-9]+$ ]] && [ $((now-at)) -le "$max_age" ] || return 1
+    && [[ "$at" =~ ^[0-9]+$ ]] && [[ "$now" =~ ^[0-9]+$ ]] || return 9
+  [ $((now-at)) -le "$max_age" ] || return 7
   printf '%s\n' "$s"
 }
 

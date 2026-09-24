@@ -164,6 +164,24 @@ jreason="$(bash -c 'source "$1/common.sh"; for c in 2 3 4 5; do meter_journal_fa
 [ "$jreason" = "no-jq-or-usage-dir|empty-ledger (journal unsynced?)|unmetered-rows in window|malformed-ledger|" ] \
   && ok "journal failure codes map to reason strings" || bad "reason map: $jreason"
 
+# Remote-snapshot unknowns carry codes 6-9, disjoint from the journal's 2-5, so a
+# subscription-mapped (non-anthropic:*) pool's read-remote-spend WARN names a cause.
+SD="$TR/snapdir"; mkdir -p "$SD/budget/live/claude-oros" "$SD/config"
+snaprc() { bash -c 'set -uo pipefail; source "$1/common.sh"; meter_now() { echo 100000; }; meter_remote_snapshot_total "$2" "$3" 500 9000 >/dev/null 2>&1; echo $?' _ "$JOBS" "$SD" "$1"; }
+[ "$(snaprc claude-missing)" = 6 ] && ok "missing pool snapshot reads rc 6" || bad "missing snapshot rc=$(snaprc claude-missing), expected 6"
+wsnap() { printf 'subscription: claude-oros\ncap: %s\nwindow_start_epoch: 9000\nspend: 42\nsampled_at_epoch: %s\n' "$1" "$2" > "$SD/budget/live/claude-oros/$3"; }
+wsnap 500 99990 h1
+[ "$(snaprc claude-oros)" = 0 ] && ok "fresh matching pool snapshot reads rc 0" || bad "fresh snapshot rc=$(snaprc claude-oros)"
+wsnap 500 1000 h1
+[ "$(snaprc claude-oros)" = 7 ] && ok "stale pool snapshot reads rc 7" || bad "stale snapshot rc=$(snaprc claude-oros), expected 7"
+wsnap 999 99990 h1
+[ "$(snaprc claude-oros)" = 9 ] && ok "cap-mismatched pool snapshot reads rc 9" || bad "mismatched snapshot rc=$(snaprc claude-oros), expected 9"
+wsnap 500 99990 h1; printf 'claude-oros\th1\tmonk\nclaude-oros\th2\tmonk\n' > "$SD/$(bash -c 'source "$1/common.sh"; echo "$GARDEN_SUBSCRIPTION_MAPPING_PATH"' _ "$JOBS")"
+[ "$(snaprc claude-oros)" = 8 ] && ok "under-covered pool snapshot reads rc 8" || bad "coverage mismatch rc=$(snaprc claude-oros), expected 8"
+sreason="$(bash -c 'source "$1/common.sh"; for c in 6 7 8 9; do meter_journal_failure_reason $c; done' _ "$JOBS" | tr '\n' '|')"
+[ "$sreason" = "no-snapshot for pool|stale-snapshot beyond max-age|snapshot-host-coverage-mismatch|snapshot-field-mismatch (pool/cap/window/spend)|" ] \
+  && ok "snapshot failure codes map to reason strings" || bad "snapshot reason map: $sreason"
+
 seed_board() { # bare [plan]
   local bare="$1" seed="$1-seed"
   git init -q --bare "$bare"; git init -q "$seed"; git -C "$seed" checkout -q -b journal2
