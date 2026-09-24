@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T01:30:19Z_
+_As of 2026-09-24T01:35:57Z_
 
 ## Latest
 
@@ -777,10 +777,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.6M | $637.44 _(notional, rate-card)_ | 43% of 143.0M (ok) |
+| Claude | 63.1M | $655.90 _(notional, rate-card)_ | 44% of 143.0M (ok) |
 | Codex | 26.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34710392 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34741737 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
@@ -789,7 +789,8 @@ worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`claude-on-minion-town-press-20260924-013504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260924-013504.md) — Press the Claude-on-minion.town arc forward
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1100
 
 ### tada (8804)
