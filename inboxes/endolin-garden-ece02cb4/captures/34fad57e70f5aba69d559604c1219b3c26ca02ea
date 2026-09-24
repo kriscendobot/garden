@@ -1,0 +1,47 @@
+<6>06:46:29 [monk/2] job 'fix-hardening-probe-blocks-rolling-deploy' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>06:46:29 [monk/2] job 'fix-hardening-probe-blocks-rolling-deploy' call ceiling: tier=mentor max-budget-usd=8.60 (scaled by fresh seven-day headroom when available)
+<6>06:50:27 [assert-followup-posted] gate: BLOCK — 'fix-hardening-probe-blocks-rolling-deploy' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# Completion report: fix-hardening-probe-blocks-rolling-deploy
+
+A container that hasn't been recreated yet no longer fails its hardening unit or a deploy canary. A host that was verified hardened and later loses it still fails loudly. The fix is pushed to `main2` as `d37833ab35`. The probe suite, the rolling-deploy suite and three related suites all pass. It takes effect on each host at its next deploy.
+
+## What changed
+
+**1. "Not yet recreated" vs "regressed"** (`scripts/check-container-hardening.sh`)
+- The first run where every check passes writes a marker for that host: `.garden-state/container-hardening/hardened-verified`. It lives in the checkout, which survives a container recreate.
+- **No marker yet, and only the checks a recreate fixes fail** (caps, sudo, block devices, mount):
+  - Exits with a new code 3, labelled PENDING RECREATE.
+  - Posts one coalesced `watchdog-notice.sh` notice, keyed `container-hardening-pending-recreate-<GARDEN>`, and sends it again at most once a week.
+  - Closes that notice with `--recovered` on the first run that passes everything.
+- **Marker present and anything fails:** exits 1 and prints REGRESSED.
+- **Checks 1, 6 and 7 always exit 1**, even before a recreate. These are the container guard, a reachable maintainer `gh` credential and a loaded SSH identity; a recreate doesn't fix any of them, so they never count as pending.
+- `GARDEN_HARDENING_STRICT=1` forces exit 1 for any failure, for someone running the probe by hand.
+- The systemd unit now treats exit 3 as success (`SuccessExitStatus=2 3 …` and `--expect 3`). A regression still marks the unit failed.
+
+**2. Canary unit-health check** (`scripts/jobs/common.sh`, `scripts/jobs/rolling-deploy.sh`)
+- A new `garden_unit_is_advisory` check reads a list of advisory units from `GARDEN_ADVISORY_UNITS`. By default the list holds only `garden-container-hardening`.
+- `fleet_unit_health` no longer counts a failed advisory unit as a failure or reports it as the first bad unit. It counts it separately, and the health record gets a new `advisory_failures:` line.
+- The canary check on the leader also passes a record whose only failed unit is advisory. This covers a follower still running the old code.
+- Real service units are checked as strictly as before.
+
+**3. Tests**
+- **Hardening probe** (28/0): the live run here comes back as PENDING with exit 3, which matches this container's real state (2 checks failing). The verdict tests cover:
+  - a host that hasn't been recreated exits 3 and sends one notice across repeat runs;
+  - strict mode exits 1;
+  - a credential failure is not treated as pending;
+  - the first full pass writes the marker and closes the notice;
+  - a regressed host exits 1 and sends no pending notice;
+  - the unit accepts exit 3 but not exit 1.
+- **Rolling deploy** (71/0):
+  - `fleet_unit_health` excludes a failed advisory unit but still counts a failed real unit and names it first.
+  - During a roll, a follower whose only failed unit is the hardening probe passes as a canary and is not drained.
+  - The existing tests with a real failed unit (`garden-foreman.service`) still fail the canary.
+- Also passing: `deploy-garden-test.sh` (156/0), `container-hardening-maintainer-cred-test.sh`, and three `tests/checks` guards.
+- `starting.md` and `harden-container.md` describe the pending-vs-regressed behaviour.
+
+## Follow-ups
+- The advisory list holds only the container-hardening probe. If other posture probes turn out to trip canaries, add them to `GARDEN_ADVISORY_UNITS` and keep real services out of it.
+- Until each host picks up this deploy, a hardening unit that is already failed stays failed until it next runs or someone runs `systemctl --user reset-failed`. Even so, the leader's canary check will pass a follower whose only failure is that unit, once the leader is on this version.
+- Recreating each host's container per `harden-container.md` is still a maintainer step. The first run afterwards writes the marker, and from then on hardening is enforced as a regression check.
