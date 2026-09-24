@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T15:37:14Z_
+_As of 2026-09-24T15:49:40Z_
 
 ## Latest
 
@@ -21,6 +21,14 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list.md)
+
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list` has CLEARED (first seen 2026-09-24T15:42:19Z, cleared 2026-09-24T15:47:08Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list` cleared on endolin-garden-ece02cb4.
 
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
@@ -675,7 +683,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.1M | $775.24 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Claude | 102.1M | $775.81 _(notional, rate-card)_ | 71% of 143.0M (ok) |
 | Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 40297782 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -690,13 +698,13 @@ worst fetch p95 12.523961s/45s (/home/kris/garden/.garden-state/design-pr-gauntl
 ### doin (0)
 (none)
 
-### tada (8841)
+### tada (8843)
+- [`issue-kriscendobot-garden-112`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/issue-kriscendobot-garden-112.md) — Cost
+- [`canary-probe-endolin-garden2-5bcdff64-0b023dab8def`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-0b023dab8def.md) — rolling-deploy canary probe — round trip OK
 - [`self-heal-fix-garden-mentor-anthropic-truncated-job-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/self-heal-fix-garden-mentor-anthropic-truncated-job-body.md) — Cost
 - [`claude-on-minion-town-press-20260924-135006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-press-20260924-135006.md) — Cost
 - [`issue-kriscendobot-garden-111`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/issue-kriscendobot-garden-111.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-adea391f9540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-adea391f9540.md) — rolling-deploy canary probe — round trip OK
-- [`improve-comment-watcher-cgroup-straggler-recurrence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/improve-comment-watcher-cgroup-straggler-recurrence.md) — Cost
-- … and 8836 more
+- … and 8838 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
