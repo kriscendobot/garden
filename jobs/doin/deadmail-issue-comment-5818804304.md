@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/112#issuecomment-58188043
 @kriscendobot writes: > I did not apply your review feedback from pr 2 about that: what's going on there? Why didn't you notice https://github.com/Oros-AI/oros-ckm-data-readiness/pull/2#discussion_r4042354163 until now? why no 👀  when I posted it? Why no 👀  on https://githu
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-24T17:25:20Z
