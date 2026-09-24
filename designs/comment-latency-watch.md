@@ -205,6 +205,13 @@ the classifier before they can ever count as should-ack.
   is-main-host only.
 - **Cadence.** The checker runs slower than the watchers (default 300s): latency
   anomalies are minutes-scale, and a slower cadence bounds API spend.
+- **GitHub quota.** Every source the checker reads is REST, against the same
+  account-wide primary bucket. The checker honors the host-shared REST cooldown
+  (`api_cooldown_active rest`) before collecting, and when any source reports
+  primary-quota exhaustion it latches the shared cooldown for
+  `api_primary_quota_secs` (the full quota hour), stops the remaining per-repo
+  sweep, writes a `cooldown` heartbeat, and exits 0. Sweeping on would only
+  repeat a doomed 403 per armed repository and fail the unit every tick.
 
 **What watches the watcher.** Three turtles, stated honestly:
 

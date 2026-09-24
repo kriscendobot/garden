@@ -139,6 +139,24 @@ comment_classify_trusted() {
   return 1
 }
 
+# GitHub PRIMARY quota: every source is a REST read against the same account-wide
+# bucket, so once one source reports primary-quota exhaustion every remaining source
+# (one per armed repository) is doomed until the hourly reset. Sweeping on produced a
+# per-repository 403 storm and a failing unit every tick. run_source_handler relays a
+# source's stderr unchanged and sets PRIMARY_QUOTA_HIT when it carries the primary
+# signature, whatever the source's rc (mention-source-gh.sh swallows its failures);
+# collect_sources then stops the sweep and the tick latches the shared cooldown.
+PRIMARY_QUOTA_HIT=0
+run_source_handler() { # handler args... — rc of the handler; stdout passes through
+  local errf rc=0
+  errf="$(mktemp)"
+  "$@" 2>"$errf" || rc=$?
+  cat "$errf" >&2 || true
+  is_gh_primary_rate_limit_text "$(cat "$errf" 2>/dev/null || true)" && PRIMARY_QUOTA_HIT=1
+  rm -f "$errf"
+  return "$rc"
+}
+
 # Unified rows:
 # created source cadence repo slug surface id number author url body
 collect_sources() {
@@ -156,7 +174,7 @@ collect_sources() {
         [ -n "$author" ] && MAINTAINERS+=("$author")
       done < "$GARDEN_COMMENT_LATENCY_MAINTAINERS_FILE"
     fi
-    "$GARDEN_COMMENT_LATENCY_SOURCE" "$since"
+    run_source_handler "$GARDEN_COMMENT_LATENCY_SOURCE" "$since" || [ "$PRIMARY_QUOTA_HIT" -eq 1 ]
     return
   fi
   load_journal
@@ -171,16 +189,17 @@ collect_sources() {
     printf '%s\n' "$armed" | grep -Eqi '^[[:space:]]*surfaces:[[:space:]]*pr-only[[:space:]]*$' && pr_only=1
     ACTIVE_SLUGS[$slug]="$repo"
     source_file="$(mktemp)"
-    if "$HERE/handlers/comment-source-gh.sh" "$repo" "$since" "$GARDEN_BOT_LOGIN" > "$source_file"; then
+    if run_source_handler "$HERE/handlers/comment-source-gh.sh" "$repo" "$since" "$GARDEN_BOT_LOGIN" > "$source_file"; then
       while IFS=$'\t' read -r created surface id number author url body _review_id; do
         [ "$pr_only" -eq 1 ] && [ "$surface" = issue-comment ] && continue
         printf '%s\tcomment\t90\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
           "$created" "$repo" "$slug" "$surface" "$id" "$number" "$author" "$url" "$body"
       done < "$source_file"
     else
-      log "WARN: latency source failed for $repo; heartbeat checks still run"
+      [ "$PRIMARY_QUOTA_HIT" -eq 1 ] || log "WARN: latency source failed for $repo; heartbeat checks still run"
     fi
     rm -f "$source_file"
+    [ "$PRIMARY_QUOTA_HIT" -eq 0 ] || return 0
   done < <(git -C "$JOURNAL_VIEW" ls-tree -r --name-only "origin/$JOURNAL_BRANCH" comment-repos 2>/dev/null)
 
   repo="$(git -C "$JOURNAL_VIEW" show "origin/$JOURNAL_BRANCH:config/garden-repo" 2>/dev/null \
@@ -188,7 +207,7 @@ collect_sources() {
   if [ -n "$repo" ]; then
     slug="$(printf '%s' "$repo" | tr '/' '-')"; source_file="$(mktemp)"
     ACTIVE_SLUGS[$slug]="$repo"
-    if "$HERE/handlers/issue-source-gh.sh" "$repo" "$since" > "$source_file"; then
+    if run_source_handler "$HERE/handlers/issue-source-gh.sh" "$repo" "$since" > "$source_file"; then
       while IFS=$'\t' read -r kind created id number author _submitter state _closed_by closed_at url body; do
         [ "$state" = open ] || { [ "$kind" = issue-comment ] && [ "$created" \> "$closed_at" ]; } || continue
         printf '%s\tissue-inbox\t120\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
@@ -196,10 +215,11 @@ collect_sources() {
       done < "$source_file"
     fi
     rm -f "$source_file"
+    [ "$PRIMARY_QUOTA_HIT" -eq 0 ] || return 0
   fi
 
   source_file="$(mktemp)"
-  if "$HERE/handlers/mention-source-gh.sh" "$since" "$GARDEN_BOT_LOGIN" > "$source_file"; then
+  if run_source_handler "$HERE/handlers/mention-source-gh.sh" "$since" "$GARDEN_BOT_LOGIN" > "$source_file"; then
     while IFS=$'\t' read -r created surface id repo number author url body; do
       slug="$(printf '%s' "$repo" | tr '/' '-')"
       printf '%s\tmention\t90\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
@@ -222,7 +242,22 @@ muted_count=0
 now="${GARDEN_COMMENT_LATENCY_NOW_EPOCH:-$(date -u +%s)}"
 since="$(date -u -d "@$(( now - GARDEN_COMMENT_LATENCY_LOOKBACK_SECS ))" +%FT%TZ)"
 rows="$(mktemp)"; trap 'rm -f "$rows"' EXIT
+
+# Honor the host-shared REST cooldown (common.sh) before any API work: a sibling
+# watcher already proved GitHub unreadable this window, and every source here is REST.
+if api_cooldown_active rest; then
+  [ "$report_only" -eq 1 ] || watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
+  exit 0
+fi
 collect_sources "$since" > "$rows"
+if [ "$PRIMARY_QUOTA_HIT" -eq 1 ]; then
+  secs="$(api_primary_quota_secs)"
+  if start_api_cooldown "comment-latency-watch:primary-quota" "$secs"; then
+    log "WARN: latency source hit GitHub primary quota exhaustion — cooling REST gh-api watchers for ${secs}s and stopping this sweep"
+  fi
+  [ "$report_only" -eq 1 ] || watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
+  exit 0
+fi
 
 while IFS=$'\t' read -r created source cadence repo slug surface id number author url body; do
   [ -n "$created" ] || continue

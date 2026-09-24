@@ -10,6 +10,8 @@ NOW_ISO=2026-09-23T18:00:00Z
 NOW="$(date -u -d "$NOW_ISO" +%s)"
 FIXTURE="$TR/source.tsv"; REACTIONS="$TR/reactions.tsv"; NOTICES="$TR/notices.log"
 TRUSTED="$TR/trusted"; printf 'trusted\n' > "$TRUSTED"
+# Never read or arm the real host-shared gh-api latch.
+COOLDOWN="$TR/gh-api-cooldown"
 
 SOURCE="$TR/source.sh"
 cat > "$SOURCE" <<'EOF'
@@ -41,6 +43,7 @@ row() { # created id author url body
 }
 run_report() {
   env GARDEN_STATE="$STATE" GARDEN_COMMENT_LATENCY_STATE="$STATE/latency" \
+    GARDEN_API_COOLDOWN_DIR="$COOLDOWN" \
     GARDEN_COMMENT_LATENCY_NOW_EPOCH="$NOW" GARDEN_COMMENT_LATENCY_SOURCE="$SOURCE" \
     GARDEN_COMMENT_LATENCY_REACTIONS="$REACTION_STUB" \
     GARDEN_COMMENT_LATENCY_ASSUME_OPEN=1 \
@@ -50,6 +53,7 @@ run_report() {
 }
 run_watch() {
   env GARDEN_STATE="$STATE" GARDEN_COMMENT_LATENCY_STATE="$STATE/latency" \
+    GARDEN_API_COOLDOWN_DIR="$COOLDOWN" \
     GARDEN_COMMENT_LATENCY_NOW_EPOCH="$NOW" GARDEN_COMMENT_LATENCY_SOURCE="$SOURCE" \
     GARDEN_COMMENT_LATENCY_REACTIONS="$REACTION_STUB" \
     GARDEN_COMMENT_LATENCY_ASSUME_OPEN=1 \
@@ -177,5 +181,35 @@ mkdir -p "$STATE/latency/samples/example-repo"
 run_watch || { echo 'FAIL: empty samples dir aborted the tick'; exit 1; }
 [ -s "$STATE/latency/heartbeat" ] || { echo 'FAIL: heartbeat not written with empty samples dir'; exit 1; }
 [ ! -e "$STATE/latency/stats/example-repo" ] || { echo 'FAIL: stats written from empty samples dir'; exit 1; }
+
+# A source reporting GitHub PRIMARY quota exhaustion latches the full primary-quota
+# cooldown, stops the sweep, writes a cooldown heartbeat, and exits cleanly.
+QUOTA_SOURCE="$TR/source-quota.sh"
+cat > "$QUOTA_SOURCE" <<'EOF'
+#!/bin/bash
+echo 'gh: API rate limit exceeded for user ID 279080640. (HTTP 403)' >&2
+exit 75
+EOF
+chmod +x "$QUOTA_SOURCE"
+: > "$REACTIONS"; : > "$NOTICES"; rm -rf "$STATE/latency" "$COOLDOWN"
+SOURCE_SAVED="$SOURCE"; SOURCE="$QUOTA_SOURCE"
+t0="$(date +%s)"
+run_watch 2>/dev/null || { echo 'FAIL: primary quota failed the tick'; exit 1; }
+[ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = cooldown ] || { echo 'FAIL: no cooldown heartbeat on primary quota'; exit 1; }
+expiry="$(sed -n 1p "$COOLDOWN/marker" 2>/dev/null || echo 0)"
+[ "$expiry" -ge $(( t0 + 3600 )) ] || { echo 'FAIL: primary quota did not latch the primary-quota-duration cooldown'; exit 1; }
+[ -s "$NOTICES" ] && { echo 'FAIL: primary quota tick emitted notices'; cat "$NOTICES"; exit 1; }
+# While the latch holds, the next tick never calls a source.
+CALLED="$TR/called"; COUNT_SOURCE="$TR/source-count.sh"
+printf '#!/bin/bash\ntouch "%s"\n' "$CALLED" > "$COUNT_SOURCE"; chmod +x "$COUNT_SOURCE"
+SOURCE="$COUNT_SOURCE"
+run_watch || { echo 'FAIL: cooldown tick failed'; exit 1; }
+[ ! -e "$CALLED" ] || { echo 'FAIL: source swept during shared cooldown'; exit 1; }
+[ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = cooldown ] || { echo 'FAIL: no cooldown heartbeat while latched'; exit 1; }
+# The latch expires: the sweep resumes.
+rm -rf "$COOLDOWN"; run_watch
+[ -e "$CALLED" ] || { echo 'FAIL: source not swept after cooldown'; exit 1; }
+[ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = full-poll ] || { echo 'FAIL: heartbeat not full-poll after cooldown'; exit 1; }
+SOURCE="$SOURCE_SAVED"
 
 echo 'PASS: comment latency watch scenarios'
