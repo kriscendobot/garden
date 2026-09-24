@@ -1,12 +1,8 @@
 ---
-gate: awaiting-maintainer
-maintainer_question: 'Land the refreshed Endo daemon pin 89481580… (EndoGuest.accept) onto minion.town main. It is MERGED into frozen base main-45e43bb via PR #104 but main (HEAD 287af35) still pins the stale f66505034…. Promote this job only once git show origin/main:src/endo/captp-client.ts shows PINNED_ENDO_COMMIT = 89481580….'
-asked_at: https://github.com/kriscendobot/minion.town/pull/104
-priority: normal
 role: builder
-posted_by: minion-town-guest-web-invite-accept-fallback-fix-post104
-posted_at: 2026-09-22T05:25:20Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=awaiting-maintainer priority=normal maintainer=true at=2026-09-24T01:36:24Z cleared=none -->
 
 ---
 role: builder
