@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-24T04:51:33Z_
+_As of 2026-09-24T07:09:21Z_
 
 ## Latest
 
-Garden infrastructure work completed on Opus 5.5 tier ([#108](https://github.com/kriscendobot/garden/pull/108)) and reviews of [#95](https://github.com/kriscendobot/garden/pull/95), [#109](https://github.com/kriscendobot/garden/pull/109); three jobs in progress on watchers and conducting [#109](https://github.com/kriscendobot/garden/pull/109). Maintainer inbox reports critical blockers: minion.town Endo pin not on main (blocks [#81](https://github.com/kriscendobot/minion.town/issues/81)), journal worktree staleness, CLIPOMETER orchestration halted awaiting server change, and several garden infrastructure fixes needed. Spend: Claude 39% of quota.
+The exo-stream gauntlet ([endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100)) completed after six fix rounds and panel reviews; container hardening and rolling deploy probe issues resolved. The federation release gate ([endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332)) remains blocked awaiting authority answers on three open questions, blocking all downstream PRs (#1124, #1333, #117). The minion.town guest-invite fallback fix is parked awaiting the refreshed Endo daemon pin (89481580…) to land on `main` from the frozen base branch. Twenty-six PRs await maintainer feedback; nine infrastructure improvements are held pending split/scope decisions or manual promotions.
 
 ## Parked for maintainer feedback
 
@@ -21,14 +21,6 @@ Garden infrastructure work completed on Opus 5.5 tier ([#108](https://github.com
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
-
-- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_foreman_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_foreman_journal.md)
-
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_foreman_journal` has CLEARED (first seen 2026-09-23T22:41:46Z, cleared 2026-09-23T22:55:57Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_foreman_journal` cleared on endolin-garden-ece02cb4.
 
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
@@ -67,14 +59,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Action needed: land the refreshed pin `89481580a86c7ec3ec97bbde21bc2f9b5b7ec3dd` onto `main` (fast-forward/merge the pin change from main-45e43bb, or open+gauntlet+merge a fresh PR that re-applies it). Observable to unblock: `git show origin/main:src/endo/captp-client.ts` shows PINNED_ENDO_COMMIT = 89481580….
 >
 > Successor job parked: `minion-town-guest-web-invite-accept-fallback-fix-20260922` (plan/, gate=awaiting-maintainer). Promote it once the pin is on `main`.
-
-- `watchdog-comment-watcher-dead-kriscendobot-ocapn` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ocapn.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ocapn` has CLEARED (first seen 2026-09-23T22:34:48Z, cleared 2026-09-23T22:52:57Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
 
 - `doomed-endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919-requeue-exhausted.md)
 
@@ -132,77 +116,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > #1015's head is rebased onto current `llm`, CI green, still draft, with a comment
 > inviting preliminary review. Do not un-draft and do not attempt to merge.
 
-- `journal-contention-watch-terminal-complete` — from orchestrator:journal-contention-watch-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/journal-contention-watch-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: journal-contention-watch
-> orchestration-status: complete
-> order: serial
-> children-total: 2
-> children-failed: 0
-> failed-children: 
->
-> Orchestration journal-contention-watch complete (serial): all 2 children reached tada without a machine-readable failure declaration.
-
-- `20260923T231052Z-88cea8` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260923T231052Z-88cea8.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: diagnose-hourly-graphql-quota-exhaustion-20260923
-> - question (msgid msg-diagnose-hourly-graphql-quota-exhaustion-20260923-da2cfcbbcac9.md)
-> - tentative answer: Proxy/tentative (maintainer may revise) — I ran your two `ps` snapshots on the leader (`endolin-garden-ece02cb4`) live, since this proxy session happens to already be running there:
->
-> ```
-> ps -eo pid,ppid,etimes,args | grep -E '[/ ]gh (pr|api|issue|repo)'
-> ```
-> → only one hit: a `gh api --paginate repos/endojs/endo-but-for-bots/pulls/1124/comments?per_page=100` (via `timeout 60s`), which is a **REST** endpoint, not GraphQL, and looked like a one-shot call, not a loop.
->
-> ```
-> ps -eo pid,etimes,args | grep -iE '[M]onitor|until .*gh|while .*gh'
-> ```
-> → no `until`/`while gh` poll loop and no liaison Monitor process matched. The only long-lived `Monitor`-adjacent matches were this proxy's own `claude -p` invocation and a `codex exec` cleric worker running the diagnosis job itself (`diagnose-hourly-graphql-quota-exhaustion-20260923`) — neither issues GraphQL calls per their command lines.
->
-> So this single snapshot did **not** catch a smoking-gun sustained GraphQL-issuing loop on the leader. Given your measured ~2.3 pts/s is steady, not bursty, it's more likely something that doesn't show up as a distinctively-named process (e.g., a generic `node`/agent SDK call inside a Claude/Codex tool-use loop that shells out to `gh api graphql` per turn, or a cron-triggered short-lived process between my sampling windows) rather than a shell `until`/`while` loop. My tentative next step: repeat your own 0.1–0.2s sampling approach on the leader across a full hour (not just single snapshots) to catch a lower-duty-cycle or short-lived caller, and also check `journalctr`/systemd timers on the leader for anything with sub-minute cadence hitting `gh api graphql`. Go ahead and land the per-caller GraphQL ledger + resetAt-sized latch as planned — that instrumentation will nail this down authoritatively regardless of what my one-off snapshot missed.
-
-- `minion-town-codex-inference-exploration-20260923-terminal-complete` — from orchestrator:minion-town-codex-inference-exploration-20260923-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-codex-inference-exploration-20260923-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: minion-town-codex-inference-exploration-20260923
-> orchestration-status: complete
-> order: parallel
-> children-total: 2
-> children-failed: 0
-> failed-children: 
->
-> Orchestration minion-town-codex-inference-exploration-20260923 complete (parallel): all 2 children reached tada without a machine-readable failure declaration.
-
-- `20260923T223038Z-b89d16` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260923T223038Z-b89d16.md)
-
-> awaiting maintainer — beyond proxy authority: gardener endo-minion-town-federation-release-gate, msgid msg-endo-minion-town-federation-release-gate-33860f5fb6ad.md — Answering [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/issues/1332)'s authority questions (1)-(3) and the gateway-takeover report, plus approving/merging release-gating PRs, are authority grants and merge decisions reserved to the maintainer — not progress questions a proxy can tentatively answer.
-
-- `watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` has CLEARED (first seen 2026-09-23T22:35:22Z, cleared 2026-09-23T22:53:15Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
-
-- `watchdog-comment-watcher-dead-kriscendobot-list` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-list.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-list` has CLEARED (first seen 2026-09-23T22:36:16Z, cleared 2026-09-23T22:53:49Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
-
-- `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
-
-> subscription codex-endolin changed zone ok -> backoff at spend=22487026 of cap=100.
-
-- `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
-
-> subscription codex-endolin changed zone ok -> backoff at spend=4871978 of cap=100.
-
 - `watchdog-journal-worktree-stale-endolin-garden-ece02cb4` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-stale-endolin-garden-ece02cb4.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-15T16:15:01Z, latest 2026-09-23T23:45:06Z).
@@ -210,14 +123,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > journal worktree /home/kris/garden/journal has been STALE for ~2h (8998s since it last reconciled to origin/journal2; threshold 7200s). The keeper cannot self-resolve it: this tick could not reconcile — diverged; self-heal did not reach origin tip this tick (behind=705). Agents landing in journal/ are reading a LAGGED board and must route around it by hand. Investigate: check this host's connectivity to the journal remote, then 'git -C /home/kris/garden/journal status' and the journal-worktree-keeper log. This is one alert per staleness episode — it will NOT re-page, and clears automatically once the worktree reconciles. (host=endolin-garden-ece02cb4)
-
-- `watchdog-comment-watcher-dead-kriscendobot-ymax-e2e` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ymax-e2e.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ymax-e2e` has CLEARED (first seen 2026-09-23T22:35:40Z, cleared 2026-09-23T22:53:25Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
 
 - `doomed-oros-ckm-dependabot-audit-0013418-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-ckm-dependabot-audit-0013418-requeue-exhausted.md)
 
@@ -346,26 +251,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > ---
 > scripts/jobs/self-heal-run.sh
 > Wrap the handler invocation at line 104 (`"$@" > >(tee -a "$capture") 2>&1 &`) in a `timeout --signal=TERM --kill-after=<grace> <bound>` the same way the responder already is at line 247-250, so a wedged handler is bounded well inside each unit's `TimeoutStartSec` instead of relying on systemd's blunt job-timeout + SIGKILL backstop. Add a new tunable (e.g. `SELF_HEAL_HANDLER_TIMEOUT`, defaulting comfortably below the tightest caller's `TimeoutStartSec`, e.g. 600s) and classify a resulting rc=124/137 the same way `is_nonattributable_rc`/the offline-signature grep already do, so a timed-out handler exits clean (no responder burn, no Failed unit) rather than looking like a crash. This directly explains today's incident: `garden-comment-watcher@endojs-endo-but-for-bots` and two `garden-receipt-watcher@*` instances each ran past the full 900s `TimeoutStartSec` during a ~30min degraded-connectivity episode and required forceful termination (one needed a cgroup SIGKILL after the 20s `TimeoutStopSec` grace expired), while every other watcher on the same host failed open within seconds via its own internal cursor/fetch bounds. Since self-heal-run.sh is the shared wrapper for the whole fleet, this single change protects every service that rides it, not just these two.
-
-- `watchdog-comment-watcher-dead-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-endojs-endo-but-for-bots.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-dead-endojs-endo-but-for-bots` has CLEARED (first seen 2026-09-23T22:35:49Z, cleared 2026-09-23T22:53:30Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
-
-- `reexport-policy-automation-20260923-terminal-complete` — from orchestrator:reexport-policy-automation-20260923-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/reexport-policy-automation-20260923-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: reexport-policy-automation-20260923
-> orchestration-status: complete
-> order: serial
-> children-total: 3
-> children-failed: 0
-> failed-children: 
->
-> Orchestration reexport-policy-automation-20260923 complete (serial): all 3 children reached tada without a machine-readable failure declaration.
 
 - `doomed-improve-ci-watcher-outage-latch-flap-dedup-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-ci-watcher-outage-latch-flap-dedup-requeue-exhausted.md)
 
@@ -532,21 +417,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `fix-finished-but-not-completed-requeue`: after the requeue fix, the headless-mode note now reaches all handlers (`cleric-codex`, `opencode`, `mystic-kimi`), but the nudge and `continue` mode remain Claude-only — those other handlers don't get them. Is that asymmetry intentional (a capability gap in the non-Claude tools) or should nudge/continue be extended to them? No garden repo/PR is implicated; this is a fleet-behavior scope decision.
 
-- `watchdog-comment-watcher-dead-kriscendobot-endo` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-endo.md)
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-endo` has CLEARED (first seen 2026-09-23T22:36:21Z, cleared 2026-09-23T22:53:54Z).
-> It was observed 7 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-09-24T06:31:43Z, cleared 2026-09-24T06:36:31Z).
+> It was observed 1 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
-> Comment acknowledgment condition cleared.
-
-- `watchdog-comment-watcher-dead-kriscendobot-proposal-compartments` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-proposal-compartments.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-proposal-compartments` has CLEARED (first seen 2026-09-23T22:36:08Z, cleared 2026-09-23T22:53:44Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
 
 - `doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted.md)
 
@@ -568,7 +445,7 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-23T22:35:57Z, cleared 2026-09-23T22:41:29Z).
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-24T07:01:46Z, cleared 2026-09-24T07:06:28Z).
 > It was observed 1 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
@@ -643,14 +520,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > scripts/jobs/gardener.sh
 > Both elapsed-constancy early-escalation sites (the exit-0-unsatisfying branch ~line 944-977 and the rc!=0 overrun-suspect branch ~line 1465-1495) build a prose-only transcript for `report-error.sh` describing the symptom (near-constant elapsed across N cycles) but never include the actual handler output captured in `$capture` for that cycle — even though the rc!=0 branch's own gate (`[ -s "$capture" ]`) already confirms non-empty output exists at escalation time. `$capture` is an ephemeral `mktemp` file cleaned up each gardener cycle, so once the escalation fires this is the *last* moment the real stderr/stdout is available; a human or mentor triaging the resulting `elapsed-constancy-overrun-suspect`/`elapsed-constancy-exit0-wedge-suspect` inbox entry afterward has only the generic "died at a near-constant elapsed" prose and must guess the root cause blind. Concrete case: `improve-receipt-watcher-direct-dispatch` tripped exactly this overrun-suspect path twice (rc=1, elapsed=3s, both a kimi-k3 attempt and an opus fallback) with `usage_measurement` recording `source:none` (zero output captured by any usage-accounting layer) — the only path left to diagnose it is gone. Fix: append a bounded tail of `$capture` (e.g. last 40-60 lines, redacting nothing since this is the bot's own handler output) into both escalation transcripts before calling `report-error.sh`, so the inbox entry itself carries the evidence needed to triage.
 
-- `watchdog-comment-watcher-dead-kriscendobot-ymax-stdio-mcp` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ymax-stdio-mcp.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ymax-stdio-mcp` has CLEARED (first seen 2026-09-23T22:35:57Z, cleared 2026-09-23T22:53:39Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
-
 - `doomed-improve-ci-watcher-primary-quota-cooldown-too-short-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-ci-watcher-primary-quota-cooldown-too-short-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -668,6 +537,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > ---
 > scripts/jobs/common.sh
 > ci-watcher.sh's rollup_hit_primary_quota() routes GitHub PRIMARY hourly-quota exhaustion (distinct from a transient 5xx/HTML blip) through common.sh's shared start_api_cooldown, whose window is hard-capped at 900s — far shorter than GitHub's real ~1hr rate-limit reset. Journalctl shows the same quota-exhaustion WARN re-firing every ~5min (12:26/12:31/12:37Z) because each short cooldown expires and re-hits the still-exhausted API, burning calls and repeating log noise for the whole outage window. mirror-closer.sh already solved this correctly with its own dedicated ~3600s cooldown (MIRROR_QUOTA_MARKER / mirror_quota_cooldown_secs, scripts/jobs/mirror-closer.sh). Add a second shared primary-quota cooldown helper to common.sh (e.g. start_primary_quota_cooldown/primary_quota_cooldown_active, default ~3600s, mirroring the existing blip-cooldown pattern) and switch ci-watcher.sh's rollup_hit_primary_quota (and any other watcher that detects the same "doomed until quota recovers" signal) onto it instead of the 900s-capped blip cooldown — retiring mirror-closer.sh's private duplicate in favor of the shared helper.
+
+- `watchdog-self-heal-garden-container-hardening` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-container-hardening.md)
+
+> self-heal: garden-container-hardening exited rc=1 with no scoped fix. Capture: 1b6d969846bace100616d1970de211749cd332c4 (git -C /home/kris/garden2/.garden-state/self-heal/journal cat-file -p 1b6d969846bace100616d1970de211749cd332c4). Diagnosis: I'm not posting a fix job. The probe found a real problem, but the fix is to recreate the container on the host, not to change any code.
+>
+> **What happened.** `scripts/check-container-hardening.sh` passed 5 checks and failed 2:
+> - **`sudo -n true` succeeded**, so passwordless privilege escalation is available.
+> - **The host's disks are visible in `/dev`** (`/dev/sda*`, `/dev/nvme0n1*` and loop devices).
+>
+> **Why.** This container was built from the old privileged launcher and image:
+> - `/.dockerenv` shows the container was created at 2026-09-23 16:09:39Z.
+> - Commit `3d453e30784` ("harden(container): drop --privileged and bot-user sudo") landed on `main2` at 17:09:38Z, one hour later. The container never picked it up.
+> - `/proc/self/status` confirms it is still privileged: `CapBnd: 000001ffffffffff`
 
 - `doomed-build-rbra-clean-break-20260916-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-rbra-clean-break-20260916-deadline-overrun.md)
 
@@ -747,66 +629,34 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
-- `watchdog-comment-watcher-dead-kriscendobot-moddable` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-moddable.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-moddable` has CLEARED (first seen 2026-09-23T22:35:07Z, cleared 2026-09-23T22:53:08Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
-
-- `watchdog-comment-watcher-dead-kriscendobot-test262` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-test262.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-test262` has CLEARED (first seen 2026-09-23T22:34:54Z, cleared 2026-09-23T22:53:02Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
-
-- `watchdog-comment-watcher-dead-kriscendobot-finbot` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-finbot.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-finbot` has CLEARED (first seen 2026-09-23T22:35:17Z, cleared 2026-09-23T22:44:01Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
-
-- `watchdog-comment-watcher-dead-kriscendobot-cosgov` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-cosgov.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-cosgov` has CLEARED (first seen 2026-09-23T22:34:42Z, cleared 2026-09-23T22:43:39Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
-
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.9M | $699.79 _(notional, rate-card)_ | 47% of 143.0M (ok) |
+| Claude | 79.7M | $725.47 _(notional, rate-card)_ | 56% of 143.0M (ok) |
 | Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34964373 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 36975743 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.302174s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1100
+### doin (0)
+(none)
 
-### tada (8818)
-- [`claude-on-minion-town-press-20260924-043507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-press-20260924-043507.md) — Cost
-- [`build-endo-guest-stdio-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/build-endo-guest-stdio-mcp.md) — Completion report: build-endo-guest-stdio-mcp
-- [`claude-on-minion-town-completion-press-20260924-042005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-completion-press-20260924-042005.md) — Cost
-- [`endojs-endo-but-for-bots-pr1226-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1226-receipt.md) — Cost
-- [`merge-endojs-endo-but-for-bots-pr1226-20260924`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/merge-endojs-endo-but-for-bots-pr1226-20260924.md) — Cost
-- … and 8813 more
+### tada (8825)
+- [`daily-progress-summary-20260924-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/daily-progress-summary-20260924-070505.md) — Cost
+- [`fix-hardening-probe-blocks-rolling-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/fix-hardening-probe-blocks-rolling-deploy.md) — Completion report
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b.md) — gauntlet ebfb-exo-stream-pr1100-gauntlet-20260923b — review budget reached
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-6.md) — Gauntlet fix round 6 for endojs/endo-but-for-bots#1100: fix pushed, CI green
+- [`improve-container-hardening-gh-timeout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/improve-container-hardening-gh-timeout.md) — Completion report: improve-container-hardening-gh-timeout
+- … and 8820 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
