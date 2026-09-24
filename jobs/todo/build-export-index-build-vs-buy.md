@@ -19,13 +19,5 @@ Deliverables per the design's Rollout section:
 - leader-only `garden-export-index` timer publishing `journal/library/exports/<owner>-<repo>.tsv` plus a README; a builder-brief norm to grep the library before writing a reusable helper
 - the tests named in the design's Test plan, including the PR #1336 replay, and updated `skills/pre-push-gates`, `skills/panel-hints`, and CLAUDE.md inventory entries
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-24T20:49:32Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-24T21:23:05Z -->
