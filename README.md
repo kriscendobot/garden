@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T22:06:12Z_
+_As of 2026-09-24T22:39:45Z_
 
 ## Latest
 
@@ -10,7 +10,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 7d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 7d)
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 12d)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 13d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 21d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 23d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 23d)
@@ -142,16 +142,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #16 (first seen 2026-09-24T20:47:45Z, latest 2026-09-24T22:02:54Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 16 times; this is ONE
-> coalesced notice that updates in place, not 16 messages. Latest detail:
+> WATCHDOG notice — occurrence #23 (first seen 2026-09-24T20:47:45Z, latest 2026-09-24T22:37:51Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 23 times; this is ONE
+> coalesced notice that updates in place, not 23 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4095857951 (age=20602s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098147753 (age=5696s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098151278 (age=5671s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098182428 (age=5456s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098195295 (age=5360s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098147753 (age=7797s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098151278 (age=7772s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098182428 (age=7557s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098195295 (age=7461s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -522,11 +521,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-24T07:01:46Z, cleared 2026-09-24T17:17:05Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-24T07:01:46Z, latest 2026-09-24T22:12:30Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: packs 1001 >= 1000; size=155181056B packs=1001 gc.log=0; automatic remedy=backoff.
 
 - `doomed-foreman-requiesce-target-0-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-foreman-requiesce-target-0-requeue-exhausted.md)
 
@@ -720,28 +719,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.8M | $791.31 _(notional, rate-card)_ | 72% of 143.0M (ok) |
+| Claude | 102.9M | $792.65 _(notional, rate-card)_ | 72% of 143.0M (ok) |
 | Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 41735848 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 41740432 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 7.550349s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 0 open notice(s); checker healthy
+worst fetch p95 6.308979s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1336-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1336
+- [`endojs-endo-but-for-bots-pr1336-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1336
 
-### tada (8869)
+### tada (8870)
+- [`endojs-endo-but-for-bots-pr1336-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1336-gauntlet-fix-1.md) — Cost
 - [`improve-atomic-budget-live-snapshot-write`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/improve-atomic-budget-live-snapshot-write.md) — Cost
 - [`endojs-endo-but-for-bots-pr1336-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1336-gauntlet-panel-1.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-268455dca864`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-268455dca864.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1336-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1336-gauntlet-clean.md) — Gauntlet CLEAN stage: endojs/endo-but-for-bots PR #1336 — CI green
-- [`build-export-index-build-vs-buy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/build-export-index-build-vs-buy.md) — Cost
-- … and 8864 more
+- … and 8865 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
