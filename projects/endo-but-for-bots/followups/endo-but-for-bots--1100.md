@@ -19,7 +19,7 @@ This ledger was created late. The round-2 panel (review 5111937485, 2026-09-04) 
   **Source seat(s)**: transplanter.
   **Round**: 2 (2026-09-04).
   **Recommended action**: open a follow-up PR on endojs/endo-but-for-bots that makes `packages/agent-tools/scripts/code-mode-type-extract.js` separator-agnostic.
-  Round 2 cited `includes('/pass-style/src/types.d.ts')`. That literal no longer appears at the current head, but the same pattern survives, for example `fileName.endsWith('/fs/types.d.ts')` (line ~980). On a Windows checkout, a `\\`-separated `fileName` misses the branch. CI runs only on Ubuntu, so nothing catches this. Use `/[\\\\/]…$/u` tests.
+  Round 2 cited `includes('/pass-style/src/types.d.ts')`. That literal no longer appears at the current head, but the same pattern survives, for example `fileName.endsWith('/fs/types.d.ts')` (line ~980). On a Windows checkout, a `\`-separated `fileName` misses the branch. CI runs only on Ubuntu, so nothing catches this. Use `/[\\/]…$/u` tests.
 
 - [ ] **Stale `@endo/base64` dependency in `@endo/exo-unzip`.**
   **Source seat(s)**: pruner / packager (round-2 aggregate).
