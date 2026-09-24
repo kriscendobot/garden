@@ -343,11 +343,15 @@ write_stats() {
     sample_epoch="$(iso_epoch "$sample_at")"
     [ "$sample_epoch" -ge $(( now - GARDEN_COMMENT_LATENCY_LOOKBACK_SECS )) ] || rm -f "$sample"
   done
-  values="$(awk '{print $1}' "$sample_dir"/* 2>/dev/null | sort -n)"; count="$(printf '%s\n' "$values" | grep -c . || true)"
+  # The cleanup above can empty the directory; an unmatched glob would reach
+  # awk as a literal missing file, and its exit 2 would kill the tick (set -e).
+  local samples=("$sample_dir"/*)
+  [ -e "${samples[0]}" ] || return 0
+  values="$(awk '{print $1}' "${samples[@]}" 2>/dev/null | sort -n)"; count="$(printf '%s\n' "$values" | grep -c . || true)"
   [ "$count" -gt 0 ] || return 0
   p50i=$(( (count + 1) / 2 )); p95i=$(( (95 * count + 99) / 100 ))
   p50="$(printf '%s\n' "$values" | sed -n "${p50i}p")"; p95="$(printf '%s\n' "$values" | sed -n "${p95i}p")"
-  last_ack="$(awk '{print $2}' "$sample_dir"/* 2>/dev/null | sort | tail -1)"
+  last_ack="$(awk '{print $2}' "${samples[@]}" 2>/dev/null | sort | tail -1)"
   {
     printf 'repo: %s\n' "$repo"; printf 'p50: %s\n' "$p50"; printf 'p95: %s\n' "$p95"
     printf 'sample_count: %s\n' "$count"; printf 'last_ack_at: %s\n' "$last_ack"

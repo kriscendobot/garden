@@ -170,4 +170,12 @@ run_watch
 grep -q -- '^--recovered comment-ack-blind-example-repo ' "$NOTICES" || { echo 'FAIL: failed recovery not retried'; exit 1; }
 [ ! -e "$STATE/latency/alerts/comment-ack-blind-example-repo" ] || { echo 'FAIL: retried recovery left marker'; exit 1; }
 
+# An existing but empty samples/<slug>/ (the age cleanup removed the last one)
+# must not feed an unmatched glob to awk and kill the tick under set -e.
+: > "$REACTIONS"; : > "$NOTICES"; rm -rf "$STATE/latency"
+mkdir -p "$STATE/latency/samples/example-repo"
+run_watch || { echo 'FAIL: empty samples dir aborted the tick'; exit 1; }
+[ -s "$STATE/latency/heartbeat" ] || { echo 'FAIL: heartbeat not written with empty samples dir'; exit 1; }
+[ ! -e "$STATE/latency/stats/example-repo" ] || { echo 'FAIL: stats written from empty samples dir'; exit 1; }
+
 echo 'PASS: comment latency watch scenarios'
