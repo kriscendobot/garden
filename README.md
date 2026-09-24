@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T02:01:50Z_
+_As of 2026-09-24T02:06:52Z_
 
 ## Latest
 
@@ -194,6 +194,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-minion.town: gc.log present; size=428461056B packs=51 gc.log=1; automatic remedy=applied.
 
 - `watchdog-journal-worktree-stale-endolin-garden-ece02cb4` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-stale-endolin-garden-ece02cb4.md)
 
@@ -777,13 +781,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.0M | $668.23 _(notional, rate-card)_ | 45% of 143.0M (ok) |
-| Codex | 26.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
+| Claude | 64.0M | $668.30 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Codex | 26.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34898696 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34899093 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 7.093097s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-ocapn); 3 open notice(s); checker healthy
+worst fetch p95 7.093097s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-ocapn); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
