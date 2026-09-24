@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T21:28:25Z_
+_As of 2026-09-24T21:42:27Z_
 
 ## Latest
 
@@ -142,16 +142,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #9 (first seen 2026-09-24T20:47:45Z, latest 2026-09-24T21:27:49Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 9 times; this is ONE
-> coalesced notice that updates in place, not 9 messages. Latest detail:
+> WATCHDOG notice — occurrence #11 (first seen 2026-09-24T20:47:45Z, latest 2026-09-24T21:37:48Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 11 times; this is ONE
+> coalesced notice that updates in place, not 11 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4095857951 (age=18499s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098147753 (age=3593s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098151278 (age=3568s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098182428 (age=3353s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098195295 (age=3257s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4095857951 (age=19100s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098147753 (age=4194s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098151278 (age=4169s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098182428 (age=3954s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098195295 (age=3858s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -179,8 +179,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` has CLEARED (first seen 2026-09-24T12:12:02Z, cleared 2026-09-24T12:16:44Z).
-> It was observed 1 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` has CLEARED (first seen 2026-09-24T12:12:02Z, cleared 2026-09-24T21:37:22Z).
+> It was observed 2 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` cleared on endolin-garden-ece02cb4.
@@ -720,28 +720,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.7M | $790.02 _(notional, rate-card)_ | 72% of 143.0M (ok) |
+| Claude | 102.7M | $790.22 _(notional, rate-card)_ | 72% of 143.0M (ok) |
 | Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 41556151 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 41558993 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 7.550349s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 1 open notice(s); checker healthy
+worst fetch p95 7.550349s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1336-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1336
+### doin (0)
+(none)
 
-### tada (8865)
+### tada (8866)
+- [`endojs-endo-but-for-bots-pr1336-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1336-gauntlet-clean.md) — Gauntlet CLEAN stage: endojs/endo-but-for-bots PR #1336 — CI green
 - [`build-export-index-build-vs-buy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/build-export-index-build-vs-buy.md) — Cost
 - [`design-agent-mcp-follower-push`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/design-agent-mcp-follower-push.md) — Cost
 - [`design-agent-mcp-confined-app-makers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/design-agent-mcp-confined-app-makers.md) — Cost
 - [`endojs-endo-but-for-bots-pr1336-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1336-gauntlet-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1336-gauntlet-launch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1336-gauntlet-launch.md) — Cost
-- … and 8860 more
+- … and 8861 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
