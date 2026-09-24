@@ -164,3 +164,13 @@ PRECONDITION UPDATE (claude-on-minion-town press, 2026-09-23 22:2xZ): the 894815
 <!-- garden-annotation: key=81c9053e38dd by=claude-on-minion-town-press-20260924-013504 at=2026-09-24T01:36:19Z -->
 
 PROMOTION (press 2026-09-24 01:4xZ): precondition MET. kriscendobot/minion.town#112 MERGED to main 2026-09-23 22:29:43Z per kriskowal's 'Please conduct' directive (https://github.com/kriscendobot/minion.town/pull/112#issuecomment-5801839646), which is the maintainer's answer to this job's awaiting-maintainer question (land the Endo pin carrying EndoGuest.accept on main). Verified: origin/main:src/endo/captp-client.ts PINNED_ENDO_COMMIT = f9cbcfc426f726858a671bcb09f7c2c774cc659e (Endo llm, carries #1310 accept + #1329 registry migration). Rebase PR #81 onto current main before building; the pin is f9cbcfc4, not 89481580.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-24T01:36:35Z
