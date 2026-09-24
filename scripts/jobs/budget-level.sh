@@ -36,7 +36,11 @@ dwell_bump() { # host kind direction
 }
 dwell_reset() { local f; f="$(_dwell_file "$1" "$2")"; mkdir -p "$(dirname "$f")" 2>/dev/null || true; printf 'dir=none\nstreak=0\n' >"$f.tmp" 2>/dev/null && mv "$f.tmp" "$f" 2>/dev/null || true; }
 uncalibrated() { case "$(printf %s "${1:-}" | tr '[:upper:]' '[:lower:]')" in ''|-|none|placeholder|uncalibrated|seed|tbd|todo) return 0;; *) return 1;; esac; }
-pool_failure() { log "WARN: pool=$1 host=$2 operation=$3 failed exit_status=$4; failure isolated (fail-open)"; }
+pool_failure() { # pool host operation exit_status
+  local reason=""
+  [ "$3" = read-remote-spend ] && reason=" reason=$(meter_journal_failure_reason "$4")"
+  log "WARN: pool=$1 host=$2 operation=$3 failed exit_status=$4$reason; failure isolated (fail-open)"
+}
 
 # Edge-latched preflight-freeze reporting. A config freeze (a missing/invalid
 # physical cap, an uncalibrated pool) recurs on every leveling tick for as long as

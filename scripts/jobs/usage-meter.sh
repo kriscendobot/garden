@@ -505,28 +505,46 @@ meter_verdict() {
 # session logs; a leader cannot read another host's ~/.claude, so the immutable
 # per-job ledger supplies the best available remote reading. Unmetered/malformed
 # rows make the remote status unknown (fail-open), never an invented zero.
+# Every unknown is nonzero, but the causes get distinct codes so a caller's WARN
+# can tell transient journal-sync lag from a ledger defect:
+#   2 no jq / no usage dir   3 empty (unsynced) ledger
+#   4 unmetered in-window row   5 malformed ledger (jq parse failure)
+# meter_journal_failure_reason maps a code to a short reason string.
 meter_journal_host_tokens() {
-  local dir="$1" host="$2" cutoff="$3" files
-  [ -d "$dir/usage" ] && command -v jq >/dev/null 2>&1 || return 1
+  local dir="$1" host="$2" cutoff="$3" files out
+  [ -d "$dir/usage" ] && command -v jq >/dev/null 2>&1 || return 2
   files=("$dir"/usage/*.jsonl)
   # An EMPTY usage/ ledger is the sensor being blind (nothing recorded yet, or a
   # journal clone that has not synced the rows), NOT proof the remote host spent
   # zero. A confident 0 here would drive budget-level to the band maximum for that
   # remote pool on no signal (cybernetics-audit.md § 2.2) — the same inverted failure
-  # as the session path. Treat the empty ledger as unknown (rc 1) so the caller fails
+  # as the session path. Treat the empty ledger as unknown (rc 3) so the caller fails
   # open and skips. A POPULATED ledger with no rows for this host still folds to a
   # genuine 0 below (that host is proven-idle, not blind).
-  [ -e "${files[0]}" ] || return 1
-  jq -sre --arg host "$host" --argjson cutoff "$cutoff" '
+  [ -e "${files[0]}" ] || return 3
+  out="$(jq -sr --arg host "$host" --argjson cutoff "$cutoff" '
     [ .[] | select(.host == $host)
       | select((.ts | fromdateiso8601? // -1) >= $cutoff) ] as $rows
     | if any($rows[];
         (.source? == "none") or
         ([.input_tokens?,.output_tokens?,.cache_creation_tokens?] | any(. == null or type != "number" or . < 0)))
-      then error("unmetered")
+      then "unmetered"
       else reduce $rows[] as $r (0; . + $r.input_tokens + $r.output_tokens + $r.cache_creation_tokens)
       end
-  ' "${files[@]}" 2>/dev/null
+  ' "${files[@]}" 2>/dev/null)" || return 5
+  [ "$out" = unmetered ] && return 4
+  [[ "$out" =~ ^[0-9]+$ ]] || return 5
+  printf '%s\n' "$out"
+}
+
+meter_journal_failure_reason() {
+  case "${1:-}" in
+    2) printf 'no-jq-or-usage-dir\n' ;;
+    3) printf 'empty-ledger (journal unsynced?)\n' ;;
+    4) printf 'unmetered-rows in window\n' ;;
+    5) printf 'malformed-ledger\n' ;;
+    *) printf 'unknown\n' ;;
+  esac
 }
 
 # meter_remote_snapshot_total <journal-dir> <pool> <cap> <cutoff> — consume the

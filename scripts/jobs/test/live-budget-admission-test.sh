@@ -141,12 +141,28 @@ irc="$(GARDEN=testhost GARDEN_STATE="$TR/state-idle" GARDEN_USAGE_NOW="$NOW" \
 # is blind (unknown); a populated ledger with no rows for the host is a genuine 0.
 JD="$TR/journal-dir"; mkdir -p "$JD/usage"
 jempty="$(bash -c 'set -uo pipefail; source "$1/common.sh"; meter_journal_host_tokens "$2" somehost 0 >/dev/null 2>&1; echo $?' _ "$JOBS" "$JD")"
-[ "$jempty" = 1 ] && ok "empty journal usage/ ledger reads unknown, not 0" \
-  || bad "empty journal ledger rc=$jempty, expected 1 (unknown)"
+[ "$jempty" = 3 ] && ok "empty journal usage/ ledger reads unknown, not 0" \
+  || bad "empty journal ledger rc=$jempty, expected 3 (unknown)"
 printf '{"host":"elsewhere","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":10,"output_tokens":0,"cache_creation_tokens":0}\n' > "$JD/usage/elsewhere.jsonl"
 jgen="$(bash -c 'set -uo pipefail; source "$1/common.sh"; meter_journal_host_tokens "$2" somehost 0' _ "$JOBS" "$JD")"
 [ "$jgen" = 0 ] && ok "populated journal ledger with no rows for the host reads a genuine 0" \
   || bad "populated-no-host journal read was '$jgen', expected 0"
+# Distinct unknown causes carry distinct codes so budget-level's WARN is actionable.
+printf '{"host":"somehost","provider":"anthropic","ts":"2026-08-22T06:00:00Z","source":"none"}\n' > "$JD/usage/somehost.jsonl"
+junm="$(bash -c 'set -uo pipefail; source "$1/common.sh"; meter_journal_host_tokens "$2" somehost 0 >/dev/null 2>&1; echo $?' _ "$JOBS" "$JD")"
+[ "$junm" = 4 ] && ok "unmetered in-window journal row reads unknown with rc 4" \
+  || bad "unmetered journal row rc=$junm, expected 4"
+printf 'not json\n' > "$JD/usage/somehost.jsonl"
+jbad="$(bash -c 'set -uo pipefail; source "$1/common.sh"; meter_journal_host_tokens "$2" somehost 0 >/dev/null 2>&1; echo $?' _ "$JOBS" "$JD")"
+[ "$jbad" = 5 ] && ok "malformed journal ledger reads unknown with rc 5" \
+  || bad "malformed journal ledger rc=$jbad, expected 5"
+rm -f "$JD/usage/somehost.jsonl"
+jnodir="$(bash -c 'set -uo pipefail; source "$1/common.sh"; meter_journal_host_tokens "$2/absent" somehost 0 >/dev/null 2>&1; echo $?' _ "$JOBS" "$JD")"
+[ "$jnodir" = 2 ] && ok "missing usage dir reads unknown with rc 2" \
+  || bad "missing usage dir rc=$jnodir, expected 2"
+jreason="$(bash -c 'source "$1/common.sh"; for c in 2 3 4 5; do meter_journal_failure_reason $c; done' _ "$JOBS" | tr '\n' '|')"
+[ "$jreason" = "no-jq-or-usage-dir|empty-ledger (journal unsynced?)|unmetered-rows in window|malformed-ledger|" ] \
+  && ok "journal failure codes map to reason strings" || bad "reason map: $jreason"
 
 seed_board() { # bare [plan]
   local bare="$1" seed="$1-seed"
