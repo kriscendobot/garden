@@ -2,8 +2,9 @@
 role: fixer
 priority: urgent
 posted_by: liaison
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Fix: the container-hardening probe's EXPECTED failure blocks rolling deploys and drains followers
@@ -35,13 +36,5 @@ cleared it with `systemctl --user reset-failed garden-container-hardening.servic
    does fail loudly; a real service unit failure still fails the canary. Run the rolling-deploy and
    hardening-probe suites and push. Complete via the normal completion path.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-24T06:46:15Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-24T07:03:06Z -->
