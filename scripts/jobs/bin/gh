@@ -70,6 +70,34 @@ if [ "$GARDEN_GH_TIMEOUT" != 0 ] && _gh_to="$(command -v timeout 2>/dev/null)" &
   _gh_timeout=("$_gh_to" --signal=TERM --kill-after="${GARDEN_GH_KILL_AFTER}s" "${GARDEN_GH_TIMEOUT}s")
 fi
 
+# --- no ambient git credential helper under any real-gh invocation -------------
+# gh forks git (repo resolution, pr checkout, clone, …), and any ambient
+# credential.helper (system/global gitconfig, including URL-scoped ones) could be
+# consulted or daemonized underneath it. A `git credential-cache--daemon`
+# double-forks out of its caller's process group, so it escapes the callers'
+# process-group reaps (ci-watcher.sh / comment-watcher.sh cleanup) and survives a
+# clean oneshot exit, which systemd then reports as "Found left-over process …
+# (git) in control group" (garden-ci-watcher@, 2026-09-24). The fleet never needs
+# one: this wrapper injects GH_TOKEN, and gh's own authenticated git calls pass
+# `-c credential.helper= -c credential.<host>.helper=!gh auth git-credential`,
+# which git applies AFTER env-injected config, so gh's helper still works.
+#
+# The clear is injected through GIT_CONFIG_COUNT (the env equivalent of
+# `git -c credential.helper=`), APPENDED to any caller-set entries. That is
+# deliberately narrower than GIT_CONFIG_GLOBAL=/dev/null / GIT_CONFIG_NOSYSTEM=1,
+# which would also drop user identity, url.*.insteadOf, safe.directory, and the
+# rest of the ambient config a `gh pr checkout` / `gh repo clone` relies on.
+# GIT_TERMINAL_PROMPT=0 likewise keeps a helper-less git from blocking on a
+# username prompt. Opt out with GARDEN_GH_KEEP_CREDENTIAL_HELPER=1.
+if [ "${GARDEN_GH_KEEP_CREDENTIAL_HELPER:-0}" != 1 ]; then
+  _gh_cfg_n="${GIT_CONFIG_COUNT:-0}"
+  case "$_gh_cfg_n" in ''|*[!0-9]*) _gh_cfg_n=0;; esac
+  export "GIT_CONFIG_KEY_${_gh_cfg_n}=credential.helper"
+  export "GIT_CONFIG_VALUE_${_gh_cfg_n}="
+  export GIT_CONFIG_COUNT=$((_gh_cfg_n + 1))
+  export GIT_TERMINAL_PROMPT=0
+fi
+
 # gh_is_write — true (rc 0) when argv is a STATE-CHANGING gh invocation. Used only
 # in the unresolved-token fallback below to decide fail-closed vs degrade. The set
 # is the mutating surface the fleet actually drives: pr/issue lifecycle verbs, the
