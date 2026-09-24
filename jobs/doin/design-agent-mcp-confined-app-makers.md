@@ -20,3 +20,13 @@ This job runs after the fixer job `endojs-endo-but-for-bots-pr1336-fix-review-53
 1. Inventory the gaps: the confined-application makers above, plus any follow/streaming or glorp capability the fixer could not bind because the daemon lacks it. For each gap, say what the daemon, the compartment-mapper, and `@endo/platform` already provide, and what is missing.
 2. Search endojs/endo-but-for-bots issues for the relevant tracking issues. Post a comment on each, as the bot, recording the unfinished work (fully qualified cross-repo links). File a new issue where none exists.
 3. Write a design in endojs/endo-but-for-bots `designs/` for the missing makers and their MCP tool projection. Follow the repo's designs conventions and the garden's open-questions carve-out. If the design needs further separable design, post follow-up design jobs.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-24T20:56:31Z
