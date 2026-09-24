@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T21:24:52Z_
+_As of 2026-09-24T21:28:25Z_
 
 ## Latest
 
@@ -142,16 +142,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #8 (first seen 2026-09-24T20:47:45Z, latest 2026-09-24T21:22:49Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 8 times; this is ONE
-> coalesced notice that updates in place, not 8 messages. Latest detail:
+> WATCHDOG notice — occurrence #9 (first seen 2026-09-24T20:47:45Z, latest 2026-09-24T21:27:49Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4095857951 (age=18199s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098147753 (age=3293s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098151278 (age=3268s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098182428 (age=3053s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098195295 (age=2957s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4095857951 (age=18499s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098147753 (age=3593s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098151278 (age=3568s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098182428 (age=3353s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098195295 (age=3257s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
