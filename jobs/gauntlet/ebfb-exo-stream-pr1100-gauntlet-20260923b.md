@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1100
 build_job: 
 kind: feature
-stage: fix
-iteration: 5
+stage: panel
+iteration: 6
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-5
+current_child: ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-6
 state: running
 created_by: liaison
 created_at: 2026-09-23T23:23:46Z
