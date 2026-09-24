@@ -58,6 +58,14 @@ directive identity so re-detections of the SAME failure across ticks collapse
 onto one open job instead of piling up under fresh slugs. If a job truly touches
 several scripts, name the single most-implicated one first; put the rest in prose
 below. Emit nothing if there is no clear opportunity.
+
+Keep the reply SHORT so every block closes inside your output budget (an
+unterminated block is rejected whole and no job is posted):
+- Output ONLY job blocks: no preamble, framing, or summary before the first
+  \`JOB\` line or after the last \`ENDJOB\`.
+- Each body after the path line is AT MOST 6 sentences: the defect as file:line,
+  then the fix. Cite evidence as file:line or a timestamp; do not enumerate
+  precedents in prose.
 EOF
 )"
 

@@ -221,5 +221,22 @@ else
   bad "long malformed reply lost the FATAL reject reason"
 fi
 
+echo 'SUBTEST 24 -- the prompt constrains reply length so blocks close before an output cutoff'
+# SUBTEST 15 covers fail-closed HANDLING of an unterminated block; this guards the
+# PREVENTION: replies truncated mid-JOB (no ENDJOB) recurred on 2026-08-19/09-17/09-24.
+PROMPT_LOG="$TR/prompt24"
+run_handler anthropic GARDEN_TEST_ANTHROPIC_PROMPT_LOG="$PROMPT_LOG" \
+  GARDEN_TEST_ANTHROPIC_OUTPUT='No actionable opportunities this tick.\n' >/dev/null 2>&1 || true
+if [ -s "$PROMPT_LOG" ]; then
+  grep -q 'no preamble' "$PROMPT_LOG" && ok "prompt forbids preamble before the first JOB line" \
+    || bad "prompt lacks the no-preamble constraint"
+  grep -q 'AT MOST 6 sentences' "$PROMPT_LOG" && ok "prompt caps each JOB body length" \
+    || bad "prompt lacks the per-block brevity cap"
+  grep -q 'do not enumerate' "$PROMPT_LOG" && ok "prompt forbids enumerating precedents in prose" \
+    || bad "prompt lacks the cite-instead-of-enumerate constraint"
+else
+  bad "anthropic prompt was not captured"
+fi
+
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
