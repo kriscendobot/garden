@@ -418,6 +418,40 @@ else
   kill -KILL "$SPID1" "$SPID2" 2>/dev/null || true
 fi
 
+# ----------------------------------------------------------------------------
+# R2 — a straggler that forks AFTER a zero-read must still be felled: ONE zero-read
+# does not prove the cgroup durably empty (the 2026-09-24 test262 leak — a gh-forked git
+# helper appeared after the last zero-read, and the next start found it left over). The
+# fixture cgroup.procs is a FIFO served by a helper, so the ordering is deterministic:
+# the sweep's FIRST read sees nothing, the helper then forks the straggler on a short
+# delay, and every LATER read lists it. A single-zero-read sweep returns on that first
+# empty read and leaves the straggler alive; the two-consecutive-zero-reads sweep reads
+# again, finds it, and fells it before the watcher exits.
+hr; echo "R2 — straggler forked after the first zero-read is still felled"; hr
+LATE_PROCS="$TR/cgroup-late.procs"; LATE_PID="$TR/late.pid"; rm -f "$LATE_PROCS" "$LATE_PID"
+mkfifo "$LATE_PROCS"
+(
+  : > "$LATE_PROCS"                     # read 1: EMPTY (the zero-read that used to end the sweep)
+  sleep 0.05                            # the straggler forks on a short delay AFTER that read
+  ( setsid bash -c 'echo $$ > "'"$LATE_PID"'"; exec sleep 600' & )
+  for _ in $(seq 1 100); do [ -s "$LATE_PID" ] && break; sleep 0.01; done
+  while :; do cat "$LATE_PID" > "$LATE_PROCS"; sleep 0.02; done   # later reads list it
+) &
+LATE_SERVER=$!
+BARE_R2="$TR/r2.git"; seed_bare "$BARE_R2"
+FIX_R2="$TR/fix-r2.tsv"; : > "$FIX_R2"
+GARDEN_DEPENDABOT_CGROUP_PROCS_FILE="$LATE_PROCS" run_dep "$TR/state-r2" "$BARE_R2" "$FIX_R2" || true
+LATE_SPID="$(cat "$LATE_PID" 2>/dev/null || true)"
+kill "$LATE_SERVER" 2>/dev/null || true; wait "$LATE_SERVER" 2>/dev/null || true
+if [ -z "$LATE_SPID" ]; then
+  bad "late straggler never forked (the sweep never came back for a second read)"
+elif ! proc_running "$LATE_SPID"; then
+  ok "straggler forked after the first zero-read felled and gone once the watcher exited"
+else
+  bad "late straggler $LATE_SPID survived the watcher exit (sweep stopped on a single zero-read)"
+  kill -KILL "$LATE_SPID" 2>/dev/null || true
+fi
+
 # ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
