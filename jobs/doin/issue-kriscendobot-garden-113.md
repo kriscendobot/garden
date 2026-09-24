@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 In https://github.com/kriscendobot/garden/issues/112#issuecomment-5817967112 yet again you wrote `#2` in a context in which github interprets as  https://github.com/kriscendobot/garden/issues/2 , while it's pretty clear that you meant https://github.com/Oros-AI/oros-ckm-data-read
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-24T16:58:06Z
