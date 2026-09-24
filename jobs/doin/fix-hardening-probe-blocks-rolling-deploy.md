@@ -34,3 +34,13 @@ cleared it with `systemctl --user reset-failed garden-container-hardening.servic
 3. Tests: an unrecreated host does not fail its unit and does not fail the canary; a regressed hardened host
    does fail loudly; a real service unit failure still fails the canary. Run the rolling-deploy and
    hardening-probe suites and push. Complete via the normal completion path.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-24T06:46:15Z
