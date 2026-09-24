@@ -489,5 +489,76 @@ else
 fi
 
 # ============================================================================
+hr; echo "CURSOR — a transient cursor-set contention rc=1 is retried in-tick"; hr
+# The cursor advance used to be ONE bare cursor-set call that WARN-exited on any
+# nonzero rc, so a transient journal-write CAS collision stalled the advance every
+# tick until a lucky one landed. It now routes through advance_cursor_with_retry:
+# the ambiguous contention shape is retried a bounded number of fresh invocations
+# (each still under CURSOR_STAGE_TIMEOUT), and a retry that lands advances the cursor.
+CURSOR_FLAKY="$TR/cursor-set-flaky.sh"
+cat > "$CURSOR_FLAKY" <<EOF
+#!/usr/bin/env bash
+# Fail (rc=1, no diagnostic: cursor-set's own CAS loop lost) until the Nth call.
+n=\$(( \$(grep -c . "\$IIW_CURSOR_CALLS" 2>/dev/null || echo 0) + 1 ))
+echo x >> "\$IIW_CURSOR_CALLS"
+[ "\$n" -ge "\${IIW_CURSOR_OK_AT:-99}" ] && exec "$JOBS/cursor-set.sh" "\$@"
+cat >/dev/null; exit 1
+EOF
+chmod +x "$CURSOR_FLAKY"
+FIX_CR="$TR/fix-cr.tsv"
+row issue-comment 2026-06-28T18:00:00Z 9301 10 kriskowal kriskowal open "" "" \
+  https://github.com/kriskowal/garden/issues/10#issuecomment-9301 \
+  "Cursor retry probe." > "$FIX_CR"
+
+# (1) contention clears on the third call → cursor advances within the SAME tick.
+BARE_CR="$TR/cr.git"; seed_bare "$BARE_CR"
+PL_CR="$TR/post-cr.log"; ML_CR="$TR/msg-cr.log"; ERR_CR="$TR/err-cr.log"; : >"$PL_CR"; : >"$ML_CR"
+CALLS_CR="$TR/calls-cr"; : > "$CALLS_CR"
+GARDEN_CURSOR_SET="$CURSOR_FLAKY" IIW_CURSOR_CALLS="$CALLS_CR" IIW_CURSOR_OK_AT=3 \
+  GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+  run_watcher "$TR/state-cr" "$BARE_CR" "$FIX_CR" "$PL_CR" "$ML_CR" "$ERR_CR"
+[ "$(grep -c . "$CALLS_CR")" -eq 3 ] \
+  && ok "contention retried until it cleared (3 cursor-set calls)" \
+  || bad "cursor-set call count wrong ($(grep -c . "$CALLS_CR"), want 3)"
+[ "$(cursor_seen "$TR/state-cr" "$BARE_CR")" = 2026-06-28T18:00:00Z ] \
+  && ok "cursor advanced in-tick once the retry landed" \
+  || bad "cursor not advanced after a successful retry ($(cursor_seen "$TR/state-cr" "$BARE_CR"); err: $(cat "$ERR_CR"))"
+grep -q 'cursor advance failed' "$ERR_CR" \
+  && bad "a retry that landed still WARNed" || ok "no WARN when a retry lands"
+
+# (2) contention never clears → bounded retries, ONE transient WARN, clean exit.
+BARE_CX="$TR/cx.git"; seed_bare "$BARE_CX"
+PL_CX="$TR/post-cx.log"; ML_CX="$TR/msg-cx.log"; ERR_CX="$TR/err-cx.log"; : >"$PL_CX"; : >"$ML_CX"
+CALLS_CX="$TR/calls-cx"; : > "$CALLS_CX"
+if GARDEN_CURSOR_SET="$CURSOR_FLAKY" IIW_CURSOR_CALLS="$CALLS_CX" \
+  GARDEN_CURSOR_ADVANCE_RETRIES=2 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+  run_watcher "$TR/state-cx" "$BARE_CX" "$FIX_CR" "$PL_CX" "$ML_CX" "$ERR_CX"; then
+  ok "exhausted contention still exits the tick cleanly"
+else
+  bad "exhausted contention crashed the tick"
+fi
+[ "$(grep -c . "$CALLS_CX")" -eq 3 ] \
+  && ok "retried to the bound (1 primary + 2 retries)" \
+  || bad "retry count wrong ($(grep -c . "$CALLS_CX"), want 3)"
+[ "$(grep -c 'WARN: cursor advance failed.*rc=1.*transient' "$ERR_CX")" -eq 1 ] \
+  && ok "exhausted contention WARNs exactly once, as transient" \
+  || bad "transient WARN missing or repeated ($(cat "$ERR_CX"))"
+
+# (3) a retry never STARTS past the tick deadline: with the advance deadline already
+# spent, only the primary attempt runs and the give-up WARN names the deadline.
+BARE_CD="$TR/cd.git"; seed_bare "$BARE_CD"
+PL_CD="$TR/post-cd.log"; ML_CD="$TR/msg-cd.log"; ERR_CD="$TR/err-cd.log"; : >"$PL_CD"; : >"$ML_CD"
+CALLS_CD="$TR/calls-cd"; : > "$CALLS_CD"
+GARDEN_CURSOR_SET="$CURSOR_FLAKY" IIW_CURSOR_CALLS="$CALLS_CD" \
+  GARDEN_CURSOR_ADVANCE_DEADLINE=1 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+  run_watcher "$TR/state-cd" "$BARE_CD" "$FIX_CR" "$PL_CD" "$ML_CD" "$ERR_CD"
+[ "$(grep -c . "$CALLS_CD")" -eq 1 ] \
+  && ok "no retry started past the deadline (single cursor-set call)" \
+  || bad "retried past the deadline ($(grep -c . "$CALLS_CD") calls)"
+grep -q 'retry deadline reached' "$ERR_CD" \
+  && ok "deadline give-up WARN names the deadline" \
+  || bad "deadline WARN missing ($(cat "$ERR_CD"))"
+
+# ============================================================================
 report_result
 [ "$FAIL" -eq 0 ]

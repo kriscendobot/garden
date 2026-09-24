@@ -317,5 +317,51 @@ run_watcher "$TR/state-address" "$BARE_ADDR" "$FIX_ADDR" "$RLOG_ADDR" ""
 [ "$(cursor_seen "$TR/state-address" "$BARE_ADDR")" = 2026-07-29T10:00:00Z ] && ok "cursor slid past the deterministic drop" || bad "cursor did not slide past non-addressed mention"
 
 # ============================================================================
+hr; echo "CURSOR — a transient cursor-set contention rc=1 is retried in-tick"; hr
+# Same migration as the comment/issue-inbox watchers: the advance routes through
+# advance_cursor_with_retry, so a CAS-contention rc=1 that clears within the retry
+# bound advances the cursor this tick instead of stalling until a lucky tick.
+MW_CURSOR_FLAKY="$TR/cursor-set-flaky.sh"
+cat > "$MW_CURSOR_FLAKY" <<EOF
+#!/usr/bin/env bash
+# Fail (rc=1, no diagnostic: cursor-set's own CAS loop lost) until the Nth call.
+n=\$(( \$(grep -c . "\$MW_CURSOR_CALLS" 2>/dev/null || echo 0) + 1 ))
+echo x >> "\$MW_CURSOR_CALLS"
+[ "\$n" -ge "\${MW_CURSOR_OK_AT:-99}" ] && exec "$JOBS/cursor-set.sh" "\$@"
+cat >/dev/null; exit 1
+EOF
+chmod +x "$MW_CURSOR_FLAKY"
+FIX_CR="$TR/fix-cr.tsv"; RLOG_CR="$TR/react-cr.log"; : > "$RLOG_CR"
+mkline 2026-07-29T11:00:00Z issue-comment 4990000801 endojs/endo-but-for-bots 801 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/801#issuecomment-4990000801 \
+  'Could you help @kriscendobot please rebase?' > "$FIX_CR"
+
+BARE_CR="$TR/cr.git"; seed_bare "$BARE_CR"; CALLS_CR="$TR/calls-cr"; : > "$CALLS_CR"
+GARDEN_CURSOR_SET="$MW_CURSOR_FLAKY" MW_CURSOR_CALLS="$CALLS_CR" MW_CURSOR_OK_AT=3 \
+  GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+  run_watcher "$TR/state-cr" "$BARE_CR" "$FIX_CR" "$RLOG_CR" ""
+[ "$(grep -c . "$CALLS_CR")" -eq 3 ] \
+  && ok "contention retried until it cleared (3 cursor-set calls)" \
+  || bad "cursor-set call count wrong ($(grep -c . "$CALLS_CR"), want 3)"
+[ "$(cursor_seen "$TR/state-cr" "$BARE_CR")" = 2026-07-29T11:00:00Z ] \
+  && ok "cursor advanced in-tick once the retry landed" \
+  || bad "cursor not advanced after a successful retry ($(cursor_seen "$TR/state-cr" "$BARE_CR"))"
+
+BARE_CX="$TR/cx.git"; seed_bare "$BARE_CX"; CALLS_CX="$TR/calls-cx"; : > "$CALLS_CX"
+if GARDEN_CURSOR_SET="$MW_CURSOR_FLAKY" MW_CURSOR_CALLS="$CALLS_CX" \
+  GARDEN_CURSOR_ADVANCE_RETRIES=2 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=2 \
+  run_watcher "$TR/state-cx" "$BARE_CX" "$FIX_CR" "$RLOG_CR" ""; then
+  ok "exhausted contention still exits the tick cleanly"
+else
+  bad "exhausted contention crashed the tick"
+fi
+[ "$(grep -c . "$CALLS_CX")" -eq 3 ] \
+  && ok "retried to the bound (1 primary + 2 retries)" \
+  || bad "retry count wrong ($(grep -c . "$CALLS_CX"), want 3)"
+[ -z "$(cursor_seen "$TR/state-cx" "$BARE_CX")" ] \
+  && ok "cursor left unchanged after exhausted retries" \
+  || bad "cursor advanced despite every write failing"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

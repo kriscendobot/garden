@@ -874,19 +874,23 @@ done < "$SRC"
 if [ -n "$hw" ] && [ "$hw" != "$last_seen" ]; then
   # cursor-set.sh CAS-races the advance onto journal2 and `die`s (rc=1) if it
   # exhausts its 50-attempt push-retry loop under contention, or `exit`s
-  # GARDEN_OFFLINE_RC (75) on a journal-connectivity outage. A bare piped
-  # command would let that non-zero exit trip our `set -e`/`pipefail` and
-  # hard-crash the whole tick with NO log message (the observed 06:04 crash:
-  # one line then silent exit 1). A cursor advance is best-effort — a stalled
-  # cursor re-derives and re-advances next tick, and dispatch is idempotent by
-  # spine, so nothing is lost — so capture the rc and WARN-and-continue cleanly
-  # on ANY nonzero rc, mirroring the read side (df83fca235).
+  # GARDEN_OFFLINE_RC (75) on a journal-connectivity outage / busy cursor-IO lock.
+  # Capture the rc (a bare pipe would trip `set -e`/`pipefail` and hard-crash the
+  # tick silently — the observed 06:04 crash). A single bare call also could not
+  # tell a transient CAS-contention rc=1 (seen three times in one 20-minute window,
+  # each stalling the advance until a lucky tick) from a structural fault, so route
+  # through advance_cursor_with_retry: it retries the ambiguous contention shape
+  # under backoff with fresh sync+CAS windows, skips GARDEN_OFFLINE_RC quietly, and
+  # WARNs once with the signature on a definite failure. Each attempt keeps the
+  # CURSOR_STAGE_TIMEOUT bound, and no retry starts past the tick budget, so a
+  # retry plus one bounded attempt still finishes before the 900s systemd SIGKILL.
+  # A stalled cursor re-derives and re-advances next tick, and dispatch is
+  # idempotent by spine, so nothing is lost across a give-up.
+  # shellcheck disable=SC2034  # read by advance_cursor_with_retry (common.sh)
+  CURSOR_ADVANCE_PREFIX=(${CURSOR_STAGE_TIMEOUT[@]+"${CURSOR_STAGE_TIMEOUT[@]}"})
   if printf 'last_seen: %s\nlast_polled_at: %s\n' "$hw" "$(date -u +%FT%TZ)" \
-    | "${CURSOR_STAGE_TIMEOUT[@]}" "$HERE/cursor-set.sh" "$CURSOR_KEY"; then rc=0; else rc=$?; fi
-  if [ "$rc" -ne 0 ]; then
-    log "WARN: cursor advance failed for $CURSOR_KEY (rc=$rc); will re-advance next tick"
-    exit 0
-  fi
+    | GARDEN_CURSOR_ADVANCE_DEADLINE="${GARDEN_CURSOR_ADVANCE_DEADLINE:-$TICK_DEADLINE}" advance_cursor_with_retry "$CURSOR_KEY"; then rc=0; else rc=$?; fi
+  if [ "$rc" -ne 0 ]; then exit 0; fi   # helper already logged any WARN
   log "advanced issue cursor for $slug to $hw (acted $acted; dropped $dropped; failed=$failed; floor=${fail_floor:-none})"
 else
   log "cursor unchanged for $slug (acted $acted; dropped $dropped; failed=$failed; floor=${fail_floor:-none})"

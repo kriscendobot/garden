@@ -4682,6 +4682,16 @@ ensure_clone_or_latch_outage() {
 #     carrying the last rc and diagnostic tail — identifying it as a transient
 #     journal-write failure — and return 1 so the caller re-advances next cadence.
 #
+# Two optional caller seams bound the loop for a watcher with a tick budget:
+#   * CURSOR_ADVANCE_PREFIX (a shell array in the caller's scope): an argv prefix
+#     run before cursor-set on EVERY attempt — e.g. a `timeout …` so each attempt is
+#     individually bounded (issue-inbox-watcher's CURSOR_STAGE_TIMEOUT). Empty/unset
+#     → cursor-set runs bare.
+#   * GARDEN_CURSOR_ADVANCE_DEADLINE (epoch seconds): no RETRY starts at or after it
+#     (the primary attempt always runs), so the retries plus one bounded attempt
+#     cannot sum past a unit's systemd deadline. Hitting it WARNs as transient and
+#     returns 1, exactly like an exhausted retry budget.
+#
 # Never `exit`s; returns an rc so the caller keeps ownership of the tick.
 advance_cursor_with_retry() {  # <cursor-key> [<retries>]; body on stdin
   local key="${1:?usage: advance_cursor_with_retry <cursor-key> [retries]}"
@@ -4695,12 +4705,20 @@ advance_cursor_with_retry() {  # <cursor-key> [<retries>]; body on stdin
 
   # attempt 0 is the primary write; 1..retries are the transient re-attempts.
   for attempt in $(seq 0 "$retries"); do
-    [ "$attempt" -gt 0 ] && backoff "$attempt"
+    if [ "$attempt" -gt 0 ]; then
+      backoff "$attempt"
+      if [ -n "${GARDEN_CURSOR_ADVANCE_DEADLINE:-}" ] \
+        && [ "$(date +%s 2>/dev/null || echo 0)" -ge "$GARDEN_CURSOR_ADVANCE_DEADLINE" ]; then
+        log "WARN: cursor advance failed for $key after $attempt attempt(s) (rc=${rc:-?}, transient journal-write contention: $(_cursor_advance_diag_tail "$diag"); retry deadline reached); leaving cursor unchanged to re-advance next cadence"
+        rm -f "$diag_file"; return 1
+      fi
+    fi
     : > "$diag_file"
     # Capture rc in the else branch: after a bare `if pipeline; then …; fi` the
     # `if`'s own status (0) shadows the pipeline's, so `rc=$?` outside would always
     # read 0. This is the codebase's `then rc=0; else rc=$?` idiom.
-    if printf '%s' "$body" | "$cursor_set" "$key" 2>"$diag_file"; then
+    if printf '%s' "$body" \
+      | ${CURSOR_ADVANCE_PREFIX[@]+"${CURSOR_ADVANCE_PREFIX[@]}"} "$cursor_set" "$key" 2>"$diag_file"; then
       rm -f "$diag_file"; return 0
     else
       rc=$?
