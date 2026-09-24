@@ -40,7 +40,24 @@ expect_prefer_failure '@endo/errors' \
   'const insistNatural = value => { if (value < 0) throw Error(); };'
 # endojs/endo-but-for-bots#1336 review 5307103246: a copied promise kit and a
 # bare Far test fake.
-expect_prefer_failure '@endo/promise-kit' 'const makePromiseKit = () => {'
+# The local-makePromiseKit declaration regex is gone: the build-vs-buy name pass
+# catches any local copy of a distinctively named export, so the idiom shim must
+# stay silent on it while the name pass reports it as a strong hit.
+if printf '%s\n' 'const makePromiseKit = () => {' '  return {};' '};' \
+    | "$PREFER" --scan-stdin fixture.js | grep -qx pass; then
+  ok 'the idiom shim no longer carries a makePromiseKit declaration regex'
+else
+  bad 'the idiom shim still fires on a bare makePromiseKit declaration'
+fi
+NAME_INDEX="$TEMPORARY_ROOT/name-index.tsv"
+printf '# repo=endojs/endo commit=HEAD generator=test\n%s\n' \
+  "$(printf 'makePromiseKit\t@endo/promise-kit\t@endo/promise-kit\tpackages/promise-kit/index.js:22\tfunction\t0\tnone\t36\t0')" \
+  > "$NAME_INDEX"
+name_output=$(printf '%s\n' 'const makePromiseKit = () => {' '  let resolve;' '  return { resolve };' '};' \
+  | node "$ROOT/skills/build-vs-buy/detect.cjs" --stdin fixture.test.js --passes name,idiom --index "$NAME_INDEX" 2>&1)
+printf '%s\n' "$name_output" | grep -q '"pass":"name","file":"fixture.test.js","line":1,"name":"makePromiseKit","strength":"strong"' \
+  && ok 'the name pass reports a local makePromiseKit as a strong hit' \
+  || bad "the name pass missed a local makePromiseKit: $name_output"
 expect_prefer_failure '@endo/promise-kit' '  let resolve = () => {};'
 expect_prefer_failure 'makeExo from @endo/exo' "  Far('EndoGuest', {"
 

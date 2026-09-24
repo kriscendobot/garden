@@ -1,0 +1,12 @@
+[Unit]
+Description=Garden export-index timer
+
+[Timer]
+# Absolute wall-clock anchor (immune to daemon-reload churn, see
+# garden-library-source-drift-scan.timer), daily at 04:23, past the clone-keeper's
+# :00/:30 fast-forward so the bare clones are fresh.
+OnCalendar=*-*-* 04:23:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

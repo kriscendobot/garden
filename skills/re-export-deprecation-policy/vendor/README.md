@@ -32,3 +32,9 @@ cp "$P/LICENSE" LICENSE
 
 Pin a version whose `lib/index.js` is a single self-contained file with no external
 `require()` (true of the 7.x line); grep the copy for `require(` before committing.
+
+**Second consumer.** The build-vs-buy detector and the export-name index
+(`skills/build-vs-buy/lib.cjs`, loaded by `detect.cjs` and `export-index.cjs`)
+reuse this same bundle. After a re-vendor, also run
+`scripts/jobs/test/export-index-test.sh` and
+`scripts/jobs/test/build-vs-buy-probe-test.sh`.

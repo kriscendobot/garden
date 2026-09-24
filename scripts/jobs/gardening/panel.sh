@@ -123,19 +123,21 @@ fi
 # from the diff (design-only when every changed path is under designs/), then
 # iterates the matching seat list. A project can override either list via env.
 
-# Code panel (31 seats): source-touching PRs. The coverage-auditor, the
-# orthographer, and the thesaurus are MANDATORY seats (every builder/fixer gauntlet
-# runs the code panel), but all are COST-GATED at dispatch: each ships a co-located
-# seat-gate that runs a deterministic pre-pass (c8 coverage of new lines; grep for
-# British spellings; grep for Botese clichés) and only spends a `claude -p` when
+# Code panel (33 seats): source-touching PRs. The coverage-auditor, the
+# orthographer, the thesaurus, the reexport-auditor, and the procurer are
+# MANDATORY seats (every builder/fixer gauntlet runs the code panel), but all are
+# COST-GATED at dispatch: each ships a co-located seat-gate that runs a
+# deterministic pre-pass (c8 coverage of new lines; grep for British spellings;
+# grep for Botese clichés; a Babel parse for re-exports or for local copies of
+# indexed exports) and only spends a `claude -p` when
 # there is something to judge (see seat-gate-coverage-auditor.sh,
 # seat-gate-orthographer.sh, seat-gate-thesaurus.sh, seat-gate-reexport-auditor.sh,
-# and the seat_review gate below).
+# seat-gate-procurer.sh, and the seat_review gate below).
 : "${GARDEN_CODE_SEATS:=assessor typist stylist packager archivist prover curator \
 migrator locksmith warden saboteur breaker purist spec-keeper wire-watcher \
 engine-realist integrator duality-auditor benchmarker changeset-auditor surfacer scribe pruner \
 gateway corner-prober fast-checker releaser transplanter coverage-auditor orthographer thesaurus \
-reexport-auditor}"
+procurer reexport-auditor}"
 
 # Design panel (9 seats) — design-only PRs (paths under designs/). The orthographer
 # and the thesaurus sit here too ("all documents"); cost-gated, so a design with no

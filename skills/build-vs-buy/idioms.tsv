@@ -1,0 +1,20 @@
+# idioms.tsv — the nameless-idiom catalog the build-vs-buy detector's idiom pass
+# reads (skills/build-vs-buy/SKILL.md). One row per inline idiom that has no
+# distinctive NAME for the name pass to catch. A duplicated *named* export needs
+# no row here: the export-name index already covers it.
+# Columns (tab-separated):
+#   id  regex(JavaScript, matched per comment-stripped added line)
+#   provider-specifier  provider-export(or -)  waiver(import|none)  description
+# waiver `import`: the finding is waived when the file imports the specifier.
+# waiver `none`: nothing but the per-file exempt marker waives it.
+sha256-node	createHash\s*\(\s*["'](sha-?256|SHA-?256)	@endo/sha256	-	import	hand-rolled SHA-256
+sha256-webcrypto	subtle\.digest\s*\(\s*["']SHA-?256	@endo/sha256	-	import	hand-rolled SHA-256
+text-codec	new\s+Text(Encoder|Decoder)\s*\(	@endo/bytes	-	import	direct TextEncoder/TextDecoder
+base64-atob-btoa	(^|[^A-Za-z0-9_$])(atob|btoa)\s*\(	@endo/base64	-	import	hand-rolled base64 conversion
+base64-tostring	\.toString\s*\(\s*["']base64["']	@endo/base64	-	import	hand-rolled base64 conversion
+base64-buffer-from	Buffer\.from\s*\(.*["']base64["']	@endo/base64	-	import	hand-rolled base64 conversion
+hex-padstart	\.toString\s*\(\s*16\s*\)\s*\.padStart\s*\(\s*2\s*,	@endo/hex	-	import	byte-to-hex loop
+ascii-charcodeat	Uint8Array\.from\s*\(.*charCodeAt\s*\(	@endo/ascii	-	import	hand-rolled ASCII conversion
+insist-declaration	(^|\s)(const|let|var|function)\s+insist[A-Za-z0-9_$]*	@endo/errors	-	import	hand-rolled insist/assert helper
+deferred-resolve-reject	(^|\s)let\s+(resolve|reject)([^A-Za-z0-9_$]|$)	@endo/promise-kit	makePromiseKit	import	hand-rolled promise kit
+bare-far	(^|[^A-Za-z0-9_$.])Far\s*\(	@endo/exo	makeExo	none	bare Far (use makeExo with an interface guard)

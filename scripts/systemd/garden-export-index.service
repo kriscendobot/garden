@@ -1,0 +1,14 @@
+[Unit]
+Description=Garden export-index (daily, no-LLM export-name index of each roadmap branch, landed to journal library/exports/ on change)
+
+[Service]
+Type=oneshot
+# A signalled stop is a clean exit; 75 is EX_TEMPFAIL (a transient journal outage
+# that skips the tick).
+SuccessExitStatus=143 130 75 SIGTERM SIGINT
+Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# Leader-only singleton: on a follower the ExecCondition fails and the tick is
+# skipped cleanly (designs/multibot-leader-follower.md).
+ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-export-index --expect 75 -- @GARDEN_ROOT@/scripts/jobs/export-index/publish-export-index.sh
+TimeoutStartSec=900

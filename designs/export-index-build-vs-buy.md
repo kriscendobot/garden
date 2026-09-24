@@ -2,7 +2,7 @@
 
 | Created | 2026-09-24 |
 | Author  | designer   |
-| Status  | Proposed. The builder job `build-export-index-build-vs-buy` implements it. |
+| Status  | Implemented by the builder job `build-export-index-build-vs-buy` (2026-09-24). |
 
 ## Origin
 
