@@ -35,6 +35,7 @@ cleared it with `systemctl --user reset-failed garden-container-hardening.servic
    does fail loudly; a real service unit failure still fails the canary. Run the rolling-deploy and
    hardening-probe suites and push. Complete via the normal completion path.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
