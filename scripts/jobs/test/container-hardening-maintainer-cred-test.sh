@@ -59,6 +59,9 @@ FAKEBIN="$TR/bin"; mkdir -p "$FAKEBIN"
 cat > "$FAKEBIN/gh" <<'EOF'
 #!/bin/bash
 set -uo pipefail
+# FAKE_GH_HANG=1 models a stalled network call (stuck connect / DNS / credential
+# prompt). exec so the bound's TERM lands on the sleeper itself.
+[ "${FAKE_GH_HANG:-0}" = 1 ] && exec sleep 60
 if [ "${1:-}" = auth ] && [ "${2:-}" = status ]; then
   [ "${FAKE_GH_NO_JSON:-0}" = 1 ] && exit 2
   # shellcheck disable=SC2086
@@ -181,6 +184,22 @@ selftest REACHABLE "journal allowlist supplies the maintainer set" \
   GARDEN_MAINTAINERS_ALLOWLIST="$ALLOW" FAKE_GH_LOGINS="kriscendobot erights"
 selftest CLEAN "allowlist set: only the bot logged in → CLEAN" \
   GARDEN_MAINTAINERS_ALLOWLIST="$ALLOW" FAKE_GH_LOGINS="kriscendobot"
+
+# ============================================================================
+hr; echo "SUBTEST 7 — a HUNG gh is bounded: degrades to the hosts.yml fallback"; hr
+# The real gh is called without the fleet wrapper, so without its own bound a
+# stalled call ran the unit past TimeoutStartSec=120 into an opaque systemd kill.
+# With GARDEN_HARDENING_GH_TIMEOUT=1s both gh calls give up fast and the verdict
+# still comes from hosts.yml.
+t0=$(date +%s)
+selftest REACHABLE "hung gh + hosts.yml kriskowal → still caught via fallback" \
+  GARDEN_MAINTAINER_LOGIN=kriskowal FAKE_GH_HANG=1 GARDEN_HARDENING_GH_TIMEOUT=1s \
+  GH_CONFIG_DIR="$GHCFG3" GH_TOKEN=tok-kriskowal
+selftest CLEAN "hung gh + bot-only hosts.yml → CLEAN" \
+  GARDEN_MAINTAINER_LOGIN=kriskowal FAKE_GH_HANG=1 GARDEN_HARDENING_GH_TIMEOUT=1s \
+  GH_CONFIG_DIR="$GHCFG" GH_TOKEN=tok-kriskowal
+el=$(( $(date +%s) - t0 ))
+[ "$el" -lt 20 ] && ok "hung gh bounded (${el}s for 2 runs)" || bad "hung gh not bounded (${el}s)"
 
 # ============================================================================
 hr

@@ -62,6 +62,24 @@ real_gh_bin() {
   return 1
 }
 
+# bounded_gh <gh> <args...> — run the real gh under an explicit wall-clock bound.
+# Skipping the fleet wrapper (real_gh_bin, above) also skips its GARDEN_GH_TIMEOUT
+# hang-protection, and a raw gh can stall unboundedly on a stuck TCP connect / DNS
+# lookup / credential-helper prompt. Unbounded, that stall ran the whole unit past
+# its TimeoutStartSec=120 into a systemd-timeout kill, which SuccessExitStatus does
+# not cover, so self-heal-run.sh never captured or diagnosed it. Bounded, a hung
+# call degrades to the "gh unavailable" path: logged_in_gh_logins falls back to
+# the hosts.yml parse, env_token_maintainer_login resolves nothing. Default 15s
+# per call (GARDEN_HARDENING_GH_TIMEOUT), well inside the unit's budget.
+bounded_gh() {
+  local gh="$1"; shift
+  if command -v timeout >/dev/null 2>&1; then
+    timeout --signal=TERM --kill-after=10s "${GARDEN_HARDENING_GH_TIMEOUT:-15s}" "$gh" "$@"
+  else
+    "$gh" "$@"
+  fi
+}
+
 # maintainer_logins — the login set to guard against, one per line, lowercased.
 # Precedence: explicit GARDEN_MAINTAINER_LOGIN (comma/space/newline separated) →
 # the journal maintainers/allowlist (GARDEN_MAINTAINERS_ALLOWLIST or the journal
@@ -97,7 +115,7 @@ maintainer_logins() {
 logged_in_gh_logins() {
   local gh json; gh="$(real_gh_bin || true)"
   if [ -n "$gh" ]; then
-    if json="$(env -u GH_TOKEN -u GITHUB_TOKEN "$gh" auth status --json hosts --jq '.hosts[][].login' 2>/dev/null)" \
+    if json="$( (unset GH_TOKEN GITHUB_TOKEN; bounded_gh "$gh" auth status --json hosts --jq '.hosts[][].login') 2>/dev/null)" \
        && [ -n "$json" ]; then
       printf '%s\n' "$json" | tr '[:upper:]' '[:lower:]' | awk 'NF'
       return 0
@@ -127,7 +145,7 @@ env_token_maintainer_login() {
   for var in GH_TOKEN GITHUB_TOKEN; do
     tok="$(printenv "$var" 2>/dev/null || true)"
     [ -n "$tok" ] || continue
-    login="$(GH_TOKEN="$tok" GITHUB_TOKEN="$tok" "$gh" api user --jq .login 2>/dev/null | tr '[:upper:]' '[:lower:]')"
+    login="$(GH_TOKEN="$tok" GITHUB_TOKEN="$tok" bounded_gh "$gh" api user --jq .login 2>/dev/null | tr '[:upper:]' '[:lower:]')"
     [ -n "$login" ] && printf '%s\n' "$login"
   done
 }
