@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T00:35:45Z_
+_As of 2026-09-24T00:37:01Z_
 
 ## Latest
 
@@ -789,17 +789,16 @@ worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1100
-- [`self-heal-fix-garden-comment-latency-watch-write-stats-empty-sample-glob`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-latency-watch-write-stats-empty-sample-glob.md) — ---
 
-### tada (8799)
+### tada (8800)
+- [`self-heal-fix-garden-comment-latency-watch-write-stats-empty-sample-glob`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/self-heal-fix-garden-comment-latency-watch-write-stats-empty-sample-glob.md) — Cost
 - [`endojs-endo-but-for-bots-pr1248-151c786d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1248-151c786d.md) — PR #1248 review posted: object-capability discipline and formula patterns
 - [`canary-probe-endolin-garden2-5bcdff64-fe18c4953480`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-fe18c4953480.md) — rolling-deploy canary probe — round trip OK
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-1.md) — Cost
 - [`self-heal-fix-garden-comment-latency-watch-write-stats-empty-glob`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/self-heal-fix-garden-comment-latency-watch-write-stats-empty-glob.md) — Cost
-- [`fix-rolling-deploy-canary-stranded-on-advanced-target`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/23/fix-rolling-deploy-canary-stranded-on-advanced-target.md) — Completion report
-- … and 8794 more
+- … and 8795 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
