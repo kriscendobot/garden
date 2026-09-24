@@ -422,5 +422,37 @@ GARDEN_EXPLICIT_ADDRESS_REQUIRED=1 run_watcher "$TR/state-address" "$BARE_ADDR" 
 grep -q "MSG issue-$SLUG-31" "$ML_ADDR" && ok "an exactly addressed issue comment is delivered" || bad "exactly addressed issue comment was not delivered"
 
 # ============================================================================
+hr; echo "REAP - cgroup straggler sweep waits until the cgroup is EMPTY (not one-shot)"; hr
+# Two stragglers in their OWN sessions stand in for gh-forked git credential helpers
+# that escaped the source's process group (the 2026-09-24 three-orphan leak). The
+# test-only GARDEN_ISSUE_CGROUP_PROCS_FILE fixture lists them; the EXIT-path sweep must
+# have felled BOTH by the time the watcher returns (a fire-and-forget one-shot pass
+# leaves them briefly alive here).
+proc_running() {  # rc 0 iff <pid> is alive and not a zombie
+  local st
+  kill -0 "$1" 2>/dev/null || return 1
+  st="$(awk '{ s=$0; sub(/^.*\) /,"",s); print substr(s,1,1) }' "/proc/$1/stat" 2>/dev/null || echo Z)"
+  [ "$st" != Z ]
+}
+CGPROCS="$TR/cgroup.procs"; S1PID="$TR/s1.pid"; S2PID="$TR/s2.pid"; rm -f "$S1PID" "$S2PID"
+( setsid bash -c 'echo $$ > "'"$S1PID"'"; exec sleep 600' & )
+( setsid bash -c 'echo $$ > "'"$S2PID"'"; exec sleep 600' & )
+for _ in $(seq 1 100); do [ -s "$S1PID" ] && [ -s "$S2PID" ] && break || sleep 0.1; done
+SPID1="$(cat "$S1PID" 2>/dev/null || true)"; SPID2="$(cat "$S2PID" 2>/dev/null || true)"
+printf '%s\n%s\n' "$SPID1" "$SPID2" > "$CGPROCS"
+proc_running "$SPID1" && proc_running "$SPID2" \
+  && ok "cgroup stragglers alive pre-sweep" || bad "straggler children never started ('$SPID1' '$SPID2')"
+BARE_REAP="$TR/reap.git"; seed_bare "$BARE_REAP"
+FIX_REAP="$TR/fix-reap.tsv"; : > "$FIX_REAP"
+GARDEN_ISSUE_CGROUP_PROCS_FILE="$CGPROCS" run_watcher "$TR/state-reap" "$BARE_REAP" "$FIX_REAP" \
+  "$TR/post-reap.log" "$TR/msg-reap.log" "$TR/err-reap.log" || true
+if ! proc_running "$SPID1" && ! proc_running "$SPID2"; then
+  ok "both cgroup stragglers felled and gone once the watcher exited (wait-until-empty)"
+else
+  bad "cgroup straggler still running after the watcher exited"
+  kill -KILL "$SPID1" "$SPID2" 2>/dev/null || true
+fi
+
+# ============================================================================
 report_result
 [ "$FAIL" -eq 0 ]

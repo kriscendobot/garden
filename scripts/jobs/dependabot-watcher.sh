@@ -222,18 +222,43 @@ SOURCE_TIMEOUT_PID=""
 # watcher's own service unit (so a shared session/scope cgroup in a test harness is
 # never swept), and (c) NEVER kills $$ or any of its ancestors (self-heal-run.sh,
 # systemd) — only the lost descendant stragglers.
+#
+# The sweep is a BOUNDED re-read loop, not a single snapshot: a helper forked after
+# one cgroup.procs read escapes it (`gh --paginate` forks a git credential helper per
+# page), and `kill -KILL` only queues the signal, so exiting right after signalling
+# can leave the pid visible to the next start. Each pass re-reads cgroup.procs and
+# SIGKILLs live stragglers until none remain, capped by
+# GARDEN_DEPENDABOT_CGROUP_REAP_DEADLINE_SECS (default 3s) for an un-killable pid.
+# Mirrors comment-watcher.sh's reap_cgroup_stragglers.
+#
+# rc 0 iff <pid> is a still-RUNNING, non-zombie process (a SIGKILLed zombie has left
+# the cgroup yet still answers `kill -0`).
+_straggler_alive() {  # _straggler_alive <pid>
+  local p="$1" st
+  kill -0 "$p" 2>/dev/null || return 1
+  st="$(awk '{ s=$0; sub(/^.*\) /,"",s); print substr(s,1,1) }' "/proc/$p/stat" 2>/dev/null || echo Z)"
+  [ "$st" != Z ]
+}
 reap_cgroup_stragglers() {
-  local line cgpath leaf procs pid
-  line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
-  [ -n "$line" ] || return 0
-  cgpath="${line#0::}"
-  leaf="${cgpath##*/}"
-  case "$leaf" in
-    garden-dependabot-watcher*.service) ;;
-    *) return 0 ;;
-  esac
-  procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
-  [ -r "$procs" ] || return 0
+  local procs
+  # Test-only override: sweep a FIXTURE cgroup.procs file (honored only in a test
+  # context; the $$+ancestors keep-set still protects the runner).
+  if [ -n "${GARDEN_DEPENDABOT_CGROUP_PROCS_FILE:-}" ] && _in_test_context; then
+    procs="$GARDEN_DEPENDABOT_CGROUP_PROCS_FILE"
+    [ -r "$procs" ] || return 0
+  else
+    local line cgpath leaf
+    line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
+    [ -n "$line" ] || return 0
+    cgpath="${line#0::}"
+    leaf="${cgpath##*/}"
+    case "$leaf" in
+      garden-dependabot-watcher*.service) ;;
+      *) return 0 ;;
+    esac
+    procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
+    [ -r "$procs" ] || return 0
+  fi
   # Collect $$ and its ancestor chain so we never signal ourselves or our parents.
   local keep=" $$ " p ppid
   p="$$"
@@ -244,11 +269,26 @@ reap_cgroup_stragglers() {
     [ "$ppid" = "1" ] && break
     p="$ppid"
   done
-  while read -r pid; do
-    [ -n "$pid" ] || continue
-    case "$keep" in *" $pid "*) continue ;; esac
-    kill -KILL "$pid" 2>/dev/null || true
-  done < "$procs"
+  local deadline_secs="${GARDEN_DEPENDABOT_CGROUP_REAP_DEADLINE_SECS:-3}"
+  local now start pid remaining
+  start="$(date +%s 2>/dev/null || echo 0)"
+  while :; do
+    remaining=0
+    while read -r pid; do
+      [ -n "$pid" ] || continue
+      case "$keep" in *" $pid "*) continue ;; esac
+      _straggler_alive "$pid" || continue
+      kill -KILL "$pid" 2>/dev/null || true
+      remaining=$((remaining + 1))
+    done < "$procs"
+    [ "$remaining" -eq 0 ] && return 0
+    now="$(date +%s 2>/dev/null || echo 0)"
+    if [ $(( now - start )) -ge "$deadline_secs" ]; then
+      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; next start may migrate them"
+      return 0
+    fi
+    sleep 0.1 2>/dev/null || sleep 1
+  done
 }
 cleanup() {
   rm -f "$SRC" "$ERRF" "$DEPS"

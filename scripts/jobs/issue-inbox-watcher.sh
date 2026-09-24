@@ -539,18 +539,50 @@ SOURCE_TIMEOUT_PID=""
 # timeout-absent branch), (b) no-ops unless the cgroup leaf matches our own unit, so
 # a shared session/scope cgroup in a test harness is never swept, and (c) NEVER
 # kills $$ or any ancestor (self-heal-run.sh, systemd) — only lost descendants.
+#
+# A single snapshot-then-kill pass was NOT enough: the three-orphan "left-over
+# process (git) in control group" leak recurred on 2026-09-24T10:04:11Z with the
+# one-shot sweep in place, for the two races comment-watcher.sh documents and fixes
+# in its own reap_cgroup_stragglers:
+#   1. FORK-AFTER-SNAPSHOT: `gh --paginate` forks a fresh git credential helper per
+#      page, so a child spawned after the one cgroup.procs read escapes the kill.
+#   2. EXIT-BEFORE-TEARDOWN: `kill -KILL` only QUEUES the signal; if the watcher
+#      exits the instant after signalling, the next `systemctl start` still reads
+#      the not-yet-reaped pid in cgroup.procs.
+# So sweep in a BOUNDED LOOP: re-read cgroup.procs each pass, SIGKILL every live
+# straggler, and return only once none remain — or, for an un-killable (D-state)
+# pid, at the deadline (GARDEN_ISSUE_CGROUP_REAP_DEADLINE_SECS, default 3s, well
+# inside TimeoutStopSec even stacked after the --kill-after wait) with a warning.
+#
+# rc 0 iff <pid> is a still-RUNNING, non-zombie process. A SIGKILLed zombie has
+# already left the cgroup yet still answers `kill -0`, so gate on /proc state.
+_straggler_alive() {  # _straggler_alive <pid>
+  local p="$1" st
+  kill -0 "$p" 2>/dev/null || return 1                        # gone entirely
+  st="$(awk '{ s=$0; sub(/^.*\) /,"",s); print substr(s,1,1) }' "/proc/$p/stat" 2>/dev/null || echo Z)"
+  [ "$st" != Z ]                                              # zombie → already gone
+}
 reap_cgroup_stragglers() {
-  local line cgpath leaf procs pid
-  line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
-  [ -n "$line" ] || return 0
-  cgpath="${line#0::}"
-  leaf="${cgpath##*/}"
-  case "$leaf" in
-    garden-issue-inbox*.service) ;;
-    *) return 0 ;;
-  esac
-  procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
-  [ -r "$procs" ] || return 0
+  local procs
+  # Test-only override: sweep a FIXTURE cgroup.procs file so the wait-until-empty
+  # loop can be exercised without a real service cgroup. Honored ONLY in a test
+  # context; the $$+ancestors keep-set still protects the runner.
+  if [ -n "${GARDEN_ISSUE_CGROUP_PROCS_FILE:-}" ] && _in_test_context; then
+    procs="$GARDEN_ISSUE_CGROUP_PROCS_FILE"
+    [ -r "$procs" ] || return 0
+  else
+    local line cgpath leaf
+    line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
+    [ -n "$line" ] || return 0
+    cgpath="${line#0::}"
+    leaf="${cgpath##*/}"
+    case "$leaf" in
+      garden-issue-inbox*.service) ;;
+      *) return 0 ;;
+    esac
+    procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
+    [ -r "$procs" ] || return 0
+  fi
   local keep=" $$ " p ppid
   p="$$"
   while [ -n "$p" ] && [ "$p" != "0" ]; do
@@ -560,11 +592,26 @@ reap_cgroup_stragglers() {
     [ "$ppid" = "1" ] && break
     p="$ppid"
   done
-  while read -r pid; do
-    [ -n "$pid" ] || continue
-    case "$keep" in *" $pid "*) continue ;; esac
-    kill -KILL "$pid" 2>/dev/null || true
-  done < "$procs"
+  local deadline_secs="${GARDEN_ISSUE_CGROUP_REAP_DEADLINE_SECS:-3}"
+  local now start pid remaining
+  start="$(date +%s 2>/dev/null || echo 0)"
+  while :; do
+    remaining=0
+    while read -r pid; do
+      [ -n "$pid" ] || continue
+      case "$keep" in *" $pid "*) continue ;; esac
+      _straggler_alive "$pid" || continue      # already torn down → left the cgroup
+      kill -KILL "$pid" 2>/dev/null || true
+      remaining=$((remaining + 1))
+    done < "$procs"
+    [ "$remaining" -eq 0 ] && return 0         # cgroup empty of live descendants → done
+    now="$(date +%s 2>/dev/null || echo 0)"
+    if [ $(( now - start )) -ge "$deadline_secs" ]; then
+      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; next start may migrate them"
+      return 0
+    fi
+    sleep 0.1 2>/dev/null || sleep 1           # let the kernel tear down the SIGKILLed pids
+  done
 }
 cleanup() {
   rm -f "$SRC" "$ERRF" 2>/dev/null || true
