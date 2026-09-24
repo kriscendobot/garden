@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T21:09:22Z_
+_As of 2026-09-24T21:14:03Z_
 
 ## Latest
 
@@ -142,16 +142,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-24T20:47:45Z, latest 2026-09-24T21:07:49Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-24T20:47:45Z, latest 2026-09-24T21:12:52Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4095857951 (age=17299s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098147753 (age=2393s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098151278 (age=2368s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098182428 (age=2153s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098195295 (age=2057s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4095857951 (age=17599s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098147753 (age=2693s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098151278 (age=2668s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098182428 (age=2453s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1336](https://github.com/endojs/endo-but-for-bots/pull/1336)#discussion_r4098195295 (age=2357s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -729,11 +729,10 @@ _Fleet token-unlock pace: 41571986 tokens/day lower bound; incomplete where a su
 worst fetch p95 7.550349s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`build-export-index-build-vs-buy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-export-index-build-vs-buy.md) — Build: export-name index + build-vs-buy check (garden self-improvement)
 
-### doin (2)
-- [`build-export-index-build-vs-buy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-export-index-build-vs-buy.md) — Build: export-name index + build-vs-buy check (garden self-improvement)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1336-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1336
 
 ### tada (8864)
