@@ -55,6 +55,16 @@ Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # See issue kriskowal/garden#11 (Multibot) and designs/multibot-leader-follower.md.
 ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-comment-watcher@%i -- @GARDEN_ROOT@/scripts/jobs/comment-watcher.sh %i
+# Drain backstop (the third recurrence, 2026-09-24T10:57:28Z). When the main
+# process exits, cleanly or not, systemd SIGKILLs what is left in the cgroup
+# but does NOT wait for it to leave. A git in uninterruptible I/O dies only when that
+# I/O returns, and OnUnitActiveSec=90s (anchored to the previous ACTIVATION) starts
+# the next instance at once after a tick that ran ~90s or longer, so it found
+# those not-yet-dead pids. ExecStopPost runs after that sweep in this cgroup and
+# holds the unit in "deactivating" until cgroup.procs is empty (bounded 15s < the
+# 20s TimeoutStopSec), logging each straggler's state/wchan/cmdline so the next
+# leak names its culprit. `-`: a drain problem never fails the unit.
+ExecStopPost=-/bin/bash @GARDEN_ROOT@/scripts/jobs/cgroup-drain.sh %n
 # The self-heal responder runs synchronously on a failed tick before the
 # wrapper returns the failing rc; give it headroom beyond the implicit 90s
 # oneshot start timeout so a diagnosis is not cut off (responder itself is

@@ -529,9 +529,9 @@ last_seen="$(printf '%s\n' "$cursor_out" | sed -n 's/^last_seen:[[:space:]]*//p'
 # DIFFERENT process group is caught by the EXIT-path cgroup-wide sweep below.
 SRC="$(mktemp)"; ERRF="$(mktemp)"
 SOURCE_TIMEOUT_PID=""
-# Final cgroup-wide straggler sweep — the EXIT-path complement to the unit's
-# stop-time SIGKILL backstop, which only fires on a systemd *stop*, not on a clean
-# tick completion. Fells every pid left in this process's OWN systemd service cgroup
+# Final cgroup-wide straggler sweep — systemd SIGKILLs what is left when the main
+# process exits but does not wait for it to leave the cgroup (the unit's ExecStopPost
+# drain, scripts/jobs/cgroup-drain.sh, is what waits). Fells every pid left in this process's OWN systemd service cgroup
 # except $$ and its ancestors, so even a NORMAL successful tick leaves an empty
 # cgroup and the next start finds no leftover git. Safety: a strict no-op unless we
 # are genuinely inside our own service cgroup — (a) no-ops when /proc/self/cgroup is
@@ -593,16 +593,18 @@ reap_cgroup_stragglers() {
     p="$ppid"
   done
   local deadline_secs="${GARDEN_ISSUE_CGROUP_REAP_DEADLINE_SECS:-3}"
-  local now start pid remaining zero_reads=0
+  local now start pid remaining zero_reads=0 survivors
   start="$(date +%s 2>/dev/null || echo 0)"
   while :; do
     remaining=0
+    survivors=""
     while read -r pid; do
       [ -n "$pid" ] || continue
       case "$keep" in *" $pid "*) continue ;; esac
       _straggler_alive "$pid" || continue      # already torn down → left the cgroup
       kill -KILL "$pid" 2>/dev/null || true
       remaining=$((remaining + 1))
+      survivors="$survivors $pid"
     done < "$procs"
     # One zero-read is not proof the cgroup is DURABLY empty: a gh-forked helper can
     # fork in the gap after it (the 2026-09-24 test262 leak). Return only on TWO
@@ -616,7 +618,10 @@ reap_cgroup_stragglers() {
     now="$(date +%s 2>/dev/null || echo 0)"
     if [ $(( now - start )) -ge "$deadline_secs" ]; then
       [ "$remaining" -eq 0 ] && return 0     # deadline hit mid-confirmation: nothing held
-      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; next start may migrate them"
+      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; the unit's ExecStopPost drain keeps waiting for them"
+      # shellcheck disable=SC2086  # word-split the pid list on purpose
+      bash "$HERE/cgroup-drain.sh" --describe $survivors 2>/dev/null \
+        | while IFS= read -r d; do log "WARN:   straggler $d"; done
       return 0
     fi
     sleep 0.1 2>/dev/null || sleep 1           # let the kernel tear down the SIGKILLed pids

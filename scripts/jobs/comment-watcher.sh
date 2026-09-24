@@ -1420,18 +1420,18 @@ ack_or_log_slide() {  # ack_or_log_slide <reason> <surface> <cid> <author> <url>
 # PGID send nor timeout's group-KILL can reach it) is caught by the EXIT-path
 # cgroup-wide straggler sweep (reap_cgroup_stragglers, below), which fells every pid
 # left in this process's own service cgroup except $$ and its ancestors — on EVERY
-# exit path, including a NORMAL successful tick. That closes the gap the unit's
-# stop-time cgroup-wide SIGKILL backstop misses (the backstop only fires on a
-# systemd *stop*, not on clean completion), so the next start finds an empty cgroup.
+# exit path, including a NORMAL successful tick. systemd also SIGKILLs whatever is
+# left when the main process exits, but it does not wait for those pids to leave the
+# cgroup; the unit's ExecStopPost drain (scripts/jobs/cgroup-drain.sh) is what waits.
 SRC="$(mktemp)"; ERRF="$(mktemp)"
 SOURCE_TIMEOUT_PID=""
-# Final cgroup-wide straggler sweep — the EXIT-path complement to the stop-time
-# backstop. The negated-PGID reap below only reaches the source's OWN process group
-# (timeout's PGID). A `gh --paginate`-forked git credential helper that `setpgid`'d
-# itself into a DIFFERENT group escapes that send AND survives a NORMAL (successful)
-# tick exit, because the unit's cgroup-wide SIGKILL only fires on a systemd *stop*,
-# not on clean completion — so it lingers into the next start and is flagged
-# "Found left-over process (git) in control group while starting unit". This sweep
+# Final cgroup-wide straggler sweep. The negated-PGID reap below only reaches the
+# source's OWN process group (timeout's PGID). A `gh --paginate`-forked git
+# credential helper that `setpgid`'d itself into a DIFFERENT group escapes that send.
+# systemd SIGKILLs it once the main process exits but does not wait for it to go, so
+# a straggler still dying (or stuck in uninterruptible I/O) can linger into the next
+# start and be flagged "Found left-over process (git) in control group while
+# starting unit". This sweep
 # runs on EVERY exit path (it is invoked unconditionally at the tail of cleanup,
 # which is the EXIT trap), so the watcher leaves an EMPTY cgroup on normal exit too,
 # eliminating the leftover-git warning at the source instead of relying on the next
@@ -1519,16 +1519,18 @@ reap_cgroup_stragglers() {
   # cannot be felled (kernel D-state) can never wedge the exit: the deadline caps the
   # loop and we return best-effort with a warning.
   local deadline_secs="${GARDEN_COMMENT_CGROUP_REAP_DEADLINE_SECS:-3}"
-  local now start pid remaining zero_reads=0
+  local now start pid remaining zero_reads=0 survivors
   start="$(date +%s 2>/dev/null || echo 0)"
   while :; do
     remaining=0
+    survivors=""
     while read -r pid; do
       [ -n "$pid" ] || continue
       case "$keep" in *" $pid "*) continue ;; esac
       _straggler_alive "$pid" || continue      # already torn down → left the cgroup
       kill -KILL "$pid" 2>/dev/null || true
       remaining=$((remaining + 1))
+      survivors="$survivors $pid"
     done < "$procs"
     # One zero-read is not proof the cgroup is DURABLY empty: a gh-forked helper can
     # fork in the gap after it (the 2026-09-24 test262 leak). Return only on TWO
@@ -1542,7 +1544,12 @@ reap_cgroup_stragglers() {
     now="$(date +%s 2>/dev/null || echo 0)"
     if [ $(( now - start )) -ge "$deadline_secs" ]; then
       [ "$remaining" -eq 0 ] && return 0     # deadline hit mid-confirmation: nothing held
-      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; next start may migrate them"
+      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; the unit's ExecStopPost drain keeps waiting for them"
+      # Name each survivor (state D = uninterruptible I/O, wchan, cmdline) so the
+      # leak is diagnosable instead of systemd's bare "(git)".
+      # shellcheck disable=SC2086  # word-split the pid list on purpose
+      bash "$HERE/cgroup-drain.sh" --describe $survivors 2>/dev/null \
+        | while IFS= read -r d; do log "WARN:   straggler $d"; done
       return 0
     fi
     sleep 0.1 2>/dev/null || sleep 1           # let the kernel tear down the SIGKILLed pids

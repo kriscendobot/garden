@@ -270,16 +270,18 @@ reap_cgroup_stragglers() {
     p="$ppid"
   done
   local deadline_secs="${GARDEN_DEPENDABOT_CGROUP_REAP_DEADLINE_SECS:-3}"
-  local now start pid remaining zero_reads=0
+  local now start pid remaining zero_reads=0 survivors
   start="$(date +%s 2>/dev/null || echo 0)"
   while :; do
     remaining=0
+    survivors=""
     while read -r pid; do
       [ -n "$pid" ] || continue
       case "$keep" in *" $pid "*) continue ;; esac
       _straggler_alive "$pid" || continue
       kill -KILL "$pid" 2>/dev/null || true
       remaining=$((remaining + 1))
+      survivors="$survivors $pid"
     done < "$procs"
     # One zero-read is not proof the cgroup is DURABLY empty: a gh-forked helper can
     # fork in the gap after it (the 2026-09-24 test262 leak). Return only on TWO
@@ -293,7 +295,10 @@ reap_cgroup_stragglers() {
     now="$(date +%s 2>/dev/null || echo 0)"
     if [ $(( now - start )) -ge "$deadline_secs" ]; then
       [ "$remaining" -eq 0 ] && return 0     # deadline hit mid-confirmation: nothing held
-      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; next start may migrate them"
+      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; the unit's ExecStopPost drain keeps waiting for them"
+      # shellcheck disable=SC2086  # word-split the pid list on purpose
+      bash "$HERE/cgroup-drain.sh" --describe $survivors 2>/dev/null \
+        | while IFS= read -r d; do log "WARN:   straggler $d"; done
       return 0
     fi
     sleep 0.1 2>/dev/null || sleep 1

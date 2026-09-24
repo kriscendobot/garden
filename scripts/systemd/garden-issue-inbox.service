@@ -49,6 +49,11 @@ Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # double-reply a maintainer). See issue kriskowal/garden#11 (Multibot).
 ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-issue-inbox -- @GARDEN_ROOT@/scripts/jobs/issue-inbox-watcher.sh
+# Hold the unit until its cgroup is really empty: systemd's post-exit SIGKILL sweep
+# does not wait for the killed pids to leave, so a git still dying from it would be a
+# "left-over process" to the next start. See garden-comment-watcher@.service and
+# scripts/jobs/cgroup-drain.sh. `-`: a drain problem never fails the unit.
+ExecStopPost=-/bin/bash @GARDEN_ROOT@/scripts/jobs/cgroup-drain.sh %n
 # The self-heal responder runs synchronously on a failed tick before the wrapper
 # returns the failing rc; give it headroom beyond the implicit 90s oneshot start
 # timeout so a diagnosis is not cut off (responder itself is hard-bounded by
