@@ -96,6 +96,43 @@ comment_body_guard_argv api "repos/o/r/issues/9/reactions" -f "content=+1" 2>/de
 GARDEN_ALLOW_BACKTICK_STRIP=1 comment_body_guard_argv pr comment 5 --body "$BAD_475" 2>/dev/null \
   && bad "override failed to bypass" || ok "override bypasses block"
 
+hr; echo "bare-ref guard: bare #N next to another repo (kriscendobot/garden #113)"
+# The actual body from kriscendobot/garden#112 (comment 5817967112), trimmed.
+BARE_112=$'@dckc Done: Oros-AI/oros-ckm-data-readiness#3 (draft).\n\nIt has the **same diff as Oros-AI/oros-ckm-data-readiness#2**.\n\nBecause you asked for it "otherwise just like #2", I did **not** apply your review feedback from #2.'
+out="$(comment_body_bare_cross_repo_refs "$BARE_112" kriscendobot/garden)" \
+  && ok "#112 body detected" || bad "#112 body NOT detected"
+[ "${out%%	*}" = "#2" ] && ok "only the bare #2 reported (repo#N tokens are not bare)" || bad "bare refs reported wrong: $out"
+case "$out" in *oros-ai/oros-ckm-data-readiness*) ok "foreign repo named" ;; *) bad "foreign repo missing: $out" ;; esac
+BARE_OK=(
+  'Fixed in #12; see also #13.'                                                        # own repo only
+  'Mirrors [endojs/endo#3226](https://github.com/endojs/endo/pull/3226).'              # no bare ref
+  'Same as endojs/endo#3226, and `#12` is quoted.'                                    # bare ref in code span
+  $'See endojs/endo#5.\n\n```\nlog: #12 failed\n```'                                 # bare ref in fenced code
+  'See https://github.com/endojs/endo/pull/5#issuecomment-1 and [#7](https://github.com/endojs/endo/issues/7).'
+  'Now on kriskowal/garden#40, which is this repo (#41 too).'                         # alias of target
+  'Color &#35; and https://github.com/orgs/endojs/people, plus #9.'                   # orgs URL is not a repo
+)
+i=0
+for L in "${BARE_OK[@]}"; do
+  i=$((i+1))
+  if comment_body_bare_cross_repo_refs "$L" kriscendobot/garden >/dev/null; then bad "bare-ok #$i falsely flagged: $L"
+  else ok "bare-ok #$i clean"; fi
+done
+comment_bare_ref_guard_argv issue comment https://github.com/kriscendobot/garden/issues/112 --body "$BARE_112" 2>/dev/null \
+  && ok "issue comment <url> blocked" || bad "issue comment <url> NOT blocked"
+comment_bare_ref_guard_argv pr comment 5 -R kriscendobot/garden --body "$BARE_112" 2>/dev/null \
+  && ok "pr comment -R blocked" || bad "pr comment -R NOT blocked"
+comment_bare_ref_guard_argv api repos/kriscendobot/garden/issues/112/comments -f "body=$BARE_112" 2>/dev/null \
+  && ok "api comment endpoint blocked" || bad "api comment endpoint NOT blocked"
+comment_bare_ref_guard_argv api repos/Oros-AI/oros-ckm-data-readiness/issues/3/comments -f "body=$BARE_112" 2>/dev/null \
+  && bad "posted on the named repo, wrongly blocked" || ok "bare #N on the repo it names passes"
+comment_bare_ref_guard_argv issue comment 112 --body "$BARE_112" 2>/dev/null \
+  && bad "unknown target wrongly blocked" || ok "unknown target repo fails open"
+GARDEN_ALLOW_BARE_ISSUE_REF=1 comment_bare_ref_guard_argv issue comment 112 -R kriscendobot/garden --body "$BARE_112" 2>/dev/null \
+  && bad "override failed to bypass" || ok "GARDEN_ALLOW_BARE_ISSUE_REF bypasses"
+GARDEN_NO_LLM=1 comment_bare_ref_guard_argv issue comment 112 -R kriscendobot/garden --body "$BARE_112" 2>/dev/null \
+  && bad "GARDEN_NO_LLM template blocked" || ok "GARDEN_NO_LLM template passes"
+
 hr; echo "wrapper e2e: bin/gh must refuse a corrupt comment (real gh NEVER runs)"
 TMPBASE="${GARDEN_TEST_TMP:-$HOME}"
 TR="$(mktemp -d "$TMPBASE/.cbg-test.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
@@ -129,6 +166,15 @@ if grep -qa 'replies' "$GHLOG"; then bad "real gh received the corrupt POST"; el
 : > "$GHLOG"
 gh api repos/o/r/pulls/comments/123/replies -X POST -f 'body=Clean `fix`.' >/dev/null 2>&1 || true
 grep -qa 'replies' "$GHLOG" && ok "clean comment reached real gh" || bad "clean comment was blocked"
+# bare #N next to another repo → refused, real gh never runs
+: > "$GHLOG"
+if gh issue comment https://github.com/kriscendobot/garden/issues/112 --body "$BARE_112" >/dev/null 2>"$TR/err"; then
+  bad "wrapper posted a bare cross-repo #N comment (exit 0)"
+else
+  grep -q 'uses bare #2' "$TR/err" && ok "wrapper refused bare cross-repo #N with remedy message" \
+    || bad "wrapper exited non-zero but without the bare-ref message"
+fi
+grep -qa 'issues/112' "$GHLOG" && bad "real gh received the bare-ref comment" || ok "real gh never ran for the bare-ref comment"
 
 hr
 echo "comment-body-guard: PASS=$PASS FAIL=$FAIL"

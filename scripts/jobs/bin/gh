@@ -240,6 +240,13 @@ if [ -r "$_cbg_lib" ]; then
      && comment_body_guard_argv "$@"; then
     exit 1
   fi
+  # Same library, second check (kriscendobot/garden #113): refuse a bare `#N` in
+  # a comment that also names another repo, since GitHub links it to the repo the
+  # comment is posted on. Fail-open when the target repo cannot be determined.
+  if declare -f comment_bare_ref_guard_argv >/dev/null 2>&1 \
+     && comment_bare_ref_guard_argv "$@"; then
+    exit 1
+  fi
 fi
 
 # --- GitHub-comment provenance footer (maintainer directive 2026-07-28) --------

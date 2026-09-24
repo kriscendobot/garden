@@ -1,6 +1,7 @@
 #!/bin/bash
 # comment-body-guard.sh — refuse a GitHub comment whose inline-code was eaten by
-# shell backtick command substitution.
+# shell backtick command substitution, or that uses a bare `#N` next to a
+# reference to another repository (see the second section, at the bottom).
 #
 # THE INCIDENT (endojs/endo-but-for-bots #475, erights review 4965245381)
 # On 2026-06-22/06-23 the fleet posted two review-thread replies in which every
@@ -115,16 +116,18 @@ _cbg_body_from_flag() {
 # `--input` JSON and `@-`/`-` stdin forms are left unguarded (parse-doubt/stdin).
 _cbg_body_from_api() {
   local -a args=("$@"); local n="${#args[@]}" i
-  local endpoint="" body="" have=0
+  local endpoint="" body="" have=0 raw=0
   i=0
   while [ "$i" -lt "$n" ]; do
     local a="${args[$i]}"
     case "$a" in
       -f|--raw-field|-F|--field)
         i=$((i+1)); [ "$i" -lt "$n" ] || return 1
-        case "${args[$i]}" in body=*) body="${args[$i]#body=}"; have=1 ;; esac ;;
+        case "${args[$i]}" in body=*) body="${args[$i]#body=}"; have=1
+          case "$a" in -f|--raw-field) raw=1 ;; *) raw=0 ;; esac ;; esac ;;
       -f=*|--raw-field=*|-F=*|--field=*)
-        local v="${a#*=}"; case "$v" in body=*) body="${v#body=}"; have=1 ;; esac ;;
+        local v="${a#*=}"; case "$v" in body=*) body="${v#body=}"; have=1
+          case "$a" in -f=*|--raw-field=*) raw=1 ;; *) raw=0 ;; esac ;; esac ;;
       -H|--header|-q|--jq|-t|--template|--input|--hostname|--cache|-X|--method)
         i=$((i+1)) ;;   # value-bearing: skip the value so it is not read as endpoint
       -*) : ;;
@@ -135,7 +138,8 @@ _cbg_body_from_api() {
   done
   _cbg_is_comment_endpoint "$endpoint" || return 1
   [ "$have" -eq 1 ] || return 1
-  case "$body" in
+  # -f/--raw-field is always literal; only -F/--field reads @file / stdin.
+  [ "$raw" -eq 1 ] || case "$body" in
     @-|-) return 1 ;;                                     # stdin: leave unguarded
     @*)   body="$(cat "${body#@}" 2>/dev/null)" || return 1 ;;
   esac
@@ -160,5 +164,136 @@ comment_body_guard_argv() {
   # shellcheck disable=SC2016  # backticks in the message are literal prose.
   printf 'gh-wrapper: ERROR kind:error REFUSING to post a comment whose inline-code spans were eaten by shell backtick command substitution (every `%s` collapsed to an empty gap — see the ", , " / "(," holes in the body). This is the endojs/endo-but-for-bots #475 corruption. Do NOT put a comment body containing backticks on a shell command line: WRITE it to a file (with the Write tool, not echo/heredoc) and post via --body-file <file> or `--field body=@<file>`. Override with GARDEN_ALLOW_BACKTICK_STRIP=1 only if this body is genuinely correct.\n' \
     'inlineCode' >&2
+  return 0
+}
+
+# ---------------------------------------------------------------------------
+# BARE `#N` IN A CROSS-REPO COMMENT (kriscendobot/garden #113)
+#
+# GitHub autolinks a bare `#N` to issue/PR N of the repo the comment is POSTED
+# on, whatever the author meant. On 2026-09-24 the fleet replied on
+# https://github.com/kriscendobot/garden/issues/112 about PRs in
+# Oros-AI/oros-ckm-data-readiness and wrote "just like #2", which linked to
+# https://github.com/kriscendobot/garden/issues/2. dckc flagged it "yet again":
+# skills/fully-qualified-github-urls/SKILL.md already forbids the shorthand, and
+# the rule kept being forgotten. So it is enforced here, the same way as the
+# backtick-strip guard above.
+#
+# Signature (high precision): the body names at least one repository OTHER than
+# the one it is posted on (an `owner/repo#N` token or a github.com/owner/repo
+# URL), AND it contains a bare `#N` outside code, links, URLs, and HTML comments.
+# That is exactly the case where a bare `#N` is ambiguous to the reader and
+# probably wrong. A comment that only talks about its own repo is never blocked.
+# Measured on 2446 recent fleet comments (endo-but-for-bots, garden, minion.town,
+# agoric-sdk fork): 158 match. Most are real mislinks (garden comments citing
+# endo-but-for-bots PRs as bare numbers). Some bare numbers did mean the posting
+# repo, but in a comment that names two repos the reader cannot tell, so the
+# skill already asks for the qualified form there too, and the guard enforces it.
+# The refusal goes to the agent, which reposts, so it covers LLM-authored posts
+# only: a GARDEN_NO_LLM (deterministic template) caller passes through.
+# The target repo comes from -R/--repo, a github.com issue/PR URL argument, the
+# `gh api repos/<o>/<r>/…` endpoint, or GH_REPO; if none resolves, or perl is
+# missing, the guard fails open. Override: GARDEN_ALLOW_BARE_ISSUE_REF=1.
+
+# Repos that are the same repo under another name (transfers; GitHub redirects).
+: "${CBG_REPO_ALIASES:=kriskowal/garden=kriscendobot/garden}"
+
+# _cbg_canon_repo <owner/repo> — lowercased, `.git`-stripped, alias-resolved.
+_cbg_canon_repo() {
+  local r="${1,,}" pair
+  r="${r%.git}"
+  for pair in $CBG_REPO_ALIASES; do
+    [ "$r" = "${pair%%=*}" ] && r="${pair#*=}"
+  done
+  printf '%s' "$r"
+}
+
+# _cbg_target_repo <argv...> — the owner/repo a comment argv posts to. Echoes it
+# and returns rc 0, or rc 1 when it cannot be determined.
+_cbg_target_repo() {
+  local -a args=("$@"); local n="${#args[@]}" i a repo=""
+  i=0
+  while [ "$i" -lt "$n" ]; do
+    a="${args[$i]}"
+    case "$a" in
+      -R|--repo) i=$((i+1)); [ "$i" -lt "$n" ] && repo="${args[$i]}" ;;
+      --repo=*)  repo="${a#--repo=}" ;;
+      -R=*)      repo="${a#-R=}" ;;
+      https://github.com/*/*/issues/*|https://github.com/*/*/pull/*)
+                 [ -z "$repo" ] && { repo="${a#https://github.com/}"; repo="${repo%%/issues/*}"; repo="${repo%%/pull/*}"; } ;;
+      repos/*/*/*|/repos/*/*/*)
+                 [ -z "$repo" ] && { repo="${a#/}"; repo="${repo#repos/}"; repo="${repo%%/*}/$(printf '%s' "$repo" | cut -d/ -f2)"; } ;;
+    esac
+    i=$((i+1))
+  done
+  [ -n "$repo" ] || repo="${GH_REPO:-}"
+  repo="${repo#https://github.com/}"; repo="${repo#github.com/}"
+  case "$repo" in */*) ;; *) return 1 ;; esac
+  case "$repo" in */*/*) return 1 ;; esac
+  printf '%s' "$repo"
+}
+
+# comment_body_bare_cross_repo_refs <body> <target-repo> — rc 0 (TRUE, block)
+# when the body names a foreign repo and also has a bare `#N`. On a hit, prints
+# "<bare refs><TAB><foreign repos>" to stdout. rc 1 otherwise (and on any doubt).
+comment_body_bare_cross_repo_refs() {
+  local body="${1-}" target
+  target="$(_cbg_canon_repo "${2-}")"
+  [ -n "$target" ] || return 1
+  command -v perl >/dev/null 2>&1 || return 1
+  local aliases="$CBG_REPO_ALIASES"
+  printf '%s' "$body" | CBG_TARGET="$target" CBG_ALIASES="$aliases" perl -e '
+    local $/; my $b = <STDIN>; $b = "" unless defined $b;
+    my $t = $ENV{CBG_TARGET};
+    my %alias = map { split /=/, $_, 2 } split " ", ($ENV{CBG_ALIASES} // "");
+    sub canon { my $r = lc shift; $r =~ s/\.git$//; $r =~ s/[.]+$//; $alias{$r} // $r }
+    # The provenance footer links the garden commit; it is not the author'"'"'s text.
+    $b =~ s/^.*garden-provenance.*$//mg;
+    my %skip = map { $_ => 1 } qw(orgs users settings apps marketplace sponsors
+      user-attachments notifications topics features enterprise login search
+      pulls issues explore about pricing security site collections);
+    my %foreign;
+    while ($b =~ m{(?<![\w.-])github\.com/([A-Za-z0-9-]+)/([A-Za-z0-9._-]+)}g) {
+      next if $skip{lc $1};
+      my $r = canon("$1/$2"); $foreign{$r} = 1 unless $r eq $t;
+    }
+    while ($b =~ m{(?<![\w/.-])([A-Za-z0-9-]+/[A-Za-z0-9._-]+)#\d+}g) {
+      my $r = canon($1); $foreign{$r} = 1 unless $r eq $t;
+    }
+    exit 1 unless %foreign;
+    # Remove everything GitHub does not autolink a bare #N inside.
+    $b =~ s/^[ \t]*(```+|~~~+).*?^[ \t]*\1[^\n]*$//msg;   # fenced code
+    $b =~ s/(`+).*?\1//sg;                                 # inline code
+    $b =~ s/<!--.*?-->//sg;                                # HTML comments
+    $b =~ s/<(code|pre|a)\b.*?<\/\1>//sig;                 # HTML code / links
+    $b =~ s/\[[^\]]*\]\([^)]*\)//g;                        # markdown links
+    $b =~ s{https?://\S+}{}g;                              # bare URLs
+    my @bare = $b =~ /(?<![\w\/&#.-])(#\d+)\b/g;
+    exit 1 unless @bare;
+    my %seen; @bare = grep { !$seen{$_}++ } @bare;
+    print join(" ", @bare), "\t", join(" ", sort keys %foreign);
+    exit 0;
+  '
+}
+
+# comment_bare_ref_guard_argv <argv...> — the wrapper hook. rc 0 = BLOCK (print a
+# remedy-naming message to stderr); rc 1 = passthrough. Never mutates argv.
+comment_bare_ref_guard_argv() {
+  [ "${GARDEN_ALLOW_BARE_ISSUE_REF:-0}" = 1 ] && return 1
+  # A deterministic template (GARDEN_NO_LLM, comment-provenance.sh § AUTOMATIC)
+  # cannot read the refusal and repost; fix its text in code instead.
+  case "${GARDEN_NO_LLM:-}" in 1|true|TRUE|yes|YES|on|ON) return 1 ;; esac
+  local cmd="${1:-}" sub="${2:-}" body="" target hit
+  case "$cmd" in
+    pr)    case "$sub" in comment|review) body="$(_cbg_body_from_flag "$@")" || return 1 ;; *) return 1 ;; esac ;;
+    issue) case "$sub" in comment)        body="$(_cbg_body_from_flag "$@")" || return 1 ;; *) return 1 ;; esac ;;
+    api)   body="$(_cbg_body_from_api "$@")" || return 1 ;;
+    *)     return 1 ;;
+  esac
+  target="$(_cbg_target_repo "$@")" || return 1
+  hit="$(comment_body_bare_cross_repo_refs "$body" "$target")" || return 1
+  # shellcheck disable=SC2016  # backticks in the message are literal prose.
+  printf 'gh-wrapper: ERROR kind:error REFUSING to post a comment on %s that uses bare %s while also naming another repository (%s). GitHub links a bare #N to issue/PR N of %s, so the reader gets the wrong target (kriscendobot/garden #113). Write each reference as owner/repo#N or a full https://github.com/owner/repo/issues/N URL (skills/fully-qualified-github-urls/SKILL.md). To mention a number without a link, put it in backticks (`#N`). Override with GARDEN_ALLOW_BARE_ISSUE_REF=1 only if every bare #N really means %s.\n' \
+    "$target" "${hit%%	*}" "${hit#*	}" "$target" "$target" >&2
   return 0
 }

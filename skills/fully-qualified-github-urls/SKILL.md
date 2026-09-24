@@ -1,6 +1,6 @@
 ---
 created: 2026-07-20
-updated: 2026-07-20
+updated: 2026-09-24
 author: gardener
 ---
 
@@ -40,6 +40,10 @@ Before posting any GitHub-rendered text, scan it for:
 
 Keep the human-readable identifier as the link text where it aids reading (`` [`owner/repo`](https://github.com/owner/repo) ``); a plain `https://` URL is also fine. Do not double-wrap a reference that is already a link.
 
+## Enforcement: bare `#N` in a cross-repo comment is refused
+
+The fleet `gh` wrapper (`scripts/jobs/bin/gh`, via `scripts/jobs/comment-body-guard.sh`) refuses to post a comment that names a repository other than the one it is posted on (an `owner/repo#N` token or a `github.com/owner/repo` URL) and also contains a bare `#N` outside code and links. GitHub would link that `#N` to the posting repo, which is often not what was meant. When it refuses, rewrite every bare `#N` as `owner/repo#N` or a full URL (or backtick it, per the next section) and post again. Do not reach for the `GARDEN_ALLOW_BARE_ISSUE_REF=1` override unless every bare `#N` really means the posting repo. Comments that mention only their own repo are not checked. Deterministic templates (`GARDEN_NO_LLM=1`) are exempt and must get the rule right in code.
+
 ## Referring without linking (suppressing an autolink)
 
 The rule above governs a reference you want a reader to *follow*. The dual case is a reference you want to *mention* without a live link — most often when you have **already** fully-qualified the target once in the same text and just want to hark back to that number without re-hyperlinking it (and, for a cross-repo number, without GitHub silently re-linking a bare `#N` to the wrong repo). Two reliable ways to suppress GitHub's autolinking of `#N`:
@@ -54,3 +58,4 @@ A backslash (`` \#96 ``) does **not** work. Prefer the backtick form: it also vi
 - Maintainer directive, 2026-07-20 (kriskowal, on garden issue [#57](https://github.com/kriskowal/garden/issues/57#issuecomment-5026079913)): "Please revise all references above to fully qualified URLs. Please take this advice generally when communicating through Github."
 - This applies fleet-wide to every role that authors GitHub-rendered text (`fixer`, `builder`, `weaver`, `shepherd`, `conductor`, `designer`, `triager`, `gardener`, and the like). It is indexed alongside the other standing-style skills in `roles/COMMON.md` § House style.
 - The *Referring without linking* section is collaborator guidance from dckc, 2026-09-17 (garden issue [#89](https://github.com/kriskowal/garden/issues/89#issuecomment-5717076414)): a back-reference to a number already fully-linked earlier in the same comment can be un-linked with a space (`# 96`) or backticks (`` `#96` ``) rather than forced into a second explicit per-number link.
+- The enforcement section answers dckc on garden issue [#113](https://github.com/kriscendobot/garden/issues/113) (2026-09-24): a reply on [kriscendobot/garden#112](https://github.com/kriscendobot/garden/issues/112#issuecomment-5817967112) wrote `#2` for [Oros-AI/oros-ckm-data-readiness#2](https://github.com/Oros-AI/oros-ckm-data-readiness/pull/2), and GitHub linked it to [kriscendobot/garden#2](https://github.com/kriscendobot/garden/issues/2). The skill alone had not stopped this, so the wrapper now checks it.
