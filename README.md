@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T03:01:23Z_
+_As of 2026-09-24T03:03:40Z_
 
 ## Latest
 
@@ -797,8 +797,8 @@ worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1100
 
 ### tada (8808)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots#1100
