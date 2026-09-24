@@ -1,0 +1,2 @@
+base: improve-container-hardening-gh-timeout
+identity: mentor:scripts/check-container-hardening.sh
