@@ -1,2 +1,2 @@
-base: improve-meter-journal-host-tokens-diagnostics
+base: improve-remote-snapshot-failure-reason
 identity: mentor:scripts/jobs/usage-meter.sh
