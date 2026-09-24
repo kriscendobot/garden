@@ -87,7 +87,7 @@ bounded_gh() {
 maintainer_logins() {
   {
     if [ -n "${GARDEN_MAINTAINER_LOGIN:-}" ]; then
-      printf '%s\n' "$GARDEN_MAINTAINER_LOGIN" | tr ', \t' '\n\n\n'
+      printf '%s\n' "$GARDEN_MAINTAINER_LOGIN" | tr ', \t' '\n'
     else
       local allow="${GARDEN_MAINTAINERS_ALLOWLIST:-}" src
       if [ -z "$allow" ]; then
