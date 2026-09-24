@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-24T07:12:07Z_
+_As of 2026-09-24T08:36:49Z_
 
 ## Latest
 
-Federation release gate is BLOCKED: [endo-minion-town-federation-release-gate](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) awaits maintainer answers on deployment authority for [endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332), plus reviews and merges of [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), a gateway session-binding fix, [endo-but-for-bots#1333](https://github.com/endojs/endo-but-for-bots/pull/1333), and [minion.town#117](https://github.com/kriscendobot/minion.town/pull/117) before deployment can proceed. Guest invite/accept fallback fix for [minion.town#81](https://github.com/kriscendobot/minion.town/issues/81) is similarly held awaiting the refreshed Endo daemon pin on `main`. Infrastructure work accumulated: worktree sweeper is leader-gated on followers (100+ stale dirs on endolin-garden2), budget-level cap-freeze affects fleet leveling, CI watcher quota cooldown is too short (repeats every 5min during outages), and a privileged container from pre-hardening is still running. Container check blocks rolling deploy; self-heal marked it for recreation. Journal worktree briefly stale; recovered. Claude quota 56%, Codex 85%.
+Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336](https://github.com/endojs/endo-but-for-bots/pull/1336) shepherd, and a self-heal fix. The maintainer inbox surfaces critical waits: federation-release is gated on authority decisions for [endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332), minion.town's guest-invite fix is blocked on an endo daemon pin landing to main, and several infrastructure improvements (worktree sweeper un-gating, budget-level cap isolation, CI watcher cooldown hardening) remain parked after handler retries.
 
 ## Parked for maintainer feedback
 
@@ -355,6 +355,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > SCOPE for this job — it's cosmetic cleanup the design says can wait "at
 > leisure." Flag it as a natural follow-up in your report; do not do it here.
 
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify.md)
+
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` has CLEARED (first seen 2026-09-24T08:06:50Z, cleared 2026-09-24T08:11:31Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` cleared on endolin-garden-ece02cb4.
+
 - `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -520,6 +528,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > scripts/jobs/gardener.sh
 > Both elapsed-constancy early-escalation sites (the exit-0-unsatisfying branch ~line 944-977 and the rc!=0 overrun-suspect branch ~line 1465-1495) build a prose-only transcript for `report-error.sh` describing the symptom (near-constant elapsed across N cycles) but never include the actual handler output captured in `$capture` for that cycle — even though the rc!=0 branch's own gate (`[ -s "$capture" ]`) already confirms non-empty output exists at escalation time. `$capture` is an ephemeral `mktemp` file cleaned up each gardener cycle, so once the escalation fires this is the *last* moment the real stderr/stdout is available; a human or mentor triaging the resulting `elapsed-constancy-overrun-suspect`/`elapsed-constancy-exit0-wedge-suspect` inbox entry afterward has only the generic "died at a near-constant elapsed" prose and must guess the root cause blind. Concrete case: `improve-receipt-watcher-direct-dispatch` tripped exactly this overrun-suspect path twice (rc=1, elapsed=3s, both a kimi-k3 attempt and an opus fallback) with `usage_measurement` recording `source:none` (zero output captured by any usage-accounting layer) — the only path left to diagnose it is gone. Fix: append a bounded tail of `$capture` (e.g. last 40-60 lines, redacting nothing since this is the bot's own handler output) into both escalation transcripts before calling `report-error.sh`, so the inbox entry itself carries the evidence needed to triage.
 
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=86691481 cap=143000000 pace-bias=0.351077 ceiling=2 target=1
+
 - `doomed-improve-ci-watcher-primary-quota-cooldown-too-short-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-ci-watcher-primary-quota-cooldown-too-short-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -635,10 +647,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 79.8M | $725.66 _(notional, rate-card)_ | 56% of 143.0M (ok) |
+| Claude | 87.3M | $740.23 _(notional, rate-card)_ | 61% of 143.0M (ok) |
 | Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 36975743 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 36397845 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 4.302174s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
@@ -650,13 +662,13 @@ worst fetch p95 4.302174s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### doin (0)
 (none)
 
-### tada (8826)
+### tada (8829)
+- [`endojs-endo-but-for-bots-pr1336-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1336-shepherd.md) — Cost
+- [`self-heal-fix-garden-mentor-rejection-state-read-stderr-leak`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/self-heal-fix-garden-mentor-rejection-state-read-stderr-leak.md) — Cost
+- [`claude-on-minion-town-press-20260924-075004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-press-20260924-075004.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-d37833ab353a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-d37833ab353a-r1.md) — rolling-deploy canary probe — round trip OK
 - [`daily-progress-summary-20260924-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/daily-progress-summary-20260924-070505.md) — Cost
-- [`fix-hardening-probe-blocks-rolling-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/fix-hardening-probe-blocks-rolling-deploy.md) — Completion report
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b.md) — gauntlet ebfb-exo-stream-pr1100-gauntlet-20260923b — review budget reached
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-6.md) — Gauntlet fix round 6 for endojs/endo-but-for-bots#1100: fix pushed, CI green
-- … and 8821 more
+- … and 8824 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
