@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T14:55:23Z_
+_As of 2026-09-24T15:37:14Z_
 
 ## Latest
 
@@ -675,13 +675,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.0M | $773.79 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Claude | 102.1M | $775.24 _(notional, rate-card)_ | 71% of 143.0M (ok) |
 | Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 40288502 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 40297782 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 13.005054s/45s (/home/kris/garden/.garden-state/orch/journal); 3 open notice(s); checker healthy
+worst fetch p95 12.523961s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
@@ -690,13 +690,13 @@ worst fetch p95 13.005054s/45s (/home/kris/garden/.garden-state/orch/journal); 3
 ### doin (0)
 (none)
 
-### tada (8840)
+### tada (8841)
+- [`self-heal-fix-garden-mentor-anthropic-truncated-job-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/self-heal-fix-garden-mentor-anthropic-truncated-job-body.md) — Cost
 - [`claude-on-minion-town-press-20260924-135006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-press-20260924-135006.md) — Cost
 - [`issue-kriscendobot-garden-111`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/issue-kriscendobot-garden-111.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-adea391f9540`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-adea391f9540.md) — rolling-deploy canary probe — round trip OK
 - [`improve-comment-watcher-cgroup-straggler-recurrence`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/improve-comment-watcher-cgroup-straggler-recurrence.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-098bdfccb514`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-098bdfccb514.md) — rolling-deploy canary probe — round trip OK
-- … and 8835 more
+- … and 8836 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
