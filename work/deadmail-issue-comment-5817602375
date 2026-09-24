@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-09-24T16:05:50Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-deadmail-issue-comment-5817602375
-pr_number: 3
-pr_repo: Oros-AI/oros-ckm-data-readiness
-pr_url: https://github.com/Oros-AI/oros-ckm-data-readiness/pull/3
-pr_head: kriscendobot:llm-erasable-syntax-apache
