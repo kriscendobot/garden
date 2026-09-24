@@ -1,2 +1,2 @@
-base: improve-remote-snapshot-failure-reason
+base: improve-atomic-budget-live-snapshot-write
 identity: mentor:scripts/jobs/usage-meter.sh
