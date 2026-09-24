@@ -1,7 +1,7 @@
 host: endolin-garden-ece02cb4
-deployed_sha: fe18c4953480548ab2f29da2ac7c8ffa33d00911
+deployed_sha: b20b86cd5432a28e309d86bb90aa71a1730b8ecd
 roll_status: deployed
 unit_failures: 1
 unit_total: 269
 first_bad_unit: garden-container-hardening.service
-at: 2026-09-24T00:36:22Z
+at: 2026-09-24T03:02:48Z
