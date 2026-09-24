@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr1336-fix-review-5307103246
-priority: normal
-posted_by: producer
-posted_at: 2026-09-24T20:42:51Z
+role: designer
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-24T20:56:22Z cleared=none -->
 
 ---
 role: designer
