@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T03:14:49Z_
+_As of 2026-09-24T03:31:18Z_
 
 ## Latest
 
@@ -777,10 +777,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.0M | $667.47 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.2M | $671.38 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 26.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34892293 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 35084754 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 3 open notice(s); checker healthy
@@ -789,7 +789,8 @@ worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1226-review-179ff5ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1226-review-179ff5ab.md) — Review directive on endojs/endo-but-for-bots PR #1226
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1100
 
 ### tada (8809)
@@ -1082,6 +1083,7 @@ worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`kriscendobot-garden-pr109-review-0310bc76-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr109-review-0310bc76-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #109 (primary: kriscendobot-garden-pr...
 - [`kriscendobot-garden-pr108-review-2c6f2fa0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr108-review-2c6f2fa0-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #108 (primary: kriscendobot-garden-pr...
 - [`kriscendobot-garden-pr95-review-6266ce72-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr95-review-6266ce72-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #95 (primary: kriscendobot-garden-pr9...
+- [`endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1226 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
