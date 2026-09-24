@@ -14,3 +14,13 @@ Source: kriskowal, inline comment 4098097692 on https://github.com/endojs/endo-b
 - for each hit, a dispatched LOW-TIER model subagent judges build versus buy: is the local function similar enough to the exported one that the code should import it instead?
 
 Design this garden-side, landing on `main2` under `designs/`. Cover: where the index lives and how it regenerates (a deterministic script under `scripts/`, keyed per project repo and commit); how the check plugs into the panel (a `skills/panel-hints` probe, a juror seat such as `curator`, or a pre-push gate stage); the low-tier dispatch mechanics and cost bound (see `skills/model-selection`); and false-positive handling. Commit 096c055fc18 added narrow deterministic signatures (promise kit, `Far`) to `prefer-endo-primitives`. Relate them to the new check: the general mechanism should subsume the narrow catalog, not duplicate it. If the design has no open questions, post the builder job for it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-24T20:45:37Z
