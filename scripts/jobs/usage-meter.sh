@@ -559,12 +559,18 @@ meter_journal_failure_reason() {
 #   6 no live snapshot dir/file for the pool   7 snapshot older than max_age (or future-dated)
 #   8 host-coverage mismatch (seen != mapped hosts)
 #   9 field mismatch (pool/cap/window) or non-numeric spend/sampled_at
+# Every number reaching $((...)) or [ -le ] is first matched against a canonical
+# decimal of at most 18 digits: a leading-zero value ("08") is an arithmetic
+# error and an overlong one overflows, and either would otherwise abort the
+# function with bash's un-enumerated status 1 instead of a documented code.
 meter_remote_snapshot_total() {
   local dir="$1" pool="$2" cap="$3" cutoff="$4" host file p c w s at now max_age total=0 seen=0 expected mapping
-  max_age="$GARDEN_BUDGET_SNAPSHOT_MAX_AGE"; [[ "$max_age" =~ ^[1-9][0-9]*$ ]] || max_age=1800
+  local num='^(0|[1-9][0-9]{0,17})$'
+  max_age="$GARDEN_BUDGET_SNAPSHOT_MAX_AGE"; [[ "$max_age" =~ ^[1-9][0-9]{0,17}$ ]] || max_age=1800
   now="$(meter_now)"
   if [ -d "$dir/budget/live/$pool" ]; then
     for file in "$dir/budget/live/$pool"/*; do
+      case "$file" in *.tmp.*) continue ;; esac  # a publisher's in-flight write
       [ -r "$file" ] || continue
       p="$(sed -n 's/^subscription:[[:space:]]*//p' "$file" | head -1)"
       c="$(sed -n 's/^cap:[[:space:]]*//p' "$file" | head -1)"
@@ -572,12 +578,14 @@ meter_remote_snapshot_total() {
       s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
       at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
       [ "$p" = "$pool" ] && { [ "$cap" = "-" ] || [ "$c" = "$cap" ]; } && [ "$w" = "$cutoff" ] \
-        && [[ "$s" =~ ^[0-9]+$ ]] && [[ "$at" =~ ^[0-9]+$ ]] && [[ "$now" =~ ^[0-9]+$ ]] || return 9
+        && [[ "$s" =~ $num ]] && [[ "$at" =~ $num ]] && [[ "$now" =~ $num ]] || return 9
       [ "$at" -le $((now + 60)) ] && [ $((now - at)) -le "$max_age" ] || return 7
+      [ "$total" -le $((999999999999999999 - s)) ] || return 9
       total=$((total + s)); seen=$((seen + 1))
     done
     mapping="$dir/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
     expected="$(awk -v subscription="$pool" '$0 !~ /^[[:space:]]*#/ && $1==subscription {host[$2]=1} END{for(h in host)n++;print n+0}' "$mapping" 2>/dev/null || echo 0)"
+    [[ "$expected" =~ $num ]] || return 8
     [ "$seen" -gt 0 ] || return 6
     [ "$expected" -eq 0 ] || [ "$seen" -eq "$expected" ] || return 8
     printf '%s\n' "$total"; return 0
@@ -587,8 +595,8 @@ meter_remote_snapshot_total() {
   p="$(sed -n 's/^pool:[[:space:]]*//p' "$file" | head -1)"; c="$(sed -n 's/^cap:[[:space:]]*//p' "$file" | head -1)"
   w="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" | head -1)"; s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
   at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
-  [ "$p" = "$pool" ] && [ "$c" = "$cap" ] && [ "$w" = "$cutoff" ] && [[ "$s" =~ ^[0-9]+$ ]] \
-    && [[ "$at" =~ ^[0-9]+$ ]] && [[ "$now" =~ ^[0-9]+$ ]] || return 9
+  [ "$p" = "$pool" ] && [ "$c" = "$cap" ] && [ "$w" = "$cutoff" ] && [[ "$s" =~ $num ]] \
+    && [[ "$at" =~ $num ]] && [[ "$now" =~ $num ]] || return 9
   [ $((now-at)) -le "$max_age" ] || return 7
   printf '%s\n' "$s"
 }
@@ -608,7 +616,8 @@ _budget_publish_legacy_local_pool_once() {
   [ "$(sed -n 's/^sample_bucket:[[:space:]]*//p' "$file" 2>/dev/null | head -1)" != "$bucket" ] || return 0
   status="$(meter_verdict "$spend" "$cap")"; mkdir -p "$(dirname "$file")"
   printf 'pool: %s\nhost: %s\nwindow_start_epoch: %s\nspend: %s\ncap: %s\nstatus: %s\nsampled_at_epoch: %s\nsampled_at: %s\nsample_bucket: %s\n' \
-    "$pool" "$GARDEN" "$cutoff" "$spend" "$cap" "$status" "$now" "$(date -u -d "@$now" +%FT%TZ)" "$bucket" > "$file"
+    "$pool" "$GARDEN" "$cutoff" "$spend" "$cap" "$status" "$now" "$(date -u -d "@$now" +%FT%TZ)" "$bucket" > "$file.tmp.$$"
+  mv -f "$file.tmp.$$" "$file"
   git -C "$dir" add "budget/live/$GARDEN"
   rc=0; commit_and_push "$dir" "budget-live($GARDEN) $status spend=$spend/$cap" || rc=$?
   [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]
@@ -663,7 +672,10 @@ _budget_publish_local_pool_once() {
     printf 'sampled_at: %s\n' "$(date -u -d "@$now" +%FT%TZ)"
     printf 'sample_bucket: %s\n' "$bucket"
     [ -z "${used_percent:-}" ] || printf 'used_percent: %s\n' "$used_percent"
-  } > "$file"
+  } > "$file.tmp.$$"
+  # Write-then-rename: a reader in meter_remote_snapshot_total must never see a
+  # truncated snapshot (a half-written spend line would read as a smaller number).
+  mv -f "$file.tmp.$$" "$file"
   git -C "$dir" add "budget/live/$pool/$GARDEN"
   rc=0; commit_and_push "$dir" "budget-live($GARDEN) $status spend=$spend/$cap" || rc=$?
   if [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; then

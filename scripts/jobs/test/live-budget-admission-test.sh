@@ -176,6 +176,17 @@ wsnap 500 1000 h1
 [ "$(snaprc claude-oros)" = 7 ] && ok "stale pool snapshot reads rc 7" || bad "stale snapshot rc=$(snaprc claude-oros), expected 7"
 wsnap 999 99990 h1
 [ "$(snaprc claude-oros)" = 9 ] && ok "cap-mismatched pool snapshot reads rc 9" || bad "mismatched snapshot rc=$(snaprc claude-oros), expected 9"
+# Arithmetic-hostile numerics (leading zero = octal error, 20 digits = overflow)
+# and a truncated mid-write file must map to rc 9, never bash's bare status 1.
+printf 'subscription: claude-oros\ncap: 500\nwindow_start_epoch: 9000\nspend: 08\nsampled_at_epoch: 99990\n' > "$SD/budget/live/claude-oros/h1"
+[ "$(snaprc claude-oros)" = 9 ] && ok "leading-zero spend reads rc 9, not 1" || bad "leading-zero spend rc=$(snaprc claude-oros), expected 9"
+printf 'subscription: claude-oros\ncap: 500\nwindow_start_epoch: 9000\nspend: 99999999999999999999\nsampled_at_epoch: 99990\n' > "$SD/budget/live/claude-oros/h1"
+[ "$(snaprc claude-oros)" = 9 ] && ok "overflowing spend reads rc 9, not 1" || bad "overflowing spend rc=$(snaprc claude-oros), expected 9"
+printf 'subscription: claude-oros\ncap: 500\nwindow_st' > "$SD/budget/live/claude-oros/h1"
+[ "$(snaprc claude-oros)" = 9 ] && ok "truncated snapshot reads rc 9" || bad "truncated snapshot rc=$(snaprc claude-oros), expected 9"
+wsnap 500 99990 h1; printf 'subscription: claude-oros\ncap: 500\nwindow_st' > "$SD/budget/live/claude-oros/h2.tmp.123"
+[ "$(snaprc claude-oros)" = 0 ] && ok "a publisher's in-flight tmp file is ignored" || bad "tmp file rc=$(snaprc claude-oros), expected 0"
+rm -f "$SD/budget/live/claude-oros/h2.tmp.123"
 wsnap 500 99990 h1; printf 'claude-oros\th1\tmonk\nclaude-oros\th2\tmonk\n' > "$SD/$(bash -c 'source "$1/common.sh"; echo "$GARDEN_SUBSCRIPTION_MAPPING_PATH"' _ "$JOBS")"
 [ "$(snaprc claude-oros)" = 8 ] && ok "under-covered pool snapshot reads rc 8" || bad "coverage mismatch rc=$(snaprc claude-oros), expected 8"
 sreason="$(bash -c 'source "$1/common.sh"; for c in 6 7 8 9; do meter_journal_failure_reason $c; done' _ "$JOBS" | tr '\n' '|')"
