@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T03:52:37Z_
+_As of 2026-09-24T04:03:08Z_
 
 ## Latest
 
@@ -777,7 +777,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.2M | $672.31 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 64.0M | $669.47 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 27.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 83% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 35092863 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -789,17 +789,18 @@ worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1226-review-179ff5ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1226-review-179ff5ab.md) — Review directive on endojs/endo-but-for-bots PR #1226
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1100
+- [`merge-endojs-endo-but-for-bots-pr1226-20260924`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endojs-endo-but-for-bots-pr1226-20260924.md) — Conduct endojs/endo-but-for-bots PR #1226
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1100
 
-### tada (8809)
+### tada (8811)
+- [`endojs-endo-but-for-bots-pr1226-review-aaba6e78`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1226-review-aaba6e78.md) — Cost
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-4.md) — Fix round 4 for endojs/endo-but-for-bots#1100: done, CI green
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-4.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots#1100
 - [`minion-town-guest-web-invite-accept-fallback-fix-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/minion-town-guest-web-invite-accept-fallback-fix-20260922.md) — Cost
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-3.md) — Cost
-- [`claude-on-minion-town-press-20260924-013504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-press-20260924-013504.md) — Cost
-- … and 8804 more
+- … and 8806 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1084,10 +1085,12 @@ worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`kriscendobot-garden-pr108-review-2c6f2fa0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr108-review-2c6f2fa0-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #108 (primary: kriscendobot-garden-pr...
 - [`kriscendobot-garden-pr95-review-6266ce72-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr95-review-6266ce72-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #95 (primary: kriscendobot-garden-pr9...
 - [`endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1226 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1226-review-aaba6e78-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1226-review-aaba6e78-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1226 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
+- [`build-endo-guest-stdio-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-guest-stdio-mcp.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1226` · Build the endo-guest-stdio-mcp design (endojs/endo-but-for-bots)
 - [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-gauntlet-20260901.md) — awaiting `endojs-endo-but-for-bots-pr871-weave-20260901` · Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
