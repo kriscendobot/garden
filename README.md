@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T04:16:19Z_
+_As of 2026-09-24T04:23:57Z_
 
 ## Latest
 
@@ -8,7 +8,6 @@ Garden infrastructure work completed on Opus 5.5 tier ([#108](https://github.com
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1226](https://github.com/endojs/endo-but-for-bots/pull/1226) — docs(designs): a stdio MCP server scoped to one guest's tool surface (waiting 9m)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 6d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 7d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 12d)
@@ -18,8 +17,9 @@ Garden infrastructure work completed on Opus 5.5 tier ([#108](https://github.com
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 22d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 22d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 23d)
+- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 25d)
 
-_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_foreman_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_foreman_journal.md)
@@ -785,10 +785,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.8M | $697.81 _(notional, rate-card)_ | 47% of 143.0M (ok) |
-| Codex | 27.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 84% _(plan; codex-reported)_ |
+| Claude | 66.9M | $698.83 _(notional, rate-card)_ | 47% of 143.0M (ok) |
+| Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 35084647 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34956500 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 2 open notice(s); checker healthy
@@ -798,16 +798,16 @@ worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-chec
 (none)
 
 ### doin (2)
-- [`endojs-endo-but-for-bots-pr1226-review-179ff5ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1226-review-179ff5ab.md) — Review directive on endojs/endo-but-for-bots PR #1226
-- [`merge-endojs-endo-but-for-bots-pr1226-20260924`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/merge-endojs-endo-but-for-bots-pr1226-20260924.md) — Conduct endojs/endo-but-for-bots PR #1226
+- [`build-endo-guest-stdio-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-guest-stdio-mcp.md) — Build the endo-guest-stdio-mcp design (endojs/endo-but-for-bots)
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1100
 
-### tada (8812)
+### tada (8816)
+- [`claude-on-minion-town-completion-press-20260924-042005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-completion-press-20260924-042005.md) — Cost
+- [`endojs-endo-but-for-bots-pr1226-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1226-receipt.md) — Cost
+- [`merge-endojs-endo-but-for-bots-pr1226-20260924`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/merge-endojs-endo-but-for-bots-pr1226-20260924.md) — Cost
+- [`endojs-endo-but-for-bots-pr1226-review-179ff5ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1226-review-179ff5ab.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr1226-review-aaba6e78`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1226-review-aaba6e78.md) — Cost
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-4.md) — Fix round 4 for endojs/endo-but-for-bots#1100: done, CI green
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-4.md) — Cost
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots#1100
-- … and 8807 more
+- … and 8811 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1097,7 +1097,6 @@ worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
-- [`build-endo-guest-stdio-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-guest-stdio-mcp.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1226` · Build the endo-guest-stdio-mcp design (endojs/endo-but-for-bots)
 - [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-gauntlet-20260901.md) — awaiting `endojs-endo-but-for-bots-pr871-weave-20260901` · Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
