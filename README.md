@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T16:37:50Z_
+_As of 2026-09-24T18:53:30Z_
 
 ## Latest
 
@@ -14,9 +14,9 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 21d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 22d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 22d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 23d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 22d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 22d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 23d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 26d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
@@ -67,6 +67,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Action needed: land the refreshed pin `89481580a86c7ec3ec97bbde21bc2f9b5b7ec3dd` onto `main` (fast-forward/merge the pin change from main-45e43bb, or open+gauntlet+merge a fresh PR that re-applies it). Observable to unblock: `git show origin/main:src/endo/captp-client.ts` shows PINNED_ENDO_COMMIT = 89481580….
 >
 > Successor job parked: `minion-town-guest-web-invite-accept-fallback-fix-20260922` (plan/, gate=awaiting-maintainer). Promote it once the pin is on `main`.
+
+- `watchdog-comment-watcher-dead-Oros-AI-oros-ckm-data-readiness` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-Oros-AI-oros-ckm-data-readiness.md)
+
+> RECOVERED — the watchdog condition `comment-watcher-dead-Oros-AI-oros-ckm-data-readiness` has CLEARED (first seen 2026-09-24T17:07:29Z, cleared 2026-09-24T17:32:43Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Comment acknowledgment condition cleared.
 
 - `doomed-endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919-requeue-exhausted.md)
 
@@ -465,6 +473,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `fix-finished-but-not-completed-requeue`: after the requeue fix, the headless-mode note now reaches all handlers (`cleric-codex`, `opencode`, `mystic-kimi`), but the nudge and `continue` mode remain Claude-only — those other handlers don't get them. Is that asymmetry intentional (a capability gap in the non-Claude tools) or should nudge/continue be extended to them? No garden repo/PR is implicated; this is a fleet-behavior scope decision.
 
+- `watchdog-comment-ack-blind-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-garden.md)
+
+> RECOVERED — the watchdog condition `comment-ack-blind-kriscendobot-garden` has CLEARED (first seen 2026-09-24T17:17:44Z, cleared 2026-09-24T17:33:03Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Comment acknowledgment condition cleared.
+
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
 > RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-09-24T06:31:43Z, cleared 2026-09-24T12:46:52Z).
@@ -493,8 +509,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-24T07:01:46Z, cleared 2026-09-24T07:06:28Z).
-> It was observed 1 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-24T07:01:46Z, cleared 2026-09-24T17:17:05Z).
+> It was observed 2 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
@@ -691,13 +707,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.2M | $778.58 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Claude | 102.5M | $783.09 _(notional, rate-card)_ | 72% of 143.0M (ok) |
 | Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 40112590 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 40124563 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 12.523961s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 3 open notice(s); checker healthy
+worst fetch p95 12.523961s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
@@ -706,13 +722,13 @@ worst fetch p95 12.523961s/45s (/home/kris/garden/.garden-state/design-pr-gauntl
 ### doin (0)
 (none)
 
-### tada (8846)
-- [`claude-on-minion-town-completion-press-20260924-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-completion-press-20260924-163507.md) — Cost
-- [`deadmail-issue-comment-5817602375`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/deadmail-issue-comment-5817602375.md) — Cost
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260924-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/fu-minion-town-containment-gateway-endo-sock-1-20260924-162006.md) — Cost
-- [`issue-kriscendobot-garden-112`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/issue-kriscendobot-garden-112.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-0b023dab8def`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-0b023dab8def.md) — rolling-deploy canary probe — round trip OK
-- … and 8841 more
+### tada (8853)
+- [`improve-meter-journal-host-tokens-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/improve-meter-journal-host-tokens-diagnostics.md) — Cost
+- [`canary-probe-endolin-garden2-5bcdff64-fe918d22339e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-fe918d22339e.md) — rolling-deploy canary probe — round trip OK
+- [`fix-oros-ckm-pr2-pr3-review-feedback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/fix-oros-ckm-pr2-pr3-review-feedback.md) — Cost
+- [`deadmail-issue-comment-5818804304`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/deadmail-issue-comment-5818804304.md) — Cost
+- [`improve-issue-inbox-cursor-advance-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/improve-issue-inbox-cursor-advance-retry.md) — Cost
+- … and 8848 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
