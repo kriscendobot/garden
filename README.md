@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-23T23:56:31Z_
+_As of 2026-09-24T00:01:31Z_
 
 ## Latest
 
@@ -320,10 +320,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > above is why it should not wait for one. A separate design job,
 > `design-cpu-back-pressure-job-dispatch-20260918`, owns the load/memory/IO admission
 > gate; do not duplicate that work here.
-
-- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_receipts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_receipts_journal.md)
-
-> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipts/journal: p95=87.906795s, giveups=0, steals=0 (max 3/window), wait floor=60s.
 
 - `doomed-improve-self-heal-run-handler-deadline-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-self-heal-run-handler-deadline-requeue-exhausted.md)
 
@@ -781,7 +777,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 60.6M | $625.55 _(notional, rate-card)_ | 42% of 143.0M (ok) |
+| Claude | 60.7M | $625.97 _(notional, rate-card)_ | 42% of 143.0M (ok) |
 | Codex | 26.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 34432440 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
