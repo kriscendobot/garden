@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T01:11:24Z_
+_As of 2026-09-24T01:27:46Z_
 
 ## Latest
 
@@ -777,10 +777,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.2M | $634.64 _(notional, rate-card)_ | 43% of 143.0M (ok) |
-| Codex | 26.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Claude | 61.2M | $635.29 _(notional, rate-card)_ | 43% of 143.0M (ok) |
+| Codex | 26.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 82% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34710259 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34710392 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
@@ -789,16 +789,16 @@ worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1100
+### doin (0)
+(none)
 
-### tada (8802)
+### tada (8803)
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-2.md) — Gauntlet fix round 2: endojs/endo-but-for-bots#1100
 - [`improve-comment-latency-primary-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/improve-comment-latency-primary-quota-cooldown.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2.md) — Cost
 - [`self-heal-fix-garden-comment-latency-watch-write-stats-empty-sample-glob`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/self-heal-fix-garden-comment-latency-watch-write-stats-empty-sample-glob.md) — Cost
 - [`endojs-endo-but-for-bots-pr1248-151c786d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/endojs-endo-but-for-bots-pr1248-151c786d.md) — PR #1248 review posted: object-capability discipline and formula patterns
-- [`canary-probe-endolin-garden2-5bcdff64-fe18c4953480`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-fe18c4953480.md) — rolling-deploy canary probe — round trip OK
-- … and 8797 more
+- … and 8798 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
