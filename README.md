@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T00:41:37Z_
+_As of 2026-09-24T00:44:49Z_
 
 ## Latest
 
@@ -789,8 +789,8 @@ worst fetch p95 10.092131s/45s (unknown); 5 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1100
 
 ### tada (8801)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-2.md) — Cost
