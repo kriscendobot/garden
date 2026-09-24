@@ -3,15 +3,17 @@ Description=Garden container-hardening probe (assert the unprivileged posture �
 
 [Service]
 Type=oneshot
-# A systemd stop mid-tick SIGTERMs the run (a CLEAN exit, not a failure), and exit 2
-# is the probe's SKIP (run off-container) — treat both as success so only a genuine
-# posture regression (exit 1) marks the unit Failed and shows up in the standard
-# `systemctl --user list-units garden-* --state=failed` check.
-SuccessExitStatus=2 143 130 SIGTERM SIGINT
+# A systemd stop mid-tick SIGTERMs the run (a CLEAN exit, not a failure), exit 2
+# is the probe's SKIP (run off-container), and exit 3 is PENDING RECREATE (never
+# verified hardened yet; reported via one coalesced watchdog notice). Treat all as
+# success so only a genuine posture regression (exit 1) marks the unit Failed — a
+# failed garden-* unit fails rolling-deploy canaries and drains the host.
+SuccessExitStatus=2 3 143 130 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # EVERY host (NOT leader-gated): every host runs its own container, so the posture
 # must be asserted everywhere — no ExecCondition.
-# --expect 2 so the probe's SKIP (off-container) is a CLEAN exit and never spawns a
-# self-heal responder; a genuine regression (exit 1) still does, surfacing it.
-ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-container-hardening --expect 2 -- @GARDEN_ROOT@/scripts/check-container-hardening.sh
+# --expect 2 / --expect 3 so SKIP (off-container) and PENDING RECREATE are CLEAN
+# exits that never spawn a self-heal responder; a genuine regression (exit 1) still
+# does, surfacing it.
+ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-container-hardening --expect 2 --expect 3 -- @GARDEN_ROOT@/scripts/check-container-hardening.sh
 TimeoutStartSec=120

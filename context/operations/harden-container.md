@@ -26,7 +26,12 @@ running with their old (privileged) posture until deliberately recreated. There 
   live `provision-node-lts.sh` top-up still works without sudo.
 - **Acceptance probe:** `scripts/check-container-hardening.sh` asserts the posture,
   wired into bring-up verification (`starting.md` § Verify) and a twice-daily
-  `garden-container-hardening` timer on every host.
+  `garden-container-hardening` timer on every host. Until a host's container is
+  recreated, the timer reports **PENDING RECREATE** (exit 3, a clean unit exit,
+  one coalesced watchdog notice). The first all-pass run records the per-host
+  marker `.garden-state/container-hardening/hardened-verified`. From then on any
+  failure is a **regression**: exit 1 and a failed unit. The unit is advisory for
+  rolling deploys either way, so it never fails a canary or drains a host.
 
 ## Why `SYS_ADMIN` and not zero caps
 

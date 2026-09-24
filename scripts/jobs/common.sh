@@ -1528,15 +1528,32 @@ record_deployed_sha() {
 
 # --- post-deploy fleet health publish (designs/follower-self-deploy.md) -------
 #
-# fleet_unit_health — echo "<n_failed> <n_total> <first-failed-unit-or-'-'>" for this
-# host's garden-* units. The canary-validation signal is "NONE FAILED" (a crash-loop
-# or a unit dead-after-restart), NOT "all active": most garden units are timer-driven
-# ONESHOTS that are legitimately INACTIVE between firings (reaper, orchestrate, the
-# conductor itself on a follower), so requiring "all active" would spuriously fail
-# every canary. `systemctl list-units --all` reports ACTIVE=failed for a genuinely
-# failed unit; we count exactly those. Routed through unit_ctl so a test stubs it.
+# garden_unit_is_advisory <unit> — rc 0 iff <unit> is an ADVISORY periodic posture
+# probe: its failure reports a standing host condition (e.g. a container not yet
+# recreated hardened), not a deploy regression, so it must never fail a canary or
+# drain a host. Matches the bare name or its .service/.timer form. The set is
+# GARDEN_ADVISORY_UNITS (space-separated unit basenames), defaulting to the
+# container-hardening probe. Keep it to probes; a real service stays strict.
+garden_unit_is_advisory() {
+  local u="${1%.service}" a
+  u="${u%.timer}"
+  for a in ${GARDEN_ADVISORY_UNITS-garden-container-hardening}; do
+    [ "$u" = "${a%.service}" ] && return 0
+  done
+  return 1
+}
+
+# fleet_unit_health — echo "<n_failed> <n_total> <first-failed-unit-or-'-'>
+# <n_advisory_failed>" for this host's garden-* units. The canary-validation signal is
+# "NONE FAILED" (a crash-loop or a unit dead-after-restart), NOT "all active": most
+# garden units are timer-driven ONESHOTS that are legitimately INACTIVE between
+# firings (reaper, orchestrate, the conductor itself on a follower), so requiring
+# "all active" would spuriously fail every canary. `systemctl list-units --all`
+# reports ACTIVE=failed for a genuinely failed unit; we count exactly those. A failed
+# ADVISORY unit (garden_unit_is_advisory) is counted separately in the 4th field and
+# never in n_failed/first-bad. Routed through unit_ctl so a test stubs it.
 fleet_unit_health() {
-  local total=0 failed=0 first_bad="-" line unit
+  local total=0 failed=0 advisory=0 first_bad="-" line unit
   # Parse each line by TOKEN, not by column position: `systemctl list-units` prepends
   # a status-dot column ("● " for a bad unit) that would shift a positional read and
   # hide exactly the failed unit we look for. Extract the garden-* unit token, then
@@ -1546,10 +1563,11 @@ fleet_unit_health() {
     [ -n "$unit" ] || continue
     total=$((total+1))
     if printf '%s' "$line" | grep -qw failed; then
+      if garden_unit_is_advisory "$unit"; then advisory=$((advisory+1)); continue; fi
       failed=$((failed+1)); [ "$first_bad" = "-" ] && first_bad="$unit"
     fi
   done < <(unit_ctl_bounded list-units --all 'garden-*' --no-legend 2>/dev/null || true)
-  printf '%s %s %s\n' "$failed" "$total" "$first_bad"
+  printf '%s %s %s %s\n' "$failed" "$total" "$first_bad" "$advisory"
 }
 
 # publish_fleet_health <deployed-sha> [roll-status] — write this host's deployed +
@@ -1566,10 +1584,11 @@ fleet_unit_health() {
 publish_fleet_health() {
   local sha="${1:?publish_fleet_health: sha}" status="${2:-deployed}"
   local DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
-  local health; health="$(fleet_unit_health 2>/dev/null || echo '? ? -')"
+  local health; health="$(fleet_unit_health 2>/dev/null || echo '? ? - ?')"
   local unit_failures; unit_failures="$(printf '%s' "$health" | awk '{print $1}')"
   local unit_total; unit_total="$(printf '%s' "$health" | awk '{print $2}')"
   local first_bad; first_bad="$(printf '%s' "$health" | awk '{print $3}')"
+  local advisory_failures; advisory_failures="$(printf '%s' "$health" | awk '{print $4}')"
   local am_leader=0; is_main_host 2>/dev/null && am_leader=1
   local attempt rc
   # Contain ensure_clone/sync_clone in SUBSHELLS: both can `die`/exit (an
@@ -1596,6 +1615,7 @@ publish_fleet_health() {
       printf 'unit_failures: %s\n' "$unit_failures"
       printf 'unit_total: %s\n'    "$unit_total"
       printf 'first_bad_unit: %s\n' "$first_bad"
+      printf 'advisory_failures: %s\n' "${advisory_failures:-0}"
       printf 'at: %s\n'            "$(date -u +%FT%TZ)"
     } > "$DIR/$GARDEN_FLEET_HEALTH_PATH/$GARDEN"
     git -C "$DIR" add "$GARDEN_FLEET_DEPLOYED_PATH/$GARDEN" "$GARDEN_FLEET_HEALTH_PATH/$GARDEN"

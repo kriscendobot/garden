@@ -166,8 +166,14 @@ container predates the hardening and must be **recreated** —
 [context/operations/harden-container.md](harden-container.md) has the per-host
 recreate procedure. A FAIL on the `gh`/SSH check means a human credential is
 reachable from the bot home and must be cleared (`gh auth logout --user
-kriskowal`). The `garden-container-hardening` timer re-runs this twice a day so a
-later regression surfaces in the failed-units check above.
+kriskowal`). On a host never yet verified hardened, a caps/sudo/block-device-only
+failure is reported as **PENDING RECREATE** (exit 3, one coalesced watchdog notice)
+rather than a failure; set `GARDEN_HARDENING_STRICT=1` for the strict exit-1 verdict.
+The first all-pass run records `.garden-state/container-hardening/hardened-verified`,
+after which any failure is a regression (exit 1). The `garden-container-hardening`
+timer re-runs this twice a day so a later regression surfaces in the failed-units
+check above. The unit is an **advisory** probe (`GARDEN_ADVISORY_UNITS`, `common.sh`):
+even when it fails, it never fails a rolling-deploy canary or drains a host.
 
 ## The liaison's four Monitors
 

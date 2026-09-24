@@ -183,6 +183,30 @@ if ! grep -qE 'msgs/' "$JOBS/rolling-deploy.sh" "$JOBS/self-deploy.sh"; then
 else bad "a msgs/ read leaked into the deploy decision"; fi
 
 # ============================================================================
+hr; echo "UNIT HEALTH — advisory posture probes never count as a failed unit; real ones do"; hr
+cat > "$TR/units-ctl.sh" <<'EOF'
+#!/bin/bash
+# list-units stub: one healthy oneshot, the advisory hardening probe failed, and
+# (when UNITS_REAL_FAIL=1) a real service failed.
+printf '  garden-reaper.service loaded inactive dead Garden reaper\n'
+printf '● garden-container-hardening.service loaded failed failed Garden container-hardening probe\n'
+[ "${UNITS_REAL_FAIL:-0}" = 1 ] && printf '● garden-foreman.service loaded failed failed Garden foreman\n'
+exit 0
+EOF
+chmod +x "$TR/units-ctl.sh"
+uh() { env -i PATH="$PATH" HOME="$HOME" GARDEN_TEST=1 GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state-uh" \
+  GARDEN_UNIT_CTL="$TR/units-ctl.sh" "$@" bash -c 'source "$GARDEN_ROOT/scripts/jobs/common.sh"; fleet_unit_health' 2>/dev/null; }
+got="$(uh)"
+[ "$got" = "0 2 - 1" ] && ok "a failed hardening probe alone → 0 failed, counted advisory (got: $got)" \
+  || bad "advisory probe counted as a failed unit (got: '$got', want '0 2 - 1')"
+got="$(uh UNITS_REAL_FAIL=1)"
+[ "$got" = "1 3 garden-foreman.service 1" ] && ok "a real service failure still counts and is first-bad (got: $got)" \
+  || bad "real unit failure misclassified (got: '$got', want '1 3 garden-foreman.service 1')"
+got="$(uh GARDEN_ADVISORY_UNITS=)"
+[ "$got" = "1 2 garden-container-hardening.service 0" ] && ok "GARDEN_ADVISORY_UNITS= empties the advisory set (strict everywhere)" \
+  || bad "empty advisory set not honored (got: '$got')"
+
+# ============================================================================
 hr; echo "DRAIN PROVENANCE — drain-fleet.sh --source + drain_source/drain_is_roll_induced"; hr
 DPS="$TR/drain-prov-state"; mkdir -p "$DPS"
 dp() { env -i PATH="$PATH" HOME="$HOME" GARDEN_TEST=1 GARDEN_ROOT="$ROOT" \
@@ -275,10 +299,16 @@ if [ "$rel_f2" = "$TARGET" ] && ! grep -q deploy-invoked "$DEPLOY_LOG"; then
 else bad "tick 3 did not advance the roll to F2 (rel_f2=$rel_f2, deploy=$(cat "$DEPLOY_LOG"))"; fi
 
 # F2 deploys + probe passes. Ticks: post probe, then pass → leader self-deploys LAST.
-simulate_follower_deploy "$F2" "$TARGET"
+# F2's record carries ONE failed unit, the ADVISORY hardening probe (an unrecreated
+# container, as an older publisher reports it): that must not fail the canary.
+: > "$DRAIN_LOG"
+simulate_follower_deploy "$F2" "$TARGET" deployed "1" "garden-container-hardening.service"
 run_conductor                     # posts F2 probe
 seed_probe_tada "$F2"
 run_conductor                     # F2 passes → all canaries passed → leader self-deploys
+if [ ! -s "$DRAIN_LOG" ] && [ "$(cat "$TR/state-leader/rolling-deploy/roll/$TARGET12/$F2.status" 2>/dev/null)" = passed ]; then
+  ok "ADVISORY: F2's only failed unit is the hardening probe → canary PASSED, host NOT drained"
+else bad "advisory probe failure failed/drained the canary (drain log: $(cat "$DRAIN_LOG"); status: $(cat "$TR/state-leader/rolling-deploy/roll/$TARGET12/$F2.status" 2>/dev/null))"; fi
 if grep -q "deploy-invoked host=$LEADER" "$DEPLOY_LOG"; then
   ok "all canaries passed → leader self-deployed LAST (deploy-garden.sh invoked on the leader)"
 else bad "leader did not self-deploy after all canaries passed (deploy log: $(cat "$DEPLOY_LOG"))"; fi

@@ -256,6 +256,10 @@ validate_canary() {  # validate_canary <host> <target>
   # between firings (fleet_unit_health, common.sh).
   local uf fb; uf="$(follower_health_field "$host" unit_failures)"; fb="$(follower_health_field "$host" first_bad_unit)"
   if ! [[ "$uf" =~ ^[0-9]+$ ]]; then VAL_DETAIL="no unit-health record published"; return 1; fi
+  # An ADVISORY posture probe (garden_unit_is_advisory, common.sh) is never a deploy
+  # regression. Current publishers already exclude it from unit_failures; this also
+  # forgives a record whose ONLY failure is such a probe (an older publisher).
+  if [ "$uf" -eq 1 ] && [ -n "$fb" ] && [ "$fb" != "-" ] && garden_unit_is_advisory "$fb"; then uf=0; fb="-"; fi
   if [ "$uf" -ne 0 ]; then VAL_DETAIL="$uf failed unit(s) (first: ${fb:-?})"; return 1; fi
   [ "${fb:-"-"}" = "-" ] || { VAL_DETAIL="unit $fb failed"; return 1; }
 
