@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T02:47:37Z_
+_As of 2026-09-24T03:01:23Z_
 
 ## Latest
 
@@ -524,6 +524,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `fix-finished-but-not-completed-requeue`: after the requeue fix, the headless-mode note now reaches all handlers (`cleric-codex`, `opencode`, `mystic-kimi`), but the nudge and `continue` mode remain Claude-only — those other handlers don't get them. Is that asymmetry intentional (a capability gap in the non-Claude tools) or should nudge/continue be extended to them? No garden repo/PR is implicated; this is a fleet-behavior scope decision.
 
+- `gauntlet-followups-ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3` — from gardener:ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3, reply_to `ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/gauntlet-followups-ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3.md)
+
+> Gauntlet stage "ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3" ("ebfb-exo-stream-pr1100-gauntlet-20260923b", stage "fix") completed and reported additional follow-ups that require maintainer disposition. The deterministic gauntlet driver owns only the next-panel transition; this escalation was forwarded before the child completed.
+>
+> ## Follow-ups
+> - The ledger items get revisited when the PR merges.
+> - A `Windows path separator` issue remains in `code-mode-type-extract.js` (`endsWith('/fs/types.d.ts')`); it is recorded in the ledger.
+
 - `watchdog-comment-watcher-dead-kriscendobot-endo` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-endo.md)
 
 > RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-endo` has CLEARED (first seen 2026-09-23T22:36:21Z, cleared 2026-09-23T22:53:54Z).
@@ -777,28 +785,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 64.1M | $670.20 _(notional, rate-card)_ | 45% of 143.0M (ok) |
+| Claude | 63.9M | $667.01 _(notional, rate-card)_ | 45% of 143.0M (ok) |
 | Codex | 26.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 34900505 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 34900578 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 5.438435s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-test262); 3 open notice(s); checker healthy
+worst fetch p95 5.350504s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1100
+### doin (0)
+(none)
 
-### tada (8807)
+### tada (8808)
+- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots#1100
 - [`minion-town-guest-web-invite-accept-fallback-fix-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/minion-town-guest-web-invite-accept-fallback-fix-20260922.md) — Cost
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-panel-3.md) — Cost
 - [`claude-on-minion-town-press-20260924-013504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-press-20260924-013504.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-b20b86cd5432`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-b20b86cd5432.md) — rolling-deploy canary probe — round trip OK
-- [`ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/ebfb-exo-stream-pr1100-gauntlet-20260923b-fix-2.md) — Gauntlet fix round 2: endojs/endo-but-for-bots#1100
-- … and 8802 more
+- … and 8803 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
