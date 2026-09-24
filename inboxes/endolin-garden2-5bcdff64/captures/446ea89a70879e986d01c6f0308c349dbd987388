@@ -1,0 +1,58 @@
+<6>20:49:51 [monk/3] job 'build-export-index-build-vs-buy' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>20:49:51 [monk/3] job 'build-export-index-build-vs-buy' call ceiling: tier=mentor max-budget-usd=7.40 (scaled by fresh seven-day headroom when available)
+<6>21:03:54 [assert-followup-posted] gate: BLOCK — 'build-export-index-build-vs-buy' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# Build report: `build-export-index-build-vs-buy`
+
+I implemented `designs/export-index-build-vs-buy.md` and pushed it directly to `kriscendobot/garden` `main2` as commit `268455dca86`. There is no PR, per the garden convention.
+
+All four suites pass after rebasing onto the current `main2`:
+
+| Suite | Result |
+| --- | --- |
+| `export-index-test` | 13 pass |
+| `build-vs-buy-probe-test` | 9 pass |
+| `seat-gate-procurer-test` | 11 pass |
+| `review-convention-probes-test` | 30 pass |
+
+The existing `pre-push-gates`, `no-plain-reexport`, `seat-gate-reexport-auditor` and `panel-seat-tiering` tests also pass, and shellcheck is clean at warning level.
+
+**The PR #1336 replay works on real data.** I built the index from the endo-but-for-bots bare clone at the PR's base (`6726b0fb`) and ran it against the real test file at review commit `a0cc8ba5`. The copied `makePromiseKit` fails pre-push as a strong hit at `mcp-adapter.test.js:22`. Indexing the whole repo takes about 1.6 seconds and gives 1,445 rows.
+
+## What was built
+
+- **The index:** `scripts/jobs/export-index/build-export-index.sh` and `ensure-export-index.sh`.
+  - The build reads the tree with `git archive` and never checks it out. It uses the Babel parser already vendored in `skills/re-export-deprecation-policy/vendor/`.
+  - It follows barrels and renamed re-exports back to the defining declaration, records subpath specifiers, and marks private packages.
+  - It adds `#dep` lines listing each package's dependencies, which the cycle check uses.
+  - The cache lives at `$GARDEN_STATE/export-index/<owner>-<repo>/<sha>.tsv`. Files are written to a temp name and renamed into place, and only the newest 20 per repo are kept.
+  - `--providers` reads the journal file `config/export-index-providers`.
+- **The detector:** `skills/build-vs-buy/`, containing `lib.cjs`, `export-index.cjs`, `detect.cjs`, `idioms.tsv`, `procure.cjs` and `SKILL.md`.
+  - It runs a name pass and an idiom pass, and grades each hit strong, weak or blocked.
+  - The generic-name stoplist is derived from the index, and blocked covers dependency cycles and private providers.
+  - Waivers work: `// build-not-buy: <reason>` above a declaration, or `build-vs-buy-exempt` near the top of a file.
+- **Pre-push:**
+  - The new `build-vs-buy.sh` probe fails on each unwaived strong hit. If no index can be built, it passes with a note rather than blocking the push.
+  - `prefer-endo-primitives.sh` is now a thin idiom-only wrapper over the detector. Its `makePromiseKit` declaration regex is deleted, and I changed that test case to check that the name pass now catches it.
+- **The `procurer` seat:**
+  - Pieces: the role brief with the rubric and disposition table, the `C-procurer.sh` panel-hints probe, `seat-gate-procurer.sh`, and a `procurer haiku` row in `seat-model-tiers.tsv`.
+  - The seat is added to the code-panel seat list in `panel.sh`.
+  - Dispatch: it judges at most 8 hits, 4 at a time. Verdicts are cached, bad replies are never cached, and the verdict level is decided by the script, not the model.
+- **The library timer:** `garden-export-index.{service,timer}` runs daily on the leader only. It runs `publish-export-index.sh`, which publishes `library/exports/<slug>.tsv` through `land-journal-edit.sh` only when the rows change. It also keeps a README in step with `skills/build-vs-buy/exports-README.md`. A dry run with a stub lander worked.
+- **Docs:** the builder brief now says to grep the library before writing a reusable helper. I updated the `pre-push-gates` and `panel-hints` skills, the CLAUDE.md inventory, and the vendor README, and set the design's status to Implemented.
+
+## Where I departed from the design
+
+- **Which branches the timer publishes** comes from a new journal file, `config/export-index-roadmaps`, one `<owner/repo>@<branch>` per line. When the file is absent it defaults to `endojs/endo-but-for-bots@llm`. The design said to read branches from the project READMEs, but that text is free-form and can't be parsed reliably.
+- **Strings are not stripped before the idiom regexes run.** Several signatures need string contents, such as `createHash('sha256')` and `Far('…'`. Comment-only lines are still skipped, as before.
+- **Idiom failures are reported once.** They appear under the `prefer-endo-primitives` probe name, which keeps its marker and tests working. `build-vs-buy.sh` reports only name-pass failures, so the same finding isn't printed twice.
+- **Provider-repo exports are blocked unless already a dependency.** An export from a provider repo that the local package doesn't depend on is marked blocked: listed by the seat but not judged. That is my simplification of the design's "comment-only in v1".
+- **The seat ignores idiom hits.** Pre-push already fails them and the `purist` seat covers them.
+
+## Follow-ups
+
+- The timer has not been installed or run on the leader. `install-units.sh` will pick it up by glob on the next deploy.
+- `config/export-index-providers` does not exist yet. That is correct for endo-but-for-bots; minion.town would need a row naming its Endo provider repo.
+- While building the replay I ran `git fetch` of commit `a0cc8ba5` into `worktrees/endojs-endo-but-for-bots.git`. That only added the objects.
+- The `procurer` seat's model calls are metered only because they run from the worktree, the same way other seat gates are metered. No new accounting was added.
