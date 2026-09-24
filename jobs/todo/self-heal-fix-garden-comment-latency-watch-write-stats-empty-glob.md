@@ -1,0 +1,8 @@
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+In `scripts/jobs/comment-latency-watch.sh`, `write_stats()` (lines 335-355) globs `"$sample_dir"/*` at lines 346 and 350 without `shopt -s nullglob` and without first checking the directory is non-empty. When a slug's `samples/<slug>/` directory exists but is empty — routine once the age-based cleanup loop at line 344 deletes the last sample past `GARDEN_COMMENT_LATENCY_LOOKBACK_SECS` (currently true for `.garden-state/comment-latency-watch/samples/kriscendobot-garden/`, 0 files) — the unexpanded glob literal is passed to `awk` as a nonexistent filename. `awk` exits 2 with its stderr swallowed by the `2>/dev/null` on that same line, and because the result feeds a plain variable assignment (`values="$(awk ... | sort -n)"`) under `set -euo pipefail`, the failing exit code propagates through `pipefail` into the assignment and `set -e` kills the whole script — silently, since the only diagnostic was the suppressed stderr. This is why the captured self-heal log ends cleanly mid a normal per-repo poll loop with exit code 2 and no visible error.
+
+Fix: guard both globs the same way the `for sample in "$sample_dir"/*` loop already does — e.g. compute `local samples=("$sample_dir"/*)` and check `[ -e "${samples[0]}" ] || return 0` right after the existing `[ -d "$sample_dir" ]` check (before any globbing), or `shopt -s nullglob` locally around the two `awk` calls and `return 0` when no files matched. Either way, an empty (but existing) `samples/<slug>/` directory must make `write_stats` return 0 cleanly instead of feeding an unexpanded glob to `awk`.
