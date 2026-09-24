@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-24T16:24:37Z_
+_As of 2026-09-24T16:37:50Z_
 
 ## Latest
 
@@ -11,7 +11,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 6d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 7d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 12d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 20d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 21d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 22d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 22d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 23d)
@@ -691,10 +691,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.2M | $777.01 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Claude | 102.2M | $778.58 _(notional, rate-card)_ | 71% of 143.0M (ok) |
 | Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 40112361 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 40112590 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 12.523961s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 3 open notice(s); checker healthy
@@ -706,13 +706,13 @@ worst fetch p95 12.523961s/45s (/home/kris/garden/.garden-state/design-pr-gauntl
 ### doin (0)
 (none)
 
-### tada (8845)
+### tada (8846)
+- [`claude-on-minion-town-completion-press-20260924-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/claude-on-minion-town-completion-press-20260924-163507.md) — Cost
 - [`deadmail-issue-comment-5817602375`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/deadmail-issue-comment-5817602375.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260924-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/fu-minion-town-containment-gateway-endo-sock-1-20260924-162006.md) — Cost
 - [`issue-kriscendobot-garden-112`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/issue-kriscendobot-garden-112.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-0b023dab8def`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/canary-probe-endolin-garden2-5bcdff64-0b023dab8def.md) — rolling-deploy canary probe — round trip OK
-- [`self-heal-fix-garden-mentor-anthropic-truncated-job-body`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/24/self-heal-fix-garden-mentor-anthropic-truncated-job-body.md) — Cost
-- … and 8840 more
+- … and 8841 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
