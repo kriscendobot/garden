@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/112#issuecomment-58176023
 @kriscendobot very nice research work! Please make a pull request that follows the Apache process but is otherwise just like https://github.com/Oros-AI/oros-ckm-data-readiness/pull/2  
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-24T16:05:50Z
