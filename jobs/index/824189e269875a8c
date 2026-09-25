@@ -1,0 +1,2 @@
+base: improve-ci-watcher-triager-cgroup-drain-backstop
+identity: mentor:scripts/systemd/garden-ci-watcher@.service
