@@ -639,12 +639,25 @@ meter_remote_snapshot_total() {
   printf '%s\n' "$s"
 }
 
-# _budget_publish_local_pool_once <synced-journal-clone> — build and CAS-publish
+# _budget_publish_record_failure <context-file> <pool> <commit-rc> — preserve the
+# failed push's identity across the retry subshell. The globals serve the first
+# in-process attempt; the file carries the same tuple out of later subshells.
+_budget_publish_record_failure() {
+  local context_file="$1" pool="$2" push_rc="$3"
+  local push_class="${GARDEN_COMMIT_PUSH_CLASS:-unknown}"
+  _BUDGET_PUBLISH_FAILURE_POOL="$pool"
+  _BUDGET_PUBLISH_FAILURE_RC="$push_rc"
+  _BUDGET_PUBLISH_FAILURE_CLASS="$push_class"
+  [ -z "$context_file" ] \
+    || printf '%s\t%s\t%s\n' "$pool" "$push_rc" "$push_class" > "$context_file"
+}
+
+# _budget_publish_local_pool_once <synced-journal-clone> [failure-context-file] — build and CAS-publish
 # one snapshot attempt from the clone's current journal tip. A retry must call
 # this again after sync_clone: pool configuration, the anchored meter reading,
 # zone, and cadence bucket may all have changed while the first push raced.
 _budget_publish_legacy_local_pool_once() {
-  local dir="$1" pool="anthropic:$GARDEN" row provider kind cap cutoff spend now bucket file status rc
+  local dir="$1" context_file="${2:-}" pool="anthropic:$GARDEN" row provider kind cap cutoff spend now bucket file status rc
   row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)" || return 0
   IFS=$'\t' read -r _ provider kind cap _ <<<"$row"
   [ "$provider" = anthropic ] && [ "$kind" = weekly-tokens ] || return 0
@@ -658,15 +671,17 @@ _budget_publish_legacy_local_pool_once() {
   mv -f "$file.tmp.$$" "$file"
   git -C "$dir" add "budget/live/$GARDEN"
   rc=0; commit_and_push "$dir" "budget-live($GARDEN) $status spend=$spend/$cap" || rc=$?
-  [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]
+  if [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; then return 0; fi
+  _budget_publish_record_failure "$context_file" "$pool" "$rc"
+  return 1
 }
 
 _budget_publish_local_pool_once() {
-  local dir="$1" pool row provider kind cap mapping root
+  local dir="$1" context_file="${2:-}" pool row provider kind cap mapping root
   local cutoff spend now bucket file old_bucket old_status status rc snapshot_secs
   root="$(dirname "$(budget_pool_file "$dir")")"; root="$(dirname "$root")"
   mapping="$root/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
-  [ -r "$mapping" ] || { _budget_publish_legacy_local_pool_once "$dir"; return; }
+  [ -r "$mapping" ] || { _budget_publish_legacy_local_pool_once "$dir" "$context_file"; return; }
   while IFS=$'\t ' read -r pool mapped_host worker_kind _; do
     case "$pool" in ''|'#'*) continue;; esac
     [ "$mapped_host" = "$GARDEN" ] || continue
@@ -723,6 +738,7 @@ _budget_publish_local_pool_once() {
     fi
     continue
   fi
+  _budget_publish_record_failure "$context_file" "$pool" "$rc"
   return 1
   done < "$mapping"
   return 0
@@ -736,21 +752,32 @@ _budget_publish_local_pool_once() {
 # tip, then try publication again. Exhaustion merely leaves the remote verdict
 # unknown (fail-open); worker reconciliation still proceeds.
 budget_publish_local_pool() {
-  local dir="$1" attempts="$GARDEN_BUDGET_PUBLISH_ATTEMPTS" attempt rc
+  local dir="$1" attempts="$GARDEN_BUDGET_PUBLISH_ATTEMPTS" attempt rc context_file
   [[ "$attempts" =~ ^[1-9][0-9]*$ ]] || attempts=3
+  _BUDGET_PUBLISH_FAILURE_POOL=unknown
+  _BUDGET_PUBLISH_FAILURE_RC=unknown
+  _BUDGET_PUBLISH_FAILURE_CLASS=unknown
+  context_file="$(mktemp "${TMPDIR:-/tmp}/garden-budget-publish-failure.XXXXXX")" \
+    || context_file=""
 
-  if _budget_publish_local_pool_once "$dir"; then rc=0; else rc=$?; fi
-  [ "$rc" -eq 0 ] && return 0
+  if _budget_publish_local_pool_once "$dir" "$context_file"; then rc=0; else rc=$?; fi
+  if [ "$rc" -eq 0 ]; then rm -f "$context_file"; return 0; fi
 
   for attempt in $(seq 2 "$attempts"); do
     backoff "$((attempt - 1))"
     # sync_clone exits with EX_TEMPFAIL for an offline journal. Contain that exit
     # so snapshot publication remains fail-open and the scaler reaches its normal
     # warning latch plus worker reconciliation path.
-    if ( sync_clone "$dir"; _budget_publish_local_pool_once "$dir" ); then
+    if ( sync_clone "$dir"; _budget_publish_local_pool_once "$dir" "$context_file" ); then
+      rm -f "$context_file"
       return 0
     fi
   done
+  if [ -s "$context_file" ]; then
+    IFS=$'\t' read -r _BUDGET_PUBLISH_FAILURE_POOL _BUDGET_PUBLISH_FAILURE_RC \
+      _BUDGET_PUBLISH_FAILURE_CLASS < "$context_file"
+  fi
+  rm -f "$context_file"
   return 1
 }
 
@@ -762,13 +789,17 @@ budget_publish_local_pool() {
 # clears it, emitting one summary before the next outage is re-armed.
 budget_publish_note_failure() {
   local latch="${GARDEN_BUDGET_PUBLISH_OUTAGE_LATCH:-$GARDEN_STATE/gardener-scaler/budget-publish-outage}"
-  local count tmp
+  local pool="${1:-${_BUDGET_PUBLISH_FAILURE_POOL:-unknown}}"
+  local push_rc="${2:-${_BUDGET_PUBLISH_FAILURE_RC:-unknown}}"
+  local push_class="${3:-${_BUDGET_PUBLISH_FAILURE_CLASS:-unknown}}"
+  local count tmp context
+  context="pool=$pool, commit_and_push rc=$push_rc, push-class=$push_class"
   mkdir -p "$(dirname "$latch")" 2>/dev/null || true
   if mkdir "$latch" 2>/dev/null; then
     date -u +%FT%TZ > "$latch/since" 2>/dev/null || true
     date -u +%s > "$latch/since_epoch" 2>/dev/null || true
     printf '1\n' > "$latch/failures" 2>/dev/null || true
-    log "WARN: could not publish live budget snapshot; remote admission remains fail-open (further repeats suppressed until recovery)"
+    log "WARN: could not publish live budget snapshot ($context); remote admission remains fail-open (further repeats suppressed until recovery)"
     return 0
   fi
   if [ -d "$latch" ]; then
@@ -783,7 +814,7 @@ budget_publish_note_failure() {
   fi
   # If local state is unwritable, preserve the diagnostic instead of silently
   # losing every failure; only the deduplication degrades.
-  log "WARN: could not publish live budget snapshot; remote admission remains fail-open (warning latch unavailable)"
+  log "WARN: could not publish live budget snapshot ($context); remote admission remains fail-open (warning latch unavailable)"
   return 0
 }
 

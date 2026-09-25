@@ -6988,6 +6988,10 @@ guard_no_production_push_in_test() {
 # inherit it.
 commit_and_push() {
   local dir="$1" msg="$2" rc=1
+  # Callers that need to surface the rejection class can read this after a
+  # nonzero return. Reset it on every invocation so a prior failed push can
+  # never mislabel a later failure that did not reach the push stage.
+  GARDEN_COMMIT_PUSH_CLASS=""
   # Structural refusal: a test context must never push to production journal2.
   guard_no_production_push_in_test "$dir"
   if ! git -C "$dir" commit -q -m "$msg"; then clone_unlock "$dir"; return 2; fi
@@ -7004,10 +7008,15 @@ commit_and_push() {
     # recorder and the retry logic in the CAS-loop callers can never drift. One record
     # per classified rejection; a lost CAS (`cas`) is the normal retry, a `definite-fail`
     # is a hard-guard signal, `server-reject` is a policy/hook wall.
-    if   journal_push_is_cas_contention  "$GARDEN_PUSH_STDERR"; then contention_record "$dir" push-class cas
-    elif journal_push_is_server_rejection "$GARDEN_PUSH_STDERR"; then contention_record "$dir" push-class server-reject
-    elif journal_push_is_definite_failure "$GARDEN_PUSH_STDERR"; then contention_record "$dir" push-class definite-fail
+    if journal_push_is_cas_contention "$GARDEN_PUSH_STDERR"; then
+      GARDEN_COMMIT_PUSH_CLASS=cas
+    elif journal_push_is_server_rejection "$GARDEN_PUSH_STDERR"; then
+      GARDEN_COMMIT_PUSH_CLASS=server-reject
+    elif journal_push_is_definite_failure "$GARDEN_PUSH_STDERR"; then
+      GARDEN_COMMIT_PUSH_CLASS=definite-fail
     fi
+    [ -z "$GARDEN_COMMIT_PUSH_CLASS" ] \
+      || contention_record "$dir" push-class "$GARDEN_COMMIT_PUSH_CLASS"
   fi
   clone_unlock "$dir"
   return "$rc"

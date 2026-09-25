@@ -54,7 +54,12 @@ _push_journal() {
   count="${count:-0}"
   count=$((count + 1))
   printf '%s\n' "$count" > "$COUNT"
-  [ "${PUSH_MODE:-race}" != fail ] || return 1
+  if [ "${PUSH_MODE:-race}" = fail ]; then
+    # shellcheck disable=SC2034 # commit_and_push consumes this after the stub returns.
+    GARDEN_PUSH_STDERR='remote: error: protected branch policy refused this update
+ ! [remote rejected] HEAD -> journal2 (pre-receive hook declined)'
+    return 1
+  fi
   if [ "$count" -eq 1 ]; then
     printf '%s\n' 'anthropic:testhost anthropic testhost weekly-tokens 2000' > "$RIVAL/config/budget-pools"
     git -C "$RIVAL" add config/budget-pools
@@ -90,5 +95,11 @@ if budget_publish_local_pool "$CLONE"; then
 fi
 [ "$(cat "$COUNT")" -eq "$GARDEN_BUDGET_PUBLISH_ATTEMPTS" ] \
   || { echo "FAIL: persistent rejection was not bounded at $GARDEN_BUDGET_PUBLISH_ATTEMPTS attempts"; exit 1; }
+[ "$_BUDGET_PUBLISH_FAILURE_POOL" = 'anthropic:testhost' ] \
+  || { echo "FAIL: exhausted publication lost the failing pool ($_BUDGET_PUBLISH_FAILURE_POOL)"; exit 1; }
+[ "$_BUDGET_PUBLISH_FAILURE_RC" = 1 ] \
+  || { echo "FAIL: exhausted publication lost commit_and_push rc ($_BUDGET_PUBLISH_FAILURE_RC)"; exit 1; }
+[ "$_BUDGET_PUBLISH_FAILURE_CLASS" = server-reject ] \
+  || { echo "FAIL: exhausted publication lost the push class ($_BUDGET_PUBLISH_FAILURE_CLASS)"; exit 1; }
 
 echo 'PASS: transient race retries from fresh state; persistent failure is bounded and fail-open'

@@ -35,7 +35,10 @@ host="$GARDEN"
 if budget_publish_local_pool "$DIR"; then
   budget_publish_note_success
 else
-  budget_publish_note_failure
+  budget_publish_note_failure \
+    "$_BUDGET_PUBLISH_FAILURE_POOL" \
+    "$_BUDGET_PUBLISH_FAILURE_RC" \
+    "$_BUDGET_PUBLISH_FAILURE_CLASS"
 fi
 
 # Host-identity DRIFT guard — a deterministic preflight that runs EVERY tick,

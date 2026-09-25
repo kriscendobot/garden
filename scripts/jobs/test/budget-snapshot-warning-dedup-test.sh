@@ -16,12 +16,14 @@ source "$JOBS/common.sh"
 LOG="$TR/log"
 log() { printf '%s\n' "$*" >> "$LOG"; }
 
-budget_publish_note_failure
-budget_publish_note_failure
-budget_publish_note_failure
+budget_publish_note_failure anthropic:testhost 1 cas
+budget_publish_note_failure openai:otherhost 7 definite-fail
+budget_publish_note_failure anthropic:testhost 1 server-reject
 
 [ "$(grep -c '^WARN: could not publish live budget snapshot' "$LOG")" -eq 1 ] \
   || { echo "FAIL: repeated publication failures did not collapse to one WARN"; cat "$LOG"; exit 1; }
+grep -q 'pool=anthropic:testhost, commit_and_push rc=1, push-class=cas' "$LOG" \
+  || { echo "FAIL: first publication WARN did not identify the pool, rc, and push class"; cat "$LOG"; exit 1; }
 [ "$(cat "$GARDEN_BUDGET_PUBLISH_OUTAGE_LATCH/failures")" -eq 3 ] \
   || { echo "FAIL: outage latch did not count all failed ticks"; exit 1; }
 
@@ -32,8 +34,10 @@ grep -q 'publication recovered after 3 failed scaler tick(s)' "$LOG" \
   || { echo "FAIL: recovery did not clear the outage latch"; exit 1; }
 
 # Recovery re-arms the edge: a later, distinct outage gets its own first WARN.
-budget_publish_note_failure
+budget_publish_note_failure openai:second-pool 1 server-reject
 [ "$(grep -c '^WARN: could not publish live budget snapshot' "$LOG")" -eq 2 ] \
   || { echo "FAIL: a later outage did not emit a fresh first WARN"; cat "$LOG"; exit 1; }
+grep -q 'pool=openai:second-pool, commit_and_push rc=1, push-class=server-reject' "$LOG" \
+  || { echo "FAIL: later outage WARN retained stale failure diagnostics"; cat "$LOG"; exit 1; }
 
 echo "PASS: snapshot publication outage warns once, suppresses repeats, and summarizes recovery"
