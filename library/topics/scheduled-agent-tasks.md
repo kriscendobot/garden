@@ -8,6 +8,7 @@ Persistent scheduled callbacks for agent workspaces: registering elapsed-interva
 | [Persistent callbacks, retries, and terminal states](../sections/cloudflare-os--packages-gatekeeper-scheduler-readme--persistent-callbacks-and-retries.md) | scheduled-agent-tasks, capability-mediated-integrations, cloudflare-workers-agent-hosting | Durable callbacks keyed by runId, eight-attempt retries, and completed/expired/dead states. |
 | [Scheduler cadence semantics and schedule lifecycle](../sections/cloudflare-os--packages-gatekeeper-scheduler-readme--cadence-and-lifecycle.md) | scheduled-agent-tasks, cloudflare-workers-agent-hosting | DST-aware cadence and a lifecycle separating registration, enablement, and disablement. |
 | [Scheduler architecture, driver, and fixed limits](../sections/cloudflare-os--packages-gatekeeper-scheduler-readme--architecture-and-limits.md) | scheduled-agent-tasks, cloudflare-workers-agent-hosting, capability-mediated-integrations | One SQLite ScheduleDriver DO and alarm per account, a read-only app, and fixed policy limits. |
+| [What the snapshot changes in practice (resident agents and an actor framework)](../sections/web--haruni-kaozkit-xs-agents--what-the-snapshot-changes-in-practice.md) | xs-agent-runtimes, persistence, scheduled-agent-tasks | A resident agent (`kaoz concierge.js --resident --daemon --state brain.bin`) survives Ctrl-C and restart from its heap-snapshot file, including a `host.schedule` reminder that fires in a process that did not exist when it was set. |
 
 ## See also
 
