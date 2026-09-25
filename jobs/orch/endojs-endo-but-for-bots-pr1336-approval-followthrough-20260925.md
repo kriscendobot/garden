@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1336-patterns-fix-20260925-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1336-patterns-fix-20260925 endojs-endo-but-for-bots-pr1336-retcon-20260925 endojs-endo-but-for-bots-pr1336-shepherd-post-retcon-20260925 endojs-endo-but-for-bots-pr1336-conduct-20260925
 on-child-failure: halt
