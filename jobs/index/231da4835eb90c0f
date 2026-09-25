@@ -1,2 +1,2 @@
-base: improve-usage-meter-snapshot-mismatch-diagnostics
+base: improve-snapshot-window-trust-remote
 identity: mentor:scripts/jobs/usage-meter.sh
