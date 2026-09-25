@@ -22,3 +22,13 @@ so merging is authorized.
 Provenance: dispatched by the pr81 review job
 (kriscendobot-minion.town-pr81-review-ef599fde) per its bundled-approval
 finalization directive.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-25T05:29:08Z
