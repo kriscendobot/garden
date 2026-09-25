@@ -8,6 +8,6 @@ attempts: 4
 accepts: 4
 censored: 4
 estimated: 4
-mean_dollars: 0.049939
-m2: 0.022493
+mean_dollars: 0.005382
+m2: 0.000007
 acceptance_rate: 1.0000
