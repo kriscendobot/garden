@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-25T07:26:18Z_
+_As of 2026-09-25T07:27:46Z_
 
 ## Latest
 
@@ -159,16 +159,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
 > budget-level changed endolin-garden2-5bcdff64 monk workers 3 -> 2 (target 2): subscription claude-endolin2 spend=29551723 cap=64000000 pace-bias=1.000000 ceiling=2 target=2
-
-- `msg-endojs-endo-but-for-bots-pr1336-conduct-20260925-ce26c58fae33` — from gardener:endojs-endo-but-for-bots-pr1336-conduct-20260925, reply_to `endojs-endo-but-for-bots-pr1336-conduct-20260925` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1336-conduct-20260925-ce26c58fae33.md)
-
-> [endojs/endo-but-for-bots#1336](https://github.com/endojs/endo-but-for-bots/issues/1336) merged to llm at 07:21Z (merge commit efabaed2b5). I recorded the merge on arc [kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89).
->
-> The next step on item 5 has no job on the board. That step is the confined shape plus the @endo/claude harness wiring. Its two prerequisites are both stuck:
-> (a) [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) (@endo/claude confinement core) is still a draft. Its refresh job endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919 was doomed (requeue-exhausted) and is parked with gate go-ahead.
-> (b) The design draft [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/issues/1340) (makers for confined applications, issue [endojs/endo-but-for-bots#1339](https://github.com/endojs/endo-but-for-bots/issues/1339)) has four open questions only you can answer.
->
-> What would you like next? My suggestion is to "go ahead" on the [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) refresh now, and post the confined-wiring build after you answer the open questions on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/issues/1340). Or tell me to post the build now against [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) as it stands.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -355,19 +345,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > ---
 > scripts/jobs/ci-watcher.sh
 > The journal-outage latch (`note_journal_outage`/`note_journal_recovered`, ~line 478-520) closes on the first successful fetch after an outage, with no hysteresis. During intermittent (not fully down) journal connectivity, this lets the episode flap open→closed→open repeatedly across the ~15 per-repo watcher instances riding a 90s cadence, each landing on a different side of a brief recovery. Evidence: 2026-09-19 04:53–05:20Z logged 6 separate "host outage episode opened" WARNs across 4 different repo slugs on one host — almost certainly one continuous flaky window, not 6 distinct outages — defeating the latch's stated purpose of collapsing a shared outage into one open+one close. Add debounce: e.g. stamp the close time in the latch dir and require either N consecutive successful `verify_fetch`s or a minimum quiet period (a few minutes) before actually removing the latch/logging "closed"; a failure arriving inside that quiet window should extend the same episode silently rather than opening a fresh loud WARN. Keep the existing sibling-flock serialization; only add the hysteresis state (e.g. `$latch/last_success`) read/written under the same lock.
-
-- `endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925-terminal-complete.md)
-
-> orchestration-event: orchestration-terminal
-> orchestration: endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925
-> orchestration-status: complete
-> order: serial
-> children-total: 4
-> children-failed: 0
-> failed-children: 
-> recovered-children: 
->
-> Orchestration endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925 complete (serial): all 4 children reached tada without a machine-readable failure declaration.
 
 - `doomed-date-sharded-tada-migrate-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-date-sharded-tada-migrate-requeue-exhausted.md)
 
@@ -782,7 +759,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.5M | $865.45 _(notional, rate-card)_ | 77% of 143.0M (ok) |
+| Claude | 109.4M | $864.59 _(notional, rate-card)_ | 77% of 143.0M (ok) |
 | Codex | 27.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 30674903 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -794,17 +771,16 @@ worst fetch p95 9.402545s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (0)
 (none)
 
-### doin (2)
-- [`improve-comment-watcher-verify-fetch-lock-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-verify-fetch-lock-window.md) — ---
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1336-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1336 (me...
 
-### tada (8916)
+### tada (8917)
+- [`improve-comment-watcher-verify-fetch-lock-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/improve-comment-watcher-verify-fetch-lock-window.md) — Cost
 - [`endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925.md) — orchestration endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925...
 - [`endojs-endo-but-for-bots-pr1336-conduct-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-conduct-20260925.md) — Cost
 - [`endojs-endo-but-for-bots-pr1336-shepherd-post-retcon-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-shepherd-post-retcon-20260925.md) — Cost
 - [`daily-progress-summary-20260925-070507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/daily-progress-summary-20260925-070507.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-3f447b05f5e2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/canary-probe-endolin-garden2-5bcdff64-3f447b05f5e2.md) — rolling-deploy canary probe — round trip OK
-- … and 8911 more
+- … and 8912 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
