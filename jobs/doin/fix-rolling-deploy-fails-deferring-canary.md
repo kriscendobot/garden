@@ -29,3 +29,13 @@ Repo: the garden itself (`kriscendobot/garden`, `main2`, push direct, no PR).
 3. Tests for: deferring canary → waiting (no failure, no retry consumed); deferral beyond the ceiling → failure;
    genuinely stuck canary (no deferral status) → failure as today. Run the rolling-deploy and self-deploy suites and push.
    Complete via the normal completion path.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-25T01:08:59Z
