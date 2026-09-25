@@ -563,6 +563,25 @@ meter_journal_failure_reason() {
 # decimal of at most 18 digits: a leading-zero value ("08") is an arithmetic
 # error and an overlong one overflows, and either would otherwise abort the
 # function with bash's un-enumerated status 1 instead of a documented code.
+# Before every rc 9 it writes one stderr line naming the diverged field(s) and
+# both sides of each comparison, so a caller that keeps stderr can log WHY.
+# _meter_snapshot_mismatch <file> <want-cap> <want-window> <p> <c> <w> <s> <at> <now> <want-pool> [extra]
+# — the rc-9 diagnostic line for meter_remote_snapshot_total, on stderr.
+_meter_snapshot_mismatch() {
+  local file="$1" cap="$2" cutoff="$3" p="$4" c="$5" w="$6" s="$7" at="$8" now="$9" pool="${10}" extra="${11:-}"
+  local num='^(0|[1-9][0-9]{0,17})$' diverged=""
+  [ "$p" = "$pool" ] || diverged+=",pool"
+  [ "$cap" = "-" ] || [ "$c" = "$cap" ] || diverged+=",cap"
+  [ "$w" = "$cutoff" ] || diverged+=",window"
+  [[ "$s" =~ $num ]] || diverged+=",spend"
+  [[ "$at" =~ $num ]] || diverged+=",sampled_at"
+  [[ "$now" =~ $num ]] || diverged+=",now"
+  [ -z "$extra" ] || diverged+=",$extra"
+  printf 'snapshot mismatch file=%s diverged=%s pool=%s/%s cap=%s/%s window=%s/%s spend=%s at=%s now=%s\n' \
+    "${file##*/budget/live/}" "${diverged#,}" "${p:-<none>}" "$pool" "${c:-<none>}" "$cap" \
+    "${w:-<none>}" "$cutoff" "${s:-<none>}" "${at:-<none>}" "${now:-<none>}" >&2
+}
+
 meter_remote_snapshot_total() {
   local dir="$1" pool="$2" cap="$3" cutoff="$4" host file p c w s at now max_age total=0 seen=0 expected mapping
   local num='^(0|[1-9][0-9]{0,17})$'
@@ -578,9 +597,11 @@ meter_remote_snapshot_total() {
       s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
       at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
       [ "$p" = "$pool" ] && { [ "$cap" = "-" ] || [ "$c" = "$cap" ]; } && [ "$w" = "$cutoff" ] \
-        && [[ "$s" =~ $num ]] && [[ "$at" =~ $num ]] && [[ "$now" =~ $num ]] || return 9
+        && [[ "$s" =~ $num ]] && [[ "$at" =~ $num ]] && [[ "$now" =~ $num ]] \
+        || { _meter_snapshot_mismatch "$file" "$cap" "$cutoff" "$p" "$c" "$w" "$s" "$at" "$now" "$pool"; return 9; }
       [ "$at" -le $((now + 60)) ] && [ $((now - at)) -le "$max_age" ] || return 7
-      [ "$total" -le $((999999999999999999 - s)) ] || return 9
+      [ "$total" -le $((999999999999999999 - s)) ] \
+        || { _meter_snapshot_mismatch "$file" "$cap" "$cutoff" "$p" "$c" "$w" "$s" "$at" "$now" "$pool" spend-overflow; return 9; }
       total=$((total + s)); seen=$((seen + 1))
     done
     mapping="$dir/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
@@ -596,7 +617,8 @@ meter_remote_snapshot_total() {
   w="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" | head -1)"; s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
   at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
   [ "$p" = "$pool" ] && [ "$c" = "$cap" ] && [ "$w" = "$cutoff" ] && [[ "$s" =~ $num ]] \
-    && [[ "$at" =~ $num ]] && [[ "$now" =~ $num ]] || return 9
+    && [[ "$at" =~ $num ]] && [[ "$now" =~ $num ]] \
+    || { _meter_snapshot_mismatch "$file" "$cap" "$cutoff" "$p" "$c" "$w" "$s" "$at" "$now" "$pool"; return 9; }
   [ $((now-at)) -le "$max_age" ] || return 7
   printf '%s\n' "$s"
 }

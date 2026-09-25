@@ -176,6 +176,14 @@ wsnap 500 1000 h1
 [ "$(snaprc claude-oros)" = 7 ] && ok "stale pool snapshot reads rc 7" || bad "stale snapshot rc=$(snaprc claude-oros), expected 7"
 wsnap 999 99990 h1
 [ "$(snaprc claude-oros)" = 9 ] && ok "cap-mismatched pool snapshot reads rc 9" || bad "mismatched snapshot rc=$(snaprc claude-oros), expected 9"
+# rc 9 collapses several causes; its stderr line must name the diverged field(s).
+snaperr() { bash -c 'set -uo pipefail; source "$1/common.sh"; meter_now() { echo 100000; }; meter_remote_snapshot_total "$2" "$3" 500 9000 2>&1 >/dev/null; true' _ "$JOBS" "$SD" "$1"; }
+serr="$(snaperr claude-oros)"
+[[ "$serr" == "snapshot mismatch file=claude-oros/h1 diverged=cap pool=claude-oros/claude-oros cap=999/500 window=9000/9000 spend=42 at=99990 now=100000" ]] \
+  && ok "cap mismatch names the diverged field" || bad "cap mismatch detail: $serr"
+printf 'subscription: claude-oros\ncap: 500\nwindow_start_epoch: 8000\nspend: 42\nsampled_at_epoch: 99990\n' > "$SD/budget/live/claude-oros/h1"
+serr="$(snaperr claude-oros)"
+[[ "$serr" == *"diverged=window "*"window=8000/9000"* ]] && ok "window drift names the diverged field" || bad "window drift detail: $serr"
 # Arithmetic-hostile numerics (leading zero = octal error, 20 digits = overflow)
 # and a truncated mid-write file must map to rc 9, never bash's bare status 1.
 printf 'subscription: claude-oros\ncap: 500\nwindow_start_epoch: 9000\nspend: 08\nsampled_at_epoch: 99990\n' > "$SD/budget/live/claude-oros/h1"

@@ -36,9 +36,16 @@ dwell_bump() { # host kind direction
 }
 dwell_reset() { local f; f="$(_dwell_file "$1" "$2")"; mkdir -p "$(dirname "$f")" 2>/dev/null || true; printf 'dir=none\nstreak=0\n' >"$f.tmp" 2>/dev/null && mv "$f.tmp" "$f" 2>/dev/null || true; }
 uncalibrated() { case "$(printf %s "${1:-}" | tr '[:upper:]' '[:lower:]')" in ''|-|none|placeholder|uncalibrated|seed|tbd|todo) return 0;; *) return 1;; esac; }
+# meter_remote_snapshot_total's stderr (its rc-9 field-mismatch detail) lands here
+# per call, so pool_failure can name WHICH snapshot field diverged.
+SNAP_ERR="$GARDEN_STATE/budget-level/snapshot.err"
 pool_failure() { # pool host operation exit_status
-  local reason=""
+  local reason="" detail=""
   [ "$3" = read-remote-spend ] && reason=" reason=$(meter_journal_failure_reason "$4")"
+  if [ "$3" = read-remote-spend ] && [ "$4" = 9 ] && [ -s "$SNAP_ERR" ]; then
+    detail="$(grep -m1 '^snapshot mismatch ' "$SNAP_ERR" 2>/dev/null || true)"
+    [ -z "$detail" ] || reason+=" ($detail)"
+  fi
   log "WARN: pool=$1 host=$2 operation=$3 failed exit_status=$4$reason; failure isolated (fail-open)"
 }
 
@@ -173,7 +180,7 @@ apply_target(){ # pool host kind current target reason signal-value limit proven
 for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";cap="${pcaps[i]}";prov="${pprov[i]}";[[ "$cap" =~ ^[1-9][0-9]*$ ]]||continue
  [ "$mv" -eq 1 ]||! uncalibrated "$prov"||continue
  cutoff="$(subscription_window_start_epoch "$pool" "$DIR" 2>/dev/null || true)"; if ! [[ "$cutoff" =~ ^[0-9]+$ ]];then case "$pool" in anthropic:*)cutoff="$(meter_window_cutoff anchor 2>/dev/null)"||{ pool_failure "$pool" "$h" read-window-cutoff "$?";continue;};;*)pool_failure "$pool" "$h" read-window-cutoff 1;continue;;esac;fi
- snap_rc=0;spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$cutoff" 2>/dev/null)"||snap_rc=$?;[ "$snap_rc" -eq 0 ]||{ if [ "$h" = "$GARDEN" ];then if [[ "$pool" == anthropic:* ]];then spend="$(meter_window_total anchor 2>/dev/null)";else spend="$(meter_subscription_window_total "$pool" "$DIR" 2>/dev/null)";fi||{ pool_failure "$pool" "$h" read-local-spend "$?";continue;};elif [[ "$pool" == anthropic:* ]];then spend="$(meter_journal_host_tokens "$DIR" "$h" "$cutoff" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-remote-spend "$?";continue;};else pool_failure "$pool" "$h" read-remote-spend "$snap_rc";continue;fi; }
+ snap_rc=0;snap_err="$SNAP_ERR";{ mkdir -p "${SNAP_ERR%/*}"&&: >"$snap_err";} 2>/dev/null||snap_err=/dev/null;spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$cutoff" 2>"$snap_err")"||snap_rc=$?;[ "$snap_rc" -eq 0 ]||{ if [ "$h" = "$GARDEN" ];then if [[ "$pool" == anthropic:* ]];then spend="$(meter_window_total anchor 2>/dev/null)";else spend="$(meter_subscription_window_total "$pool" "$DIR" 2>/dev/null)";fi||{ pool_failure "$pool" "$h" read-local-spend "$?";continue;};elif [[ "$pool" == anthropic:* ]];then spend="$(meter_journal_host_tokens "$DIR" "$h" "$cutoff" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-remote-spend "$?";continue;};else pool_failure "$pool" "$h" read-remote-spend "$snap_rc";continue;fi; }
  [[ "$spend" =~ ^[0-9]+$ ]]||{ pool_failure "$pool" "$h" validate-spend 1;continue;};hf="$DIR/hosts/$h";if [ -n "$GARDEN_BUDGET_LEVEL_KIND" ];then kind="$GARDEN_BUDGET_LEVEL_KIND";else kind="$(anthropic_active_kind "$hf")";fi;key="$(worker_kind_field "$kind" count_key 2>/dev/null||echo gardeners)";cur="$(read_desired_count "$hf" "$key" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-host-workers "$?";continue;}
  if [ "$mv" -ne 1 ];then uncalibrated "$prov"&&continue;awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" 'BEGIN{exit !(t>=q*f)}'||continue;target="$GARDEN_BUDGET_LEVEL_MIN";else hi="${mceil[$h]}";target="$(awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{m=q*f;if(m<=0||t>=m)n=lo;else n=lo+int((1-t/m)*(hi-lo)+.5);if(n<lo)n=lo;if(n>hi)n=hi;print n}')";bias="$(subscription_pacing_bias "$pool" "$spend" "$cap" "$DIR")";pace_target="$(awk -v b="$bias" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{print lo+int(b*(hi-lo)+.5)}')";[ "$pace_target" -le "$target" ]||target="$pace_target";fi
  apply_target "$pool" "$h" "$kind" "$cur" "$target" "subscription $pool spend=$spend cap=$cap pace-bias=${bias:-0} ceiling=${mceil[$h]:-frozen} target=$target" "$spend" "$cap" "$prov" weekly-token-spend
