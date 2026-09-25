@@ -9,11 +9,11 @@ max_resumes: 6
 max_stage_retries: 2
 created_by: producer
 created_at: 2026-09-24T20:56:58Z
-stage: panel
+stage: fix
 iteration: 5
 resumes: 0
 stage_retries: 0
-current_child: endojs-endo-but-for-bots-pr1336-gauntlet-panel-5
+current_child: endojs-endo-but-for-bots-pr1336-gauntlet-fix-5
 state: running
 resumed_at: 2026-09-25T02:59:49Z
 resumed_from_stage: fix
