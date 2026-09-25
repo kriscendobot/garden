@@ -408,6 +408,41 @@ seen on 2026-09-23:
 The hand-run override itself stays. It is the human kill-switch described above.
 Its cost is now bounded: followers catch up to it within a tick or two.
 
+### A deferring canary is waiting, not failed
+
+On 2026-09-24 and 2026-09-25 a released follower's `deploy-garden.sh` correctly
+**deferred** behind a monk that had been mid-job for 4,545 seconds. The conductor
+saw only "released 1,500 s ago, never advanced", failed the canary and roll-drained
+the whole host until the job ended. The outcome was right, but the reason was wrong
+and every other worker on the host sat idle for up to an hour.
+
+- **The follower publishes its deferral.** `deploy-garden.sh` leaves a host-local
+  record (`GARDEN_DEPLOY_DEFER_RECORD`) when it defers. `self-deploy.sh` publishes
+  it as `roll_status: deferred` with `deferred_reason: long-job <kind> <id> <elapsed>s`,
+  `deferred_target` and `deferred_at_epoch`, at most once per
+  `GARDEN_SELF_DEPLOY_DEFER_REPUBLISH` (5 min) while the deferral continues.
+- **The conductor waits.** A canary whose latest status is a deferral of the
+  released target is **waiting**: no failure, no drain, no retry consumed, no
+  stuck notice while the deferral is fresh (`GARDEN_ROLL_DEFER_FRESH`, 15 min). The
+  plain deploy budget (probe deadline + watch) now runs from the release **or the
+  last deferral**, whichever is later, so the deploy that follows a deferral gets
+  a full budget. A canary that publishes no deferral for its target fails at the
+  plain budget, as before.
+- **Hard ceiling.** A canary still deferring `GARDEN_ROLL_DEFER_CEILING` (3 h) after
+  its release is a real failure and enters the ordinary retry/halt path. The ceiling
+  covers the longest role handler budget (2 h) plus the quiesce delay and slack.
+- **Quiesce for deploy.** On a busy host some job is nearly always older than the
+  300 s long-job threshold, so without a drain the deferral could last until the
+  ceiling. After `GARDEN_ROLL_QUIESCE_AFTER` (30 min) of continuous deferral the
+  conductor therefore sends **one** benign drain with the distinct source
+  `rolling-deploy-quiesce`. New claims stop and the in-flight long jobs finish as
+  the host's last. This drain is not a failure drain and consumes no retry. The
+  follower still runs its released deploy under it (`self-deploy.sh` does not
+  decline). `deploy-garden.sh` keeps deferring under it instead of waiting out its
+  drain budget and aborting, and it lifts the drain when the deploy lands. The
+  leaderless fallback clears a stale quiesce drain the same way it clears a stale
+  roll-induced drain. An operator drain overwrites the marker and still wins.
+
 ### Settling delay — carried forward, still argued from risk
 
 A freshly-pushed tip can be the middle of a still-landing stack or a commit

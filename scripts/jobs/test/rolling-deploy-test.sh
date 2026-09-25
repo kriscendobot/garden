@@ -29,6 +29,10 @@
 #     and a DEFERRED leader deploy is not recorded as a completed roll.
 #   - CATCH-UP: a leader already current releases a follower left behind it.
 #   - STUCK CANARY: a released-but-undeployed canary raises one coalesced notice.
+#   - DEFERRING CANARY: a follower whose deploy defers behind a long job publishes
+#     roll_status deferred; the conductor WAITS (no failure, drain, or retry consumed),
+#     sends one targeted quiesce-for-deploy drain after the quiesce delay, fails it
+#     past the deferral ceiling, and still fails a canary that publishes no deferral.
 #
 # Usage: rolling-deploy-test.sh
 set -uo pipefail
@@ -125,7 +129,10 @@ DEPLOY_LOG="$TR/deploy.log"; DRAIN_LOG="$TR/drain.log"; ALERT_LOG="$TR/alert.log
 cat > "$TR/rec-deploy.sh" <<EOF
 #!/bin/bash
 printf 'deploy-invoked host=%s target=%s\n' "\${GARDEN:-?}" "\${GARDEN_DEPLOY_TARGET:-<tip>}" >> "$DEPLOY_LOG"
-[ "\${REC_DEPLOY_DEFER:-0}" = 1 ] && exit 0
+if [ "\${REC_DEPLOY_DEFER:-0}" = 1 ]; then
+  [ -z "\${GARDEN_DEPLOY_DEFER_RECORD:-}" ] || printf 'kind: monk\nid: 1\nelapsed: 4545\nat_epoch: 0\ntarget: %s\n' "\${GARDEN_DEPLOY_TARGET:-}" > "\$GARDEN_DEPLOY_DEFER_RECORD"
+  exit 0
+fi
 if [ -n "\${GARDEN_DEPLOY_TARGET:-}" ]; then
   mkdir -p "\$GARDEN_STATE/deploy"; printf '%s\n' "\$GARDEN_DEPLOY_TARGET" > "\$GARDEN_STATE/deploy/deployed-sha"
 fi
@@ -681,6 +688,122 @@ grep -q "key=rolling-deploy-canary-stuck-$F1 recovered" "$ALERT_LOG" \
   && ok "the notice closes once the canary deploys its release" \
   || bad "stuck notice not closed after the canary deployed (alerts: $(cat "$ALERT_LOG"))"
 push_change "deploy/roll/$F1" "@DELETE" "clear F1 release after stuck test"
+
+# ============================================================================
+hr; echo "DEFERRING CANARY — a canary deferring behind a long job WAITS; ceiling and no-deferral still fail"; hr
+# 2026-09-24/25 (endolin-garden2): the follower's deploy-garden.sh correctly DEFERRED
+# behind a 4545s monk job, but the conductor saw "released 1500s ago, never advanced",
+# failed the canary and roll-drained the whole host until the job ended.
+simulate_deferral() {  # <host> <deployed-sha> <deferred-target> <deferred_at_epoch>
+  push_change "fleet/deployed/$1" "$2" "sim: $1 at $2"
+  push_change "fleet/health/$1" \
+    "host: $1"$'\n'"deployed_sha: $2"$'\n'"roll_status: deferred"$'\n'"unit_failures: 0"$'\n'"unit_total: 12"$'\n'"first_bad_unit: -"$'\n'"at: now"$'\n'"deferred_reason: long-job monk 1 4545s"$'\n'"deferred_target: $3"$'\n'"deferred_at_epoch: $4" \
+    "sim: $1 deferred $3"
+}
+roll_field() { cat "$TR/state-leader/rolling-deploy/roll/$TARGET12/$F1.$1" 2>/dev/null; }
+DEF_BASE="2222222222222222222222222222222222222222"
+push_change "hosts/$F2" "@DELETE" "single-follower fleet for the deferral test"
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for deferral test"
+set_heartbeat "$F1" 20000
+set_leader_signal "$TARGET"; reset_leader_all
+: > "$DEPLOY_LOG"; : > "$DRAIN_LOG"; : > "$ALERT_LOG"
+DEF_ENV=(GARDEN_CANARY_WATCH=900 GARDEN_ROLL_QUIESCE_AFTER=1800 GARDEN_ROLL_DEFER_FRESH=900 GARDEN_ROLL_STUCK_CANARY_AFTER=1200)
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=10000                  # release F1 (budget 600+900=1500s)
+[ "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" = "$TARGET" ] && ok "DEFER: F1 released" || bad "DEFER: F1 not released"
+simulate_deferral "$F1" "$DEF_BASE" "$TARGET" 11500
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=11600                  # 1600s after release, deferral fresh
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=12900                  # (stuck window elapsed too)
+simulate_deferral "$F1" "$DEF_BASE" "$TARGET" 12950
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=13000
+if [ "$(roll_field status)" = released ] && [ -z "$(roll_field retries)" ] && [ ! -s "$DRAIN_LOG" ]; then
+  ok "DEFER: a deferring canary past the plain 1500s budget is WAITING — not failed, no drain, no retry consumed"
+else bad "DEFER: deferring canary was failed/drained (status=$(roll_field status) retries=$(roll_field retries) drains=$(cat "$DRAIN_LOG"))"; fi
+grep -q 'key=rolling-deploy-canary-' "$ALERT_LOG" && bad "DEFER: paged (failed/stuck) on a deferring canary: $(cat "$ALERT_LOG")" \
+  || ok "DEFER: no canary-failed or stuck page while it is actively deferring"
+grep -q "canary $F1 DEFERRING (waiting, not failed)" "$TR/conductor.out" && ok "DEFER: waiting state logged with the deferral reason" \
+  || bad "DEFER: no waiting log line"
+# Deferral continues past the quiesce delay → ONE targeted quiesce-for-deploy drain.
+simulate_deferral "$F1" "$DEF_BASE" "$TARGET" 13500
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=13500                  # 1900s since deferring_since=11600
+if grep -q 'state=on source=rolling-deploy-quiesce' "$DRAIN_LOG" && ! grep -qE 'source=rolling-deploy( |$)' "$DRAIN_LOG" \
+   && [ "$(roll_field status)" = released ] && [ -z "$(roll_field retries)" ]; then
+  ok "QUIESCE: continuous deferral past the delay sends ONE targeted quiesce-for-deploy drain (not a failure drain; no retry)"
+else bad "QUIESCE: wrong drain/state (drains=$(cat "$DRAIN_LOG") status=$(roll_field status) retries=$(roll_field retries))"; fi
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=13600
+[ "$(grep -c 'state=on' "$DRAIN_LOG")" -eq 1 ] && ok "QUIESCE: sent once, not re-sent every tick" || bad "QUIESCE: drain re-sent ($(cat "$DRAIN_LOG"))"
+# The deferral ends (the follower's deploy is now running): the deadline extends from
+# the LAST deferral, so a stale-but-recent deferral is not an instant failure...
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=14600                  # 1100s since last deferral: stale, < 1500s budget
+[ "$(roll_field status)" = released ] && ok "DEFER: deadline extends from the last deferral (not an instant failure once it goes quiet)" \
+  || bad "DEFER: failed right after the deferral went quiet (status=$(roll_field status))"
+# ...but a canary that never advances within the budget after its last deferral fails as today.
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=15100                  # 1600s since last deferral
+if [ "$(roll_field status)" = retry-wait ] && grep -qE 'state=on source=rolling-deploy( |$)' "$DRAIN_LOG"; then
+  ok "DEFER: no deploy within the budget after the last deferral → failed canary (retry-wait + roll drain)"
+else bad "DEFER: quiet canary not failed (status=$(roll_field status) drains=$(cat "$DRAIN_LOG"))"; fi
+
+# CEILING: a canary STILL actively deferring past GARDEN_ROLL_DEFER_CEILING is a real failure.
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for ceiling test"
+reset_leader_all; : > "$DRAIN_LOG"
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLL_DEFER_CEILING=5000 GARDEN_ROLL_QUIESCE_AFTER=99999 GARDEN_ROLLING_NOW=10000
+simulate_deferral "$F1" "$DEF_BASE" "$TARGET" 14800
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLL_DEFER_CEILING=5000 GARDEN_ROLL_QUIESCE_AFTER=99999 GARDEN_ROLLING_NOW=14900
+[ "$(roll_field status)" = released ] && ok "CEILING: deferring inside the ceiling still waits" || bad "CEILING: failed inside the ceiling (status=$(roll_field status))"
+simulate_deferral "$F1" "$DEF_BASE" "$TARGET" 15000
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLL_DEFER_CEILING=5000 GARDEN_ROLL_QUIESCE_AFTER=99999 GARDEN_ROLLING_NOW=15000
+if [ "$(roll_field status)" = retry-wait ] && grep -qE 'state=on source=rolling-deploy( |$)' "$DRAIN_LOG" \
+   && grep -q 'deferral ceiling' "$TR/conductor.out"; then
+  ok "CEILING: still deferring at release+ceiling → FAILED canary (retry-wait + roll drain, logged as a ceiling breach)"
+else bad "CEILING: not failed at the ceiling (status=$(roll_field status) drains=$(cat "$DRAIN_LOG"))"; fi
+
+# A deferral of a DIFFERENT target is not this canary deferring: a genuinely stuck
+# canary (no deferral for THIS target) fails at the plain budget, as today.
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for stuck test"
+reset_leader_all; : > "$DRAIN_LOG"
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=10000
+simulate_deferral "$F1" "$DEF_BASE" "$DEF_BASE" 11500          # stale deferral of some other sha
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=11400
+[ "$(roll_field status)" = released ] && ok "STUCK: inside the plain budget a non-deferring canary still waits" || bad "STUCK: early failure (status=$(roll_field status))"
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=11600
+if [ "$(roll_field status)" = retry-wait ] && grep -qE 'state=on source=rolling-deploy( |$)' "$DRAIN_LOG"; then
+  ok "STUCK: a canary with no deferral for its target fails at the plain budget (retry-wait + roll drain, as before)"
+else bad "STUCK: genuinely stuck canary not failed (status=$(roll_field status) drains=$(cat "$DRAIN_LOG"))"; fi
+simulate_follower_deploy "$F1" "$DEF_BASE"                      # plain stuck, roll_status deployed
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for stuck test 2"
+reset_leader_all; : > "$DRAIN_LOG"
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=10000
+run_conductor "${DEF_ENV[@]}" GARDEN_ROLLING_NOW=11600
+[ "$(roll_field status)" = retry-wait ] && ok "STUCK: no deferral status at all → failed at the plain budget" \
+  || bad "STUCK: plain stuck canary not failed (status=$(roll_field status))"
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release after deferral tests"
+
+# FOLLOWER: a released deploy that DEFERS publishes roll_status deferred (rate-limited);
+# under the conductor's quiesce drain the follower still runs its released deploy.
+push_change "deploy/roll/$F1" "$TARGET" "release F1 for follower deferral test"
+rm -rf "$TR/sd-state-$F1"; sd_signal "$F1" "$TARGET"; : > "$DEPLOY_LOG"
+run_self_deploy "$F1" GARDEN_LEADER="$LEADER" REC_DEPLOY_DEFER=1 GARDEN_SELF_DEPLOY_NOW=50000
+fh="$(from_bare "fleet/health/$F1")"
+if grep -q "deploy-invoked host=$F1" "$DEPLOY_LOG" && grep -q '^roll_status: deferred' <<<"$fh" \
+   && grep -q "^deferred_target: $TARGET" <<<"$fh" && grep -q '^deferred_at_epoch: 50000' <<<"$fh" \
+   && grep -q '^deferred_reason: long-job monk 1 4545s' <<<"$fh"; then
+  ok "FOLLOWER: a deferring released deploy publishes roll_status deferred (target, epoch, long-job reason)"
+else bad "FOLLOWER: deferral not published: $fh"; fi
+n0="$(git -C "$BARE" rev-list --count "$BRANCH" -- "fleet/health/$F1")"
+run_self_deploy "$F1" GARDEN_LEADER="$LEADER" REC_DEPLOY_DEFER=1 GARDEN_SELF_DEPLOY_NOW=50100
+n1="$(git -C "$BARE" rev-list --count "$BRANCH" -- "fleet/health/$F1")"
+[ "$n1" = "$n0" ] && ok "FOLLOWER: a continuing deferral is not re-pushed inside the republish interval" || bad "FOLLOWER: re-pushed after 100s ($n0 -> $n1)"
+run_self_deploy "$F1" GARDEN_LEADER="$LEADER" REC_DEPLOY_DEFER=1 GARDEN_SELF_DEPLOY_NOW=50400
+grep -q '^deferred_at_epoch: 50400' <<<"$(from_bare "fleet/health/$F1")" && ok "FOLLOWER: republished once the interval elapses (fresh epoch)" \
+  || bad "FOLLOWER: continuing deferral not republished after the interval"
+printf 'draining\nsource: rolling-deploy-quiesce\nreason: rolling-deploy: quiesce for deploy\n' > "$TR/sd-state-$F1/draining"
+: > "$DEPLOY_LOG"
+run_self_deploy "$F1" GARDEN_LEADER="$LEADER" REC_DEPLOY_DEFER=1 GARDEN_SELF_DEPLOY_NOW=50800
+grep -q "deploy-invoked host=$F1" "$DEPLOY_LOG" && ok "FOLLOWER: under the quiesce-for-deploy drain the released deploy still runs" \
+  || bad "FOLLOWER: quiesce drain blocked the released deploy"
+grep -q '^roll_status: deferred' <<<"$(from_bare "fleet/health/$F1")" && ok "FOLLOWER: quiesce drain is not reported as roll-drained/operator-drained" \
+  || bad "FOLLOWER: quiesce drain misreported: $(from_bare "fleet/health/$F1" | grep roll_status)"
+rm -f "$TR/sd-state-$F1/draining"
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release after follower deferral test"
 
 # ============================================================================
 hr; echo "WALL-CLOCK DEADLINE — journal_put/journal_rm bail EX_TEMPFAIL past the bound"; hr

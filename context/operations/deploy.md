@@ -74,6 +74,14 @@ a worker that crosses that threshold during a self-engaged drain causes the
 script to lift and defer. On a continuously busy pool, repeated attempts may
 never find a quiet window.
 
+In a **rolling deploy** the follower publishes each deferral (`roll_status:
+deferred`), and the leader treats that canary as waiting rather than failed. After
+30 minutes of continuous deferral the leader sends one targeted
+`rolling-deploy-quiesce` drain so the long job becomes the host's last. A canary
+still deferring 3 hours after its release fails normally. See
+[designs/follower-self-deploy.md](../../designs/follower-self-deploy.md) § A deferring
+canary is waiting, not failed.
+
 The reliable operator sequence is to establish the quiet window first:
 
 ```sh

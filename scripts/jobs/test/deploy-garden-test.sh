@@ -358,6 +358,28 @@ grep -q "waiting for" <<<"$OUT" && bad "entered the quiesce wait (fleet paused)"
 [ "$(root_head)" = "$before" ] && ok "root NOT advanced on a deferral" || bad "root advanced on a deferral"
 draining && bad "drain marker present after a deferral" || ok "no drain marker (fleet untouched)"
 grep -q restart "$TR/log" && bad "restarted on a deferral" || ok "no restart on a deferral"
+# The deferral leaves a host-local record self-deploy publishes as roll_status
+# `deferred`, so the rolling-deploy conductor waits instead of failing the canary.
+if grep -q '^kind: gardener' "$TR/state/deploy/deferred" 2>/dev/null \
+   && grep -q '^id: 1' "$TR/state/deploy/deferred" && grep -qE '^target: [0-9a-f]{40}' "$TR/state/deploy/deferred"; then
+  ok "deferral record written (kind/id/target) for self-deploy to publish"
+else bad "no/garbled deferral record: $(cat "$TR/state/deploy/deferred" 2>&1)"; fi
+
+# The rolling-deploy conductor's QUIESCE-FOR-DEPLOY drain: new claims are stopped so
+# the long job is the last one. Under it a long job still DEFERS (not the operator
+# path's full-budget wait + abort), and the quiesce drain is left in place.
+setup_fixture
+printf 'draining\nsource: rolling-deploy-quiesce\nreason: rolling-deploy: quiesce for deploy\n' > "$TR/state/draining"
+mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"
+touch -d "10 minutes ago" "$TR/state/gardeners/1/busy"
+origin_commit scripts/jobs/worker-lib.sh "echo newquiesce" "fix: worker-lib quiesce"
+before="$(root_head)"
+run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
+[ "$RC" -eq 0 ] && grep -q "DEFERRED" <<<"$OUT" && ok "quiesce-drained long job DEFERS (exit 0), not a drain-budget abort" || bad "quiesce drain did not defer (rc=$RC): $OUT"
+grep -q "waiting for" <<<"$OUT" && bad "entered the quiesce wait despite the long job" || ok "no full-budget quiesce wait under the quiesce drain"
+[ "$(root_head)" = "$before" ] && ok "root NOT advanced while quiesce-deferring" || bad "root advanced while quiesce-deferring"
+grep -q 'source: rolling-deploy-quiesce' "$TR/state/draining" 2>/dev/null && ok "the conductor's quiesce drain is left in place" || bad "quiesce drain was lifted/overwritten"
+[ -f "$TR/state/deploy/deferred" ] && ok "quiesce deferral also records the deferral" || bad "no deferral record under quiesce"
 
 # A drain the OPERATOR pre-engaged is honored, not short-circuited by the defer
 # check (deferring would not un-pause their drain; they explicitly asked to deploy).

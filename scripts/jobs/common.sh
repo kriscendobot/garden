@@ -286,6 +286,23 @@ export GARDEN
 # line; every other drain (operator, deploy-in-progress, maintenance) is `operator`,
 # the inviolable default. self-deploy/rolling-deploy key retryability on this exact value.
 : "${GARDEN_DRAIN_SOURCE_ROLL:=rolling-deploy}"
+# A DEFERRING canary (its deploy-garden.sh keeps deferring behind a long in-flight
+# job) is WAITING, not failed. It publishes roll_status `deferred` with the reason and
+# an epoch; the conductor extends the canary's advance deadline from each fresh
+# deferral, up to a hard ceiling measured from the release (default: the longest role
+# handler budget, 2h, plus the quiesce delay and slack), after which it is a real
+# failure. After GARDEN_ROLL_QUIESCE_AFTER of continuous deferral the conductor sends
+# ONE targeted "quiesce for deploy" drain (source GARDEN_DRAIN_SOURCE_QUIESCE) so the
+# long job becomes the host's last: it is not a failure and consumes no retry, the
+# follower still deploys under it, and deploy-garden.sh lifts it on success.
+: "${GARDEN_ROLL_DEFER_CEILING:=10800}"              # 3h from release: deferral past this is a failed canary
+: "${GARDEN_ROLL_DEFER_FRESH:=900}"                  # a deferral status older than this is not "actively deferring"
+: "${GARDEN_ROLL_QUIESCE_AFTER:=1800}"               # continuous deferral before the quiesce-for-deploy drain
+: "${GARDEN_SELF_DEPLOY_DEFER_REPUBLISH:=300}"       # follower republishes a continuing deferral at most this often
+: "${GARDEN_DRAIN_SOURCE_QUIESCE:=rolling-deploy-quiesce}"
+# Host-local record deploy-garden.sh writes when it DEFERS (and removes at the start of
+# every run), so self-deploy can tell a deferral from a landed or failed deploy.
+: "${GARDEN_DEPLOY_DEFER_RECORD:=$GARDEN_DEPLOY_STATE/deferred}"
 
 # Fleet draining marker. If present, this host's workers finish their in-flight
 # claims but take no new ones — a graceful, mundane pause, not a kill. The marker
@@ -972,6 +989,10 @@ drain_source() {
 # other drain — operator, deploy-in-progress, maintenance, legacy, or an unreadable
 # marker — is NOT roll-induced, so an operator pause is never mistaken for one.
 drain_is_roll_induced() { [ "$(drain_source)" = "$GARDEN_DRAIN_SOURCE_ROLL" ]; }
+# drain_is_deploy_quiesce — rc0 iff this host is draining under the conductor's
+# targeted "quiesce for deploy" drain (source == rolling-deploy-quiesce): new claims
+# stop so an in-flight long job is the last one, but the released deploy still runs.
+drain_is_deploy_quiesce() { [ "$(drain_source)" = "$GARDEN_DRAIN_SOURCE_QUIESCE" ]; }
 
 # True when the FOREMAN must not pump this tick: either the whole fleet is
 # draining (fleet_draining — the drain keeps its meaning and keeps stopping the
@@ -1581,8 +1602,12 @@ fleet_unit_health() {
 # inviolable) or `roll-drained` (the conductor's OWN failure-remediation drain →
 # conductor lifts it and retries, bounded), so the leader can tell "skipped" from
 # "retryable" from "done".
+#
+# An optional third argument is extra `key: value` lines appended to the health record
+# (self-deploy's `deferred` status carries deferred_reason/deferred_target/
+# deferred_at_epoch there).
 publish_fleet_health() {
-  local sha="${1:?publish_fleet_health: sha}" status="${2:-deployed}"
+  local sha="${1:?publish_fleet_health: sha}" status="${2:-deployed}" extra="${3:-}"
   local DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
   local health; health="$(fleet_unit_health 2>/dev/null || echo '? ? - ?')"
   local unit_failures; unit_failures="$(printf '%s' "$health" | awk '{print $1}')"
@@ -1617,6 +1642,7 @@ publish_fleet_health() {
       printf 'first_bad_unit: %s\n' "$first_bad"
       printf 'advisory_failures: %s\n' "${advisory_failures:-0}"
       printf 'at: %s\n'            "$(date -u +%FT%TZ)"
+      [ -z "$extra" ] || printf '%s\n' "$extra"
     } > "$DIR/$GARDEN_FLEET_HEALTH_PATH/$GARDEN"
     git -C "$DIR" add "$GARDEN_FLEET_DEPLOYED_PATH/$GARDEN" "$GARDEN_FLEET_HEALTH_PATH/$GARDEN"
     if [ "$am_leader" -eq 1 ] && [ "$status" = deployed ]; then

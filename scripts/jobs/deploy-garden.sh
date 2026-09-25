@@ -597,6 +597,15 @@ run_candidate_gate "$candidate_sha" || {
   exit 1
 }
 
+# record_deferral <kind> <idx> <age> — leave the host-local deferral record that
+# self-deploy.sh publishes as roll_status `deferred`, so the rolling-deploy conductor
+# treats this canary as WAITING rather than failed. Best-effort.
+record_deferral() {
+  mkdir -p "$(dirname "$GARDEN_DEPLOY_DEFER_RECORD")" 2>/dev/null || true
+  printf 'kind: %s\nid: %s\nelapsed: %s\nat_epoch: %s\ntarget: %s\n' \
+    "$1" "$2" "$3" "$(date +%s)" "$candidate_sha" > "$GARDEN_DEPLOY_DEFER_RECORD" 2>/dev/null || true
+}
+
 # --- 1. DEFER CHECK ----------------------------------------------------------
 #
 # Decide whether to engage the drain at all. If a gardener has ALREADY been mid-job
@@ -605,10 +614,15 @@ run_candidate_gate "$candidate_sha" || {
 # aborting, and the next trigger would repeat that pause. Defer instead — without
 # ever pausing the fleet. Skipped when an operator pre-drained (the fleet is already
 # paused by their explicit choice; deferring here would not un-pause it, and they
-# asked to deploy — let the original timeout/abort semantics stand).
-if ! fleet_draining; then
+# asked to deploy — let the original timeout/abort semantics stand). The conductor's
+# "quiesce for deploy" drain is the exception: it exists precisely to let a long job
+# finish as the host's last, so under it a long job still DEFERS (leaving the drain in
+# place) instead of burning the drain budget and aborting.
+rm -f "$GARDEN_DEPLOY_DEFER_RECORD" 2>/dev/null || true
+if ! fleet_draining || drain_is_deploy_quiesce; then
   read -r busy_age busy_kind busy_idx < <(oldest_busy)
   if [ "$busy_age" -ge "$GARDEN_DEPLOY_LONG_JOB_THRESHOLD" ]; then
+    record_deferral "$busy_kind" "$busy_idx" "$busy_age"
     log "DEFERRED: $busy_kind $busy_idx has been mid-job ${busy_age}s (>= ${GARDEN_DEPLOY_LONG_JOB_THRESHOLD}s long-job threshold)."
     log "  Not engaging the drain — the fleet keeps claiming, never paused on this doomed attempt. The Upgrade-ready"
     log "  signal persists; a later trigger retries once the long job finishes. Nothing was advanced."
@@ -639,9 +653,10 @@ while :; do
   # hold the fleet paused for the rest of the budget, lift the drain and defer the
   # moment it crosses. Only when WE engaged the drain — if an operator pre-drained,
   # honor their explicit drain to the full timeout (we don't second-guess it).
-  if [ "$we_drained" = "1" ]; then
+  if [ "$we_drained" = "1" ] || drain_is_deploy_quiesce; then
     read -r busy_age busy_kind busy_idx < <(oldest_busy)
     if [ "$busy_age" -ge "$GARDEN_DEPLOY_LONG_JOB_THRESHOLD" ]; then
+      record_deferral "$busy_kind" "$busy_idx" "$busy_age"
       log "DEFERRED: $busy_kind $busy_idx crossed the ${GARDEN_DEPLOY_LONG_JOB_THRESHOLD}s long-job threshold mid-drain (busy ${busy_age}s)."
       log "  Lifting the drain so the fleet resumes; the Upgrade-ready signal persists and a later trigger retries."
       lift_drain_if_we_engaged

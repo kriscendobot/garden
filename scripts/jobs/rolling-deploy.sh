@@ -52,6 +52,8 @@
 #   GARDEN_ROLL_STUCK_CANARY_AFTER seconds a released follower may stay undeployed
 #                               before the stuck-canary notice (default: 20 min)
 #   GARDEN_HOST_OFFLINE_AFTER   max budget/live heartbeat age (default: 30 min)
+#   GARDEN_ROLL_DEFER_CEILING / GARDEN_ROLL_DEFER_FRESH / GARDEN_ROLL_QUIESCE_AFTER
+#                               deferring-canary ceiling, freshness, quiesce delay (common.sh)
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -327,6 +329,14 @@ roll_drain() {  # roll_drain <host> <reason>
   "$DRAIN_OP" "$1" op=drain state=on source="$GARDEN_DRAIN_SOURCE_ROLL" reason="rolling-deploy: $2" >/dev/null 2>&1 \
     || log "WARN: could not send benign roll-induced drain-on to canary $1"
 }
+# roll_quiesce: the targeted "quiesce for deploy" drain for a canary that keeps
+# DEFERRING behind a long job. Stops new claims so the long job is the host's last;
+# NOT a failure-remediation drain (distinct source, no retry consumed), the follower
+# still deploys under it, and deploy-garden.sh lifts it when the deploy lands.
+roll_quiesce() {  # roll_quiesce <host> <reason>
+  "$DRAIN_OP" "$1" op=drain state=on source="$GARDEN_DRAIN_SOURCE_QUIESCE" reason="rolling-deploy: quiesce for deploy — $2" >/dev/null 2>&1 \
+    || { log "WARN: could not send quiesce-for-deploy drain-on to canary $1"; return 1; }
+}
 roll_undrain() {  # roll_undrain <host> <reason>
   "$DRAIN_OP" "$1" op=drain state=off reason="rolling-deploy: $2" >/dev/null 2>&1 \
     || log "WARN: could not send drain-off to canary $1"
@@ -387,6 +397,8 @@ handle_roll_retry() {  # handle_roll_retry <host> <target>
   # base) rather than reading the previous attempt's stale tada.
   rfield_set "$target" "$host" probe_base ""
   rfield_set "$target" "$host" probe_posted_at ""
+  rfield_set "$target" "$host" deferring_since ""
+  rfield_set "$target" "$host" quiesced_at ""
   rstat_set "$target" "$host" released
   rfield_set "$target" "$host" released_at "$now"
   alert_maintainer_clear "rolling-deploy-canary-failed-$host" "retrying canary $host (attempt ${tries}/${GARDEN_CANARY_MAX_RETRIES}); clearing prior page." || true
@@ -422,6 +434,27 @@ on $host, then lift its drain and re-trigger, or hold the tip. (leader=$GARDEN)"
   log "HALTED: canary $host failed validation for ${target:0:12}${mode:+ ($mode)}: $reason — leader will NOT advance; canary left drained"
 }
 
+# --- deferral: a released canary whose deploy-garden.sh defers behind a long job --
+# self-deploy publishes roll_status `deferred` with deferred_target/deferred_at_epoch/
+# deferred_reason. canary_deferral <host> <target> echoes "<at_epoch> <reason>" and
+# returns 0 when the follower's LATEST published status is a deferral of THIS target
+# (any age; freshness is the caller's call), else returns 1.
+canary_deferral() {
+  local host="$1" target="$2" at
+  [ "$(follower_health_field "$host" roll_status)" = deferred ] || return 1
+  [ "$(follower_health_field "$host" deferred_target | tr -d '[:space:]')" = "$target" ] || return 1
+  at="$(follower_health_field "$host" deferred_at_epoch | tr -d '[:space:]')"
+  [[ "$at" =~ ^[0-9]+$ ]] || return 1
+  printf '%s %s\n' "$at" "$(follower_health_field "$host" deferred_reason)"
+}
+# canary_deferring <host> <target> — rc0 iff that deferral is FRESH (actively deferring).
+canary_deferring() {
+  local d at
+  d="$(canary_deferral "$1" "$2")" || return 1
+  at="${d%% *}"
+  [ $(( now - at )) -le "$GARDEN_ROLL_DEFER_FRESH" ]
+}
+
 # --- stuck-canary watchdog -----------------------------------------------------
 # A follower holding a release token it has not deployed for
 # GARDEN_ROLL_STUCK_CANARY_AFTER raises ONE keyed notice per episode (alert_maintainer
@@ -444,6 +477,10 @@ stuck_canary_watch() {
       fi
       continue
     fi
+    # An actively DEFERRING canary is waiting on a long job, not stuck; the roll's own
+    # deferral ceiling bounds it. Keep the episode clock running (no reset) so a
+    # deferral that goes quiet still raises the notice for the whole duration.
+    canary_deferring "$f" "$tok" && continue
     rec="$(rdline "$d/$f")"
     if [ "${rec%% *}" != "$tok" ]; then
       printf '%s %s\n' "$tok" "$now" > "$d/$f"
@@ -640,15 +677,41 @@ for f in "${followers[@]}"; do
   # Released but not yet deployed to the target?
   if [ "$(follower_deployed_sha "$f")" != "$target" ]; then
     ra="$(rfield_get "$target" "$f" released_at)"; : "${ra:=$now}"
-    # A generous deploy budget: the follower's deploy-garden.sh may DEFER behind a long
-    # in-flight job. Bound it by the probe deadline + watch so a follower that never
-    # advances is eventually a failed canary, not an infinite wait.
+    # The deploy budget: probe deadline + watch, counted from the release OR from the
+    # canary's latest published DEFERRAL of this target, whichever is later. A canary
+    # whose deploy-garden.sh defers behind a long in-flight job is WAITING, not failed:
+    # each fresh deferral extends its deadline (no failure, no drain, no retry
+    # consumed). GARDEN_ROLL_DEFER_CEILING from the release is the hard cap, after
+    # which even a deferring canary is a real failure. A canary publishing NO deferral
+    # fails at the plain budget, as before.
     local_budget=$(( GARDEN_CANARY_PROBE_DEADLINE + GARDEN_CANARY_WATCH ))
-    if [ $(( now - ra )) -ge "$local_budget" ]; then
-      retry_or_halt "$f" "$target" "released ${local_budget}s ago but never advanced to the target sha (deploy stuck/failed on the canary)"
+    start="$ra"; defer_at=""; defer_reason=""
+    if dinfo="$(canary_deferral "$f" "$target")"; then
+      defer_at="${dinfo%% *}"; defer_reason="${dinfo#* }"
+      [ "$defer_at" -gt "$start" ] && start="$defer_at"
+    fi
+    if [ -n "$defer_at" ] && [ $(( now - ra )) -ge "$GARDEN_ROLL_DEFER_CEILING" ]; then
+      retry_or_halt "$f" "$target" "released $(( now - ra ))s ago and still DEFERRING (${defer_reason:-long job}) past the ${GARDEN_ROLL_DEFER_CEILING}s deferral ceiling"
       exit 0
     fi
-    log "canary $f released; awaiting its deploy to ${target:0:12} ($(( now - ra ))s/${local_budget}s)"
+    if canary_deferring "$f" "$target"; then
+      first="$(rfield_get "$target" "$f" deferring_since)"
+      [[ "$first" =~ ^[0-9]+$ ]] || { first="$now"; rfield_set "$target" "$f" deferring_since "$now"; }
+      if [ -z "$(rfield_get "$target" "$f" quiesced_at)" ] && [ $(( now - first )) -ge "$GARDEN_ROLL_QUIESCE_AFTER" ]; then
+        if roll_quiesce "$f" "deferring $(( now - first ))s behind ${defer_reason:-a long job}; stopping new claims so it is the last"; then
+          rfield_set "$target" "$f" quiesced_at "$now"
+          log "canary $f QUIESCE FOR DEPLOY: deferring $(( now - first ))s (>= ${GARDEN_ROLL_QUIESCE_AFTER}s) behind ${defer_reason:-a long job}; sent targeted quiesce drain (not a failure; no retry consumed)"
+          exit 0
+        fi
+      fi
+      log "canary $f DEFERRING (waiting, not failed) for ${target:0:12}: ${defer_reason:-long job}; released $(( now - ra ))s ago (ceiling ${GARDEN_ROLL_DEFER_CEILING}s)$( [ -n "$(rfield_get "$target" "$f" quiesced_at)" ] && printf '; quiesced for deploy')"
+      exit 0
+    fi
+    if [ $(( now - start )) -ge "$local_budget" ]; then
+      retry_or_halt "$f" "$target" "released $(( now - ra ))s ago, no deferral published for $(( now - start ))s (budget ${local_budget}s), never advanced to the target sha (deploy stuck/failed on the canary)"
+      exit 0
+    fi
+    log "canary $f released; awaiting its deploy to ${target:0:12} ($(( now - start ))s/${local_budget}s)"
     exit 0
   fi
 

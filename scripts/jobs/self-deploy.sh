@@ -103,7 +103,38 @@ is_ancestor() {  # is_ancestor <a> <b> → rc0 iff a is an ancestor-or-equal of 
 
 do_deploy() {  # do_deploy <mode> <pinned-sha>
   log "self-deploy ($1): advancing this host to ${2:0:12} via deploy-garden.sh (host-local upgrade-ready for ${target:0:12} + $1 gate)"
-  GARDEN_DEPLOY_TARGET="$2" "$DEPLOY_CMD" || log "WARN: deploy-garden.sh returned non-zero (it manages its own drain/quiesce/abort)"
+  rm -f "$GARDEN_DEPLOY_DEFER_RECORD" 2>/dev/null || true
+  GARDEN_DEPLOY_TARGET="$2" GARDEN_DEPLOY_DEFER_RECORD="$GARDEN_DEPLOY_DEFER_RECORD" "$DEPLOY_CMD" \
+    || log "WARN: deploy-garden.sh returned non-zero (it manages its own drain/quiesce/abort)"
+}
+
+# publish_deferral <released-sha> — deploy-garden.sh DEFERRED behind a long in-flight
+# job (it left GARDEN_DEPLOY_DEFER_RECORD). Publish roll_status `deferred` so the
+# conductor treats this canary as WAITING, not stuck: without it the leader failed and
+# drained a canary that was deliberately deferring (2026-09-24/25, endolin-garden2).
+# Rate-limited to one journal push per GARDEN_SELF_DEPLOY_DEFER_REPUBLISH while the
+# deferral continues; the conductor's freshness window is several of those.
+publish_deferral() {
+  local rel="$1" rec="$GARDEN_DEPLOY_DEFER_RECORD" kind id elapsed pub_file last
+  [ -f "$rec" ] || return 0
+  kind="$(sed -n 's/^kind:[[:space:]]*//p' "$rec" | head -1)"
+  id="$(sed -n 's/^id:[[:space:]]*//p' "$rec" | head -1)"
+  elapsed="$(sed -n 's/^elapsed:[[:space:]]*//p' "$rec" | head -1)"
+  pub_file="$STATE/deferral-published"
+  last="$(rdline "$pub_file")"
+  if [ "${last%% *}" = "$rel" ] && [[ "${last##* }" =~ ^[0-9]+$ ]] \
+     && [ $(( now - ${last##* } )) -lt "$GARDEN_SELF_DEPLOY_DEFER_REPUBLISH" ]; then
+    return 0
+  fi
+  if publish_fleet_health "$(deployed_sha 2>/dev/null || true)" deferred \
+"deferred_reason: long-job ${kind:-?} ${id:-?} ${elapsed:-?}s
+deferred_target: $rel
+deferred_at_epoch: $now"; then
+    printf '%s %s\n' "$rel" "$now" > "$pub_file"
+    log "deploy of ${rel:0:12} DEFERRED behind long-job ${kind:-?} ${id:-?} (${elapsed:-?}s); published roll_status deferred (the conductor waits, not fails)"
+  else
+    log "WARN: deploy deferred but could not publish the deferred status"
+  fi
 }
 
 # --- 3. PRIMARY: the leader released this host -------------------------------
@@ -124,7 +155,10 @@ if [ -n "$release" ] && is_ancestor "$release" "$target"; then
   fi
 fi
 if [ "$released" -eq 1 ]; then
-  if fleet_draining; then
+  # The conductor's targeted "quiesce for deploy" drain stops NEW claims so a long job
+  # becomes the last one; the released deploy still proceeds under it (deploy-garden.sh
+  # defers while the long job runs and lifts the drain once it lands).
+  if fleet_draining && ! drain_is_deploy_quiesce; then
     # This host is draining. NEVER self-deploy out from under a drain — but the
     # conductor's SKIP-forever behavior must apply only to a genuine OPERATOR pause,
     # not to the roll's OWN failure-remediation drain (which would deadlock: a
@@ -147,6 +181,7 @@ if [ "$released" -eq 1 ]; then
     exit 0
   fi
   do_deploy "leader-release" "$release"
+  publish_deferral "$release"
   exit 0
 fi
 
@@ -174,8 +209,8 @@ if [ "$leaderless" -ne 1 ]; then
 fi
 
 if fleet_draining; then
-  if drain_is_roll_induced; then
-    # A roll-induced drain with NO live conductor to lift it would strand this host
+  if drain_is_roll_induced || drain_is_deploy_quiesce; then
+    # A roll-induced (or roll quiesce-for-deploy) drain with NO live conductor to lift it would strand this host
     # forever (the very deadlock this daemon exists to prevent). Since it is provably
     # the roll's own drain — never an operator's — the leaderless backstop clears it
     # and proceeds under the headless canary gate below. An OPERATOR drain still holds.
