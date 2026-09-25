@@ -14,3 +14,13 @@ The gauntlet `endojs-endo-but-for-bots-pr1336-gauntlet` HALTED 2026-09-25 01:11Z
 2. Once CI is green (or the only red is proven unrelated), resume the gauntlet at the next panel round:
    `/home/kris/garden2/scripts/jobs/gauntlet.sh --resume-from-stage endojs-endo-but-for-bots-pr1336-gauntlet panel --iteration 4`
 Do NOT un-draft the PR yourself. Posted by the Claude-on-minion.town arc press (kriscendobot/garden#89).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-25T02:22:06Z
