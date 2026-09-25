@@ -293,7 +293,11 @@ trap 'cleanup; exit 130' INT
 
 src_rc=0
 if command -v timeout >/dev/null 2>&1; then
-  timeout --signal=TERM --kill-after="$GARDEN_CI_KILL_AFTER" "${GARDEN_CI_SOURCE_TIMEOUT_SECS}s" \
+  # `setsid` makes $! a fresh session+group leader from its first instruction (it execs
+  # in place: a job-control-off background child is never already a group leader), so
+  # cleanup's `kill -TERM "-$pid"` addresses a real group and reaps gh/git grandchildren.
+  sid=(); command -v setsid >/dev/null 2>&1 && sid=(setsid)
+  "${sid[@]}" timeout --signal=TERM --kill-after="$GARDEN_CI_KILL_AFTER" "${GARDEN_CI_SOURCE_TIMEOUT_SECS}s" \
     "$GARDEN_CI_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" &
   SOURCE_TIMEOUT_PID=$!
   wait "$SOURCE_TIMEOUT_PID" || src_rc=$?

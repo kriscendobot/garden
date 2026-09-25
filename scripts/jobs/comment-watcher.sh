@@ -1622,7 +1622,11 @@ run_source() {
   if command -v timeout >/dev/null 2>&1; then
     # Background + wait so the trap can TERM the timeout pid (and thus its whole
     # process group) the instant a signal lands mid-fetch.
-    timeout --signal=TERM --kill-after="$GARDEN_COMMENT_KILL_AFTER" "${GARDEN_COMMENT_SOURCE_TIMEOUT_SECS}s" \
+    # `setsid` makes $! a fresh session+group leader from its first instruction (it execs
+    # in place: a job-control-off background child is never already a group leader), so
+    # cleanup's `kill -TERM "-$pid"` addresses a real group and reaps gh/git grandchildren.
+    local sid=(); command -v setsid >/dev/null 2>&1 && sid=(setsid)
+    "${sid[@]}" timeout --signal=TERM --kill-after="$GARDEN_COMMENT_KILL_AFTER" "${GARDEN_COMMENT_SOURCE_TIMEOUT_SECS}s" \
       "$GARDEN_COMMENT_SOURCE" "$repo" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" &
     SOURCE_TIMEOUT_PID=$!
     wait "$SOURCE_TIMEOUT_PID" || src_rc=$?
