@@ -25,6 +25,7 @@ The competing definitions differ operationally. Under "shared with all programs,
 | [cookies-as-ambient-authority](../sections/cap-talk-2009-2012--cookies-as-ambient-authority.md) | RFC 6265's own security-considerations text names cookies a form of ambient authority: the browser attaches them without the requester designating them, so server and client become confused deputies. |
 | [mutable-singletons-are-ambient-authority](../sections/cap-talk-2009-2012--mutable-singletons-are-ambient-authority.md) | A mutable globally-accessible singleton is ambient authority by construction; only mutable ones are harmful, which is why frozen (constant) primordials are fine. |
 | [web-powerbox-and-oauth](../sections/cap-talk-2009-2012--web-powerbox-and-oauth.md) | OAuth's redirect dance actively depends on ambient authority via cookies; the powerbox replaces it with a per-connection capability the browser holds. |
+| [web--moddable-kaozkit--xs-for-agents](../sections/web--moddable-kaozkit--xs-for-agents.md) | Vendor claim that bare XS has nothing to sandbox because it ships only the language, no runtime I/O; KaozKit adds services, never removes them. |
 
 ## See also
 
