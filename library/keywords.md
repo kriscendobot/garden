@@ -135,3 +135,5 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - GEFS, Good Enough File System, gefs9, Plan 9 file system, 9p file system, CWFS, HJFS, fossil venti, copy-on-write file system -> gefs
 - deadlist, deadlist algorithm, birth generation, epoch-based reclamation, snapshot tree, qid namespace, base snapshot -> gefs
 - max thinking useless, over-thinks to breaking, reasoning budget overrun, thinking budget exhausts output tokens, 128000 output token limit, 128k output limit, max effort no response, reasoning token output ceiling -> thinking-budget-output-overrun
+- KaozKit, kaoz, TyKaoz, heap snapshot agent, resident agent, agent brain is a file, `writeSnapshot`, `init(snapshot:)`, agents on ice, XS agent persistence -> xs-heap-snapshot-agent-persistence
+- XS agent runtime, XS for agents, one XS machine per agent, `host.llm`, `host.schedule`, host global capability surface -> principle-of-least-authority
