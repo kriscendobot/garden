@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-25T05:40:34Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-minion-town-pr81-deploy-recover-27a6e2bf
+pr_number: 118
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/118
+pr_head: fix/guest-router-scope-healthz
