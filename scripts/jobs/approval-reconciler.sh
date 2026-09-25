@@ -213,7 +213,7 @@ head_pushable() {  # head_pushable <head-repo-full-name>
 # board dedup reads and the post-confirm.
 _VERIFY_FETCHED=""
 verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/tick unless fresh)
-  ensure_clone "$VERIFY"
+  ensure_clone_or_latch_outage "$VERIFY" approval-reconciler-verify  # timeout → quiet exit 75, not FATAL
   if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
     journal_fetch "$VERIFY" >/dev/null 2>&1 || return 1
     _VERIFY_FETCHED=1

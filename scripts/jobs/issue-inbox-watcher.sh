@@ -221,7 +221,7 @@ VERIFY="$GARDEN_ISSUE_VERIFY_CLONE"
 # in comment-watcher.sh.
 _VERIFY_FETCHED=""
 verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/tick unless fresh)
-  ensure_clone "$VERIFY"
+  ensure_clone_or_latch_outage "$VERIFY" issue-inbox-verify  # timeout → quiet exit 75, not FATAL
   if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
     journal_fetch "$VERIFY" >/dev/null 2>&1 || return 1
     _VERIFY_FETCHED=1

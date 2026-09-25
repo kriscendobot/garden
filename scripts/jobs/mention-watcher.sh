@@ -127,7 +127,7 @@ load_allowlist() {
     done < "$GARDEN_TRUSTED_ALLOWLIST"
   else
     src="journal:trusted-senders/allowlist"
-    ensure_clone "$VERIFY"
+    ensure_clone_or_latch_outage "$VERIFY" mention-watcher-verify  # timeout → quiet exit 75, not FATAL
     journal_fetch "$VERIFY" >/dev/null 2>&1 || true
     while IFS= read -r line; do
       line="${line%%#*}"; line="$(printf '%s' "$line" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"

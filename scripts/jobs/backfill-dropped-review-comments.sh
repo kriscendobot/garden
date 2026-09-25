@@ -79,7 +79,7 @@ slug="${REPO/\//-}"
 # untrusted contributors) are in scope. Refuse anything else — this one-shot is a
 # recovery for an EXISTING watch, not a new surveillance surface.
 VERIFY="$GARDEN_STATE/backfill/verify"
-ensure_clone "$VERIFY"
+ensure_clone_or_latch_outage "$VERIFY" backfill-verify  # timeout → quiet exit 75, not FATAL
 journal_fetch "$VERIFY" >/dev/null 2>&1 || log "WARN: journal fetch failed; dedup uses the last local view"
 if ! git -C "$VERIFY" cat-file -e "origin/$JOURNAL_BRANCH:comment-repos/$slug" 2>/dev/null; then
   die "$REPO is not comment-watched (no comment-repos/$slug) — refusing to enumerate an unwatched repo (monitoring-safety)"

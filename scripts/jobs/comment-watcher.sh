@@ -480,7 +480,10 @@ verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/ti
   local rc=0
   clone_lock "$VERIFY"
   # A subshell swallows ensure_clone's offline `exit`/die; re-raise it after unlocking.
-  if ( ensure_clone "$VERIFY" ); then :; else rc=$?; clone_unlock "$VERIFY"; exit "$rc"; fi
+  # ensure_clone_or_latch_outage (not raw ensure_clone): a (re)clone that times out
+  # with no stderr is an ambiguous outage, not a fault — latch the cooldown and exit
+  # 75 quietly instead of a FATAL die that crashes the tick into a self-heal.
+  if ( ensure_clone_or_latch_outage "$VERIFY" comment-watcher-verify ); then :; else rc=$?; clone_unlock "$VERIFY"; exit "$rc"; fi
   if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
     if journal_fetch "$VERIFY" >/dev/null 2>&1; then _VERIFY_FETCHED=1; else rc=1; fi
   fi
