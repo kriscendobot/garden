@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-09-25T13:21:36Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-improve-watcher-source-process-group-reap
