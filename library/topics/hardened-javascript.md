@@ -115,6 +115,7 @@
 | [safe-language-defined-and-ocap](../sections/cap-talk-2009-2012--safe-language-defined-and-ocap.md) | cap-talk 2010-April | Memory/abstraction safety as the prerequisite ocap enforcement rests on; JavaScript's base safety is why SES can build ocap on it. |
 | [language-support-for-object-capabilities](../sections/cap-talk-2009-2012--language-support-for-object-capabilities.md) | programming-language-design, hardened-javascript, capability-security | Kevin Reid's list of what a capability language should make cheap (encapsulation, immutable-by-default, cheap multi-facet objects, interposition), and why to design security in rather than add it on. |
 | [js-membranes-and-fine-grained-object-views](../sections/cap-talk-2009-2012--js-membranes-and-fine-grained-object-views.md) | hardened-javascript, patterns, revocation, capability-security | Tom Van Cutsem's E-style JavaScript membranes make revocation transitive over an entire object graph via Proxy interposition. |
+| [XS for agents (footprint, nothing to sandbox, Swift host runtime)](../sections/web--moddable-kaozkit--xs-for-agents.md) | KaozKit (Hoddie, Moddable) | Hoddie's case for XS as an agent engine: a 1–2 MB footprint. |
 
 ## Superseded sections
 
