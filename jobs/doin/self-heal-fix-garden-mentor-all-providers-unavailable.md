@@ -4,3 +4,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 In scripts/jobs/mentor.sh, the classification branch around line 206 (`is_transient_claude_signature "$out" || _fetch_stderr_is_offline "$out"`) doesn't recognize mentor-claude.sh's own all-providers-exhausted FATAL text (`"no configured mentor inference provider was available"`, emitted at scripts/jobs/handlers/mentor-claude.sh:297 whenever every configured provider — openai/local/anthropic — reported unavailable, e.g. via the "is at high water" quota-backoff message at mentor-claude.sh:240 or the local-inference-unreachable curl failure). Because none of the existing signature sets (GARDEN_TRANSIENT_CLAUDE_SIGNATURES, GARDEN_PROVIDER_QUOTA_SIGNATURES, GARDEN_OFFLINE_SIGNATURES) match that self-emitted wording, this genuinely transient condition falls through to `die` at mentor.sh:237, failing garden-mentor.service and firing a self-heal diagnosis cycle for a failure the file's own design comment (mentor.sh:158-169) says must stay in the `note_transient_outage` + `exit 0` path. Add a check for `"no configured mentor inference provider was available"` (matching mentor-claude.sh:297's literal text) to the transient branch around mentor.sh:206 so it calls `note_transient_outage` and `exit 0` instead of dying. Failure signature: garden-mentor exits rc=1 with tail containing "no configured mentor inference provider was available" preceded by per-provider "high water"/"unavailable" lines and a local-inference curl connect failure.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-25T23:51:53Z
