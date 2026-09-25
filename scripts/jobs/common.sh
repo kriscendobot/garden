@@ -2746,7 +2746,8 @@ bounded_clone() {
       rc=$?
       rm -rf "$tmp"
     fi
-    [ "$rc" -eq 124 ] && log "clone of $src into $abs timed out (>${GARDEN_FETCH_TIMEOUT}s) on attempt $attempt"
+    { [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; } \
+      && log "clone of $src into $abs timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$rc) on attempt $attempt"
     if [ "$attempt" -ge "$retries" ]; then
       log "clone of $src into $abs failed after $attempt attempt(s) (last rc=$rc)${GARDEN_CLONE_STDERR:+: $GARDEN_CLONE_STDERR}"
       return "$rc"
@@ -4300,16 +4301,25 @@ clone_is_corrupt() {
 # clone through bounded_clone's sibling-temp atomic rename. A recognized
 # connectivity failure exits EX_TEMPFAIL rather than failing every timer tick.
 reclone_clone() {
-  local dir="$1" remote="$2"
+  local dir="$1" remote="$2" rc
   rm -rf "$dir"
   # Journal callers already own their cadence/outer clone retry policy (notably
   # inbox-read's three-attempt cold-clone loop). Keep this primitive to one
   # bounded network attempt so those retry budgets do not multiply 3×3.
   if GARDEN_CLONE_RETRIES=1 bounded_clone "$remote" "$dir" --single-branch --branch "$JOURNAL_BRANCH"; then
     return 0
+  else
+    rc=$?
   fi
-  if _fetch_stderr_is_offline "$GARDEN_CLONE_STDERR"; then
-    log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC): clone of $remote ($JOURNAL_BRANCH) into $dir"
+  # Mirror sync_clone's transient classification exactly: rc=124/137 is our own
+  # GARDEN_FETCH_TIMEOUT wall-clock kill (SIGTERM at deadline / --kill-after
+  # SIGKILL), the commonest symptom under fleet-wide contention, not a repository
+  # error. Its stderr need not match GARDEN_OFFLINE_SIGNATURES (observed: "Clone
+  # succeeded, but checkout failed" at the 45s deadline), so gate on the rc too,
+  # or every ensure_clone caller crash-loops instead of skipping the tick. Keep
+  # this condition in step with sync_clone's.
+  if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_CLONE_STDERR"; then
+    log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC): clone of $remote ($JOURNAL_BRANCH) into $dir (clone rc=$rc)"
     exit "$GARDEN_OFFLINE_RC"
   fi
   die "clone of $remote ($JOURNAL_BRANCH) into $dir failed${GARDEN_CLONE_STDERR:+: $GARDEN_CLONE_STDERR}"

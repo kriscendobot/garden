@@ -477,6 +477,34 @@ else
   bad "ensure_clone/reclone_clone exited $rc on a transient SSH-255 clone outage (expected 75, not die(1))"
 fi
 
+# FIFTH shape: a clone killed by our own GARDEN_FETCH_TIMEOUT (rc=124, or 137 on the
+# --kill-after escalation) whose stderr matches NO offline signature (observed on
+# garden-comment-watcher@kriscendobot-garden: "Clone succeeded, but checkout failed"
+# at the 45s deadline). sync_clone already treats 124/137 as a clean skip;
+# reclone_clone must too, or every ensure_clone caller crash-loops under contention.
+for trc in 124 137; do
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+for a in "\$@"; do
+  if [ "\$a" = clone ]; then
+    echo "warning: Clone succeeded, but checkout failed." >&2
+    exit $trc
+  fi
+done
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/git"
+TODIR="$TR/timeout-reclone-$trc"; rm -rf "$TODIR"
+rc=0
+( export JOURNAL_REMOTE="$GBARE" GARDEN_FETCH_RETRIES=1
+  ensure_clone "$TODIR" ) >/dev/null 2>&1 || rc=$?
+if [ "$rc" -eq 75 ]; then
+  ok "ensure_clone/reclone_clone exited EX_TEMPFAIL (75) on a clone wall-clock timeout (rc=$trc, unrecognized stderr)"
+else
+  bad "ensure_clone/reclone_clone exited $rc on a clone wall-clock timeout (rc=$trc; expected 75, not die(1))"
+fi
+done
+
 # Boundary guard: a NON-transient clone failure (a genuinely bad/absent remote) must
 # still die loud (exit 1), never be swallowed as a transient skip.
 cat > "$TR/bin/git" <<EOF
