@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1336-patterns-fix-20260925 endojs-endo-but-for-bots-pr1336-retcon-20260925 endojs-endo-but-for-bots-pr1336-shepherd-post-retcon-20260925 endojs-endo-but-for-bots-pr1336-conduct-20260925
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-09-25T05:18:36Z
 ---
