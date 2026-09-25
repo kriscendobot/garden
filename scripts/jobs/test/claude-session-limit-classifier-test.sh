@@ -84,6 +84,19 @@ assert_transient "connection error: ECONNRESET" "pre-existing: connection error 
 # requeues/backoffs rather than escalating a real handler failure.
 assert_transient "Selected model is at capacity. Please try a different model." "provider capacity envelope: 'Selected model is at capacity'"
 assert_transient "SELECTED MODEL IS AT CAPACITY. PLEASE TRY A DIFFERENT MODEL." "uppercased capacity envelope"
+# The mentor's all-providers-backoff capture: each configured provider is skipped
+# because the budget meter reports `backoff`, then the handler dies with no
+# provider available. A quota outage, so mentor.sh must classify it transient
+# (note_transient_outage + exit 0) rather than `die` into a self-heal loop.
+MENTOR_ALL_BACKOFF="[mentor] mentor openai provider skipped: subscription openai-pro is at high water
+[mentor] mentor provider 'openai' unavailable; trying the next configured provider
+[mentor] mentor anthropic provider skipped: configured Claude quota is at its high-water mark
+[mentor] mentor provider 'anthropic' unavailable; trying the next configured provider
+[mentor] FATAL: no configured mentor inference provider was available"
+assert_transient "$MENTOR_ALL_BACKOFF" "mentor all-providers-backoff capture"
+assert_transient "subscription openai-pro is at high water" "openai provider 'at high water' line alone"
+assert_transient "configured Claude quota is at its high-water mark" "anthropic provider 'at its high-water mark' line alone"
+assert_real "[mentor] FATAL: no configured mentor inference provider was available" "no-provider death WITHOUT a backoff reason stays a real failure"
 # A genuine crash / malformed-prompt defect must NOT be swept up as transient.
 assert_real "TypeError: cannot read properties of undefined (reading 'x')" "an ordinary crash is a real failure"
 assert_real "no such file or directory: /home/kris/nope" "a missing-path defect is a real failure"

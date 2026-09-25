@@ -5118,7 +5118,14 @@ gh_pr_view_retry() {
 #     usage-cap wording that leads with the reset clause.)
 #     gardener.sh parses the named reset and stamps a reset-aware reaper backoff,
 #     so the next attempt begins when that specific account window opens.
-: "${GARDEN_TRANSIENT_CLAUDE_SIGNATURES:=overloaded|at capacity|rate[ _-]?limit|connection error|\b(429|5[0-9][0-9])\b|api[ _-]?error|econnreset|etimedout|${GARDEN_PROVIDER_QUOTA_CAP_SIGNATURES}}"
+#   * at (its) high-water (mark)             (the garden's OWN budget-meter backoff
+#     wording: mentor-claude.sh logs "subscription X is at high water" / "Claude
+#     quota is at its high-water mark" per provider it skips, and when EVERY
+#     configured provider is in backoff it dies "no configured mentor inference
+#     provider was available". That is a quota outage, not a defect: without this
+#     alternative mentor.sh falls through to `die`, firing self-heal into a
+#     `claude -p` diagnosis that fails identically in the same outage.)
+: "${GARDEN_TRANSIENT_CLAUDE_SIGNATURES:=overloaded|at capacity|at (its )?high[ -]?water( mark)?|rate[ _-]?limit|connection error|\b(429|5[0-9][0-9])\b|api[ _-]?error|econnreset|etimedout|${GARDEN_PROVIDER_QUOTA_CAP_SIGNATURES}}"
 
 # Classify a failed `claude -p`'s combined output ($1) as a transient API blip
 # (returns 0) versus a genuine, non-self-resolving failure (returns 1). A
