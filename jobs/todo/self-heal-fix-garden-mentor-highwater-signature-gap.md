@@ -1,0 +1,6 @@
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+In scripts/jobs/common.sh, extend GARDEN_TRANSIENT_CLAUDE_SIGNATURES (around line 5111, alongside GARDEN_PROVIDER_QUOTA_CAP_SIGNATURES at line 2273) to match the "is at high water" / "is at its high-water mark" phrasing that scripts/jobs/handlers/mentor-claude.sh emits (lines 240, 264) when a configured provider's meter reports a `backoff` quota state. Currently when ALL configured mentor providers are simultaneously in backoff, mentor.sh's improve handler dies with "no configured mentor inference provider was available", and because none of the per-provider "at high water"/"high-water mark" lines match the transient-signature regex, mentor.sh (scripts/jobs/mentor.sh:203-237) falls through to `die` (exit 1) instead of classifying it via `note_transient_outage` + exit 0 — reproducing the exact self-heal-loop failure mode that comment block was added to prevent (a `die` here fires self-heal-run.sh into a `claude -p` diagnosis that fails identically in the same outage). Add a pattern like `(is )?at (its )?high[- ]?water( mark)?` to the regex, and add/extend a case in scripts/jobs/test/claude-session-limit-classifier-test.sh (or a sibling test) asserting the mentor's all-providers-backoff capture is classified transient.
