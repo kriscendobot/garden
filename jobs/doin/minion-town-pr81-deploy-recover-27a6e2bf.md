@@ -30,3 +30,13 @@ Do:
    responding) and comment a short note on #81 saying it is deployed and ready for evaluation.
 
 Scope: kriscendobot/minion.town only. Arc: https://github.com/kriscendobot/garden/issues/89 item 7.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-25T05:40:34Z
