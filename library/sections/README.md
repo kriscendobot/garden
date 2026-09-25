@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7195 (530 parent indexes + 6665 children).
+Total section files: 7205 (530 parent indexes + 6675 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -9879,6 +9879,15 @@ Total section files: 7195 (530 parent indexes + 6665 children).
 
 - [web--gptzero-perplexity-burstiness--detector-heuristics-are-aggregate-signals](web--gptzero-perplexity-burstiness--detector-heuristics-are-aggregate-signals.md)
 
+### web--haruni-kaozkit-xs-agents
+
+- [web--haruni-kaozkit-xs-agents--an-agent-is-a-module](web--haruni-kaozkit-xs-agents--an-agent-is-a-module.md)
+- [web--haruni-kaozkit-xs-agents--licensing-and-whats-next](web--haruni-kaozkit-xs-agents--licensing-and-whats-next.md)
+- [web--haruni-kaozkit-xs-agents--overview](web--haruni-kaozkit-xs-agents--overview.md)
+- [web--haruni-kaozkit-xs-agents--the-layers](web--haruni-kaozkit-xs-agents--the-layers.md)
+- [web--haruni-kaozkit-xs-agents--what-the-snapshot-changes-in-practice](web--haruni-kaozkit-xs-agents--what-the-snapshot-changes-in-practice.md)
+- [web--haruni-kaozkit-xs-agents--why-xs-not-javascriptcore](web--haruni-kaozkit-xs-agents--why-xs-not-javascriptcore.md)
+
 ### web--hyndman-fpp3-forecast-evaluation
 
 - [web--hyndman-fpp3-forecast-evaluation--forecast-errors-and-scale-dependent-measures](web--hyndman-fpp3-forecast-evaluation--forecast-errors-and-scale-dependent-measures.md)
@@ -10094,6 +10103,13 @@ Total section files: 7195 (530 parent indexes + 6665 children).
 - [web--miller-grant-matcher-puzzle--overview](web--miller-grant-matcher-puzzle--overview.md)
 - [web--miller-grant-matcher-puzzle--setting-up-the-puzzle](web--miller-grant-matcher-puzzle--setting-up-the-puzzle.md)
 - [web--miller-grant-matcher-puzzle--when-it-works](web--miller-grant-matcher-puzzle--when-it-works.md)
+
+### web--moddable-kaozkit
+
+- [web--moddable-kaozkit--agents-on-ice](web--moddable-kaozkit--agents-on-ice.md)
+- [web--moddable-kaozkit--dig-deeper-and-lesson-14](web--moddable-kaozkit--dig-deeper-and-lesson-14.md)
+- [web--moddable-kaozkit--introducing-kaozkit](web--moddable-kaozkit--introducing-kaozkit.md)
+- [web--moddable-kaozkit--xs-for-agents](web--moddable-kaozkit--xs-for-agents.md)
 
 ### web--nextjs-turbopack-config
 
