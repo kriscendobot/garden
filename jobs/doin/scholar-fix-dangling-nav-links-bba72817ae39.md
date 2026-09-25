@@ -30,3 +30,13 @@ committing a repoint, re-verify the new target exists at the current tip with
 through `scripts/jobs/land-journal-edit.sh` (never the live worktree), then
 re-run `scripts/jobs/library-link-scan.sh` until it is clean. Normal priority:
 broken navigation, caught downstream — not an urgent gate.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-25T05:29:13Z
