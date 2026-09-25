@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-25T17:18:02Z_
+_As of 2026-09-25T17:52:42Z_
 
 ## Latest
 
@@ -581,11 +581,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-09-24T07:01:46Z, latest 2026-09-25T15:23:38Z).
-> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-24T07:01:46Z, cleared 2026-09-25T17:18:38Z).
+> It was observed 7 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: packs 1018 >= 1000; size=203516928B packs=1018 gc.log=0; automatic remedy=backoff.
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
 
 - `doomed-foreman-requiesce-target-0-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-foreman-requiesce-target-0-requeue-exhausted.md)
 
@@ -779,11 +779,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #230 (first seen 2026-09-25T03:17:02Z, latest 2026-09-25T16:32:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 230 times; this is ONE
-> coalesced notice that updates in place, not 230 messages. Latest detail:
+> WATCHDOG notice — occurrence #250 (first seen 2026-09-25T03:17:02Z, latest 2026-09-25T17:32:03Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 250 times; this is ONE
+> coalesced notice that updates in place, not 250 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to e5ce93779a62 159 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to e5ce93779a62 219 min ago
 > but still reports deployed_sha 917115c9b77234e4a05db68e8c5111fe6e5b305f. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -795,13 +795,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.5M | $888.29 _(notional, rate-card)_ | 77% of 143.0M (ok) |
+| Claude | 110.7M | $890.07 _(notional, rate-card)_ | 77% of 143.0M (ok) |
 | Codex | 27.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 33014485 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 33018230 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 21.336342s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 1 open notice(s); checker healthy
+worst fetch p95 21.336342s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
@@ -810,13 +810,13 @@ worst fetch p95 21.336342s/45s (/home/kris/garden/.garden-state/dependabotany-pr
 ### doin (0)
 (none)
 
-### tada (8927)
+### tada (8928)
+- [`claude-on-minion-town-press-20260925-175008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/claude-on-minion-town-press-20260925-175008.md) — Cost
 - [`claude-on-minion-town-completion-press-20260925-165011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/claude-on-minion-town-completion-press-20260925-165011.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260925-162034`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/fu-minion-town-containment-gateway-endo-sock-1-20260925-162034.md) — Completion report: fu-minion-town-containment-gateway-endo-sock-1-20260925-16...
 - [`claude-on-minion-town-press-20260925-145008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/claude-on-minion-town-press-20260925-145008.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-e5ce93779a62`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/canary-probe-endolin-garden2-5bcdff64-e5ce93779a62.md) — rolling-deploy canary probe — round trip OK
-- [`improve-watcher-source-process-group-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/improve-watcher-source-process-group-reap.md) — Cost
-- … and 8922 more
+- … and 8923 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
