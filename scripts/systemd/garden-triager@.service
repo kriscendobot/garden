@@ -40,6 +40,15 @@ Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # double-reply a maintainer). See issue kriskowal/garden#11 (Multibot).
 ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-triager@%i -- @GARDEN_ROOT@/scripts/jobs/triager.sh %i
+# Drain backstop (recurred 9x on this unit 2026-09-24T11:32..09-25T04:00 after the
+# comment-watcher fix adea391f9540 skipped it). When the main process exits, systemd
+# SIGKILLs what is left in the cgroup but does NOT wait for it to leave, so a git in
+# uninterruptible I/O can outlive the unit and be "Found left-over" by the next
+# start. ExecStopPost runs after that sweep in this cgroup and holds the unit in
+# "deactivating" until cgroup.procs is empty (bounded 15s < the 30s TimeoutStopSec),
+# logging each straggler. `-`: a drain problem never fails the unit. Mirrors
+# garden-comment-watcher@.service; see scripts/jobs/cgroup-drain.sh.
+ExecStopPost=-/bin/bash @GARDEN_ROOT@/scripts/jobs/cgroup-drain.sh %n
 # The self-heal responder runs synchronously on a failed tick before the
 # wrapper returns the failing rc; give it headroom beyond the implicit 90s
 # oneshot start timeout so a diagnosis is not cut off (responder itself is
