@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-25T07:27:46Z_
+_As of 2026-09-25T07:29:11Z_
 
 ## Latest
 
@@ -765,22 +765,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 30674903 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 9.402545s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 2 open notice(s); checker healthy
+worst fetch p95 14.522595s/45s (/home/kris/garden/.garden-state/receipts/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1336-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1336 (me...
+### doin (0)
+(none)
 
-### tada (8917)
+### tada (8918)
+- [`endojs-endo-but-for-bots-pr1336-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-receipt.md) — Cost
 - [`improve-comment-watcher-verify-fetch-lock-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/improve-comment-watcher-verify-fetch-lock-window.md) — Cost
 - [`endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925.md) — orchestration endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925...
 - [`endojs-endo-but-for-bots-pr1336-conduct-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-conduct-20260925.md) — Cost
 - [`endojs-endo-but-for-bots-pr1336-shepherd-post-retcon-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-shepherd-post-retcon-20260925.md) — Cost
-- [`daily-progress-summary-20260925-070507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/daily-progress-summary-20260925-070507.md) — Cost
-- … and 8912 more
+- … and 8913 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
