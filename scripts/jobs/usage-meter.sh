@@ -558,7 +558,13 @@ meter_journal_failure_reason() {
 # maps either family:
 #   6 no live snapshot dir/file for the pool   7 snapshot older than max_age (or future-dated)
 #   8 host-coverage mismatch (seen != mapped hosts)
-#   9 field mismatch (pool/cap/window) or non-numeric spend/sampled_at
+#   9 field mismatch (pool/cap), or non-numeric window/spend/sampled_at
+# A window-only divergence (the file's window_start_epoch is well-formed but
+# differs from <cutoff>) is NOT a mismatch: the publishing host stamps its own
+# live subscription window, while the reader's <cutoff> comes from a possibly
+# stale journal reset fact, so the publisher is authoritative for its own reset
+# boundary. The snapshot is accepted and one "snapshot window trusted" line
+# goes to stderr naming both sides.
 # Every number reaching $((...)) or [ -le ] is first matched against a canonical
 # decimal of at most 18 digits: a leading-zero value ("08") is an arithmetic
 # error and an overlong one overflows, and either would otherwise abort the
@@ -582,6 +588,14 @@ _meter_snapshot_mismatch() {
     "${w:-<none>}" "$cutoff" "${s:-<none>}" "${at:-<none>}" "${now:-<none>}" >&2
 }
 
+# _meter_snapshot_window_note <file> <file-window> <want-window> — when an
+# otherwise-valid snapshot's window differs from the reader's expectation, say
+# so on stderr (never a failure: the publisher's own window is trusted).
+_meter_snapshot_window_note() {
+  [ "$2" = "$3" ] && return 0
+  printf 'snapshot window trusted file=%s window=%s/%s\n' "${1##*/budget/live/}" "$2" "$3" >&2
+}
+
 meter_remote_snapshot_total() {
   local dir="$1" pool="$2" cap="$3" cutoff="$4" host file p c w s at now max_age total=0 seen=0 expected mapping
   local num='^(0|[1-9][0-9]{0,17})$'
@@ -596,9 +610,10 @@ meter_remote_snapshot_total() {
       w="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" | head -1)"
       s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
       at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
-      [ "$p" = "$pool" ] && { [ "$cap" = "-" ] || [ "$c" = "$cap" ]; } && [ "$w" = "$cutoff" ] \
+      [ "$p" = "$pool" ] && { [ "$cap" = "-" ] || [ "$c" = "$cap" ]; } && [[ "$w" =~ $num ]] \
         && [[ "$s" =~ $num ]] && [[ "$at" =~ $num ]] && [[ "$now" =~ $num ]] \
         || { _meter_snapshot_mismatch "$file" "$cap" "$cutoff" "$p" "$c" "$w" "$s" "$at" "$now" "$pool"; return 9; }
+      _meter_snapshot_window_note "$file" "$w" "$cutoff"
       [ "$at" -le $((now + 60)) ] && [ $((now - at)) -le "$max_age" ] || return 7
       [ "$total" -le $((999999999999999999 - s)) ] \
         || { _meter_snapshot_mismatch "$file" "$cap" "$cutoff" "$p" "$c" "$w" "$s" "$at" "$now" "$pool" spend-overflow; return 9; }
@@ -616,9 +631,10 @@ meter_remote_snapshot_total() {
   p="$(sed -n 's/^pool:[[:space:]]*//p' "$file" | head -1)"; c="$(sed -n 's/^cap:[[:space:]]*//p' "$file" | head -1)"
   w="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$file" | head -1)"; s="$(sed -n 's/^spend:[[:space:]]*//p' "$file" | head -1)"
   at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
-  [ "$p" = "$pool" ] && [ "$c" = "$cap" ] && [ "$w" = "$cutoff" ] && [[ "$s" =~ $num ]] \
+  [ "$p" = "$pool" ] && [ "$c" = "$cap" ] && [[ "$w" =~ $num ]] && [[ "$s" =~ $num ]] \
     && [[ "$at" =~ $num ]] && [[ "$now" =~ $num ]] \
     || { _meter_snapshot_mismatch "$file" "$cap" "$cutoff" "$p" "$c" "$w" "$s" "$at" "$now" "$pool"; return 9; }
+  _meter_snapshot_window_note "$file" "$w" "$cutoff"
   [ $((now-at)) -le "$max_age" ] || return 7
   printf '%s\n' "$s"
 }
