@@ -539,17 +539,29 @@ triager_reap_cgroup_stragglers() {
     [ -r "$procs" ] || return 0
   else
     local line cgpath leaf
-    line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
-    [ -n "$line" ] || return 0
+    # Each early return below WARNs: a silent no-op is otherwise indistinguishable
+    # from a zero-straggler pass and surfaces only as systemd's generic
+    # "Found left-over process" on the next start.
+    line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || line=""
+    if [ -z "$line" ]; then
+      log "WARN: cgroup reap skipped — no cgroup-v2 '0::' line in /proc/self/cgroup"
+      return 0
+    fi
     cgpath="${line#0::}"
     leaf="${cgpath##*/}"
     # Only our own service cgroup; a shared session/scope cgroup is never swept.
     case "$leaf" in
       garden-triager@*.service) ;;
-      *) return 0 ;;
+      *)
+        log "WARN: cgroup reap skipped — leaf '$leaf' is not a garden-triager@*.service cgroup ($cgpath)"
+        return 0
+        ;;
     esac
     procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
-    [ -r "$procs" ] || return 0
+    if [ ! -r "$procs" ]; then
+      log "WARN: cgroup reap skipped — $procs unreadable"
+      return 0
+    fi
   fi
   local ancestors=" " root="$$" p ppid
   p="$$"

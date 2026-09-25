@@ -1037,6 +1037,24 @@ else
 fi
 ok "the test shell listed in the fixture cgroup survived the sweep (ancestor kept)"
 
+# --- P3: a sweep that cannot identify the service cgroup says so ------------------
+# Outside a garden-triager@*.service cgroup (this test shell), the sweep's early
+# return must WARN rather than no-op silently, so a skipped reap is visible in the
+# journal instead of surfacing only as systemd's "Found left-over process".
+P3OUT="$TR/triager-sweep-skip.out"; : > "$P3OUT"
+set +e
+env GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 GARDEN_TEST=1 \
+    "$JOBS/triager.sh" "$SLUG" >>"$P3OUT" 2>&1
+rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "tick outside a triager service cgroup exits 0" || bad "skip tick exit = $rc (out: $(cat "$P3OUT"))"
+grep -q 'WARN: cgroup reap skipped' "$P3OUT" \
+  && ok "skipped cgroup sweep logs a WARN" \
+  || bad "skipped cgroup sweep was silent (out: $(cat "$P3OUT"))"
+
 # ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
