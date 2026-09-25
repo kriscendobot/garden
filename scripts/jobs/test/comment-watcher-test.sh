@@ -3216,5 +3216,32 @@ board_has "$BARE_GQ3" "$SLUG-pr112-conduct" && ! board_has "$BARE_GQ3" "$SLUG-pr
   || bad "probe rc 3 did not keep the conductor"
 
 # ============================================================================
+hr; echo "VLOCK — the shared VERIFY clone's fetch runs under its clone lock"; hr
+# The VERIFY clone is one path shared by every slug's watcher on a host; an unlocked
+# fetch racing a peer corrupted it repeatedly. A fetch shim probes (non-blocking)
+# whether $VERIFY.lock is held at the moment each VERIFY fetch runs, then fetches.
+VLOCK_LOG="$TR/vlock.log"; : > "$VLOCK_LOG"
+VLOCK_FETCH="$TR/vlock-fetch.sh"
+cat > "$VLOCK_FETCH" <<'SH'
+#!/bin/bash
+case "$GARDEN_FETCH_DIR" in
+  */comment-watcher/verify)
+    if flock -n "$GARDEN_FETCH_DIR.lock" true 2>/dev/null; then echo FREE; else echo HELD; fi >> "$VLOCK_LOG" ;;
+esac
+exec git -C "$GARDEN_FETCH_DIR" fetch -q origin "$JOURNAL_BRANCH"
+SH
+chmod +x "$VLOCK_FETCH"
+BARE_VL="$TR/vl.git"; seed_bare "$BARE_VL"; RLOG_VL="$TR/react-vl.log"; : > "$RLOG_VL"
+VLOCK_LOG="$VLOCK_LOG" GARDEN_FETCH_CMD="$VLOCK_FETCH" \
+  run_watcher "$TR/state-vl" "$BARE_VL" "$FIX_A" "$RLOG_VL"
+board_has "$BARE_VL" "$SLUG-pr57-rebase" && ok "directive still posted with the locked verify fetch" \
+  || bad "rebase job missing under the locked verify fetch"
+grep -qx HELD "$VLOCK_LOG" && ! grep -qx FREE "$VLOCK_LOG" \
+  && ok "every VERIFY fetch ran while holding the clone lock ($(grep -c . "$VLOCK_LOG") fetch(es))" \
+  || bad "a VERIFY fetch ran without the clone lock ($(tr '\n' ' ' < "$VLOCK_LOG"))"
+flock -n "$TR/state-vl/comment-watcher/verify.lock" true \
+  && ok "the VERIFY clone lock is released after the tick" || bad "VERIFY clone lock still held after exit"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]

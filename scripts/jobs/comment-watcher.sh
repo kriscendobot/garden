@@ -467,14 +467,25 @@ last_seen="$(printf '%s\n' "$cursor_out" | sed -n 's/^last_seen:[[:space:]]*//p'
 # ONCE per tick and reuse, EXCEPT where a FRESH view is correctness-critical:
 # confirming a just-posted job actually landed on origin/journal2 MUST re-fetch (a
 # lost push has to be seen), so verify_posted's post-confirm call passes `fresh`.
+#
+# The VERIFY clone is ONE path shared by every repo slug's watcher instance on the
+# host, so the fetch must be serialized too, not just ensure_clone's heal: an
+# unlocked `git fetch` racing a peer's fetch (or its re-clone) corrupted the clone
+# ~25 times in 30h, each costing a full re-clone. Hold clone_lock across BOTH the
+# ensure and the fetch. ensure_clone ends with its own clone_unlock, which would
+# drop our lock mid-section, so run it in a subshell like sync_clone does: the
+# subshell re-enters the inherited lock and closes only its own fd copy.
 _VERIFY_FETCHED=""
 verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/tick unless fresh)
-  ensure_clone "$VERIFY"
+  local rc=0
+  clone_lock "$VERIFY"
+  # A subshell swallows ensure_clone's offline `exit`/die; re-raise it after unlocking.
+  if ( ensure_clone "$VERIFY" ); then :; else rc=$?; clone_unlock "$VERIFY"; exit "$rc"; fi
   if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
-    journal_fetch "$VERIFY" >/dev/null 2>&1 || return 1
-    _VERIFY_FETCHED=1
+    if journal_fetch "$VERIFY" >/dev/null 2>&1; then _VERIFY_FETCHED=1; else rc=1; fi
   fi
-  return 0
+  clone_unlock "$VERIFY"
+  return "$rc"
 }
 
 # --- verify a post actually reached origin/journal2 -------------------------
