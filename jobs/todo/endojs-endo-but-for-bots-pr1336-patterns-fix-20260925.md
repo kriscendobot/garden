@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1336-approval-followthrough-20260925
-priority: normal
-posted_by: gardener
-posted_at: 2026-09-25T05:17:12Z
+role: fixer
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-25T05:19:15Z cleared=none -->
 
 ---
 role: fixer
