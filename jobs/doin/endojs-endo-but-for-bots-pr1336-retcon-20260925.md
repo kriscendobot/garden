@@ -17,3 +17,13 @@ Child of orchestration endojs-endo-but-for-bots-pr1336-approval-followthrough-20
 Before you touch the PR head, check the board (journal/jobs/{todo,doin}/) for any in-flight gauntlet stage of this PR (basename prefix endojs-endo-but-for-bots-pr1336-gauntlet-); jobs/gauntlet/endojs-endo-but-for-bots-pr1336-gauntlet.md shows its state. If one is in flight, WAIT for it in the foreground (bounded poll, up to ~2h) so you never race its pushes; then fetch the fresh PR head. No gauntlet stage may be in todo/ or doin/ when you force-push.
 
 Push with the garden's safe push tooling, then STOP (the next child shepherds CI). Do not un-draft or merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-25T05:49:39Z
