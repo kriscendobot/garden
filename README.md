@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-25T03:46:44Z_
+_As of 2026-09-25T06:39:00Z_
 
 ## Latest
 
@@ -433,11 +433,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` has CLEARED (first seen 2026-09-24T08:06:50Z, cleared 2026-09-25T02:12:38Z).
-> It was observed 4 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-24T08:06:50Z, latest 2026-09-25T06:07:58Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify: packs 1000 >= 1000; size=198605824B packs=1000 gc.log=0; automatic remedy=backoff.
 
 - `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
 
@@ -517,6 +517,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
 
+- `liaison-followup-d56f945b36bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-d56f945b36bc.md)
+
+> minion-town-pr81-deploy-recover-27a6e2bf: PR #118 is ready and needs a merge directive — reply "merge 118" (or otherwise) to proceed.
+
 - `watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64.md)
 
 > RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-24T22:35:02Z, cleared 2026-09-25T01:35:02Z).
@@ -545,8 +549,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-24T07:01:46Z, cleared 2026-09-24T23:17:28Z).
-> It was observed 3 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-24T07:01:46Z, cleared 2026-09-25T05:17:49Z).
+> It was observed 4 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
@@ -737,34 +741,54 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
+- `msg-scholar-ingest-kaozkit-xs-agents-20260925-1e49733c584c` — from scholar:scholar-ingest-kaozkit-xs-agents-20260925, reply_to `scholar-ingest-kaozkit-xs-agents-20260925` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-kaozkit-xs-agents-20260925-1e49733c584c.md)
+
+> KaozKit ingest done: both articles are in the library (Burel's `web--haruni-kaozkit-xs-agents`, 6 sections; Hoddie's `web--moddable-kaozkit`, 4 sections), cross-linked under the new topic `xs-agent-runtimes`, which lists where they agree and differ. Headline: KaozKit independently ships the endo-but-for-bots XS-worker snapshot idea, less rigorously (no suspend-only-when-idle and no explicit version-compat axes). Its "keys stay host-side, host has no default services" posture is a clean answer to [kriscendobot/minion.town#106](https://github.com/kriscendobot/minion.town/issues/106) Gap 1 and [kriscendobot/minion.town#116](https://github.com/kriscendobot/minion.town/issues/116) Gap 1. Its single `host` global is weaker than Endo's delegable references. Suggested follow-ups: provision a Moddable `xst` in the sandbox (this unblocks the real `test:xs` run for [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/issues/1100)), and use the host-held-key allow-list shape for minion.town's inference backends. Details are in the job's `result` entry and in library/topics/xs-agent-runtimes.md.
+
+- `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
+
+> WATCHDOG notice — occurrence #47 (first seen 2026-09-25T03:17:02Z, latest 2026-09-25T06:20:07Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 47 times; this is ONE
+> coalesced notice that updates in place, not 47 messages. Latest detail:
+>
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 5649df929361 120 min ago
+> but still reports deployed_sha 917115c9b77234e4a05db68e8c5111fe6e5b305f. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
+
+- `liaison-followup-84ab53b051a4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-84ab53b051a4.md)
+
+> minion-town-pr81-deploy-recover-27a6e2bf: root cause of the deploy recovery — the app's startup secret is provisioned only by a hand-run script, and CD neither runs nor checks for it. Adding a pre-restart check in `deploy-app.sh` would catch this in the future; decide whether to authorize that change.
+
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.4M | $834.81 _(notional, rate-card)_ | 74% of 143.0M (ok) |
-| Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
+| Claude | 109.3M | $862.77 _(notional, rate-card)_ | 76% of 143.0M (ok) |
+| Codex | 27.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 30159762 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 33495878 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 8.912233s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 1 open notice(s); checker healthy
+worst fetch p95 9.402545s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1336-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1336
+- [`endojs-endo-but-for-bots-pr1336-retcon-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-retcon-20260925.md) — Retcon endojs/endo-but-for-bots PR #1336
 
-### tada (8888)
-- [`canary-probe-endolin-garden2-5bcdff64-6fc21936148c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/canary-probe-endolin-garden2-5bcdff64-6fc21936148c.md) — rolling-deploy canary probe — round trip OK
-- [`improve-triager-cgroup-reap-silent-skip`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/improve-triager-cgroup-reap-silent-skip.md) — Cost
-- [`endojs-endo-but-for-bots-pr1336-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-gauntlet-panel-4.md) — Completion report: endojs-endo-but-for-bots-pr1336-gauntlet-panel-4
-- [`endojs-endo-but-for-bots-pr1336-shepherd-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-shepherd-20260925.md) — Cost
-- [`claude-on-minion-town-press-20260925-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/claude-on-minion-town-press-20260925-022010.md) — Cost
-- … and 8883 more
+### tada (8909)
+- [`endojs-endo-but-for-bots-pr1336-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-gauntlet-fix-6.md) — Gauntlet fix round 6: endojs/endo-but-for-bots#1336
+- [`minion-town-pr81-deploy-recover-27a6e2bf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/minion-town-pr81-deploy-recover-27a6e2bf.md) — Job minion-town-pr81-deploy-recover-27a6e2bf: handed off, #81 not yet live
+- [`endojs-endo-but-for-bots-pr1336-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-gauntlet-panel-6.md) — Cost
+- [`endojs-endo-but-for-bots-pr1336-patterns-fix-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-patterns-fix-20260925.md) — Cost
+- [`deadmail-issue-comment-5827408483`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/deadmail-issue-comment-5827408483.md) — Cost
+- … and 8904 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1052,11 +1076,14 @@ worst fetch p95 8.912233s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`endojs-endo-but-for-bots-pr1226-review-aaba6e78-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1226-review-aaba6e78-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1226 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1336-review-b8dfc07e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1336-review-b8dfc07e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1336 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1336-c11fb1c4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1336-c11fb1c4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1336 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1336-review-38f12d4f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1336-review-38f12d4f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1336 (primary: endojs-endo-but-...
+- [`kriscendobot-minion.town-pr81-review-ef599fde-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr81-review-ef599fde-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #81 (primary: kriscendobot-minio...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-gauntlet-20260901.md) — awaiting `endojs-endo-but-for-bots-pr871-weave-20260901` · Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
+- [`minion-town-pr81-verify-live-after-pr118`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr81-verify-live-after-pr118.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/118` · Verify kriscendobot/minion.town#81 is live in production after kriscendobot/m...
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
