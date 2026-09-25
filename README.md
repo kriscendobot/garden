@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-25T03:14:33Z_
+_As of 2026-09-25T03:46:44Z_
 
 ## Latest
 
@@ -743,28 +743,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.2M | $829.70 _(notional, rate-card)_ | 74% of 143.0M (ok) |
+| Claude | 106.4M | $834.81 _(notional, rate-card)_ | 74% of 143.0M (ok) |
 | Codex | 27.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 85% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 29998951 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 30159762 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 6.097047s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 1 open notice(s); checker healthy
+worst fetch p95 8.912233s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1336-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1336
+- [`endojs-endo-but-for-bots-pr1336-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1336
 
-### tada (8885)
+### tada (8888)
+- [`canary-probe-endolin-garden2-5bcdff64-6fc21936148c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/canary-probe-endolin-garden2-5bcdff64-6fc21936148c.md) — rolling-deploy canary probe — round trip OK
+- [`improve-triager-cgroup-reap-silent-skip`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/improve-triager-cgroup-reap-silent-skip.md) — Cost
+- [`endojs-endo-but-for-bots-pr1336-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-gauntlet-panel-4.md) — Completion report: endojs-endo-but-for-bots-pr1336-gauntlet-panel-4
 - [`endojs-endo-but-for-bots-pr1336-shepherd-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-shepherd-20260925.md) — Cost
 - [`claude-on-minion-town-press-20260925-022010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/claude-on-minion-town-press-20260925-022010.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-c4b4d2528ce5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/canary-probe-endolin-garden2-5bcdff64-c4b4d2528ce5.md) — rolling-deploy canary probe — round trip OK
-- [`improve-snapshot-window-trust-remote`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/improve-snapshot-window-trust-remote.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-fa2e05905a0a-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/canary-probe-endolin-garden2-5bcdff64-fa2e05905a0a-r1.md) — rolling-deploy canary probe — round trip OK
-- … and 8880 more
+- … and 8883 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
