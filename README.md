@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-25T06:42:42Z_
+_As of 2026-09-25T06:44:02Z_
 
 ## Latest
 
@@ -771,16 +771,16 @@ worst fetch p95 9.402545s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1336-retcon-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-retcon-20260925.md) — Retcon endojs/endo-but-for-bots PR #1336
+### doin (0)
+(none)
 
-### tada (8910)
+### tada (8911)
+- [`endojs-endo-but-for-bots-pr1336-retcon-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-retcon-20260925.md) — Retcon of endojs/endo-but-for-bots#1336: complete
 - [`endojs-endo-but-for-bots-pr1336-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1336-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1336-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-gauntlet-fix-6.md) — Gauntlet fix round 6: endojs/endo-but-for-bots#1336
 - [`minion-town-pr81-deploy-recover-27a6e2bf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/minion-town-pr81-deploy-recover-27a6e2bf.md) — Job minion-town-pr81-deploy-recover-27a6e2bf: handed off, #81 not yet live
 - [`endojs-endo-but-for-bots-pr1336-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-gauntlet-panel-6.md) — Cost
-- [`endojs-endo-but-for-bots-pr1336-patterns-fix-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-patterns-fix-20260925.md) — Cost
-- … and 8905 more
+- … and 8906 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
