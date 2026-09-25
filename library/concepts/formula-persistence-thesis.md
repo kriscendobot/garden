@@ -26,6 +26,7 @@ distributed GC), revocation-by-withdrawal.
 | [dp/waterken-and-e-as-endpoints](../sections/endo--designs-dp--waterken-and-e-as-endpoints.md) | The two entangled dimensions; the endpoints; the common URL-like-reference substrate. |
 | [dp/formula-graph-and-cohort-destruction](../sections/endo--designs-dp--formula-graph-and-cohort-destruction.md) | The inversion: petnames are the persistence root; formulas as recipes. |
 | [dp/system-fit-and-not-orthogonal](../sections/endo--designs-dp--system-fit-and-not-orthogonal.md) | Why a user agent needs this rather than orthogonal persistence. |
+| [web--moddable-kaozkit--agents-on-ice](../sections/web--moddable-kaozkit--agents-on-ice.md) | Contrast case: KaozKit persists agents by whole-heap XS snapshot (orthogonal persistence) rather than formula replay. |
 
 ## See also
 
