@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-25T06:39:00Z_
+_As of 2026-09-25T06:42:42Z_
 
 ## Latest
 
@@ -517,10 +517,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
 
-- `liaison-followup-d56f945b36bc` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-d56f945b36bc.md)
-
-> minion-town-pr81-deploy-recover-27a6e2bf: PR #118 is ready and needs a merge directive — reply "merge 118" (or otherwise) to proceed.
-
 - `watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64.md)
 
 > RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-24T22:35:02Z, cleared 2026-09-25T01:35:02Z).
@@ -757,10 +753,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > keeps it from advancing. The leader does not advance past an undeployed canary.
 > (leader=endolin-garden-ece02cb4)
 
-- `liaison-followup-84ab53b051a4` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-84ab53b051a4.md)
-
-> minion-town-pr81-deploy-recover-27a6e2bf: root cause of the deploy recovery — the app's startup secret is provisioned only by a hand-run script, and CD neither runs nor checks for it. Adding a pre-restart check in `deploy-app.sh` would catch this in the future; decide whether to authorize that change.
-
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
@@ -782,13 +774,13 @@ worst fetch p95 9.402545s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### doin (1)
 - [`endojs-endo-but-for-bots-pr1336-retcon-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1336-retcon-20260925.md) — Retcon endojs/endo-but-for-bots PR #1336
 
-### tada (8909)
+### tada (8910)
+- [`endojs-endo-but-for-bots-pr1336-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1336-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1336-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-gauntlet-fix-6.md) — Gauntlet fix round 6: endojs/endo-but-for-bots#1336
 - [`minion-town-pr81-deploy-recover-27a6e2bf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/minion-town-pr81-deploy-recover-27a6e2bf.md) — Job minion-town-pr81-deploy-recover-27a6e2bf: handed off, #81 not yet live
 - [`endojs-endo-but-for-bots-pr1336-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1336-patterns-fix-20260925`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-patterns-fix-20260925.md) — Cost
-- [`deadmail-issue-comment-5827408483`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/deadmail-issue-comment-5827408483.md) — Cost
-- … and 8904 more
+- … and 8905 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
