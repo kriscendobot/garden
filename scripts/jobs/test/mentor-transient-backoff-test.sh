@@ -89,4 +89,31 @@ run_mentor "$TR/ok-handler"
 [ "$(grep -c 'transient provider outage cleared' "$MLOG" || true)" -eq 0 ] \
   || { echo 'FAIL: emitted a recovery notice with no outage open'; exit 1; }
 
+# --- all-providers-unavailable is transient, not a die -------------------------
+# mentor-claude.sh's own FATAL when every configured provider reports rc=10
+# (here: an unreachable local-inference endpoint and a failed provider run, with
+# no high-water/overload wording the shared classifier would catch).
+cat > "$TR/no-provider-handler" <<'EOH'
+#!/bin/sh
+printf '%s\n' "$1" >> "$CALL_LOG"
+echo "[mentor] mentor local provider unavailable or quota-limited (rc=7): curl: (7) Failed to connect to 127.0.0.1 port 11434" >&2
+echo "[mentor] mentor provider 'local' unavailable; trying the next configured provider" >&2
+echo "[mentor] mentor provider 'anthropic' unavailable; trying the next configured provider" >&2
+echo "[mentor] FATAL: no configured mentor inference provider was available" >&2
+exit 1
+EOH
+chmod +x "$TR/no-provider-handler"
+: > "$MLOG"
+printf '%s\n' 'a third input' > "$SEED/entries/third.md"
+git -C "$SEED" add entries/third.md
+git -C "$SEED" -c user.name=test -c user.email=test@localhost commit -q -m third
+git -C "$SEED" push -q origin journal2
+rc=0; run_mentor "$TR/no-provider-handler" || rc=$?
+[ "$rc" -eq 0 ] || { echo "FAIL: all-providers-unavailable tick died (rc=$rc)"; cat "$MLOG"; exit 1; }
+grep -q 'transient outage tick #' "$MLOG" \
+  || { echo 'FAIL: all-providers-unavailable was not noted as a transient outage'; cat "$MLOG"; exit 1; }
+if grep -qx 'entries/third.md' "$TR/state/mentor/seen" 2>/dev/null; then
+  echo 'FAIL: all-providers-unavailable wrongly advanced the seen marker'; exit 1
+fi
+
 echo 'PASS: sustained transient outage retries every tick, warns on bounded backoff, and recovers once'

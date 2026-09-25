@@ -203,7 +203,13 @@ elif [ ! -s "$capture" ] && is_transient_empty_failure "$rc"; then
 else
   out="$(tail -c 65536 "$capture" 2>/dev/null || true)"
   rm -f "$capture"
-  if is_transient_claude_signature "$out" || _fetch_stderr_is_offline "$out"; then
+  # mentor-claude.sh's own all-providers-exhausted FATAL: every configured
+  # provider returned its "unavailable" code (rc=10: quota backoff, an
+  # unreachable local-inference endpoint, a failed provider run), so no provider
+  # was reached. That is the handler's fallback-exhausted outage, not a defect in
+  # the digest, and the paragraph above says it must retry rather than die.
+  if is_transient_claude_signature "$out" || _fetch_stderr_is_offline "$out" \
+     || printf '%s' "$out" | grep -qF 'no configured mentor inference provider was available'; then
     rm -f "$REJECTION_STATE"
     note_transient_outage "$sha" "improve handler hit a transient outage; leaving markers, retrying next tick"
     exit 0
