@@ -1,2 +1,2 @@
-base: improve-pages-watcher-absorb-gh-api-transient
+base: improve-watcher-source-process-group-reap
 identity: mentor:scripts/jobs/pages-watcher.sh
