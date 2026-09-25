@@ -17,3 +17,13 @@ FATAL: clone of git@github.com:kriscendobot/garden.git (journal2) into .../comme
 Fix: change `verify_fetch()`'s `ensure_clone "$VERIFY"` to `ensure_clone_or_latch_outage "$VERIFY" comment-watcher-verify` — the same wrapper already used by `cursor-get.sh`/`cursor-set.sh` (common.sh:4661) to classify exactly this ambiguous rc=1/timeout clone shape as a transient outage (`journal_bounded_fetch_is_ambiguous_outage`) and latch a quiet cooldown/`exit 75` instead of dying loud. `ensure_clone_or_latch_outage` still re-raises loud (unchanged behavior) for a positively-identified auth/corruption/missing-upstream failure, so no real fault gets masked.
 
 While fixing comment-watcher.sh, audit and apply the same swap to the other watcher scripts with the identical raw `ensure_clone "$VERIFY"` call shape, all exposed to the same crash: `ci-watcher.sh:198`, `mention-watcher.sh:130`, `dependabot-watcher.sh:168`, `issue-inbox-watcher.sh:224`, `pages-watcher.sh:76`, `approval-reconciler.sh:216`, `backfill-dropped-review-comments.sh:82`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-25T21:54:51Z
