@@ -69,6 +69,7 @@ External-service integrations that replace ambient connector access with narrow,
 | [Approval, simulation, rejection, and revert](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--approval-and-revert-contract.md) | capability-mediated-integrations, capability-security | Every side effect is submitted before apply; simulation, rejection cleanup, and best-effort revert preserve a coherent workflow. |
 | [Persistent hook binding and fresh-session delivery](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--persistent-hook-lifecycle.md) | capability-mediated-integrations, capability-security, cloudflare-workers-agent-hosting | The Overseer stores the callback and provides fresh session authority for every approved hook delivery. |
 | [Sensitive observation confinement](../sections/cloudflare-os--packages-workshop-shared-src-gatekeeper--sensitive-observation-confinement.md) | collaborative-workspace-sharing, capability-mediated-integrations, capability-security | Owner-only reads forbid sharing and actions; narrower reads can exclude named observers or fail closed. |
+| [The layers (SwiftPM products, providers, tools)](../sections/web--haruni-kaozkit-xs-agents--the-layers.md) | xs-agent-runtimes, llm-agent-frameworks, capability-mediated-integrations | KaozKit is one SwiftPM package vending layered products (KaozJSCore C engine + async-settle bridge, KaozJS Swift `XSEngine` with snapshots and module roots, KaozHostC host functions, KaozKit agent runtime, opt-in KaozMLX, and the `kaoz` CLI/daemon). |
 
 ## See also
 
