@@ -105,6 +105,7 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [authentication-gatekeepers](authentication-gatekeepers.md) | Authentication Gatekeepers reuse capability-mediating service Workers as federated sign-in providers, separating transient identity-only OAuth grants from explicitly connected full-capability accounts. | 14 |
 | [home-automation-integrations](home-automation-integrations.md) | Home-automation integrations expose selected homes, rooms, labels, devices, and entities as narrow capabilities while mediating credentials, reachability, observations, and approval-gated physical side effects. | 4 |
 | [ai-usage-billing](ai-usage-billing.md) | Metering, quota, credit, and authority-routing designs for funding AI inference, including platform allowances and user-owned provider billing without custody of user funds or credentials. | 6 |
+| [xs-agent-runtimes](xs-agent-runtimes.md) | Running LLM agents inside Moddable's XS engine, one small confined XS machine per agent with a native host as the only capability source and whole-heap snapshots as agent persistence. Seeded 2026-09-25 from the KaozKit pair (Burel's author account, Hoddie's Moddable post); carries the garden cross-reference map (Endo XS-worker snapshot/metering designs, minion.town Claude-agents confinement, Iron Horse XS oracle). Distinct from `llm-agent-frameworks` (Node/Python harnesses) and `persistence` (Endo regimes). | 10 |
 
 ## Seed-but-not-yet-populated topics
 
