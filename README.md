@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-25T10:53:31Z_
+_As of 2026-09-25T13:28:36Z_
 
 ## Latest
 
@@ -150,8 +150,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` has CLEARED (first seen 2026-09-24T11:06:59Z, cleared 2026-09-25T00:17:56Z).
-> It was observed 2 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` has CLEARED (first seen 2026-09-24T11:06:59Z, cleared 2026-09-25T11:33:21Z).
+> It was observed 3 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` cleared on endolin-garden-ece02cb4.
@@ -170,8 +170,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-24T09:11:52Z, cleared 2026-09-24T20:17:20Z).
-> It was observed 2 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-24T09:11:52Z, cleared 2026-09-25T12:48:25Z).
+> It was observed 3 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` cleared on endolin-garden-ece02cb4.
@@ -461,11 +461,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` has CLEARED (first seen 2026-09-24T08:06:50Z, cleared 2026-09-25T08:13:01Z).
-> It was observed 5 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-24T08:06:50Z, latest 2026-09-25T12:53:29Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify: packs 1019 >= 1000; size=215631872B packs=1019 gc.log=0; automatic remedy=backoff.
 
 - `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
 
@@ -573,11 +573,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-24T07:01:46Z, latest 2026-09-25T09:48:16Z).
-> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-24T07:01:46Z, cleared 2026-09-25T11:38:16Z).
+> It was observed 6 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: packs 1010 >= 1000; size=187328512B packs=1010 gc.log=0; automatic remedy=backoff.
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
 
 - `doomed-foreman-requiesce-target-0-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-foreman-requiesce-target-0-requeue-exhausted.md)
 
@@ -771,11 +771,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #115 (first seen 2026-09-25T03:17:02Z, latest 2026-09-25T10:26:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 115 times; this is ONE
-> coalesced notice that updates in place, not 115 messages. Latest detail:
+> WATCHDOG notice — occurrence #175 (first seen 2026-09-25T03:17:02Z, latest 2026-09-25T13:26:03Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 175 times; this is ONE
+> coalesced notice that updates in place, not 175 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 46e100b66419 156 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 46e100b66419 336 min ago
 > but still reports deployed_sha 917115c9b77234e4a05db68e8c5111fe6e5b305f. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -787,13 +787,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.8M | $871.77 _(notional, rate-card)_ | 77% of 143.0M (ok) |
+| Claude | 110.1M | $876.90 _(notional, rate-card)_ | 77% of 143.0M (ok) |
 | Codex | 27.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 33506401 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 33519975 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 14.522595s/45s (/home/kris/garden/.garden-state/receipts/journal); 1 open notice(s); checker healthy
+worst fetch p95 9.573196s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
@@ -802,13 +802,13 @@ worst fetch p95 14.522595s/45s (/home/kris/garden/.garden-state/receipts/journal
 ### doin (0)
 (none)
 
-### tada (8921)
+### tada (8923)
+- [`improve-watcher-source-process-group-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/improve-watcher-source-process-group-reap.md) — Cost
+- [`claude-on-minion-town-press-20260925-115007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/claude-on-minion-town-press-20260925-115007.md) — Cost
 - [`claude-on-minion-town-completion-press-20260925-105008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/claude-on-minion-town-completion-press-20260925-105008.md) — Cost
 - [`claude-on-minion-town-press-20260925-083510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/claude-on-minion-town-press-20260925-083510.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-46e100b66419`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/canary-probe-endolin-garden2-5bcdff64-46e100b66419.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1336-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/endojs-endo-but-for-bots-pr1336-receipt.md) — Cost
-- [`improve-comment-watcher-verify-fetch-lock-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/improve-comment-watcher-verify-fetch-lock-window.md) — Cost
-- … and 8916 more
+- … and 8918 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
