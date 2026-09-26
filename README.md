@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T05:47:45Z_
+_As of 2026-09-26T05:50:44Z_
 
 ## Latest
 
@@ -598,6 +598,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Report the before/after target value and confirm the two prior tests pass.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_inbox_list_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_inbox_list_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/inbox-list/journal: p95=31.405874s max=31.405874s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-1.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 1 (target 1): subscription claude-oros spend=394514 cap=73000000 pace-bias=0.509782 ceiling=1 target=1
@@ -764,13 +768,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 646.7k | $10.30 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 683.3k | $10.53 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 11732447 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 3 open notice(s); checker healthy
+worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
