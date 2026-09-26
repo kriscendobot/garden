@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T06:53:17Z_
+_As of 2026-09-26T06:56:40Z_
 
 ## Latest
 
@@ -780,8 +780,8 @@ worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion.town-pr119-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #119
 
 ### tada (8964)
 - [`kriscendobot-minion.town-pr119-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-3.md) — Cost
