@@ -7,6 +7,7 @@
 set -euo pipefail
 : "${1:?usage: foreman-stub.sh <digest-file>}"
 [ -n "${GARDEN_FOREMAN_STUB_CALLS:-}" ] && echo "called" >> "$GARDEN_FOREMAN_STUB_CALLS"
+[ -z "${GARDEN_FOREMAN_STUB_DIGEST:-}" ] || cp "$1" "$GARDEN_FOREMAN_STUB_DIGEST"
 cat <<'EOF'
 JOB foreman-next-step
 endo-but-for-bots: build the next unblocked milestone step (test stub).

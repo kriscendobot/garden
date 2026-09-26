@@ -76,7 +76,14 @@
 # unit (scripts/systemd/garden-foreman.service) for where to set it.
 : "${GARDEN_TOKEN_WEEKLY_QUOTA:=0}"
 # High-water mark as a fraction of the quota; at/over this the foreman backs off.
-: "${GARDEN_TOKEN_BACKOFF_FRACTION:=0.85}"
+# Once a caller has synced its journal clone, config/token-backoff-fraction may
+# replace the default. An explicit environment value retains highest precedence.
+if [ "${GARDEN_TOKEN_BACKOFF_FRACTION+x}" = x ]; then
+  _GARDEN_TOKEN_BACKOFF_FRACTION_FROM_ENV=1
+else
+  GARDEN_TOKEN_BACKOFF_FRACTION=0.85
+  _GARDEN_TOKEN_BACKOFF_FRACTION_FROM_ENV=0
+fi
 # The rolling-window compatibility/reporting default. The quota gate itself uses
 # the anchor explicitly.
 : "${GARDEN_TOKEN_WINDOW_SECS:=604800}"
@@ -430,6 +437,35 @@ budget_pool_file() {
     printf '%s\n' "$f/config/budget-pools"; return
   done
   return 1
+}
+
+# resolve_token_backoff_fraction [journal-dir] — apply the journal-backed
+# high-water setting after a caller has synced its journal clone. An explicit
+# environment setting always wins. Missing config preserves the historical 0.85
+# default; malformed config warns and also preserves that default so a typo can
+# never silently stop the fleet.
+resolve_token_backoff_fraction() {
+  local dir="${1:-}" file="" raw
+  [ "$_GARDEN_TOKEN_BACKOFF_FRACTION_FROM_ENV" -eq 0 ] || return 0
+  if [ -n "$dir" ]; then
+    file="$dir/config/token-backoff-fraction"
+  else
+    local f
+    for f in "${GARDEN_WORKER_CLONE:-}" "${GARDEN_GARDENER_CLONE:-}" \
+             "${GARDEN_PRODUCER_CLONE:-}" "$GARDEN_STATE"/*/journal; do
+      if [ -z "$f" ] || [ ! -e "$f/config/token-backoff-fraction" ]; then continue; fi
+      file="$f/config/token-backoff-fraction"; break
+    done
+  fi
+  [ -n "$file" ] && [ -e "$file" ] || return 0
+  raw="$(cat "$file" 2>/dev/null)" || raw=""
+  if [[ "$raw" =~ ^[[:space:]]*([0-9]+([.][0-9]*)?|[.][0-9]+)([eE][+-]?[0-9]+)?[[:space:]]*$ ]] \
+     && awk -v f="$raw" 'BEGIN { exit !(f > 0 && f <= 1) }'; then
+    GARDEN_TOKEN_BACKOFF_FRACTION="$(printf '%s\n' "$raw" | awk '{$1=$1; print}')"
+  else
+    GARDEN_TOKEN_BACKOFF_FRACTION=0.85
+    log "WARN: invalid token backoff fraction in $file (expected one number in (0, 1]); using 0.85"
+  fi
 }
 
 # budget_pool_row <pool> [journal-dir] — print the normalized five-column row.
@@ -1035,6 +1071,7 @@ subscription_allocation_weight() {
 meter_quota_status() {
   local pool="${1:-}" dir="${2:-}" quota="${GARDEN_TOKEN_WEEKLY_QUOTA:-0}"
   local row provider kind total cutoff
+  resolve_token_backoff_fraction "$dir"
   if [ -z "$pool" ]; then
     pool="$(budget_pool_for_provider_host anthropic "$GARDEN" "$dir" 2>/dev/null || true)"
     # Preserve the standalone/env-only meter interface used by diagnostics and

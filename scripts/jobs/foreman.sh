@@ -35,8 +35,9 @@
 #      in-flight this tick — pre-approved, queued work that costs no `claude -p`
 #      call. Only if NONE is queued, hand a small digest (project, board state,
 #      last step posted) to the handler (the foreman role) and post the one job it
-#      returns. go-ahead, awaiting-maintainer, and blocked plan jobs are never
-#      auto-promoted.
+#      returns. The digest includes config/foreman-mandate when that journal file
+#      is non-empty. go-ahead, awaiting-maintainer, and blocked plan jobs are
+#      never auto-promoted.
 #   5. COST GATE: the handler (and its `claude -p`) runs ONLY on sustained
 #      under-subscription, never while the board is at the target or still within
 #      the settle window.
@@ -91,6 +92,8 @@ export GARDEN_TAG="foreman"
 # independent account per host. The Admin Usage & Cost API (API-key/Console only)
 # does NOT apply and is deliberately not wired.
 #   config/budget-pools          per-subscription ceiling (journal source of truth).
+#   config/token-backoff-fraction journal high-water fraction (when env is unset).
+#   config/foreman-mandate       optional free-text priority direction for generation.
 #   config/subscription-mapping  explicit host/worker-kind ownership relation.
 #   GARDEN_TOKEN_WEEKLY_QUOTA    fallback when no current-host pool row exists.
 #   GARDEN_TOKEN_BACKOFF_FRACTION high-water mark as a fraction of quota (default 0.85).
@@ -258,7 +261,8 @@ provider_fallback_enabled=false
 if [ "$GARDEN_FOREMAN_HANDLER" = "$HERE/handlers/foreman-claude.sh" ]; then
   case ",${GARDEN_FOREMAN_PROVIDER_ORDER:-anthropic}," in *,openai,*|*,local,*) provider_fallback_enabled=true ;; esac
 fi
-if [ "$provider_fallback_enabled" = false ]; then case "$(meter_quota_status)" in
+resolve_token_backoff_fraction "$DIR"
+if [ "$provider_fallback_enabled" = false ]; then case "$(meter_quota_status "" "$DIR")" in
   backoff)
     note_once "token-backoff" "foreman: this host's Anthropic subscription is at/over the ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark. Pausing the autonomous pump until its independently tracked reset."
     log "token quota high-water reached; backing off (no pump this tick)"
@@ -357,6 +361,12 @@ digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
   printf 'project: %s\n'           "$GARDEN_FOREMAN_PROJECT"
   printf 'board: below active-job target %s (todo=%s doin=%s, in-flight=%s); sustained for %ss\n' "$GARDEN_FOREMAN_ACTIVE_TARGET" "$todo_n" "$doin_n" "$inflight" "$elapsed"
   printf 'last_step_posted: %s\n'  "${last_step:-(none)}"
+  if [ -s "$DIR/config/foreman-mandate" ]; then
+    printf 'priority_mandate: |\n'
+    sed 's/^/  /' "$DIR/config/foreman-mandate"
+    # Keep the digest line-oriented even when the journal file lacks a final LF.
+    [ -z "$(tail -c 1 "$DIR/config/foreman-mandate" 2>/dev/null)" ] || printf '\n'
+  fi
 } > "$digest"
 
 # Capture the handler's stderr and rc EXPLICITLY. The old `2>/dev/null || true`

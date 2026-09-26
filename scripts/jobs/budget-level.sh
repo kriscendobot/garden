@@ -100,6 +100,7 @@ snapshot="$({
  clone_unlock "$DIR"
 })" || rc=$?
 case "$rc" in 0);;3)log "budget pool config absent; leveling is off";finish;;4)log "WARN: $GARDEN_WORKER_LEVELING_PATH absent; leveling frozen";finish;;"$GARDEN_OFFLINE_RC")log "WARN: budget-level preflight offline (journal clone/sync, rc=$rc); skipping this leveling tick, retry next cadence (fail-open)";finish;;*)log "WARN: budget-level preflight failed (journal clone/sync, rc=$rc); skipping this leveling tick, retry next cadence (fail-open)";finish;;esac
+resolve_token_backoff_fraction "$DIR"
 
 declare -a pools=() phosts=() pcaps=() pprov=() hosts=()
 declare -A mcap=() ccap=() mceil=() active=() active_ids=() demand=() ctarget=()

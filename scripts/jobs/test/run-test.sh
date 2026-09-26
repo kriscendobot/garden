@@ -1572,6 +1572,51 @@ run_fm 2600     # 300s ≥ 240 → pump; stub proposes the same base as last pos
   && ok "redrained board: identical step not duplicated (anti-flap), repeat surfaced to maintainer" \
   || bad "anti-flap (todo=$(fcount jobs/todo) maint=$(fcount inbox/maintainer/unread))"
 
+# (5) The journal-backed priority mandate is folded into the exact digest handed
+# to the generation handler only when it has content. Cover absent, zero-byte,
+# and multi-line present files against fresh foreman state directories.
+fmandate() { # absent|empty|present
+  local wt; wt="$(mktemp -d "$TR/fmandate.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$FBARE" "$wt"
+  mkdir -p "$wt/config"
+  case "$1" in
+    absent) rm -f "$wt/config/foreman-mandate" ;;
+    empty) : > "$wt/config/foreman-mandate" ;;
+    present) printf 'Finish the weekend capacity ramp.\nPrefer the budget safety work first.\n' > "$wt/config/foreman-mandate" ;;
+  esac
+  git -C "$wt" add -A
+  git -C "$wt" "${git_id[@]}" commit -q -m "test foreman mandate: $1" >/dev/null 2>&1 || true
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+run_fmdigest() { # state-dir now digest-capture
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$FBARE" \
+      GARDEN_FOREMAN_HANDLER="$HERE/foreman-stub.sh" GARDEN_FOREMAN_STUB_CALLS="$FCALLS" \
+      GARDEN_FOREMAN_STUB_DIGEST="$3" GARDEN_FOREMAN_NOW="$2" GARDEN_FOREMAN_IDLE_SETTLE=240 \
+      GARDEN_FOREMAN_ACTIVE_TARGET=1 "$JOBS/foreman.sh" >/dev/null 2>&1
+}
+fmandate absent; fboard @CLEAR; FMD_ABS="$TR/fmd-absent"
+run_fmdigest "$TR/state-fmd-absent" 10000 "$FMD_ABS"
+run_fmdigest "$TR/state-fmd-absent" 10300 "$FMD_ABS"
+{ [ -s "$FMD_ABS" ] && ! grep -q '^priority_mandate:' "$FMD_ABS"; } \
+  && ok "foreman digest: absent mandate omits priority_mandate" \
+  || bad "foreman digest: absent mandate was emitted"
+fmandate empty; fboard @CLEAR; FMD_EMPTY="$TR/fmd-empty"
+run_fmdigest "$TR/state-fmd-empty" 11000 "$FMD_EMPTY"
+run_fmdigest "$TR/state-fmd-empty" 11300 "$FMD_EMPTY"
+{ [ -s "$FMD_EMPTY" ] && ! grep -q '^priority_mandate:' "$FMD_EMPTY"; } \
+  && ok "foreman digest: empty mandate omits priority_mandate" \
+  || bad "foreman digest: empty mandate was emitted"
+fmandate present; fboard @CLEAR; FMD_PRESENT="$TR/fmd-present"
+run_fmdigest "$TR/state-fmd-present" 12000 "$FMD_PRESENT"
+run_fmdigest "$TR/state-fmd-present" 12300 "$FMD_PRESENT"
+{ grep -q '^priority_mandate: |$' "$FMD_PRESENT" \
+  && grep -q '^  Finish the weekend capacity ramp\.$' "$FMD_PRESENT" \
+  && grep -q '^  Prefer the budget safety work first\.$' "$FMD_PRESENT"; } \
+  && ok "foreman digest: non-empty multi-line mandate reaches the handler in full" \
+  || bad "foreman digest: multi-line mandate missing or truncated ($(tr '\n' ';' < "$FMD_PRESENT" 2>/dev/null || true))"
+fmandate absent; fboard @CLEAR
+
 # ============================================================================
 hr; echo "SUBTEST 14a — FOREMAN GENERATED-STEP PACING: top up to a target of 3 via the handler (deprecated GARDEN_FOREMAN_WIP alias)"; hr
 # With a target of 3 and NO deferred plan jobs queued, the foreman generates one
@@ -1740,6 +1785,30 @@ ST_BO="$( cd "$JOBS"; GARDEN_STATE="$TR/sm4" GARDEN=meterhost GARDEN_CCUSAGE_LOG
   GARDEN_USAGE_NOW=10000 GARDEN_TOKEN_WINDOW_SECS=1000 GARDEN_TOKEN_WEEKLY_QUOTA=300 \
   GARDEN_USAGE_LEDGER="$TR/sm4-noledger" bash -c 'source ./common.sh; meter_quota_status' 2>/dev/null )"
 [ "$ST_BO" = "backoff" ] && ok "quota status: at/over high-water (315 ≥ 0.85·300) → backoff" || bad "quota status backoff wrong (got '$ST_BO')"
+
+# Journal-backed fraction resolution: absent preserves the historical default,
+# a valid journal value overrides it, malformed content warns and fails back to
+# 0.85, and an explicit environment value retains absolute precedence.
+FRCFG="$TR/fraction-journal"; mkdir -p "$FRCFG/config"
+fraction_value() { # [explicit-env]
+  ( cd "$JOBS"; env GARDEN_STATE="$TR/fraction-state" GARDEN=meterhost \
+    ${1:+GARDEN_TOKEN_BACKOFF_FRACTION=$1} \
+    bash -c 'source ./common.sh; resolve_token_backoff_fraction "$1"; printf "%s\n" "$GARDEN_TOKEN_BACKOFF_FRACTION"' _ "$FRCFG" )
+}
+rm -f "$FRCFG/config/token-backoff-fraction"
+[ "$(fraction_value)" = 0.85 ] && ok "token fraction: absent journal override preserves 0.85 default" \
+  || bad "token fraction: absent journal override changed the default"
+printf '0.72\n' > "$FRCFG/config/token-backoff-fraction"
+[ "$(fraction_value)" = 0.72 ] && ok "token fraction: valid journal override is applied" \
+  || bad "token fraction: valid journal override was not applied"
+printf 'not-a-fraction\n' > "$FRCFG/config/token-backoff-fraction"
+FROUT="$(fraction_value 2>&1)"
+{ [ "$(printf '%s\n' "$FROUT" | tail -1)" = 0.85 ] && printf '%s\n' "$FROUT" | grep -q 'WARN: invalid token backoff fraction'; } \
+  && ok "token fraction: malformed journal value warns and falls back to 0.85" \
+  || bad "token fraction: malformed journal value did not warn/fall back ($FROUT)"
+printf '0.61\n' > "$FRCFG/config/token-backoff-fraction"
+[ "$(fraction_value 0.93)" = 0.93 ] && ok "token fraction: explicit environment value wins over journal" \
+  || bad "token fraction: journal overrode explicit environment"
 
 # ============================================================================
 hr; echo "SUBTEST 14d — FOREMAN FILL-TO-TARGET: batch-promote deferred plans up to GARDEN_FOREMAN_ACTIVE_TARGET=3, then stop"; hr
