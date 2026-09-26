@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T17:37:50Z_
+_As of 2026-09-26T17:41:07Z_
 
 ## Latest
 
@@ -760,11 +760,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-latency-storm-dead` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-latency-storm-dead.md)
 
-> RECOVERED — the watchdog condition `comment-latency-storm-dead` has CLEARED (first seen 2026-09-26T16:35:32Z, cleared 2026-09-26T17:16:14Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-26T16:35:32Z, latest 2026-09-26T17:40:37Z).
+> The SAME condition (`comment-latency-storm-dead`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment acknowledgment dead anomaly on 8 repos at once on endolin-garden-ece02cb4 (storm guard > 5; one shared cause is likelier than 8 independent faults):
+> - kriscendobot/cosgov: watcher heartbeat stale (age=297s > 270s; outcome=cooldown)
+> - kriscendobot/test262: watcher heartbeat stale (age=301s > 270s; outcome=cooldown)
+> - kriscendobot/finbot: watcher heartbeat stale (age=326s > 270s; outcome=cooldown)
+> - kriscendobot/oros-ckm-data-readiness: watcher heartbeat stale (age=327s > 270s; outcome=cooldown)
+> - kriscendobot/ymax-e2e: watcher heartbeat stale (age=297s > 270s; outcome=cooldown)
+> - kriscendobot/endo: watcher heartbeat stale (age=287s > 270s; outcome=cooldown)
+> - kriscendobot/garden: watcher heartbeat stale (age=294s > 270s; outcome=cooldown)
+> - kriscendobot/minion.town: watcher heartbeat stale (age=279s > 270s; outcome=cooldown)
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-1.md)
 
