@@ -67,15 +67,4 @@ narrow additive read). Do NOT write `config/token-backoff-fraction` or
 values and schedule after this lands and deploys. Say clearly in your report
 once this is confirmed deployed and ready for those files to be written.
 
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=1532 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-26T17:32:54Z
+<!-- garden-reaped: 0 -->
