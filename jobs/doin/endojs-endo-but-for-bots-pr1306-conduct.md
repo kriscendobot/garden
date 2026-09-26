@@ -39,3 +39,13 @@ mechanical rebase, not this narrowing — so if the exact-head approval gate sta
 `merge blocked: no maintainer approval`, that is the correct, desired surfacing:
 stall and let the maintainer approve the narrowed head rather than force-merging a
 changed security surface. On `ci red`, stall `ci red: needs shepherd`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T23:34:36Z
