@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T06:11:41Z_
+_As of 2026-09-26T06:17:42Z_
 
 ## Latest
 
@@ -776,16 +776,16 @@ worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-minion.town-pr119-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #119
+### doin (0)
+(none)
 
-### tada (8957)
+### tada (8958)
+- [`kriscendobot-minion.town-pr119-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-1.md) — Panel round 1 for kriscendobot/minion.town#119: must-fix
 - [`kriscendobot-minion.town-pr119-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-viability.md) — Cost
 - [`build-claude-agent-credential-reauth-run-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-claude-agent-credential-reauth-run-gauntlet.md) — Cost
-- [`kriscendobot-minion.town-pr96-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-receipt.md) — Cost
-- … and 8952 more
+- … and 8953 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
