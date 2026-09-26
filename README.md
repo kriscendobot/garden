@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T04:46:46Z_
+_As of 2026-09-26T05:06:26Z_
 
 ## Latest
 
@@ -768,7 +768,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 345.0k | $5.90 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 397.4k | $6.86 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 29535165 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -780,8 +780,8 @@ worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-completion-press-20260926-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260926-050510.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### tada (8943)
 - [`canary-probe-endolin-garden2-5bcdff64-4c0529f42fb8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-4c0529f42fb8.md) — rolling-deploy canary probe — round trip OK
