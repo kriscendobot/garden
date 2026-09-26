@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T11:29:48Z_
+_As of 2026-09-26T11:31:25Z_
 
 ## Latest
 
@@ -716,6 +716,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-receipt-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 49aa0d37e12234073cc7d49cb472c52bfe391cdd (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 49aa0d37e12234073cc7d49cb472c52bfe391cdd). Diagnosis: Diagnosis: a genuine, new classification bug in `reclone_clone` (`scripts/jobs/common.sh:4302-4316`), distinct from the already-fixed clone_lock stderr-silencing bug in memory. It drops `bounded_clone`'s exit code and classifies "offline" only by grepping captured stderr for known network-error text; a bare 45s `timeout`-SIGTERM clone kill (rc=124) that lands before git prints anything leaves that stderr empty, so the offline check misses and the failure escalates as a loud `FATAL` instead of a quiet transient skip. Posted the fix job above.
 
+- `watchdog-budget-zone-endolin-garden2-5bcdff64-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-ok.md)
+
+> subscription codex-endolin changed zone backoff -> ok at spend=5159932 of cap=100.
+
 - `doomed-build-rbra-clean-break-20260916-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-rbra-clean-break-20260916-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -826,7 +830,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 107417032 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
+worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
