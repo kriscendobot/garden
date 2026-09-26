@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T16:02:56Z_
+_As of 2026-09-26T16:08:42Z_
 
 ## Latest
 
@@ -32,16 +32,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #17 (first seen 2026-09-26T07:17:10Z, latest 2026-09-26T15:32:18Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 17 times; this is ONE
-> coalesced notice that updates in place, not 17 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-26T07:17:10Z, cleared 2026-09-26T16:05:03Z).
+> It was observed 17 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1897s (offline threshold 1800s; sampled_at_epoch=1790434827).
-> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
-> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
-> no release token, deploy budget, failed-canary count, or halt. Restore the host and
-> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
-> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
@@ -81,8 +76,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-endo-but-for-bots.md)
 
-> Comment acknowledgment dead anomaly for kriscendobot/endo-but-for-bots:
-> watcher heartbeat stale (age=276s > 270s; outcome=offline-journal)
+> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-endo-but-for-bots` has CLEARED (first seen 2026-09-26T16:00:57Z, cleared 2026-09-26T16:08:19Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Comment acknowledgment condition cleared.
 
 - `msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6` — from gardener:minion-town-guest-web-invite-accept-fallback-fix-post104, reply_to `minion-town-guest-web-invite-accept-fallback-fix-post104` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md)
 
@@ -176,11 +174,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-minion.town.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-minion.town` has CLEARED (first seen 2026-09-26T15:51:11Z, cleared 2026-09-26T15:55:42Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-26T15:51:11Z, latest 2026-09-26T16:08:09Z).
+> The SAME condition (`comment-watcher-dead-kriscendobot-minion.town`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment acknowledgment dead anomaly for kriscendobot/minion.town:
+> watcher heartbeat stale (age=305s > 270s; outcome=offline-journal)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -189,6 +188,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > budget-level changed endolin-garden2-5bcdff64 monk workers 1 -> 2 (target 2): subscription claude-endolin2 spend=1933083 cap=64000000 pace-bias=0.043132 ceiling=2 target=2
+
+- `watchdog-comment-watcher-dead-kriscendobot-list` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-list.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/list:
+> watcher heartbeat stale (age=308s > 270s; outcome=offline-journal)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_garden` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_garden.md)
 
@@ -240,8 +244,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-ymax-e2e` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ymax-e2e.md)
 
-> Comment acknowledgment dead anomaly for kriscendobot/ymax-e2e:
-> watcher heartbeat stale (age=401s > 270s; outcome=offline-journal)
+> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ymax-e2e` has CLEARED (first seen 2026-09-26T16:00:27Z, cleared 2026-09-26T16:06:47Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
@@ -276,11 +283,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-26T03:06:05Z, latest 2026-09-26T10:05:39Z).
-> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-1`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-26T03:06:05Z, latest 2026-09-26T16:06:59Z).
+> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-1`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): subscription claude-endolin2 spend=1899406 cap=64000000 pace-bias=0.011307 ceiling=1 target=1
+> budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): subscription claude-endolin2 spend=1933603 cap=64000000 pace-bias=0.044605 ceiling=1 target=1
 
 - `doomed-fix-worktree-sweeper-leader-only-misgating-20260919-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-worktree-sweeper-leader-only-misgating-20260919-requeue-exhausted.md)
 
@@ -751,16 +758,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-ymax-stdio-mcp` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ymax-stdio-mcp.md)
 
-> Comment acknowledgment dead anomaly for kriscendobot/ymax-stdio-mcp:
-> watcher heartbeat stale (age=282s > 270s; outcome=offline-journal)
+> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ymax-stdio-mcp` has CLEARED (first seen 2026-09-26T16:00:43Z, cleared 2026-09-26T16:07:03Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-18T05:51:21Z, latest 2026-09-26T10:05:20Z).
-> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-1`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-18T05:51:21Z, latest 2026-09-26T16:06:03Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-1`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=11440227 cap=143000000 pace-bias=0 ceiling=1 target=1
+> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=11797437 cap=143000000 pace-bias=0 ceiling=1 target=1
 
 - `doomed-improve-ci-watcher-primary-quota-cooldown-too-short-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-ci-watcher-primary-quota-cooldown-too-short-requeue-exhausted.md)
 
@@ -874,6 +884,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
+- `watchdog-comment-watcher-dead-kriscendobot-test262` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-test262.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/test262:
+> watcher heartbeat stale (age=382s > 270s; outcome=offline-journal)
+
 - `watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 51e280f054af9b87e713b528868c59623835d7e0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 51e280f054af9b87e713b528868c59623835d7e0). Diagnosis: Diagnosis: this is not a comment-watcher code defect. `garden-comment-watcher@kriscendobot-minion.town` (watching repo `kriscendobot/minion.town`, running on leader host `endolin-garden-ece02cb4`) died because its verify-clone re-clone of `journal2` hit the known `rc=124` (>45s) timeout path in `reclone_clone()` (`scripts/jobs/common.sh`) and called `die` instead of exiting `EX_TEMPFAIL`. That exact bug was already fixed on `main2` in commit `434d5402956` ("treat reclone_clone rc=124/137 timeouts as a transient skip"), currently at `origin/main2` HEAD `4c0529f42fb`, and three prior self-heal jobs already landed this and follow-on test coverage (`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline` et al., all in `jobs/tada/`). This host's own dep
@@ -886,6 +901,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > canary oros-studio-garden-ce242c49 is no longer stuck (release 47b41af5a14d9154b86fc7444ce829f99d2b9795, deployed 917115c9b77234e4a05db68e8c5111fe6e5b305f).
 
+- `watchdog-comment-watcher-dead-kriscendobot-cosgov` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-cosgov.md)
+
+> Comment acknowledgment dead anomaly for kriscendobot/cosgov:
+> watcher heartbeat stale (age=305s > 270s; outcome=offline-journal)
+
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
@@ -895,7 +915,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 11.8M | $110.91 _(notional, rate-card)_ | 8% of 143.0M (ok) |
 | Codex | 28.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 109479747 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 106292296 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 28.635499s/45s (/home/kris/garden/.garden-state/transcripts/journal); 2 open notice(s); checker healthy
