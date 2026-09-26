@@ -80,3 +80,13 @@ Design's stage 4 ("drop the fallback" — remove the now-unneeded flat-read
 arm from the helpers once the backlog is fully sharded) is explicitly OUT OF
 SCOPE for this job — it's cosmetic cleanup the design says can wait "at
 leisure." Flag it as a natural follow-up in your report; do not do it here.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T20:09:10Z
