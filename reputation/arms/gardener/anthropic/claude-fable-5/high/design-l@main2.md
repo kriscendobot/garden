@@ -4,10 +4,10 @@ model: claude-fable-5
 thoughtfulness: high
 work_class: design:l
 target: main2
-attempts: 1
-accepts: 1
-censored: 1
-estimated: 1
-mean_dollars: 0.040365
-m2: 0.000000
+attempts: 2
+accepts: 2
+censored: 2
+estimated: 2
+mean_dollars: 0.028807
+m2: 0.000207
 acceptance_rate: 1.0000
