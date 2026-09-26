@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T19:04:45Z_
+_As of 2026-09-26T19:06:30Z_
 
 ## Latest
 
@@ -758,6 +758,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Report the before/after target value and confirm the two prior tests pass.
 
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_test262` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_test262.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-test262: gc.log present; size=227286016B packs=52 gc.log=1; automatic remedy=deferred.
+
 - `watchdog-comment-latency-storm-dead` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-latency-storm-dead.md)
 
 > RECOVERED — the watchdog condition `comment-latency-storm-dead` has CLEARED (first seen 2026-09-26T16:35:32Z, cleared 2026-09-26T18:10:42Z).
@@ -1011,10 +1015,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 12.9M | $129.98 _(notional, rate-card)_ | 9% of 143.0M (ok) |
 | Codex | 28.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51591502 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 80362108 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
+worst fetch p95 43.693883s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
