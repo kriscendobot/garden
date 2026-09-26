@@ -89,3 +89,13 @@ body may still reference:
    a new method, not a reshaped bundle). Update guards, types, generated
    declarations (agent-tools code-mode-globals), help text, conformance tests,
    and design/API prose accordingly.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-26T19:04:23Z
