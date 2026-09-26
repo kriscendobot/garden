@@ -6,3 +6,13 @@ dispatch: automatic
 In scripts/jobs/common.sh, `ensure_clone_or_latch_outage` classifies a clone/fetch failure as an ambiguous transient outage (latch cooldown + quiet `exit GARDEN_OFFLINE_RC`) only when `_fetch_stderr_is_offline` or `journal_bounded_fetch_is_ambiguous_outage` matches. Neither matches `clone_lock`'s busy-giveup diagnostic: `die "cannot acquire clone lock $lf after $n waits of ${wait}s and $steals reclaim attempt(s) (a live holder is still busy; if it is crashed, rm -f $lf)"` (common.sh:4142). By construction that die only fires once `_clone_lock_is_stale` has already confirmed the recorded holder is alive and not past `GARDEN_LOCK_TTL` — i.e. it is always a live sibling legitimately still working, never a corruption/auth/local fault. Today's failure: `garden-ci-watcher@kriscendobot-vattr97` hit this die while `garden-ci-watcher@kriscendobot-ocapn` (PID 1938268, confirmed alive via `ps`) was mid-reclone of the shared `$GARDEN_STATE/ci-watcher/verify` clone that every per-repo ci-watcher instance serializes on. Exhausting the fixed 180s wait budget (`GARDEN_LOCK_WAIT=60 × GARDEN_LOCK_RETRIES=3`) during a reclone that can legitimately run close to its own ~175s worst-case bound (`bounded_clone`'s 3×45s timeout + kill-after) re-raises loud and crashes the whole `ci-watcher.sh` tick (exit 1), triggering the systemd restart/self-heal cycle — pure sibling contention, not a fault.
 
 Fix: add a predicate (e.g. `journal_lock_busy_is_live_contention`) matching the `cannot acquire clone lock .* a live holder is still busy` diagnostic shape, and have `ensure_clone_or_latch_outage` treat a match the same as the existing ambiguous-outage case (latch `start_journal_outage_cooldown` + quiet `exit GARDEN_OFFLINE_RC`) rather than re-raising loud. This benefits every caller of `ensure_clone_or_latch_outage` that shares a clone across sibling instances (ci-watcher, comment-watcher, triager, receipt-watcher, mirror-closer), all vulnerable to the identical die shape under contention. Do not touch the stale-holder reclaim path (`_clone_lock_is_stale` + the steal branch) — that stays as-is; only the final loud giveup after steals are exhausted or unavailable should reclassify.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T23:59:45Z
