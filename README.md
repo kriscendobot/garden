@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T18:07:02Z_
+_As of 2026-09-26T18:11:15Z_
 
 ## Latest
 
@@ -760,22 +760,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-latency-storm-dead` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-latency-storm-dead.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-26T16:35:32Z, latest 2026-09-26T18:05:42Z).
-> The SAME condition (`comment-latency-storm-dead`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-latency-storm-dead` has CLEARED (first seen 2026-09-26T16:35:32Z, cleared 2026-09-26T18:10:42Z).
+> It was observed 4 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment acknowledgment dead anomaly on 11 repos at once on endolin-garden-ece02cb4 (storm guard > 5; one shared cause is likelier than 11 independent faults):
-> - kriscendobot/cosgov: watcher heartbeat stale (age=317s > 270s; outcome=offline-journal)
-> - kriscendobot/moddable: watcher heartbeat stale (age=301s > 270s; outcome=offline-journal)
-> - kriscendobot/finbot: watcher heartbeat stale (age=283s > 270s; outcome=offline-journal)
-> - kriscendobot/oros-ckm-data-readiness: watcher heartbeat stale (age=306s > 270s; outcome=offline-journal)
-> - kriscendobot/ymax-e2e: watcher heartbeat stale (age=314s > 270s; outcome=offline-journal)
-> - endojs/endo-but-for-bots: watcher heartbeat stale (age=321s > 270s; outcome=offline-journal)
-> - kriscendobot/ymax-stdio-mcp: watcher heartbeat stale (age=286s > 270s; outcome=offline-journal)
-> - kriscendobot/list: watcher heartbeat stale (age=320s > 270s; outcome=offline-journal)
-> - kriscendobot/endo: watcher heartbeat stale (age=332s > 270s; outcome=offline-journal)
-> - kriscendobot/garden: watcher heartbeat stale (age=272s > 270s; outcome=offline-journal)
-> - kriscendobot/endo-but-for-bots: watcher heartbeat stale (age=296s > 270s; outcome=offline-journal)
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-1.md)
 
@@ -939,11 +928,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_oros_ckm_data_readiness` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_oros_ckm_data_readiness.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-26T08:11:03Z, latest 2026-09-26T18:06:04Z).
-> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_oros_ckm_data_readiness`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_oros_ckm_data_readiness` has CLEARED (first seen 2026-09-26T08:11:03Z, cleared 2026-09-26T18:10:15Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-oros-ckm-data-readiness: gc.log present; size=202901504B packs=51 gc.log=1; automatic remedy=deferred.
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_oros_ckm_data_readiness` cleared on endolin-garden-ece02cb4.
 
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
@@ -1019,13 +1008,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.8M | $128.56 _(notional, rate-card)_ | 9% of 143.0M (ok) |
+| Claude | 12.9M | $129.32 _(notional, rate-card)_ | 9% of 143.0M (ok) |
 | Codex | 28.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 51175971 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 43.693883s/45s (unknown); 4 open notice(s); checker healthy
+worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
