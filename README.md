@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T23:09:40Z_
+_As of 2026-09-26T23:11:13Z_
 
 ## Latest
 
@@ -242,11 +242,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-26T02:35:01Z, latest 2026-09-26T23:06:19Z).
-> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` has CLEARED (first seen 2026-09-26T02:35:01Z, cleared 2026-09-26T23:10:35Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/repo-watcher/journal: packs 1002 >= 1000; size=407225344B packs=1002 gc.log=0; automatic remedy=deferred.
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
@@ -1038,23 +1038,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 49536434 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
+worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1304-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1304-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1304
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Review directive on endojs/endo-but-for-bots PR #1282
 
-### tada (9025)
+### tada (9026)
+- [`endojs-endo-but-for-bots-pr1304-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1304-eb58df65`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-eb58df65.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-1b7e8cdb117e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-1b7e8cdb117e.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1304-conduct-relaunch-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-conduct-relaunch-20260918.md) — Cost
 - [`endojs-endo-but-for-bots-pr1304-conduct-authorized-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-conduct-authorized-20260918.md) — Cost
-- [`kriscendobot-minion.town-pr118-shepherd-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr118-shepherd-20260926.md) — Cost
-- … and 9020 more
+- … and 9021 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
