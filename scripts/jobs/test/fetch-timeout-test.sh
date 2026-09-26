@@ -348,6 +348,108 @@ EOF
 chmod +x "$TR/bin/git"
 
 # ============================================================================
+hr; echo "SUBTEST 7b — reset-discovered corruption re-clones once and succeeds"; hr
+# A successful fetch does not prove that the local object store can populate the
+# worktree. Model the garden-sysop incident exactly: reset is the first operation
+# to report `unable to read sha1 file` / `Could not reset index file`. sync_clone
+# must capture that stderr, replace the clone, fetch/reset the fresh clone, and
+# emit the operator-visible repair line without reaching die().
+RESET_CORRUPT_CLONE="$TR/reset-corrupt-clone"
+git clone -q --single-branch --branch journal2 "$CB" "$RESET_CORRUPT_CLONE"
+printf 'old clone must be replaced\n' > "$RESET_CORRUPT_CLONE/stale-sentinel"
+RESET_CORRUPT_COUNT="$TR/reset-corrupt-count"; echo 0 > "$RESET_CORRUPT_COUNT"
+RESET_CORRUPT_FETCH_COUNT="$TR/reset-corrupt-fetch-count"; echo 0 > "$RESET_CORRUPT_FETCH_COUNT"
+cat > "$TR/bin/reset-good-fetch" <<EOF
+#!/bin/bash
+n=\$(cat "$RESET_CORRUPT_FETCH_COUNT"); echo \$((n + 1)) > "$RESET_CORRUPT_FETCH_COUNT"
+exit 0
+EOF
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+sub=
+for a in "\$@"; do [ "\$a" = reset ] && sub=reset; done
+if [ "\$sub" = reset ]; then
+  n=\$(cat "$RESET_CORRUPT_COUNT"); n=\$((n + 1)); echo "\$n" > "$RESET_CORRUPT_COUNT"
+  if [ "\$n" -eq 1 ]; then
+    echo "error: unable to read sha1 file of reputation/arms/gardener/test.md (ed1254525695b02c7e0fa6213383a70f4ee40fdf)" >&2
+    echo "fatal: Could not reset index file to revision 'origin/journal2'." >&2
+    echo "fatal: Could not read from remote repository." >&2
+    exit 128
+  fi
+fi
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/reset-good-fetch" "$TR/bin/git"
+RESET_CORRUPT_LOG="$TR/reset-corrupt.log"; rc=0
+( export JOURNAL_REMOTE="$CB" GARDEN_FETCH_RETRIES=1 \
+    GARDEN_FETCH_CMD="$TR/bin/reset-good-fetch"
+  sync_clone "$RESET_CORRUPT_CLONE" ) >"$RESET_CORRUPT_LOG" 2>&1 || rc=$?
+if [ "$rc" -eq 0 ] && [ "$(cat "$RESET_CORRUPT_COUNT")" -eq 2 ] \
+   && [ "$(cat "$RESET_CORRUPT_FETCH_COUNT")" -eq 2 ] \
+   && [ ! -e "$RESET_CORRUPT_CLONE/stale-sentinel" ] \
+   && grep -q 'REPAIRED: re-cloned corrupt journal clone .*signature: unable to read' "$RESET_CORRUPT_LOG" \
+   && ! grep -q 'offline.*skipping tick' "$RESET_CORRUPT_LOG" \
+   && ! grep -q 'FATAL:' "$RESET_CORRUPT_LOG"; then
+  ok "sync_clone re-cloned reset-discovered object corruption and completed without die()"
+else
+  bad "reset corruption did not self-heal (rc=$rc resets=$(cat "$RESET_CORRUPT_COUNT") fetches=$(cat "$RESET_CORRUPT_FETCH_COUNT") log: $(tr '\n' '|' <"$RESET_CORRUPT_LOG"))"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 7c — reset-deleted clone is recreated before the re-fetch"; hr
+# If reset makes the checkout disappear, journal_fetch must never be invoked in
+# that missing directory: with its normal retry budget that wastes three attempts
+# on deterministic ENOENT. The injected fetch counts every call and fails whenever
+# .git is absent. A correct run is initial fetch + one post-reclone fetch (2 total),
+# with ensure_clone performing exactly one replacement clone.
+RESET_GONE_CLONE="$TR/reset-gone-clone"
+git clone -q --single-branch --branch journal2 "$CB" "$RESET_GONE_CLONE"
+RESET_GONE_COUNT="$TR/reset-gone-count"; echo 0 > "$RESET_GONE_COUNT"
+RESET_GONE_FETCH_COUNT="$TR/reset-gone-fetch-count"; echo 0 > "$RESET_GONE_FETCH_COUNT"
+RESET_GONE_CLONE_COUNT="$TR/reset-gone-clone-count"; echo 0 > "$RESET_GONE_CLONE_COUNT"
+cat > "$TR/bin/reset-dir-aware-fetch" <<EOF
+#!/bin/bash
+n=\$(cat "$RESET_GONE_FETCH_COUNT"); echo \$((n + 1)) > "$RESET_GONE_FETCH_COUNT"
+if [ ! -d "\$GARDEN_FETCH_DIR/.git" ]; then
+  echo "fatal: cannot change to '\$GARDEN_FETCH_DIR': No such file or directory" >&2
+  exit 128
+fi
+exit 0
+EOF
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+sub=
+for a in "\$@"; do case "\$a" in clone|reset) sub="\$a"; break ;; esac; done
+case "\$sub" in
+  clone)
+    n=\$(cat "$RESET_GONE_CLONE_COUNT"); echo \$((n + 1)) > "$RESET_GONE_CLONE_COUNT"
+    exec "$REAL_GIT" "\$@" ;;
+  reset)
+    n=\$(cat "$RESET_GONE_COUNT"); n=\$((n + 1)); echo "\$n" > "$RESET_GONE_COUNT"
+    if [ "\$n" -eq 1 ]; then
+      rm -rf "$RESET_GONE_CLONE"
+      echo "fatal: Could not reset index file to revision 'origin/journal2'." >&2
+      exit 128
+    fi ;;
+esac
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/reset-dir-aware-fetch" "$TR/bin/git"
+RESET_GONE_LOG="$TR/reset-gone.log"; rc=0
+( export JOURNAL_REMOTE="$CB" GARDEN_FETCH_RETRIES=3 \
+    GARDEN_FETCH_CMD="$TR/bin/reset-dir-aware-fetch"
+  sync_clone "$RESET_GONE_CLONE" ) >"$RESET_GONE_LOG" 2>&1 || rc=$?
+if [ "$rc" -eq 0 ] && [ -d "$RESET_GONE_CLONE/.git" ] \
+   && [ "$(cat "$RESET_GONE_COUNT")" -eq 2 ] \
+   && [ "$(cat "$RESET_GONE_CLONE_COUNT")" -eq 1 ] \
+   && [ "$(cat "$RESET_GONE_FETCH_COUNT")" -eq 2 ] \
+   && ! grep -q 'cannot change to' "$RESET_GONE_LOG"; then
+  ok "sync_clone recreated a vanished clone before re-fetch (2 fetch calls, no ENOENT retry loop)"
+else
+  bad "vanished clone was not recreated before re-fetch (rc=$rc resets=$(cat "$RESET_GONE_COUNT") clones=$(cat "$RESET_GONE_CLONE_COUNT") fetches=$(cat "$RESET_GONE_FETCH_COUNT") log: $(tr '\n' '|' <"$RESET_GONE_LOG"))"
+fi
+
+# ============================================================================
 hr; echo "SUBTEST 8 — the gardener loop ABSORBS a transient claim outage (does not exit 1)"; hr
 # End-to-end: a claim that exits EX_TEMPFAIL (75) because of an offline blip must
 # make the long-running gardener SKIP the tick (sleep + continue), NOT die(1) and

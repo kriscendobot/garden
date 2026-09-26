@@ -6811,7 +6811,7 @@ worktree_start_head() {
 # read-only caller that never pushes releases the lock at process exit (fd close)
 # or on its next sync_clone (clone_lock re-entry).
 sync_clone() {
-  local dir="$1" rc corrupt_sig
+  local dir="$1" rc corrupt_sig reset_stderr repaired_corrupt=0
   clone_lock "$dir"
   _sweep_stale_git_locks "$dir"
   # `journal_fetch ...; rc=$?` would trip the caller's `set -e` at the call itself
@@ -6858,6 +6858,7 @@ sync_clone() {
         fi
         die "fetch failed in $dir after re-cloning corrupt journal clone"
       fi
+      repaired_corrupt=1
       log "REPAIRED: re-cloned corrupt journal clone $dir (signature: ${corrupt_sig:-stale gc.log})"
     # The retry-exhausted, non-offline, non-corrupt shape (rc=1, diagnostic
     # `journal fetch in .* failed after N attempt(s)`, not auth/corrupt/
@@ -6882,18 +6883,59 @@ sync_clone() {
   # re-fetch once; if THAT fetch trips a recognizable offline signature, this is
   # a connectivity outage, so exit EX_TEMPFAIL exactly like the fetch path. A
   # reset that fails for any other reason still surfaces (the retry below dies).
-  if ! git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH"; then
-    # Same guarded idiom as the first fetch above: a bare `journal_fetch ...; rc=$?`
-    # is a `set -e` exit at the call itself when the re-fetch ALSO fails (the classic
-    # connectivity outage), killing the process with the raw rc before the offline
-    # classification below can run.
-    if journal_fetch "$dir"; then rc=0; else rc=$?; fi
-    if [ "$rc" -ne 0 ] && _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
-      log "offline on reset; skipping tick (rc=$GARDEN_OFFLINE_RC)"
-      exit "$GARDEN_OFFLINE_RC"
+  reset_stderr=""
+  if reset_stderr="$(git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then
+    rc=0
+  else
+    rc=$?
+  fi
+  if [ "$rc" -ne 0 ]; then
+    # A reset can be the first operation to discover damaged local objects. It
+    # must be classified before any outage handling: `unable to read` plus a
+    # transport-looking line is still local corruption and is repaired, not
+    # parked forever as weather. Never re-clone twice in one invocation; if the
+    # fetch path already replaced this clone, the surviving fault is upstream.
+    if _fetch_stderr_is_corrupt "$reset_stderr" || [ -e "$dir/.git/gc.log" ]; then
+      corrupt_sig="$(_fetch_stderr_corrupt_signature "$reset_stderr")"
+      [ "$repaired_corrupt" -eq 0 ] \
+        || die "hard reset of $dir to origin/$JOURNAL_BRANCH failed after re-cloning corrupt journal clone${reset_stderr:+: $reset_stderr}"
+      log "WARN: $dir corrupt (${corrupt_sig:-stale gc.log}); self-healing by re-cloning"
+      rm -rf "$dir"
+      ( ensure_clone "$dir" )
+      if journal_fetch "$dir"; then rc=0; else rc=$?; fi
+      if [ "$rc" -ne 0 ]; then
+        if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
+          log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
+          exit "$GARDEN_OFFLINE_RC"
+        fi
+        die "fetch failed in $dir after re-cloning corrupt journal clone"
+      fi
+      reset_stderr=""
+      if ! reset_stderr="$(git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then
+        die "hard reset of $dir to origin/$JOURNAL_BRANCH failed after re-cloning corrupt journal clone${reset_stderr:+: $reset_stderr}"
+      fi
+      log "REPAIRED: re-cloned corrupt journal clone $dir (signature: ${corrupt_sig:-stale gc.log})"
+    else
+      # Same guarded idiom as the first fetch above: a bare
+      # `journal_fetch ...; rc=$?` is a `set -e` exit at the call itself when the
+      # re-fetch ALSO fails (the classic connectivity outage), killing the
+      # process with the raw rc before the offline classification below can run.
+      # The reset may itself have removed the checkout (or raced an external
+      # cleanup). Recreate it before fetching; retrying a fetch in a vanished
+      # path only burns the full backoff budget on a deterministic ENOENT.
+      if [ ! -d "$dir/.git" ]; then
+        ( ensure_clone "$dir" )
+      fi
+      if journal_fetch "$dir"; then rc=0; else rc=$?; fi
+      if [ "$rc" -ne 0 ] && _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
+        log "offline on reset; skipping tick (rc=$GARDEN_OFFLINE_RC)"
+        exit "$GARDEN_OFFLINE_RC"
+      fi
+      reset_stderr=""
+      if ! reset_stderr="$(git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then
+        die "hard reset of $dir to origin/$JOURNAL_BRANCH failed after retry${reset_stderr:+: $reset_stderr}"
+      fi
     fi
-    git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" \
-      || die "hard reset of $dir to origin/$JOURNAL_BRANCH failed after retry"
   fi
   git -C "$dir" clean -qfd jobs 2>/dev/null || true
 }
