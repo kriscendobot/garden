@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T16:36:55Z_
+_As of 2026-09-26T16:38:05Z_
 
 ## Latest
 
@@ -1033,16 +1033,16 @@ worst fetch p95 28.635499s/45s (/home/kris/garden/.garden-state/transcripts/jour
 ### todo (0)
 (none)
 
-### doin (1)
-- [`fu-minion-town-containment-gateway-endo-sock-1-20260926-163506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260926-163506.md) — Containment drift check for kriscendobot/minion.town gateway records
+### doin (0)
+(none)
 
-### tada (8984)
+### tada (8985)
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260926-163506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/fu-minion-town-containment-gateway-endo-sock-1-20260926-163506.md) — Cost
 - [`claude-on-minion-town-press-20260926-153512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-153512.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-47b41af5a14d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-47b41af5a14d.md) — rolling-deploy canary probe — round trip OK
 - [`improve-ci-pages-watcher-cgroup-straggler-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/improve-ci-pages-watcher-cgroup-straggler-reap.md) — Cost
 - [`claude-on-minion-town-press-20260926-123506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-123506.md) — Cost
-- [`improve-approval-reconciler-cgroup-straggler-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/improve-approval-reconciler-cgroup-straggler-reap.md) — Cost
-- … and 8979 more
+- … and 8980 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
