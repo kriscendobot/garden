@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-09-26T18:14:10Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-amend-invitation-oauth-mcp-prerequisite
+pr_number: 121
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/121
+pr_head: amend-invitation-oauth-mcp-prerequisite
