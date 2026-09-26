@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T06:23:10Z_
+_As of 2026-09-26T06:24:29Z_
 
 ## Latest
 
@@ -764,7 +764,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.5M | $35.13 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Claude | 3.8M | $37.61 _(notional, rate-card)_ | 3% of 143.0M (ok) |
 | Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 52282809 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -776,18 +776,17 @@ worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`kriscendobot-minion.town-pr119-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #119
-- [`claude-on-minion-town-press-20260926-062009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260926-062009.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1227-rebase-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-rebase-20260926.md) — Rebase endojs/endo-but-for-bots#1227 onto live llm
 
-### tada (8958)
+### tada (8959)
+- [`claude-on-minion-town-press-20260926-062009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-062009.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-1.md) — Panel round 1 for kriscendobot/minion.town#119: must-fix
 - [`kriscendobot-minion.town-pr119-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-viability.md) — Cost
-- [`build-claude-agent-credential-reauth-run-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-claude-agent-credential-reauth-run-gauntlet.md) — Cost
-- … and 8953 more
+- … and 8954 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
