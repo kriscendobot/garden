@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T18:50:41Z_
+_As of 2026-09-26T18:52:43Z_
 
 ## Latest
 
@@ -1021,16 +1021,16 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 (none)
 
 ### doin (2)
-- [`claude-on-minion-town-press-20260926-185004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260926-185004.md) — Press the Claude-on-minion.town arc forward
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
+- [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-capability.md) — ---
 
-### tada (8994)
+### tada (8995)
+- [`claude-on-minion-town-press-20260926-185004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-185004.md) — Cost
 - [`build-e-untag-handled-promise-pipelining`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-e-untag-handled-promise-pipelining.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-4ab1c8b0be6a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-4ab1c8b0be6a.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-minion.town-pr121-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr121-shepherd.md) — Cost
 - [`amend-invitation-oauth-mcp-prerequisite`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/amend-invitation-oauth-mcp-prerequisite.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-80b59b5c8d96`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-80b59b5c8d96.md) — rolling-deploy canary probe — round trip OK
-- … and 8989 more
+- … and 8990 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1073,7 +1073,6 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-claude-agents-capability.md) — _normal_ · ---
 - [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #81
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-rbra-clean-break-20260916.md) — _normal_ · Build-review naming directives (PR #1301 review #5252703859, kriskowal, 2026-...
 - [`daily-progress-summary-20260902-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20260902-070506.md) — _normal_ · Daily midnight Pacific progress summary
