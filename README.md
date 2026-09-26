@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T12:40:23Z_
+_As of 2026-09-26T12:42:34Z_
 
 ## Latest
 
@@ -844,16 +844,16 @@ worst fetch p95 9.750570s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-ci-pages-watcher-cgroup-straggler-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-pages-watcher-cgroup-straggler-reap.md) — ---
+### doin (0)
+(none)
 
-### tada (8981)
+### tada (8982)
+- [`improve-ci-pages-watcher-cgroup-straggler-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/improve-ci-pages-watcher-cgroup-straggler-reap.md) — Cost
 - [`claude-on-minion-town-press-20260926-123506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-123506.md) — Cost
 - [`improve-approval-reconciler-cgroup-straggler-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/improve-approval-reconciler-cgroup-straggler-reap.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-256c8dc6122a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-256c8dc6122a.md) — rolling-deploy canary probe — round trip OK
 - [`improve-comment-watcher-cgroup-drain-residual-leak`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/improve-comment-watcher-cgroup-drain-residual-leak.md) — Cost
-- [`claude-on-minion-town-completion-press-20260926-112007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-completion-press-20260926-112007.md) — Cost
-- … and 8976 more
+- … and 8977 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
