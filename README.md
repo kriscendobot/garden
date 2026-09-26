@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T05:24:38Z_
+_As of 2026-09-26T05:29:38Z_
 
 ## Latest
 
@@ -131,6 +131,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > #1015's head is rebased onto current `llm`, CI green, still draft, with a comment
 > inviting preliminary review. Do not un-draft and do not attempt to merge.
+
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/maintainer-approval/verify: p95=22.506192s max=22.506192s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal.md)
 
@@ -772,30 +776,30 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 595.0k | $10.17 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 740.7k | $11.73 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 3750534 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 1 open notice(s); checker healthy
+worst fetch p95 21.452128s/45s (/home/kris/garden/.garden-state/receipts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`kriscendobot-minion.town-pr96-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr96-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #96
 
 ### doin (3)
-- [`kriscendobot-minion.town-pr97-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #97 (merged)
 - [`build-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-claude-agent-credential-reauth.md) — Build: credential-expiry detection and operator-mediated reauth for Claude ag...
 - [`kriscendobot-minion.town-pr96-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #96
+- [`build-minion-town-claude-agents-delegate-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-delegate-20260926.md) — Build: close the implementation gaps between minion.town's Claude-agents wiri...
 
-### tada (8947)
+### tada (8948)
+- [`kriscendobot-minion.town-pr97-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-receipt.md) — Cost
 - [`kriscendobot-minion.town-pr96-review-4b828bd6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-review-4b828bd6.md) — Cost
 - [`kriscendobot-minion.town-pr97-conduct-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-conduct-20260926.md) — Cost
 - [`kriscendobot-minion.town-pr97-review-69e952c4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-review-69e952c4.md) — Cost
 - [`claude-on-minion-town-completion-press-20260926-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-completion-press-20260926-050510.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-4c0529f42fb8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-4c0529f42fb8.md) — rolling-deploy canary probe — round trip OK
-- … and 8942 more
+- … and 8943 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1101,7 +1105,6 @@ worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
-- [`build-minion-town-claude-agents-delegate-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-claude-agents-delegate-20260926.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/97` · Build: close the implementation gaps between minion.town's Claude-agents wiri...
 
 ## Watch set
 kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
