@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T18:59:54Z_
+_As of 2026-09-26T19:01:09Z_
 
 ## Latest
 
@@ -1020,17 +1020,16 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
-- [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #81
 
-### tada (8996)
+### tada (8997)
+- [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2.md) — Cost
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-minion-town-claude-agents-capability.md) — Cost
 - [`claude-on-minion-town-press-20260926-185004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-185004.md) — Cost
 - [`build-e-untag-handled-promise-pipelining`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-e-untag-handled-promise-pipelining.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-4ab1c8b0be6a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-4ab1c8b0be6a.md) — rolling-deploy canary probe — round trip OK
-- [`kriscendobot-minion.town-pr121-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr121-shepherd.md) — Cost
-- … and 8991 more
+- … and 8992 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
