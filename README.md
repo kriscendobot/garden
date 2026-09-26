@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T23:06:40Z_
+_As of 2026-09-26T23:07:28Z_
 
 ## Latest
 
@@ -1044,17 +1044,16 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1304-eb58df65`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1304-eb58df65.md) — attention directive on endojs/endo-but-for-bots PR #1304
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Review directive on endojs/endo-but-for-bots PR #1282
 
-### tada (9024)
+### tada (9025)
+- [`endojs-endo-but-for-bots-pr1304-eb58df65`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-eb58df65.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-1b7e8cdb117e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-1b7e8cdb117e.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1304-conduct-relaunch-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-conduct-relaunch-20260918.md) — Cost
 - [`endojs-endo-but-for-bots-pr1304-conduct-authorized-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-conduct-authorized-20260918.md) — Cost
 - [`kriscendobot-minion.town-pr118-shepherd-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr118-shepherd-20260926.md) — Cost
-- [`kriscendobot-minion.town-pr118-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr118-shepherd.md) — Cost
-- … and 9019 more
+- … and 9020 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
