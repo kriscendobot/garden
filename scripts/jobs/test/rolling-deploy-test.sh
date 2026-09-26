@@ -806,40 +806,60 @@ rm -f "$TR/sd-state-$F1/draining"
 push_change "deploy/roll/$F1" "@DELETE" "clear F1 release after follower deferral test"
 
 # ============================================================================
-hr; echo "WALL-CLOCK DEADLINE — journal_put/journal_rm bail EX_TEMPFAIL past the bound"; hr
+hr; echo "WALL-CLOCK DEADLINE — one shared tick deadline bounds every journal write"; hr
 # The conductor's journal_put/journal_rm push-CAS loops were bounded only by attempt
 # COUNT (25), not elapsed wall-clock — so under DEGRADED (not cleanly offline)
 # connectivity 25 sync_clones of up to ~GARDEN_FETCH_TIMEOUT+GARDEN_FETCH_KILL_AFTER
 # seconds plus growing backoff can blow through the unit's TimeoutStartSec (900s) and
 # end in a blunt SIGTERM/kill mid-deploy (the 2026-09-17 incident) instead of a clean
-# self-classified skip. The fix mirrors post-job.sh (commit 5db2500cee): a
-# GARDEN_POST_DEADLINE_SECS bound checked at the top of each attempt, bailing
-# EX_TEMPFAIL (GARDEN_OFFLINE_RC) which self-heal-run.sh normalizes to a clean exit.
-#
-# Drive a real release tick (the FIRST journal_put call — writing deploy/roll/<F1>)
-# with the deadline already exceeded (GARDEN_POST_DEADLINE_SECS=0): assert the tick
-# exits GARDEN_OFFLINE_RC (75), writes NO release token, and logs the deadline bail.
+# self-classified skip. The first fix gave each call its own GARDEN_POST_DEADLINE_SECS
+# clock, but a tick makes several writes, so the SUM still overran 900s (the
+# 2026-09-26 07:35 unit timeout). Now ONE deadline, started at the top of the tick,
+# is checked before every retry, bailing EX_TEMPFAIL (GARDEN_OFFLINE_RC) which
+# self-heal-run.sh normalizes to a clean exit.
 push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for wall-clock deadline test"
 push_change "deploy/roll/$F2" "@DELETE" "clear F2 release for wall-clock deadline test"
 seed_fleet_hosts "$LEADER" "$F1" "$F2"
-mkdir -p "$TR/state-deadline/deploy"
-printf 'Upgrade ready\n\navailable: %s\n' "$TARGET" > "$TR/state-deadline/deploy/upgrade-ready"
-: > "$TR/deadline-conductor.out"
-env -i PATH="$PATH" HOME="$HOME" \
-  GARDEN_TEST=1 GARDEN_ROOT="$ROOT" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
-  GARDEN="$LEADER" GARDEN_STATE="$TR/state-deadline" GARDEN_LEADER="$LEADER" \
-  GARDEN_ROLLING_NOW=2000 GARDEN_HOST_OFFLINE_AFTER=1800 \
-  GARDEN_SELF_DEPLOY_SETTLE=0 GARDEN_CANARY_PROBE_DEADLINE=600 GARDEN_CANARY_WATCH=0 \
-  GARDEN_UNIT_CTL="$MOCK" GARDEN_MOCK_STATE="$TR/mock-state" GARDEN_MOCK_LOG="$TR/mock-log" \
-  GARDEN_UPGRADE_READY_MARKER="$TR/state-deadline/deploy/upgrade-ready" \
-  GARDEN_ROLLING_DEPLOY_CMD="$TR/rec-deploy.sh" GARDEN_ROLLING_DRAIN_OP="$TR/rec-drain.sh" \
-  GARDEN_ROLLING_POST_JOB="$JOBS/post-job.sh" GARDEN_ALERT_CMD="$TR/rec-alert.sh" \
-  GARDEN_POST_DEADLINE_SECS=0 \
-  "$JOBS/rolling-deploy.sh" >>"$TR/deadline-conductor.out" 2>&1
-dl_rc=$?
-if [ "$dl_rc" -eq 75 ]; then ok "release tick past the deadline exits GARDEN_OFFLINE_RC (75), a clean self-classified skip"; else bad "deadline tick exit was $dl_rc, expected 75 (see $TR/deadline-conductor.out)"; fi
-if [ -z "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" ]; then ok "no F1 release token written when the deadline is already exceeded"; else bad "a release token was written despite the wall-clock bail"; fi
-if grep -q 'wall-clock deadline' "$TR/deadline-conductor.out"; then ok "the deadline bail logged the degraded-connectivity skip"; else bad "no wall-clock-deadline log line (see $TR/deadline-conductor.out)"; fi
+run_deadline_tick() {  # run_deadline_tick <state-suffix>
+  rm -rf "$TR/state-deadline-$1"; mkdir -p "$TR/state-deadline-$1/deploy"
+  printf 'Upgrade ready\n\navailable: %s\n' "$TARGET" > "$TR/state-deadline-$1/deploy/upgrade-ready"
+  : > "$TR/deadline-$1.out"
+  env -i PATH="$PATH" HOME="$HOME" \
+    GARDEN_TEST=1 GARDEN_ROOT="$ROOT" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN="$LEADER" GARDEN_STATE="$TR/state-deadline-$1" GARDEN_LEADER="$LEADER" \
+    GARDEN_ROLLING_NOW=2000 GARDEN_HOST_OFFLINE_AFTER=1800 \
+    GARDEN_SELF_DEPLOY_SETTLE=0 GARDEN_CANARY_PROBE_DEADLINE=600 GARDEN_CANARY_WATCH=0 \
+    GARDEN_UNIT_CTL="$MOCK" GARDEN_MOCK_STATE="$TR/mock-state" GARDEN_MOCK_LOG="$TR/mock-log" \
+    GARDEN_UPGRADE_READY_MARKER="$TR/state-deadline-$1/deploy/upgrade-ready" \
+    GARDEN_ROLLING_DEPLOY_CMD="$TR/rec-deploy.sh" GARDEN_ROLLING_DRAIN_OP="$TR/rec-drain.sh" \
+    GARDEN_ROLLING_POST_JOB="$JOBS/post-job.sh" GARDEN_ALERT_CMD="$TR/rec-alert.sh" \
+    GARDEN_POST_DEADLINE_SECS=0 GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=1 \
+    "$JOBS/rolling-deploy.sh" >>"$TR/deadline-$1.out" 2>&1
+}
+
+# Degraded: the origin rejects every push, so the release write's first attempt
+# fails; with the tick deadline already spent (GARDEN_POST_DEADLINE_SECS=0) the
+# retry bails 75 instead of grinding through 25 attempts.
+printf '#!/bin/sh\necho "rejected by deadline test" >&2\nexit 1\n' > "$BARE/hooks/pre-receive"
+chmod +x "$BARE/hooks/pre-receive"
+run_deadline_tick degraded; dl_rc=$?
+rm -f "$BARE/hooks/pre-receive"
+if [ "$dl_rc" -eq 75 ]; then ok "a failing write past the shared deadline exits GARDEN_OFFLINE_RC (75), a clean self-classified skip"; else bad "degraded deadline tick exit was $dl_rc, expected 75 (see $TR/deadline-degraded.out)"; fi
+if [ -z "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" ]; then ok "no F1 release token written when every push is rejected"; else bad "a release token landed despite the rejecting origin"; fi
+if grep -q 'shared tick wall-clock deadline.*attempt 2' "$TR/deadline-degraded.out"; then ok "the bail happened on the first RETRY (attempt 2) and logged the shared-deadline skip"; else bad "no attempt-2 shared-deadline log line (see $TR/deadline-degraded.out)"; fi
+
+# Healthy but late: the deadline is spent yet the origin accepts pushes. The first
+# attempt of a write always runs, so the release token still lands (a long leader
+# self-deploy must not strand its roll-completed record).
+run_deadline_tick healthy; dl_rc=$?
+if [ "$dl_rc" -eq 0 ]; then ok "a healthy write past the shared deadline still completes the tick (rc 0)"; else bad "healthy late tick exit was $dl_rc, expected 0 (see $TR/deadline-healthy.out)"; fi
+if [ "$(from_bare "deploy/roll/$F1" | tr -d '[:space:]')" = "$TARGET" ]; then ok "the F1 release token landed on the first attempt despite the spent deadline"; else bad "release token missing after a healthy late write (see $TR/deadline-healthy.out)"; fi
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release after wall-clock deadline test"
+
+# Structural: the deadline is ONE tick-scoped clock, not a per-call one.
+if grep -q '^TICK_START=\$SECONDS' "$JOBS/rolling-deploy.sh" && ! grep -qE '(put|rm)_start=' "$JOBS/rolling-deploy.sh"; then
+  ok "journal_put/journal_rm measure against the shared TICK_START, with no per-call clock"
+else bad "rolling-deploy.sh still has a per-call deadline clock (or no TICK_START)"; fi
 
 # ============================================================================
 hr; echo "RESULTS"; hr
