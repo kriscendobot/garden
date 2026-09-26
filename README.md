@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T19:50:44Z_
+_As of 2026-09-26T19:54:43Z_
 
 ## Latest
 
@@ -1028,7 +1028,8 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`daily-progress-summary-20260919-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260919-070505.md) — Daily midnight Pacific progress summary
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
 
 ### tada (9000)
@@ -1080,7 +1081,6 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`daily-progress-summary-20260919-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20260919-070505.md) — _normal_ · Daily midnight Pacific progress summary
 - [`date-sharded-tada-migrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/date-sharded-tada-migrate.md) — _normal_ · date-sharded-tada stage 3: retroactive migration of jobs/tada/
 - [`deadmail-issue-comment-5715518921`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadmail-issue-comment-5715518921.md) — _normal_ · Issue follow-up — fold a late comment into the issue work
 - [`deadmail-issue-comment-5722768728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadmail-issue-comment-5722768728.md) — _normal_ · Issue follow-up — fold a late comment into the issue work
