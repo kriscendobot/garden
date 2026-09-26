@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-26T20:44:14Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-endo-pr3360-mirror
-pr_number: 1342
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1342
-pr_head: mirror/endo-pr3360-fix-process-global
