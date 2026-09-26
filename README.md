@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T11:20:58Z_
+_As of 2026-09-26T11:23:52Z_
 
 ## Latest
 
@@ -821,7 +821,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 11.5M | $108.67 _(notional, rate-card)_ | 8% of 143.0M (ok) |
+| Claude | 11.6M | $109.08 _(notional, rate-card)_ | 8% of 143.0M (ok) |
 | Codex | 28.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 107417032 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -834,15 +834,15 @@ worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 (none)
 
 ### doin (1)
-- [`claude-on-minion-town-completion-press-20260926-112007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260926-112007.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`improve-comment-watcher-cgroup-drain-residual-leak`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-cgroup-drain-residual-leak.md) — ---
 
-### tada (8976)
+### tada (8977)
+- [`claude-on-minion-town-completion-press-20260926-112007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-completion-press-20260926-112007.md) — Cost
 - [`claude-on-minion-town-press-20260926-092011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-092011.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet.md) — gauntlet kriscendobot-minion.town-pr119-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr119-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-fix-6.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-6.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-97cb30748dde`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-97cb30748dde.md) — rolling-deploy canary probe — round trip OK
-- … and 8971 more
+- … and 8972 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
