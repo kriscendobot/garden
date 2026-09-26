@@ -27,3 +27,13 @@ marker in the PR body). For each PR N, run:
 For a stacked series, gauntlet the slices in stack order (orchestrate serially
 per skills/orchestration if more than one). If the build produced no PR, report
 that and message the maintainer instead.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T05:41:34Z
