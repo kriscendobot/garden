@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T05:11:21Z_
+_As of 2026-09-26T05:13:41Z_
 
 ## Latest
 
@@ -780,8 +780,8 @@ worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion.town-pr97-review-69e952c4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-review-69e952c4.md) — Review directive on kriscendobot/minion.town PR #97
 
 ### tada (8944)
 - [`claude-on-minion-town-completion-press-20260926-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-completion-press-20260926-050510.md) — Cost
@@ -1079,6 +1079,7 @@ worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`endojs-endo-but-for-bots-pr1336-c11fb1c4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1336-c11fb1c4-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1336 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1336-review-38f12d4f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1336-review-38f12d4f-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1336 (primary: endojs-endo-but-...
 - [`kriscendobot-minion.town-pr81-review-ef599fde-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr81-review-ef599fde-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #81 (primary: kriscendobot-minio...
+- [`kriscendobot-minion.town-pr97-review-69e952c4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr97-review-69e952c4-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #97 (primary: kriscendobot-minio...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
