@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T21:40:48Z_
+_As of 2026-09-26T21:43:25Z_
 
 ## Latest
 
@@ -1037,11 +1037,11 @@ _Fleet token-unlock pace: 91606115 tokens/day lower bound; incomplete where a su
 worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
 
 ### tada (9011)
 - [`endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4.md) — Cost
