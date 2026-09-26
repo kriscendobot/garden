@@ -26,7 +26,7 @@
 # session legitimately carries something else (nvm, ~/.cargo/bin, /snap/bin) and
 # breaks the very builds the fleet runs (common.sh comment).
 #
-# The handler's launch idiom (handlers/gardener-claude.sh) is reproduced verbatim
+# The handler's launch idiom (handlers/monk-claude.sh) is reproduced verbatim
 # in spirit: `( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE
 # "$cli" … )`. A non-login `bash -c 'aws'` stands in for the agent resolving the
 # tool by PATH — non-login on purpose, because the agent's Bash tool is non-login

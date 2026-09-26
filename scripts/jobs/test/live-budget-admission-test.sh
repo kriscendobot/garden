@@ -216,7 +216,7 @@ seed_board() { # bare [plan]
   touch "$seed"/jobs/{plan,todo,doin,tada}/.gitkeep "$seed"/inbox/maintainer/{unread,read}/.gitkeep "$seed"/usage/.gitkeep
   cp "$CFG" "$seed/config/budget-pools"
   printf 'monk-fleet-ceiling\t4\ncleric-fleet-ceiling\t0\nhost\ttesthost\t4\t0\n' > "$seed/config/worker-leveling"
-  printf 'gardeners: 2\n' > "$seed/hosts/testhost"
+  printf 'monks: 2\n' > "$seed/hosts/testhost"
   git -C "$seed" add -A; git -C "$seed" "${git_id[@]}" commit -qm seed
   git -C "$seed" remote add origin "$bare"; git -C "$seed" push -q -u origin journal2
 }
@@ -246,7 +246,7 @@ git -C "$CSEED" add jobs/todo/claim-me.md; git -C "$CSEED" "${git_id[@]}" commit
 set +e
 COUT="$(env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/claim-state" JOURNAL_REMOTE="$CBARE" \
   GARDEN_WORKER_CLONE="$TR/claim-state/worker/journal" GARDEN_GARDENER_CLONE="$TR/claim-state/worker/journal" \
-  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_WORKER_KIND=gardener \
+  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_WORKER_KIND=monk \
   "$JOBS/claim-job.sh" 1 2>&1)"
 crc=$?
 set -e
@@ -265,7 +265,7 @@ RALERT="$TR/claim-refuse-alerts.log"; : > "$RALERT"
 set +e
 ROUT="$(env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/claim-refuse-state" JOURNAL_REMOTE="$RBARE" \
   GARDEN_WORKER_CLONE="$TR/claim-refuse-state/worker/journal" GARDEN_GARDENER_CLONE="$TR/claim-refuse-state/worker/journal" \
-  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_WORKER_KIND=gardener \
+  GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_WORKER_KIND=monk \
   GARDEN_ALERT_CMD="$HERE/budget-alert-record-stub.sh" GARDEN_ALERT_RECORD="$RALERT" \
   "$JOBS/claim-job.sh" 1 2>&1)"
 rrc=$?
@@ -308,8 +308,8 @@ printf '%s\n' \
   'anthropic:monkhost anthropic monkhost weekly-tokens 1000 usage-panel 2026-09-01' > "$LSEED/config/budget-pools"
 printf 'monk-fleet-ceiling\t20\ncleric-fleet-ceiling\t0\n' > "$LSEED/config/worker-leveling"
 for h in testhost clamphost missinghost failhost monkhost; do printf 'host\t%s\t4\t0\n' "$h" >> "$LSEED/config/worker-leveling"; done
-printf 'gardeners: 4\n' > "$LSEED/hosts/clamphost"   # gap>1 exercises the step clamp
-printf 'gardeners: 2\n' > "$LSEED/hosts/failhost"
+printf 'monks: 4\n' > "$LSEED/hosts/clamphost"   # gap>1 exercises the step clamp
+printf 'monks: 2\n' > "$LSEED/hosts/failhost"
 printf 'monks: 2\n'     > "$LSEED/hosts/monkhost"     # cut-over host: the monk line
 mkdir -p "$LSEED/usage"
 for h in clamphost missinghost failhost monkhost; do
@@ -331,12 +331,12 @@ else
   bad "leveling actions: $(tr '\n' ';' < "$ACT")"
 fi
 if grep -q '^remote monkhost op=set-workers kind=monk count=1$' "$ACT" \
-   && ! grep -q '^remote monkhost op=set-workers kind=gardener' "$ACT"; then
+   && ! grep -q '^remote monkhost op=set-workers kind=monk' "$ACT"; then
   ok "cut-over host is steered via its active kind (monk), not the hardcoded gardeners line"
 else
   bad "monkhost active-kind steering wrong: $(tr '\n' ';' < "$ACT")"
 fi
-grep -q '^remote clamphost op=set-workers kind=gardener count=3$' "$ACT" \
+grep -q '^remote clamphost op=set-workers kind=monk count=3$' "$ACT" \
   && ok "throttle moves at most one step per tick (4->3, not 4->1)" \
   || bad "step clamp wrong: $(tr '\n' ';' < "$ACT")"
 grep -q 'pool=anthropic:testhost host=testhost operation=set-local-workers failed exit_status=17' "$LOUT" \
@@ -355,7 +355,7 @@ grep -q 'pool=anthropic:failhost host=failhost operation=send-host-set-workers f
 UBARE="$TR/up.git"; seed_board "$UBARE"; USEED="$UBARE-seed"
 printf '%s\n' 'anthropic:uphost anthropic uphost weekly-tokens 1000 usage-panel 2026-09-01' > "$USEED/config/budget-pools"
 printf 'monk-fleet-ceiling\t4\ncleric-fleet-ceiling\t0\nhost\tuphost\t4\t0\n' > "$USEED/config/worker-leveling"
-printf 'gardeners: 2\n' > "$USEED/hosts/uphost"
+printf 'monks: 2\n' > "$USEED/hosts/uphost"
 mkdir -p "$USEED/usage"
 printf '{"host":"uphost","provider":"anthropic","ts":"2026-08-22T06:00:00Z","input_tokens":1,"output_tokens":0,"cache_creation_tokens":0}\n' > "$USEED/usage/uphost.jsonl"
 git -C "$USEED" add config/budget-pools config/worker-leveling hosts/uphost usage/uphost.jsonl; git -C "$USEED" "${git_id[@]}" commit -qm up; git -C "$USEED" push -q
@@ -369,7 +369,7 @@ env "${up_env[@]}" "$JOBS/budget-level.sh" >"$TR/up1.out" 2>&1   # tick 1: confi
   && ok "a raise is held on the first tick (dwell confirms before moving up)" \
   || bad "raise not held on tick 1: act=$(tr '\n' ';' < "$UACT") log=$(tr '\n' ';' < "$TR/up1.out")"
 env "${up_env[@]}" "$JOBS/budget-level.sh" >"$TR/up2.out" 2>&1   # tick 2: confirm 2/2, one step
-grep -q '^remote uphost op=set-workers kind=gardener count=3$' "$UACT" \
+grep -q '^remote uphost op=set-workers kind=monk count=3$' "$UACT" \
   && ok "a confirmed raise moves exactly one step (2->3, not 2->4)" \
   || bad "confirmed raise wrong: $(tr '\n' ';' < "$UACT")"
 
@@ -392,7 +392,7 @@ env GARDEN_TEST=1 GARDEN=testhost GARDEN_LEADER=testhost JOURNAL_REMOTE="$LBARE"
 UNBARE="$TR/uncal.git"; seed_board "$UNBARE"; UNSEED="$UNBARE-seed"
 printf '%s\n' 'anthropic:unchost anthropic unchost weekly-tokens 1000' > "$UNSEED/config/budget-pools"  # no provenance
 printf 'monk-fleet-ceiling\t4\ncleric-fleet-ceiling\t0\nhost\tunchost\t4\t0\n' > "$UNSEED/config/worker-leveling"
-printf 'gardeners: 2\n' > "$UNSEED/hosts/unchost"
+printf 'monks: 2\n' > "$UNSEED/hosts/unchost"
 git -C "$UNSEED" add config/budget-pools config/worker-leveling hosts/unchost; git -C "$UNSEED" "${git_id[@]}" commit -qm uncal; git -C "$UNSEED" push -q
 UNACT="$TR/uncal-act.log"; : > "$UNACT"
 printf '#!/bin/bash\nprintf "remote %%s\\n" "$1" >> "%s"\n' "$UNACT" > "$TR/uncalsend"; chmod +x "$TR/uncalsend"

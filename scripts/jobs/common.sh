@@ -1126,14 +1126,9 @@ worker_kind_field() {
   local kind="${1:?worker_kind_field: kind required}" field="${2:?worker_kind_field: field required}"
   case "$kind" in
     monk)
-      # The Anthropic-backed gardener (design anthropic-worker-kind-monk.md). `monk`
-      # is the CANONICAL Anthropic worker kind; the `gardener` row below is the LEGACY
-      # v1 alias for this same kind, retained with its ORIGINAL unit/count/state names
-      # so the staged, reversible cutover can flip a host from the garden-gardener@
-      # pool to the garden-monk@ pool one host at a time. canonical_worker_kind maps a
-      # v1 `worker_kind: gardener` claim/event/bid to `monk` for identity, reputation,
-      # and auction; the two registry rows differ ONLY in unit/count_key/state_ns/
-      # label/handler — exactly the operational surface the per-host cutover flips.
+      # Monk is the sole Anthropic worker kind.  Historical v1 journal records that
+      # say `worker_kind: gardener` still decode to monk below, but that spelling is
+      # not a registry row, count key, unit, or declarable worker kind.
       case "$field" in
         handler)   printf '%s\n' "handlers/monk-claude.sh" ;;
         agent_bin) printf '%s\n' "claude" ;;
@@ -1142,23 +1137,6 @@ worker_kind_field() {
         count_key) printf '%s\n' "monks" ;;
         state_ns)  printf '%s\n' "monks" ;;
         label)     printf '%s\n' "garden-monk" ;;
-        *) return 1 ;;
-      esac ;;
-    gardener)
-      # LEGACY Anthropic alias (== monk). This row keeps the pre-rename unit/count/
-      # state names (garden-gardener@, gardeners:, state/gardeners) live and unchanged
-      # so the compatibility release runs the existing pool byte-for-byte as before.
-      # A host is flipped to the `monk` row above by the per-host cutover command, not
-      # by this release. The handler is a warning-free forwarding wrapper onto
-      # handlers/monk-claude.sh, so both spellings run one implementation.
-      case "$field" in
-        handler)   printf '%s\n' "handlers/gardener-claude.sh" ;;
-        agent_bin) printf '%s\n' "claude" ;;
-        provider)  printf '%s\n' "anthropic" ;;
-        unit)      printf '%s\n' "garden-gardener@" ;;
-        count_key) printf '%s\n' "gardeners" ;;
-        state_ns)  printf '%s\n' "gardeners" ;;
-        label)     printf '%s\n' "garden-gardener" ;;
         *) return 1 ;;
       esac ;;
     cleric)
@@ -1308,13 +1286,9 @@ worker_kind_field() {
 # preserve a sibling kind's count when it rewrites hosts/<host>. A new kind is added
 # in exactly one place besides worker_kind_field: here.
 #
-# Both Anthropic spellings are enumerated: `monk` (canonical) and `gardener` (legacy
-# alias). During the staged rename they coexist so a host can be flipped from the
-# garden-gardener@ pool to garden-monk@ one at a time, and set-workers.sh preserves
-# whichever count line a host already declares. The two Anthropic pools are NEVER
-# both armed for one capacity slot: the scaler picks the host-active spelling with
-# anthropic_active_kind (monks: wins, else the legacy gardeners:) and skips the other.
-worker_kinds() { printf '%s\n' monk gardener cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic friar; }
+# Monk replaced the former Anthropic spelling in the completed cutover.  It is the
+# only Anthropic entry the scaler can declare or reconcile.
+worker_kinds() { printf '%s\n' monk cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic friar; }
 
 # canonical_worker_kind <raw> [schema] [provider] — the ONLY worker-kind decoder
 # (design anthropic-worker-kind-monk.md § Journal contract). It resolves a raw
@@ -1345,26 +1319,11 @@ canonical_worker_kind() {
   printf '%s\n' "$ck"
 }
 
-# anthropic_active_kind <hosts-file> — which Anthropic worker spelling this host
-# arms, resolving the monk/gardener overlap during the staged cutover. A host that
-# has been cut over declares `monks: N` (and keeps `gardeners: N` as an old-binary
-# mirror); one that has not declares only `gardeners: N`. The rule is READ MONKS
-# FIRST, then the legacy count — NEVER sum the two — so the scaler arms exactly one
-# Anthropic pool. Prints `monk` when a `monks:` line parses, else `gardener`.
-anthropic_active_kind() {
-  local f="${1:-}"
-  if read_desired_count "$f" monks >/dev/null 2>&1; then
-    printf 'monk\n'
-  else
-    printf 'gardener\n'
-  fi
-}
-
-# native_anthropic_kind <kind> - true only for the overlapping Claude-harness
-# spellings. Other kinds may share provider=anthropic without sharing their one-slot
-# cutover, provisioning exemption, or minimum-worker floor.
+# native_anthropic_kind <kind> - true only for monk, the native Claude-harness
+# kind. Other kinds may share provider=anthropic without sharing its provisioning
+# exemption or minimum-worker floor.
 native_anthropic_kind() {
-  case "${1:-}" in monk|gardener) return 0 ;; *) return 1 ;; esac
+  case "${1:-}" in monk) return 0 ;; *) return 1 ;; esac
 }
 
 # quota_routing_mode — temporary, host-scoped escape hatch for an Anthropic
@@ -1393,7 +1352,7 @@ quota_routing_mode() {
 # host_has_qualified_non_claude_worker <hosts-file> — succeeds only when this
 # host has declared a positive count for a non-Anthropic kind AND its backend
 # probe currently passes. This is the worker-floor safety predicate: a host may
-# retire gardeners only when another actually usable class remains to claim work.
+# retire monks only when another actually usable class remains to claim work.
 # It intentionally does not consult systemd state: the scaler is the component
 # that is about to start/reconcile that declared, probe-qualified pool.
 host_has_qualified_non_claude_worker() {
@@ -1470,22 +1429,21 @@ ollama_models_dir() {
 # drift on what "mid-job" means or where the marker lives.
 #
 # The marker lives under the KIND's state namespace ($GARDEN_STATE/<state_ns>/<idx>),
-# so a cleric-1 and a gardener-1 (distinct kinds, same index) never collide. The
-# gardener_* wrappers below preserve the historical single-kind signature for the
-# many callers that predate the cleric.
+# so a cleric-1 and a monk-1 (distinct kinds, same index) never collide. The
+# gardener_* wrappers retain their generic historical API but select monk.
 worker_busy_marker() {
   local kind="${1:?worker_busy_marker: kind required}" idx="${2:?worker_busy_marker: idx required}" ns
-  ns="$(worker_kind_field "$kind" state_ns)" || ns="gardeners"
+  ns="$(worker_kind_field "$kind" state_ns)" || return 1
   printf '%s\n' "$GARDEN_STATE/$ns/$idx/busy"
 }
 worker_busy() {
   [ -e "$(worker_busy_marker "${1:?worker_busy: kind required}" "${2:?worker_busy: idx required}")" ]
 }
 gardener_busy_marker() {
-  worker_busy_marker gardener "${1:?gardener_busy_marker: idx required}"
+  worker_busy_marker monk "${1:?gardener_busy_marker: idx required}"
 }
 gardener_busy() {
-  worker_busy gardener "${1:?gardener_busy: idx required}"
+  worker_busy monk "${1:?gardener_busy: idx required}"
 }
 
 # --- gardener in-process host identity (for the scaler's identity reconcile) ---
@@ -1494,7 +1452,7 @@ gardener_busy() {
 # instance actually carries in its process environment, or empty (rc 1) when it
 # cannot be read (the unit has no live MainPID, or /proc/<pid>/environ is
 # unreadable, or the process never had GARDEN in its environ). A long-lived
-# garden-gardener@N.service inherits GARDEN once, at spawn, from the manager env;
+# a worker service inherits GARDEN once, at spawn, from the manager env;
 # if the host's identity is later corrected (e.g. a stale `GARDEN=endolinbot2`
 # override is removed so a fresh process would resolve `hostname -s`=endolinbot),
 # the already-running worker keeps the STALE value in its environ and goes on
@@ -1887,7 +1845,7 @@ is_nonattributable_rc() {
 # One misconfigured host can doom the whole fleet's board (ps23, 2026-07-27/28:
 # 249 journal entries, ZERO tada completions, all 52 doin/ claims held by ps23).
 #
-# AND IT CANNOT BE FIXED FROM OUTSIDE. `set-gardeners.sh 0 <host>` is refused by
+# AND IT CANNOT BE FIXED FROM OUTSIDE. `set-workers.sh monk 0 <host>` is refused by
 # design ("a host may set only its own worker counts") and drain-fleet.sh's marker
 # is host-local ($GARDEN_ROOT/.garden-state/draining), so no peer can take a broken
 # host out of rotation. The ONLY actor that can stop a broken worker from claiming
@@ -3951,7 +3909,7 @@ journal_remote() {
 # --- per-clone serialization (the shared-clone race fix) ---------------------
 #
 # Many producers share ONE journal clone: post-job, inbox-send, send-msg,
-# set-schedule, set-schedule-once, set-gardeners, and journal-entry all default
+# set-schedule, set-schedule-once, set-workers monk, and journal-entry all default
 # to $GARDEN_STATE/producer/journal. Without serialization their
 # sync→write→commit→push critical sections interleave on a single working tree,
 # index, and HEAD. The failure modes (all observed under an 8-way concurrent
@@ -6732,7 +6690,7 @@ cut_claim_block() {
 # --- per-job progress detection (the productive-cycle signal source) ---------
 #
 # A job's real work lands in ISOLATED per-job git worktrees under GARDEN_SCRATCH: the
-# garden worktree (gardener-wt-<base>, created by handlers/gardener-claude.sh) and any
+# garden worktree (gardener-wt-<base>, created by handlers/monk-claude.sh) and any
 # project checkouts (project-wt-<bounded-base-key>-<disc>, from
 # ensure-project-worktree.sh).
 # Both are keyed by the UNIQUE job base and PERSIST across a reaper requeue so a resumed
@@ -8306,7 +8264,7 @@ resolve_model_tier() {
 # role_default_model [kind] <role> -> the concrete model id that role runs on BY
 # DEFAULT for the given worker kind (empty for a role with no policy, so the caller
 # falls back to the fleet default). This is the canonical role->model map. The
-# leading kind is OPTIONAL and defaults to `gardener`, so every historical single-arg
+# leading kind is OPTIONAL and defaults to `monk`, so every historical single-arg
 # caller (`role_default_model builder`) is unchanged.
 #
 # During the Moonshot-credit exhaustion period, automatic role defaults are
@@ -8320,15 +8278,15 @@ resolve_model_tier() {
 role_default_model() {
   local kind role
   case "${1:-}" in
-    monk|gardener|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic|friar) kind="$1"; role="${2:-}" ;;
-    *)                      kind="gardener"; role="${1:-}" ;;
+    monk|cleric|hermit|mystic|fireworker|openrouter|openrouter-promo|opencode-anthropic|friar) kind="$1"; role="${2:-}" ;;
+    *)                      kind="monk"; role="${1:-}" ;;
   esac
   case "$kind" in
-    monk|gardener)
-      # The monk kind (legacy spelling: gardener) is ANTHROPIC. Every id here must be one `claude --model`
+    monk)
+      # Monk is ANTHROPIC. Every id here must be one `claude --model`
       # accepts: these rows returned `gpt-5.6-terra` (an OpenAI id) until
       # 2026-08-01, which the Claude CLI cannot run — latent because the tier
-      # branch in gardener-claude.sh wins whenever a job carries `tier:`, and
+      # branch in monk-claude.sh wins whenever a job carries `tier:`, and
       # automatic_route_body always stamps one. A role-only job reached it and
       # died. Mirrors the cleric branch's shape: heavy / mechanical / ops.
       case "$role" in
@@ -8396,7 +8354,7 @@ role_default_model() {
 
 # role_requires_anthropic_posture <role> -> rc 0 iff a job carrying this `role:`
 # demands the full Claude-agent posture and so may be claimed ONLY by an anthropic
-# worker kind (KIND=monk/gardener, provider anthropic). This is the ROLE analogue of
+# worker kind (KIND=monk, provider anthropic). This is the ROLE analogue of
 # the tier/provider backend-fit filter in claim-job.sh (§1.3) and of the
 # claim/handler-agreement invariant the tier-serving test asserts
 # (gardener-claude-tier-serving-test.sh): a worker must never WIN a claim its handler

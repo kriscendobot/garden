@@ -1,9 +1,6 @@
 #!/bin/bash
 # monk-claude.sh — default handler for the Anthropic worker kind (monk): do the work
-# via `claude -p`. This is the implementation the legacy handlers/gardener-claude.sh
-# forwards to (a monk IS the renamed Anthropic gardener; design
-# anthropic-worker-kind-monk.md § Shared spine and handlers). Both the monk registry
-# row and the legacy gardener row resolve to this one file.
+# via `claude -p`.
 #
 # Invoked by gardener.sh as: monk-claude.sh <base> <job-file> <report-out>
 # Wears the job's task role, performs the job described in <job-file>, and writes
@@ -35,8 +32,7 @@ base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report-out}"
 # that differs between the two — the model-tier map it resolves against, the automatic
 # cost-ceiling downshift (an anthropic-only policy), and the auth environment injected
 # around the `claude -p` call — keys off $provider. The spine exports
-# GARDEN_WORKER_KIND; default to monk for a standalone invocation. The legacy
-# `gardener` spelling forwards here and resolves to provider=anthropic too.
+# GARDEN_WORKER_KIND; default to monk for a standalone invocation.
 KIND="${GARDEN_WORKER_KIND:-monk}"
 provider="$(worker_kind_field "$KIND" provider 2>/dev/null || echo anthropic)"
 
@@ -280,7 +276,7 @@ claude_cli="$(claude_bin)" \
 
 # --- provider auth injection (the ONE thing that differs at the claude call) ---
 #
-# provider=anthropic (monk/gardener) runs against the real Anthropic API with the
+# provider=anthropic (monk) runs against the real Anthropic API with the
 # ambient ANTHROPIC_API_KEY — the array stays EMPTY, so its invocation is byte-for-byte
 # what it always was. provider=ollama-cloud (friar) points the SAME `claude -p` at
 # Ollama Cloud's Anthropic-compatible endpoint instead: set ANTHROPIC_BASE_URL to

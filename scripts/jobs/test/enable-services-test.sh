@@ -51,9 +51,9 @@ populate_dest() {
   done
   # The worker instance units are RENDERED per-kind from the single template
   # garden-worker@.service.in (its `.in` suffix keeps it out of the glob above), so
-  # reproduce that here: install produces garden-gardener@.service and
+  # reproduce that here: install produces garden-monk@.service and
   # garden-cleric@.service, both of which prune_retired must keep (they carry '@').
-  for kind in gardener cleric; do
+  for kind in monk cleric; do
     [ -e "$SRC/garden-worker@.service.in" ] \
       && sed -e "s#@GARDEN_ROOT@#$ROOT#g" -e "s#@WORKER_KIND@#$kind#g" \
              "$SRC/garden-worker@.service.in" > "$DEST/garden-$kind@.service"
@@ -158,8 +158,8 @@ done
   && ok "garden-foreman.timer kept (source still ships)" || bad "garden-foreman.timer wrongly pruned"
 # A template instance file must NEVER be pruned (it carries '@'; its source is the
 # shared garden-worker@.service.in, rendered per-kind). Both kinds must survive.
-[ -e "$DEST/garden-gardener@.service" ] \
-  && ok "garden-gardener@.service kept (rendered worker template, never pruned)" || bad "garden-gardener@.service wrongly pruned"
+[ -e "$DEST/garden-monk@.service" ] \
+  && ok "garden-monk@.service kept (rendered worker template, never pruned)" || bad "garden-monk@.service wrongly pruned"
 [ -e "$DEST/garden-cleric@.service" ] \
   && ok "garden-cleric@.service kept (rendered worker template, never pruned)" || bad "garden-cleric@.service wrongly pruned"
 # The monitoring-gated, excluded unit must survive even though it ships a source.
@@ -199,23 +199,23 @@ hr; echo "SCALE — a mid-job extra is deferred (not SIGTERM'd), an idle one sto
 reset_mock
 SCALE_STATE="$TR/scale-state"; rm -rf "$SCALE_STATE"
 # Arm three gardeners; mark @3 mid-job (busy), leave @2 idle.
-printf '%s\n' garden-gardener@1.service garden-gardener@2.service garden-gardener@3.service > "$GARDEN_MOCK_STATE"
-mkdir -p "$SCALE_STATE/gardeners/3"; : > "$SCALE_STATE/gardeners/3/busy"
+printf '%s\n' garden-monk@1.service garden-monk@2.service garden-monk@3.service > "$GARDEN_MOCK_STATE"
+mkdir -p "$SCALE_STATE/monks/3"; : > "$SCALE_STATE/monks/3/busy"
 sout="$(GARDEN_STATE="$SCALE_STATE" "$INSTALL" scale 1 2>&1)"
 # @2 is idle and an extra → disabled (symlink) + stopped non-blockingly.
-grep -q 'disable garden-gardener@2.service' "$GARDEN_MOCK_LOG" \
+grep -q 'disable garden-monk@2.service' "$GARDEN_MOCK_LOG" \
   && ok "idle extra gardener 2 disabled" || bad "idle extra gardener 2 NOT disabled"
-grep -q 'stop --no-block garden-gardener@2.service' "$GARDEN_MOCK_LOG" \
+grep -q 'stop --no-block garden-monk@2.service' "$GARDEN_MOCK_LOG" \
   && ok "idle extra gardener 2 stopped non-blockingly (stop --no-block)" || bad "idle extra gardener 2 NOT stopped --no-block"
 # @3 is mid-job → must NOT be stopped/disabled (no SIGTERM of an in-flight handler).
-grep -Eq '(disable|stop --no-block) garden-gardener@3.service' "$GARDEN_MOCK_LOG" \
+grep -Eq '(disable|stop --no-block) garden-monk@3.service' "$GARDEN_MOCK_LOG" \
   && bad "busy gardener 3 was stopped/disabled (mid-job SIGTERM!)" || ok "busy gardener 3 deferred (not stopped)"
 grep -q 'is mid-job; deferring its stop' <<<"$sout" \
   && ok "deferral logged for the busy extra" || bad "deferral not logged"
 # @1 stays in the kept set; @3 still armed because its disable was deferred.
-grep -qxF 'garden-gardener@1.service' "$GARDEN_MOCK_STATE" \
+grep -qxF 'garden-monk@1.service' "$GARDEN_MOCK_STATE" \
   && ok "kept gardener 1 still enabled" || bad "gardener 1 not kept"
-grep -qxF 'garden-gardener@3.service' "$GARDEN_MOCK_STATE" \
+grep -qxF 'garden-monk@3.service' "$GARDEN_MOCK_STATE" \
   && ok "busy gardener 3 still armed (disable deferred to a later tick)" || bad "busy gardener 3 was disarmed mid-job"
 
 # ============================================================================
@@ -231,26 +231,26 @@ hr; echo "SCALE-TIMEOUT — a hung per-unit stop is bounded, skipped, loop conti
 reset_mock
 SCALE_TO="$TR/scale-timeout"; rm -rf "$SCALE_TO"
 # Arm @1,@2,@3 all idle; make @2's stop hang. Scale to 1 → @2 and @3 are extras.
-printf '%s\n' garden-gardener@1.service garden-gardener@2.service garden-gardener@3.service > "$GARDEN_MOCK_STATE"
+printf '%s\n' garden-monk@1.service garden-monk@2.service garden-monk@3.service > "$GARDEN_MOCK_STATE"
 set +e
 tout="$(GARDEN_STATE="$SCALE_TO" GARDEN_UNIT_CTL_TIMEOUT=1 \
-        GARDEN_MOCK_HANG_UNIT=garden-gardener@2.service \
+        GARDEN_MOCK_HANG_UNIT=garden-monk@2.service \
         "$INSTALL" scale 1 2>&1)"; trc=$?
 set -e
 [ "$trc" -eq 0 ] && ok "scale returned success despite a hung per-unit stop (rc=0)" \
   || bad "scale did not complete cleanly past the hung unit (rc=$trc)"
 grep -q 'exceeded 1s and was killed; skipping this unit' <<<"$tout" \
-  && grep -q 'garden-gardener@2.service' <<<"$tout" \
+  && grep -q 'garden-monk@2.service' <<<"$tout" \
   && ok "hung stop of @2 was bounded, killed, and logged as skipped" \
   || bad "no bounded-timeout skip line for the hung @2. out: $(grep -i 'scale' <<<"$tout" | head -3)"
-grep -q 'scaled gardener pool to 1' <<<"$tout" \
+grep -q 'scaled monk pool to 1' <<<"$tout" \
   && ok "the scale pass ran to completion (final summary logged)" || bad "scale pass did not complete"
 # The loop must have CONTINUED past the hung @2 and stopped the idle @3.
-grep -q 'stop --no-block garden-gardener@3.service' "$GARDEN_MOCK_LOG" \
+grep -q 'stop --no-block garden-monk@3.service' "$GARDEN_MOCK_LOG" \
   && ok "loop continued past the hung @2 and stopped @3" || bad "@3 not reached after the hung @2 (loop stalled)"
 # @2's cheap disable succeeds (unbounded); only its stop timed out, so a later tick
 # retries the stop. The disable of @2 must have been issued before the hung stop.
-grep -q 'disable garden-gardener@2.service' "$GARDEN_MOCK_LOG" \
+grep -q 'disable garden-monk@2.service' "$GARDEN_MOCK_LOG" \
   && ok "@2's cheap disable ran (only its non-blocking stop hit the bound)" || bad "@2's disable not issued"
 
 # ============================================================================

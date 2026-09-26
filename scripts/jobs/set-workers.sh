@@ -4,7 +4,7 @@
 # Usage: set-workers.sh <kind> <N> [host]   (the optional host must be this host)
 #
 # Per-host worker concurrency is garden state, so it lives on the bus: writes the
-# journal hosts/<host> file's `<count_key>: N` line for the given kind (gardeners: /
+# journal hosts/<host> file's `<count_key>: N` line for the given kind (monks: /
 # clerics:). The gardener-scaler service on that host watches for the change and
 # reconciles its local pool for THAT kind. Only the host that owns a record may
 # write it. A human changing another host's capacity runs this command on that
@@ -12,7 +12,7 @@
 #
 # A host's hosts/<host> file holds an INDEPENDENT count line per kind. This writer
 # updates ONLY the named kind's line and PRESERVES every other kind's line — so
-# `set-workers.sh cleric 4` never disturbs an existing `gardeners: N`, and a sibling
+# `set-workers.sh cleric 4` never disturbs an existing `monks: N`, and a sibling
 # kind that was never declared stays undeclared (a no-op for the scaler) rather than
 # being written as an explicit 0 (which would scale it to zero).
 
@@ -26,24 +26,23 @@ kind="${1:?usage: set-workers.sh <kind> <N> [host]}"
 n="${2:?usage: set-workers.sh <kind> <N> [host]}"
 host="${3:-$GARDEN}"
 count_key="$(worker_kind_field "$kind" count_key)" || die "unknown worker kind '$kind' (known: $(worker_kinds | paste -sd'|' -))"
-# The native Anthropic kinds (monk canonical, gardener legacy alias) share the same
-# exemptions below — they may be declared before the Claude device-login completes,
-# and reaching zero is the same fail-closed-floor concern for both spellings.
+# Monk may be declared before the Claude device-login completes; its runtime
+# effective cap remains zero until the backend probe passes.
 [[ "$n" =~ ^[0-9]+$ ]] || die "count must be a non-negative integer"
 [ "$host" = "$GARDEN" ] || die "refusing to write hosts/$host from $GARDEN; a host may set only its own worker counts"
 
 # The fleet generally permits an explicit zero for any kind. The temporary
-# endolin Claude-quota route makes one exception safety-sensitive: gardeners may
+# endolin Claude-quota route makes one exception safety-sensitive: monks may
 # reach zero only while this host is routed around the auction and another
 # configured, probe-qualified non-Claude class can still claim work.
 
-# Provisioning gate: a fresh gnome may declare a NON-gardener kind's count > 0 only
+# Provisioning gate: a fresh gnome may declare a non-monk kind's count > 0 only
 # once that kind's backend probe passes on this host — so a Claude-only gnome (ps23)
 # simply cannot declare clerics/hermits/mystics, instead of standing up pools that
-# fail every claim. Gardener is EXEMPT because it may be declared before the Claude
+# fail every claim. Monk is EXEMPT because it may be declared before the Claude
 # device-login completes; the runtime effective cap keeps it at 0 until the probe
-# passes. Like every other kind, gardener may also be explicitly declared as 0.
-# GARDEN_FORCE_DECLARE=1 stages a positive non-gardener declaration ahead of a
+# passes. Like every other kind, monk may also be explicitly declared as 0.
+# GARDEN_FORCE_DECLARE=1 stages a positive non-monk declaration ahead of a
 # credential; the runtime cap still holds it at effective 0, so the override is safe.
 # See designs/gnome-backend-verified-autotune.md § 3.
 if ! native_anthropic_kind "$kind" && [ "$n" -gt 0 ] && [ "${GARDEN_FORCE_DECLARE:-0}" != 1 ]; then

@@ -194,7 +194,7 @@ chmod +x "$HANDLER"
 # GARDEN_JOB_HANDLER_BASH=1: run the stub via `bash` so a noexec $TMPDIR (garden hosts
 # mount /tmp noexec) cannot fail the handler with rc=126 — the sanctioned test seam.
 env GARDEN=flatw GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
-    GARDEN_WORKER_KIND=gardener GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
+    GARDEN_WORKER_KIND=monk GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 \
     GARDEN_JOB_HANDLER="$HANDLER" GARDEN_JOB_HANDLER_BASH=1 \
     "$JOBS/gardener.sh" 1 > "$TR/w.log" 2>&1 || true
 V="$TR/v"; verify_clone "$BARE" "$V"

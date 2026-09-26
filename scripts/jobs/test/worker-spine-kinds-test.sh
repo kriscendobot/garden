@@ -17,7 +17,7 @@
 #   ELIGIBILITY— a job pinned to a Claude model is gardener-only; one pinned to a
 #                codex model is cleric-only; an unpinned job is claimable by either.
 #   ONE TEMPLATE — the single garden-worker@.service.in renders to BOTH
-#                garden-gardener@.service and garden-cleric@.service (no per-kind
+#                garden-monk@.service and garden-cleric@.service (no per-kind
 #                source), and the scaler/scale path arms EACH kind's pool.
 #
 # Usage: worker-spine-kinds-test.sh
@@ -44,7 +44,7 @@ STUB="$HERE/stub-handler.sh"
 
 # seed_board <dir> <base> [frontmatter] — throwaway origin + board with one todo job.
 seed_board() {
-  local tr="$1" base="$2" front="${3:-}" kind="${4:-gardener}" host="${5:-ehost}" bare="$1/journal.git" seed="$1/seed" branch=journal2
+  local tr="$1" base="$2" front="${3:-}" kind="${4:-monk}" host="${5:-ehost}" bare="$1/journal.git" seed="$1/seed" branch=journal2
   local -a git_id=(-c user.name=test -c user.email=test@localhost)
   git init -q --bare "$bare"
   git init -q "$seed"; git -C "$seed" checkout -q -b "$branch"
@@ -70,11 +70,8 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(worker_kind_field monk state_ns)" = "monks" ] && ok "monk state_ns" || bad "monk state_ns"
 [ "$(worker_kind_field monk label)" = "garden-monk" ] && ok "monk self-heal label" || bad "monk label"
 # --- gardener: the LEGACY Anthropic alias, retained unchanged for the staged cutover -
-[ "$(worker_kind_field gardener handler)" = "handlers/gardener-claude.sh" ] && ok "gardener (legacy) handler" || bad "gardener handler ($(worker_kind_field gardener handler))"
 [ "$(worker_kind_field cleric   handler)" = "handlers/cleric-codex.sh" ]   && ok "cleric handler"   || bad "cleric handler ($(worker_kind_field cleric handler))"
-[ "$(worker_kind_field gardener provider)" = "anthropic" ] && ok "gardener provider anthropic" || bad "gardener provider"
 [ "$(worker_kind_field cleric   provider)" = "openai" ]    && ok "cleric provider openai"    || bad "cleric provider"
-[ "$(worker_kind_field gardener unit)" = "garden-gardener@" ] && ok "gardener unit prefix" || bad "gardener unit"
 [ "$(worker_kind_field cleric   unit)" = "garden-cleric@" ]   && ok "cleric unit prefix"   || bad "cleric unit"
 [ "$(worker_kind_field cleric   count_key)" = "clerics" ] && ok "cleric count_key" || bad "cleric count_key"
 [ "$(worker_kind_field cleric   state_ns)"  = "clerics" ] && ok "cleric state_ns"  || bad "cleric state_ns"
@@ -121,7 +118,7 @@ hr; echo "REGISTRY — worker_kind_field / worker_kinds / worker_busy_marker"; h
 [ "$(worker_kind_field friar count_key)" = "friars" ] && ok "friar count_key" || bad "friar count_key"
 [ "$(worker_kind_field friar state_ns)" = "friars" ] && ok "friar state_ns" || bad "friar state_ns"
 [ "$(worker_kind_field friar label)" = "garden-friar" ] && ok "friar self-heal label" || bad "friar label"
-[ "$(worker_kinds | paste -sd, -)" = "monk,gardener,cleric,hermit,mystic,fireworker,openrouter,openrouter-promo,opencode-anthropic,friar" ] && ok "worker_kinds enumerates monk + the legacy gardener alias + all backends" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
+[ "$(worker_kinds | paste -sd, -)" = "monk,cleric,hermit,mystic,fireworker,openrouter,openrouter-promo,opencode-anthropic,friar" ] && ok "worker_kinds enumerates monk and all supported backends" || bad "worker_kinds ($(worker_kinds | paste -sd, -))"
 [ "$(canonical_worker_kind openrouter-promo)" = "openrouter-promo" ] && ok "canonical_worker_kind passes openrouter-promo through" || bad "canonical_worker_kind openrouter-promo"
 # canonical_worker_kind: the SOLE decoder. v1 gardener -> monk; known v2 unchanged;
 # unknown / contradictory rejected with no silent fallback.
@@ -133,14 +130,8 @@ canonical_worker_kind gardener 2 >/dev/null 2>&1 && bad "canonical: v2-schema ga
 canonical_worker_kind phantom >/dev/null 2>&1 && bad "canonical: unknown must reject" || ok "canonical: unknown kind rejected (no silent fallback)"
 canonical_worker_kind monk 2 openai >/dev/null 2>&1 && bad "canonical: contradictory provider must reject" || ok "canonical: contradictory kind/provider tuple rejected"
 [ "$(canonical_worker_kind monk 2 anthropic)" = monk ] && ok "canonical: monk/anthropic tuple accepted" || bad "canonical monk/anthropic"
-# anthropic_active_kind: monks: wins, else the legacy gardeners:; never both.
-AAK_D="$(mktemp -d "${TMPDIR:-/tmp}/garden-aak.XXXXXX")"
-: > "$AAK_D/none";                       [ "$(anthropic_active_kind "$AAK_D/none")" = gardener ] && ok "active kind: no count line -> legacy gardener" || bad "active kind none"
-printf 'gardeners: 3\n' > "$AAK_D/g";     [ "$(anthropic_active_kind "$AAK_D/g")" = gardener ] && ok "active kind: only gardeners: -> gardener" || bad "active kind gardeners"
-printf 'monks: 2\ngardeners: 3\n' > "$AAK_D/both"; [ "$(anthropic_active_kind "$AAK_D/both")" = monk ] && ok "active kind: monks: present (mirror retained) -> monk wins, never both" || bad "active kind both"
-rm -rf "$AAK_D"
 ( GARDEN_STATE=/tmp/x; [ "$(worker_busy_marker cleric 3)" = "/tmp/x/clerics/3/busy" ] ) && ok "cleric busy marker under clerics/ ns" || bad "cleric busy marker path"
-( GARDEN_STATE=/tmp/x; [ "$(gardener_busy_marker 3)" = "/tmp/x/gardeners/3/busy" ] ) && ok "gardener busy marker back-compat wrapper" || bad "gardener busy marker wrapper"
+( GARDEN_STATE=/tmp/x; [ "$(gardener_busy_marker 3)" = "/tmp/x/monks/3/busy" ] ) && ok "generic busy wrapper selects monk namespace" || bad "gardener busy marker wrapper"
 worker_kind_field phantom handler 2>/dev/null && bad "unknown kind must fail" || ok "unknown kind 'phantom' → non-zero (registry rejects)"
 
 # ============================================================================
@@ -204,12 +195,12 @@ hr; echo "MODEL SELECTION — provider-scoped tiers + per-kind role defaults"; h
   && ok "OpenRouter ids stay on the openrouter provider (no cross-provider leak)" || bad "OpenRouter cross-provider leak"
 [ "$(role_default_model builder)" = "claude-opus-4-8" ] && ok "gardener builder → opus (back-compat 1-arg)" || bad "gardener builder default"
 [ "$(role_default_model cleric builder)" = "gpt-5.6-terra" ] && ok "cleric builder → gpt-5.6-terra" || bad "cleric builder default"
-[ "$(role_default_model gardener cleaner)" = "claude-haiku-4-5-20251001" ] && ok "gardener cleaner → Haiku" || bad "gardener cleaner default"
-[ "$(role_default_model gardener retcon)" = "claude-haiku-4-5-20251001" ] && ok "gardener retcon → Haiku" || bad "gardener retcon default"
-[ "$(role_default_model gardener weaver)" = "claude-sonnet-4-6" ] && ok "gardener weaver → Sonnet" || bad "gardener weaver default"
-[ "$(role_default_model gardener conductor)" = "claude-sonnet-4-6" ] && ok "gardener conductor → Sonnet" || bad "gardener conductor default"
-[ "$(role_default_model gardener journalist)" = "claude-haiku-4-5-20251001" ] && ok "gardener journalist → Haiku" || bad "gardener journalist default"
-[ "$(role_default_model gardener pages-shepherd)" = "claude-sonnet-4-6" ] && ok "gardener pages-shepherd → Sonnet" || bad "gardener pages-shepherd default"
+[ "$(role_default_model monk cleaner)" = "claude-haiku-4-5-20251001" ] && ok "monk cleaner → Haiku" || bad "monk cleaner default"
+[ "$(role_default_model monk retcon)" = "claude-haiku-4-5-20251001" ] && ok "monk retcon → Haiku" || bad "monk retcon default"
+[ "$(role_default_model monk weaver)" = "claude-sonnet-4-6" ] && ok "monk weaver → Sonnet" || bad "monk weaver default"
+[ "$(role_default_model monk conductor)" = "claude-sonnet-4-6" ] && ok "monk conductor → Sonnet" || bad "monk conductor default"
+[ "$(role_default_model monk journalist)" = "claude-haiku-4-5-20251001" ] && ok "monk journalist → Haiku" || bad "monk journalist default"
+[ "$(role_default_model monk pages-shepherd)" = "claude-sonnet-4-6" ] && ok "monk pages-shepherd → Sonnet" || bad "monk pages-shepherd default"
 [ "$(role_default_model cleric cleaner)" = "gpt-5.4-mini" ] && ok "cleric cleaner → mini" || bad "cleric cleaner default"
 [ "$(role_default_model cleric weaver)" = "gpt-5.5" ] && ok "cleric weaver → frontier" || bad "cleric weaver default"
 [ -z "$(role_default_model cleric fixer)" ] && ok "cleric fixer unpinned (rides fleet default)" || bad "cleric fixer default"
@@ -295,7 +286,7 @@ hr; echo "POLICY INVARIANTS — no IMPLICIT Fable; K3 is an explicit-only trial 
 FABLE_ID="$(resolve_model_tier anthropic fable)"
 [ "$FABLE_ID" = "claude-fable-5" ] && ok "fable tier still BINDS (explicit model: fable honored)" || bad "fable tier binding ($FABLE_ID)"
 fable_default_leak=0
-for k in gardener cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic friar; do
+for k in monk cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic friar; do
   for r in designer builder fixer weaver conductor shepherd researcher scholar triager cleaner journalist orchestrator; do
     if [ "$(role_default_model "$k" "$r")" = "$FABLE_ID" ]; then
       bad "IMPLICIT Fable default leaked: kind=$k role=$r resolves to $FABLE_ID"
@@ -305,8 +296,8 @@ for k in gardener cleric hermit mystic fireworker openrouter openrouter-promo op
 done
 [ "$fable_default_leak" -eq 0 ] && ok "no role default on any kind resolves to Fable (no implicit Fable anywhere)"
 # The two pinned gardener roles land on Opus, not Fable (positive assertion).
-[ "$(role_default_model gardener designer)" = "claude-opus-4-8" ] && ok "gardener designer → Opus (former Fable default walked back)" || bad "gardener designer default ($(role_default_model gardener designer))"
-[ "$(role_default_model gardener builder)"  = "claude-opus-4-8" ] && ok "gardener builder → Opus" || bad "gardener builder default"
+[ "$(role_default_model monk designer)" = "claude-opus-4-8" ] && ok "monk designer → Opus (former Fable default walked back)" || bad "monk designer default ($(role_default_model monk designer))"
+[ "$(role_default_model monk builder)"  = "claude-opus-4-8" ] && ok "monk builder → Opus" || bad "monk builder default"
 # K3 trial lane: mystic is the ONLY K3-capable kind and it is ZERO-default. No
 # role default — design/build or otherwise — selects K3 on any kind; K3 rides in
 # only on an explicit `model: kimi-k3` pin (eligibility section proves the claim path).
@@ -372,7 +363,6 @@ run_kind() {  # run_kind <kind> <base> <host> [frontmatter] [promos-ledger-file]
 # SAME spine, stamping worker_kind: monk and keeping its state under the monks/ ns —
 # the design's stage-1 acceptance evidence (a monk alone claims the Anthropic job).
 run_kind monk     mkspine mkhost "model: opus"
-run_kind gardener gspine ghost "model: opus"
 run_kind cleric   cspine chost "model: terra"
 run_kind hermit   hspine hhost "model: qwen3.6"
 run_kind mystic   mspine mihost "model: kimi-k3"
@@ -415,8 +405,6 @@ elig_case() {  # elig_case <kind> <base> <front> <expect: claimed|left> [promos-
 elig_case cleric   pinnedclaude "model: opus"  left
 elig_case cleric   pinnedcodex  "model: terra" claimed
 elig_case cleric   unpinnedjob  ""             claimed
-elig_case gardener pinnedcodex2 "model: terra" left
-elig_case gardener pinnedclaude2 "model: opus" claimed
 # monk is Anthropic: it claims a Claude-pinned job and, like the gardener, leaves a
 # foreign-provider-pinned one for the right backend (backend-fit filter is per-provider).
 elig_case monk     pinnedclaude_m "model: opus"  claimed
@@ -438,10 +426,8 @@ elig_case cleric   qwenmentorforeign "$trial_front" left
 elig_case monk     qwenmentorforeign2 "$trial_front" left
 elig_case hermit   qwenmentorbadslot $'trial: qwen3.6-mentor-v1\ntrial-tier: mentor\ntrial-slot: 7\nprovider: local\nmodel: qwen3.6\ndispatch: canary\nrole: builder' left
 elig_case cleric   pinnedqwen3  "model: qwen3.6"   left
-elig_case gardener pinnedqwen4  "model: qwen3.6"   left
 elig_case mystic   pinnedkimi   "model: kimi-k3"      claimed
 elig_case cleric   pinnedkimi2  "model: kimi-k3"      left
-elig_case gardener pinnedkimi3  "model: kimi-k3"      left
 elig_case hermit   pinnedkimi4  "model: kimi-k3"      left
 elig_case mystic   unpinnedkimi ""                    left
 elig_case mystic   abbreviatedkimi "model: k3"         left
@@ -451,7 +437,6 @@ elig_case fireworker pinnedfireworks $'provider: fireworks\ntier: mentor' claime
 elig_case fireworker unpinnedfireworks "" left
 elig_case fireworker foreignprovider $'provider: moonshot\ntier: mentor' left
 elig_case cleric foreignfireworks $'provider: fireworks\ntier: mentor' left
-elig_case gardener foreignfireworks2 $'provider: fireworks\ntier: mentor' left
 elig_case fireworker unknownprovider $'provider: imaginary\ntier: mentor' left
 # OpenRouter is an explicit-model-only lane: a reviewed `openrouter/<id>` pin OR a
 # `provider: openrouter` canary is claimable; every unpinned/tier-only/foreign/stealth
@@ -465,7 +450,6 @@ elig_case openrouter foreignopenrouter $'provider: moonshot\ntier: mentor' left
 elig_case openrouter mentortieropenrouter $'provider: openrouter\ntier: mentor' left
 elig_case cleric foreignor $'provider: openrouter\ntier: minion' left
 elig_case fireworker foreignor2 "model: openrouter/z-ai/glm-5.2:free" left
-elig_case gardener foreignor3 "model: openrouter/z-ai/glm-5.2:free" left
 # openrouter-promo (the cloaked/stealth lane): explicit-model-only AND cadence-gated.
 # A FRESH ledger row makes the pin/canary claimable; a STALE row, an un-attested id,
 # an unpinned/tier-only job, a foreign provider, and the STABLE openrouter lane's pin
@@ -506,7 +490,6 @@ elig_case monk    foreignollama   "model: qwen3.5:cloud"                        
 elig_case cleric  foreignollama2  "model: qwen3.5:cloud"                          left
 elig_case hermit  foreignollama3  "model: qwen3.5:cloud"                          left
 # gpt-oss is retired from local: now unpinned, so EVERY kind may claim it.
-elig_case gardener gptoss_gard  "model: gpt-oss:120b" claimed
 elig_case cleric   gptoss_cler  "model: gpt-oss:20b"  claimed
 elig_case hermit   gptoss_herm  "model: gpt-oss:20b"  claimed
 
@@ -522,24 +505,22 @@ elig_case fireworker gardener_role_f  $'provider: fireworks\ntier: mentor\nrole:
 elig_case openrouter gardener_role_o  $'model: openrouter/z-ai/glm-5.2:free\nrole: gardener' left
 elig_case opencode-anthropic gardener_role_oc $'model: opencode-anthropic/haiku\nrole: gardener' left
 elig_case monk       gardener_role_m  "role: gardener"                 claimed
-elig_case gardener   gardener_role_g  "role: gardener"                 claimed
 elig_case cleric     fixer_role_c     "role: fixer"                    claimed
 
 # ============================================================================
 hr; echo "ONE TEMPLATE — garden-worker@.service.in renders BOTH kinds; scale arms each"; hr
 [ -e "$SRC/garden-worker@.service.in" ] && ok "single worker template garden-worker@.service.in exists" || bad "worker template missing"
-[ ! -e "$SRC/garden-gardener@.service" ] && ok "no per-kind garden-gardener@.service source (factored away)" || bad "stale garden-gardener@.service source present"
+[ ! -e "$SRC/garden-monk@.service" ] && ok "no per-kind garden-monk@.service source (factored away)" || bad "stale garden-monk@.service source present"
 [ ! -e "$SRC/garden-cleric@.service" ] && ok "no per-kind garden-cleric@.service source (rendered only)" || bad "stray garden-cleric@.service source present"
 
 # Render the template for both kinds the way install-units does and check the
 # @WORKER_KIND@ substitution landed distinctly.
 RT="$(mktemp -d "${TMPDIR:-/tmp}/garden-render.XXXXXX")"
-for kind in monk gardener cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic friar; do
+for kind in monk cleric hermit mystic fireworker openrouter openrouter-promo opencode-anthropic friar; do
   sed -e "s#@GARDEN_ROOT@#/opt/garden#g" -e "s#@WORKER_KIND@#$kind#g" "$SRC/garden-worker@.service.in" > "$RT/garden-$kind@.service"
 done
 grep -q 'GARDEN_WORKER_KIND=monk' "$RT/garden-monk@.service" && ok "monk unit sets GARDEN_WORKER_KIND=monk" || bad "monk kind env"
 grep -q 'self-heal-run.sh garden-monk ' "$RT/garden-monk@.service" && ok "monk ExecStart labels self-heal garden-monk" || bad "monk self-heal label"
-grep -q 'GARDEN_WORKER_KIND=gardener' "$RT/garden-gardener@.service" && ok "gardener (legacy) unit sets GARDEN_WORKER_KIND=gardener" || bad "gardener kind env"
 grep -q 'GARDEN_WORKER_KIND=cleric'   "$RT/garden-cleric@.service"   && ok "cleric unit sets GARDEN_WORKER_KIND=cleric"     || bad "cleric kind env"
 grep -q 'GARDEN_WORKER_KIND=hermit'   "$RT/garden-hermit@.service"   && ok "hermit unit sets GARDEN_WORKER_KIND=hermit"     || bad "hermit kind env"
 grep -q 'GARDEN_WORKER_KIND=mystic'   "$RT/garden-mystic@.service"   && ok "mystic unit sets GARDEN_WORKER_KIND=mystic"     || bad "mystic kind env"
@@ -568,7 +549,6 @@ export GARDEN_MOCK_STATE="$ST/armed" GARDEN_MOCK_LOG="$ST/log"; : > "$GARDEN_MOC
 export XDG_CONFIG_HOME="$ST/config"
 "$JOBS/install-units.sh" scale cleric 2 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale monk 2 >/dev/null 2>&1
-"$JOBS/install-units.sh" scale gardener 3 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale hermit 2 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale mystic 1 >/dev/null 2>&1
 "$JOBS/install-units.sh" scale fireworker 1 >/dev/null 2>&1
@@ -578,7 +558,6 @@ export XDG_CONFIG_HOME="$ST/config"
 "$JOBS/install-units.sh" scale friar 1 >/dev/null 2>&1
 gm=$(grep -c '^garden-monk@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gc=$(grep -c '^garden-cleric@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
-gg=$(grep -c '^garden-gardener@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
 gh=$(grep -c '^garden-hermit@[12]\.service$' "$GARDEN_MOCK_STATE" || true)
 gk=$(grep -c '^garden-mystic@1\.service$' "$GARDEN_MOCK_STATE" || true)
 gf=$(grep -c '^garden-fireworker@1\.service$' "$GARDEN_MOCK_STATE" || true)
@@ -588,7 +567,6 @@ goc=$(grep -c '^garden-opencode-anthropic@1\.service$' "$GARDEN_MOCK_STATE" || t
 gr=$(grep -c '^garden-friar@1\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gm" -eq 2 ] && ok "scale monk 2 -> garden-monk@{1,2} armed (canonical Anthropic pool renders + scales)" || bad "monk scale (@1-2=$gm)"
 [ "$gc" -eq 2 ] && ok "scale cleric 2 → garden-cleric@{1,2} armed" || bad "cleric scale (@1-2=$gc)"
-[ "$gg" -eq 3 ] && ok "scale gardener 3 → garden-gardener@{1,2,3} armed (independent pool)" || bad "gardener scale (@1-3=$gg)"
 # RETIRED LANE (2026-09-13): scale() clamps hermit to 0, so a requested count of 2
 # arms NOTHING — the local-qwen lane is pinned inert (job retire-local-qwen-hermit-lane).
 [ "$gh" -eq 0 ] && ok "scale hermit 2 → 0 hermit units armed (RETIRED lane, count clamped to 0)" || bad "hermit retirement clamp (@1-2=$gh, expected 0)"
@@ -598,11 +576,11 @@ gr=$(grep -c '^garden-friar@1\.service$' "$GARDEN_MOCK_STATE" || true)
 [ "$gp" -eq 1 ] && ok "scale openrouter-promo 1 -> garden-openrouter-promo@1 armed (stealth pool independently scalable)" || bad "openrouter-promo scale (@1=$gp)"
 [ "$goc" -eq 1 ] && ok "scale opencode-anthropic 1 -> garden-opencode-anthropic@1 armed" || bad "opencode-anthropic scale (@1=$goc)"
 [ "$gr" -eq 1 ] && ok "scale friar 1 -> garden-friar@1 armed (Ollama Cloud pool independently scalable)" || bad "friar scale (@1=$gr)"
-# back-compat: bare `scale <N>` still means gardener
+# Bare `scale <N>` selects monk.
 : > "$GARDEN_MOCK_STATE"
 "$JOBS/install-units.sh" scale 1 >/dev/null 2>&1
-{ [ "$(grep -c '^garden-gardener@1\.service$' "$GARDEN_MOCK_STATE")" -eq 1 ] && [ "$(grep -c '^garden-cleric@' "$GARDEN_MOCK_STATE")" -eq 0 ]; } \
-  && ok "bare 'scale 1' back-compat → gardener pool only" || bad "bare scale back-compat"
+{ [ "$(grep -c '^garden-monk@1\.service$' "$GARDEN_MOCK_STATE")" -eq 1 ] && [ "$(grep -c '^garden-cleric@' "$GARDEN_MOCK_STATE")" -eq 0 ]; } \
+  && ok "bare 'scale 1' → monk pool only" || bad "bare scale default"
 rm -rf "$ST"
 unset GARDEN_UNIT_CTL GARDEN_MOCK_STATE GARDEN_MOCK_LOG XDG_CONFIG_HOME
 

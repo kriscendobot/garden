@@ -13,7 +13,7 @@
 # handler's half of the contract: because the requeue keeps the SAME base, the
 # fresh gardener that re-claims it derives the same deterministic Claude session
 # id and `--resume`s the interrupted session's transcript when it is still on
-# this host. See scripts/jobs/handlers/gardener-claude.sh § session continuity.
+# this host. See scripts/jobs/handlers/monk-claude.sh § session continuity.
 # The reaper itself stays a dumb requeue — it needs no session knowledge.
 #
 # Only jobs/doin/ is scanned. The jobs/plan/ category (parked work — gated on a

@@ -146,7 +146,7 @@ thaw_timers() {
 _long_running_service_units() {
   local wkind wunit_base unit pat
   for wkind in $(worker_kinds); do
-    wunit_base="$(worker_kind_field "$wkind" unit)"   # garden-gardener@ / garden-cleric@
+    wunit_base="$(worker_kind_field "$wkind" unit)"   # garden-monk@ / garden-cleric@
     while read -r unit; do
       [ -n "$unit" ] || continue
       printf '%s\n' "$unit"

@@ -134,7 +134,7 @@ seed_and_reap() {
       printf -- '---\n'
       printf '# %s\n\nthe original %s work body\n\n' "$base" "$role"
       printf -- '<!-- garden-reap-now -->\n'
-      printf -- '---\nclaim:\n  host: testhost\n  gardener: 3\n  worker_kind: gardener\n  provider: %s\n  claimed_at: %s\n' \
+      printf -- '---\nclaim:\n  host: testhost\n  gardener: 3\n  worker_kind: monk\n  provider: %s\n  claimed_at: %s\n' \
         "$provider" "$(date -u -d '@'"$(( $(date -u +%s) - 3000 ))" +%FT%TZ)"
     } > "jobs/doin/$base.md"
     printf 'worktree_dir: %s\n' "$root/nonexistent-wt" > "work/$base" )

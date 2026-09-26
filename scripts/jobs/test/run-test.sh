@@ -11,7 +11,7 @@
 #      the matching triager unit (via a mocked systemctl).
 #
 # systemd is not required: gardeners run as concurrent background processes,
-# exercising the identical claim/complete code that a garden-gardener@N.service
+# exercising the identical claim/complete code that a garden-monk@N.service
 # would run. The coordination being tested lives in the scripts, not in systemd.
 #
 # Usage: run-test.sh [num-jobs] [num-gardeners]
@@ -68,7 +68,7 @@ hr()   { echo "----------------------------------------------------------------"
 # --- hermetic environment baseline (the fleet-load isolation) ----------------
 # run-test.sh is frequently invoked BY a live gardener (a `run-…` board job),
 # whose process EXPORTS the fleet's own GARDEN_*/JOURNAL_*/SELF_HEAL_* — e.g.
-# GARDEN_GARDENER_CLONE=…/.garden-state/gardeners/18/journal, GARDEN_STATE, and
+# GARDEN_GARDENER_CLONE=…/.garden-state/monks/18/journal, GARDEN_STATE, and
 # GARDEN_ROOT=/home/kris (whose journal/ origin is the LIVE shared journal2).
 # Those ambient values leak THROUGH a subtest's per-case `env`/`export` overrides
 # into the scripts under test: claim-job/gardener honor GARDEN_GARDENER_CLONE, and
@@ -197,49 +197,49 @@ export GARDEN_STATE="$TR/state-scale" GARDEN=testhost
 export GARDEN_BACKEND_PROBE_CMD=/bin/true
 export GARDEN_MOCK_STATE="$TR/armed-g" GARDEN_MOCK_LOG="$TR/unitlog-g" GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh"
 : > "$GARDEN_MOCK_STATE"; : > "$GARDEN_MOCK_LOG"
-"$JOBS/set-gardeners.sh" 3 testhost >/dev/null
+"$JOBS/set-monks.sh" 3 testhost >/dev/null
 "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
-armed3=$(grep -c '^garden-gardener@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
-has4=$(grep -c '^garden-gardener@4\.service$' "$GARDEN_MOCK_STATE" || true)
+armed3=$(grep -c '^garden-monk@[123]\.service$' "$GARDEN_MOCK_STATE" || true)
+has4=$(grep -c '^garden-monk@4\.service$' "$GARDEN_MOCK_STATE" || true)
 { [ "$armed3" -eq 3 ] && [ "$has4" -eq 0 ]; } && ok "host count 3 → gardener@{1,2,3} armed" || bad "scale-up (armed @1-3=$armed3, @4=$has4)"
-"$JOBS/set-gardeners.sh" 1 testhost >/dev/null
+"$JOBS/set-monks.sh" 1 testhost >/dev/null
 "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
-armed_after=$(grep -c '^garden-gardener@1\.service$' "$GARDEN_MOCK_STATE" || true)
-extra_after=$(grep -c '^garden-gardener@[23]\.service$' "$GARDEN_MOCK_STATE" || true)
+armed_after=$(grep -c '^garden-monk@1\.service$' "$GARDEN_MOCK_STATE" || true)
+extra_after=$(grep -c '^garden-monk@[23]\.service$' "$GARDEN_MOCK_STATE" || true)
 { [ "$armed_after" -eq 1 ] && [ "$extra_after" -eq 0 ]; } && ok "host count 1 → scaled down to gardener@1" || bad "scale-down (@1=$armed_after, @2-3=$extra_after)"
 # A host owns only its own hosts/<host> record. This is the direct regression for
 # a follower clobbering the leader's count during its deploy: an explicit foreign
 # host argument must fail before touching the journal.
 set +e
-foreign_out="$(GARDEN=testhost "$JOBS/set-gardeners.sh" 7 leaderhost 2>&1)"; foreign_rc=$?
-zero_out="$(GARDEN=testhost "$JOBS/set-gardeners.sh" 0 2>&1)"; zero_rc=$?
+foreign_out="$(GARDEN=testhost "$JOBS/set-monks.sh" 7 leaderhost 2>&1)"; foreign_rc=$?
+zero_out="$(GARDEN=testhost "$JOBS/set-monks.sh" 0 2>&1)"; zero_rc=$?
 set -e
 git -C "$V" fetch -q origin "$BRANCH"; git -C "$V" reset -q --hard "origin/$BRANCH"
 { [ "$foreign_rc" -ne 0 ] && grep -q 'may set only its own worker counts' <<<"$foreign_out" && ! [ -e "$V/hosts/leaderhost" ]; } \
   && ok "foreign host worker write refused without creating hosts/leaderhost" \
   || bad "foreign host write guard failed (rc=$foreign_rc, output=$foreign_out)"
-{ [ "$zero_rc" -ne 0 ] && grep -q 'refusing gardeners: 0' <<<"$zero_out"; } \
-  && ok "gardeners: 0 writer request refused without a qualified alternative" \
+{ [ "$zero_rc" -ne 0 ] && grep -q 'refusing monks: 0' <<<"$zero_out"; } \
+  && ok "monks: 0 writer request refused without a qualified alternative" \
   || bad "gardeners zero floor failed (rc=$zero_rc, output=$zero_out)"
-push_change "hosts/testhost" $'gardeners: 0\nupdated_by: testhost' "seed invalid gardener zero"
+push_change "hosts/testhost" $'monks: 0\nupdated_by: testhost' "seed invalid gardener zero"
 : > "$GARDEN_MOCK_LOG"
 zero_scale_out="$(GARDEN=testhost "$JOBS/gardener-scaler.sh" 2>&1)"
 zero_disables=$(grep -c '^systemctl --user disable' "$GARDEN_MOCK_LOG" || true)
-{ grep -q "declares gardeners: 0.*refusing" <<<"$zero_scale_out" && [ "$zero_disables" -eq 0 ]; } \
-  && ok "legacy gardeners: 0 is refused by scaler without disabling the pool" \
+{ grep -q "declares monks: 0.*refusing" <<<"$zero_scale_out" && [ "$zero_disables" -eq 0 ]; } \
+  && ok "legacy monks: 0 is refused by scaler without disabling the pool" \
   || bad "scaler zero floor failed (disables=$zero_disables, output=$zero_scale_out)"
 GARDEN_QUOTA_ROUTING=race "$JOBS/set-workers.sh" cleric 1 testhost >/dev/null
 set +e
-qualified_zero_out="$(GARDEN=testhost GARDEN_QUOTA_ROUTING=race "$JOBS/set-gardeners.sh" 0 2>&1)"; qualified_zero_rc=$?
+qualified_zero_out="$(GARDEN=testhost GARDEN_QUOTA_ROUTING=race "$JOBS/set-monks.sh" 0 2>&1)"; qualified_zero_rc=$?
 set -e
 : > "$GARDEN_MOCK_LOG"
 GARDEN=testhost GARDEN_QUOTA_ROUTING=race "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
-qualified_gardeners=$(grep -c '^garden-gardener@.*\.service$' "$GARDEN_MOCK_STATE" || true)
+qualified_gardeners=$(grep -c '^garden-monk@.*\.service$' "$GARDEN_MOCK_STATE" || true)
 qualified_clerics=$(grep -c '^garden-cleric@1\.service$' "$GARDEN_MOCK_STATE" || true)
 { [ "$qualified_zero_rc" -eq 0 ] && [ "$qualified_gardeners" -eq 0 ] && [ "$qualified_clerics" -eq 1 ]; } \
-  && ok "qualified cleric allows gardeners: 0 and scaler retains a live non-Claude pool" \
+  && ok "qualified cleric allows monks: 0 and scaler retains a live non-Claude pool" \
   || bad "qualified zero-floor route failed (rc=$qualified_zero_rc gardeners=$qualified_gardeners clerics=$qualified_clerics output=$qualified_zero_out)"
-push_change "hosts/testhost" $'gardeners: 1\nupdated_by: testhost' "restore one-gardener fixture"
+push_change "hosts/testhost" $'monks: 1\nupdated_by: testhost' "restore one-gardener fixture"
 GARDEN=testhost "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
 # A structurally-absent desired count (no hosts/<host> file) is a NO-OP, never a
 # scale-to-0: point the scaler at a host that was never declared and the gardener@1
@@ -247,14 +247,14 @@ GARDEN=testhost "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
 # Guards the regression where want=0 default tore the whole local fleet down at once.
 : > "$GARDEN_MOCK_LOG"
 GARDEN=undeclaredhost "$JOBS/gardener-scaler.sh" >/dev/null 2>&1
-noop_armed=$(grep -c '^garden-gardener@1\.service$' "$GARDEN_MOCK_STATE" || true)
+noop_armed=$(grep -c '^garden-monk@1\.service$' "$GARDEN_MOCK_STATE" || true)
 noop_disables=$(grep -c '^systemctl --user disable' "$GARDEN_MOCK_LOG" || true)
 { [ "$noop_armed" -eq 1 ] && [ "$noop_disables" -eq 0 ]; } \
   && ok "absent hosts/<host> → no-op (pool unchanged, no disable)" \
   || bad "no-op-on-undeterminable-count (@1=$noop_armed, disables=$noop_disables)"
 
 # --- ABSENT KIND LINE is a QUIET no-op, NOT a per-tick WARN ------------------
-# testhost declares `gardeners: 1` (set-gardeners above) but no `clerics:` line — a
+# testhost declares `monks: 1` (set-monks above) but no `clerics:` line — a
 # legitimate steady state for a host that runs one kind and not the other. The
 # undeclared kind must log at a QUIET level (DEBUG), not spam WARN every ~60s tick
 # and bury real scaler signal. Distinct from a wholly-absent hosts/<host> file,
@@ -271,35 +271,35 @@ grep -q "WARN host 'undeclaredhost' desired gardeners undeterminable" "$sclog2" 
   || bad "missing hosts file did not WARN: $(grep -E 'gardeners' "$sclog2" | tr '\n' '|')"
 
 # --- IDENTITY RECONCILE: a worker whose in-process GARDEN drifted is restarted ---
-# A long-lived garden-gardener@N inherits GARDEN once, at spawn; if the host
+# A long-lived garden-monk@N inherits GARDEN once, at spawn; if the host
 # identity is later corrected (e.g. a stale GARDEN=endolinbot2 override removed),
 # the already-running worker keeps the STALE value and keeps keying phantom
 # hosts/<stale> state. The scaler's identity-reconcile step reads each running
 # instance's live GARDEN from /proc/<MainPID>/environ (via GARDEN_PROC, overridable
 # here) and restarts a drifted one — gated on the SAME busy marker as scale-down so
 # a mid-job worker defers to a later tick, restarting between claims not mid-flight.
-GARDEN=testhost "$JOBS/set-gardeners.sh" 3 testhost >/dev/null   # size no-op: @1..@3 stay enabled
-printf '%s\n' garden-gardener@1.service garden-gardener@2.service garden-gardener@3.service > "$GARDEN_MOCK_STATE"
+GARDEN=testhost "$JOBS/set-monks.sh" 3 testhost >/dev/null   # size no-op: @1..@3 stay enabled
+printf '%s\n' garden-monk@1.service garden-monk@2.service garden-monk@3.service > "$GARDEN_MOCK_STATE"
 PROC="$TR/proc"; PIDS="$TR/mockpids"; rm -rf "$PROC" "$PIDS"; mkdir -p "$PROC/101" "$PROC/102" "$PROC/103" "$PIDS"
 # @1 drifted (idle), @2 matches, @3 drifted BUT mid-job (busy) → deferred. @4 not running.
 printf 'GARDEN=otherhost\0PATH=/x\0' > "$PROC/101/environ"    # @1 stale identity
 printf 'GARDEN=testhost\0PATH=/x\0'  > "$PROC/102/environ"    # @2 correct identity
 printf 'GARDEN=otherhost\0PATH=/x\0' > "$PROC/103/environ"    # @3 stale identity
-echo 101 > "$PIDS/garden-gardener@1.service"
-echo 102 > "$PIDS/garden-gardener@2.service"
-echo 103 > "$PIDS/garden-gardener@3.service"
-mkdir -p "$GARDEN_STATE/gardeners/3"; : > "$GARDEN_STATE/gardeners/3/busy"   # @3 mid-job
+echo 101 > "$PIDS/garden-monk@1.service"
+echo 102 > "$PIDS/garden-monk@2.service"
+echo 103 > "$PIDS/garden-monk@3.service"
+mkdir -p "$GARDEN_STATE/monks/3"; : > "$GARDEN_STATE/monks/3/busy"   # @3 mid-job
 : > "$GARDEN_MOCK_LOG"
 idout="$(GARDEN=testhost GARDEN_PROC="$PROC" GARDEN_MOCK_PIDS="$PIDS" "$JOBS/gardener-scaler.sh" 2>&1)"
-grep -q 'restart --no-block garden-gardener@1.service' "$GARDEN_MOCK_LOG" \
+grep -q 'restart --no-block garden-monk@1.service' "$GARDEN_MOCK_LOG" \
   && ok "drifted idle gardener 1 restarted --no-block (adopts corrected identity)" || bad "drifted gardener 1 NOT restarted"
-grep -q 'restart --no-block garden-gardener@2.service' "$GARDEN_MOCK_LOG" \
+grep -q 'restart --no-block garden-monk@2.service' "$GARDEN_MOCK_LOG" \
   && bad "matching gardener 2 was restarted (spurious)" || ok "matching gardener 2 left alone (no spurious restart)"
-grep -q 'restart --no-block garden-gardener@3.service' "$GARDEN_MOCK_LOG" \
+grep -q 'restart --no-block garden-monk@3.service' "$GARDEN_MOCK_LOG" \
   && bad "busy drifted gardener 3 was restarted (mid-job SIGTERM!)" || ok "busy drifted gardener 3 deferred (not restarted)"
 grep -q "gardener 3 identity 'otherhost' != host 'testhost' but mid-job; deferring" <<<"$idout" \
   && ok "deferral logged for the busy drifted worker" || bad "deferral not logged"
-rm -rf "$PROC" "$PIDS"; rm -f "$GARDEN_STATE/gardeners/3/busy"
+rm -rf "$PROC" "$PIDS"; rm -f "$GARDEN_STATE/monks/3/busy"
 unset GARDEN_UNIT_CTL GARDEN_MOCK_STATE GARDEN_MOCK_LOG GARDEN_BACKEND_PROBE_CMD
 
 # ============================================================================
@@ -3614,7 +3614,7 @@ done
 [ "$mh_miss" -eq 0 ] && ok "all 14 timer-singleton services carry ExecCondition=is-main-host.sh" || bad "a singleton service lacks the ExecCondition"
 grep -q 'is_main_host' "$JOBS/bulletin.sh" \
   && ok "bulletin (continuous singleton) gated in-process via is_main_host" || bad "bulletin lacks in-process leader gate"
-grep -q 'is-main-host' "$MH_SRC/garden-gardener@.service" \
+grep -q 'is-main-host' "$MH_SRC/garden-monk@.service" \
   && bad "gardener service is leader-gated (must run every-host)" \
   || ok "gardener service NOT gated (runs on every host)"
 

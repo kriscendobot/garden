@@ -111,7 +111,7 @@ verify_clone() { git clone -q --single-branch --branch journal2 "$1" "$2" 2>/dev
 
 # run_probe <bare> <garden-root> <fakeclaude> <jobfile> <base> [extra env kv...] —
 # invoke the probe as a subprocess in a hermetic env. Extra args are passed verbatim
-# to `env` (e.g. GARDEN_WORKER_KIND=gardener, GARDEN_HERMIT_PROBE=0).
+# to `env` (e.g. GARDEN_WORKER_KIND=monk, GARDEN_HERMIT_PROBE=0).
 run_probe() {
   local bare="$1" gr="$2" fc="$3" jf="$4" base="$5"; shift 5
   env -i PATH="$PATH" HOME="$HOME" FAKE_MARKER="${FAKE_MARKER:-0}" \
@@ -228,7 +228,7 @@ TR="$(mktemp -d "$EXEC_BASE/hcp-guard.XXXXXX")"
 BARE="$(seed_board "$TR")"; GR="$TR/gr"; seed_garden_root "$GR"
 FC="$TR/fake-claude.sh"; make_fake_claude "$FC"
 JF="$TR/job.md"; printf -- '---\nrole: builder\ntarget: main2\n---\n# g\n\nwork\n' > "$JF"
-FAKE_MARKER=1 run_probe "$BARE" "$GR" "$FC" "$JF" g1-job GARDEN_WORKER_KIND=gardener > "$TR/g1.log" 2>&1 || true
+FAKE_MARKER=1 run_probe "$BARE" "$GR" "$FC" "$JF" g1-job GARDEN_WORKER_KIND=monk > "$TR/g1.log" 2>&1 || true
 FAKE_MARKER=1 run_probe "$BARE" "$GR" "$FC" "$JF" g2-job GARDEN_HERMIT_PROBE=0 > "$TR/g2.log" 2>&1 || true
 V="$TR/v"; verify_clone "$BARE" "$V"
 [ ! -f "$V/reputation/probes/g1-job.md" ] && ok "non-hermit worker skips the probe (no local arm to score)" || bad "non-hermit worker probed"

@@ -11,7 +11,7 @@
 # scripts straight from the checkout by absolute path. A timer-driven *oneshot*
 # (reaper, foreman, scheduler, watchman) re-reads its script from disk on its NEXT
 # firing, so advancing the tree is all it needs. But a *long-running* service
-# (garden-gardener@N, garden-bulletin, garden-watcher@) parsed its
+# (garden-monk@N, garden-bulletin, garden-watcher@) parsed its
 # script — and `source`d common.sh — once at start and holds them in memory for
 # the life of the process; it picks up new code ONLY on a fresh exec. So after the
 # tree advances, the long-running services must be restarted to re-exec.
@@ -77,7 +77,7 @@ restart_long_running_fleet() {
   local restarted=0 deferred=0 failed=0 unit idx
   local -a to_restart=()
 
-  # Gather the worker units to re-exec, across EVERY worker kind (gardener, cleric,
+  # Gather the worker units to re-exec, across EVERY worker kind (monk, cleric,
   # …) via the registry. With the busy-gate on, defer a mid-job worker; with it off
   # (the deliberate deploy, post-quiesce) take every active worker. We only COLLECT
   # here; the actual restarts are issued concurrently below so the per-unit stop
@@ -85,7 +85,7 @@ restart_long_running_fleet() {
   # namespace (worker_busy), so a mid-job cleric is deferred exactly like a gardener.
   local wkind wunit_base
   for wkind in $(worker_kinds); do
-    wunit_base="$(worker_kind_field "$wkind" unit)"      # garden-gardener@ / garden-cleric@
+    wunit_base="$(worker_kind_field "$wkind" unit)"      # garden-monk@ / garden-cleric@
     while read -r unit; do
       [ -n "$unit" ] || continue
       case "$unit" in "$wunit_base"*.service) ;; *) continue ;; esac

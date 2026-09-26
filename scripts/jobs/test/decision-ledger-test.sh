@@ -144,7 +144,7 @@ claim_probe="$(env GARDEN=claim-host GARDEN_STATE="$TEMPORARY_ROOT/claim-state" 
   bash -c 'source "$1/common.sh"; pool_admits anthropic:claim-host; printf "rc=%s\n" "$?"' _ "$JOBS")"
 claim_result=0
 claim_output="$(env GARDEN_TEST=1 GARDEN=claim-host GARDEN_STATE="$TEMPORARY_ROOT/claim-state" \
-  GARDEN_WORKER_KIND=gardener \
+  GARDEN_WORKER_KIND=monk \
   JOURNAL_REMOTE="$REMOTE" GARDEN_WORKER_CLONE="$TEMPORARY_ROOT/claim-worker" \
   GARDEN_DECISION_CLONE="$TEMPORARY_ROOT/claim-decisions" \
   GARDEN_DECISION_NOW_EPOCH="$ACTUATOR_EPOCH" GARDEN_USAGE_NOW="$ACTUATOR_EPOCH" \

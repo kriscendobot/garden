@@ -3,7 +3,7 @@
 # the per-subagent worktree rule (designs/deliberate-deploy.md § All development
 # in per-subagent worktrees; the follow-on job garden-enforce-per-subagent-worktree).
 #
-# The handler handlers/gardener-claude.sh must launch `claude -p` with its cwd
+# The handler handlers/monk-claude.sh must launch `claude -p` with its cwd
 # already set to a fresh per-job worktree off origin/$GARDEN_MAIN_BRANCH, so a job
 # physically cannot edit the deployed root tree. This test drives the handler
 # DIRECTLY with a fake `claude` on PATH (the gardener tests stub the whole handler,
@@ -80,9 +80,9 @@ cp "$JOBS_SRC/model-tier-inventory.tsv" "$JOBS_SRC/model-routing-defaults.tsv" \
 # The Anthropic handler implementation now lives in monk-claude.sh; gardener-claude.sh
 # is the warning-free forwarding wrapper onto it (gardener->monk rename). Copy BOTH so
 # driving the legacy name exercises the forward path end-to-end (design § handlers).
-cp "$JOBS_SRC/handlers/gardener-claude.sh" "$JOBS_SRC/handlers/monk-claude.sh" \
+cp "$JOBS_SRC/handlers/monk-claude.sh" "$JOBS_SRC/handlers/monk-claude.sh" \
    "$JOBS_SRC/handlers/worker-common.sh" "$GROOT/scripts/jobs/handlers/"
-chmod +x "$GROOT/scripts/jobs/handlers/gardener-claude.sh" "$GROOT/scripts/jobs/handlers/monk-claude.sh"
+chmod +x "$GROOT/scripts/jobs/handlers/monk-claude.sh" "$GROOT/scripts/jobs/handlers/monk-claude.sh"
 printf '# gardener role (test stub)\n' > "$GROOT/roles/gardener/AGENT.md"
 printf '/scratch/\n' > "$GROOT/.gitignore"
 git -C "$GROOT" add -A
@@ -92,7 +92,7 @@ git -C "$GROOT" remote add origin "$ORIGIN"
 git -C "$GROOT" push -q -u origin main2
 git -C "$GROOT" fetch -q origin                 # materialize the origin/main2 tracking ref
 
-HANDLER="$GROOT/scripts/jobs/handlers/gardener-claude.sh"
+HANDLER="$GROOT/scripts/jobs/handlers/monk-claude.sh"
 SCRATCH="$GROOT/scratch"
 
 # --- a fake `claude` that records cwd + resume-mode and mimics the transcript --
@@ -186,7 +186,7 @@ run_handler() {  # run_handler <base> <jobfile> <report> ; sets global RC
   # worker kind (for example, a cleric job) change its provider/model assertions.
   HOME="$TR/home" PATH="$FAKEDIR:$PATH" \
     GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" GARDEN_STATE="$TR/state" \
-    GARDEN_WORKER_KIND=gardener \
+    GARDEN_WORKER_KIND=monk \
     GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STALE_HANDLER_KILL_GRACE=1 \
     GARDEN_COMPLETION_SENTINEL="$SENTINEL" GARDEN_USAGE_FILE="$TR/usage.json" FAKE_COMPLETION_MARKER="$MARKER" \
     FAKE_CWD_OUT="$TR/cwd.out" FAKE_MODE_OUT="$TR/mode.out" FAKE_MODEL_OUT="$TR/model.out" FAKE_BUDGET_OUT="$TR/budget.out" FAKE_USAGE_OUT="$TR/usage.out" \

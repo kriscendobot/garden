@@ -67,18 +67,18 @@ bash -n "$JOBS/deploy-release-boundary.sh" && ok "deploy-release-boundary.sh par
 
 # ============================================================================
 hr; echo "freeze_timers — no active timers is a trivial (established) boundary"; hr
-: > "$FAILSTOP"; reset_active garden-gardener@1.service garden-bulletin.service
+: > "$FAILSTOP"; reset_active garden-monk@1.service garden-bulletin.service
 if freeze_timers >/dev/null 2>&1; then ok "returns 0 with no timers"; else bad "returned non-zero with no timers"; fi
 [ "${#FROZEN_TIMERS[@]}" -eq 0 ] && ok "FROZEN_TIMERS empty when no timers" || bad "FROZEN_TIMERS not empty: ${FROZEN_TIMERS[*]}"
 
 # ============================================================================
 hr; echo "freeze_timers — stops every active timer and records the set"; hr
-: > "$FAILSTOP"; reset_active garden-gardener@1.service garden-reaper.timer garden-scheduler.timer
+: > "$FAILSTOP"; reset_active garden-monk@1.service garden-reaper.timer garden-scheduler.timer
 freeze_timers >/dev/null 2>&1 && ok "returns 0 when every stop succeeds" || bad "returned non-zero"
 [ "${#FROZEN_TIMERS[@]}" -eq 2 ] && ok "FROZEN_TIMERS holds both timers" || bad "FROZEN_TIMERS=${FROZEN_TIMERS[*]}"
 grep -qxF garden-reaper.timer "$ACTIVE" && bad "reaper timer still active after freeze" || ok "reaper timer stopped"
 grep -qxF garden-scheduler.timer "$ACTIVE" && bad "scheduler timer still active" || ok "scheduler timer stopped"
-grep -qxF garden-gardener@1.service "$ACTIVE" && ok "the gardener service is left running (only timers freeze)" || bad "gardener was stopped"
+grep -qxF garden-monk@1.service "$ACTIVE" && ok "the gardener service is left running (only timers freeze)" || bad "gardener was stopped"
 
 # ============================================================================
 hr; echo "freeze_timers — an unstoppable timer means the boundary is NOT established"; hr
@@ -89,7 +89,7 @@ if freeze_timers >/dev/null 2>&1; then bad "returned 0 despite a failed stop"; e
 
 # ============================================================================
 hr; echo "thaw_timers — restarts the frozen set, records it, clears FROZEN_TIMERS"; hr
-: > "$FAILSTOP"; reset_active garden-gardener@1.service garden-reaper.timer garden-scheduler.timer
+: > "$FAILSTOP"; reset_active garden-monk@1.service garden-reaper.timer garden-scheduler.timer
 freeze_timers >/dev/null 2>&1
 thaw_timers >/dev/null 2>&1 && ok "returns 0 when every start succeeds" || bad "thaw returned non-zero"
 grep -qxF garden-reaper.timer "$ACTIVE" && ok "reaper timer active again after thaw" || bad "reaper not restarted"
@@ -99,7 +99,7 @@ grep -qxF garden-scheduler.timer "$ACTIVE" && ok "scheduler timer active again a
 
 # ============================================================================
 hr; echo "verify_coherent_release — all active + matching sha verifies clean"; hr
-: > "$FAILSTOP"; reset_active garden-gardener@1.service garden-bulletin.service garden-reaper.timer
+: > "$FAILSTOP"; reset_active garden-monk@1.service garden-bulletin.service garden-reaper.timer
 freeze_timers >/dev/null 2>&1; thaw_timers >/dev/null 2>&1   # reaper re-added; THAWED_TIMERS set
 if verify_coherent_release deadbeef deadbeef >/dev/null 2>&1; then ok "verify passes when all units active and sha matches"; else bad "verify failed a coherent fleet"; fi
 
@@ -109,7 +109,7 @@ if verify_coherent_release deadbeef c0ffee >/dev/null 2>&1; then bad "verify pas
 
 # ============================================================================
 hr; echo "verify_coherent_release — an inactive thawed timer is a straggler"; hr
-: > "$FAILSTOP"; reset_active garden-gardener@1.service garden-reaper.timer
+: > "$FAILSTOP"; reset_active garden-monk@1.service garden-reaper.timer
 freeze_timers >/dev/null 2>&1; thaw_timers >/dev/null 2>&1
 # Simulate the thawed timer dying right after: remove it from the active set.
 grep -vxF garden-reaper.timer "$ACTIVE" > "$ACTIVE.t"; mv "$ACTIVE.t" "$ACTIVE"

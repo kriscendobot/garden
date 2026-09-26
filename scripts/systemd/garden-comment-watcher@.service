@@ -22,12 +22,12 @@ SuccessExitStatus=143 130 SIGTERM SIGINT
 # negated PGID and then WAITING for the group to drain so the cgroup is empty
 # before the main process exits — and the cgroup-wide SIGKILL backstop at
 # TimeoutStopSec catches anything the process-group reap cannot reach (e.g. a gh
-# child placed in its OWN process group). Mirrors garden-gardener@.service
+# child placed in its OWN process group). Mirrors garden-monk@.service
 # (commit b3074e154).
 KillMode=mixed
 # Short stop timeout: the comment poll holds NO in-flight work worth preserving (a
 # killed tick simply re-polls next firing — the cursor only advances on a verified
-# post), so unlike garden-gardener@.service (TimeoutStopSec=2700, which waits for
+# post), so unlike garden-monk@.service (TimeoutStopSec=2700, which waits for
 # an in-flight job to finish) we do NOT wait minutes on stop. The 20:57:54 leak
 # was a straggler git surviving the stop and lingering into the next start: the
 # default 90s DefaultTimeoutStopSec let the cgroup-wide SIGKILL backstop fire only

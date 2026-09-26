@@ -12,7 +12,7 @@
 # reply_to job doer).
 #
 # Examples:
-#   send-host-op.sh ps23-garden-abcd1234 op=set-workers kind=gardener count=2
+#   send-host-op.sh ps23-garden-abcd1234 op=set-workers kind=monk count=2
 #   send-host-op.sh ps23-garden-abcd1234 op=drain state=on reason='weekly quota'
 #   send-host-op.sh ps23-garden-abcd1234 op=drain state=off
 #   send-host-op.sh ps23-garden-abcd1234 op=reset-failed

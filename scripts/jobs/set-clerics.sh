@@ -3,9 +3,9 @@
 #
 # Usage: set-clerics.sh <N> [host]   (the optional host must be this host)
 #
-# The cleric analogue of set-gardeners.sh: a thin wrapper over the generic
+# The cleric wrapper over the generic
 # set-workers.sh, which writes the `clerics: N` line in hosts/<host> and preserves
-# the sibling `gardeners:` line. The gardener-scaler on that host reconciles the
+# the sibling `monks:` line. The gardener-scaler on that host reconciles the
 # local cleric pool (garden-cleric@1..N) to match. Recommended initial sizing is
 # `clerics: 4` on the leader host (design §1.2) — enough to accrue reputation data
 # without materially competing for board throughput.

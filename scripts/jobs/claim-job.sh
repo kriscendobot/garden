@@ -28,8 +28,8 @@ source "$HERE/auction.sh"     # the bid auction (sources reputation.sh); source-
 
 id="${1:?usage: claim-job.sh <gardener-id>}"
 # The claiming worker's kind (gardener | cleric), inherited from the spine
-# (gardener.sh exports GARDEN_WORKER_KIND); default gardener for a standalone call.
-KIND="${GARDEN_WORKER_KIND:-gardener}"
+# (gardener.sh exports GARDEN_WORKER_KIND); default monk for a standalone call.
+KIND="${GARDEN_WORKER_KIND:-monk}"
 KIND_PROVIDER="$(worker_kind_field "$KIND" provider 2>/dev/null || echo anthropic)"
 # auction_write_bid reads THIS worker's kind + id from the env (so its signature
 # stays a plain <dir> <base>); export them alongside the claim.
@@ -182,7 +182,7 @@ job_eligible_for_kind() {
 
 # The per-instance clone seam: the kind-neutral GARDEN_WORKER_CLONE, honoring the
 # legacy GARDEN_GARDENER_CLONE when unset (the spine exports both to one value).
-DIR="${GARDEN_WORKER_CLONE:-${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/gardeners/$id/journal}}"
+DIR="${GARDEN_WORKER_CLONE:-${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/monks/$id/journal}}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
@@ -388,7 +388,7 @@ for ((k=0; k<n; k++)); do
     fi
   } >> "$DIR/$JOBS_DOIN/$base.md"
   # worktree-state record under work/ (the spine: same basename). worktree_dir
-  # names the REAL per-job garden worktree (handlers/gardener-claude.sh's
+  # names the REAL per-job garden worktree (handlers/monk-claude.sh's
   # gardener-wt-<base> under GARDEN_SCRATCH) for a human inspecting the claim;
   # it is INFORMATIONAL ONLY — worktrees persist across a requeue so a resumed
   # claim re-enters its in-flight work, and nothing may delete them from board

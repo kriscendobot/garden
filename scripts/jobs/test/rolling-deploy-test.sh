@@ -95,7 +95,7 @@ tada_tree_path() { git -C "$BARE" ls-tree -r --name-only "$BRANCH" 2>/dev/null |
 tada_from_bare() { local p; p="$(tada_tree_path "$1")"; [ -n "$p" ] && from_bare "$p" || true; }
 seed_fleet_hosts() {  # every host present in the fleet
   local h; for h in "$@"; do
-    push_change "hosts/$h" $'gardeners: 1\nupdated_by: test' "seed host $h"
+    push_change "hosts/$h" $'monks: 1\nupdated_by: test' "seed host $h"
     set_heartbeat "$h" 1900
   done
 }

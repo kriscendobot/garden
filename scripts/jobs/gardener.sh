@@ -1,15 +1,15 @@
 #!/bin/bash
 # gardener.sh — a consumer worker (the SHARED worker spine). Claims jobs off the
 # board and works them. "gardener" is the spine's historical name; the SAME file
-# runs every worker KIND (gardener | cleric | …), selected by GARDEN_WORKER_KIND
-# (default gardener). The loop, the board protocol, the timeout/classification
+# runs every worker KIND (monk | cleric | …), selected by GARDEN_WORKER_KIND
+# (default monk). The loop, the board protocol, the timeout/classification
 # machinery, and the drain/deploy semantics are identical across kinds — only the
 # job HANDLER, the systemd labels, the per-kind count, and the journal-clone /
 # marker namespaces differ, all derived from the worker-kind registry
 # (common.sh worker_kind_field). A new backend drops in as a handler + a registry
 # row, never a copy of this loop (design §2, cleric-worker-bid-auction-reputation.md).
 #
-# Usage: gardener.sh <id>            (GARDEN_WORKER_KIND=gardener|cleric)
+# Usage: gardener.sh <id>            (GARDEN_WORKER_KIND=monk|cleric)
 #
 # Loop: claim one job (todo→doin, CAS) → run the job handler in a per-basename
 # context → complete (doin→tada report). On an empty board it sleeps and
@@ -20,7 +20,7 @@
 #     $GARDEN_JOB_HANDLER <basename> <job-file> <report-out>
 # where <job-file> is the claimed job in this worker's journal clone and
 # <report-out> is a path the handler must fill with the completion report.
-# The default handler is the kind's registry handler (gardener → `claude -p`,
+# The default handler is the kind's registry handler (monk → `claude -p`,
 # cleric → `codex exec`); the test harness overrides it with a fast stub.
 
 set -euo pipefail
@@ -38,7 +38,7 @@ id="${1:?usage: gardener.sh <id>}"
 # The worker kind selects the handler, the marker/clone namespaces, and the bus
 # labels from the registry. Default gardener so a bare `gardener.sh <id>` (and
 # every existing test that invokes it) is unchanged.
-: "${GARDEN_WORKER_KIND:=gardener}"
+: "${GARDEN_WORKER_KIND:=monk}"
 KIND="$GARDEN_WORKER_KIND"
 export GARDEN_WORKER_KIND
 STATE_NS="$(worker_kind_field "$KIND" state_ns)" || die "unknown worker kind '$KIND'"
@@ -316,7 +316,7 @@ while :; do
   # a second, returned to this loop faster than any healthy worker doing real work,
   # and won claim races disproportionately: a work SINK that drained the fleet's
   # board into doin/ and doomed it while every healthy host sat idle. And no peer
-  # could stop it (set-gardeners.sh refuses a cross-host write; drain-fleet.sh's
+  # could stop it (set-monks.sh refuses a cross-host write; drain-fleet.sh's
   # marker is host-local), so the only actor that can take a broken worker out of
   # rotation is that worker. Probe BEFORE the claim; on failure park and re-poll
   # rather than exiting into a systemd restart loop, so the worker resumes by itself
@@ -1088,7 +1088,7 @@ while :; do
     # it in doin means a deterministically-failing job is retried after the TTL;
     # which lane is permanent is the question this surfaces.
     log "handler FAILED (rc=$rc) for '$base'; capturing output and classifying transient-vs-real (job left in doin for the reaper)"
-    # Most handlers (the default handlers/gardener-claude.sh among them) write their
+    # Most handlers (the default handlers/monk-claude.sh among them) write their
     # real output to $report, not to their own stdout/stderr, so $capture is often
     # empty even though the handler produced diagnostics. Fold the tail of $report
     # into $capture before hashing so the escalated blob carries the handler's own

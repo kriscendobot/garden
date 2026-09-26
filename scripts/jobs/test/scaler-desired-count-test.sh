@@ -45,31 +45,31 @@ rc() {
 hr; echo "read_desired_count — status/stdout contract for the three outcomes"; hr
 
 # PARSE: present + integer → 0:<n>
-printf 'gardeners: 7\nclerics: 10\n' > "$TD/full"
-[ "$(rc "$TD/full" gardeners)" = "0:7" ]  && ok "present integer → status 0, count 7"  || bad "present integer ($(rc "$TD/full" gardeners))"
+printf 'monks: 7\nclerics: 10\n' > "$TD/full"
+[ "$(rc "$TD/full" monks)" = "0:7" ]  && ok "present integer → status 0, count 7"  || bad "present integer ($(rc "$TD/full" monks))"
 [ "$(rc "$TD/full" clerics)"   = "0:10" ] && ok "present integer → status 0, count 10" || bad "second kind ($(rc "$TD/full" clerics))"
 
 # PARSE zero: the generic parser preserves an explicit 0 rather than
 # misclassifying it as missing.
-printf 'gardeners: 0\n' > "$TD/zero"
-[ "$(rc "$TD/zero" gardeners)" = "0:0" ] && ok "explicit 0 → status 0, count 0" || bad "explicit zero ($(rc "$TD/zero" gardeners))"
+printf 'monks: 0\n' > "$TD/zero"
+[ "$(rc "$TD/zero" monks)" = "0:0" ] && ok "explicit 0 → status 0, count 0" || bad "explicit zero ($(rc "$TD/zero" monks))"
 
 # ABSENT: file exists, key line absent → status 2, empty stdout (the spam case)
-printf 'gardeners: 7\n' > "$TD/gardeners-only"
+printf 'monks: 7\n' > "$TD/gardeners-only"
 [ "$(rc "$TD/gardeners-only" clerics)" = "2:" ] && ok "key line absent from existing file → status 2 (quiet)" || bad "absent key ($(rc "$TD/gardeners-only" clerics))"
 
 # MISCFG: file missing entirely → status 1
-[ "$(rc "$TD/does-not-exist" gardeners)" = "1:" ] && ok "file missing entirely → status 1 (WARN)" || bad "missing file ($(rc "$TD/does-not-exist" gardeners))"
+[ "$(rc "$TD/does-not-exist" monks)" = "1:" ] && ok "file missing entirely → status 1 (WARN)" || bad "missing file ($(rc "$TD/does-not-exist" monks))"
 
 # MISCFG: line present but value unparsable → status 1
-printf 'gardeners: seven\n' > "$TD/bad"
-[ "$(rc "$TD/bad" gardeners)" = "1:" ] && ok "present but unparsable value → status 1 (WARN)" || bad "unparsable value ($(rc "$TD/bad" gardeners))"
+printf 'monks: seven\n' > "$TD/bad"
+[ "$(rc "$TD/bad" monks)" = "1:" ] && ok "present but unparsable value → status 1 (WARN)" || bad "unparsable value ($(rc "$TD/bad" monks))"
 
 # leading whitespace after the colon is stripped (as the original sed did); a
 # leading-zero value parses. Trailing whitespace was NOT stripped by the original
 # and stays unparsable — faithfully preserved.
-printf 'gardeners:   03\n' > "$TD/ws"
-[ "$(rc "$TD/ws" gardeners)" = "0:03" ] && ok "leading whitespace stripped, leading-zero parses" || bad "whitespace value ($(rc "$TD/ws" gardeners))"
+printf 'monks:   03\n' > "$TD/ws"
+[ "$(rc "$TD/ws" monks)" = "0:03" ] && ok "leading whitespace stripped, leading-zero parses" || bad "whitespace value ($(rc "$TD/ws" monks))"
 
 # a partial-prefix key must not match (^clerics: only, not clerics-max:)
 printf 'clerics-max: 4\n' > "$TD/prefix"
@@ -78,15 +78,15 @@ printf 'clerics-max: 4\n' > "$TD/prefix"
 # The gardener floor may be relaxed only when another worker class is both
 # configured and probe-qualified. The probe is stubbed so this remains hermetic.
 worker_backend_probe() { [ "$1" = cleric ]; }
-printf 'gardeners: 0\nclerics: 1\n' > "$TD/qualified-non-claude"
+printf 'monks: 0\nclerics: 1\n' > "$TD/qualified-non-claude"
 host_has_qualified_non_claude_worker "$TD/qualified-non-claude" \
-  && ok "gardeners: 0 is safe with configured, live clerics" \
+  && ok "monks: 0 is safe with configured, live clerics" \
   || bad "qualified non-Claude worker was not recognized"
-printf 'gardeners: 0\nclerics: 0\n' > "$TD/no-qualified-worker"
+printf 'monks: 0\nclerics: 0\n' > "$TD/no-qualified-worker"
 host_has_qualified_non_claude_worker "$TD/no-qualified-worker" \
   && bad "zero-count clerics must not satisfy the gardener floor" \
   || ok "zero-count non-Claude class does not relax the gardener floor"
-printf 'gardeners: 0\nfireworkers: 1\n' > "$TD/failed-non-claude"
+printf 'monks: 0\nfireworkers: 1\n' > "$TD/failed-non-claude"
 host_has_qualified_non_claude_worker "$TD/failed-non-claude" \
   && bad "failed backend probe must not satisfy the gardener floor" \
   || ok "unhealthy non-Claude class does not relax the gardener floor"
@@ -96,7 +96,7 @@ unset -f worker_backend_probe
 hr; echo "gardener-scaler.sh — ABSENT emits DEBUG, MISCFG emits WARN (end-to-end)"; hr
 # Drive the real scaler with its external steps mocked to no-ops (a shim dir on
 # PATH shadowing the sibling scripts it calls by "$HERE/<name>"), against a seeded
-# journal declaring gardeners but NOT clerics. The scaler resolves its scripts via
+# journal declaring monks but NOT clerics. The scaler resolves its scripts via
 # "$HERE/…", so we mock by pointing the clone at a fixture and stubbing the two
 # sibling scripts through GARDEN_* / a wrapper is not available; instead invoke the
 # loop the way the scaler does but with the guards/scale mocked via a tiny driver
@@ -115,15 +115,15 @@ run_scaler_loop() {  # run_scaler_loop <hosts-file> -> log lines on stdout
   done
 }
 
-printf 'gardeners: 4\n' > "$TD/steady"   # declares gardeners, NOT clerics
+printf 'monks: 4\n' > "$TD/steady"   # declares monks, NOT clerics
 out="$(run_scaler_loop "$TD/steady")"
-echo "$out" | grep -q '^INFO scale gardeners 4$'      && ok "declared kind → scale (INFO)"            || bad "declared kind not scaled: $out"
+echo "$out" | grep -q '^INFO scale monks 4$'          && ok "declared kind → scale (INFO)"            || bad "declared kind not scaled: $out"
 echo "$out" | grep -q '^DEBUG no clerics line'        && ok "undeclared kind → DEBUG (no per-tick WARN)" || bad "undeclared kind not quiet: $out"
 echo "$out" | grep -q 'WARN'                          && bad "steady state should emit NO WARN: $out"  || ok "steady state emits no WARN (spam removed)"
 
-printf 'gardeners: nope\n' > "$TD/corrupt"
+printf 'monks: nope\n' > "$TD/corrupt"
 out="$(run_scaler_loop "$TD/corrupt")"
-echo "$out" | grep -q '^WARN gardeners undeterminable' && ok "unparsable value still WARNs (signal intact)" || bad "corrupt value not WARNed: $out"
+echo "$out" | grep -q '^WARN monks undeterminable' && ok "unparsable value still WARNs (signal intact)" || bad "corrupt value not WARNed: $out"
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

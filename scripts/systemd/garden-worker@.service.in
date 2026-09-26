@@ -1,7 +1,7 @@
 [Unit]
 Description=Garden @WORKER_KIND@ worker %i
 # A consumer in the @WORKER_KIND@ worker pool. This ONE source template is rendered
-# by install-units.sh into garden-gardener@.service and garden-cleric@.service (one
+# by install-units.sh into garden-monk@.service and garden-cleric@.service (one
 # per worker kind, @WORKER_KIND@ substituted), so the two pools cannot drift on the
 # unit shape — only the kind label and the GARDEN_WORKER_KIND env differ. Scale a
 # pool by enabling instances @1..@N (install-units.sh scale <kind> <N>).
@@ -28,7 +28,7 @@ SuccessExitStatus=143 130 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # The worker kind selects the job handler, the marker/clone namespaces, and the bus
 # labels inside gardener.sh (the shared spine) via the common.sh worker-kind
-# registry. This is the ONLY line that distinguishes a cleric unit from a gardener
+# registry. This is the ONLY line that distinguishes a cleric unit from a monk
 # unit besides the rendered instance name.
 Environment=GARDEN_WORKER_KIND=@WORKER_KIND@
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-@WORKER_KIND@ --work-id %i -- @GARDEN_ROOT@/scripts/jobs/gardener.sh %i

@@ -28,7 +28,7 @@ id="${1:?usage: complete-job.sh [--orchestration-failed|--handed-off BASE] <gard
 base="${2:?missing basename}"
 report="${3:?missing report-file}"
 # The completing worker's kind, inherited from the spine (gardener.sh exports it).
-KIND="${GARDEN_WORKER_KIND:-gardener}"
+KIND="${GARDEN_WORKER_KIND:-monk}"
 export GARDEN_TAG="done/$id"
 [ -f "$report" ] || die "report file not found: $report"
 case "$base" in -*|*/*|.*|'') die "illegal basename: '$base'";; esac
@@ -36,7 +36,7 @@ case "$handed_off" in -*|*/*|.*|*' '*) die "illegal handoff successor: '$handed_
 
 # The per-instance clone seam: the kind-neutral GARDEN_WORKER_CLONE, honoring the
 # legacy GARDEN_GARDENER_CLONE when unset (the spine exports both to one value).
-DIR="${GARDEN_WORKER_CLONE:-${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/gardeners/$id/journal}}"
+DIR="${GARDEN_WORKER_CLONE:-${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/monks/$id/journal}}"
 ensure_clone "$DIR"
 
 # record_reputation_event — write reputation/{events,pending}/<base>.md for this
@@ -217,7 +217,7 @@ for attempt in $(seq 1 100); do
     cleanup_terminal_project_worktrees "$base"
     # Destroy this doer's HOST-LOCAL inbox state too. The `git rm inbox/$base`
     # above removes only the JOURNAL-SIDE inbox: $DIR is the gardener's own clone
-    # ($GARDEN_STATE/gardeners/$id/journal, set at the top of this file), not the
+    # ($GARDEN_STATE/monks/$id/journal, set at the top of this file), not the
     # doer's inbox clone. inbox-read.sh full-clones journal2 into
     # $GARDEN_STATE/inbox/<doer>/journal (~17k-29k inodes) and nothing pruned it,
     # so every completed job left one behind forever — the leak that wedged

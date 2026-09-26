@@ -135,7 +135,7 @@ hr; echo "3b. gardener floor lives on DECLARED — effective may be 0"; hr
 # backend_effective_count applies NO gardener floor: a failed Claude probe yields
 # effective 0 even for gardener with declared >= 1 (the scaler floors DECLARED, not
 # this value). § 5.
-rm -rf "$GARDEN_STATE/gardeners/backend"
+rm -rf "$GARDEN_STATE/monks/backend"
 echo fail > "$CTL"
 GARDEN_BACKEND_PROBE_CMD="$STUB" PROBE_CTL="$CTL" backend_effective_count gardener 1 >/dev/null 2>&1
 g="$(GARDEN_BACKEND_PROBE_CMD="$STUB" PROBE_CTL="$CTL" backend_effective_count gardener 1 2>/dev/null)"

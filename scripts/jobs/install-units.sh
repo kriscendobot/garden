@@ -37,7 +37,7 @@ DEST="${XDG_CONFIG_HOME:-$HOME/.config}/systemd/user"
 # structural.
 #
 #   1. Template units (garden-*@.{service,timer}) — enabled PER-INSTANCE, never
-#      globally: garden-gardener@ (by `scale`), garden-comment-watcher@ /
+#      globally: garden-monk@ (by `scale`), garden-comment-watcher@ /
 #      garden-ci-watcher@ (per watched repo, by the repo-watcher from the journal's
 #      comment-repos/ set) / garden-triager@ (per watched repo, from repos/),
 #      garden-watcher@ (per feed). These are
@@ -99,8 +99,10 @@ PAUSED_UNITS=(
 # Restart= service) and garden-deploy-sync (the continuous fast-forward + restart
 # reconciler, replaced by the deliberate drained deploy-garden.sh,
 # designs/deliberate-deploy.md) — no longer ship a source, so prune_retired
-# already removes them; they need no entry and the list is now empty by default.
+# already removes them. The completed monk cutover is explicit because worker
+# templates carry `@` and are otherwise deliberately skipped by generic pruning.
 RETIRED_UNITS=(
+  garden-gardener@.service
 )
 
 # True for a unit kept out of the auto-enable set AND out of pruning: either the
@@ -182,7 +184,7 @@ intended_units() {
 #
 # Skips, by the SAME rules intended_units uses:
 #   * template files/instances (basename contains '@'): a template's source IS
-#     the @.service/@.timer file, and an enabled instance (garden-gardener@7) has
+#     the @.service/@.timer file, and an enabled instance (garden-monk@7) has
 #     no own source — neither must be pruned.
 #   * is_excluded units (monitoring-gated EXCLUDED_UNITS, or deliberately-paused
 #     PAUSED_UNITS): these ship a source under $SRC anyway, so the source check
@@ -221,7 +223,7 @@ prune_retired() {
 }
 
 # render_worker_units — render the ONE worker template (garden-worker@.service.in)
-# into a per-kind instance unit (garden-gardener@.service, garden-cleric@.service),
+# into a per-kind instance unit (garden-monk@.service, garden-cleric@.service),
 # substituting @GARDEN_ROOT@ and @WORKER_KIND@. This is the factored spine's systemd
 # half: the two pools share one source, differing only by the substituted kind, so
 # they cannot drift on KillMode/TimeoutStopSec/memory confinement. The `.in` suffix
@@ -232,7 +234,7 @@ render_worker_units() {
   local tmpl="$SRC/garden-worker@.service.in" kind unit_base
   [ -e "$tmpl" ] || { log "WARN: worker template $tmpl missing; no worker units rendered"; return 0; }
   for kind in $(worker_kinds); do
-    unit_base="$(worker_kind_field "$kind" unit)"   # garden-gardener@ / garden-cleric@
+    unit_base="$(worker_kind_field "$kind" unit)"   # garden-monk@ / garden-cleric@
     sed -e "s#@GARDEN_ROOT@#$GARDEN_ROOT#g" -e "s#@WORKER_KIND@#$kind#g" \
       "$tmpl" > "$DEST/${unit_base}.service"
   done
@@ -307,19 +309,19 @@ reconcile_ollama_unit() {
 
 scale() {
   # scale [<kind>] <N> — reconcile the <kind> worker pool to N instances. The kind
-  # is OPTIONAL and defaults to gardener, so the historical `scale <N>` (and every
+  # is OPTIONAL and defaults to monk, so `scale <N>` selects the canonical
   # caller and test that predates the cleric) is unchanged. The unit-instance prefix
   # and the busy-marker namespace are derived from the worker-kind registry, so this
   # ONE function scales every kind with no duplicated enable/disable logic.
   # A leading arg that names a KNOWN worker kind (worker_kinds registry) is the kind;
-  # otherwise it is N and the kind defaults to gardener (the historical `scale <N>`,
-  # unchanged). Testing membership rather than hardcoding gardener|cleric means a new
+  # otherwise it is N and the kind defaults to monk. Testing membership rather than
+  # hardcoding monk|cleric means a new
   # kind (hermit, …) is scalable the moment it is registered — no edit needed here.
   local kind n first="${1:-}"
   if [ -n "$first" ] && worker_kinds | grep -qx "$first"; then
     kind="$first"; n="${2:?usage: install-units.sh scale [<kind>] <N>}"
   else
-    kind="gardener"; n="${1:?usage: install-units.sh scale [<kind>] <N>}"
+    kind="monk"; n="${1:?usage: install-units.sh scale [<kind>] <N>}"
   fi
   # RETIRED LANE pin (2026-09-13 maintainer decision, job
   # retire-local-qwen-hermit-lane): the local-qwen `hermit` lane is dropped. Clamp its
@@ -331,7 +333,7 @@ scale() {
     log "hermit lane retired 2026-09-13; pinning count 0 (requested $n ignored)"
     n=0
   fi
-  local unit_base; unit_base="$(worker_kind_field "$kind" unit)"   # garden-gardener@ / garden-cleric@ / garden-hermit@
+  local unit_base; unit_base="$(worker_kind_field "$kind" unit)"   # garden-monk@ / garden-cleric@ / garden-hermit@
   # Enable + start each intended worker, split into the cheap synchronous file op
   # and the slow start job so neither blocks the reconcile loop. `enable` just
   # writes the persistent symlink — it does NOT wait on the unit's start job — so it
@@ -396,12 +398,12 @@ scale() {
 # identity has drifted from this host's authoritative identity ($GARDEN — the
 # single canonical per-host knob, which in the stock container is the kernel-fixed
 # `hostname -s`). The scaler reconciles pool SIZE by instance index but is blind to
-# this: a long-lived garden-gardener@N inherits GARDEN once at spawn, so after a
+# this: a long-lived garden-monk@N inherits GARDEN once at spawn, so after a
 # host-identity correction (e.g. removing a stale `GARDEN=endolinbot2` override)
 # the already-running worker keeps the STALE value, keeps keying phantom
 # hosts/<stale> worker-count state, writes journal-index entries under a host that
 # should not exist, and evaluates is-main-host against the wrong name — until a
-# manual mass `restart garden-gardener@*`. This makes the correction propagate
+# manual mass `restart garden-monk@*`. This makes the correction propagate
 # deterministically on the next 1-minute scaler tick instead.
 #
 # The restart is gated on the SAME busy marker the scale-down defers on

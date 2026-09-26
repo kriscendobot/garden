@@ -140,7 +140,7 @@ grep -q 'is_main_host' "$JOBS/watchman.sh" \
 
 # ============================================================================
 hr; echo "EVERY-HOST — gardeners and local-infra are NOT gated"; hr
-for u in garden-gardener@ garden-gardener-scaler garden-upgrade-monitor \
+for u in garden-monk@ garden-gardener-scaler garden-upgrade-monitor \
          garden-clone-keeper garden-journal-worktree-keeper garden-repo-watcher garden-unblock; do
   f="$SRC/$u.service"; [ -e "$f" ] || { ok "$u.service absent (nothing to gate)"; continue; }
   grep -q 'is-main-host.sh' "$f" \

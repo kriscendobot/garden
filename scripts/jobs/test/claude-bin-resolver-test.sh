@@ -287,7 +287,7 @@ env GARDEN="envhost" GARDEN_STATE="$TR/gstate" \
     GARDEN_JOB_HANDLER="$HERE/signal-kill-handler-stub.sh" \
     "$JOBS/gardener.sh" 1 > "$TR/gardener.log" 2>&1 || true
 
-CLONE="$TR/gstate/gardeners/1/journal"
+CLONE="$TR/gstate/monks/1/journal"
 
 if [ -s "$TR/sentinel" ]; then
   ok "handler ran and flushed non-empty output before the environmental exit"

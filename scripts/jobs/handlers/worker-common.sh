@@ -2,7 +2,7 @@
 # worker-common.sh — the SHARED half of every worker job handler.
 #
 # The worker spine (gardener.sh) is backend-pluggable via GARDEN_JOB_HANDLER; the
-# two production handlers, handlers/gardener-claude.sh (claude) and
+# two production handlers, handlers/monk-claude.sh (claude) and
 # handlers/cleric-codex.sh (codex), differ ONLY in the CLI they drive. Everything
 # that must NOT drift between them — the per-job worktree lifecycle, the
 # injection-hygiene prompt text, the worktree note, and the completion contract —

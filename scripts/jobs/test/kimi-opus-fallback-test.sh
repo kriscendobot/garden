@@ -204,8 +204,8 @@ else
   git -C "$GROOT" init -q; git -C "$GROOT" config user.email t@localhost; git -C "$GROOT" config user.name test
   cp "$JOBS/common.sh" "$JOBS/usage-meter.sh" "$JOBS/quota-panel.sh" "$JOBS/reputation.sh" "$GROOT/scripts/jobs/" 2>/dev/null
   # gardener-claude.sh forwards to monk-claude.sh (the real Anthropic handler); copy both.
-  cp "$JOBS/handlers/gardener-claude.sh" "$JOBS/handlers/monk-claude.sh" "$JOBS/handlers/worker-common.sh" "$GROOT/scripts/jobs/handlers/"
-  chmod +x "$GROOT/scripts/jobs/handlers/gardener-claude.sh" "$GROOT/scripts/jobs/handlers/monk-claude.sh"
+  cp "$JOBS/handlers/monk-claude.sh" "$JOBS/handlers/monk-claude.sh" "$JOBS/handlers/worker-common.sh" "$GROOT/scripts/jobs/handlers/"
+  chmod +x "$GROOT/scripts/jobs/handlers/monk-claude.sh" "$GROOT/scripts/jobs/handlers/monk-claude.sh"
   printf '# gardener role (test stub)\n' > "$GROOT/roles/gardener/AGENT.md"
   printf '/scratch/\n' > "$GROOT/.gitignore"
   git -C "$GROOT" add -A; git -C "$GROOT" commit -qm init; git -C "$GROOT" branch -M main2
@@ -253,7 +253,7 @@ FAKE
     GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STALE_HANDLER_KILL_GRACE=1 \
     GARDEN_COMPLETION_SENTINEL="$SENTINEL" GARDEN_USAGE_FILE="$TR/dusage.json" FAKE_COMPLETION_MARKER="$MARKER" \
     FAKE_MODE_OUT="$TR/dmode.out" FAKE_MODEL_OUT="$TR/dmodel.out" FAKE_LEFTOVER_OUT="$TR/dleftover.out" \
-    bash "$GROOT/scripts/jobs/handlers/gardener-claude.sh" "$BASE" "$JOB" "$REPORT"; drc=$?
+    bash "$GROOT/scripts/jobs/handlers/monk-claude.sh" "$BASE" "$JOB" "$REPORT"; drc=$?
 
   [ "$drc" -eq 0 ] && ok "D handler exits 0 on the re-routed opus job" || bad "D handler rc=$drc"
   [ "$(cat "$TR/dmode.out" 2>/dev/null)" = fresh ] \

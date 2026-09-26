@@ -162,7 +162,7 @@ env -i PATH="$PATH" HOME="$HOME" GARDEN_TEST=1 GARDEN_ROOT="$ROOT" JOURNAL_REMOT
 # ============================================================================
 hr; echo "HOST AUTHORITY — an arbitrary garden host's benign op is accepted"; hr
 : > "$REC_LOG"; : > "$ACK_LOG"; : > "$TR/mock-log"; : > "$TR/mock-state"
-seed_op "$EVIL" "$TARGET" op=set-workers kind=gardener count=5
+seed_op "$EVIL" "$TARGET" op=set-workers kind=monk count=5
 run_sysop "$TR/s-evil"
 grep -q 'set-workers gardener 5' "$REC_LOG" \
   && ok "arbitrary from_host delegated set-workers to the addressed host" \
@@ -173,7 +173,7 @@ grep -q 'sysop_ack: accepted-and-applied' "$ACK_LOG" \
 # ============================================================================
 hr; echo "APPLY — set-workers (benign) delegates to set-workers.sh on this host"; hr
 : > "$REC_LOG"; : > "$ACK_LOG"
-seed_op "$ISSUER" "$TARGET" op=set-workers kind=gardener count=2
+seed_op "$ISSUER" "$TARGET" op=set-workers kind=monk count=2
 run_sysop "$TR/s-sw"
 grep -q 'set-workers gardener 2' "$REC_LOG" \
   && ok "set-workers gardener=2 delegated to set-workers.sh (kind count, no host arg)" \
@@ -223,7 +223,7 @@ seed_op "$ISSUER" "$TARGET" op=frobnicate
 run_sysop "$TR/s-unknown"
 grep -q 'sysop_ack: refused' "$ACK_LOG" && ok "unknown op 'frobnicate' refused + acked" || bad "unknown op not refused"
 : > "$ACK_LOG"
-seed_op "$ISSUER" "$TARGET" op=set-workers kind=gardener count=notanumber
+seed_op "$ISSUER" "$TARGET" op=set-workers kind=monk count=notanumber
 run_sysop "$TR/s-parse"
 grep -q 'sysop_ack: parse-error' "$ACK_LOG" && ok "invalid set-workers count → parse-error ack" || bad "bad count not a parse-error"
 
@@ -263,7 +263,7 @@ run_sysop "$TR/s-deploy"
 hr; echo "IDEMPOTENT — a replayed message is not double-applied"; hr
 : > "$REC_LOG"; : > "$ACK_LOG"
 RS="$TR/s-replay"
-seed_op "$ISSUER" "$TARGET" op=set-workers kind=gardener count=3
+seed_op "$ISSUER" "$TARGET" op=set-workers kind=monk count=3
 run_sysop "$RS"          # first tick: applies
 run_sysop "$RS"          # second tick (same state): must skip via seen-marker
 n="$(grep -c 'set-workers' "$REC_LOG")"
@@ -287,11 +287,11 @@ hr; echo "DoD END-TO-END — set another host's gardeners count from a different
 # lands in the journal hosts/<TARGET> — proving the cross-host guard is SATISFIED by
 # running ON the target (set-workers writes hosts/<its-own-GARDEN>), never bypassed.
 : > "$ACK_LOG"
-seed_op "$ISSUER" "$TARGET" op=set-workers kind=gardener count=2
+seed_op "$ISSUER" "$TARGET" op=set-workers kind=monk count=2
 run_sysop "$TR/s-e2e" GARDEN_SYSOP_SET_WORKERS="$JOBS/set-workers.sh"
 hb="$(from_bare "hosts/$TARGET")"
-if grep -q '^gardeners: 2' <<<"$hb"; then
-  ok "hosts/$TARGET updated to gardeners: 2 via the real set-workers.sh (pool reconcile follows on B)"
+if grep -q '^monks: 2' <<<"$hb"; then
+  ok "hosts/$TARGET updated to monks: 2 via the real set-workers.sh (pool reconcile follows on B)"
 else
   bad "hosts/$TARGET not updated (got: $(tr '\n' ' ' <<<"$hb"))"
 fi
@@ -308,7 +308,7 @@ export GARDEN_UNIT_CTL="$MOCK" GARDEN_MOCK_STATE="$ETR/armed" GARDEN_MOCK_LOG="$
 : > "$GARDEN_MOCK_STATE"; : > "$GARDEN_MOCK_LOG"
 export XDG_CONFIG_HOME="$ETR/config"; DEST="$XDG_CONFIG_HOME/systemd/user"; rm -rf "$DEST"; mkdir -p "$DEST"
 for f in "$SRC"/garden-*.service "$SRC"/garden-*.timer; do [ -e "$f" ] && cp "$f" "$DEST/$(basename "$f")"; done
-[ -e "$SRC/garden-worker@.service.in" ] && sed -e "s#@GARDEN_ROOT@#$ROOT#g" -e "s#@WORKER_KIND@#gardener#g" "$SRC/garden-worker@.service.in" > "$DEST/garden-gardener@.service"
+[ -e "$SRC/garden-worker@.service.in" ] && sed -e "s#@GARDEN_ROOT@#$ROOT#g" -e "s#@WORKER_KIND@#gardener#g" "$SRC/garden-worker@.service.in" > "$DEST/garden-monk@.service"
 # Run as a FOLLOWER: GARDEN != GARDEN_LEADER.
 GARDEN="$TARGET" GARDEN_LEADER="$ISSUER" "$JOBS/install-units.sh" enable-services >/dev/null 2>&1
 grep -qxF 'garden-sysop.timer' "$GARDEN_MOCK_STATE" \

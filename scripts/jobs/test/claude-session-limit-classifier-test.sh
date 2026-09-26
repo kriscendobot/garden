@@ -174,7 +174,7 @@ env GARDEN="caphost" GARDEN_STATE="$TR/state" \
     GARDEN_JOB_HANDLER="$HERE/claude-session-limit-handler-stub.sh" \
     "$JOBS/gardener.sh" 1 > "$TR/gardener.log" 2>&1 || true
 
-CLONE="$TR/state/gardeners/1/journal"
+CLONE="$TR/state/monks/1/journal"
 
 # (a) classified TRANSIENT: the gardener logged the transient-outage verdict line.
 # The transient branch's log line reads "handler outage for '<base>' looks
@@ -271,7 +271,7 @@ env GARDEN="clobberhost" GARDEN_ROOT="$CR/root" GARDEN_STATE="$CR/state" \
     GARDEN_JOB_HANDLER="$HERE/claude-session-limit-handler-stub.sh" \
     "$CR/root/scripts/jobs/gardener.sh" 1 > "$CR/gardener.log" 2>&1 || true
 
-CCLONE="$CR/state/gardeners/1/journal"
+CCLONE="$CR/state/monks/1/journal"
 
 # (a) the fail-safe fired and NAMED the missing helper (greppable, not a bare
 # bash `command not found` buried in the unit log).

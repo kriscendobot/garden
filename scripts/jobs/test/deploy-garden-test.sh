@@ -77,7 +77,7 @@ setup_fixture() {
   git clone -q --branch main2 "$BARE" "$TR/root"
   mkdir -p "$TR/state" "$TR/config"
   : > "$TR/armed"; : > "$TR/log"
-  printf '%s\n' garden-gardener@1.service garden-gardener@2.service garden-bulletin.service > "$TR/armed"
+  printf '%s\n' garden-monk@1.service garden-monk@2.service garden-bulletin.service > "$TR/armed"
 }
 
 # push a commit to origin/main2 (advancing it ahead of ROOT).
@@ -151,8 +151,8 @@ run_deploy
 [ "$(root_head)" = "$target" ] && ok "root fast-forwarded to origin/main2" || bad "root not advanced"
 [ "$(deployed_marker)" = "$target" ] && ok "deployed-sha marker recorded = new HEAD" || bad "deployed marker '$(deployed_marker)' != '$target'"
 draining && bad "drain marker still present after a successful deploy" || ok "drain lifted after deploy"
-log_has "restart garden-gardener@1.service" && ok "gardener 1 restarted (re-exec onto new code)" || bad "gardener 1 NOT restarted"
-log_has "restart garden-gardener@2.service" && ok "gardener 2 restarted (no busy-gate post-quiesce)" || bad "gardener 2 NOT restarted"
+log_has "restart garden-monk@1.service" && ok "gardener 1 restarted (re-exec onto new code)" || bad "gardener 1 NOT restarted"
+log_has "restart garden-monk@2.service" && ok "gardener 2 restarted (no busy-gate post-quiesce)" || bad "gardener 2 NOT restarted"
 log_has "restart garden-bulletin.service" && ok "bulletin restarted" || bad "bulletin NOT restarted"
 grep -q "fleet quiesced" <<<"$OUT" && ok "quiesce reached (no mid-job gardeners)" || bad "quiesce not logged"
 
@@ -313,10 +313,10 @@ grep -q restart "$TR/log" && bad "restarted on a no-op deploy" || ok "no restart
 # ============================================================================
 hr; echo "QUIESCE-WAIT — a busy gardener clears mid-wait, then the deploy proceeds"; hr
 setup_fixture
-mkdir -p "$TR/state/gardeners/2"; : > "$TR/state/gardeners/2/busy"   # gardener 2 mid-job
+mkdir -p "$TR/state/monks/2"; : > "$TR/state/monks/2/busy"   # gardener 2 mid-job
 origin_commit scripts/jobs/worker-lib.sh "echo new2" "fix: worker-lib 2"
 target="$(origin_head)"
-( sleep 2; rm -f "$TR/state/gardeners/2/busy" ) &   # it finishes 2s in
+( sleep 2; rm -f "$TR/state/monks/2/busy" ) &   # it finishes 2s in
 run_deploy GARDEN_DEPLOY_DRAIN_TIMEOUT=30 GARDEN_DEPLOY_POLL=1
 wait
 [ "$RC" -eq 0 ] && ok "exit 0 once the fleet quiesced" || bad "exit $RC: $OUT"
@@ -326,7 +326,7 @@ grep -q "waiting for 1 mid-job gardener" <<<"$OUT" && ok "the wait loop logged t
 # ============================================================================
 hr; echo "QUIESCE-TIMEOUT — a busy gardener that never clears aborts, drain lifted"; hr
 setup_fixture
-mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"   # never cleared
+mkdir -p "$TR/state/monks/1"; : > "$TR/state/monks/1/busy"   # never cleared
 origin_commit scripts/jobs/worker-lib.sh "echo new3" "fix: worker-lib 3"
 before="$(root_head)"
 run_deploy GARDEN_DEPLOY_DRAIN_TIMEOUT=1 GARDEN_DEPLOY_POLL=1
@@ -346,8 +346,8 @@ hr; echo "LONG-JOB DEFER — a long mid-job gardener defers WITHOUT pausing the 
 # the drain: a gardener already mid-job past the threshold defers the deploy with
 # the drain NEVER engaged (the fleet is never paused), exit 0, nothing advanced.
 setup_fixture
-mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"
-touch -d "10 minutes ago" "$TR/state/gardeners/1/busy"   # a long job: busy 600s
+mkdir -p "$TR/state/monks/1"; : > "$TR/state/monks/1/busy"
+touch -d "10 minutes ago" "$TR/state/monks/1/busy"   # a long job: busy 600s
 origin_commit scripts/jobs/worker-lib.sh "echo newdefer" "fix: worker-lib defer"
 before="$(root_head)"
 run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
@@ -370,8 +370,8 @@ else bad "no/garbled deferral record: $(cat "$TR/state/deploy/deferred" 2>&1)"; 
 # path's full-budget wait + abort), and the quiesce drain is left in place.
 setup_fixture
 printf 'draining\nsource: rolling-deploy-quiesce\nreason: rolling-deploy: quiesce for deploy\n' > "$TR/state/draining"
-mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"
-touch -d "10 minutes ago" "$TR/state/gardeners/1/busy"
+mkdir -p "$TR/state/monks/1"; : > "$TR/state/monks/1/busy"
+touch -d "10 minutes ago" "$TR/state/monks/1/busy"
 origin_commit scripts/jobs/worker-lib.sh "echo newquiesce" "fix: worker-lib quiesce"
 before="$(root_head)"
 run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
@@ -387,8 +387,8 @@ grep -q 'source: rolling-deploy-quiesce' "$TR/state/draining" 2>/dev/null && ok 
 # preserving the operator's drain.
 setup_fixture
 : > "$TR/state/draining"                                  # operator pre-drained
-mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"
-touch -d "10 minutes ago" "$TR/state/gardeners/1/busy"
+mkdir -p "$TR/state/monks/1"; : > "$TR/state/monks/1/busy"
+touch -d "10 minutes ago" "$TR/state/monks/1/busy"
 origin_commit scripts/jobs/worker-lib.sh "echo newdefer2" "fix: worker-lib defer2"
 run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=1 GARDEN_DEPLOY_POLL=1
 [ "$RC" -ne 0 ] && ok "operator-pre-drained long job aborts (defer check skipped)" || bad "exit 0 despite operator pre-drain + stuck fleet"
@@ -401,8 +401,8 @@ hr; echo "LONG-JOB DEFER (MID-DRAIN) — a job that crosses the threshold while 
 # that then grows past it mid-wait must lift the drain and defer the moment it
 # crosses, rather than hold the fleet paused for the rest of the budget.
 setup_fixture
-mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"
-touch -d "4 seconds ago" "$TR/state/gardeners/1/busy"    # age 4 < threshold 5 at the check
+mkdir -p "$TR/state/monks/1"; : > "$TR/state/monks/1/busy"
+touch -d "4 seconds ago" "$TR/state/monks/1/busy"    # age 4 < threshold 5 at the check
 origin_commit scripts/jobs/worker-lib.sh "echo newmid" "fix: worker-lib mid"
 before="$(root_head)"
 run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=5 GARDEN_DEPLOY_DRAIN_TIMEOUT=30 GARDEN_DEPLOY_POLL=1
@@ -428,46 +428,46 @@ hr; echo "STALE BUSY MARKER — an INACTIVE gardener's marker is swept, not hono
 
 # (a) A stale marker alone must NOT defer: it is swept and the deploy proceeds.
 setup_fixture
-mkdir -p "$TR/state/gardeners/55"; : > "$TR/state/gardeners/55/busy"
-touch -d "10 minutes ago" "$TR/state/gardeners/55/busy"   # old enough to be a "long job" IF honored
+mkdir -p "$TR/state/monks/55"; : > "$TR/state/monks/55/busy"
+touch -d "10 minutes ago" "$TR/state/monks/55/busy"   # old enough to be a "long job" IF honored
 origin_commit scripts/jobs/worker-lib.sh "echo newstale" "fix: worker-lib stale"
 target="$(origin_head)"
 run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=30 GARDEN_DEPLOY_POLL=1
 [ "$RC" -eq 0 ] && ok "exit 0 (a stale marker did not defer)" || bad "exit $RC: $OUT"
 grep -q "DEFERRED" <<<"$OUT" && bad "DEFERRED on a stale marker (should be swept, not honored)" || ok "not deferred on a stale marker"
 grep -q "swept STALE busy marker: gardener 55" <<<"$OUT" && ok "the stale marker sweep is logged (id + age)" || bad "stale sweep not logged: $OUT"
-[ ! -e "$TR/state/gardeners/55/busy" ] && ok "the stale busy marker was removed" || bad "stale marker lingered"
+[ ! -e "$TR/state/monks/55/busy" ] && ok "the stale busy marker was removed" || bad "stale marker lingered"
 [ "$(root_head)" = "$target" ] && ok "root advanced (deploy proceeded past the stale marker)" || bad "root not advanced: $OUT"
 grep -q "fleet quiesced" <<<"$OUT" && ok "quiesce reached (stale marker not counted)" || bad "quiesce not reached: $OUT"
 
 # (b) An ACTIVE gardener's long-job marker is honored exactly as before: it defers
 # and is NOT swept.
 setup_fixture
-mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"   # gardener 1 IS armed → active
-touch -d "10 minutes ago" "$TR/state/gardeners/1/busy"
+mkdir -p "$TR/state/monks/1"; : > "$TR/state/monks/1/busy"   # gardener 1 IS armed → active
+touch -d "10 minutes ago" "$TR/state/monks/1/busy"
 origin_commit scripts/jobs/worker-lib.sh "echo newactive" "fix: worker-lib active"
 before="$(root_head)"
 run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
 [ "$RC" -eq 0 ] && ok "exit 0 on an active long job (deferred, not a failure)" || bad "exit $RC: $OUT"
 grep -q "DEFERRED: gardener 1" <<<"$OUT" && ok "the active gardener still defers (honored as before)" || bad "active gardener not honored: $OUT"
 grep -q "swept STALE" <<<"$OUT" && bad "swept an ACTIVE gardener's marker!" || ok "an active marker is never swept"
-[ -e "$TR/state/gardeners/1/busy" ] && ok "the active gardener's marker is preserved" || bad "active marker was removed"
+[ -e "$TR/state/monks/1/busy" ] && ok "the active gardener's marker is preserved" || bad "active marker was removed"
 [ "$(root_head)" = "$before" ] && ok "root NOT advanced (deferred by the live long job)" || bad "root advanced despite a live long job"
 
 # (c) MIXED — one stale + one live: the live one governs, the stale one is swept.
 setup_fixture
-mkdir -p "$TR/state/gardeners/1"; : > "$TR/state/gardeners/1/busy"    # live long job (armed → active)
-touch -d "10 minutes ago" "$TR/state/gardeners/1/busy"
-mkdir -p "$TR/state/gardeners/55"; : > "$TR/state/gardeners/55/busy"  # stale, even older, NOT armed
-touch -d "20 minutes ago" "$TR/state/gardeners/55/busy"
+mkdir -p "$TR/state/monks/1"; : > "$TR/state/monks/1/busy"    # live long job (armed → active)
+touch -d "10 minutes ago" "$TR/state/monks/1/busy"
+mkdir -p "$TR/state/monks/55"; : > "$TR/state/monks/55/busy"  # stale, even older, NOT armed
+touch -d "20 minutes ago" "$TR/state/monks/55/busy"
 origin_commit scripts/jobs/worker-lib.sh "echo newmix" "fix: worker-lib mix"
 before="$(root_head)"
 run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
 [ "$RC" -eq 0 ] && ok "exit 0 (deferred by the LIVE long job, not the stale one)" || bad "exit $RC: $OUT"
 grep -q "DEFERRED: gardener 1" <<<"$OUT" && ok "the LIVE gardener 1 governs the deferral (stale 55 excluded)" || bad "live gardener did not govern: $OUT"
 grep -q "swept STALE busy marker: gardener 55" <<<"$OUT" && ok "the stale gardener 55 marker was swept in the mixed case" || bad "stale marker not swept in mixed case: $OUT"
-[ ! -e "$TR/state/gardeners/55/busy" ] && ok "the stale marker was removed in the mixed case" || bad "stale marker lingered in mixed case"
-[ -e "$TR/state/gardeners/1/busy" ] && ok "the live gardener's marker is preserved in the mixed case" || bad "the live marker was swept!"
+[ ! -e "$TR/state/monks/55/busy" ] && ok "the stale marker was removed in the mixed case" || bad "stale marker lingered in mixed case"
+[ -e "$TR/state/monks/1/busy" ] && ok "the live gardener's marker is preserved in the mixed case" || bad "the live marker was swept!"
 [ "$(root_head)" = "$before" ] && ok "root NOT advanced in the mixed case (live long job defers)" || bad "root advanced despite the live long job"
 
 # ============================================================================
@@ -562,15 +562,15 @@ hr; echo "CONCURRENT FLEET RESTART — every active gardener restarts in one wav
 # restart for EVERY active gardener (not stop at the first), and the restarts run
 # concurrently so the per-unit stop windows overlap rather than sum.
 setup_fixture
-printf '%s\n' garden-gardener@1.service garden-gardener@2.service \
-             garden-gardener@3.service garden-gardener@4.service \
-             garden-gardener@5.service garden-bulletin.service > "$TR/armed"
+printf '%s\n' garden-monk@1.service garden-monk@2.service \
+             garden-monk@3.service garden-monk@4.service \
+             garden-monk@5.service garden-bulletin.service > "$TR/armed"
 origin_commit scripts/jobs/worker-lib.sh "echo newfleet" "fix: worker-lib fleet"
 run_deploy
 [ "$RC" -eq 0 ] && ok "exit 0 on the multi-gardener deploy" || bad "exit $RC: $OUT"
 allrestarted=1
 for n in 1 2 3 4 5; do
-  grep -qF "restart garden-gardener@$n.service" "$TR/log" || { allrestarted=0; break; }
+  grep -qF "restart garden-monk@$n.service" "$TR/log" || { allrestarted=0; break; }
 done
 [ "$allrestarted" -eq 1 ] && ok "all 5 gardeners restarted (none skipped)" || bad "not every gardener restarted: $(cat "$TR/log")"
 grep -q "restart complete: restarted=6 " <<<"$OUT" && ok "restart count = 6 (5 gardeners + bulletin)" || bad "restart count wrong: $(grep 'restart complete' <<<"$OUT")"
@@ -580,14 +580,14 @@ hr; echo "RESTART FAILURE ISOLATION — one failing unit is counted, the rest re
 # A single unit whose restart fails must NOT abort the wave: the others still
 # restart and the failure is accounted (failed=1), not fatal to the deploy.
 setup_fixture
-printf '%s\n' garden-gardener@1.service garden-gardener@2.service \
-             garden-gardener@3.service > "$TR/armed"
+printf '%s\n' garden-monk@1.service garden-monk@2.service \
+             garden-monk@3.service > "$TR/armed"
 origin_commit scripts/jobs/worker-lib.sh "echo newiso" "fix: worker-lib iso"
-run_deploy GARDEN_MOCK_FAIL_UNIT=garden-gardener@2.service
+run_deploy GARDEN_MOCK_FAIL_UNIT=garden-monk@2.service
 [ "$RC" -eq 0 ] && ok "deploy still succeeds despite one failed unit restart" || bad "exit $RC: $OUT"
-grep -qF "restart garden-gardener@1.service" "$TR/log" && grep -qF "restart garden-gardener@3.service" "$TR/log" \
+grep -qF "restart garden-monk@1.service" "$TR/log" && grep -qF "restart garden-monk@3.service" "$TR/log" \
   && ok "the non-failing gardeners still restarted" || bad "a sibling restart was skipped after the failure"
-grep -q "WARN: restart of garden-gardener@2.service failed" <<<"$OUT" && ok "the failed unit is logged as a WARN" || bad "failed unit not logged"
+grep -q "WARN: restart of garden-monk@2.service failed" <<<"$OUT" && ok "the failed unit is logged as a WARN" || bad "failed unit not logged"
 grep -q "restart complete: restarted=2 deferred(mid-job)=0 failed=1 " <<<"$OUT" && ok "accounting: restarted=2 failed=1" || bad "accounting wrong: $(grep 'restart complete' <<<"$OUT")"
 
 # ============================================================================
@@ -598,7 +598,7 @@ hr; echo "COHERENT-RELEASE BOUNDARY — active timers are frozen BEFORE the swap
 # timer-driven oneshot starts while the tree is half-swapped, then thaws them (start)
 # onto the coherent new tree. The mock's armed set stands in for active units.
 setup_fixture
-printf '%s\n' garden-gardener@1.service garden-bulletin.service \
+printf '%s\n' garden-monk@1.service garden-bulletin.service \
              garden-reaper.timer garden-scheduler.timer > "$TR/armed"
 origin_commit scripts/jobs/worker-lib.sh "echo newboundary" "fix: worker-lib boundary"
 target="$(origin_head)"
@@ -615,7 +615,7 @@ log_has "start garden-scheduler.timer" && ok "scheduler timer thawed (started)" 
 # logged before its start, and before the fleet re-execs onto the new code.
 stop_ln="$(grep -n 'stop garden-reaper.timer' "$TR/log" | head -1 | cut -d: -f1)"
 start_ln="$(grep -n 'start garden-reaper.timer' "$TR/log" | head -1 | cut -d: -f1)"
-restart_ln="$(grep -n 'restart garden-gardener@1.service' "$TR/log" | head -1 | cut -d: -f1)"
+restart_ln="$(grep -n 'restart garden-monk@1.service' "$TR/log" | head -1 | cut -d: -f1)"
 { [ -n "$stop_ln" ] && [ -n "$start_ln" ] && [ "$stop_ln" -lt "$start_ln" ]; } \
   && ok "the timer freeze (stop) precedes its thaw (start)" || bad "freeze did not precede thaw ($stop_ln vs $start_ln)"
 { [ -n "$stop_ln" ] && [ -n "$restart_ln" ] && [ "$stop_ln" -lt "$restart_ln" ]; } \
@@ -624,7 +624,7 @@ grep -q "verified coherent release" <<<"$OUT" && ok "coherent release verified a
 
 # A deploy with NO active timers establishes the boundary trivially and still deploys.
 setup_fixture
-printf '%s\n' garden-gardener@1.service garden-bulletin.service > "$TR/armed"
+printf '%s\n' garden-monk@1.service garden-bulletin.service > "$TR/armed"
 origin_commit scripts/jobs/worker-lib.sh "echo notimers" "fix: worker-lib no timers"
 target="$(origin_head)"
 run_deploy
@@ -638,7 +638,7 @@ hr; echo "BOUNDARY RECOVERY — an unstoppable timer falls back to the inode-saf
 # established. The default recovery is to still deploy via the inode-safe per-file
 # swap (never wedge undeployable), with a loud WARN + a maintainer alert.
 setup_fixture
-printf '%s\n' garden-gardener@1.service garden-reaper.timer > "$TR/armed"
+printf '%s\n' garden-monk@1.service garden-reaper.timer > "$TR/armed"
 origin_commit scripts/jobs/worker-lib.sh "echo newfallback" "fix: worker-lib fallback"
 target="$(origin_head)"
 run_deploy GARDEN_MOCK_HANG_UNIT=garden-reaper.timer GARDEN_UNIT_CTL_TIMEOUT=2
@@ -652,7 +652,7 @@ hr; echo "BOUNDARY STRICT — GARDEN_DEPLOY_REQUIRE_BOUNDARY=1 aborts before tou
 # The strict posture: never advance the tree with the timers live. An
 # un-establishable boundary aborts, the tree is untouched, and the drain is lifted.
 setup_fixture
-printf '%s\n' garden-gardener@1.service garden-reaper.timer > "$TR/armed"
+printf '%s\n' garden-monk@1.service garden-reaper.timer > "$TR/armed"
 origin_commit scripts/jobs/worker-lib.sh "echo newstrict" "fix: worker-lib strict"
 before="$(root_head)"
 run_deploy GARDEN_MOCK_HANG_UNIT=garden-reaper.timer GARDEN_UNIT_CTL_TIMEOUT=2 GARDEN_DEPLOY_REQUIRE_BOUNDARY=1

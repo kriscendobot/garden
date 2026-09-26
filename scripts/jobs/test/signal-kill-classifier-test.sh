@@ -107,7 +107,7 @@ env GARDEN="killhost" GARDEN_STATE="$TR/state" \
     GARDEN_JOB_HANDLER_BASH=1 \
     bash "$JOBS/gardener.sh" 1 > "$TR/gardener.log" 2>&1 || true
 
-CLONE="$TR/state/gardeners/1/journal"
+CLONE="$TR/state/monks/1/journal"
 
 # (a) the handler genuinely ran and flushed NON-EMPTY output (to its stdout, which
 # gardener.sh diverts into $capture, AND to $report) before exiting 143 — so the

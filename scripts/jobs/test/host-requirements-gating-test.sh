@@ -50,7 +50,7 @@ n=$(cat "$AWS_PROBE_COUNT" 2>/dev/null || echo 0); n=$((n + 1)); echo "$n" > "$A
 EOF
 chmod +x "$LAPSE"
 env GARDEN=host-b GARDEN_STATE="$TR/post-state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
-  GARDEN_WORKER_KIND=gardener GARDEN_GARDENER_CLONE="$TR/post-clone" \
+  GARDEN_WORKER_KIND=monk GARDEN_GARDENER_CLONE="$TR/post-clone" \
   GARDEN_AWS_VERIFY="$LAPSE" AWS_PROBE_COUNT="$TR/probes" GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=0 \
   GARDEN_JOB_HANDLER="$HERE/stub-handler.sh" "$JOBS/gardener.sh" 1 >"$TR/post.log" 2>&1 || true
 rm -rf "$V"; git clone -q --branch "$BRANCH" "$BARE" "$V"

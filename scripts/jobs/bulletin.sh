@@ -632,7 +632,7 @@ contention_section() {
 # Compute the deterministic dashboard for the current synced state of $DIR and
 # print it to stdout. This is the always-works base; it reuses the v1 board logic.
 compute_dashboard() {
-  local watch hosts_block h g maint m mf rt frm repo link now board parked plan spend contention
+  local watch hosts_block h monks maint m mf rt frm repo link now board parked plan spend contention
   board=$(render_board)
   plan=$(render_plan_queue)
   parked=$(parked_section)
@@ -644,8 +644,8 @@ compute_dashboard() {
 
   hosts_block=""
   for h in $(list_jobs "$DIR" hosts); do
-    g=$(sed -n 's/^gardeners:[[:space:]]*//p' "$DIR/hosts/$h" | head -1)
-    hosts_block+="- [$h]($GARDEN_BLOB_BASE/hosts/$h): ${g:-?} gardeners"$'\n'
+    monks=$(sed -n 's/^monks:[[:space:]]*//p' "$DIR/hosts/$h" | head -1)
+    hosts_block+="- [$h]($GARDEN_BLOB_BASE/hosts/$h): ${monks:-?} monks"$'\n'
   done
   [ -n "$hosts_block" ] || hosts_block="(no hosts configured)"$'\n'
 

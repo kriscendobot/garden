@@ -122,13 +122,13 @@ hr; echo "EVENT — a completed job records ONE reputation event keyed to the ar
 TR="$(mktemp -d "${TMPDIR:-/tmp}/auc-event.XXXXXX")"
 BARE="$(seed_board "$TR" evt-job $'role: builder\nmodel: claude-opus-4-8')"
 env GARDEN=eh GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
-    GARDEN_WORKER_KIND=gardener GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_JOB_HANDLER="$STUB" \
+    GARDEN_WORKER_KIND=monk GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$TR/w.log" 2>&1 || true
 V="$TR/v"; verify_clone "$BARE" "$V"
 if [ -f "$V/reputation/events/evt-job.md" ]; then
   ok "reputation event written on completion (reputation/events/evt-job.md)"
   ef="$V/reputation/events/evt-job.md"
-  [ "$(plan_field "$ef" kind)" = gardener ] && ok "event kind=gardener" || bad "event kind ($(plan_field "$ef" kind))"
+  [ "$(plan_field "$ef" kind)" = gardener ] && ok "event kind=monk" || bad "event kind ($(plan_field "$ef" kind))"
   [ "$(plan_field "$ef" model)" = claude-opus-4-8 ] && ok "event model=claude-opus-4-8 (ran arm)" || bad "event model ($(plan_field "$ef" model))"
   [ "$(plan_field "$ef" work_class)" = build:s ] && ok "event work_class=build:s" || bad "event work_class ($(plan_field "$ef" work_class))"
   [ "$(plan_field "$ef" accepted)" = true ] && ok "internal main2 job accepted=true on tada" || bad "event accepted ($(plan_field "$ef" accepted))"
@@ -625,7 +625,7 @@ hr; echo "RACE-DEGEN — a race/absent job claims with NO bids; 1-bidder bid job
 TR="$(mktemp -d "${TMPDIR:-/tmp}/auc-degen.XXXXXX")"
 BARE="$(seed_board "$TR" raceonly "role: fixer")"    # no market: bid -> pure race
 env GARDEN=dh GARDEN_STATE="$TR/s1" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
-    GARDEN_WORKER_KIND=gardener GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_JOB_HANDLER="$STUB" \
+    GARDEN_WORKER_KIND=monk GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_JOB_HANDLER="$STUB" \
     "$JOBS/gardener.sh" 1 > "$TR/w.log" 2>&1 || true
 V="$TR/v"; verify_clone "$BARE" "$V"
 { [ -f "$V/jobs/tada/raceonly.md" ] && [ ! -d "$V/jobs/bids/raceonly" ]; } \
@@ -643,9 +643,9 @@ BARE="$(seed_board "$TR" quota-route "role: fixer
 market: bid
 bid_window: 120
 posted_at: 2001-09-09T01:46:40Z")"
-export GARDEN_GARDENER_CLONE="$TR/s/gardeners/1/journal"
+export GARDEN_GARDENER_CLONE="$TR/s/monks/1/journal"
 env GARDEN=endolin-garden-ece02cb4 GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
-    GARDEN_WORKER_KIND=gardener GARDEN_AUCTION_NOW=1000000010 \
+    GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=1000000010 \
     "$JOBS/claim-job.sh" 1 > "$TR/claim.log" 2>&1 && qrc=0 || qrc=$?
 V="$TR/v"; verify_clone "$BARE" "$V"
 { [ "$qrc" -eq 0 ] && [ -f "$V/jobs/doin/quota-route.md" ] && ! [ -d "$V/jobs/bids/quota-route" ]; } \
@@ -669,9 +669,9 @@ market: bid
 bid_window: 120
 posted_at: $ISO")"
 # Phase A: window open (now = START+10). Drive claim-job directly for one worker.
-export GARDEN_GARDENER_CLONE="$TR/s/gardeners/1/journal"
+export GARDEN_GARDENER_CLONE="$TR/s/monks/1/journal"
 env GARDEN=oh GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
-    GARDEN_WORKER_KIND=gardener GARDEN_AUCTION_NOW=$((START+10)) \
+    GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$((START+10)) \
     "$JOBS/claim-job.sh" 1 > "$TR/a.log" 2>&1 && arc=0 || arc=$?
 V="$TR/va"; verify_clone "$BARE" "$V"
 { [ "$arc" -eq 3 ] && [ -f "$V/jobs/bids/onebid/gardener-oh-1.md" ] && [ -f "$V/jobs/todo/onebid.md" ]; } \
@@ -679,7 +679,7 @@ V="$TR/va"; verify_clone "$BARE" "$V"
   || bad "open-window bid wrong (rc=$arc bid=$([ -f "$V/jobs/bids/onebid/gardener-oh-1.md" ] && echo y||echo n) todo=$([ -f "$V/jobs/todo/onebid.md" ] && echo y||echo n))"
 # Phase B: window closed (now = START+120+1). The lone bidder is rank 1 -> claims.
 env GARDEN=oh GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
-    GARDEN_WORKER_KIND=gardener GARDEN_AUCTION_NOW=$((START+121)) \
+    GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$((START+121)) \
     "$JOBS/claim-job.sh" 1 > "$TR/b.log" 2>&1 && brc=0 || brc=$?
 V="$TR/vb"; verify_clone "$BARE" "$V"
 { [ "$brc" -eq 0 ] && [ -f "$V/jobs/doin/onebid.md" ]; } \
@@ -699,9 +699,9 @@ bid_window: 120
 posted_at: $ISO")"
 # Three bidders bid during the open window (distinct ids -> distinct bidders).
 for i in 1 2 3; do
-  export GARDEN_GARDENER_CLONE="$TR/s/gardeners/$i/journal"
+  export GARDEN_GARDENER_CLONE="$TR/s/monks/$i/journal"
   env GARDEN=ah GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
-      GARDEN_WORKER_KIND=gardener GARDEN_AUCTION_NOW=$((START+5)) \
+      GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$((START+5)) \
       "$JOBS/claim-job.sh" "$i" > "$TR/bid$i.log" 2>&1 || true
 done
 unset GARDEN_GARDENER_CLONE
@@ -714,9 +714,9 @@ ok "deterministic award rank-1 = $expect1 (pure function of the journal)"
 # Closed window, rank-1-only stage (now = close + 1). Run all three CONCURRENTLY;
 # only rank 1 is eligible, and the push CAS admits exactly one claim.
 for i in 1 2 3; do
-  ( export GARDEN_GARDENER_CLONE="$TR/s/gardeners/$i/journal"
+  ( export GARDEN_GARDENER_CLONE="$TR/s/monks/$i/journal"
     env GARDEN=ah GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
-        GARDEN_WORKER_KIND=gardener GARDEN_AUCTION_NOW=$((START+121)) \
+        GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$((START+121)) \
         "$JOBS/claim-job.sh" "$i" > "$TR/claim$i.log" 2>&1 || true ) &
 done
 wait
@@ -737,18 +737,18 @@ market: bid
 bid_window: 60
 posted_at: $ISO")"
 for i in 1 2 3; do
-  export GARDEN_GARDENER_CLONE="$TR/s/gardeners/$i/journal"
+  export GARDEN_GARDENER_CLONE="$TR/s/monks/$i/journal"
   env GARDEN=yh GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
-      GARDEN_WORKER_KIND=gardener GARDEN_AUCTION_NOW=$((START+5)) \
+      GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$((START+5)) \
       "$JOBS/claim-job.sh" "$i" > /dev/null 2>&1 || true
 done
 unset GARDEN_GARDENER_CLONE
 # now = close + 3*grace + 5 = START+60 + 90 + 5 -> anyone stage (all eligible)
 NOW=$((START+60+3*GARDEN_AUCTION_GRACE+5))
 for i in 1 2 3; do
-  ( export GARDEN_GARDENER_CLONE="$TR/s/gardeners/$i/journal"
+  ( export GARDEN_GARDENER_CLONE="$TR/s/monks/$i/journal"
     env GARDEN=yh GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
-        GARDEN_WORKER_KIND=gardener GARDEN_AUCTION_NOW=$NOW \
+        GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$NOW \
         "$JOBS/claim-job.sh" "$i" > "$TR/c$i.log" 2>&1 || true ) &
 done
 wait

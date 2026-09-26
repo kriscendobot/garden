@@ -9,7 +9,7 @@
 # into it and does all project development there.
 #
 # ── Why this exists (the #58 corruption) ─────────────────────────────────────
-# A v2 gardener is launched by handlers/gardener-claude.sh with its cwd already
+# A v2 gardener is launched by handlers/monk-claude.sh with its cwd already
 # set to a per-job GARDEN worktree ($GARDEN_SCRATCH/gardener-wt-<base>), which is
 # unique per job base and so never shared. But a PR job that mutates a *project*
 # repo (e.g. endojs/endo-but-for-bots) needs a separate checkout of that fork,

@@ -113,7 +113,7 @@ the section below the rule must survive the claim-block cut.
 claim:
   host: parkhost
   gardener: 4
-  worker_kind: gardener
+  worker_kind: monk
   claimed_at: 2026-07-29T00:00:00Z
 EOF
 

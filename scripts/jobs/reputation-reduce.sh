@@ -250,7 +250,7 @@ event_sample() {
 }
 
 write_active_projection() {
-  local rec kind provider model tht wc tgt rel stats att acc cen est mean m2 ar spell srel
+  local rec kind provider model tht wc tgt rel stats att acc cen est mean m2 ar srel
   rec="$(cat "$STATE/active-record")"
   IFS=$'\t' read -r kind provider model tht wc tgt rel <<<"$rec"
   [ -s "$STATE/active.dat" ] || { log "arm '$rel' has no events; leaving its prior projection untouched"; return; }
@@ -264,17 +264,14 @@ write_active_projection() {
       printf "%d %d %d %d %.6f %.6f\n", att+0,acc+0,cen+0,est+0,md,m2+0 }' "$STATE/active.dat")"
   read -r att acc cen est mean m2 <<<"$stats"
   ar="$(awk -v a="$acc" -v t="$att" 'BEGIN{printf "%.4f",(t>0)?a/t:0}')"
-  local -a spellings=("$kind"); case "$kind" in monk) spellings+=(gardener);; gardener) spellings+=(monk);; esac
-  for spell in "${spellings[@]}"; do
-    srel="$(rep_arm_relpath "$spell" "$provider" "$model" "$tht" "$wc" "$tgt")"
+  srel="$(rep_arm_relpath "$kind" "$provider" "$model" "$tht" "$wc" "$tgt")"
     mkdir -p "$DIR/$(dirname "$srel")"
     {
-      printf 'kind: %s\nprovider: %s\nmodel: %s\nthoughtfulness: %s\n' "$spell" "$provider" "$model" "$tht"
+      printf 'kind: %s\nprovider: %s\nmodel: %s\nthoughtfulness: %s\n' "$kind" "$provider" "$model" "$tht"
       printf 'work_class: %s\ntarget: %s\nattempts: %s\naccepts: %s\n' "$wc" "$tgt" "$att" "$acc"
       printf 'censored: %s\nestimated: %s\nmean_dollars: %s\nm2: %s\nacceptance_rate: %s\n' "$cen" "$est" "$mean" "$m2" "$ar"
     } > "$DIR/$srel"
     git -C "$DIR" add "$srel"
-  done
 }
 
 remaining="$EVENT_BUDGET"

@@ -11,7 +11,7 @@
 #
 # Which host is the leader is JOURNAL STATE: this writes the single `leader` file
 # (at the journal root) with the leader's GARDEN identity and CAS-races it onto
-# origin/journal2 the same way set-gardeners.sh writes hosts/<host>. Every host's
+# origin/journal2 the same way set-monks.sh writes hosts/<host>. Every host's
 # is-main-host.sh predicate then reads it. Changing the leader is this one journal
 # edit (by hand) — there is no automatic failover; if the leader dies the
 # singletons stay down until the marker is re-pointed. See issue

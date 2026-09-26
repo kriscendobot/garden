@@ -4,7 +4,7 @@
 # Usage: gardener-scaler.sh
 #
 # The journal's hosts/<host> file declares how many concurrent workers of each KIND
-# this host should run (its local concurrency limits): a `gardeners: N` line and a
+# this host should run (its local concurrency limits): a `monks: N` line and a
 # `clerics: N` line. This ONE timer-driven service — the sibling of repo-watcher, but
 # for worker count rather than the watch set — syncs the journal and scales EVERY
 # worker pool to match by iterating the worker-kind registry (common.sh
@@ -83,22 +83,11 @@ quota_route_active=0
 # Reconcile EACH worker kind independently from its own count line. A kind whose
 # desired count is structurally missing/unparsable is a NO-OP for THAT kind (leave
 # it unchanged and warn), not a scale-to-0 — tearing a pool down is exactly wrong
-# when the signal is absent; only an explicitly-read non-gardener `<count_key>: 0`
+# when the signal is absent; only an explicitly-read `<count_key>: 0`
 # scales a kind to zero. Each kind delegates to the installer's scale path (the same mockable
 # unit_ctl), keeping one place that knows how to enable/disable instances.
-# The two Anthropic spellings (monk canonical, gardener legacy) overlap during the
-# staged rename; NEVER arm both for one capacity slot. Pick the host-active spelling
-# once — `monks:` present wins, else the legacy `gardeners:` — and skip the shadowed
-# one so the scaler arms exactly one Anthropic pool. The shadowed pool is torn down
-# by the per-host cutover command's drained transaction, not here; the scaler only
-# refrains from (re-)arming it, so it can never re-enable a just-disabled legacy pool.
-active_anthropic="$(anthropic_active_kind "$f")"
 
 for kind in $(worker_kinds); do
-  if native_anthropic_kind "$kind" && [ "$kind" != "$active_anthropic" ]; then
-    log "DEBUG host '$host' Anthropic slot is '$active_anthropic'; skipping shadowed kind '$kind' (never both pools armed)"
-    continue
-  fi
   count_key="$(worker_kind_field "$kind" count_key)"
   # read_desired_count (common.sh) distinguishes the three outcomes: a clean parse
   # (status 0) scales; a key-line simply absent from an existing file (status 2) is

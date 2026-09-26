@@ -185,7 +185,7 @@ env GARDEN="hanghost" GARDEN_STATE="$TR/state" \
     GARDEN_JOB_HANDLER="$HERE/timeout-handler-stub.sh" \
     "$JOBS/gardener.sh" 1 > "$TR/gardener.log" 2>&1 || true
 
-CLONE="$TR/state/gardeners/1/journal"
+CLONE="$TR/state/monks/1/journal"
 
 # (a) the timeout wrapper fired — the handler was reported as exiting rc=124.
 if grep -Eq "handler FAILED \(rc=124\)|rc=124" "$TR/gardener.log"; then
@@ -312,7 +312,7 @@ else
   ok "gardener returned without wedging (outer timeout did not fire; --kill-after escalated the stuck handler)"
 fi
 
-CLONE3="$TR3/state/gardeners/1/journal"
+CLONE3="$TR3/state/monks/1/journal"
 
 # (b) the --kill-after escalation surfaced as rc=137.
 if grep -Eq "handler FAILED \(rc=137\)|rc=137" "$TR3/gardener.log"; then
@@ -461,7 +461,7 @@ env JOURNAL_REMOTE="$BARE6" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_JOB_HANDLER="$HERE/timeout-handler-stub.sh" \
     "$JOBS/gardener.sh" 1 > "$TR6/gardener.log" 2>&1 || true
 
-CLONE6="$TR6/state/gardeners/1/journal"
+CLONE6="$TR6/state/monks/1/journal"
 
 # (a) the handler hit its own wall (rc=124) — confirm we are on the deadline-overrun path.
 if grep -Eq "looks transient \(rc=124" "$TR6/gardener.log"; then

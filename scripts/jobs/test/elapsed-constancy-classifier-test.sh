@@ -164,7 +164,7 @@ read -r TR2 BARE2 < <(build_fixture 2 1 0)
 trap 'rm -rf "$TR2"' EXIT
 run_gardener "$BARE2" echost2 "$TR2" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 \
   GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
-CLONE2="$TR2/state/gardeners/1/journal"
+CLONE2="$TR2/state/monks/1/journal"
 
 # (a) still classified TRANSIENT (the base classification is unchanged).
 if grep -Eq "looks transient \(rc=1[,)]" "$TR2/gardener.log"; then
@@ -241,7 +241,7 @@ hr; echo "SUBTEST 3 — disable gate: GARDEN_ELAPSED_CONSTANCY_CYCLES=0 → NO e
 read -r TR3 BARE3 < <(build_fixture 2 1 0)
 trap 'rm -rf "$TR2" "$TR3"' EXIT
 run_gardener "$BARE3" echost3 "$TR3" GARDEN_ELAPSED_CONSTANCY_CYCLES=0
-CLONE3="$TR3/state/gardeners/1/journal"
+CLONE3="$TR3/state/monks/1/journal"
 if grep -q "elapsed-constancy early-escalation" "$TR3/gardener.log"; then
   bad "escalation fired with the check disabled (GARDEN_ELAPSED_CONSTANCY_CYCLES=0)"
 else
@@ -258,7 +258,7 @@ hr; echo "SUBTEST 4 — dedup: a prior escalation entry for the base suppresses 
 read -r TR4 BARE4 < <(build_fixture 2 1 1)
 trap 'rm -rf "$TR2" "$TR3" "$TR4"' EXIT
 run_gardener "$BARE4" echost4 "$TR4" GARDEN_ELAPSED_CONSTANCY_CYCLES=2
-CLONE4="$TR4/state/gardeners/1/journal"
+CLONE4="$TR4/state/monks/1/journal"
 if grep -q "elapsed-constancy early-escalation" "$TR4/gardener.log"; then
   bad "escalation fired again despite a prior overrun-suspect entry for this base"
 else
@@ -276,7 +276,7 @@ read -r TR5 BARE5 < <(build_fixture 0 0 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5"' EXIT
 run_gardener "$BARE5" echost5 "$TR5" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 \
   GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
-CLONE5="$TR5/state/gardeners/1/journal"
+CLONE5="$TR5/state/monks/1/journal"
 # Ordinary transient behavior must be intact: transient verdict, NO inbox escalation.
 if grep -Eq "looks transient \(rc=1[,)]" "$TR5/gardener.log"; then
   ok "first-pass transient failure still classified transient"
@@ -338,7 +338,7 @@ read -r TR6 BARE6 < <(build_fixture 0 0 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6"' EXIT
 run_gardener "$BARE6" echost6 "$TR6" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=30 \
   GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
-CLONE6="$TR6/state/gardeners/1/journal"
+CLONE6="$TR6/state/monks/1/journal"
 # (a) the floor tripped: the reclassification log line names the too-fast signature.
 if grep -q "too fast for a genuine provider cap" "$TR6/gardener.log"; then
   ok "sub-floor signature reclassified a real failure (floor tripped at ~3s < 30s)"
@@ -363,7 +363,7 @@ read -r TR7 BARE7 < <(build_fixture 0 0 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7"' EXIT
 run_gardener "$BARE7" echost7 "$TR7" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=0 \
   GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
-CLONE7="$TR7/state/gardeners/1/journal"
+CLONE7="$TR7/state/monks/1/journal"
 if grep -Eq "looks transient \(rc=1[,)]" "$TR7/gardener.log" && [ ! -e "$CLONE7/inboxes/echost7/gardener.md" ]; then
   ok "floor=0 disables the reclassification (fast signature stays transient, no escalation)"
 else
@@ -382,7 +382,7 @@ hr; echo "SUBTEST 7 — explicit-cap exemption: a sub-floor EXPLICIT session-cap
 read -r TR8 BARE8 < <(build_fixture 0 0 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7" "$TR8"' EXIT
 run_gardener "$BARE8" echost8 "$TR8" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=30
-CLONE8="$TR8/state/gardeners/1/journal"
+CLONE8="$TR8/state/monks/1/journal"
 # (a) the exemption log line fired (the floor was consulted and bypassed by content).
 if grep -q "EXPLICIT provider-cap wording" "$TR8/gardener.log"; then
   ok "exemption fired: sub-floor explicit-cap capture kept transient by content"
@@ -416,7 +416,7 @@ for cap_type in weekly 5-hour; do
   run_gardener "$BARECAP" "echost-$cap_type" "$TRCAP" \
     GARDEN_ELAPSED_CONSTANCY_CYCLES=2 GARDEN_MIN_PLAUSIBLE_OVERRUN_SECS=30 \
     GARDEN_STUB_MESSAGE="$cap_message"
-  CLONECAP="$TRCAP/state/gardeners/1/journal"
+  CLONECAP="$TRCAP/state/monks/1/journal"
   VCAP="$TRCAP/verify"; git clone -q --single-branch --branch journal2 "$BARECAP" "$VCAP" 2>/dev/null
   if grep -Eq "looks transient \(rc=1[,)]" "$TRCAP/gardener.log" \
      && grep -q "EXPLICIT provider-cap wording" "$TRCAP/gardener.log" \
@@ -456,7 +456,7 @@ hr; echo "SUBTEST 9 — SELF-SAMPLE regression: reap-count 2 with NO prior metad
 read -r TR9 BARE9 < <(build_fixture 2 0 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7" "$TR8" "$TR9"' EXIT
 run_gardener "$BARE9" echost9 "$TR9" GARDEN_ELAPSED_CONSTANCY_CYCLES=2
-CLONE9="$TR9/state/gardeners/1/journal"
+CLONE9="$TR9/state/monks/1/journal"
 V9="$TR9/verify"; git clone -q --single-branch --branch journal2 "$BARE9" "$V9" 2>/dev/null
 # (a) the base transient classification is untouched.
 if grep -Eq "looks transient \(rc=1[,)]" "$TR9/gardener.log"; then
@@ -492,7 +492,7 @@ hr; echo "SUBTEST 10 — VARIED priors: a genuinely varied elapsed series must N
 read -r TR10 BARE10 < <(build_fixture 2 2 0)
 trap 'rm -rf "$TR2" "$TR3" "$TR4" "$TR5" "$TR6" "$TR7" "$TR8" "$TR9" "$TR10"' EXIT
 run_gardener "$BARE10" echost10 "$TR10" GARDEN_ELAPSED_CONSTANCY_CYCLES=2
-CLONE10="$TR10/state/gardeners/1/journal"
+CLONE10="$TR10/state/monks/1/journal"
 V10="$TR10/verify"; git clone -q --single-branch --branch journal2 "$BARE10" "$V10" 2>/dev/null
 if grep -q "elapsed-constancy early-escalation" "$TR10/gardener.log"; then
   bad "SELF-SAMPLE: escalation fired on a VARIED series (470,900 → 3s)"

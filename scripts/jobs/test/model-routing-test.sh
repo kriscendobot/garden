@@ -124,7 +124,7 @@ run_helper local 'qwen3.6' qwen3.6 >/dev/null 2>&1 \
 journal_show | grep -qE '^local	qwen3.6	qwen3.6$' \
   && ok "journal row written verbatim" || bad "journal row wrong ($(journal_show | grep '^local'))"
 # a fresh gardener clone of the journal now reads the override via the read precedence.
-CLONE="$TR/state/gardeners/1/journal"; git clone -q --branch journal2 "$TR/journal.git" "$CLONE"
+CLONE="$TR/state/monks/1/journal"; git clone -q --branch journal2 "$TR/journal.git" "$CLONE"
 ( export GARDEN_GARDENER_CLONE="$CLONE"; [ "$(resolve_model_tier local qwen3.6)" = "qwen3.6" ] ) \
   && ok "gardener clone reads journal override for reviewed local model" || bad "clone did not read override"
 # other rows are seeded from the tracked defaults so the table stays COMPLETE.

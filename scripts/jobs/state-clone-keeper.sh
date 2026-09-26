@@ -114,7 +114,7 @@ esac
 : "${GARDEN_STATE_CLONE_MIN_IDLE:=21600}"
 : "${GARDEN_STATE_CLONE_MAX_SWEEP:=200}"
 # Closed list. inbox is keyed by job base; the rest by systemd instance id.
-: "${GARDEN_STATE_CLONE_KINDS:=inbox monitors gardeners clerics monks}"
+: "${GARDEN_STATE_CLONE_KINDS:=inbox monitors clerics monks}"
 
 # Inode-pressure knobs (audit rec 5). Below the free-inode threshold the keeper
 # tightens to these. The measurement mirrors root-repo-guard invariant D; the
@@ -168,7 +168,7 @@ is_live_doer() {  # is_live_doer <base>
   printf '%s' "$live_doers" | grep -qxF -e "$1"
 }
 
-# The unit-keyed kinds (gardeners, clerics, monks, and the <role>-<n> monitors)
+# The unit-keyed kinds (clerics, monks, and the <role>-<n> monitors)
 # decide liveness by asking systemd. If systemd is NOT reachable, every one of
 # them answers "not active" — and after the idle floor that would sweep the LIVE
 # workers' clones out from under them. That is the same shape as an unreadable
@@ -189,7 +189,6 @@ kind_is_live() {  # kind_is_live <kind> <id>
   local kind="$1" id="$2" role n
   case "$kind" in
     inbox)    is_live_doer "$id" ;;
-    gardeners) unit_is_active "garden-gardener@${id}.service" ;;
     clerics)   unit_is_active "garden-cleric@${id}.service" ;;
     monks)     unit_is_active "garden-monk@${id}.service" ;;
     monitors)

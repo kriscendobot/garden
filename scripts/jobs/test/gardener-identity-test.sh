@@ -15,7 +15,7 @@
 # spawn, so a WARN + report here is ~100 identical lines per wake; the once-per-tick,
 # host-level escalation (one WARN + one deduped kind:error maintainer-inbox report)
 # lives in the gardener-scaler identity-drift guard (identity-drift-guard.sh). And
-# (3) writes a per-instance identity marker $GARDEN_STATE/gardeners/<id>.garden
+# (3) writes a per-instance identity marker $GARDEN_STATE/monks/<id>.garden
 # holding the resolved name, so the scaler's drift check can read it without /proc.
 #
 # SUBTEST 1 — GARDEN == hostname -s → identity logged, NO WARN, marker == GARDEN.
@@ -81,10 +81,10 @@ if grep -q "WARN identity" "$L1"; then
 else
   ok "GARDEN == hostname -s → no divergence WARN"
 fi
-if [ "$(cat "$S1/gardeners/1.garden" 2>/dev/null)" = "$HOST_SHORT" ]; then
+if [ "$(cat "$S1/monks/1.garden" 2>/dev/null)" = "$HOST_SHORT" ]; then
   ok "per-instance marker written with the resolved GARDEN"
 else
-  bad "marker $S1/gardeners/1.garden missing or wrong: '$(cat "$S1/gardeners/1.garden" 2>/dev/null)'"
+  bad "marker $S1/monks/1.garden missing or wrong: '$(cat "$S1/monks/1.garden" 2>/dev/null)'"
 fi
 
 # ============================================================================
@@ -102,10 +102,10 @@ fi
 grep -q "identity: GARDEN=$DRIFT diverges from hostname -s=$HOST_SHORT with no recorded override" "$L2" \
   && ok "a single low-volume info line still notes the divergence" \
   || bad "expected an info divergence line. log: $(grep -i identity "$L2" | head -3)"
-if [ "$(cat "$S2/gardeners/1.garden" 2>/dev/null)" = "$DRIFT" ]; then
+if [ "$(cat "$S2/monks/1.garden" 2>/dev/null)" = "$DRIFT" ]; then
   ok "marker records the (drifted) resolved GARDEN for the scaler's drift check"
 else
-  bad "marker did not record the drifted GARDEN: '$(cat "$S2/gardeners/1.garden" 2>/dev/null)'"
+  bad "marker did not record the drifted GARDEN: '$(cat "$S2/monks/1.garden" 2>/dev/null)'"
 fi
 
 # ============================================================================

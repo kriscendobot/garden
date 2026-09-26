@@ -484,7 +484,7 @@ trap 'exit 130' INT
 # unit is INACTIVE is STALE — a worker killed mid-job during an outage, or an id
 # above the current pool size after a downsize — and no live process will ever
 # clear it. Honoring such a marker would DEFER the deploy forever (the real
-# incident: gardeners/55/busy, an empty file 28h old with garden-gardener@55
+# incident: gardeners/55/busy, an empty file 28h old with garden-monk@55
 # inactive after the pool was sized to 20, blocked two deploys until an operator
 # removed it by hand). Routed through unit_ctl so GARDEN_UNIT_CTL stubs it in the
 # tests exactly like the rest of the deploy's unit control.
