@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T05:20:43Z_
+_As of 2026-09-26T05:23:09Z_
 
 ## Latest
 
@@ -772,7 +772,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 581.6k | $10.00 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 595.0k | $10.17 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 3750534 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -784,18 +784,17 @@ worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### todo (0)
 (none)
 
-### doin (3)
-- [`kriscendobot-minion.town-pr97-conduct-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-conduct-20260926.md) — Conduct kriscendobot/minion.town PR #97
+### doin (2)
+- [`build-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-claude-agent-credential-reauth.md) — Build: credential-expiry detection and operator-mediated reauth for Claude ag...
 - [`kriscendobot-minion.town-pr96-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #96
-- [`kriscendobot-minion.town-pr96-review-4b828bd6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-review-4b828bd6.md) — Review directive on kriscendobot/minion.town PR #96
 
-### tada (8945)
+### tada (8947)
+- [`kriscendobot-minion.town-pr96-review-4b828bd6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-review-4b828bd6.md) — Cost
+- [`kriscendobot-minion.town-pr97-conduct-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-conduct-20260926.md) — Cost
 - [`kriscendobot-minion.town-pr97-review-69e952c4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-review-69e952c4.md) — Cost
 - [`claude-on-minion-town-completion-press-20260926-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-completion-press-20260926-050510.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-4c0529f42fb8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-4c0529f42fb8.md) — rolling-deploy canary probe — round trip OK
-- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline.md) — Cost
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline.md) — Cost
-- … and 8940 more
+- … and 8942 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1091,6 +1090,7 @@ worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
+- [`build-claude-agent-credential-reauth-run-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-agent-credential-reauth-run-gauntlet.md) — awaiting `build-claude-agent-credential-reauth` · Run the gauntlet on the credential-reauth build PR(s) (kriscendobot/minion.town)
 - [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-gauntlet-20260901.md) — awaiting `endojs-endo-but-for-bots-pr871-weave-20260901` · Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
 - [`minion-town-pr81-verify-live-after-pr118`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr81-verify-live-after-pr118.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/118` · Verify kriscendobot/minion.town#81 is live in production after kriscendobot/m...
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
