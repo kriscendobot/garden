@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T19:24:45Z_
+_As of 2026-09-26T19:33:41Z_
 
 ## Latest
 
@@ -1028,17 +1028,16 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
-- [`daily-progress-summary-20260902-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260902-070506.md) — Daily midnight Pacific progress summary
 
-### tada (8998)
+### tada (8999)
+- [`daily-progress-summary-20260902-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/daily-progress-summary-20260902-070506.md) — Cost
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-rbra-clean-break-20260916.md) — Cost
 - [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2.md) — Cost
 - [`build-minion-town-claude-agents-capability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-minion-town-claude-agents-capability.md) — Cost
 - [`claude-on-minion-town-press-20260926-185004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-185004.md) — Cost
-- [`build-e-untag-handled-promise-pipelining`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-e-untag-handled-promise-pipelining.md) — Cost
-- … and 8993 more
+- … and 8994 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
