@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T03:08:26Z_
+_As of 2026-09-26T03:10:00Z_
 
 ## Latest
 
@@ -158,7 +158,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_approval_reconciler_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_approval_reconciler_verify.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/approval-reconciler/verify: packs 1002 >= 1000; size=332802048B packs=1002 gc.log=0; automatic remedy=applied.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_approval_reconciler_verify` has CLEARED (first seen 2026-09-26T03:04:58Z, cleared 2026-09-26T03:09:15Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_approval_reconciler_verify` cleared on endolin-garden-ece02cb4.
 
 - `doomed-oros-ckm-dependabot-audit-0013418-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-ckm-dependabot-audit-0013418-requeue-exhausted.md)
 
@@ -178,10 +182,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Repo: kriscendobot/oros-ckm-data-readiness (bare clone worktrees/kriscendobot-oros-ckm-data-readiness.git), branch ckm-poc-build @ 0013418.
 > The "Close out demo-to-deck alignment arc" commit (0013418, amending CLAUDE.md § Demo-to-deck alignment) records a PROMOTED follow-up: "Dependabot investigate-only pass (2 high on public default branch; pre-existing, zero deps added this arc; complete before funder-room window)." This is a public (Apache 2.0) repo and the alerts predate this arc — investigate-only, no code change implied unless a safe fix is available.
 > Note: `gh api repos/kriscendobot/oros-ckm-data-readiness/dependabot/alerts` currently returns "Dependabot alerts are disabled for this repository" (403) — first confirm whether alerts are actually disabled (vs. a token-scope gap) via the repo's GitHub Security tab, then identify the 2 high-severity findings via `yarn audit`/`npm audit` against the default branch's lockfile if the Security tab is unreachable. Produce a short findings summary (package, severity, whether a non-breaking upgrade closes it) for the maintainer; do not merge into `main` — this repo's convention is milestone-merge only, and this is an investigate-only pass.
-
-- `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
-
-> budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): subscription claude-endolin2 spend=0 cap=64000000 pace-bias=0.000501 ceiling=1 target=1
 
 - `doomed-fix-worktree-sweeper-leader-only-misgating-20260919-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-worktree-sweeper-leader-only-misgating-20260919-requeue-exhausted.md)
 
@@ -746,7 +746,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 29535165 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 7.914191s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 2 open notice(s); checker healthy
+worst fetch p95 7.914191s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
