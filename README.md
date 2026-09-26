@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T20:09:41Z_
+_As of 2026-09-26T20:16:20Z_
 
 ## Latest
 
@@ -1028,17 +1028,16 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
-- [`date-sharded-tada-migrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/date-sharded-tada-migrate.md) — date-sharded-tada stage 3: retroactive migration of jobs/tada/
 
-### tada (9001)
+### tada (9002)
+- [`date-sharded-tada-migrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/date-sharded-tada-migrate.md) — date-sharded-tada stage 3: flat tada backlog migrated to date shards
 - [`daily-progress-summary-20260919-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/daily-progress-summary-20260919-070505.md) — Cost
 - [`daily-progress-summary-20260918-070547`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/daily-progress-summary-20260918-070547.md) — Cost
 - [`daily-progress-summary-20260902-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/daily-progress-summary-20260902-070506.md) — Cost
 - [`build-rbra-clean-break-20260916`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-rbra-clean-break-20260916.md) — Cost
-- [`build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-minion-town-invitation-only-guest-onboarding-gauntlet-panel-2.md) — Cost
-- … and 8996 more
+- … and 8997 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
