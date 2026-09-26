@@ -13,9 +13,9 @@ SuccessExitStatus=143 130 SIGTERM SIGINT
 # Graceful drain on stop/restart. The source's `gh --paginate` forks git credential
 # helpers; KillMode=mixed sends the initial SIGTERM only to the main process
 # (self-heal-run.sh → ci-watcher.sh), whose EXIT/INT/TERM trap then reaps the
-# source's whole process group deterministically, and the cgroup-wide SIGKILL
-# backstop at TimeoutStopSec catches anything the process-group reap cannot reach.
-# Mirrors garden-comment-watcher@.service.
+# source's whole process group and sweeps the unit cgroup for stragglers that escaped
+# it (on every exit, clean ticks included); the cgroup-wide SIGKILL backstop at
+# TimeoutStopSec catches anything left. Mirrors garden-comment-watcher@.service.
 KillMode=mixed
 # Short stop timeout: the CI poll holds NO in-flight work worth preserving (a killed
 # tick simply re-polls next firing — a shepherd is posted only after a verified

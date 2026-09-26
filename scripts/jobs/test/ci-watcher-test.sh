@@ -729,6 +729,61 @@ in_lane "$BARE_T" todo "$SLUG-pr120-shepherd" \
   || bad "quota sweep mutated an unclaimed shepherd"
 
 # ============================================================================
+hr; echo "U — CGROUP STRAGGLER SWEEP — escaped helpers felled on a CLEAN exit"; hr
+# Stragglers in their OWN sessions stand in for gh-forked git credential helpers that
+# escaped the source's process group (the 2026-09-26 left-over-git leak); the test-only
+# GARDEN_CI_CGROUP_PROCS_FILE fixture lists them, and the EXIT-path sweep must have
+# felled them by the time the watcher returns.
+proc_running() {  # rc 0 iff <pid> is alive and not a zombie
+  local st
+  kill -0 "$1" 2>/dev/null || return 1
+  st="$(awk '{ s=$0; sub(/^.*\) /,"",s); print substr(s,1,1) }' "/proc/$1/stat" 2>/dev/null || echo Z)"
+  [ "$st" != Z ]
+}
+CGPROCS="$TR/cgroup.procs"; S1PID="$TR/s1.pid"; S2PID="$TR/s2.pid"; rm -f "$S1PID" "$S2PID"
+( setsid bash -c 'echo $$ > "'"$S1PID"'"; exec sleep 600' & )
+( setsid bash -c 'echo $$ > "'"$S2PID"'"; exec sleep 600' & )
+for _ in $(seq 1 100); do [ -s "$S1PID" ] && [ -s "$S2PID" ] && break || sleep 0.1; done
+SPID1="$(cat "$S1PID" 2>/dev/null || true)"; SPID2="$(cat "$S2PID" 2>/dev/null || true)"
+printf '%s\n%s\n' "$SPID1" "$SPID2" > "$CGPROCS"
+proc_running "$SPID1" && proc_running "$SPID2" \
+  && ok "cgroup stragglers alive pre-sweep" || bad "straggler children never started ('$SPID1' '$SPID2')"
+BARE_CG="$TR/cg-s.git"; seed_bare "$BARE_CG"; FIX_CG="$TR/fix-cg.tsv"; : > "$FIX_CG"
+run_ci_env "$TR/state-cg-s" "$BARE_CG" "$FIX_CG" "" "$SLUG" GARDEN_CI_CGROUP_PROCS_FILE="$CGPROCS" || true
+if ! proc_running "$SPID1" && ! proc_running "$SPID2"; then
+  ok "both cgroup stragglers felled and gone once the watcher exited"
+else
+  bad "cgroup straggler still running after the watcher exited"
+  kill -KILL "$SPID1" "$SPID2" 2>/dev/null || true
+fi
+
+# U2 — a straggler that forks AFTER a zero-read must still be felled: the fixture
+# cgroup.procs is a FIFO whose first read is empty and whose later reads list a
+# straggler forked just after it; a single-zero-read sweep would leave it alive.
+LATE_PROCS="$TR/cgroup-late.procs"; LATE_PID="$TR/late.pid"; rm -f "$LATE_PROCS" "$LATE_PID"
+mkfifo "$LATE_PROCS"
+(
+  : > "$LATE_PROCS"
+  sleep 0.05
+  ( setsid bash -c 'echo $$ > "'"$LATE_PID"'"; exec sleep 600' & )
+  for _ in $(seq 1 100); do [ -s "$LATE_PID" ] && break; sleep 0.01; done
+  while :; do cat "$LATE_PID" > "$LATE_PROCS"; sleep 0.02; done
+) &
+LATE_SERVER=$!
+BARE_CG2="$TR/cg-s2.git"; seed_bare "$BARE_CG2"
+run_ci_env "$TR/state-cg-s2" "$BARE_CG2" "$FIX_CG" "" "$SLUG" GARDEN_CI_CGROUP_PROCS_FILE="$LATE_PROCS" || true
+LATE_SPID="$(cat "$LATE_PID" 2>/dev/null || true)"
+kill "$LATE_SERVER" 2>/dev/null || true; wait "$LATE_SERVER" 2>/dev/null || true
+if [ -z "$LATE_SPID" ]; then
+  bad "late straggler never forked (the sweep never came back for a second read)"
+elif ! proc_running "$LATE_SPID"; then
+  ok "straggler forked after the first zero-read felled once the watcher exited"
+else
+  bad "late straggler $LATE_SPID survived the watcher exit (sweep stopped on a single zero-read)"
+  kill -KILL "$LATE_SPID" 2>/dev/null || true
+fi
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
