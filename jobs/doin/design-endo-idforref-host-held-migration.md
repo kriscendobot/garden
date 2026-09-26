@@ -25,3 +25,13 @@ per the designer's normal bare-vs-PR rule (open-questions → review PR).
 
 Repo: endojs/endo-but-for-bots @ llm.
 Source review: https://github.com/endojs/endo-but-for-bots/pull/1306#pullrequestreview-5253000171
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T23:51:42Z
