@@ -1,0 +1,9 @@
+from_host: endolin-garden2-5bcdff64
+from: watchdog:journal-contention-watch
+sent_at: 2026-09-26T05:28:27Z
+watchdog_key: journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify
+notice_count: 1
+first_seen: 2026-09-26T05:28:27Z
+last_seen: 2026-09-26T05:28:27Z
+---
+Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/maintainer-approval/verify: p95=22.506192s max=22.506192s; hard guard=31.500000s (70% of 45s cap); remedy=none.
