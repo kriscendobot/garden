@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T22:09:48Z_
+_As of 2026-09-26T22:10:34Z_
 
 ## Latest
 
@@ -215,10 +215,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
-
-- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipts_journal.md)
-
-> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/receipts/journal: p95=37.275255s max=37.275255s; hard guard=31.500000s (70% of 45s cap); remedy=deferred.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_garden` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_garden.md)
 
@@ -1048,17 +1044,16 @@ worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1301-gauntlet-20260918-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1301-gauntlet-20260918-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1301
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Review directive on endojs/endo-but-for-bots PR #1282
 
-### tada (9016)
+### tada (9017)
+- [`endojs-endo-but-for-bots-pr1301-gauntlet-20260918-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1301-gauntlet-20260918-clean.md) — Report
 - [`endojs-endo-but-for-bots-pr1125-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1125-receipt.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-review-af33f29e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1125-review-af33f29e.md) — Review directive resolution
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/expunge-gardener-worker-kind.md) — Cost
 - [`endojs-endo-but-for-bots-pr1089-32c7e8f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1089-32c7e8f1.md) — Cost
-- [`claude-on-minion-town-press-20260926-215021`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-215021.md) — Cost
-- … and 9011 more
+- … and 9012 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
