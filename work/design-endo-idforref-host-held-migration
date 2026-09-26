@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-26T23:51:42Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-endo-idforref-host-held-migration
+pr_number: 1344
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1344
+pr_head: design/daemon-host-held-id-for-ref
