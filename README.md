@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T18:39:44Z_
+_As of 2026-09-26T18:47:32Z_
 
 ## Latest
 
@@ -1020,17 +1020,16 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-e-untag-handled-promise-pipelining`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-e-untag-handled-promise-pipelining.md) — What already exists (do not re-derive; verify against current master
+### doin (1)
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
 
-### tada (8993)
+### tada (8994)
+- [`build-e-untag-handled-promise-pipelining`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-e-untag-handled-promise-pipelining.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-4ab1c8b0be6a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-4ab1c8b0be6a.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-minion.town-pr121-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr121-shepherd.md) — Cost
 - [`amend-invitation-oauth-mcp-prerequisite`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/amend-invitation-oauth-mcp-prerequisite.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-80b59b5c8d96`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-80b59b5c8d96.md) — rolling-deploy canary probe — round trip OK
-- [`foreman-budget-ramp-and-mandate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/foreman-budget-ramp-and-mandate.md) — Cost
-- … and 8988 more
+- … and 8989 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
