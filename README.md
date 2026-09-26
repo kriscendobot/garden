@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T12:21:47Z_
+_As of 2026-09-26T12:27:05Z_
 
 ## Latest
 
@@ -824,7 +824,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 11.6M | $109.70 _(notional, rate-card)_ | 8% of 143.0M (ok) |
+| Claude | 11.7M | $110.00 _(notional, rate-card)_ | 8% of 143.0M (ok) |
 | Codex | 28.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 46830353 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -836,8 +836,8 @@ worst fetch p95 9.750570s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-approval-reconciler-cgroup-straggler-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-approval-reconciler-cgroup-straggler-reap.md) — ---
 
 ### tada (8979)
 - [`canary-probe-endolin-garden2-5bcdff64-256c8dc6122a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-256c8dc6122a.md) — rolling-deploy canary probe — round trip OK
