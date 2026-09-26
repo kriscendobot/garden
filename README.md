@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T23:36:31Z_
+_As of 2026-09-26T23:38:00Z_
 
 ## Latest
 
@@ -1032,7 +1032,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.4M | $152.90 _(notional, rate-card)_ | 11% of 143.0M (ok) |
+| Claude | 15.4M | $153.60 _(notional, rate-card)_ | 11% of 143.0M (ok) |
 | Codex | 31.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 47328501 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1044,18 +1044,17 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1306-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1306-conduct-20260919.md) — Conduct endojs/endo-but-for-bots#1306 — merge (guest provisioning, 2/3 of #1125)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1305-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-conduct-20260919.md) — Conduct (finalize → merge) endojs/endo-but-for-bots PR #1305 (3/3 of the bela...
 - [`claude-on-minion-town-completion-press-20260926-233541`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260926-233541.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
-- [`endojs-endo-but-for-bots-pr1306-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1306-conduct.md) — Conduct endojs/endo-but-for-bots#1306 — un-draft + merge (guest provisioning,...
 
-### tada (9034)
+### tada (9036)
+- [`endojs-endo-but-for-bots-pr1306-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1306-conduct.md) — Completion report
+- [`endojs-endo-but-for-bots-pr1306-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1306-conduct-20260919.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-retcon-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-retcon-20260919.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-weave-conduct-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-shepherd-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-shepherd-20260919.md) — Completion report: shepherd endojs/endo-but-for-bots#1305
-- [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — Completion report — attention directive on endojs/endo-but-for-bots #1305
-- [`endojs-endo-but-for-bots-pr1305-review-40fd197b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-review-40fd197b.md) — Cost
-- … and 9029 more
+- … and 9031 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
