@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T20:34:46Z_
+_As of 2026-09-26T20:35:44Z_
 
 ## Latest
 
@@ -242,11 +242,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-12T03:20:10Z, latest 2026-09-26T15:50:57Z).
-> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-2`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-12T03:20:10Z, latest 2026-09-26T20:35:27Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-2`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 monk workers 1 -> 2 (target 2): subscription claude-endolin1 spend=11751539 cap=143000000 pace-bias=0 ceiling=2 target=2
+> budget-level changed endolin-garden-ece02cb4 monk workers 1 -> 2 (target 2): subscription claude-endolin1 spend=12903630 cap=143000000 pace-bias=0.013810 ceiling=2 target=2
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify.md)
 
