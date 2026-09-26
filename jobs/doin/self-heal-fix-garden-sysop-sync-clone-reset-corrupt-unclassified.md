@@ -26,3 +26,13 @@ Two changes, both scoped to `sync_clone`:
 Ordering note: classify **corrupt before offline** on the reset path, mirroring the fetch path, so a stderr blob containing both shapes self-heals rather than parking the tick as EX_TEMPFAIL forever.
 
 Add regression coverage in `scripts/jobs/test/` alongside the existing `sync_clone` classification tests (see `scripts/jobs/test/receipt-watcher-test.sh:246` and `cursor-outage-cooldown-test.sh:186`, which already inject `journal_fetch`/stderr): one case where the reset fails with the `unable to read sha1 file` + `Could not reset index file` text and asserts the clone is re-cloned and the tick succeeds (`REPAIRED:` logged, no `die`), and one where the reset fails with the clone directory deleted and asserts `ensure_clone` recreates it without the 3× fetch retry.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-26T16:54:15Z
