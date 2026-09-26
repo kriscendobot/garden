@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T05:29:38Z_
+_As of 2026-09-26T05:31:54Z_
 
 ## Latest
 
@@ -776,7 +776,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 740.7k | $11.73 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 780.1k | $12.63 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 3750534 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -785,21 +785,21 @@ _Fleet token-unlock pace: 3750534 tokens/day lower bound; incomplete where a sub
 worst fetch p95 21.452128s/45s (/home/kris/garden/.garden-state/receipts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`kriscendobot-minion.town-pr96-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr96-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #96
+### todo (0)
+(none)
 
 ### doin (3)
 - [`build-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-claude-agent-credential-reauth.md) — Build: credential-expiry detection and operator-mediated reauth for Claude ag...
 - [`kriscendobot-minion.town-pr96-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #96
 - [`build-minion-town-claude-agents-delegate-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-delegate-20260926.md) — Build: close the implementation gaps between minion.town's Claude-agents wiri...
 
-### tada (8948)
+### tada (8949)
+- [`kriscendobot-minion.town-pr96-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`kriscendobot-minion.town-pr97-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-receipt.md) — Cost
 - [`kriscendobot-minion.town-pr96-review-4b828bd6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-review-4b828bd6.md) — Cost
 - [`kriscendobot-minion.town-pr97-conduct-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-conduct-20260926.md) — Cost
 - [`kriscendobot-minion.town-pr97-review-69e952c4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-review-69e952c4.md) — Cost
-- [`claude-on-minion-town-completion-press-20260926-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-completion-press-20260926-050510.md) — Cost
-- … and 8943 more
+- … and 8944 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
