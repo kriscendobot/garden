@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T03:55:38Z_
+_As of 2026-09-26T04:16:47Z_
 
 ## Latest
 
@@ -57,6 +57,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 4. Say "run the gauntlet [endojs/endo-but-for-bots#1333](https://github.com/endojs/endo-but-for-bots/issues/1333)" once it has been re-pointed at llm.
 >
 > This job is parked on [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) (block-job.sh) and resumes automatically when that PR merges or closes. On resume it re-checks merged vs. closed.
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo_but_for_bots` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo_but_for_bots.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-endo-but-for-bots: gc.log present; size=195015680B packs=52 gc.log=1; automatic remedy=deferred.
 
 - `msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6` — from gardener:minion-town-guest-web-invite-accept-fallback-fix-post104, reply_to `minion-town-guest-web-invite-accept-fallback-fix-post104` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md)
 
@@ -756,20 +760,21 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 118.3k | $2.38 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 287.4k | $4.57 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 27.7M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 29535165 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 7.914191s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 2 open notice(s); checker healthy
+worst fetch p95 7.914191s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline.md) — ---
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline.md) — ---
 
 ### tada (8940)
 - [`claude-on-minion-town-press-20260926-030611`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-030611.md) — Cost
