@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T16:51:56Z_
+_As of 2026-09-26T16:54:45Z_
 
 ## Latest
 
@@ -1038,8 +1038,8 @@ worst fetch p95 43.693883s/45s (unknown); 4 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`self-heal-fix-garden-sysop-sync-clone-reset-corrupt-unclassified`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-sysop-sync-clone-reset-corrupt-unclassified.md) — ---
 
 ### tada (8985)
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260926-163506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/fu-minion-town-containment-gateway-endo-sock-1-20260926-163506.md) — Cost
