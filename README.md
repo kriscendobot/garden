@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T04:16:47Z_
+_As of 2026-09-26T04:18:22Z_
 
 ## Latest
 
@@ -760,7 +760,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 287.4k | $4.57 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 246.0k | $4.28 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 27.7M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 29535165 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -772,17 +772,16 @@ worst fetch p95 7.914191s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (0)
 (none)
 
-### doin (2)
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline.md) — ---
-- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline.md) — ---
+### doin (0)
+(none)
 
-### tada (8940)
+### tada (8942)
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline.md) — Cost
+- [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline.md) — Cost
 - [`claude-on-minion-town-press-20260926-030611`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-030611.md) — Cost
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-clone-rc124-offline-gap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-clone-rc124-offline-gap.md) — Completion report: self-heal-fix-garden-comment-watcher-kriscendobot-garden-r...
 - [`self-heal-fix-reclone-clone-rc124-offline-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-reclone-clone-rc124-offline-classification.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-7bc429da7592`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-7bc429da7592.md) — rolling-deploy canary probe — round trip OK
-- [`self-heal-fix-garden-mentor-all-providers-unavailable`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/25/self-heal-fix-garden-mentor-all-providers-unavailable.md) — Cost
-- … and 8935 more
+- … and 8937 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
