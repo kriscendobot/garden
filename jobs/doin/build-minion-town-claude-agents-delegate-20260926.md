@@ -40,3 +40,13 @@ Stay flag-gated and fail-closed; do not enable the live path, and do not attempt
 the Endo-substrate (#1015) or canary/deploy steps. Record in the PR body which
 design sections each change closes and any gap deliberately left open (with
 reason). Deliver as a DRAFT PR on the fork; stop at draft (manual-gauntlet regime).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T05:27:14Z
