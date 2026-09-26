@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T04:19:42Z_
+_As of 2026-09-26T04:32:19Z_
 
 ## Latest
 
@@ -668,6 +668,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > scripts/jobs/common.sh
 > ci-watcher.sh's rollup_hit_primary_quota() routes GitHub PRIMARY hourly-quota exhaustion (distinct from a transient 5xx/HTML blip) through common.sh's shared start_api_cooldown, whose window is hard-capped at 900s — far shorter than GitHub's real ~1hr rate-limit reset. Journalctl shows the same quota-exhaustion WARN re-firing every ~5min (12:26/12:31/12:37Z) because each short cooldown expires and re-hits the still-exhausted API, burning calls and repeating log noise for the whole outage window. mirror-closer.sh already solved this correctly with its own dedicated ~3600s cooldown (MIRROR_QUOTA_MARKER / mirror_quota_cooldown_secs, scripts/jobs/mirror-closer.sh). Add a second shared primary-quota cooldown helper to common.sh (e.g. start_primary_quota_cooldown/primary_quota_cooldown_active, default ~3600s, mirroring the existing blip-cooldown pattern) and switch ci-watcher.sh's rollup_hit_primary_quota (and any other watcher that detects the same "doomed until quota recovers" signal) onto it instead of the 900s-capped blip cooldown — retiring mirror-closer.sh's private duplicate in favor of the shared helper.
 
+- `watchdog-self-heal-garden-receipt-watcher-kriscendobot-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-receipt-watcher-kriscendobot-endo-but-for-bots.md)
+
+> self-heal: garden-receipt-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 49aa0d37e12234073cc7d49cb472c52bfe391cdd (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 49aa0d37e12234073cc7d49cb472c52bfe391cdd). Diagnosis: Diagnosis: a genuine, new classification bug in `reclone_clone` (`scripts/jobs/common.sh:4302-4316`), distinct from the already-fixed clone_lock stderr-silencing bug in memory. It drops `bounded_clone`'s exit code and classifies "offline" only by grepping captured stderr for known network-error text; a bare 45s `timeout`-SIGTERM clone kill (rc=124) that lands before git prints anything leaves that stderr empty, so the offline check misses and the failure escalates as a loud `FATAL` instead of a quiet transient skip. Posted the fix job above.
+
 - `doomed-build-rbra-clean-break-20260916-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-rbra-clean-break-20260916-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -764,10 +768,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 246.0k | $4.28 _(notional, rate-card)_ | 0% of 143.0M (ok) |
-| Codex | 27.7M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
+| Claude | 343.5k | $5.37 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Codex | 27.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 29535165 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 37517078 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 2 open notice(s); checker healthy
