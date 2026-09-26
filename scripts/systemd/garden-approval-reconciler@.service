@@ -15,9 +15,9 @@ SuccessExitStatus=143 130 SIGTERM SIGINT
 # Graceful drain on stop/restart. The source's `gh --paginate` forks git credential
 # helpers; KillMode=mixed sends the initial SIGTERM only to the main process
 # (self-heal-run.sh -> approval-reconciler.sh), whose EXIT/INT/TERM trap then reaps
-# the source's whole process group, and the cgroup-wide SIGKILL backstop at
-# TimeoutStopSec catches anything the process-group reap cannot reach. Mirrors
-# garden-ci-watcher@.service.
+# the source's whole process group and sweeps the unit cgroup for stragglers that
+# escaped it (on every exit, clean ticks included); the cgroup-wide SIGKILL backstop
+# at TimeoutStopSec catches anything left. Mirrors garden-dependabot-watcher@.service.
 KillMode=mixed
 # Short stop timeout: the reconcile poll holds NO in-flight work worth preserving (a
 # killed tick simply re-sweeps next firing — a job is posted only after a verified
@@ -34,6 +34,11 @@ Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # (approval-reconciler.sh ALSO checks is_main_host in-process as defence in depth.)
 ExecCondition=/bin/bash @GARDEN_ROOT@/scripts/jobs/is-main-host.sh
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-approval-reconciler@%i -- @GARDEN_ROOT@/scripts/jobs/approval-reconciler.sh %i
+# Hold the unit until its cgroup is really empty: systemd's post-exit SIGKILL sweep
+# does not wait for the killed pids to leave, so a git still dying from it would be a
+# "left-over process" to the next start. See garden-comment-watcher@.service and
+# scripts/jobs/cgroup-drain.sh. `-`: a drain problem never fails the unit.
+ExecStopPost=-/bin/bash @GARDEN_ROOT@/scripts/jobs/cgroup-drain.sh %n
 # The self-heal responder runs synchronously on a failed tick before the wrapper
 # returns the failing rc; give it headroom beyond the implicit 90s oneshot start
 # timeout (responder itself is hard-bounded by SELF_HEAL_RESPONDER_TIMEOUT).

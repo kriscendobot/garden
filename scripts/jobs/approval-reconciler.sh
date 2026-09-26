@@ -366,19 +366,112 @@ post_and_confirm() {
 }
 
 # --- enumerate the repo's open PRs (bounded, reaped source subtree) ----------
-# Identical guard shape to ci-watcher.sh: the source runs `gh --paginate`, which
-# forks git credential helpers; bound it under `timeout` and reap the whole process
-# group so a systemd stop mid-tick cannot orphan a git child into the unit cgroup.
+# The source runs `gh --paginate`, which forks git credential helpers (and, over ssh
+# remotes, ssh); bound it under `timeout` inside an isolated `setsid` session+group and
+# reap that whole group so a systemd stop mid-tick cannot orphan a git child into the
+# unit cgroup. The negated-PGID reap alone is NOT enough: a gh-forked git credential
+# helper, or an ssh master that `setsid`'d itself into its own session, escapes the
+# group, and the next start logged "Found left-over process (git) in control group
+# while starting unit" (2026-09-26T11:59:10, three left-over git processes). So every
+# exit path — clean or signalled — ends with a cgroup-wide straggler sweep
+# (reap_cgroup_stragglers, below), the hardened reap dependabot-watcher.sh and
+# comment-watcher.sh landed after the same leak.
 SRC="$(mktemp)"; ERRF="$(mktemp)"
 SOURCE_TIMEOUT_PID=""
+# Final cgroup-wide straggler sweep — the EXIT-path complement to the stop-time cgroup
+# SIGKILL backstop, which never covers a clean tick exit. Safety: a strict no-op unless
+# this process is inside its OWN garden-approval-reconciler service cgroup (unreadable
+# /proc/self/cgroup, no unified `0::` line, or any other leaf → no-op), and it NEVER
+# kills $$ or any of its ancestors — only the lost descendant stragglers. A BOUNDED
+# re-read loop, not one snapshot: `gh --paginate` forks a helper per page, so it keeps
+# re-reading cgroup.procs and SIGKILLing live stragglers until two consecutive reads
+# find none, capped by GARDEN_AR_CGROUP_REAP_DEADLINE_SECS (default 3s).
+# Mirrors dependabot-watcher.sh's reap_cgroup_stragglers.
+#
+# rc 0 iff <pid> is a still-RUNNING, non-zombie process (a SIGKILLed zombie has left
+# the cgroup yet still answers `kill -0`).
+_straggler_alive() {  # _straggler_alive <pid>
+  local p="$1" st
+  kill -0 "$p" 2>/dev/null || return 1
+  st="$(awk '{ s=$0; sub(/^.*\) /,"",s); print substr(s,1,1) }' "/proc/$p/stat" 2>/dev/null || echo Z)"
+  [ "$st" != Z ]
+}
+reap_cgroup_stragglers() {
+  local procs
+  # Test-only override: sweep a FIXTURE cgroup.procs file (honored only in a test
+  # context; the $$+ancestors keep-set still protects the runner).
+  if [ -n "${GARDEN_AR_CGROUP_PROCS_FILE:-}" ] && _in_test_context; then
+    procs="$GARDEN_AR_CGROUP_PROCS_FILE"
+    [ -r "$procs" ] || return 0
+  else
+    local line cgpath leaf
+    line="$(grep '^0::' /proc/self/cgroup 2>/dev/null)" || return 0
+    [ -n "$line" ] || return 0
+    cgpath="${line#0::}"
+    leaf="${cgpath##*/}"
+    case "$leaf" in
+      garden-approval-reconciler*.service) ;;
+      *) return 0 ;;
+    esac
+    procs="/sys/fs/cgroup${cgpath}/cgroup.procs"
+    [ -r "$procs" ] || return 0
+  fi
+  # Collect $$ and its ancestor chain so we never signal ourselves or our parents.
+  local keep=" $$ " p ppid
+  p="$$"
+  while [ -n "$p" ] && [ "$p" != "0" ]; do
+    ppid="$(awk '/^PPid:/{print $2}' "/proc/$p/status" 2>/dev/null)" || break
+    [ -n "$ppid" ] || break
+    keep="$keep$ppid "
+    [ "$ppid" = "1" ] && break
+    p="$ppid"
+  done
+  local deadline_secs="${GARDEN_AR_CGROUP_REAP_DEADLINE_SECS:-3}"
+  local now start pid remaining zero_reads=0 survivors
+  start="$(date +%s 2>/dev/null || echo 0)"
+  while :; do
+    remaining=0
+    survivors=""
+    while read -r pid; do
+      [ -n "$pid" ] || continue
+      case "$keep" in *" $pid "*) continue ;; esac
+      _straggler_alive "$pid" || continue
+      kill -KILL "$pid" 2>/dev/null || true
+      remaining=$((remaining + 1))
+      survivors="$survivors $pid"
+    done < "$procs"
+    # One zero-read is not proof the cgroup is DURABLY empty (a helper can fork in the
+    # gap after it): return only on TWO consecutive zero-reads; a straggler resets it.
+    if [ "$remaining" -eq 0 ]; then
+      zero_reads=$((zero_reads + 1))
+      [ "$zero_reads" -ge 2 ] && return 0
+    else
+      zero_reads=0
+    fi
+    now="$(date +%s 2>/dev/null || echo 0)"
+    if [ $(( now - start )) -ge "$deadline_secs" ]; then
+      [ "$remaining" -eq 0 ] && return 0
+      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; the unit's ExecStopPost drain keeps waiting for them"
+      # shellcheck disable=SC2086  # word-split the pid list on purpose
+      bash "$HERE/cgroup-drain.sh" --describe $survivors 2>/dev/null \
+        | while IFS= read -r d; do log "WARN:   straggler $d"; done
+      return 0
+    fi
+    sleep 0.1 2>/dev/null || sleep 1
+  done
+}
 cleanup() {
   rm -f "$SRC" "$ERRF"
   local pid="$SOURCE_TIMEOUT_PID"
-  SOURCE_TIMEOUT_PID=""
-  [ -n "$pid" ] || return 0
-  kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
-  wait "$pid" 2>/dev/null || true
-  kill -KILL "-$pid" 2>/dev/null || true
+  SOURCE_TIMEOUT_PID=""                 # idempotent: the TERM and EXIT traps both fire
+  if [ -n "$pid" ]; then
+    kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
+    wait "$pid" 2>/dev/null || true
+    kill -KILL "-$pid" 2>/dev/null || true
+  fi
+  # Then fell any straggler that escaped the group into a different session/group, on
+  # every exit path (clean completion included).
+  reap_cgroup_stragglers
 }
 trap 'cleanup' EXIT
 trap 'cleanup; exit 143' TERM
