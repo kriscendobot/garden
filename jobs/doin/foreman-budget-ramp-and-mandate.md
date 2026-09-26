@@ -68,6 +68,7 @@ values and schedule after this lands and deploys. Say clearly in your report
 once this is confirmed deployed and ready for those files to be written.
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=1532 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
