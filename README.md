@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T17:16:39Z_
+_As of 2026-09-26T17:20:32Z_
 
 ## Latest
 
@@ -1015,17 +1015,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 11.8M | $110.91 _(notional, rate-card)_ | 8% of 143.0M (ok) |
-| Codex | 28.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 12.6M | $115.44 _(notional, rate-card)_ | 9% of 143.0M (ok) |
+| Codex | 28.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106551372 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 106568244 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 43.693883s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`canary-probe-endolin-garden2-5bcdff64-42a937a700d5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-42a937a700d5.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 42a937a700d5
 
 ### doin (0)
 (none)
