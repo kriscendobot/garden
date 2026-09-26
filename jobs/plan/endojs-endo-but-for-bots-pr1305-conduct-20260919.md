@@ -1,6 +1,6 @@
 ---
 gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919
+orchestrated_by: endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919-resume
 priority: normal
 posted_by: gardener:endojs-endo-but-for-bots-pr1305-d4fa4360
 posted_at: 2026-09-19T06:13:42Z
