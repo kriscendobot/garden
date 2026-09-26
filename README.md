@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T17:31:27Z_
+_As of 2026-09-26T17:33:24Z_
 
 ## Latest
 
@@ -1008,7 +1008,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.7M | $122.44 _(notional, rate-card)_ | 9% of 143.0M (ok) |
+| Claude | 12.8M | $124.67 _(notional, rate-card)_ | 9% of 143.0M (ok) |
 | Codex | 28.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106568244 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1020,7 +1020,8 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`foreman-budget-ramp-and-mandate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/foreman-budget-ramp-and-mandate.md) — Build: journal-backed foreman spend-ramp and priority mandate
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
 
 ### tada (8987)
@@ -1341,7 +1342,6 @@ kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oro
 ## Hosts
 - [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 0 gardeners
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 0 gardeners
-- [.archived-oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-oros-studio-garden-ce242c49): 4 gardeners
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): 8 gardeners
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): 1 gardeners
 - [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): ? gardeners
