@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T08:23:24Z_
+_As of 2026-09-26T08:29:26Z_
 
 ## Latest
 
@@ -451,6 +451,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` cleared on endolin-garden-ece02cb4.
 
+- `kriscendobot-minion.town-pr119-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr119-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr119-gauntlet-review-budget-reached.md)
+
+> INFO: Gauntlet kriscendobot-minion.town-pr119-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
+
 - `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -808,16 +812,16 @@ worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (1)
-- [`kriscendobot-minion.town-pr119-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #119
+### doin (0)
+(none)
 
-### tada (8973)
+### tada (8975)
+- [`kriscendobot-minion.town-pr119-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet.md) — gauntlet kriscendobot-minion.town-pr119-gauntlet — review budget reached
+- [`kriscendobot-minion.town-pr119-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-fix-6.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-6.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-97cb30748dde`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-97cb30748dde.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-minion.town-pr119-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-fix-5.md) — Cost
-- [`improve-rolling-deploy-shared-tick-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/improve-rolling-deploy-shared-tick-deadline.md) — Cost
-- [`kriscendobot-minion.town-pr119-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-5.md) — Cost
-- … and 8968 more
+- … and 8970 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
