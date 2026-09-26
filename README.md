@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T07:56:06Z_
+_As of 2026-09-26T07:57:50Z_
 
 ## Latest
 
@@ -772,7 +772,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 9.2M | $87.90 _(notional, rate-card)_ | 6% of 143.0M (ok) |
+| Claude | 9.1M | $86.98 _(notional, rate-card)_ | 6% of 143.0M (ok) |
 | Codex | 28.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 161182361 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -784,17 +784,16 @@ worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`kriscendobot-minion.town-pr119-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #119
-- [`improve-rolling-deploy-shared-tick-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-rolling-deploy-shared-tick-deadline.md) — ---
 
-### tada (8969)
+### tada (8970)
+- [`improve-rolling-deploy-shared-tick-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/improve-rolling-deploy-shared-tick-deadline.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-5.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-fix-4.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-4.md) — Cost
 - [`daily-progress-summary-20260926-070535`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/daily-progress-summary-20260926-070535.md) — Cost
-- [`kriscendobot-minion.town-pr119-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-fix-3.md) — Fix round 3 for kriscendobot/minion.town#119: done, CI green
-- … and 8964 more
+- … and 8965 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
