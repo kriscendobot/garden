@@ -1,24 +1,10 @@
 ---
-gate: deferred
-priority: normal
 role: conductor
 tier: minion
 handler-timeout: 7200
 token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-split_eligible: true
-split_reason: repeated-plain-exit
-failure_classification: transient
-requeue_cycles: 2
-deadline_overruns: 0
-elapsed_constancy_confirmations: 1
-doomed_at: 2026-09-18T19:53:10Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-09-18T19:53:10Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-26T22:49:06Z cleared=none -->
 
 ---
 gate: go-ahead
