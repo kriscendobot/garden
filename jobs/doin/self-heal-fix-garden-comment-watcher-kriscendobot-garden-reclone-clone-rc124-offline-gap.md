@@ -26,3 +26,13 @@ reclone_clone() {
 ```
 
 Verify no other caller of `reclone_clone` relies on it dying on a bare timeout, and check `scripts/jobs/self-heal-run.sh`'s belt-and-suspenders grep (referenced near common.sh:4474) doesn't need a parallel update for this path.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T02:48:10Z
