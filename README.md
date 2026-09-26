@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T12:37:52Z_
+_As of 2026-09-26T12:40:23Z_
 
 ## Latest
 
@@ -563,7 +563,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-ymax-stdio-mcp: gc.log present; size=168983552B packs=51 gc.log=1; automatic remedy=deferred.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp` has CLEARED (first seen 2026-09-26T12:35:45Z, cleared 2026-09-26T12:39:57Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp` cleared on endolin-garden-ece02cb4.
 
 - `doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted.md)
 
@@ -834,7 +838,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 47181256 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 9.750570s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 1 open notice(s); checker healthy
+worst fetch p95 9.750570s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
