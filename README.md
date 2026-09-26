@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T20:29:40Z_
+_As of 2026-09-26T20:33:28Z_
 
 ## Latest
 
@@ -1032,17 +1032,16 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
-- [`deadmail-issue-comment-5722768728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5722768728.md) — Issue follow-up — fold a late comment into the issue work
+### doin (1)
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
 
-### tada (9003)
+### tada (9005)
+- [`canary-probe-endolin-garden2-5bcdff64-959febf3bb3e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-959febf3bb3e.md) — rolling-deploy canary probe — round trip OK
+- [`deadmail-issue-comment-5722768728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/deadmail-issue-comment-5722768728.md) — Cost
 - [`deadmail-issue-comment-5715518921`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/deadmail-issue-comment-5715518921.md) — Cost
 - [`date-sharded-tada-migrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/date-sharded-tada-migrate.md) — date-sharded-tada stage 3: flat tada backlog migrated to date shards
 - [`daily-progress-summary-20260919-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/daily-progress-summary-20260919-070505.md) — Cost
-- [`daily-progress-summary-20260918-070547`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/daily-progress-summary-20260918-070547.md) — Cost
-- [`daily-progress-summary-20260902-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/daily-progress-summary-20260902-070506.md) — Cost
-- … and 8998 more
+- … and 9000 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
