@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T23:31:54Z_
+_As of 2026-09-26T23:36:31Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 12m)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 17m)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 9d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 9d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 15d)
@@ -274,11 +274,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-25T03:35:47Z, latest 2026-09-26T20:20:17Z).
-> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-3`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-25T03:35:47Z, latest 2026-09-26T23:35:35Z).
+> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-3`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> budget-level changed oros-studio-garden-ce242c49 monk workers 4 -> 3 (target 3): subscription claude-oros spend=438960 cap=73000000 pace-bias=0.781762 ceiling=3 target=3
+> budget-level changed oros-studio-garden-ce242c49 monk workers 4 -> 3 (target 3): subscription claude-oros spend=438960 cap=73000000 pace-bias=0.837130 ceiling=3 target=3
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_approval_reconciler_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_approval_reconciler_verify.md)
 
@@ -561,11 +561,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-25T18:43:51Z, latest 2026-09-26T23:31:16Z).
-> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` has CLEARED (first seen 2026-09-25T18:43:51Z, cleared 2026-09-26T23:35:30Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify: packs 1000 >= 1000; size=322612224B packs=1000 gc.log=0; automatic remedy=applied.
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
@@ -1033,27 +1033,29 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 15.4M | $152.90 _(notional, rate-card)_ | 11% of 143.0M (ok) |
-| Codex | 30.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Codex | 31.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 49635022 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 47328501 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
+worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1306-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1306-conduct-20260919.md) — Conduct endojs/endo-but-for-bots#1306 — merge (guest provisioning, 2/3 of #1125)
+- [`claude-on-minion-town-completion-press-20260926-233541`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260926-233541.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`endojs-endo-but-for-bots-pr1306-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1306-conduct.md) — Conduct endojs/endo-but-for-bots#1306 — un-draft + merge (guest provisioning,...
 
-### tada (9033)
+### tada (9034)
+- [`endojs-endo-but-for-bots-pr1305-retcon-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-retcon-20260919.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-weave-conduct-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-shepherd-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-shepherd-20260919.md) — Completion report: shepherd endojs/endo-but-for-bots#1305
 - [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — Completion report — attention directive on endojs/endo-but-for-bots #1305
 - [`endojs-endo-but-for-bots-pr1305-review-40fd197b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-review-40fd197b.md) — Cost
-- [`endojs-endo-but-for-bots-pr1305-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-conduct.md) — Cost
-- … and 9028 more
+- … and 9029 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1097,8 +1099,6 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1306-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1306-conduct.md) — _normal_ · Conduct endojs/endo-but-for-bots#1306 — un-draft + merge (guest provisioning,...
-- [`endojs-endo-but-for-bots-pr1306-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1306-conduct-20260919.md) — _normal_ · Conduct endojs/endo-but-for-bots#1306 — merge (guest provisioning, 2/3 of #1125)
 - [`endojs-endo-but-for-bots-pr1306-review-3ed76637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1306-review-3ed76637.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #1306
 - [`endojs-endo-but-for-bots-pr241-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr241-gauntlet-fix-6.md) — _normal_ · Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #241
 - [`endojs-endo-but-for-bots-pr249-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr249-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #249
