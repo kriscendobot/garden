@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T06:05:52Z_
+_As of 2026-09-26T06:11:41Z_
 
 ## Latest
 
@@ -748,11 +748,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #462 (first seen 2026-09-25T03:17:02Z, latest 2026-09-26T05:11:01Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 462 times; this is ONE
-> coalesced notice that updates in place, not 462 messages. Latest detail:
+> WATCHDOG notice — occurrence #482 (first seen 2026-09-25T03:17:02Z, latest 2026-09-26T06:11:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 482 times; this is ONE
+> coalesced notice that updates in place, not 482 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 4c0529f42fb8 20 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 4c0529f42fb8 80 min ago
 > but still reports deployed_sha 917115c9b77234e4a05db68e8c5111fe6e5b305f. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -764,7 +764,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.8M | $29.03 _(notional, rate-card)_ | 2% of 143.0M (ok) |
+| Claude | 2.8M | $29.18 _(notional, rate-card)_ | 2% of 143.0M (ok) |
 | Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 9767480 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -777,15 +777,15 @@ worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 (none)
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr119-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #119
+- [`kriscendobot-minion.town-pr119-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #119
 
-### tada (8956)
+### tada (8957)
+- [`kriscendobot-minion.town-pr119-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-1.md) — Panel round 1 for kriscendobot/minion.town#119: must-fix
 - [`kriscendobot-minion.town-pr119-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-viability.md) — Cost
 - [`build-claude-agent-credential-reauth-run-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-claude-agent-credential-reauth-run-gauntlet.md) — Cost
 - [`kriscendobot-minion.town-pr96-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-receipt.md) — Cost
-- [`build-minion-town-claude-agents-delegate-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-minion-town-claude-agents-delegate-20260926.md) — Completion report: build-minion-town-claude-agents-delegate-20260926
-- … and 8951 more
+- … and 8952 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
