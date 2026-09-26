@@ -482,26 +482,31 @@ fi
 # garden-comment-watcher@kriscendobot-garden: "Clone succeeded, but checkout failed"
 # at the 45s deadline). sync_clone already treats 124/137 as a clean skip;
 # reclone_clone must too, or every ensure_clone caller crash-loops under contention.
-for trc in 124 137; do
+# The empty-stderr variant is the other observed shape: a SIGTERM-killed `git clone -q`
+# often dies with no stderr at all, leaving nothing for _fetch_stderr_is_offline.
+for tcase in 124:checkout 137:checkout 124:empty 137:empty; do
+trc="${tcase%%:*}" tstderr="${tcase#*:}"
+if [ "$tstderr" = empty ]; then tmsg=''; tdesc='empty stderr'
+else tmsg='echo "warning: Clone succeeded, but checkout failed." >&2'; tdesc='unrecognized stderr'; fi
 cat > "$TR/bin/git" <<EOF
 #!/bin/bash
 for a in "\$@"; do
   if [ "\$a" = clone ]; then
-    echo "warning: Clone succeeded, but checkout failed." >&2
+    $tmsg
     exit $trc
   fi
 done
 exec "$REAL_GIT" "\$@"
 EOF
 chmod +x "$TR/bin/git"
-TODIR="$TR/timeout-reclone-$trc"; rm -rf "$TODIR"
+TODIR="$TR/timeout-reclone-$trc-$tstderr"; rm -rf "$TODIR"
 rc=0
 ( export JOURNAL_REMOTE="$GBARE" GARDEN_FETCH_RETRIES=1
   ensure_clone "$TODIR" ) >/dev/null 2>&1 || rc=$?
 if [ "$rc" -eq 75 ]; then
-  ok "ensure_clone/reclone_clone exited EX_TEMPFAIL (75) on a clone wall-clock timeout (rc=$trc, unrecognized stderr)"
+  ok "ensure_clone/reclone_clone exited EX_TEMPFAIL (75) on a clone wall-clock timeout (rc=$trc, $tdesc)"
 else
-  bad "ensure_clone/reclone_clone exited $rc on a clone wall-clock timeout (rc=$trc; expected 75, not die(1))"
+  bad "ensure_clone/reclone_clone exited $rc on a clone wall-clock timeout (rc=$trc, $tdesc; expected 75, not die(1))"
 fi
 done
 
