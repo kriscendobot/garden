@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T18:15:48Z_
+_As of 2026-09-26T18:17:42Z_
 
 ## Latest
 
@@ -1001,6 +1001,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-oros-studio-garden-ce242c49.md)
+
+> Container hardening is PENDING on oros-studio-garden-ce242c49: 2 launcher-posture check(s) fail (caps/sudo/block devices/mount).
+>
+> This is the expected state until the container is recreated with the hardened launcher,
+> a maintainer step: context/operations/harden-container.md. The garden-container-hardening
+> unit stays clean meanwhile (exit 3), so it does not fail rolling-deploy canaries. After the
+> first all-pass run, any failure is treated as a regression and fails the unit.
 
 
 ## Spend & quota
