@@ -1,21 +1,9 @@
 ---
-gate: deferred
-priority: normal
 tier: minion
 handler-budget-role: review
 token-budget: 250000
-doomed: true
-doom_signature: deadline-overrun
-doom_count: 1
-failure_classification: deterministic
-requeue_cycles: 1
-deadline_overruns: 1
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-09-03T16:25:38Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-09-03T16:25:38Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-26T21:09:05Z cleared=none -->
 
 ---
 handler-budget-role: review
