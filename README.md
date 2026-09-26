@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T16:41:17Z_
+_As of 2026-09-26T16:44:55Z_
 
 ## Latest
 
@@ -1018,10 +1018,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
-
-- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_dependabotany_preflight_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_dependabotany_preflight_journal.md)
-
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/dependabotany-preflight/journal: p95=43.693883s max=43.693883s; hard guard=31.500000s (70% of 45s cap); remedy=deferred.
 
 
 ## Spend & quota
