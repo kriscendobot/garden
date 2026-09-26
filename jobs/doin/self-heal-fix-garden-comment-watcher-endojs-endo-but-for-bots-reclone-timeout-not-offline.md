@@ -8,3 +8,13 @@ dispatch: automatic
 Failure signature observed: `garden-comment-watcher@endojs-endo-but-for-bots` exit 1, log tail: "clone of git@github.com:kriscendobot/garden.git into .../comment-watcher/verify timed out (>45s) on attempt 1" → "failed after 1 attempt(s) (last rc=124)" → "FATAL: clone of ... (journal2) into .../verify failed".
 
 Fix: after the `if GARDEN_CLONE_RETRIES=1 bounded_clone ...; then return 0; fi` line, capture `rc=$?` and change the offline check to `[ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_CLONE_STDERR"`, matching the established pattern already used at `common.sh:6820`, `6838`, and `6874` for the same rc-124/137-vs-empty-stderr gap. This makes a bare timeout classify as offline (EX_TEMPFAIL) rather than crashing the service.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T04:16:32Z
