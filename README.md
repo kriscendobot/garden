@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T11:26:40Z_
+_As of 2026-09-26T11:29:48Z_
 
 ## Latest
 
@@ -832,16 +832,16 @@ worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-comment-watcher-cgroup-drain-residual-leak`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-cgroup-drain-residual-leak.md) — ---
+### doin (0)
+(none)
 
-### tada (8977)
+### tada (8978)
+- [`improve-comment-watcher-cgroup-drain-residual-leak`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/improve-comment-watcher-cgroup-drain-residual-leak.md) — Cost
 - [`claude-on-minion-town-completion-press-20260926-112007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-completion-press-20260926-112007.md) — Cost
 - [`claude-on-minion-town-press-20260926-092011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-092011.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet.md) — gauntlet kriscendobot-minion.town-pr119-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr119-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-fix-6.md) — Cost
-- [`kriscendobot-minion.town-pr119-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-6.md) — Cost
-- … and 8972 more
+- … and 8973 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
