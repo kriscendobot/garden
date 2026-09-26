@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T16:31:28Z_
+_As of 2026-09-26T16:34:58Z_
 
 ## Latest
 
@@ -1002,10 +1002,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
-
-- `watchdog-journal-fetch-drift-_home_kris_garden__garden_state_mentor_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden__garden_state_mentor_journal.md)
-
-> Journal fetch drift on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/mentor/journal: oldest-third median=3.098649s newest-third median=10.771012s over 19775s/12 samples; floor=10s, 1.5x rise or projected-to-guard=53428s within 86400s.
 
 - `watchdog-comment-watcher-dead-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-garden.md)
 
