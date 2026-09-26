@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T17:02:46Z_
+_As of 2026-09-26T17:06:19Z_
 
 ## Latest
 
@@ -297,27 +297,29 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-09-26T16:16:46Z, latest 2026-09-26T17:01:09Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> WATCHDOG notice — occurrence #11 (first seen 2026-09-26T16:16:46Z, latest 2026-09-26T17:05:52Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 11 times; this is ONE
+> coalesced notice that updates in place, not 11 messages. Latest detail:
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 14 source(s); they post no acknowledgments while it holds.
-> journal-outage marker: 1790442136 cursor-get 
-> - kriscendobot/cosgov: watcher ticking but offline-journal for 3979s (since 2026-09-26T15:54:07Z)
-> - kriscendobot/ocapn: watcher ticking but offline-journal for 4067s (since 2026-09-26T15:52:39Z)
-> - kriscendobot/test262: watcher ticking but offline-journal for 3990s (since 2026-09-26T15:53:56Z)
-> - kriscendobot/finbot: watcher ticking but offline-journal for 4050s (since 2026-09-26T15:52:56Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but offline-journal for 3974s (since 2026-09-26T15:54:12Z)
-> - kriscendobot/ymax-e2e: watcher ticking but offline-journal for 4001s (since 2026-09-26T15:53:45Z)
-> - endojs/endo-but-for-bots: watcher ticking but offline-journal for 4070s (since 2026-09-26T15:52:36Z)
-> - kriscendobot/proposal-compartments: watcher ticking but offline-journal for 4037s (since 2026-09-26T15:53:09Z)
-> - kriscendobot/list: watcher ticking but offline-journal for 3999s (since 2026-09-26T15:53:47Z)
-> - kriscendobot/endo: watcher ticking but offline-journal for 4039s (since 2026-09-26T15:53:07Z)
-> - kriscendobot/garden: watcher ticking but offline-journal for 4053s (since 2026-09-26T15:52:53Z)
-> watcher ticking but offline-journal for 3975s (since 2026-09-26T15:54:11Z)
-> - kriscendobot/minion.town: watcher ticking but offline-journal for 4109s (since 2026-09-26T15:51:57Z)
-> - kriscendobot/vattr97: watcher ticking but offline-journal for 4043s (since 2026-09-26T15:53:03Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but offline-journal for 4335s (since 2026-09-26T15:48:11Z)
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 16 source(s); they post no acknowledgments while it holds.
+> journal-outage marker: 1790442451 cursor-get 
+> - kriscendobot/cosgov: watcher ticking but offline-journal for 4288s (since 2026-09-26T15:54:07Z)
+> - kriscendobot/ocapn: watcher ticking but offline-journal for 4376s (since 2026-09-26T15:52:39Z)
+> - kriscendobot/test262: watcher ticking but offline-journal for 4299s (since 2026-09-26T15:53:56Z)
+> - kriscendobot/moddable: watcher ticking but offline-journal for 4463s (since 2026-09-26T15:51:12Z)
+> - kriscendobot/finbot: watcher ticking but offline-journal for 4359s (since 2026-09-26T15:52:56Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but offline-journal for 4283s (since 2026-09-26T15:54:12Z)
+> - kriscendobot/ymax-e2e: watcher ticking but offline-journal for 4310s (since 2026-09-26T15:53:45Z)
+> - endojs/endo-but-for-bots: watcher ticking but offline-journal for 4379s (since 2026-09-26T15:52:36Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but offline-journal for 4311s (since 2026-09-26T15:53:44Z)
+> - kriscendobot/proposal-compartments: watcher ticking but offline-journal for 4346s (since 2026-09-26T15:53:09Z)
+> - kriscendobot/list: watcher ticking but offline-journal for 4308s (since 2026-09-26T15:53:47Z)
+> - kriscendobot/endo: watcher ticking but offline-journal for 4348s (since 2026-09-26T15:53:07Z)
+> - kriscendobot/garden: watcher ticking but offline-journal for 4362s (since 2026-09-26T15:52:53Z)
+> watcher ticking but offline-journal for 4284s (since 2026-09-26T15:54:11Z)
+> - kriscendobot/minion.town: watcher ticking but offline-journal for 4418s (since 2026-09-26T15:51:57Z)
+> - kriscendobot/vattr97: watcher ticking but offline-journal for 4352s (since 2026-09-26T15:53:03Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but offline-journal for 4644s (since 2026-09-26T15:48:11Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -828,12 +830,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-ymax-stdio-mcp` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ymax-stdio-mcp.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-26T16:00:43Z, latest 2026-09-26T17:00:42Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-ymax-stdio-mcp`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ymax-stdio-mcp` has CLEARED (first seen 2026-09-26T16:00:43Z, cleared 2026-09-26T17:05:41Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment acknowledgment dead anomaly for kriscendobot/ymax-stdio-mcp:
-> watcher heartbeat stale (age=354s > 270s; outcome=offline-journal)
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
 
@@ -957,12 +958,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-moddable` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-moddable.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-26T16:10:45Z, latest 2026-09-26T17:00:28Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-moddable`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-moddable` has CLEARED (first seen 2026-09-26T16:10:45Z, cleared 2026-09-26T17:05:36Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment acknowledgment dead anomaly for kriscendobot/moddable:
-> watcher heartbeat stale (age=338s > 270s; outcome=offline-journal)
+> Comment acknowledgment condition cleared.
 
 - `watchdog-comment-watcher-dead-kriscendobot-test262` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-test262.md)
 
@@ -1029,7 +1029,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 11.8M | $110.91 _(notional, rate-card)_ | 8% of 143.0M (ok) |
 | Codex | 28.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106329217 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 106551372 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 43.693883s/45s (unknown); 4 open notice(s); checker healthy
