@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T22:25:06Z_
+_As of 2026-09-26T22:28:10Z_
 
 ## Latest
 
@@ -1044,18 +1044,17 @@ worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (3)
-- [`kriscendobot-minion.town-pr118-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr118-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #118
+### doin (2)
 - [`kriscendobot-minion.town-pr118-shepherd-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr118-shepherd-20260926.md) — Shepherd kriscendobot/minion.town PR #118 to green
 - [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Review directive on endojs/endo-but-for-bots PR #1282
 
-### tada (9019)
+### tada (9020)
+- [`kriscendobot-minion.town-pr118-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr118-shepherd.md) — Cost
 - [`kriscendobot-minion.town-pr118-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr118-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1304-0c373555`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-0c373555.md) — Cost
 - [`endojs-endo-but-for-bots-pr1301-gauntlet-20260918-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1301-gauntlet-20260918-clean.md) — Report
 - [`endojs-endo-but-for-bots-pr1125-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1125-receipt.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1125-review-af33f29e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1125-review-af33f29e.md) — Review directive resolution
-- … and 9014 more
+- … and 9015 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
