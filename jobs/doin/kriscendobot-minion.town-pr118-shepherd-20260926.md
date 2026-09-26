@@ -25,3 +25,13 @@ must re-approve the new head before a conductor can merge (the approval is now s
 Also answer dckc's question on the PR ("why is this a draft?") only if the
 comment etiquette allows it; the conductor will un-draft at merge time.
 Use GARDEN_YARN=npm for minion.town.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-26T22:23:53Z
