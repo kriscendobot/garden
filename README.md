@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T05:38:32Z_
+_As of 2026-09-26T05:45:14Z_
 
 ## Latest
 
@@ -144,10 +144,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` cleared on endolin-garden-ece02cb4.
 
-- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_receipts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_receipts_journal.md)
-
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipts/journal: p95=21.452128s max=21.452128s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-
 - `watchdog-journal-worktree-stale-endolin-garden-ece02cb4` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-stale-endolin-garden-ece02cb4.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-15T16:15:01Z, latest 2026-09-23T23:45:06Z).
@@ -179,10 +175,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` cleared on endolin-garden-ece02cb4.
-
-- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_retire` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_retire.md)
-
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/retire: p95=42.801082s max=42.801082s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
@@ -772,29 +764,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 846.5k | $14.09 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 689.0k | $10.64 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 11732447 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 42.801082s/45s (/home/kris/garden/.garden-state/ci-watcher/retire); 3 open notice(s); checker healthy
+worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-claude-agent-credential-reauth.md) — Build: credential-expiry detection and operator-mediated reauth for Claude ag...
-- [`build-minion-town-claude-agents-delegate-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-delegate-20260926.md) — Build: close the implementation gaps between minion.town's Claude-agents wiri...
+### doin (1)
+- [`kriscendobot-minion.town-pr119-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #119
 
-### tada (8950)
+### tada (8954)
+- [`build-claude-agent-credential-reauth-run-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-claude-agent-credential-reauth-run-gauntlet.md) — Cost
+- [`kriscendobot-minion.town-pr96-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-receipt.md) — Cost
+- [`build-minion-town-claude-agents-delegate-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-minion-town-claude-agents-delegate-20260926.md) — Completion report: build-minion-town-claude-agents-delegate-20260926
+- [`build-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-claude-agent-credential-reauth.md) — Cost
 - [`kriscendobot-minion.town-pr96-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-conduct.md) — Cost
-- [`kriscendobot-minion.town-pr96-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
-- [`kriscendobot-minion.town-pr97-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-receipt.md) — Cost
-- [`kriscendobot-minion.town-pr96-review-4b828bd6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-review-4b828bd6.md) — Cost
-- [`kriscendobot-minion.town-pr97-conduct-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-conduct-20260926.md) — Cost
-- … and 8945 more
+- … and 8949 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1090,7 +1081,6 @@ worst fetch p95 42.801082s/45s (/home/kris/garden/.garden-state/ci-watcher/retir
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
-- [`build-claude-agent-credential-reauth-run-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-claude-agent-credential-reauth-run-gauntlet.md) — awaiting `build-claude-agent-credential-reauth` · Run the gauntlet on the credential-reauth build PR(s) (kriscendobot/minion.town)
 - [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-gauntlet-20260901.md) — awaiting `endojs-endo-but-for-bots-pr871-weave-20260901` · Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
 - [`minion-town-pr81-verify-live-after-pr118`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr81-verify-live-after-pr118.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/118` · Verify kriscendobot/minion.town#81 is live in production after kriscendobot/m...
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
