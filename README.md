@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T23:51:25Z_
+_As of 2026-09-26T23:52:17Z_
 
 ## Latest
 
@@ -1032,7 +1032,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.4M | $153.35 _(notional, rate-card)_ | 11% of 143.0M (ok) |
+| Claude | 15.4M | $153.59 _(notional, rate-card)_ | 11% of 143.0M (ok) |
 | Codex | 31.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 47333350 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1044,7 +1044,8 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`design-endo-idforref-host-held-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-idforref-host-held-migration.md) — Design: host-held idForRef for any formula-generated object (endojs/endo-but-...
 - [`endojs-endo-but-for-bots-pr1306-review-3ed76637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1306-review-3ed76637.md) — Review directive on endojs/endo-but-for-bots PR #1306
 
 ### tada (9040)
