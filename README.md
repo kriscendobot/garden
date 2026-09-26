@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T23:16:34Z_
+_As of 2026-09-26T23:17:59Z_
 
 ## Latest
 
@@ -1044,16 +1044,16 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Review directive on endojs/endo-but-for-bots PR #1282
+### doin (0)
+(none)
 
-### tada (9027)
+### tada (9028)
+- [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1304-review-c8d04bad`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-review-c8d04bad.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1304-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1304-eb58df65`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-eb58df65.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-1b7e8cdb117e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-1b7e8cdb117e.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1304-conduct-relaunch-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-conduct-relaunch-20260918.md) — Cost
-- … and 9022 more
+- … and 9023 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
