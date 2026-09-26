@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T21:35:50Z_
+_As of 2026-09-26T21:36:34Z_
 
 ## Latest
 
@@ -175,6 +175,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/pages-watcher/verify: packs 1000 >= 1000; size=393966592B packs=1000 gc.log=0; automatic remedy=deferred.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal.md)
 
@@ -1020,13 +1024,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.4M | $153.33 _(notional, rate-card)_ | 11% of 143.0M (ok) |
+| Claude | 15.4M | $153.87 _(notional, rate-card)_ | 11% of 143.0M (ok) |
 | Codex | 29.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 91606115 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
+worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
