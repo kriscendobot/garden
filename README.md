@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T14:35:37Z_
+_As of 2026-09-26T14:49:09Z_
 
 ## Latest
 
@@ -17,7 +17,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 24d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 24d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 25d)
-- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 27d)
+- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 28d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -844,11 +844,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #522 (first seen 2026-09-25T03:17:02Z, latest 2026-09-26T13:44:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 522 times; this is ONE
-> coalesced notice that updates in place, not 522 messages. Latest detail:
+> WATCHDOG notice — occurrence #542 (first seen 2026-09-25T03:17:02Z, latest 2026-09-26T14:44:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 542 times; this is ONE
+> coalesced notice that updates in place, not 542 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 47b41af5a14d 36 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 47b41af5a14d 96 min ago
 > but still reports deployed_sha 917115c9b77234e4a05db68e8c5111fe6e5b305f. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -863,7 +863,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 11.7M | $110.27 _(notional, rate-card)_ | 8% of 143.0M (ok) |
 | Codex | 28.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 105583174 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 109102182 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 9.750570s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 0 open notice(s); checker healthy
