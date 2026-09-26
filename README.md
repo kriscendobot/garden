@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T21:09:41Z_
+_As of 2026-09-26T21:11:59Z_
 
 ## Latest
 
@@ -1032,17 +1032,16 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1018-review-eccc706c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-review-eccc706c.md) — Review directive on endojs/endo-but-for-bots PR #1018
+### doin (1)
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
 
-### tada (9009)
+### tada (9010)
+- [`endojs-endo-but-for-bots-pr1018-review-eccc706c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1018-review-eccc706c.md) — Cost
 - [`endojs-endo-but-for-bots-issue982-build-special-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-issue982-build-special-names.md) — Cost
 - [`endo-pr3360-mirror`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endo-pr3360-mirror.md) — Completion report — endo-pr3360-mirror
 - [`dependabotany-recheck-endo-but-for-bots-pr1268`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/dependabotany-recheck-endo-but-for-bots-pr1268.md) — PR #1268 recheck: already merged, nothing left to do
 - [`deadmail-issue-comment-5737357338`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/deadmail-issue-comment-5737357338.md) — Completion report
-- [`canary-probe-endolin-garden2-5bcdff64-959febf3bb3e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-959febf3bb3e.md) — rolling-deploy canary probe — round trip OK
-- … and 9004 more
+- … and 9005 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
