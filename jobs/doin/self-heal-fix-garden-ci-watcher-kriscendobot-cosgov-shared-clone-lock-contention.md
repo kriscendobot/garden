@@ -18,3 +18,13 @@ This is the identical shape already diagnosed and fixed for `scripts/jobs/receip
 ```
 
 with a comment mirroring `receipt-watcher.sh`'s rationale (each systemd instance is a per-repo singleton, so a per-slug clone has no concurrent users and the default `clone_lock` budget suffices; the shared clone was the only source of cross-instance contention). Check `scripts/jobs/test/ci-watcher-test.sh` for any test relying on the old shared-path default and update if needed. No functional change to what VERIFY/RETIRE are used for — only their default location.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T23:59:54Z
