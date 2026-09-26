@@ -1,7 +1,7 @@
 #!/bin/bash
 # cgroup-drain.sh — ExecStopPost backstop that holds a timer-driven oneshot unit in
-# "deactivating" until its cgroup is actually EMPTY, so the next timer firing can
-# never find "left-over process (git) in control group while starting unit". NO LLM.
+# "deactivating" until its cgroup is stably EMPTY, preventing the next timer firing
+# from racing a process that is still settling into the cgroup. NO LLM.
 #
 # Usage:
 #   cgroup-drain.sh <unit-name>        # as ExecStopPost=-/bin/bash …/cgroup-drain.sh %n
@@ -27,7 +27,9 @@
 # ExecStopPost runs AFTER that sweep, inside the same cgroup, and the unit stays
 # "deactivating" (so the timer cannot start it again) until this script returns. So:
 # re-read cgroup.procs, SIGKILL any live process other than this script and its own
-# children, and return once two consecutive reads, 0.1s apart, find none. The loop is
+# children, and return once three consecutive reads, 0.5s apart, find none. That
+# one-second settle window also catches a helper that lands in the cgroup after an
+# initially empty read (the residual race observed on 2026-09-26). The loop is
 # bounded by GARDEN_CGROUP_DRAIN_DEADLINE_SECS (default 15s, inside the units'
 # TimeoutStopSec=20s so systemd never times the stop out). Every straggler is logged
 # ONCE with /proc state, wchan, age and cmdline when first seen, and any survivor
@@ -119,7 +121,7 @@ while :; do
   done < "$procs"
   if [ "$remaining" -eq 0 ]; then
     zero_reads=$((zero_reads + 1))
-    if [ "$zero_reads" -ge 2 ]; then
+    if [ "$zero_reads" -ge 3 ]; then
       [ "$killed" -gt 0 ] && _drain_log "cgroup drained: $killed straggler(s) gone after $((SECONDS - start))s"
       exit 0
     fi
@@ -132,5 +134,5 @@ while :; do
     for pid in $survivors; do _drain_log "  $(describe_pid "$pid")"; done
     exit 0
   fi
-  sleep 0.1 2>/dev/null || sleep 1
+  sleep 0.5 2>/dev/null || sleep 1
 done

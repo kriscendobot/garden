@@ -3,8 +3,9 @@
 #
 # The drain is the watcher units' last line against "Found left-over process (git) in
 # control group while starting unit": it must SIGKILL a live straggler and wait for it
-# to go, name it (cmdline + state) in the log, report a SIGKILL survivor at the
-# deadline instead of hanging, and never touch anything outside its own unit cgroup.
+# to go, name it (cmdline + state) in the log, catch a process that arrives during
+# the empty settle window, report a SIGKILL survivor at the deadline instead of
+# hanging, and never touch anything outside its own unit cgroup.
 
 set -uo pipefail
 export GARDEN_TEST=1
@@ -60,7 +61,34 @@ echo "D2 - an empty cgroup drains silently"
 out="$(GARDEN_CGROUP_DRAIN_PROCS_FILE="$TR/empty" bash "$DRAIN" garden-comment-watcher@x.service 2>&1)"; rc=$?
 if [ "$rc" -eq 0 ] && [ -z "$out" ]; then ok "empty cgroup: rc 0, no output"; else bad "empty cgroup: rc=$rc out=$out"; fi
 
-echo "D3 - a SIGKILL survivor hits the deadline, is described, and never wedges the stop"
+echo "D3 - a straggler arriving after the old 0.1s settle window is caught"
+spawn_stray
+if [ -z "$STRAY" ]; then
+  bad "could not spawn the delayed fixture straggler"
+else
+  : > "$TR/delayed"
+  (
+    sleep 0.25
+    printf '%s\n' "$STRAY" > "$TR/delayed"
+  ) &
+  writer=$!
+  out="$(GARDEN_CGROUP_DRAIN_PROCS_FILE="$TR/delayed" GARDEN_CGROUP_DRAIN_DEADLINE_SECS=5 \
+    bash "$DRAIN" garden-comment-watcher@x.service 2>&1)"; rc=$?
+  wait "$writer"
+  if [ "$rc" -eq 0 ]; then ok "delayed-arrival drain exits 0"; else bad "delayed-arrival drain rc=$rc"; fi
+  if kill -0 "$STRAY" 2>/dev/null && [ "$(awk '{print $3}' "/proc/$STRAY/stat" 2>/dev/null)" != Z ]; then
+    bad "delayed straggler $STRAY still alive after the drain"
+  else
+    ok "delayed straggler felled before the drain returned"
+  fi
+  case "$out" in
+    *"straggler after main exit: pid=$STRAY "*"cmd=cgdrain-stray-git"*) ok "delayed straggler logged with its cmdline" ;;
+    *) bad "delayed straggler not described in the log: $out" ;;
+  esac
+  STRAY=""
+fi
+
+echo "D4 - a SIGKILL survivor hits the deadline, is described, and never wedges the stop"
 # pid 1 refuses our SIGKILL (EPERM for a non-root caller; SIGNAL_UNKILLABLE for a
 # root one), which is how a D-state git looks to the drain.
 echo 1 > "$TR/unkillable"
@@ -75,7 +103,7 @@ case "$out" in
   *) bad "deadline WARN missing the survivor's state: $out" ;;
 esac
 
-echo "D4 - outside its own unit cgroup the drain is a no-op (no fixture override)"
+echo "D5 - outside its own unit cgroup the drain is a no-op (no fixture override)"
 spawn_stray
 if [ -n "$STRAY" ]; then
   env -u GARDEN_CGROUP_DRAIN_PROCS_FILE GARDEN_TEST=0 \
@@ -91,7 +119,7 @@ else
   bad "could not spawn the fixture straggler"
 fi
 
-echo "D5 - --describe names state, wchan and cmdline"
+echo "D6 - --describe names state, wchan and cmdline"
 out="$(bash "$DRAIN" --describe $$ 999999999 2>&1)"
 case "$out" in
   *"pid=$$ state="*"wchan="*"cmd="*"pid=999999999 gone"*) ok "--describe output" ;;
