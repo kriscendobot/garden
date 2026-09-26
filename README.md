@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T22:18:56Z_
+_As of 2026-09-26T22:25:06Z_
 
 ## Latest
 
@@ -1033,9 +1033,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 15.4M | $152.90 _(notional, rate-card)_ | 11% of 143.0M (ok) |
-| Codex | 30.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Codex | 30.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 48489979 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 48312420 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
@@ -1044,17 +1044,18 @@ worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
-- [`kriscendobot-minion.town-pr118-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr118-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #118
+### doin (3)
+- [`kriscendobot-minion.town-pr118-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr118-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #118
+- [`kriscendobot-minion.town-pr118-shepherd-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr118-shepherd-20260926.md) — Shepherd kriscendobot/minion.town PR #118 to green
 - [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Review directive on endojs/endo-but-for-bots PR #1282
 
-### tada (9018)
+### tada (9019)
+- [`kriscendobot-minion.town-pr118-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr118-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1304-0c373555`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-0c373555.md) — Cost
 - [`endojs-endo-but-for-bots-pr1301-gauntlet-20260918-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1301-gauntlet-20260918-clean.md) — Report
 - [`endojs-endo-but-for-bots-pr1125-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1125-receipt.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1125-review-af33f29e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1125-review-af33f29e.md) — Review directive resolution
-- [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/expunge-gardener-worker-kind.md) — Cost
-- … and 9013 more
+- … and 9014 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
