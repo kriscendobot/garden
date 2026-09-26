@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T23:38:00Z_
+_As of 2026-09-26T23:40:42Z_
 
 ## Latest
 
@@ -8,9 +8,9 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 17m)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 22m)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 9d)
-- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 9d)
+- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 10d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 15d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 25d)
@@ -711,6 +711,29 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > scripts/jobs/budget-level.sh
 > A pool with a missing/invalid monk physical cap in config/worker-leveling currently zeroes `mv` globally, which freezes monk apportionment for EVERY host on every tick (see report_freeze call and the `mv=0` fallthrough), not just the misconfigured host's pool. This is firing right now for `anthropic:oros-studio-garden-ce242c49` (added to config/budget-pools at 2026-09-17T02:10Z with no matching `host` row in config/worker-leveling) and is blocking the whole fleet's monk count from rising. `set-budget-pool.sh` already gained a write-time guard for *new* pools (commit dd3e002519, same day) so this exact case can't recur going forward, but it doesn't repair a pool that predates the guard or one written by bypassing the setter (direct journal edit). Harden budget-level.sh to isolate a single pool's missing/invalid-cap fault the same way it already isolates uncalibrated provenance later in the file (`uncalibrated "$prov"&&continue`) — exclude just that pool/host from the apportionment sum and target computation, and freeze/report only that host, rather than blocking every other correctly-configured host's leveling. Separately, the standing config gap itself (oros-studio-garden-ce242c49 has no worker-leveling host row) still needs a human/operator decision on its physical monk cap and a `set-worker-leveling.sh` or `set-budget-pool.sh --monk-cap` call to backfill it — that's outside this script change.
 
+- `msg-claude-on-minion-town-completion-press-20260926-233541-65068d693596` — from gardener:claude-on-minion-town-completion-press-20260926-233541, reply_to `claude-on-minion-town-completion-press-20260926-233541` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20260926-233541-65068d693596.md)
+
+> Claude-on-minion.town arc completion press (2026-09-26T23:36Z): the foreman revived stale arc jobs, and most of them had nothing left to do.
+>
+> Between 18:14Z and 23:37Z the foreman's leaf-first plan promoter took 23 doom-parked arc jobs out of `jobs/plan/`. All of them were `gate: deferred`, so the path was sanctioned and nothing went missing. But 17 of the 21 arc jobs that completed in the window ran against work that had already shipped, and each report says so:
+> - `build-minion-town-claude-agents-capability`: [https://github.com/kriscendobot/minion.town/pull/87](https://github.com/kriscendobot/minion.town/pull/87) merged 09-03, so no artifact was needed.
+> - 6 jobs on [https://github.com/endojs/endo-but-for-bots/pull/1304](https://github.com/endojs/endo-but-for-bots/pull/1304) and 7 on [https://github.com/endojs/endo-but-for-bots/pull/1305](https://github.com/endojs/endo-but-for-bots/pull/1305): both PRs merged 09-18/19.
+> - The [https://github.com/endojs/endo-but-for-bots/pull/1305](https://github.com/endojs/endo-but-for-bots/pull/1305) retcon failed to set up its worktree because the head branch had been deleted after merge.
+> - The workers on pr1304-panel-6 and pr1305-retcon both flagged that the promoter does not check whether the PR is open or the gauntlet has finished before it promotes a PR-scoped stage.
+>
+> In flight right now:
+> - `endojs-endo-but-for-bots-pr1306-conduct` and `-pr1306-conduct-20260919` are both in doin on garden2, conducting a PR that merged on 09-19.
+> - `pr1305-conduct-20260919` sits in todo under the resume orchestration.
+> - These should resolve as no-ops, but they spend tokens.
+>
+> Still parked (doomed, deferred), and likely to be revived the same way: `split-pr1125-1304-gauntlet-shepherd`, `pr1306-review-3ed76637`, `minion.town-pr99-receipt`, `pr1125-aff3b059-retro`. `pr1015-refresh-for-review-20260919` is go-ahead, so it is protected.
+>
+> Suggestion, your call: withdraw those stale PR-scoped plan jobs. Separately, consider a merged-PR check in the promoter. I have not touched the board.
+>
+> Real progress: the [https://github.com/kriscendobot/minion.town/pull/118](https://github.com/kriscendobot/minion.town/pull/118) shepherd fixed the red B2 restart test (326b199), and CI is green. The PR needs dckc to re-approve the rebased head before a conductor can merge it.
+>
+> No new dooms, no policy-refusals, no requeue loops, and no job went absent.
+
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal.md)
 
 > RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-25T22:04:03Z, cleared 2026-09-26T15:34:58Z).
@@ -872,6 +895,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-receipt-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 49aa0d37e12234073cc7d49cb472c52bfe391cdd (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 49aa0d37e12234073cc7d49cb472c52bfe391cdd). Diagnosis: Diagnosis: a genuine, new classification bug in `reclone_clone` (`scripts/jobs/common.sh:4302-4316`), distinct from the already-fixed clone_lock stderr-silencing bug in memory. It drops `bounded_clone`'s exit code and classifies "offline" only by grepping captured stderr for known network-error text; a bare 45s `timeout`-SIGTERM clone kill (rc=124) that lands before git prints anything leaves that stderr empty, so the offline check misses and the failure escalates as a loud `FATAL` instead of a quiet transient skip. Posted the fix job above.
 
+- `endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919-resume-terminal-complete` — from orchestrator:endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919-resume-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919-resume
+> orchestration-status: complete
+> order: serial
+> children-total: 2
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919-resume complete (serial): all 2 children reached tada without a machine-readable failure declaration.
+
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-ok.md)
 
 > subscription codex-endolin changed zone backoff -> ok at spend=5159932 of cap=100.
@@ -1032,7 +1068,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.4M | $153.60 _(notional, rate-card)_ | 11% of 143.0M (ok) |
+| Claude | 15.5M | $154.77 _(notional, rate-card)_ | 11% of 143.0M (ok) |
 | Codex | 31.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 47328501 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1044,17 +1080,16 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1305-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-conduct-20260919.md) — Conduct (finalize → merge) endojs/endo-but-for-bots PR #1305 (3/3 of the bela...
+### doin (1)
 - [`claude-on-minion-town-completion-press-20260926-233541`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260926-233541.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### tada (9036)
+### tada (9038)
+- [`endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919-resume.md) — orchestration endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-2026091...
+- [`endojs-endo-but-for-bots-pr1305-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-conduct-20260919.md) — Cost
 - [`endojs-endo-but-for-bots-pr1306-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1306-conduct.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1306-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1306-conduct-20260919.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-retcon-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-retcon-20260919.md) — Cost
-- [`endojs-endo-but-for-bots-pr1305-weave-conduct-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md) — Cost
-- [`endojs-endo-but-for-bots-pr1305-shepherd-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-shepherd-20260919.md) — Completion report: shepherd endojs/endo-but-for-bots#1305
-- … and 9031 more
+- … and 9033 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
