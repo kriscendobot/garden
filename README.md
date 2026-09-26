@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T17:01:41Z_
+_As of 2026-09-26T17:02:46Z_
 
 ## Latest
 
@@ -1038,16 +1038,16 @@ worst fetch p95 43.693883s/45s (unknown); 4 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
-- [`self-heal-fix-garden-sysop-sync-clone-reset-corrupt-unclassified`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-sysop-sync-clone-reset-corrupt-unclassified.md) — ---
+### doin (0)
+(none)
 
-### tada (8985)
+### tada (8986)
+- [`self-heal-fix-garden-sysop-sync-clone-reset-corrupt-unclassified`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-sysop-sync-clone-reset-corrupt-unclassified.md) — Cost
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260926-163506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/fu-minion-town-containment-gateway-endo-sock-1-20260926-163506.md) — Cost
 - [`claude-on-minion-town-press-20260926-153512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-153512.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-47b41af5a14d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-47b41af5a14d.md) — rolling-deploy canary probe — round trip OK
 - [`improve-ci-pages-watcher-cgroup-straggler-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/improve-ci-pages-watcher-cgroup-straggler-reap.md) — Cost
-- [`claude-on-minion-town-press-20260926-123506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-123506.md) — Cost
-- … and 8980 more
+- … and 8981 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
