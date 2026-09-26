@@ -56,3 +56,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-573735733
 @kriscendobot Please plot the path to completion. Can we push for the Claude and stdio MCP to be prepared for preliminary review. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T20:34:10Z
