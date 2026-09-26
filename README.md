@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T23:27:57Z_
+_As of 2026-09-26T23:30:57Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 7m)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 12m)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 9d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 9d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 15d)
@@ -1044,16 +1044,16 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1305-weave-conduct-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md) — Rebase then conduct endojs/endo-but-for-bots PR #1305 (3/3 of the #1125 split)
 
-### tada (9031)
+### tada (9032)
+- [`endojs-endo-but-for-bots-pr1305-shepherd-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-shepherd-20260919.md) — Completion report: shepherd endojs/endo-but-for-bots#1305
 - [`endojs-endo-but-for-bots-pr1305-d4fa4360`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-d4fa4360.md) — Completion report — attention directive on endojs/endo-but-for-bots #1305
 - [`endojs-endo-but-for-bots-pr1305-review-40fd197b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-review-40fd197b.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1305-b982dc09`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-b982dc09.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Cost
-- … and 9026 more
+- … and 9027 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1097,8 +1097,6 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1305-shepherd-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1305-shepherd-20260919.md) — _normal_ · Shepherd endojs/endo-but-for-bots PR #1305 to green (1/3 of the belayed direc...
-- [`endojs-endo-but-for-bots-pr1305-weave-conduct-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1305-weave-conduct-20260918.md) — _normal_ · Rebase then conduct endojs/endo-but-for-bots PR #1305 (3/3 of the #1125 split)
 - [`endojs-endo-but-for-bots-pr1306-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1306-conduct.md) — _normal_ · Conduct endojs/endo-but-for-bots#1306 — un-draft + merge (guest provisioning,...
 - [`endojs-endo-but-for-bots-pr1306-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1306-conduct-20260919.md) — _normal_ · Conduct endojs/endo-but-for-bots#1306 — merge (guest provisioning, 2/3 of #1125)
 - [`endojs-endo-but-for-bots-pr1306-review-3ed76637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1306-review-3ed76637.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #1306
