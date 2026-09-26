@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T22:10:34Z_
+_As of 2026-09-26T22:14:38Z_
 
 ## Latest
 
@@ -1044,7 +1044,8 @@ worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1304-0c373555`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1304-0c373555.md) — attention directive on endojs/endo-but-for-bots PR #1304
 - [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Review directive on endojs/endo-but-for-bots PR #1282
 
 ### tada (9017)
@@ -1097,7 +1098,6 @@ worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1304-0c373555`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1304-0c373555.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #1304
 - [`endojs-endo-but-for-bots-pr1304-conduct-authorized-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1304-conduct-authorized-20260918.md) — _normal_ · State verified at posting (re-derive it; do not trust these)
 - [`endojs-endo-but-for-bots-pr1304-conduct-relaunch-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1304-conduct-relaunch-20260918.md) — _normal_ · State verified at posting (re-derive it; do not trust these)
 - [`endojs-endo-but-for-bots-pr1304-eb58df65`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1304-eb58df65.md) — _normal_ · attention directive on endojs/endo-but-for-bots PR #1304
