@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T06:56:40Z_
+_As of 2026-09-26T07:06:31Z_
 
 ## Latest
 
@@ -505,6 +505,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > From report `fix-finished-but-not-completed-requeue`: after the requeue fix, the headless-mode note now reaches all handlers (`cleric-codex`, `opencode`, `mystic-kimi`), but the nudge and `continue` mode remain Claude-only — those other handlers don't get them. Is that asymmetry intentional (a capability gap in the non-Claude tools) or should nudge/continue be extended to them? No garden repo/PR is implicated; this is a fleet-behavior scope decision.
 
+- `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
+
+> budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=394514 cap=73000000 pace-bias=0.587696 ceiling=4 target=4
+
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_triager_pace_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_triager_pace_journal.md)
 
 > Journal lock contention on endolin-garden-ece02cb4 for _home_kris_garden__garden_state_triager_pace_journal: p95=0.002055s, giveups=1, steals=0 (max 3/window), wait floor=60s.
@@ -769,9 +773,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 4.8M | $48.14 _(notional, rate-card)_ | 3% of 143.0M (ok) |
-| Codex | 28.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
+| Codex | 28.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 45512296 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 107313152 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
@@ -781,15 +785,15 @@ worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 (none)
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr119-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #119
+- [`daily-progress-summary-20260926-070535`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260926-070535.md) — Daily midnight Pacific progress summary
 
-### tada (8964)
+### tada (8965)
+- [`kriscendobot-minion.town-pr119-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-fix-3.md) — Fix round 3 for kriscendobot/minion.town#119: done, CI green
 - [`kriscendobot-minion.town-pr119-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-3.md) — Cost
 - [`kriscendobot-minion.town-pr119-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-shepherd.md) — Cost
 - [`kriscendobot-minion.town-pr119-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-fix-2.md) — Gauntlet fix round 2: kriscendobot/minion.town#119
 - [`endojs-endo-but-for-bots-pr1227-rebase-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1227-rebase-20260926.md) — Cost
-- [`kriscendobot-minion.town-pr119-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-panel-2.md) — Panel round 2 on kriscendobot/minion.town#119: must-fix
-- … and 8959 more
+- … and 8960 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
