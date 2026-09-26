@@ -21,3 +21,13 @@ the PR is mergeable, and required checks are green on the exact head (at posting
 time: MERGEABLE, draft, all checks SUCCESS). Un-draft if still draft, then merge.
 Do not choose or name a merge method here — the conductor owns that. This is a bot
 repository (kriscendobot fork), so merging is authorized.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T05:14:59Z
