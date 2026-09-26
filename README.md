@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T22:35:30Z_
+_As of 2026-09-26T22:37:48Z_
 
 ## Latest
 
@@ -159,6 +159,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
 
 > subscription codex-endolin changed zone backoff -> ok at spend=22990248 of cap=100.
+
+- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1282-8aad7086a966` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1282-8aad7086a966.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1282](https://github.com/endojs/endo-but-for-bots/pull/1282) ([endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/issues/1282)) is in the mergeable queue with NO gauntlet review staged (head 8aad7086a9669e2f31488ddec68c827e63d7b265). Under the manual-gauntlet regime the garden no longer stages gauntlets automatically. If you want it reviewed, reply with 'run the gauntlet #1282'; otherwise no action is needed. This audit never re-drafts or stages anything.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify.md)
 
