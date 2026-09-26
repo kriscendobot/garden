@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T20:00:12Z_
+_As of 2026-09-26T20:09:41Z_
 
 ## Latest
 
@@ -1017,7 +1017,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 12.9M | $129.98 _(notional, rate-card)_ | 9% of 143.0M (ok) |
-| Codex | 29.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 29.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 80388980 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1028,8 +1028,9 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
+- [`date-sharded-tada-migrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/date-sharded-tada-migrate.md) — date-sharded-tada stage 3: retroactive migration of jobs/tada/
 
 ### tada (9001)
 - [`daily-progress-summary-20260919-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/daily-progress-summary-20260919-070505.md) — Cost
@@ -1080,7 +1081,6 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`date-sharded-tada-migrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/date-sharded-tada-migrate.md) — _normal_ · date-sharded-tada stage 3: retroactive migration of jobs/tada/
 - [`deadmail-issue-comment-5715518921`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadmail-issue-comment-5715518921.md) — _normal_ · Issue follow-up — fold a late comment into the issue work
 - [`deadmail-issue-comment-5722768728`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadmail-issue-comment-5722768728.md) — _normal_ · Issue follow-up — fold a late comment into the issue work
 - [`deadmail-issue-comment-5737357338`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadmail-issue-comment-5737357338.md) — _normal_ · Issue follow-up — fold a late comment into the issue work
