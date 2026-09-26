@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T17:33:24Z_
+_As of 2026-09-26T17:35:53Z_
 
 ## Latest
 
@@ -1008,10 +1008,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.8M | $124.67 _(notional, rate-card)_ | 9% of 143.0M (ok) |
-| Codex | 28.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 12.8M | $124.97 _(notional, rate-card)_ | 9% of 143.0M (ok) |
+| Codex | 28.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 106568244 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 113751437 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
@@ -1020,8 +1020,9 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`foreman-budget-ramp-and-mandate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/foreman-budget-ramp-and-mandate.md) — Build: journal-backed foreman spend-ramp and priority mandate
+- [`claude-on-minion-town-completion-press-20260926-173506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260926-173506.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
 
 ### tada (8987)
