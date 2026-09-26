@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T18:27:01Z_
+_As of 2026-09-26T18:32:34Z_
 
 ## Latest
 
@@ -1022,15 +1022,15 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 
 ### doin (2)
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
-- [`kriscendobot-minion.town-pr121-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr121-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #121
+- [`canary-probe-endolin-garden2-5bcdff64-4ab1c8b0be6a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-endolin-garden2-5bcdff64-4ab1c8b0be6a.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 4ab1c8b0be6a
 
-### tada (8991)
+### tada (8992)
+- [`kriscendobot-minion.town-pr121-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr121-shepherd.md) — Cost
 - [`amend-invitation-oauth-mcp-prerequisite`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/amend-invitation-oauth-mcp-prerequisite.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-80b59b5c8d96`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-80b59b5c8d96.md) — rolling-deploy canary probe — round trip OK
 - [`foreman-budget-ramp-and-mandate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/foreman-budget-ramp-and-mandate.md) — Cost
 - [`claude-on-minion-town-completion-press-20260926-173506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-completion-press-20260926-173506.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-42a937a700d5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-42a937a700d5.md) — rolling-deploy canary probe — round trip OK
-- … and 8986 more
+- … and 8987 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
