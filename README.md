@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T23:56:04Z_
+_As of 2026-09-26T23:58:30Z_
 
 ## Latest
 
@@ -1036,7 +1036,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.7M | $155.44 _(notional, rate-card)_ | 11% of 143.0M (ok) |
+| Claude | 16.3M | $161.30 _(notional, rate-card)_ | 11% of 143.0M (ok) |
 | Codex | 31.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 47333350 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1045,11 +1045,15 @@ _Fleet token-unlock pace: 47333350 tokens/day lower bound; incomplete where a su
 worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (2)
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-vattr97-clonelock-busy-not-latched`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-ci-watcher-kriscendobot-vattr97-clonelock-busy-not-latched.md) — ---
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-proposal-compartments-shared-verify-clone-lock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-ci-watcher-kriscendobot-proposal-compartments-shared-verify-clone-lock.md) — ---
 
-### doin (2)
+### doin (5)
 - [`design-endo-idforref-host-held-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-idforref-host-held-migration.md) — Design: host-held idForRef for any formula-generated object (endojs/endo-but-...
+- [`self-heal-fix-garden-ci-watcher-shared-verify-clone-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-shared-verify-clone-lock-contention.md) — ---
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-endo-but-for-bots-clonelock-busy-not-quiet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-endo-but-for-bots-clonelock-busy-not-quiet.md) — ---
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-moddable-clonelock-busy-not-outage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-moddable-clonelock-busy-not-outage.md) — ---
 - [`endojs-endo-but-for-bots-pr249-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr249-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #249
 
 ### tada (9041)
