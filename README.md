@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T05:45:14Z_
+_As of 2026-09-26T05:47:45Z_
 
 ## Latest
 
@@ -764,7 +764,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 689.0k | $10.64 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 646.7k | $10.30 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 11732447 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -777,15 +777,15 @@ worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 (none)
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr119-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #119
+- [`kriscendobot-minion.town-pr119-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #119
 
-### tada (8954)
+### tada (8955)
+- [`kriscendobot-minion.town-pr119-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-viability.md) — Cost
 - [`build-claude-agent-credential-reauth-run-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-claude-agent-credential-reauth-run-gauntlet.md) — Cost
 - [`kriscendobot-minion.town-pr96-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-receipt.md) — Cost
 - [`build-minion-town-claude-agents-delegate-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-minion-town-claude-agents-delegate-20260926.md) — Completion report: build-minion-town-claude-agents-delegate-20260926
 - [`build-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/build-claude-agent-credential-reauth.md) — Cost
-- [`kriscendobot-minion.town-pr96-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-conduct.md) — Cost
-- … and 8949 more
+- … and 8950 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
