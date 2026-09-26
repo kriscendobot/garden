@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T05:06:26Z_
+_As of 2026-09-26T05:07:46Z_
 
 ## Latest
 
@@ -780,16 +780,16 @@ worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-completion-press-20260926-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260926-050510.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (0)
+(none)
 
-### tada (8943)
+### tada (8944)
+- [`claude-on-minion-town-completion-press-20260926-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-completion-press-20260926-050510.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-4c0529f42fb8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-4c0529f42fb8.md) — rolling-deploy canary probe — round trip OK
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline.md) — Cost
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline.md) — Cost
 - [`claude-on-minion-town-press-20260926-030611`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-030611.md) — Cost
-- [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-clone-rc124-offline-gap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-clone-rc124-offline-gap.md) — Completion report: self-heal-fix-garden-comment-watcher-kriscendobot-garden-r...
-- … and 8938 more
+- … and 8939 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
