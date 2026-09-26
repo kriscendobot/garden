@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T12:59:23Z_
+_As of 2026-09-26T13:02:32Z_
 
 ## Latest
 
@@ -848,8 +848,8 @@ worst fetch p95 9.750570s/45s (/home/kris/garden/.garden-state/library-link-chec
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`canary-probe-endolin-garden2-5bcdff64-47b41af5a14d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-endolin-garden2-5bcdff64-47b41af5a14d.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 47b41af5a14d
 
 ### tada (8982)
 - [`improve-ci-pages-watcher-cgroup-straggler-reap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/improve-ci-pages-watcher-cgroup-straggler-reap.md) — Cost
