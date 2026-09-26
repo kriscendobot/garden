@@ -162,6 +162,25 @@ run_clone_classify clone-gone \
   && ok "a missing-upstream clone failure stays loud (rc=1) and does not latch" \
   || bad "gone clone failure exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
 
+# (a5b) clone_lock's busy-holder give-up (a live sibling instance sharing the same
+# VERIFY clone held the lock past the wait budget) is ordinary contention, not a
+# defect: it latches and exits temporary-unavailable instead of crash-looping.
+CLONE_LOCK_BUSY='11:11:11 [t] FATAL: cannot acquire clone lock /s/ci-watcher/verify.lock after 60 waits of 3s and 1 reclaim attempt(s) (a live holder is still busy; if it is crashed, rm -f /s/ci-watcher/verify.lock)'
+rm -f "$MARKER"; rc=0
+run_clone_classify clone-lock-busy \
+  'ensure_clone() { echo "'"$CLONE_LOCK_BUSY"'" >&2; exit 1; }; ensure_clone_or_latch_outage /tmp/c ci-watcher-verify' \
+  2>/dev/null || rc=$?
+{ [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ -e "$MARKER" ]; } \
+  && ok "a busy clone-lock holder is classified as a temporary outage" \
+  || bad "busy clone-lock failure exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
+# The predicate directly: ambiguous at rc=1, never at another rc, and the phrase
+# does not collide with the definite-failure (git-internal lock) signatures.
+run_clone_classify clone-lock-pred \
+  'journal_bounded_fetch_is_ambiguous_outage 1 "'"$CLONE_LOCK_BUSY"'" && ! journal_diagnostic_is_definite_failure "'"$CLONE_LOCK_BUSY"'" && ! journal_bounded_fetch_is_ambiguous_outage 2 "'"$CLONE_LOCK_BUSY"'"' \
+  2>/dev/null \
+  && ok "journal_bounded_fetch_is_ambiguous_outage matches the clone-lock busy shape only at rc=1" \
+  || bad "clone-lock busy diagnostic misclassified by the predicate"
+
 # (a6) a successful clone returns 0 and latches nothing.
 rm -f "$MARKER"; rc=0
 run_clone_classify clone-ok 'ensure_clone() { :; }; ensure_clone_or_latch_outage /tmp/c cursor-get' \

@@ -4597,7 +4597,10 @@ journal_push_is_definite_failure() {  # <diagnostic>
 # A bounded journal fetch OR clone can finish with the otherwise-ambiguous rc=1 and
 # a transport diagnostic outside the stable offline-signature set — journal_fetch's
 # bounded-retry summary ("journal fetch in … failed after N attempt(s)") or a bounded
-# (re)clone failure ("clone of … failed"). Both are the narrow "a bounded journal
+# (re)clone failure ("clone of … failed"), or clone_lock's bounded busy-holder give-up
+# ("cannot acquire clone lock … after N waits" — a live sibling watcher instance
+# sharing the same VERIFY clone is mid-reclone/fetch past the lock budget, ordinary
+# multi-repo contention on one host). All are the narrow "a bounded journal
 # read attempt against the established remote failed with no stable signature" shape
 # a correlated outage produces. Treat it as weather, but ONLY after excluding the
 # positively-identified non-transient classes above — so a dead upstream, credential
@@ -4605,7 +4608,7 @@ journal_push_is_definite_failure() {  # <diagnostic>
 journal_bounded_fetch_is_ambiguous_outage() {  # <rc> <diagnostic>
   local rc="$1" diagnostic="$2"
   [ "$rc" -eq 1 ] \
-    && printf '%s\n' "$diagnostic" | grep -qE 'journal fetch in .* failed after [0-9]+ attempt|clone of .* failed' \
+    && printf '%s\n' "$diagnostic" | grep -qE 'journal fetch in .* failed after [0-9]+ attempt|clone of .* failed|cannot acquire clone lock .* after [0-9]+ waits' \
     && ! journal_diagnostic_is_definite_failure "$diagnostic"
 }
 
