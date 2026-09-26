@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T03:37:23Z_
+_As of 2026-09-26T03:49:00Z_
 
 ## Latest
 
@@ -21,6 +21,10 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-list: gc.log present; size=190807040B packs=52 gc.log=1; automatic remedy=applied.
 
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
@@ -529,11 +533,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` has CLEARED (first seen 2026-09-25T22:04:03Z, cleared 2026-09-25T23:19:01Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-25T22:04:03Z, latest 2026-09-26T03:45:08Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: packs 1021 >= 1000; size=376584192B packs=1021 gc.log=0; automatic remedy=backoff.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-2.md)
 
@@ -754,7 +758,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 29535165 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 7.914191s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
+worst fetch p95 7.914191s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
