@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T22:40:20Z_
+_As of 2026-09-26T22:43:41Z_
 
 ## Latest
 
@@ -1038,7 +1038,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 49525175 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
+worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
