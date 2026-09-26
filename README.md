@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T21:36:34Z_
+_As of 2026-09-26T21:36:57Z_
 
 ## Latest
 
@@ -1024,7 +1024,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.4M | $153.87 _(notional, rate-card)_ | 11% of 143.0M (ok) |
+| Claude | 15.4M | $152.90 _(notional, rate-card)_ | 11% of 143.0M (ok) |
 | Codex | 29.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 4% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 91606115 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1036,16 +1036,16 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (1)
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1085
+### doin (0)
+(none)
 
-### tada (9010)
+### tada (9011)
+- [`endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1018-review-eccc706c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1018-review-eccc706c.md) — Cost
 - [`endojs-endo-but-for-bots-issue982-build-special-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-issue982-build-special-names.md) — Cost
 - [`endo-pr3360-mirror`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endo-pr3360-mirror.md) — Completion report — endo-pr3360-mirror
 - [`dependabotany-recheck-endo-but-for-bots-pr1268`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/dependabotany-recheck-endo-but-for-bots-pr1268.md) — PR #1268 recheck: already merged, nothing left to do
-- [`deadmail-issue-comment-5737357338`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/deadmail-issue-comment-5737357338.md) — Completion report
-- … and 9005 more
+- … and 9006 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
