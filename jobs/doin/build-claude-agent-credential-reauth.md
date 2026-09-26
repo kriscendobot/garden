@@ -28,3 +28,13 @@ Base branch `main`. Open the PR(s) DRAFT via ensure-pr.sh and name them in the
 report. The maintainer has explicitly requested a gauntlet: the blocked
 follow-up `build-claude-agent-credential-reauth-run-gauntlet` will post it once
 this build completes, so do not post a gauntlet yourself.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T05:21:53Z
