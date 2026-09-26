@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T22:54:47Z_
+_As of 2026-09-26T23:03:28Z_
 
 ## Latest
 
@@ -1041,11 +1041,11 @@ _Fleet token-unlock pace: 49533463 tokens/day lower bound; incomplete where a su
 worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Review directive on endojs/endo-but-for-bots PR #1282
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Review directive on endojs/endo-but-for-bots PR #1282
 
 ### tada (9024)
 - [`canary-probe-endolin-garden2-5bcdff64-1b7e8cdb117e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-1b7e8cdb117e.md) — rolling-deploy canary probe — round trip OK
