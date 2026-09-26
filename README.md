@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T19:33:41Z_
+_As of 2026-09-26T19:39:42Z_
 
 ## Latest
 
@@ -12,9 +12,9 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 9d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 14d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 24d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 24d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 24d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 25d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 25d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 25d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 24d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 26d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 28d)
@@ -1017,7 +1017,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 12.9M | $129.98 _(notional, rate-card)_ | 9% of 143.0M (ok) |
-| Codex | 29.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
+| Codex | 29.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 80377665 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
@@ -1028,7 +1028,8 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`daily-progress-summary-20260918-070547`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260918-070547.md) — Daily midnight Pacific progress summary
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
 
 ### tada (8999)
@@ -1080,7 +1081,6 @@ worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`daily-progress-summary-20260918-070547`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20260918-070547.md) — _normal_ · Daily midnight Pacific progress summary
 - [`daily-progress-summary-20260919-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20260919-070505.md) — _normal_ · Daily midnight Pacific progress summary
 - [`date-sharded-tada-migrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/date-sharded-tada-migrate.md) — _normal_ · date-sharded-tada stage 3: retroactive migration of jobs/tada/
 - [`deadmail-issue-comment-5715518921`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deadmail-issue-comment-5715518921.md) — _normal_ · Issue follow-up — fold a late comment into the issue work
