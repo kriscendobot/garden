@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T13:44:25Z_
+_As of 2026-09-26T13:54:33Z_
 
 ## Latest
 
@@ -163,6 +163,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > budget-level changed endolin-garden2-5bcdff64 monk workers 1 -> 2 (target 2): subscription claude-endolin2 spend=1895787 cap=64000000 pace-bias=0.008660 ceiling=2 target=2
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_garden` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_garden.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-garden: gc.log present; size=221277184B packs=52 gc.log=1; automatic remedy=applied.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -473,11 +477,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` has CLEARED (first seen 2026-09-25T18:43:51Z, cleared 2026-09-26T08:14:32Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-25T18:43:51Z, latest 2026-09-26T13:50:56Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify: packs 1016 >= 1000; size=337615872B packs=1016 gc.log=0; automatic remedy=backoff.
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-moddable: gc.log present; size=205067264B packs=51 gc.log=1; automatic remedy=backoff.
 
 - `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
 
@@ -845,12 +853,12 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 11.7M | $110.00 _(notional, rate-card)_ | 8% of 143.0M (ok) |
-| Codex | 28.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 28.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 105238732 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 105255382 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 9.750570s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 0 open notice(s); checker healthy
+worst fetch p95 9.750570s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
