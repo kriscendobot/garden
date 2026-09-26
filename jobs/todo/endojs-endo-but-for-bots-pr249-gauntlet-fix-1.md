@@ -1,22 +1,10 @@
 ---
-gate: deferred
-priority: normal
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 7200
 token-budget: 250000
-doomed: true
-doom_signature: elapsed-constancy
-doom_count: 1
-failure_classification: deterministic
-requeue_cycles: 4
-deadline_overruns: 0
-elapsed_constancy_confirmations: 2
-doomed_at: 2026-09-04T04:25:22Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-09-04T04:25:22Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-26T23:54:06Z cleared=none -->
 
 ---
 role: gardener
