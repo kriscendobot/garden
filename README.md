@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T08:30:04Z_
+_As of 2026-09-26T08:36:17Z_
 
 ## Latest
 
@@ -451,10 +451,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` cleared on endolin-garden-ece02cb4.
 
-- `kriscendobot-minion.town-pr119-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr119-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr119-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet kriscendobot-minion.town-pr119-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
-
 - `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -807,7 +803,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 11.3M | $107.06 _(notional, rate-card)_ | 8% of 143.0M (ok) |
 | Codex | 28.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 98635224 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 102676517 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
