@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T22:14:38Z_
+_As of 2026-09-26T22:16:06Z_
 
 ## Latest
 
@@ -1044,8 +1044,9 @@ worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1304-0c373555`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1304-0c373555.md) — attention directive on endojs/endo-but-for-bots PR #1304
+- [`kriscendobot-minion.town-pr118-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr118-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #118
 - [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Review directive on endojs/endo-but-for-bots PR #1282
 
 ### tada (9017)
