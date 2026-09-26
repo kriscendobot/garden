@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T11:17:07Z_
+_As of 2026-09-26T11:20:58Z_
 
 ## Latest
 
@@ -821,10 +821,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 11.5M | $108.42 _(notional, rate-card)_ | 8% of 143.0M (ok) |
+| Claude | 11.5M | $108.67 _(notional, rate-card)_ | 8% of 143.0M (ok) |
 | Codex | 28.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 87% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 107400418 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 107417032 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
@@ -833,8 +833,8 @@ worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-completion-press-20260926-112007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260926-112007.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### tada (8976)
 - [`claude-on-minion-town-press-20260926-092011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-092011.md) — Cost
