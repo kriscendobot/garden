@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T05:32:33Z_
+_As of 2026-09-26T05:34:32Z_
 
 ## Latest
 
@@ -764,7 +764,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 791.8k | $12.90 _(notional, rate-card)_ | 1% of 143.0M (ok) |
+| Claude | 768.4k | $12.86 _(notional, rate-card)_ | 1% of 143.0M (ok) |
 | Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 3750534 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -776,18 +776,17 @@ worst fetch p95 21.452128s/45s (/home/kris/garden/.garden-state/receipts/journal
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`build-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-claude-agent-credential-reauth.md) — Build: credential-expiry detection and operator-mediated reauth for Claude ag...
-- [`kriscendobot-minion.town-pr96-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #96
 - [`build-minion-town-claude-agents-delegate-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-agents-delegate-20260926.md) — Build: close the implementation gaps between minion.town's Claude-agents wiri...
 
-### tada (8949)
+### tada (8950)
+- [`kriscendobot-minion.town-pr96-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr96-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`kriscendobot-minion.town-pr97-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-receipt.md) — Cost
 - [`kriscendobot-minion.town-pr96-review-4b828bd6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr96-review-4b828bd6.md) — Cost
 - [`kriscendobot-minion.town-pr97-conduct-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-conduct-20260926.md) — Cost
-- [`kriscendobot-minion.town-pr97-review-69e952c4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-review-69e952c4.md) — Cost
-- … and 8944 more
+- … and 8945 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
