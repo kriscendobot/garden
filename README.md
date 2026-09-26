@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T17:20:32Z_
+_As of 2026-09-26T17:20:58Z_
 
 ## Latest
 
@@ -1021,14 +1021,14 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 106568244 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 43.693883s/45s (unknown); 4 open notice(s); checker healthy
+worst fetch p95 43.693883s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`canary-probe-endolin-garden2-5bcdff64-42a937a700d5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-42a937a700d5.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 42a937a700d5
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`canary-probe-endolin-garden2-5bcdff64-42a937a700d5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-endolin-garden2-5bcdff64-42a937a700d5.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 42a937a700d5
 
 ### tada (8986)
 - [`self-heal-fix-garden-sysop-sync-clone-reset-corrupt-unclassified`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-sysop-sync-clone-reset-corrupt-unclassified.md) — Cost
