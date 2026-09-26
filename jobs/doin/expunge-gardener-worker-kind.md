@@ -80,3 +80,13 @@ wrapper functions) before changing anything.
 
 Land direct to `main2` per CLAUDE.md's garden's-own-repo convention (no PR)
 unless you land it with open questions, in which case follow the PR carve-out.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T17:27:26Z
