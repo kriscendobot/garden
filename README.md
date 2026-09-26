@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T05:13:41Z_
+_As of 2026-09-26T05:16:59Z_
 
 ## Latest
 
@@ -768,7 +768,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 397.4k | $6.86 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 457.8k | $7.58 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 29535165 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -781,15 +781,15 @@ worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics
 (none)
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr97-review-69e952c4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-review-69e952c4.md) — Review directive on kriscendobot/minion.town PR #97
+- [`kriscendobot-minion.town-pr97-conduct-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-conduct-20260926.md) — Conduct kriscendobot/minion.town PR #97
 
-### tada (8944)
+### tada (8945)
+- [`kriscendobot-minion.town-pr97-review-69e952c4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr97-review-69e952c4.md) — Cost
 - [`claude-on-minion-town-completion-press-20260926-050510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-completion-press-20260926-050510.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-4c0529f42fb8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/canary-probe-endolin-garden2-5bcdff64-4c0529f42fb8.md) — rolling-deploy canary probe — round trip OK
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-reclone-timeout-not-offline.md) — Cost
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline.md) — Cost
-- [`claude-on-minion-town-press-20260926-030611`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-030611.md) — Cost
-- … and 8939 more
+- … and 8940 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1093,6 +1093,7 @@ worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
+- [`build-minion-town-claude-agents-delegate-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-claude-agents-delegate-20260926.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/97` · Build: close the implementation gaps between minion.town's Claude-agents wiri...
 
 ## Watch set
 kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
