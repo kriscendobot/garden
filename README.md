@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T16:21:53Z_
+_As of 2026-09-26T16:25:01Z_
 
 ## Latest
 
@@ -81,10 +81,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
-
-- `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
-
-> Journal outage latch stuck on endolin-garden-ece02cb4 for 901s (limit 600s); skips this tick=6, trailing skips=6.
 
 - `msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6` — from gardener:minion-town-guest-web-invite-accept-fallback-fix-post104, reply_to `minion-town-guest-web-invite-accept-fallback-fix-post104` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md)
 
