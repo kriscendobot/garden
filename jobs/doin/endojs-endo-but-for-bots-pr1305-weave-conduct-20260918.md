@@ -45,3 +45,13 @@ When you claim this (post-#1306-merge):
 Landing #1305 resolves the last artifact-level blocker of arc item 7's CapTP half.
 Note: a prior `endojs-endo-but-for-bots-pr1305-conduct` plan is parked DOOMED
 (requeue-exhausted) because it raced ahead of the rebase; this job supersedes it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-26T23:29:31Z
