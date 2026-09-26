@@ -1,0 +1,18 @@
+Maintainer priority mandate (kriskowal, 2026-09-26), for the foreman's
+discretionary use while pumping milestone steps this weekend:
+
+1. FIRST PRIORITY: minion.town capabilities.
+   - Especially running Claude remotely (the confined in-guest agent /
+     endo-claude direction).
+   - Especially using minion.town as a git origin for pushing directly to
+     the virtual filesystem (the capability-addressed git remote /
+     git-remote-capability direction).
+2. SECOND PRIORITY: metering on minion.town with endor. This is explicitly
+   EXPLORATIVE — lower confidence, treat findings as provisional, do not
+   over-invest if it proves unproductive.
+3. THIRD PRIORITY: pushing development on ironhorse.
+
+This mandate is discretionary guidance for step selection among otherwise
+eligible milestone work, not a hard gate — use ordinary judgment on
+dependencies, readiness, and board state. It supersedes no safety or review
+discipline (manual-gauntlet-trigger, draft-PR-stays-draft, etc.).
