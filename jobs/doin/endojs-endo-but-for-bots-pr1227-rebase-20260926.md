@@ -18,3 +18,13 @@ and force-push with lease so the PR is `MERGEABLE` when the maintainer re-review
 
 Do not change the design's substance, do not un-draft, and do not post a gauntlet. If the
 conflict is substantive (not an index merge), stop and report it rather than rewriting the design.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-26T06:22:43Z
