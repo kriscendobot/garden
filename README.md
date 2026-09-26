@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T05:23:09Z_
+_As of 2026-09-26T05:24:38Z_
 
 ## Latest
 
@@ -784,7 +784,8 @@ worst fetch p95 8.674958s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`kriscendobot-minion.town-pr97-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr97-receipt.md) — receipt (auto) — completion receipt for kriscendobot/minion.town PR #97 (merged)
 - [`build-claude-agent-credential-reauth`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-claude-agent-credential-reauth.md) — Build: credential-expiry detection and operator-mediated reauth for Claude ag...
 - [`kriscendobot-minion.town-pr96-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr96-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #96
 
