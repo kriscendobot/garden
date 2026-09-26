@@ -14,3 +14,13 @@ Apply the same fix in `scripts/jobs/ci-watcher.sh`:
 - Add a short comment above the defaults (mirroring receipt-watcher.sh's rationale block) explaining the fan-out/shared-lock contention this avoids.
 
 Run the full `ci-watcher-test.sh` suite before pushing. This does not touch `GARDEN_CI_JOURNAL_OUTAGE_LATCH`, which is deliberately host-wide (not slug-keyed) per its own comment — leave that alone.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-26T23:59:28Z
