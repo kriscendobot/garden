@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T22:44:46Z_
+_As of 2026-09-26T22:46:50Z_
 
 ## Latest
 
@@ -1044,17 +1044,16 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1304-conduct-authorized-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1304-conduct-authorized-20260918.md) — State verified at posting (re-derive it; do not trust these)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1282-review-eb0900a1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-review-eb0900a1.md) — Review directive on endojs/endo-but-for-bots PR #1282
 
-### tada (9021)
+### tada (9022)
+- [`endojs-endo-but-for-bots-pr1304-conduct-authorized-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-conduct-authorized-20260918.md) — Cost
 - [`kriscendobot-minion.town-pr118-shepherd-20260926`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr118-shepherd-20260926.md) — Cost
 - [`kriscendobot-minion.town-pr118-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr118-shepherd.md) — Cost
 - [`kriscendobot-minion.town-pr118-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr118-conduct.md) — Cost
 - [`endojs-endo-but-for-bots-pr1304-0c373555`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1304-0c373555.md) — Cost
-- [`endojs-endo-but-for-bots-pr1301-gauntlet-20260918-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1301-gauntlet-20260918-clean.md) — Report
-- … and 9016 more
+- … and 9017 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
