@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: build-claude-agent-credential-reauth
-priority: normal
-posted_by: producer
-posted_at: 2026-09-26T05:21:56Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-26T05:41:05Z cleared=none -->
 
 ---
 tier: mentor
