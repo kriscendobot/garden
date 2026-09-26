@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T21:51:22Z_
+_As of 2026-09-26T21:53:25Z_
 
 ## Latest
 
@@ -1044,18 +1044,16 @@ worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1089-32c7e8f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1089-32c7e8f1.md) — attention directive on endojs/endo-but-for-bots PR #1089
+### doin (1)
 - [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
-- [`claude-on-minion-town-press-20260926-215021`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260926-215021.md) — Press the Claude-on-minion.town arc forward
 
-### tada (9011)
+### tada (9013)
+- [`endojs-endo-but-for-bots-pr1089-32c7e8f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1089-32c7e8f1.md) — Cost
+- [`claude-on-minion-town-press-20260926-215021`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-215021.md) — Cost
 - [`endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1018-review-eccc706c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1018-review-eccc706c.md) — Cost
 - [`endojs-endo-but-for-bots-issue982-build-special-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-issue982-build-special-names.md) — Cost
-- [`endo-pr3360-mirror`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endo-pr3360-mirror.md) — Completion report — endo-pr3360-mirror
-- [`dependabotany-recheck-endo-but-for-bots-pr1268`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/dependabotany-recheck-endo-but-for-bots-pr1268.md) — PR #1268 recheck: already merged, nothing left to do
-- … and 9006 more
+- … and 9008 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
