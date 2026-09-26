@@ -1,2 +1,2 @@
-base: improve-rolling-deploy-journal-put-wallclock-bound
+base: improve-rolling-deploy-shared-tick-deadline
 identity: mentor:scripts/jobs/rolling-deploy.sh
