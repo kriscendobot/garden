@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T06:17:42Z_
+_As of 2026-09-26T06:20:35Z_
 
 ## Latest
 
@@ -765,19 +765,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 2.8M | $29.18 _(notional, rate-card)_ | 2% of 143.0M (ok) |
-| Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
+| Codex | 27.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 9767480 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 52282809 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 31.405874s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`kriscendobot-minion.town-pr119-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr119-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #119
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-press-20260926-062009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260926-062009.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (8958)
 - [`kriscendobot-minion.town-pr119-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/kriscendobot-minion.town-pr119-gauntlet-fix-1.md) — Cost
