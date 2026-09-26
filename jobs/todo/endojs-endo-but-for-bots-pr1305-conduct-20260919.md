@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919-resume
-priority: normal
-posted_by: gardener:endojs-endo-but-for-bots-pr1305-d4fa4360
-posted_at: 2026-09-19T06:13:42Z
+role: conductor
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-26T23:37:05Z cleared=none -->
 
 ---
 role: conductor
