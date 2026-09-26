@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T03:10:00Z_
+_As of 2026-09-26T03:22:01Z_
 
 ## Latest
 
@@ -533,7 +533,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-2.md)
 
-> budget-level changed oros-studio-garden-ce242c49 monk workers 1 -> 2 (target 2): subscription claude-oros spend=394514 cap=73000000 pace-bias=0.455512 ceiling=2 target=2
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-25T03:50:17Z, latest 2026-09-26T03:20:29Z).
+> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-2`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed oros-studio-garden-ce242c49 monk workers 1 -> 2 (target 3): subscription claude-oros spend=394514 cap=73000000 pace-bias=0.540014 ceiling=3 target=3
 
 - `doomed-foreman-requiesce-target-0-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-foreman-requiesce-target-0-requeue-exhausted.md)
 
@@ -740,7 +744,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 1.5k | $0.52 _(notional, rate-card)_ | 0% of 143.0M (ok) |
+| Claude | 68.2k | $1.19 _(notional, rate-card)_ | 0% of 143.0M (ok) |
 | Codex | 27.7M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 86% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 29535165 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
