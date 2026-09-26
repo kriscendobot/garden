@@ -67,6 +67,7 @@ narrow additive read). Do NOT write `config/token-backoff-fraction` or
 values and schedule after this lands and deploys. Say clearly in your report
 once this is confirmed deployed and ready for those files to be written.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
