@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T21:53:25Z_
+_As of 2026-09-26T21:54:15Z_
 
 ## Latest
 
@@ -1044,16 +1044,16 @@ worst fetch p95 43.693883s/45s (unknown); 2 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
-- [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/expunge-gardener-worker-kind.md) — What "gardener" must mean going forward (the maintainer's framing)
+### doin (0)
+(none)
 
-### tada (9013)
+### tada (9014)
+- [`expunge-gardener-worker-kind`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/expunge-gardener-worker-kind.md) — Cost
 - [`endojs-endo-but-for-bots-pr1089-32c7e8f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1089-32c7e8f1.md) — Cost
 - [`claude-on-minion-town-press-20260926-215021`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-press-20260926-215021.md) — Cost
 - [`endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1085-gauntlet-20260901-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1018-review-eccc706c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1018-review-eccc706c.md) — Cost
-- [`endojs-endo-but-for-bots-issue982-build-special-names`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-issue982-build-special-names.md) — Cost
-- … and 9008 more
+- … and 9009 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
