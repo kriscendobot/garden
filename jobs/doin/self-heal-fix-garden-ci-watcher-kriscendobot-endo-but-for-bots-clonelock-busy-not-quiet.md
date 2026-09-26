@@ -10,3 +10,13 @@ Failure signature (from `.garden-state/self-heal/journal` blob `7d9f0bec5f2784a9
 Root cause: the diagnostic never reaches the transient branch because `journal_bounded_fetch_is_ambiguous_outage` only matches `journal fetch in .* failed after N attempt|clone of .* failed`, and `_fetch_stderr_is_offline` only matches network/DNS/transport signatures — neither pattern covers `clone_lock`'s own die message (`cannot acquire clone lock .* live holder is still busy`, `common.sh` ~line 4142), a purely local, non-network condition.
 
 Fix: in `ensure_clone_or_latch_outage`, add a dedicated branch (checked before the offline/ambiguous-outage branch) that recognizes the lock-busy diagnostic (e.g. `grep -qE 'cannot acquire clone lock .* live holder is still busy'`) and does a quiet `log` + `exit "${GARDEN_OFFLINE_RC:-75}"` — deliberately WITHOUT calling `start_journal_outage_cooldown` (this is host-local lock contention on one specific clone dir, not evidence of a journal/network outage, so it must not latch the shared cooldown that other cursor reads/writes rely on). This restores the contract every caller already assumes and stops the whole watcher class (not just ci-watcher) from FATAL-restarting under ordinary lock contention.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-26T23:56:49Z
