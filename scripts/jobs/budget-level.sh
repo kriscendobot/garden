@@ -102,7 +102,7 @@ snapshot="$({
 case "$rc" in 0);;3)log "budget pool config absent; leveling is off";finish;;4)log "WARN: $GARDEN_WORKER_LEVELING_PATH absent; leveling frozen";finish;;"$GARDEN_OFFLINE_RC")log "WARN: budget-level preflight offline (journal clone/sync, rc=$rc); skipping this leveling tick, retry next cadence (fail-open)";finish;;*)log "WARN: budget-level preflight failed (journal clone/sync, rc=$rc); skipping this leveling tick, retry next cadence (fail-open)";finish;;esac
 resolve_token_backoff_fraction "$DIR"
 
-declare -a pools=() phosts=() pcaps=() pprov=() hosts=()
+declare -a pools=() phosts=() pcaps=() pprov=() hosts=() monk_pool_eligible=()
 declare -A mcap=() ccap=() mceil=() active=() active_ids=() demand=() ctarget=()
 mf=""; cf=""; bad=""
 while IFS=$'\t' read -r r a b c d; do case "$r" in
@@ -114,14 +114,34 @@ esac;done <<<"$snapshot"
 schema_bad="$bad"
 mf="${GARDEN_MONK_FLEET_CEILING:-$mf}"; cf="${GARDEN_CLERIC_FLEET_CEILING:-$cf}"
 
-mv=1; n=${#pools[@]}; sum=0
+mv=1; n=${#pools[@]}; mn=0; sum=0; excluded_monk_pools=0; effective_mf="$mf"
 if [ -n "$schema_bad" ];then mv=0;bad="$schema_bad";fi
 [[ "$mf" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="invalid monk fleet ceiling '$mf'"; }; [ "$n" -gt 0 ]||{ mv=0;bad="no enabled Anthropic weekly pools"; }
-for((i=0;i<n;i++));do h="${phosts[i]}";c="${pcaps[i]}";p="${pprov[i]}"; [[ "$c" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} invalid cap '$c'";continue;}; uncalibrated "$p"&&{ mv=0;bad="${pools[i]} uncalibrated provenance '${p:-none}'";}; [[ "${mcap[$h]:-}" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} missing/invalid monk physical cap";continue;}; sum=$((sum+mcap[$h]));done
-if [[ "$mf" =~ ^[1-9][0-9]*$ ]];then [ "$mf" -ge $((n*GARDEN_BUDGET_LEVEL_MIN)) ]||{ mv=0;bad="monk fleet ceiling below aggregate floor";};[ "$sum" -ge "$mf" ]||{ mv=0;bad="monk fleet ceiling exceeds physical capacity";};fi
+for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";c="${pcaps[i]}";p="${pprov[i]}"; monk_pool_eligible[i]=0
+ [[ "$c" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} invalid cap '$c'";continue;}; uncalibrated "$p"&&{ mv=0;bad="${pools[i]} uncalibrated provenance '${p:-none}'";}
+ # A pool which lacks a local physical cap cannot safely receive a target, but it
+ # need not invalidate the denominator for every other physically-backed pool.
+ # Keep its freeze edge-latched to this pool/host and leave the host untouched.
+ if ! [[ "${mcap[$h]:-}" =~ ^[1-9][0-9]*$ ]];then
+  excluded_monk_pools=$((excluded_monk_pools+1))
+  report_freeze "budget-level-monk-cap-$pool-$h" "$pool missing/invalid monk physical cap" "monk allocation frozen for pool $pool on host $h: missing/invalid monk physical cap; this pool is excluded while other configured hosts continue leveling."
+  continue
+ fi
+ monk_pool_eligible[i]=1; mn=$((mn+1)); sum=$((sum+mcap[$h]))
+ report_unfreeze "budget-level-monk-cap-$pool-$h" "budget-level: monk allocation recovered for pool $pool on host $h; its physical monk cap is configured again."
+done
+if [[ "$mf" =~ ^[1-9][0-9]*$ ]];then
+ [ "$mn" -gt 0 ]||{ mv=0;bad="no physically-backed Anthropic weekly pools"; }
+ [ "$mf" -ge $((mn*GARDEN_BUDGET_LEVEL_MIN)) ]||{ mv=0;bad="monk fleet ceiling below aggregate floor";}
+ if [ "$sum" -lt "$mf" ];then
+  if [ "$excluded_monk_pools" -gt 0 ];then effective_mf="$sum"
+  else mv=0;bad="monk fleet ceiling exceeds physical capacity";fi
+ fi
+fi
 if [ "$mv" -eq 1 ];then
  rows=""
  for((i=0;i<n;i++));do
+  [ "${monk_pool_eligible[i]}" -eq 1 ]||continue
   h="${phosts[i]}";pool="${pools[i]}";cap="${pcaps[i]}";weight="$cap";allocation_spend=""
   allocation_cutoff="$(subscription_window_start_epoch "$pool" "$DIR" 2>/dev/null || true)"
   if [[ "$allocation_cutoff" =~ ^[0-9]+$ ]];then
@@ -137,8 +157,8 @@ if [ "$mv" -eq 1 ];then
   fi
   rows+="$h"$'\t'"$weight"$'\t'"$GARDEN_BUDGET_LEVEL_MIN"$'\t'"${mcap[$h]}"$'\n'
  done
- while IFS=$'\t' read -r h x;do mceil["$h"]="$x";done < <(printf %s "$rows"|apportion "$mf")
- report_unfreeze budget-level-monk-preflight "budget-level: fleet monk allocation recovered on $GARDEN; a calibrated, physically-backed monk configuration returned and leveling has resumed."
+ while IFS=$'\t' read -r h x;do mceil["$h"]="$x";done < <(printf %s "$rows"|apportion "$effective_mf")
+ report_unfreeze budget-level-monk-preflight "budget-level: fleet monk allocation recovered on $GARDEN; eligible calibrated, physically-backed pools are allocatable and leveling has resumed."
 else report_freeze budget-level-monk-preflight "$bad" "fleet monk allocation frozen: $bad. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.";fi
 
 apply_target(){ # pool host kind current target reason signal-value limit provenance sensor
@@ -179,6 +199,7 @@ apply_target(){ # pool host kind current target reason signal-value limit proven
 }
 
 for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";cap="${pcaps[i]}";prov="${pprov[i]}";[[ "$cap" =~ ^[1-9][0-9]*$ ]]||continue
+ [ "${monk_pool_eligible[i]}" -eq 1 ] || continue
  [ "$mv" -eq 1 ]||! uncalibrated "$prov"||continue
  cutoff="$(subscription_window_start_epoch "$pool" "$DIR" 2>/dev/null || true)"; if ! [[ "$cutoff" =~ ^[0-9]+$ ]];then case "$pool" in anthropic:*)cutoff="$(meter_window_cutoff anchor 2>/dev/null)"||{ pool_failure "$pool" "$h" read-window-cutoff "$?";continue;};;*)pool_failure "$pool" "$h" read-window-cutoff 1;continue;;esac;fi
  snap_rc=0;snap_err="$SNAP_ERR";{ mkdir -p "${SNAP_ERR%/*}"&&: >"$snap_err";} 2>/dev/null||snap_err=/dev/null;spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$cutoff" 2>"$snap_err")"||snap_rc=$?;[ "$snap_rc" -eq 0 ]||{ if [ "$h" = "$GARDEN" ];then if [[ "$pool" == anthropic:* ]];then spend="$(meter_window_total anchor 2>/dev/null)";else spend="$(meter_subscription_window_total "$pool" "$DIR" 2>/dev/null)";fi||{ pool_failure "$pool" "$h" read-local-spend "$?";continue;};elif [[ "$pool" == anthropic:* ]];then spend="$(meter_journal_host_tokens "$DIR" "$h" "$cutoff" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-remote-spend "$?";continue;};else pool_failure "$pool" "$h" read-remote-spend "$snap_rc";continue;fi; }

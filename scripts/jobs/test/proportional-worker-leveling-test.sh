@@ -73,4 +73,26 @@ git -C "$SEED" add config/budget-pools hosts usage;git -C "$SEED" -c user.name=t
 : >"$ACT";rm -rf "$TR/state/budget-level"
 env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/state" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_USAGE_NOW="$(date -u +%s)" GARDEN_BUDGET_LEVEL_DOWN_CONFIRM=1 GARDEN_BUDGET_LEVEL_STEP=10 GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" "$JOBS/budget-level.sh" >"$TR/frozen.out" 2>&1
 if grep -q '^large op=set-workers kind=monk count=1$' "$ACT"&&! grep -q '^small op=set-workers kind=monk' "$ACT"&&grep -q 'fleet monk allocation frozen' "$TR/frozen.out";then ok "fleet provenance gate freezes shares but permits exhaustion-floor down-only motion";else bad "provenance freeze: act=$(tr '\n' ';'<"$ACT") log=$(tr '\n' ';'<"$TR/frozen.out")";fi
+
+# A missing physical cap belongs to one host, not to the fleet-wide allocation
+# denominator. The remaining valid host receives the portion of the envelope
+# that can fit its physical cap, while the malformed pool is edge-reported and
+# never gets a target.
+git -C "$SEED" pull -q --rebase
+sed -i 's/small\tweekly-tokens\t64000000\tuncalibrated/small\tweekly-tokens\t64000000\tusage-panel/' "$SEED/config/budget-pools"
+printf 'monk-fleet-ceiling\t6\ncleric-fleet-ceiling\t4\nhost\tlarge\t4\t4\n' >"$SEED/config/worker-leveling"
+printf 'monks: 1\nclerics: 0\n' >"$SEED/hosts/large";printf 'monks: 1\nclerics: 0\n' >"$SEED/hosts/small"
+printf '{"host":"large","provider":"anthropic","ts":"%s","input_tokens":1,"output_tokens":0,"cache_creation_tokens":0}\n' "$now" >"$SEED/usage/large.jsonl"
+git -C "$SEED" add config/budget-pools config/worker-leveling hosts usage;git -C "$SEED" -c user.name=test -c user.email=test@example.invalid commit -qm missing-physical-cap;git -C "$SEED" push -q
+: >"$ACT";rm -rf "$TR/state/budget-level"
+env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/state" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_USAGE_NOW="$(date -u +%s)" GARDEN_BUDGET_LEVEL_UP_CONFIRM=1 GARDEN_BUDGET_LEVEL_STEP=10 GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" "$JOBS/budget-level.sh" >"$TR/missing-cap.out" 2>&1
+if grep -q '^large op=set-workers kind=monk count=4$' "$ACT"&&! grep -q '^small op=set-workers kind=monk' "$ACT"&&grep -q 'monk allocation frozen for pool anthropic:small on host small' "$TR/missing-cap.out"&&! grep -q 'fleet monk allocation frozen' "$TR/missing-cap.out";then ok "a missing monk physical cap freezes only its pool while valid hosts keep leveling";else bad "missing physical cap isolated incorrectly: act=$(tr '\n' ';'<"$ACT") log=$(tr '\n' ';'<"$TR/missing-cap.out")";fi
+
+# An explicit non-positive cap follows the same isolated path as an omitted row.
+git -C "$SEED" pull -q --rebase
+printf 'monk-fleet-ceiling\t6\ncleric-fleet-ceiling\t4\nhost\tlarge\t4\t4\nhost\tsmall\t0\t4\n' >"$SEED/config/worker-leveling"
+git -C "$SEED" add config/worker-leveling;git -C "$SEED" -c user.name=test -c user.email=test@example.invalid commit -qm invalid-physical-cap;git -C "$SEED" push -q
+: >"$ACT";rm -rf "$TR/state"
+env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/state" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_USAGE_NOW="$(date -u +%s)" GARDEN_BUDGET_LEVEL_UP_CONFIRM=1 GARDEN_BUDGET_LEVEL_STEP=10 GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" "$JOBS/budget-level.sh" >"$TR/invalid-cap.out" 2>&1
+if grep -q '^large op=set-workers kind=monk count=4$' "$ACT"&&! grep -q '^small op=set-workers kind=monk' "$ACT"&&grep -q 'monk allocation frozen for pool anthropic:small on host small' "$TR/invalid-cap.out"&&! grep -q 'fleet monk allocation frozen' "$TR/invalid-cap.out";then ok "an invalid monk physical cap freezes only its pool while valid hosts keep leveling";else bad "invalid physical cap isolated incorrectly: act=$(tr '\n' ';'<"$ACT") log=$(tr '\n' ';'<"$TR/invalid-cap.out")";fi
 echo "RESULT: $pass passed, $fail failed";[ "$fail" -eq 0 ]
