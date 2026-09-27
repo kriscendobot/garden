@@ -812,11 +812,13 @@ flock -n "$TR/state-vl/ci-watcher/verify-$SLUG.lock" true \
   && ok "the VERIFY clone lock is released after the run" || bad "VERIFY clone lock still held after exit"
 
 # ============================================================================
-hr; echo "VBUSY — a busy live VERIFY lock holder is a quiet exit 75, not FATAL"; hr
+hr; echo "VBUSY — a busy live VERIFY lock holder latches a quiet exit 75"; hr
 # verify_fetch takes the VERIFY clone lock SOFT: a live holder (an overlapping run)
 # must cost one short bounded wait and exit GARDEN_OFFLINE_RC (non-attributable to
 # self-heal), never the full wait ladder then a FATAL "cannot acquire clone lock".
-STATE_VB="$TR/state-vb"; BARE_VB="$TR/vb.git"; seed_bare "$BARE_VB"
+# The first waiter also opens the host-wide outage latch so sibling instances skip
+# immediately instead of independently spending the soft wait.
+ROOT_VB="$TR/root-vb"; STATE_VB="$TR/state-vb"; BARE_VB="$TR/vb.git"; seed_bare "$BARE_VB"
 FIX_VB="$TR/fix-vb.tsv"; prline 59 kriscendobot "$REPO" > "$FIX_VB"
 VB_LOCK="$STATE_VB/ci-watcher/verify-$SLUG.lock"; mkdir -p "$(dirname "$VB_LOCK")"
 VB_READY="$TR/vb.ready"; rm -f "$VB_READY"
@@ -826,7 +828,7 @@ VB_READY="$TR/vb.ready"; rm -f "$VB_READY"
 VB_HOLDER=$!
 for _ in $(seq 1 100); do [ -e "$VB_READY" ] && break; sleep 0.05; done
 VB_ERR="$TR/vb.err"; vb_rc=0; vb_t0=$(date +%s)
-env GARDEN_STATE="$STATE_VB" JOURNAL_REMOTE="$BARE_VB" JOURNAL_BRANCH="$BRANCH" \
+env GARDEN_ROOT="$ROOT_VB" GARDEN_STATE="$STATE_VB" JOURNAL_REMOTE="$BARE_VB" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_BOT_LOGIN=kriscendobot GARDEN_LOCK_WAIT=30 GARDEN_LOCK_SOFT_WAIT=1 \
     GARDEN_CI_PR_SOURCE="$SRCSTUB" CI_FIXTURE="$FIX_VB" \
     GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP="59=0" \
@@ -840,6 +842,9 @@ kill "$VB_HOLDER" 2>/dev/null || true; wait "$VB_HOLDER" 2>/dev/null || true
   || bad "FATAL emitted on busy VERIFY lock ($(grep FATAL "$VB_ERR" | head -n 1))"
 [ "$vb_dt" -lt 25 ] && ok "failed open after the short soft wait (${vb_dt}s), not the ${GARDEN_LOCK_WAIT:-30}s ladder" \
   || bad "busy VERIFY lock waited ${vb_dt}s (the hard ladder ran)"
+[ -s "$ROOT_VB/.garden-state/journal-outage-cooldown/marker" ] \
+  && ok "busy VERIFY lock opens the shared outage cooldown for sibling instances" \
+  || bad "busy VERIFY lock did not open the shared outage cooldown"
 
 # ============================================================================
 hr; echo "V — default VERIFY/RETIRE clones are PER-SLUG (no shared clone_lock)"; hr

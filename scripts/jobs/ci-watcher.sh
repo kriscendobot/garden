@@ -210,7 +210,17 @@ verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/ti
   # its pacing clone: a busy live holder costs one short bounded wait and a quiet
   # exit GARDEN_OFFLINE_RC (75, non-attributable to self-heal) — never the 3×60s
   # ladder and a FATAL rc=1 "cannot acquire clone lock .../verify*.lock".
-  GARDEN_CLONE_LOCK_SOFT=1 clone_lock "$VERIFY"
+  if GARDEN_CLONE_LOCK_SOFT=1 clone_lock "$VERIFY"; then :; else
+    rc=$?
+    # clone_lock's soft busy-holder path is ordinary, self-resolving contention,
+    # but this VERIFY clone is shared by all ci-watcher instances.  Latch it so
+    # the first timed-out waiter suppresses siblings for the cooldown window.
+    if [ "$rc" -eq "${GARDEN_OFFLINE_RC:-75}" ] \
+      && start_journal_outage_cooldown ci-watcher-verify; then
+      log "ci-watcher-verify: clone lock for $VERIFY held by a live peer past the wait ladder; latched host cooldown ($(_journal_outage_secs)s) so sibling instances skip quietly"
+    fi
+    exit "$rc"
+  fi
   # A subshell swallows ensure_clone's offline `exit`/die (and its internal
   # clone_unlock only drops the subshell's fd copy); re-raise it after unlocking.
   # Lock contention (above) or ensure_clone_or_latch_outage's network timeout / busy

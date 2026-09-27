@@ -4096,7 +4096,10 @@ clone_lock() {
       contention_record "$dir" lock-giveup 1
       if [ "${GARDEN_CLONE_LOCK_SOFT:-0}" = 1 ]; then
         log "WARN: clone lock $lf busy >${wait}s; abandoning this OPTIONAL refresh (fail-open, no retry ladder)"
-        exit "$GARDEN_OFFLINE_RC"
+        # A caller that only wants this optional work to fail open normally lets
+        # errexit propagate this status.  Return rather than exit so a caller
+        # sharing the clone can instead latch the host cooldown before it skips.
+        return "$GARDEN_OFFLINE_RC"
       fi
       die "cannot acquire clone lock $lf after $n waits of ${wait}s and $steals reclaim attempt(s) (a live holder is still busy; if it is crashed, rm -f $lf)"
     fi
