@@ -53,6 +53,7 @@ end the report with these exact lines in order:
 <<<GARDEN-ORCHESTRATION-FAILED>>>
 <<<GARDEN-JOB-COMPLETE>>>
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=16 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
