@@ -1,6 +1,6 @@
 ---
 created: 2026-07-01
-updated: 2026-09-08
+updated: 2026-09-27
 author: gardener, builder
 ---
 
@@ -157,6 +157,20 @@ Posting verifies those children are still parked and owned by the terminal
 campaign, then retags them and creates the new record in one journal commit.
 Completed children may remain in the full list and are skipped normally. Never
 edit or replenish an old campaign's budget in place.
+
+## Final disposition and report lookup
+
+At terminalization, `orchestrate.sh` re-derives each previously failed child's
+status from the committed board.
+A clean completion supersedes an earlier
+stall/doom reading: its disposition becomes recovered, the notice closes, and
+it is removed from the final failed set.
+An explicit gated-failure declaration
+still counts as failure.
+This check also repairs a prior transient halt; the
+failure list accumulated during earlier ticks is not the final authority.
+Report paths below are logical basenames: new writers date-shard under
+`jobs/tada/YYYY/MM/DD/`, and `tada_find_tree` resolves both layouts.
 
 ## Halt self-correction (a false or transient failure resumes itself)
 

@@ -1,6 +1,6 @@
 ---
 created: 2026-05-20
-updated: 2026-09-05
+updated: 2026-09-27
 author: gardener
 ---
 
@@ -166,6 +166,16 @@ The driver does not need to know about the new probe; it walks `probes/*.sh` at 
 - **A probe that's too aggressive blocks a legitimate diff.** Each probe should fail on a clear and narrow signal. Probes that need judgment go to the panel as a juror seat (e.g., `pruner` for README padding), not to the gate. The line: deterministic-yes-or-no is gate-eligible; anything that requires reading the change's intent is juror-eligible. See [panel](../panel/SKILL.md).
 - **Auto-fix loops that don't converge.** A `yarn format` that fights with `yarn lint --fix` would loop forever. The gate runs each stage once. If a project's tools genuinely disagree, that's a project bug to surface, not a gate bug to retry.
 - **Per-project specialization** belongs in the project's own scripts (the `yarn lint` and `yarn typecheck` scripts the gate invokes), not in the gate driver. The gate is the contract; the project's scripts implement.
+
+## Review handoff
+
+`no-plain-reexport` is the author-time part of the re-export policy; the
+[`reexport-auditor`](../../roles/jurors/reexport-auditor/AGENT.md) seat reuses its
+report and judges migration completeness.
+A passing syntax probe alone does not
+prove all importers moved to the canonical original.
+The
+[panel](../panel/SKILL.md) documents that handoff.
 
 ## Notes from the field
 

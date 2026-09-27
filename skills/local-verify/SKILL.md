@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-09-16
+updated: 2026-09-27
 author: gardener
 ---
 
@@ -589,3 +589,13 @@ build-before-lint reorder, the warm-cache install-state reconcile, the
 `ENVIRONMENT FAULT` diagnosis, the tree-independent tool shims, and more, each
 with its tell and its fix — lives in [field-notes.md](field-notes.md). Append new
 entries there.
+
+## Scope alongside garden deploys
+
+This harness verifies a project checkout: package-manager detection, workflow
+audits, and root-program type checks follow that project's inputs.
+The garden's
+own rolling-deploy candidate gate is a separate curated suite run from the
+candidate SHA before draining; see
+[deploy](../../context/operations/deploy.md#candidate-validation-and-manual-override).
+Do not infer that passing one ran the other's checks.

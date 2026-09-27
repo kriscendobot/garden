@@ -1,6 +1,6 @@
 ---
 created: 2026-09-21
-updated: 2026-09-21
+updated: 2026-09-27
 author: gardener
 ---
 
@@ -80,8 +80,8 @@ A gardener that reads this skill **before** the key is present must:
 1. Check whether `TYPESAFE_API_KEY` is set in its environment.
 2. If it is **absent**, treat this skill as documentation only — do **not**
    attempt to call the TypeSafe API, and do **not** try to provision the key.
-   Surface the gap to the maintainer via the message bus
-   (`scripts/jobs/message-user.sh <base>`) and proceed without it (fall back to
+   Report the gap through the task's authorized communication channel and
+   proceed without it (fall back to
    whatever deterministic logic the task would otherwise use).
 3. If it is **present**, the maintainer has provisioned it; proceed.
 

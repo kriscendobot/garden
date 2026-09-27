@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-08-29
+updated: 2026-09-27
 author: gardener
 ---
 
@@ -49,7 +49,7 @@ runnable non-interactively):
 | Variable | Purpose |
 |---|---|
 | `GARDEN_ROOT` / `JURORS_DIR` | where the seat briefs live (`roles/jurors/<seat>/AGENT.md`). |
-| `GARDEN_CODE_SEATS` | the 31-seat code-panel list (override for a reduced panel); includes the cost-gated `coverage-auditor`, `orthographer`, and `thesaurus`. |
+| `GARDEN_CODE_SEATS` | the code-panel list from `panel.sh` (override for a reduced panel); cost-gated seats include `coverage-auditor`, `orthographer`, `thesaurus`, `procurer`, and `reexport-auditor`. |
 | `GARDEN_DESIGN_SEATS` | the 9-seat design-panel list (includes the cost-gated `orthographer` and `thesaurus`). |
 | `GARDEN_PANEL_SEAT` | hook: run one seat's review (default shells `claude -p` with the seat brief). |
 | `GARDEN_PANEL_DECIDE` | hook: aggregate verdicts → `must-fix` \| `pass` (default `claude -p`). |
@@ -59,7 +59,7 @@ runnable non-interactively):
 | `GARDEN_PANEL_RUNDIR` | on-disk scratch for per-seat blocks + aggregates (kept OUT of the supervisor's context). |
 | `GARDEN_PANEL_RECORD` | the durable-record writer (default `scripts/jobs/panel-run-record.sh`; set `:` to skip the journal push). |
 | `GARDEN_PANEL_REPO` | `<owner>/<repo>` for the record's store key (default: derived from the worktree's `origin`, else the worktree basename). Every remote-URL form git accepts reduces to the same key (`scripts/jobs/test/panel-repo-slug-test.sh`), so a run is keyed the same whether or not a caller passes this. |
-| `GARDEN_PANEL_CONCURRENCY` | how many seats review at once (default 8); this is what makes the 30-seat panel fit a handler budget. |
+| `GARDEN_PANEL_CONCURRENCY` | how many seats review at once (default 8); bounded parallelism within the handler budget. |
 | `GARDEN_PANEL_SEAT_ATTEMPTS` / `_BACKOFF` | per-seat retry-on-empty attempts (default 3) and backoff step in seconds (default 5). |
 | `GARDEN_PANEL_SEAT_TIMEOUT` / `_KILL_AFTER` | wall-clock bound for each seat attempt (default 1200s) and TERM grace (default 30s). The bound is clamped below the enclosing handler budget. |
 | `GARDEN_PANEL_MAX_ROUNDS` | loop-exit safety bound (default 8); not a normal exit path. |
@@ -79,6 +79,26 @@ Two hook hazards, each paid for once:
 - **Hooks must live under `$GARDEN_SCRATCH`, not `/tmp`.** `/tmp` is `noexec` on
   the fleet's hosts, so a hook script placed there fails with exit 126
   (endo-but-for-bots#848 backfill).
+
+## Policy gates and review spending
+
+The `reexport-auditor` seat uses the same Babel-based `no-plain-reexport` probe
+as [pre-push-gates](../pre-push-gates/SKILL.md).
+New plain re-exports need an
+adjacent deprecated compatibility shim and migration to the canonical original;
+barrels are not exempt.
+Type-only re-exports are excluded.
+Follow
+[re-export-deprecation-policy](../re-export-deprecation-policy/SKILL.md).
+The `procurer` similarly reuses the export index/build-vs-buy detector.
+
+Seat tiers come from `seat-model-tiers.tsv`; nested seat calls are metered, and
+aggregate reports put seat prose behind disclosure blocks.
+Ordinary producer
+PRs stay draft until the maintainer explicitly requests the gauntlet; this skill
+does not authorize automatic review staging.
+The gauntlet also checks panel
+provider quota before spending on seats.
 
 ## State
 
