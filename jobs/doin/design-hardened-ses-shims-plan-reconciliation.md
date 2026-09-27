@@ -8,3 +8,13 @@ Reconcile the M2 hardened-url-shim and hardened-text-codecs-shim records for end
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T21:06:17Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T21:06:28Z
