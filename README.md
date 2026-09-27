@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T10:24:15Z_
+_As of 2026-09-27T10:25:30Z_
 
 ## Latest
 
@@ -1857,7 +1857,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.1M | $278.15 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 32.1M | $277.46 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 39.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 74613980 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1866,26 +1866,25 @@ _Fleet token-unlock pace: 74613980 tokens/day lower bound; incomplete where a su
 worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`ironhorse-fuzz-89e303d17e33b117-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-89e303d17e33b117-repair.md) — Repair Ironhorse engine defect 89e303d17e33b117 (target differential_regexp_s...
-- [`ironhorse-fuzz-79f0475dd0440b2d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-79f0475dd0440b2d-repair.md) — Repair Ironhorse engine defect 79f0475dd0440b2d (target differential_regexp) ...
 
 ### doin (7)
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1298
 - [`ironhorse-fuzz-6ba52f2bdc534545-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-6ba52f2bdc534545-repair.md) — Repair Ironhorse engine defect 6ba52f2bdc534545 (target differential_regexp_s...
-- [`claude-on-minion-town-press-20260927-102015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260927-102015.md) — Press the Claude-on-minion.town arc forward
+- [`ironhorse-fuzz-79f0475dd0440b2d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-79f0475dd0440b2d-repair.md) — Repair Ironhorse engine defect 79f0475dd0440b2d (target differential_regexp) ...
 - [`ironhorse-fuzz-67ca18e4febe7a34-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-67ca18e4febe7a34-repair.md) — Repair Ironhorse engine defect 67ca18e4febe7a34 (target differential_source) ...
 - [`ironhorse-fuzz-5c9d2506e6048f4a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5c9d2506e6048f4a-repair.md) — Repair Ironhorse engine defect 5c9d2506e6048f4a (target differential_regexp_s...
 - [`ironhorse-fuzz-7637ac162a0b916a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-7637ac162a0b916a-repair.md) — Repair Ironhorse engine defect 7637ac162a0b916a (target differential_regexp) ...
 - [`ironhorse-fuzz-822848c732a1b805-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-822848c732a1b805-repair.md) — Repair Ironhorse engine defect 822848c732a1b805 (target differential_regexp) ...
 
-### tada (9149)
+### tada (9150)
+- [`claude-on-minion-town-press-20260927-102015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/claude-on-minion-town-press-20260927-102015.md) — Cost
 - [`ironhorse-fuzz-6be90176ff07c648-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-6be90176ff07c648-repair.md) — Cost
 - [`ironhorse-fuzz-7072dc2d72d9e2fd-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-7072dc2d72d9e2fd-repair.md) — Cost
 - [`ironhorse-fuzz-6ca7a76e0bfe3435-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-6ca7a76e0bfe3435-repair.md) — Completion report: ironhorse-fuzz-6ca7a76e0bfe3435-repair
 - [`endojs-endo-but-for-bots-pr1227-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1227-receipt.md) — Completion report
-- [`ironhorse-fuzz-51c6a212946102f6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-51c6a212946102f6-repair.md) — Cost
-- … and 9144 more
+- … and 9145 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
