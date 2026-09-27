@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:12:22Z_
+_As of 2026-09-27T05:13:25Z_
 
 ## Latest
 
@@ -880,13 +880,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-list` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-list.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T01:56:23Z, latest 2026-09-27T04:10:08Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-list`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T01:56:23Z, latest 2026-09-27T05:12:37Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-list`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-list exited rc=1 with no scoped fix. Capture: d9c2b63676b5fcf3429fa7373cc019328ec48cd1 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p d9c2b63676b5fcf3429fa7373cc019328ec48cd1). Diagnosis: This `garden-ci-watcher@kriscendobot-list` failure is the known shared-VERIFY-clone-lock contention bug: the log shows the classic signature — three 60s backoff retries against `.garden-state/ci-watcher/verify.lock` followed by `FATAL: cannot acquire clone lock ... after 3 waits`. Per memory ([ci-watcher-clonelock-contention-fixed]), this exact failure was already fixed upstream by commits `5620bdbe5f6` (isolate CI-watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder contention), landed 2026-09-27T00:01Z on `main2`.
->
-> Checking this host's deployed root against those commits: HEAD (`47b41af5a14`) is 9 commits behind `e6ea1d33fc8` — the fix hasn't been deployed to this instance yet. This is deploy-lag, not a new defect requiring a fresh fix job. No JOB block.
+> self-heal: garden-ci-watcher@kriscendobot-list exited rc=1 with no scoped fix. Capture: 83408b72cc1c8b1bd3bf710422dd5faf60df3871 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 83408b72cc1c8b1bd3bf710422dd5faf60df3871). Diagnosis: This is a confirmed deploy-lag case, not a new defect. The failure signature — `garden-ci-watcher@kriscendobot-list` FATAL `cannot acquire clone lock .../verify.lock after 3 waits of 60s` — is exactly the shared-VERIFY-clone-lock contention bug already fixed on `origin/main2` by `5620bdbe5f6` (per-slug clone isolation) and `e6ea1d33fc8` (soft-skip on live-holder contention instead of loud FATAL), both committed 2026-09-27T00:01Z. The root checkout (`HEAD`) is still pinned at `47b41af5a14` from 2026-09-26T12:42Z, ~15 hours before the fix landed on `main2`, so this instance simply hasn't received the deliberate deploy yet. Posting another `self-heal-fix-*` job would duplicate already-merged work; the correct remedy is the existing deploy pipeline picking this host up on its next `upgrade
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
@@ -1590,7 +1588,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.8M | $237.02 _(notional, rate-card)_ | 19% of 143.0M (ok) |
+| Claude | 27.8M | $237.13 _(notional, rate-card)_ | 19% of 143.0M (ok) |
 | Codex | 33.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 60230384 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1602,16 +1600,16 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-gauntlet-20260901.md) — Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
+### doin (0)
+(none)
 
-### tada (9090)
+### tada (9091)
+- [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endo-sturdyref-agent-surface-gauntlet-20260901.md) — Cost
 - [`endojs-endo-but-for-bots-pr762-gauntlet-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr762-gauntlet-20260902.md) — Manual gauntlet handoff
 - [`endojs-endo-but-for-bots-pr871-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr871-weave-20260901.md) — Cost
 - [`endojs-endo-but-for-bots-pr797-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr797-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr736-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr736-gauntlet-fix-1.md) — Gauntlet FIX round 1: endojs/endo-but-for-bots PR #736 (design/endo-ls-json)
-- [`claude-on-minion-town-press-20260927-040506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/claude-on-minion-town-press-20260927-040506.md) — Cost
-- … and 9085 more
+- … and 9086 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
