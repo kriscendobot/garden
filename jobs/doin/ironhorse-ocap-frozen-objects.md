@@ -54,3 +54,13 @@ end the report with these exact lines in order:
 <<<GARDEN-JOB-COMPLETE>>>
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T16:06:53Z
