@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by endojs/endo-but-for-bots#1355, which records the merged endojs/endo#3332 completion evidence.
+withdrawn_by: designer
+withdrawn_at: 2026-09-27T21:54:48Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: designer
