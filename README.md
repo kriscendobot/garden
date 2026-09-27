@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T03:55:12Z_
+_As of 2026-09-27T03:55:44Z_
 
 ## Latest
 
@@ -250,16 +250,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
 > self-heal: garden-ci-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: e7535d1597cabd5588db87ce0407b7008484dee0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e7535d1597cabd5588db87ce0407b7008484dee0). Diagnosis: This is the already-fixed shared-VERIFY-clone-lock contention bug (`ci-watcher@kriscendobot-minion.town` FATAL: cannot acquire `verify.lock` after 3×60s waits) — matches my memory of the fix landed as commits `5620bdbe5f6` + `e6ea1d33fc8`, confirmed present on `origin/main2` (landed 2026-09-27T00:01Z). The deployed root checkout's `HEAD` (`47b41af5a14`, 2026-09-26T12:42Z) predates that fix and is not an ancestor of it — this is deploy lag, not a new bug. No fix job needed; the next `deploy-garden.sh` rolling deploy will pick up the fix. Systemd's restart is sufficient in the meantime.
-
-- `watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp.md)
-
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T02:00:56Z, latest 2026-09-27T03:51:58Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
->
-> self-heal: garden-ci-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: 36d513a86115823f4b185117ac62e992bff66c31 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 36d513a86115823f4b185117ac62e992bff66c31). Diagnosis: This memory already fully covers this exact recurrence (repo slug `kriscendobot-ymax-stdio-mcp`) — no update needed, the existing entry already prescribes exactly the check I just ran and the "don't post a job" outcome. No further action required beyond the report above.
->
-> **Summary:** Diagnosed `garden-ci-watcher@kriscendobot-ymax-stdio-mcp`'s exit 1 as the known shared-VERIFY-clone-lock contention bug, already fixed on `main2` (commits `5620bdbe5f6`, `e6ea1d33fc8`) but not yet deployed to this host's checkout (19 commits behind `origin/main2`). No JOB posted — this is deploy-lag, and systemd's restart will succeed once the pending rolling-deploy lands the fix.
 
 - `20260927T024845Z-93b624` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T024845Z-93b624.md)
 
@@ -1362,7 +1352,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 25.5M | $222.52 _(notional, rate-card)_ | 18% of 143.0M (ok) |
+| Claude | 25.5M | $222.60 _(notional, rate-card)_ | 18% of 143.0M (ok) |
 | Codex | 32.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49712672 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
