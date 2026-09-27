@@ -1,0 +1,6 @@
+<6>12:30:11 [monk/1] job 'ironhorse-fuzz-e2a75557f762cd9c-repair' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>12:30:11 [monk/1] job 'ironhorse-fuzz-e2a75557f762cd9c-repair' call ceiling: tier=mentor max-budget-usd=17.20 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
