@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Upstream implementation merged as endojs/endo#3332 on 2026-08-21; duplicate implementation work is moot.
+withdrawn_by: designer
+withdrawn_at: 2026-09-27T21:54:32Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: builder
