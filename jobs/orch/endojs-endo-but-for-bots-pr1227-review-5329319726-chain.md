@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1227-review-5329319726-fix-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1227-review-5329319726-fix endojs-endo-but-for-bots-pr1227-conduct-20260927 endojs-endo-but-for-bots-build-guest-bot-incarnation
 on-child-failure: halt
