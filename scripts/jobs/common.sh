@@ -4612,6 +4612,19 @@ journal_bounded_fetch_is_ambiguous_outage() {  # <rc> <diagnostic>
     && ! journal_diagnostic_is_definite_failure "$diagnostic"
 }
 
+# clone_lock's own give-up (`cannot acquire clone lock … after N waits of Ns and N
+# reclaim attempt(s)`) after its bounded wait/steal ladder declined to reclaim a LIVE
+# holder. Shared clones (every garden-ci-watcher@<repo> uses ONE VERIFY clone) make
+# this ordinary cross-instance contention whenever one tick's (re)clone outlasts the
+# ladder: self-resolving, never a definite fault. Guarded like the ambiguous-outage
+# shape so a real local/auth/corruption diagnostic in the same capture still wins.
+clone_lock_is_busy_contention() {  # <rc> <diagnostic>
+  local rc="$1" diagnostic="$2"
+  [ "$rc" -eq 1 ] \
+    && printf '%s\n' "$diagnostic" | grep -qE 'cannot acquire clone lock .* after [0-9]+ waits of [0-9]+s and [0-9]+ reclaim attempt' \
+    && ! journal_diagnostic_is_definite_failure "$diagnostic"
+}
+
 # ensure_clone_or_latch_outage <dir> <tag> — ensure the journal clone at <dir> exists
 # and is healthy, classifying a clone/repair FAILURE the same way the fetch path is
 # classified rather than always dying loud. The clone/repair step runs before any
@@ -4624,6 +4637,10 @@ journal_bounded_fetch_is_ambiguous_outage() {  # <rc> <diagnostic>
 #     ambiguous rc=1 clone-failure shape): latch the shared cooldown (the winner owns
 #     the single warning) and exit GARDEN_OFFLINE_RC so sibling reads/writes skip
 #     quietly for the window.
+#   * clone-lock contention with a live peer (clone_lock_is_busy_contention): skip
+#     this tick quietly with GARDEN_OFFLINE_RC but do NOT latch the host-wide journal
+#     outage cooldown — the journal is fine, only this one shared clone is busy, so
+#     unrelated journal readers on the host must keep running.
 #   * a positively-identified local, auth, corruption, or missing-upstream failure:
 #     re-raise LOUD with the original rc and its complete diagnostic, and NEVER latch
 #     (a real fault must not be masked behind weather).
@@ -4641,6 +4658,10 @@ ensure_clone_or_latch_outage() {
     if start_journal_outage_cooldown "$tag"; then
       log "journal-read outage during clone; latched host cooldown ($(_journal_outage_secs)s) so sibling cursor reads/writes skip quietly"
     fi
+    exit "${GARDEN_OFFLINE_RC:-75}"
+  fi
+  if clone_lock_is_busy_contention "$rc" "$diagnostic"; then
+    log "$tag: clone lock for $dir held by a live peer past the wait ladder; skipping this tick (no outage latch)"
     exit "${GARDEN_OFFLINE_RC:-75}"
   fi
   [ -z "$diagnostic" ] || printf '%s\n' "$diagnostic" >&2

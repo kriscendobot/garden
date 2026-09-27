@@ -189,6 +189,26 @@ run_clone_classify clone-ok 'ensure_clone() { :; }; ensure_clone_or_latch_outage
   && ok "a healthy clone returns 0 and latches nothing" \
   || bad "healthy clone exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
 
+# (a7) clone_lock giving up on a LIVE peer (the shared ci-watcher VERIFY clone) skips
+# quietly with GARDEN_OFFLINE_RC but does NOT latch the host-wide journal cooldown.
+LOCK_BUSY_MARK='11:11:11 [t] FATAL: cannot acquire clone lock /s/ci-watcher/verify.lock after 3 waits of 60s and 0 reclaim attempt(s) (a live holder is still busy; if it is crashed, rm -f /s/ci-watcher/verify.lock)'
+rm -f "$MARKER"; rc=0
+run_clone_classify clone-lock-busy \
+  'ensure_clone() { echo "'"$LOCK_BUSY_MARK"'" >&2; exit 1; }; ensure_clone_or_latch_outage /tmp/c ci-watcher-verify' \
+  2>/dev/null || rc=$?
+{ [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ ! -e "$MARKER" ]; } \
+  && ok "live-holder clone-lock contention skips temporary-unavailable without latching" \
+  || bad "clone-lock busy exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
+
+# (a8) the same lock give-up alongside a definite local fault stays loud.
+rm -f "$MARKER"; rc=0
+run_clone_classify clone-lock-busy-local \
+  'ensure_clone() { echo "fatal: not a git repository: .git" >&2; echo "'"$LOCK_BUSY_MARK"'" >&2; exit 1; }; ensure_clone_or_latch_outage /tmp/c ci-watcher-verify' \
+  2>/dev/null || rc=$?
+{ [ "$rc" -eq 1 ] && [ ! -e "$MARKER" ]; } \
+  && ok "clone-lock give-up with a definite local fault stays loud (rc=1)" \
+  || bad "clone-lock busy + local fault exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
+
 # ---------------------------------------------------------------------------
 # Layer 1c: sync_clone itself — a BARE ensure_clone/sync_clone caller (the
 # receipt-watcher / comment-watcher / ci-watcher / triager spine) hitting the
