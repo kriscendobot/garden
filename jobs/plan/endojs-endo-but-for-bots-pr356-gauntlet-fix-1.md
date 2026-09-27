@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+gauntlet: endojs-endo-but-for-bots-pr356-gauntlet
+role: gardener
+tier: mentor
+handler-budget-role: shepherd
+handler-timeout: 7200
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-27T14:43:24Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-27T14:43:24Z
+---
+
+---
 role: gardener
 tier: mentor
 handler-budget-role: shepherd
@@ -66,14 +88,3 @@ posting host's garden root.
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T14:39:28Z

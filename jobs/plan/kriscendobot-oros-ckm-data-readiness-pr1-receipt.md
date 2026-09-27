@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-27T14:43:25Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-27T14:43:25Z
+---
+
+---
 tier: minion
 token-budget: 100000
 ---
@@ -27,17 +47,3 @@ so a re-run never double-posts. Report the archive path and the posted comment
 URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 
 PR: https://github.com/kriscendobot/oros-ckm-data-readiness/pull/1
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-27T14:33:16Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T14:34:51Z
