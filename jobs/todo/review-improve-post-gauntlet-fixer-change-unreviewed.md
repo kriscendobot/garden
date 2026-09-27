@@ -63,13 +63,5 @@ scripts/jobs/review-miss-record.sh cluster-status post-gauntlet-fixer-change-unr
   --improved-by "<commits/files changed>"
 ```
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T16:10:28Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-27T16:26:17Z -->
