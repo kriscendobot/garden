@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T09:56:48Z_
+_As of 2026-09-27T09:57:29Z_
 
 ## Latest
 
@@ -1839,13 +1839,13 @@ _Fleet token-unlock pace: 53667875 tokens/day lower bound; incomplete where a su
 worst fetch p95 7.772794s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1298-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1298
+### todo (1)
 - [`endojs-endo-but-for-bots-pr1227-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1227-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1227 (me...
 
-### doin (4)
+### doin (5)
 - [`endojs-endo-but-for-bots-build-guest-bot-incarnation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-build-guest-bot-incarnation.md) — ---
 - [`ironhorse-fuzz-51c6a212946102f6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-51c6a212946102f6-repair.md) — Repair Ironhorse engine defect 51c6a212946102f6 (target differential_regexp) ...
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1298
 - [`ironhorse-fuzz-5c9d2506e6048f4a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5c9d2506e6048f4a-repair.md) — Repair Ironhorse engine defect 5c9d2506e6048f4a (target differential_regexp_s...
 - [`ironhorse-fuzz-5e7a173f899ae7a1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5e7a173f899ae7a1-repair.md) — Fix Ironhorse fuzz finding 5e7a173f899ae7a1 (target differential_regexp) and ...
 
