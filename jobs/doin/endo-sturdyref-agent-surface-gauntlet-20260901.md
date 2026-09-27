@@ -27,3 +27,13 @@ Otherwise post the staged gauntlet for `#871`:
 and let the `garden-gauntlet` driver walk it clean → panel → fix-loop → un-draft.
 This replaces the original auto-gauntlet handoff, which was doom-parked on
 2026-07-26 against a conflicting PR and has been withdrawn.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T05:11:30Z
