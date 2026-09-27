@@ -1,0 +1,7 @@
+<6>21:07:20 [monk/1] resuming session 4d7b57b2-f57e-58fb-b40f-cee51cbd8c53 for requeued job 'design-hardened-ses-shims-plan-reconciliation' in worktree /home/kris/garden2/scratch/gardener-wt-design-hardened-ses-shims-plan-reconciliation
+<6>21:07:20 [monk/1] job 'design-hardened-ses-shims-plan-reconciliation' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>21:07:20 [monk/1] job 'design-hardened-ses-shims-plan-reconciliation' call ceiling: tier=mentor max-budget-usd=16.60 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
