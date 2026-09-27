@@ -5950,3 +5950,14 @@ Inspect via `git -C journal cat-file -p 81e9457031114bdcbce3708a07884c37c42fbb6c
 
 Inspect via `git -C journal cat-file -p 07fdd673617466ab38684ad21c1f23e4b9869b6e` (or read
 `journal/inboxes/endolin-garden2-5bcdff64/captures/07fdd673617466ab38684ad21c1f23e4b9869b6e`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-09-27T14:29:48Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 92d0061d3a32225a8b29f1b8582a9b18362eac54
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'oros-ckm-dependabot-audit-0013418' handler exited rc=1
+- Capture: inboxes/endolin-garden2-5bcdff64/captures/92d0061d3a32225a8b29f1b8582a9b18362eac54
+
+Inspect via `git -C journal cat-file -p 92d0061d3a32225a8b29f1b8582a9b18362eac54` (or read
+`journal/inboxes/endolin-garden2-5bcdff64/captures/92d0061d3a32225a8b29f1b8582a9b18362eac54`) -- both work off-host after a plain `journal2` fetch.
