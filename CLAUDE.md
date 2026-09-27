@@ -232,7 +232,8 @@ Use `set-workers.sh monk|cleric <count>` on the target host, or its sysop, for
 capacity changes. `brake-foreman.sh on|off|status` controls the journal-backed
 foreman-only brake; drain stops new claims on the local host.
 The shipped
-foreman active target is 2, not 0.
+foreman active target is 10, not 0 (raised 2026-09-27 to saturate the fleet's
+physical worker slots; `GARDEN_TOKEN_BACKOFF_FRACTION` is the spend brake).
 Pool limits, budget pacing, subscription
 calibration, and known gaps live in
 [context/operations/cybernetics.md](context/operations/cybernetics.md);
