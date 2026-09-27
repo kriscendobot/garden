@@ -83,6 +83,7 @@ evidence is in the report.
 <!-- garden-plain-retry-not-before: 2026-09-27T07:53:06Z -->
 
 <!-- garden-transient-elapsed: kind=exit0 through=1 values=171 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
