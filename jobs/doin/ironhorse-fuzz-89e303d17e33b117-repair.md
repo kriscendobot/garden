@@ -62,6 +62,7 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T11:13:09Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
