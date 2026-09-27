@@ -8,6 +8,7 @@ Build the next unblocked M3 increment for `endojs/endo-but-for-bots`: reconcile 
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
