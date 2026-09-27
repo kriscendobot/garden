@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T13:22:23Z_
+_As of 2026-09-27T13:23:44Z_
 
 ## Latest
 
@@ -1992,18 +1992,18 @@ _Fleet token-unlock pace: 60255061 tokens/day lower bound; incomplete where a su
 worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
 - [`ironhorse-fuzz-fcbb16f5721e8fd2-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fcbb16f5721e8fd2-repair.md) — Fix Ironhorse fuzz finding fcbb16f5721e8fd2 (target differential_source) and ...
 - [`ironhorse-fuzz-fad9672dc7a6e6be-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fad9672dc7a6e6be-repair.md) — Repair Ironhorse engine defect fad9672dc7a6e6be (target differential_source) ...
 - [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Repair Ironhorse engine defect fd8517d5f3071227 (target differential_regexp) ...
-- [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
 - [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-ocap-frozen-objects.md) — ---
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Repair Ironhorse engine defect ed616f6ec22095dc (target differential_regexp) ...
 - [`kriscendobot-minion.town-pr103-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr103-dependabot.md) — botanist (auto: dependabot PR) on kriscendobot/minion.town PR #103
 
-### doin (3)
+### doin (4)
 - [`ironhorse-fuzz-f2f53bb078bc8a4e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-f2f53bb078bc8a4e-repair.md) — Fix Ironhorse fuzz finding f2f53bb078bc8a4e (target differential_regexp) and ...
 - [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
+- [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
 - [`ironhorse-fuzz-c9eaa7b5ae02437a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-c9eaa7b5ae02437a-repair.md) — Repair Ironhorse engine defect c9eaa7b5ae02437a (target differential_regexp_s...
 
 ### tada (9178)
