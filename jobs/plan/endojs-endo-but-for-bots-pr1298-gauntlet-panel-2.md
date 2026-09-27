@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+gauntlet: endojs-endo-but-for-bots-pr1298-gauntlet
+role: gardener
+tier: mentor
+handler-budget-role: panel
+handler-timeout: 10800
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: deterministic
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-27T12:33:15Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-27T12:33:15Z
+---
+
+---
 role: gardener
 handler-budget-role: panel
 handler-timeout: 10800
@@ -45,14 +67,3 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->         (panel.sh exit 0, disposition pass)
   <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
   <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T12:24:19Z
