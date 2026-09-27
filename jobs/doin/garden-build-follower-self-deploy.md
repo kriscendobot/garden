@@ -79,6 +79,7 @@ it raised open questions), the deferred doc edits are reconciled, and the exerci
 evidence is in the report.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=14 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
