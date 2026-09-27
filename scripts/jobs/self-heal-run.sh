@@ -34,6 +34,19 @@
 # 12) per UTC day. Throttle state lives OUTSIDE the unit, under
 # $GARDEN_STATE/self-heal/, so it survives a restart and a stop.
 #
+# Handler deadline (the wedged-handler guard): the WRAPPED handler is itself run
+# under `timeout` (SELF_HEAL_HANDLER_TIMEOUT, default 600s) so a handler wedged on
+# degraded connectivity — a `gh`/`git` call with no internal cursor/fetch bound —
+# is felled well INSIDE the unit's TimeoutStartSec instead of riding it to the blunt
+# systemd job-timeout + cgroup SIGKILL backstop (which flaps the unit Failed and, on
+# a KillMode grace expiry, needs a forceful SIGKILL after TimeoutStopSec). A
+# resulting rc=124/137 is classified like the offline signatures below — a CLEAN
+# exit 0, no responder burn, no Failed unit. SET SELF_HEAL_HANDLER_TIMEOUT=0 for a
+# caller whose handler is a long-lived LOOP (Type=exec/simple: the worker, the
+# bulletin, the feed watchers) or a legitimately long single tick (fuzz, git-gc,
+# clone keepers) — there the unit's own TimeoutStartSec stays the only bound. This
+# is the analog of the responder's own `timeout` (Parts 2 & 3 below).
+#
 # Best-effort everywhere: no branch of the self-heal path may crash the wrapper
 # (and thus the wrapped service). Every escalation step OR-guards to a no-op.
 #
@@ -51,6 +64,8 @@ export GARDEN_TAG="self-heal"
 : "${SELF_HEAL_THROTTLE_SECS:=1800}"   # min seconds between responders per signature
 : "${SELF_HEAL_DAILY_CAP:=12}"         # max responders per signature per UTC day
 : "${SELF_HEAL_CAPTURE_BYTES:=262144}" # tail bytes of the run hashed on failure
+: "${SELF_HEAL_HANDLER_TIMEOUT:=600}"   # hard cap on the WRAPPED handler (a wedged handler is felled well inside the unit's TimeoutStartSec); 0/none/infinity DISABLES it — set that for a long-lived loop or a legitimately long tick (see header)
+: "${SELF_HEAL_HANDLER_KILL_AFTER:=20}" # grace before the handler timeout SIGKILLs a TERM-ignoring handler at its wall
 : "${SELF_HEAL_RESPONDER_TIMEOUT:=300}" # hard cap on the responder (a hung claude never wedges restart)
 : "${SELF_HEAL_RESPONDER_KILL_AFTER:=10}" # grace before timeout SIGKILLs a TERM-ignoring responder at its wall
 : "${SELF_HEAL_REAP_GRACE:=5}"          # grace before reap_process_group SIGKILLs the responder's process group
@@ -97,11 +112,34 @@ cleanup() {
 }
 trap cleanup EXIT
 
+# Bound the handler with its own `timeout`, the same way the responder is (Parts 2
+# & 3): a handler wedged on a hung `gh`/`git` (degraded connectivity, no internal
+# fetch/cursor bound) is felled at SELF_HEAL_HANDLER_TIMEOUT — well inside the
+# unit's TimeoutStartSec — instead of riding it to systemd's blunt job-timeout +
+# cgroup SIGKILL. `timeout --signal=TERM` forwards a TERM it RECEIVES (our stop
+# forward, below) straight to the handler, so the clean-shutdown path is unchanged;
+# on its OWN expiry it TERMs (rc=124), then SIGKILLs after --kill-after (rc=137) a
+# handler that ignores TERM. Disabled (0/empty/none/infinity) for a long-lived loop
+# or a legitimately long tick — those keep only the systemd bound (see header).
+handler_timeout_applied=0
+declare -a handler_cmd=("$@")
+case "${SELF_HEAL_HANDLER_TIMEOUT:-}" in
+  ''|0|none|infinity) : ;;   # disabled → run the handler unbounded (systemd is the only bound)
+  *)
+    if command -v timeout >/dev/null 2>&1; then
+      handler_cmd=(timeout --signal=TERM \
+        --kill-after="$SELF_HEAL_HANDLER_KILL_AFTER" "$SELF_HEAL_HANDLER_TIMEOUT" \
+        "${handler_cmd[@]}")
+      handler_timeout_applied=1
+    fi
+    ;;
+esac
+
 # Run as a child so we can forward a stop signal (clean shutdown, not a failure).
 # Combined stdout+stderr is tee'd to journald (our stdout) AND the capture file
 # via process substitution, so tee is a separate process and a broken capture
 # pipe can never SIGPIPE-kill the child.
-"$@" > >(tee -a "$capture") 2>&1 &
+"${handler_cmd[@]}" > >(tee -a "$capture") 2>&1 &
 child=$!
 forward() { got_signal=1; kill -TERM "$child" 2>/dev/null || true; }
 trap forward TERM INT
@@ -122,6 +160,22 @@ wait 2>/dev/null || true
 if is_nonattributable_rc "$rc"; then
   log "transient/environmental failure (rc=$rc); skipping responder"
   exit 0
+fi
+
+# The handler BLEW ITS OWN deadline: SELF_HEAL_HANDLER_TIMEOUT fired, surfacing as
+# rc=124 (timed out, TERMed) or rc=137 (had to be SIGKILLed after --kill-after).
+# That is NOT a handler crash — it is a wedge we deliberately bounded — so normalize
+# to a CLEAN exit 0, ahead of the generic clean-exit handling, exactly like the
+# offline classifications: no responder burns on a self-resolving connectivity hang,
+# and systemd records success rather than a `Failed`/forcefully-killed unit. Gated on
+# handler_timeout_applied so a handler that legitimately exits 124/137 on its OWN
+# (when we did NOT wrap it) is still diagnosed as a real failure.
+if [ "$handler_timeout_applied" -eq 1 ] && [ "$got_signal" -eq 0 ]; then
+  case "$rc" in
+    124|137)
+      log "handler '$context' exceeded SELF_HEAL_HANDLER_TIMEOUT=${SELF_HEAL_HANDLER_TIMEOUT}s (rc=$rc); bounded clean, skipping responder"
+      exit 0 ;;
+  esac
 fi
 
 is_expected=0

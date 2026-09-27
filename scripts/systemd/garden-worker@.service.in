@@ -31,6 +31,14 @@ Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # registry. This is the ONLY line that distinguishes a cleric unit from a monk
 # unit besides the rendered instance name.
 Environment=GARDEN_WORKER_KIND=@WORKER_KIND@
+# gardener.sh is a LONG-LIVED loop (Type=exec) that claims job after job for as long
+# as the worker lives, and it ALREADY bounds each in-flight handler internally with
+# GARDEN_HANDLER_TIMEOUT (2400) + GARDEN_HANDLER_KILL_AFTER (60). Disable self-heal's
+# own handler deadline here: a 600s cap on the never-returning loop would fell the
+# whole worker mid-job every 600s (rc=124 → normalized clean → Type=exec treats it as
+# success and does NOT restart), tearing the pool down. The KillMode=mixed /
+# TimeoutStopSec=2700 block below is this unit's stop bound.
+Environment=SELF_HEAL_HANDLER_TIMEOUT=0
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-@WORKER_KIND@ --work-id %i -- @GARDEN_ROOT@/scripts/jobs/gardener.sh %i
 # long-running loop; keep it up if it dies, but back off
 Restart=on-failure

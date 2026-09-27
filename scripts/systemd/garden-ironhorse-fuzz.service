@@ -24,6 +24,10 @@ SuccessExitStatus=143 130 SIGTERM SIGINT
 KillMode=mixed
 TimeoutStopSec=30s
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# A fuzz tick legitimately runs up to the 3600s TimeoutStartSec below — far past
+# self-heal's 600s handler default — so disable that deadline here (see
+# self-heal-run.sh header); TimeoutStartSec + TimeoutStopSec are this unit's bounds.
+Environment=SELF_HEAL_HANDLER_TIMEOUT=0
 # Leader-only singleton: run the campaign on exactly ONE host. On a follower the timer
 # fires but this ExecCondition fails, so the tick is skipped cleanly (never Failed) — two
 # hosts never run the same campaign or double-post a finding (issue kriskowal/garden#11).

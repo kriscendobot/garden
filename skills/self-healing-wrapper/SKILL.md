@@ -226,6 +226,23 @@ self-heal-run.sh <context> [--work-id <id>] [--role <brief>] [--expect <code>] -
   central-mentor layers still see the failure — the wrapper *diagnoses*, systemd
   *restarts*. A SIGTERM/SIGINT (a systemd stop) is forwarded to the child and
   treated as a CLEAN shutdown, never diagnosed.
+- **Handler deadline (the wedged-handler guard):** the wrapped handler itself runs
+  under `timeout` (`SELF_HEAL_HANDLER_TIMEOUT`, default 600s; `--kill-after` grace
+  `SELF_HEAL_HANDLER_KILL_AFTER`, default 20s), the analog of the responder's own
+  `timeout`. A handler wedged on a hung `gh`/`git` (degraded connectivity, no
+  internal fetch/cursor bound) is felled well *inside* the unit's `TimeoutStartSec`
+  instead of riding it to systemd's blunt job-timeout + cgroup SIGKILL backstop
+  (which flaps the unit `Failed` and can need a forceful kill after
+  `TimeoutStopSec`). The resulting `rc=124`/`137` is classified like the offline
+  signatures — a CLEAN exit 0, no responder burn, no `Failed` unit. Set
+  `SELF_HEAL_HANDLER_TIMEOUT=0` (via `Environment=` in the unit) for a caller whose
+  handler is a long-lived LOOP (`Type=exec`/`simple`: the worker, the bulletin, the
+  feed watchers) or a legitimately long single tick (fuzz, git-gc, clone/worktree
+  keepers) — there the unit's own `TimeoutStartSec` stays the only bound. Grounds:
+  a ~30-min degraded-connectivity episode left `garden-comment-watcher@…` and two
+  `garden-receipt-watcher@…` riding the full 900s `TimeoutStartSec` and needing
+  forceful termination, while every internally-bounded watcher failed open in
+  seconds.
 - **Reaps the responder's process group.** The `claude -p` responder runs in its
   OWN process group (`set -m` + `timeout --foreground`, pgid captured from `$!`);
   the wrapper sweeps that whole group — the handler AND its `claude` grandchild —

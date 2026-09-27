@@ -9,6 +9,10 @@ Type=oneshot
 # doesn't mark a SIGTERM stop as Failed.
 SuccessExitStatus=143 130 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# A first-tick reclaim of many leaked journal2 checkouts legitimately runs well past
+# self-heal's 600s handler default, up to the 1800s TimeoutStartSec below — so disable
+# that deadline here (see self-heal-run.sh header); TimeoutStartSec is this unit's bound.
+Environment=SELF_HEAL_HANDLER_TIMEOUT=0
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-state-clone-keeper -- @GARDEN_ROOT@/scripts/jobs/state-clone-keeper.sh
 # A first tick on a badly-leaked host removes up to GARDEN_STATE_CLONE_MAX_SWEEP
 # clones, each a full journal2 checkout; unlinking that many inodes takes real

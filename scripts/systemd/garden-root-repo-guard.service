@@ -9,6 +9,11 @@ Type=oneshot
 # SIGTERM stop as Failed.
 SuccessExitStatus=143 130 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# A guard tick that repairs the object store (bounded gc, --refetch, a second gc and a
+# missing-object scan — ~1440s worst case, see below) legitimately runs well past
+# self-heal's 600s handler default, up to the 1800s TimeoutStartSec — so disable that
+# deadline here (see self-heal-run.sh header); TimeoutStartSec is this unit's bound.
+Environment=SELF_HEAL_HANDLER_TIMEOUT=0
 # EVERY host (NOT leader-gated): each host has its own root checkout that a local job
 # can corrupt independently, so the guard runs everywhere — no ExecCondition.
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-root-repo-guard -- @GARDEN_ROOT@/scripts/jobs/root-repo-guard.sh

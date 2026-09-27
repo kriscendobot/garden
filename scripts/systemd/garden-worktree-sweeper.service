@@ -20,6 +20,11 @@ Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # finds nothing, so a follower's doom/crash/cross-host-requeue residue can be
 # reclaimed ONLY by the follower's own sweep. is-main-host was the sole thing
 # preventing that.
+# A sweep of a badly-leaked host (dozens of multi-GB checkouts to unlink) legitimately
+# runs well past self-heal's 600s handler default, up to the 1800s TimeoutStartSec below
+# — so disable that deadline here (see self-heal-run.sh header); TimeoutStartSec is this
+# unit's bound.
+Environment=SELF_HEAL_HANDLER_TIMEOUT=0
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-worktree-sweeper -- @GARDEN_ROOT@/scripts/jobs/worktree-sweeper.sh
 TimeoutStartSec=1800
 

@@ -24,6 +24,10 @@ Slice=background.slice
 # so any future bypass of the wrapper still doesn't flap the unit to Failed.
 SuccessExitStatus=143 130 SIGTERM SIGINT
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
+# bulletin.sh is a continuous LOOP (Type=exec) that never returns; disable self-heal's
+# handler deadline so its 600s default cannot fell the loop every 600s (see
+# self-heal-run.sh header). The loop bounds its own gh/claude work internally.
+Environment=SELF_HEAL_HANDLER_TIMEOUT=0
 ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-bulletin -- @GARDEN_ROOT@/scripts/jobs/bulletin.sh
 Restart=always
 RestartSec=5

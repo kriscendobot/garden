@@ -2782,6 +2782,41 @@ sleep 0.5
 [ "$rreapb" -eq 5 ] && ok "stop-during-diagnosis preserves the wrapped rc (5) so systemd still sees the failure" \
   || bad "wrapped rc not preserved on stop-during-diagnosis (rc=$rreapb)"
 
+# (11) HANDLER DEADLINE — a handler wedged past SELF_HEAL_HANDLER_TIMEOUT is felled
+# by the wrapper's own `timeout` (rc=124) and classified CLEAN (exit 0), firing NO
+# responder — a self-resolving connectivity hang must not ride the unit's blunt
+# TimeoutStartSec + SIGKILL backstop nor burn a `claude -p`. Tiny bound + tiny grace
+# so the test returns in ~1s instead of the 600s default.
+: > "$SHCALLS"
+start_hd="$(date +%s)"
+set +e; SELF_HEAL_THROTTLE_SECS=0 SELF_HEAL_HANDLER_TIMEOUT=1 SELF_HEAL_HANDLER_KILL_AFTER=1 \
+  "$SHRUN" garden-wedged -- bash -c 'sleep 30; exit 0' >/dev/null 2>&1; rhd=$?; set -e
+elapsed_hd=$(( $(date +%s) - start_hd ))
+{ [ "$rhd" -eq 0 ] && [ "$(shcalls)" -eq 0 ] && [ "$elapsed_hd" -lt 10 ]; } \
+  && ok "wedged handler felled at SELF_HEAL_HANDLER_TIMEOUT (rc=124) → clean exit 0, no responder (${elapsed_hd}s)" \
+  || bad "handler deadline not enforced (rc=$rhd calls=$(shcalls) elapsed=${elapsed_hd}s)"
+
+# (12) HANDLER DEADLINE, TERM-ignoring handler → SIGKILL after the grace (rc=137),
+# still classified CLEAN. Same shape but the handler traps and ignores TERM, so the
+# --kill-after SIGKILL is what fells it.
+: > "$SHCALLS"
+set +e; SELF_HEAL_THROTTLE_SECS=0 SELF_HEAL_HANDLER_TIMEOUT=1 SELF_HEAL_HANDLER_KILL_AFTER=1 \
+  "$SHRUN" garden-wedged-hard -- bash -c 'trap "" TERM; sleep 30' >/dev/null 2>&1; rhd2=$?; set -e
+{ [ "$rhd2" -eq 0 ] && [ "$(shcalls)" -eq 0 ]; } \
+  && ok "TERM-ignoring wedged handler SIGKILLed after grace (rc=137) → clean exit 0, no responder" \
+  || bad "hard-wedged handler deadline not classified clean (rc=$rhd2 calls=$(shcalls))"
+
+# (13) HANDLER DEADLINE DISABLED (=0) — for a long-lived loop / long tick. The bound
+# must NOT be applied, so a genuine handler failure is diagnosed normally (rc
+# preserved, responder fires). Proves the opt-out disables ONLY the deadline, not
+# the rest of the self-heal path.
+: > "$SHCALLS"
+set +e; SELF_HEAL_THROTTLE_SECS=0 SELF_HEAL_HANDLER_TIMEOUT=0 \
+  "$SHRUN" garden-nodeadline -- bash -c 'echo boom >&2; exit 6' >/dev/null 2>&1; rhd3=$?; set -e
+{ [ "$rhd3" -eq 6 ] && [ "$(shcalls)" -eq 1 ]; } \
+  && ok "SELF_HEAL_HANDLER_TIMEOUT=0 disables the deadline; genuine failure still diagnosed (rc=6)" \
+  || bad "disabled-deadline path broke the normal failure route (rc=$rhd3 calls=$(shcalls))"
+
 unset SELF_HEAL_STUB_CALLS SELF_HEAL_HANDLER JOURNAL_REMOTE
 
 # ============================================================================
