@@ -1,4 +1,5 @@
 ---
+child-split-pr1125-1305-gauntlet-shepherd-host: oros-studio-garden-ce242c49
 child-split-pr1125-1305-gauntlet-shepherd-reap-count: 0
 child-split-pr1125-1306-gauntlet-shepherd-host: endolin-garden2-5bcdff64
 child-split-pr1125-1306-gauntlet-shepherd-reap-count: 0
