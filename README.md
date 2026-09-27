@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T10:14:05Z_
+_As of 2026-09-27T10:18:45Z_
 
 ## Latest
 
@@ -807,6 +807,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > `design-cpu-back-pressure-job-dispatch-20260918`, owns the load/memory/IO admission
 > gate; do not duplicate that work here.
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_receipts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_receipts_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipts/journal: p95=0.001693s, giveups=1, steals=0 (max 3/window), wait floor=60s.
+
 - `doomed-improve-self-heal-run-handler-deadline-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-self-heal-run-handler-deadline-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -1193,6 +1197,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_worktree_sweeper_journal.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/worktree-sweeper/journal: p95=45.002599s max=45.002599s; hard guard=31.500000s (70% of 45s cap); remedy=deferred.
 
 - `liaison-followup-ddf3735030e2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ddf3735030e2.md)
 
@@ -1831,18 +1839,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.1M | $277.46 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 32.2M | $278.54 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 38.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 33% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 68567287 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 45.001493s/45s (/home/kris/garden/.garden-state/receipts/journal); 2 open notice(s); checker healthy
+worst fetch p95 45.001493s/45s (/home/kris/garden/.garden-state/receipts/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`ironhorse-fuzz-79f0475dd0440b2d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-79f0475dd0440b2d-repair.md) — Repair Ironhorse engine defect 79f0475dd0440b2d (target differential_regexp) ...
-- [`ironhorse-fuzz-6be90176ff07c648-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-6be90176ff07c648-repair.md) — Repair Ironhorse engine defect 6be90176ff07c648 (target differential_regexp) ...
 
 ### doin (7)
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1298
@@ -1851,15 +1858,15 @@ worst fetch p95 45.001493s/45s (/home/kris/garden/.garden-state/receipts/journal
 - [`ironhorse-fuzz-67ca18e4febe7a34-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-67ca18e4febe7a34-repair.md) — Repair Ironhorse engine defect 67ca18e4febe7a34 (target differential_source) ...
 - [`ironhorse-fuzz-5c9d2506e6048f4a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5c9d2506e6048f4a-repair.md) — Repair Ironhorse engine defect 5c9d2506e6048f4a (target differential_regexp_s...
 - [`ironhorse-fuzz-7637ac162a0b916a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-7637ac162a0b916a-repair.md) — Repair Ironhorse engine defect 7637ac162a0b916a (target differential_regexp) ...
-- [`ironhorse-fuzz-6ca7a76e0bfe3435-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-6ca7a76e0bfe3435-repair.md) — Repair Ironhorse engine defect 6ca7a76e0bfe3435 (target differential_regexp_s...
+- [`ironhorse-fuzz-6be90176ff07c648-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-6be90176ff07c648-repair.md) — Repair Ironhorse engine defect 6be90176ff07c648 (target differential_regexp) ...
 
-### tada (9146)
+### tada (9147)
+- [`ironhorse-fuzz-6ca7a76e0bfe3435-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-6ca7a76e0bfe3435-repair.md) — Completion report: ironhorse-fuzz-6ca7a76e0bfe3435-repair
 - [`endojs-endo-but-for-bots-pr1227-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1227-receipt.md) — Completion report
 - [`ironhorse-fuzz-51c6a212946102f6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-51c6a212946102f6-repair.md) — Cost
 - [`ironhorse-fuzz-5eeb0aadb2004075-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-5eeb0aadb2004075-repair.md) — Finding 5eeb0aadb2004075 (differential_regexp): the port was already correct,...
 - [`canary-probe-endolin-garden2-5bcdff64-773813fb507c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/canary-probe-endolin-garden2-5bcdff64-773813fb507c.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1227-review-5329319726-chain`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1227-review-5329319726-chain.md) — orchestration endojs-endo-but-for-bots-pr1227-review-5329319726-chain — HALTED
-- … and 9141 more
+- … and 9142 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
