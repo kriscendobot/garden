@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:21:51Z_
+_As of 2026-09-27T05:25:17Z_
 
 ## Latest
 
@@ -445,7 +445,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal.md)
 
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: p95=17.076678s max=26.520018s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-27T05:03:52Z, cleared 2026-09-27T05:24:38Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal` cleared on oros-studio-garden-ce242c49.
 
 - `doomed-endojs-endo-but-for-bots-pr664-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr664-gauntlet-panel-1-requeue-exhausted.md)
 
@@ -1586,7 +1590,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.4M | $241.40 _(notional, rate-card)_ | 20% of 143.0M (ok) |
+| Claude | 28.4M | $241.83 _(notional, rate-card)_ | 20% of 143.0M (ok) |
 | Codex | 33.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75485230 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
