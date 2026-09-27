@@ -44,6 +44,7 @@ Base: endojs/endo-but-for-bots  branch llm
 
 Posted by the conductor (pr897-conduct) after a needs-weave rebase refusal.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
