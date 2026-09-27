@@ -1,24 +1,12 @@
 ---
-gate: go-ahead
-priority: normal
-gauntlet: endojs-endo-but-for-bots-pr664-gauntlet
 role: gardener
 tier: mentor
 handler-budget-role: panel
 handler-timeout: 10800
 token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-09-27T03:26:06Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-09-27T03:26:06Z
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-27T07:03:04Z cleared=none -->
+
 requires: host=oros-studio-garden-ce242c49
 
 ---
