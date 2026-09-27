@@ -50,6 +50,7 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-585379845
 
 ----- END ORIGINAL MESSAGE -----
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=17 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
