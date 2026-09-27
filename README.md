@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T13:36:03Z_
+_As of 2026-09-27T13:37:51Z_
 
 ## Latest
 
@@ -1831,6 +1831,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment condition cleared.
 
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-endo: gc.log present; size=225766400B packs=51 gc.log=1; automatic remedy=deferred.
+
 - `watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-kriscendobot-minion-town.md)
 
 > self-heal: garden-comment-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 51e280f054af9b87e713b528868c59623835d7e0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 51e280f054af9b87e713b528868c59623835d7e0). Diagnosis: Diagnosis: this is not a comment-watcher code defect. `garden-comment-watcher@kriscendobot-minion.town` (watching repo `kriscendobot/minion.town`, running on leader host `endolin-garden-ece02cb4`) died because its verify-clone re-clone of `journal2` hit the known `rc=124` (>45s) timeout path in `reclone_clone()` (`scripts/jobs/common.sh`) and called `die` instead of exiting `EX_TEMPFAIL`. That exact bug was already fixed on `main2` in commit `434d5402956` ("treat reclone_clone rc=124/137 timeouts as a transient skip"), currently at `origin/main2` HEAD `4c0529f42fb`, and three prior self-heal jobs already landed this and follow-on test coverage (`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline` et al., all in `jobs/tada/`). This host's own dep
@@ -1989,7 +1993,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 60297496 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
+worst fetch p95 45.001493s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (5)
