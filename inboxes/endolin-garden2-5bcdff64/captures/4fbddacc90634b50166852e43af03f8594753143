@@ -1,0 +1,7 @@
+<6>18:08:34 [monk/1] resuming session 9d7de64d-79b9-531e-98a8-775befdf13a6 for requeued job 'endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro' in worktree /home/kris/garden2/scratch/gardener-wt-endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro
+<6>18:08:34 [monk/1] job 'endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>18:08:35 [monk/1] job 'endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro' call ceiling: tier=mentor max-budget-usd=16.60 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
