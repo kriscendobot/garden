@@ -180,3 +180,13 @@ key and Cloud access before wiring it into the fleet.
 - `scripts/jobs/common.sh` (`worker_kind_field`, `worker_kinds`, `resolve_model_tier`, `role_default_model`)
 - `scripts/jobs/handlers/monk-claude.sh`, `scripts/systemd/seed-api-key-handoff.sh`
 - `docs.ollama.com/api/anthropic-compatibility`, `docs.ollama.com/integrations/claude-code` (web, 2026-09-01)
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T14:59:10Z
