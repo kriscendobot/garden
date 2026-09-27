@@ -1,0 +1,6 @@
+<6>14:51:41 [monk/1] job 'self-heal-fix-garden-issue-inbox-cursor-get-pipefail' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>14:51:41 [monk/1] job 'self-heal-fix-garden-issue-inbox-cursor-get-pipefail' call ceiling: tier=minion max-budget-usd=8.50 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
