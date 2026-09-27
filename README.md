@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T15:08:33Z_
+_As of 2026-09-27T15:17:50Z_
 
 ## Latest
 
@@ -1812,6 +1812,29 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment condition cleared.
 
+- `doomed-self-heal-fix-garden-issue-inbox-cursor-get-pipefail-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-self-heal-fix-garden-issue-inbox-cursor-get-pipefail-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/self-heal-fix-garden-issue-inbox-cursor-get-pipefail; it stays HELD until a human promotes it
+> (promote-plan.sh self-heal-fix-garden-issue-inbox-cursor-get-pipefail) or removes it, so nothing is lost.
+> Original job base: self-heal-fix-garden-issue-inbox-cursor-get-pipefail
+>
+> --- original job body ---
+> ---
+> tier: minion
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T14:50:11Z cleared=none -->
+>
+> ---
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> issue-inbox-watcher.sh:386 calls `cursor-get.sh` in a bare pipeline (`"$HERE/cursor-get.sh" "$CURSOR_KEY" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1`) under `set -euo pipefail`. cursor-get.sh's sync_clone can `die` with rc=1 (unrecognized fetch-failure stderr) or `exit $GARDEN_OFFLINE_RC` (75, recognized offline signature) on a journal fetch hiccup; pipefail propagates either nonzero rc through the sed/head stages, tripping set -e and hard-killing the whole garden-issue-inbox unit instead of skipping the tick. This is the exact bug class fixed today in triager.sh (commits 73c2432e89, b320648e47): capture the rc via `if cursor_out=$("$HERE/cursor-get.sh" "$CURSOR_KEY"); then rc=0; else rc=$?; fi`, and on any nonzero rc, `log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc); skipping this tick"; exit 0` instead of letting set -e kill the process — a cursor read is best-effort (a missed read just re-triages/re-polls next tick, never loses data). Apply the identical fix to the same unguarded pattern in comment-watcher.sh:423 and mention-watcher.sh:83, which share this exact vulnerable shape and will hit the same failure the next time the journal blips.
+
 - `doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2437,7 +2460,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.6M | $308.19 _(notional, rate-card)_ | 25% of 143.0M (ok) |
+| Claude | 35.4M | $304.88 _(notional, rate-card)_ | 25% of 143.0M (ok) |
 | Codex | 43.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 52833056 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -2446,28 +2469,24 @@ _Fleet token-unlock pace: 52833056 tokens/day lower bound; incomplete where a su
 worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (3)
-- [`self-heal-fix-garden-issue-inbox-cursor-get-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-issue-inbox-cursor-get-failopen.md) — ---
-- [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/harness-provider-matrix-handoff-20260901.md) — Hand-off: harness × inference-provider matrix, and what to probe next
-- [`self-heal-fix-garden-issue-inbox-cursor-read-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-issue-inbox-cursor-read-fail-open.md) — ---
+### todo (2)
+- [`split-pr1125-1306-gauntlet-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/split-pr1125-1306-gauntlet-shepherd.md) — Gauntlet + shepherd for endojs/endo-but-for-bots#1306 (slice 2/3 of the #1125...
+- [`endojs-endo-but-for-bots-pr1345-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1345-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1345
 
-### doin (8)
+### doin (5)
+- [`self-heal-fix-garden-issue-inbox-cursor-get-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-get-failopen.md) — ---
 - [`oros-studio-health-restoration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-studio-health-restoration.md) — Restore oros-studio's job-handler health: analyze, hypothesize, fix, validate
-- [`self-heal-fix-garden-issue-inbox-cursor-get-pipefail`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-get-pipefail.md) — ---
-- [`split-pr1125-1306-gauntlet-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/split-pr1125-1306-gauntlet-shepherd.md) — Gauntlet + shepherd for endojs/endo-but-for-bots#1306 (slice 2/3 of the #1125...
-- [`endojs-endo-but-for-bots-pr1345-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1345-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1345
-- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
-- [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-minion-town-pr90.md) — ---
+- [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/harness-provider-matrix-handoff-20260901.md) — Hand-off: harness × inference-provider matrix, and what to probe next
 - [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
 - [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-frozen-objects.md) — ---
 
-### tada (9192)
+### tada (9194)
+- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/weave-base-update-and-pin-alias.md) — Completion report
+- [`self-heal-fix-garden-issue-inbox-cursor-read-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/self-heal-fix-garden-issue-inbox-cursor-read-fail-open.md) — Completion report
 - [`self-heal-fix-garden-issue-inbox-cursor-get-set-e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/self-heal-fix-garden-issue-inbox-cursor-get-set-e.md) — Completion report — self-heal-fix-garden-issue-inbox-cursor-get-set-e
 - [`split-pr1125-1304-gauntlet-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/split-pr1125-1304-gauntlet-shepherd.md) — Cost
 - [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-silent-exit1-no-err-trap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-silent-exit1-no-err-trap.md) — Completion report
-- [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/minion-town-endo-b3-daemon-deploy-verify.md) — Cost
-- [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — Cost
-- … and 9187 more
+- … and 9189 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2491,6 +2510,7 @@ worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 - [`ironhorse-fuzz-e2a75557f762cd9c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-e2a75557f762cd9c-repair.md) — _normal_ · Repair Ironhorse engine defect e2a75557f762cd9c (target differential_regexp) ...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1317-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1317-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1317
+- [`self-heal-fix-garden-issue-inbox-cursor-get-pipefail`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/self-heal-fix-garden-issue-inbox-cursor-get-pipefail.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
 - [`kriscendobot-oros-ckm-data-readiness-pr1-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-oros-ckm-data-readiness-pr1-receipt.md) — _normal_ · receipt (auto) — completion receipt for kriscendobot/oros-ckm-data-readiness ...
@@ -2513,6 +2533,7 @@ worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 - [`endo-sturdyref-enliven-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-enliven-design.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1286-review-cc7d78b9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1286-review-cc7d78b9.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #1286
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
+- [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/run-the-gauntlet-minion-town-pr90.md) — _normal_ · ---
 - [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-378372c8706a48a8-repair.md) — _normal_ · Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
 - [`claude-on-minion-town-press-20260927-133532`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-press-20260927-133532.md) — _normal_ · Press the Claude-on-minion.town arc forward
 - [`oros-ckm-dependabot-audit-0013418`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-ckm-dependabot-audit-0013418.md) — _normal_ · ---
