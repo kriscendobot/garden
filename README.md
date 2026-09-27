@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T13:58:00Z_
+_As of 2026-09-27T14:06:56Z_
 
 ## Latest
 
@@ -1987,36 +1987,36 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.2M | $279.65 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 42.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
+| Claude | 32.2M | $279.71 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Codex | 42.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 60619716 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 60669844 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
 - [`ironhorse-fuzz-fcbb16f5721e8fd2-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fcbb16f5721e8fd2-repair.md) — Fix Ironhorse fuzz finding fcbb16f5721e8fd2 (target differential_source) and ...
-- [`ironhorse-fuzz-fad9672dc7a6e6be-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fad9672dc7a6e6be-repair.md) — Repair Ironhorse engine defect fad9672dc7a6e6be (target differential_source) ...
+- [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
 - [`claude-on-minion-town-press-20260927-133532`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260927-133532.md) — Press the Claude-on-minion.town arc forward
+- [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Repair Ironhorse engine defect fd8517d5f3071227 (target differential_regexp) ...
 
-### doin (7)
+### doin (6)
 - [`ironhorse-fuzz-f2f53bb078bc8a4e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-f2f53bb078bc8a4e-repair.md) — Fix Ironhorse fuzz finding f2f53bb078bc8a4e (target differential_regexp) and ...
-- [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
-- [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Repair Ironhorse engine defect fd8517d5f3071227 (target differential_regexp) ...
+- [`kriscendobot-minion.town-pr68-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr68-retcon.md) — retcon directive on kriscendobot/minion.town PR #68
+- [`kriscendobot-minion.town-pr56-review-7d4dc95d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr56-review-7d4dc95d.md) — Review directive on kriscendobot/minion.town PR #56
+- [`ironhorse-fuzz-fad9672dc7a6e6be-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-fad9672dc7a6e6be-repair.md) — Repair Ironhorse engine defect fad9672dc7a6e6be (target differential_source) ...
 - [`ironhorse-fuzz-c9eaa7b5ae02437a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-c9eaa7b5ae02437a-repair.md) — Repair Ironhorse engine defect c9eaa7b5ae02437a (target differential_regexp_s...
 - [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-frozen-objects.md) — ---
-- [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Repair Ironhorse engine defect ed616f6ec22095dc (target differential_regexp) ...
-- [`kriscendobot-minion.town-pr103-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr103-dependabot.md) — botanist (auto: dependabot PR) on kriscendobot/minion.town PR #103
 
-### tada (9178)
+### tada (9180)
+- [`canary-probe-endolin-garden2-5bcdff64-b7e65392bdb8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/canary-probe-endolin-garden2-5bcdff64-b7e65392bdb8.md) — rolling-deploy canary probe — round trip OK
+- [`kriscendobot-minion.town-pr103-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion.town-pr103-dependabot.md) — Completion report — botanist, kriscendobot/minion.town PR #103
 - [`ironhorse-fuzz-ecae051e6e8f5a27-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-ecae051e6e8f5a27-repair.md) — Cost
 - [`ironhorse-fuzz-e4a8e011666d0362-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-e4a8e011666d0362-repair.md) — Completion report: ironhorse-fuzz-e4a8e011666d0362-repair
 - [`ironhorse-fuzz-cfdc1a28296f23a1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-cfdc1a28296f23a1-repair.md) — Cost
-- [`endojs-endo-but-for-bots-pr1298-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1298-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1298-gauntlet — HALTED
-- [`ironhorse-fuzz-d87697d49a5f8f67-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-d87697d49a5f8f67-repair.md) — Finding d87697d49a5f8f67 (differential_source): done, no engine fix needed
-- … and 9173 more
+- … and 9175 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2072,6 +2072,7 @@ worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-exo-stream-pr1100-gauntlet-20260923-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-subscription-model-deploy-gate-regression.md) — _normal_ · Fix deploy-gate regression from subscription-based-budget-model
+- [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — _normal_ · Repair Ironhorse engine defect ed616f6ec22095dc (target differential_regexp) ...
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper.md) — _normal_ · Build: SES import attributes — Phase 3 (compartment-mapper plumbing)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
 - [`endojs-endo-but-for-bots-pr1293-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1293-receipt.md) — _normal_ · receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1293 (cl...
@@ -2090,9 +2091,7 @@ worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 - [`kriscendobot-garden-pr72-review-e5ce867a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr72-review-e5ce867a-retro.md) — _normal_ · Retrospective on kriscendobot/garden PR #72 (primary: kriscendobot-garden-pr7...
 - [`kriscendobot-minion.town-pr32-review-93782d28-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr32-review-93782d28-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #32 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr56-review-5867a29b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr56-review-5867a29b-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #56 (primary: kriscendobot-minio...
-- [`kriscendobot-minion.town-pr56-review-7d4dc95d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr56-review-7d4dc95d.md) — _normal_ · Review directive on kriscendobot/minion.town PR #56
 - [`kriscendobot-minion.town-pr62-review-353e723b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr62-review-353e723b-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #62 (primary: kriscendobot-minio...
-- [`kriscendobot-minion.town-pr68-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr68-retcon.md) — _normal_ · retcon directive on kriscendobot/minion.town PR #68
 - [`kriscendobot-minion.town-pr68-review-45cc89f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr68-review-45cc89f1.md) — _normal_ · Review directive on kriscendobot/minion.town PR #68
 - [`kriscendobot-minion.town-pr69-review-f7e1d07a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr69-review-f7e1d07a-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #69 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr99-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr99-receipt.md) — _normal_ · receipt (auto) — completion receipt for kriscendobot/minion.town PR #99 (merged)
