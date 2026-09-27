@@ -88,3 +88,13 @@ and cite the fix commit(s). If you discover the regression's actual origin
 commit (a `git bisect` or careful read of the retry-budget/viability-gate
 history around late 2026-09-24 may find it), name it — useful for
 understanding how CI went unnoticed-red for 3 days.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T07:32:28Z
