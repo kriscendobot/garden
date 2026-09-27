@@ -6,9 +6,11 @@ author: liaison, gardener
 
 # Role: weaver
 
-Rebase a branch onto a fresh base, or perform an explicit merge, weaving the two histories' contributions into one coherent line. The whole discipline is in how conflicts get resolved.
+**Weave** a fork-side PR: **update its merge base to the current base-branch hash** (snapshot the base branch's tip to a new frozen `<base>-<short-sha>`), rebase the head onto that new base, resolve conflicts, force-push the head, and move the PR's `base` field — **both refs move together**. Or perform an explicit merge, weaving the two histories' contributions into one coherent line. The whole discipline is in how conflicts get resolved.
 
-A gardener claims a `rebase` or `weave` job (the triager maps a "rebase #N" / "weave #N" comment directive to one) and wears this role; the gardener also runs the weave stage when an earlier gauntlet stage (cleaner, conductor) reports a `CONFLICTING` PR. Keep the weaver→fixer escalation: when the rebase reveals the branch's premise no longer holds, surface it so the gardener can run the fixer or surface to the maintainer.
+The base update is intrinsic to weaving, not an afterthought of a linked skill: weaving is "update the merge base to the current hash and rebase with conflict resolution" (maintainer decision, liaison session 2026-08-16). **"pin the merge base" is an alias for *weave*, not a distinct verb** and not a composition of two verbs; the rebase and conflict resolution are implicit in the verb. Provenance: kriskowal, CHANGES_REQUESTED review on https://github.com/endojs/endo-but-for-bots/pull/282, 2026-08-16T06:28:34Z — *"Please pin the merge base to llm-xxxxx and rebase. I will hereafter call this 'pin the merge base', leaving the rebase and resolution of conflicts implicit."*
+
+A gardener claims a `rebase` or `weave` job (the triager maps a "rebase #N" / "weave #N" / "pin the merge base #N" comment directive to one) and wears this role; the gardener also runs the weave stage when an earlier gauntlet stage (cleaner, conductor) reports a `CONFLICTING` PR. Keep the weaver→fixer escalation: when the rebase reveals the branch's premise no longer holds, surface it so the gardener can run the fixer or surface to the maintainer.
 
 ## When the weaver runs
 
@@ -23,7 +25,7 @@ A gardener claims a `rebase` or `weave` job (the triager maps a "rebase #N" / "w
 
 See [conflict-resolution] for the procedure and the three narrow exceptions (generated lockfiles, changeset-managed CHANGELOGs, Prettier-only whitespace).
 
-**Second hard rule — rebase onto the pinned snapshot, never a floating trunk.** A fork-side rebase re-parents onto the **new frozen base** (`<base>-<new-sha>`), never onto a live `master`/`llm`/`main`. Basing on a moving branch is the `merge-base-pinning` miss (endojs/endo-but-for-bots #719/#831/#836): it entrains commits outside the intended delta (#831: 79 of them). For a cross-base move use `git rebase --onto <new-frozen-base> <old-base> HEAD`, and before pushing confirm `git diff --stat <frozen-base>..HEAD` is the PR's files only. `pin the merge base #N` is the strong form of this op. See [frozen-base-branch] § Hard precondition.
+**Second hard rule — rebase onto the pinned snapshot, never a floating trunk.** A fork-side rebase re-parents onto the **new frozen base** (`<base>-<new-sha>`), never onto a live `master`/`llm`/`main`. Basing on a moving branch is the `merge-base-pinning` miss (endojs/endo-but-for-bots #719/#831/#836): it entrains commits outside the intended delta (#831: 79 of them). For a cross-base move use `git rebase --onto <new-frozen-base> <old-base> HEAD`, and before pushing confirm `git diff --stat <frozen-base>..HEAD` is the PR's files only. `pin the merge base #N` is an **alias** for this weave op, not a stronger one. See [frozen-base-branch] § Hard precondition.
 
 ## Skills
 

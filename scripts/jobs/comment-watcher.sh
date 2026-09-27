@@ -908,16 +908,21 @@ classify() {  # classify <body-file> <surface> <author>; sets VERB (+PRIMARY_VER
   # does not mint a verb (the #513/#526 false positives).
   local detected_verb=""
   case "$lc" in *"run the gauntlet"*) detected_verb=gauntlet;; esac
-  # "pin the merge base" — kriskowal's coined verb (endo-but-for-bots#282 review
-  # 4945588548): repoint the PR's base onto a pinned llm-<sha> branch, rebase the
-  # head onto it, and resolve conflicts. The rebase and the conflict resolution are
-  # IMPLICIT in the verb. Recognized as a MULTI-WORD PHRASE (like "run the gauntlet"),
-  # but GATED on imperative/clause-initial position so declarative prose that merely
-  # mentions pinning a base ("this will pin the merge base once #528 merges") never
-  # mis-fires — the distinct exact phrase plus imperative position is the guard.
-  # Detected BEFORE the single-word loop so the trailing "and rebase" in the canonical
-  # phrasing cannot shadow it into a plain `rebase` job: the rebase is PART of this
-  # stronger op (which also moves the BASE), not a second directive. See
+  # "pin the merge base" — an ALIAS for weave (kriskowal, endo-but-for-bots#282
+  # review 4945588548, 2026-08-16; maintainer clarification, liaison session
+  # 2026-08-16): NOT a distinct/stronger verb and NOT a composition of two verbs.
+  # Weaving already means "update the merge base to the current hash and rebase with
+  # conflict resolution" — snapshot the base branch's tip to a new frozen
+  # <base>-<short-sha>, rebase the head onto it, resolve conflicts, and move the PR's
+  # base field. The rebase and the conflict resolution are IMPLICIT in the verb, so
+  # the phrase mints the weaver base-update job (VERB=pinbase → role weaver). Recognized
+  # as a MULTI-WORD PHRASE (like "run the gauntlet"), but GATED on imperative/clause-
+  # initial position so declarative prose that merely mentions pinning a base ("this
+  # will pin the merge base once #528 merges", or this policy described as subject
+  # matter) never mis-fires — the distinct exact phrase plus imperative position is the
+  # guard. Detected BEFORE the single-word loop so the trailing "and rebase" in the
+  # canonical phrasing cannot shadow it into a plain `rebase` job: the rebase is PART
+  # of the weave op (which also moves the BASE), not a second directive. See
   # skills/frozen-base-branch and skills/verify-upstream-state-before-pinning.
   if [ -z "$detected_verb" ] && imperative_verb_present "pin the merge base" "$lc"; then
     detected_verb=pinbase
@@ -1046,7 +1051,7 @@ verb_action() {  # human-readable mapping for the job body
     shepherd) echo "drive CI to green";;
     americanize) echo "run scripts/jobs/gardening/orthographer-divergence-grep.sh on the PR; if it finds British spellings, americanize them (apply-then-re-grep loop to a zero-candidate fixpoint, leaving identifiers/upstream APIs/quoted text/fixtures as-is); if the grep is clean, complete as a no-op";;
     deslop) echo "run scripts/jobs/gardening/thesaurus-cliche-grep.sh on the PR; if it finds Botese clichés, deslop them (apply-then-re-grep loop to a fixpoint, applying the seat's rewrites and leaving genuine literal uses/identifiers/upstream APIs/quoted text/fixtures as-is); if the grep is clean, complete as a no-op";;
-    pinbase)  echo "repoint the PR base onto the pinned llm-<sha> branch, then rebase the head onto it and resolve conflicts (rebase + conflict resolution implicit)";;
+    pinbase)  echo "weave: update the merge base to the current base-branch hash (snapshot its tip to a new frozen <base>-<short-sha>), rebase the head onto it, resolve conflicts, force-push the head, and move the PR base field — both refs move together (rebase + conflict resolution implicit; 'pin the merge base' is an alias for weave)";;
     conduct|merge) echo "dispatch the conductor to un-draft (if draft) and merge";;
     gauntlet) echo "run the full PR-creation chain end to end";;
     review)   echo "address the maintainer's review — enumerate and resolve EVERY inline comment tied to it";;

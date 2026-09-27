@@ -779,6 +779,59 @@ run_watcher "$TR/state-m" "$BARE_M" "$FIX_M" "$RLOG_M"
 board_has "$BARE_M" "$SLUG-pr57-rebase" && ok "an @-mention licenses the verb table even without 'please'" || bad "@-mention + verb did not mint a rebase job"
 
 # ============================================================================
+# PMB1/2/3 — "pin the merge base" is an ALIAS for weave (maintainer decision,
+# liaison session 2026-08-16; kriskowal on endo-but-for-bots#282, 2026-08-16),
+# NOT a distinct/stronger verb and NOT a composition of two verbs. Recognized as a
+# MULTI-WORD phrase, imperative-position-gated, mapping to the weaver base-update job
+# (VERB=pinbase → role weaver — the SAME role weave/rebase mint). The embedded
+# "merge"/"rebase" words must NOT shadow it into a plain rebase or a conductor merge,
+# and the phrase as SUBJECT MATTER (this policy, described) must mint nothing.
+hr; echo "PMB1 — imperative 'pin the merge base' alias → ONE weaver (pinbase) job + reactji, no shadow rebase"; hr
+BARE_PMB1="$TR/pmb1.git"; seed_bare "$BARE_PMB1"
+FIX_PMB1="$TR/fix-pmb1.tsv"; RLOG_PMB1="$TR/react-pmb1.log"; : > "$RLOG_PMB1"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-16T06:28:34Z issue-comment 1282 282 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/282#issuecomment-1282 \
+  'Please pin the merge base to llm-abc1234 and rebase.' > "$FIX_PMB1"
+run_watcher "$TR/state-pmb1" "$BARE_PMB1" "$FIX_PMB1" "$RLOG_PMB1"
+board_has "$BARE_PMB1" "$SLUG-pr282-pinbase" && ok "the alias mints the weaver base-update job ($SLUG-pr282-pinbase)" || bad "pinbase job missing"
+board_job_body "$BARE_PMB1" "$SLUG-pr282-pinbase" | grep -q '^role: weaver' && ok "the pinbase job carries role: weaver (the same role weave/rebase mint)" || bad "pinbase job role is not weaver"
+board_job_body "$BARE_PMB1" "$SLUG-pr282-pinbase" | grep -qi 'update the merge base' && ok "the job body states the base update (weave semantics, not a plain rebase)" || bad "job body missing the base-update semantics"
+board_has "$BARE_PMB1" "$SLUG-pr282-rebase" && bad "the trailing 'and rebase' minted a SECOND plain-rebase job (shadowing)" || ok "no separate plain-rebase job — the rebase is PART of the weave op, not a second directive"
+[ "$(todo_count "$BARE_PMB1")" -eq 1 ] && ok "exactly one job minted for the alias directive (verb count not inflated)" || bad "expected exactly one job (todo=$(todo_count "$BARE_PMB1"))"
+grep -qx "issue-comment 1282 eyes" "$RLOG_PMB1" && ok "eyes reactji posted on the alias directive" || bad "reactji not posted ($(cat "$RLOG_PMB1"))"
+[ "$(cursor_seen "$TR/state-pmb1" "$BARE_PMB1")" = 2026-08-16T06:28:34Z ] && ok "cursor advanced past the alias directive" || bad "cursor not advanced"
+
+hr; echo "PMB2 — 'pin the merge base' as SUBJECT MATTER (no imperative, no @) → NO job at all"; hr
+# The phrase used descriptively (as this very job's body describes the policy) is NOT
+# clause-initial and carries no connective/'please', so imperative_verb_present rejects
+# it. Branch-op verbs are trust-independent, so a mis-fire would mint a pinbase job even
+# from an untrusted sender — this asserts it does not.
+BARE_PMB2="$TR/pmb2.git"; seed_bare "$BARE_PMB2"
+FIX_PMB2="$TR/fix-pmb2.tsv"; RLOG_PMB2="$TR/react-pmb2.log"; : > "$RLOG_PMB2"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-16T07:00:00Z issue-comment 1283 282 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/282#issuecomment-1283 \
+  "For the record, the coined term 'pin the merge base' is an alias for weave — not a new verb, and not a composition of two verbs. The base update is already intrinsic to weaving." > "$FIX_PMB2"
+run_watcher "$TR/state-pmb2" "$BARE_PMB2" "$FIX_PMB2" "$RLOG_PMB2"
+board_has "$BARE_PMB2" "$SLUG-pr282-pinbase" && bad "the phrase as subject matter minted a bogus pinbase job" || ok "no pinbase job from the phrase used as subject matter"
+[ "$(todo_count "$BARE_PMB2")" -eq 0 ] && ok "subject-matter mention posted no job at all" || bad "posted a job for the phrase-as-topic (todo=$(todo_count "$BARE_PMB2"))"
+[ ! -s "$RLOG_PMB2" ] && ok "no reactji on the subject-matter mention" || bad "reactji posted: $(cat "$RLOG_PMB2")"
+[ "$(cursor_seen "$TR/state-pmb2" "$BARE_PMB2")" = 2026-08-16T07:00:00Z ] && ok "cursor slid past the non-actionable subject-matter mention" || bad "cursor did not slide"
+
+hr; echo "PMB3 — bare 'Please pin the merge base.' → pinbase, and the embedded 'merge' mints NO conductor/finalize job"; hr
+BARE_PMB3="$TR/pmb3.git"; seed_bare "$BARE_PMB3"
+FIX_PMB3="$TR/fix-pmb3.tsv"; RLOG_PMB3="$TR/react-pmb3.log"; : > "$RLOG_PMB3"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-16T08:00:00Z issue-comment 1284 282 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/282#issuecomment-1284 \
+  'Please pin the merge base.' > "$FIX_PMB3"
+run_watcher "$TR/state-pmb3" "$BARE_PMB3" "$FIX_PMB3" "$RLOG_PMB3"
+board_has "$BARE_PMB3" "$SLUG-pr282-pinbase" && ok "the bare canonical phrasing mints the weaver base-update job" || bad "pinbase job missing for the bare phrasing"
+board_has "$BARE_PMB3" "$SLUG-pr282-conduct" && bad "the embedded 'merge' in 'merge base' mis-fired a conductor/finalize job" || ok "no conductor/finalize job — 'merge base' is not a merge directive"
+[ "$(todo_count "$BARE_PMB3")" -eq 1 ] && ok "exactly one job (pinbase) for the bare phrasing" || bad "expected exactly one job (todo=$(todo_count "$BARE_PMB3"))"
+
+# ============================================================================
 # N/O/P — a TRUSTED maintainer's REVIEW carrying inline comments is ALWAYS
 # actionable, regardless of body/verb/phrasing (the gap behind endo-but-for-bots
 # #503/#96 and kriskowal/garden #4). The source marks such reviews [INLINE-REVIEW];
