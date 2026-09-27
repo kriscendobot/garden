@@ -4041,7 +4041,9 @@ clone_lock() {
   # and a fail-open WARN+exit instead of the FATAL give-up (§ GARDEN_LOCK_SOFT_WAIT).
   # The give-up EXITS (like die) rather than returning, so ensure_clone/sync_clone —
   # which never check clone_lock's status — abandon the optional refresh cleanly
-  # instead of proceeding lock-less. Set only for optional work (the triager pacing
+  # instead of proceeding lock-less. A caller whose siblings share this clone may set
+  # GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY: clone_lock opens that caller-scoped host
+  # cooldown before exiting. Set soft mode only for optional work (the triager pacing
   # subshell, ci-watcher's verify_fetch board check, journal-contention-watch remedies).
   local wait="$GARDEN_LOCK_WAIT" retries="$GARDEN_LOCK_RETRIES"
   if [ "${GARDEN_CLONE_LOCK_SOFT:-0}" = 1 ]; then wait="$GARDEN_LOCK_SOFT_WAIT"; retries=1; fi
@@ -4096,10 +4098,16 @@ clone_lock() {
       contention_record "$dir" lock-giveup 1
       if [ "${GARDEN_CLONE_LOCK_SOFT:-0}" = 1 ]; then
         log "WARN: clone lock $lf busy >${wait}s; abandoning this OPTIONAL refresh (fail-open, no retry ladder)"
-        # A caller that only wants this optional work to fail open normally lets
-        # errexit propagate this status.  Return rather than exit so a caller
-        # sharing the clone can instead latch the host cooldown before it skips.
-        return "$GARDEN_OFFLINE_RC"
+        # Latch here, before exit, because returning a status is unsafe: the direct
+        # ensure_clone/sync_clone callers above do not inspect clone_lock's status and
+        # can run lock-less when their surrounding command is in an errexit-immune
+        # context (for example a command substitution followed by `||`). Keep the
+        # key explicit so one optional caller cannot suppress unrelated refreshes.
+        if [ -n "${GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY:-}" ] \
+          && start_journal_outage_cooldown "$GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY"; then
+          log "$GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY: clone lock for $dir held by a live peer past the wait ladder; latched host cooldown ($(_journal_outage_secs)s) so sibling instances skip quietly"
+        fi
+        exit "$GARDEN_OFFLINE_RC"
       fi
       die "cannot acquire clone lock $lf after $n waits of ${wait}s and $steals reclaim attempt(s) (a live holder is still busy; if it is crashed, rm -f $lf)"
     fi
