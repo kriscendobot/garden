@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T19:22:02Z_
+_As of 2026-09-27T19:42:54Z_
 
 ## Latest
 
@@ -13,9 +13,9 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 10d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 15d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 24d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 25d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 25d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 25d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 26d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 26d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 26d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 25d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 27d)
 
@@ -411,6 +411,23 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
+- `doomed-build-daemon-docker-selfhost-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-daemon-docker-selfhost-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/build-daemon-docker-selfhost; it stays HELD until a human promotes it
+> (promote-plan.sh build-daemon-docker-selfhost) or removes it, so nothing is lost.
+> Original job base: build-daemon-docker-selfhost
+>
+> --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Build the M3 `daemon-docker-selfhost` design in endojs/endo-but-for-bots on `build/daemon-docker-selfhost`, opening a draft PR for the supported persistent-state Docker self-hosting path.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` has CLEARED (first seen 2026-09-26T05:28:27Z, cleared 2026-09-27T13:41:30Z).
@@ -579,11 +596,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-12T03:20:21Z, latest 2026-09-27T17:54:39Z).
-> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-2`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-12T03:20:21Z, latest 2026-09-27T19:41:48Z).
+> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-2`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 monk workers 1 -> 2 (target 2): subscription claude-endolin2 spend=13955561 cap=64000000 pace-bias=0.014690 ceiling=2 target=2
+> budget-level changed endolin-garden2-5bcdff64 monk workers 1 -> 2 (target 2): subscription claude-endolin2 spend=13955561 cap=64000000 pace-bias=0.026618 ceiling=2 target=2
 
 - `watchdog-comment-watcher-dead-kriscendobot-list` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-list.md)
 
@@ -627,6 +644,23 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment condition cleared.
 
+- `doomed-build-hardened-url-shim-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-hardened-url-shim-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/build-hardened-url-shim; it stays HELD until a human promotes it
+> (promote-plan.sh build-hardened-url-shim) or removes it, so nothing is lost.
+> Original job base: build-hardened-url-shim
+>
+> --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Build the M2 `hardened-url-shim` design in `endojs/endo-but-for-bots` on a `master`-based branch, reconciling the vetted URL/URLSearchParams SES shim and opening a draft implementation PR if work remains.
+
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town.md)
 
 > RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` has CLEARED (first seen 2026-09-27T03:01:35Z, cleared 2026-09-27T03:05:49Z).
@@ -653,6 +687,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
 > are host-local on `endolin-garden2-5bcdff64` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
+- `20260927T192544Z-fb5a1c` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T192544Z-fb5a1c.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `18f02975bc8cbe47860b58ed0eb4a1349c2b8012`
+> failing suites: scripts/jobs/test/triager-pacing-test.sh(rc=1; diagnostic=/home/kris/garden/.garden-state/deploy/candidate-gate-diagnostics/18f02975bc8cbe47860b58ed0eb4a1349c2b8012/attempt2-01-scripts_jobs_test_triager-pacing-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden-ece02cb4` and retain at most
 > `16384` bytes of output per suite.
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
@@ -712,11 +762,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
-> WATCHDOG notice — occurrence #9 (first seen 2026-09-12T03:20:10Z, latest 2026-09-27T17:53:45Z).
-> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-2`) has now been observed 9 times; this is ONE
-> coalesced notice that updates in place, not 9 messages. Latest detail:
+> WATCHDOG notice — occurrence #10 (first seen 2026-09-12T03:20:10Z, latest 2026-09-27T19:41:27Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-2`) has now been observed 10 times; this is ONE
+> coalesced notice that updates in place, not 10 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 monk workers 1 -> 2 (target 2): subscription claude-endolin1 spend=37743445 cap=143000000 pace-bias=0 ceiling=2 target=2
+> budget-level changed endolin-garden-ece02cb4 monk workers 1 -> 2 (target 2): subscription claude-endolin1 spend=37723206 cap=143000000 pace-bias=0 ceiling=2 target=2
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots.md)
 
@@ -1058,21 +1108,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #24 (first seen 2026-09-26T16:16:46Z, latest 2026-09-27T19:05:32Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 24 times; this is ONE
-> coalesced notice that updates in place, not 24 messages. Latest detail:
+> WATCHDOG notice — occurrence #25 (first seen 2026-09-26T16:16:46Z, latest 2026-09-27T19:30:23Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 25 times; this is ONE
+> coalesced notice that updates in place, not 25 messages. Latest detail:
 >
 > Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 10 source(s); they post no acknowledgments while it holds.
-> - kriscendobot/cosgov: watcher ticking but cooldown for 1405s (since 2026-09-27T18:42:07Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 1299s (since 2026-09-27T18:43:53Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 1314s (since 2026-09-27T18:43:38Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1360s (since 2026-09-27T18:42:52Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 8798s (since 2026-09-27T16:38:54Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2079s (since 2026-09-27T18:30:53Z)
-> - kriscendobot/list: watcher ticking but cooldown for 1319s (since 2026-09-27T18:43:33Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 1405s (since 2026-09-27T18:42:07Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 7279s (since 2026-09-27T17:04:13Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2133s (since 2026-09-27T18:29:59Z)
+> journal-outage marker: 1790537452 cursor-get 
+> - kriscendobot/moddable: watcher ticking but cooldown for 1415s (since 2026-09-27T19:06:47Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 2804s (since 2026-09-27T18:43:38Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2850s (since 2026-09-27T18:42:52Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 10288s (since 2026-09-27T16:38:54Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 1372s (since 2026-09-27T19:07:30Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1416s (since 2026-09-27T19:06:46Z)
+> - kriscendobot/list: watcher ticking but cooldown for 2809s (since 2026-09-27T18:43:33Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 1414s (since 2026-09-27T19:06:48Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 1332s (since 2026-09-27T19:08:10Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 8769s (since 2026-09-27T17:04:13Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -2896,30 +2947,27 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 37.7M | $324.43 _(notional, rate-card)_ | 26% of 143.0M (ok) |
-| Codex | 49.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
+| Codex | 50.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 77% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 55309374 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 55159982 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 24.606247s/45s (/home/kris/garden/.garden-state/maintainer/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (3)
-- [`build-hardened-url-shim`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-hardened-url-shim.md) — ---
-- [`build-hardened-text-codecs-shim`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-hardened-text-codecs-shim.md) — ---
-- [`build-daemon-docker-selfhost`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-daemon-docker-selfhost.md) — ---
+### todo (0)
+(none)
 
-### doin (2)
-- [`fix-endojs-endo-but-for-bots-pr610`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr610.md) — ---
+### doin (1)
 - [`build-daemon-agent-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools.md) — ---
 
-### tada (9283)
+### tada (9284)
+- [`build-hardened-text-codecs-shim`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/build-hardened-text-codecs-shim.md) — Cost
 - [`build-endo-gateway`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/build-endo-gateway.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-18f02975bc8c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/canary-probe-endolin-garden2-5bcdff64-18f02975bc8c.md) — rolling-deploy canary probe — round trip OK
 - [`fix-triager-pacing-rolling-deploy-cgroup-leak`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-triager-pacing-rolling-deploy-cgroup-leak.md) — Cost
 - [`endojs-endo-but-for-bots-pr1306-review-2a0fedcf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1306-review-2a0fedcf-retro.md) — Retro on endojs/endo-but-for-bots #1306, review 5252661169: recorded as not a...
-- [`canary-probe-endolin-garden2-5bcdff64-b9a0411e52f4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/canary-probe-endolin-garden2-5bcdff64-b9a0411e52f4.md) — rolling-deploy canary probe — round trip OK
-- … and 9278 more
+- … and 9279 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2934,6 +2982,7 @@ worst fetch p95 24.606247s/45s (/home/kris/garden/.garden-state/maintainer/journ
 - [`endojs-endo-but-for-bots-pr1125-23cf90c0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-23cf90c0-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1298-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1298
+- [`build-hardened-url-shim`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-hardened-url-shim.md) — _normal_ · ---
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`ironhorse-fuzz-50834e82d3af453d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-50834e82d3af453d-repair.md) — _normal_ · Repair Ironhorse engine defect 50834e82d3af453d (target differential_regexp_s...
 - [`self-heal-fix-garden-issue-inbox-cursor-get-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/self-heal-fix-garden-issue-inbox-cursor-get-failopen.md) — _normal_ · ---
@@ -2983,10 +3032,12 @@ worst fetch p95 24.606247s/45s (/home/kris/garden/.garden-state/maintainer/journ
 - [`oros-ckm-dependabot-audit-0013418`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-ckm-dependabot-audit-0013418.md) — _normal_ · ---
 - [`build-usage-scrape-ingest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-usage-scrape-ingest.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1226 (primary: endojs-endo-but-...
+- [`fix-endojs-endo-but-for-bots-pr610`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr610.md) — _normal_ · ---
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-fd8517d5f3071227-repair.md) — _normal_ · Repair Ironhorse engine defect fd8517d5f3071227 (target differential_regexp) ...
 - [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-284de587e16bce32-repair.md) — _normal_ · Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
+- [`build-daemon-docker-selfhost`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-docker-selfhost.md) — _normal_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
 - [`ironhorse-fuzz-e773681b6d831dc1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-e773681b6d831dc1-repair.md) — _normal_ · Repair Ironhorse engine defect e773681b6d831dc1 (target differential_regexp_s...
