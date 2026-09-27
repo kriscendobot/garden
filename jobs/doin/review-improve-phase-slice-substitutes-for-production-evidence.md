@@ -54,3 +54,13 @@ scripts/jobs/review-miss-record.sh cluster-status \
 
 Both prevention and sensing are required. A prose reminder without a durable
 review check, or a detector without producer guidance, is incomplete.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T17:50:45Z
