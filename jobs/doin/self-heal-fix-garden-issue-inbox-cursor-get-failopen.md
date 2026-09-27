@@ -18,3 +18,13 @@ This is the identical bug class fixed twice in scripts/jobs/triager.sh (commits 
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T15:13:18Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T15:15:13Z
