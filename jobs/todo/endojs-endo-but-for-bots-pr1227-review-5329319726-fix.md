@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1227-review-5329319726-chain
-priority: normal
 role: fixer
-posted_by: gardener
-posted_at: 2026-09-27T08:29:54Z
+tier: mentor
+handler-budget-role: fixer
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-27T08:31:17Z cleared=none -->
 
 ---
 handler-budget-role: fixer
