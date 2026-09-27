@@ -5939,3 +5939,14 @@ Inspect via `git -C journal cat-file -p 7cbb649ff9a89774c62c1c3480b9f7f4505b739c
 
 Inspect via `git -C journal cat-file -p 81e9457031114bdcbce3708a07884c37c42fbb6c` (or read
 `journal/inboxes/endolin-garden2-5bcdff64/captures/81e9457031114bdcbce3708a07884c37c42fbb6c`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-09-27T14:28:08Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 07fdd673617466ab38684ad21c1f23e4b9869b6e
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'minion-town-endo-b3-daemon-deploy-verify' handler exited rc=1
+- Capture: inboxes/endolin-garden2-5bcdff64/captures/07fdd673617466ab38684ad21c1f23e4b9869b6e
+
+Inspect via `git -C journal cat-file -p 07fdd673617466ab38684ad21c1f23e4b9869b6e` (or read
+`journal/inboxes/endolin-garden2-5bcdff64/captures/07fdd673617466ab38684ad21c1f23e4b9869b6e`) -- both work off-host after a plain `journal2` fetch.
