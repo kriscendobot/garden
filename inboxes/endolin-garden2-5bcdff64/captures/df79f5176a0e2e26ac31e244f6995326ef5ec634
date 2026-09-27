@@ -1,0 +1,7 @@
+<6>14:44:39 [monk/1] resuming session 8a99fea1-3599-57f7-99ea-e1e1397f11e0 for requeued job 'oros-ckm-dependabot-audit-0013418' in worktree /home/kris/garden2/scratch/gardener-wt-oros-ckm-dependabot-audit-0013418
+<6>14:44:39 [monk/1] job 'oros-ckm-dependabot-audit-0013418' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>14:44:39 [monk/1] job 'oros-ckm-dependabot-audit-0013418' call ceiling: tier=minion max-budget-usd=8.50 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
