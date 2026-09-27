@@ -11,3 +11,13 @@ scripts/jobs/rolling-deploy.sh:596 and :761 retry a candidate-gate-rejected targ
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T11:23:07Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T11:28:53Z
