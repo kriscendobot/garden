@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-09-27T15:04:50Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-run-the-gauntlet-minion-town-pr90
