@@ -59,6 +59,9 @@ hr()  { echo "----------------------------------------------------------------";
 # otherwise splice its own GARDEN_*/JOURNAL_*/SELF_HEAL_* state underneath the
 # fixture; see run-test.sh § hermetic baseline).
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+# The scrub removes the suite's positive test-context sentinel too. Restore it so
+# gardener.sh's claim-admission guard recognizes this throwaway journal fixture.
+export GARDEN_TEST=1
 
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
@@ -163,7 +166,7 @@ hr; echo "SUBTEST 2 — integration: 3rd cycle, constant elapsed, transient rc=1
 read -r TR2 BARE2 < <(build_fixture 2 1 0)
 trap 'rm -rf "$TR2"' EXIT
 run_gardener "$BARE2" echost2 "$TR2" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 \
-  GARDEN_STUB_MESSAGE="Error: overloaded_error (529)"
+  GARDEN_STUB_MESSAGE="Error: overloaded_error (529) OVERUN_CAPTURE_SENTINEL"
 CLONE2="$TR2/state/monks/1/journal"
 
 # (a) still classified TRANSIENT (the base classification is unchanged).
@@ -183,6 +186,11 @@ if [ -e "$CLONE2/inboxes/echost2/gardener.md" ] && grep -q "elapsed-constancy-ov
   ok "gardener inbox carries the elapsed-constancy-overrun-suspect escalation"
 else
   bad "no elapsed-constancy inbox escalation (file=$([ -e "$CLONE2/inboxes/echost2/gardener.md" ] && echo y || echo n))"
+fi
+if find "$CLONE2/inboxes/echost2/captures" -type f -exec grep -qF 'OVERUN_CAPTURE_SENTINEL' {} \; -print -quit 2>/dev/null | grep -q .; then
+  ok "overrun-suspect attached transcript includes the captured handler-output tail"
+else
+  bad "overrun-suspect attached transcript lost the captured handler output"
 fi
 # (d) exactly ONE inbox section for this escalation (fires once per run). Count the
 # section headers ("## lane N -- <state> failure at …"), not raw string hits (the
@@ -235,6 +243,30 @@ if [ -f "$TR2/after-first/jobs/plan/overrunjob.md" ] \
 else
   bad "gauntlet-stage constancy failure did not hand off directly to its driver"
 fi
+
+# ==========================================================================
+hr; echo "SUBTEST 2A — integration: exit-0 wedge escalation includes captured handler output"; hr
+# The exit-0 branch has a separate transcript and no capture gate. Seed its own
+# consecutive metadata, then make the real handler print a distinctive diagnostic
+# and clean-exit without the completion sentinel. The same bounded tail must reach
+# the gardener inbox before the per-cycle mktemp capture is removed.
+read -r TR2A BARE2A < <(build_fixture 2 0 0)
+E2A="$TR2A/seed-exit0"; git clone -q --single-branch --branch journal2 "$BARE2A" "$E2A" 2>/dev/null
+printf '<!-- garden-transient-elapsed: kind=exit0 through=1 values=3,3 -->\n' >> "$E2A/jobs/todo/overrunjob.md"
+git -C "$E2A" add jobs/todo/overrunjob.md
+git -C "$E2A" "${git_id[@]}" commit -q -m "seed exit-0 constancy history"
+git -C "$E2A" push -q origin HEAD:journal2
+run_gardener "$BARE2A" echost2a "$TR2A" GARDEN_ELAPSED_CONSTANCY_CYCLES=2 \
+  GARDEN_STUB_RC=0 GARDEN_STUB_MESSAGE="EXIT0_CAPTURE_SENTINEL"
+CLONE2A="$TR2A/state/monks/1/journal"
+if [ -e "$CLONE2A/inboxes/echost2a/gardener.md" ] \
+   && grep -q 'elapsed-constancy-exit0-wedge-suspect' "$CLONE2A/inboxes/echost2a/gardener.md" \
+   && find "$CLONE2A/inboxes/echost2a/captures" -type f -exec grep -qF 'EXIT0_CAPTURE_SENTINEL' {} \; -print -quit 2>/dev/null | grep -q .; then
+  ok "exit0-wedge-suspect attached transcript includes the captured handler-output tail"
+else
+  bad "exit0-wedge-suspect attached transcript missed its captured handler output"
+fi
+rm -rf "$E2A"
 
 # ============================================================================
 hr; echo "SUBTEST 3 — disable gate: GARDEN_ELAPSED_CONSTANCY_CYCLES=0 → NO escalation"; hr

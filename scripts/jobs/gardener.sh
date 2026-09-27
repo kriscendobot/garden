@@ -991,6 +991,12 @@ while :; do
           printf '(those vary in elapsed). Left in doin for the reaper (requeue ownership\n'
           printf 'UNCHANGED); it will otherwise burn all %s doom cycles before surfacing.\n' "${GARDEN_REAP_DOOM_THRESHOLD:-5}"
           printf 'Triage the job spec / handler rather than waiting out the doom threshold.\n'
+          if [ -s "$capture" ]; then
+            printf '\nHandler capture (last 60 lines; this cycle):\n'
+            tail -n 60 "$capture" 2>/dev/null || true
+          else
+            printf '\nHandler capture: (empty)\n'
+          fi
         } > "$constancy0_tr"
         sha0="$(GARDEN_JOURNAL="$CLONE" "$GARDEN_ROOT/skills/gardener-inbox-error-reporting/report-error.sh" \
                  --transcript "$constancy0_tr" --lane 0 --state elapsed-constancy-exit0-wedge-suspect \
@@ -1506,6 +1512,12 @@ while :; do
               printf 'GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD (%s) confirmations instead of the full %s-cycle threshold. Triage the\n' \
                 "${GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD:-2}" "${GARDEN_REAP_DOOM_THRESHOLD:-5}"
               printf 'job spec / handler rather than waiting out the doom threshold.\n'
+              if [ -s "$capture" ]; then
+                printf '\nHandler capture (last 60 lines; this cycle):\n'
+                tail -n 60 "$capture" 2>/dev/null || true
+              else
+                printf '\nHandler capture: (empty)\n'
+              fi
             } > "$constancy_tr"
             sha="$(GARDEN_JOURNAL="$CLONE" "$GARDEN_ROOT/skills/gardener-inbox-error-reporting/report-error.sh" \
                      --transcript "$constancy_tr" --lane 0 --state elapsed-constancy-overrun-suspect \
