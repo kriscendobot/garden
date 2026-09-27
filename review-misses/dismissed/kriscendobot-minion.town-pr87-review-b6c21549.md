@@ -30,9 +30,12 @@ grounds: |
   after checking all of this. I re-verified it against the PR and the comments,
   so there is no false no-op to report.
 
-  This is not a process miss: the gauntlet ran on #87 before it was un-drafted
-  and merged, and nothing in it could bind on a runner choice that no rule
-  specifies. It is not evaluator-gaming either, because no measurement moved.
+  This is not a process miss. journal/jobs/tada/ holds no gauntlet or panel job
+  for #87 (only fix, shepherd, weave, conduct, production-gate, and receipt
+  jobs), and the PR thread has no panel comments. Even so, a panel had nothing to
+  enforce here: no rule names a runner other than the vitest the PR used. Whether
+  #87 should have had a gauntlet before it merged is a separate question from
+  this comment. It is not evaluator-gaming either, because no measurement moved.
 ---
 
 Maintainer review 5273122355 on PR #87 asked that the house test framework, ava,
