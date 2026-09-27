@@ -110,13 +110,6 @@ current state of `config/worker-leveling`'s oros-studio row and explain why
 you left it there.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=4401 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T14:42:13Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-27T16:16:21Z -->
