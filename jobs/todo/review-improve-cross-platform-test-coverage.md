@@ -54,13 +54,5 @@ fetch via `gh pr diff`). Then close the cluster:
 `scripts/jobs/review-miss-record.sh cluster-status cross-platform-test-coverage closed --improved-by "<commits/files>"`.
 Garden edits land directly on main2 (no PR).
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T16:45:40Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-27T17:06:19Z -->
