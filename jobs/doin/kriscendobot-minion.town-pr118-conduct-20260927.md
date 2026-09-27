@@ -16,3 +16,13 @@ As of 2026-09-27T08:27Z the PR is open, not draft, MERGEABLE/CLEAN, and 3/3 chec
 
 This is a bot repo. Follow roles/conductor/AGENT.md. If `main` has moved and the head has to be rebased again, the approval goes stale again: stop and report instead of merging.
 Downstream: the parked plan `minion-town-pr81-verify-live-after-pr118` waits on this merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T08:31:26Z
