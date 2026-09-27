@@ -43,3 +43,13 @@ Head: kriscendobot/endo-but-for-bots  branch fix/mount-glorp-713-followup (bot-p
 Base: endojs/endo-but-for-bots  branch llm
 
 Posted by the conductor (pr897-conduct) after a needs-weave rebase refusal.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T05:42:59Z
