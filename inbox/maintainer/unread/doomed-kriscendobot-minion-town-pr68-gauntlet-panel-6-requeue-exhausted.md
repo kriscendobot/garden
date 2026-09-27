@@ -1,12 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: reaper:endolin-garden-ece02cb4
-sent_at: 2026-09-27T14:13:18Z
+sent_at: 2026-09-27T14:37:13Z
 doom_base: kriscendobot-minion-town-pr68-gauntlet-panel-6
 doom_signature: requeue-exhausted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-09-27T14:13:18Z
-last_seen: 2026-09-27T14:13:18Z
+last_seen: 2026-09-27T14:37:13Z
 ---
+DOOM notice — occurrence #2 (first seen 2026-09-27T14:13:18Z, latest 2026-09-27T14:37:13Z).
+This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+this is an AMENDED notice, not a new one. Latest detail:
+
 GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
 The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion-town-pr68-gauntlet exclusively owns retry through max_stage_retries.
 The work is preserved at jobs/plan/kriscendobot-minion-town-pr68-gauntlet-panel-6; it stays HELD until a human promotes it
@@ -16,24 +20,12 @@ Original job base: kriscendobot-minion-town-pr68-gauntlet-panel-6
 --- original job body ---
 ---
 role: gardener
-tier: mentor
-handler-budget-role: panel
-handler-timeout: 10800
-token-budget: 250000
----
-<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T13:19:29Z cleared=none -->
-
----
-role: gardener
 handler-budget-role: panel
 handler-timeout: 10800
 gauntlet: kriscendobot-minion-town-pr68-gauntlet
 gauntlet_stage: panel
 gauntlet_iteration: 6
 pr: https://github.com/kriscendobot/minion.town/pull/68
-tier: mentor
-fallback-tier: minion
-dispatch: automatic
 ---
 
 # Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
@@ -57,9 +49,16 @@ posting host's garden root.
 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on https://github.com/kriscendobot/minion.town/pull/68 — the
    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
    review on must-fix, a comment/approve on pass).
-4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
-   report with `orchestration-failed: true` and do NOT emit a panel marker.
+4. If panel.sh exits NON-ZERO it did NOT return a review verdict. A seat error, a
+   decider error, or a supervisor interruption is an INFRASTRUCTURE (sensor)
+   failure, not a pass/must-fix decision. Do NOT report `orchestration-failed:
+   true` (that halts the whole gauntlet on one transient blip). Complete NORMALLY
+   and emit the `panel=panel-error` marker: the driver then re-posts this panel
+   round under its bounded stage-retry budget, exactly as it retries a doomed
+   transient stage. A genuine pass/must-fix verdict (panel.sh exit 0) always uses
+   its own marker below — never panel-error.
 
 END your completion report with EXACTLY ONE of these marker lines (last line):
-  <!-- gauntlet-stage-result: panel=pass -->
-  <!-- gauntlet-stage-result: panel=must-fix -->
+  <!-- gauntlet-stage-result: panel=pass -->         (panel.sh exit 0, disposition pass)
+  <!-- gauntlet-stage-result: panel=must-fix -->     (panel.sh exit 0, disposition must-fix)
+  <!-- gauntlet-stage-result: panel=panel-error -->  (panel.sh non-zero: seat/decider error or interruption — a sensor failure, retried)
