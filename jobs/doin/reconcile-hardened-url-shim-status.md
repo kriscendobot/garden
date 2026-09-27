@@ -9,6 +9,7 @@ Reconcile the M2 `hardened-url-shim` design record for `endojs/endo-but-for-bots
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T20:26:16Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
