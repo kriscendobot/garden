@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T04:32:05Z_
+_As of 2026-09-27T04:36:21Z_
 
 ## Latest
 
@@ -374,6 +374,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 7 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 1 -> 2 (target 2): subscription claude-endolin1 spend=15376179 cap=143000000 pace-bias=0.016081 ceiling=2 target=2
+
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T03:10:42Z, latest 2026-09-27T04:35:53Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-ci-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: e07778b97e90f9f6470a75ffd0087904688ec129 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e07778b97e90f9f6470a75ffd0087904688ec129). Diagnosis: **Diagnosis: deploy lag, not a code defect — no JOB posted.**
+>
+> The `garden-ci-watcher@kriscendobot-endo-but-for-bots` FATAL (`cannot acquire clone lock .../verify.lock after 3 waits of 60s and 0 reclaim attempt(s)`) is a live-holder contention on the shared VERIFY clone. The fix for exactly this failure signature already exists on `origin/main2` (`5620bdbe5f6` isolate CI watcher clones per slug, `e6ea1d33fc8`/`5b48813cd0b` classify clone-lock busy-holder give-up as transient outage, plus a chain of later hardening commits) — but the deployed root checkout (HEAD `47b41af5a14`) is a strict ancestor of `origin/main2`, sitting 19 commits behind. This will self-resolve on the next deliberate `deploy-garden.sh` rollout; escalating or posting a fix job now would just duplicate work already me
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify.md)
 
@@ -1546,13 +1556,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.6M | $229.17 _(notional, rate-card)_ | 19% of 143.0M (ok) |
-| Codex | 32.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
+| Claude | 26.6M | $229.77 _(notional, rate-card)_ | 19% of 143.0M (ok) |
+| Codex | 32.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53305016 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 55580035 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
+worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
