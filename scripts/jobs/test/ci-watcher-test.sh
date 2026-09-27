@@ -616,10 +616,15 @@ ROOT_R="$TR/root-r"; mkdir -p "$ROOT_R"             # ONE rendered unit root
 LATCH_R="$ROOT_R/.garden-state/ci-watcher/journal-outage"
 run_ci_outage() {  # run_ci_outage <slug> <errfile> [FETCH_CMD]
   local slug="$1" errf="$2" fcmd="${3:-}"
+  # Hysteresis knobs default to count-based close after 2 consecutive successes with the
+  # time-based path disabled, so the debounce is deterministic in the test; individual
+  # cases export them to exercise the single-success-pending and flap-reset paths.
   env ${fcmd:+GARDEN_FETCH_CMD="$fcmd"} GARDEN_FETCH_RETRIES=1 \
       GARDEN_ROOT="$ROOT_R" GARDEN_STATE="$TR/state-r/$slug" \
       JOURNAL_REMOTE="$BARE_R" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_BOT_LOGIN=kriscendobot \
+      GARDEN_CI_JOURNAL_OUTAGE_RECOVERY_TICKS="${GARDEN_CI_JOURNAL_OUTAGE_RECOVERY_TICKS:-2}" \
+      GARDEN_CI_JOURNAL_OUTAGE_QUIET_SECS="${GARDEN_CI_JOURNAL_OUTAGE_QUIET_SECS:-0}" \
       GARDEN_CI_PR_SOURCE="$SRCSTUB" CI_FIXTURE="$FIX_R" \
       GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' \
       GARDEN_CI_POST="$JOBS/post-job.sh" \
@@ -632,10 +637,27 @@ grep -qi 'host outage episode opened' "$TR/r1.err" && ok "first outage tick warn
 # Run 2 — same outage, a DIFFERENT repo's watcher sharing the host state: silent.
 run_ci_outage "kriscendobot-somefork" "$TR/r2.err" "$FETCH_FAIL"
 ! grep -qi 'journal fetch failed' "$TR/r2.err" && ok "second outage tick (another repo) is silent" || bad "duplicate outage message emitted ($(cat "$TR/r2.err"))"
-# Run 3 — journal reachable again (no failing FETCH_CMD): recovery notice + latch cleared.
+# Run 3 — HYSTERESIS: the FIRST successful fetch after an outage does NOT close the
+# episode. It stamps recovery progress under the lock and stays silent; the latch stands.
+# (RECOVERY_TICKS=2, QUIET=0 → two consecutive successes are required to close.)
 run_ci_outage "$SLUG" "$TR/r3.err" ""
-grep -qi 'journal reachable again' "$TR/r3.err" && ok "recovery tick emits the recovery notice" || bad "no recovery notice ($(cat "$TR/r3.err"))"
-[ ! -d "$LATCH_R" ] && ok "latch marker cleared on recovery" || bad "latch marker not cleared"
+! grep -qi 'journal reachable again' "$TR/r3.err" && ok "first success after outage is silent (debounced, not yet durable)" || bad "recovery notice fired on the first success ($(cat "$TR/r3.err"))"
+[ -d "$LATCH_R" ] && ok "latch marker stands after a single success (episode not yet closed)" || bad "latch cleared on the first success — no hysteresis"
+[ -f "$LATCH_R/recovery_epoch" ] && ok "recovery progress stamped under the latch" || bad "recovery_epoch not stamped"
+# Run 3b — FLAP: a failure arriving inside the recovery window must NOT open a fresh loud
+# episode. It silently extends the same episode and resets the recovery progress.
+run_ci_outage "$SLUG" "$TR/r3b.err" "$FETCH_FAIL"
+! grep -qi 'host outage episode opened' "$TR/r3b.err" && ok "a failure mid-recovery does NOT re-open a loud episode (no flap)" || bad "failure mid-recovery emitted a fresh 'opened' WARN — flap not suppressed"
+! grep -qi 'journal fetch failed' "$TR/r3b.err" && ok "a failure mid-recovery is fully silent" || bad "failure mid-recovery emitted a message ($(cat "$TR/r3b.err"))"
+[ -d "$LATCH_R" ] && [ ! -f "$LATCH_R/recovery_epoch" ] && ok "recovery progress reset by the mid-recovery failure (same episode extended)" || bad "recovery progress not reset after a mid-recovery failure"
+# Run 3c/3d — two consecutive successes with no intervening failure DO close it: exactly
+# one recovery notice, latch cleared.
+run_ci_outage "$SLUG" "$TR/r3c.err" ""
+! grep -qi 'journal reachable again' "$TR/r3c.err" && ok "success after the flap reset is still debounced (silent)" || bad "closed after a single post-flap success"
+[ -d "$LATCH_R" ] && ok "latch still stands after one post-flap success" || bad "latch cleared too early after the flap"
+run_ci_outage "$SLUG" "$TR/r3d.err" ""
+grep -qi 'journal reachable again' "$TR/r3d.err" && ok "second consecutive success closes the episode with one notice" || bad "no recovery notice after durable recovery ($(cat "$TR/r3d.err"))"
+[ ! -d "$LATCH_R" ] && ok "latch marker cleared once recovery is durable" || bad "latch marker not cleared"
 # Run 4 — still healthy: no spurious recovery notice, no re-arm (latch stays clear).
 run_ci_outage "$SLUG" "$TR/r4.err" ""
 ! grep -qi 'journal reachable again' "$TR/r4.err" && ok "no spurious recovery notice when no episode was open" || bad "recovery notice fired with no outage latched"

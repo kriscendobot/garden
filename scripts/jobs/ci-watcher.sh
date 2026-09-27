@@ -112,6 +112,23 @@ RETIRE="$GARDEN_CI_RETIRE_CLONE"
 # latch and, critically, the same flock inode. NOT keyed by slug: one journal outage
 # warns once, not once per watched repo.
 : "${GARDEN_CI_JOURNAL_OUTAGE_LATCH:=$GARDEN_ROOT/.garden-state/ci-watcher/journal-outage}"
+# Hysteresis for CLOSING the journal-outage episode (see § Journal-outage latch below).
+# Without debounce the latch closes on the FIRST successful fetch after an outage, so
+# during INTERMITTENT (not fully down) connectivity the ~15 per-repo watchers on the
+# shared latch — each ticking on the 90s cadence and landing on a different side of a
+# brief recovery — flap the episode open->closed->open, one loud "opened" WARN per
+# flap (2026-09-19 04:53–05:20Z: 6 "opened" WARNs across 4 slugs in one flaky window).
+# Close only once recovery is DURABLE: N consecutive successful fetches with no
+# intervening failure, OR a minimum quiet period elapsed since the first success. A
+# failure inside that quiet window resets the recovery progress and SILENTLY extends
+# the same episode rather than opening a fresh loud one. Both conditions are read/written
+# in the latch dir under the SAME sibling flock as the open/close transition.
+#   RECOVERY_TICKS — N consecutive successes that close the episode (0/1 = close on the
+#     first success, the pre-hysteresis behaviour).
+#   QUIET_SECS     — minimum seconds of quiet since the first success that also close it
+#     (0 disables the time-based path, leaving only the consecutive-success count).
+: "${GARDEN_CI_JOURNAL_OUTAGE_RECOVERY_TICKS:=3}"
+: "${GARDEN_CI_JOURNAL_OUTAGE_QUIET_SECS:=180}"
 
 # A rollup's stderr is the only reliable place to distinguish GitHub's exhausted
 # PRIMARY hourly quota from an arbitrary unreadable PR. Once one rollup reports that
@@ -605,19 +622,34 @@ fi
 # fail its verify_fetch on the same tick, and each would otherwise emit an
 # indistinguishable "journal fetch failed" WARN. Collapse them with a HOST-SCOPED
 # edge latch, deliberately NOT keyed by slug. A sibling flock serializes the whole
-# absent -> outage -> absent transition across watcher processes. This is stronger
-# than using mkdir/mv as separate claims: a recovering watcher cannot remove the
+# absent -> outage -> recovering -> absent transition across watcher processes. This is
+# stronger than using mkdir/mv as separate claims: a recovering watcher cannot remove the
 # marker while the outage winner is still initializing it, and an outage watcher
 # cannot re-arm it until recovery has finished. Only the process that changes the
 # state logs: one warning when the episode opens and one notice when it closes.
 # Duplicate observations are completely silent.
+#
+# CLOSING is DEBOUNCED (GARDEN_CI_JOURNAL_OUTAGE_{RECOVERY_TICKS,QUIET_SECS}, above): the
+# first success after an outage does NOT close the episode — it stamps recovery progress
+# under the lock and stays silent. The episode closes only once recovery is durable (N
+# consecutive successes, or a quiet period elapsed since the first success), and a failure
+# arriving inside that window resets the progress and silently extends the SAME episode
+# rather than closing then re-opening a fresh loud WARN. This collapses one flaky window
+# into one open + one close instead of a flap of many (2026-09-19 04:53–05:20Z).
 note_journal_outage() {  # note_journal_outage <context> — a failed sweep fetch
   local ctx="$1" latch="$GARDEN_CI_JOURNAL_OUTAGE_LATCH" lock
   lock="$latch.lock"
   mkdir -p "$(dirname "$latch")" 2>/dev/null || true
   if (
     flock 9 || exit 2
-    [ ! -d "$latch" ] || exit 1
+    if [ -d "$latch" ]; then
+      # Episode already open. If a recovery was accumulating (successes counting toward a
+      # close), this fresh failure INTERRUPTS it: drop the recovery progress so the
+      # debounce restarts from zero, and keep the same episode open SILENTLY (exit 1, no
+      # new WARN). This is the flap the hysteresis exists to prevent.
+      rm -f "$latch/recovery_epoch" "$latch/recovery_count" 2>/dev/null || true
+      exit 1
+    fi
     mkdir "$latch" 2>/dev/null || exit 2
     date -u +%FT%TZ > "$latch/since" 2>/dev/null || true
     printf '%s\n' "$slug" > "$latch/first" 2>/dev/null || true
@@ -635,11 +667,37 @@ note_journal_recovered() {  # note_journal_recovered — a successful sweep fetc
   mkdir -p "$(dirname "$latch")" 2>/dev/null || true
   (
     flock 9 || exit 2
-    [ -d "$latch" ] || exit 0
-    local since=""
-    [ -r "$latch/since" ] && since="$(cat "$latch/since" 2>/dev/null || true)"
-    rm -rf "$latch" 2>/dev/null || return 0
-    log "journal reachable again${since:+ (outage since $since)} — ci-watcher stale-shepherd sweep resuming; host outage episode closed"
+    [ -d "$latch" ] || exit 0                       # closed by a peer between our check and lock
+    local now quiet ticks first_epoch count elapsed since
+    now="$(date +%s 2>/dev/null || echo 0)"
+    quiet="${GARDEN_CI_JOURNAL_OUTAGE_QUIET_SECS:-180}"
+    ticks="${GARDEN_CI_JOURNAL_OUTAGE_RECOVERY_TICKS:-3}"
+    first_epoch=0; count=0
+    [ -r "$latch/recovery_epoch" ] && first_epoch="$(cat "$latch/recovery_epoch" 2>/dev/null || echo 0)"
+    [ -r "$latch/recovery_count" ] && count="$(cat "$latch/recovery_count" 2>/dev/null || echo 0)"
+    case "$first_epoch" in ''|*[!0-9]*) first_epoch=0 ;; esac
+    case "$count"       in ''|*[!0-9]*) count=0       ;; esac
+    case "$ticks"       in ''|*[!0-9]*) ticks=3       ;; esac
+    case "$quiet"       in ''|*[!0-9]*) quiet=180     ;; esac
+    if [ "$first_epoch" -eq 0 ]; then
+      # First success of this recovery window: stamp its time, count it as 1. Stays
+      # silent unless a degenerate debounce (ticks<=1) already lets one success close.
+      first_epoch="$now"
+      printf '%s\n' "$now" > "$latch/recovery_epoch" 2>/dev/null || true
+      count=1
+    else
+      count=$((count + 1))
+    fi
+    printf '%s\n' "$count" > "$latch/recovery_count" 2>/dev/null || true
+    elapsed=$(( now - first_epoch )); [ "$elapsed" -lt 0 ] && elapsed=0
+    # Close only once recovery is DURABLE: N consecutive successes, OR a quiet period
+    # elapsed since the first success. Otherwise stay silent — the episode is still open.
+    if [ "$count" -ge "$ticks" ] || { [ "$quiet" -gt 0 ] && [ "$elapsed" -ge "$quiet" ]; }; then
+      since=""
+      [ -r "$latch/since" ] && since="$(cat "$latch/since" 2>/dev/null || true)"
+      rm -rf "$latch" 2>/dev/null || exit 0
+      log "journal reachable again${since:+ (outage since $since)} — ci-watcher stale-shepherd sweep resuming; host outage episode closed after ${count} consecutive OK read(s)/${elapsed}s quiet"
+    fi
   ) 9>"$lock"
 }
 
