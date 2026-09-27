@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: conductor
+tier: minion
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-27T15:33:19Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-27T15:33:19Z
+---
+
+---
 role: conductor
 tier: minion
 model-burned: mentor
@@ -29,17 +50,3 @@ Guards (the reconciler already enforced these; re-verify before merging):
 PR: https://github.com/endojs/endo-but-for-bots/pull/1345
 Head: endojs/endo-but-for-bots (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-27T15:23:19Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T15:25:14Z
