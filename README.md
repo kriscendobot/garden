@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T04:10:34Z_
+_As of 2026-09-27T04:17:07Z_
 
 ## Latest
 
@@ -13,9 +13,9 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 10d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 15d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 25d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 25d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 25d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 25d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 26d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 25d)
 
@@ -858,6 +858,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > <<<GARDEN-ORCHESTRATION-FAILED>>>
 > <<<GARDEN-JOB-COMPLETE>>>
 
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-proposal-compartments` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-proposal-compartments.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T02:07:45Z, latest 2026-09-27T04:16:00Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-proposal-compartments`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-ci-watcher@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: 517802b82a856b0224a0d0640609fde03195dda0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 517802b82a856b0224a0d0640609fde03195dda0). Diagnosis: This is the already-fixed shared-clone-lock-contention bug tracked in memory (`ci-watcher-clonelock-clone-lock-contention-fixed`): `garden-ci-watcher@kriscendobot-proposal-compartments` hit `FATAL: cannot acquire clone lock .../ci-watcher/verify.lock` after three 60s backoff retries, the exact signature of the shared-VERIFY-clone contention bug that commits `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention") already fixed. Both commits landed on `origin/main2` at 2026-09-27T00:01Z, but this host's deployed root checkout is still pinned at `47b41af5a14` (2026-09-26T12:42Z) — a deploy-lag gap, not a live bug. No new fix job is warranted; the rolling deploy will pick up the fix once it advances this host past `5620bdbe
+
 - `watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots.md)
 
 > self-heal: garden-comment-watcher@endojs-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 13b8fc2e2e10399982af630dd2949fc0a352d86f (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 13b8fc2e2e10399982af630dd2949fc0a352d86f). Diagnosis: Diagnosis: the comment-watcher for `endojs-endo-but-for-bots` found its `verify` journal clone corrupt (`clone_is_corrupt` in `scripts/jobs/common.sh:4292` — a missing/broken `origin/journal2` tracking ref) and triggered `reclone_clone` to self-heal. `reclone_clone` (common.sh:4302-4316) deliberately makes only **one** bounded network attempt (`GARDEN_CLONE_RETRIES=1`), by design, per the comment at common.sh:4305-4307: journal callers own their own outer retry/cadence, and this primitive stays single-attempt so nested retry budgets don't multiply. That one `git clone git@github.com:kriscendobot/garden.git` attempt hit the 45s `GARDEN_FETCH_TIMEOUT` and was killed (rc=124), so `reclone_clone` called `die`, exiting 1 — which is exactly the documented behavior: fail loud on one bad netwo
@@ -1301,6 +1309,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-finbot` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-finbot.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T02:28:18Z, latest 2026-09-27T04:16:26Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-finbot`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-ci-watcher@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 3cd604f8ac267b3ee023387498a5a51c26bbcc6c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 3cd604f8ac267b3ee023387498a5a51c26bbcc6c). Diagnosis: This is deploy-lag, not a new defect. The failure signature — `garden-ci-watcher@kriscendobot-finbot FATAL: cannot acquire clone lock .../verify.lock after 3 waits` — is exactly the shared-VERIFY-clone contention bug already fixed by `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder contention), both present on `origin/main2` but not yet on this host's deployed root checkout (HEAD is 19 commits behind main2, a clean ancestor — no divergence). Per [[ci-watcher-shared-verify-clone-lock-contention-fixed]], this is exactly the "check deploy-lag before posting another self-heal-fix job" case.
+>
+> No JOB block — this needs the deliberate rolling deploy to catch this host up, not a new code fix (posting another fix job would be a duplicate of a
+
 - `watchdog-comment-watcher-dead-kriscendobot-moddable` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-moddable.md)
 
 > RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-moddable` has CLEARED (first seen 2026-09-26T16:10:45Z, cleared 2026-09-26T17:05:36Z).
@@ -1416,6 +1434,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment condition cleared.
 
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-e2e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-e2e.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T02:28:08Z, latest 2026-09-27T04:15:22Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-e2e`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-ci-watcher@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: a8e3c4d661301dfde1613071e6d492adcc7cfdbf (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p a8e3c4d661301dfde1613071e6d492adcc7cfdbf). Diagnosis: This is the already-fixed shared-VERIFY-clone-lock contention bug (memory: `ci-watcher-clonelock-shared-verify-fixed`), not a new defect. The failure signature matches exactly: `garden-ci-watcher@kriscendobot-ymax-e2e` FATAL after 3 backoff waits on `.garden-state/ci-watcher/verify.lock`. The fix (5620bdbe5f6 "isolate CI watcher clones per slug" + e6ea1d33fc8 "skip quietly on live-holder clone-lock contention") is confirmed present on `origin/main2` but the deployed root checkout (`HEAD`) is a clean fast-forward ancestor 19 commits behind — ordinary deploy lag, not a divergence or revert. No new fix job is warranted; the root will self-resolve once the next deliberate deploy lands. No JOB block.
+
 - `watchdog-comment-watcher-dead-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-garden.md)
 
 > RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-garden` has CLEARED (first seen 2026-09-26T16:21:18Z, cleared 2026-09-26T16:56:13Z).
@@ -1446,7 +1472,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.3M | $227.22 _(notional, rate-card)_ | 18% of 143.0M (ok) |
+| Claude | 26.4M | $228.18 _(notional, rate-card)_ | 18% of 143.0M (ok) |
 | Codex | 32.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 51493175 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1458,8 +1484,9 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr762-gauntlet-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr762-gauntlet-20260902.md) — Complete the gauntlet for endojs/endo-but-for-bots#762
+- [`endojs-endo-but-for-bots-pr736-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr736-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #736
 
 ### tada (9086)
 - [`claude-on-minion-town-press-20260927-040506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/claude-on-minion-town-press-20260927-040506.md) — Cost
@@ -1515,8 +1542,6 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr736-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr736-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #736
-- [`endojs-endo-but-for-bots-pr762-gauntlet-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr762-gauntlet-20260902.md) — _normal_ · Complete the gauntlet for endojs/endo-but-for-bots#762
 - [`endojs-endo-but-for-bots-pr797-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr797-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #797
 - [`endojs-endo-but-for-bots-pr871-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr871-weave-20260901.md) — _normal_ · Weave endojs/endo-but-for-bots#871 — the sturdyref agent-surface build
 - [`endojs-endo-but-for-bots-pr877-review-a8763cf9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-a8763cf9-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
