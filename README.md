@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:18:07Z_
+_As of 2026-09-27T07:20:01Z_
 
 ## Latest
 
@@ -448,11 +448,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-test262` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-test262.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T03:25:52Z, latest 2026-09-27T06:10:59Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-test262`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T03:25:52Z, latest 2026-09-27T07:19:15Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-test262`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-test262 exited rc=1 with no scoped fix. Capture: 95365c3c71feffa5d5af016db6254a0a022b57d9 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 95365c3c71feffa5d5af016db6254a0a022b57d9). Diagnosis: No JOB block — this is deploy lag, not a code defect. The fix is already merged on `origin/main2`; the root checkout just hasn't rolled it out yet. Memory updated to log this additional recurrence (test262 slug) for the pattern already tracked.
+> self-heal: garden-ci-watcher@kriscendobot-test262 exited rc=1 with no scoped fix. Capture: 0d455c8ff0856b5ded63fe18ce8198f5b30c7837 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0d455c8ff0856b5ded63fe18ce8198f5b30c7837). Diagnosis: This is the known clone-lock contention failure (`ci-watcher@kriscendobot-test262` FATAL after 3×60s backoff waiting on `.garden-state/ci-watcher/verify.lock`), not a new defect. The fix already landed on `main2` as a whole chain of commits (`5620bdbe5f6` isolate CI watcher clones per slug, `e6ea1d33fc8` skip quietly on live-holder contention, plus `c38cb55b172`, `4948cdd9a75`, `9dbda9d5573`, `02adfdaf324`, `49cf6544668`, `ad55dea66f9`, `ab66fece68f`, `1570aa85a47`, `4692b4df0e7`, `586aee8196b`, `f92ecdb0a3f`) — but this root checkout's HEAD (`47b41af5a14`, 2026-09-26) is 25 commits behind `origin/main2` (`c942c685af2`), so the deployed code here still hits the old hard-FATAL path. This is deploy lag, not a code defect: no fix job needed, systemd's restart is fine, and the next `deploy-
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal.md)
 
@@ -1454,13 +1454,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-finbot` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-finbot.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T02:28:18Z, latest 2026-09-27T06:03:18Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-finbot`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T02:28:18Z, latest 2026-09-27T07:19:07Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-finbot`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 74d9297b9802f628a891bfbddb06d3ec5c9bb6be (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 74d9297b9802f628a891bfbddb06d3ec5c9bb6be). Diagnosis: This failure is deploy lag, not a new defect. The root checkout is pinned at `47b41af5a14` (2026-09-26T12:42Z), but the clone-lock contention fix (`5620bdbe5f6` "isolate CI watcher clones per slug" + `e6ea1d33fc8` "skip quietly on live-holder clone-lock contention") plus several follow-on hardening commits already landed on `origin/main2` (now at `586aee8196b4`, 2026-09-27T03:28Z) — the deployed root just hasn't rolled forward yet. This is the same recurring deploy-lag pattern already tracked in memory ([[ci-watcher-clone-lock-contention-fix-queued-not-deployed]]), now confirmed for a fourth watcher instance (`kriscendobot-finbot`), and I've updated that memory with this occurrence.
+> self-heal: garden-ci-watcher@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 9722c51a274194cd064dd5a0c241b73e08bf8706 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 9722c51a274194cd064dd5a0c241b73e08bf8706). Diagnosis: This is the same known deploy-lag pattern already documented in memory: `garden-ci-watcher@kriscendobot-finbot` FATALs with "cannot acquire clone lock .../ci-watcher/verify.lock ... a live holder is still busy", and the root checkout HEAD (`47b41af5a14`) is 25 commits behind `origin/main2`, not yet including the fix commit `5620bdbe5f6` ("isolate CI watcher clones per slug") plus its follow-on hardening commits. This is deploy-lag, not a fresh defect — the fix already exists on `main2` and just hasn't rolled out to this host yet via the rolling deploy.
 >
-> No JOB block — posting a fix would be redundant since the fix is already merged and only awaiting the r
+> No JOB block — this is a transient/environmental deploy-lag condition with the fix already merged upstream, not a code defect to fix here. Systemd's restart will keep hitting this until the rolling deploy advances this host's root check
 
 - `watchdog-comment-watcher-dead-kriscendobot-moddable` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-moddable.md)
 
@@ -1615,7 +1615,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.5M | $261.54 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.6M | $262.98 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61773171 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
