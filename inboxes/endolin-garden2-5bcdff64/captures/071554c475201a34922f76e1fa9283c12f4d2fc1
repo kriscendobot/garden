@@ -1,0 +1,7 @@
+<6>15:05:39 [monk/1] resuming session e4f7b4f0-d68c-583f-92cf-cb693f397aab for requeued job 'run-the-gauntlet-minion-town-pr90' in worktree /home/kris/garden2/scratch/gardener-wt-run-the-gauntlet-minion-town-pr90
+<6>15:05:39 [monk/1] job 'run-the-gauntlet-minion-town-pr90' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>15:05:39 [monk/1] job 'run-the-gauntlet-minion-town-pr90' call ceiling: tier=mentor max-budget-usd=17.00 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
