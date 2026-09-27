@@ -1,0 +1,6 @@
+<6>15:00:00 [monk/1] job 'harness-provider-matrix-handoff-20260901' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>15:00:00 [monk/1] job 'harness-provider-matrix-handoff-20260901' call ceiling: tier=mentor max-budget-usd=17.00 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
