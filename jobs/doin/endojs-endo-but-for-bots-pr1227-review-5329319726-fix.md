@@ -18,3 +18,13 @@ Wear the fixer role for endojs/endo-but-for-bots PR #1227 (design-only: `designs
 2. Comment 4114484325 at line 111 (`MakeAgentOptions` type block): "Notably also `planes`." Add the `planes` option to the `MakeAgentOptions` shape as it exists on `origin/llm` (grep packages/daemon for `planes`), with a sentence on its meaning.
 
 Push follow-up commits to the PR head (per review-feedback-followup-commits), reply on each inline comment thread with the resolving SHA, and keep CI green. Do not merge; the conductor child follows.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T08:35:52Z
