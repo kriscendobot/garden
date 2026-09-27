@@ -29,7 +29,6 @@ token-budget: 250000
 ---
 <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-27T07:02:45Z cleared=none -->
 
-requires: host=oros-studio-garden-ce242c49
 
 ---
 role: gardener
