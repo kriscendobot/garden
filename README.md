@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:52:30Z_
+_As of 2026-09-27T07:54:57Z_
 
 ## Latest
 
@@ -32,6 +32,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `doomed-endojs-endo-but-for-bots-pr356-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr356-gauntlet-fix-1-requeue-exhausted.md)
 
+> DOOM notice — occurrence #2 (first seen 2026-09-27T01:23:07Z, latest 2026-09-27T07:53:06Z).
+> This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+> this is an AMENDED notice, not a new one. Latest detail:
+>
 > GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
 > The reaper spent no generic retry and applied no ordinary split; gauntlet endojs-endo-but-for-bots-pr356-gauntlet exclusively owns retry through max_stage_retries.
 > The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr356-gauntlet-fix-1; it stays HELD until a human promotes it
@@ -39,6 +43,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Original job base: endojs-endo-but-for-bots-pr356-gauntlet-fix-1
 >
 > --- original job body ---
+> ---
+> role: gardener
+> tier: mentor
+> handler-budget-role: shepherd
+> handler-timeout: 7200
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-27T07:03:40Z cleared=none -->
+>
+> requires: host=oros-studio-garden-ce242c49
+>
 > ---
 > role: gardener
 > tier: mentor
@@ -560,6 +575,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `doomed-endojs-endo-but-for-bots-pr675-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr675-gauntlet-panel-1-requeue-exhausted.md)
 
+> DOOM notice — occurrence #2 (first seen 2026-09-27T04:23:07Z, latest 2026-09-27T07:53:22Z).
+> This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+> this is an AMENDED notice, not a new one. Latest detail:
+>
 > GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
 > The reaper spent no generic retry and applied no ordinary split; gauntlet endojs-endo-but-for-bots-pr675-gauntlet exclusively owns retry through max_stage_retries.
 > The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr675-gauntlet-panel-1; it stays HELD until a human promotes it
@@ -567,6 +586,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Original job base: endojs-endo-but-for-bots-pr675-gauntlet-panel-1
 >
 > --- original job body ---
+> ---
+> role: gardener
+> tier: mentor
+> handler-budget-role: panel
+> handler-timeout: 10800
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-27T07:02:45Z cleared=none -->
+>
+> requires: host=oros-studio-garden-ce242c49
+>
 > ---
 > role: gardener
 > tier: mentor
@@ -1528,6 +1558,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `doomed-endojs-endo-but-for-bots-pr450-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr450-gauntlet-panel-1-requeue-exhausted.md)
 
+> DOOM notice — occurrence #2 (first seen 2026-09-27T02:03:04Z, latest 2026-09-27T07:53:13Z).
+> This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+> this is an AMENDED notice, not a new one. Latest detail:
+>
 > GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
 > The reaper spent no generic retry and applied no ordinary split; gauntlet endojs-endo-but-for-bots-pr450-gauntlet exclusively owns retry through max_stage_retries.
 > The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr450-gauntlet-panel-1; it stays HELD until a human promotes it
@@ -1535,6 +1569,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Original job base: endojs-endo-but-for-bots-pr450-gauntlet-panel-1
 >
 > --- original job body ---
+> ---
+> role: gardener
+> tier: mentor
+> handler-budget-role: panel
+> handler-timeout: 10800
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-27T07:03:26Z cleared=none -->
+>
+> requires: host=oros-studio-garden-ce242c49
+>
 > ---
 > role: gardener
 > tier: mentor
@@ -1662,25 +1707,25 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ## Board
 ### todo (2)
 - [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-self-heal-run-handler-deadline.md) — ---
-- [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-build-follower-self-deploy.md) — Implement — the design's recommended path
+- [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-05264cccae42245a-repair.md) — Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
 
 ### doin (8)
 - [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-retro-doom-escalation-noise.md) — ---
-- [`improve-budget-level-single-host-cap-freeze`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-budget-level-single-host-cap-freeze.md) — ---
 - [`improve-ci-watcher-primary-quota-cooldown-too-short`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-watcher-primary-quota-cooldown-too-short.md) — ---
 - [`claude-on-minion-town-press-20260927-072005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260927-072005.md) — Press the Claude-on-minion.town arc forward
 - [`improve-receipt-watcher-direct-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-receipt-watcher-direct-dispatch.md) — ---
 - [`fix-garden-ci-gauntlet-retry-viability-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-garden-ci-gauntlet-retry-viability-tests.md) — Fix the garden repo's own CI: two failing test suites, broken 3+ days
 - [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-watcher-outage-latch-flap-dedup.md) — ---
+- [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-build-follower-self-deploy.md) — Implement — the design's recommended path
 - [`groom-endo-roadmap-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-roadmap-20260927.md) — Full grooming pass: designs/README.md on endojs/endo-but-for-bots@llm
 
-### tada (9111)
+### tada (9112)
+- [`improve-budget-level-single-host-cap-freeze`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-budget-level-single-host-cap-freeze.md) — Cost
 - [`improve-elapsed-constancy-escalation-include-capture`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-elapsed-constancy-escalation-include-capture.md) — Cost
 - [`foreman-requiesce-target-0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/foreman-requiesce-target-0.md) — Completion report
 - [`kriscendobot-minion.town-pr119-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion.town-pr119-conduct.md) — Cost
 - [`mentat-garden-docs-refresh-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/mentat-garden-docs-refresh-20260927.md) — Cost
-- [`daily-progress-summary-20260927-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/daily-progress-summary-20260927-070504.md) — Cost
-- … and 9106 more
+- … and 9107 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1731,7 +1776,6 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr877-review-a8763cf9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-a8763cf9-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr982-0b4f9f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr982-0b4f9f5d-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #982 (primary: endojs-endo-but-f...
-- [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-05264cccae42245a-repair.md) — _normal_ · Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
 - [`ironhorse-fuzz-12aca768c2e73c73-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-12aca768c2e73c73-repair.md) — _normal_ · Fix Ironhorse fuzz finding 12aca768c2e73c73 (target differential_regexp) and ...
 - [`ironhorse-fuzz-13b68e2edb67861a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-13b68e2edb67861a-repair.md) — _normal_ · Repair Ironhorse engine defect 13b68e2edb67861a (target differential_regexp) ...
 - [`ironhorse-fuzz-197b32cc30bdd4fe-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-197b32cc30bdd4fe-repair.md) — _normal_ · Repair Ironhorse engine defect 197b32cc30bdd4fe (target differential_regexp_s...
