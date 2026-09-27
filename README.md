@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T06:35:58Z_
+_As of 2026-09-27T06:38:43Z_
 
 ## Latest
 
@@ -410,6 +410,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr897-12533ba917fd` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr897-12533ba917fd.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/897](https://github.com/endojs/endo-but-for-bots/pull/897) ([endojs/endo-but-for-bots#897](https://github.com/endojs/endo-but-for-bots/issues/897)) is in the mergeable queue with NO gauntlet review staged (head 12533ba917fd559c3d02630396b1b78c6bc5ff53). Under the manual-gauntlet regime the garden no longer stages gauntlets automatically. If you want it reviewed, reply with 'run the gauntlet #897'; otherwise no action is needed. This audit never re-drafts or stages anything.
 
 - `watchdog-comment-watcher-dead-kriscendobot-ymax-e2e` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ymax-e2e.md)
 
@@ -1610,7 +1614,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.6M | $249.46 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.6M | $250.05 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 78777647 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
