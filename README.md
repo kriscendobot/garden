@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T00:14:41Z_
+_As of 2026-09-27T00:21:50Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 55m)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 1h)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 9d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 10d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 15d)
@@ -647,11 +647,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-25T03:20:26Z, latest 2026-09-26T21:50:17Z).
-> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-4`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-25T03:20:26Z, latest 2026-09-27T00:20:25Z).
+> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-4`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=438960 cap=73000000 pace-bias=0.806880 ceiling=4 target=4
+> budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=438960 cap=73000000 pace-bias=0.850381 ceiling=4 target=4
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_triager_pace_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_triager_pace_journal.md)
 
@@ -992,11 +992,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #645 (first seen 2026-09-25T03:17:02Z, latest 2026-09-26T23:20:06Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 645 times; this is ONE
-> coalesced notice that updates in place, not 645 messages. Latest detail:
+> WATCHDOG notice — occurrence #665 (first seen 2026-09-25T03:17:02Z, latest 2026-09-27T00:20:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 665 times; this is ONE
+> coalesced notice that updates in place, not 665 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 1b7e8cdb117e 21 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 1b7e8cdb117e 81 min ago
 > but still reports deployed_sha 917115c9b77234e4a05db68e8c5111fe6e5b305f. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1033,9 +1033,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 16.2M | $161.54 _(notional, rate-card)_ | 11% of 143.0M (ok) |
-| Codex | 31.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 31.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 49434286 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 44520851 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
