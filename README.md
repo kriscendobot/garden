@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T03:23:27Z_
+_As of 2026-09-27T03:26:57Z_
 
 ## Latest
 
@@ -243,6 +243,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment condition cleared.
 
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-minion-town.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T01:58:17Z, latest 2026-09-27T03:24:58Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-minion-town`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-ci-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: e7535d1597cabd5588db87ce0407b7008484dee0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e7535d1597cabd5588db87ce0407b7008484dee0). Diagnosis: This is the already-fixed shared-VERIFY-clone-lock contention bug (`ci-watcher@kriscendobot-minion.town` FATAL: cannot acquire `verify.lock` after 3×60s waits) — matches my memory of the fix landed as commits `5620bdbe5f6` + `e6ea1d33fc8`, confirmed present on `origin/main2` (landed 2026-09-27T00:01Z). The deployed root checkout's `HEAD` (`47b41af5a14`, 2026-09-26T12:42Z) predates that fix and is not an ancestor of it — this is deploy lag, not a new bug. No fix job needed; the next `deploy-garden.sh` rolling deploy will pick up the fix. Systemd's restart is sufficient in the meantime.
+
 - `20260927T024845Z-93b624` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T024845Z-93b624.md)
 
 > kind: error
@@ -394,6 +402,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-test262` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-test262.md)
+
+> self-heal: garden-ci-watcher@kriscendobot-test262 exited rc=1 with no scoped fix. Capture: 54bdbbc998dd4b9537026383f459f5d741015615 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 54bdbbc998dd4b9537026383f459f5d741015615). Diagnosis: Confirmed: this is the same shared clone-lock contention on `garden-ci-watcher@kriscendobot-test262` already recorded in memory ([ci-watcher-clonelock-contention-fixed]) as fixed by `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention"), both landed on `main2` at 2026-09-27T00:01Z. The root checkout here is still deployed at `47b41af5a14` (2026-09-26T12:42Z), an ancestor of both fix commits — so this host simply hasn't rolled the deploy forward yet. No new code fix is needed; the existing fix has not reached this host.
+>
+> This is a deploy-lag recurrence of an already-fixed bug, not a new defect — no JOB block.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
@@ -1340,10 +1354,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 24.1M | $212.16 _(notional, rate-card)_ | 17% of 143.0M (ok) |
+| Claude | 24.3M | $213.61 _(notional, rate-card)_ | 17% of 143.0M (ok) |
 | Codex | 32.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 51473813 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 52444682 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
@@ -1352,18 +1366,17 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr663-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr663-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #663
-- [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
+### doin (2)
+- [`improve-triager-pacing-lock-test`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-triager-pacing-lock-test.md) — ---
 - [`fix-1570aa85-triager-pacing-contention-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-1570aa85-triager-pacing-contention-regression.md) — Fix: 1570aa85a4 broke triager-pacing contention backoff; the deploy gate reje...
 
-### tada (9076)
+### tada (9077)
+- [`endojs-endo-but-for-bots-pr663-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr663-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr631-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr631-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr648-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr648-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr551-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr551-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr610-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr610-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr569-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr569-gauntlet-panel-1.md) — Cost
-- … and 9071 more
+- … and 9072 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1378,6 +1391,7 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919.md) — _normal_ · Refresh the @endo/claude confinement-core build (endojs/endo-but-for-bots#101...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1317-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1317-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1317
+- [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
 - [`endojs-endo-but-for-bots-pr1286-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1286-receipt.md) — _normal_ · receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1286 (me...
