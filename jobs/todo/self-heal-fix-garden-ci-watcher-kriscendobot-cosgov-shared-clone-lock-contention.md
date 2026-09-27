@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 `scripts/jobs/ci-watcher.sh` — every armed `garden-ci-watcher@<slug>` instance (~15 repos, same 90s cadence, `RandomizedDelaySec=30s`) shares ONE clone directory for both the read-only journal-verify clone and the stale-shepherd retire clone:
@@ -20,13 +21,6 @@ This is the identical shape already diagnosed and fixed for `scripts/jobs/receip
 with a comment mirroring `receipt-watcher.sh`'s rationale (each systemd instance is a per-repo singleton, so a per-slug clone has no concurrent users and the default `clone_lock` budget suffices; the shared clone was the only source of cross-instance contention). Check `scripts/jobs/test/ci-watcher-test.sh` for any test relying on the old shared-path default and update if needed. No functional change to what VERIFY/RETIRE are used for — only their default location.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=10 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-26T23:59:54Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-27T00:23:03Z -->
