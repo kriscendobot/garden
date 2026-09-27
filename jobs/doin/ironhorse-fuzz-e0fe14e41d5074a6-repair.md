@@ -60,6 +60,7 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T12:33:09Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=7 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
