@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T09:06:24Z_
+_As of 2026-09-27T09:07:44Z_
 
 ## Latest
 
@@ -1681,6 +1681,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
 
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_budget_refresh_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_budget_refresh_journal.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/budget-refresh/journal: packs 1000 >= 1000; size=521414656B packs=1000 gc.log=0; automatic remedy=deferred.
+
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
 > RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-25T03:17:02Z, cleared 2026-09-27T06:59:02Z).
@@ -1747,33 +1751,32 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.1M | $277.81 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 32.1M | $278.21 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 37.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 30% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75641845 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 7.772794s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 2 open notice(s); checker healthy
+worst fetch p95 7.772794s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (2)
 - [`endojs-endo-but-for-bots-pr1227-conduct-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1227-conduct-20260927.md) — ---
 - [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Repair Ironhorse engine defect 2a2de75b75de4894 (target differential_source) ...
 
-### doin (5)
+### doin (4)
 - [`deadmail-issue-comment-5853798459`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5853798459.md) — Issue follow-up — fold a late comment into the issue work
 - [`ironhorse-fuzz-27824c75429b8581-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-27824c75429b8581-repair.md) — Repair Ironhorse engine defect 27824c75429b8581 (target differential_source) ...
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1298
 - [`ironhorse-fuzz-29a24c1b1052ec91-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-29a24c1b1052ec91-repair.md) — Repair Ironhorse engine defect 29a24c1b1052ec91 (target differential_regexp) ...
-- [`endojs-endo-but-for-bots-pr1227-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1227
 
-### tada (9132)
+### tada (9133)
+- [`endojs-endo-but-for-bots-pr1227-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1227-conduct.md) — Cost
 - [`ironhorse-fuzz-1cd4ddc72d5801c4-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-1cd4ddc72d5801c4-repair.md) — Completion report: ironhorse-fuzz-1cd4ddc72d5801c4-repair
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1298-gauntlet-viability.md) — Cost
 - [`ironhorse-fuzz-13b68e2edb67861a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-13b68e2edb67861a-repair.md) — Finding 13b68e2edb67861a (differential_regexp): regression tests added to PR ...
 - [`ironhorse-fuzz-12aca768c2e73c73-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-12aca768c2e73c73-repair.md) — Cost
-- [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-05264cccae42245a-repair.md) — Completion report: ironhorse-fuzz-05264cccae42245a-repair
-- … and 9127 more
+- … and 9128 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
