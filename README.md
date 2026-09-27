@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:21:49Z_
+_As of 2026-09-27T07:22:26Z_
 
 ## Latest
 
@@ -781,6 +781,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
 > performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
 > on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
+
+- `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
+
+> root repo /home/kris/garden deploy has been STALLED for ~0d / 25 commits behind (leader commits-fuse 25): deployed sha 47b41af5a14d9154b86fc7444ce829f99d2b9795 is 25 commit(s) behind origin/main2 (c942c685af2289f7a69820ecd57e22e0f53249ee) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. This host is the LEADER: it runs every singleton producer (foreman, scheduler, watchers), so while it is stale it is NOT honoring any directive newer than its deployed sha — a PROJECT PAUSE among them. This is the shape that let a stale leader run ~60 IronHorse fuzz jobs a week after the 09-09 pause (designs/project-pause-enforcement.md). DEPLOY IT. (host=endolin-garden-ece02cb4)
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-moddable` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-moddable.md)
 
@@ -1611,7 +1615,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.7M | $264.11 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.7M | $264.35 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 34.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55637200 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
