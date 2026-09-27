@@ -13,7 +13,7 @@ archived_reason: maintainer: archive all scheduled gauntlets during the fleet dr
      tick from the state below, unchanged. -->
 
 ---
-stage_retries: 0
+stage_retries: 1
 pr: https://github.com/kriscendobot/minion.town/pull/68
 repo: kriscendobot/minion.town
 pr_number: 68
