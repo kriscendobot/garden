@@ -45,3 +45,13 @@ Base: endojs/endo-but-for-bots  branch llm
 Posted by the conductor (pr897-conduct) after a needs-weave rebase refusal.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T06:33:17Z
