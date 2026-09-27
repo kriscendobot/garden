@@ -109,6 +109,7 @@ list and current best hypothesis for the next round. Either way, confirm the
 current state of `config/worker-leveling`'s oros-studio row and explain why
 you left it there.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=4401 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
