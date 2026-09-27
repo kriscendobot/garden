@@ -61,6 +61,8 @@ pull request for fuzz findings.
 <!-- garden-plain-retry-not-before: 2026-09-27T14:23:23Z -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
