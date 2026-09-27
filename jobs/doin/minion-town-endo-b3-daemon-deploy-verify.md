@@ -24,3 +24,13 @@ Land any corrections as a PR on the fork and run the gauntlet. If a lightweight 
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T14:43:16Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T14:43:21Z
