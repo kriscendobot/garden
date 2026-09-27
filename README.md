@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:33:10Z_
+_As of 2026-09-27T07:37:53Z_
 
 ## Latest
 
@@ -257,13 +257,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T02:00:56Z, latest 2026-09-27T06:31:48Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T02:00:56Z, latest 2026-09-27T07:37:00Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: ca5d3f7c701740b15367c3f79f5d5bd7695d7fa1 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p ca5d3f7c701740b15367c3f79f5d5bd7695d7fa1). Diagnosis: This confirms the deploy-lag scenario is expected/self-resolving infra, not something requiring a fix job. Per the existing memory, this is a known pattern.
->
-> No job needed. This is the already-diagnosed shared-clone-lock contention bug (`/home/kris/garden/.garden-state/ci-watcher/verify.lock`), fixed on `origin/main2` via commits `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention") landed 2026-09-27T00:01Z. This host's root checkout (`HEAD` 47b41af5a14, dated 2026-09-26) is 19 commits behind `origin/main2` and simply hasn't picked up the fix via the deliberate rolling deploy yet. The autonomous `garden-self-deploy`/rolling-deploy machinery should pick this up on its own upgrade-ready cycle; no new code change or job is
+> self-heal: garden-ci-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: 1d5f80a2df2ecc69c48e8f9a2f1e49d22bf5dd65 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 1d5f80a2df2ecc69c48e8f9a2f1e49d22bf5dd65). Diagnosis: This is the known, already-fixed clone-lock contention bug — not a new defect. The tail shows the exact signature: `ci-watcher/kriscendobot-ymax-stdio-mcp` backed off twice on `/home/kris/garden/.garden-state/ci-watcher/verify.lock` busy >60s, then hit FATAL after 3 waits with no reclaim attempt. That's precisely the failure mode fixed by `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder clone-lock contention), landed on `origin/main2` today (2026-09-27T00:01Z) along with a chain of related clone-lock hardening commits (`c38cb55b172`, `4948cdd9a75`, `9dbda9d5573`, `ad55dea66f9`, `ab66fece68f`, `1570aa85a47`, `4692b4df0e7`). The root checkout this host runs is still pinned at `47b41af5a14` (2026-09-26T12:42Z, the cgroup-sweep commit), which 
 
 - `20260927T024845Z-93b624` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T024845Z-93b624.md)
 
@@ -613,13 +611,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-ocapn` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ocapn.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-09-27T00:00:04Z, latest 2026-09-27T06:31:53Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ocapn`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> WATCHDOG notice — occurrence #9 (first seen 2026-09-27T00:00:04Z, latest 2026-09-27T07:36:50Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ocapn`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: 1f3f975f66dfc5ebebf36f85a8671cddf124c629 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 1f3f975f66dfc5ebebf36f85a8671cddf124c629). Diagnosis: Confirmed: this is the known deploy-lag pattern, not a new defect.
->
-> The `garden-ci-watcher@kriscendobot-ocapn` failure is the exact `FATAL: cannot acquire clone lock .../ci-watcher/verify.lock ... a live holder is still busy` signature already fixed on `main2` through a chain of commits (`5620bdbe5f6`, `e6ea1d33fc8`, `1570aa85a47`, `ab66fece68f`, `ad55dea66f9`, and follow-ons through `586aee8196b`), per memory `ci-watcher-shared-verify-clone-lock-contention-fixed` and `ci-watcher-clone-lock-contention-fix-queued-not-deployed`. This host's root checkout is still at `47b41af5a14`, 19 commits behind `origin/main2` (`586aee8196b`) — none of the clone-lock fix/latch commits are deployed yet. Once the rolling deploy advances this root past those commits, the outage-latch logic will classify th
+> self-heal: garden-ci-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: fd1a1d44f75638b746a4da8edc9aa1bbd9d1aa14 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p fd1a1d44f75638b746a4da8edc9aa1bbd9d1aa14). Diagnosis: This is the known ci-watcher shared-VERIFY-clone-lock-contention bug (`FATAL: cannot acquire clone lock .../verify.lock`), already fixed on `main2` — `5620bdbe5f6` ("isolate CI watcher clones per slug") plus `e6ea1d33fc8` and a string of follow-on hardening commits (`ad55dea66f9`, `1570aa85a47`, `ab66fece68f`, `4948cdd9a75`, `9dbda9d5573`, `c38cb55b172`, `5b48813cd0b`) — but the root checkout's HEAD (`47b41af5a14`) is 26 commits behind `origin/main2` (`0350fdd5bda`), so this host simply hasn't deployed the fix yet. No new code defect here; posting another `self-heal-fix` job would just duplicate work already merged upstream. Emitting no JOB block per instructions — this is a deploy-lag/environmental condition, not something a fix job would address. Recommend the root-repo-guard/deplo
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
@@ -1617,22 +1613,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.0M | $269.15 _(notional, rate-card)_ | 22% of 143.0M (ok) |
-| Codex | 34.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 31.1M | $271.63 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Codex | 35.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 55637200 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 56219348 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (4)
+- [`improve-budget-level-single-host-cap-freeze`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-budget-level-single-host-cap-freeze.md) — ---
+- [`improve-ci-watcher-primary-quota-cooldown-too-short`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-watcher-primary-quota-cooldown-too-short.md) — ---
+- [`improve-elapsed-constancy-escalation-include-capture`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-elapsed-constancy-escalation-include-capture.md) — ---
+- [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-watcher-outage-latch-flap-dedup.md) — ---
 
-### doin (3)
+### doin (6)
 - [`claude-on-minion-town-press-20260927-072005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260927-072005.md) — Press the Claude-on-minion.town arc forward
 - [`fix-garden-ci-gauntlet-retry-viability-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-garden-ci-gauntlet-retry-viability-tests.md) — Fix the garden repo's own CI: two failing test suites, broken 3+ days
+- [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-build-follower-self-deploy.md) — Implement — the design's recommended path
+- [`foreman-requiesce-target-0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/foreman-requiesce-target-0.md) — Reduce the foreman's active-job target back to 0
 - [`groom-endo-roadmap-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-roadmap-20260927.md) — Full grooming pass: designs/README.md on endojs/endo-but-for-bots@llm
+- [`kriscendobot-minion.town-pr119-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #119
 
 ### tada (9108)
 - [`mentat-garden-docs-refresh-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/mentat-garden-docs-refresh-20260927.md) — Cost
@@ -1691,12 +1693,6 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr877-review-a8763cf9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-a8763cf9-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr982-0b4f9f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr982-0b4f9f5d-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #982 (primary: endojs-endo-but-f...
-- [`foreman-requiesce-target-0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-requiesce-target-0.md) — _normal_ · Reduce the foreman's active-job target back to 0
-- [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-build-follower-self-deploy.md) — _normal_ · Implement — the design's recommended path
-- [`improve-budget-level-single-host-cap-freeze`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-budget-level-single-host-cap-freeze.md) — _normal_ · ---
-- [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-ci-watcher-outage-latch-flap-dedup.md) — _normal_ · ---
-- [`improve-ci-watcher-primary-quota-cooldown-too-short`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-ci-watcher-primary-quota-cooldown-too-short.md) — _normal_ · ---
-- [`improve-elapsed-constancy-escalation-include-capture`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-elapsed-constancy-escalation-include-capture.md) — _normal_ · ---
 - [`improve-receipt-watcher-direct-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-receipt-watcher-direct-dispatch.md) — _normal_ · ---
 - [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-retro-doom-escalation-noise.md) — _normal_ · ---
 - [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-self-heal-run-handler-deadline.md) — _normal_ · ---
