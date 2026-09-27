@@ -1,8 +1,11 @@
 host: endolin-garden2-5bcdff64
 deployed_sha: 586aee8196b4c03fdb68c7d2368856cb756de4eb
-roll_status: deployed
+roll_status: deferred
 unit_failures: 0
 unit_total: 269
 first_bad_unit: -
 advisory_failures: 0
-at: 2026-09-27T03:48:37Z
+at: 2026-09-27T08:30:47Z
+deferred_reason: long-job cleric 1 1204s
+deferred_target: 0350fdd5bda4fc9abdae0de590397f8445b0165f
+deferred_at_epoch: 1790497800
