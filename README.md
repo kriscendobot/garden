@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T10:44:02Z_
+_As of 2026-09-27T10:47:26Z_
 
 ## Latest
 
@@ -158,11 +158,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
 
-> WATCHDOG notice — occurrence #8 (first seen 2026-09-27T02:00:48Z, latest 2026-09-27T10:31:35Z).
-> The SAME condition (`journal-outage-stuck`) has now been observed 8 times; this is ONE
-> coalesced notice that updates in place, not 8 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-27T10:46:26Z).
+> It was observed 8 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal outage latch stuck on endolin-garden-ece02cb4 for 900s (limit 600s); skips this tick=9, trailing skips=9.
+> Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -1898,13 +1898,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.1M | $277.97 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 32.2M | $278.68 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 39.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 74621638 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 45.001493s/45s (unknown); 4 open notice(s); checker healthy
+worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (3)
