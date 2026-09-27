@@ -379,6 +379,32 @@ trap 'rm -f "$bodyf"' EXIT
   case "$body_text" in *"$marker"*) : ;; *) printf '\n%s\n' "$marker" ;; esac
 } > "$bodyf"
 
+# Ordered-phase / production-evidence authoring gate. The signal spans the PR
+# body and its governing design, so run it only after the final body file exists.
+# A normal unrelated PR clears cheaply. A design-derived feature with numbered
+# prerequisites, stop gates, or explicit acceptance evidence must carry the
+# structured phase/evidence ledger; an exploratory slice is allowed only as a
+# non-deliverable probe while this script is opening it draft. The panel repeats
+# the check before any later review-ready disposition.
+PHASE_EVIDENCE_GATE="${GARDEN_PHASE_EVIDENCE_GATE:-$HERE/phase-evidence-gate.sh}"
+if [ "$draft" -eq 1 ] && [ "$PHASE_EVIDENCE_GATE" != ":" ] && [ -e "$PHASE_EVIDENCE_GATE" ]; then
+  phase_root="${GARDEN_PHASE_EVIDENCE_WORKTREE:-$PWD}"
+  phase_base=""
+  if git -C "$phase_root" rev-parse --verify --quiet "$base_branch^{commit}" >/dev/null 2>&1; then
+    phase_base="$base_branch"
+  elif git -C "$phase_root" rev-parse --verify --quiet "origin/$base_branch^{commit}" >/dev/null 2>&1; then
+    phase_base="origin/$base_branch"
+  fi
+  phase_args=(author "$phase_root" --body-file "$bodyf" --head HEAD --draft yes)
+  [ -z "$phase_base" ] || phase_args+=(--base "$phase_base")
+  phase_out=""; phase_rc=0
+  phase_out="$(bash "$PHASE_EVIDENCE_GATE" "${phase_args[@]}" 2>&1)" || phase_rc=$?
+  case "$phase_rc" in
+    0) : ;;
+    *) die "phase/evidence authoring gate refused this PR body (exit $phase_rc): $phase_out" ;;
+  esac
+fi
+
 create_args=(--repo "$repo" --base "$base_branch" --head "$head"
              --title "$title" --body-file "$bodyf")
 [ "$draft" -eq 1 ] && create_args+=(--draft)

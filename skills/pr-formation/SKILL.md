@@ -1,7 +1,7 @@
 ---
 created: 2026-05-13
-updated: 2026-07-29
-author: gardener
+updated: 2026-09-27
+author: builder, gardener
 ---
 
 # Skill: pr-formation
@@ -60,6 +60,46 @@ The reader is a maintainer deciding whether the change is the right shape. They 
 2. **Why** the change is being made. Cite the issue, the design document, or the directive that motivated it. Do not paraphrase the issue body; cite and move on.
 3. **What the maintainer should attend to** when reviewing. The riskiest invariant, the place a backward-incompatibility lurks, the assumption the diff makes. One short paragraph.
 4. **What is intentionally out of scope.** A negative scope statement saves a review round when the diff stops short of an adjacent fix the reviewer would otherwise ask about.
+
+### Phase and evidence ledger for ordered designs
+
+An implementation derived from a design with numbered prerequisites, stop gates,
+or an explicit acceptance-evidence section adds a visible `## Phase and evidence
+ledger` to the PR body. Put these machine-readable markers around it so the
+authoring and panel gates can compare it with the governing design:
+
+```markdown
+<!-- garden-phase-evidence-ledger:v1 -->
+## Phase and evidence ledger
+
+Design: `designs/example.md`
+Disposition: deliverable
+Phase 1: satisfied | production substrate landed at <commit or PR>
+Phase 2: satisfied | this change wires the landed substrate
+Phase 3: satisfied | fresh-user canary receipt at <durable result>
+Acceptance: satisfied | browser, daemon-log, and canary observations at <durable result>
+<!-- /garden-phase-evidence-ledger -->
+```
+
+List every numbered phase from the governing sequence, including superseded or
+not-applicable phases, and give each row its evidence or rationale. A
+`deliverable` row uses only `satisfied`, `superseded`, or `not-applicable`; an
+open prerequisite means the PR is not a deliverable. The `Acceptance` row cites
+the observations the design requires. Do not cite only lint, typecheck, or unit
+tests when the design says those are prerequisites rather than production
+evidence.
+
+A deliberate exploratory slice uses `Disposition: non-deliverable-probe`, may
+use `open`, `blocked`, or `deferred` phase statuses, and adds `Probe-reason:`.
+That PR remains draft and does not enter the gauntlet. "Draft" alone is not the
+label: ordinary feature builds also start draft and are intended to become
+review-ready after a panel.
+
+`scripts/jobs/gardening/phase-evidence-gate.sh` validates this ledger at PR-open
+time and again at the panel boundary. At panel time it also rejects a probe,
+missing ledger, missing phase, open prerequisite, body/ledger contradiction, or
+absent acceptance evidence. The integrator then compares the claimed evidence
+with the design's actual sequence and acceptance section.
 
 ### Branch naming (head and base)
 

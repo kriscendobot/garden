@@ -1,7 +1,7 @@
 ---
 created: 2026-05-22
 updated: 2026-09-27
-author: gardener
+author: builder, gardener
 ---
 
 # Skill: panel-hints
@@ -72,6 +72,18 @@ Every `fire` line collects into the recommended set.
 **Always-on core (9 seats).** Lenses apply to almost every code PR; fire unconditionally on code-panel PRs: `assessor`, `typist`, `stylist`, `packager`, `archivist`, `prover`, `saboteur`, `integrator`, `corner-prober`. (`corner-prober` joined the always-on core 2026-05-22 per the err-on-too-many guidance; its boundary-set enumeration applies broadly enough that signal-triggering it would risk missing edge cases.)
 
 The `integrator` carries a **current-related-design reconciliation** lens whose signal is *not in the diff* — it is the live review state of a related open design PR (a PR-history signal, like `scribe`'s comment-history need). That signal is sensed deterministically at the panel boundary by `scripts/jobs/gardening/related-design-state.sh`, run as a pre-pass in `panel.sh`: when a declared related design PR carries an outstanding maintainer changes-requested review, the pre-pass hands the integrator that evidence and guarantees the seat is in the panel (it is always-on, so no diff probe exists or is needed; the pre-pass is the mechanization, and the integrator's brief § Current-related-design reconciliation is what it does with the evidence). This is the durable review-cycle sensor for the `stale-related-design-direction` review-miss cluster.
+
+The `integrator` also carries an **ordered-phase and acceptance-evidence** lens
+whose signal spans the PR body and a governing design, so a diff-only probe
+cannot own it. `scripts/jobs/gardening/phase-evidence-gate.sh` runs as a
+`panel.sh` pre-pass. It resolves design paths from the body and diff, detects an
+ordered sequence, stop gate, or acceptance-evidence bar, validates the PR's
+Phase and evidence ledger, and forces the integrator over the comparison. A
+missing ledger, open/deferred prerequisite, unavailable or fail-closed
+production seam, non-deliverable probe, or absent production evidence is a
+deterministic panel block; the foreperson cannot turn it into a pass. This is
+the durable review-cycle sensor for the
+`phase-slice-substitutes-for-production-evidence` review-miss cluster.
 
 **Always-fire (3 seats).** Their signal lives outside the diff (in PR-comment history, in judgment-based reading, or in a coverage report): `scribe` (knowledge-capture closure; needs PR-comment history), `releaser` (reads the diff for user-facing-ness; needs judgment, not regex), and `coverage-auditor` (test coverage of new lines; its signal is the c8 report, not the diff shape). The `coverage-auditor` is *always-fire* yet **cost-gated at dispatch**: `scripts/jobs/gardening/seat-gate-coverage-auditor.sh` runs a deterministic c8 coverage pre-pass first and spends its `claude -p` only when the change has uncovered new lines, so recommending it every code round costs nothing on a well-covered change.
 
