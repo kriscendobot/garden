@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T06:33:59Z_
+_As of 2026-09-27T06:35:58Z_
 
 ## Latest
 
@@ -1610,7 +1610,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.6M | $248.96 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.6M | $249.46 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 78777647 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1622,16 +1622,16 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr897-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-weave-20260901.md) — Weave (rebase onto live llm) endojs/endo-but-for-bots PR #897
+### doin (0)
+(none)
 
-### tada (9099)
+### tada (9100)
+- [`endojs-endo-but-for-bots-pr897-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr897-weave-20260901.md) — Cost
 - [`endojs-endo-but-for-bots-pr933-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr933-gauntlet-fix-1.md) — Fix round 1 for PR #933: done, CI green
 - [`claude-on-minion-town-completion-press-20260927-055005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/claude-on-minion-town-completion-press-20260927-055005.md) — Cost
 - [`endojs-endo-but-for-bots-pr871-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr871-gauntlet-20260901.md) — gauntlet endojs-endo-but-for-bots-pr871-gauntlet-20260901 — HALTED
 - [`endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean.md) — Clean stage: PR #871 CI is RED
-- [`endojs-endo-but-for-bots-pr897-shepherd-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr897-shepherd-20260901.md) — Cost
-- … and 9094 more
+- … and 9095 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
