@@ -62,6 +62,7 @@ pull request for fuzz findings.
 <!-- garden-plain-retry-not-before: 2026-09-27T09:33:11Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=6,24 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
