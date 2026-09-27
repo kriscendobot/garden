@@ -21,6 +21,7 @@
 #                    re-posts the SAME panel round under the stage-retry budget;
 #                    a following real verdict then proceeds (rec 6, no gauntlet halt).
 #  12. PANELERROR EXHAUSTION — repeated `panel=panel-error` HALTS at max_stage_retries.
+#  13. COMMENT FAILURE — a failed terminal PR comment does not block the finish.
 #
 # Usage: gauntlet-test.sh
 
@@ -64,6 +65,10 @@ git -C "$SEED" push -q -u origin "$BRANCH"
 
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"
 export GARDEN=testhost GARDEN_STATE="$TR/state"
+export GARDEN_GH="$HERE/gauntlet-gh-stub.sh"
+export GAUNTLET_GH_COMMENTS="$TR/pr-comments"
+export GAUNTLET_GH_FAIL_WRITES_FILE="$TR/fail-comment-writes"
+mkdir -p "$GAUNTLET_GH_COMMENTS"
 # The driver's deterministic merge-base-pinning pre-gate makes a live `gh pr view`
 # on the first tick of each fresh record. This suite's fixture PRs do not exist on
 # GitHub, so point the gate at a fast no-op (exit 0 = pinned = proceed) to keep the
@@ -97,6 +102,16 @@ tada_body() {
   path="$(fixture_tada_file "$V" "$1" || true)"
   [ -n "$path" ] && cat "$path"
 }
+terminal_comment_count() {  # terminal_comment_count <base> <state>
+  grep -rlF -- "<!-- garden-gauntlet-terminal-status: base=$1 state=$2 -->" \
+    "$GAUNTLET_GH_COMMENTS" 2>/dev/null | wc -l
+}
+terminal_comment_body() {  # terminal_comment_body <base> <state>
+  local hit
+  hit="$(grep -rlF -- "<!-- garden-gauntlet-terminal-status: base=$1 state=$2 -->" \
+    "$GAUNTLET_GH_COMMENTS" 2>/dev/null | head -1)"
+  [ -n "$hit" ] && cat "$hit"
+}
 todo_body() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; cat "$V/jobs/todo/$1.md" 2>/dev/null; }
 # handler_timeout <todo-base> → the handler-timeout header value, or empty if none.
 handler_timeout() { todo_body "$1" | sed -n 's/^handler-timeout:[[:space:]]*//p' | head -1; }
@@ -110,6 +125,7 @@ complete_stage() {  # complete_stage <base> <marker-body>  (e.g. "clean=done")
   git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
   { printf '# %s complete\n\nstage work done.\n\n' "$1"
+    [ "$2" != panel=must-fix ] || printf 'must-fix items (2):\n- fixture item one\n- fixture item two\n\n'
     printf '<!-- gauntlet-stage-result: %s -->\n' "$2"; } > "$wt/jobs/tada/$1.md"
   git -C "$wt" add "jobs/tada/$1.md"
   git -C "$wt" "${git_id[@]}" commit -q -m "tada($1) $2"
@@ -150,6 +166,26 @@ fail_stage() {  # fail_stage <base>
   git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
   git -C "$wt" "${git_id[@]}" commit -q -m "doom-drop($1)"
+  git -C "$wt" push -q origin "HEAD:$BRANCH"
+  rm -rf "$wt"
+}
+
+# Preserve/restore an active record around a terminal tick. Restoring it models a
+# lost finish CAS after the GitHub comment already landed: the next tick re-drives
+# the SAME terminal transition, and the hidden marker must suppress a second post.
+save_gauntlet_record() {  # save_gauntlet_record <base>
+  rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
+  cp "$V/jobs/gauntlet/$1.md" "$TR/$1-record.md"
+}
+restore_gauntlet_record() {  # restore_gauntlet_record <base>
+  local wt tada_path
+  wt="$(mktemp -d "$TR/edit.XXXXXX")"
+  git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+  tada_path="$(fixture_tada_file "$wt" "$1" || true)"
+  [ -z "$tada_path" ] || git -C "$wt" rm -q "${tada_path#"$wt/"}"
+  cp "$TR/$1-record.md" "$wt/jobs/gauntlet/$1.md"
+  git -C "$wt" add "jobs/gauntlet/$1.md"
+  git -C "$wt" "${git_id[@]}" commit -q -m "fixture: restore gauntlet $1 after lost finish CAS"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
 }
@@ -273,6 +309,7 @@ complete_stage g3-panel-2 panel=must-fix
 tick   # fix-2
 { in_dir jobs/todo g3-fix-2; } || bad "nonconverge: g3-fix-2 not posted"
 complete_stage g3-fix-2 fix=done
+save_gauntlet_record g3
 tick   # fix-2 done + CI green → panel-3 would exceed the review budget
 { ! in_dir jobs/todo g3-panel-3 && in_dir jobs/tada g3 && ! in_dir jobs/gauntlet g3; } \
   && ok "did NOT post panel-3 (> max_iterations); closed the record for human decision" \
@@ -291,6 +328,21 @@ board inbox/maintainer/unread >/dev/null
     && ! grep -rqi 'HALTED' "$V/inbox/maintainer/unread" 2>/dev/null; } \
   && ok "review exhaustion surfaced as a quiet INFO human-decision notice" \
   || bad "nonconverge: no quiet review-budget notice (inbox: $(ls "$V/inbox/maintainer/unread" 2>/dev/null))"
+g3_comment="$(terminal_comment_body g3 review-budget-reached)"
+{ [ "$(terminal_comment_count g3 review-budget-reached)" = 1 ] \
+    && printf '%s' "$g3_comment" | grep -Fq '**Gauntlet terminal — review-budget-reached**' \
+    && printf '%s' "$g3_comment" | grep -Fq 'rounds run: 2' \
+    && printf '%s' "$g3_comment" | grep -Eq 'head `[0-9]{40}`' \
+    && printf '%s' "$g3_comment" | grep -Fq 'CI: green' \
+    && printf '%s' "$g3_comment" | grep -Fq 'last panel unaddressed must-fix: 2' \
+    && printf '%s' "$g3_comment" | grep -Fq 'awaiting maintainer merge/undraft or re-run decision'; } \
+  && ok "review-budget terminal status posted once with the visible loop-status floor" \
+  || bad "nonconverge: wrong/missing terminal PR comment: [$g3_comment]"
+restore_gauntlet_record g3
+tick   # same terminal transition re-driven after a simulated lost finish CAS
+[ "$(terminal_comment_count g3 review-budget-reached)" = 1 ] \
+  && ok "review-budget marker keeps the comment single when a later tick re-drives the terminal transition" \
+  || bad "nonconverge: terminal PR comment duplicated across ticks"
 
 # ============================================================================
 hr; echo "SUBTEST 4 — STAGEFAIL: a vanished stage halts the run + surfaces"; hr
@@ -298,6 +350,7 @@ post_gauntlet --max-stage-retries 0 g4 https://github.com/testowner/testrepo/pul
 
 tick   # post g4-clean
 in_dir jobs/todo g4-clean || bad "stagefail: g4-clean not posted"
+save_gauntlet_record g4
 fail_stage g4-clean   # vanishes without a tada report (reaper doomed it)
 tick   # detect failure → HALT
 { in_dir jobs/tada g4 && ! in_dir jobs/gauntlet g4; } \
@@ -310,6 +363,19 @@ board inbox/maintainer/unread >/dev/null
 grep -rqi 'HALTED' "$V/inbox/maintainer/unread" 2>/dev/null \
   && ok "stage failure surfaced to the maintainer inbox" \
   || bad "stagefail: no maintainer note"
+g4_comment="$(terminal_comment_body g4 halted)"
+{ [ "$(terminal_comment_count g4 halted)" = 1 ] \
+    && printf '%s' "$g4_comment" | grep -Fq '**Gauntlet terminal — halted**' \
+    && printf '%s' "$g4_comment" | grep -Fq 'rounds run: 0' \
+    && printf '%s' "$g4_comment" | grep -Fq 'CI: green' \
+    && printf '%s' "$g4_comment" | grep -Fq 'halt reason:'; } \
+  && ok "halt terminal status posted once with its reason and visible loop status" \
+  || bad "stagefail: wrong/missing terminal PR comment: [$g4_comment]"
+restore_gauntlet_record g4
+tick   # same terminal transition re-driven after a simulated lost finish CAS
+[ "$(terminal_comment_count g4 halted)" = 1 ] \
+  && ok "halt marker keeps the comment single when a later tick re-drives the terminal transition" \
+  || bad "stagefail: terminal PR comment duplicated across ticks"
 
 # ============================================================================
 hr; echo "SUBTEST 5 — PROBE: a kind:probe gauntlet passes the panel but NEVER un-drafts"; hr
@@ -483,6 +549,24 @@ g13_halt="$(tada_body g13)"
     && printf '%s' "$g13_halt" | grep -qi 'panel-error'; } \
   && ok "the exhaustion halt names the spent stage budget and the panel-error sensor failure" \
   || bad "panelerror-exhaust: halt summary does not name the budget/sensor failure: [$g13_halt]"
+
+# ============================================================================
+hr; echo "SUBTEST 13 — COMMENT FAILURE: a gh write failure never blocks terminal finish"; hr
+post_gauntlet --max-stage-retries 0 g14 https://github.com/testowner/testrepo/pull/14
+tick   # post g14-clean
+fail_stage g14-clean
+touch "$GAUNTLET_GH_FAIL_WRITES_FILE"
+tick   # halt; comment write fails, journal finish must still land
+rm -f "$GAUNTLET_GH_FAIL_WRITES_FILE"
+{ in_dir jobs/tada g14 && ! in_dir jobs/gauntlet g14; } \
+  && ok "failed terminal PR comment did not block halt finish" \
+  || bad "comment-failure: gauntlet did not finish after gh write failure"
+[ "$(terminal_comment_count g14 halted)" = 0 ] \
+  && ok "failed gh write left no false terminal-comment receipt" \
+  || bad "comment-failure: stub unexpectedly recorded a comment"
+grep -q "WARN: gauntlet 'g14': terminal PR status comment failed" "$TR/tick.log" \
+  && ok "failed terminal PR comment surfaced a WARN" \
+  || bad "comment-failure: missing WARN in tick log"
 
 # ============================================================================
 hr

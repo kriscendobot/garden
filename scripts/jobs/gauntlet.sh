@@ -238,6 +238,106 @@ gauntlet_notify() {  # <subject> ; body on stdin
     log "gauntlet notify to maintainer failed (non-fatal): $subject"
 }
 
+# Leave one PR-visible loop-status receipt when a gauntlet stops without reaching
+# its ordinary panel-pass/undraft end. The marker makes the write idempotent when
+# finish_gauntlet loses its journal CAS after the comment lands and the next tick
+# re-drives the same terminal transition. Both reads and the write use the fleet gh
+# path (the bot-identity wrapper in production; GARDEN_GH is the hermetic test seam).
+# Every failure is best-effort: terminalizing the journal record must not depend on
+# GitHub being readable or writable.
+gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted> <reason> <record-file>
+  local base="$1" terminal_state="$2" reason="$3" rec="$4"
+  local repo prnum iter marker comments meta head ci pending bad total
+  local panel_tada="" must_fix_count="" must_fix_part="" next body gh_bin
+
+  repo="$(gauntlet_repo "$rec")"
+  prnum="$(gauntlet_pr_number "$rec")"
+  iter="$(gauntlet_iteration "$rec")"
+  if [ -z "$repo" ] || [ -z "$prnum" ]; then
+    log "WARN: gauntlet '$base': cannot post terminal PR status (missing repo/pr_number)"
+    return 0
+  fi
+  case "$iter" in ''|*[!0-9]*) iter="unknown";; esac
+
+  marker="<!-- garden-gauntlet-terminal-status: base=$base state=$terminal_state -->"
+  if ! comments="$(gh_api_retry --paginate "repos/$repo/issues/$prnum/comments" --jq '.[].body')"; then
+    log "WARN: gauntlet '$base': could not check for terminal PR status comment; skipping best-effort post to avoid a duplicate"
+    return 0
+  fi
+  if grep -Fq -- "$marker" <<<"$comments"; then
+    log "gauntlet '$base': terminal PR status already posted ($terminal_state)"
+    return 0
+  fi
+
+  head="unknown (GitHub metadata unreadable)"
+  ci="unknown"
+  if meta="$(gh_pr_view_retry "$prnum" -R "$repo" --json headRefOid,statusCheckRollup)"; then
+    head="$(printf '%s' "$meta" | jq -r '.headRefOid // empty' 2>/dev/null || true)"
+    [ -n "$head" ] || head="unknown (not reported)"
+    total="$(printf '%s' "$meta" | jq -r '[.statusCheckRollup[]?] | length' 2>/dev/null || echo unknown)"
+    pending="$(printf '%s' "$meta" | jq -r '
+      [.statusCheckRollup[]?
+       | ((.status // .state // "") | ascii_upcase) as $s
+       | select($s=="QUEUED" or $s=="IN_PROGRESS" or $s=="PENDING"
+                or $s=="WAITING" or $s=="REQUESTED" or $s=="EXPECTED")]
+      | length' 2>/dev/null || echo unknown)"
+    bad="$(printf '%s' "$meta" | jq -r '
+      [.statusCheckRollup[]?
+       | ((.conclusion // .state // "") | ascii_upcase) as $c
+       | select($c=="FAILURE" or $c=="ERROR" or $c=="CANCELLED"
+                or $c=="TIMED_OUT" or $c=="ACTION_REQUIRED" or $c=="STARTUP_FAILURE")]
+      | length' 2>/dev/null || echo unknown)"
+    if [[ "$pending" =~ ^[0-9]+$ ]] && [ "$pending" -gt 0 ]; then
+      ci="pending"
+    elif [[ "$bad" =~ ^[0-9]+$ ]] && [ "$bad" -gt 0 ]; then
+      ci="red"
+    elif [ "$total" = 0 ]; then
+      ci="no checks reported"
+    elif [[ "$total" =~ ^[0-9]+$ ]]; then
+      ci="green"
+    fi
+  else
+    log "WARN: gauntlet '$base': PR metadata unreadable while composing terminal status; posting with head/CI unknown"
+  fi
+
+  # A stage report may preserve panel.sh's compact `must-fix items (N):` line.
+  # It is deliberately optional: panel reports predate this receipt and are not a
+  # guaranteed metrics interface, so omit the field rather than inventing a count.
+  if [[ "$iter" =~ ^[0-9]+$ ]] && [ "$iter" -gt 0 ]; then
+    panel_tada="$(tada_find "$DIR" "$base-panel-$iter" || true)"
+    if [ -n "$panel_tada" ]; then
+      must_fix_count="$(sed -nE 's/.*must-fix items \(([0-9]+)\).*/\1/p' "$DIR/$panel_tada" 2>/dev/null | tail -1)"
+      [[ "$must_fix_count" =~ ^[0-9]+$ ]] \
+        && must_fix_part=" · last panel unaddressed must-fix: $must_fix_count"
+    fi
+  fi
+
+  case "$terminal_state" in
+    review-budget-reached)
+      next="awaiting maintainer merge/undraft or re-run decision";;
+    halted)
+      next="maintainer action required; halt reason: $reason";;
+    *)
+      log "WARN: gauntlet '$base': unknown terminal comment state '$terminal_state'"
+      return 0;;
+  esac
+
+  body="$(mktemp "${TMPDIR:-/tmp}/gauntlet-terminal-comment.XXXXXX")"
+  {
+    printf '%s\n' "$marker"
+    printf '**Gauntlet terminal — %s** · rounds run: %s · head `%s` · CI: %s%s · next: %s\n' \
+      "$terminal_state" "$iter" "$head" "$ci" "$must_fix_part" "$next"
+  } > "$body"
+  gh_bin="${GARDEN_GH:-gh}"
+  if ! "$gh_bin" pr comment "$prnum" -R "$repo" --body-file "$body" >/dev/null 2>&1; then
+    log "WARN: gauntlet '$base': terminal PR status comment failed (non-fatal; state=$terminal_state)"
+  else
+    log "gauntlet '$base': posted terminal PR status ($terminal_state)"
+  fi
+  rm -f "$body"
+  return 0
+}
+
 # --- panel-provider quota/admission pre-gate --------------------------------
 # panel_provider_admits — deterministic pre-post admission check for the panel stage.
 # Returns 0 (POST the panel) when the panel provider still has usable quota; returns
@@ -358,6 +458,7 @@ halt_gauntlet() {  # <base> <reason>
     printf '# gauntlet %s — HALTED\n\n' "$base"
     printf '%s\n' "$reason"
   } > "$sf"
+  gauntlet_terminal_comment "$base" halted "$reason" "$rec"
   finish_gauntlet "$base" "$sf" || log "gauntlet '$base': halt-finish failed; retrying next tick"
   printf 'Gauntlet %s HALTED: %s\n' "$base" "$reason" | gauntlet_notify "$base-halted"
   log "gauntlet '$base': HALTED — $reason"
@@ -370,13 +471,15 @@ halt_gauntlet() {  # <base> <reason>
 # that useful terminal outcome as a non-failure and hand the remaining judgement
 # to a human; downstream gates therefore see an ordinary completed tada report.
 finish_review_budget_reached() {  # <base> <reason>
-  local base="$1" reason="$2" sf
+  local base="$1" reason="$2" sf rec
   sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-review-budget.XXXXXX")"
+  rec="$DIR/$JOBS_GAUNTLET/$base.md"
   {
     printf 'gauntlet-status: review-budget-reached\n'
     printf '# gauntlet %s — review budget reached\n\n' "$base"
     printf '%s\n' "$reason"
   } > "$sf"
+  gauntlet_terminal_comment "$base" review-budget-reached "$reason" "$rec"
   finish_gauntlet "$base" "$sf" \
     || log "gauntlet '$base': review-budget finish failed; retrying next tick"
   printf 'INFO: Gauntlet %s review budget reached: %s\n' "$base" "$reason" \

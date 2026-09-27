@@ -326,6 +326,13 @@ handoff, replying on inline review threads, posting top-level PR comments) per
   never makes a flow decision from a label alone — it keys on actual GitHub state
   (draft? has reviews? CI green?). Labels can be added or omitted without
   affecting correctness.
+- **Terminal exceptions are visible in the PR thread.** When the staged gauntlet
+  reaches `review-budget-reached` or `HALTED`, `gauntlet.sh` posts one idempotent
+  top-level loop-status comment as the bot. It names the rounds run, current head,
+  CI state, the last panel's unaddressed must-fix count when the stage report makes
+  it derivable, and the maintainer's next decision (or the halt reason). The same
+  terminal event is still recorded in `jobs/tada/` and surfaced to the maintainer
+  inbox; the PR comment is the reviewer-visible receipt.
 
 ## Output
 
