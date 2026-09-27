@@ -70,6 +70,7 @@ the gate reliably. The immediate unstick of the leader itself is a separate
 maintainer decision (emergency GARDEN_DEPLOY_TEST_OVERRIDE=1 deploy) escalated
 separately by job upgrade-fleet-to-main2-uniform-20260918.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
