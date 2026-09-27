@@ -2,7 +2,7 @@
 slug: prefer-endo-primitives
 category: style-convention
 status: improvement-dispatched
-count: 6
+count: 7
 members:
   - endojs-endo-but-for-bots-pr671-review-9737517c
   - endojs-endo-but-for-bots-pr755-review-a0778b2e
@@ -10,10 +10,12 @@ members:
   - endojs-endo-but-for-bots-pr836-review-3e0d6210
   - endojs-endo-but-for-bots-pr877-review-1eec395e
   - endojs-endo-but-for-bots-pr882-review-4a754464
-prs: [671, 755, 824, 836, 877, 882]
+  - endojs-endo-but-for-bots-pr1336-review-b8dfc07e
+prs: [671, 755, 824, 836, 877, 882, 1336]
 improvement_job: review-improve-prefer-endo-primitives
 improved_by: main2 37b04ec909: roles/builder/AGENT.md (@endo-utilities directive) + roles/jurors/purist/AGENT.md (reuse-over-reimplementation axis)
 ---
+
 
 
 
