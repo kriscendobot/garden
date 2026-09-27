@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-09-27T07:47:05Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-improve-receipt-watcher-direct-dispatch
