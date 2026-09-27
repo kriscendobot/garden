@@ -58,6 +58,7 @@ regression case AND the causal fix, then amend the ONE standing pull request.
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=23 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
