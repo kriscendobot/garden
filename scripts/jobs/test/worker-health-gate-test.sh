@@ -364,6 +364,96 @@ else
   bad "$n5 error entries on a healthy run, expected 0"
 fi
 
+# ============================================================================
+hr; echo "SUBTEST 6 — MODEL-UNSUPPORTED: a resolvable-but-too-old CLI parks the pool until the installed version CHANGES"; hr
+
+# Regression (the oros-studio work-sink, 2026-09-27): Claude Code 2.1.267
+# predated the mentor map's claude-opus-5-5, so every mentor claim died in 6–17s
+# with an instant API 400 ("does not support this model; version 2.1.280 or
+# newer is required") classified as a transient blip — 52 claims, 2 completions,
+# 49 doomed in 6h — while the gate saw a perfectly resolvable binary. The latch
+# records the INSTALLED version; the episode ends only when that string changes.
+
+export GARDEN_STATE="$TR/state6"
+export GARDEN_WORKER_HEALTH_DIR="$GARDEN_STATE/health"
+export GARDEN_NO_MAINTAINER_ALERT=1
+export GARDEN=modelhost
+REPORTS6="$TR/reports6"; : > "$REPORTS6"
+_worker_health_report() { printf '%s %s\n' "$3" "$1" >> "$REPORTS6"; }
+
+# (a) the matcher recognizes the real wordings, and not overload text.
+m400='API Error: 400 Claude Code 2.1.267 does not support this model; version 2.1.280 or newer is required.'
+mwarn='[claude-code:unrecognized_model] {"model":"claude-opus-5-5","query_source":"sdk"}'
+mcat="\"claude-opus-5-5\" isn't described by this version's model catalog; update Claude Code"
+if is_model_unsupported_signature "$m400" && is_model_unsupported_signature "$mwarn" && is_model_unsupported_signature "$mcat"; then
+  ok "is_model_unsupported_signature matches the API 400, the CLI warning, and the catalog wording"
+else
+  bad "is_model_unsupported_signature missed a real wording"
+fi
+if is_model_unsupported_signature 'API Error: 529 overloaded'; then
+  bad "overload text matched the model-unsupported subset (would park hosts on ordinary blips)"
+else
+  ok "overload text does NOT match the model-unsupported subset"
+fi
+
+# (b) latch with a resolvable, versioned stub → the gate REFUSES though the
+# binary probes healthy, reports ONCE, and repeats are silent.
+mkdir -p "$TR/oldcli"
+printf '#!/bin/sh\n[ "${1:-}" = --version ] && { echo "2.1.267 (Claude Code)"; exit 0; }\nexit 0\n' > "$TR/oldcli/claude"
+chmod +x "$TR/oldcli/claude"
+export GARDEN_CLAUDE_BIN="$TR/oldcli/claude"
+MARKER6="$(worker_health_marker monk)"
+worker_model_unsupported_latch monk 1 claude-opus-5-5
+if [ -d "$MARKER6" ] && [ "$(cat "$MARKER6/reason" 2>/dev/null)" = model-unsupported ]; then
+  ok "the latch opened a model-unsupported episode (reason recorded)"
+else
+  bad "no model-unsupported marker latched"
+fi
+if [ "$(cat "$MARKER6/cli-version" 2>/dev/null)" = "2.1.267 (Claude Code)" ]; then
+  ok "the INSTALLED CLI version is recorded verbatim in the marker"
+else
+  bad "recorded cli-version is '$(cat "$MARKER6/cli-version" 2>/dev/null)', expected the stub's"
+fi
+if worker_health_gate monk 1 2>/dev/null; then
+  bad "the gate PERMITTED a claim though the CLI is too old for the tier model"
+else
+  ok "the gate refuses to claim on a model-unsupported episode (binary resolvable or not)"
+fi
+worker_model_unsupported_latch monk 2 claude-opus-5-5
+for i in 2 3 4; do worker_health_gate monk "$i" 2>/dev/null || true; done
+n6="$(grep -c '^unhealthy ' "$REPORTS6" || true)"
+if [ "${n6:-0}" -eq 1 ]; then
+  ok "exactly ONE unhealthy report across repeated latches and ticks (edge, not per tick)"
+else
+  bad "$n6 unhealthy reports, expected exactly 1"
+fi
+if [ -d "$MARKER6" ]; then
+  ok "the episode survives ticks while the installed version is unchanged (same-version reinstall does not clear it)"
+else
+  bad "the episode marker vanished without a version change"
+fi
+
+# (c) the installed version CHANGES (the update landing) → the gate permits,
+# clears the marker, and reports recovery exactly once.
+printf '#!/bin/sh\n[ "${1:-}" = --version ] && { echo "2.1.283 (Claude Code)"; exit 0; }\nexit 0\n' > "$TR/oldcli/claude"
+chmod +x "$TR/oldcli/claude"
+if worker_health_gate monk 1 2>/dev/null; then
+  ok "the gate permits claiming once the installed CLI version differs from the recorded one"
+else
+  bad "the gate still refuses after the CLI was updated"
+fi
+[ -d "$MARKER6" ] && bad "the model-unsupported marker survived the version change" || ok "the marker is cleared on the version change"
+for i in 2 3 4; do worker_health_gate monk "$i" 2>/dev/null || true; done
+n6="$(grep -c '^healthy ' "$REPORTS6" || true)"
+if [ "${n6:-0}" -eq 1 ]; then
+  ok "exactly ONE recovery report (edge, not per tick)"
+else
+  bad "$n6 recovery reports, expected exactly 1"
+fi
+
+unset -f _worker_health_report
+unset GARDEN_CLAUDE_BIN GARDEN_WORKER_HEALTH_DIR
+
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

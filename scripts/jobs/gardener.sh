@@ -1258,6 +1258,28 @@ while :; do
       fi
     fi
 
+    # HOST SELF-DISQUALIFICATION on a CLI-too-old-for-model rejection
+    # (is_model_unsupported_signature: Claude Code's unrecognized_model warning /
+    # the API's "does not support this model; version N or newer is required"
+    # instant 400). The failure is TRANSIENT FOR THE JOB — an up-to-date host
+    # runs it unchanged, so force the requeue classification even when the
+    # elapsed floor above read the fast death as a deterministic job defect —
+    # but DETERMINISTIC FOR THIS HOST: every claim resolving to that model dies
+    # in seconds, and a fast-failing host wins claim races and drains the board
+    # (the ps23 shape; oros-studio 2026-09-27: 52 claims, 2 completions, 49
+    # doomed in 6h on a 2.1.267 CLI racing the claude-opus-5-5 mentor map, which
+    # the health gate could not see — the binary resolved fine). Latch the
+    # pre-claim gate; it un-parks by itself when the installed version changes.
+    # declare -F guards a stale-base common.sh missing the helpers (the
+    # a0cd3eae13 clobber shape): without them, classification stands as-is.
+    if declare -F is_model_unsupported_signature >/dev/null 2>&1 \
+        && declare -F worker_model_unsupported_latch >/dev/null 2>&1 \
+        && is_model_unsupported_signature "$(tail -c 65536 "$capture" 2>/dev/null)"; then
+      transient=1
+      worker_model_unsupported_latch "$KIND" "$id" \
+        "$(sed -n "s/.*resolved tier '[^']*' -> .* --model \([^ ]*\).*/\1/p" "$capture" 2>/dev/null | head -n1)" || true
+    fi
+
     if [ "$transient" -eq 1 ]; then
       append_usage requeue
       # Classify the cycle as an outage BEFORE any reason-specific counter is

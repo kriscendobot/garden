@@ -1930,16 +1930,63 @@ _worker_health_report() {
   return 0
 }
 
+# worker_cli_version <kind> — first line of `<agent-cli> --version` for the
+# kind's resolved agent CLI; empty when the CLI cannot be resolved or run. The
+# value is compared VERBATIM (never parsed), so any CLI's format works and any
+# change in it — upgrade, downgrade, reinstall to a different build — reads as
+# "the installed CLI changed".
+worker_cli_version() {
+  local cli
+  cli="$(worker_health_probe "${1:?worker_cli_version: kind required}" 2>/dev/null)" || return 0
+  [ -n "$cli" ] || return 0
+  "$cli" --version 2>/dev/null | head -n1 || true
+}
+
+# worker_model_unsupported_latch <kind> <id> [model] — open an unhealthy episode
+# because the kind's agent CLI is TOO OLD for the model this host's claims
+# resolve to (is_model_unsupported_signature). The plain CLI-missing episode
+# clears as soon as the binary resolves — which this one always does, the binary
+# was never the problem — so the marker records reason=model-unsupported plus
+# the INSTALLED CLI version, and worker_health_gate keeps the pool parked until
+# the version string on disk CHANGES (a `claude update` / reinstall), then
+# recovers normally. mkdir is the atomic edge exactly as in the gate: the first
+# failed handler latches and reports once, repeats are silent.
+worker_model_unsupported_latch() {
+  local kind="${1:?worker_model_unsupported_latch: kind required}" id="${2:-0}" model="${3:-}" marker ver
+  marker="$(worker_health_marker "$kind")"
+  ver="$(worker_cli_version "$kind")"
+  mkdir -p "$GARDEN_WORKER_HEALTH_DIR" 2>/dev/null || true
+  if mkdir "$marker" 2>/dev/null; then
+    printf 'model-unsupported\n' > "$marker/reason" 2>/dev/null || true
+    printf '%s\n' "${ver:-unknown}" > "$marker/cli-version" 2>/dev/null || true
+    if [ -n "$model" ]; then printf '%s\n' "$model" > "$marker/model" 2>/dev/null || true; fi
+    date -u +%FT%TZ > "$marker/since" 2>/dev/null || true
+    _worker_health_report "$kind" "$id" unhealthy "resolvable, but TOO OLD for ${model:-the model this host resolves claims to}: installed '${ver:-unknown version}'; every claim resolving to that model dies in seconds with an API 400. Update the agent CLI on $GARDEN — the pool un-parks by itself when the installed version changes"
+  fi
+}
+
 # worker_health_gate <kind> <id> — THE PRE-CLAIM GATE. Returns 0 when this worker
 # may claim, 1 when it must not. Idempotent and cheap on the happy path: one probe
 # plus one directory test, no fork, no journal traffic, so a healthy fleet behaves
 # exactly as it did before this existed.
 worker_health_gate() {
-  local kind="${1:?worker_health_gate: kind required}" id="${2:-0}" marker cli name claimed
+  local kind="${1:?worker_health_gate: kind required}" id="${2:-0}" marker cli name claimed cur rec
   [ "${GARDEN_WORKER_HEALTH_GATE:-1}" = 0 ] && return 0
   marker="$(worker_health_marker "$kind")"
   name="$(worker_agent_bin "$kind" 2>/dev/null || true)"
   if cli="$(worker_health_probe "$kind" 2>/dev/null)"; then
+    # A MODEL-UNSUPPORTED episode outlives a resolvable binary: the CLI is on
+    # PATH yet too old for the model this host's claims resolve to (see
+    # worker_model_unsupported_latch above). It closes only when the INSTALLED
+    # version differs from the one recorded at latch time — an update/reinstall
+    # is the cure, and the pool un-parks by itself on the first tick after it.
+    if [ -d "$marker" ] && [ "$(cat "$marker/reason" 2>/dev/null)" = model-unsupported ]; then
+      cur="$(worker_cli_version "$kind")"
+      rec="$(cat "$marker/cli-version" 2>/dev/null)"
+      if [ -z "$cur" ] || [ "$cur" = "$rec" ]; then
+        return 1
+      fi
+    fi
     # HEALTHY. Fast path when no episode is open. When one IS open, exactly one
     # worker wins the recovery report: the rename succeeds for the first caller
     # only, and every later caller finds the marker already gone.
@@ -5152,6 +5199,28 @@ is_transient_claude_signature() {
 # replacement (anything matching this also matches the transient set).
 is_explicit_cap_signature() {
   printf '%s' "$1" | grep -qiE "$GARDEN_EXPLICIT_CAP_SIGNATURES"
+}
+
+# MODEL-UNSUPPORTED subset: the installed agent CLI is TOO OLD for the model the
+# claim resolved to. Claude Code prints `[claude-code:unrecognized_model]` and a
+# "isn't described by this version's model catalog" warning locally, and the API
+# rejects the call with "Claude Code X.Y.Z does not support this model; version
+# A.B.C or newer is required" — an instant 400, zero tokens, dead in seconds.
+# The generic `api error` alternative above classifies that TRANSIENT and the
+# job requeues — right for the JOB (an up-to-date host runs it unchanged) but a
+# disaster for the HOST, which keeps winning claim races with second-long
+# failures and drains the board (the ps23 work-sink shape; oros-studio
+# 2026-09-27: 52 claims, 2 completions, 49 doomed in 6h on a 2.1.267 CLI racing
+# the claude-opus-5-5 mentor map, while the health gate saw a perfectly
+# resolvable binary). gardener.sh pairs this matcher with
+# worker_model_unsupported_latch so the host parks itself instead.
+: "${GARDEN_MODEL_UNSUPPORTED_SIGNATURES:=unrecognized_model|does not support this model|model catalog}"
+
+# Classify a failed handler's combined output ($1) as a CLI-too-old-for-model
+# rejection (returns 0). Callers keep the job transient (requeue to a healthy
+# host) and latch THIS host's pre-claim gate. Case-insensitive.
+is_model_unsupported_signature() {
+  printf '%s' "$1" | grep -qiE "$GARDEN_MODEL_UNSUPPORTED_SIGNATURES"
 }
 
 # Classify a handler exit code ($1) as an EXTERNAL signal-kill: SIGTERM (143),
