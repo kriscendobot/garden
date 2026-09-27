@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1298
 build_job: ironhorse-fuzz-197b32cc30bdd4fe-repair
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1298-gauntlet-viability
+current_child: endojs-endo-but-for-bots-pr1298-gauntlet-clean
 state: running
 created_by: gardener
 created_at: 2026-09-27T08:32:36Z
