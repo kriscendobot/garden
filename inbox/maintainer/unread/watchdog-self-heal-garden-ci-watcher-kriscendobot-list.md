@@ -1,13 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:self-heal-claude
-sent_at: 2026-09-27T05:12:37Z
+sent_at: 2026-09-27T06:26:37Z
 watchdog_key: self-heal-garden-ci-watcher-kriscendobot-list
-notice_count: 4
+notice_count: 6
 first_seen: 2026-09-27T01:56:23Z
-last_seen: 2026-09-27T05:12:37Z
+last_seen: 2026-09-27T06:26:37Z
 ---
-WATCHDOG notice — occurrence #4 (first seen 2026-09-27T01:56:23Z, latest 2026-09-27T05:12:37Z).
-The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-list`) has now been observed 4 times; this is ONE
-coalesced notice that updates in place, not 4 messages. Latest detail:
+WATCHDOG notice — occurrence #6 (first seen 2026-09-27T01:56:23Z, latest 2026-09-27T06:26:37Z).
+The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-list`) has now been observed 6 times; this is ONE
+coalesced notice that updates in place, not 6 messages. Latest detail:
 
-self-heal: garden-ci-watcher@kriscendobot-list exited rc=1 with no scoped fix. Capture: 83408b72cc1c8b1bd3bf710422dd5faf60df3871 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 83408b72cc1c8b1bd3bf710422dd5faf60df3871). Diagnosis: This is a confirmed deploy-lag case, not a new defect. The failure signature — `garden-ci-watcher@kriscendobot-list` FATAL `cannot acquire clone lock .../verify.lock after 3 waits of 60s` — is exactly the shared-VERIFY-clone-lock contention bug already fixed on `origin/main2` by `5620bdbe5f6` (per-slug clone isolation) and `e6ea1d33fc8` (soft-skip on live-holder contention instead of loud FATAL), both committed 2026-09-27T00:01Z. The root checkout (`HEAD`) is still pinned at `47b41af5a14` from 2026-09-26T12:42Z, ~15 hours before the fix landed on `main2`, so this instance simply hasn't received the deliberate deploy yet. Posting another `self-heal-fix-*` job would duplicate already-merged work; the correct remedy is the existing deploy pipeline picking this host up on its next `upgrade
+self-heal: garden-ci-watcher@kriscendobot-list exited rc=1 with no scoped fix. Capture: e611ea92414fc1890a18303b9cca27762db5f429 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e611ea92414fc1890a18303b9cca27762db5f429). Diagnosis: No JOB block — this is deploy lag, not a defect. The rolling deploy will clear it once it rolls this host's root checkout forward to `origin/main2`; I appended this occurrence to the existing deploy-lag memory rather than re-diagnosing.
