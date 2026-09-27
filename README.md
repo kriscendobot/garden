@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:37:53Z_
+_As of 2026-09-27T07:40:47Z_
 
 ## Latest
 
@@ -781,6 +781,24 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
 > root repo /home/kris/garden deploy has been STALLED for ~0d / 25 commits behind (leader commits-fuse 25): deployed sha 47b41af5a14d9154b86fc7444ce829f99d2b9795 is 25 commit(s) behind origin/main2 (c942c685af2289f7a69820ecd57e22e0f53249ee) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. This host is the LEADER: it runs every singleton producer (foreman, scheduler, watchers), so while it is stale it is NOT honoring any directive newer than its deployed sha — a PROJECT PAUSE among them. This is the shape that let a stale leader run ~60 IronHorse fuzz jobs a week after the 09-09 pause (designs/project-pause-enforcement.md). DEPLOY IT. (host=endolin-garden-ece02cb4)
+
+- `msg-foreman-requiesce-target-0-d86350033dab` — from gardener:foreman-requiesce-target-0, reply_to `foreman-requiesce-target-0` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-foreman-requiesce-target-0-d86350033dab.md)
+
+> STALE-JOB CONFLICT — not applying, need your call.
+>
+> Job `foreman-requiesce-target-0` (your 2026-09-17 directive: set
+> GARDEN_FOREMAN_ACTIVE_TARGET 2 -> 0 for a full quiesce) was promoted from the
+> plan queue today at 07:34Z. But at 07:30Z today you raised the target 2 -> 10
+> (commit 0350fdd5bd "raise active-job target 2 -> 10 to saturate worker pool",
+> now HEAD/origin/main2), ~4 min before this job was promoted.
+>
+> Applying this job would silently revert that newer, on-point directive
+> (10 -> 0). I have NOT done so. The 2026-09-17 go-to-0 rationale was quota
+> pressure; your 2026-09-27 raise-to-10 explicitly makes
+> GARDEN_TOKEN_BACKOFF_FRACTION the spend brake instead of the concurrency cap.
+>
+> Leaving baseline at 10 (honoring the newest directive) and closing this stale
+> job as a no-op. If you still want a full quiesce to 0, re-post and I'll land it.
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-moddable` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-moddable.md)
 
@@ -1613,7 +1631,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.1M | $271.63 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 31.1M | $271.76 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 35.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56219348 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1625,24 +1643,23 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (4)
 - [`improve-budget-level-single-host-cap-freeze`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-budget-level-single-host-cap-freeze.md) — ---
 - [`improve-ci-watcher-primary-quota-cooldown-too-short`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-watcher-primary-quota-cooldown-too-short.md) — ---
-- [`improve-elapsed-constancy-escalation-include-capture`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-elapsed-constancy-escalation-include-capture.md) — ---
+- [`improve-receipt-watcher-direct-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-receipt-watcher-direct-dispatch.md) — ---
 - [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-watcher-outage-latch-flap-dedup.md) — ---
 
-### doin (6)
+### doin (5)
+- [`improve-elapsed-constancy-escalation-include-capture`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-elapsed-constancy-escalation-include-capture.md) — ---
 - [`claude-on-minion-town-press-20260927-072005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260927-072005.md) — Press the Claude-on-minion.town arc forward
 - [`fix-garden-ci-gauntlet-retry-viability-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-garden-ci-gauntlet-retry-viability-tests.md) — Fix the garden repo's own CI: two failing test suites, broken 3+ days
 - [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-build-follower-self-deploy.md) — Implement — the design's recommended path
-- [`foreman-requiesce-target-0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/foreman-requiesce-target-0.md) — Reduce the foreman's active-job target back to 0
 - [`groom-endo-roadmap-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-roadmap-20260927.md) — Full grooming pass: designs/README.md on endojs/endo-but-for-bots@llm
-- [`kriscendobot-minion.town-pr119-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr119-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #119
 
-### tada (9108)
+### tada (9110)
+- [`foreman-requiesce-target-0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/foreman-requiesce-target-0.md) — Completion report
+- [`kriscendobot-minion.town-pr119-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion.town-pr119-conduct.md) — Cost
 - [`mentat-garden-docs-refresh-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/mentat-garden-docs-refresh-20260927.md) — Cost
 - [`daily-progress-summary-20260927-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/daily-progress-summary-20260927-070504.md) — Cost
 - [`fix-worktree-sweeper-leader-only-misgating-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-worktree-sweeper-leader-only-misgating-20260919.md) — Completion report: fix-worktree-sweeper-leader-only-misgating
-- [`fix-minion-town-claude-harness-supply-chain-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-minion-town-claude-harness-supply-chain-hardening.md) — Cost
-- [`endojs-endo-but-for-bots-pr990-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr990-refresh.md) — Completion report: endojs-endo-but-for-bots-pr990-refresh
-- … and 9103 more
+- … and 9105 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1693,7 +1710,6 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr877-review-a8763cf9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-a8763cf9-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr982-0b4f9f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr982-0b4f9f5d-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #982 (primary: endojs-endo-but-f...
-- [`improve-receipt-watcher-direct-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-receipt-watcher-direct-dispatch.md) — _normal_ · ---
 - [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-retro-doom-escalation-noise.md) — _normal_ · ---
 - [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-self-heal-run-handler-deadline.md) — _normal_ · ---
 - [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-05264cccae42245a-repair.md) — _normal_ · Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
