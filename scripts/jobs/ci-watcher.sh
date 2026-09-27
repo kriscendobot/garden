@@ -79,12 +79,17 @@ export GARDEN_TAG="ci-watcher/$slug"
 : "${GARDEN_CI_PR_SOURCE:=$HERE/handlers/ci-pr-source-gh.sh}"
 : "${GARDEN_CI_ROLLUP:=$HERE/handlers/ci-rollup-gh.sh}"
 : "${GARDEN_CI_POST:=$HERE/post-job.sh}"
-: "${GARDEN_CI_VERIFY_CLONE:=$GARDEN_STATE/ci-watcher/verify}"
+# Keep both persistent journal clones per slug. All armed garden-ci-watcher@<slug>
+# instances tick concurrently; shared clones would serialize unrelated repositories
+# on the same sibling clone_lock and can exhaust the bounded lock-wait budget. Each
+# systemd instance is a singleton, so its per-slug clones have no concurrent users.
+# The set stays bounded at one pair per armed slug and is reused across ticks.
+: "${GARDEN_CI_VERIFY_CLONE:=$GARDEN_STATE/ci-watcher/verify-$slug}"
 VERIFY="$GARDEN_CI_VERIFY_CLONE"
 # A write clone for the stale-shepherd re-validation sweep (below): it moves a stale
 # auto-shepherd todo/→tada/ with a CAS push, so it needs a working tree of its own,
 # distinct from the read-only VERIFY clone and from post-job.sh's producer clone.
-: "${GARDEN_CI_RETIRE_CLONE:=$GARDEN_STATE/ci-watcher/retire}"
+: "${GARDEN_CI_RETIRE_CLONE:=$GARDEN_STATE/ci-watcher/retire-$slug}"
 RETIRE="$GARDEN_CI_RETIRE_CLONE"
 # Bound the PR-source enumeration so a hung gh/git can never outlive the tick.
 : "${GARDEN_CI_SOURCE_TIMEOUT_SECS:=180}"
