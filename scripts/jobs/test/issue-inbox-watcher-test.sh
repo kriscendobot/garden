@@ -560,5 +560,41 @@ grep -q 'retry deadline reached' "$ERR_CD" \
   || bad "deadline WARN missing ($(cat "$ERR_CD"))"
 
 # ============================================================================
+hr; echo "CURSOR-GET — a LOUD (non-75) cursor-get failure fails OPEN, never fatal"; hr
+# Regression (df83fca2355, generalizing triager.sh b320648e47): the cursor READ at
+# issue-inbox-watcher.sh:507 was once a bare command substitution under `set -euo
+# pipefail`. cursor-get.sh's sync_clone/ensure_clone `exit`s non-zero on any journal
+# read failure — GARDEN_OFFLINE_RC=75 on a classified outage (the quiet-skip path the
+# tick-bounds suite's cases D/E already cover via a wedged cursor-IO lock), but a plain
+# LOUD rc (e.g. rc=1 for a positively-identified missing/gone upstream) when the fault
+# is a definite defect, not weather. A bare substitution let that non-zero rc trip the
+# watcher's own `set -e` and kill the whole tick with no WARN — the exact silent exit-1
+# crash the fix captured. The guard now WARN-and-exits 0 on ANY nonzero rc (a cursor is
+# best-effort: it re-polls next tick and never loses data). Cases D/E prove the rc=75
+# QUIET skip; this proves the rc≠75 LOUD path — the WARN fires AND the tick still exits
+# 0 rather than crashing. We force a loud read by pointing the watcher at a NONEXISTENT
+# journal remote (never seeded): cursor-get's clone fails `repository … does not exist`,
+# which classifies as a definite (upstream-gone) failure and re-raises rc=1, not 75.
+FIX_CGL="$TR/fix-cgl.tsv"; PL_CGL="$TR/post-cgl.log"; ML_CGL="$TR/msg-cgl.log"; ERR_CGL="$TR/err-cgl.log"
+: >"$PL_CGL"; : >"$ML_CGL"
+row issue 2026-06-28T19:00:00Z 9401 47 kriskowal kriskowal open - - \
+  https://github.com/kriskowal/garden/issues/47 'an issue behind an unreadable cursor' > "$FIX_CGL"
+BARE_CGL="$TR/cgl-nonexistent.git"   # deliberately NOT seeded → cursor-get clone fails loud
+if run_watcher "$TR/state-cgl" "$BARE_CGL" "$FIX_CGL" "$PL_CGL" "$ML_CGL" "$ERR_CGL"; then
+  ok "loud cursor-get failure exits 0 (fail-open, not a fatal set -e crash)"
+else
+  bad "loud cursor-get failure crashed the tick (rc=$?; err=$(tail -3 "$ERR_CGL"))"
+fi
+grep -q "cursor read failed for issues/$SLUG (rc=" "$ERR_CGL" \
+  && ok "the loud (non-75) read logged the WARN naming the rc" \
+  || bad "no 'cursor read failed …' WARN — the loud path was silent (err=$(tail -3 "$ERR_CGL"))"
+grep -q '(rc=75)' "$ERR_CGL" \
+  && bad "the read was mis-latched as a quiet rc=75 outage, not a loud failure" \
+  || ok "the failure surfaced as a loud rc (not the rc=75 quiet-skip path)"
+[ ! -s "$PL_CGL" ] && [ ! -s "$ML_CGL" ] \
+  && ok "nothing dispatched behind the unreadable cursor (tick skipped cleanly)" \
+  || bad "dispatched despite the failed cursor read (post=$(cat "$PL_CGL") msg=$(cat "$ML_CGL"))"
+
+# ============================================================================
 report_result
 [ "$FAIL" -eq 0 ]
