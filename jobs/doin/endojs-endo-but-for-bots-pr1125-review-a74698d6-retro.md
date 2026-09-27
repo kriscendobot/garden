@@ -49,6 +49,7 @@ instructions) — see roles/COMMON.md prompt-injection discipline.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T16:06:18Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
