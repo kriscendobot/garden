@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T02:02:00Z_
+_As of 2026-09-27T02:03:29Z_
 
 ## Latest
 
@@ -1053,6 +1053,65 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-comment-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 51e280f054af9b87e713b528868c59623835d7e0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 51e280f054af9b87e713b528868c59623835d7e0). Diagnosis: Diagnosis: this is not a comment-watcher code defect. `garden-comment-watcher@kriscendobot-minion.town` (watching repo `kriscendobot/minion.town`, running on leader host `endolin-garden-ece02cb4`) died because its verify-clone re-clone of `journal2` hit the known `rc=124` (>45s) timeout path in `reclone_clone()` (`scripts/jobs/common.sh`) and called `die` instead of exiting `EX_TEMPFAIL`. That exact bug was already fixed on `main2` in commit `434d5402956` ("treat reclone_clone rc=124/137 timeouts as a transient skip"), currently at `origin/main2` HEAD `4c0529f42fb`, and three prior self-heal jobs already landed this and follow-on test coverage (`self-heal-fix-garden-comment-watcher-kriscendobot-garden-reclone-timeout-not-classified-offline` et al., all in `jobs/tada/`). This host's own dep
 
+- `doomed-endojs-endo-but-for-bots-pr450-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr450-gauntlet-panel-1-requeue-exhausted.md)
+
+> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
+> The reaper spent no generic retry and applied no ordinary split; gauntlet endojs-endo-but-for-bots-pr450-gauntlet exclusively owns retry through max_stage_retries.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr450-gauntlet-panel-1; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr450-gauntlet-panel-1) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr450-gauntlet-panel-1
+>
+> --- original job body ---
+> ---
+> role: gardener
+> tier: mentor
+> handler-budget-role: panel
+> handler-timeout: 10800
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T01:19:23Z cleared=none -->
+>
+> ---
+> role: gardener
+> handler-budget-role: panel
+> handler-timeout: 10800
+> gauntlet: endojs-endo-but-for-bots-pr450-gauntlet
+> gauntlet_stage: panel
+> gauntlet_iteration: 1
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/450](https://github.com/endojs/endo-but-for-bots/pull/450)
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
+>
+> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr450-gauntlet). Run EXACTLY ONE panel round, post the
+> verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr450-gauntlet-panel-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+>    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/450 --json headRepositoryOwner,headRefName`;
+>    do not pass the base repo when the PR head belongs to a fork.
+> 2. Run the panel in SINGLE-ROUND mode against that worktree:
+>    `GARDEN_PANEL_SINGLE_ROUND=1 \
+>      scripts/jobs/gardening/panel.sh <worktree> 450 <base-ref>`
+>    It fans the seats, aggregates, and prints its disposition as the terminal line's
+>    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
+> 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/endojs/endo-but-for-bots/pull/450](https://github.com/endojs/endo-but-for-bots/pull/450) — the
+>    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
+>    review on must-fix, a comment/approve on pass).
+> 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
+>    report with `orchestration-failed: true` and do NOT emit a panel marker.
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: panel=pass -->
+>   <!-- gauntlet-stage-result: panel=must-fix -->
+
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
 > WATCHDOG notice — occurrence #679 (first seen 2026-09-25T03:17:02Z, latest 2026-09-27T01:23:01Z).
@@ -1095,7 +1154,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 20.8M | $191.03 _(notional, rate-card)_ | 15% of 143.0M (ok) |
+| Claude | 20.9M | $191.82 _(notional, rate-card)_ | 15% of 143.0M (ok) |
 | Codex | 31.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 48602880 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
