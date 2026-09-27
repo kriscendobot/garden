@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1227 (merged)
@@ -22,13 +23,6 @@ URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 PR: https://github.com/endojs/endo-but-for-bots/pull/1227
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=9 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T09:41:00Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-27T10:03:09Z -->
