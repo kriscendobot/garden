@@ -34,8 +34,15 @@ mkdir -p "$SEED/jobs/todo" "$SEED/jobs/doin" "$SEED/jobs/tada" \
   "$SEED/work" "$SEED/cursors/receipts"
 for slug in kriscendobot-race1 kriscendobot-race2 kriscendobot-race3 \
             kriscendobot-race4 kriscendobot-race5 kriscendobot-race6 \
-            kriscendobot-source; do
+            kriscendobot-source \
+            kriscendobot-gena kriscendobot-genb kriscendobot-genc; do
   printf 'last_completed_at: 2026-09-01T00:00:00Z\n' > "$SEED/cursors/receipts/$slug"
+done
+# Mark PR #5 of each gen* slug as garden-worked (panel-runs record), so the direct
+# in-process generate path is reached for it (garden_worked_pr returns true).
+for slug in kriscendobot-gena kriscendobot-genb kriscendobot-genc; do
+  mkdir -p "$SEED/panel-runs/$slug-pr5"
+  touch "$SEED/panel-runs/$slug-pr5/.gitkeep"
 done
 touch "$SEED/jobs/todo/.gitkeep" "$SEED/jobs/doin/.gitkeep" \
   "$SEED/jobs/tada/.gitkeep" "$SEED/work/.gitkeep"
@@ -76,6 +83,35 @@ cat > "$TR/bin/structural-source" <<'EOF'
 #!/bin/bash
 echo 'jq: parse error: invalid schema returned by source' >&2
 exit 2
+EOF
+# Emits one garden-worked, completed-after-cursor PR (#5) so the per-PR generate path
+# is exercised. Same output for every gen* slug (the source ignores its repo arg).
+cat > "$TR/bin/gen-source" <<'EOF'
+#!/bin/bash
+printf '5\tMERGED\t2026-09-15T00:00:00Z\n'
+EOF
+# Stub generators (stand in for pr-receipt.sh) and a recording post stub (stands in for
+# post-job.sh), so the direct-vs-fallback dispatch is testable with no real gh/git.
+cat > "$TR/bin/gen-ok" <<EOF
+#!/bin/bash
+echo "\$@" >> "$TR/gen.log"
+exit 0
+EOF
+cat > "$TR/bin/gen-structural-fail" <<EOF
+#!/bin/bash
+echo "\$@" >> "$TR/gen.log"
+echo 'pr-receipt.sh: BUG: unexpected null in reputation ledger' >&2
+exit 1
+EOF
+cat > "$TR/bin/gen-transient-fail" <<EOF
+#!/bin/bash
+echo "\$@" >> "$TR/gen.log"
+exit 124
+EOF
+cat > "$TR/bin/post-record" <<EOF
+#!/bin/bash
+echo "\$1" >> "$TR/post.log"
+exit 0
 EOF
 cat > "$TR/gitbin/git" <<'EOF'
 #!/bin/bash
@@ -150,6 +186,19 @@ run_watch_default() {  # run_watch_default <slug> <stderr-file>
     GARDEN_CURSOR_CLONE="$CURSOR_CLONE" GARDEN_RECEIPT_PR_SOURCE="$TR/bin/empty-source" \
     GARDEN_RECEIPT_POST="$TR/bin/empty-source" GARDEN_FETCH_RETRIES=1 \
     GARDEN_BACKOFF_BASE=0 GARDEN_BACKOFF_CAP=0 GARDEN_API_COOLDOWN_SECS=120 \
+    "$JOBS/receipt-watcher.sh" "$slug" >/dev/null 2>"$err"
+}
+
+# Drive the per-PR GENERATE dispatch with a stubbed source, generator, and post, so the
+# direct-in-process common path and the structural-failure fallback are both testable.
+run_watch_gen() {  # run_watch_gen <slug> <err> <generate> <post>
+  local slug="$1" err="$2" generate="$3" post="$4"
+  env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$STATE" PATH="$TR/gitbin:$PATH" \
+    GARDEN_RECEIPT_WATCH_CLONE="$WATCH_CLONE" GARDEN_CURSOR_CLONE="$CURSOR_CLONE" \
+    GARDEN_RECEIPT_PR_SOURCE="$TR/bin/gen-source" \
+    GARDEN_RECEIPT_GENERATE="$generate" GARDEN_RECEIPT_POST="$post" \
+    GARDEN_FETCH_RETRIES=1 GARDEN_BACKOFF_BASE=0 GARDEN_BACKOFF_CAP=0 \
+    GARDEN_API_COOLDOWN_SECS=120 \
     "$JOBS/receipt-watcher.sh" "$slug" >/dev/null 2>"$err"
 }
 
@@ -320,6 +369,45 @@ if [ -d "$A/.git" ] && [ -d "$B/.git" ] && [ "$A" != "$B" ]; then
   ok "default receipt clone is per-slug (distinct journal-<slug> dirs per instance)"
 else
   bad "default receipt clone was not per-slug (A=$A exists=$([ -d "$A/.git" ] && echo y) B=$B exists=$([ -d "$B/.git" ] && echo y))"
+fi
+
+# A garden-worked completed PR is receipted by calling the deterministic generator
+# DIRECTLY in-process (pr-receipt.sh <repo> <num> --dir <clone>) — NO LLM dispatch, NO
+# fallback job — on the common (success) path. This is the whole point of the change:
+# the old path burned an LLM claim to run a no-judgment script.
+rm -f "$STATE/gh-api-cooldown/marker" "$TR/gen.log" "$TR/post.log"
+run_watch_gen kriscendobot-gena "$TR/gen-ok.err" "$TR/bin/gen-ok" "$TR/bin/post-record" || true
+if grep -q '^kriscendobot/gena 5 --dir ' "$TR/gen.log" 2>/dev/null \
+   && [ ! -f "$TR/post.log" ] \
+   && grep -q 'generated receipt in-process for #5' "$TR/gen-ok.err"; then
+  ok "garden-worked completed PR is generated in-process (no LLM dispatch, no fallback post)"
+else
+  bad "in-process generate did not run direct, or wrongly posted a fallback job"
+fi
+
+# A STRUCTURAL generate failure (a genuine pr-receipt.sh bug, non-transient rc) falls
+# back to a job-board post so the doom machinery surfaces it — and the generator stderr
+# is preserved in the watcher log.
+rm -f "$STATE/gh-api-cooldown/marker" "$TR/gen.log" "$TR/post.log"
+run_watch_gen kriscendobot-genb "$TR/gen-struct.err" "$TR/bin/gen-structural-fail" "$TR/bin/post-record" || true
+if grep -qx 'kriscendobot-genb-pr5-receipt' "$TR/post.log" 2>/dev/null \
+   && grep -q 'failed structurally' "$TR/gen-struct.err" \
+   && grep -q 'generate: pr-receipt.sh: BUG:' "$TR/gen-struct.err"; then
+  ok "structural generate failure falls back to a job-board post with its diagnostic"
+else
+  bad "structural generate failure did not fall back to a post or lost its diagnostic"
+fi
+
+# A TRANSIENT generate failure (rc=124 / network) is NOT a bug: it cools down and
+# retries next tick, posting NO wasteful fallback job.
+rm -f "$STATE/gh-api-cooldown/marker" "$TR/gen.log" "$TR/post.log"
+run_watch_gen kriscendobot-genc "$TR/gen-trans.err" "$TR/bin/gen-transient-fail" "$TR/bin/post-record" || true
+if [ ! -f "$TR/post.log" ] \
+   && [ -s "$STATE/gh-api-cooldown/marker" ] \
+   && grep -q 'transient outage (rc=124)' "$TR/gen-trans.err"; then
+  ok "transient generate failure cools down and retries, posting no fallback job"
+else
+  bad "transient generate failure posted a fallback or lost its cooldown"
 fi
 
 echo "TOTAL: $PASS passed, $FAIL failed"

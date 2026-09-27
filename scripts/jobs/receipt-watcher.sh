@@ -1,8 +1,15 @@
 #!/bin/bash
 # receipt-watcher.sh — per-repo PR-TERMINAL-STATE producer. Watch one gated repo's OWN
 # PRs and, the moment one reaches a terminal state (MERGED or CLOSED) that the garden
-# actually worked, post exactly one <slug>-pr<N>-receipt job. A gardener then claims it
-# and runs the deterministic pr-receipt.sh generator (rows + MRE + post + archive).
+# actually worked, generate its completion receipt. pr-receipt.sh is deterministic,
+# plain-code, explicitly NO `claude -p`, so this watcher runs it DIRECTLY IN-PROCESS
+# (rows + MRE + post + archive) — mirroring how ci/comment/dependabot watchers call
+# their deterministic generators straight, rather than round-tripping through a
+# post-job.sh LLM-tier claim that just re-invokes the same no-judgment script. The
+# job-board post survives only as the STRUCTURAL-failure fallback: if the direct call
+# fails for a non-transient reason (a genuine pr-receipt.sh bug), post <slug>-pr<N>-
+# receipt so a gardener re-runs it and the doom machinery surfaces a persistent failure
+# to the maintainer inbox instead of this watcher retrying silently forever.
 #
 # Usage: receipt-watcher.sh <repo-slug>      e.g. endojs-endo-but-for-bots
 #
@@ -25,12 +32,17 @@
 #       gauntlet-archived record naming the PR)
 #     → drop PRs that already have a receipt (journal archive file, OR the
 #       <!-- garden-receipt: repo#N --> comment marker)
-#     → post <slug>-pr<N>-receipt (idempotent by basename via post-job.sh)
+#     → GENERATE the receipt in-process: pr-receipt.sh <repo> <num> --dir <clone>
+#       (idempotent by its own archive/comment-marker guards)
+#     → only on a STRUCTURAL generate failure, fall back to post <slug>-pr<N>-receipt
+#       (idempotent by basename via post-job.sh) so the bug surfaces; a TRANSIENT
+#       generate failure cools down and retries next tick, posting nothing
 #     → advance the cursor to the newest completion fully handled this tick.
 #
-# The per-PR gh reads are indirected so a test can substitute a deterministic stub:
-#   GARDEN_RECEIPT_PR_SOURCE <owner/name>       -> TSV: number state completed_at (ISO)
-#   GARDEN_RECEIPT_POST      <basename> <file>  (post-job.sh)
+# The per-PR I/O is indirected so a test can substitute a deterministic stub:
+#   GARDEN_RECEIPT_PR_SOURCE <owner/name>          -> TSV: number state completed_at (ISO)
+#   GARDEN_RECEIPT_GENERATE  <repo> <num> --dir D  (pr-receipt.sh, the common path)
+#   GARDEN_RECEIPT_POST      <basename> <file>     (post-job.sh, the fallback path)
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -41,6 +53,10 @@ slug="${1:?usage: receipt-watcher.sh <repo-slug>}"
 export GARDEN_TAG="receipt-watcher/$slug"
 : "${GARDEN_BOT_LOGIN:=kriscendobot}"
 : "${GARDEN_RECEIPT_PR_SOURCE:=$HERE/handlers/receipt-pr-source-gh.sh}"
+# The deterministic generator this watcher now invokes DIRECTLY, in-process, on the
+# common path (no LLM dispatch). post-job.sh is retained only as the STRUCTURAL-failure
+# fallback below.
+: "${GARDEN_RECEIPT_GENERATE:=$HERE/pr-receipt.sh}"
 : "${GARDEN_RECEIPT_POST:=$HERE/post-job.sh}"
 # PER-SLUG journal clone (default keyed on $slug). Every armed
 # garden-receipt-watcher@<slug> instance (currently 16 repos) runs concurrently on the
@@ -62,6 +78,11 @@ export GARDEN_TAG="receipt-watcher/$slug"
 # whole historical backlog is NOT flooded as live comments. Empty ⇒ seed to now.
 : "${GARDEN_RECEIPT_SEED_WINDOW:=2 days}"
 : "${GARDEN_RECEIPT_SOURCE_TIMEOUT_SECS:=180}"
+# Bound the in-process generator too: pr-receipt.sh does bounded gh reads plus a
+# CAS-retried archive push, so it should finish well inside this, but a hung gh call
+# must not wedge the tick. A timeout kill classifies as transient (rc=124), so the tick
+# cools down and retries rather than posting a wasteful fallback job.
+: "${GARDEN_RECEIPT_GENERATE_TIMEOUT_SECS:=300}"
 : "${GARDEN_RECEIPT_KILL_AFTER:=10s}"
 # Bound the EXIT-path cgroup sweep so an unkillable process cannot wedge shutdown.
 : "${GARDEN_RECEIPT_CGROUP_REAP_DEADLINE_SECS:=3}"
@@ -314,34 +335,75 @@ while IFS=$'\t' read -r num st done_at; do
     continue
   fi
   base="$slug-pr$num-receipt"
-  jb="$(mktemp)"
-  {
-    printf '# receipt (auto) — completion receipt for %s PR #%s (%s)\n\n' "$repo" "$num" "$st"
-    printf 'tier: mentor\nfallback-tier: minion\n\n'
-    printf 'This OPEN-and-now-%s PR was completed by the garden. Emit its COMPLETION\n' "$st"
-    printf 'RECEIPT deterministically — run the generator, which builds the per-engagement\n'
-    printf 'rows + the maintainer-review heuristic, posts the PR comment (identity-pinned\n'
-    printf 'gh), and archives the receipt in the journal, all idempotently:\n\n'
-    printf '    scripts/jobs/pr-receipt.sh %s %s\n\n' "$repo" "$num"
-    printf 'It is fail-open and idempotent (journal archive file + comment marker guards),\n'
-    printf 'so a re-run never double-posts. Report the archive path and the posted comment\n'
-    printf 'URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.\n\n'
-    printf 'PR: https://github.com/%s/pull/%s\n' "$repo" "$num"
-  } > "$jb"
-  if "$GARDEN_RECEIPT_POST" "$base" "$jb" >/dev/null 2>&1; then
-    log "posted $base (auto-receipt on completed #$num)"
-    posted=$((posted+1))
-    [ "$done_at" \> "$newcur" ] && newcur="$done_at"
+  # --- generate the receipt IN-PROCESS (deterministic, no LLM dispatch) --------
+  # pr-receipt.sh is plain code, explicitly NO `claude -p`, and this same process
+  # already computed repo/num and holds a freshly-synced journal clone ($DIR) the
+  # generator reuses via --dir. Round-tripping through post-job.sh into an LLM-tier
+  # claim (the old `tier: mentor` / `fallback-tier: minion` job whose body just said
+  # "run pr-receipt.sh") was pure waste and self-defeating: an LLM asked to run a
+  # no-judgment script burned a model attempt + fallback that both exited rc=1 in a
+  # constant ~3s with no output, tripped the gardener elapsed-constancy overrun-suspect
+  # detector, and got doomed `requeue-exhausted`
+  # (kriscendobot-oros-ckm-data-readiness-pr1-receipt). Mirror ci/comment/dependabot
+  # watchers: call the deterministic generator straight.
+  gen_err="$(mktemp)"; gen_rc=0
+  if command -v timeout >/dev/null 2>&1; then
+    timeout --signal=TERM --kill-after="$GARDEN_RECEIPT_KILL_AFTER" "${GARDEN_RECEIPT_GENERATE_TIMEOUT_SECS}s" \
+      "$GARDEN_RECEIPT_GENERATE" "$repo" "$num" --dir "$DIR" >/dev/null 2>"$gen_err" || gen_rc=$?
   else
-    log "WARN: post of $base did not land — leaving cursor before #$num for retry next tick"
-    rm -f "$jb"
-    break
+    "$GARDEN_RECEIPT_GENERATE" "$repo" "$num" --dir "$DIR" >/dev/null 2>"$gen_err" || gen_rc=$?
   fi
-  rm -f "$jb"
+  if [ "$gen_rc" -eq 0 ]; then
+    log "generated receipt in-process for #$num (deterministic, no LLM dispatch)"
+    posted=$((posted+1))
+    rm -f "$gen_err"
+    [ "$done_at" \> "$newcur" ] && newcur="$done_at"
+  elif shared_availability_failure "receipt generate" "$gen_rc" "$gen_err"; then
+    # A transient outage (network / timeout / rate-limit) is NOT a pr-receipt.sh bug:
+    # do not waste a fallback job on it. Cool down, leave the cursor before #$num, and
+    # retry next tick — exactly as the PR-source and journal-prerequisite paths do.
+    log "receipt generate for #$num hit a transient outage (rc=$gen_rc) — cooled down, will retry next tick"
+    rm -f "$gen_err"
+    break
+  else
+    # A STRUCTURAL failure of the deterministic generator is a genuine pr-receipt.sh
+    # bug (or a malformed ledger). Fall back to the job board so a gardener re-runs it
+    # and, if it keeps failing, the doom machinery surfaces it to the maintainer inbox
+    # — rather than this watcher silently retrying the same broken call every tick.
+    sed -E 's/^/  generate: /' "$gen_err" >&2 || true
+    log "WARN: in-process receipt generate for #$num failed structurally (rc=$gen_rc) — falling back to a job-board post so the failure surfaces"
+    rm -f "$gen_err"
+    jb="$(mktemp)"
+    {
+      printf '# receipt (fallback) — completion receipt for %s PR #%s (%s)\n\n' "$repo" "$num" "$st"
+      printf 'tier: mentor\nfallback-tier: minion\n\n'
+      printf 'The receipt watcher tried to generate this completion RECEIPT in-process and\n'
+      printf 'the deterministic generator FAILED structurally (see the watcher log). This is\n'
+      printf 'the surfacing fallback: run the generator, which builds the per-engagement rows\n'
+      printf '+ the maintainer-review heuristic, posts the PR comment (identity-pinned gh),\n'
+      printf 'and archives the receipt in the journal, all idempotently:\n\n'
+      printf '    scripts/jobs/pr-receipt.sh %s %s\n\n' "$repo" "$num"
+      printf 'It is fail-open and idempotent (journal archive file + comment marker guards),\n'
+      printf 'so a re-run never double-posts. If it fails again, report the failure so the\n'
+      printf 'generator bug reaches the maintainer inbox rather than retrying forever.\n'
+      printf 'See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.\n\n'
+      printf 'PR: https://github.com/%s/pull/%s\n' "$repo" "$num"
+    } > "$jb"
+    if "$GARDEN_RECEIPT_POST" "$base" "$jb" >/dev/null 2>&1; then
+      log "posted fallback $base after in-process generate failed on #$num"
+      posted=$((posted+1))
+      [ "$done_at" \> "$newcur" ] && newcur="$done_at"
+    else
+      log "WARN: fallback post of $base did not land — leaving cursor before #$num for retry next tick"
+      rm -f "$jb"
+      break
+    fi
+    rm -f "$jb"
+  fi
 done < <(sort -t"$(printf '\t')" -k3,3 "$SRC")
 
 if [ "$newcur" \> "$cursor" ]; then
   printf 'last_completed_at: %s\n' "$newcur" | "$HERE/cursor-set.sh" "receipts/$slug" >/dev/null 2>&1 \
     && log "advanced receipt cursor for $slug to $newcur"
 fi
-log "scanned $scanned closed PR(s) on $repo since $cursor: $worked garden-worked, $posted receipt job(s) posted, $skipped already-receipted"
+log "scanned $scanned closed PR(s) on $repo since $cursor: $worked garden-worked, $posted receipt(s) produced (in-process or fallback), $skipped already-receipted"
