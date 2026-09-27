@@ -46,6 +46,8 @@ while [ "$#" -gt 0 ]; do
   esac
 done
 
+# The scratch tree is gitignored, so a fresh checkout may not have it yet.
+mkdir -p "${GARDEN_SCRATCH:-/tmp}"
 temporary_directory="$(mktemp -d "${GARDEN_SCRATCH:-/tmp}/garden-muster-pilot.XXXXXX")"
 trap 'rm -rf "$temporary_directory"' EXIT
 messages="$temporary_directory/messages.json"
