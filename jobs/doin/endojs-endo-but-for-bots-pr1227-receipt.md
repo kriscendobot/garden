@@ -21,6 +21,7 @@ URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/1227
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=9 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
