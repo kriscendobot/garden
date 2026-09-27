@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:16:25Z_
+_As of 2026-09-27T07:17:35Z_
 
 ## Latest
 
@@ -1611,7 +1611,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.4M | $260.66 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.4M | $261.22 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61773171 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1623,8 +1623,9 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
+- [`groom-endo-roadmap-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-roadmap-20260927.md) — Full grooming pass: designs/README.md on endojs/endo-but-for-bots@llm
 
 ### tada (9108)
 - [`mentat-garden-docs-refresh-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/mentat-garden-docs-refresh-20260927.md) — Cost
