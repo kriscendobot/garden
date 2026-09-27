@@ -65,3 +65,13 @@ scripts/jobs/review-miss-record.sh cluster-status post-gauntlet-fixer-change-unr
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T16:26:17Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T16:26:30Z
