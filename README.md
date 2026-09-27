@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T06:03:19Z_
+_As of 2026-09-27T06:03:55Z_
 
 ## Latest
 
@@ -1435,13 +1435,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-finbot` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-finbot.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T02:28:18Z, latest 2026-09-27T04:16:26Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-finbot`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T02:28:18Z, latest 2026-09-27T06:03:18Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-finbot`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 3cd604f8ac267b3ee023387498a5a51c26bbcc6c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 3cd604f8ac267b3ee023387498a5a51c26bbcc6c). Diagnosis: This is deploy-lag, not a new defect. The failure signature — `garden-ci-watcher@kriscendobot-finbot FATAL: cannot acquire clone lock .../verify.lock after 3 waits` — is exactly the shared-VERIFY-clone contention bug already fixed by `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder contention), both present on `origin/main2` but not yet on this host's deployed root checkout (HEAD is 19 commits behind main2, a clean ancestor — no divergence). Per [[ci-watcher-shared-verify-clone-lock-contention-fixed]], this is exactly the "check deploy-lag before posting another self-heal-fix job" case.
+> self-heal: garden-ci-watcher@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 74d9297b9802f628a891bfbddb06d3ec5c9bb6be (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 74d9297b9802f628a891bfbddb06d3ec5c9bb6be). Diagnosis: This failure is deploy lag, not a new defect. The root checkout is pinned at `47b41af5a14` (2026-09-26T12:42Z), but the clone-lock contention fix (`5620bdbe5f6` "isolate CI watcher clones per slug" + `e6ea1d33fc8` "skip quietly on live-holder clone-lock contention") plus several follow-on hardening commits already landed on `origin/main2` (now at `586aee8196b4`, 2026-09-27T03:28Z) — the deployed root just hasn't rolled forward yet. This is the same recurring deploy-lag pattern already tracked in memory ([[ci-watcher-clone-lock-contention-fix-queued-not-deployed]]), now confirmed for a fourth watcher instance (`kriscendobot-finbot`), and I've updated that memory with this occurrence.
 >
-> No JOB block — this needs the deliberate rolling deploy to catch this host up, not a new code fix (posting another fix job would be a duplicate of a
+> No JOB block — posting a fix would be redundant since the fix is already merged and only awaiting the r
 
 - `watchdog-comment-watcher-dead-kriscendobot-moddable` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-moddable.md)
 
@@ -1596,7 +1596,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.0M | $244.98 _(notional, rate-card)_ | 20% of 143.0M (ok) |
+| Claude | 29.1M | $245.44 _(notional, rate-card)_ | 20% of 143.0M (ok) |
 | Codex | 33.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 78268196 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
