@@ -48,6 +48,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: panel=pass -->
   <!-- gauntlet-stage-result: panel=must-fix -->
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=8 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
