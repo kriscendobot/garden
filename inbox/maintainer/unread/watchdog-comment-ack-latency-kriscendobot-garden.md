@@ -1,10 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-09-27T08:42:18Z
+sent_at: 2026-09-27T08:52:26Z
 watchdog_key: comment-ack-latency-kriscendobot-garden
 notice_count: 1
 first_seen: 2026-09-27T08:42:18Z
-last_seen: 2026-09-27T08:42:18Z
+last_seen: 2026-09-27T08:52:26Z
+recovered: true
 ---
-Comment acknowledgment latency anomaly for kriscendobot/garden:
-https://github.com/kriscendobot/garden/issues/89#issuecomment-5853798459 (latency=3694s; heartbeat=offline-journal)
+RECOVERED — the watchdog condition `comment-ack-latency-kriscendobot-garden` has CLEARED (first seen 2026-09-27T08:42:18Z, cleared 2026-09-27T08:52:26Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+Comment acknowledgment condition cleared.
