@@ -1,15 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:self-heal-claude
-sent_at: 2026-09-27T06:31:48Z
+sent_at: 2026-09-27T07:37:00Z
 watchdog_key: self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp
-notice_count: 4
+notice_count: 6
 first_seen: 2026-09-27T02:00:56Z
-last_seen: 2026-09-27T06:31:48Z
+last_seen: 2026-09-27T07:37:00Z
 ---
-WATCHDOG notice — occurrence #4 (first seen 2026-09-27T02:00:56Z, latest 2026-09-27T06:31:48Z).
-The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp`) has now been observed 4 times; this is ONE
-coalesced notice that updates in place, not 4 messages. Latest detail:
+WATCHDOG notice — occurrence #6 (first seen 2026-09-27T02:00:56Z, latest 2026-09-27T07:37:00Z).
+The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp`) has now been observed 6 times; this is ONE
+coalesced notice that updates in place, not 6 messages. Latest detail:
 
-self-heal: garden-ci-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: ca5d3f7c701740b15367c3f79f5d5bd7695d7fa1 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p ca5d3f7c701740b15367c3f79f5d5bd7695d7fa1). Diagnosis: This confirms the deploy-lag scenario is expected/self-resolving infra, not something requiring a fix job. Per the existing memory, this is a known pattern.
-
-No job needed. This is the already-diagnosed shared-clone-lock contention bug (`/home/kris/garden/.garden-state/ci-watcher/verify.lock`), fixed on `origin/main2` via commits `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention") landed 2026-09-27T00:01Z. This host's root checkout (`HEAD` 47b41af5a14, dated 2026-09-26) is 19 commits behind `origin/main2` and simply hasn't picked up the fix via the deliberate rolling deploy yet. The autonomous `garden-self-deploy`/rolling-deploy machinery should pick this up on its own upgrade-ready cycle; no new code change or job is
+self-heal: garden-ci-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: 1d5f80a2df2ecc69c48e8f9a2f1e49d22bf5dd65 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 1d5f80a2df2ecc69c48e8f9a2f1e49d22bf5dd65). Diagnosis: This is the known, already-fixed clone-lock contention bug — not a new defect. The tail shows the exact signature: `ci-watcher/kriscendobot-ymax-stdio-mcp` backed off twice on `/home/kris/garden/.garden-state/ci-watcher/verify.lock` busy >60s, then hit FATAL after 3 waits with no reclaim attempt. That's precisely the failure mode fixed by `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder clone-lock contention), landed on `origin/main2` today (2026-09-27T00:01Z) along with a chain of related clone-lock hardening commits (`c38cb55b172`, `4948cdd9a75`, `9dbda9d5573`, `ad55dea66f9`, `ab66fece68f`, `1570aa85a47`, `4692b4df0e7`). The root checkout this host runs is still pinned at `47b41af5a14` (2026-09-26T12:42Z, the cgroup-sweep commit), which 
