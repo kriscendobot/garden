@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T06:21:30Z_
+_As of 2026-09-27T06:25:07Z_
 
 ## Latest
 
@@ -223,6 +223,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > #1015's head is rebased onto current `llm`, CI green, still draft, with a comment
 > inviting preliminary review. Do not un-draft and do not attempt to merge.
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-weave-20260901` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr897-weave-20260901.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr897-weave-20260901' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=2411s ≈ handler-budget=2400s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
 
 > subscription codex-endolin changed zone backoff -> ok at spend=22990248 of cap=100.
@@ -245,13 +249,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-minion-town.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T01:58:17Z, latest 2026-09-27T04:56:21Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-minion-town`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T01:58:17Z, latest 2026-09-27T06:24:06Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-minion-town`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: d394f0fa7bebb50d745f68cc2df0ef8720c6e0f2 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p d394f0fa7bebb50d745f68cc2df0ef8720c6e0f2). Diagnosis: This confirms the root cause: this host (`endolin-garden-ece02cb4`) is already flagged `upgrade-ready`, 19 commits behind `main2`, and detected at 04:52:01Z — right when the clone-lock contention started (04:53:45Z onward). The fix for this exact failure class already landed on `main2`; it just hasn't rolled out to this host yet.
->
-> No fix job needed — this is the known **deploy-lag** recurrence of the already-fixed shared-verify-clone-lock bug, matching prior incidents in memory (`ci-watcher-clonelock-stderr-deploy-lag`, `ci-watcher-clone-lock-contention-fixed`). The rolling/leader-orchestrated deploy should pick up `upgrade-ready` and advance this host to `586aee8196b`, which resolves it. No JOB block is warranted since posting another self-heal-fix for an already-fixed-upstream bug wo
+> self-heal: garden-ci-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 0092bce6fb7932b97aaf621c42b04731b09d4ed0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0092bce6fb7932b97aaf621c42b04731b09d4ed0). Diagnosis: Diagnosis: deploy-lag, not a defect — this host's root checkout (`47b41af5a14`) is 19 commits behind `origin/main2` (`586aee8196b`), and the clone-lock contention fixes (`5620bdbe5f6`, `e6ea1d33fc8`, plus follow-on hardening through `586aee8196b`) are already merged upstream but not yet rolled out here. `upgrade-monitor` just signaled `upgrade-ready` for this exact gap at 06:22:02 UTC, so the pending rolling deploy will resolve it. No JOB block posted; memory updated with this occurrence.
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp.md)
 
@@ -1594,7 +1596,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.2M | $246.61 _(notional, rate-card)_ | 20% of 143.0M (ok) |
+| Claude | 29.3M | $247.48 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 78475524 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
