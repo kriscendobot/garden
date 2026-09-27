@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T08:17:08Z_
+_As of 2026-09-27T08:21:14Z_
 
 ## Latest
 
@@ -1724,35 +1724,35 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.8M | $277.59 _(notional, rate-card)_ | 22% of 143.0M (ok) |
-| Codex | 36.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Claude | 31.8M | $277.72 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Codex | 36.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 630275808 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 75261838 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 7.772794s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`ironhorse-fuzz-1cd4ddc72d5801c4-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-1cd4ddc72d5801c4-repair.md) — Repair Ironhorse engine defect 1cd4ddc72d5801c4 (target differential_regexp_s...
+### todo (0)
+(none)
 
 ### doin (8)
 - [`ironhorse-fuzz-27824c75429b8581-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-27824c75429b8581-repair.md) — Repair Ironhorse engine defect 27824c75429b8581 (target differential_source) ...
 - [`ironhorse-fuzz-12aca768c2e73c73-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-12aca768c2e73c73-repair.md) — Fix Ironhorse fuzz finding 12aca768c2e73c73 (target differential_regexp) and ...
-- [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-self-heal-run-handler-deadline.md) — ---
 - [`ironhorse-fuzz-13b68e2edb67861a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-13b68e2edb67861a-repair.md) — Repair Ironhorse engine defect 13b68e2edb67861a (target differential_regexp) ...
+- [`ironhorse-fuzz-1cd4ddc72d5801c4-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1cd4ddc72d5801c4-repair.md) — Repair Ironhorse engine defect 1cd4ddc72d5801c4 (target differential_regexp_s...
 - [`ironhorse-fuzz-197b32cc30bdd4fe-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-197b32cc30bdd4fe-repair.md) — Repair Ironhorse engine defect 197b32cc30bdd4fe (target differential_regexp_s...
 - [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-05264cccae42245a-repair.md) — Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
 - [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1dc231089278c110-repair.md) — Repair Ironhorse engine defect 1dc231089278c110 (target differential_regexp) ...
 - [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-284de587e16bce32-repair.md) — Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
 
-### tada (9119)
+### tada (9120)
+- [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-self-heal-run-handler-deadline.md) — Completion report
 - [`fix-garden-ci-gauntlet-retry-viability-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-garden-ci-gauntlet-retry-viability-tests.md) — Cost
 - [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-retro-doom-escalation-noise.md) — Completion report
 - [`kriscendobot-minion.town-pr118-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion.town-pr118-conduct.md) — Cost
 - [`improve-ci-watcher-primary-quota-cooldown-too-short`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-ci-watcher-primary-quota-cooldown-too-short.md) — Completion report
-- [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-ci-watcher-outage-latch-flap-dedup.md) — Completion report
-- … and 9114 more
+- … and 9115 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
