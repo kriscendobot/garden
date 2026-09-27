@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T04:57:02Z_
+_As of 2026-09-27T04:57:42Z_
 
 ## Latest
 
@@ -321,7 +321,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-cosgov` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-cosgov.md)
 
-> self-heal: garden-ci-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: d41fe68ba5782c502b9635cff8c34986f1a9d9d2 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p d41fe68ba5782c502b9635cff8c34986f1a9d9d2). Diagnosis: Diagnosis: this is the already-fixed shared-VERIFY-clone-lock contention bug, not a new defect. The failure signature (`FATAL: cannot acquire clone lock .../verify.lock`) matches the recorded fix in commits `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention"), both landed on `origin/main2` at 2026-09-27T00:01Z. The currently deployed root checkout is pinned at `47b41af5a1` (2026-09-26T12:42Z) — 12+ hours *before* the fix landed — so this host simply hasn't rolled the deploy forward yet. Per the earlier incident record for this exact class of failure, the right move is to check deploy-lag before posting a duplicate fix job, which is what this is: the fix already exists upstream and just needs the deliberate rolling 
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-27T01:56:24Z, latest 2026-09-27T04:57:14Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-cosgov`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
+>
+> self-heal: garden-ci-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: 0a93c44537a7f567c046474fcc82c5b1440031c5 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0a93c44537a7f567c046474fcc82c5b1440031c5). Diagnosis: **No JOB block.** `garden-ci-watcher@kriscendobot-cosgov` FATAL'd with `cannot acquire clone lock .../verify.lock after 3 waits of 60s and 0 reclaim attempt(s)`. This matches a known, already-fixed defect (`5620bdbe5f6` isolate CI-watcher clones per slug; `e6ea1d33fc8` skip quietly on live-holder contention), plus follow-on hardening — all present on `origin/main2` but not yet reachable from the deployed root checkout (`HEAD` = `47b41af5a14`, 19 commits behind `origin/main2`). This is deploy lag, not a code gap: the rolling-deploy pipeline hasn't advanced this host past the fix yet. No action needed beyond letting the deliberate deploy catch up; memory entry updated to record the recurrence.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town.md)
 
@@ -1568,7 +1572,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.6M | $235.79 _(notional, rate-card)_ | 19% of 143.0M (ok) |
+| Claude | 27.6M | $235.91 _(notional, rate-card)_ | 19% of 143.0M (ok) |
 | Codex | 33.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58211441 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
