@@ -181,13 +181,5 @@ key and Cloud access before wiring it into the fleet.
 - `scripts/jobs/handlers/monk-claude.sh`, `scripts/systemd/seed-api-key-handoff.sh`
 - `docs.ollama.com/api/anthropic-compatibility`, `docs.ollama.com/integrations/claude-code` (web, 2026-09-01)
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T14:59:10Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-27T15:13:18Z -->
