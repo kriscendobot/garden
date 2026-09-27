@@ -1,0 +1,7 @@
+---
+role: designer
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+Reconcile the M2 `hardened-url-shim` design record for `endojs/endo-but-for-bots` with upstream PR #3332, which merged, and update its journal-plan status and evidence so it no longer schedules duplicate implementation work.
