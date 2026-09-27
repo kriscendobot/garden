@@ -18,3 +18,13 @@ Wear the builder role: build the design `designs/daemon-guest-bot-incarnation.md
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T09:43:08Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T09:55:08Z
