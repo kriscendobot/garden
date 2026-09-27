@@ -33,6 +33,7 @@ serial, not parallel):
 
 Report the gauntlet outcome (rounds, must-fix, final CI state, un-draft status).
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
