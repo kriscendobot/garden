@@ -22,3 +22,13 @@ startup and completes to tada. Do a small but REAL task:
    (grep for it) and quote the matching line count.
 
 Keep the report short. Do not modify any files, do not push anything.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T15:52:32Z
