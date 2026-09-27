@@ -1,3 +1,9 @@
+---
+created: 2026-07-04
+updated: 2026-09-27
+author: gardener
+---
+
 # first-run/ — the guided first-run tutorial
 
 The ordered, conversational track the liaison drives when a user says **help**
@@ -62,10 +68,10 @@ drain.
    while the human adds it to the **bot** account, run `gh auth login` and relay
    the device code. Verify by whoami-ing the `gh` wrapper.
 
-4. **Starting the garden → [first-job.md](first-job.md) for the board, and the
-   command-level substance in `../operations/starting.md`.** The conversational
+4. **Starting the garden → [starting.md](../operations/starting.md).** The conversational
    pivot: on **start the garden** the liaison performs the whole bring-up itself
-   — linger, install and enable units, size the pool, designate the leader on a
+   — linger, install and enable units, size the monk/cleric pools, verify container
+   hardening, designate the leader on a
    first host, arm its own Monitors, offer the optional armings — asking before
    each consequential step and verifying after. The commands live in
    `../operations/starting.md` (agent-facing detail the liaison executes on

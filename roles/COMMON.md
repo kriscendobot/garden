@@ -1,39 +1,55 @@
 ---
 created: 2026-05-12
-updated: 2026-09-17
+updated: 2026-09-27
 author: gardener, liaison
 ---
 
-# Subagent standing instructions
+# Worker standing instructions
 
-These apply to every dispatched subagent regardless of role. Read this first, then your role file at `roles/<role>/AGENT.md`. Then load skills only as you need them.
-
-The §_Improving your role and skills_ section below is common to **every** role including the liaison; the per-dispatch sections (cwd, worktree triple, journal write path) only apply to subagents the orchestrator dispatched via the `Agent` tool, not to the orchestrator's own turn.
+These apply to every gardener, whatever role the job names.
+Read the role brief
+next, then skills as needed.
+The liaison also follows the shared style,
+authorization, and self-improvement norms.
 
 ## Your dispatch root
 
-Every subagent runs from a per-dispatch worktree triple created by the orchestrator immediately before the `Agent` invocation:
+The normal worker handler starts in a dedicated per-job garden worktree off
+`origin/main2`.
+Do garden development there, commit explicit paths, and push
+`HEAD:main2` with fetch/rebase/retry on a rejected push.
+Never develop or run git
+in the deployed root: it shares a repository with the live journal worktree.
 
-```
-<dispatch-root>/
-  garden/    # detached worktree of garden's dev branch (`main2`); read roles/skills here
-  journal/   # detached worktree of garden's journal branch (`journal2`); write entries here
-  project/   # (when applicable) detached worktree of the upstream fork@branch
-```
+For a project job, use `scripts/jobs/ensure-project-worktree.sh <job-base>
+<owner/repo> <branch>` and work in the returned isolated checkout.
+The job base,
+not the PR number, owns the checkout.
+Use the journal producer helpers for
+journal writes, not git in the live `journal/` tree.
+See
+[WORKTREES.md](../WORKTREES.md) and [gardener](gardener/AGENT.md).
 
-The dispatch prompt names `<dispatch-root>` explicitly. Your cwd is `project/` if a project worktree exists, otherwise the dispatch root itself. Use `garden/` for read-only role and skill consultation. Use `journal/` for journal commits. Do not write into `garden/`; meta-evolution is the liaison's job and happens in the orchestrator's own checkout, not under a dispatch root.
-
-All three sub-worktrees are detached HEAD. Commits go to `HEAD`; pushes use `git push origin HEAD:<branch>`. For journal appends, do not hand-roll the CAS loop: post via `scripts/jobs/journal-entry.sh` (§ Writing an entry), which implements the add-only fetch/rebase/push-retry against `journal2`. See `garden/WORKTREES.md` § Per-dispatch worktree triple for the full lifecycle.
-
-Each sub-worktree's git identity is pinned to the bot at prepare time, so any commit you make (in `garden/`, `journal/`, or `project/`) carries the bot identity by default. Do not edit the worktree's `user.name` / `user.email`. Only the boatman is authorized to override the pin, and does so per-commit via `git -c user.name=... -c user.email=...` when its dispatch carries `identity_switch_authorized: true`. Every other role's commits are bot-identity commits. See `garden/skills/dispatch-worktree/SKILL.md` § Identity pinning for the mechanism.
-
-When you finish, the orchestrator runs `skills/dispatch-worktree/dispatch-teardown.sh` on your dispatch root. Do not delete the worktrees yourself.
+The older `garden/` + `journal/` + `project/` dispatch triple applies only when
+explicitly supplied by a caller using
+[dispatch-worktree](../skills/dispatch-worktree/SKILL.md).
+Follow that caller's
+teardown contract; ordinary job handlers own their worktree cleanup.
+Detached
+HEAD does not prevent durable work: a commit must be pushed before completion.
+Keep the bot git identity; only a maintainer-authorized boatman may override it.
 
 ## Improving your role and skills
 
-The final task of every engagement, common to every role including the liaison. Follow `garden/skills/self-improvement/SKILL.md` for what to look for, where to route the lesson, the threshold rules, and the one-line report format. The skill is canonical: do not embed self-improvement details in role files.
+The final task of every engagement, common to every role including the liaison.
+Follow `skills/self-improvement/SKILL.md` for what to look for, where to route the lesson, the threshold rules, and the one-line report format.
+The skill is canonical: do not embed self-improvement details in role files.
 
-The subagent does not commit role or skill changes itself; structural lessons go to a `message` entry addressed to `liaison`, which lands the change on the dev branch (`main2`) in its own checkout. The reason the subagent cannot land them is that its `garden/` worktree is detached and ephemeral: any commit it makes there is torn down with the dispatch.
+A job explicitly authorizing garden-library or infrastructure changes may land
+role, skill, and documentation edits from its per-job worktree on `main2`.
+Other
+jobs route structural lessons to the liaison through the message bus; they do
+not expand their scope into library maintenance.
 
 ## Style
 
@@ -128,10 +144,10 @@ Note the two axes do not conflict. This section's topic-scoping governs the **te
 
 Project specifics (repo URLs, fork ownership, account/credential conventions, project-specific preferences) live in the **journal**, not in role or skill files. The garden's role/skill layer is project-agnostic and stays small; per-project facts accumulate as `message` entries with a `project:` slug.
 
-To find what the garden knows about a project, grep the journal's entries for the project slug. From your dispatch root:
+To find project context, search the journal read view's entries for the slug:
 
 ```sh
-grep -rl '^project: <slug>' journal/entries/
+rg -l '^project: <slug>' "$GARDEN_JOURNAL/entries/"
 ```
 
 The most recent matching entry is the current source of truth; older entries are history.
@@ -144,23 +160,30 @@ The journal carries a cross-cutting reference library at `journal/library/` dist
 - `journal/library/topics/` — by broad subject taxonomy.
 - `journal/library/keywords.md` + `journal/library/concepts/` — by *the specific term you are looking up*.
 
-Use the `garden/skills/library-lookup/SKILL.md` skill rather than reading these by eye. The skill grep-resolves the term, walks to the right concept page, opens the relevant section files, and (this is the part that compounds) *indexes on the fly* — adds a shortcut to `keywords.md`, prunes a distraction on a concept page, or drafts a missing concept — so the next reader's search succeeds where yours did not or succeeds faster than yours did. Every dispatched role uses the same skill; index improvements made by one role's caller benefit every subsequent caller in every other role.
+Use the `skills/library-lookup/SKILL.md` skill rather than reading these by eye.
+The skill grep-resolves the term, walks to the right concept page, opens the relevant section files, and (this is the part that compounds) *indexes on the fly* — adds a shortcut to `keywords.md`, prunes a distraction on a concept page, or drafts a missing concept — so the next reader's search succeeds where yours did not or succeeds faster than yours did.
+Every dispatched role uses the same skill; index improvements made by one role's caller benefit every subsequent caller in every other role.
 
 ## Where things are
 
-- Your dispatch root: in the dispatch prompt; `pwd` reports the project subworktree (or the dispatch root if there is none).
-- Garden dev-branch (`main2`) checkout (read-only for you): `<dispatch-root>/garden/`.
-- Journal worktree (write entries here): `<dispatch-root>/journal/`.
-- Project worktree (when applicable, code lives here): `<dispatch-root>/project/`.
-- Worktree management doc (`WORKTREES.md`) and the role/skill library are inside `garden/`; follow links from this file's relative paths.
+- Your garden development checkout: the per-job cwd named in the worker prompt.
+- Project checkout: the isolated path returned by `ensure-project-worktree.sh`.
+- Journal read view: `$GARDEN_JOURNAL` (normally the deployed `journal/` worktree).
+  It can lag the remote; use producer helpers for writes and committed snapshots
+  in an isolated clone when a decision requires fresh state.
+- Role/skill library: this garden checkout's `roles/` and `skills/`.
 
 ## The journal
 
 The journal is the garden's transcript and message bus. It is a worktree of the garden repo on an orphan branch (`journal2`). Its history is independent of the dev branch (`main2`), so journal commits never enter PRs or pollute code-side blame.
 
-The journal's top-level `README.md` is the maintainer dashboard: a bulletin board for items needing maintainer attention (PRs ready for review, decisions, surplus authority, pre-staged authorizations) and a summary of ongoing work (active worktrees, open monitors). Agents own the bulletin entirely: they post when an item arises and they clear it once the underlying condition is resolved (typically when a gardener closes out the job that resolved it). The maintainer reads the bulletin and acts in the upstream system; agents detect the action and clear. See `journal/README.md` (in your dispatch root) for the current structure.
-
-The journal also archives terminated long-living subagents under `agents/`, indexed by date / role / subject matter for future consultation. The dispatcher writes a termination report per `garden/skills/agent-termination/SKILL.md` when a long-living subagent ends; future agents (or the user) consult the archive by grepping the report frontmatter. See `journal/agents/README.md` for browse recipes.
+`journal/bulletin.md` is generated by `scripts/jobs/bulletin.sh`; agents do not
+edit it by hand.
+The [liaison](liaison/AGENT.md) owns human-facing attention; directed
+messages use the message bus, and job outcomes live under date-sharded
+`jobs/tada/`.
+Legacy `agents/` termination archives remain historical material;
+ordinary workers complete through the job board.
 
 ### Entry layout
 
@@ -201,32 +224,40 @@ Post the entry with `scripts/jobs/journal-entry.sh <kind> [body-file]` (kind is 
 
 ### Reading recent entries
 
-From your dispatch root:
-
-- Overview: `git -C journal log --since='1 hour ago' --pretty='%h %s'`.
-- Messages addressed to your role: `grep -rl 'to: <your-role>\|to: "\*"' journal/entries/$(date -u +%Y/%m/%d)/`.
-- A specific prior entry referenced from your dispatch: read the path verbatim.
+Use [journalism](../skills/journalism/SKILL.md) to read entries and
+[message-bus](../skills/message-bus/SKILL.md) for directed traffic.
+Drain your
+job inbox with `inbox-read.sh <job-base>` at natural checkpoints.
+Do not run
+`git -C journal` against the deployed root's shared repository.
 
 ## Worktree conventions (summary)
 
-Full doc in `garden/WORKTREES.md`. Minimum you need to know:
-
-- Your per-dispatch worktree triple is ephemeral; do not store anything you need to survive the dispatch outside the journal.
-- For project worktrees, role-private high-frequency state (polling caches, scratch files) lives inside the worktree under `.garden/` (e.g., `.garden-monitor/<repo>/`) and is never committed to the upstream branch. Per-dispatch project worktrees are torn down between dispatches; the only reason to write there is the dispatch's own work, not durable state.
-- The standing-monitor exception: a small number of long-lived `worktrees/<owner>-<repo>/watch-<slug>--monitor--<ts>/` checkouts persist across dispatches because their `.garden-monitor/<repo>/` state is owned by a bash daemon that runs continuously. These are referenced by the daemon, not by you; do not write to them from an LLM dispatch.
-- Do not rename, move, or remove any worktree. Lifecycle is the orchestrator's job; per-dispatch teardown happens via `skills/dispatch-worktree/dispatch-teardown.sh` when you return.
+See [WORKTREES.md](../WORKTREES.md).
+Managed worktrees are ephemeral: push
+commits before completing; host-local caches and transcripts are not substitutes
+for a delivered artifact.
+Do not write into a peer's or standing watcher's tree.
+The handler/completion machinery owns managed checkout teardown.
+Explicit legacy
+dispatch triples follow their caller's cleanup contract.
 
 ### Per-subagent worktrees (the hard rule) and scratch discipline
 
 **The root checkout (`<garden-root>`) is read-only for development.** It is a *deployed* version of the garden, advanced only by the deliberate, drained `scripts/jobs/deploy-garden.sh` ([deliberate-deploy](../designs/deliberate-deploy.md)) — never edited in place. Every gardener or subagent doing **any** development, **including garden-infra work on `main2` itself**, works in its **own** git worktree off the dev branch, so concurrent workers never collide and the root tree is never dirtied. This is the hard rule, not a preference: the isolated-worktree path is the *only* path. A garden-infra job that edits the root tree directly is a defect.
 
-The launch paths enforce this mechanically, so the rule holds even when a prompt forgets it. A gardener's default `claude -p` handler (`scripts/jobs/handlers/gardener-claude.sh`) runs with its cwd **already set** to a fresh per-job worktree off `origin/$GARDEN_MAIN_BRANCH` (stable per job base, reused on a reaper-requeue resume, torn down on completion); the Agent-tool dispatch path gives the same guarantee via its worktree triple (`skills/dispatch-worktree/dispatch-prepare.sh`). So a `claude -p` gardener job is **already inside** its own worktree and should develop there in its cwd, never reaching for the root tree. The manual `git worktree add` shape below is for a **shell/script** job (a non-`claude` handler) that must create its own isolated worktree.
+The shared worker setup (`scripts/jobs/handlers/worker-common.sh`) starts the
+handler inside that job's garden worktree.
+Develop there; a project job uses
+`ensure-project-worktree.sh`.
+A shell/script caller that creates another garden
+worktree must run git from an existing isolated checkout, never the deployed root:
 
 ```sh
-# the one correct shape for a garden-infra (main2) job:
-git -C <garden-root> fetch origin main2
+# Run from the job's garden worktree.
+git fetch origin main2
 git worktree add --detach "$(scratch_dir infra-<slug>)" origin/main2
-# develop, explicit-pathspec commit, then push HEAD:main2 via a rebase CAS loop
+# Develop, commit explicit paths, and push HEAD:main2 with fetch/rebase/retry.
 ```
 
 **Never create scratch files or ad-hoc worktrees in the live garden tree root.** A scratch dir or worktree at the root pollutes `git status` and dirties the deployed tree, which blocks a deploy's clean merge. Use the dedicated, gitignored scratch tree instead:
@@ -247,11 +278,15 @@ Read it on start to learn your purpose, role, repo, branch, and any PRs you are 
 
 ## Reporting
 
-When done with a one-shot task, write a `result` entry to the journal **and** return a concise summary in your final message. The journal is durable; your final message is convenience for whoever dispatched you. Both end with a one-line `Self-improvement: ...` per `garden/skills/self-improvement/SKILL.md` (or `Self-improvement: nothing this time.`).
+When done with a one-shot task, write a `result` entry to the journal **and** return a concise summary in your final message.
+The journal is durable; your final message is convenience for whoever dispatched you.
+Both end with a one-line `Self-improvement: ...` per `skills/self-improvement/SKILL.md` (or `Self-improvement: nothing this time.`).
 
 **A "verified" claim requires real-execution evidence.** Never write "verified" (nor "confirmed working", "passes", "works", "all criteria met") in a report, a PR comment, a commit message, or a completion summary unless you actually ran the thing and observed the result, and you cite that evidence: the command you ran and its output, the test that passed, or the observation you made. Reading the implementation and reasoning that it *should* work is not verification. It is a design argument, and you label it as one. **UI and browser acceptance criteria require an actual browser run:** launch the app, run the command, and observe the rendered DOM (a screenshot, or a precise description of what did and did not render). A passing unit test or a code inspection does **not** satisfy a UI acceptance criterion, because the criterion is about what the user sees on screen. When you could not run it, write **"not verified"** and say why. An honest "not verified" costs a follow-up; a false "verified" costs the maintainer's trust and time. Source: `endojs/endo-but-for-bots` #58 (2026-07-01), where the garden reported three UI acceptance criteria "verified" from code inspection, and the maintainer then opened Chrome and found only one of the three actually rendered.
 
-**A CI lint/test failure is a defect in our automation, not just a PR to fix.** Treat any red lint or test check in CI as a failure of our tooling to *anticipate* it. Three standing points: (a) every lint and test CI runs **must** be run locally before pushing (`garden/skills/local-verify/SKILL.md`, `garden/skills/pre-push-gates/SKILL.md`): a red CI run means we failed to run it first; (b) a red CI check is therefore a defect in our automation to close, not merely a PR fix; (c) a local-pass/CI-fail **discrepancy** is itself an environment-parity defect to diagnose and close (add the missing check to `local-verify`, or fix the environment divergence), never worked around with a one-off green push. When you green a PR after a CI failure `local-verify` should have caught, also close the gap so the same class cannot recur (`garden/skills/ci-failure-classification-loop/SKILL.md`).
+**A CI lint/test failure is a defect in our automation, not just a PR to fix.** Treat any red lint or test check in CI as a failure of our tooling to *anticipate* it.
+Three standing points: (a) every lint and test CI runs **must** be run locally before pushing (`skills/local-verify/SKILL.md`, `skills/pre-push-gates/SKILL.md`): a red CI run means we failed to run it first; (b) a red CI check is therefore a defect in our automation to close, not merely a PR fix; (c) a local-pass/CI-fail **discrepancy** is itself an environment-parity defect to diagnose and close (add the missing check to `local-verify`, or fix the environment divergence), never worked around with a one-off green push.
+When you green a PR after a CI failure `local-verify` should have caught, also close the gap so the same class cannot recur (`skills/ci-failure-classification-loop/SKILL.md`).
 
 When you are interrupted or hit a blocker you cannot resolve, write a `message` entry addressed to `liaison` describing what you tried and what you need.
 
@@ -271,13 +306,20 @@ Why this is a rule and not a memory aid: a redundant or incoherently-fused publi
 
 The garden's standing style rules. Every dispatched agent follows these on every document it authors or edits, including journal entry bodies and inbox messages. Each is a skill; read it when you need the detail.
 
-- `garden/skills/em-dash-style/SKILL.md`: avoid em-dashes in prose; rewrite as a period, parentheses, or a colon.
-- `garden/skills/relative-paths/SKILL.md`: paths within one document tree are relative; absolute paths are reserved for the cross-tree case (a document instructing an agent in another tree, as this file does for subagents reading it from a dispatch-root copy of `garden/`).
-- `garden/skills/no-latin-shorthand/SKILL.md`: avoid Latin shorthand (`cf.`, `i.e.`, `e.g.`, `etc.`, `et al.`, `vs.`, `viz.`, `ad hoc`) in bot-authored prose; use the English equivalent.
-- `garden/skills/typist-friendly-code-points/SKILL.md`: avoid code points that are difficult for a typist to produce (`→`, `…`, curly quotes, `≤` and kin); type the ASCII spelling (`->`, `...`, straight quotes, `<=`).
-- `garden/skills/test-title-spec-spelling/SKILL.md`: when a test title names a spec-defined surface, spell it exactly as the specification does.
-- `garden/skills/url-path-math/SKILL.md`: in Endo JavaScript modules, use `new URL(...)` for module-relative path math and convert to a native path only at the API boundary that requires one.
-- `garden/skills/fully-qualified-github-urls/SKILL.md`: in GitHub-rendered text (issue/PR comments, reviews), every reference to a repo, commit, or site is a fully-qualified `https://` URL, never `owner/repo` / bare-SHA / bare-host shorthand. This is a GitHub-communication rule, distinct from `relative-paths` (which keeps links *inside* a document tree relative).
-- `garden/skills/gricean-maxims/SKILL.md`: be concise; optimize for the reader's attention. Apply Grice's four maxims (Quantity, Quality, Relation, Manner) to every communication (completion reports, PR comments, review replies, journal bodies, bus messages) and to the prose you land in a project repo (code comments, design documents, commit bodies). Unlike the mechanical rules above, these are judgment calls, so the skill makes them operational with do/don't pairs. The sharpest one to internalize is **empty emphasis**. Do not tell the reader that something matters ("load-bearing rather than incidental", "note that this is subtle", "importantly"); show what it buys and let them conclude it. Such a phrase is padding when the surrounding text already shows the importance, and an unevidenced claim when it does not. The maxims govern **how** something is said, never **whether** a required disclosure (a completion-summary element, an inline-reply anchor, the `tada` contract) is made.
+- `skills/em-dash-style/SKILL.md`: avoid em-dashes in prose; rewrite as a period, parentheses, or a colon.
+- `skills/relative-paths/SKILL.md`: paths within one document tree are relative; absolute paths are reserved for the cross-tree case (a document instructing an agent in another tree, as this file does for subagents reading it from a dispatch-root copy of `garden/`).
+- `skills/no-latin-shorthand/SKILL.md`: avoid Latin shorthand (`cf.`, `i.e.`, `e.g.`, `etc.`, `et al.`, `vs.`, `viz.`, `ad hoc`) in bot-authored prose; use the English equivalent.
+- `skills/typist-friendly-code-points/SKILL.md`: avoid code points that are difficult for a typist to produce (`→`, `…`, curly quotes, `≤` and kin); type the ASCII spelling (`->`, `...`, straight quotes, `<=`).
+- `skills/test-title-spec-spelling/SKILL.md`: when a test title names a spec-defined surface, spell it exactly as the specification does.
+- `skills/url-path-math/SKILL.md`: in Endo JavaScript modules, use `new URL(...)` for module-relative path math and convert to a native path only at the API boundary that requires one.
+- `skills/fully-qualified-github-urls/SKILL.md`: in GitHub-rendered text (issue/PR comments, reviews), every reference to a repo, commit, or site is a fully-qualified `https://` URL, never `owner/repo` / bare-SHA / bare-host shorthand.
+  This is a GitHub-communication rule, distinct from `relative-paths` (which keeps links *inside* a document tree relative).
+- `skills/gricean-maxims/SKILL.md`: be concise; optimize for the reader's attention.
+  Apply Grice's four maxims (Quantity, Quality, Relation, Manner) to every communication (completion reports, PR comments, review replies, journal bodies, bus messages) and to the prose you land in a project repo (code comments, design documents, commit bodies).
+  Unlike the mechanical rules above, these are judgment calls, so the skill makes them operational with do/don't pairs.
+  The sharpest one to internalize is **empty emphasis**.
+  Do not tell the reader that something matters ("load-bearing rather than incidental", "note that this is subtle", "importantly"); show what it buys and let them conclude it.
+  Such a phrase is padding when the surrounding text already shows the importance, and an unevidenced claim when it does not.
+  The maxims govern **how** something is said, never **whether** a required disclosure (a completion-summary element, an inline-reply anchor, the `tada` contract) is made.
 
 Vendored content under `references/<source>/` is exempt from all of these: references are read-only snapshots. This section is the single consolidated index of all standing-style skills; § Style near the top of this file defers here rather than re-listing them.

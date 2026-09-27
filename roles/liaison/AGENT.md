@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-23
+updated: 2026-09-27
 author: gardener, liaison
 ---
 
@@ -8,6 +8,11 @@ author: gardener, liaison
 
 Purpose: the human-facing role. Relays messages between the user (maintainer)
 and the gardener fleet, and helps the maintainer operate the local garden.
+
+For a maintainer-requested **mentat** engagement, use
+`scripts/jobs/post-manual-job.sh <base> [body-file]`; ordinary `post-job.sh`
+normalizes automatic work to mentor.
+See [model-selection](../../skills/model-selection/SKILL.md).
 
 ## Skills
 
@@ -98,7 +103,8 @@ and the gardener fleet, and helps the maintainer operate the local garden.
   watches no inbox and brings up the gardener pool only.
 - **Reply or archive.** `maintainer-reply.sh <msgid>` routes your reply into the
   originating doer's inbox (and archives the message); `maintainer-archive.sh
-  <msgid>` archives without replying. An **empty reply** (blank body) to
+  <msgid>.md` archives without replying.
+  An **empty reply** (blank body) to
   `maintainer-reply.sh` is equivalent to a bare archive: it delivers nothing and
   just moves the message unread → read, so you can dismiss a message that needs no
   answer by leaving the reply blank. A still-working gardener receives a
@@ -213,7 +219,7 @@ maintainer.
   which drains the fleet, and a stale draining marker makes every gardener exit
   cleanly on start — zero failed units, yet zero gardeners running. So the
   bring-up ends by probing `drain-fleet.sh status`, **lifting** it (ask-before-acting)
-  if draining, and confirming *active* `garden-gardener@*` units > 0 — an empty
+  if draining, and confirming active units for the configured `monk` / `cleric` kinds — an empty
   `--state=failed` list alone is not proof. The command-level bring-up, the
   lift step, and the positive-liveness check are
   [context/operations/starting.md](../../context/operations/starting.md).
@@ -248,6 +254,9 @@ maintainer.
   designation (re-point the marker by hand; no automatic failover). Full contract:
   [context/operations/leader-follower.md](../../context/operations/leader-follower.md).
 
+Archive commands take the exact unread filename, including `.md`; the current
+`maintainer-archive.sh` does not append the suffix.
+
 ### Deploy-on-upgrade Monitor (observe/override the autonomous rolling deploy)
 
 The root checkout (`<garden-root>`) is a **deployed version**, advanced only by
@@ -279,18 +288,12 @@ human kill-switch, **not** the trigger.
   session** now advances on its own (the whole point of the rolling deploy);
   the old "accumulates the signal until a liaison runs" stall is fixed. Command-level
   detail: [context/operations/deploy.md](../../context/operations/deploy.md).
-- **Drain aftermath.** `deploy-garden.sh` drains before merging and lifts its own
-  drain on the success and self-abort paths, but a drain it did **not** engage (an
-  operator `stand down` it honored) or a hard kill before its lift can leave the
-  draining marker behind — and the marker outlives the deploy. So a re-start after
-  a deploy must treat **lifting the drain** as part of standing up (§ stand up, above;
-  [starting.md](../../context/operations/starting.md) step 5). We deliberately
-  keep the lift **operator-confirmed at re-start** rather than teaching the
-  deploy to force-lift every drain: an unconditional auto-lift would silently
-  resume a fleet the operator had *intentionally* paused, undermining the
-  deliberate-deploy posture ([deliberate-deploy](../../designs/deliberate-deploy.md)).
-  The trade-off is the maintainer's to revisit; the safe default is the checked,
-  confirmed lift at re-start.
+- **Drain aftermath.** A successful advancing deploy lifts even an inherited
+  pre-drain; an abort or no-op preserves an inherited drain, while cleaning up
+  its own.
+  A hard kill can leave a marker too.
+  Inspect ownership before lifting
+  a remaining drain; see [deploy.md](../../context/operations/deploy.md#the-drain-can-outlive-the-deploy).
 
 ### Restore after an outage (vocabulary)
 
@@ -336,7 +339,7 @@ closely, retire what time has answered:
   check whether that PR merged weeks ago. Batch the checks (`gh pr view <N>
   --json state,mergedAt,reviewDecision`) rather than opening messages one at a
   time. A message whose blocker is gone gets a bare
-  `maintainer-archive.sh <msgid>` and never costs the maintainer a glance.
+  `maintainer-archive.sh <msgid>.md` and never costs the maintainer a glance.
 - **Collapse repeat presses.** A daily press posts the same open question every
   tick. Six messages restating one unanswered design decision are one decision.
   Archive all but the newest and carry the newest into pass 3.

@@ -1,3 +1,9 @@
+---
+created: 2026-06-24
+updated: 2026-09-27
+author: gardener
+---
+
 # Role: gardener
 
 Purpose: a consumer worker that claims jobs off the journal board and does them.
@@ -10,7 +16,13 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
 
 ## Operating norms
 
-- You run as `garden-gardener@<id>` (see `scripts/jobs/gardener.sh`). Each loop:
+- Gardener is the shared worker role and spine (`scripts/jobs/gardener.sh`),
+  not a worker kind.
+  Native Anthropic slots run as `garden-monk@<id>`; OpenAI
+  slots as `garden-cleric@<id>`.
+  The `gardener` kind and its unit/setter were
+  retired on 2026-09-26.
+  Each loop:
   monitor the bus (`role/gardener`, `broadcast`), **claim** a job (todo→doin via
   the accepted push), narrate a `progress` journal entry, drain your job
   **inbox**, do the work, **complete** (doin→tada report).
@@ -80,8 +92,15 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
   so never background a CI wait or arm a Monitor and then end your turn "until
   notified". The task is abandoned and the job requeues without its completion
   (six jobs on 2026-09-23). Wait in the foreground with a bounded poll, and end
-  your final message, the report, with the completion signal. If you stop without
-  it anyway, the handler resumes you once with a "verify and complete" prompt.
+  your final message, the report, with the completion signal.
+  The monk handler can nudge an unfinished end-turn in-process (default once,
+  only with remaining call budget); a later same-session `continue` prompt
+  distinguishes that from an interrupted run.
+  This is recovery, not permission
+  to end early, and is not a promise made by every backend.
+  The shared worktree
+  setup records the initial HEAD before the first session so first-cycle commits
+  count toward the productivity baseline.
 - To reach the user, `message-user.sh <your-base>` — the liaison surfaces it and
   routes any reply back into your inbox.
 - Before submitting to CI, err toward running **all** evaluation scripts
@@ -98,5 +117,8 @@ Purpose: a consumer worker that claims jobs off the journal board and does them.
 
 ## Definition of done
 
-The job's report is in `jobs/tada/<base>`, `doin/<base>`, `work/<base>`, and the
-inbox are gone, and any worktree you created is torn down.
+Deliver and push the work, then emit the completion signal in the final report.
+The worker completion machinery writes `jobs/tada/YYYY/MM/DD/<base>.md`, removes
+the claim/work/inbox state, and tears down managed worktrees.
+Read older reports
+through `tada_find` (flat and date-sharded layouts), not a guessed date path.

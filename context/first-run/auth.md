@@ -1,3 +1,9 @@
+---
+created: 2026-07-04
+updated: 2026-09-27
+author: gardener
+---
+
 # The three credentials
 
 A fresh clone holds no credentials. A working instance needs exactly three, and
@@ -17,8 +23,8 @@ The exec'd `claude` runs its own first-launch onboarding: pick a login method,
 open the printed URL **in a browser on the host** (the container has none),
 paste the code back. The credential lands in the bind-mounted home.
 
-- **Beaten path:** a **Claude subscription login** — the whole fleet runs on one
-  subscription.
+- **Beaten path:** a **Claude subscription login** — each host is mapped to its actual subscription; hosts sharing a
+  subscription share its budget ([cybernetics](../operations/cybernetics.md)).
 - **Alternate path:** export `ANTHROPIC_API_KEY` **before the first
   `./garden`**; the launcher forwards it at container creation and the login is
   skipped entirely.
@@ -28,11 +34,13 @@ one sentence of residue: "have a Claude subscription or an API key."
 
 The credential this writes — a non-empty `~/.claude/.credentials.json` (the
 subscription login) or a non-empty `ANTHROPIC_API_KEY` — is exactly what the
-scaler's **gardener backend probe** (`claude_auth_ok`) checks each tick. Until it
-is present the host's **effective** gardener count is held at 0 even though
-`gardeners:` is declared; the pool auto-ramps to the declared target on the first
+scaler's **monk backend probe** (`claude_auth_ok`) checks each tick.
+Until it
+is present the host's **effective** monk count is held at 0 even though
+`monks:` is declared; the pool auto-ramps to the declared target on the first
 confirmed pass and drops back to 0 if the credential is later removed (a human
-`claude` logout). So you may declare gardeners before finishing this login — the
+`claude` logout).
+So you may declare monks before finishing this login — the
 fleet waits for auth on its own. Detail:
 [gnome-backend-verified-autotune.md](../../designs/gnome-backend-verified-autotune.md),
 operator flow in [operations/starting.md](../operations/starting.md) § step 4.
@@ -58,9 +66,9 @@ Inside the container, authenticate `gh` as the **bot**:
    code** to the human, who opens it and clicks "authorize" — the human-only
    click. The token lands in `.config/gh/` (bind-mounted, gitignored).
 3. **Verify** by whoami-ing the fleet's `gh` wrapper — it must report the bot
-   login, not your identity. The wrapper pins every call to the bot; the one
-   exception is the ferry's explicit `GARDEN_GH_IDENTITY=kriskowal` override
-   (`designs/fleet-gh-identity.md`).
+   login, not your identity.
+   The wrapper pins every call to the bot; the ferry runs separately on the credentialed host through
+   `scripts/ferry.sh`, outside this wrapper and container.
 
 ## The conservative non-bypass launch variant
 

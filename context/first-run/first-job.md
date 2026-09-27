@@ -1,3 +1,9 @@
+---
+created: 2026-07-04
+updated: 2026-09-27
+author: gardener
+---
+
 # Posting a first job
 
 The last teaching stage: post one small real job, watch it cross the board's
@@ -23,7 +29,11 @@ scripts/jobs/post-job.sh <basename> [body]
 body names the repo, any PR/comment URL, and the task in a sentence or two. For
 the tutorial, a tiny self-contained job (a trivial garden-library edit, or a
 "say hello and report" job) is enough to demonstrate the loop without waiting on
-CI. Post it, then watch.
+CI.
+Post it, then watch.
+This ordinary path selects `mentor` with `minion`
+fallback.
+Use `post-manual-job.sh` only for explicitly requested `mentat` work.
 
 ## The three board states
 
@@ -34,7 +44,9 @@ branch:
 - **`doin/`** — claimed. The accepted `git push` to `origin/journal2` is the
   compare-and-swap that serializes the claim: first pusher wins, the rest back
   off to another job. The worker runs it in an isolated per-job worktree.
-- **`tada/`** — done. The worker's completion report lands here; the follow-up
+- **`tada/YYYY/MM/DD/<base>.md`** — done (UTC completion date; readers also
+  accept legacy flat reports through `tada_find`).
+  The worker's completion report lands here; the follow-up
   service reads each report's `## Follow-ups` section and turns actionable ones
   into new jobs, so the board feeds itself.
 
@@ -48,8 +60,12 @@ The user steers in plain language — a sentence of intent becomes a job — but
 these verbs are precise shorthand, and the PR-comment watchers recognize the
 branch-op ones deterministically:
 
-- **design X** / propose X / spec X — draft a design, open it as a DRAFT PR.
-- **build #N** / build X — implement an approved design.
+- **design X** / propose X / spec X — draft a design; project designs stop at
+  a DRAFT PR.
+  Garden documentation lands directly on `main2`, with a review PR
+  only for genuine unresolved maintainer design questions.
+- **build #N** / build X — implement an approved design, stopping at a draft
+  PR; review begins only on an explicit gauntlet request.
 - **run the gauntlet #N** — the full PR chain: clean → panel review → fix-loop →
   un-draft.
 - **fix #N**, **rebase #N**, **weave #N**, **shepherd #N**, **merge #N** — the

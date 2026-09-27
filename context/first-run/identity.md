@@ -1,3 +1,9 @@
+---
+created: 2026-07-04
+updated: 2026-09-27
+author: gardener
+---
+
 # The GARDEN shard identity
 
 Every garden instance has one logical name — its **`GARDEN` shard identity** —
@@ -50,13 +56,13 @@ instance's credentials live in its own `.ssh` / `.config/gh` under that path.
 
 ## How the fleet resolves the identity
 
-Every fleet script resolves `GARDEN` as: **`GARDEN` env → the gitignored
-`.garden` file → `hostname -s`** (`common.sh`). With the location-derived scheme
-there is no `.garden` file, so resolution lands on **`hostname -s`** — and the
-launcher has pinned the container's `--hostname` to the computed instance id, so
-every systemd `--user` unit sees exactly that id without any environment
-plumbing. (An exported `GARDEN` still does not reach the `--user` manager; that
-is why the id rides `--hostname` instead.)
+`common.sh` resolves an explicit per-invocation `GARDEN` override, otherwise
+`hostname -s`.
+It no longer reads `.garden`.
+The launcher pins the derived id
+into the container hostname, so ordinary units need no identity configuration.
+Do not persist `GARDEN` in the user manager's environment: it can shadow the
+container's identity and split one instance into conflicting journal shards.
 
 ## The uniqueness check (the human's one answer)
 

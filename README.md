@@ -1,3 +1,9 @@
+---
+created: 2026-06-24
+updated: 2026-09-27
+author: gardener
+---
+
 # Garden
 
 **The garden mostly grows by itself, but to get what you want, you have to pull
@@ -95,7 +101,10 @@ deterministically. `#N` is a pull-request number.
 | **defer X** / park X | park a job on the plan queue; the foreman promotes it when the board idles |
 | **await maintainer on X** | park a job with the exact pending question and its issue/PR/comment URL; only an explicit maintainer promotion can release it |
 | **promote X** / go ahead on X | move a parked job onto the board now |
-| **muster** | work the maintainer inbox with the liaison: compact the duplicates, classify what is left, and dispose of it item by item. A conversation, not a board entry, so no watcher recognizes it |
+| **mentat job** | an explicitly requested high-tier job posted with `post-manual-job.sh <base> [body-file]`; automatic producers cannot select this tier |
+| **monk / cleric** | Anthropic / OpenAI worker kinds; **gardener** is their shared role and worker spine, not a separate slot kind |
+| **quiesce for deploy** | stop a busy follower taking more work so its current job can finish and the pinned rolling deploy can proceed ([deploy](context/operations/deploy.md)) |
+| **muster** | work the maintainer inbox with the liaison: compact the duplicates, classify what is left, and dispose of it item by item; The optional TypeSafe Jev pilot supplies advisory labels only; A conversation, not a board entry, so no watcher recognizes it |
 | **stand up / stand down / drain / lift** | fleet operations, handled by the liaison directly. **Drain** = a moratorium on undertaking further work, while work already in progress finishes; **lift** relaxes it ([scaling.md](context/operations/scaling.md)) |
 | **restore** | recover the fleet after an outage: reactivate hung agents, forward dead letters, ack + redispatch poison ([restore](skills/restore/SKILL.md)) |
 
@@ -135,12 +144,12 @@ follow its operation link for commands and recovery procedure, or the
 | `promote-plan.sh <job>` / “go ahead on X” | Moves one parked job to `todo/`; for a `go-ahead` gate, the maintainer's explicit direction is the authorization. | Merely writing `gate: go-ahead` does not authorize, schedule, or auto-promote anything. The foreman auto-promotes only `deferred`. | Inspect `jobs/plan/<job>.md`, then promote explicitly ([plan-queue procedure](context/operations/plan-queue.md)). |
 | `promote-plan.sh --maintainer <job>` / “the maintainer answered X” | Clears an `awaiting-maintainer` gate after the linked answer lands. | It does not infer an answer from time or from prose in the job. Without `--maintainer`, the promotion is refused. | Read `maintainer_question:` and follow `asked_at:` before promoting. |
 | `drain-fleet.sh on` | Stops this host from taking new claims while its in-flight work finishes. | It is not a producer freeze: the leader scheduler still dispatches due schedules; `repo-watcher.sh` still reconciles watcher units; `self-heal-run.sh` may post a scoped repair; and the host sysop deliberately still runs. Direct job-producing watchers are drain-gated. | Use the control that owns the producer, and distinguish a drain from capacity zero ([scaling](context/operations/scaling.md)). |
-| Foreman active target | `GARDEN_FOREMAN_ACTIVE_TARGET=0` in the shipped foreman unit independently stops both deferred promotion and new-work pumping. | It does not pause gardeners, the scheduler, watchers, or orchestration. Conversely, draining to stop the foreman also stops drain-gated `orchestrate.sh` and direct watchers. | Prefer the foreman-specific target when only the foreman must stop; use drain only for claim moratorium semantics. |
+| Foreman brake / active target | `brake-foreman.sh on` stops only the foreman; the shipped active target is 2. | Drain also stops claims and drain-gated watchers/orchestration; Setting the foreman target to zero is another pump stop, not the shipped default. | Use the journal-backed brake for a temporary foreman pause ([scaling](context/operations/scaling.md)). |
 | `set-deadline-nudge.sh off` | Disables the shared deadline-warning scanner through journal-backed fleet state; `on` restores it and `status` reports it. | It does not extend or stop a handler deadline, interrupt an agent, change a job body, or drain workers. | A delivered warning is queued in the job's own inbox and is observed only at the agent's next `inbox-read.sh` checkpoint. |
-| `set-workers.sh <kind> <N> [host]` | Declares one worker kind's capacity on the host where the command runs. | It refuses to write another host's record. It also refuses `gardeners=0` unless the temporary quota route is active and a configured, probe-qualified non-Claude class remains. | Address an unattended host through its sysop; use drain for a temporary pause ([host operations](context/operations/host-operations.md), [scaling](context/operations/scaling.md)). |
+| `set-workers.sh <kind> <N> [host]` | Declares one worker kind's capacity on the host where the command runs. | It refuses to write another host's record; It also refuses `monks=0` unless the temporary quota route is active and a configured, probe-qualified non-Claude class remains. | Address an unattended host through its sysop; use drain for a temporary pause ([host operations](context/operations/host-operations.md), [scaling](context/operations/scaling.md)). |
 | Sysop benign tier | Applies host-scoped `set-workers`, `drain`, `reset-failed`, and deterministic `restore`. | It does not confer authority for `unit`, `deploy`, `local-model`, or `maintain`. | The latter tier needs a maintainer-authored `authorized_by: <login>` attestation ([host operations](context/operations/host-operations.md)). |
 | Sysop attested tier | Applies bounded `unit`, `deploy`, `local-model`, or `maintain` operations after allowlist attestation. | An agent's request for the operation is not the attestation, and no agent may originate `authorized_by`. | The maintainer must send or explicitly supply the attested host-op artifact ([host operations](context/operations/host-operations.md)). |
-| `deploy-garden.sh` | Tests the candidate, drains if needed, waits up to 600 seconds, advances the deployed tree, lifts its own drain, and restarts. | Its wait cannot outlast legitimate 7,200- or 10,800-second job budgets. It defers before draining when a live job is already at least 300 seconds old. A pre-existing operator drain is not lifted on abort. | On a busy fleet, pre-drain, wait for quiescence, then deploy; diagnose stale drains separately ([deploy](context/operations/deploy.md)). |
+| `deploy-garden.sh` | Tests the candidate, drains if needed, waits up to 600 seconds, advances the deployed tree, clears the drain on successful advance, and restarts. | Its wait cannot outlast legitimate 7,200- or 10,800-second job budgets; It defers before draining when a live job is already at least 300 seconds old; A pre-existing operator drain is not lifted on abort. | On a busy fleet, pre-drain, wait for quiescence, then deploy; diagnose stale drains separately ([deploy](context/operations/deploy.md)). |
 | `git mv schedules/X.md paused-schedules/X.md` | Pauses a schedule by taking it out of the only directory the scheduler enumerates. | It does not cancel a job already dispatched to `todo/` or `doin/`. | Reverse the move to restore the schedule ([schedules](context/operations/schedules.md)). |
 
 The executable sources behind these boundaries are
@@ -148,7 +157,7 @@ The executable sources behind these boundaries are
 [`promote-plan.sh`](scripts/jobs/promote-plan.sh) (plan selection),
 [`common.sh`](scripts/jobs/common.sh) plus the individual producers' guards
 (drain), [`set-workers.sh`](scripts/jobs/set-workers.sh) (local-only and
-gardener-floor checks), [`sysop.sh`](scripts/jobs/sysop.sh) (issuer replacement
+monk-floor checks), [`sysop.sh`](scripts/jobs/sysop.sh) (issuer replacement
 and trust tiers), [`deploy-garden.sh`](scripts/jobs/deploy-garden.sh) (defer,
 quiesce, and drain ownership), and
 [`scheduler.sh`](scripts/jobs/scheduler.sh) (the `schedules/` enumeration).

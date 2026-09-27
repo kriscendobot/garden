@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-23
+updated: 2026-09-27
 author: gardener
 ---
 
@@ -28,11 +28,39 @@ the same predicate after claim before running. It is capability, never authority
 authorization fields such as `identity_switch_authorized: true` remain independent.
 See [`designs/host-requirements-gating.md`](../../designs/host-requirements-gating.md).
 
+New completions use `jobs/tada/YYYY/MM/DD/<base>.md` (UTC completion date).
+`tada_find` / `tada_find_tree` in `common.sh` read both date-sharded and legacy
+flat reports; do not infer the date from a job name.
+Any flat `tada/<base>.md`
+notation below denotes the report by basename, not a required storage layout.
+
 ## Procedure
 
 Board files are markdown and carry `.md`; the **basename `<base>` is the
 extensionless spine**. Scripts append `.md` for board files and strip it for the
 `work/`/`inbox/` keys.
+
+### Dispatch and headless completion
+
+Ordinary `post-job.sh` / `post-plan.sh` producers normalize jobs to `mentor` with
+`minion` fallback.
+Explicitly requested `mentat` work uses
+`post-manual-job.sh <base> [body-file]`, which stamps `dispatch: manual`; see
+[model-selection](../model-selection/SKILL.md).
+Gardener is the shared role;
+`monk` and `cleric` are native Anthropic and OpenAI worker kinds.
+
+An end-turn is not a successful completion.
+Finish foreground waits, push the
+deliverable, then end the report with the worker prompt's exact completion
+signal.
+The monk handler has a bounded in-process completion nudge and a
+same-session `continue` prompt for unfinished end-turns.
+First-session HEAD is
+recorded before work begins for the productivity baseline.
+Recovery is not a
+substitute for emitting the signal.
+See [gardener](../../roles/gardener/AGENT.md).
 
 ### Basename shape: bare for one-shot work, disambiguated for recurring actions
 
@@ -77,7 +105,11 @@ scripted loop can no longer let the swallow pass unnoticed.
   clobbered a working tree). Pass `--identity <owner>/<repo>#<pr>:comment:<cid>`
   (or `…:review:<review_id>`, or set `GARDEN_JOB_IDENTITY`) when posting a
   PR/comment-directive job: it is deduped against a `jobs/index/<hash>` map so ONE
-  directive maps to at most one OPEN job, whatever each producer named it. The
+  directive maps to one job, whatever each producer named it.
+  Replaying an
+  identity whose job has completed is terminal too; a genuinely new directive
+  gets a new identity.
+  The
   watchers pass it automatically; when omitted it is best-effort derived from a
   single canonical GitHub comment URL in the body.
 - **Claim** (`claim-job.sh <id>`): fetch+reset to tip, `git mv todo→doin`

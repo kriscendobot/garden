@@ -1,6 +1,6 @@
 ---
 created: 2026-06-10
-updated: 2026-09-13
+updated: 2026-09-27
 author: gardener
 ---
 
@@ -77,6 +77,17 @@ pin. Its sole current row is Qwen 3.5 (`qwen3.5:cloud`) at **minion**. Design:
 [`designs/claude-ollama-cloud-worker-kind.md`](../../designs/claude-ollama-cloud-worker-kind.md);
 activation: [`context/operations/ollama-cloud.md`](../../context/operations/ollama-cloud.md).
 
+## Worker kinds are not tiers
+
+The native Anthropic kind is `monk` (`garden-monk@`, `monks:`); the OpenAI kind
+is `cleric` (`garden-cleric@`, `clerics:`).
+The old `gardener` kind and
+`set-gardeners.sh` are retired.
+Gardener remains the shared worker role/spine.
+Configure current kinds with `set-workers.sh`; the retired local `hermit` lane
+remains inert.
+Slot counts and subscription budgets do not change a job's tier.
+
 ## Current route
 
 `post-job.sh` and `post-plan.sh` are the automatic producer choke points. They
@@ -90,7 +101,8 @@ failure the reaper advances only the qualified non-Claude fallback. This routing
 reversible by changing the choke-point policy; the four-tier inventory remains
 unchanged.
 
-No automatic path may emit Fable/mentat or any other manual-only pin. The gardener
+No automatic path may emit Fable/mentat or any other manual-only pin.
+The monk
 Claude handler and the backend-fit predicate (`job_eligible_for_kind`,
 `claim-job.sh`) both refuse `tier: mentat` unless the job carries
 `dispatch: manual`. **Mentat is the only tier they gate on** — the handler serves
@@ -102,7 +114,7 @@ CLAIM a `tier: mentor` job (Anthropic does have a model at mentor). Claim said
 yes, handler said no, and a host with `gardeners: N>0` would claim/die/requeue
 across the whole board in a hot loop. That is why both endolin hosts sat at
 `gardeners: 0`. The two are now consistent, and
-`test/gardener-claude-tier-serving-test.sh` asserts the agreement per tier.
+`scripts/jobs/test/gardener-claude-tier-serving-test.sh` asserts the agreement per tier.
 
 ### The anthropic automatic ceiling (claude-opus-5-5)
 

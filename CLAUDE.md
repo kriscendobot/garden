@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-09-23
+updated: 2026-09-27
 author: gardener, liaison, builder
 ---
 
@@ -34,7 +34,14 @@ Files are named `AGENT.md` / `SKILL.md` / `COMMON.md` (not `CLAUDE.md`) on purpo
 
 The liaison does not do the substance itself and does not spawn subagents. It **posts jobs to the board**, and a **gardener** claims each one. When the maintainer asks for work on a PR or repo — design, build, fix, rebase, weave, retcon, shepherd, merge, ferry, and the like — the liaison derives a short deterministic basename from the change identity and posts a job (`scripts/jobs/post-job.sh <base> [body]`, skill [job-board](skills/job-board/SKILL.md)) whose body names the repo, the PR/comment URL, and the task in a sentence or two. The per-job substance never enters the liaison's context, so a re-issued ask is idempotent and the board survives a `/clear`. That idempotency is deliberate for a **one-shot** ask (`design-X`, `build-X`, a specific fix — re-posting is a clean no-op) but a trap for a **recurring verb against the same target** (`weave`, `shepherd`, `conduct`, a restack, a `retcon`), where this month's invocation is different work from last month's yet derives the same bare base and is *silently swallowed* by the earlier (possibly already-completed) job: give those a disambiguator suffix — an ISO date `-YYYYMMDD` — per [job-board](skills/job-board/SKILL.md) § Basename shape. The full mechanics — the `journal2` board, the message bus, the gardener fleet, and the systemd services around them — are the § Job system below. What the liaison keeps in-session is narrow: local garden operations (bring-up, scaling, schedules), the maintainer inbox, and small garden-library edits it is asked to make directly. See [`roles/liaison/AGENT.md`](roles/liaison/AGENT.md).
 
-A gardener runs each job in an isolated per-job worktree of the project repo (`scripts/jobs/ensure-project-worktree.sh`, keyed by the job base so peers on the same PR never share a working tree; see [WORKTREES.md](WORKTREES.md)), never the deployed garden root. The model tier per role is the canonical map in [`skills/model-selection/SKILL.md`](skills/model-selection/SKILL.md) (the scripted fleet reads it via `role_default_model`/`resolve_model_tier` in `scripts/jobs/common.sh`): `designer` and `builder` both ride the latest Opus, every other role the fleet default. The v1 route — the liaison dispatching subagents through the `Agent` tool into a per-dispatch `garden/`+`journal/`+`project/` worktree triple — is retired; the [dispatch-worktree](skills/dispatch-worktree/SKILL.md) skill survives only where a role still needs the triple shape.
+A gardener runs each job in an isolated per-job worktree of the project repo (`scripts/jobs/ensure-project-worktree.sh`, keyed by the job base so peers on the same PR never share a working tree; see [WORKTREES.md](WORKTREES.md)), never the deployed garden root.
+The model tier per role is the canonical map in [`skills/model-selection/SKILL.md`](skills/model-selection/SKILL.md) (the scripted fleet reads it via `role_default_model`/`resolve_model_tier` in `scripts/jobs/common.sh`): automatic jobs default to `mentor` with `minion` fallback, subject to role floors
+and provider eligibility.
+Manual `mentat` work goes through
+`scripts/jobs/post-manual-job.sh`; native Anthropic slots are monks and OpenAI
+slots are clerics.
+Gardener names the shared role/spine, not a current worker kind.
+The v1 route — the liaison dispatching subagents through the `Agent` tool into a per-dispatch `garden/`+`journal/`+`project/` worktree triple — is retired; the [dispatch-worktree](skills/dispatch-worktree/SKILL.md) skill survives only where a role still needs the triple shape.
 
 Roles never inline skill bodies; they reference them by path, and a gardener reads a skill just-in-time.
 
@@ -122,9 +129,10 @@ The constraint covers both **event-level** surveillance (the per-repo triager co
 
 The authoritative inventory is the `roles/` and `skills/` directories themselves — each role's `AGENT.md` and each skill's `SKILL.md` is the source of truth for what it does. This list is a regenerable name index (`ls roles/ skills/`), kept plain so it does not re-drift into prose.
 
-- **Roles** (`roles/<name>/AGENT.md`): `appellate`, `assayer`, `barrister`, `boatman`, `botanist`, `builder`, `cleaner`, `conductor`, `designer`, `fixer`, `foreman`, `gardener`, `groom`, `journalist`, `judge`, `justice`, `liaison`, `librarian`, `mentor`, `monitor`, `orchestrator`, `pages-shepherd`, `prosecutor`, `proxy`, `researcher`, `scholar`, `shepherd`, `solicitor`, `sysop`, `triager`, `watchman`, `weaver`, `web-builder`, `web-designer`. Three are non-postable stubs kept so old references resolve: `judge` → the split `solicitor`/`barrister`/`justice`; `monitor` → its v2 successors `triager` (per-repo comment/CI watch) + `watchman` (`main2` evolution broadcast); and `sysop` → the deterministic per-host daemon `scripts/jobs/sysop.sh` + `garden-sysop` unit (host-directed system ops off the bus; runs NO `claude`, claims no jobs — see [designs/sysop.md](designs/sysop.md) and § Job system, *the sysop*).
-- **Juror seats** (`roles/jurors/<seat>/AGENT.md`, dispatched only by the scripted panel): `archivist`, `assessor`, `benchmarker`, `breaker`, `changeset-auditor`, `copyeditor`, `corner-prober`, `coverage-auditor`, `critic`, `curator`, `decomplector`, `engine-realist`, `ergonomist`, `fast-checker`, `gateway`, `integrator`, `locksmith`, `migrator`, `novice`, `packager`, `pedant`, `procurer`, `prover`, `pruner`, `purist`, `reexport-auditor`, `releaser`, `saboteur`, `scribe`, `skeptic`, `spec-keeper`, `stylist`, `surfacer`, `transplanter`, `typist`, `warden`, `wire-watcher`.
-- **Skills** (`skills/<name>/SKILL.md`): `activity-feed-watcher`, `adversarial-tests`, `agoric-chain-snapshot`, `at-mention-surveillance`, `aws-administration`, `bid-auction`, `build-vs-buy`, `chained-followup`, `changeset-discipline`, `cherry-pick-followup`, `ci-failure-classification-loop`, `conflict-resolution`, `context-library`, `coverage-driven-testing`, `css-anchor-positioning-and-flip-fallbacks`, `css-design-tokens-and-theming`, `css-intrinsic-and-content-sizing`, `design-dependency-walk`, `design-to-pr-pipeline`, `dispatch-worktree`, `em-dash-style`, `emoji-favicon`, `frozen-base-branch`, `fully-qualified-github-urls`, `gap-revealing-build`, `gardener-inbox-error-reporting`, `github-activity-poll`, `gricean-maxims`, `issue-inbox`, `job-board`, `journalism`, `library-lookup`, `local-verify`, `mermaid-validation`, `message-bus`, `minion-town-clip-publishing`, `minion-town-mcp-playwright-login`, `model-selection`, `native-customizable-form-control-styling`, `no-comment-banners`, `no-latin-shorthand`, `node-lts-window-watch`, `node-parity-test`, `oauth-use-case-patterns`, `orchestration`, `ownership-map`, `pages-build-shepherd`, `panel`, `panel-hints`, `panel-review`, `pr-ci-watch`, `pr-completion-summary-comment`, `pr-creation-flow`, `pr-dependency-graph`, `pr-dependency-topo-sort`, `pr-formation`, `pr-handoff`, `pr-review-thread-replies`, `pre-pr-checklist`, `pre-push-gates`, `prompt-on-failure-capture`, `prompt-section-discovery`, `re-export-deprecation-policy`, `reactji-acknowledgment`, `rebase-before-followup`, `rebase-hygiene-audit`, `regression-evidence`, `relative-paths`, `rename-discipline`, `restore`, `retcon`, `review-feedback-followup-commits`, `review-queue-poll`, `review-retrospective`, `saboteur-adversarial-review`, `schedule`, `self-healing-wrapper`, `self-improvement`, `slog-debugging`, `stacked-pr-build`, `supports-feature-query-progressive-enhancement`, `test262-independent-assertions`, `test-title-spec-spelling`, `typesafe-ai`, `typist-friendly-code-points`, `url-path-math`, `verify-upstream-state-before-pinning`, `worktree-per-pr`, `xs-debugging`, `yarn-lock-separate-commit`.
+- **Roles** (`roles/<name>/AGENT.md`): `americanizer`, `appellate`, `assayer`, `barrister`, `boatman`, `botanist`, `builder`, `cleaner`, `conductor`, `designer`, `deslopper`, `fixer`, `foreman`, `gardener`, `groom`, `journalist`, `judge`, `justice`, `liaison`, `librarian`, `mentor`, `monitor`, `orchestrator`, `pages-shepherd`, `prosecutor`, `proxy`, `researcher`, `scholar`, `shepherd`, `solicitor`, `sysop`, `triager`, `watchman`, `weaver`, `web-builder`, `web-designer`.
+  Three are non-postable stubs kept so old references resolve: `judge` → the split `solicitor`/`barrister`/`justice`; `monitor` → its v2 successors `triager` (per-repo comment/CI watch) + `watchman` (`main2` evolution broadcast); and `sysop` → the deterministic per-host daemon `scripts/jobs/sysop.sh` + `garden-sysop` unit (host-directed system ops off the bus; runs NO `claude`, claims no jobs — see [designs/sysop.md](designs/sysop.md) and § Job system, *the sysop*).
+- **Juror seats** (`roles/jurors/<seat>/AGENT.md`, dispatched only by the scripted panel): `archivist`, `assessor`, `benchmarker`, `breaker`, `changeset-auditor`, `copyeditor`, `corner-prober`, `coverage-auditor`, `critic`, `curator`, `decomplector`, `duality-auditor`, `engine-realist`, `ergonomist`, `fast-checker`, `gateway`, `integrator`, `locksmith`, `migrator`, `novice`, `orthographer`, `packager`, `pedant`, `procurer`, `prover`, `pruner`, `purist`, `reexport-auditor`, `releaser`, `saboteur`, `scribe`, `skeptic`, `spec-keeper`, `stylist`, `surfacer`, `thesaurus`, `transplanter`, `typist`, `warden`, `wire-watcher`.
+- **Skills** (`skills/<name>/SKILL.md`): `activity-feed-watcher`, `adversarial-tests`, `agoric-chain-snapshot`, `american-english-normalization`, `at-mention-surveillance`, `aws-administration`, `bid-auction`, `botese-normalization`, `build-vs-buy`, `chained-followup`, `changeset-discipline`, `cherry-pick-followup`, `ci-failure-classification-loop`, `claude-usage-dashboard-scrape`, `conflict-resolution`, `context-library`, `coverage-driven-testing`, `css-anchor-positioning-and-flip-fallbacks`, `css-design-tokens-and-theming`, `css-intrinsic-and-content-sizing`, `design-dependency-walk`, `design-to-pr-pipeline`, `dispatch-worktree`, `em-dash-style`, `emoji-favicon`, `frozen-base-branch`, `fully-qualified-github-urls`, `gap-revealing-build`, `gardener-inbox-error-reporting`, `github-activity-poll`, `gricean-maxims`, `issue-inbox`, `job-board`, `journalism`, `library-lookup`, `local-verify`, `mermaid-validation`, `message-bus`, `minion-town-clip-publishing`, `minion-town-mcp-playwright-login`, `model-selection`, `native-customizable-form-control-styling`, `no-comment-banners`, `no-latin-shorthand`, `node-lts-window-watch`, `node-parity-test`, `oauth-use-case-patterns`, `orchestration`, `ownership-map`, `pages-build-shepherd`, `panel`, `panel-hints`, `panel-review`, `pr-ci-watch`, `pr-completion-summary-comment`, `pr-creation-flow`, `pr-dependency-graph`, `pr-dependency-topo-sort`, `pr-formation`, `pr-handoff`, `pr-review-thread-replies`, `pre-pr-checklist`, `pre-push-gates`, `prompt-on-failure-capture`, `prompt-section-discovery`, `re-export-deprecation-policy`, `reactji-acknowledgment`, `rebase-before-followup`, `rebase-hygiene-audit`, `regression-evidence`, `relative-paths`, `rename-discipline`, `restore`, `retcon`, `review-feedback-followup-commits`, `review-queue-poll`, `review-retrospective`, `saboteur-adversarial-review`, `schedule`, `self-healing-wrapper`, `self-improvement`, `sibling-family-sweep`, `slog-debugging`, `stacked-pr-build`, `supports-feature-query-progressive-enhancement`, `test-title-spec-spelling`, `test262-independent-assertions`, `typesafe-ai`, `typist-friendly-code-points`, `url-path-math`, `verify-upstream-state-before-pinning`, `worktree-per-pr`, `xs-debugging`, `yarn-lock-separate-commit`.
 
 The **liaison** is the single top-level orchestrator posture — the in-the-loop, human-facing relay that posts jobs and operates the local garden (§ How work reaches workers; `roles/liaison/AGENT.md`). The v1 `steward` (autonomous PR-pipeline orchestrator) is **retired**: its autonomous work is now the **gardener** fleet claiming jobs off the board, supplied by producers (the `triager`, the `foreman` when the board idles, the scheduler, the watchman, the design→PR poller, the pages-watcher that auto-posts a `pages-shepherd` when the garden's own GitHub Pages deploy goes red — `scripts/jobs/pages-watcher.sh`, kriskowal/garden#27; the dependabot-PR watcher that auto-posts a `botanist` job for each new `dependabot[bot]` PR — `scripts/jobs/dependabot-watcher.sh`, endojs/endo-but-for-bots#849). The `general-contractor` and `driver` postures are likewise gone; see [designs/v1-migration-manifest.md](designs/v1-migration-manifest.md).
 
@@ -144,13 +152,15 @@ Posture mapping from v1: the **steward is retired** — its autonomous PR-pipeli
 work is now the **gardener script** fleet claiming jobs off the board. The
 **liaison is implicit**: an agent spawned in the garden root (this terminal) is the
 liaison. Jobs may block for a long time waiting for messages, so a host runs a
-**pool of gardeners (~20)** — most are cheaply idle-blocked, so the count is
-sized for concurrency, not CPU.
+**pool of workers** whose declared capacity is reconciled against backend
+health and budget limits.
+Size it with [scaling.md](context/operations/scaling.md),
+not a fixed twenty-worker starting target.
 
 ### Starting the garden
 
 Bringing up a fresh instance — linger, unit install/enable, sizing the worker
-pool, designating the leader, arming the liaison's three Monitors, the optional
+pool, designating the leader, arming the liaison's four Monitors, the optional
 armings (issue inbox, bulletin PAT) — is work the **liaison performs itself** on
 *help* or *start the garden* (§ Orchestrator vocabulary;
 [`roles/liaison/AGENT.md`](roles/liaison/AGENT.md) § Help), running each command
@@ -216,39 +226,17 @@ sender can tell "done" from "never arrived". Send one with
 `scripts/jobs/send-host-op.sh <GARDEN> op=… key=…`. Ferry and any identity switch are
 **permanently out of the vocabulary**, never merely deferred.
 
-### The foreman brake (quiet the pump without draining the fleet)
+### Capacity and the foreman brake
 
-The fleet drain (`scripts/jobs/drain-fleet.sh on|off`) is all-or-nothing: it stops
-**every** worker, foreman included. That made silencing the foreman's autonomous pump
-require draining the whole fleet — which actively blocked work (the
-`garden-budget-attribution` chain had to be promoted by hand because the leader had to
-stay drained purely to keep the foreman quiet). The **foreman brake** decouples the
-two: it stops **only** the foreman. Set / clear / report it with
-`scripts/jobs/brake-foreman.sh on|off|status` (mirroring `drain-fleet.sh`; the marker
-carries a prose reason). The truth table:
-
-| fleet drain | foreman brake | gardeners claim? | foreman pumps? |
-|---|---|---|---|
-| on  | either | no  | no |
-| off | on     | **yes** | no |
-| off | off    | yes | yes |
-
-The drain keeps its meaning and keeps stopping the foreman; the brake is the extra,
-foreman-only lever. Mechanically it is a **journal-backed** flag (`config/foreman-brake`
-on `journal2`) read by the new `foreman_braked` predicate (`common.sh`), which the
-foreman's guard calls in place of `fleet_draining` — the **only** call site that
-changed; every other worker still guards on `fleet_draining`, so the brake never
-touches a gardener's claim. Journal-backed (not a host-local marker like the drain)
-because the foreman is a **leader-only singleton**: a journal flag follows the `leader`
-marker across a handoff, is reachable from any host without a new sysop op, and is
-auditable in git; a host-local brake would be left behind on the old leader and the new
-leader's foreman would pump immediately. It fails **safe** toward braked — the brake is
-read from the journal clone the foreman already syncs each tick, and `sync_clone` exits
-the tick on an unreadable/offline journal *before* the read, so the pump never fires on
-a journal it could not read; existence is the signal, so even a corrupt flag still
-brakes. It takes effect on the next foreman tick with **no deploy or units reconcile**
-— it is pure journal state (design intent: mechanical precursor to the foreman split in
-[designs/omega-task-rank-and-foreman-retirement.md](designs/omega-task-rank-and-foreman-retirement.md)).
+Use `set-workers.sh monk|cleric <count>` on the target host, or its sysop, for
+capacity changes. `brake-foreman.sh on|off|status` controls the journal-backed
+foreman-only brake; drain stops new claims on the local host.
+The shipped
+foreman active target is 2, not 0.
+Pool limits, budget pacing, subscription
+calibration, and known gaps live in
+[context/operations/cybernetics.md](context/operations/cybernetics.md);
+operator controls are in [scaling.md](context/operations/scaling.md).
 
 ### Deliberate deploy (the root checkout is a deployed version)
 
