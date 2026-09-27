@@ -58,3 +58,13 @@ pull request for fuzz findings.
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T16:36:36Z
