@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:29:34Z_
+_As of 2026-09-27T05:32:40Z_
 
 ## Latest
 
@@ -970,11 +970,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-proposal-compartments` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-proposal-compartments.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T02:07:45Z, latest 2026-09-27T04:16:00Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-proposal-compartments`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T02:07:45Z, latest 2026-09-27T05:31:23Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-proposal-compartments`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: 517802b82a856b0224a0d0640609fde03195dda0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 517802b82a856b0224a0d0640609fde03195dda0). Diagnosis: This is the already-fixed shared-clone-lock-contention bug tracked in memory (`ci-watcher-clonelock-clone-lock-contention-fixed`): `garden-ci-watcher@kriscendobot-proposal-compartments` hit `FATAL: cannot acquire clone lock .../ci-watcher/verify.lock` after three 60s backoff retries, the exact signature of the shared-VERIFY-clone contention bug that commits `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention") already fixed. Both commits landed on `origin/main2` at 2026-09-27T00:01Z, but this host's deployed root checkout is still pinned at `47b41af5a14` (2026-09-26T12:42Z) — a deploy-lag gap, not a live bug. No new fix job is warranted; the rolling deploy will pick up the fix once it advances this host past `5620bdbe
+> self-heal: garden-ci-watcher@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: 92fb9a4dae757cc601db73d40b2b99b3c8fc9f84 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 92fb9a4dae757cc601db73d40b2b99b3c8fc9f84). Diagnosis: This is the same known deploy-lag pattern already recorded in memory (`ci-watcher-clone-lock-contention-fix-queued-not-deployed`), now recurring for `kriscendobot-proposal-compartments`.
+>
+> **Diagnosis:** `garden-ci-watcher@kriscendobot-proposal-compartments` FATAL'd with "cannot acquire clone lock .../verify.lock after 3 waits of 60s and 0 reclaim attempt(s)". The root checkout HEAD (`47b41af5a14`) is 26 commits behind `origin/main2` (`586aee8196b`), and that gap contains exactly the fix chain for this signature: `5620bdbe5f6` (isolate CI-watcher clones per slug), `e6ea1d33fc8`, `ab66fece68f`, `1570aa85a47`, `4948cdd9a75`, `c38cb55b172`, `ad55dea66f9`, `4692b4df0e7`, and `586aee8196b` (deterministic lock-holder readiness handshake). These are already merged to `main2` but not yet rolled out
 
 - `watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots.md)
 
@@ -1193,11 +1195,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-oros-ckm-data-readiness` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-oros-ckm-data-readiness.md)
 
-> self-heal: garden-ci-watcher@kriscendobot-oros-ckm-data-readiness exited rc=1 with no scoped fix. Capture: fbe65e301758ac1a968856b085c3d26da2b8c8da (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p fbe65e301758ac1a968856b085c3d26da2b8c8da). Diagnosis: This is confirmed deploy-lag, exactly matching the known, already-fixed issue in memory ([[ci-watcher-shared-verify-clone-lock-contention-fixed]]).
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-27T03:10:57Z, latest 2026-09-27T05:31:40Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-oros-ckm-data-readiness`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> **Diagnosis:** `garden-ci-watcher@kriscendobot-oros-ckm-data-readiness` hit the shared `VERIFY`-clone lock contention bug — every ci-watcher instance fleet-wide shared one clone (`$GARDEN_STATE/ci-watcher/verify`) and lock, so a long-running clone for one repo starved another repo's ticks past their 3×60s patience, producing a loud FATAL exit instead of a quiet skip. This was already fixed on `main2` on 2026-09-27 via two layered commits: `5620bdbe5f6` (isolates the clone per repo slug, eliminating the shared lock) and `e6ea1d33fc8` (makes residual contention exit quietly as an outage instead of FATAL-looping).
->
-> I verified: both fix commits
+> self-heal: garden-ci-watcher@kriscendobot-oros-ckm-data-readiness exited rc=1 with no scoped fix. Capture: 643823dc5f078bdc71d859e53aed6e0b2d037ade (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 643823dc5f078bdc71d859e53aed6e0b2d037ade). Diagnosis: This is deploy-lag, not a new bug. The failure is the shared-clone-lock contention pattern (`FATAL: cannot acquire clone lock .../verify.lock after 3 waits`), which was already fixed on `main2` yesterday by commits `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention"), both landed 2026-09-27T00:01Z. The root checkout (`<garden-root>`, deployed via the deliberate `deploy-garden.sh` process) is still pinned at `47b41af5a14` from 2026-09-26T12:42Z — 19 commits behind `origin/main2` — so this instance hasn't picked up the fix yet. Posting another `self-heal-fix` job would duplicate work already merged; the correct remedy is simply for the next rolling deploy to advance the root checkout past `e6ea1d33fc8`. No JOB block.
 
 - `watchdog-self-heal-garden-mentor` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-mentor.md)
 
@@ -1526,11 +1528,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #718 (first seen 2026-09-25T03:17:02Z, latest 2026-09-27T04:29:07Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 718 times; this is ONE
-> coalesced notice that updates in place, not 718 messages. Latest detail:
+> WATCHDOG notice — occurrence #739 (first seen 2026-09-25T03:17:02Z, latest 2026-09-27T05:32:03Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 739 times; this is ONE
+> coalesced notice that updates in place, not 739 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 586aee8196b4 33 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 586aee8196b4 96 min ago
 > but still reports deployed_sha 917115c9b77234e4a05db68e8c5111fe6e5b305f. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1590,7 +1592,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.4M | $241.83 _(notional, rate-card)_ | 20% of 143.0M (ok) |
+| Claude | 28.5M | $242.55 _(notional, rate-card)_ | 20% of 143.0M (ok) |
 | Codex | 33.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75485230 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
