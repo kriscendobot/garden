@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-09-27T14:43:21Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-minion-town-endo-b3-daemon-deploy-verify
-pr_number: 32
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/32
-pr_head: fix/endo-daemon-deploy-verification
