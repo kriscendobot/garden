@@ -1,13 +1,15 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:self-heal-claude
-sent_at: 2026-09-27T06:55:54Z
+sent_at: 2026-09-27T08:06:50Z
 watchdog_key: self-heal-garden-ci-watcher-kriscendobot-moddable
-notice_count: 6
+notice_count: 8
 first_seen: 2026-09-27T02:26:27Z
-last_seen: 2026-09-27T06:55:54Z
+last_seen: 2026-09-27T08:06:50Z
 ---
-WATCHDOG notice — occurrence #6 (first seen 2026-09-27T02:26:27Z, latest 2026-09-27T06:55:54Z).
-The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-moddable`) has now been observed 6 times; this is ONE
-coalesced notice that updates in place, not 6 messages. Latest detail:
+WATCHDOG notice — occurrence #8 (first seen 2026-09-27T02:26:27Z, latest 2026-09-27T08:06:50Z).
+The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-moddable`) has now been observed 8 times; this is ONE
+coalesced notice that updates in place, not 8 messages. Latest detail:
 
-self-heal: garden-ci-watcher@kriscendobot-moddable exited rc=1 with no scoped fix. Capture: 0d2f9b22ac3f0ebb4a9f4b11fdab06204d7dfbc9 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0d2f9b22ac3f0ebb4a9f4b11fdab06204d7dfbc9). Diagnosis: This failure is the already-diagnosed shared-VERIFY-clone-lock contention bug (`garden-ci-watcher@kriscendobot-moddable` FATAL "cannot acquire clone lock .../verify.lock" after 3×60s backoff), fixed upstream by commits `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder contention). I confirmed both are present on `origin/main2`, but the deployed root checkout (`HEAD` = `47b41af5a14`) is currently 19 commits behind `origin/main2` — this is deploy lag, not a code defect requiring a new fix. Per the deliberate-deploy model, the root checkout only advances via the governed `deploy-garden.sh` rolling deploy, not via a self-heal fix job, and posting another `self-heal-fix-*` job here would just duplicate work already merged upstream awaiting depl
+self-heal: garden-ci-watcher@kriscendobot-moddable exited rc=1 with no scoped fix. Capture: 4f1e59b7151fbe9ac1c5e7a52cf463b0ca254e41 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 4f1e59b7151fbe9ac1c5e7a52cf463b0ca254e41). Diagnosis: This is the same known deploy-lag pattern already tracked in memory, not a new defect. `garden-ci-watcher@kriscendobot-moddable`'s FATAL "cannot acquire clone lock verify.lock after 3 waits ... 0 reclaim attempt(s)" matches a signature already fixed on `origin/main2` (the `5620bdbe5f6`/`e6ea1d33fc8` clone-lock-contention fix plus follow-on hardening commits like `ab66fece68f`, `ad55dea66f9`, `1570aa85a47`), but the deployed root checkout (HEAD `47b41af5a14`) is 31 commits behind `origin/main2` and hasn't picked those up yet. There's a stuck-canary marker (`endolin-garden2-5bcdff64`) blocking the rolling deploy, but it's only ~20 minutes stuck — well under the watchdog's escalation threshold, so no manual intervention needed there either.
+
+No JOB block — this will self-resolve once the 
