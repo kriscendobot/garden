@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T10:32:14Z_
+_As of 2026-09-27T10:32:52Z_
 
 ## Latest
 
@@ -392,6 +392,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > self-heal: garden-ci-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: b6c298962fc49a5a2fa28d8e0a98b7dc413bb037 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p b6c298962fc49a5a2fa28d8e0a98b7dc413bb037). Diagnosis: This confirms exactly the known deploy-lag pattern from memory: the fix for this FATAL (clone-lock contention on the shared `verify.lock`) already exists on `origin/main2` — commits `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder contention) plus several follow-on hardening commits — but the root checkout (`HEAD`) is 34 commits behind `origin/main2` and hasn't picked them up yet.
 >
 > This is not a new bug requiring a new fix job; it's the same already-fixed issue recurring purely because of deploy lag. Per my memory of this exact recurring pattern, I should not post a duplicate `self-heal-fix-*` job — the correct remedy is deploying the root checkout, which is a separate deliberate/drained operation, not something this diagnosis step sho
+
+- `20260927T103224Z-3dbf62` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T103224Z-3dbf62.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `773813fb507cecdfe1d66066b7e05f4fe2404b3b`
+> failing suites: scripts/jobs/test/triager-pacing-test.sh(rc=1; diagnostic=/home/kris/garden/.garden-state/deploy/candidate-gate-diagnostics/773813fb507cecdfe1d66066b7e05f4fe2404b3b/attempt2-01-scripts_jobs_test_triager-pacing-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden-ece02cb4` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `watchdog-comment-ack-latency-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-latency-kriscendobot-garden.md)
 
@@ -1889,7 +1905,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.2M | $278.88 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 32.2M | $278.95 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 39.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 74613980 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
