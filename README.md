@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T14:41:20Z_
+_As of 2026-09-27T14:57:51Z_
 
 ## Latest
 
@@ -15,9 +15,9 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 23d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 25d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 25d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 26d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 25d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 25d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 26d)
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -32,8 +32,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `doomed-endojs-endo-but-for-bots-pr356-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr356-gauntlet-fix-1-requeue-exhausted.md)
 
-> DOOM notice — occurrence #2 (first seen 2026-09-27T01:23:07Z, latest 2026-09-27T07:53:06Z).
-> This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+> DOOM notice — occurrence #3 (first seen 2026-09-27T01:23:07Z, latest 2026-09-27T14:43:59Z).
+> This job has been doom-parked 3 times for the same condition (requeue-exhausted);
 > this is an AMENDED notice, not a new one. Latest detail:
 >
 > GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
@@ -50,9 +50,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > handler-timeout: 7200
 > token-budget: 250000
 > ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-27T14:36:29Z cleared=none -->
+>
+> ---
+> role: gardener
+> tier: mentor
+> handler-budget-role: shepherd
+> handler-timeout: 7200
+> token-budget: 250000
+> ---
 > <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-27T07:03:40Z cleared=none -->
 >
-> requires: host=oros-studio-garden-ce242c49
 >
 > ---
 > role: gardener
@@ -104,18 +112,29 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
 >   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
 
+- `20260927T144121Z-f9783c` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T144121Z-f9783c.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `b7e65392bdb864e6273b870245ccfc64995cb5b4`
+> failing suites: scripts/jobs/test/triager-pacing-test.sh(rc=1; diagnostic=/home/kris/garden/.garden-state/deploy/candidate-gate-diagnostics/b7e65392bdb864e6273b870245ccfc64995cb5b4/attempt2-01-scripts_jobs_test_triager-pacing-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden-ece02cb4` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #21 (first seen 2026-09-26T07:17:10Z, latest 2026-09-27T14:17:07Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 21 times; this is ONE
-> coalesced notice that updates in place, not 21 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-26T07:17:10Z, cleared 2026-09-27T14:44:08Z).
+> It was observed 21 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1874s (offline threshold 1800s; sampled_at_epoch=1790516747).
-> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
-> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
-> no release token, deploy budget, failed-canary count, or halt. Restore the host and
-> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
-> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
@@ -704,6 +723,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > self-heal: garden-ci-watcher@kriscendobot-test262 exited rc=1 with no scoped fix. Capture: 0d455c8ff0856b5ded63fe18ce8198f5b30c7837 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0d455c8ff0856b5ded63fe18ce8198f5b30c7837). Diagnosis: This is the known clone-lock contention failure (`ci-watcher@kriscendobot-test262` FATAL after 3×60s backoff waiting on `.garden-state/ci-watcher/verify.lock`), not a new defect. The fix already landed on `main2` as a whole chain of commits (`5620bdbe5f6` isolate CI watcher clones per slug, `e6ea1d33fc8` skip quietly on live-holder contention, plus `c38cb55b172`, `4948cdd9a75`, `9dbda9d5573`, `02adfdaf324`, `49cf6544668`, `ad55dea66f9`, `ab66fece68f`, `1570aa85a47`, `4692b4df0e7`, `586aee8196b`, `f92ecdb0a3f`) — but this root checkout's HEAD (`47b41af5a14`, 2026-09-26) is 25 commits behind `origin/main2` (`c942c685af2`), so the deployed code here still hits the old hard-FATAL path. This is deploy lag, not a code defect: no fix job needed, systemd's restart is fine, and the next `deploy-
 
+- `watchdog-journal-push-contention-_Users_dom_garden__garden_state_producer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_Users_dom_garden__garden_state_producer_journal.md)
+
+> Journal push contention on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/producer/journal: attempts p95=5.000000 max=5.000000 (cap 50), classes cas=85 server-reject=1 definite-fail=0.
+
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-27T05:03:52Z, latest 2026-09-27T05:34:44Z).
@@ -786,6 +809,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
 
+- `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
+
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 0 (target 0): shared codex subscription demand active=2 queue=1 quota=ok fleet-envelope=5 target=0
+
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-09-25T03:35:47Z, latest 2026-09-26T23:35:35Z).
@@ -804,6 +831,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `doomed-oros-ckm-dependabot-audit-0013418-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-ckm-dependabot-audit-0013418-requeue-exhausted.md)
 
+> DOOM notice — occurrence #2 (first seen 2026-09-17T14:33:41Z, latest 2026-09-27T14:55:06Z).
+> This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+> this is an AMENDED notice, not a new one. Latest detail:
+>
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
 > The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
 > The work is preserved at jobs/plan/oros-ckm-dependabot-audit-0013418; it stays HELD until a human promotes it
@@ -811,6 +842,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Original job base: oros-ckm-dependabot-audit-0013418
 >
 > --- original job body ---
+> ---
+> tier: minion
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T14:27:32Z cleared=none -->
+>
 > ---
 > tier: minion
 > model-burned: mentor
@@ -1259,6 +1296,45 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 3 (target 4): shared codex subscription demand active=2 queue=3 quota=ok fleet-envelope=5 target=4
 
+- `doomed-kriscendobot-oros-ckm-data-readiness-pr1-receipt-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-oros-ckm-data-readiness-pr1-receipt-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/kriscendobot-oros-ckm-data-readiness-pr1-receipt; it stays HELD until a human promotes it
+> (promote-plan.sh kriscendobot-oros-ckm-data-readiness-pr1-receipt) or removes it, so nothing is lost.
+> Original job base: kriscendobot-oros-ckm-data-readiness-pr1-receipt
+>
+> --- original job body ---
+> ---
+> tier: minion
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T14:19:22Z cleared=none -->
+>
+> ---
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> # receipt (auto) — completion receipt for kriscendobot/oros-ckm-data-readiness PR #1 (merged)
+>
+> tier: mentor
+> fallback-tier: minion
+>
+> This OPEN-and-now-merged PR was completed by the garden. Emit its COMPLETION
+> RECEIPT deterministically — run the generator, which builds the per-engagement
+> rows + the maintainer-review heuristic, posts the PR comment (identity-pinned
+> gh), and archives the receipt in the journal, all idempotently:
+>
+>     scripts/jobs/pr-receipt.sh kriscendobot/oros-ckm-data-readiness 1
+>
+> It is fail-open and idempotent (journal archive file + comment marker guards),
+> so a re-run never double-posts. Report the archive path and the posted comment
+> URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
+>
+> PR: [https://github.com/kriscendobot/oros-ckm-data-readiness/pull/1](https://github.com/kriscendobot/oros-ckm-data-readiness/pull/1)
+
 - `doomed-ironhorse-fuzz-378372c8706a48a8-repair-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-378372c8706a48a8-repair-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -1336,6 +1412,128 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > self-heal: garden-ci-watcher@kriscendobot-list exited rc=1 with no scoped fix. Capture: af2b4d5e945a6ddaff2e55a30a4d530f7a2a2310 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p af2b4d5e945a6ddaff2e55a30a4d530f7a2a2310). Diagnosis: This is the known, already-fixed clone-lock contention bug — confirmed deploy-lag, not a new defect.
 >
 > Root checkout HEAD (`47b41af5a14`) is 24 commits behind `origin/main2` (now at `c942c685af2`), and none of the fix commits (`5620bdbe5f6`, `e6ea1d33fc8`, `5b48813cd0b`, and the follow-on hardening chain) are ancestors of HEAD yet. The failure signature — `clone lock .../ci-watcher/verify.lock busy >60s` → `FATAL: cannot acquire clone lock ... after 3 waits ... a live holder is still busy` — matches [[ci-watcher-shared-verify-clone-lock-contention-fixed]] and [[ci-watcher-clone-lock-contention-fix-queued-not-deployed]] exactly: this host simply hasn't rolled forward through the rolling-deploy yet. Posting another `self-heal-fix-garden-ci-watcher-*` job would just rediscover the same
+
+- `doomed-retire-gardener-worker-kind-alias-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-retire-gardener-worker-kind-alias-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/retire-gardener-worker-kind-alias; it stays HELD until a human promotes it
+> (promote-plan.sh retire-gardener-worker-kind-alias) or removes it, so nothing is lost.
+> Original job base: retire-gardener-worker-kind-alias
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T14:27:57Z cleared=none -->
+>
+> ---
+> tier: mentor
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-01T20:54:13Z cleared=none -->
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> Maintainer directive (2026-09-01, liaison session): retire the legacy `gardener`
+> worker-kind alias now that the Anthropic worker has been renamed to `monk`
+> fleet-wide.
+>
+> Context: `designs/anthropic-worker-kind-monk.md` landed stage 0 (compatibility
+> release) and stage 1 (per-host cutover) via job `monk-finish-gardener-rename`.
+> Both fleet hosts (`endolin-garden-ece02cb4`, `endolin-garden2-5bcdff64`) have
+> since cut over: `journal/hosts/<host>` declares `monks: N` on each, and on
+> `endolin-garden-ece02cb4` the legacy `garden-gardener@1.service` unit is
+> enabled but **inactive/dead** while `garden-monk@1..4` run live. Stage 2
+> (writer-default flip) and the alias retirement itself were explicitly deferred
+> in that job's report as "a still-later, separately-reviewed cleanup." This job
+> is that cleanup, now authorized.
+>
+> The design gates retirement on five recorded facts (§ Staged, reversible
+> rollout, stage 2 "Canonical writes and cleanup"). Re-verify all five before
+> touching anything irreversible, since the liaison could only check the local
+> host directly:
+>
+> 1. All fleet inventory reports zero legacy units and state markers — confirmed
+>    on `endolin-garden-ece02cb4` (`garden-gardener@1` inactive, no
+>    `state/gardeners/` markers). **Re-check `endolin-garden2-5bcdff64` directly**
+>    (its `hosts/` file still carries a `gardeners: 1` mirror line, same shadowed
+>    shape presumed but not yet confirmed live).
+> 2. No live `doin`, `work`, inbox, active worktree, or recent bid has a legacy
+>    (`gardener`-kind) owner — confirmed: the last ~15 `claim()` log entries
+>    fleet-wide are all `monk-N`/`cleric-N`. Note `complete-job.sh` always writes
+>    the commit-message label `gardener-$id` regardless of actual kind (that is
+>    the generic role label, not the worker-kind field — don't mistake it for a
+>    live legacy claim; verify by reading each `worker_kind:` field, not the
+>    commit subject).
+> 3. All hosts have deployed the canonical release — the monk registry row is
+>    present in both hosts' currently-deployed checkouts (root repo tested
+>    directly on `endolin-garden-ece02cb4`; the leader's live `garden-monk@`
+>    pool being active is itself proof for that host).
+> 4. No supported external script calls the alias — the internal compat shims
+>    (`GARDEN_GARDENER_CLONE` fallback, `set-gardeners.sh`, the
+>    `handlers/gardener-claude.sh` forwarder) are the alias implementation
+>    itself and are exactly what this job removes; they don't count against
+>    this gate. Do check `context/operations/starting.md`,
+>    `context/operations/scaling.md`, and `context/first-run/auth.md` (all
+>    currently mention `gardeners:`) and update them.
+> 5. A rollback drill is no longer promised — this is the maintainer's call,
+>    given in this directive.
+>
+> Do the removal by reversing each row of the design's inventory table (§
+> Boundary and inventory):
+>
+> - `scripts/jobs/common.sh`: delete the `gardener` row from `worker_kind_field`
+>   and `worker_kinds()`; simplify `canonical_worker_kind` to a pure v2 decoder
+>   (reject a v1 `worker_kind: gardener` record as unknown/legacy rather than
+>   silently mapping it — decide and document whether historical read paths
+>   still need the v1 mapping for old journal artifacts, since journal history
+>   is append-only and must remain readable); remove `anthropic_active_kind`'s
+>   monk-vs-gardener selection now that only one Anthropic kind exists.
+> - Delete `scripts/jobs/handlers/gardener-claude.sh` (the forwarding wrapper);
+>   update `gardener.sh`/`claim-job.sh`/`complete-job.sh` to drop the
+>   `GARDEN_GARDENER_CLONE` legacy-env fallback (keep `GARDEN_WORKER_CLONE`
+>   only), checking every call site the grep in this job's originating session
+>   found across `common.sh`, `usage-meter.sh`, `usage-append.sh`,
+>   `regenerate-topics-counts.sh`, `regenerate-sections-index.sh`,
+>   `library-slug-prefix-check.sh`, `library-link-check.sh`, `auction.sh`.
+> - `scripts/jobs/set-gardeners.sh`: retire it (or turn it into a clear
+>   "renamed to set-monks.sh" error) — check callers first.
+> - `scripts/jobs/reputation-reduce.sh`: drop the dual projection; write only
+>   `reputation/arms/monk/...` going forward. Decide whether the historical
+>   `reputation/arms/gardener/...` tree is deleted, left as an inert archive, or
+>   migrated — do not silently lose auction history.
+> - `scripts/systemd/`/`install-units.sh`: stop rendering `garden-gardener@`
+>   units; disable and remove any enabled-but-inactive `garden-gardener@N` unit
+>   files on both hosts as part of this job's own host-side cleanup (not a
+>   separate deploy step, since disabling an already-inactive unit changes no
+>   running behavior).
+> - Journal state: clear the stale `gardeners: N` mirror line from
+>   `journal/hosts/endolin-garden-ece02cb4` and
+>   `journal/hosts/endolin-garden2-5bcdff64` (a plain journal edit, no deploy
+>   needed).
+> - Tests: remove/retarget `monk-worker-kind-compat-test.sh` and
+>   `monk-host-cutover-test.sh` assertions that specifically exercise the
+>   gardener alias/dual-pool exclusivity/rollback path (or convert them into
+>   regression coverage that a legacy `worker_kind: gardener` claim/env is now
+>   correctly rejected, per whatever decision you make on historical-read
+>   compatibility above); keep `worker-spine-kinds-test.sh` green for monk.
+> - Docs: update `CLAUDE.md`, `context/operations/starting.md`,
+>   `context/operations/scaling.md`, `context/first-run/auth.md`, and this
+>   design doc's own "Implementation status" section to record retirement as
+>   complete (stage 2/3), per house convention of updating the design doc's
+>   status alongside the landing commit.
+>
+> Land directly on `main2` (no PR for the garden's own repo, per `CLAUDE.md` §
+> Conventions). Run the full regression sweep (scaler/deploy/reaper/handler/
+> health/worker-spine/auction-reputation suites) before pushing, and report
+> which of it needed updating versus already passed. If any of the five gate
+> facts above does NOT hold when you check it, stop and report back rather than
+> proceeding — this change forecloses rollback to the legacy pool.
 
 - `20260927T142320Z-4d0f01` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T142320Z-4d0f01.md)
 
@@ -1520,8 +1718,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal.md)
 
-> RECOVERED — the watchdog condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-27T12:33:19Z, cleared 2026-09-27T12:42:55Z).
-> It was observed 1 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-27T12:33:19Z, cleared 2026-09-27T14:55:28Z).
+> It was observed 2 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` cleared on oros-studio-garden-ce242c49.
@@ -2077,8 +2275,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `doomed-endojs-endo-but-for-bots-pr450-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr450-gauntlet-panel-1-requeue-exhausted.md)
 
-> DOOM notice — occurrence #2 (first seen 2026-09-27T02:03:04Z, latest 2026-09-27T07:53:13Z).
-> This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+> DOOM notice — occurrence #3 (first seen 2026-09-27T02:03:04Z, latest 2026-09-27T14:44:37Z).
+> This job has been doom-parked 3 times for the same condition (requeue-exhausted);
 > this is an AMENDED notice, not a new one. Latest detail:
 >
 > GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
@@ -2095,9 +2293,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > handler-timeout: 10800
 > token-budget: 250000
 > ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-27T14:34:30Z cleared=none -->
+>
+> ---
+> role: gardener
+> tier: mentor
+> handler-budget-role: panel
+> handler-timeout: 10800
+> token-budget: 250000
+> ---
 > <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-27T07:03:26Z cleared=none -->
 >
-> requires: host=oros-studio-garden-ce242c49
 >
 > ---
 > role: gardener
@@ -2223,36 +2429,35 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.1M | $302.17 _(notional, rate-card)_ | 25% of 143.0M (ok) |
-| Codex | 43.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
+| Claude | 35.4M | $304.88 _(notional, rate-card)_ | 25% of 143.0M (ok) |
+| Codex | 43.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 67126146 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 52431407 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 45.001493s/45s (unknown); 4 open notice(s); checker healthy
+worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (4)
-- [`oros-studio-health-restoration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-studio-health-restoration.md) — Restore oros-studio's job-handler health: analyze, hypothesize, fix, validate
-- [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/retire-gardener-worker-kind-alias.md) — ---
-- [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-endo-b3-daemon-deploy-verify.md) — ---
-- [`oros-ckm-dependabot-audit-0013418`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-ckm-dependabot-audit-0013418.md) — ---
+### todo (2)
+- [`self-heal-fix-garden-issue-inbox-cursor-get-pipefail`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-issue-inbox-cursor-get-pipefail.md) — ---
+- [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/run-the-gauntlet-minion-town-pr90.md) — ---
 
-### doin (6)
-- [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
-- [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
-- [`kriscendobot-oros-ckm-data-readiness-pr1-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-oros-ckm-data-readiness-pr1-receipt.md) — receipt (auto) — completion receipt for kriscendobot/oros-ckm-data-readiness ...
+### doin (7)
+- [`self-heal-fix-garden-issue-inbox-cursor-get-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-get-failopen.md) — ---
+- [`oros-studio-health-restoration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-studio-health-restoration.md) — Restore oros-studio's job-handler health: analyze, hypothesize, fix, validate
+- [`self-heal-fix-garden-issue-inbox-cursor-get-set-e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-get-set-e.md) — ---
+- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
 - [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
-- [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
+- [`self-heal-fix-garden-issue-inbox-cursor-read-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-read-fail-open.md) — ---
 - [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-frozen-objects.md) — ---
 
-### tada (9187)
+### tada (9191)
+- [`split-pr1125-1304-gauntlet-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/split-pr1125-1304-gauntlet-shepherd.md) — Cost
+- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-silent-exit1-no-err-trap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-silent-exit1-no-err-trap.md) — Completion report
+- [`minion-town-endo-b3-daemon-deploy-verify`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/minion-town-endo-b3-daemon-deploy-verify.md) — Cost
+- [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr675-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr675-gauntlet-panel-1.md) — Cost
-- [`kriscendobot-minion-town-pr68-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion-town-pr68-gauntlet.md) — gauntlet kriscendobot-minion-town-pr68-gauntlet — HALTED
-- [`kriscendobot-vattr97-pr1-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-vattr97-pr1-gauntlet-clean.md) — Manual gauntlet handoff
-- [`kriscendobot-minion.town-pr99-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion.town-pr99-receipt.md) — Completion report
-- [`kriscendobot-minion.town-pr68-review-45cc89f1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion.town-pr68-review-45cc89f1.md) — Cost
-- … and 9182 more
+- … and 9186 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2262,6 +2467,7 @@ worst fetch p95 45.001493s/45s (unknown); 4 open notice(s); checker healthy
 - [`ironhorse-fuzz-fcbb16f5721e8fd2-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-fcbb16f5721e8fd2-repair.md) — _normal_ · Fix Ironhorse fuzz finding fcbb16f5721e8fd2 (target differential_source) and ...
 - [`ironhorse-fuzz-89e303d17e33b117-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-89e303d17e33b117-repair.md) — _normal_ · Repair Ironhorse engine defect 89e303d17e33b117 (target differential_regexp_s...
 - [`endo-retention-set-disclosure-hold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-retention-set-disclosure-hold.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1298-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1298
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`ironhorse-fuzz-50834e82d3af453d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-50834e82d3af453d-repair.md) — _normal_ · Repair Ironhorse engine defect 50834e82d3af453d (target differential_regexp_s...
@@ -2277,6 +2483,8 @@ worst fetch p95 45.001493s/45s (unknown); 4 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1317-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1317-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1317
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
+- [`kriscendobot-oros-ckm-data-readiness-pr1-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-oros-ckm-data-readiness-pr1-receipt.md) — _normal_ · receipt (auto) — completion receipt for kriscendobot/oros-ckm-data-readiness ...
+- [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/retire-gardener-worker-kind-alias.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1286-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1286-receipt.md) — _normal_ · receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1286 (me...
 - [`ironhorse-fuzz-ccb76a40851925f9-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-ccb76a40851925f9-repair.md) — _normal_ · Repair Ironhorse engine defect ccb76a40851925f9 (target differential_regexp) ...
 - [`ironhorse-fuzz-d5413146a257bc30-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-d5413146a257bc30-repair.md) — _normal_ · Repair Ironhorse engine defect d5413146a257bc30 (target differential_regexp_s...
@@ -2297,6 +2505,7 @@ worst fetch p95 45.001493s/45s (unknown); 4 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
 - [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-378372c8706a48a8-repair.md) — _normal_ · Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
 - [`claude-on-minion-town-press-20260927-133532`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/claude-on-minion-town-press-20260927-133532.md) — _normal_ · Press the Claude-on-minion.town arc forward
+- [`oros-ckm-dependabot-audit-0013418`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-ckm-dependabot-audit-0013418.md) — _normal_ · ---
 - [`build-usage-scrape-ingest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-usage-scrape-ingest.md) — _normal_ · ---
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
@@ -2305,6 +2514,7 @@ worst fetch p95 45.001493s/45s (unknown); 4 open notice(s); checker healthy
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
 - [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
 - [`ironhorse-fuzz-e773681b6d831dc1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-e773681b6d831dc1-repair.md) — _normal_ · Repair Ironhorse engine defect e773681b6d831dc1 (target differential_regexp_s...
+- [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
 - [`ironhorse-fuzz-d38f12f4884e186c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-d38f12f4884e186c-repair.md) — _normal_ · Repair Ironhorse engine defect d38f12f4884e186c (target differential_regexp_s...
 - [`evaluate-reauth-escalation-default-after-oauth-relay-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay-20260927.md) — _low_ · Evaluate default reauth escalation once the browser OAuth relay lands
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
@@ -2331,15 +2541,7 @@ worst fetch p95 45.001493s/45s (unknown); 4 open notice(s); checker healthy
 - [`kriscendobot-minion.town-pr56-review-5867a29b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr56-review-5867a29b-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #56 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr62-review-353e723b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr62-review-353e723b-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #62 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr69-review-f7e1d07a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr69-review-f7e1d07a-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #69 (primary: kriscendobot-minio...
-- [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/run-the-gauntlet-minion-town-pr90.md) — _normal_ · ---
-- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-silent-exit1-no-err-trap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-silent-exit1-no-err-trap.md) — _normal_ · ---
-- [`self-heal-fix-garden-issue-inbox-cursor-get-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/self-heal-fix-garden-issue-inbox-cursor-get-failopen.md) — _normal_ · ---
-- [`self-heal-fix-garden-issue-inbox-cursor-get-pipefail`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/self-heal-fix-garden-issue-inbox-cursor-get-pipefail.md) — _normal_ · ---
-- [`self-heal-fix-garden-issue-inbox-cursor-get-set-e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/self-heal-fix-garden-issue-inbox-cursor-get-set-e.md) — _normal_ · ---
-- [`self-heal-fix-garden-issue-inbox-cursor-read-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/self-heal-fix-garden-issue-inbox-cursor-read-fail-open.md) — _normal_ · ---
-- [`split-pr1125-1304-gauntlet-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/split-pr1125-1304-gauntlet-shepherd.md) — _normal_ · Gauntlet + shepherd for endojs/endo-but-for-bots#1304 (slice 1/3 of the #1125...
 - [`upgrade-fleet-to-main2-uniform-20260918`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/upgrade-fleet-to-main2-uniform-20260918.md) — _normal_ · Why this is ONE looping orchestrator job, not a parked child set
-- [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/weave-base-update-and-pin-alias.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1089-review-5bf63a47-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1089-review-5bf63a47-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1089 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1097-review-05395c57-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1097-review-05395c57-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1097 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1125-23cf90c0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-23cf90c0-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
