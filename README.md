@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-26T23:58:30Z_
+_As of 2026-09-27T00:02:20Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 38m)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 43m)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 9d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 10d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 15d)
@@ -307,6 +307,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > The "Close out demo-to-deck alignment arc" commit (0013418, amending CLAUDE.md § Demo-to-deck alignment) records a PROMOTED follow-up: "Dependabot investigate-only pass (2 high on public default branch; pre-existing, zero deps added this arc; complete before funder-room window)." This is a public (Apache 2.0) repo and the alerts predate this arc — investigate-only, no code change implied unless a safe fix is available.
 > Note: `gh api repos/kriscendobot/oros-ckm-data-readiness/dependabot/alerts` currently returns "Dependabot alerts are disabled for this repository" (403) — first confirm whether alerts are actually disabled (vs. a token-scope gap) via the repo's GitHub Security tab, then identify the 2 high-severity findings via `yarn audit`/`npm audit` against the default branch's lockfile if the Security tab is unreachable. Produce a short findings summary (package, severity, whether a non-breaking upgrade closes it) for the maintainer; do not merge into `main` — this repo's convention is milestone-merge only, and this is an investigate-only pass.
 
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-ocapn` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ocapn.md)
+
+> self-heal: garden-ci-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: 568a274ad0b442a2cce4a8788d6f229fc4bc7926 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 568a274ad0b442a2cce4a8788d6f229fc4bc7926). Diagnosis: This exact bug — the shared `GARDEN_CI_VERIFY_CLONE`/`GARDEN_CI_RETIRE_CLONE` clone-lock contention across all ~15 `garden-ci-watcher@<repo>` instances — was already diagnosed for a sibling instance (`kriscendobot-proposal-compartments`) and a fix job is already claimed and in progress on `endolin-garden-ece02cb4` (job `self-heal-fix-garden-ci-watcher-kriscendobot-proposal-compartments-shared-verify-clone-lock`, claimed seconds ago). The `kriscendobot-ocapn` failure I was asked to diagnose is the same failure class from the same shared-lock bug: another `ci-watcher@` instance held `.garden-state/ci-watcher/verify.lock` past the 180s wait budget.
+>
+> Since the fix is scoped to `scripts/jobs/ci-watcher.sh` itself (making `GARDEN_CI_VERIFY_CLONE`/`GARDEN_CI_RETIRE_CLONE` per-slug), landing i
+
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
 > RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-09-26T16:16:46Z, cleared 2026-09-26T17:31:05Z).
@@ -566,10 +572,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` cleared on endolin-garden-ece02cb4.
-
-- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_ci_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_ci_watcher_verify.md)
-
-> Journal lock contention on endolin-garden-ece02cb4 for _home_kris_garden__garden_state_ci_watcher_verify: p95=7.812738s, giveups=4, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
@@ -1036,7 +1038,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 16.3M | $161.30 _(notional, rate-card)_ | 11% of 143.0M (ok) |
+| Claude | 16.3M | $162.44 _(notional, rate-card)_ | 11% of 143.0M (ok) |
 | Codex | 31.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 47333350 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1045,24 +1047,23 @@ _Fleet token-unlock pace: 47333350 tokens/day lower bound; incomplete where a su
 worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`self-heal-fix-garden-ci-watcher-kriscendobot-vattr97-clonelock-busy-not-latched`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-ci-watcher-kriscendobot-vattr97-clonelock-busy-not-latched.md) — ---
-- [`self-heal-fix-garden-ci-watcher-kriscendobot-proposal-compartments-shared-verify-clone-lock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-ci-watcher-kriscendobot-proposal-compartments-shared-verify-clone-lock.md) — ---
+### todo (0)
+(none)
 
 ### doin (5)
-- [`design-endo-idforref-host-held-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-idforref-host-held-migration.md) — Design: host-held idForRef for any formula-generated object (endojs/endo-but-...
 - [`self-heal-fix-garden-ci-watcher-shared-verify-clone-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-shared-verify-clone-lock-contention.md) — ---
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-endo-but-for-bots-clonelock-busy-not-quiet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-endo-but-for-bots-clonelock-busy-not-quiet.md) — ---
-- [`self-heal-fix-garden-ci-watcher-kriscendobot-moddable-clonelock-busy-not-outage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-moddable-clonelock-busy-not-outage.md) — ---
-- [`endojs-endo-but-for-bots-pr249-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr249-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #249
+- [`self-heal-fix-garden-ci-watcher-verify-fetch-lock-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-verify-fetch-lock-window.md) — ---
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-proposal-compartments-shared-verify-clone-lock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-proposal-compartments-shared-verify-clone-lock.md) — ---
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-cosgov-shared-clone-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-ci-watcher-kriscendobot-cosgov-shared-clone-lock-contention.md) — ---
 
-### tada (9041)
-- [`endojs-endo-but-for-bots-pr1306-review-3ed76637`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1306-review-3ed76637.md) — Completion report — review directive on endojs/endo-but-for-bots #1306
-- [`endojs-endo-but-for-bots-pr241-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr241-gauntlet-fix-6.md) — Cost
-- [`claude-on-minion-town-completion-press-20260926-233541`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/claude-on-minion-town-completion-press-20260926-233541.md) — Cost
-- [`endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-20260919-resume.md) — orchestration endojs-endo-but-for-bots-pr1305-shepherd-retcon-conduct-2026091...
-- [`endojs-endo-but-for-bots-pr1305-conduct-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr1305-conduct-20260919.md) — Cost
-- … and 9036 more
+### tada (9046)
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-oros-ckm-data-readiness-clone-lock-busy-not-latched`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/self-heal-fix-garden-ci-watcher-kriscendobot-oros-ckm-data-readiness-clone-lock-busy-not-latched.md) — Cost
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-vattr97-clonelock-busy-not-latched`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/self-heal-fix-garden-ci-watcher-kriscendobot-vattr97-clonelock-busy-not-latched.md) — Cost
+- [`self-heal-fix-garden-ci-watcher-kriscendobot-moddable-clonelock-busy-not-outage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/self-heal-fix-garden-ci-watcher-kriscendobot-moddable-clonelock-busy-not-outage.md) — Cost
+- [`endojs-endo-but-for-bots-pr249-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/endojs-endo-but-for-bots-pr249-gauntlet-fix-1.md) — Completion report
+- [`design-endo-idforref-host-held-migration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/26/design-endo-idforref-host-held-migration.md) — Cost
+- … and 9041 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
