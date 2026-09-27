@@ -54,13 +54,6 @@ end the report with these exact lines in order:
 <<<GARDEN-JOB-COMPLETE>>>
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=16 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T13:33:04Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-27T13:53:16Z -->
