@@ -39,6 +39,7 @@ bring-up is [starting.md](starting.md).
   `garden-gardener-scaler` (each host scales its own pool),
   `garden-upgrade-monitor`, `garden-self-deploy`, `garden-sysop`,
   `garden-container-hardening`, `garden-root-repo-guard`, `garden-clone-keeper`,
+  `garden-worktree-sweeper`,
   `garden-journal-worktree-keeper`, `garden-journal-contention-watch`,
   `garden-repo-watcher`, `garden-unblock`, and
   the maintenance half of `garden-watchman`; its reread broadcast is

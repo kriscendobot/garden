@@ -30,11 +30,18 @@ proceed on a cross-host hostname collision.
 
 ## The bring-up, in order
 
-1. **Bootstrap the user manager** for headless `systemctl --user` (one-time):
+1. **Verify the user manager** for headless `systemctl --user`:
 
    ```sh
-   loginctl enable-linger "$USER"
+   loginctl show-user "$USER" -p Linger
+   systemctl --user is-system-running
    ```
+
+   The image creates the bot's linger marker; normal container bring-up does
+   not need a bot-user `loginctl enable-linger` or sudo step.
+   If the marker or user manager is missing, diagnose the image/entrypoint
+   rather than restoring passwordless sudo. A `degraded` manager needs the
+   failed-unit inspection below.
 
 2. **Restore the bot git identity** (idempotent; auto-applied at container start,
    re-run here so a per-host override lands now that the journal is reachable):
