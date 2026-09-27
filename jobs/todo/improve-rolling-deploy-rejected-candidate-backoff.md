@@ -1,19 +1,13 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 scripts/jobs/rolling-deploy.sh
 scripts/jobs/rolling-deploy.sh:596 and :761 retry a candidate-gate-rejected target every tick, producing repeated leader self-deploy warnings after the 2026-09-27T10:23:51Z rejection. Persist a target-keyed rejected-candidate marker after a nonzero deploy, skip retries quietly until the available SHA changes or an explicit override clears it, while retaining the original deploy error report.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=23 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T10:58:54Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-27T11:23:07Z -->
