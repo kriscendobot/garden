@@ -22,6 +22,11 @@ export GARDEN_TAG="scheduler"
 : "${GARDEN_HANDLER_KILL_AFTER:=60}"
 : "${GARDEN_CLAIM_TTL:=14400}"
 : "${GARDEN_BUDGET_LEVEL_CONTROLLER:=$HERE/budget-level.sh}"
+# Per-invocation wall-clock bound on a schedule's `preflight:` gate, and the grace
+# between its SIGTERM and SIGKILL. Several due schedules share one tick under the
+# unit's TimeoutStartSec, so a single gate must not be able to spend all of it.
+: "${GARDEN_SCHEDULER_PREFLIGHT_TIMEOUT:=120}"
+: "${GARDEN_SCHEDULER_PREFLIGHT_KILL_AFTER:=10}"
 
 # GARDEN_SCHEDULER_NOW overrides the clock (epoch seconds) for deterministic
 # cadence tests — mirrors GARDEN_FOREMAN_NOW / GARDEN_USAGE_NOW. When set, the
@@ -543,7 +548,16 @@ for name in $(list_jobs "$DIR" schedules); do
       if [ -x "$pf" ]; then
         clear_missing_preflight "$name"   # re-arm the one-shot WARN + escalation
         pf_context_file="$(mktemp)"
-        if GARDEN_PREFLIGHT_CONTEXT_FILE="$pf_context_file" "$pf" "$name"; then pf_rc=0; else pf_rc=$?; fi
+        # Bound the gate's wall-clock: an unbounded gate that wedges (a hung
+        # network read, a stuck lock) would consume the whole oneshot start budget
+        # and fail every later schedule this tick. On expiry `timeout` exits 124
+        # (137 after the SIGKILL escalation); both are "other", so the fail-open
+        # dispatch below still applies and the partial context file is discarded.
+        if timeout --kill-after="$GARDEN_SCHEDULER_PREFLIGHT_KILL_AFTER" "$GARDEN_SCHEDULER_PREFLIGHT_TIMEOUT" \
+             env GARDEN_PREFLIGHT_CONTEXT_FILE="$pf_context_file" "$pf" "$name"; then pf_rc=0; else pf_rc=$?; fi
+        case "$pf_rc" in
+          124|137) log "WARN schedule $name preflight '$preflight' exceeded ${GARDEN_SCHEDULER_PREFLIGHT_TIMEOUT}s (rc=$pf_rc); treating as work-present (fail-open)" ;;
+        esac
         if [ "$pf_rc" -eq 0 ] && [ -s "$pf_context_file" ]; then
           preflight_context="$(cat "$pf_context_file")"
         fi

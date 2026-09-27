@@ -58,7 +58,11 @@ the cadence has elapsed, to decide whether there is any work BEFORE dispatching 
 do-nothing agent. Exit `0` = work present → post the job and stamp
 `last_dispatched`; exit `2` = no work → stamp `last_dispatched` only (advance the
 clock, post nothing) and log `preflight gated: no work`; any other exit is treated
-as work-present (fail open) so a broken gate never starves a schedule. A gate that
+as work-present (fail open) so a broken gate never starves a schedule. Each gate
+run is wall-clock bounded by `GARDEN_SCHEDULER_PREFLIGHT_TIMEOUT` (default 120s,
+SIGKILL `GARDEN_SCHEDULER_PREFLIGHT_KILL_AFTER` seconds later); an expired gate is
+logged by schedule name, its context is discarded, and it fails open like any other
+error, so one wedged gate cannot spend the whole scheduler tick. A gate that
 is **not found / not executable** (a deploy-lag or a typo'd `preflight:` path) also
 fails open, but is DISTINGUISHED from a gate that runs and errors: on the FIRST tick
 of the breakage the scheduler escalates ONCE (in plain code, via
