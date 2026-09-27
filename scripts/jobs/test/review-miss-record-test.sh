@@ -24,6 +24,11 @@
 #                  then commits and alerts exactly once; a re-run does not alert.
 #  11. NOTIFY FAILURE — a failing alert sink does not fail or roll back the
 #                  committed recurrence.
+#  12. TRUNCATED HISTORY — a closed cluster whose `improved_by` names a main2
+#                  SHA absent from the journal clone and whose dispatch commit was
+#                  truncated away: the writer must not abort; it resolves the SHA
+#                  remotely (drain_reopen=1) or, failing that, falls back to the
+#                  conservative recurrence=1 reopen.
 #
 # Usage: review-miss-record-test.sh
 
@@ -268,6 +273,42 @@ set -e
 echo "$out11" | grep -q 'recurrence=1 drain_reopen=0' && ok "recurrence still reported after notify failure" || bad "notify failure lost recurrence summary: $out11"
 [ "$(cfield review-misses/clusters/notify-fail-pattern.md status)" = open ] \
   && ok "recurrence commit remained durable after notify failure" || bad "notify failure rolled back recurrence"
+
+# ============================================================================
+hr; echo "12 — TRUNCATED HISTORY: unresolvable improvement time never aborts"; hr
+# Plant closed clusters in ONE plain commit (no `→ improvement-dispatched`
+# history), each naming a main2-style SHA the journal clone does not hold.
+plant_closed() {  # plant_closed <slug>
+  cat > "$V/review-misses/clusters/$1.md" <<EOC
+---
+slug: $1
+category: missed-edge-case
+status: closed
+count: 1
+members:
+  - endojs-ebfb-pr970-planted-$1
+prs: [970]
+improvement_job: review-improve-$1
+improved_by: main2 0123456789abcdef: skills/x (prevention), roles/y (sensing)
+---
+Planted closed cluster.
+EOC
+}
+rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
+mkdir -p "$V/review-misses/clusters"
+plant_closed trunc-local; plant_closed trunc-remote
+git -C "$V" add -A; git -C "$V" "${git_id[@]}" commit -q -m "journal: truncate history to a fresh root"
+git -C "$V" push -q origin "$BRANCH"
+T1="$TR/t1.md"; mk_miss "$T1" endojs-ebfb-pr971-review-tt11 971 trunc-local missed-edge-case "2026-09-12T16:07:00Z"
+set +e; outt1="$("$RMR" record "$T1")"; rct1=$?; set -e
+[ "$rct1" -eq 0 ] && ok "undeterminable improvement time did not abort the writer" || bad "writer aborted rc=$rct1"
+echo "$outt1" | grep -q 'recurrence=1 drain_reopen=0' && ok "undeterminable timing falls back to recurrence=1" || bad "fallback flags wrong: $outt1"
+STUB="$TR/commit-date-stub.sh"
+printf '#!/bin/sh\n[ "$1" = 0123456789abcdef ] && echo 2026-09-17T10:22:21Z\n' > "$STUB"; chmod +x "$STUB"
+T2="$TR/t2.md"; mk_miss "$T2" endojs-ebfb-pr972-review-tt22 972 trunc-remote missed-edge-case "2026-09-12T16:07:00Z"
+outt2="$(GARDEN_RMR_COMMIT_DATE_CMD="$STUB" "$RMR" record "$T2")"
+echo "$outt2" | grep -q 'recurrence=0 drain_reopen=1' && ok "remote-resolved improvement time marks a drain artifact" || bad "remote lookup flags wrong: $outt2"
+[ "$(cfield review-misses/clusters/trunc-remote.md status)" = closed ] && ok "drain artifact kept the cluster closed" || bad "cluster wrongly reopened"
 
 hr
 echo "review-miss-record: $PASS passed, $FAIL failed"

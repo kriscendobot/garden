@@ -123,6 +123,7 @@ cluster_improvement_time() {  # cluster_improvement_time <clone-dir> <cluster-fi
     case "$tok" in
       [0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]*)
         t="$(git -C "$dir" show -s --format=%cI "$tok^{commit}" 2>/dev/null)" || t=""
+        [ -n "$t" ] || t="$(remote_commit_date "$dir" "$tok")"
         if [ -n "$t" ] && { [ -z "$best" ] || [[ "$t" > "$best" ]]; }; then best="$t"; fi
         ;;
     esac
@@ -134,6 +135,31 @@ cluster_improvement_time() {  # cluster_improvement_time <clone-dir> <cluster-fi
           -- "$STORE/clusters/$slug.md" 2>/dev/null)" || t=""
     [ -n "$t" ] && printf '%s' "$t"
   fi
+  # Undeterminable is a valid answer (the caller falls back to the conservative
+  # reopen); it must never be a non-zero status that `set -e` turns into a
+  # silent abort of the whole record.
+  return 0
+}
+
+# Committer date of a garden commit the journal clone cannot resolve locally.
+# `improved_by` names main2 commits, which a journal2-only clone never holds (and
+# a journal history truncation also drops the `→ improvement-dispatched`
+# fallback), so ask the origin's GitHub repo. Best-effort: empty on any failure.
+# GARDEN_RMR_COMMIT_DATE_CMD <sha> overrides the lookup (tests).
+remote_commit_date() {  # remote_commit_date <clone-dir> <sha>
+  local url slug
+  if [ -n "${GARDEN_RMR_COMMIT_DATE_CMD:-}" ]; then
+    "$GARDEN_RMR_COMMIT_DATE_CMD" "$2" 2>/dev/null || true
+    return 0
+  fi
+  url="$(git -C "$1" remote get-url origin 2>/dev/null)" || return 0
+  case "$url" in
+    *github.com[:/]*) slug="${url#*github.com[:/]}"; slug="${slug%.git}" ;;
+    *) return 0 ;;
+  esac
+  command -v gh >/dev/null 2>&1 || return 0
+  gh api "repos/$slug/commits/$2" --jq .commit.committer.date 2>/dev/null || true
+  return 0
 }
 
 seed_readme() {  # seed_readme <clone-dir>
