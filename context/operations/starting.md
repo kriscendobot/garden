@@ -1,3 +1,9 @@
+---
+created: 2026-07-04
+updated: 2026-09-27
+author: gardener
+---
+
 # Starting the garden
 
 The command-level bring-up the liaison performs when the user says **start the
@@ -5,7 +11,7 @@ garden** — and the same procedure for any later re-start. This is agent-facing
 detail the liaison **executes on demand**, asking before each consequential step
 and verifying after; it is **not** a checklist a human is expected to type. It
 covers linger, unit install/enable, sizing the pool, designating the leader on a
-first host, the liaison's three Monitors and their singleton rules, and the
+first host, the liaison's four Monitors and their singleton rules, and the
 optional armings. Identity comes first and lives in its own page
 ([../first-run/identity.md](../first-run/identity.md)); multi-host leadership is
 [leader-follower.md](leader-follower.md); pool sizing detail is
@@ -56,19 +62,21 @@ proceed on a cross-host hostname collision.
    reconciles):
 
    ```sh
-   scripts/jobs/set-gardeners.sh 20 "$(hostname -s)"
+   scripts/jobs/set-workers.sh monk 1 "$(hostname -s)"
    ```
 
-   ~20 is normal. Most workers are idle-blocked waiting on messages at any
-   moment — sleeping is the cheapest thing an agent can do — so the count is
-   sized for concurrency, not CPU. Sizing detail: [scaling.md](scaling.md).
+   Start with a small declared pool, then size it against the host's physical
+   cap and subscription budget.
+   The leader's budget leveler may adjust it;
+   see [scaling.md](scaling.md) and [cybernetics.md](cybernetics.md).
 
-   **Backend-verified provisioning (the auth auto-tune).** Declaring gardeners is
-   always allowed — gardener is the baseline kind, so a fresh gnome should declare
-   its target *before* the Claude device-login (step 2 of
-   [auth.md](../first-run/auth.md)) even finishes. The gardener pool auto-ramps the
+   **Backend-verified provisioning (the auth auto-tune).** Declaring a positive monk target is
+   allowed before authentication — monk is the native Anthropic kind, so a fresh gnome should declare
+   its target *before* the Claude device-login (step 1 of
+   [auth.md](../first-run/auth.md)) even finishes.
+   The monk pool auto-ramps the
    instant Claude auth lands: the scaler probes each tick and holds the **effective**
-   gardener count at 0 while `claude` is unauthenticated, ramping to the declared
+   monk count at 0 while `claude` is unauthenticated, ramping to the declared
    target on the first confirmed pass (and back to 0 if a human later logs out) —
    without ever rewriting the declared journal target. So a gnome installed ahead of
    its login sits idle-but-ready, not spinning uselessly.
@@ -84,7 +92,7 @@ proceed on a cross-host hostname collision.
    scripts/jobs/set-workers.sh cleric 4 "$(hostname -s)"
    ```
 
-   `set-workers.sh` **refuses** a non-gardener kind's count > 0 until that kind's
+   `set-workers.sh` **refuses** a non-monk kind's count > 0 until that kind's
    backend probe passes on this host (credentials *and* software), naming the missing
    piece — so a Claude-only gnome (e.g. **ps23**) simply cannot declare
    `clerics`/`hermits`/`mystics`/`fireworkers`/`openrouters`/`friars` and stand up pools that fail every
@@ -141,12 +149,15 @@ zero failed units while zero gardeners run. So check both:
 
 ```sh
 systemctl --user list-units 'garden-*' --state=failed --no-legend                  # want: empty
-systemctl --user list-units 'garden-gardener@*' --state=active --no-legend | wc -l  # want: > 0
+systemctl --user list-units 'garden-monk@*' 'garden-cleric@*' --state=active --no-legend
 ```
 
-Reconcile that active count against this host's declared target — the `gardeners:`
-value in the journal `hosts/$GARDEN` file (set in step 4). **Signature to catch:
-the scaler logged `scaled gardener pool to N` yet the active count is 0 ⇒ suspect
+Reconcile active counts per kind against `monks:` / `clerics:` in journal
+`hosts/$GARDEN`, accounting for backend health and budget admission.
+A declared
+slot is not proof of a live handler. **Signature to catch:
+the scaler reports a positive target yet the active count is 0 ⇒ inspect backend
+health and suspect
 a stale drain marker** (step 6) — the units were created but each gardener
 exited on the drain. Show the one-line counts.
 
@@ -189,11 +200,13 @@ that is standing the instance up owns these watches for the life of the session.
   host, leader and follower alike.
 - **Maintainer-inbox watch** — **leader only** (singleton: two would
   double-answer). Runs `scripts/jobs/maintainer-watch.sh`; reply/dismiss with
-  `scripts/jobs/maintainer-reply.sh <msgid>` / `maintainer-archive.sh <msgid>`.
+  `scripts/jobs/maintainer-reply.sh <msgid>` / `maintainer-archive.sh <msgid>.md`.
   A follower stand-up brings up the gardener pool only and **skips** this.
 - **Deploy-on-upgrade watch** — **leader only.** Command
   `cat "$GARDEN_STATE/deploy/upgrade-ready" 2>/dev/null` (silent when up to
-  date); on a signal, invoke `scripts/jobs/deploy-garden.sh` ([deploy.md](deploy.md)).
+  date).
+  Observe the autonomous roll; a manual deploy is an override, not the
+  normal response to every signal ([deploy.md](deploy.md)).
 
 - **Liaison-bus watch** — **every host**, leader and follower. A STANDING Monitor,
   not a one-shot drain at bring-up. Command:

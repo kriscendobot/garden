@@ -1,3 +1,9 @@
+---
+created: 2026-07-04
+updated: 2026-09-27
+author: gardener
+---
+
 # Leader and follower hosts
 
 Operating the garden across **more than one host**: which services run where,
@@ -26,15 +32,18 @@ bring-up is [starting.md](starting.md).
   `garden-{comment,ci}-watcher@*` / `garden-comment-latency-watch` /
   `garden-approval-reconciler@*` /
   `garden-triager@*` / `garden-mention-watcher` / `garden-issue-inbox` watchers,
-  `garden-orchestrate`, and the **liaison maintainer-inbox and deploy-on-upgrade
+  `garden-orchestrate`, `garden-rolling-deploy`, and the **liaison maintainer-inbox and deploy-on-upgrade
   Monitors**.
 - **Per-host local infra runs on every host** (not shared work):
-  `garden-gardener@*`, `garden-gardener-scaler` (each host scales its own pool),
-  `garden-upgrade-monitor`, `garden-clone-keeper`,
+  `garden-monk@*`, `garden-cleric@*` (and other configured kinds),
+  `garden-gardener-scaler` (each host scales its own pool),
+  `garden-upgrade-monitor`, `garden-self-deploy`, `garden-sysop`,
+  `garden-container-hardening`, `garden-root-repo-guard`, `garden-clone-keeper`,
   `garden-journal-worktree-keeper`, `garden-journal-contention-watch`,
   `garden-repo-watcher`, `garden-unblock`, and
-  the fast-forward/maintenance half of `garden-watchman` (its duplicate-prone
-  reread broadcast is leader-only, gated in-process).
+  the maintenance half of `garden-watchman`; its reread broadcast is
+  leader-only, gated in-process.
+  Continuous root fast-forward is retired.
 
 ## The marker and the gate
 
@@ -72,9 +81,11 @@ until the marker is re-pointed by hand.
 
 The systemd singletons (foreman, scheduler, watchers, bulletin, the recovery
 services) are **marker-gated**: each carries `is-main-host.sh` as an
-`ExecCondition=`, so it flips **atomically the instant the marker moves**. The
-outgoing host's singletons stop and the incoming host's start on the next timer
-tick with **no manual intervention**. Neither leader stops them by hand, and
+`ExecCondition=`, so future activations follow the marker.
+An `ExecCondition=` does not kill
+an already-running tick; the next timer activation skips the outgoing host
+and admits the incoming host.
+Neither leader stops them by hand, and
 trying to would be redundant.
 
 The **only** singletons that need a manual stand-down are the **two liaison
@@ -98,12 +109,12 @@ host assuming leadership; outgoing = the current leader):
    [scaling.md](scaling.md)), **stands down its maintainer-inbox and
    deploy-on-upgrade Monitors**, and **replies on `role/liaison`** with an
    explicit readiness confirmation (for example "singletons stopped, ready for
-   handoff"). Its systemd singletons need no manual stop; they stop when the
-   marker moves in the next step.
+   handoff").
+   Future systemd singleton activations follow the marker; already-running
+   ticks are not stopped by moving it.
 3. **Incoming re-points the marker** to itself
    (`scripts/jobs/set-main-host.sh <incoming>`) **only after the step-2
-   confirmation**, atomically stopping the outgoing host's systemd singletons
-   and starting the incoming host's.
+   confirmation**, changing which host's future singleton activations are admitted.
 4. **Incoming arms** its maintainer-inbox and deploy-on-upgrade Monitors, lifts
    any drain (`drain-fleet.sh off`), and reads its liaison bus to empty.
 5. **Incoming signals** "leadership assumed" on `role/liaison`.

@@ -1,3 +1,9 @@
+---
+created: 2026-09-05
+updated: 2026-09-27
+author: gardener
+---
+
 # Cybernetics for economic resilience
 
 | Created | 2026-09-05 |
@@ -24,6 +30,48 @@ half is already built, and narrows the proposal to the missing delta. It changes
 no dispatch behavior by itself; each slice below is a separately-landable change.
 The ranking orientation is settled: leaves are the omega floor (`R0`) and are
 therefore admitted before their higher-ranked parents.
+
+## Implementation status — 2026-09-27
+
+The dated analysis below is historical, not the current operating contract.
+[Budget and feedback controls](../context/operations/cybernetics.md) is the
+current map, checked against the scripts and September completion reports.
+Since the original analysis:
+
+- Ordinary nonproductive retries are bounded and backed off; deterministic
+  wall overruns enter split handling.
+  Deferred promotion is leaf-first, and
+  triagers pace from projected role cost.
+- Budget admission rejects configured unmetered/uncalibrated pools.
+  Monks share
+  a fleet ceiling apportioned by calibrated cap and reset-window slack, with
+  physical caps and dwell/step limits.
+  Clerics follow eligible demand.
+- Reset windows, live spend, and quota checkpoints are subscription-scoped;
+  shared checkpoints aggregate host contributions and calibration honors
+  supersession.
+  Decision records are weekly JSONL; unchanged triager decisions,
+  including fail-open decisions, no longer write on every tick.
+- The foreman brake is implemented; the shipped active target is 2.
+  The
+  foreman reads a journal budget-ramp override and optional priority mandate.
+- Rolling deploys pin targets, gate candidates with tests, distinguish deferral
+  from failure, quiesce busy followers, and skip/recover offline peers.
+  Advisory
+  hardening probes do not fail canaries.
+  Reaction-anchored latency and journal
+  contention watches coalesce storm notices and recoveries.
+
+Remaining limits: remote drained/offline hosts still receive budget allocations;
+a no-op deploy can leave an inherited quiesce drain; container source deployment
+alone does not recreate old privileged containers.
+See [scaling](../context/operations/scaling.md),
+[deploy](../context/operations/deploy.md), and
+[hardening](../context/operations/harden-container.md).
+Do not read older fixed
+worker bands, host-only budget paths, or proposed/unbuilt labels below as claims
+about today's code.
+
 
 ## 0. What already landed — so this design is only the delta
 

@@ -1,3 +1,9 @@
+---
+created: 2026-09-01
+updated: 2026-09-27
+author: gardener
+---
+
 # Cybernetic audit of the garden automation
 
 | | |
@@ -26,6 +32,48 @@ Evidence discipline: every claim below cites a file, commit, or journal path.
 Line numbers are against `main2` at the audit worktree's checkout
 (`36360f0ab5`). Journal counts were re-measured on 2026-09-01 and are marked
 where they differ from the directive's day-earlier figures.
+
+## Implementation status — 2026-09-27
+
+The dated analysis below is historical, not the current operating contract.
+[Budget and feedback controls](../context/operations/cybernetics.md) is the
+current map, checked against the scripts and September completion reports.
+Since the original analysis:
+
+- Ordinary nonproductive retries are bounded and backed off; deterministic
+  wall overruns enter split handling.
+  Deferred promotion is leaf-first, and
+  triagers pace from projected role cost.
+- Budget admission rejects configured unmetered/uncalibrated pools.
+  Monks share
+  a fleet ceiling apportioned by calibrated cap and reset-window slack, with
+  physical caps and dwell/step limits.
+  Clerics follow eligible demand.
+- Reset windows, live spend, and quota checkpoints are subscription-scoped;
+  shared checkpoints aggregate host contributions and calibration honors
+  supersession.
+  Decision records are weekly JSONL; unchanged triager decisions,
+  including fail-open decisions, no longer write on every tick.
+- The foreman brake is implemented; the shipped active target is 2.
+  The
+  foreman reads a journal budget-ramp override and optional priority mandate.
+- Rolling deploys pin targets, gate candidates with tests, distinguish deferral
+  from failure, quiesce busy followers, and skip/recover offline peers.
+  Advisory
+  hardening probes do not fail canaries.
+  Reaction-anchored latency and journal
+  contention watches coalesce storm notices and recoveries.
+
+Remaining limits: remote drained/offline hosts still receive budget allocations;
+a no-op deploy can leave an inherited quiesce drain; container source deployment
+alone does not recreate old privileged containers.
+See [scaling](../context/operations/scaling.md),
+[deploy](../context/operations/deploy.md), and
+[hardening](../context/operations/harden-container.md).
+Do not read older fixed
+worker bands, host-only budget paths, or proposed/unbuilt labels below as claims
+about today's code.
+
 
 ## 1. Loop inventory
 

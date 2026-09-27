@@ -1,3 +1,9 @@
+---
+created: 2026-09-23
+updated: 2026-09-27
+author: gardener
+---
+
 # Hardening the garden container (drop `--privileged`, drop bot-user sudo)
 
 The `garden` launcher and Dockerfile were hardened (job
@@ -51,9 +57,28 @@ so the conservative, widely-used unprivileged-systemd recipe was chosen. If a
 future boot-test shows systemd and the `--user` fleet come up cleanly with
 `--cap-drop` narrowing SYS_ADMIN away, tighten it then — the probe will confirm.
 
+## Probe outcomes
+
+`check-container-hardening.sh` returns 0 on all-pass.
+On a host never recorded
+as hardened, failures confined to caps/sudo/block devices produce **PENDING
+RECREATE** (exit 3, coalesced notice); `GARDEN_HARDENING_STRICT=1` makes that an
+exit-1 failure.
+The first passing probe records
+`.garden-state/container-hardening/hardened-verified`; later regressions and
+credential/identity failures are exit 1.
+The timer runs twice daily.
+It is an
+advisory unit excluded from rolling-deploy canary health, not permission to
+leave credentials exposed.
+The probe bounds real `gh` calls with timeouts.
+
 ## Per-host recreate procedure
 
-Do this per host, one at a time. It is a normal drain → recreate → stand-up, plus
+Do this per host, one at a time.
+Run `./garden build`, `reset`, and `create`
+on the Docker host; run the drain and verification inside the container.
+It is a normal drain → recreate → stand-up, plus
 the probe at the end.
 
 1. **Deploy the hardened launcher first.** Ensure this host's root checkout is at
@@ -65,8 +90,8 @@ the probe at the end.
    ```sh
    scripts/jobs/drain-fleet.sh on "recreating container for hardening"
    ```
-   Wait for in-flight gardeners to finish (watch `systemctl --user list-units
-   'garden-gardener@*' --state=active`).
+   Wait for all kinds' in-flight work to finish; inspect live `busy` markers
+   under `$GARDEN_STATE` as in [deploy.md](deploy.md), not just monk units.
 3. **Rebuild the image** (the Dockerfile changed — sudo removed):
    ```sh
    ./garden build

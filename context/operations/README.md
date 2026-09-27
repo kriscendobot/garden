@@ -1,3 +1,9 @@
+---
+created: 2026-07-04
+updated: 2026-09-27
+author: gardener
+---
+
 # operations/ — day-2 procedure, picked by symptom or intent
 
 Command-level operator procedure for a **running** instance: everything the
@@ -11,9 +17,15 @@ schedule). The conversational first-run tour is the sibling tree,
 
 ## Pick by intent
 
+- **[cybernetics.md](cybernetics.md)** — budget admission, subscription metering,
+  fleet allocation, controller restraint, decision records, and known gaps.
+
+- **[harden-container.md](harden-container.md)** — recreate older privileged
+  containers and distinguish pending recreation from security regressions.
+
 - **[starting.md](starting.md)** — *"start the garden" / bring up a fresh
   instance.* Linger, install and enable units, size the pool, designate the
-  leader on a first host, the liaison's three Monitors and their singleton
+  leader on a first host, the liaison's four Monitors and their singleton
   rules, and the optional armings (issue inbox, bulletin PAT). This is the
   agent-facing detail the liaison runs for tutorial stage 4 and any later
   re-start — not a human checklist.
@@ -25,7 +37,7 @@ schedule). The conversational first-run tour is the sibling tree,
   `designs/multibot-leader-follower.md` for rationale.
 
 - **[scaling.md](scaling.md)** — *"scale up/down" / "pause the fleet."* Sizing
-  the pool, `set-gardeners` per host, and `drain on/off` — when to prefer which.
+  the pool, `set-workers` per host, and `drain on/off` — when to prefer which.
 
 - **[host-operations.md](host-operations.md)** — *"change an unattended
   follower" / "send a host op."* The sysop path for cross-host worker changes,
@@ -68,7 +80,11 @@ schedule). The conversational first-run tour is the sibling tree,
   ROCm/gfx1151 (Strix Halo Radeon 8060S) host setup, standing up an
   OpenAI-compatible `/v1` endpoint (Ollama recommended), model selection for the
   unified-memory budget, wiring and pricing a `provider: local` `hermit` worker
-  into the cleric/spine bid-auction cost model, and image durability. Its README
+  into the cleric/spine bid-auction cost model, and image durability.
+  Historical
+  setup material: the local `hermit` worker lane is retired and pinned to zero;
+  do not use this page to re-arm it.
+  Its README
   routes to the child topic. Routes to
   `designs/cleric-worker-bid-auction-reputation.md`.
 

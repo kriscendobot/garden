@@ -1,3 +1,9 @@
+---
+created: 2026-07-04
+updated: 2026-09-27
+author: gardener
+---
+
 # The deliberate deploy
 
 How a running instance takes up a new version of the garden library. The root
@@ -13,7 +19,8 @@ tracking `main2`," you are here.
 ## What the root checkout is
 
 `<garden-root>` is a **deployed version** of the garden, not a working tree.
-Nothing fast-forwards it continuously. Development happens in **per-subagent
+Nothing fast-forwards it continuously.
+Development happens in **per-job
 worktrees** off `origin/main2`; the root is advanced only by the deliberate,
 drained deploy below. The continuous fast-forward path is retired
 (`garden-deploy-sync` is gone; the watchman's aggressive checkout defaults off,
@@ -50,16 +57,44 @@ The conductor and the follower pin their deploys with `GARDEN_DEPLOY_TARGET=<sha
 so a roll lands the sha it validated, not whatever `main2` has become since
 ([design § Pinned deploys](../../designs/follower-self-deploy.md#pinned-deploys-and-a-moving-tip-2026-09-23-incident)).
 
+## Candidate validation and manual override
+
+Before draining, `deploy-garden.sh` unpacks the selected SHA into an isolated
+candidate tree and runs its configured deterministic gate suites.
+Failed suites
+get one retry in a fresh tree within the gate deadline.
+Persistent failure
+rejects the candidate without advancing the root; diagnostics from both attempts
+remain under `$GARDEN_STATE/deploy/candidate-gate-diagnostics/<sha>` (or the configured
+`GARDEN_DEPLOY_GATE_DIAGNOSTICS_DIR`).
+A moving `main2` does not replace a roll's
+pinned target, which must be an ancestor of the fetched branch.
+
+Canary unit health excludes `GARDEN_ADVISORY_UNITS` (currently the container
+hardening probe).
+This does not waive its security findings.
+Offline peers are
+skipped without consuming canary failures; resumed heartbeats clear the offline
+notice, and lagging followers receive catch-up releases to the leader's SHA.
+If followers exist but none is present and eligible to validate, the leader holds;
+that is different from a genuinely leader-only fleet.
+
+For an unattended host, the manual escape hatch is an **attested sysop `deploy`
+op**, via `send-host-op.sh <host> op=deploy authorized_by=<maintainer>` only when
+the maintainer supplied that authorization.
+Release tokens and benign quiesce
+drains do not confer this authority.
+See [host-operations.md](host-operations.md).
+
 ## Deploying
 
 ```sh
 scripts/jobs/deploy-garden.sh
 ```
 
-The script runs the deliberate sequence: **drain → quiesce → merge → record the
+The script runs the deliberate sequence: **candidate gate → drain → quiesce → advance → record the
 deployed sha → lift the drain → restart the fleet.** It pauses the fleet
-gracefully (the same drain as [scaling.md](scaling.md)), merges `origin/main2`
-into the root checkout, records the new deployed sha (which clears the
+gracefully (the same drain as [scaling.md](scaling.md)), advances the root tree to the tested candidate, records the new deployed sha (which clears the
 upgrade-ready signal), lifts the drain, and restarts so every unit picks up the
 new code. A lesson you encode reaches a *running* agent mid-flight through the
 watchman's broadcast; the deploy is how the *deployed root and its units* take
@@ -100,7 +135,7 @@ whether to lift it.
 
 ## A Dockerfile-affecting deploy needs an image rebuild
 
-`deploy-garden.sh` merges `origin/main2` into the root checkout and restarts the
+`deploy-garden.sh` advances the root checkout to the tested candidate and restarts the
 `--user` units, but it does **not** rebuild the container image — the fleet keeps
 running inside the container it already created. So a deploy that advances the
 **Dockerfile** (or a file it `COPY`s — the entrypoint, the api-key-handoff seed),
@@ -132,19 +167,18 @@ drained like the deploy itself. A deploy that did not touch the Dockerfile leave
 
 ## The drain can outlive the deploy
 
-A *successful* deploy lifts the drain it engaged (and current code's abort belt
-lifts a drain it engaged on timeout, failure, or long-job deferral), but a drain
-the deploy did **not** engage — an operator
-`stand down` / `drain` it honored rather than lifted, or a hard kill before its
-lift — leaves the **draining marker** behind, and that marker **outlives** the
-deploy. A gardener that starts while the marker is present logs `fleet draining;
-exiting cleanly` and exits: units installed, linger on, nothing *failed*, yet **0
-gardeners running**. That is why a re-start ([starting.md](starting.md) step 5)
-probes `drain-fleet.sh status`, **lifts** a stale drain (operator-confirmed), and
-verifies gardeners are *positively* active — never trusting an empty
-`--state=failed` list alone. The lift is kept deliberately on the re-start
-surface, not force-lifted by the deploy, so a fleet an operator *intentionally*
-paused is never silently resumed ([deliberate-deploy](../../designs/deliberate-deploy.md)).
+A successful advancing deploy clears the drain, including an inherited operator
+pre-drain, and restarts the fleet.
+On abort it lifts only a drain it engaged;
+an inherited operator drain remains.
+A no-op deploy also lifts only its own
+drain.
+A hard kill can strand a marker before cleanup.
+This is why restart
+checks must inspect drain state and active worker counts, not just failed units
+([starting.md](starting.md)).
+Do not use a successful deploy to preserve an
+intentional indefinite pause: re-establish that pause deliberately if needed.
 
 Distinguish a live deploy from a stranded marker before recovering:
 

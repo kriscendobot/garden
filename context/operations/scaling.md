@@ -1,6 +1,12 @@
+---
+created: 2026-07-04
+updated: 2026-09-27
+author: gardener
+---
+
 # Sizing the pool and pausing the fleet
 
-Two operator controls over how much a host is doing: **`set-gardeners`** sizes
+Two operator controls over how much a host is doing: **`set-workers`** sizes
 its worker pool, and **`drain`** declares a moratorium on new claims (workers
 finish their current job and take no new ones; **lift** relaxes it). This page
 is when to reach for which and what a healthy pool size looks like. If your
@@ -12,25 +18,37 @@ in-flight work," you are here; the leadership-handoff use of drain is
 ## Sizing the pool
 
 ```sh
-scripts/jobs/set-gardeners.sh <count>
+scripts/jobs/set-workers.sh monk <count>   # native Anthropic / Claude
+scripts/jobs/set-workers.sh cleric <count> # OpenAI / Codex
 ```
 
-This writes this host's journal state (`hosts/<host>`) that its
-`garden-gardener-scaler` reconciles — **each host scales its own pool.** ~20
-workers is normal. The count is sized for **concurrency, not CPU**: most workers
-are idle-blocked waiting on messages at any moment (a job can block a long time
-waiting on a maintainer reply or a peer), and sleeping is the cheapest thing an
-agent can do. Tune per host by its capacity, not by core count. Adding hosts
-adds concurrency with no duplication — the job-board CAS dedups the work
-([leader-follower.md](leader-follower.md)).
+`set-monks.sh` and `set-clerics.sh` are convenience wrappers.
+The `gardener`
+worker kind, `set-gardeners.sh`, and `garden-gardener@` were retired; gardener
+remains the shared role and `gardener.sh` spine.
+The scaler retains its name
+`garden-gardener-scaler` and reconciles `monks:` / `clerics:` in `hosts/<host>`
+into `garden-monk@*` / `garden-cleric@*` units.
+Deploy reconciliation retires old
+units; do not re-arm them.
 
-Every non-gardener worker variety accepts an explicit count of zero. During the
-temporary Claude weekly-quota route, an endolin host may also set `gardeners: 0`
-only after it has declared a positive non-Claude pool whose backend probe passes
-(for example `clerics: 1`). The writer and scaler both require the active quota
-route and reject the change when no qualified non-Claude class remains, so a host
-cannot configure itself to zero claimers. Restore Claude capacity with
-`scripts/jobs/set-gardeners.sh <count>`.
+Declared counts are bounded by backend health and budget admission.
+Start small;
+there is no universal twenty-worker target.
+With configured worker leveling,
+the leader apportions a fleet monk ceiling across calibrated subscriptions and
+sizes clerics from eligible demand.
+See [cybernetics.md](cybernetics.md) for
+physical caps, dwell, and the current offline-host allocation gap.
+
+Non-monk kinds accept zero.
+The monk setter's zero-count guard still requires
+the temporary quota `race` route and another declared, probe-qualified non-Claude
+kind.
+Otherwise keep a monk or use drain for a temporary pause.
+Positive cleric
+counts require a successful backend probe; monks may be declared before login,
+with effective capacity held at zero until auth is ready.
 
 The setter is deliberately local-only: its optional `[host]` must equal this
 host's `GARDEN`. To change an unattended follower, do not edit `hosts/<host>`
@@ -76,21 +94,23 @@ ticking so it can receive `drain off`. Those producers can therefore grow queued
 work while no gardener on the drained host will claim it; gardeners on other,
 undrained hosts can still claim it.
 
-If the intent is only to stop autonomous foreman pumping, do not drain the
-leader. The shipped `garden-foreman.service` sets
-`GARDEN_FOREMAN_ACTIVE_TARGET=0`, which independently prevents both deferred
-promotion and newly generated foreman work while leaving orchestration,
-schedules, watchers, and claiming untouched. Raising that target re-enables the
-foreman. A proposed separate brake has not landed in the current code; the active
-target is the live foreman-specific control.
+If the intent is only to stop autonomous foreman pumping, use
+`scripts/jobs/brake-foreman.sh on [reason]` (and `off` / `status`).
+The
+journal-backed `config/foreman-brake` follows leadership and stops only the
+foreman.
+The shipped `GARDEN_FOREMAN_ACTIVE_TARGET` is **2**; setting it to zero
+also stops pumping, but is not the current default.
+Budget-ramp and mandate
+inputs are described in [cybernetics.md](cybernetics.md).
 
 ## Which to prefer
 
 - **Temporary pause** (deploy, handoff, maintenance) → **drain on/off**; the
   pool size is preserved.
 - **Durable capacity change** (this host should do more, less, or zero work of
-  one variety indefinitely) → **`set-gardeners`** or the corresponding
-  per-variety setter. `gardeners=0` is normally refused; use it only for the
+  one variety indefinitely) → **`set-workers`** or the corresponding
+  per-variety setter. `monks=0` is normally refused; use it only for the
   probe-qualified temporary quota-route exception described above.
 - **Retiring a host** → drain, then hand off leadership if it was leader
   ([leader-follower.md](leader-follower.md)).

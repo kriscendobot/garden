@@ -1,3 +1,9 @@
+---
+created: 2026-07-04
+updated: 2026-09-27
+author: gardener
+---
+
 # Health and recovery
 
 Checking that an instance is healthy, and recovering it when it is not. The
@@ -17,7 +23,11 @@ happened to my dead job," you are here; pausing a *healthy* fleet is
 systemctl --user list-units 'garden-*' --state=failed   # should be empty
 ```
 
-An empty list is health. A failed unit is the first thing to look at after any
+An empty list is not enough: also check drain state, active units for configured
+worker kinds, watcher heartbeats, and whether claims/completions advance.
+Advisory
+probe failures still need attention even though they do not block canaries.
+A failed unit is the first thing to look at after any
 bring-up or deploy. The fleet's `self-heal-run.sh` wrapper already captures
 evidence on an unexpected failure and posts a diagnosing fix job (throttled, so
 a crash loop can't burn tokens) — systemd restarts, the wrapper diagnoses — so a
@@ -42,13 +52,46 @@ It reports per-clone lock/fetch/push percentiles, push rejection classes, clone
 bytes/packs/`gc.log`, outage skips and latch state, and checker heartbeat age.
 The hard guards are: fetch at 70% of its timeout (31.5s at the 45s default), any
 lock give-up, more than three lock steals per window, a 50-attempt push or
-definite push failure, a latch episode over ten minutes, and a clone at 2 GiB,
-50 packs, or with `gc.log`. Median/MAD anomalies and a 1.5x oldest-to-newest
-drift need two checker ticks; hard guards page immediately. Affected per-instance
+definite push failure, a latch episode over ten minutes, and a clone at 4 GiB,
+1,000 packs, or with `gc.log`.
+Median/MAD anomalies and qualified fetch drift
+need two checker ticks; drift requires at least 12 samples over an hour and a
+newest median of at least 10 seconds (1.5x growth or projected hard-guard crossing); hard guards page immediately.
+Affected per-instance
 clones are losslessly renamed and rebuilt at most once per six hours. Set
 `GARDEN_CONTENTION_REMEDY=0` in the service environment for alert-only operation.
 The deployed root and its shared `journal/` worktree are never remediation
 targets; `garden-root-repo-guard` owns those.
+
+## Comment acknowledgments and notice storms
+
+The leader's `garden-comment-latency-watch` measures eligible maintainer comments
+against the bot acknowledgment reaction's GitHub timestamp, not a journal cursor
+that legitimately stays still on a quiet repo.
+It separates late acknowledgments,
+a stale heartbeat (dead watcher), full polls that missed a directive (blind),
+and prolonged cooldown/offline-journal outcomes (stuck).
+Drain and short cooldowns
+mute missing acknowledgments; API cooldowns bound the sensor's own REST calls.
+See [comment-latency-watch](../../designs/comment-latency-watch.md).
+
+The fleet's watch storm guards collapse more than five same-class anomalies per
+tick into one summary: across repos for the leader's latency watch, across clones
+for each host's contention watch.
+They are not a cross-host global counter.
+`watchdog-notice.sh <key> [body-file]` coalesces by condition key;
+`--recovered` closes the condition on the same notice.
+These watches use
+`GARDEN_WATCHDOG_RECOVERY_IF_OPEN_ONLY=1` to avoid resurrecting an archived alert
+merely to report recovery.
+Archive with the exact filename, including `.md`.
+
+Clone lock contention from a live holder is a soft retry/skip, distinct from a
+network outage.
+The shared outage latch should not turn one busy clone into a
+host-wide journal outage.
+The contention watch ignores samples older than six
+hours and bounds each tick so deferred clone checks do not lose its heartbeat.
 
 ## A worker cannot find its agent CLI
 
