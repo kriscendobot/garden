@@ -1,0 +1,7 @@
+<6>16:38:17 [monk/1] resuming session da9a106e-c22d-580c-80b7-703d1448204b for requeued job 'review-improve-pr-description-reviewer-attention' in worktree /home/kris/garden2/scratch/gardener-wt-review-improve-pr-description-reviewer-attention
+<6>16:38:17 [monk/1] job 'review-improve-pr-description-reviewer-attention' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>16:38:17 [monk/1] job 'review-improve-pr-description-reviewer-attention' call ceiling: tier=mentor max-budget-usd=16.80 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
