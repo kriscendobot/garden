@@ -36,6 +36,26 @@ Adopted as the named cost-control recommendation of
   scope for this change; the conductor is unchanged and `run the gauntlet #N` stays
   the normal way out of draft.
 
+## Exact-head freshness addendum (2026-09-27)
+
+Manual triggering does not make old panel coverage float with a PR branch. The
+latest completed panel covers exactly its recorded commit. A later fixer,
+shepherd, designer, or other PR-touching producer commit makes that coverage
+stale. `scripts/jobs/assert-panel-head-fresh.sh`, wired into gardener completion,
+compares the panel record's `reviewed_head` with GitHub's presented `headRefOid`.
+Any mismatch becomes an explicit `review required` disposition and one
+deduplicated maintainer action. The producer settles rather than rerunning, and
+the sensor neither changes PR state nor creates a `jobs/gauntlet/` record.
+
+This preserves the decision split below: the sensor says the earlier review is
+stale; only the maintainer decides whether to issue `run the gauntlet #N`. An
+already-requested staged gauntlet remains self-contained—its deterministic
+driver owns `fix → next panel`, so the completion sensor does not manufacture a
+second trigger. Every commit delta errs toward review because file paths cannot
+classify design or workflow changes as harmless. GitHub metadata-only edits are
+the negative case: title, body, label, and comment changes leave the head commit
+unchanged and therefore leave panel coverage fresh.
+
 ## Decision
 
 Completing a build or design stops at an open draft PR. It does not create a

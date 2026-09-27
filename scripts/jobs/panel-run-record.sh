@@ -158,11 +158,12 @@ cmd_emit() {
   done
 
   # Build the compact body and collect all head shas (for the run-id hash).
-  local body="" allheads="" mf_total=0
+  local body="" allheads="" reviewed_head="" mf_total=0
   for r in $(seq 1 "$rounds"); do
     local head verdicts="" seat_count=0 mf_lines="" mf_count=0 seat cls block hsha
     head="$(cat "$rundir/round-$r.head" 2>/dev/null | head -1 | tr -dc 'A-Za-z0-9')"
     [ -n "$head" ] || head="unknown"
+    reviewed_head="$head"
     allheads="$allheads:$head"
     hsha="${head:0:8}"
     # Seats that ran this round == the round-<r>.<seat>.md blocks (exclude the
@@ -235,6 +236,7 @@ base_ref: $base
 rounds: $rounds
 disposition: $disp
 exit_code: $exit_code
+reviewed_head: $reviewed_head
 must_fix_total: $mf_total
 appellate_ran: $appellate_field
 appellate_proposals: $appellate_n

@@ -79,7 +79,16 @@ SENTINEL="SEATPROSE_MUST_NOT_LEAK_9c1f"
 # scenario (SEAT_MODE, FIX_MARKER, GARDEN_PANEL_MAX_ROUNDS, GARDEN_PANEL_REPO, …).
 run_panel() {
   local sub="$1" bare="$2" pr="$3"; shift 3
-  mkdir -p "$sub/wt"      # non-git worktree → sense falls to the (broader) code panel
+  mkdir -p "$sub/wt"
+  if [ ! -d "$sub/wt/.git" ]; then
+    git init -q "$sub/wt"
+    printf 'baseline\n' >"$sub/wt/README.md"
+    git -C "$sub/wt" add README.md
+    git -C "$sub/wt" "${git_id[@]}" commit -q -m baseline
+    printf 'export const fixture = true;\n' >"$sub/wt/fixture.js"
+    git -C "$sub/wt" add fixture.js
+    git -C "$sub/wt" "${git_id[@]}" commit -q -m change
+  fi
   env \
     GARDEN=trh GARDEN_STATE="$sub/state" \
     JOURNAL_REMOTE="$bare" JOURNAL_BRANCH=journal2 \
@@ -118,6 +127,7 @@ if [ -n "$REC1" ]; then
   grep -qE '^rounds: 1$'             "$REC1" && ok "rounds: 1 for a clean pass" || bad "wrong round count"
   grep -qE '^panel_kind: code$'      "$REC1" && ok "panel_kind: code recorded" || bad "panel_kind absent"
   grep -qE '^kind: panel-run$'       "$REC1" && ok "record self-identifies (kind: panel-run)" || bad "kind field absent"
+  grep -qE '^reviewed_head: [0-9a-f]{40}$' "$REC1" && ok "exact reviewed head is machine-readable" || bad "exact reviewed_head absent"
   grep -qE '^epoch:'                 "$REC1" && ok "epoch: field reserved for evaluation-epoch id" || bad "epoch field not reserved"
   grep -qE 'typist=pass'             "$REC1" && ok "per-seat verdict CLASS recorded (typist=pass)" || bad "seat verdict class absent"
   grep -q  "$SENTINEL"               "$REC1" && bad "seat PROSE leaked into the record!" || ok "seat prose does NOT appear (compact record)"

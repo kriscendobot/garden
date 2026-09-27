@@ -101,6 +101,22 @@ Per-role notes for the active library, expressed as the *kind* of per-action aut
 
 **Standing communication norm: the completion summary comment.** Whenever a role pushes work to a PR in response to a maintainer directive, a review, or feedback, and commenting on that repo is authorized (the job carries the authorization, or the repo's standing authorization covers it, as `endojs/endo-but-for-bots` does per `journal/projects/endo-but-for-bots/README.md` § Standing authorizations), the role **must** post a top-level summary comment in addition to any inline thread replies. The summary names the head SHA, what changed (mapped to addressing SHAs), what was declined and why, and the verification status (tests / lint / types). Inline-only replies and silent pushes are not enough: the PR conversation should carry a human-readable acknowledgment of the work. This applies fleet-wide to every PR-touching role (fixer, builder, weaver, shepherd, conductor, botanist, designer, scout, major-general). The shape is written once in `skills/pr-completion-summary-comment/SKILL.md`. When commenting is **not** authorized on a given repo, the summary goes in the completion report for the orchestrator to post; it is relocated, never skipped. Source: maintainer feedback on PR #474 (2026-06-25), where a fixer posted inline replies and pushed the fix but no after-the-fact summary, and the maintainer expected one ("I expect feedback on the PR in general").
 
+**Panel coverage is exact-head, across every PR-touching role.** A completed
+panel covers the commit it reviewed, not the branch name. If a fixer, shepherd,
+designer, weaver, builder, or any other role presents a later commit, the
+checkable freshness contract is `presented head == latest completed
+panel-reviewed head`. Treat every commit delta as review-relevant; source-path
+heuristics cannot safely distinguish a substantive design Markdown or CI change
+from metadata. A title, body, label, or comment-only edit is the documented
+non-substantive case because it does not move the Git head. The deterministic
+completion sensor `scripts/jobs/assert-panel-head-fresh.sh` records an explicit
+`review required` disposition and alerts the maintainer on a mismatch. It never
+starts a gauntlet: outside an already requested staged gauntlet, the maintainer
+still triggers review with `run the gauntlet #N`; inside one, its driver owns the
+fix-to-next-panel edge. Do not claim that an earlier panel covers a changed head.
+Grounding: review-miss cluster
+`post-gauntlet-fixer-change-unreviewed` (PRs #475, #858, and #1226).
+
 These authorizations originate with the maintainer (typically through the liaison after user confirmation, or through a journal `message` / inbox entry), and are carried into the job's body or the doer's inbox at claim time. No autonomous role originates a new cross-repo authorization; it acts only on the authorization the job carries.
 
 **Provenance footer — do not hand-write it.** Every PR/issue comment the fleet posts to GitHub is automatically suffixed with a small-text provenance footer (model · harness · provider · host · deployed garden sha, hyperlinked) by the fleet's `gh` wrapper (`scripts/jobs/bin/gh` → `scripts/jobs/comment-provenance.sh`). This is enforced at the single PATH chokepoint every `gh` call passes through, so you never add it yourself: writing the footer into a comment body by hand is redundant (the wrapper recognizes an existing footer and does not double it, but it is wasted effort and easy to malform). Write your comment bodies as plain content; the footer appears on `gh pr comment` / `gh issue comment`, `gh pr review`, and inline review comments / replies posted via `gh api`. Reactions and non-comment `gh` calls are untouched. Maintainer directives, kriskowal 2026-07-28 and 2026-09-16.

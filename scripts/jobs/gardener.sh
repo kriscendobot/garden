@@ -775,6 +775,78 @@ while :; do
     fi
   fi
 
+  # PANEL-HEAD FRESHNESS CONTRACT. A completed panel covers exactly the commit it
+  # reviewed. If any later PR-touching job presents a different head, the old
+  # verdict is stale even when the delta looks like docs, CI, or a small repair.
+  # The deterministic sensor reads the latest durable panel-run head and GitHub's
+  # current head. A positive mismatch becomes an EXPLICIT review-required
+  # disposition in both the completion report and maintainer inbox, then the
+  # already-finished producer terminalizes. It does NOT stage a gauntlet: under the
+  # manual-trigger regime only the maintainer may request that full workflow. An
+  # unreadable comparison is retryable rather than silently forgetting freshness.
+  # Staged-gauntlet children are exempt because their explicit driver already owns
+  # fix -> next-panel succession.
+  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
+    panel_freshness_output="$(mktemp "${TMPDIR:-/tmp}/garden-panel-freshness-$base.XXXXXX")"
+    set +e
+    "$HERE/assert-panel-head-fresh.sh" completion "$base" "$jobfile" "$report" \
+      >"$panel_freshness_output" 2>>"$capture"
+    panel_freshness_rc=$?
+    set -e
+    cat "$panel_freshness_output" >>"$capture"
+    if [ "$panel_freshness_rc" -eq 10 ]; then
+      panel_freshness_line="$(tail -1 "$panel_freshness_output")"
+      reviewed_head="$(sed -nE 's/.*reviewed_head=([^ ]+).*/\1/p' <<<"$panel_freshness_line")"
+      presented_head="$(sed -nE 's/.*presented_head=([^ ]+).*/\1/p' <<<"$panel_freshness_line")"
+      stale_pr="$(extract_pr_refs_from_text "$report" | head -1 || true)"
+      stale_ref="$(parse_pr_ref "$stale_pr" 2>/dev/null || true)"
+      stale_repo="$(printf '%s' "$stale_ref" | cut -f1)"
+      stale_number="$(printf '%s' "$stale_ref" | cut -f2)"
+      stale_slug="${stale_repo%/*}-${stale_repo#*/}"
+      stale_notice="$(mktemp "${TMPDIR:-/tmp}/garden-panel-stale-$base.XXXXXX")"
+      {
+        printf 'Stale panel coverage for completed job `%s`: %s moved from panel-reviewed head `%s` to presented head `%s`.\n\n' \
+          "$base" "$stale_pr" "$reviewed_head" "$presented_head"
+        printf 'Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.\n\n'
+        printf 'No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.\n'
+      } >"$stale_notice"
+      set +e
+      GARDEN_MSG_COALESCE=1 \
+        GARDEN_MSG_ID="stale-panel-head-${stale_slug}-pr${stale_number}-${reviewed_head:0:8}-${presented_head:0:8}" \
+        GARDEN_SENDER="gardener:$base" \
+        "$HERE/message-user.sh" "$base" "$stale_notice" >>"$capture" 2>&1
+      stale_notice_rc=$?
+      set -e
+      rm -f "$stale_notice"
+      if [ "$stale_notice_rc" -eq 0 ]; then
+        stale_tail_marker=""
+        if report_has_orchestration_failure_marker "$report"; then
+          stale_tail_marker="$GARDEN_ORCHESTRATION_FAILURE_MARKER"
+        elif stale_existing_successor="$(report_handoff_successor "$report" 2>/dev/null)"; then
+          stale_tail_marker="$GARDEN_HANDOFF_MARKER_PREFIX $stale_existing_successor>>>"
+        fi
+        if [ -n "$stale_tail_marker" ]; then
+          awk -v marker="$stale_tail_marker" '$0 != marker { print }' "$report" \
+            >"$report.panel-freshness" && mv "$report.panel-freshness" "$report"
+        fi
+        {
+          printf '\n## Panel-head freshness\n\n'
+          printf 'Disposition: **review required**. The last completed panel reviewed `%s`; this job presented `%s`. The old panel verdict does not cover the current head. No gauntlet was staged; the maintainer received a deduplicated stale-review action.\n' \
+            "$reviewed_head" "$presented_head"
+          [ -z "$stale_tail_marker" ] || printf '%s\n' "$stale_tail_marker"
+        } >>"$report"
+        log "panel-head freshness disposition recorded for '$base': $stale_pr moved $reviewed_head -> $presented_head; no gauntlet staged"
+      else
+        hrc=$stale_notice_rc
+        log "panel-head freshness could not record the stale-review disposition for '$base' (rc=$hrc); leaving in doin for retry"
+      fi
+    elif [ "$panel_freshness_rc" -ne 0 ]; then
+      hrc=$panel_freshness_rc
+      log "panel-head freshness sensor could not determine coverage for '$base' (rc=$hrc); leaving in doin for retry"
+    fi
+    rm -f "$panel_freshness_output"
+  fi
+
   # A completed staged-gauntlet clean/fix child may identify a genuine
   # maintainer decision in addition to the next-panel transition the driver
   # already owns. Surface that decision deterministically BEFORE the generic

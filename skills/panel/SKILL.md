@@ -118,12 +118,25 @@ single-writer CAS discipline like `reputation.sh`). The record carries only the
 disposition, per round the seat list with a **verdict class only** (never the
 seat's prose) and the must-fix item count with a **truncated** title per item
 (≤120 chars, ≤20/round), whether the appellate ran and its proposal count, and a
-reserved `epoch:` field for `designs/evaluation-epochs-panel-calibration.md`. It
+machine-readable full `reviewed_head` for the last round (older records retain
+the display prefix in their final round heading), plus a reserved `epoch:` field
+for `designs/evaluation-epochs-panel-calibration.md`. It
 is deliberately compact so thousands of runs do not bloat `journal2`, and it is
 best-effort: a failed push WARNs and never fails the panel or blocks an un-draft.
 This is the substrate that lets the garden audit its own evaluator (how many
 rounds a PR takes, which must-fix items recur) from the journal — evidence that
 was previously deleted with the worktree.
+
+The reviewed head is also the freshness anchor. At completion,
+`scripts/jobs/assert-panel-head-fresh.sh` compares the latest completed panel's
+head with the PR's presented `headRefOid`. Equality means covered; any commit
+movement means `review required`. The sensor deliberately does not inspect file
+types: design Markdown and workflow YAML are substantive in two members of the
+grounding cluster. PR metadata-only changes do not move `headRefOid` and pass.
+The completion path records the stale disposition and a deduplicated maintainer
+action but does not stage a gauntlet. A stage already inside an explicitly
+requested gauntlet is exempt because the driver deterministically owns its next
+panel round.
 
 ## Procedure
 
@@ -193,7 +206,8 @@ was previously deleted with the worktree.
 - **Detail (on disk, not stdout):** `GARDEN_PANEL_RUNDIR/round-<r>.md` aggregates,
   `round-<r>.<seat>.md` per-seat blocks, and `appellate.md` proposals.
 - **Durable (on `journal2`, not stdout):** one compact `panel-runs/<owner>-<repo>-<pr>/<run-id>.md`
-  record per run (see § State), pushed best-effort on termination.
+  record per run (see § State), pushed best-effort on termination, including the
+  exact final `reviewed_head` when the worktree resolves a commit.
 
 ## Mapping the v1 roles onto v2 stages
 
