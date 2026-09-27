@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T01:52:01Z_
+_As of 2026-09-27T01:55:56Z_
 
 ## Latest
 
@@ -853,14 +853,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 1 (target 1): subscription claude-oros spend=394514 cap=73000000 pace-bias=0.509782 ceiling=1 target=1
 
-- `manual-gauntlet-handoff-endojs-endo-but-for-bots-pr508-gauntlet-panel-1-endojs-endo-but-for-bots-pr508` — from gardener:endojs-endo-but-for-bots-pr508-gauntlet-panel-1, reply_to `endojs-endo-but-for-bots-pr508-gauntlet-panel-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/manual-gauntlet-handoff-endojs-endo-but-for-bots-pr508-gauntlet-panel-1-endojs-endo-but-for-bots-pr508.md)
-
-> Manual gauntlet handoff for completed job `endojs-endo-but-for-bots-pr508-gauntlet-panel-1`: [https://github.com/endojs/endo-but-for-bots/pull/508](https://github.com/endojs/endo-but-for-bots/pull/508) is a bot-authored OPEN NON-DRAFT PR with no staged or completed gauntlet.
->
-> The implementation job is complete and has been terminalized instead of sending the same work through another agent run. The garden did not re-draft the PR and did not stage a gauntlet.
->
-> Maintainer action: if this PR should enter review, issue `run the gauntlet` for [https://github.com/endojs/endo-but-for-bots/pull/508](https://github.com/endojs/endo-but-for-bots/pull/508). Otherwise no action is required.
-
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
@@ -1099,7 +1091,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.3M | $179.36 _(notional, rate-card)_ | 14% of 143.0M (ok) |
+| Claude | 19.8M | $182.17 _(notional, rate-card)_ | 14% of 143.0M (ok) |
 | Codex | 31.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 48602880 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1111,8 +1103,9 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr539-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr539-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #539
+- [`endojs-endo-but-for-bots-pr529-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr529-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #529
 
 ### tada (9062)
 - [`endojs-endo-but-for-bots-pr508-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr508-gauntlet-panel-1.md) — Manual gauntlet handoff
@@ -1166,8 +1159,6 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr529-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr529-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #529
-- [`endojs-endo-but-for-bots-pr539-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr539-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #539
 - [`endojs-endo-but-for-bots-pr550-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr550-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #550
 - [`endojs-endo-but-for-bots-pr551-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr551-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #551
 - [`endojs-endo-but-for-bots-pr569-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr569-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #569
