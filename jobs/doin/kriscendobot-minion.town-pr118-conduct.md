@@ -20,3 +20,13 @@ Un-draft and merge per the conductor role (ci-wait-merge.sh). If the head has mo
 After merge, `minion-town-pr81-verify-live-after-pr118` (plan/, blocked_on this PR)
 promotes automatically. Also clean the frozen base `main-27a6e2b` if it still exists
 (sweep-frozen-bases.sh).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T07:57:51Z
