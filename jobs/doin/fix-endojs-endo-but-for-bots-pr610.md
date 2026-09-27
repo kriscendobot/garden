@@ -10,6 +10,7 @@ Fix the must-fix panel findings on endojs/endo-but-for-bots PR #610, branch `des
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T19:16:13Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
