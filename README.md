@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T08:09:08Z_
+_As of 2026-09-27T08:17:08Z_
 
 ## Latest
 
@@ -348,18 +348,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-cosgov` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-cosgov.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-09-27T01:56:24Z, latest 2026-09-27T07:03:17Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-cosgov`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> WATCHDOG notice — occurrence #9 (first seen 2026-09-27T01:56:24Z, latest 2026-09-27T08:13:46Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-cosgov`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: 725323c03898447d04f148d51b243e5468955d84 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 725323c03898447d04f148d51b243e5468955d84). Diagnosis: This confirms deploy lag: `.garden-state/deploy/last-deploy.log` shows an in-progress drain still waiting for mid-job gardeners, and the root checkout (currently at `47b41af5a14`) is **19 commits behind `origin/main2`**. Critically, the exact fix for this signature is upstream but not yet deployed:
+> self-heal: garden-ci-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: b6c298962fc49a5a2fa28d8e0a98b7dc413bb037 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p b6c298962fc49a5a2fa28d8e0a98b7dc413bb037). Diagnosis: This confirms exactly the known deploy-lag pattern from memory: the fix for this FATAL (clone-lock contention on the shared `verify.lock`) already exists on `origin/main2` — commits `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder contention) plus several follow-on hardening commits — but the root checkout (`HEAD`) is 34 commits behind `origin/main2` and hasn't picked them up yet.
 >
-> - `5620bdbe5f6` — "fix: isolate CI watcher clones per slug"
-> - `e6ea1d33fc8` — "fix(jobs): skip quietly on live-holder clone-lock contention in ensure_clone_or_latch_outage"
->
-> ...plus 7 more clone-lock-contention fixes layered on top of those (`c38cb55b172`, `ab66fece68f`, `1570aa85a47`, `4692b4df0e7`, `9dbda9d5573`, `4948cdd9a75`, `ad55dea66f9`, `49cf6544668`). None of these are ancestors of HEAD yet.
->
-> The failure signature (`cannot acquire clone lock .../verify.lock after 3 waits ... a live
+> This is not a new bug requiring a new fix job; it's the same already-fixed issue recurring purely because of deploy lag. Per my memory of this exact recurring pattern, I should not post a duplicate `self-heal-fix-*` job — the correct remedy is deploying the root checkout, which is a separate deliberate/drained operation, not something this diagnosis step sho
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town.md)
 
@@ -1279,20 +1274,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-latency-storm-dead` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-latency-storm-dead.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-26T16:35:32Z, latest 2026-09-27T07:57:45Z).
-> The SAME condition (`comment-latency-storm-dead`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-latency-storm-dead` has CLEARED (first seen 2026-09-26T16:35:32Z, cleared 2026-09-27T08:12:36Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment acknowledgment dead anomaly on 9 repos at once on endolin-garden-ece02cb4 (storm guard > 5; one shared cause is likelier than 9 independent faults):
-> - kriscendobot/ocapn: watcher heartbeat stale (age=274s > 270s; outcome=cooldown)
-> - kriscendobot/moddable: watcher heartbeat stale (age=277s > 270s; outcome=cooldown)
-> - kriscendobot/finbot: watcher heartbeat stale (age=289s > 270s; outcome=cooldown)
-> - kriscendobot/oros-ckm-data-readiness: watcher heartbeat stale (age=291s > 270s; outcome=cooldown)
-> - endojs/endo-but-for-bots: watcher heartbeat stale (age=286s > 270s; outcome=cooldown)
-> - kriscendobot/ymax-stdio-mcp: watcher heartbeat stale (age=274s > 270s; outcome=cooldown)
-> - kriscendobot/proposal-compartments: watcher heartbeat stale (age=271s > 270s; outcome=cooldown)
-> - kriscendobot/garden: watcher heartbeat stale (age=312s > 270s; outcome=cooldown)
-> - kriscendobot/endo-but-for-bots: watcher heartbeat stale (age=289s > 270s; outcome=cooldown)
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-1.md)
 
@@ -1738,30 +1724,35 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.6M | $276.62 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 31.8M | $277.59 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 36.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 630275808 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 2 open notice(s); checker healthy
+worst fetch p95 7.772794s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`ironhorse-fuzz-1cd4ddc72d5801c4-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-1cd4ddc72d5801c4-repair.md) — Repair Ironhorse engine defect 1cd4ddc72d5801c4 (target differential_regexp_s...
 
-### doin (3)
+### doin (8)
+- [`ironhorse-fuzz-27824c75429b8581-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-27824c75429b8581-repair.md) — Repair Ironhorse engine defect 27824c75429b8581 (target differential_source) ...
+- [`ironhorse-fuzz-12aca768c2e73c73-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-12aca768c2e73c73-repair.md) — Fix Ironhorse fuzz finding 12aca768c2e73c73 (target differential_regexp) and ...
 - [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-self-heal-run-handler-deadline.md) — ---
-- [`fix-garden-ci-gauntlet-retry-viability-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-garden-ci-gauntlet-retry-viability-tests.md) — Fix the garden repo's own CI: two failing test suites, broken 3+ days
+- [`ironhorse-fuzz-13b68e2edb67861a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-13b68e2edb67861a-repair.md) — Repair Ironhorse engine defect 13b68e2edb67861a (target differential_regexp) ...
+- [`ironhorse-fuzz-197b32cc30bdd4fe-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-197b32cc30bdd4fe-repair.md) — Repair Ironhorse engine defect 197b32cc30bdd4fe (target differential_regexp_s...
 - [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-05264cccae42245a-repair.md) — Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
+- [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1dc231089278c110-repair.md) — Repair Ironhorse engine defect 1dc231089278c110 (target differential_regexp) ...
+- [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-284de587e16bce32-repair.md) — Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
 
-### tada (9118)
+### tada (9119)
+- [`fix-garden-ci-gauntlet-retry-viability-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-garden-ci-gauntlet-retry-viability-tests.md) — Cost
 - [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-retro-doom-escalation-noise.md) — Completion report
 - [`kriscendobot-minion.town-pr118-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion.town-pr118-conduct.md) — Cost
 - [`improve-ci-watcher-primary-quota-cooldown-too-short`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-ci-watcher-primary-quota-cooldown-too-short.md) — Completion report
 - [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-ci-watcher-outage-latch-flap-dedup.md) — Completion report
-- [`groom-endo-roadmap-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/groom-endo-roadmap-20260927.md) — Cost
-- … and 9113 more
+- … and 9114 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1813,13 +1804,6 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr877-review-a8763cf9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-a8763cf9-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr982-0b4f9f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr982-0b4f9f5d-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #982 (primary: endojs-endo-but-f...
-- [`ironhorse-fuzz-12aca768c2e73c73-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-12aca768c2e73c73-repair.md) — _normal_ · Fix Ironhorse fuzz finding 12aca768c2e73c73 (target differential_regexp) and ...
-- [`ironhorse-fuzz-13b68e2edb67861a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-13b68e2edb67861a-repair.md) — _normal_ · Repair Ironhorse engine defect 13b68e2edb67861a (target differential_regexp) ...
-- [`ironhorse-fuzz-197b32cc30bdd4fe-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-197b32cc30bdd4fe-repair.md) — _normal_ · Repair Ironhorse engine defect 197b32cc30bdd4fe (target differential_regexp_s...
-- [`ironhorse-fuzz-1cd4ddc72d5801c4-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-1cd4ddc72d5801c4-repair.md) — _normal_ · Repair Ironhorse engine defect 1cd4ddc72d5801c4 (target differential_regexp_s...
-- [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-1dc231089278c110-repair.md) — _normal_ · Repair Ironhorse engine defect 1dc231089278c110 (target differential_regexp) ...
-- [`ironhorse-fuzz-27824c75429b8581-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-27824c75429b8581-repair.md) — _normal_ · Repair Ironhorse engine defect 27824c75429b8581 (target differential_source) ...
-- [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-284de587e16bce32-repair.md) — _normal_ · Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
 - [`ironhorse-fuzz-29a24c1b1052ec91-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-29a24c1b1052ec91-repair.md) — _normal_ · Repair Ironhorse engine defect 29a24c1b1052ec91 (target differential_regexp) ...
 - [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-2a2de75b75de4894-repair.md) — _normal_ · Repair Ironhorse engine defect 2a2de75b75de4894 (target differential_source) ...
 - [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-378372c8706a48a8-repair.md) — _normal_ · Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
