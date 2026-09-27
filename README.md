@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T08:25:21Z_
+_As of 2026-09-27T08:27:22Z_
 
 ## Latest
 
@@ -329,6 +329,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
+
+> Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
+> [https://github.com/endojs/endo-but-for-bots/pull/1227](https://github.com/endojs/endo-but-for-bots/pull/1227)#discussion_r4114482956 (age=3600s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -1724,7 +1729,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.8M | $277.96 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 31.9M | $278.19 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 36.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75261838 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1737,8 +1742,8 @@ worst fetch p95 7.772794s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`ironhorse-fuzz-27824c75429b8581-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-27824c75429b8581-repair.md) — Repair Ironhorse engine defect 27824c75429b8581 (target differential_source) ...
 - [`ironhorse-fuzz-13b68e2edb67861a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-13b68e2edb67861a-repair.md) — Repair Ironhorse engine defect 13b68e2edb67861a (target differential_regexp) ...
 - [`ironhorse-fuzz-1cd4ddc72d5801c4-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-1cd4ddc72d5801c4-repair.md) — Repair Ironhorse engine defect 1cd4ddc72d5801c4 (target differential_regexp_s...
+- [`endojs-endo-but-for-bots-pr1227-review-e348b253`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1227-review-e348b253.md) — Review directive on endojs/endo-but-for-bots PR #1227
 - [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-284de587e16bce32-repair.md) — Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
-- [`kriscendobot-minion.town-pr118-review-12a26bc7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr118-review-12a26bc7.md) — Review directive on kriscendobot/minion.town PR #118
 - [`ironhorse-fuzz-29a24c1b1052ec91-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-29a24c1b1052ec91-repair.md) — Repair Ironhorse engine defect 29a24c1b1052ec91 (target differential_regexp) ...
 - [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Repair Ironhorse engine defect 2a2de75b75de4894 (target differential_source) ...
 
@@ -1746,15 +1751,15 @@ worst fetch p95 7.772794s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`ironhorse-fuzz-12aca768c2e73c73-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-12aca768c2e73c73-repair.md) — Fix Ironhorse fuzz finding 12aca768c2e73c73 (target differential_regexp) and ...
 - [`ironhorse-fuzz-197b32cc30bdd4fe-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-197b32cc30bdd4fe-repair.md) — Repair Ironhorse engine defect 197b32cc30bdd4fe (target differential_regexp_s...
 - [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-05264cccae42245a-repair.md) — Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
-- [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-1dc231089278c110-repair.md) — Repair Ironhorse engine defect 1dc231089278c110 (target differential_regexp) ...
+- [`kriscendobot-minion.town-pr118-review-12a26bc7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr118-review-12a26bc7.md) — Review directive on kriscendobot/minion.town PR #118
 
-### tada (9120)
+### tada (9121)
+- [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-1dc231089278c110-repair.md) — Cost
 - [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-self-heal-run-handler-deadline.md) — Completion report
 - [`fix-garden-ci-gauntlet-retry-viability-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-garden-ci-gauntlet-retry-viability-tests.md) — Cost
 - [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-retro-doom-escalation-noise.md) — Completion report
 - [`kriscendobot-minion.town-pr118-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion.town-pr118-conduct.md) — Cost
-- [`improve-ci-watcher-primary-quota-cooldown-too-short`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-ci-watcher-primary-quota-cooldown-too-short.md) — Completion report
-- … and 9115 more
+- … and 9116 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1953,6 +1958,7 @@ worst fetch p95 7.772794s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`kriscendobot-minion.town-pr97-review-69e952c4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr97-review-69e952c4-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #97 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr96-review-4b828bd6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr96-review-4b828bd6-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #96 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr118-review-12a26bc7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr118-review-12a26bc7-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #118 (primary: kriscendobot-mini...
+- [`endojs-endo-but-for-bots-pr1227-review-e348b253-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1227-review-e348b253-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1227 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
