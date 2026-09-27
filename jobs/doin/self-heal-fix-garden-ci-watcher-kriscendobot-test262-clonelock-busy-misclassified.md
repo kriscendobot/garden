@@ -8,3 +8,13 @@ dispatch: automatic
 Root cause: all `garden-ci-watcher@<slug>` systemd instances (~15, one per watched repo) share ONE unparameterized clone dir, `$GARDEN_CI_VERIFY_CLONE` = `$GARDEN_STATE/ci-watcher/verify` (ci-watcher.sh:82-83), so when their independent timers cluster, a sibling instance legitimately holding the lock for a whole tick makes every other instance exhaust the 3×60s wait ladder and fail the systemd unit — an otherwise self-resolving one-tick contention.
 
 Fix: teach `journal_bounded_fetch_is_ambiguous_outage` (or add a sibling classifier called alongside it inside `ensure_clone_or_latch_outage`) to also match the clone-lock busy-holder diagnostic text (`cannot acquire clone lock .* after [0-9]+ waits of .*busy`), so this case latches the same quiet cooldown/exit-75 path as a network outage instead of re-raising loud — fulfilling the "timeout → quiet exit 75, not FATAL" contract `ci-watcher.sh` already documents at its call site. Confirm the new match text can't collide with `journal_diagnostic_is_definite_failure`'s local-failure regex (common.sh:4598-4601) — it doesn't (no `cannot lock ref`/`unable to create .*\.lock` overlap).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T01:57:46Z
