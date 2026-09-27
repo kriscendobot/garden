@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T15:17:50Z_
+_As of 2026-09-27T15:27:34Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 15h)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 16h)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 9d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 10d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 15d)
@@ -1300,6 +1300,33 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 3 (target 4): shared codex subscription demand active=2 queue=3 quota=ok fleet-envelope=5 target=4
 
+- `doomed-self-heal-fix-garden-issue-inbox-cursor-get-failopen-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-self-heal-fix-garden-issue-inbox-cursor-get-failopen-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/self-heal-fix-garden-issue-inbox-cursor-get-failopen; it stays HELD until a human promotes it
+> (promote-plan.sh self-heal-fix-garden-issue-inbox-cursor-get-failopen) or removes it, so nothing is lost.
+> Original job base: self-heal-fix-garden-issue-inbox-cursor-get-failopen
+>
+> --- original job body ---
+> ---
+> tier: minion
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T14:49:43Z cleared=none -->
+>
+> ---
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+> In scripts/jobs/issue-inbox-watcher.sh, line 386 reads the cursor with a bare command substitution:
+>   last_seen="$("$HERE/cursor-get.sh" "$CURSOR_KEY" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1)"
+> under `set -euo pipefail` (line 85). cursor-get.sh's sync_clone `exit`s nonzero on a journal-connectivity failure, which trips this script's `set -e` and kills the unit with no error text logged — matching the observed failure signature exactly: the last log line is "loaded N maintainer(s) from journal:maintainers/allowlist" (the statement right before line 386) and then exit 1 with nothing after it.
+>
+> This is the identical bug class fixed twice in scripts/jobs/triager.sh (commits 73c2432e89 and b320648e47): a cursor read is inherently best-effort — a stale/unreadable cursor just re-polls next tick, never loses data — so treat ANY nonzero rc from cursor-get.sh as fail-open. Apply the same pattern here: capture the rc with `if cursor_out=$("$HERE/cursor-get.sh" "$CURSOR_KEY"); then rc=0; else rc=$?; fi`, and on nonzero rc, `log "WARN: journal unreachable reading cursor $CURSOR_KEY (rc=$rc); skipping this tick"` then `exit 0` instead of falling through to `die`/set -e. Then parse `last_seen` from `$cursor_out` instead of the pipeline.
+
 - `doomed-kriscendobot-oros-ckm-data-readiness-pr1-receipt-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-oros-ckm-data-readiness-pr1-receipt-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -2042,13 +2069,205 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment condition cleared.
 
+- `doomed-harness-provider-matrix-handoff-20260901-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-harness-provider-matrix-handoff-20260901-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/harness-provider-matrix-handoff-20260901; it stays HELD until a human promotes it
+> (promote-plan.sh harness-provider-matrix-handoff-20260901) or removes it, so nothing is lost.
+> Original job base: harness-provider-matrix-handoff-20260901
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-09-27T14:59:05Z cleared=none -->
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> # Hand-off: harness × inference-provider matrix, and what to probe next
+>
+> Produced on the bare host (not inside the container), from a research session
+> that started as "wire Claude Code to Ollama with my API key" and widened into
+> "map every harness we could run against every provider, so we can compare and
+> evaluate them." Nothing here has touched the journal or any garden state —
+> post the pieces below from *inside* the container with the real job-board
+> tooling (`scripts/jobs/post-plan.sh` / `post-job.sh` / `post-orchestration.sh`),
+> not by writing into `journal/` directly.
+>
+> ## The harnesses
+>
+> | Harness | CLI | Native reach | Generalized reach |
+> |---|---|---|---|
+> | **claude** (Claude Code) | `claude -p` | Anthropic Messages API | Honors `ANTHROPIC_BASE_URL`/`ANTHROPIC_AUTH_TOKEN` — can point at **any** Anthropic-Messages-compatible endpoint. **Not yet exercised anywhere in this repo.** Confirmed this session via `docs.ollama.com`: Ollama, both self-hosted and Cloud, now serves `/v1/messages` natively, so this reach is real, just unused. |
+> | **codex** (Codex) | `codex exec` | OpenAI API (ChatGPT-plan metered) | Already generalized via custom `model_provider` to **any OpenAI-compatible endpoint** — this is how `hermit` (local Ollama), `fireworker` (Fireworks), and `openrouter`/`openrouter-promo` (OpenRouter) all work today, sharing one handler (`cleric-codex.sh`). `codex --oss` is a native shortcut for localhost Ollama. |
+> | **kimi** (Kimi Code CLI) | `kimi --prompt` | Moonshot K3 only | No generalization investigated; Moonshot-specific temp-model config channel. |
+> | **opencode** | `opencode run` | Provider-agnostic via the Models.dev catalog (`-m provider/model`) | Natively reaches Anthropic, OpenAI, **Google Gemini**, Moonshot, and arbitrary custom OpenAI-compatible endpoints — **proposed, not built**. `designs/opencode-alternate-harness.md` (2026-07-28) already ran a rigorous 8-constraint feasibility pass and recommends **adopt narrowly: one kind per provider it fronts, sharing one handler** — the `cleric-codex.sh` pattern. No constraint was disqualifying; two need a live probe (exit-code honesty, transcript-capture plumbing). |
+>
+> Reuse the opencode design's 8-constraint rubric for evaluating *any* new
+> harness×provider cell (including Claude×Ollama below), rather than inventing
+> a new one: deterministic session/resume, cost-ledger fidelity, robust binary
+> resolution, headless + honest exit codes, tool-permission/sandbox model,
+> transcript capture, model routing cleanliness, eligibility gating.
+>
+> ## The matrix
+>
+> ✅ = wired (armed or inert-by-default) · 🔬 = designed/recommended probe · ❓ = genuinely unresearched · — = no natural fit
+>
+> | Provider | claude | codex | kimi | opencode |
+> |---|---|---|---|---|
+> | **anthropic** | ✅ `monk` (native, fleet default) | — | — | 🔬 `opencode-anthropic` — the opencode design's own **recommended first probe** (A/B the harness itself against native `monk` on the same model) |
+> | **openai** | — | ✅ `cleric` (native, ChatGPT-plan metered) | — | ❓ possible (`opencode-openai`), not probed |
+> | **local Ollama (on-box)** | ❓ **unresearched** — technically live (Anthropic-compat `/v1/messages`), never tried | ✅ `hermit` (OpenAI-compat `/v1`, `garden-ollama.service:11435`) | — | ❓ not discussed in the opencode design at all |
+> | **Ollama Cloud (ollama.com)** | ❓ **the original ask** — same mechanism as local, but paid/API-key-metered, needs its own quota/rate-card classification (can't reuse `hermit`'s "local = never quota'd" exclusion) | ❓ plausible if Cloud is OpenAI-compatible too — unconfirmed | — | ❓ unresearched |
+> | **moonshot** | — | — (mystic deliberately uses a dedicated harness instead) | ✅ `mystic` (native Kimi Code CLI, inert-by-default) | ❓ possible (`opencode-moonshot`), not probed |
+> | **fireworks** | — | ✅ `fireworker` (OpenAI-compat, inert-by-default) | — | ❓ possible, not probed |
+> | **openrouter** | — | ✅ `openrouter`/`openrouter-promo` (OpenAI-compat, inert-by-default) | — | ❓ possible, not probed |
+> | **google/gemini** | — (no Anthropic-compat path known) | — (not OpenAI-shaped without a proxy) | — | 🔬 opencode's **headline case** — the only harness reaching this provider *natively* |
+>
+> ## Ranked probes
+>
+> 1. **`opencode-anthropic`** — zero new research needed; design and probe
+>    recipe are both already written (`designs/opencode-alternate-harness.md`
+>    § "The smallest probe").
+> 2. **Claude × Ollama Cloud** (the original ask) — no protocol translation
+>    needed (confirmed this session), just env-var plumbing through a
+>    provider-parameterized `monk-claude.sh`. See the full brief below.
+> 3. **`opencode-google`** — highest new-reach payoff, but scope an actual
+>    Gemini use-case before spending the probe.
+> 4. Lower priority: Claude × local on-box Ollama (redundant with Cloud once
+>    proven); `opencode-openai`/`opencode-moonshot`/`opencode-fireworks`/
+>    `opencode-openrouter` (codex already reaches all of these — pure
+>    harness-diversity bet, lowest ROI).
+>
+> Item 3 is deliberately not queued below — flag it to the maintainer, don't
+> probe speculatively.
+>
+> ## Things to post from inside the container
+>
+> ### 1. Fold the matrix into the reference doc
+>
+> `designs/provider-model-catalog.md` is titled "Claude + Codex" but already
+> half-covers Kimi/local/Fireworks/OpenRouter piecemeal in its later sections —
+> natural home for a top-level harness × provider matrix plus an opencode row.
+>
+> ```sh
+> scripts/jobs/post-job.sh update-provider-model-catalog-matrix \
+>   "Add a top-level harness x provider matrix to designs/provider-model-catalog.md \
+>    (rows: anthropic/openai/local-ollama/ollama-cloud/moonshot/fireworks/openrouter/ \
+>    google-gemini; columns: claude/codex/kimi/opencode), consolidating what's already \
+>    scattered across the doc's later sections plus designs/opencode-alternate-harness.md. \
+>    See scratchpad hand-off for the drafted matrix."
+> ```
+>
+> ### 2. Probe job — opencode × Anthropic
+>
+> ```sh
+> scripts/jobs/post-job.sh probe-opencode-anthropic \
+>   "Execute the probe specified in designs/opencode-alternate-harness.md \
+>    § 'The smallest probe': one opencode-anthropic kind (registry row + \
+>    count_key + eligibility branch), one worker enabled, one reversible \
+>    canary job pinned to an opencode-routed anthropic model. Verify: \
+>    sessionID parses and resume works via sidecar; usage/<base>.jsonl gets \
+>    real non-censored USD cost from summed step_finish events; the \
+>    reputation event lands on a DISTINCT arm from gardener/anthropic/<model>; \
+>    a killed run and a refused key classify as transient/environmental, not \
+>    a job defect. Report the gap if any of these don't hold."
+> ```
+>
+> ### 3. Design job — Claude × Ollama Cloud
+>
+> ```sh
+> scripts/jobs/post-job.sh design-claude-ollama-cloud-worker-kind \
+>   "$(cat <<'EOF'
+> Add a new Anthropic-taxonomy worker kind that runs Claude Code against Ollama
+> Cloud (ollama.com), authenticated with a maintainer-supplied Ollama API key,
+> alongside the existing monk (real Anthropic API), cleric (OpenAI/Codex), and
+> hermit (local Ollama/Codex) kinds. Follow the established "adding a third
+> backend" recipe (common.sh:513-515, context/operations/local-inference-amd/
+> worker-backend.md). Concretely:
+>
+> - Handler: extend handlers/monk-claude.sh to be provider-parameterized
+>   (mirroring cleric-codex.sh's existing provider=local branch): when the new
+>   provider is active, export ANTHROPIC_BASE_URL=https://ollama.com,
+>   ANTHROPIC_AUTH_TOKEN=$<new-secret-var>, ANTHROPIC_API_KEY= (cleared) before
+>   the existing claude -p invocation. No other line of that handler should
+>   need to change.
+> - Registry: new worker_kind_field() row -- handler handlers/monk-claude.sh
+>   (reused), agent_bin: claude, a new, distinct provider (not anthropic, not
+>   local -- see quota-throttle note below), a new unit/count_key/state_ns/
+>   label. Suggested kind name: friar (the exact placeholder name common.sh:513
+>   already uses as its example of "a third backend on a future CLI").
+>   Not load-bearing -- confirm no collision, can pick differently.
+> - Model/tier map: new rows in model-tier-inventory.tsv and
+>   model-routing-defaults.tsv for whichever Ollama Cloud model tag(s) are
+>   onboarded first, at a tier matched to measured capability -- mirroring the
+>   existing "local qwen3.6 minion" row. Verify current Ollama Cloud
+>   catalog/pricing at design time, not from this brief.
+> - Secrets: add the new API-key env var to the allowlist in
+>   scripts/systemd/seed-api-key-handoff.sh (currently ANTHROPIC_API_KEY
+>   MOONSHOT_API_KEY FIREWORKS_API_KEY OPENROUTER_API_KEY only), same
+>   base64url-charset validation. Pick a name that can't collide with the
+>   pre-existing, non-secret, ignored-by-Ollama OLLAMA_API_KEY convention
+>   already used by hermit/codex's local config -- e.g. OLLAMA_CLOUD_API_KEY.
+> - Rate card / quota: this is a paid, metered, external surface, unlike
+>   hermit's free local compute -- needs its own reputation/rate-card.md
+>   provider row (not pooled with anthropic or local), and must NOT inherit
+>   the local-provider quota-throttle exclusion in designs/quota-throttle.md
+>   ("Ollama (hermit, provider: local) -- explicit non-goal"), which is
+>   explicitly premised on local compute never emitting a cap signature.
+>   Ollama Cloud will emit real rate-limit/quota errors against the
+>   maintainer's key, so the new provider needs its own throttle
+>   classification, sized like mystic (moonshot) or fireworker's
+>   "manually-funded arm routed to a human," not like hermit.
+> - Verification / risk to smoke-test before trusting the fleet on it: Ollama
+>   Cloud's /v1/messages wants Authorization: Bearer (ANTHROPIC_AUTH_TOKEN),
+>   not x-api-key -- confirm this works end to end, not just locally. Confirm
+>   Claude Code doesn't hard-fail when it hits an unsupported endpoint
+>   (count-tokens is the known risk -- see live Ollama GitHub issue). Confirm
+>   usage/cost accounting (usage_capture_result in monk-claude.sh) degrades
+>   sensibly given Ollama's token counts are approximate and prompt caching
+>   isn't supported.
+>
+> Open questions for the design doc's own "Open questions" section: final
+> kind/provider names; which Cloud model(s) to onboard first and at what tier;
+> initial pool sizing (friars: N) and which host(s) run it; whether this needs
+> maintainer attestation to arm (like the local-model sysop op) given it's a
+> new paid external surface.
+> EOF
+> )"
+> ```
+>
+> **Before posting #3**, obtain an Ollama Cloud API key from ollama.com's
+> account settings — never type it into a chat session or commit it to the
+> repo. Once the design lands and picks a secret-var name, the key goes
+> through the same handoff path `ANTHROPIC_API_KEY` already uses (exported
+> before container start, bridged by `scripts/systemd/seed-api-key-handoff.sh`
+> into the lingering systemd user manager). Worth a manual `ollama launch
+> claude` smoke test locally first (Ollama's own quick-start) to validate the
+> key and Cloud access before wiring it into the fleet.
+>
+> ## Sources consulted this session
+>
+> - `designs/anthropic-worker-kind-monk.md` — monk/cleric/hermit taxonomy
+> - `designs/opencode-alternate-harness.md` — the 8-constraint harness rubric, opencode feasibility
+> - `designs/provider-model-catalog.md` — existing Claude+Codex(+local/Kimi/Fireworks/OpenRouter) catalog
+> - `designs/quota-throttle.md` — why `hermit`'s local-only quota exclusion can't extend to a paid Cloud arm
+> - `context/operations/local-inference-amd/{worker-backend,cost-model,serving-endpoint}.md`
+> - `scripts/jobs/common.sh` (`worker_kind_field`, `worker_kinds`, `resolve_model_tier`, `role_default_model`)
+> - `scripts/jobs/handlers/monk-claude.sh`, `scripts/systemd/seed-api-key-handoff.sh`
+> - `docs.ollama.com/api/anthropic-compatibility`, `docs.ollama.com/integrations/claude-code` (web, 2026-09-01)
+
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-09T20:50:24Z, latest 2026-09-27T13:50:56Z).
-> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-09T20:50:24Z, latest 2026-09-27T15:20:24Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=2 queue=1 quota=ok fleet-envelope=5 target=1
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 0 -> 1 (target 1): shared codex subscription demand active=2 queue=2 quota=ok fleet-envelope=5 target=1
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
 
@@ -2461,32 +2680,31 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 35.4M | $304.88 _(notional, rate-card)_ | 25% of 143.0M (ok) |
-| Codex | 43.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
+| Codex | 44.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 58% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 52833056 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 52960611 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (2)
-- [`split-pr1125-1306-gauntlet-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/split-pr1125-1306-gauntlet-shepherd.md) — Gauntlet + shepherd for endojs/endo-but-for-bots#1306 (slice 2/3 of the #1125...
-- [`endojs-endo-but-for-bots-pr1345-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1345-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1345
+- [`endojs-endo-but-for-bots-pr877-review-a8763cf9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr877-review-a8763cf9-retro.md) — Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
+- [`endojs-endo-but-for-bots-pr982-0b4f9f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr982-0b4f9f5d-retro.md) — Retrospective on endojs/endo-but-for-bots PR #982 (primary: endojs-endo-but-f...
 
-### doin (5)
-- [`self-heal-fix-garden-issue-inbox-cursor-get-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-get-failopen.md) — ---
+### doin (4)
 - [`oros-studio-health-restoration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-studio-health-restoration.md) — Restore oros-studio's job-handler health: analyze, hypothesize, fix, validate
-- [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/harness-provider-matrix-handoff-20260901.md) — Hand-off: harness × inference-provider matrix, and what to probe next
+- [`endojs-endo-but-for-bots-pr1345-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1345-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1345
 - [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
 - [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-frozen-objects.md) — ---
 
-### tada (9194)
+### tada (9197)
+- [`kriscendobot-garden-pr72-review-e5ce867a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-garden-pr72-review-e5ce867a-retro.md) — Cost
+- [`split-pr1125-1306-gauntlet-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/split-pr1125-1306-gauntlet-shepherd.md) — Cost
+- [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — Cost
 - [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/weave-base-update-and-pin-alias.md) — Completion report
 - [`self-heal-fix-garden-issue-inbox-cursor-read-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/self-heal-fix-garden-issue-inbox-cursor-read-fail-open.md) — Completion report
-- [`self-heal-fix-garden-issue-inbox-cursor-get-set-e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/self-heal-fix-garden-issue-inbox-cursor-get-set-e.md) — Completion report — self-heal-fix-garden-issue-inbox-cursor-get-set-e
-- [`split-pr1125-1304-gauntlet-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/split-pr1125-1304-gauntlet-shepherd.md) — Cost
-- [`self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-silent-exit1-no-err-trap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/self-heal-fix-garden-comment-watcher-endojs-endo-but-for-bots-silent-exit1-no-err-trap.md) — Completion report
-- … and 9189 more
+- … and 9192 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -2500,6 +2718,7 @@ worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1298-gauntlet-panel-2.md) — _normal_ · Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1298
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`ironhorse-fuzz-50834e82d3af453d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-50834e82d3af453d-repair.md) — _normal_ · Repair Ironhorse engine defect 50834e82d3af453d (target differential_regexp_s...
+- [`self-heal-fix-garden-issue-inbox-cursor-get-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/self-heal-fix-garden-issue-inbox-cursor-get-failopen.md) — _normal_ · ---
 - [`make-panel-stage-survive-supervisor-session-exit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/make-panel-stage-survive-supervisor-session-exit.md) — _normal_ · Make panel execution survive supervising agent-session exit
 - [`ironhorse-fuzz-27824c75429b8581-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-27824c75429b8581-repair.md) — _normal_ · Repair Ironhorse engine defect 27824c75429b8581 (target differential_source) ...
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
@@ -2517,6 +2736,7 @@ worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 - [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/retire-gardener-worker-kind-alias.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1286-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1286-receipt.md) — _normal_ · receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1286 (me...
 - [`ironhorse-fuzz-ccb76a40851925f9-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-ccb76a40851925f9-repair.md) — _normal_ · Repair Ironhorse engine defect ccb76a40851925f9 (target differential_regexp) ...
+- [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/harness-provider-matrix-handoff-20260901.md) — _normal_ · Hand-off: harness × inference-provider matrix, and what to probe next
 - [`ironhorse-fuzz-d5413146a257bc30-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-d5413146a257bc30-repair.md) — _normal_ · Repair Ironhorse engine defect d5413146a257bc30 (target differential_regexp_s...
 - [`kriscendobot-minion.town-pr68-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr68-retcon.md) — _normal_ · retcon directive on kriscendobot/minion.town PR #68
 - [`backfill-endo-claude-design-from-minion-town-production`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/backfill-endo-claude-design-from-minion-town-production.md) — _normal_ · Back-fill the Endo Claude inference design from minion.town production evidence
@@ -2564,10 +2784,6 @@ worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr877-review-a8763cf9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-a8763cf9-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
-- [`endojs-endo-but-for-bots-pr982-0b4f9f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr982-0b4f9f5d-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #982 (primary: endojs-endo-but-f...
-- [`kriscendobot-garden-pr72-review-e5ce867a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr72-review-e5ce867a-retro.md) — _normal_ · Retrospective on kriscendobot/garden PR #72 (primary: kriscendobot-garden-pr7...
 - [`kriscendobot-minion.town-pr32-review-93782d28-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr32-review-93782d28-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #32 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr56-review-5867a29b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr56-review-5867a29b-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #56 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr62-review-353e723b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr62-review-353e723b-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #62 (primary: kriscendobot-minio...
