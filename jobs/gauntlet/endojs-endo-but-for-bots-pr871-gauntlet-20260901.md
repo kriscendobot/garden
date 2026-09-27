@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr871-gauntlet-20260901-viability
+state: running
 created_by: endo-sturdyref-agent-surface-gauntlet-20260901
 created_at: 2026-09-27T05:12:47Z
 ---
