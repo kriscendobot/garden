@@ -63,6 +63,8 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 <!-- garden-plain-retry-not-before: 2026-09-27T09:53:09Z -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
