@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T10:25:30Z_
+_As of 2026-09-27T10:28:40Z_
 
 ## Latest
 
@@ -24,11 +24,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list` has CLEARED (first seen 2026-09-26T03:45:15Z, cleared 2026-09-26T03:49:23Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-26T03:45:15Z, latest 2026-09-27T10:27:56Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-list: gc.log present; size=211510272B packs=51 gc.log=1; automatic remedy=deferred.
 
 - `doomed-endojs-endo-but-for-bots-pr356-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr356-gauntlet-fix-1-requeue-exhausted.md)
 
@@ -859,6 +859,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_e2e` cleared on endolin-garden-ece02cb4.
 
+- `20260927T102624Z-c00655` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T102624Z-c00655.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `773813fb507cecdfe1d66066b7e05f4fe2404b3b`
+> failing suites: scripts/jobs/test/triager-pacing-test.sh(rc=1; diagnostic=/home/kris/garden/.garden-state/deploy/candidate-gate-diagnostics/773813fb507cecdfe1d66066b7e05f4fe2404b3b/attempt2-01-scripts_jobs_test_triager-pacing-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden-ece02cb4` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `watchdog-comment-watcher-dead-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-endojs-endo-but-for-bots.md)
 
 > RECOVERED — the watchdog condition `comment-watcher-dead-endojs-endo-but-for-bots` has CLEARED (first seen 2026-09-26T16:16:03Z, cleared 2026-09-26T16:56:00Z).
@@ -1625,11 +1641,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_oros_ckm_data_readiness` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_oros_ckm_data_readiness.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_oros_ckm_data_readiness` has CLEARED (first seen 2026-09-26T08:11:03Z, cleared 2026-09-26T18:10:15Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-26T08:11:03Z, latest 2026-09-27T10:27:48Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_oros_ckm_data_readiness`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_oros_ckm_data_readiness` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-oros-ckm-data-readiness: gc.log present; size=247083008B packs=51 gc.log=1; automatic remedy=deferred.
 
 - `20260927T030343Z-2a70db` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T030343Z-2a70db.md)
 
@@ -1857,13 +1873,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.1M | $277.46 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 32.1M | $277.92 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 39.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 35% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 74613980 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
+worst fetch p95 45.001493s/45s (unknown); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
