@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T01:21:53Z_
+_As of 2026-09-27T01:23:49Z_
 
 ## Latest
 
@@ -29,6 +29,65 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list` cleared on endolin-garden-ece02cb4.
+
+- `doomed-endojs-endo-but-for-bots-pr356-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr356-gauntlet-fix-1-requeue-exhausted.md)
+
+> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
+> The reaper spent no generic retry and applied no ordinary split; gauntlet endojs-endo-but-for-bots-pr356-gauntlet exclusively owns retry through max_stage_retries.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr356-gauntlet-fix-1; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr356-gauntlet-fix-1) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr356-gauntlet-fix-1
+>
+> --- original job body ---
+> ---
+> role: gardener
+> tier: mentor
+> handler-budget-role: shepherd
+> handler-timeout: 7200
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T00:34:22Z cleared=none -->
+>
+> ---
+> role: gardener
+> handler-budget-role: shepherd
+> handler-timeout: 7200
+> gauntlet: endojs-endo-but-for-bots-pr356-gauntlet
+> gauntlet_stage: fix
+> gauntlet_iteration: 1
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/356](https://github.com/endojs/endo-but-for-bots/pull/356)
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
+>
+> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr356-gauntlet). Apply the panel's must-fix items ONCE,
+> push, watch CI, then STOP — do NOT re-run the panel (the driver re-posts panel-2).
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr356-gauntlet-fix-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+>    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/356 --json headRepositoryOwner,headRefName`;
+>    do not pass the base repo when the PR head belongs to a fork.
+> 2. Read the LATEST panel verdict on [https://github.com/endojs/endo-but-for-bots/pull/356](https://github.com/endojs/endo-but-for-bots/pull/356) (the request-changes `gh pr review` the
+>    panel-1 stage just posted) for its must-fix items. Apply them.
+> 3. Push the fix as review-feedback follow-up commits to the PR head with
+>    `scripts/jobs/gardening/safe-push-pr-head.sh`.
+> 4. Watch CI to terminal, BOUNDED (same as the clean stage):
+>    `GARDEN_CI_DEADLINE_SECS=3600 \
+>      scripts/jobs/gardening/ci-wait-merge.sh endojs/endo-but-for-bots 356 --no-merge`
+>    - rc 0 (GREEN): success.
+>    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
+>    - rc 3 (RED): begin your report with `orchestration-failed: true`; no fix=done.
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
+>   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
@@ -992,11 +1051,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #665 (first seen 2026-09-25T03:17:02Z, latest 2026-09-27T00:20:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 665 times; this is ONE
-> coalesced notice that updates in place, not 665 messages. Latest detail:
+> WATCHDOG notice — occurrence #679 (first seen 2026-09-25T03:17:02Z, latest 2026-09-27T01:23:01Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 679 times; this is ONE
+> coalesced notice that updates in place, not 679 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 1b7e8cdb117e 81 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 02adfdaf3245 47 min ago
 > but still reports deployed_sha 917115c9b77234e4a05db68e8c5111fe6e5b305f. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1044,9 +1103,8 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr432-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr432-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #432
-- [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
 
 ### tada (9058)
 - [`claude-on-minion-town-press-20260927-010504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/claude-on-minion-town-press-20260927-010504.md) — Cost
@@ -1085,6 +1143,7 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-exo-stream-pr1100-gauntlet-20260923-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-subscription-model-deploy-gate-regression.md) — _normal_ · Fix deploy-gate regression from subscription-based-budget-model
