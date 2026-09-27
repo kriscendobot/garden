@@ -1,12 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: reaper:endolin-garden-ece02cb4
-sent_at: 2026-09-17T14:33:41Z
+sent_at: 2026-09-27T14:55:06Z
 doom_base: oros-ckm-dependabot-audit-0013418
 doom_signature: requeue-exhausted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-09-17T14:33:41Z
-last_seen: 2026-09-17T14:33:41Z
+last_seen: 2026-09-27T14:55:06Z
 ---
+DOOM notice — occurrence #2 (first seen 2026-09-17T14:33:41Z, latest 2026-09-27T14:55:06Z).
+This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+this is an AMENDED notice, not a new one. Latest detail:
+
 SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
 The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
 The work is preserved at jobs/plan/oros-ckm-dependabot-audit-0013418; it stays HELD until a human promotes it
@@ -14,6 +18,12 @@ The work is preserved at jobs/plan/oros-ckm-dependabot-audit-0013418; it stays H
 Original job base: oros-ckm-dependabot-audit-0013418
 
 --- original job body ---
+---
+tier: minion
+token-budget: 100000
+---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T14:27:32Z cleared=none -->
+
 ---
 tier: minion
 model-burned: mentor
