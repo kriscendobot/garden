@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:17:50Z_
+_As of 2026-09-27T05:18:21Z_
 
 ## Latest
 
@@ -896,13 +896,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-endo` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-endo.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T02:27:17Z, latest 2026-09-27T04:03:13Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T02:27:17Z, latest 2026-09-27T05:17:48Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-endo exited rc=1 with no scoped fix. Capture: b5c9a20dd04b05189440b6464b1d617fab7f00d0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p b5c9a20dd04b05189440b6464b1d617fab7f00d0). Diagnosis: This is deploy-lag, not a code defect that needs a new job.
+> self-heal: garden-ci-watcher@kriscendobot-endo exited rc=1 with no scoped fix. Capture: e6693b035e689467923e3b018820426a60e34566 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e6693b035e689467923e3b018820426a60e34566). Diagnosis: Confirmed: this is the same deploy-lag false positive documented in memory, not a new bug.
 >
-> The failure is the ci-watcher's shared `verify.lock` clone-lock contention — the exact signature already fixed on `main2` earlier today (2026-09-27 00:01 UTC) by commits `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention"), per [[ci-watcher-shared-verify-clone-lock-contention-fixed]]. This host's deployed root checkout (HEAD `47b41af5a14`, from 2026-09-26 12:42 UTC) predates that fix and is currently 19 commits behind `main2` (`upgrade-ready` marker detected 2026-09-27T04:02:01Z, available `586aee8196b`). Posting another `self-heal-fix-*` job would be redundant — the fix already exists upstream, waiting only for the next deploy to land. No JOB block.
+> The failure is `garden-ci-watcher@kriscendobot-endo` (endo-but-for-bots slug) hitting `cannot acquire clone lock .../ci-watcher/verify.lock` — the known shared-VERIFY-clone contention signature. The fix (`5620bdbe5f6` isolate-per-slug clones, plus `e6ea1d33fc8`/`5b48813cd0b` outage-latch belt-and-suspenders, and further hardening through `586aee8196b`) is already on `origin/main2` but the deployed root checkout (HEAD `47b41af5a14`, 2026-09-26) is still 19 commits behind. This is deploy lag, not a fresh defect — the deliberate rolling deploy just hasn't rolled these commits out to this host yet.
+>
+> No JOB block emitted; systemd's restart plus the eventual rolling deploy will resolve it. I'll leave 
 
 - `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
 
@@ -1584,7 +1586,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.2M | $239.97 _(notional, rate-card)_ | 20% of 143.0M (ok) |
+| Claude | 28.3M | $240.29 _(notional, rate-card)_ | 20% of 143.0M (ok) |
 | Codex | 33.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 60230384 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
