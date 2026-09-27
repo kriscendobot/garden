@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:09:15Z_
+_As of 2026-09-27T05:10:16Z_
 
 ## Latest
 
@@ -222,6 +222,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > #1015's head is rebased onto current `llm`, CI green, still draft, with a comment
 > inviting preliminary review. Do not un-draft and do not attempt to merge.
+
+- `manual-gauntlet-handoff-endojs-endo-but-for-bots-pr762-gauntlet-20260902-endojs-endo-but-for-bots-pr762` — from gardener:endojs-endo-but-for-bots-pr762-gauntlet-20260902, reply_to `endojs-endo-but-for-bots-pr762-gauntlet-20260902` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/manual-gauntlet-handoff-endojs-endo-but-for-bots-pr762-gauntlet-20260902-endojs-endo-but-for-bots-pr762.md)
+
+> Manual gauntlet handoff for completed job `endojs-endo-but-for-bots-pr762-gauntlet-20260902`: [https://github.com/endojs/endo-but-for-bots/pull/762](https://github.com/endojs/endo-but-for-bots/pull/762) is a bot-authored OPEN NON-DRAFT PR with no staged or completed gauntlet.
+>
+> The implementation job is complete and has been terminalized instead of sending the same work through another agent run. The garden did not re-draft the PR and did not stage a gauntlet.
+>
+> Maintainer action: if this PR should enter review, issue `run the gauntlet` for [https://github.com/endojs/endo-but-for-bots/pull/762](https://github.com/endojs/endo-but-for-bots/pull/762). Otherwise no action is required.
 
 - `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
 
@@ -1598,16 +1606,16 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr762-gauntlet-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr762-gauntlet-20260902.md) — Complete the gauntlet for endojs/endo-but-for-bots#762
+### doin (0)
+(none)
 
-### tada (9089)
+### tada (9090)
+- [`endojs-endo-but-for-bots-pr762-gauntlet-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr762-gauntlet-20260902.md) — Manual gauntlet handoff
 - [`endojs-endo-but-for-bots-pr871-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr871-weave-20260901.md) — Cost
 - [`endojs-endo-but-for-bots-pr797-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr797-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr736-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr736-gauntlet-fix-1.md) — Gauntlet FIX round 1: endojs/endo-but-for-bots PR #736 (design/endo-ls-json)
 - [`claude-on-minion-town-press-20260927-040506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/claude-on-minion-town-press-20260927-040506.md) — Cost
-- [`endojs-endo-but-for-bots-pr709-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr709-gauntlet-panel-1.md) — Cost
-- … and 9084 more
+- … and 9085 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
