@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T03:50:05Z_
+_As of 2026-09-27T03:52:22Z_
 
 ## Latest
 
@@ -251,6 +251,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > self-heal: garden-ci-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: e7535d1597cabd5588db87ce0407b7008484dee0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e7535d1597cabd5588db87ce0407b7008484dee0). Diagnosis: This is the already-fixed shared-VERIFY-clone-lock contention bug (`ci-watcher@kriscendobot-minion.town` FATAL: cannot acquire `verify.lock` after 3×60s waits) — matches my memory of the fix landed as commits `5620bdbe5f6` + `e6ea1d33fc8`, confirmed present on `origin/main2` (landed 2026-09-27T00:01Z). The deployed root checkout's `HEAD` (`47b41af5a14`, 2026-09-26T12:42Z) predates that fix and is not an ancestor of it — this is deploy lag, not a new bug. No fix job needed; the next `deploy-garden.sh` rolling deploy will pick up the fix. Systemd's restart is sufficient in the meantime.
 
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp.md)
+
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T02:00:56Z, latest 2026-09-27T03:51:58Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
+>
+> self-heal: garden-ci-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: 36d513a86115823f4b185117ac62e992bff66c31 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 36d513a86115823f4b185117ac62e992bff66c31). Diagnosis: This memory already fully covers this exact recurrence (repo slug `kriscendobot-ymax-stdio-mcp`) — no update needed, the existing entry already prescribes exactly the check I just ran and the "don't post a job" outcome. No further action required beyond the report above.
+>
+> **Summary:** Diagnosed `garden-ci-watcher@kriscendobot-ymax-stdio-mcp`'s exit 1 as the known shared-VERIFY-clone-lock contention bug, already fixed on `main2` (commits `5620bdbe5f6`, `e6ea1d33fc8`) but not yet deployed to this host's checkout (19 commits behind `origin/main2`). No JOB posted — this is deploy-lag, and systemd's restart will succeed once the pending rolling-deploy lands the fix.
+
 - `20260927T024845Z-93b624` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T024845Z-93b624.md)
 
 > kind: error
@@ -306,6 +316,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-cosgov` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-cosgov.md)
+
+> self-heal: garden-ci-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: d41fe68ba5782c502b9635cff8c34986f1a9d9d2 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p d41fe68ba5782c502b9635cff8c34986f1a9d9d2). Diagnosis: Diagnosis: this is the already-fixed shared-VERIFY-clone-lock contention bug, not a new defect. The failure signature (`FATAL: cannot acquire clone lock .../verify.lock`) matches the recorded fix in commits `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention"), both landed on `origin/main2` at 2026-09-27T00:01Z. The currently deployed root checkout is pinned at `47b41af5a1` (2026-09-26T12:42Z) — 12+ hours *before* the fix landed — so this host simply hasn't rolled the deploy forward yet. Per the earlier incident record for this exact class of failure, the right move is to check deploy-lag before posting a duplicate fix job, which is what this is: the fix already exists upstream and just needs the deliberate rolling 
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town.md)
 
@@ -816,11 +830,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-09-25T19:44:39Z, cleared 2026-09-26T15:15:10Z).
-> It was observed 4 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-25T19:44:39Z, latest 2026-09-27T03:51:39Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: packs 1008 >= 1000; size=320325632B packs=1008 gc.log=0; automatic remedy=deferred.
 
 - `watchdog-comment-watcher-dead-kriscendobot-endo` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-endo.md)
 
@@ -832,11 +846,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64.md)
 
-> Rolling-deploy canary endolin-garden2-5bcdff64 is STUCK: it was released to 1570aa85a47b 24 min ago
-> but still reports deployed_sha ab66fece68f403b0de02e7ca5949d46362b34b16. Check garden-self-deploy on endolin-garden2-5bcdff64
-> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
-> keeps it from advancing. The leader does not advance past an undeployed canary.
-> (leader=endolin-garden-ece02cb4)
+> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-27T03:15:38Z, cleared 2026-09-27T03:50:12Z).
+> It was observed 6 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> canary endolin-garden2-5bcdff64 is no longer stuck (release 586aee8196b4c03fdb68c7d2368856cb756de4eb, deployed 586aee8196b4c03fdb68c7d2368856cb756de4eb).
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp.md)
 
@@ -1348,29 +1362,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 24.9M | $217.46 _(notional, rate-card)_ | 17% of 143.0M (ok) |
+| Claude | 25.4M | $220.88 _(notional, rate-card)_ | 18% of 143.0M (ok) |
 | Codex | 32.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 48774154 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 49712672 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
+worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr697-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr697-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #697
+### doin (1)
 - [`endojs-endo-but-for-bots-pr690-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr690-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #690
 
-### tada (9080)
+### tada (9082)
+- [`canary-probe-endolin-garden2-5bcdff64-586aee8196b4-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/canary-probe-endolin-garden2-5bcdff64-586aee8196b4-r1.md) — rolling-deploy canary probe — round trip OK
+- [`endojs-endo-but-for-bots-pr697-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr697-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr674-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr674-gauntlet-panel-1.md) — Cost
 - [`improve-triager-pacing-lock-test`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-triager-pacing-lock-test.md) — Completion report: improve-triager-pacing-lock-test
 - [`fix-1570aa85-triager-pacing-contention-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-1570aa85-triager-pacing-contention-regression.md) — Cost
-- [`endojs-endo-but-for-bots-pr663-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr663-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr631-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr631-gauntlet-panel-1.md) — Cost
-- … and 9075 more
+- … and 9077 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
