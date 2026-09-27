@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T06:59:29Z_
+_As of 2026-09-27T07:01:51Z_
 
 ## Latest
 
@@ -1604,7 +1604,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.1M | $255.34 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.2M | $256.42 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 79664009 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1618,15 +1618,15 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 
 ### doin (2)
 - [`fix-worktree-sweeper-leader-only-misgating-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-worktree-sweeper-leader-only-misgating-20260919.md) — Evidence (endolin-garden2-5bcdff64, a FOLLOWER, 2026-09-18/19)
-- [`fix-minion-town-claude-harness-supply-chain-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-claude-harness-supply-chain-hardening.md) — ---
+- [`mentat-garden-docs-refresh-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-garden-docs-refresh-20260927.md) — Refresh the garden's documentation to match current workflows and cybernetics
 
-### tada (9104)
+### tada (9105)
+- [`fix-minion-town-claude-harness-supply-chain-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-minion-town-claude-harness-supply-chain-hardening.md) — Cost
 - [`endojs-endo-but-for-bots-pr990-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr990-refresh.md) — Completion report: endojs-endo-but-for-bots-pr990-refresh
 - [`evaluate-reauth-escalation-default-after-oauth-relay`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/evaluate-reauth-escalation-default-after-oauth-relay.md) — Cost
 - [`endojs-endo-but-for-bots-pr945-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr945-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr938-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr938-gauntlet-fix-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr897-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr897-weave-20260901.md) — Cost
-- … and 9099 more
+- … and 9100 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
