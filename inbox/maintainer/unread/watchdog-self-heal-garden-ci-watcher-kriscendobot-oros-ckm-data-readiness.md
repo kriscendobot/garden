@@ -1,13 +1,15 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:self-heal-claude
-sent_at: 2026-09-27T05:31:40Z
+sent_at: 2026-09-27T06:47:16Z
 watchdog_key: self-heal-garden-ci-watcher-kriscendobot-oros-ckm-data-readiness
-notice_count: 3
+notice_count: 5
 first_seen: 2026-09-27T03:10:57Z
-last_seen: 2026-09-27T05:31:40Z
+last_seen: 2026-09-27T06:47:16Z
 ---
-WATCHDOG notice — occurrence #3 (first seen 2026-09-27T03:10:57Z, latest 2026-09-27T05:31:40Z).
-The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-oros-ckm-data-readiness`) has now been observed 3 times; this is ONE
-coalesced notice that updates in place, not 3 messages. Latest detail:
+WATCHDOG notice — occurrence #5 (first seen 2026-09-27T03:10:57Z, latest 2026-09-27T06:47:16Z).
+The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-oros-ckm-data-readiness`) has now been observed 5 times; this is ONE
+coalesced notice that updates in place, not 5 messages. Latest detail:
 
-self-heal: garden-ci-watcher@kriscendobot-oros-ckm-data-readiness exited rc=1 with no scoped fix. Capture: 643823dc5f078bdc71d859e53aed6e0b2d037ade (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 643823dc5f078bdc71d859e53aed6e0b2d037ade). Diagnosis: This is deploy-lag, not a new bug. The failure is the shared-clone-lock contention pattern (`FATAL: cannot acquire clone lock .../verify.lock after 3 waits`), which was already fixed on `main2` yesterday by commits `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention"), both landed 2026-09-27T00:01Z. The root checkout (`<garden-root>`, deployed via the deliberate `deploy-garden.sh` process) is still pinned at `47b41af5a14` from 2026-09-26T12:42Z — 19 commits behind `origin/main2` — so this instance hasn't picked up the fix yet. Posting another `self-heal-fix` job would duplicate work already merged; the correct remedy is simply for the next rolling deploy to advance the root checkout past `e6ea1d33fc8`. No JOB block.
+self-heal: garden-ci-watcher@kriscendobot-oros-ckm-data-readiness exited rc=1 with no scoped fix. Capture: 3a41006b56ccfc499f3da0764c07c0278a4908e3 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 3a41006b56ccfc499f3da0764c07c0278a4908e3). Diagnosis: This is the already-fixed shared-VERIFY-clone-lock contention bug (memory: `ci-watcher-shared-verify-clone-lock-contention-fixed` / `ci-watcher-clone-lock-contention-fix-queued-not-deployed`). The failure signature matches exactly: `ci-watcher/kriscendobot-oros-ckm-data-readiness` backed off 2 retries then hit `FATAL: cannot acquire clone lock .../verify.lock`. I confirmed the deployed root checkout is 19 commits behind `origin/main2`, and the fix commits (`5620bdbe5f6` isolate CI watcher clones per slug, `e6ea1d33fc8` skip quietly on live-holder contention, plus a string of follow-on hardening commits like `ad55dea66f9`, `1570aa85a47`, `ab66fece68f`) are all present on `origin/main2` but not yet in this host's deployed HEAD (`47b41af5a14`).
+
+This is a deploy-lag situation, not a fresh cod
