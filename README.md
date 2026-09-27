@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T00:51:02Z_
+_As of 2026-09-27T00:56:13Z_
 
 ## Latest
 
@@ -159,6 +159,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
 
 > subscription codex-endolin changed zone backoff -> ok at spend=22990248 of cap=100.
+
+- `manual-gauntlet-handoff-endojs-endo-but-for-bots-pr360-gauntlet-panel-1-endojs-endo-but-for-bots-pr360` — from gardener:endojs-endo-but-for-bots-pr360-gauntlet-panel-1, reply_to `endojs-endo-but-for-bots-pr360-gauntlet-panel-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/manual-gauntlet-handoff-endojs-endo-but-for-bots-pr360-gauntlet-panel-1-endojs-endo-but-for-bots-pr360.md)
+
+> Manual gauntlet handoff for completed job `endojs-endo-but-for-bots-pr360-gauntlet-panel-1`: [https://github.com/endojs/endo-but-for-bots/pull/360](https://github.com/endojs/endo-but-for-bots/pull/360) is a bot-authored OPEN NON-DRAFT PR with no staged or completed gauntlet.
+>
+> The implementation job is complete and has been terminalized instead of sending the same work through another agent run. The garden did not re-draft the PR and did not stage a gauntlet.
+>
+> Maintainer action: if this PR should enter review, issue `run the gauntlet` for [https://github.com/endojs/endo-but-for-bots/pull/360](https://github.com/endojs/endo-but-for-bots/pull/360). Otherwise no action is required.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify.md)
 
@@ -1032,7 +1040,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.2M | $167.30 _(notional, rate-card)_ | 12% of 143.0M (ok) |
+| Claude | 17.7M | $169.95 _(notional, rate-card)_ | 12% of 143.0M (ok) |
 | Codex | 31.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 46878069 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1044,17 +1052,16 @@ worst fetch p95 11.889331s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr359-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr359-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #359
-- [`endojs-endo-but-for-bots-pr360-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr360-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #360
 
-### tada (9054)
+### tada (9055)
+- [`endojs-endo-but-for-bots-pr360-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr360-gauntlet-panel-1.md) — Manual gauntlet handoff
 - [`endojs-endo-but-for-bots-pr266-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr266-gauntlet-panel-4.md) — Manual gauntlet handoff
 - [`canary-probe-endolin-garden2-5bcdff64-02adfdaf3245`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/canary-probe-endolin-garden2-5bcdff64-02adfdaf3245.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr264-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr264-gauntlet-panel-4.md) — Cost
 - [`self-heal-fix-garden-ci-watcher-kriscendobot-cosgov-shared-clone-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/self-heal-fix-garden-ci-watcher-kriscendobot-cosgov-shared-clone-lock-contention.md) — Cost
-- [`self-heal-fix-garden-ci-watcher-kriscendobot-proposal-compartments-shared-verify-clone-lock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/self-heal-fix-garden-ci-watcher-kriscendobot-proposal-compartments-shared-verify-clone-lock.md) — Cost
-- … and 9049 more
+- … and 9050 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
