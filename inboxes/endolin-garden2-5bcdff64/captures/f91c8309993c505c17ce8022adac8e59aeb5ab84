@@ -1,0 +1,7 @@
+<6>19:17:13 [monk/1] resuming session 05c98007-4ebf-5b40-896a-ac279818d444 for requeued job 'fix-endojs-endo-but-for-bots-pr610' in worktree /home/kris/garden2/scratch/gardener-wt-fix-endojs-endo-but-for-bots-pr610
+<6>19:17:13 [monk/1] job 'fix-endojs-endo-but-for-bots-pr610' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>19:17:13 [monk/1] job 'fix-endojs-endo-but-for-bots-pr610' call ceiling: tier=minion max-budget-usd=8.30 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
