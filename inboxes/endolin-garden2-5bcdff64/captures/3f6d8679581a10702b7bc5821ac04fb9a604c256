@@ -1,0 +1,7 @@
+<6>17:08:22 [monk/1] resuming session 09fc75bb-6c0f-5982-bae3-369cf9e83ada for requeued job 'review-improve-cross-platform-test-coverage' in worktree /home/kris/garden2/scratch/gardener-wt-review-improve-cross-platform-test-coverage
+<6>17:08:22 [monk/1] job 'review-improve-cross-platform-test-coverage' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>17:08:22 [monk/1] job 'review-improve-cross-platform-test-coverage' call ceiling: tier=mentor max-budget-usd=16.60 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
