@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T06:25:07Z_
+_As of 2026-09-27T06:27:21Z_
 
 ## Latest
 
@@ -755,11 +755,23 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-25T10:20:11Z, cleared 2026-09-26T05:32:11Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-25T10:20:11Z, latest 2026-09-27T06:26:09Z).
+> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
+> Rolling deploy HALTED on a failed canary.
+> canary host: oros-studio-garden-ce242c49
+> target sha:  586aee8196b4c03fdb68c7d2368856cb756de4eb
+> failing signal: released 1616s ago, no deferral published for 1616s (budget 1500s), never advanced to the target sha (deploy stuck/failed on the canary)
+> This canary was RETRIED 3 time(s) automatically and kept
+> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
+> confirmed regression, not a transient blip — treat it as higher severity than a
+> first-tick halt.
+> The roll released no further followers and the LEADER did NOT advance itself — a
+> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
+> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
+> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
+> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-moddable` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-moddable.md)
 
@@ -886,11 +898,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-list` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-list.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T01:56:23Z, latest 2026-09-27T05:12:37Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-list`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T01:56:23Z, latest 2026-09-27T06:26:37Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-list`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-list exited rc=1 with no scoped fix. Capture: 83408b72cc1c8b1bd3bf710422dd5faf60df3871 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 83408b72cc1c8b1bd3bf710422dd5faf60df3871). Diagnosis: This is a confirmed deploy-lag case, not a new defect. The failure signature — `garden-ci-watcher@kriscendobot-list` FATAL `cannot acquire clone lock .../verify.lock after 3 waits of 60s` — is exactly the shared-VERIFY-clone-lock contention bug already fixed on `origin/main2` by `5620bdbe5f6` (per-slug clone isolation) and `e6ea1d33fc8` (soft-skip on live-holder contention instead of loud FATAL), both committed 2026-09-27T00:01Z. The root checkout (`HEAD`) is still pinned at `47b41af5a14` from 2026-09-26T12:42Z, ~15 hours before the fix landed on `main2`, so this instance simply hasn't received the deliberate deploy yet. Posting another `self-heal-fix-*` job would duplicate already-merged work; the correct remedy is the existing deploy pipeline picking this host up on its next `upgrade
+> self-heal: garden-ci-watcher@kriscendobot-list exited rc=1 with no scoped fix. Capture: e611ea92414fc1890a18303b9cca27762db5f429 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e611ea92414fc1890a18303b9cca27762db5f429). Diagnosis: No JOB block — this is deploy lag, not a defect. The rolling deploy will clear it once it rolls this host's root checkout forward to `origin/main2`; I appended this occurrence to the existing deploy-lag memory rather than re-diagnosing.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
@@ -1596,7 +1608,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.3M | $247.48 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.3M | $247.61 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 78475524 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
