@@ -116,6 +116,19 @@ run_clone_classify() {  # run_clone_classify <state-ns> <stub-body-and-call>
 }
 CLONE_FAIL_MARK='11:11:11 [t] FATAL: clone of git@github.com:x/y (journal2) into /tmp/c failed'
 
+# (a0) a live clone-lock holder is host-local contention: skip quietly with the
+# temporary-unavailable rc, but do NOT latch a journal/network outage for siblings.
+rm -f "$MARKER"; rc=0
+CE="$TR/clone-lock-busy.err"
+run_clone_classify clone-lock-busy \
+  'ensure_clone() { echo "11:11:11 [t] FATAL: cannot acquire clone lock /tmp/c.lock after 3 waits of 60s and 0 reclaim attempt(s) (a live holder is still busy; if it is crashed, rm -f /tmp/c.lock)" >&2; exit 1; }; ensure_clone_or_latch_outage /tmp/c ci-watcher-verify' \
+  2>"$CE" || rc=$?
+{ [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ ! -e "$MARKER" ] \
+    && grep -q 'clone lock busy during clone; skipping tick' "$CE" \
+    && ! grep -q 'FATAL: cannot acquire clone lock' "$CE"; } \
+  && ok "a busy live clone-lock holder skips quietly without latching a journal outage" \
+  || bad "busy clone lock exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent) / diagnostic $(cat "$CE")"
+
 # (a1) an offline signature during the clone latches and exits GARDEN_OFFLINE_RC.
 rm -f "$MARKER"; rc=0
 run_clone_classify clone-offline \
