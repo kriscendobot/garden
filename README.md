@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T14:57:51Z_
+_As of 2026-09-27T14:59:49Z_
 
 ## Latest
 
@@ -2429,7 +2429,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.4M | $304.88 _(notional, rate-card)_ | 25% of 143.0M (ok) |
+| Claude | 35.5M | $305.30 _(notional, rate-card)_ | 25% of 143.0M (ok) |
 | Codex | 43.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 52431407 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -2442,11 +2442,12 @@ worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 - [`self-heal-fix-garden-issue-inbox-cursor-get-pipefail`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-issue-inbox-cursor-get-pipefail.md) — ---
 - [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/run-the-gauntlet-minion-town-pr90.md) — ---
 
-### doin (7)
+### doin (8)
 - [`self-heal-fix-garden-issue-inbox-cursor-get-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-get-failopen.md) — ---
 - [`oros-studio-health-restoration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-studio-health-restoration.md) — Restore oros-studio's job-handler health: analyze, hypothesize, fix, validate
 - [`self-heal-fix-garden-issue-inbox-cursor-get-set-e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-get-set-e.md) — ---
 - [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
+- [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/harness-provider-matrix-handoff-20260901.md) — Hand-off: harness × inference-provider matrix, and what to probe next
 - [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
 - [`self-heal-fix-garden-issue-inbox-cursor-read-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-read-fail-open.md) — ---
 - [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-ocap-frozen-objects.md) — ---
@@ -2590,7 +2591,6 @@ worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 - [`endojs-endo-but-for-bots-pr1329-review-65578408-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1329-review-65578408-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1329 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr256-review-d46e607a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr256-review-d46e607a-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #256 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr695-23a03130-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr695-23a03130-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #695 (primary: endojs-endo-but-f...
-- [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/harness-provider-matrix-handoff-20260901.md) — _low_ · Hand-off: harness × inference-provider matrix, and what to probe next
 - [`kriscendobot-garden-pr108-c377ece2-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr108-c377ece2-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #108 (primary: kriscendobot-garden-pr...
 - [`kriscendobot-garden-pr87-review-9fceaeef-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr87-review-9fceaeef-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #87 (primary: kriscendobot-garden-pr8...
 - [`kriscendobot-minion.town-pr104-review-d1b5207f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr104-review-d1b5207f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #104 (primary: kriscendobot-mini...
