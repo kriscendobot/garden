@@ -78,6 +78,7 @@ Definition of done: the mechanism is implemented on `main2` (or a carve-out PR i
 it raised open questions), the deferred doc edits are reconciled, and the exercise
 evidence is in the report.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=14 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
