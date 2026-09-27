@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T10:39:04Z_
+_As of 2026-09-27T10:42:07Z_
 
 ## Latest
 
@@ -507,10 +507,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
-
-- `watchdog-journal-clone-oversized-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_Users_dom_garden__garden_state_leader_journal.md)
-
-> Journal clone guard on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: packs 1020 >= 1000; size=342490112B packs=1020 gc.log=0; automatic remedy=deferred-deadline.
 
 - `20260927T031244Z-a3962d` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T031244Z-a3962d.md)
 
@@ -1251,10 +1247,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=123450924 cap=143000000 pace-bias=0.776442 ceiling=3 target=3
 
-- `watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal.md)
-
-> Journal fetch drift on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: oldest-third median=8.584950s newest-third median=14.024596s over 4217s/256 samples; floor=10s, 1.5x rise or projected-to-guard=13548s within 86400s.
-
 - `20260927T025145Z-1055ad` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T025145Z-1055ad.md)
 
 > kind: error
@@ -1908,7 +1900,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.1M | $278.46 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 32.1M | $277.74 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 39.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 74621638 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1917,27 +1909,25 @@ _Fleet token-unlock pace: 74621638 tokens/day lower bound; incomplete where a su
 worst fetch p95 45.001493s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (2)
 - [`ironhorse-fuzz-89e303d17e33b117-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-89e303d17e33b117-repair.md) — Repair Ironhorse engine defect 89e303d17e33b117 (target differential_regexp_s...
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1298-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1298
 - [`ironhorse-fuzz-6ba52f2bdc534545-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-6ba52f2bdc534545-repair.md) — Repair Ironhorse engine defect 6ba52f2bdc534545 (target differential_regexp_s...
-- [`ironhorse-fuzz-931a687135cabb0c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-931a687135cabb0c-repair.md) — Repair Ironhorse engine defect 931a687135cabb0c (target differential_source) ...
-- [`ironhorse-fuzz-9edaa2277fb90f03-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-9edaa2277fb90f03-repair.md) — Repair Ironhorse engine defect 9edaa2277fb90f03 (target differential_source) ...
 
-### doin (5)
+### doin (6)
 - [`ironhorse-fuzz-9001b34fa6dd2d80-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-9001b34fa6dd2d80-repair.md) — Repair Ironhorse engine defect 9001b34fa6dd2d80 (target differential_regexp_s...
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1298
 - [`ironhorse-fuzz-5c9d2506e6048f4a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5c9d2506e6048f4a-repair.md) — Repair Ironhorse engine defect 5c9d2506e6048f4a (target differential_regexp_s...
 - [`ironhorse-fuzz-7637ac162a0b916a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-7637ac162a0b916a-repair.md) — Repair Ironhorse engine defect 7637ac162a0b916a (target differential_regexp) ...
-- [`ironhorse-fuzz-8ea950859db8a5f7-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-8ea950859db8a5f7-repair.md) — Repair Ironhorse engine defect 8ea950859db8a5f7 (target differential_regexp) ...
-- [`ironhorse-fuzz-8adaa3bbc9cda1ce-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-8adaa3bbc9cda1ce-repair.md) — Repair Ironhorse engine defect 8adaa3bbc9cda1ce (target differential_source) ...
+- [`ironhorse-fuzz-931a687135cabb0c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-931a687135cabb0c-repair.md) — Repair Ironhorse engine defect 931a687135cabb0c (target differential_source) ...
+- [`ironhorse-fuzz-9edaa2277fb90f03-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-9edaa2277fb90f03-repair.md) — Repair Ironhorse engine defect 9edaa2277fb90f03 (target differential_source) ...
 
-### tada (9153)
+### tada (9155)
+- [`ironhorse-fuzz-8adaa3bbc9cda1ce-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-8adaa3bbc9cda1ce-repair.md) — Cost
+- [`ironhorse-fuzz-8ea950859db8a5f7-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-8ea950859db8a5f7-repair.md) — Finding 8ea950859db8a5f7 (differential_regexp): regression locked, port chang...
 - [`ironhorse-fuzz-67ca18e4febe7a34-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-67ca18e4febe7a34-repair.md) — Cost
 - [`ironhorse-fuzz-822848c732a1b805-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-822848c732a1b805-repair.md) — Finding 822848c732a1b805 (differential_regexp): regression-locked, no port fi...
 - [`ironhorse-fuzz-79f0475dd0440b2d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-79f0475dd0440b2d-repair.md) — Completion report: ironhorse-fuzz-79f0475dd0440b2d-repair
-- [`claude-on-minion-town-press-20260927-102015`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/claude-on-minion-town-press-20260927-102015.md) — Cost
-- [`ironhorse-fuzz-6be90176ff07c648-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-6be90176ff07c648-repair.md) — Cost
-- … and 9148 more
+- … and 9150 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
