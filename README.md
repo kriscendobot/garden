@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T12:49:51Z_
+_As of 2026-09-27T12:50:58Z_
 
 ## Latest
 
@@ -1138,7 +1138,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
-> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 3 (target 3): shared codex subscription demand active=1 queue=6 quota=ok fleet-envelope=5 target=3
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-17T00:05:19Z, latest 2026-09-27T12:50:26Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-3`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 3 (target 3): shared codex subscription demand active=2 queue=4 quota=ok fleet-envelope=5 target=3
 
 - `doomed-ironhorse-fuzz-378372c8706a48a8-repair-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-378372c8706a48a8-repair-requeue-exhausted.md)
 
@@ -1976,9 +1980,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 32.2M | $279.00 _(notional, rate-card)_ | 22% of 143.0M (ok) |
-| Codex | 41.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 46% _(plan; codex-reported)_ |
+| Codex | 41.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 60237124 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 60286772 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
