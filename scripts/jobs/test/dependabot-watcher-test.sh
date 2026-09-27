@@ -154,6 +154,7 @@ run_dep() {  # run_dep <state> <bare> <fixture> [slug]
       GARDEN_DEP_PR_SOURCE="$SRCSTUB" DEP_FIXTURE="$3" \
       GARDEN_DEP_COMPARE="$CMPSTUB" CMP_FIXTURE="${CMP_FIXTURE:-}" CMP_LOG="${CMP_LOG:-}" \
       GARDEN_DEP_COMPAT="$COMPSTUB" COMP_FIXTURE="${COMP_FIXTURE:-}" COMP_LOG="${COMP_LOG:-}" \
+      GARDEN_FETCH_CMD="${GARDEN_FETCH_CMD:-}" VLOCK_LOG="${VLOCK_LOG:-}" \
       GARDEN_DEP_POST="$JOBS/post-job.sh" \
       "$JOBS/dependabot-watcher.sh" "${4:-$SLUG}" >/dev/null 2>&1
 }
@@ -451,6 +452,35 @@ else
   bad "late straggler $LATE_SPID survived the watcher exit (sweep stopped on a single zero-read)"
   kill -KILL "$LATE_SPID" 2>/dev/null || true
 fi
+
+# ============================================================================
+hr; echo "S — the shared VERIFY clone's fetch runs under its clone lock"; hr
+# Every templated watcher instance uses the same VERIFY path. Probe its sibling lock
+# non-blockingly at fetch time; every observation must find the lock already held.
+VLOCK_LOG="$TR/vlock.log"; : > "$VLOCK_LOG"
+VLOCK_FETCH="$TR/vlock-fetch.sh"
+cat > "$VLOCK_FETCH" <<'SH'
+#!/bin/bash
+case "$GARDEN_FETCH_DIR" in
+  */dependabot-watcher/verify)
+    if flock -n "$GARDEN_FETCH_DIR.lock" true 2>/dev/null; then echo FREE; else echo HELD; fi >> "$VLOCK_LOG" ;;
+esac
+exec git -C "$GARDEN_FETCH_DIR" fetch -q origin "$JOURNAL_BRANCH"
+SH
+chmod +x "$VLOCK_FETCH"
+BARE_S="$TR/s.git"; seed_bare "$BARE_S"
+FIX_S="$TR/fix-s.tsv"; prline 803 "$DEP" > "$FIX_S"
+GARDEN_FETCH_CMD="$VLOCK_FETCH" VLOCK_LOG="$VLOCK_LOG" \
+  run_dep "$TR/state-s" "$BARE_S" "$FIX_S" || true
+board_has "$BARE_S" "$SLUG-pr803-dependabot" \
+  && ok "botanist job still posted with the locked verify fetch" \
+  || bad "botanist job missing under the locked verify fetch"
+grep -qx HELD "$VLOCK_LOG" && ! grep -qx FREE "$VLOCK_LOG" \
+  && ok "every VERIFY fetch ran while holding the clone lock ($(grep -c . "$VLOCK_LOG") fetch(es))" \
+  || bad "a VERIFY fetch ran without the clone lock ($(tr '\n' ' ' < "$VLOCK_LOG"))"
+flock -n "$TR/state-s/dependabot-watcher/verify.lock" true \
+  && ok "the VERIFY clone lock is released after the run" \
+  || bad "VERIFY clone lock still held after exit"
 
 # ============================================================================
 hr

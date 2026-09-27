@@ -163,14 +163,21 @@ repo="$owner/$name"
 # Reuse a persistent VERIFY clone (under $GARDEN_STATE, never torn down) to confirm a
 # just-posted job actually reached origin/journal2 before counting it, and to
 # pre-check the live board so a botanist job already in flight is not re-posted.
+# The VERIFY clone is ONE path shared by every repo slug's watcher instance on the
+# host, so serialize both its health check and fetch. ensure_clone ends with its own
+# clone_unlock; run it in a subshell so that unlock closes only the inherited fd copy.
 _VERIFY_FETCHED=""
 verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/tick unless fresh)
-  ensure_clone_or_latch_outage "$VERIFY" dependabot-watcher-verify  # timeout → quiet exit 75, not FATAL
+  local rc=0
+  clone_lock "$VERIFY"
+  # A subshell swallows ensure_clone's offline `exit`/die; re-raise it after unlocking.
+  # ensure_clone_or_latch_outage: timeout → quiet exit 75, not FATAL.
+  if ( ensure_clone_or_latch_outage "$VERIFY" dependabot-watcher-verify ); then :; else rc=$?; clone_unlock "$VERIFY"; exit "$rc"; fi
   if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
-    journal_fetch "$VERIFY" >/dev/null 2>&1 || return 1
-    _VERIFY_FETCHED=1
+    if journal_fetch "$VERIFY" >/dev/null 2>&1; then _VERIFY_FETCHED=1; else rc=1; fi
   fi
-  return 0
+  clone_unlock "$VERIFY"
+  return "$rc"
 }
 # rc 0 if <base> exists anywhere in the lifecycle (plan/todo/doin/tada) — the post
 # landed (or the job is parked/live/done); do not re-mint. plan/ counts so a parked
