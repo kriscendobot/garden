@@ -8,3 +8,13 @@ Build the M2 `hardened-text-codecs-shim` design in endojs/endo-but-for-bots on a
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T19:26:14Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T19:26:27Z
