@@ -49,3 +49,13 @@ CLAUDE.md an orientation map; push detail into `context/`, role, and skill docs.
 Commits on `main2`, grouped by area. A report listing each surface changed, each drift found and fixed, and anything
 you found documented but no longer true in code, with a recommendation for each. Complete via the normal completion
 path.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T07:00:40Z
