@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:54:57Z_
+_As of 2026-09-27T07:55:56Z_
 
 ## Latest
 
@@ -1696,7 +1696,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.2M | $272.79 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 31.2M | $273.23 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 35.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56907264 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1705,9 +1705,10 @@ _Fleet token-unlock pace: 56907264 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (3)
 - [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-self-heal-run-handler-deadline.md) — ---
 - [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-05264cccae42245a-repair.md) — Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
+- [`kriscendobot-minion.town-pr118-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr118-conduct.md) — Conduct kriscendobot/minion.town#118 (maintainer directive "Conduct.")
 
 ### doin (8)
 - [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-retro-doom-escalation-noise.md) — ---
