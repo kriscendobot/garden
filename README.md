@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T04:54:54Z_
+_As of 2026-09-27T04:57:02Z_
 
 ## Latest
 
@@ -245,11 +245,23 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-minion-town.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T01:58:17Z, latest 2026-09-27T03:24:58Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-minion-town`) has now been observed 2 times; this is ONE
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T01:58:17Z, latest 2026-09-27T04:56:21Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-minion-town`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
+>
+> self-heal: garden-ci-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: d394f0fa7bebb50d745f68cc2df0ef8720c6e0f2 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p d394f0fa7bebb50d745f68cc2df0ef8720c6e0f2). Diagnosis: This confirms the root cause: this host (`endolin-garden-ece02cb4`) is already flagged `upgrade-ready`, 19 commits behind `main2`, and detected at 04:52:01Z — right when the clone-lock contention started (04:53:45Z onward). The fix for this exact failure class already landed on `main2`; it just hasn't rolled out to this host yet.
+>
+> No fix job needed — this is the known **deploy-lag** recurrence of the already-fixed shared-verify-clone-lock bug, matching prior incidents in memory (`ci-watcher-clonelock-stderr-deploy-lag`, `ci-watcher-clone-lock-contention-fixed`). The rolling/leader-orchestrated deploy should pick up `upgrade-ready` and advance this host to `586aee8196b`, which resolves it. No JOB block is warranted since posting another self-heal-fix for an already-fixed-upstream bug wo
+
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T02:00:56Z, latest 2026-09-27T04:56:08Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp`) has now been observed 2 times; this is ONE
 > coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: e7535d1597cabd5588db87ce0407b7008484dee0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e7535d1597cabd5588db87ce0407b7008484dee0). Diagnosis: This is the already-fixed shared-VERIFY-clone-lock contention bug (`ci-watcher@kriscendobot-minion.town` FATAL: cannot acquire `verify.lock` after 3×60s waits) — matches my memory of the fix landed as commits `5620bdbe5f6` + `e6ea1d33fc8`, confirmed present on `origin/main2` (landed 2026-09-27T00:01Z). The deployed root checkout's `HEAD` (`47b41af5a14`, 2026-09-26T12:42Z) predates that fix and is not an ancestor of it — this is deploy lag, not a new bug. No fix job needed; the next `deploy-garden.sh` rolling deploy will pick up the fix. Systemd's restart is sufficient in the meantime.
+> self-heal: garden-ci-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: 94b6c1f8dd55e609ebab1b2b950790dfe3eab04c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 94b6c1f8dd55e609ebab1b2b950790dfe3eab04c). Diagnosis: Confirmed deploy-lag: the deployed root checkout (HEAD `47b41af5a14`) is 19 commits behind `origin/main2`, and all the relevant clone-lock fixes (`5620bdbe5f6`, `e6ea1d33fc8`, and follow-on hardening through `586aee8196b`) are already merged upstream but not yet rolled out via the deliberate rolling deploy. This exact FATAL signature is the known, already-fixed shared-VERIFY-clone contention bug — not a new defect.
+>
+> No JOB block emitted; this will self-resolve once the rolling deploy advances the root checkout past `586aee8196b`.
 
 - `20260927T024845Z-93b624` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T024845Z-93b624.md)
 
@@ -1556,7 +1568,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.4M | $234.85 _(notional, rate-card)_ | 19% of 143.0M (ok) |
+| Claude | 27.6M | $235.79 _(notional, rate-card)_ | 19% of 143.0M (ok) |
 | Codex | 33.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 12% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58211441 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
