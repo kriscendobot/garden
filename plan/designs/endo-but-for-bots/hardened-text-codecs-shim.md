@@ -1,11 +1,12 @@
 ---
 slug: hardened-text-codecs-shim
 repository: endo-but-for-bots
-status: Not Started
+status: In Progress
 milestone: M2
 depends_on: []
+pr: endo-but-for-bots#1349
 created: 2026-05-04
-updated: 2026-07-12
+updated: 2026-09-27
 source: imported from origin/llm designs/README.md
 ---
 
@@ -15,7 +16,7 @@ source: imported from origin/llm designs/README.md
 |---|---|
 | **Created** | 2026-05-04 |
 | **Author** | Kris Kowal (prompted) |
-| **Status** | Not Started |
+| **Status** | In Progress |
 
 ## What is the Problem Being Solved?
 
@@ -206,3 +207,12 @@ overlap with the URL/SharedURL split, so it stands alone.
 
 ---
 _Groomed 2026-07-12: filed under **M2** (Project Hygiene) — a hardened SES intrinsic shim (`packages/ses/` only), the same package-hardening lane as endo-bytes, hex-package, and base64-native-fallthrough._
+
+---
+_Reconciled 2026-09-27 (job `reconcile-hardened-text-codecs-shim-status`): **In Progress**, remaining delta in draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349)._
+
+- **Phase 1 (permits and sampling): landed.** Upstream [endojs/endo#3322](https://github.com/endojs/endo/pull/3322) (kriskowal, "feat(ses): permit TextEncoder and TextDecoder as universal intrinsics") merged to `master` 2026-07-22T05:30:51Z. `TextEncoder`/`TextDecoder` are on `universalPropertyNames` in `packages/ses/src/permits.js`, with `encode`/`encodeInto`/`decode` and the `encoding`/`fatal`/`ignoreBOM` getters permitted. Verified present on both `master-6ee3fda` and `llm` (`54d654000d`).
+- **Phase 2 (tests and changeset): landed.** Test-plan items 1-5 are covered on `master` by `packages/ses/test/text-encoder-decoder.test.js` and `text-encoder-decoder-missing.test.js` (changeset `.changeset/tender-lions-tickle.md`), and on `llm` by the pre-upstream copies `text-codecs.test.js` and `text-codecs-missing.test.js`.
+- **Test-plan item 6 (XS smoke test): open.** Draft [#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (head `build/hardened-text-codecs-shim`, base frozen `master-6ee3fda`, job `build-hardened-text-codecs-shim`) adds a host-independent check to `packages/ses/test/_xs.js`: post-lockdown compartments see the host's codecs, or their absence, and each codec is frozen. CI was all green on 2026-09-27. The PR notes that current Moddable `xst` defines both codecs, so on today's toolchain the check exercises the pass-through-and-harden path, not the degradation path this design assumes (Design Decision 3).
+- **Phase 3 (downstream audit): no work on `master`, open on `llm`.** #1349 reports no `Buffer.from(` or `.toString('utf` call sites in `master`'s `packages/*/src`. `llm` still has some, for example in `9p-server`, `daemon/src/manager-node-powers.js`, `git/src/native-git-backend.js`, `platform/src/http-node`, and the `sandbox` drivers. Most of these are Node host-power code that does not run under SES, so they are probably out of this design's scope, but nobody has audited them.
+- **Completion:** `plan/reconcile.sh` flips this record to Complete when #1349 merges. Whether the `llm` Phase 3 audit must be done before then is a maintainer call. Until #1349 is promoted with **run the gauntlet #1349**, it stays draft.
