@@ -1,5 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-09-26T23:59:45Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-self-heal-fix-garden-ci-watcher-kriscendobot-vattr97-clonelock-busy-not-latched
