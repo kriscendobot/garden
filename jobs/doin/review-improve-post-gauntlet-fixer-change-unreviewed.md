@@ -62,3 +62,13 @@ After both halves land on `main2`, close the cluster with:
 scripts/jobs/review-miss-record.sh cluster-status post-gauntlet-fixer-change-unreviewed closed \
   --improved-by "<commits/files changed>"
 ```
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T16:10:28Z
