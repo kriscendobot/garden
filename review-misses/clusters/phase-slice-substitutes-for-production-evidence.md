@@ -1,13 +1,15 @@
 ---
 slug: phase-slice-substitutes-for-production-evidence
 category: evaluator-gaming
-status: improvement-dispatched
+status: closed
 count: 1
 members:
   - kriscendobot-minion.town-pr87-review-1456cb95
 prs: [87]
 improvement_job: review-improve-phase-slice-substitutes-for-production-evidence
+improved_by: b9a0411e52f roles/builder/AGENT.md, roles/jurors/integrator/AGENT.md, skills/pr-formation/SKILL.md, skills/panel-hints/SKILL.md, scripts/jobs/gardening/phase-evidence-gate.sh, scripts/jobs/gardening/ensure-pr.sh, scripts/jobs/gardening/panel.sh, scripts/jobs/test/phase-evidence-*
 ---
+
 
 
 A feature PR narrows an ordered production-validation design to a later wiring phase with fail-closed doubles, and review accepts unit-tested seams instead of enforcing prerequisite order and the design's production acceptance evidence.
