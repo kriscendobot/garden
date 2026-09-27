@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-27T18:26:38Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-endo-gateway
+pr_number: 1347
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1347
+pr_head: build/endo-gateway
