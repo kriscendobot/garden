@@ -8,6 +8,10 @@ JOBS="$(cd "$HERE/.." && pwd)"
 source "$HERE/test-tmpdir.sh"
 TEMPORARY_ROOT="$(mktemp -d "$(garden_test_exec_tmpdir)/garden-triager-pacing.XXXXXX")"
 trap 'rm -rf "$TEMPORARY_ROOT"' EXIT
+# Every triager tick invokes the cgroup straggler sweep.  Its test-only seam uses
+# an unreadable fixture as a no-op, keeping captured tick output independent of the
+# ambient service cgroup (for example, rolling-deploy.service).
+export GARDEN_TRIAGER_CGROUP_PROCS_FILE="$TEMPORARY_ROOT/no-cgroup.procs"
 PASS=0
 FAIL=0
 ok() { echo "PASS: $*"; PASS=$((PASS + 1)); }
