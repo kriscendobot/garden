@@ -10,6 +10,7 @@ Fix the failing zizmor check on endojs/endo-but-for-bots PR #1356, branch build/
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T23:26:13Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
