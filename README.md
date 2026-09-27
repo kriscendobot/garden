@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T11:54:04Z_
+_As of 2026-09-27T11:59:04Z_
 
 ## Latest
 
@@ -345,6 +345,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-handler-budget-overrun-ironhorse-fuzz-5c9d2506e6048f4a-repair` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-fuzz-5c9d2506e6048f4a-repair.md)
+
+> gardener job 'ironhorse-fuzz-5c9d2506e6048f4a-repair' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7212s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal.md)
 
@@ -1570,6 +1574,19 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
+- `msg-claude-on-minion-town-completion-press-20260927-115008-7236a45137a9` — from gardener:claude-on-minion-town-completion-press-20260927-115008, reply_to `claude-on-minion-town-completion-press-20260927-115008` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20260927-115008-7236a45137a9.md)
+
+> **Arc [kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89) completion press, 2026-09-27 ~12:00Z: item 6's build finished without building anything, and its chain halted**
+>
+> - **`endojs-endo-but-for-bots-build-guest-bot-incarnation`** completed at 09:59Z with `orchestration-failed: true`, and it opened no draft PR. This was child 3/3 of the serial chain `endojs-endo-but-for-bots-pr1227-review-5329319726-chain`, the one answering your "Please conduct and build" on [endojs/endo-but-for-bots#1227](https://github.com/endojs/endo-but-for-bots/issues/1227). On-child-failure is `halt`, so the chain is **halted**. Children 1 (the fix) and 2 (the conduct) succeeded, and [endojs/endo-but-for-bots#1227](https://github.com/endojs/endo-but-for-bots/issues/1227) is merged as `54d654000d`.
+> - **Why the builder stopped:** it says the job body contradicts the merged design. The job asked for backoff, a breaker and bot supervision. `designs/daemon-guest-bot-incarnation.md` explicitly defers or rejects those as consumer policy. The builder also says the design's first increment is already implemented by [endojs/endo-but-for-bots#1306](https://github.com/endojs/endo-but-for-bots/issues/1306). So this is a problem with how the job was written, not with the worker.
+> - **What it blocks:** arc item 6 (bot incarnation) has no build PR in flight. **Decision needed:** either
+>   - treat item 6's code as already landed via [endojs/endo-but-for-bots#1306](https://github.com/endojs/endo-but-for-bots/issues/1306), so only a live proof remains, or
+>   - name a re-scoped build. One candidate the fixer flagged: `MakeAgentOptions.planes` is in the design, but `provideHost`/`provideGuest` don't accept it on `llm`, and no job exists for it.
+> - **Also worth a look:** [endojs/endo-but-for-bots#1227](https://github.com/endojs/endo-but-for-bots/issues/1227) was merged at head `ea440d3eb`. Your APPROVED review is on `5cc4af213f`, which comes before the fixer's follow-up commit. One conductor report calls that "effective approval"; its sibling flags it as merging on a stale-head approval.
+> - **Resolved in the window, no action needed:** `kriscendobot-minion.town-pr118-conduct` completed with a failure flag at 08:03Z because its rebase made your approval stale. The dated `-20260927` conduct merged [kriscendobot/minion.town#118](https://github.com/kriscendobot/minion.town/issues/118) at 08:35Z after your re-approval, and [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/issues/81) is verified live.
+> - **Handoff, parked for you:** `evaluate-reauth-escalation-default-after-oauth-relay` re-parked itself as `...-20260927` with `gate: go-ahead`, because the browser OAuth relay doesn't exist yet.
+
 - `doomed-build-rbra-clean-break-20260916-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-rbra-clean-break-20260916-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -1898,7 +1915,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.2M | $282.01 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Claude | 32.2M | $282.16 _(notional, rate-card)_ | 23% of 143.0M (ok) |
 | Codex | 40.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 42% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 65453946 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1907,27 +1924,25 @@ _Fleet token-unlock pace: 65453946 tokens/day lower bound; incomplete where a su
 worst fetch p95 45.001493s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (2)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
 - [`ironhorse-fuzz-c6c71d428a37088c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-c6c71d428a37088c-repair.md) — Repair Ironhorse engine defect c6c71d428a37088c (target differential_regexp_s...
-- [`ironhorse-fuzz-bc3d0df623811a38-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bc3d0df623811a38-repair.md) — Repair Ironhorse engine defect bc3d0df623811a38 (target differential_regexp_s...
-- [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
 
 ### doin (6)
 - [`ironhorse-fuzz-baad1f22ef053213-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-baad1f22ef053213-repair.md) — Repair Ironhorse engine defect baad1f22ef053213 (target differential_regexp_s...
 - [`ironhorse-fuzz-c781c9b9de456ab2-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-c781c9b9de456ab2-repair.md) — Repair Ironhorse engine defect c781c9b9de456ab2 (target differential_regexp_s...
-- [`claude-on-minion-town-completion-press-20260927-115008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260927-115008.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
-- [`ironhorse-fuzz-ad5b483fc5e0973f-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ad5b483fc5e0973f-repair.md) — Repair Ironhorse engine defect ad5b483fc5e0973f (target differential_regexp_s...
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1298
+- [`ironhorse-fuzz-bc3d0df623811a38-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-bc3d0df623811a38-repair.md) — Repair Ironhorse engine defect bc3d0df623811a38 (target differential_regexp_s...
+- [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
 - [`ironhorse-fuzz-5c9d2506e6048f4a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5c9d2506e6048f4a-repair.md) — Repair Ironhorse engine defect 5c9d2506e6048f4a (target differential_regexp_s...
 
-### tada (9168)
+### tada (9170)
+- [`claude-on-minion-town-completion-press-20260927-115008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/claude-on-minion-town-completion-press-20260927-115008.md) — Cost
+- [`ironhorse-fuzz-ad5b483fc5e0973f-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-ad5b483fc5e0973f-repair.md) — Cost
 - [`ironhorse-fuzz-bf6cfbd74a7487fc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-bf6cfbd74a7487fc-repair.md) — Cost
 - [`improve-rolling-deploy-rejected-candidate-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-rolling-deploy-rejected-candidate-backoff.md) — Completion report
 - [`ironhorse-fuzz-bc9529ac5818aa24-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-bc9529ac5818aa24-repair.md) — Completion report: ironhorse-fuzz-bc9529ac5818aa24-repair
-- [`ironhorse-fuzz-aaa423e9c5d56067-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-aaa423e9c5d56067-repair.md) — Cost
-- [`ironhorse-fuzz-ab41c5d203ace017-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-ab41c5d203ace017-repair.md) — Cost
-- … and 9163 more
+- … and 9165 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
