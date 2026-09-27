@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:55:56Z_
+_As of 2026-09-27T08:03:11Z_
 
 ## Latest
 
@@ -268,11 +268,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-minion-town.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T01:58:17Z, latest 2026-09-27T06:24:06Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-minion-town`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #8 (first seen 2026-09-27T01:58:17Z, latest 2026-09-27T07:57:55Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-minion-town`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 0092bce6fb7932b97aaf621c42b04731b09d4ed0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0092bce6fb7932b97aaf621c42b04731b09d4ed0). Diagnosis: Diagnosis: deploy-lag, not a defect — this host's root checkout (`47b41af5a14`) is 19 commits behind `origin/main2` (`586aee8196b`), and the clone-lock contention fixes (`5620bdbe5f6`, `e6ea1d33fc8`, plus follow-on hardening through `586aee8196b`) are already merged upstream but not yet rolled out here. `upgrade-monitor` just signaled `upgrade-ready` for this exact gap at 06:22:02 UTC, so the pending rolling deploy will resolve it. No JOB block posted; memory updated with this occurrence.
+> self-heal: garden-ci-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: 3456960e3dd295571e45ddb0fb3ad085dc410085 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 3456960e3dd295571e45ddb0fb3ad085dc410085). Diagnosis: Confirmed: this is exactly the deploy-lag pattern in my memory (ci-watcher-clone-lock-contention-fix-queued-not-deployed). The running root checkout's HEAD (`47b41af5a14`) is 29 commits behind `origin/main2`, and both fix commits for this exact FATAL (`5620bdbe5f6` "isolate CI watcher clones per slug" and `e6ea1d33fc8` "skip quietly on live-holder clone-lock contention") are already merged upstream but not yet deployed to this host's root checkout. There's no new code defect here — the deploy just needs to catch up.
+>
+> This is transient/environmental (deploy-lag), not a fresh code defect, so no JOB block.
+>
+> The `garden-ci-watcher@kriscendobot-minion.town` FATAL (clone-lock busy after 3 retries) is the already-fixed shared-verify-clone-lock contention bug. Commits `5620bdbe5f6` and `e6ea1d33
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2.md)
 
@@ -977,11 +981,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-endo` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-endo.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T02:27:17Z, latest 2026-09-27T06:47:07Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #8 (first seen 2026-09-27T02:27:17Z, latest 2026-09-27T07:58:24Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-endo exited rc=1 with no scoped fix. Capture: 73f68790f3b991117d03730bd34cb711a4627f80 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 73f68790f3b991117d03730bd34cb711a4627f80). Diagnosis: This is the already-fixed shared-VERIFY-clone-lock contention bug for `garden-ci-watcher@kriscendobot-endo`: the FATAL "cannot acquire clone lock .../verify.lock after 3 waits" matches the exact signature covered by `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder clone-lock contention), plus a chain of follow-up hardening commits (`ad55dea66f9`, `1570aa85a47`, `4692b4df0e7`, etc.) — all already merged to `origin/main2` but **not yet in this host's deployed root checkout** (HEAD `47b41af5a1` @ 2026-09-26 12:42 UTC is ~15 commits and ~15 hours behind `origin/main2` @ 586aee8196b). This is a deploy-lag recurrence, not a new defect — posting another `self-heal-fix` job would duplicate work already merged and waiting on the next deliberate `
+> self-heal: garden-ci-watcher@kriscendobot-endo exited rc=1 with no scoped fix. Capture: a98739cb6578cb69d8b8f59ab0fc135c7744434c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p a98739cb6578cb69d8b8f59ab0fc135c7744434c). Diagnosis: This is exactly the known deploy-lag situation from memory: `ci-watcher-clone-lock-contention-fix-queued-not-deployed.md`. The root checkout's HEAD (`47b41af5a14`) is ~28 commits behind `origin/main2`, and both known fix commits (`5620bdbe5f6` "isolate CI watcher clones per slug" and `e6ea1d33fc8` "skip quietly on live-holder clone-lock contention") are **not yet ancestors of HEAD** — they're queued upstream but not deployed to this root checkout yet.
+>
+> The failure signature matches that already-fixed bug exactly: `ci-watcher@kriscendobot-endo` FATAL after 3×60s waits on `.garden-state/ci-watcher/verify.lock`, contending with another watcher instance sharing the same VERIFY clone. No new code fix is needed — posting another `self-heal-fix` job would just duplicate work already merged u
 
 - `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
 
@@ -1079,13 +1085,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-vattr97` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-vattr97.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T02:48:19Z, latest 2026-09-27T06:48:06Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-vattr97`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #8 (first seen 2026-09-27T02:48:19Z, latest 2026-09-27T07:59:03Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-vattr97`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: e3ebe36ec0dab91aa167d2b49c6af1fcfd34bd80 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e3ebe36ec0dab91aa167d2b49c6af1fcfd34bd80). Diagnosis: Confirmed: this is the exact known deploy-lag recurrence already tracked in memory (`ci-watcher-clone-lock-contention-fix-queued-not-deployed`) — same signature previously seen for this very instance (`kriscendobot-vattr97`), same 19-commit gap to `origin/main2` at `586aee8196b4`, with the fix commits `5620bdbe5f6`/`e6ea1d33fc8` and follow-ons still not an ancestor of the deployed root HEAD `47b41af5a14`.
->
-> No new code defect — the fix is already merged to `main2` but hasn't rolled out to this root checkout yet via the deliberate rolling deploy. Per the memory's guidance, I'm emitting no JOB block; this would just rediscover an already-landed fix. Once the rolling deploy advances this host past `586aee8196b4`, the failure should stop recurring — worth checking `garden-rolling-deploy` 
+> self-heal: garden-ci-watcher@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: 2f095853ed86d99e45e89b3991f626895c51e4dd (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 2f095853ed86d99e45e89b3991f626895c51e4dd). Diagnosis: The `garden-ci-watcher@kriscendobot-vattr97` FATAL is a recurrence of an already-fixed defect, not a new bug: the clone-lock contention fix (commit `ab66fece68f`, "classify a busy live-holder clone-lock give-up as a transient outage instead of re-raising loud") landed on `origin/main2` ~6 hours ago, but the deployed root checkout at this host is still at `47b41af5a14`, now 29 commits behind `origin/main2` (`cf5fe8e849a7`). The rolling deploy is mid-canary — a new stuck-canary marker for `endolin-garden2-5bcdff64` appeared ~12 minutes ago, well under the escalation threshold, so no action needed there yet. No job to post; this clears on its own once the rolling deploy reaches this host.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
@@ -1250,11 +1254,20 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-latency-storm-dead` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-latency-storm-dead.md)
 
-> RECOVERED — the watchdog condition `comment-latency-storm-dead` has CLEARED (first seen 2026-09-26T16:35:32Z, cleared 2026-09-26T18:10:42Z).
-> It was observed 4 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-26T16:35:32Z, latest 2026-09-27T07:57:45Z).
+> The SAME condition (`comment-latency-storm-dead`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment acknowledgment dead anomaly on 9 repos at once on endolin-garden-ece02cb4 (storm guard > 5; one shared cause is likelier than 9 independent faults):
+> - kriscendobot/ocapn: watcher heartbeat stale (age=274s > 270s; outcome=cooldown)
+> - kriscendobot/moddable: watcher heartbeat stale (age=277s > 270s; outcome=cooldown)
+> - kriscendobot/finbot: watcher heartbeat stale (age=289s > 270s; outcome=cooldown)
+> - kriscendobot/oros-ckm-data-readiness: watcher heartbeat stale (age=291s > 270s; outcome=cooldown)
+> - endojs/endo-but-for-bots: watcher heartbeat stale (age=286s > 270s; outcome=cooldown)
+> - kriscendobot/ymax-stdio-mcp: watcher heartbeat stale (age=274s > 270s; outcome=cooldown)
+> - kriscendobot/proposal-compartments: watcher heartbeat stale (age=271s > 270s; outcome=cooldown)
+> - kriscendobot/garden: watcher heartbeat stale (age=312s > 270s; outcome=cooldown)
+> - kriscendobot/endo-but-for-bots: watcher heartbeat stale (age=289s > 270s; outcome=cooldown)
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-1.md)
 
@@ -1656,15 +1669,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-e2e` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-e2e.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T02:28:08Z, latest 2026-09-27T06:40:50Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-e2e`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #8 (first seen 2026-09-27T02:28:08Z, latest 2026-09-27T07:58:46Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-e2e`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: 159d9e28b3f69b3eb63637eda3dc1b5ab948d4f4 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 159d9e28b3f69b3eb63637eda3dc1b5ab948d4f4). Diagnosis: This is the known deploy-lag scenario: the fix (5620bdbe5f6 + e6ea1d33fc8) is already merged to `origin/main2`, but the deployed root checkout (HEAD) is 19 commits behind and hasn't picked it up yet. This matches memory `ci-watcher-clone-lock-contention-fix-queued-not-deployed` and `ci-watcher-shared-verify-clone-lock-contention-fixed`.
+> self-heal: garden-ci-watcher@kriscendobot-ymax-e2e exited rc=1 with no scoped fix. Capture: eef41cea3834b40e94de355bc953c34bd672a616 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p eef41cea3834b40e94de355bc953c34bd672a616). Diagnosis: This confirms the memory: the FATAL clone-lock-contention crash is a known, already-fixed bug (`5620bdbe5f6`, `e6ea1d33fc8`, and several follow-on fixes) that's merged to `origin/main2` but the deployed root checkout (`HEAD`) is 29 commits behind — a deploy-lag situation, not a new code defect.
 >
-> No new fix job needed — this is a deploy-lag artifact of an already-fixed bug, not a fresh defect. Emitting nothing (no JOB block), just a note.
+> This is transient/environmental relative to the deployed code: the fix already exists upstream and just hasn't been rolled out yet via the deliberate-deploy pipeline. Posting a new `self-heal-fix` job would duplicate work that's already done in source; the actual unblock is the pending deploy itself (self-deploy/rolling-deploy machinery), not a code change I should author here.
 >
-> The `garden-ci-watcher@kriscendobot-ymax-e2e` failure is the already-fixed shared-VERIFY-clone-lock contention bug (fixed on `main2` via 5620bdbe5f6 + e6ea1d33fc8, confirmed ancestors of `origin/main2`), but the deployed root checkout at HEAD (47b41af5a14) is 19 commits behind `origin/main2` and hasn't absorbed
+> No JOB block — this is deploy-lag on an already-fixed defect, not a fresh code issue to fix.
 
 - `watchdog-comment-watcher-dead-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-garden.md)
 
@@ -1696,7 +1709,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.2M | $273.23 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 31.5M | $274.66 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 35.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56907264 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1705,28 +1718,25 @@ _Fleet token-unlock pace: 56907264 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (3)
-- [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-self-heal-run-handler-deadline.md) — ---
-- [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-05264cccae42245a-repair.md) — Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
-- [`kriscendobot-minion.town-pr118-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr118-conduct.md) — Conduct kriscendobot/minion.town#118 (maintainer directive "Conduct.")
+### todo (0)
+(none)
 
-### doin (8)
+### doin (7)
 - [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-retro-doom-escalation-noise.md) — ---
 - [`improve-ci-watcher-primary-quota-cooldown-too-short`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-watcher-primary-quota-cooldown-too-short.md) — ---
-- [`claude-on-minion-town-press-20260927-072005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260927-072005.md) — Press the Claude-on-minion.town arc forward
-- [`improve-receipt-watcher-direct-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-receipt-watcher-direct-dispatch.md) — ---
+- [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-self-heal-run-handler-deadline.md) — ---
 - [`fix-garden-ci-gauntlet-retry-viability-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-garden-ci-gauntlet-retry-viability-tests.md) — Fix the garden repo's own CI: two failing test suites, broken 3+ days
-- [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-watcher-outage-latch-flap-dedup.md) — ---
 - [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-build-follower-self-deploy.md) — Implement — the design's recommended path
-- [`groom-endo-roadmap-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-roadmap-20260927.md) — Full grooming pass: designs/README.md on endojs/endo-but-for-bots@llm
+- [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-05264cccae42245a-repair.md) — Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
+- [`kriscendobot-minion.town-pr118-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr118-conduct.md) — Conduct kriscendobot/minion.town#118 (maintainer directive "Conduct.")
 
-### tada (9112)
+### tada (9116)
+- [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-ci-watcher-outage-latch-flap-dedup.md) — Completion report
+- [`groom-endo-roadmap-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/groom-endo-roadmap-20260927.md) — Cost
+- [`improve-receipt-watcher-direct-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-receipt-watcher-direct-dispatch.md) — Completion report: improve-receipt-watcher-direct-dispatch
+- [`claude-on-minion-town-press-20260927-072005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/claude-on-minion-town-press-20260927-072005.md) — Press tick report: claude-on-minion-town-press, 2026-09-27 ~07:55Z
 - [`improve-budget-level-single-host-cap-freeze`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-budget-level-single-host-cap-freeze.md) — Cost
-- [`improve-elapsed-constancy-escalation-include-capture`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-elapsed-constancy-escalation-include-capture.md) — Cost
-- [`foreman-requiesce-target-0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/foreman-requiesce-target-0.md) — Completion report
-- [`kriscendobot-minion.town-pr119-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion.town-pr119-conduct.md) — Cost
-- [`mentat-garden-docs-refresh-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/mentat-garden-docs-refresh-20260927.md) — Cost
-- … and 9107 more
+- … and 9111 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
