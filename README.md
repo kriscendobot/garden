@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T13:07:32Z_
+_As of 2026-09-27T13:11:50Z_
 
 ## Latest
 
@@ -1984,7 +1984,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.1M | $277.74 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 32.1M | $278.47 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 41.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 66631955 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1993,16 +1993,16 @@ _Fleet token-unlock pace: 66631955 tokens/day lower bound; incomplete where a su
 worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (3)
 - [`ironhorse-fuzz-fcbb16f5721e8fd2-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fcbb16f5721e8fd2-repair.md) — Fix Ironhorse fuzz finding fcbb16f5721e8fd2 (target differential_source) and ...
 - [`ironhorse-fuzz-f2f53bb078bc8a4e-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-f2f53bb078bc8a4e-repair.md) — Fix Ironhorse fuzz finding f2f53bb078bc8a4e (target differential_regexp) and ...
 - [`ironhorse-fuzz-fad9672dc7a6e6be-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fad9672dc7a6e6be-repair.md) — Repair Ironhorse engine defect fad9672dc7a6e6be (target differential_source) ...
-- [`ironhorse-fuzz-e773681b6d831dc1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-e773681b6d831dc1-repair.md) — Repair Ironhorse engine defect e773681b6d831dc1 (target differential_regexp_s...
 
-### doin (6)
+### doin (7)
 - [`ironhorse-fuzz-e2a75557f762cd9c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e2a75557f762cd9c-repair.md) — Repair Ironhorse engine defect e2a75557f762cd9c (target differential_regexp) ...
 - [`ironhorse-fuzz-ecae051e6e8f5a27-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ecae051e6e8f5a27-repair.md) — Repair Ironhorse engine defect ecae051e6e8f5a27 (target differential_source) ...
 - [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
+- [`ironhorse-fuzz-e773681b6d831dc1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e773681b6d831dc1-repair.md) — Repair Ironhorse engine defect e773681b6d831dc1 (target differential_regexp_s...
 - [`ironhorse-fuzz-c9eaa7b5ae02437a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-c9eaa7b5ae02437a-repair.md) — Repair Ironhorse engine defect c9eaa7b5ae02437a (target differential_regexp_s...
 - [`ironhorse-fuzz-d38f12f4884e186c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-d38f12f4884e186c-repair.md) — Repair Ironhorse engine defect d38f12f4884e186c (target differential_regexp_s...
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Repair Ironhorse engine defect ed616f6ec22095dc (target differential_regexp) ...
