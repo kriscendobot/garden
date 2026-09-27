@@ -1592,6 +1592,18 @@ cleanup() {
   # cgroup-wide backstop never covers. No-op outside our own service cgroup.
   reap_cgroup_stragglers
 }
+# Diagnostic ERR trap: a `set -e` abort anywhere in the top-level body (the main
+# per-comment loop below) otherwise exits with a bare rc=1 and ZERO output — the
+# silent mid-tick death of 2026-09-18, where the failing command left no FATAL/WARN
+# and the root cause was unrecoverable from the capture. This logs the rc, line, and
+# offending command BEFORE the shell tears down. It fires first, then the set -e exit
+# runs the EXIT trap (cleanup), and the original rc is preserved through both — the
+# trap body only reads `$?` (expanded into log's args before log runs) and never
+# `exit`s, so it changes no exit code, control flow, or retry/CAS semantics. It is a
+# pure observer. (No `set -E`/errtrace: kept deliberately minimal to avoid firing on
+# guarded non-zero returns inside functions; the incident was a top-level abort, which
+# this catches.)
+trap 'log "FATAL: rc=$? at line $LINENO: $BASH_COMMAND"' ERR
 trap 'cleanup; write_comment_heartbeat' EXIT
 trap 'cleanup; write_comment_heartbeat; exit 143' TERM
 trap 'cleanup; write_comment_heartbeat; exit 130' INT
