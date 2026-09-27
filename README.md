@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T04:23:56Z_
+_As of 2026-09-27T04:25:59Z_
 
 ## Latest
 
@@ -406,10 +406,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
-
-- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_leader_journal.md)
-
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: p95=17.076678s max=26.520018s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `doomed-endojs-endo-but-for-bots-pr664-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr664-gauntlet-panel-1-requeue-exhausted.md)
 
@@ -1141,6 +1137,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
 
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-oros-ckm-data-readiness` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-oros-ckm-data-readiness.md)
+
+> self-heal: garden-ci-watcher@kriscendobot-oros-ckm-data-readiness exited rc=1 with no scoped fix. Capture: fbe65e301758ac1a968856b085c3d26da2b8c8da (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p fbe65e301758ac1a968856b085c3d26da2b8c8da). Diagnosis: This is confirmed deploy-lag, exactly matching the known, already-fixed issue in memory ([[ci-watcher-shared-verify-clone-lock-contention-fixed]]).
+>
+> **Diagnosis:** `garden-ci-watcher@kriscendobot-oros-ckm-data-readiness` hit the shared `VERIFY`-clone lock contention bug — every ci-watcher instance fleet-wide shared one clone (`$GARDEN_STATE/ci-watcher/verify`) and lock, so a long-running clone for one repo starved another repo's ticks past their 3×60s patience, producing a loud FATAL exit instead of a quiet skip. This was already fixed on `main2` on 2026-09-27 via two layered commits: `5620bdbe5f6` (isolates the clone per repo slug, eliminating the shared lock) and `e6ea1d33fc8` (makes residual contention exit quietly as an outage instead of FATAL-looping).
+>
+> I verified: both fix commits
+
 - `watchdog-self-heal-garden-mentor` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-mentor.md)
 
 > WATCHDOG notice — occurrence #6 (first seen 2026-09-25T20:50:35Z, latest 2026-09-26T00:50:38Z).
@@ -1532,7 +1536,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.4M | $228.18 _(notional, rate-card)_ | 18% of 143.0M (ok) |
+| Claude | 26.6M | $229.09 _(notional, rate-card)_ | 19% of 143.0M (ok) |
 | Codex | 32.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53305016 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
