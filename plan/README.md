@@ -88,7 +88,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | chat-playwright-smoke | endo-but-for-bots | M2 | Complete | S | — |
 | ci-no-npm-lifecycle | endo-but-for-bots | M2 | Complete | S | — |
 | endo-bytes | endo-but-for-bots | M2 | Complete | S | — |
-| hardened-text-codecs-shim | endo-but-for-bots | M2 | Not Started | — | — |
+| hardened-text-codecs-shim | endo-but-for-bots | M2 | In Progress | — | endo-but-for-bots#1349 |
 | hardened-url-shim | endo-but-for-bots | M2 | Not Started | — | — |
 | hex-package | endo-but-for-bots | M2 | Complete | M | — |
 | daemon-agent-tools | endo-but-for-bots | M3 | Not Started | L | — |
