@@ -42,3 +42,13 @@ regardless of target, so this is a standing-baseline fix, not an urgent
 one — no need to force a deploy for it).
 
 Report the before/after target value and confirm the two prior tests pass.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T07:36:22Z
