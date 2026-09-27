@@ -1,0 +1,7 @@
+<6>14:35:41 [monk/1] resuming session 0b91b7c4-1639-5fd5-beb4-d09dc1c51fcc for requeued job 'kriscendobot-oros-ckm-data-readiness-pr1-receipt' in worktree /home/kris/garden2/scratch/gardener-wt-kriscendobot-oros-ckm-data-readiness-pr1-receipt
+<6>14:35:41 [monk/1] job 'kriscendobot-oros-ckm-data-readiness-pr1-receipt' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>14:35:41 [monk/1] job 'kriscendobot-oros-ckm-data-readiness-pr1-receipt' call ceiling: tier=minion max-budget-usd=8.80 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
