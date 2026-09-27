@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T08:29:49Z_
+_As of 2026-09-27T08:33:58Z_
 
 ## Latest
 
@@ -1535,13 +1535,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-finbot` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-finbot.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T02:28:18Z, latest 2026-09-27T07:19:07Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-finbot`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #8 (first seen 2026-09-27T02:28:18Z, latest 2026-09-27T08:30:08Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-finbot`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 9722c51a274194cd064dd5a0c241b73e08bf8706 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 9722c51a274194cd064dd5a0c241b73e08bf8706). Diagnosis: This is the same known deploy-lag pattern already documented in memory: `garden-ci-watcher@kriscendobot-finbot` FATALs with "cannot acquire clone lock .../ci-watcher/verify.lock ... a live holder is still busy", and the root checkout HEAD (`47b41af5a14`) is 25 commits behind `origin/main2`, not yet including the fix commit `5620bdbe5f6` ("isolate CI watcher clones per slug") plus its follow-on hardening commits. This is deploy-lag, not a fresh defect — the fix already exists on `main2` and just hasn't rolled out to this host yet via the rolling deploy.
+> self-heal: garden-ci-watcher@kriscendobot-finbot exited rc=1 with no scoped fix. Capture: 1dd7e4beab962ff726b0da3e74c37561a3c2a39a (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 1dd7e4beab962ff726b0da3e74c37561a3c2a39a). Diagnosis: This is the already-known clone-lock contention bug — `garden-ci-watcher@kriscendobot-finbot` timed out after 3×60s backoff waiting on `/home/kris/garden/.garden-state/ci-watcher/verify.lock`, held by a live (not crashed) peer holder. I confirmed the fix for exactly this failure signature (per-slug clone isolation + quiet-skip on live-holder contention) is already merged to `origin/main2` as `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder clone-lock contention), but the **deployed root checkout on this host is 36 commits behind `origin/main2`** and does not yet contain either commit — this is deliberate-deploy lag, not a missing fix.
 >
-> No JOB block — this is a transient/environmental deploy-lag condition with the fix already merged upstream, not a code defect to fix here. Systemd's restart will keep hitting this until the rolling deploy advances this host's root check
+> No new job needed: posting another `self-heal-fix-*` job would just duplicate work already done and si
 
 - `watchdog-comment-watcher-dead-kriscendobot-moddable` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-moddable.md)
 
@@ -1727,7 +1727,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.0M | $279.25 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 32.1M | $279.49 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 36.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75261838 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1736,28 +1736,29 @@ _Fleet token-unlock pace: 75261838 tokens/day lower bound; incomplete where a su
 worst fetch p95 7.772794s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
+- [`deadmail-issue-comment-5853798459`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-issue-comment-5853798459.md) — Issue follow-up — fold a late comment into the issue work
 - [`ironhorse-fuzz-27824c75429b8581-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-27824c75429b8581-repair.md) — Repair Ironhorse engine defect 27824c75429b8581 (target differential_source) ...
+- [`endojs-endo-but-for-bots-pr1227-review-5329319726-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1227-review-5329319726-fix.md) — ---
 - [`ironhorse-fuzz-13b68e2edb67861a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-13b68e2edb67861a-repair.md) — Repair Ironhorse engine defect 13b68e2edb67861a (target differential_regexp) ...
 - [`ironhorse-fuzz-1cd4ddc72d5801c4-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-1cd4ddc72d5801c4-repair.md) — Repair Ironhorse engine defect 1cd4ddc72d5801c4 (target differential_regexp_s...
 - [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-284de587e16bce32-repair.md) — Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
 - [`ironhorse-fuzz-29a24c1b1052ec91-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-29a24c1b1052ec91-repair.md) — Repair Ironhorse engine defect 29a24c1b1052ec91 (target differential_regexp) ...
-- [`kriscendobot-minion.town-pr118-conduct-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr118-conduct-20260927.md) — Conduct kriscendobot/minion.town PR #118
 - [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Repair Ironhorse engine defect 2a2de75b75de4894 (target differential_source) ...
 
 ### doin (4)
 - [`ironhorse-fuzz-12aca768c2e73c73-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-12aca768c2e73c73-repair.md) — Fix Ironhorse fuzz finding 12aca768c2e73c73 (target differential_regexp) and ...
-- [`endojs-endo-but-for-bots-pr1227-review-e348b253`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1227-review-e348b253.md) — Review directive on endojs/endo-but-for-bots PR #1227
 - [`ironhorse-fuzz-197b32cc30bdd4fe-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-197b32cc30bdd4fe-repair.md) — Repair Ironhorse engine defect 197b32cc30bdd4fe (target differential_regexp_s...
 - [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-05264cccae42245a-repair.md) — Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
+- [`kriscendobot-minion.town-pr118-conduct-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr118-conduct-20260927.md) — Conduct kriscendobot/minion.town PR #118
 
-### tada (9122)
+### tada (9123)
+- [`endojs-endo-but-for-bots-pr1227-review-e348b253`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1227-review-e348b253.md) — Cost
 - [`kriscendobot-minion.town-pr118-review-12a26bc7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion.town-pr118-review-12a26bc7.md) — Cost
 - [`ironhorse-fuzz-1dc231089278c110-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-1dc231089278c110-repair.md) — Cost
 - [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-self-heal-run-handler-deadline.md) — Completion report
 - [`fix-garden-ci-gauntlet-retry-viability-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-garden-ci-gauntlet-retry-viability-tests.md) — Cost
-- [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-retro-doom-escalation-noise.md) — Completion report
-- … and 9117 more
+- … and 9118 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
