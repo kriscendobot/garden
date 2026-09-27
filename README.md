@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T11:29:29Z_
+_As of 2026-09-27T11:33:06Z_
 
 ## Latest
 
@@ -1903,27 +1903,27 @@ _Fleet token-unlock pace: 65561715 tokens/day lower bound; incomplete where a su
 worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`ironhorse-fuzz-bc9529ac5818aa24-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bc9529ac5818aa24-repair.md) — Repair Ironhorse engine defect bc9529ac5818aa24 (target differential_regexp_s...
+### todo (0)
+(none)
 
 ### doin (9)
 - [`ironhorse-fuzz-baad1f22ef053213-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-baad1f22ef053213-repair.md) — Repair Ironhorse engine defect baad1f22ef053213 (target differential_regexp_s...
 - [`ironhorse-fuzz-89e303d17e33b117-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-89e303d17e33b117-repair.md) — Repair Ironhorse engine defect 89e303d17e33b117 (target differential_regexp_s...
 - [`improve-rolling-deploy-rejected-candidate-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-rolling-deploy-rejected-candidate-backoff.md) — ---
+- [`ironhorse-fuzz-bc9529ac5818aa24-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-bc9529ac5818aa24-repair.md) — Repair Ironhorse engine defect bc9529ac5818aa24 (target differential_regexp_s...
 - [`ironhorse-fuzz-ad5b483fc5e0973f-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ad5b483fc5e0973f-repair.md) — Repair Ironhorse engine defect ad5b483fc5e0973f (target differential_regexp_s...
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1298
 - [`ironhorse-fuzz-bc3d0df623811a38-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-bc3d0df623811a38-repair.md) — Repair Ironhorse engine defect bc3d0df623811a38 (target differential_regexp_s...
 - [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
 - [`ironhorse-fuzz-5c9d2506e6048f4a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-5c9d2506e6048f4a-repair.md) — Repair Ironhorse engine defect 5c9d2506e6048f4a (target differential_regexp_s...
-- [`ironhorse-fuzz-aaa423e9c5d56067-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-aaa423e9c5d56067-repair.md) — Repair Ironhorse engine defect aaa423e9c5d56067 (target differential_source) ...
 
-### tada (9164)
+### tada (9165)
+- [`ironhorse-fuzz-aaa423e9c5d56067-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-aaa423e9c5d56067-repair.md) — Cost
 - [`ironhorse-fuzz-ab41c5d203ace017-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-ab41c5d203ace017-repair.md) — Cost
 - [`ironhorse-fuzz-b95320dfb5dd9d3d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-b95320dfb5dd9d3d-repair.md) — Completion report: ironhorse-fuzz-b95320dfb5dd9d3d-repair
 - [`ironhorse-fuzz-931a687135cabb0c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-931a687135cabb0c-repair.md) — Cost
 - [`ironhorse-fuzz-9001b34fa6dd2d80-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-9001b34fa6dd2d80-repair.md) — Cost
-- [`ironhorse-fuzz-7637ac162a0b916a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-fuzz-7637ac162a0b916a-repair.md) — Cost
-- … and 9159 more
+- … and 9160 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
