@@ -6698,3 +6698,14 @@ Inspect via `git -C journal cat-file -p 20f0a401192c8b480e02b40db270be9f63fe578b
 
 Inspect via `git -C journal cat-file -p f91c8309993c505c17ce8022adac8e59aeb5ab84` (or read
 `journal/inboxes/endolin-garden2-5bcdff64/captures/f91c8309993c505c17ce8022adac8e59aeb5ab84`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-09-27T19:28:05Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: e67c7d695c7c1a9b7c0dda5b15c81cee6541214c
+- Context: gardener-1 on endolin-garden2-5bcdff64: job 'build-daemon-docker-selfhost' handler exited rc=1
+- Capture: inboxes/endolin-garden2-5bcdff64/captures/e67c7d695c7c1a9b7c0dda5b15c81cee6541214c
+
+Inspect via `git -C journal cat-file -p e67c7d695c7c1a9b7c0dda5b15c81cee6541214c` (or read
+`journal/inboxes/endolin-garden2-5bcdff64/captures/e67c7d695c7c1a9b7c0dda5b15c81cee6541214c`) -- both work off-host after a plain `journal2` fetch.
