@@ -69,3 +69,13 @@ would fix it. This test fix removes the flake so the leader (and any host) can p
 the gate reliably. The immediate unstick of the leader itself is a separate
 maintainer decision (emergency GARDEN_DEPLOY_TEST_OVERRIDE=1 deploy) escalated
 separately by job upgrade-fleet-to-main2-uniform-20260918.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T18:14:18Z
