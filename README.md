@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T19:08:03Z_
+_As of 2026-09-27T19:22:02Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 19h)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 20h)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 9d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 10d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 15d)
@@ -130,11 +130,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-26T07:17:10Z, cleared 2026-09-27T18:47:00Z).
-> It was observed 32 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #33 (first seen 2026-09-26T07:17:10Z, latest 2026-09-27T19:18:14Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 33 times; this is ONE
+> coalesced notice that updates in place, not 33 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 2100s (offline threshold 1800s; sampled_at_epoch=1790534585).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
 
 - `ev7-host-introduction-request` — from gardener:minion-town-eval-mail-pair, reply_to `minion-town-eval-mail-pair` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ev7-host-introduction-request.md)
 
@@ -270,11 +275,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
 
-> WATCHDOG notice — occurrence #12 (first seen 2026-09-27T02:00:48Z, latest 2026-09-27T19:07:08Z).
-> The SAME condition (`journal-outage-stuck`) has now been observed 12 times; this is ONE
-> coalesced notice that updates in place, not 12 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-27T19:16:57Z).
+> It was observed 12 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal outage latch stuck on endolin-garden-ece02cb4 for 601s (limit 600s); skips this tick=5, trailing skips=5.
+> Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -457,10 +462,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=2 queue=6 quota=ok fleet-envelope=5 target=2
-
-- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_maintainer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_maintainer_journal.md)
-
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/maintainer/journal: p95=24.606247s max=24.606247s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp.md)
 
@@ -1892,6 +1893,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
+- `20260927T191856Z-6c3431` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T191856Z-6c3431.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `18f02975bc8cbe47860b58ed0eb4a1349c2b8012`
+> failing suites: scripts/jobs/test/triager-pacing-test.sh(rc=1; diagnostic=/home/kris/garden/.garden-state/deploy/candidate-gate-diagnostics/18f02975bc8cbe47860b58ed0eb4a1349c2b8012/attempt2-01-scripts_jobs_test_triager-pacing-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden-ece02cb4` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `watchdog-handler-budget-overrun-ironhorse-ocap-frozen-objects` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ironhorse-ocap-frozen-objects.md)
 
 > gardener job 'ironhorse-ocap-frozen-objects' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7221s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -2878,30 +2895,31 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 37.9M | $329.40 _(notional, rate-card)_ | 27% of 143.0M (ok) |
+| Claude | 37.7M | $324.43 _(notional, rate-card)_ | 26% of 143.0M (ok) |
 | Codex | 49.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 76% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 48542190 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 55309374 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 24.606247s/45s (/home/kris/garden/.garden-state/maintainer/journal); 6 open notice(s); checker healthy
+worst fetch p95 24.606247s/45s (/home/kris/garden/.garden-state/maintainer/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`fix-endojs-endo-but-for-bots-pr610`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr610.md) — ---
-- [`build-daemon-agent-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-daemon-agent-tools.md) — ---
+### todo (3)
+- [`build-hardened-url-shim`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-hardened-url-shim.md) — ---
+- [`build-hardened-text-codecs-shim`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-hardened-text-codecs-shim.md) — ---
+- [`build-daemon-docker-selfhost`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-daemon-docker-selfhost.md) — ---
 
 ### doin (2)
-- [`build-daemon-docker-selfhost`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-docker-selfhost.md) — ---
-- [`build-endo-gateway`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-gateway.md) — ---
+- [`fix-endojs-endo-but-for-bots-pr610`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr610.md) — ---
+- [`build-daemon-agent-tools`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-daemon-agent-tools.md) — ---
 
-### tada (9282)
+### tada (9283)
+- [`build-endo-gateway`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/build-endo-gateway.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-18f02975bc8c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/canary-probe-endolin-garden2-5bcdff64-18f02975bc8c.md) — rolling-deploy canary probe — round trip OK
 - [`fix-triager-pacing-rolling-deploy-cgroup-leak`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-triager-pacing-rolling-deploy-cgroup-leak.md) — Cost
 - [`endojs-endo-but-for-bots-pr1306-review-2a0fedcf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1306-review-2a0fedcf-retro.md) — Retro on endojs/endo-but-for-bots #1306, review 5252661169: recorded as not a...
 - [`canary-probe-endolin-garden2-5bcdff64-b9a0411e52f4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/canary-probe-endolin-garden2-5bcdff64-b9a0411e52f4.md) — rolling-deploy canary probe — round trip OK
-- [`ironhorse-ocap-frozen-objects`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/ironhorse-ocap-frozen-objects.md) — Milestone 3 (frozen-object exploitation): accepted, with a correctness fix — ...
-- … and 9277 more
+- … and 9278 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
