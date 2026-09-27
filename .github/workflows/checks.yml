@@ -70,7 +70,8 @@ jobs:
             scripts/jobs/test/muster-pilot-fake-curl.sh \
             scripts/jobs/test/muster-pilot-test.sh \
             scripts/jobs/test/report-error-reachable-test.sh \
-            scripts/jobs/test/reputation-reduce-incremental-test.sh
+            scripts/jobs/test/reputation-reduce-incremental-test.sh \
+            scripts/jobs/test/worktree-sweeper-follower-test.sh
 
       - name: bash -n (syntax check, all scripts/ and skill main scripts)
         # Syntactic check on every shell script under scripts/ and skills/.
@@ -97,6 +98,7 @@ jobs:
           bash scripts/jobs/test/quota-calibration-test.sh
           bash scripts/jobs/test/gh-credential-guard-test.sh
           bash scripts/jobs/test/worktree-teardown-test.sh
+          bash scripts/jobs/test/worktree-sweeper-follower-test.sh
           bash scripts/jobs/test/assert-pinned-base-test.sh
           bash scripts/jobs/test/gauntlet-resume-test.sh
           bash scripts/jobs/test/reputation-reduce-incremental-test.sh

@@ -141,9 +141,13 @@ grep -q 'is_main_host' "$JOBS/watchman.sh" \
 # ============================================================================
 hr; echo "EVERY-HOST — gardeners and local-infra are NOT gated"; hr
 for u in garden-monk@ garden-gardener-scaler garden-upgrade-monitor \
-         garden-clone-keeper garden-journal-worktree-keeper garden-repo-watcher garden-unblock; do
+         garden-clone-keeper garden-journal-worktree-keeper garden-state-clone-keeper \
+         garden-worktree-sweeper garden-sysop garden-repo-watcher garden-unblock; do
   f="$SRC/$u.service"; [ -e "$f" ] || { ok "$u.service absent (nothing to gate)"; continue; }
-  grep -q 'is-main-host.sh' "$f" \
+  # Match an EXECUTABLE ExecCondition directive, not a mere comment mention: the
+  # worktree-sweeper and sysop units both explain in a comment WHY they omit the
+  # leader gate, and that prose must not read as the gate itself.
+  grep -qE '^ExecCondition=/bin/bash .*is-main-host.sh' "$f" \
     && bad "$u.service is leader-gated (should run on every host)" \
     || ok "$u.service NOT gated (every-host)"
 done

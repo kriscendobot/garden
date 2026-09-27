@@ -1,11 +1,22 @@
 #!/bin/bash
-# worktree-sweeper.sh — leader-only terminal-worktree safety net.
+# worktree-sweeper.sh — per-host terminal-worktree safety net (runs on EVERY host).
 #
 # The completion and doom paths remove project worktrees promptly.  This timer
 # covers interrupted cleanup, removes the trusted spine's garden-root worktrees,
 # and collects legacy directories which are no longer registered in their bare
 # repository.  It intentionally has NO fleet-drain guard: inode exhaustion is a
 # reason to run cleanup, not a reason to suspend it.
+#
+# It is deliberately NOT leader-gated (see garden-worktree-sweeper.service).  The
+# residue it reclaims is LOCAL to each host — every host makes its own
+# gardener-wt-<base> / project-wt-* checkouts in its own $GARDEN_SCRATCH and its
+# own garden-root worktrees, and only that host can see or reclaim them, so there
+# is nothing for a single leader to do on the fleet's behalf.  Nothing below
+# consults the leader marker or assumes singleton execution: the journal clone is
+# read-only enumeration of terminal (doomed/tada) records to prove terminality,
+# and every removal targets THIS host's own $GARDEN_SCRATCH / $GARDEN_ROOT.  Two
+# hosts never contend — each sweeps a distinct garden root.  This mirrors
+# state-clone-keeper.sh, which is un-leader-gated for exactly the same reason.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

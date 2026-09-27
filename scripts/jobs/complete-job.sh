@@ -212,8 +212,10 @@ for attempt in $(seq 1 100); do
     # The accepted push above is the terminal edge.  Only now may the stable
     # per-base project checkout be destroyed; before it, an offline completion
     # or lost push race must retain the tree for the requeued worker.  This is
-    # best-effort and fail-open: a leader-only safety-net sweep collects any
-    # local residue later.
+    # best-effort and fail-open: the per-host safety-net sweep
+    # (garden-worktree-sweeper, runs on EVERY host) collects any local residue
+    # later — including residue from a job that completed or was doomed on a
+    # DIFFERENT host, which this host-local teardown never sees.
     cleanup_terminal_project_worktrees "$base"
     # Destroy this doer's HOST-LOCAL inbox state too. The `git rm inbox/$base`
     # above removes only the JOURNAL-SIDE inbox: $DIR is the gardener's own clone

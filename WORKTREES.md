@@ -119,9 +119,12 @@ Teardown therefore follows the board state, never age alone:
 - a successful `doin/` → `tada/` push removes that base's project checkout;
 - a successful reaper doom push removes it, while an ordinary `doin/` → `todo/`
   requeue preserves it;
-- `garden-worktree-sweeper.timer` is the leader-only safety net for missed
+- `garden-worktree-sweeper.timer` is the **per-host** safety net for missed
   terminal cleanup and for garden-root worktrees, whose registration workers
-  are forbidden to administer;
+  are forbidden to administer. It runs on **every** host (not leader-gated): the
+  residue is local to each host, and the leader-only reaper's doom cleanup only
+  ever reclaims the leader's own filesystem, so a follower's terminal residue
+  can be swept **only** by the follower's own sweep;
 - the sweeper also removes unregistered legacy directories below
   `worktrees/<owner>-<repo>/` and prunes their bare repositories. Registered
   worktrees are always removed with `git worktree remove --force`, never by

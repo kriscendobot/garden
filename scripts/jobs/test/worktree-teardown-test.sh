@@ -1,5 +1,6 @@
 #!/bin/bash
-# Hermetic regression for terminal project teardown and the leader sweep.
+# Hermetic regression for terminal project teardown and the per-host sweep.
+# (The sweep's follower/non-leader gating is pinned by worktree-sweeper-follower-test.sh.)
 
 set -uo pipefail
 export GARDEN_TEST=1
