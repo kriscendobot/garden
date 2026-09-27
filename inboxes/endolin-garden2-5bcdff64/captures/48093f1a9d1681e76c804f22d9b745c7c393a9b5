@@ -1,0 +1,7 @@
+<6>15:04:18 [monk/1] resuming session 2d148b7f-0519-5df8-9e6c-4ef249565c9f for requeued job 'self-heal-fix-garden-issue-inbox-cursor-get-pipefail' in worktree /home/kris/garden2/scratch/gardener-wt-self-heal-fix-garden-issue-inbox-cursor-get-pipefail
+<6>15:04:18 [monk/1] job 'self-heal-fix-garden-issue-inbox-cursor-get-pipefail' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>15:04:18 [monk/1] job 'self-heal-fix-garden-issue-inbox-cursor-get-pipefail' call ceiling: tier=minion max-budget-usd=8.50 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
