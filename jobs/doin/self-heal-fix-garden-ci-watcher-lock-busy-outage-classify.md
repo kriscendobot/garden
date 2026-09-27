@@ -8,3 +8,13 @@ dispatch: automatic
 `ensure_clone_or_latch_outage`'s classifier, `journal_bounded_fetch_is_ambiguous_outage` (common.sh:4647-4651), only matches diagnostics containing `journal fetch in .* failed after [0-9]+ attempt` or `clone of .* failed` — the clone-lock-busy message matches neither regex, nor any of the offline signatures in `_fetch_stderr_is_offline`. So it falls through to the loud `exit "$rc"` path (rc=1), producing the FATAL and a systemd restart-thrash under the shared-clone contention this design comment says is already handled.
 
 Fix: widen `journal_bounded_fetch_is_ambiguous_outage`'s regex in common.sh (or add a sibling check consulted by `ensure_clone_or_latch_outage`) to also match the clone-lock busy-timeout signature, e.g. `cannot acquire clone lock .* after [0-9]+ waits? of [0-9]+s`, so a live-holder lock-busy timeout is latched as a shared cooldown and skipped quietly (exit 75) like the other ambiguous-outage shapes, instead of FATALing loud. Verify it still excludes genuinely stale/dead-holder cases if those should stay loud (they currently self-heal via `_clone_lock_is_stale` reclaim before ever reaching this `die`, so a live-holder-busy diagnostic reaching here is always the transient contention case). Add/extend a common.sh test alongside the existing `fetch-timeout-test.sh` clone-lock coverage to lock in the new classification.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T01:57:35Z
