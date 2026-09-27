@@ -154,6 +154,27 @@ for probe in "$HERE"/pre-push-gates/probes/*.sh; do
   record_stage "probe $(basename "$probe" .sh)" "$exit_code" "$output_file"
 done
 
+# Added multi-line prose comments need judgment: they may preserve a non-obvious
+# invariant, or may only narrate the adjacent code. Reuse the panel-hints signal
+# as a non-blocking author-time advisory so builders and fixers reread candidates
+# before push without turning every substantial comment into a gate failure.
+comment_concision_probe="$HERE/../../../skills/panel-hints/probes/C-pruner.sh"
+if [ -x "$comment_concision_probe" ]; then
+  stage_count=$((stage_count + 1))
+  comment_concision_output=""
+  if [ -n "$base_ref" ]; then
+    comment_concision_output=$(cd "$project_root" && PRUNER_SKIP_IF_MARKDOWN=0 BASE="$base_ref" "$comment_concision_probe" 2>/dev/null)
+  else
+    comment_concision_output=$(cd "$project_root" && "$comment_concision_probe" --staged 2>/dev/null)
+  fi
+  if [[ "$comment_concision_output" == fire\ pruner* ]]; then
+    printf '%-31s warn (non-blocking)\n' "advisory comment concision"
+    printf '%s\n' "$comment_concision_output" | sed 's/^/  /'
+  elif [ "$summary" -eq 1 ]; then
+    printf '%-31s pass\n' "advisory comment concision"
+  fi
+fi
+
 if [ "$probes_only" -eq 0 ] && has_script typecheck; then
   output_file="$temporary_directory/stage-$stage_count"
   exit_code=0

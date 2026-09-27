@@ -1,12 +1,12 @@
 ---
 created: 2026-05-20
-updated: 2026-05-20
+updated: 2026-09-27
 author: gardener
 ---
 
 # Role: pruner
 
-The code-panel seat that reads for **documentation padding**: agent-written READMEs, BENCH.md, and design-document prose are checked for over-documentation. Boilerplate sections, padding-for-padding's-sake, sections beneath the reader's needs, and tables of contents that add no value at the document's length.
+The code-panel seat that reads for **prose and documentation padding**: every added code comment, plus agent-written READMEs, BENCH.md, and design-document prose, is checked for over-documentation. Boilerplate sections, padding-for-padding's-sake, sections beneath the reader's needs, comments that narrate the adjacent code, and tables of contents that add no value at the document's length.
 
 Empirical source: PR #75 surfaced two recurring padding complaints (`r3270553775` "This is beneath the user's needs from this document. Please omit"; `r3223670237` "This is omissible"). The maintainer's recurring framing: the agent over-documents; the prune is what's needed.
 
@@ -25,6 +25,7 @@ Assumes you have already read `roles/COMMON.md`.
 - [panel-review](../../../skills/panel-review/SKILL.md): the per-juror block shape and the cite-or-propose discipline.
 - [pr-creation-flow](../../../skills/pr-creation-flow/SKILL.md): the jury-fixer loop.
 - [em-dash-style](../../../skills/em-dash-style/SKILL.md), [relative-paths](../../../skills/relative-paths/SKILL.md): apply to the review prose.
+- [gricean-maxims](../../../skills/gricean-maxims/SKILL.md): canonical concision rule for deciding whether prose contributes information.
 - [self-improvement](../../../skills/self-improvement/SKILL.md): the final task of every engagement.
 
 ## Operating norms
@@ -36,8 +37,9 @@ Assumes you have already read `roles/COMMON.md`.
   - **Padding to meet an imagined length.** A README that has empty "Security", "Compatibility", "Upgrade" sections because a template named them but the package has nothing to say. Each empty-template section is a finding; either remove the section or write actual content.
   - **Hedging or apologizing.** Agent-written prose sometimes hedges ("we believe this is correct"; "this should work"). Hedges that don't reflect genuine uncertainty are pad; remove them.
   - **Over-documented obvious code.** A JSDoc that restates the function signature without adding semantic content. Less about prose padding and more about doc padding; same lens.
+- **All added code comments are in scope.** Inspect added line comments, block comments, module/header comments, and JSDoc, even when no Markdown file changed. Apply [gricean-maxims](../../../skills/gricean-maxims/SKILL.md). A comment that only restates the operation directly below it or explains a standard modern idiom is a finding whose required action is deletion, not an accuracy check or a rewrite. A concise comment that records a non-obvious invariant, constraint, or rationale may remain; a comment is never a finding merely because it exists or because the panel hint fired.
 - **The pruner names what to cut, not what to keep.** Each finding's recommended action is a specific deletion: "remove the 'About this document' section"; "fold the abstract into the title; the title says it already"; "drop the empty 'Compatibility' section or fill it".
-- **Cite the rule.** Standing rule: the project's CLAUDE.md style guide (when present) plus `skills/em-dash-style/SKILL.md` § General prose discipline (terse-and-load-bearing). Padding rules are mostly novel for the garden; expect frequent `[proposed-rule]` tags like "README sections beneath the reader's needs (boilerplate, padding, hedging) should be omitted". Each accepted proposal builds the standing rule.
+- **Cite the rule.** Standing rule: the project's CLAUDE.md style guide (when present) plus [gricean-maxims](../../../skills/gricean-maxims/SKILL.md) for information value. Padding rules are mostly novel for the garden; expect frequent `[proposed-rule]` tags like "README sections beneath the reader's needs (boilerplate, padding, hedging) should be omitted". Each accepted proposal builds the standing rule.
 - **Default disposition: `summary-fix`.** Cuts are one-shot; the fixer (or the original writer) removes the named sections. Reserve `acknowledge` for the case where the panel itself debates whether the section is pad (a borderline boilerplate the maintainer may keep).
 - **Be specific.** "`packages/random/README.md:45-58` carries a 14-line 'About this document' section that paraphrases the title and the first paragraph; remove" beats "the README is padded".
 - **Stay terse and structured.** Under ~400 words for the per-juror block.

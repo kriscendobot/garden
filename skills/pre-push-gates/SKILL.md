@@ -12,6 +12,8 @@ The skill began after a PR (#75) surfaced recurring maintainer complaints that c
 
 The executable counterpart is [`scripts/jobs/gardening/pre-push-gates.sh`](../../scripts/jobs/gardening/pre-push-gates.sh); its probes live in the adjacent `pre-push-gates/probes/` directory. The gardening state machine invokes the driver immediately before `local-verify.sh`. This skill is the contract the script implements.
 
+One review signal is advisory rather than gating: the driver also reuses panel-hints' `C-pruner.sh` to warn when a diff adds a multi-line prose comment. Whether that comment contributes a non-obvious invariant or merely narrates the adjacent code requires judgment, so the warning does not change the exit code. It prompts the author to apply [gricean-maxims](../gricean-maxims/SKILL.md) before push; the pruner seat is the review-time backstop.
+
 ## When to use
 
 - **PR-open gardening step** (the gardening state machine's first push, the maintainer's first impression of the diff): run the gate; address any non-auto-fixable findings; then push.
@@ -107,6 +109,8 @@ One probe doubles as an auto-fixer: `typist-friendly-code-points.sh --fix` runs 
 
 A probe's first finding is enough to fail it; the driver runs every probe so the final report enumerates all findings rather than just the first.
 
+After the failing-probe pass, the driver runs the comment-concision advisory. It scans the staged diff, or `<base-ref>...HEAD` when `--base-ref` is supplied, and prints the first added multi-line prose comment. A hit is `warn (non-blocking)`: the author rereads the comment, but a legitimate invariant or rationale does not fail the gate merely because it is a comment.
+
 ### 5. Non-auto-fixable stage: `typecheck`
 
 ```sh
@@ -129,6 +133,8 @@ probes:
     spell-out-identifiers  fail: packages/example/src/main.js adds abbreviated identifier `pendingIdx`
     typedefs-belong-in-dts pass
     typist-friendly-code-points pass
+advisory comment concision      warn (non-blocking)
+  fire pruner packages/foo/src/main.js:42 (+4-line prose comment) — decide whether it adds a non-obvious invariant or rationale; require deletion if it only narrates adjacent code
 yarn typecheck  pass
 
 result: 1 failing stage(s); address and re-run.
@@ -138,7 +144,7 @@ The exit code is the worst per-stage exit (0 if all probes passed, 1 if any fail
 
 ## Output
 
-- Exit 0: gate passed (possibly after auto-fixes); the calling step proceeds to push.
+- Exit 0: gate passed (possibly after auto-fixes and possibly with a non-blocking comment-concision warning); the calling step resolves any advisory by rereading the candidate, then proceeds to push.
 - Exit non-zero: at least one non-auto-fixable finding; the calling step addresses it before pushing.
 
 The exit code is the gate's sole machine-readable signal. The summary (printed to stdout) is for the calling step's context.
