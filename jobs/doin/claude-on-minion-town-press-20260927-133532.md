@@ -81,6 +81,7 @@ issue 89. No upstream `agoric/agoric-sdk` interaction. No identity switch, no fe
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T14:03:14Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
