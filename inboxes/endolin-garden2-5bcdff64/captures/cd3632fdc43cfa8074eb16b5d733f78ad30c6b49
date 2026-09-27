@@ -1,0 +1,7 @@
+<6>14:11:15 [monk/1] requeued job 'ironhorse-fuzz-fcbb16f5721e8fd2-repair' has no local transcript on endolin-garden2-5bcdff64; prior session and worktree were lost — starting FRESH session 716895d1-7b5c-5211-9804-b3c2987c49d9 with lost-state framing
+<6>14:11:15 [monk/1] job 'ironhorse-fuzz-fcbb16f5721e8fd2-repair' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>14:11:15 [monk/1] job 'ironhorse-fuzz-fcbb16f5721e8fd2-repair' call ceiling: tier=mentor max-budget-usd=17.60 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
