@@ -70,6 +70,17 @@ remain under `$GARDEN_STATE/deploy/candidate-gate-diagnostics/<sha>` (or the con
 A moving `main2` does not replace a roll's
 pinned target, which must be an ancestor of the fetched branch.
 
+When the leader's own self-deploy returns non-zero (typically a rejected
+candidate gate), `rolling-deploy.sh` WARNs once — `deploy-garden.sh` has already
+posted the authoritative `kind:error` maintainer report and journal entry — and
+then persists a **target-keyed rejected-candidate marker** under
+`$GARDEN_STATE/rolling-deploy/rejected/<short-sha>`. While that marker stands the
+conductor **skips the leader retry quietly** every tick instead of re-invoking the
+deploy and re-paging the inbox. The backoff lifts on its own once the available
+SHA changes (a new target has no marker). To force a retry of the *same* SHA,
+clear the marker explicitly — either delete the file, or run one tick with
+`GARDEN_ROLL_CLEAR_REJECTED=<sha>` (or `all`) set.
+
 Canary unit health excludes `GARDEN_ADVISORY_UNITS` (currently the container
 hardening probe).
 This does not waive its security findings.

@@ -475,6 +475,45 @@ run_conductor
 if grep -q "deploy-invoked host=$LEADER" "$DEPLOY_LOG"; then ok "leader-only fleet self-deployed directly (no canary by construction)"; else bad "leader-only fleet did not self-deploy"; fi
 
 # ============================================================================
+hr; echo "REJECTED-CANDIDATE BACKOFF — a non-zero leader deploy is marked, not retried"; hr
+# Leader-only fleet (F1/F2 already dropped above). A deploy that returns non-zero (a
+# candidate-gate rejection inside deploy-garden.sh) must be attempted ONCE, persist a
+# target-keyed marker, then be skipped QUIETLY on later ticks until the available sha
+# changes or an operator clears the marker (deploy-garden.sh keeps its own error report).
+cat > "$TR/fail-deploy.sh" <<EOF
+#!/bin/bash
+printf 'deploy-invoked host=%s target=%s\n' "\${GARDEN:-?}" "\${GARDEN_DEPLOY_TARGET:-<tip>}" >> "$DEPLOY_LOG"
+exit 7
+EOF
+chmod +x "$TR/fail-deploy.sh"
+REJ_STATE="$TR/state-leader/rolling-deploy"
+set_leader_signal "$TARGET"; reset_leader_roll_state; rm -rf "$REJ_STATE/rejected"
+: > "$DEPLOY_LOG"; : > "$TR/conductor.out"
+run_conductor GARDEN_ROLLING_DEPLOY_CMD="$TR/fail-deploy.sh"
+n1="$(grep -c "deploy-invoked host=$LEADER" "$DEPLOY_LOG")"
+[ "$n1" -eq 1 ] && ok "REJECT: a non-zero deploy was attempted once" || bad "REJECT: expected 1 deploy attempt, got $n1"
+[ -f "$REJ_STATE/rejected/$TARGET12" ] && ok "REJECT: rejection persisted a target-keyed marker" || bad "REJECT: no rejected-candidate marker written"
+grep -q "marked $TARGET12 rejected" "$TR/conductor.out" && ok "REJECT: the first rejection still WARNs (original error report retained)" || bad "REJECT: first rejection did not WARN"
+# Second tick, SAME sha → no re-attempt, skipped quietly (no re-WARN, no re-deploy).
+: > "$TR/conductor.out"
+run_conductor GARDEN_ROLLING_DEPLOY_CMD="$TR/fail-deploy.sh"
+n2="$(grep -c "deploy-invoked host=$LEADER" "$DEPLOY_LOG")"
+[ "$n2" -eq 1 ] && ok "REJECT: same sha NOT retried (deploy still invoked only once)" || bad "REJECT: rejected deploy retried on a later tick ($n2 attempts)"
+grep -q "REJECTED on a prior tick" "$TR/conductor.out" && ok "REJECT: later tick skips quietly with a marker note" || bad "REJECT: quiet-skip note not logged"
+! grep -q "marked $TARGET12 rejected" "$TR/conductor.out" && ok "REJECT: later tick does NOT re-WARN" || bad "REJECT: later tick re-WARNed"
+# Explicit operator override clears the marker → the retry resumes.
+run_conductor GARDEN_ROLLING_DEPLOY_CMD="$TR/fail-deploy.sh" GARDEN_ROLL_CLEAR_REJECTED="$TARGET"
+n3="$(grep -c "deploy-invoked host=$LEADER" "$DEPLOY_LOG")"
+[ "$n3" -eq 2 ] && ok "REJECT: GARDEN_ROLL_CLEAR_REJECTED override resumed the retry" || bad "REJECT: override did not resume the retry ($n3 attempts)"
+# A NEW available sha is not blocked by the old target's marker (marker is sha-keyed).
+NEWSHA="2222222222222222222222222222222222222222"
+set_leader_signal "$NEWSHA"; reset_leader_roll_state
+: > "$DEPLOY_LOG"
+run_conductor GARDEN_ROLLING_DEPLOY_CMD="$TR/fail-deploy.sh"
+grep -q "target=$NEWSHA" "$DEPLOY_LOG" && ok "REJECT: a new available sha retries despite the old target's marker" || bad "REJECT: new sha was blocked by the stale marker"
+rm -rf "$REJ_STATE/rejected"   # do not leak backoff markers into later tests
+
+# ============================================================================
 hr; echo "SETTLE — a fresh tip is not rolled until the settle window elapses"; hr
 seed_fleet_hosts "$F1"
 push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for settle test"

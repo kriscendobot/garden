@@ -78,6 +78,26 @@ POST_JOB="${GARDEN_ROLLING_POST_JOB:-$HERE/post-job.sh}"
 DRAIN_OP="${GARDEN_ROLLING_DRAIN_OP:-$HERE/send-host-op.sh}"
 mkdir -p "$STATE" 2>/dev/null || true
 
+# Explicit operator override of a persisted rejected-candidate backoff (below): set
+# GARDEN_ROLL_CLEAR_REJECTED=<sha>|all|1 for one tick to clear one (by sha) or every
+# marker so the next tick retries the previously rejected deploy. Removing the
+# $STATE/rejected/<short-sha> file by hand does the same thing.
+if [ -n "${GARDEN_ROLL_CLEAR_REJECTED:-}" ]; then
+  case "$GARDEN_ROLL_CLEAR_REJECTED" in
+    all|1)
+      if [ -d "$STATE/rejected" ]; then
+        rm -rf "$STATE/rejected" 2>/dev/null || true
+        log "operator override GARDEN_ROLL_CLEAR_REJECTED=$GARDEN_ROLL_CLEAR_REJECTED: cleared ALL rejected-candidate markers; retries resume this tick"
+      fi ;;
+    *)
+      _clr="$STATE/rejected/${GARDEN_ROLL_CLEAR_REJECTED:0:12}"
+      if [ -f "$_clr" ]; then
+        rm -f "$_clr" 2>/dev/null || true
+        log "operator override: cleared rejected-candidate marker for ${GARDEN_ROLL_CLEAR_REJECTED:0:12}; retries resume this tick"
+      fi ;;
+  esac
+fi
+
 now_s() { if [ -n "${GARDEN_ROLLING_NOW:-}" ]; then printf '%s\n' "$GARDEN_ROLLING_NOW"; else date +%s; fi; }
 
 # set -e / pipefail-safe single-line file readers (a `cat missing | head` fails the
@@ -99,6 +119,26 @@ is_ancestor() {  # is_ancestor <a> <b> → rc0 iff a is an ancestor-or-equal of 
 # The leader's own (last-wave or solo) deploy, pinned to the validated target.
 leader_deploy() {  # leader_deploy <target>
   GARDEN_DEPLOY_TARGET="$1" "$DEPLOY_CMD"
+}
+
+# --- rejected-candidate backoff ----------------------------------------------
+# A leader self-deploy that returns NON-ZERO (typically a candidate-gate rejection
+# inside deploy-garden.sh) is PERSISTED as a target-keyed marker so the conductor
+# does not re-invoke the deploy — and so deploy-garden.sh does not re-page the
+# maintainer inbox with the identical kind:error — on every subsequent tick while
+# the same upgrade-ready sha still stands (the 2026-09-27T10:23:51Z rejection then
+# WARNed once per tick). deploy-garden.sh already emits the authoritative error
+# report (maintainer inbox kind:error + journal entry) on the rejecting tick; the
+# marker only records THAT it happened, so the retry is skipped QUIETLY until either
+# the available sha changes (a new target has no marker) or an operator clears it.
+# Host-local like the settle floor; keyed by short sha; ages out with STATE.
+rejected_marker() { printf '%s\n' "$STATE/rejected/$(sd "$1")"; }
+rejected_is_marked() { [ -f "$(rejected_marker "$1")" ]; }
+rejected_mark() {  # rejected_mark <target> <rc>
+  local m; m="$(rejected_marker "$1")"
+  mkdir -p "$(dirname "$m")" 2>/dev/null || true
+  printf 'target: %s\nrejected_at_epoch: %s\ndeploy_rc: %s\nreported_by: deploy-garden.sh (kind:error inbox + journal)\n' \
+    "$1" "$(now_s)" "$2" > "$m" 2>/dev/null || true
 }
 
 ensure_clone "$DIR"
@@ -592,8 +632,16 @@ fi
 # --- degenerate fleet: leader-only (no followers = no canary by construction) -
 mapfile -t all_followers < <(all_follower_hosts)
 if [ "${#all_followers[@]}" -eq 0 ]; then
+  if rejected_is_marked "$target"; then
+    log "leader-only fleet: self-deploy of ${target:0:12} was REJECTED on a prior tick ($(rejected_marker "$target")); skipping quietly until the available sha changes or the marker is cleared (GARDEN_ROLL_CLEAR_REJECTED)"
+    exit 0
+  fi
   log "leader-only fleet (no followers to canary); self-deploying directly on the settled upgrade-ready — today's solo-leader behavior"
-  leader_deploy "$target" || log "WARN: leader self-deploy returned non-zero (deploy-garden.sh manages its own drain/abort)"
+  set +e; leader_deploy "$target"; ldrc=$?; set -e
+  if [ "$ldrc" -ne 0 ]; then
+    rejected_mark "$target" "$ldrc"
+    log "WARN: leader self-deploy returned non-zero (rc=$ldrc); marked ${target:0:12} rejected to skip retries until the available sha changes or the marker is cleared (deploy-garden.sh already reported the error and manages its own drain/abort)"
+  fi
   exit 0
 fi
 
@@ -745,8 +793,13 @@ done
 
 # --- every follower passed or was skipped ------------------------------------
 if [ "$passed_any" -eq 1 ]; then
+  if rejected_is_marked "$target"; then
+    log "all required canaries passed for ${target:0:12}, but the leader self-deploy was REJECTED on a prior tick ($(rejected_marker "$target")); skipping the leader retry quietly until the available sha changes or the marker is cleared (GARDEN_ROLL_CLEAR_REJECTED)"
+    exit 0
+  fi
   log "all required canaries passed for ${target:0:12}; leader self-deploying LAST"
-  if leader_deploy "$target"; then
+  set +e; leader_deploy "$target"; ldrc=$?; set -e
+  if [ "$ldrc" -eq 0 ]; then
     # deploy-garden.sh exits 0 on a DEFER (a long mid-job gardener) as well as on a
     # real deploy, so success means "this host now runs the target", read back.
     now_at="$(deployed_sha 2>/dev/null || true)"
@@ -758,7 +811,8 @@ if [ "$passed_any" -eq 1 ]; then
       log "leader deploy of ${target:0:12} did not land (deployed sha ${now_at:-unknown}; deferred or no-op); no completion recorded, retrying next tick"
     fi
   else
-    log "WARN: leader self-deploy returned non-zero (deploy-garden.sh manages its own drain/abort)"
+    rejected_mark "$target" "$ldrc"
+    log "WARN: leader self-deploy returned non-zero (rc=$ldrc); marked ${target:0:12} rejected to skip retries until the available sha changes or the marker is cleared (deploy-garden.sh already reported the error and manages its own drain/abort)"
   fi
   # On success deploy-garden.sh records the new sha; the upgrade-monitor clears the
   # signal next tick and this roll's state ages out.
