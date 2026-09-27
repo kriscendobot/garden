@@ -19,6 +19,7 @@ doomed_on: endolin-garden-ece02cb4
 posted_by: reaper:endolin-garden-ece02cb4
 posted_at: 2026-09-27T03:26:06Z
 ---
+requires: host=oros-studio-garden-ce242c49
 
 ---
 role: gardener
