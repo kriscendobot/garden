@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T11:34:27Z_
+_As of 2026-09-27T11:36:12Z_
 
 ## Latest
 
@@ -1487,74 +1487,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > scripts/jobs/gardener.sh
 > Both elapsed-constancy early-escalation sites (the exit-0-unsatisfying branch ~line 944-977 and the rc!=0 overrun-suspect branch ~line 1465-1495) build a prose-only transcript for `report-error.sh` describing the symptom (near-constant elapsed across N cycles) but never include the actual handler output captured in `$capture` for that cycle — even though the rc!=0 branch's own gate (`[ -s "$capture" ]`) already confirms non-empty output exists at escalation time. `$capture` is an ephemeral `mktemp` file cleaned up each gardener cycle, so once the escalation fires this is the *last* moment the real stderr/stdout is available; a human or mentor triaging the resulting `elapsed-constancy-overrun-suspect`/`elapsed-constancy-exit0-wedge-suspect` inbox entry afterward has only the generic "died at a near-constant elapsed" prose and must guess the root cause blind. Concrete case: `improve-receipt-watcher-direct-dispatch` tripped exactly this overrun-suspect path twice (rc=1, elapsed=3s, both a kimi-k3 attempt and an opus fallback) with `usage_measurement` recording `source:none` (zero output captured by any usage-accounting layer) — the only path left to diagnose it is gone. Fix: append a bounded tail of `$capture` (e.g. last 40-60 lines, redacting nothing since this is the bot's own handler output) into both escalation transcripts before calling `report-error.sh`, so the inbox entry itself carries the evidence needed to triage.
 
-- `doomed-ironhorse-fuzz-89e303d17e33b117-repair-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-89e303d17e33b117-repair-requeue-exhausted.md)
-
-> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
-> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
-> The work is preserved at jobs/plan/ironhorse-fuzz-89e303d17e33b117-repair; it stays HELD until a human promotes it
-> (promote-plan.sh ironhorse-fuzz-89e303d17e33b117-repair) or removes it, so nothing is lost.
-> Original job base: ironhorse-fuzz-89e303d17e33b117-repair
->
-> --- original job body ---
-> ---
-> role: builder
-> tier: mentor
-> token-budget: 250000
-> ---
-> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T10:19:28Z cleared=none -->
->
-> ---
-> role: builder
-> tier: mentor
-> token-budget: 250000
-> ---
-> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-16T23:43:53Z cleared=none -->
->
-> ---
-> role: builder
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
->
-> # Repair Ironhorse engine defect 89e303d17e33b117 (target `differential_regexp_surface`) and amend the standing PR
->
-> The `ironhorse-fuzz` service recorded a reproducer that makes the Ironhorse JS
-> engine port produce incorrect behaviour or abort. Own BOTH a load-bearing
-> regression case AND the causal fix, then amend the ONE standing pull request.
->
-> ## Recorded reproducer (bounded metadata — never paste the input bytes into a prompt or a shell command)
->
-> - Target: `differential_regexp_surface` (one of the maintained ironhorse-fuzz targets)
-> - Project SHA under test: `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`
-> - Toolchain: `nightly-2026-08-15`
-> - Minimized input sha256: `66308cfa3e51ab95c81af5c77b1f25be27960d46982bfeaa3de9144dbc61226d` (4 bytes)
-> - Durable reproducer artifact (leader host): `/home/kris/garden2/.garden-state/ironhorse-fuzz/findings/89e303d17e33b117/input.bin`
-> - Portable copy: `input_base64` in journal `ironhorse-fuzz/findings/89e303d17e33b117.md`
-> - Reproduction: `cargo +nightly-2026-08-15 fuzz run differential_regexp_surface <input> -- -runs=1`
->
-> ## Procedure
->
-> 1. Get an isolated project checkout of `endojs/endo-but-for-bots` @ `ironhorse-fuzz-findings` via ensure-project-worktree.sh.
-> 2. Recover the minimized input to a FILE without inlining it into any prompt:
->    decode `input_base64` from the journal finding marker with `base64 -d`, OR copy the
->    durable artifact path above. Verify `sha256sum` equals `66308cfa3e51ab95c81af5c77b1f25be27960d46982bfeaa3de9144dbc61226d`.
-> 3. Set up the pinned `ironhorse-fuzz` environment (c/moddable submodule peer-init, `nightly-2026-08-15`, cargo-fuzz —
->    see the ironhorse-fuzz-build-setup runbook) and confirm the incorrect behaviour or abort
->    from that file before changing any code. If it does not reproduce at `38ca1d189384245dd9accfcc2f79763a3b8ec5cb`, report that and stop.
->
-> 4. Add a LOAD-BEARING regression case. `fuzz/corpus` and `fuzz/artifacts` are gitignored,
->    so a corpus seed is NOT a permanent regression: add a Rust unit test in `ironhorse-vm`
->    that replays these exact bytes and asserts correct completion (it builds without the oracle/submodule).
-> 5. Fix the causal defect. Keep the fix minimal and targeted.
-> 6. Amend the STANDING branch `ironhorse-fuzz-findings` with fetch/rebase/push CAS discipline, then
->    `scripts/jobs/gardening/ensure-pr.sh ironhorse-fuzz-findings endojs/endo-but-for-bots kriscendobot:ironhorse-fuzz-findings llm` to create-or-adopt the standing
->    PR (the `<!-- garden-job: ironhorse-fuzz-findings -->` marker guarantees every finding amends the SAME PR),
->    and run its required gauntlet.
-> 7. Document THIS case and its solution in the standing PR body or a PR comment (finding 89e303d17e33b117).
-> 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
->    comment, and record the unsolved finding visibly in the PR — never let it disappear.
-
 - `20260927T025445Z-4ac2a8` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T025445Z-4ac2a8.md)
 
 > kind: error
@@ -1962,10 +1894,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.2M | $281.23 _(notional, rate-card)_ | 23% of 143.0M (ok) |
-| Codex | 40.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 32.2M | $281.47 _(notional, rate-card)_ | 23% of 143.0M (ok) |
+| Codex | 40.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 41% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 65561715 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 65646597 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
