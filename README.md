@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T08:28:46Z_
+_As of 2026-09-27T08:29:49Z_
 
 ## Latest
 
@@ -431,13 +431,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T03:10:42Z, latest 2026-09-27T07:13:00Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #8 (first seen 2026-09-27T03:10:42Z, latest 2026-09-27T08:29:23Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 6f029408e46d0305605ca6a072fa46f7062cc1d3 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 6f029408e46d0305605ca6a072fa46f7062cc1d3). Diagnosis: This is the known, already-fixed shared-clone-lock contention bug — but this host's deployed root checkout is lagging main2, so the fix hasn't reached it yet.
->
-> **Diagnosis:** `ci-watcher@kriscendobot-endo-but-for-bots` hit `FATAL: cannot acquire clone lock .../verify.lock after 3 waits of 60s` — the same signature as the shared-VERIFY-clone contention bug fixed by `5620bdbe5f6` (isolate CI-watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder contention instead of fatal-exiting). Both commits are confirmed ancestors of `origin/main2`, but this root checkout's `HEAD` (`47b41af5a14`, 2026-09-26) predates both and is itself an ancestor of `origin/main2` (`07c7c3deebb`, 2026-09-27) — i.e. the deploy is lagged, not that the fix is missing. Per prior memory on this exact 
+> self-heal: garden-ci-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: e91154a65b544d33c186f8b37a0dc1dd380c0882 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e91154a65b544d33c186f8b37a0dc1dd380c0882). Diagnosis: This is the well-documented deploy-lag false positive (memory: `ci-watcher-clone-lock-contention-fix-queued-not-deployed`, `ci-watcher-shared-verify-clone-lock-contention-fixed`). The failure signature — `clone lock .../ci-watcher/verify.lock busy >60s ... FATAL: cannot acquire clone lock ... after 3 waits of 60s and 0 reclaim attempt(s)` — matches exactly, and this host's root checkout (`HEAD` = `47b41af5a14`) is still 36 commits behind `origin/main2` (`773813fb50`), which already carries the layered fix chain (`5620bdbe5f6`, `e6ea1d33fc8`, `5b48813cd0b`, and follow-ons). The rolling deploy hasn't rolled this host forward yet — there's a stuck-canary marker for `endolin-garden2-5bcdff64` in `.garden-state/rolling-deploy/`, which the watchdog already owns and will escalate on its own
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify.md)
 
@@ -1729,7 +1727,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.9M | $278.25 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 32.0M | $279.25 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 36.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 75261838 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
