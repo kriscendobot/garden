@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:12:32Z_
+_As of 2026-09-27T07:13:49Z_
 
 ## Latest
 
@@ -402,11 +402,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T03:10:42Z, latest 2026-09-27T05:53:11Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T03:10:42Z, latest 2026-09-27T07:13:00Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: ba3c7509ba1c61e6a0af35d5f77d211f4183c424 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p ba3c7509ba1c61e6a0af35d5f77d211f4183c424). Diagnosis: This confirms the exact known deploy-lag scenario from memory: the FATAL clone-lock-busy error on `garden-ci-watcher@kriscendobot-endo-but-for-bots` is already fixed upstream — `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder contention), plus a dozen more related fixes, all sit on `origin/main2` but haven't reached the deployed root checkout (`HEAD` is 15 commits behind on exactly this lock-contention code path). This is environmental/deploy-lag, not a new code defect — no job needed; the rolling deploy will pick these commits up when it advances.
+> self-heal: garden-ci-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 6f029408e46d0305605ca6a072fa46f7062cc1d3 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 6f029408e46d0305605ca6a072fa46f7062cc1d3). Diagnosis: This is the known, already-fixed shared-clone-lock contention bug — but this host's deployed root checkout is lagging main2, so the fix hasn't reached it yet.
+>
+> **Diagnosis:** `ci-watcher@kriscendobot-endo-but-for-bots` hit `FATAL: cannot acquire clone lock .../verify.lock after 3 waits of 60s` — the same signature as the shared-VERIFY-clone contention bug fixed by `5620bdbe5f6` (isolate CI-watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder contention instead of fatal-exiting). Both commits are confirmed ancestors of `origin/main2`, but this root checkout's `HEAD` (`47b41af5a14`, 2026-09-26) predates both and is itself an ancestor of `origin/main2` (`07c7c3deebb`, 2026-09-27) — i.e. the deploy is lagged, not that the fix is missing. Per prior memory on this exact 
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify.md)
 
@@ -1609,7 +1611,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.3M | $259.03 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.4M | $259.61 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55430589 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1621,11 +1623,8 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (1)
 - [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
+### doin (1)
 - [`mentat-garden-docs-refresh-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-garden-docs-refresh-20260927.md) — Refresh the garden's documentation to match current workflows and cybernetics
-- [`endojs-endo-but-for-bots-pr675-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr675-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #675
-- [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
 
 ### tada (9107)
 - [`daily-progress-summary-20260927-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/daily-progress-summary-20260927-070504.md) — Cost
@@ -1639,6 +1638,7 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### awaiting go-ahead (maintainer authorization)
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _low_ · ---
 - [`endo-retention-set-disclosure-hold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-retention-set-disclosure-hold.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`make-panel-stage-survive-supervisor-session-exit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/make-panel-stage-survive-supervisor-session-exit.md) — _normal_ · Make panel execution survive supervising agent-session exit
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
@@ -1650,6 +1650,7 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
 - [`endojs-endo-but-for-bots-pr1286-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1286-receipt.md) — _normal_ · receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1286 (me...
+- [`endojs-endo-but-for-bots-pr675-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr675-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #675
 - [`backfill-endo-claude-design-from-minion-town-production`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/backfill-endo-claude-design-from-minion-town-production.md) — _normal_ · Back-fill the Endo Claude inference design from minion.town production evidence
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
@@ -1663,6 +1664,7 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
 - [`evaluate-reauth-escalation-default-after-oauth-relay-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay-20260927.md) — _low_ · Evaluate default reauth escalation once the browser OAuth relay lands
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-exo-stream-pr1100-gauntlet-20260923-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
