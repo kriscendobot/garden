@@ -8,3 +8,13 @@ Build the M2 `hardened-url-shim` design in `endojs/endo-but-for-bots` on a `mast
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T19:26:14Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T19:28:29Z
