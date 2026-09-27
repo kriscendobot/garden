@@ -1,22 +1,10 @@
 ---
-gate: deferred
-priority: normal
 role: weaver
 tier: minion
 handler-timeout: 10800
 token-budget: 100000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 5
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-09-02T00:26:56Z
-doomed_on: endolin-garden2-5bcdff64
-posted_by: reaper:endolin-garden2-5bcdff64
-posted_at: 2026-09-02T00:26:56Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T04:54:06Z cleared=none -->
 
 ---
 role: weaver
