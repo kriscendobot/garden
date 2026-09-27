@@ -32,3 +32,13 @@ serial, not parallel):
   eslint are the local green signal.
 
 Report the gauntlet outcome (rounds, must-fix, final CI state, un-draft status).
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T15:28:31Z
