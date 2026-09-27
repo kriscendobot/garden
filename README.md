@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T04:02:33Z_
+_As of 2026-09-27T04:03:49Z_
 
 ## Latest
 
@@ -407,6 +407,65 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
+- `doomed-endojs-endo-but-for-bots-pr664-gauntlet-panel-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr664-gauntlet-panel-1-requeue-exhausted.md)
+
+> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
+> The reaper spent no generic retry and applied no ordinary split; gauntlet endojs-endo-but-for-bots-pr664-gauntlet exclusively owns retry through max_stage_retries.
+> The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr664-gauntlet-panel-1; it stays HELD until a human promotes it
+> (promote-plan.sh endojs-endo-but-for-bots-pr664-gauntlet-panel-1) or removes it, so nothing is lost.
+> Original job base: endojs-endo-but-for-bots-pr664-gauntlet-panel-1
+>
+> --- original job body ---
+> ---
+> role: gardener
+> tier: mentor
+> handler-budget-role: panel
+> handler-timeout: 10800
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-27T03:17:20Z cleared=none -->
+>
+> ---
+> role: gardener
+> handler-budget-role: panel
+> handler-timeout: 10800
+> gauntlet: endojs-endo-but-for-bots-pr664-gauntlet
+> gauntlet_stage: panel
+> gauntlet_iteration: 1
+> pr: [https://github.com/endojs/endo-but-for-bots/pull/664](https://github.com/endojs/endo-but-for-bots/pull/664)
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
+>
+> You are ONE stage of a staged gauntlet (endojs-endo-but-for-bots-pr664-gauntlet). Run EXACTLY ONE panel round, post the
+> verdict, then STOP — do NOT fix, do NOT un-draft, do NOT loop.
+>
+> Garden script names below are repo-relative. Resolve them against THIS claiming
+> worker's `$GARDEN_ROOT` (known by `scripts/jobs/common.sh`), never against the
+> posting host's garden root.
+>
+> 1. Get an ISOLATED project checkout of the PR head:
+>    `scripts/jobs/ensure-project-worktree.sh endojs-endo-but-for-bots-pr664-gauntlet-panel-1 <pr-head-owner>/<repo-name> <pr-head-branch>`.
+>    Resolve the head owner and branch with `gh pr view https://github.com/endojs/endo-but-for-bots/pull/664 --json headRepositoryOwner,headRefName`;
+>    do not pass the base repo when the PR head belongs to a fork.
+> 2. Run the panel in SINGLE-ROUND mode against that worktree:
+>    `GARDEN_PANEL_SINGLE_ROUND=1 \
+>      scripts/jobs/gardening/panel.sh <worktree> 664 <base-ref>`
+>    It fans the seats, aggregates, and prints its disposition as the terminal line's
+>    last token: `pass` or `must-fix`. It does NOT fix or un-draft in this mode.
+> 3. Post the aggregate (in $GARDEN_PANEL_RUNDIR) as a `gh pr review` on [https://github.com/endojs/endo-but-for-bots/pull/664](https://github.com/endojs/endo-but-for-bots/pull/664) — the
+>    panel-verdict shape the next-stage-owed heuristic recognizes (a request-changes
+>    review on must-fix, a comment/approve on pass).
+> 4. If panel.sh could not decide (it exits non-zero), this stage FAILS: begin your
+>    report with `orchestration-failed: true` and do NOT emit a panel marker.
+>
+> END your completion report with EXACTLY ONE of these marker lines (last line):
+>   <!-- gauntlet-stage-result: panel=pass -->
+>   <!-- gauntlet-stage-result: panel=must-fix -->
+
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-09-25T03:35:47Z, latest 2026-09-26T23:35:35Z).
@@ -719,6 +778,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-endo` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-endo.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T02:27:17Z, latest 2026-09-27T04:03:13Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-ci-watcher@kriscendobot-endo exited rc=1 with no scoped fix. Capture: b5c9a20dd04b05189440b6464b1d617fab7f00d0 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p b5c9a20dd04b05189440b6464b1d617fab7f00d0). Diagnosis: This is deploy-lag, not a code defect that needs a new job.
+>
+> The failure is the ci-watcher's shared `verify.lock` clone-lock contention — the exact signature already fixed on `main2` earlier today (2026-09-27 00:01 UTC) by commits `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention"), per [[ci-watcher-shared-verify-clone-lock-contention-fixed]]. This host's deployed root checkout (HEAD `47b41af5a14`, from 2026-09-26 12:42 UTC) predates that fix and is currently 19 commits behind `main2` (`upgrade-ready` marker detected 2026-09-27T04:02:01Z, available `586aee8196b`). Posting another `self-heal-fix-*` job would be redundant — the fix already exists upstream, waiting only for the next deploy to land. No JOB block.
+
 - `doomed-ironhorse-ocap-frozen-objects-deadline-overrun` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-ocap-frozen-objects-deadline-overrun.md)
 
 > DOOM job PARKED in jobs/plan/ (held, gate=go-ahead) after 1 handler wall hit(s) on endolin-garden-ece02cb4.
@@ -804,6 +873,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `liaison-followup-ddf3735030e2` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-ddf3735030e2.md)
 
 > From report `fix-finished-but-not-completed-requeue`: after the requeue fix, the headless-mode note now reaches all handlers (`cleric-codex`, `opencode`, `mystic-kimi`), but the nudge and `continue` mode remain Claude-only — those other handlers don't get them. Is that asymmetry intentional (a capability gap in the non-Claude tools) or should nudge/continue be extended to them? No garden repo/PR is implicated; this is a fleet-behavior scope decision.
+
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-vattr97` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-vattr97.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T02:48:19Z, latest 2026-09-27T04:03:13Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-vattr97`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> self-heal: garden-ci-watcher@kriscendobot-vattr97 exited rc=1 with no scoped fix. Capture: ff9a5254842731bde086b3ebe881a0910ef5ce37 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p ff9a5254842731bde086b3ebe881a0910ef5ce37). Diagnosis: The failure is the already-known and already-fixed CI-watcher shared-clone-lock contention: `garden-ci-watcher@kriscendobot-vattr97` timed out 3× waiting on `/home/kris/garden/.garden-state/ci-watcher/verify.lock`, then went FATAL — the exact signature covered by `ci-watcher-shared-verify-clone-lock-contention-fixed` memory. The fix (per-slug clone isolation `5620bdbe5f6` + quiet-skip-on-contention `e6ea1d33fc8`) is already merged to `origin/main2`, but the deployed root checkout (`HEAD` = `47b41af5a14`) is 19 commits behind and hasn't picked it up yet — this is deploy lag, not a new defect.
+>
+> No JOB block — posting another `self-heal-fix` job would duplicate an already-merged fix. This will resolve once the next rolling deploy advances the root checkout past `e6ea1d33fc8`; systemd's
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
@@ -1355,7 +1434,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 25.8M | $224.08 _(notional, rate-card)_ | 18% of 143.0M (ok) |
+| Claude | 26.1M | $226.28 _(notional, rate-card)_ | 18% of 143.0M (ok) |
 | Codex | 32.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 11% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49712672 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
