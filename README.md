@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:56:27Z_
+_As of 2026-09-27T06:03:19Z_
 
 ## Latest
 
@@ -321,11 +321,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-cosgov` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-cosgov.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-27T01:56:24Z, latest 2026-09-27T04:57:14Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-cosgov`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-27T01:56:24Z, latest 2026-09-27T06:01:58Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-cosgov`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: 0a93c44537a7f567c046474fcc82c5b1440031c5 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 0a93c44537a7f567c046474fcc82c5b1440031c5). Diagnosis: **No JOB block.** `garden-ci-watcher@kriscendobot-cosgov` FATAL'd with `cannot acquire clone lock .../verify.lock after 3 waits of 60s and 0 reclaim attempt(s)`. This matches a known, already-fixed defect (`5620bdbe5f6` isolate CI-watcher clones per slug; `e6ea1d33fc8` skip quietly on live-holder contention), plus follow-on hardening — all present on `origin/main2` but not yet reachable from the deployed root checkout (`HEAD` = `47b41af5a14`, 19 commits behind `origin/main2`). This is deploy lag, not a code gap: the rolling-deploy pipeline hasn't advanced this host past the fix yet. No action needed beyond letting the deliberate deploy catch up; memory entry updated to record the recurrence.
+> self-heal: garden-ci-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: 558e1a04151a7e04c79ab192de72869fba682ee2 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 558e1a04151a7e04c79ab192de72869fba682ee2). Diagnosis: This is a known, already-fixed issue that hasn't been deployed to this host yet — not a new defect.
+>
+> The blob shows `garden-ci-watcher@kriscendobot-cosgov` hitting the exact FATAL clone-lock-contention crash on `/home/kris/garden/.garden-state/ci-watcher/verify.lock` documented in my prior memory (`ci-watcher-clonelock-stderr-deploy-lag` and `ci-watcher-clone-lock-contention-fix-queued-not-deployed`). Checking the root checkout confirms deploy lag: `origin/main2` is 19 commits ahead of `HEAD` (`47b41af5a14`), and includes exactly the relevant fix chain not yet present locally — `5620bdbe5f6` (isolate CI watcher clones per slug), `e6ea1d33fc8` (skip quietly on live-holder contention), `4948cdd9a75` (hold clone_lock across verify_fetch), `ab66fece68f` (latch busy clone lock contention), 
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town.md)
 
@@ -1594,7 +1596,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.9M | $245.11 _(notional, rate-card)_ | 20% of 143.0M (ok) |
+| Claude | 29.0M | $244.98 _(notional, rate-card)_ | 20% of 143.0M (ok) |
 | Codex | 33.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 78268196 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1603,20 +1605,20 @@ _Fleet token-unlock pace: 78268196 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`claude-on-minion-town-completion-press-20260927-055005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20260927-055005.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### todo (0)
+(none)
 
 ### doin (2)
-- [`endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #871
 - [`endojs-endo-but-for-bots-pr897-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-weave-20260901.md) — Weave (rebase onto live llm) endojs/endo-but-for-bots PR #897
+- [`claude-on-minion-town-completion-press-20260927-055005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260927-055005.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
-### tada (9095)
+### tada (9096)
+- [`endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean.md) — Clean stage: PR #871 CI is RED
 - [`endojs-endo-but-for-bots-pr897-shepherd-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr897-shepherd-20260901.md) — Cost
 - [`endojs-endo-but-for-bots-pr879-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr879-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr887-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr887-gauntlet-panel-1.md) — Manual gauntlet handoff
 - [`endojs-endo-but-for-bots-pr871-gauntlet-20260901-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr871-gauntlet-20260901-viability.md) — Cost
-- [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endo-sturdyref-agent-surface-gauntlet-20260901.md) — Cost
-- … and 9090 more
+- … and 9091 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
