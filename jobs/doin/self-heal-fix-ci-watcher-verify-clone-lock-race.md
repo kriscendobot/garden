@@ -6,3 +6,13 @@ dispatch: automatic
 `scripts/jobs/ci-watcher.sh`'s `verify_fetch()` (~line 195-201) calls `ensure_clone_or_latch_outage "$VERIFY"` and `journal_fetch "$VERIFY"` without holding `clone_lock "$VERIFY"` across the section, even though `$GARDEN_CI_VERIFY_CLONE` is ONE clone shared by every `garden-ci-watcher@<repo>` templated instance (~15 instances, 90s cadence, 30s spread) on the host. Concurrent unlocked `git fetch`es into the same shared clone directory race each other — `comment-watcher.sh` (lines 461-490) documents this exact failure mode already occurring there ("an unlocked `git fetch` racing a peer's fetch (or its re-clone) corrupted the clone ~25 times in 30h") before being fixed by wrapping `clone_lock "$VERIFY"` / `clone_unlock "$VERIFY"` around BOTH the `ensure_clone_or_latch_outage` call (via a subshell, since `ensure_clone` ends with its own `clone_unlock`) and the `journal_fetch` call. `ci-watcher.sh` never got this fix. The resulting intermittent clone corruption repeatedly drives concurrent instances into `ensure_clone`'s `reclone_clone` path (each legitimately holding `ci-watcher/verify.lock` up to ~55s), and enough instances piling up produces sustained genuine (non-stale) lock contention that exceeds the 3×60s wait ladder in `clone_lock` (common.sh) — observed as `garden-ci-watcher@kriscendobot-endo` FATAL-ing with "0 reclaim attempt(s)" (the holder was always alive, never stale by the 300s TTL, just serially busy).
 
 Fix: port `comment-watcher.sh`'s `verify_fetch()` locking pattern (lines 478-489) verbatim into `ci-watcher.sh`'s `verify_fetch()` (~line 195). Also audit `scripts/jobs/dependabot-watcher.sh`'s `verify_fetch()` (line 167-174), which is templated per-repo the same way and has the identical unlocked-fetch gap — apply the same fix there if in scope, since it's the same bug class on the same shared-clone pattern.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T02:00:30Z
