@@ -118,3 +118,13 @@ operator drain forever; if you find one, say so plainly rather than overriding i
 Per host: starting sha, target sha, how it was deployed, final sha, drain state,
 and the positive evidence that it resumed claiming. Then the fleet's final
 uniformity. Name anything you deliberately did not touch and why.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T18:02:42Z
