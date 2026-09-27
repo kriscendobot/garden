@@ -1,12 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: reaper:endolin-garden-ece02cb4
-sent_at: 2026-09-27T04:03:04Z
+sent_at: 2026-09-27T08:03:11Z
 doom_base: endojs-endo-but-for-bots-pr664-gauntlet-panel-1
 doom_signature: requeue-exhausted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-09-27T04:03:04Z
-last_seen: 2026-09-27T04:03:04Z
+last_seen: 2026-09-27T08:03:11Z
 ---
+DOOM notice — occurrence #2 (first seen 2026-09-27T04:03:04Z, latest 2026-09-27T08:03:11Z).
+This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+this is an AMENDED notice, not a new one. Latest detail:
+
 GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
 The reaper spent no generic retry and applied no ordinary split; gauntlet endojs-endo-but-for-bots-pr664-gauntlet exclusively owns retry through max_stage_retries.
 The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr664-gauntlet-panel-1; it stays HELD until a human promotes it
@@ -14,6 +18,17 @@ The work is preserved at jobs/plan/endojs-endo-but-for-bots-pr664-gauntlet-panel
 Original job base: endojs-endo-but-for-bots-pr664-gauntlet-panel-1
 
 --- original job body ---
+---
+role: gardener
+tier: mentor
+handler-budget-role: panel
+handler-timeout: 10800
+token-budget: 250000
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-27T07:03:04Z cleared=none -->
+
+requires: host=oros-studio-garden-ce242c49
+
 ---
 role: gardener
 tier: mentor
