@@ -75,6 +75,7 @@ look productive while blocked.
 Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots`, and `kriscendobot/garden`
 issue 89. No upstream `agoric/agoric-sdk` interaction. No identity switch, no ferry.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=30 -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
