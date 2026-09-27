@@ -33,14 +33,18 @@ WANT_E2E=1; [ "${1:-}" = --no-e2e ] && WANT_E2E=0
 
 rm -rf "$TR"; mkdir -p "$TR"
 # Isolate the shared host-wide gh-api cooldown (common.sh) into the throwaway tree
-# so no test invocation can trip the REAL host's fleet-wide latch. Individual
-# quota tests below still neutralize it per-tick with GARDEN_API_COOLDOWN_SECS=0;
-# the wiring test (H1d) points it back at a per-test dir to exercise it for real.
+# so no test invocation can trip the REAL host's fleet-wide latch. The quota tests
+# below (H1c, H1d) point it at their OWN per-scenario dirs to exercise the shared
+# latch — now the service's single primary-quota throttle — in isolation.
 export GARDEN_API_COOLDOWN_DIR="$TR/gh-api-cooldown"
 git_id=(-c user.name=test -c user.email=test@localhost)
 
 seed_bare() {  # seed_bare <bare-path>
-  local bare="$1" seed; seed="$(mktemp -d "$TR/seed.XXXXXX")"
+  local bare="$1" seed; seed="$(mktemp -d "$TR/seed.XXXXXX")" || seed=""
+  # HARDENING: never let a failed mktemp (e.g. a concurrent wipe of the fixed,
+  # shared $TR) collapse to an empty path — `git init ""`/`git add -A` would then
+  # run in the CURRENT directory and can corrupt an unrelated repo. Fail loudly.
+  [ -n "$seed" ] && [ -d "$seed" ] || { echo "seed_bare: mktemp under $TR failed (concurrent wipe?)" >&2; exit 1; }
   git init -q --bare "$bare"
   git init -q "$seed"; git -C "$seed" checkout -q -b "$BRANCH"
   ( cd "$seed"
@@ -51,7 +55,8 @@ seed_bare() {  # seed_bare <bare-path>
   rm -rf "$seed"
 }
 mapping_of() {  # mapping_of <bare> <key-basename>  -> prints mapping file body
-  local v; v="$(mktemp -d "$TR/mv.XXXXXX")"
+  local v; v="$(mktemp -d "$TR/mv.XXXXXX")" || v=""
+  [ -n "$v" ] && [ -d "$v" ] || { echo "mapping_of: mktemp under $TR failed (concurrent wipe?)" >&2; return 1; }
   git clone -q --single-branch --branch "$BRANCH" "$1" "$v" 2>/dev/null
   cat "$v/pr-mirrors/$2" 2>/dev/null; rm -rf "$v"
 }
@@ -265,6 +270,7 @@ hr; echo "H1c — CIRCUIT BREAKER: the first primary-quota refusal stops the tic
 # degraded warning naming the skipped mappings.
 BARE_H1C="$TR/h1c.git"; seed_bare "$BARE_H1C"
 CL_H1C="$TR/close-h1c.log"; LOG_H1C="$TR/closer-h1c.log"; CNT_H1C="$TR/quota-calls.count"; : > "$CL_H1C"; : > "$CNT_H1C"
+CD_H1C="$TR/h1c-cd"                              # isolated shared-cooldown dir for this scenario
 COUNTQUOTA="$TR/state-quota-count.sh"
 cat > "$COUNTQUOTA" <<'EOF'
 #!/bin/bash
@@ -278,8 +284,7 @@ record "$TR/state-h1c" "$BARE_H1C" "up/repo#172" "garden/mir#272"
 record "$TR/state-h1c" "$BARE_H1C" "up/repo#173" "garden/mir#273"
 env GARDEN_STATE="$TR/state-h1c" JOURNAL_REMOTE="$BARE_H1C" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_H1C" MC_QUOTA_COUNT="$CNT_H1C" \
-    GARDEN_MIRROR_QUOTA_NOW=1000000000 GARDEN_MIRROR_QUOTA_COOLDOWN_SECS=3600 \
-    GARDEN_API_COOLDOWN_SECS=0 \
+    GARDEN_API_COOLDOWN_DIR="$CD_H1C" GARDEN_API_COOLDOWN_SECS=300 \
     GARDEN_MIRROR_PR_STATE="$COUNTQUOTA" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
     "$JOBS/mirror-closer.sh" >"$LOG_H1C" 2>&1; rch1c=$?
 [ "$rch1c" -eq 0 ] && ok "quota-only tick exits 0 (degraded, healthy)" || bad "quota-only circuit-breaker tick exited $rch1c"
@@ -297,26 +302,38 @@ for k in up-repo-171 up-repo-172 up-repo-173; do
     && bad "$k stamped despite being quota-blocked/unqueried" || ok "$k left unresolved (preserved for retry after quota reset)"
 done
 [ ! -s "$CL_H1C" ] && ok "no mirror was closed during a quota-exhausted tick" || bad "closed a mirror despite quota exhaustion: $(cat "$CL_H1C")"
+# The quota trip must have armed the SHARED host-wide latch for the full hour (this
+# is the single throttle that replaced the service's retired private marker), not
+# the short 300s default.
+[ -e "$CD_H1C/marker" ] && ok "quota trip armed the shared gh-api latch" || bad "shared latch not armed on quota trip"
+cd_expiry_h1c="$(sed -n '1p' "$CD_H1C/marker" 2>/dev/null || echo 0)"
+cd_remaining_h1c=$(( cd_expiry_h1c - $(date +%s) ))
+if [ "$cd_remaining_h1c" -gt 900 ] && [ "$cd_remaining_h1c" -le 3600 ]; then
+  ok "shared latch armed for the full primary-quota hour (${cd_remaining_h1c}s), not the 300s default"
+else
+  bad "shared latch window was ${cd_remaining_h1c}s (expected >900 and <=3600)"
+fi
 
 # A second timer tick inside the same primary window must stop at the persisted
-# marker, before even invoking the handler that made the first doomed request.
+# SHARED latch, before even invoking the handler that made the first doomed request.
 LOG_H1C_2="$TR/closer-h1c-second.log"
 env GARDEN_STATE="$TR/state-h1c" JOURNAL_REMOTE="$BARE_H1C" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_H1C" MC_QUOTA_COUNT="$CNT_H1C" \
-    GARDEN_MIRROR_QUOTA_NOW=1000000300 GARDEN_MIRROR_QUOTA_COOLDOWN_SECS=3600 \
-    GARDEN_API_COOLDOWN_SECS=0 \
+    GARDEN_API_COOLDOWN_DIR="$CD_H1C" GARDEN_API_COOLDOWN_SECS=300 \
     GARDEN_MIRROR_PR_STATE="$COUNTQUOTA" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
     "$JOBS/mirror-closer.sh" >"$LOG_H1C_2" 2>&1; rch1c2=$?
 [ "$rch1c2" -eq 0 ] && [ "$(cat "$CNT_H1C")" -eq 1 ] \
   && ok "persisted cooldown: the next timer tick made ZERO additional GraphQL calls" \
   || bad "cooldown tick issued another request (rc=$rch1c2, calls=$(cat "$CNT_H1C"))"
-grep -q 'primary-quota cooldown active; skipping tick for 3300s more' "$LOG_H1C_2" \
-  && ok "cooldown tick reports its remaining reset window without another warning" \
-  || bad "cooldown skip diagnostic missing/wrong: $(cat "$LOG_H1C_2")"
+grep -q 'shared gh-api cooldown active; skipping tick' "$LOG_H1C_2" \
+  && ok "cooldown tick skips on the shared latch without another warning" \
+  || bad "shared-cooldown skip diagnostic missing/wrong: $(cat "$LOG_H1C_2")"
 
-# At expiry the marker is removed and unresolved mappings become eligible again.
-# Switch to the healthy state stub: all three upstreams are open, so the retry is
-# observable as exactly three state calls without changing any mapping.
+# At expiry the shared latch is removed and unresolved mappings become eligible
+# again. The shared latch uses the real wall clock (start_api_cooldown/date +%s) so
+# we cannot freeze it — force expiry by rewriting the marker with a past timestamp,
+# then switch to the healthy state stub: all three upstreams are open, so the retry
+# is observable as exactly three state calls without changing any mapping.
 EXPIRYSTATE="$TR/state-expiry-count.sh"
 cat > "$EXPIRYSTATE" <<'EOF'
 #!/bin/bash
@@ -325,18 +342,18 @@ printf '%s' "$n" > "${MC_EXPIRY_COUNT}"
 printf 'open\tfalse\n'
 EOF
 chmod +x "$EXPIRYSTATE"
+printf '%s\nexpired\n' 1 > "$CD_H1C/marker"       # force the shared latch to have expired
 EXPIRY_COUNT="$TR/expiry-calls.count"; : > "$EXPIRY_COUNT"
 env GARDEN_STATE="$TR/state-h1c" JOURNAL_REMOTE="$BARE_H1C" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_H1C" MC_EXPIRY_COUNT="$EXPIRY_COUNT" \
-    GARDEN_MIRROR_QUOTA_NOW=1000003600 GARDEN_MIRROR_QUOTA_COOLDOWN_SECS=3600 \
-    GARDEN_API_COOLDOWN_SECS=0 \
+    GARDEN_API_COOLDOWN_DIR="$CD_H1C" GARDEN_API_COOLDOWN_SECS=300 \
     GARDEN_MIRROR_PR_STATE="$EXPIRYSTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
     "$JOBS/mirror-closer.sh" >/dev/null 2>&1; rch1c3=$?
 [ "$rch1c3" -eq 0 ] && [ "$(cat "$EXPIRY_COUNT")" -eq 3 ] \
   && ok "cooldown expiry retries all 3 unresolved mappings" \
   || bad "post-expiry retry wrong (rc=$rch1c3, calls=$(cat "$EXPIRY_COUNT"))"
-[ ! -e "$TR/state-h1c/mirror-closer/primary-quota-cooldown" ] \
-  && ok "expired primary-quota marker is removed" || bad "expired cooldown marker survived"
+[ ! -e "$CD_H1C/marker" ] \
+  && ok "expired shared latch marker is removed" || bad "expired cooldown marker survived"
 
 hr; echo "H1d — SHARED gh-api latch: a primary-quota hit arms common.sh's host-wide cooldown, and an already-active shared cooldown skips the whole tick before any doomed call"; hr
 # Part A: a quota-refused tick must ALSO arm the shared host-wide latch (common.sh
@@ -348,7 +365,6 @@ CD_DIR_A="$TR/h1d-cd-arm"                       # per-test shared-cooldown dir (
 record "$TR/state-h1d" "$BARE_H1D" "up/repo#181" "garden/mir#281"
 env GARDEN_STATE="$TR/state-h1d" JOURNAL_REMOTE="$BARE_H1D" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_H1D" \
-    GARDEN_MIRROR_QUOTA_NOW=1000000000 GARDEN_MIRROR_QUOTA_COOLDOWN_SECS=3600 \
     GARDEN_API_COOLDOWN_DIR="$CD_DIR_A" GARDEN_API_COOLDOWN_SECS=300 \
     GARDEN_MIRROR_PR_STATE="$QUOTASTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
     "$JOBS/mirror-closer.sh" >"$LOG_H1D" 2>&1; rch1d=$?
@@ -359,11 +375,10 @@ env GARDEN_STATE="$TR/state-h1d" JOURNAL_REMOTE="$BARE_H1D" JOURNAL_BRANCH="$BRA
 grep -q 'mirror-closer:primary-quota' "$CD_DIR_A/marker" 2>/dev/null \
   && ok "shared cooldown marker is tagged to mirror-closer's primary-quota trip" \
   || bad "shared cooldown marker missing the mirror-closer tag: $(cat "$CD_DIR_A/marker" 2>/dev/null)"
-# The shared latch must be armed for the SAME one-hour window as this service's own
-# primary-quota marker — NOT the short 300s default — so it outlives a doomed retry
-# by a sibling watcher inside the same quota hour (the ci-watcher regression). The
-# shared marker's expiry is on the real wall clock (start_api_cooldown uses date +%s),
-# so compare against `now`, not the frozen GARDEN_MIRROR_QUOTA_NOW.
+# The shared latch must be armed for the FULL primary-quota hour (api_primary_quota_secs)
+# — NOT the short 300s default — so it outlives a doomed retry by a sibling watcher
+# inside the same quota hour (the ci-watcher regression). The shared marker's expiry
+# is on the real wall clock (start_api_cooldown uses date +%s), so compare against `now`.
 cd_expiry_a="$(sed -n '1p' "$CD_DIR_A/marker" 2>/dev/null || echo 0)"
 cd_remaining_a=$(( cd_expiry_a - $(date +%s) ))
 if [ "$cd_remaining_a" -gt 900 ] && [ "$cd_remaining_a" -le 3600 ]; then
