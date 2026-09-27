@@ -22,7 +22,7 @@ bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
 export GARDEN_TEST=1
 
-TR="$(mktemp -d /home/kris/.garden-jentry-project-test.XXXXXX)"
+TR="$(mktemp -d "$HOME/.garden-jentry-project-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 BARE="$TR/origin.git"
 STATE="$TR/state"
