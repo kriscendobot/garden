@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T06:27:21Z_
+_As of 2026-09-27T06:32:33Z_
 
 ## Latest
 
@@ -257,13 +257,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-27T02:00:56Z, latest 2026-09-27T04:56:08Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T02:00:56Z, latest 2026-09-27T06:31:48Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: 94b6c1f8dd55e609ebab1b2b950790dfe3eab04c (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 94b6c1f8dd55e609ebab1b2b950790dfe3eab04c). Diagnosis: Confirmed deploy-lag: the deployed root checkout (HEAD `47b41af5a14`) is 19 commits behind `origin/main2`, and all the relevant clone-lock fixes (`5620bdbe5f6`, `e6ea1d33fc8`, and follow-on hardening through `586aee8196b`) are already merged upstream but not yet rolled out via the deliberate rolling deploy. This exact FATAL signature is the known, already-fixed shared-VERIFY-clone contention bug — not a new defect.
+> self-heal: garden-ci-watcher@kriscendobot-ymax-stdio-mcp exited rc=1 with no scoped fix. Capture: ca5d3f7c701740b15367c3f79f5d5bd7695d7fa1 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p ca5d3f7c701740b15367c3f79f5d5bd7695d7fa1). Diagnosis: This confirms the deploy-lag scenario is expected/self-resolving infra, not something requiring a fix job. Per the existing memory, this is a known pattern.
 >
-> No JOB block emitted; this will self-resolve once the rolling deploy advances the root checkout past `586aee8196b`.
+> No job needed. This is the already-diagnosed shared-clone-lock contention bug (`/home/kris/garden/.garden-state/ci-watcher/verify.lock`), fixed on `origin/main2` via commits `5620bdbe5f6` ("isolate CI watcher clones per slug") and `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention") landed 2026-09-27T00:01Z. This host's root checkout (`HEAD` 47b41af5a14, dated 2026-09-26) is 19 commits behind `origin/main2` and simply hasn't picked up the fix via the deliberate rolling deploy yet. The autonomous `garden-self-deploy`/rolling-deploy machinery should pick this up on its own upgrade-ready cycle; no new code change or job is
 
 - `20260927T024845Z-93b624` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T024845Z-93b624.md)
 
@@ -606,11 +606,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-ocapn` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ocapn.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-27T00:00:04Z, latest 2026-09-27T05:19:27Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ocapn`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> WATCHDOG notice — occurrence #7 (first seen 2026-09-27T00:00:04Z, latest 2026-09-27T06:31:53Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-ocapn`) has now been observed 7 times; this is ONE
+> coalesced notice that updates in place, not 7 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: abff2f958d310649a52a0454682cbfde8c748799 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p abff2f958d310649a52a0454682cbfde8c748799). Diagnosis: This is the known shared-VERIFY-clone contention bug: `ci-watcher@kriscendobot-ocapn` failed because every `ci-watcher@<repo>` instance shares one `$GARDEN_STATE/ci-watcher/verify.lock`, so a busy sibling repo's watcher can hold the lock long enough that this one times out after 3×60s waits with no live-holder staleness to reclaim. That's already fixed upstream on `main2` — commit `5620bdbe5f6` ("isolate CI watcher clones per slug") plus `e6ea1d33fc8` ("skip quietly on live-holder clone-lock contention") — but the deployed root checkout (`HEAD` at `47b41af5a14`) is 19 commits behind `origin/main2` and doesn't include either commit yet. This is a deploy-lag recurrence of an already-solved bug, not a new defect, so I'm not posting a fix job (would be a redundant/duplicate of already-lan
+> self-heal: garden-ci-watcher@kriscendobot-ocapn exited rc=1 with no scoped fix. Capture: 1f3f975f66dfc5ebebf36f85a8671cddf124c629 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 1f3f975f66dfc5ebebf36f85a8671cddf124c629). Diagnosis: Confirmed: this is the known deploy-lag pattern, not a new defect.
+>
+> The `garden-ci-watcher@kriscendobot-ocapn` failure is the exact `FATAL: cannot acquire clone lock .../ci-watcher/verify.lock ... a live holder is still busy` signature already fixed on `main2` through a chain of commits (`5620bdbe5f6`, `e6ea1d33fc8`, `1570aa85a47`, `ab66fece68f`, `ad55dea66f9`, and follow-ons through `586aee8196b`), per memory `ci-watcher-shared-verify-clone-lock-contention-fixed` and `ci-watcher-clone-lock-contention-fix-queued-not-deployed`. This host's root checkout is still at `47b41af5a14`, 19 commits behind `origin/main2` (`586aee8196b`) — none of the clone-lock fix/latch commits are deployed yet. Once the rolling deploy advances this root past those commits, the outage-latch logic will classify th
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
@@ -1544,11 +1546,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #739 (first seen 2026-09-25T03:17:02Z, latest 2026-09-27T05:32:03Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 739 times; this is ONE
-> coalesced notice that updates in place, not 739 messages. Latest detail:
+> WATCHDOG notice — occurrence #759 (first seen 2026-09-25T03:17:02Z, latest 2026-09-27T06:32:03Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 759 times; this is ONE
+> coalesced notice that updates in place, not 759 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 586aee8196b4 96 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 586aee8196b4 156 min ago
 > but still reports deployed_sha 917115c9b77234e4a05db68e8c5111fe6e5b305f. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1608,7 +1610,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.3M | $247.61 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 29.5M | $248.04 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 78475524 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1620,17 +1622,16 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr897-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-weave-20260901.md) — Weave (rebase onto live llm) endojs/endo-but-for-bots PR #897
-- [`endojs-endo-but-for-bots-pr933-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr933-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #933
 
-### tada (9098)
+### tada (9099)
+- [`endojs-endo-but-for-bots-pr933-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr933-gauntlet-fix-1.md) — Fix round 1 for PR #933: done, CI green
 - [`claude-on-minion-town-completion-press-20260927-055005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/claude-on-minion-town-completion-press-20260927-055005.md) — Cost
 - [`endojs-endo-but-for-bots-pr871-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr871-gauntlet-20260901.md) — gauntlet endojs-endo-but-for-bots-pr871-gauntlet-20260901 — HALTED
 - [`endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean.md) — Clean stage: PR #871 CI is RED
 - [`endojs-endo-but-for-bots-pr897-shepherd-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr897-shepherd-20260901.md) — Cost
-- [`endojs-endo-but-for-bots-pr879-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr879-gauntlet-panel-1.md) — Cost
-- … and 9093 more
+- … and 9094 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
