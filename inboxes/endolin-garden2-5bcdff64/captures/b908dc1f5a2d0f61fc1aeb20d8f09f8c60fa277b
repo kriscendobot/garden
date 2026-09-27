@@ -1,0 +1,6 @@
+<6>14:07:04 [monk/1] job 'kriscendobot-minion.town-pr56-review-7d4dc95d' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>14:07:04 [monk/1] job 'kriscendobot-minion.town-pr56-review-7d4dc95d' call ceiling: tier=minion max-budget-usd=8.80 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
