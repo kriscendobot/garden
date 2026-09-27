@@ -57,19 +57,4 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-27T08:33:06Z -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=exit0 through=1 values=774 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-27T08:36:08Z
+<!-- garden-reaped: 0 -->

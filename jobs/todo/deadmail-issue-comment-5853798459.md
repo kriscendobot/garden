@@ -2,8 +2,9 @@
 kind: issue-follow-up
 issue_spine: issue-kriscendobot-garden-89
 issue_url: https://github.com/kriscendobot/garden/issues/89
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Issue follow-up — fold a late comment into the issue work
@@ -51,13 +52,6 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-585379845
 ----- END ORIGINAL MESSAGE -----
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=17 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T08:34:42Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-27T09:03:06Z -->
