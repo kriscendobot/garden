@@ -63,6 +63,7 @@ scripts/jobs/review-miss-record.sh cluster-status post-gauntlet-fixer-change-unr
   --improved-by "<commits/files changed>"
 ```
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
