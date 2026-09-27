@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:42:36Z_
+_As of 2026-09-27T07:48:08Z_
 
 ## Latest
 
@@ -1005,15 +1005,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-proposal-compartments` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-proposal-compartments.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T02:07:45Z, latest 2026-09-27T06:40:23Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-proposal-compartments`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #8 (first seen 2026-09-27T02:07:45Z, latest 2026-09-27T07:46:41Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-proposal-compartments`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: 43f4fe6023e85f10ad3c04b3ce4bc11cbf0a313f (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 43f4fe6023e85f10ad3c04b3ce4bc11cbf0a313f). Diagnosis: This is the known deploy-lag false positive, not a new code defect.
->
-> The `garden-ci-watcher@kriscendobot-proposal-compartments` FATAL (`cannot acquire clone lock .../verify.lock after 3 waits ... 0 reclaim attempt(s)`) is the shared-VERIFY-clone-lock contention bug whose fix (`5620bdbe5f6` + `e6ea1d33fc8`, plus a chain of follow-on hardening commits) is already merged to `origin/main2` (`586aee8196b4`) but this host's root checkout is still pinned at `47b41af5a14`, 19 commits behind. Same recurring signature already logged repeatedly today across many repo slugs on this and other hosts (per memory).
->
-> The deploy hasn't rolled forward because `garden-rolling-deploy`'s canary (`oros-studio-garden-ce242c49`) has been stuck at `917115c9b772` for ~2h44m (marker at `.garden-state/rolling-deploy/s
+> self-heal: garden-ci-watcher@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: d1a8064423fcb5eba3be2ccc1e165f1071903cca (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p d1a8064423fcb5eba3be2ccc1e165f1071903cca). Diagnosis: This is the recurring deploy-lag false positive documented in memory, not a new defect — no JOB emitted. The root checkout (HEAD `47b41af5a14`) is 27 commits behind `origin/main2` (`f2860db2ad05`), and the actual fix (`5620bdbe5f6` isolating CI-watcher clones per repo slug, plus `e6ea1d33fc8` and follow-on hardening) already landed on `main2` earlier today but hasn't rolled out to this host yet via the rolling deploy. No stuck-canary marker is present, so the deploy isn't wedged; it just hasn't reached this host. Systemd's restart plus the pending rollout will clear this once the root advances.
 
 - `watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots.md)
 
@@ -1631,7 +1627,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.1M | $271.76 _(notional, rate-card)_ | 22% of 143.0M (ok) |
+| Claude | 31.2M | $272.79 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 35.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56219348 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1640,26 +1636,26 @@ _Fleet token-unlock pace: 56219348 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (4)
-- [`improve-budget-level-single-host-cap-freeze`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-budget-level-single-host-cap-freeze.md) — ---
-- [`improve-ci-watcher-primary-quota-cooldown-too-short`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-watcher-primary-quota-cooldown-too-short.md) — ---
-- [`improve-receipt-watcher-direct-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-receipt-watcher-direct-dispatch.md) — ---
+### todo (3)
+- [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-retro-doom-escalation-noise.md) — ---
 - [`improve-ci-watcher-outage-latch-flap-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-watcher-outage-latch-flap-dedup.md) — ---
+- [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-build-follower-self-deploy.md) — Implement — the design's recommended path
 
-### doin (5)
-- [`improve-elapsed-constancy-escalation-include-capture`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-elapsed-constancy-escalation-include-capture.md) — ---
+### doin (6)
+- [`improve-budget-level-single-host-cap-freeze`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-budget-level-single-host-cap-freeze.md) — ---
+- [`improve-ci-watcher-primary-quota-cooldown-too-short`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-watcher-primary-quota-cooldown-too-short.md) — ---
 - [`claude-on-minion-town-press-20260927-072005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260927-072005.md) — Press the Claude-on-minion.town arc forward
+- [`improve-receipt-watcher-direct-dispatch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-receipt-watcher-direct-dispatch.md) — ---
 - [`fix-garden-ci-gauntlet-retry-viability-tests`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-garden-ci-gauntlet-retry-viability-tests.md) — Fix the garden repo's own CI: two failing test suites, broken 3+ days
-- [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-build-follower-self-deploy.md) — Implement — the design's recommended path
 - [`groom-endo-roadmap-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-roadmap-20260927.md) — Full grooming pass: designs/README.md on endojs/endo-but-for-bots@llm
 
-### tada (9110)
+### tada (9111)
+- [`improve-elapsed-constancy-escalation-include-capture`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/improve-elapsed-constancy-escalation-include-capture.md) — Cost
 - [`foreman-requiesce-target-0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/foreman-requiesce-target-0.md) — Completion report
 - [`kriscendobot-minion.town-pr119-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/kriscendobot-minion.town-pr119-conduct.md) — Cost
 - [`mentat-garden-docs-refresh-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/mentat-garden-docs-refresh-20260927.md) — Cost
 - [`daily-progress-summary-20260927-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/daily-progress-summary-20260927-070504.md) — Cost
-- [`fix-worktree-sweeper-leader-only-misgating-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-worktree-sweeper-leader-only-misgating-20260919.md) — Completion report: fix-worktree-sweeper-leader-only-misgating
-- … and 9105 more
+- … and 9106 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1710,7 +1706,6 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`endojs-endo-but-for-bots-pr1125-aff3b059-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-aff3b059-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr877-review-a8763cf9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr877-review-a8763cf9-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #877 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr982-0b4f9f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr982-0b4f9f5d-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #982 (primary: endojs-endo-but-f...
-- [`improve-retro-doom-escalation-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-retro-doom-escalation-noise.md) — _normal_ · ---
 - [`improve-self-heal-run-handler-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/improve-self-heal-run-handler-deadline.md) — _normal_ · ---
 - [`ironhorse-fuzz-05264cccae42245a-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-05264cccae42245a-repair.md) — _normal_ · Repair Ironhorse engine defect 05264cccae42245a (target differential_source) ...
 - [`ironhorse-fuzz-12aca768c2e73c73-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-12aca768c2e73c73-repair.md) — _normal_ · Fix Ironhorse fuzz finding 12aca768c2e73c73 (target differential_regexp) and ...
