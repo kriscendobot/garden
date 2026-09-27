@@ -52,3 +52,13 @@ end the report with these exact lines in order:
 
 <<<GARDEN-ORCHESTRATION-FAILED>>>
 <<<GARDEN-JOB-COMPLETE>>>
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T13:33:04Z
