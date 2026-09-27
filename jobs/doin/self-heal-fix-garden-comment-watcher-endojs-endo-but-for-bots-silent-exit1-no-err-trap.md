@@ -17,3 +17,13 @@ Add a diagnostic ERR trap next to the existing `trap 'cleanup' EXIT` / TERM / IN
   trap 'log "FATAL: rc=$? at line $LINENO: $BASH_COMMAND"' ERR
 
 Place it so it fires before cleanup's EXIT trap runs (both fire; ERR first, then EXIT), and confirm with bash -n plus a synthetic forced-failure smoke test (temporarily insert a `false` after the mint_retro call, run under bash -x, confirm the FATAL log line appears with the right line/command and rc is preserved through cleanup). Diagnostic-only — must not change happy-path behavior or the retry/CAS semantics of any other function in the script.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T14:50:05Z
