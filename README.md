@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:01:51Z_
+_As of 2026-09-27T07:04:44Z_
 
 ## Latest
 
@@ -323,13 +323,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-cosgov` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-cosgov.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-27T01:56:24Z, latest 2026-09-27T06:01:58Z).
-> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-cosgov`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> WATCHDOG notice — occurrence #7 (first seen 2026-09-27T01:56:24Z, latest 2026-09-27T07:03:17Z).
+> The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-cosgov`) has now been observed 7 times; this is ONE
+> coalesced notice that updates in place, not 7 messages. Latest detail:
 >
-> self-heal: garden-ci-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: 558e1a04151a7e04c79ab192de72869fba682ee2 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 558e1a04151a7e04c79ab192de72869fba682ee2). Diagnosis: This is a known, already-fixed issue that hasn't been deployed to this host yet — not a new defect.
+> self-heal: garden-ci-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: 725323c03898447d04f148d51b243e5468955d84 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 725323c03898447d04f148d51b243e5468955d84). Diagnosis: This confirms deploy lag: `.garden-state/deploy/last-deploy.log` shows an in-progress drain still waiting for mid-job gardeners, and the root checkout (currently at `47b41af5a14`) is **19 commits behind `origin/main2`**. Critically, the exact fix for this signature is upstream but not yet deployed:
 >
-> The blob shows `garden-ci-watcher@kriscendobot-cosgov` hitting the exact FATAL clone-lock-contention crash on `/home/kris/garden/.garden-state/ci-watcher/verify.lock` documented in my prior memory (`ci-watcher-clonelock-stderr-deploy-lag` and `ci-watcher-clone-lock-contention-fix-queued-not-deployed`). Checking the root checkout confirms deploy lag: `origin/main2` is 19 commits ahead of `HEAD` (`47b41af5a14`), and includes exactly the relevant fix chain not yet present locally — `5620bdbe5f6` (isolate CI watcher clones per slug), `e6ea1d33fc8` (skip quietly on live-holder contention), `4948cdd9a75` (hold clone_lock across verify_fetch), `ab66fece68f` (latch busy clone lock contention), 
+> - `5620bdbe5f6` — "fix: isolate CI watcher clones per slug"
+> - `e6ea1d33fc8` — "fix(jobs): skip quietly on live-holder clone-lock contention in ensure_clone_or_latch_outage"
+>
+> ...plus 7 more clone-lock-contention fixes layered on top of those (`c38cb55b172`, `ab66fece68f`, `1570aa85a47`, `4692b4df0e7`, `9dbda9d5573`, `4948cdd9a75`, `ad55dea66f9`, `49cf6544668`). None of these are ancestors of HEAD yet.
+>
+> The failure signature (`cannot acquire clone lock .../verify.lock after 3 waits ... a live
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town.md)
 
@@ -1604,7 +1609,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.2M | $256.42 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.3M | $257.91 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 79664009 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1613,26 +1618,27 @@ _Fleet token-unlock pace: 79664009 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (4)
+- [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
+- [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
+- [`endojs-endo-but-for-bots-pr675-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr675-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #675
+- [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
 
-### doin (2)
-- [`fix-worktree-sweeper-leader-only-misgating-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-worktree-sweeper-leader-only-misgating-20260919.md) — Evidence (endolin-garden2-5bcdff64, a FOLLOWER, 2026-09-18/19)
+### doin (1)
 - [`mentat-garden-docs-refresh-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-garden-docs-refresh-20260927.md) — Refresh the garden's documentation to match current workflows and cybernetics
 
-### tada (9105)
+### tada (9106)
+- [`fix-worktree-sweeper-leader-only-misgating-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-worktree-sweeper-leader-only-misgating-20260919.md) — Completion report: fix-worktree-sweeper-leader-only-misgating
 - [`fix-minion-town-claude-harness-supply-chain-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-minion-town-claude-harness-supply-chain-hardening.md) — Cost
 - [`endojs-endo-but-for-bots-pr990-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr990-refresh.md) — Completion report: endojs-endo-but-for-bots-pr990-refresh
 - [`evaluate-reauth-escalation-default-after-oauth-relay`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/evaluate-reauth-escalation-default-after-oauth-relay.md) — Cost
 - [`endojs-endo-but-for-bots-pr945-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr945-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr938-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr938-gauntlet-fix-1.md) — Cost
-- … and 9100 more
+- … and 9101 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _low_ · ---
 - [`endo-retention-set-disclosure-hold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-retention-set-disclosure-hold.md) — _normal_ · ---
-- [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — _normal_ · Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`make-panel-stage-survive-supervisor-session-exit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/make-panel-stage-survive-supervisor-session-exit.md) — _normal_ · Make panel execution survive supervising agent-session exit
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
@@ -1641,11 +1647,9 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919.md) — _normal_ · Refresh the @endo/claude confinement-core build (endojs/endo-but-for-bots#101...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1317-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1317-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1317
-- [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
 - [`endojs-endo-but-for-bots-pr1286-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1286-receipt.md) — _normal_ · receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1286 (me...
-- [`endojs-endo-but-for-bots-pr675-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr675-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #675
 - [`backfill-endo-claude-design-from-minion-town-production`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/backfill-endo-claude-design-from-minion-town-production.md) — _normal_ · Back-fill the Endo Claude inference design from minion.town production evidence
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
@@ -1659,7 +1663,6 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
-- [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
 - [`evaluate-reauth-escalation-default-after-oauth-relay-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay-20260927.md) — _low_ · Evaluate default reauth escalation once the browser OAuth relay lands
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`ebfb-exo-stream-pr1100-gauntlet-20260923-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-exo-stream-pr1100-gauntlet-20260923-clean.md) — _normal_ · Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1100
