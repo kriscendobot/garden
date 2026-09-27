@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T00:56:13Z_
+_As of 2026-09-27T01:00:50Z_
 
 ## Latest
 
@@ -159,14 +159,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
 
 > subscription codex-endolin changed zone backoff -> ok at spend=22990248 of cap=100.
-
-- `manual-gauntlet-handoff-endojs-endo-but-for-bots-pr360-gauntlet-panel-1-endojs-endo-but-for-bots-pr360` — from gardener:endojs-endo-but-for-bots-pr360-gauntlet-panel-1, reply_to `endojs-endo-but-for-bots-pr360-gauntlet-panel-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/manual-gauntlet-handoff-endojs-endo-but-for-bots-pr360-gauntlet-panel-1-endojs-endo-but-for-bots-pr360.md)
-
-> Manual gauntlet handoff for completed job `endojs-endo-but-for-bots-pr360-gauntlet-panel-1`: [https://github.com/endojs/endo-but-for-bots/pull/360](https://github.com/endojs/endo-but-for-bots/pull/360) is a bot-authored OPEN NON-DRAFT PR with no staged or completed gauntlet.
->
-> The implementation job is complete and has been terminalized instead of sending the same work through another agent run. The garden did not re-draft the PR and did not stage a gauntlet.
->
-> Maintainer action: if this PR should enter review, issue `run the gauntlet` for [https://github.com/endojs/endo-but-for-bots/pull/360](https://github.com/endojs/endo-but-for-bots/pull/360). Otherwise no action is required.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_maintainer_approval_verify.md)
 
