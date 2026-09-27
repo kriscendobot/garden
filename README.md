@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:36:28Z_
+_As of 2026-09-27T05:38:54Z_
 
 ## Latest
 
@@ -1190,6 +1190,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-1.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 1 (target 1): subscription claude-oros spend=394514 cap=73000000 pace-bias=0.509782 ceiling=1 target=1
+
+- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr762-f129f92247a0` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr762-f129f92247a0.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/762](https://github.com/endojs/endo-but-for-bots/pull/762) ([endojs/endo-but-for-bots#762](https://github.com/endojs/endo-but-for-bots/issues/762)) is in the mergeable queue with NO gauntlet review staged (head f129f92247a0e2aaf1a90e1a4f507af397d01dbc). Under the manual-gauntlet regime the garden no longer stages gauntlets automatically. If you want it reviewed, reply with 'run the gauntlet #762'; otherwise no action is needed. This audit never re-drafts or stages anything.
 
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
