@@ -1,0 +1,7 @@
+<6>14:08:34 [monk/1] requeued job 'claude-on-minion-town-press-20260927-133532' has no local transcript on endolin-garden2-5bcdff64; prior session and worktree were lost — starting FRESH session 1c6c551c-90f9-58c6-af97-f352440d953a with lost-state framing
+<6>14:08:34 [monk/1] job 'claude-on-minion-town-press-20260927-133532' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>14:08:34 [monk/1] job 'claude-on-minion-town-press-20260927-133532' call ceiling: tier=minion max-budget-usd=8.80 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
