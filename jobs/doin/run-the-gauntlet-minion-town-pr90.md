@@ -50,6 +50,7 @@ canonical base32 id minting, and reconciling the clip-id model against PRs #85/#
 (fresh-id-on-upgrade). The panel may keep flagging these; they are scoped out of
 this build and belong to the § 6 follow-on.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
