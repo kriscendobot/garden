@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:16:48Z_
+_As of 2026-09-27T05:17:50Z_
 
 ## Latest
 
@@ -1584,7 +1584,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.1M | $238.69 _(notional, rate-card)_ | 20% of 143.0M (ok) |
+| Claude | 28.2M | $239.97 _(notional, rate-card)_ | 20% of 143.0M (ok) |
 | Codex | 33.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 60230384 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1593,8 +1593,8 @@ _Fleet token-unlock pace: 60230384 tokens/day lower bound; incomplete where a su
 worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #871
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr879-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr879-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #879
