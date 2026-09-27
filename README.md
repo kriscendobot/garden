@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:39:55Z_
+_As of 2026-09-27T05:41:29Z_
 
 ## Latest
 
@@ -143,11 +143,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-27T02:00:48Z, latest 2026-09-27T05:36:00Z).
-> The SAME condition (`journal-outage-stuck`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-27T05:40:59Z).
+> It was observed 4 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal outage latch stuck on endolin-garden-ece02cb4 for 601s (limit 600s); skips this tick=4, trailing skips=4.
+> Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
 
 - `msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6` — from gardener:minion-town-guest-web-invite-accept-fallback-fix-post104, reply_to `minion-town-guest-web-invite-accept-fallback-fix-post104` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md)
 
@@ -1191,10 +1191,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 1 (target 1): subscription claude-oros spend=394514 cap=73000000 pace-bias=0.509782 ceiling=1 target=1
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr762-f129f92247a0` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr762-f129f92247a0.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/762](https://github.com/endojs/endo-but-for-bots/pull/762) ([endojs/endo-but-for-bots#762](https://github.com/endojs/endo-but-for-bots/issues/762)) is in the mergeable queue with NO gauntlet review staged (head f129f92247a0e2aaf1a90e1a4f507af397d01dbc). Under the manual-gauntlet regime the garden no longer stages gauntlets automatically. If you want it reviewed, reply with 'run the gauntlet #762'; otherwise no action is needed. This audit never re-drafts or stages anything.
-
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
@@ -1598,13 +1594,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.6M | $243.10 _(notional, rate-card)_ | 20% of 143.0M (ok) |
+| Claude | 28.7M | $243.54 _(notional, rate-card)_ | 20% of 143.0M (ok) |
 | Codex | 33.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 14% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 77676594 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 3 open notice(s); checker healthy
+worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
