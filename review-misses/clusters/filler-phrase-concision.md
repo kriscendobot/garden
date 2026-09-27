@@ -1,7 +1,7 @@
 ---
 slug: filler-phrase-concision
 category: style-convention
-status: improvement-dispatched
+status: closed
 count: 3
 members:
   - endojs-endo-but-for-bots-pr825-review-18fde0da
@@ -9,7 +9,9 @@ members:
   - endojs-endo-but-for-bots-pr1304-review-96879182
 prs: [825, 1281, 1304]
 improvement_job: review-improve-filler-phrase-concision
+improved_by: 7bd312a6379 roles/builder/AGENT.md, roles/fixer/AGENT.md, roles/jurors/pruner/AGENT.md, skills/panel-hints/probes/C-pruner.sh, scripts/jobs/gardening/pre-push-gates.sh, scripts/jobs/test/filler-phrase-concision-probe-test.sh
 ---
+
 
 
 
