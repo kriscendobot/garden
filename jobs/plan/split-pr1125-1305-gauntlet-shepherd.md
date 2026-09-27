@@ -1,6 +1,6 @@
 ---
 gate: orchestrated
-orchestrated_by: split-pr1125-stack-gauntlets
+orchestrated_by: split-pr1125-stack-gauntlets-resume
 priority: normal
 posted_by: producer
 posted_at: 2026-09-17T21:54:06Z
