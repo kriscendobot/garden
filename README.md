@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:43:27Z_
+_As of 2026-09-27T05:44:29Z_
 
 ## Latest
 
@@ -1606,18 +1606,17 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr871-gauntlet-20260901-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #871
 - [`endojs-endo-but-for-bots-pr897-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-weave-20260901.md) — Weave (rebase onto live llm) endojs/endo-but-for-bots PR #897
-- [`endojs-endo-but-for-bots-pr897-shepherd-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-shepherd-20260901.md) — ---
 
-### tada (9094)
+### tada (9095)
+- [`endojs-endo-but-for-bots-pr897-shepherd-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr897-shepherd-20260901.md) — Cost
 - [`endojs-endo-but-for-bots-pr879-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr879-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr887-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr887-gauntlet-panel-1.md) — Manual gauntlet handoff
 - [`endojs-endo-but-for-bots-pr871-gauntlet-20260901-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr871-gauntlet-20260901-viability.md) — Cost
 - [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endo-sturdyref-agent-surface-gauntlet-20260901.md) — Cost
-- [`endojs-endo-but-for-bots-pr762-gauntlet-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr762-gauntlet-20260902.md) — Manual gauntlet handoff
-- … and 9089 more
+- … and 9090 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
