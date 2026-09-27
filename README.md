@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:10:46Z_
+_As of 2026-09-27T05:12:22Z_
 
 ## Latest
 
@@ -1147,6 +1147,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Report the before/after target value and confirm the two prior tests pass.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_inbox_list_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_inbox_list_journal.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/inbox-list/journal: p95=45.001660s max=45.001660s; hard guard=31.500000s (70% of 45s cap); remedy=deferred.
+
 - `20260927T030945Z-79781c` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T030945Z-79781c.md)
 
 > kind: error
@@ -1586,7 +1590,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.7M | $236.86 _(notional, rate-card)_ | 19% of 143.0M (ok) |
+| Claude | 27.8M | $237.02 _(notional, rate-card)_ | 19% of 143.0M (ok) |
 | Codex | 33.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 60230384 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1598,8 +1602,8 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-sturdyref-agent-surface-gauntlet-20260901.md) — Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
 
 ### tada (9090)
 - [`endojs-endo-but-for-bots-pr762-gauntlet-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr762-gauntlet-20260902.md) — Manual gauntlet handoff
@@ -1837,7 +1841,6 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
-- [`endo-sturdyref-agent-surface-gauntlet-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-sturdyref-agent-surface-gauntlet-20260901.md) — awaiting `endojs-endo-but-for-bots-pr871-weave-20260901` · Run the gauntlet for endojs/endo-but-for-bots#871 (sturdyref agent surface)
 - [`minion-town-pr81-verify-live-after-pr118`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr81-verify-live-after-pr118.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/118` · Verify kriscendobot/minion.town#81 is live in production after kriscendobot/m...
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
