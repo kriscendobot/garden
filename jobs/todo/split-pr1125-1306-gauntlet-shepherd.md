@@ -33,13 +33,5 @@ serial, not parallel):
 
 Report the gauntlet outcome (rounds, must-fix, final CI state, un-draft status).
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T15:02:01Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-27T15:23:19Z -->

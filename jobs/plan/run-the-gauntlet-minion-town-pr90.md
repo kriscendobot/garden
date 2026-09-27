@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-27T15:13:22Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-27T15:13:22Z
+---
+
+---
 tier: mentor
 token-budget: 100000
 ---
@@ -49,17 +69,3 @@ PR body (do NOT treat as must-fix to block un-draft; they are follow-ons): live
 canonical base32 id minting, and reconciling the clip-id model against PRs #85/#88
 (fresh-id-on-upgrade). The panel may keep flagging these; they are scoped out of
 this build and belong to the § 6 follow-on.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-27T15:03:17Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T15:04:50Z
