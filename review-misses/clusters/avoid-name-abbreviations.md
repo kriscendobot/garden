@@ -24,6 +24,7 @@ improved_by: main2 aa2da527e5: scripts/jobs/gardening/pre-push-gates/probes/spel
 
 
 
+
 An abbreviated identifier in freshly-authored code (dir, Arg, subDir) that a panelled PR let through — the maintainer repeatedly asks names be spelled out in full; no code-panel naming seat or gate mechanically flags abbreviation.
 
 **Threshold rationale:** # Dispatch rationale — cluster `avoid-name-abbreviations`
@@ -50,3 +51,19 @@ deterministic gate is achievable.
 **Dispatching one** `review-improve-avoid-name-abbreviations` builder job, identity
 `review-cluster:avoid-name-abbreviations`, with the two-part contract (prevention +
 durable review-cycle sensing) and the per-member re-litigation test.
+
+**Threshold rationale:** # Hold rationale (retro endojs-endo-but-for-bots-pr1329-review-65578408-retro, 2026-09-27)
+
+Floor met (count=7, 6 distinct PRs) with the #1329 `db` member, but HOLD rather
+than dispatch a second review-improve job:
+- The #1329 member is already remedied on main2 (fbf05a3dd5, 2026-09-23): `db`
+  was added to the spell-out-identifiers blocklist with regression tests, and the
+  stylist brief now says copying a local abbreviated pattern is no exemption.
+- The cluster was already reopened by post-gate recurrence (#806, "gate
+  under-covered"), which escalates to the maintainer. Per the skill, a second
+  improvement round after a failed improvement should not start on autopilot.
+- Structural note for the maintainer's decision: every post-gate member is a
+  gap in the gate's curated list. Appending one token per maintainer comment
+  will not converge. A durable round would need a generalized detector (for
+  example, flag short all-consonant or dictionary-truncated identifier segments)
+  or a stylist lens that does not depend on an enumeration.
