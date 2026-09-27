@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:17:35Z_
+_As of 2026-09-27T07:18:07Z_
 
 ## Latest
 
@@ -29,6 +29,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_list` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-handler-budget-overrun-groom-endo-roadmap-20260927` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-groom-endo-roadmap-20260927.md)
+
+> gardener job 'groom-endo-roadmap-20260927' declared handler-timeout=21600s, which exceeds what a single claim can hold (max 14339s = GARDEN_CLAIM_TTL 14400s − GARDEN_HANDLER_KILL_AFTER 60s − 1). A run-to-completion handler that needs longer than one claim cannot be claim-scoped without breaking the duplicate-execution guard: after GARDEN_CLAIM_TTL the reaper would requeue the same base onto a second gardener while this one is still running. Run it DETACHED (outside the claim-scoped handler) or SPLIT it into claim-sized stages. This cycle the handler runs clamped at 14339s and will be SIGTERM-killed at that bound — it will not complete.
 
 - `doomed-endojs-endo-but-for-bots-pr356-gauntlet-fix-1-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr356-gauntlet-fix-1-requeue-exhausted.md)
 
@@ -1611,7 +1615,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.4M | $261.22 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.5M | $261.54 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61773171 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
