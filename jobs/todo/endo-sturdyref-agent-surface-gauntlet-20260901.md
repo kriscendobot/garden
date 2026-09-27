@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: endojs-endo-but-for-bots-pr871-weave-20260901
-priority: normal
-posted_by: producer
-posted_at: 2026-09-01T23:03:31Z
+role: gardener
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-27T05:11:08Z cleared=none -->
 
 ---
 role: gardener
