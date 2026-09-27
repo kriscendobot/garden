@@ -1,15 +1,17 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:self-heal-claude
-sent_at: 2026-09-27T05:31:23Z
+sent_at: 2026-09-27T06:40:23Z
 watchdog_key: self-heal-garden-ci-watcher-kriscendobot-proposal-compartments
-notice_count: 4
+notice_count: 6
 first_seen: 2026-09-27T02:07:45Z
-last_seen: 2026-09-27T05:31:23Z
+last_seen: 2026-09-27T06:40:23Z
 ---
-WATCHDOG notice — occurrence #4 (first seen 2026-09-27T02:07:45Z, latest 2026-09-27T05:31:23Z).
-The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-proposal-compartments`) has now been observed 4 times; this is ONE
-coalesced notice that updates in place, not 4 messages. Latest detail:
+WATCHDOG notice — occurrence #6 (first seen 2026-09-27T02:07:45Z, latest 2026-09-27T06:40:23Z).
+The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-proposal-compartments`) has now been observed 6 times; this is ONE
+coalesced notice that updates in place, not 6 messages. Latest detail:
 
-self-heal: garden-ci-watcher@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: 92fb9a4dae757cc601db73d40b2b99b3c8fc9f84 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 92fb9a4dae757cc601db73d40b2b99b3c8fc9f84). Diagnosis: This is the same known deploy-lag pattern already recorded in memory (`ci-watcher-clone-lock-contention-fix-queued-not-deployed`), now recurring for `kriscendobot-proposal-compartments`.
+self-heal: garden-ci-watcher@kriscendobot-proposal-compartments exited rc=1 with no scoped fix. Capture: 43f4fe6023e85f10ad3c04b3ce4bc11cbf0a313f (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 43f4fe6023e85f10ad3c04b3ce4bc11cbf0a313f). Diagnosis: This is the known deploy-lag false positive, not a new code defect.
 
-**Diagnosis:** `garden-ci-watcher@kriscendobot-proposal-compartments` FATAL'd with "cannot acquire clone lock .../verify.lock after 3 waits of 60s and 0 reclaim attempt(s)". The root checkout HEAD (`47b41af5a14`) is 26 commits behind `origin/main2` (`586aee8196b`), and that gap contains exactly the fix chain for this signature: `5620bdbe5f6` (isolate CI-watcher clones per slug), `e6ea1d33fc8`, `ab66fece68f`, `1570aa85a47`, `4948cdd9a75`, `c38cb55b172`, `ad55dea66f9`, `4692b4df0e7`, and `586aee8196b` (deterministic lock-holder readiness handshake). These are already merged to `main2` but not yet rolled out
+The `garden-ci-watcher@kriscendobot-proposal-compartments` FATAL (`cannot acquire clone lock .../verify.lock after 3 waits ... 0 reclaim attempt(s)`) is the shared-VERIFY-clone-lock contention bug whose fix (`5620bdbe5f6` + `e6ea1d33fc8`, plus a chain of follow-on hardening commits) is already merged to `origin/main2` (`586aee8196b4`) but this host's root checkout is still pinned at `47b41af5a14`, 19 commits behind. Same recurring signature already logged repeatedly today across many repo slugs on this and other hosts (per memory).
+
+The deploy hasn't rolled forward because `garden-rolling-deploy`'s canary (`oros-studio-garden-ce242c49`) has been stuck at `917115c9b772` for ~2h44m (marker at `.garden-state/rolling-deploy/s
