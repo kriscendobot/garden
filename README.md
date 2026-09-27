@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T08:40:44Z_
+_As of 2026-09-27T08:42:47Z_
 
 ## Latest
 
@@ -308,11 +308,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-26T21:36:13Z, latest 2026-09-27T08:36:56Z).
-> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` has CLEARED (first seen 2026-09-26T21:36:13Z, cleared 2026-09-27T08:41:10Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/pages-watcher/verify: gc.log present; size=260327424B packs=51 gc.log=1; automatic remedy=deferred.
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal.md)
 
@@ -332,8 +332,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1227](https://github.com/endojs/endo-but-for-bots/pull/1227)#discussion_r4114482956 (age=3600s; heartbeat=full-poll)
+> RECOVERED — the watchdog condition `comment-ack-blind-endojs-endo-but-for-bots` has CLEARED (first seen 2026-09-27T08:26:54Z, cleared 2026-09-27T08:42:13Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -360,6 +363,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > self-heal: garden-ci-watcher@kriscendobot-cosgov exited rc=1 with no scoped fix. Capture: b6c298962fc49a5a2fa28d8e0a98b7dc413bb037 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p b6c298962fc49a5a2fa28d8e0a98b7dc413bb037). Diagnosis: This confirms exactly the known deploy-lag pattern from memory: the fix for this FATAL (clone-lock contention on the shared `verify.lock`) already exists on `origin/main2` — commits `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder contention) plus several follow-on hardening commits — but the root checkout (`HEAD`) is 34 commits behind `origin/main2` and hasn't picked them up yet.
 >
 > This is not a new bug requiring a new fix job; it's the same already-fixed issue recurring purely because of deploy lag. Per my memory of this exact recurring pattern, I should not post a duplicate `self-heal-fix-*` job — the correct remedy is deploying the root checkout, which is a separate deliberate/drained operation, not something this diagnosis step sho
+
+- `watchdog-comment-ack-latency-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-latency-kriscendobot-garden.md)
+
+> Comment acknowledgment latency anomaly for kriscendobot/garden:
+> [https://github.com/kriscendobot/garden/issues/89](https://github.com/kriscendobot/garden/issues/89)#issuecomment-5853798459 (latency=3694s; heartbeat=offline-journal)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town.md)
 
@@ -1156,11 +1164,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp` has CLEARED (first seen 2026-09-26T12:35:45Z, cleared 2026-09-26T17:15:12Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-26T12:35:45Z, latest 2026-09-27T08:42:08Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-ymax-stdio-mcp: gc.log present; size=244824064B packs=51 gc.log=1; automatic remedy=deferred.
 
 - `watchdog-comment-watcher-dead-kriscendobot-proposal-compartments` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-proposal-compartments.md)
 
