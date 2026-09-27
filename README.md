@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T15:05:20Z_
+_As of 2026-09-27T15:08:33Z_
 
 ## Latest
 
@@ -942,11 +942,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-09-26T16:16:46Z, cleared 2026-09-27T13:47:01Z).
-> It was observed 16 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #17 (first seen 2026-09-26T16:16:46Z, latest 2026-09-27T15:07:31Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 17 times; this is ONE
+> coalesced notice that updates in place, not 17 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 2 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1790521926 set-by=receipt:kriscendobot-garden:journal prerequisite
+> journal-outage marker: 1790521751 cursor-get 
+> - kriscendobot/list: watcher ticking but cooldown for 1743s (since 2026-09-27T14:38:28Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 1785s (since 2026-09-27T14:37:46Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -2365,11 +2369,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-25T03:17:02Z, cleared 2026-09-27T12:17:39Z).
-> It was observed 780 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #781 (first seen 2026-09-25T03:17:02Z, latest 2026-09-27T15:08:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 781 times; this is ONE
+> coalesced notice that updates in place, not 781 messages. Latest detail:
 >
-> canary oros-studio-garden-ce242c49 is no longer stuck (release 773813fb507cecdfe1d66066b7e05f4fe2404b3b, deployed 586aee8196b4c03fdb68c7d2368856cb756de4eb).
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to b7e65392bdb8 20 min ago
+> but still reports deployed_sha 586aee8196b4c03fdb68c7d2368856cb756de4eb. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 - `watchdog-comment-watcher-dead-kriscendobot-cosgov` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-cosgov.md)
 
@@ -2429,7 +2437,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 35.5M | $306.74 _(notional, rate-card)_ | 25% of 143.0M (ok) |
+| Claude | 35.6M | $308.19 _(notional, rate-card)_ | 25% of 143.0M (ok) |
 | Codex | 43.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 56% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 52833056 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -2443,10 +2451,11 @@ worst fetch p95 45.001493s/45s (unknown); 3 open notice(s); checker healthy
 - [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/harness-provider-matrix-handoff-20260901.md) — Hand-off: harness × inference-provider matrix, and what to probe next
 - [`self-heal-fix-garden-issue-inbox-cursor-read-fail-open`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-issue-inbox-cursor-read-fail-open.md) — ---
 
-### doin (7)
+### doin (8)
 - [`oros-studio-health-restoration`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-studio-health-restoration.md) — Restore oros-studio's job-handler health: analyze, hypothesize, fix, validate
 - [`self-heal-fix-garden-issue-inbox-cursor-get-pipefail`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-get-pipefail.md) — ---
 - [`split-pr1125-1306-gauntlet-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/split-pr1125-1306-gauntlet-shepherd.md) — Gauntlet + shepherd for endojs/endo-but-for-bots#1306 (slice 2/3 of the #1125...
+- [`endojs-endo-but-for-bots-pr1345-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1345-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1345
 - [`weave-base-update-and-pin-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/weave-base-update-and-pin-alias.md) — ---
 - [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/run-the-gauntlet-minion-town-pr90.md) — ---
 - [`ironhorse-fuzz-af5b4a677483eac3-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-af5b4a677483eac3-repair.md) — Fix Ironhorse fuzz finding af5b4a677483eac3 (target differential_regexp_surfa...
