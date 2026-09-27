@@ -73,3 +73,13 @@ separately by job upgrade-fleet-to-main2-uniform-20260918.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T18:26:14Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T18:26:23Z
