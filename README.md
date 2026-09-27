@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:22:26Z_
+_As of 2026-09-27T07:23:52Z_
 
 ## Latest
 
@@ -1615,7 +1615,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.7M | $264.35 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.7M | $264.60 _(notional, rate-card)_ | 22% of 143.0M (ok) |
 | Codex | 34.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55637200 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1627,9 +1627,8 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`claude-on-minion-town-press-20260927-072005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260927-072005.md) — Press the Claude-on-minion.town arc forward
-- [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
 - [`groom-endo-roadmap-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/groom-endo-roadmap-20260927.md) — Full grooming pass: designs/README.md on endojs/endo-but-for-bots@llm
 
 ### tada (9108)
@@ -1653,6 +1652,7 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919.md) — _normal_ · Refresh the @endo/claude confinement-core build (endojs/endo-but-for-bots#101...
 - [`migrate-endo-but-for-bots-master-to-npm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-npm.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1317-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1317-dependabot.md) — _normal_ · botanist (auto: dependabot PR) on endojs/endo-but-for-bots PR #1317
+- [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — _normal_ · Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase2-module-source.md) — _normal_ · Build: SES import attributes — Phase 2 (module-source static with capture)
 - [`assess-evaluator-gaming-followup-20260814`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/assess-evaluator-gaming-followup-20260814.md) — _normal_ · Reassess evaluator gaming with durable panel evidence
 - [`endojs-endo-but-for-bots-pr1286-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1286-receipt.md) — _normal_ · receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1286 (me...
