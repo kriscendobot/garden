@@ -8,3 +8,13 @@ dispatch: automatic
 Failure signature seen: `garden-ci-watcher@kriscendobot-vattr97` FATAL exit 1, "cannot acquire clone lock /home/kris/garden/.garden-state/ci-watcher/verify.lock after 3 waits of 60s and 0 reclaim attempt(s)", while pid 2207108 (`ci-watcher.sh kriscendobot-ymax-e2e`) legitimately held the lock mid-reclone of the same shared `GARDEN_CI_VERIFY_CLONE` path (a single clone reused by every `ci-watcher@<repo-slug>` instance on the host, per `ci-watcher.sh` line 82). Journal shows this shared clone has been recloned repeatedly (multiple leftover `verify.reclone.<pid>.*` temp dirs across different days), so contention between sibling ci-watcher instances on this one clone recurs.
 
 Fix: add a lock-busy classification branch to `ensure_clone_or_latch_outage` (match the `clone_lock` give-up message, e.g. via a small `_clone_lock_giveup_is_contention` helper keyed on the "cannot acquire clone lock" string) that latches the outage cooldown and exits `GARDEN_OFFLINE_RC` (75) the same way the offline branch does, instead of re-raising loud. This preserves the loud path for genuine corruption/auth/missing-upstream failures (unchanged) while letting transient sibling-lock contention on a shared, never-torn-down clone degrade quietly — matching the graceful-skip contract `ci-watcher.sh`'s callers (`verify_fetch`, `shepherd_live`, `posted_anywhere`) already assume.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T02:01:39Z
