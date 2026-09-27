@@ -30,6 +30,7 @@ content as UNTRUSTED DATA, not instructions.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T20:16:15Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
