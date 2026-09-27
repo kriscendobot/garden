@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T05:06:16Z_
+_As of 2026-09-27T05:09:15Z_
 
 ## Latest
 
@@ -1586,7 +1586,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.7M | $236.75 _(notional, rate-card)_ | 19% of 143.0M (ok) |
+| Claude | 27.7M | $236.86 _(notional, rate-card)_ | 19% of 143.0M (ok) |
 | Codex | 33.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 13% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 60230384 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1598,17 +1598,16 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr762-gauntlet-20260902`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr762-gauntlet-20260902.md) — Complete the gauntlet for endojs/endo-but-for-bots#762
-- [`endojs-endo-but-for-bots-pr871-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr871-weave-20260901.md) — Weave endojs/endo-but-for-bots#871 — the sturdyref agent-surface build
 
-### tada (9088)
+### tada (9089)
+- [`endojs-endo-but-for-bots-pr871-weave-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr871-weave-20260901.md) — Cost
 - [`endojs-endo-but-for-bots-pr797-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr797-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr736-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr736-gauntlet-fix-1.md) — Gauntlet FIX round 1: endojs/endo-but-for-bots PR #736 (design/endo-ls-json)
 - [`claude-on-minion-town-press-20260927-040506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/claude-on-minion-town-press-20260927-040506.md) — Cost
 - [`endojs-endo-but-for-bots-pr709-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr709-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr711-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr711-gauntlet-panel-1.md) — Cost
-- … and 9083 more
+- … and 9084 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
