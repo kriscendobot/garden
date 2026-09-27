@@ -55,6 +55,7 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 <!-- garden-plain-retry-not-before: 2026-09-27T11:43:09Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=11,204 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
