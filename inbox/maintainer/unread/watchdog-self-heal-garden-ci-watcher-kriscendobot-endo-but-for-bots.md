@@ -1,15 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:self-heal-claude
-sent_at: 2026-09-27T04:35:53Z
+sent_at: 2026-09-27T05:53:11Z
 watchdog_key: self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots
-notice_count: 2
+notice_count: 4
 first_seen: 2026-09-27T03:10:42Z
-last_seen: 2026-09-27T04:35:53Z
+last_seen: 2026-09-27T05:53:11Z
 ---
-WATCHDOG notice — occurrence #2 (first seen 2026-09-27T03:10:42Z, latest 2026-09-27T04:35:53Z).
-The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots`) has now been observed 2 times; this is ONE
-coalesced notice that updates in place, not 2 messages. Latest detail:
+WATCHDOG notice — occurrence #4 (first seen 2026-09-27T03:10:42Z, latest 2026-09-27T05:53:11Z).
+The SAME condition (`self-heal-garden-ci-watcher-kriscendobot-endo-but-for-bots`) has now been observed 4 times; this is ONE
+coalesced notice that updates in place, not 4 messages. Latest detail:
 
-self-heal: garden-ci-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: e07778b97e90f9f6470a75ffd0087904688ec129 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p e07778b97e90f9f6470a75ffd0087904688ec129). Diagnosis: **Diagnosis: deploy lag, not a code defect — no JOB posted.**
-
-The `garden-ci-watcher@kriscendobot-endo-but-for-bots` FATAL (`cannot acquire clone lock .../verify.lock after 3 waits of 60s and 0 reclaim attempt(s)`) is a live-holder contention on the shared VERIFY clone. The fix for exactly this failure signature already exists on `origin/main2` (`5620bdbe5f6` isolate CI watcher clones per slug, `e6ea1d33fc8`/`5b48813cd0b` classify clone-lock busy-holder give-up as transient outage, plus a chain of later hardening commits) — but the deployed root checkout (HEAD `47b41af5a14`) is a strict ancestor of `origin/main2`, sitting 19 commits behind. This will self-resolve on the next deliberate `deploy-garden.sh` rollout; escalating or posting a fix job now would just duplicate work already me
+self-heal: garden-ci-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: ba3c7509ba1c61e6a0af35d5f77d211f4183c424 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p ba3c7509ba1c61e6a0af35d5f77d211f4183c424). Diagnosis: This confirms the exact known deploy-lag scenario from memory: the FATAL clone-lock-busy error on `garden-ci-watcher@kriscendobot-endo-but-for-bots` is already fixed upstream — `5620bdbe5f6` (isolate CI watcher clones per slug) and `e6ea1d33fc8` (skip quietly on live-holder contention), plus a dozen more related fixes, all sit on `origin/main2` but haven't reached the deployed root checkout (`HEAD` is 15 commits behind on exactly this lock-contention code path). This is environmental/deploy-lag, not a new code defect — no job needed; the rolling deploy will pick these commits up when it advances.
