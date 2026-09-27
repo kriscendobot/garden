@@ -108,3 +108,13 @@ and the validation evidence (job basenames + outcomes). If no, your ruled-out
 list and current best hypothesis for the next round. Either way, confirm the
 current state of `config/worker-leveling`'s oros-studio row and explain why
 you left it there.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T14:42:13Z
