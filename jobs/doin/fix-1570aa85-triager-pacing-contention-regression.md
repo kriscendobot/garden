@@ -31,3 +31,13 @@ until this is fixed.
    suites. Push to `main2`. Also run the same candidate gate `deploy-garden.sh` runs, if you can invoke it,
    so the next roll passes.
 3. Complete via the normal completion path.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T03:18:17Z
