@@ -81,9 +81,18 @@ refresh() {
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$VERIFY"
 }
 
+# Completion reports are date-sharded (tada_write_path): resolve by basename.
+tada_file() { # <base> -> path in the refreshed verify clone, or empty
+  find "$VERIFY/jobs/tada" -type f -name "$1.md" -print -quit 2>/dev/null
+}
+
 exists() { # <board-subdirectory> <base>
   refresh
-  [ -e "$VERIFY/$1/$2.md" ]
+  if [ "$1" = jobs/tada ]; then
+    [ -n "$(tada_file "$2")" ]
+  else
+    [ -e "$VERIFY/$1/$2.md" ]
+  fi
 }
 
 record_field() { # <gauntlet> <field>
@@ -92,8 +101,10 @@ record_field() { # <gauntlet> <field>
 }
 
 tada_body() {
+  local file
   refresh
-  cat "$VERIFY/jobs/tada/$1.md" 2>/dev/null
+  file=$(tada_file "$1")
+  [ -z "$file" ] || cat "$file"
 }
 
 tick() {

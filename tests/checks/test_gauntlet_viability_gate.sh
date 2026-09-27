@@ -50,7 +50,25 @@ refresh() {
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$VERIFY"
 }
 
-exists() { refresh; [ -e "$VERIFY/$1/$2.md" ]; }
+# Completion reports are date-sharded (tada_write_path): resolve by basename.
+tada_file() { # <base> -> path in the refreshed verify clone, or empty
+  find "$VERIFY/jobs/tada" -type f -name "$1.md" -print -quit 2>/dev/null
+}
+
+exists() { # <board-subdirectory> <base>
+  refresh
+  if [ "$1" = jobs/tada ]; then
+    [ -n "$(tada_file "$2")" ]
+  else
+    [ -e "$VERIFY/$1/$2.md" ]
+  fi
+}
+tada_body() { # <base>
+  local file
+  refresh
+  file=$(tada_file "$1")
+  [ -z "$file" ] || cat "$file"
+}
 tick() { "$JOBS/gauntlet.sh" >"$TEST_ROOT/tick.log" 2>&1; }
 post_gauntlet() { "$JOBS/post-gauntlet.sh" "$@" >/dev/null 2>&1; }
 
@@ -103,8 +121,7 @@ if exists jobs/tada overtaken && ! exists jobs/todo overtaken-clean; then
 else
   ko "an overtaken premise retires before clean"
 fi
-refresh
-overtaken_body=$(cat "$VERIFY/jobs/tada/overtaken.md")
+overtaken_body=$(tada_body overtaken)
 if printf '%s\n' "$overtaken_body" | grep -Fq 'gauntlet-status: not-viable' \
   && printf '%s\n' "$overtaken_body" | grep -Fq 'Option: close as superseded' \
   && printf '%s\n' "$overtaken_body" | grep -Fq 'Deciding question:'; then
@@ -122,8 +139,7 @@ post_gauntlet malformed testowner/testrepo#203
 tick
 complete_viability malformed overtaken
 tick
-refresh
-malformed_body=$(cat "$VERIFY/jobs/tada/malformed.md" 2>/dev/null)
+malformed_body=$(tada_body malformed)
 if printf '%s\n' "$malformed_body" | grep -Fq 'orchestration-status: halted' \
   && printf '%s\n' "$malformed_body" | grep -Fq "exact 'Option: close as superseded'"; then
   ok "an overtaken verdict without the close option fails closed"
