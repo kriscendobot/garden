@@ -78,11 +78,11 @@ Definition of done: the mechanism is implemented on `main2` (or a carve-out PR i
 it raised open questions), the deferred doc edits are reconciled, and the exercise
 evidence is in the report.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=14 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T07:53:06Z -->
 
+<!-- garden-transient-elapsed: kind=exit0 through=1 values=171 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
