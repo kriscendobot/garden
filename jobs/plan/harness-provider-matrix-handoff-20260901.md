@@ -1,4 +1,24 @@
 ---
+gate: go-ahead
+priority: normal
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-27T15:23:35Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-27T15:23:35Z
+---
+
+---
 tier: mentor
 ---
 <!-- garden-promoted-from-plan: gate=deferred priority=low at=2026-09-27T14:59:05Z cleared=none -->
@@ -180,17 +200,3 @@ key and Cloud access before wiring it into the fleet.
 - `scripts/jobs/common.sh` (`worker_kind_field`, `worker_kinds`, `resolve_model_tier`, `role_default_model`)
 - `scripts/jobs/handlers/monk-claude.sh`, `scripts/systemd/seed-api-key-handoff.sh`
 - `docs.ollama.com/api/anthropic-compatibility`, `docs.ollama.com/integrations/claude-code` (web, 2026-09-01)
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-27T15:13:18Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T15:13:51Z
