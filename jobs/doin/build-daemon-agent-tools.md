@@ -8,6 +8,7 @@ Build the next unblocked M3 increment for `endojs/endo-but-for-bots`: reconcile 
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=629 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
