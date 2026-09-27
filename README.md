@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T11:44:26Z_
+_As of 2026-09-27T11:47:55Z_
 
 ## Latest
 
@@ -148,6 +148,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo_but_for_bots` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_cosgov` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_cosgov.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-cosgov: gc.log present; size=143633408B packs=51 gc.log=1; automatic remedy=deferred.
+
 - `watchdog-comment-watcher-dead-kriscendobot-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-endo-but-for-bots.md)
 
 > RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-endo-but-for-bots` has CLEARED (first seen 2026-09-26T16:00:57Z, cleared 2026-09-26T16:08:19Z).
@@ -158,11 +162,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
 
-> RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-27T10:46:26Z).
-> It was observed 8 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #9 (first seen 2026-09-27T02:00:48Z, latest 2026-09-27T11:47:22Z).
+> The SAME condition (`journal-outage-stuck`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
+> Journal outage latch stuck on endolin-garden-ece02cb4 for 601s (limit 600s); skips this tick=6, trailing skips=6.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -878,11 +882,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_e2e` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_e2e.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-26T13:10:43Z, latest 2026-09-27T11:42:06Z).
-> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_e2e`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_e2e` has CLEARED (first seen 2026-09-26T13:10:43Z, cleared 2026-09-27T11:47:06Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-ymax-e2e: gc.log present; size=238745600B packs=51 gc.log=1; automatic remedy=deferred.
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_e2e` cleared on endolin-garden-ece02cb4.
 
 - `20260927T102624Z-c00655` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T102624Z-c00655.md)
 
@@ -1896,7 +1900,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 65646597 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 45.001493s/45s (unknown); 4 open notice(s); checker healthy
+worst fetch p95 45.001493s/45s (unknown); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (4)
