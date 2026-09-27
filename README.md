@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T13:45:38Z_
+_As of 2026-09-27T13:48:00Z_
 
 ## Latest
 
@@ -810,15 +810,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #16 (first seen 2026-09-26T16:16:46Z, latest 2026-09-27T13:21:52Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 16 times; this is ONE
-> coalesced notice that updates in place, not 16 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-09-26T16:16:46Z, cleared 2026-09-27T13:47:01Z).
+> It was observed 16 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 2 source(s); they post no acknowledgments while it holds.
-> gh-api cooldown marker: expiry=1790515584 set-by=receipt:kriscendobot-minion.town:journal prerequisite
-> journal-outage marker: 1790515418 cursor-get 
-> - kriscendobot/minion.town: watcher ticking but cooldown for 1543s (since 2026-09-27T12:56:09Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 1542s (since 2026-09-27T12:56:10Z)
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
