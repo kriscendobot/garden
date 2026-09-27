@@ -190,6 +190,12 @@ else
   bad "fallback warning was not deduplicated: $(tr '\n' ' ' < "$FALLBACK_OUTPUT")"
 fi
 
+await_lock_holder() { # <ready-fifo> <lock-file>; block (bounded) until the holder reports it holds the lock
+  local signal=""
+  read -r -t 20 signal <> "$1" || true
+  [ "$signal" = ready ] && ! flock -n "$2" true
+}
+
 # A LIVE holder of the pacing clone's lock must make the nonessential refresh fail
 # FAST and OPEN — one short bounded wait, then the existing pacing warning latch —
 # never the default 3×60s wait ladder followed by a FATAL die merely to schedule a
@@ -198,9 +204,16 @@ CONTEND_STATE="$TEMPORARY_ROOT/contend-state"
 mkdir -p "$CONTEND_STATE/triager-pace"
 PACE_CLONE_LOCK="$CONTEND_STATE/triager-pace/journal.lock"
 : > "$PACE_CLONE_LOCK"   # empty stamp → never reads as stale, so soft mode cannot reclaim it
-( exec 9<>"$PACE_CLONE_LOCK"; flock -x 9; sleep 40 ) &
+# Deterministic readiness handshake: the holder signals on a FIFO only AFTER flock
+# returns, and the test blocks on that read (bounded) before running the tick, so the
+# contention assertion never races the holder's acquisition. The holder then execs
+# sleep so the kill below reaches the process actually holding fd 9.
+HOLDER_READY="$TEMPORARY_ROOT/contend-holder-ready"
+mkfifo "$HOLDER_READY"
+( exec 9<>"$PACE_CLONE_LOCK"; flock -x 9; echo ready > "$HOLDER_READY"; exec sleep 40 ) &
 HOLDER_PID=$!
-sleep 1   # let the holder acquire the exclusive lock before the tick runs
+await_lock_holder "$HOLDER_READY" "$PACE_CLONE_LOCK" \
+  || bad "contention lock holder never signalled that it holds the pacing-clone lock"
 CONTEND_OUTPUT="$TEMPORARY_ROOT/contend-output"
 if timeout 45 env GARDEN_TEST=1 GARDEN="$HOST" GARDEN_STATE="$CONTEND_STATE" \
     JOURNAL_REMOTE="$JOURNAL_REMOTE" JOURNAL_BRANCH=journal2 \
@@ -304,9 +317,12 @@ chmod +x "$CB_PROJECTOR"
 mkdir -p "$CB_STATE/triager-pace"
 CB_PACE_LOCK="$CB_STATE/triager-pace/journal.lock"
 : > "$CB_PACE_LOCK"   # empty stamp → never reads as stale, so soft mode cannot reclaim it
-( exec 9<>"$CB_PACE_LOCK"; flock -x 9; sleep 30 ) &
+CB_HOLDER_READY="$TEMPORARY_ROOT/cb-holder-ready"
+mkfifo "$CB_HOLDER_READY"
+( exec 9<>"$CB_PACE_LOCK"; flock -x 9; echo ready > "$CB_HOLDER_READY"; exec sleep 30 ) &
 CB_HOLDER_PID=$!
-sleep 1   # let the holder acquire the exclusive lock before tick 1 runs
+await_lock_holder "$CB_HOLDER_READY" "$CB_PACE_LOCK" \
+  || bad "contention-backoff lock holder never signalled that it holds the pacing-clone lock"
 
 cb_tick() { # <output-file> <now>
   timeout 45 env GARDEN_TEST=1 GARDEN="$HOST" GARDEN_STATE="$CB_STATE" \
