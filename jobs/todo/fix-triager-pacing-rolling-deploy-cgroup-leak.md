@@ -1,7 +1,8 @@
 ---
 role: fixer
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 Make `scripts/jobs/test/triager-pacing-test.sh` hermetic against the
@@ -70,13 +71,5 @@ the gate reliably. The immediate unstick of the leader itself is a separate
 maintainer decision (emergency GARDEN_DEPLOY_TEST_OVERRIDE=1 deploy) escalated
 separately by job upgrade-fleet-to-main2-uniform-20260918.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T18:14:18Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-27T18:26:14Z -->
