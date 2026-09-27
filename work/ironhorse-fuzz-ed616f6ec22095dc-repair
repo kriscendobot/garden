@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 4
+worker_kind: monk
+claimed_at: 2026-09-27T12:57:18Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-ironhorse-fuzz-ed616f6ec22095dc-repair
