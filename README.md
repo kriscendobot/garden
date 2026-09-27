@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-27T07:08:01Z_
+_As of 2026-09-27T07:12:32Z_
 
 ## Latest
 
@@ -1609,7 +1609,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.3M | $258.68 _(notional, rate-card)_ | 21% of 143.0M (ok) |
+| Claude | 30.3M | $259.03 _(notional, rate-card)_ | 21% of 143.0M (ok) |
 | Codex | 33.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 15% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55430589 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -1621,20 +1621,19 @@ worst fetch p95 8.425157s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### todo (1)
 - [`endojs-endo-but-for-bots-pr664-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr664-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #664
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
-- [`daily-progress-summary-20260927-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260927-070504.md) — Daily midnight Pacific progress summary
 - [`mentat-garden-docs-refresh-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-garden-docs-refresh-20260927.md) — Refresh the garden's documentation to match current workflows and cybernetics
 - [`endojs-endo-but-for-bots-pr675-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr675-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #675
 - [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
 
-### tada (9106)
+### tada (9107)
+- [`daily-progress-summary-20260927-070504`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/daily-progress-summary-20260927-070504.md) — Cost
 - [`fix-worktree-sweeper-leader-only-misgating-20260919`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-worktree-sweeper-leader-only-misgating-20260919.md) — Completion report: fix-worktree-sweeper-leader-only-misgating
 - [`fix-minion-town-claude-harness-supply-chain-hardening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/fix-minion-town-claude-harness-supply-chain-hardening.md) — Cost
 - [`endojs-endo-but-for-bots-pr990-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr990-refresh.md) — Completion report: endojs-endo-but-for-bots-pr990-refresh
 - [`evaluate-reauth-escalation-default-after-oauth-relay`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/evaluate-reauth-escalation-default-after-oauth-relay.md) — Cost
-- [`endojs-endo-but-for-bots-pr945-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr945-gauntlet-panel-1.md) — Cost
-- … and 9101 more
+- … and 9102 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
