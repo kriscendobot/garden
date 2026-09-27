@@ -9,6 +9,7 @@ Reconcile the M2 hardened-url-shim and hardened-text-codecs-shim records for end
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T21:06:17Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
