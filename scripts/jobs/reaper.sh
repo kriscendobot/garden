@@ -72,6 +72,19 @@
 #      GARDEN_GAUNTLET_HANDOFF_TIMEOUT, preventing self-healed exit-0 churn from making
 #      transient maintainer noise. See the deferred gauntlet-handoff spool below and
 #      gauntlet.sh § failed → retry_failed_stage.
+#      One further carve-out on the DOOM side: a `*-retro` job (the review-retrospective
+#      double loop's best-effort second loop, minted by comment-watcher.sh's mint_retro)
+#      that merely EXHAUSTS its generic retry budget is DROPPED QUIETLY — removed from the
+#      board and logged, with NO held-plan park, NO split-eligible mark, and NO
+#      maintainer-inbox notice — rather than escalated like an ordinary high-value job.
+#      This matches how the retro's own design already treats a lost retro-mint attempt
+#      ("costs one data point", "best-effort second loop, NOT freezing the cursor"): the
+#      full mark-split-eligible surfacing disproportionately floods the doom inbox (6 of 10
+#      requeue-exhausted doom notices on 2026-09-17 were retros). Only the generic
+#      requeue-exhausted / elapsed-constancy exhaustion of a NON-gauntlet retro is dropped;
+#      every other doom class (deadline-overrun split, policy-refusal quarantine,
+#      over-token-budget hold, gauntlet handoff) and every non-retro job class is UNCHANGED.
+#      See the retro-drop branch of the batch-requeue loop below.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -891,6 +904,7 @@ STALE=("${KEEP[@]}")
 # the lock re-entrantly).
 reaped=0
 doomed=0
+dropped=0
 staged=0
 declare -a DOOM_BASE=() DOOM_BODY=() DOOM_COUNT=() DOOM_OVERRUN=() DOOM_CONSTANCY=() DOOM_SIG=() DOOM_BUDGET=()
 declare -a DOOM_TOKEN_BUDGET=() DOOM_TOKEN_SPEND=() DOOM_PROGRESS=()
@@ -900,6 +914,10 @@ declare -a RETRY_BASE=() RETRY_KIND=() RETRY_COUNT=() RETRY_NOT_BEFORE=() RETRY_
 # non-gauntlet job) and whether this cycle carried transient proof — together they gate
 # the deferred gauntlet-handoff at flush time.
 declare -a DOOM_GAUNTLET=() DOOM_TRANSIENT=()
+# Parallel drop record for `*-retro` telemetry jobs dropped quietly on generic
+# requeue-exhaustion (no plan park, no notice) — carried only for the post-CAS
+# decision-ledger entry so the drop is still auditable off the maintainer inbox.
+declare -a DROP_RETRO_BASE=() DROP_RETRO_SIG=() DROP_RETRO_COUNT=()
 for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   sync_clone "$DIR"
   staged=0
@@ -908,9 +926,14 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   DOOM_SPLIT_ELIGIBLE=(); DOOM_SPLIT_REASON=()
   RETRY_BASE=(); RETRY_KIND=(); RETRY_COUNT=(); RETRY_NOT_BEFORE=(); RETRY_QUOTA_TYPE=(); RETRY_QUOTA_RESET_AT=()
   DOOM_GAUNTLET=(); DOOM_TRANSIENT=()
+  DROP_RETRO_BASE=(); DROP_RETRO_SIG=(); DROP_RETRO_COUNT=()
   mkdir -p "$DIR/$JOBS_TODO" "$DIR/$JOBS_PLAN"
   for base in "${STALE[@]}"; do
     spine="${base%.md}"
+    # A `*-retro` spine is the review-retrospective double loop's best-effort second
+    # loop; on generic requeue-exhaustion it is dropped quietly rather than escalated
+    # (see the retro-drop branch in the doom disposition below).
+    case "$spine" in *-retro) is_retro=1 ;; *) is_retro=0 ;; esac
     f="$DIR/$JOBS_DOIN/$base"
     [ -e "$f" ] || { log "'$base' already moved by someone else; skip"; continue; }
 
@@ -1165,7 +1188,28 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
       # markers, along with every other per-cycle hint, so neither a parked body nor
       # the split-orchestrator re-post can inherit a stale failure cycle.
       body="$(printf '%s\n' "$body" | strip_cycle_markers)"
-      if [ -z "$gauntlet_base" ] && [ "$split_reason" = deadline-overrun ]; then
+      if [ "$is_retro" -eq 1 ] && [ -z "$gauntlet_base" ] \
+         && { [ "$sig" = requeue-exhausted ] || [ "$sig" = elapsed-constancy ]; }; then
+        # RETRO TELEMETRY DROP. This `*-retro` spine is the review-retrospective double
+        # loop's best-effort second loop (comment-watcher.sh mint_retro/write_retro_body),
+        # whose own design treats a lost retro as low-stakes derived telemetry that "costs
+        # one data point" and is "NOT freezing the cursor". So a retro that merely
+        # exhausts its GENERIC retry budget (requeue-exhausted / elapsed-constancy — the
+        # split-eligible repeated-plain-exit family) is not worth the full held-plan park +
+        # mark-split-eligible + maintainer-inbox surfacing an ordinary high-value job earns;
+        # that disposition disproportionately floods the doom inbox (6 of 10
+        # requeue-exhausted doom notices on 2026-09-17 were retros). DROP it quietly:
+        # remove it from the board and log one line — no plan/, no split mark, no notice.
+        # Every OTHER doom class is unaffected here (a retro deadline-overrun still splits,
+        # a retro policy-refusal still quarantines, a retro over-token-budget still holds,
+        # and any gauntlet-retro is guarded out by the `-z gauntlet_base` test), and every
+        # NON-retro requeue-exhaustion still parks split-eligible + surfaces exactly as before.
+        git -C "$DIR" rm -q "$JOBS_DOIN/$base"
+        [ -e "$DIR/work/$spine" ] && git -C "$DIR" rm -q "work/$spine"
+        [ -d "$DIR/inbox/$spine" ] && git -C "$DIR" rm -qr "inbox/$spine"
+        DROP_RETRO_BASE+=("$spine"); DROP_RETRO_SIG+=("$sig"); DROP_RETRO_COUNT+=("$count")
+        log "retro-drop: '$spine' exhausted its generic retry budget (sig=$sig, cycles=$count); dropping quietly — best-effort review-retrospective telemetry, not parked or surfaced"
+      elif [ -z "$gauntlet_base" ] && [ "$split_reason" = deadline-overrun ]; then
         split_orchestration="${spine}-split"
         split_indivisible_child="${spine}-expanded-window"
         split_budget_max=$(( GARDEN_CLAIM_TTL - GARDEN_HANDLER_KILL_AFTER - 1 ))
@@ -1363,7 +1407,26 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   if commit_and_push "$DIR" "requeue: reaped $staged stale claim(s) by $GARDEN"; then
     contention_record "$DIR" push-attempts "$attempt"
     doomed=${#DOOM_BASE[@]}
-    reaped=$(( staged - doomed ))
+    dropped=${#DROP_RETRO_BASE[@]}
+    reaped=$(( staged - doomed - dropped ))
+    # A quietly-dropped `*-retro` telemetry job posts NO maintainer notice, but the
+    # drop is still recorded to the decision ledger (off the inbox) so the disposition
+    # remains auditable — the whole point is to move retro doom OUT of the inbox, not
+    # to make it invisible. Recorded only after the batch CAS lands, like every other
+    # reaper decision, so a lost push race cannot leave a false record.
+    for i in "${!DROP_RETRO_BASE[@]}"; do
+      cleanup_terminal_project_worktrees "${DROP_RETRO_BASE[$i]}"
+      if decision_input_json="$(jq -cn --arg base "${DROP_RETRO_BASE[$i]}" \
+        --arg signature "${DROP_RETRO_SIG[$i]}" --arg cycles "${DROP_RETRO_COUNT[$i]}" \
+        '{base:$base,signature:$signature,requeue_cycles:$cycles,classification:"retro-telemetry"}')"; then
+        record_decision --loop reaper --input-json "$decision_input_json" \
+          --decision drop-retro-telemetry \
+          --from-json "$(jq -cn --arg value "$JOBS_DOIN/${DROP_RETRO_BASE[$i]}.md" '$value')" \
+          --to-json "$(jq -cn '"(dropped)"')" \
+          --reason "best-effort review-retrospective second loop; a lost retro costs one data point, so generic requeue-exhaustion is dropped quietly rather than parked split-eligible and surfaced to the maintainer inbox" \
+          --outcome applied --outcome-detail "reap batch CAS accepted; dropped from the board, no plan park, no maintainer notice"
+      fi
+    done
     # The reap batch CAS is the actuation point. Record each job that moved into
     # the held plan queue only after that CAS lands; a rejected batch therefore
     # cannot leave a false decision record. Recording has its own bounded CAS loop
@@ -1582,9 +1645,9 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
   backoff "$attempt"
 done
 
-if [ "$reaped" -eq 0 ] && [ "$doomed" -eq 0 ] && [ "$staged" -ne 0 ]; then
+if [ "$reaped" -eq 0 ] && [ "$doomed" -eq 0 ] && [ "$dropped" -eq 0 ] && [ "$staged" -ne 0 ]; then
   contention_record "$DIR" push-attempts "$GARDEN_REAP_PUSH_ATTEMPTS"   # reached the CAS cap: a push wedge
   log "FAILED to land requeue of ${#STALE[@]} stale claim(s) after $GARDEN_REAP_PUSH_ATTEMPTS attempts"
   exit 1
 fi
-log "reaped $reaped stale claim(s); parked $doomed held claim(s) (doom or budget)"
+log "reaped $reaped stale claim(s); parked $doomed held claim(s) (doom or budget); dropped $dropped retro telemetry claim(s)"

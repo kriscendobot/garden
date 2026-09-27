@@ -303,6 +303,48 @@ else
 fi
 
 # ============================================================================
+hr; echo "SUBTEST 6 — RETRO DROP: a *-retro job is dropped quietly on requeue-exhaustion; a non-retro sibling still parks + surfaces"; hr
+# A `*-retro` job is the review-retrospective double loop's best-effort second loop
+# (comment-watcher.sh mint_retro); a lost retro is low-stakes telemetry that "costs one
+# data point". On exhausting its sole plain-exit retry it must be DROPPED QUIETLY (gone
+# from every board location, NO held-plan park, NO maintainer notice) rather than
+# escalated through the full mark-split-eligible + inbox surfacing. A NON-retro sibling
+# doomed in the SAME tick must STILL park split-eligible and surface — proving the
+# carve-out is scoped to `*-retro` and every other job class is unchanged.
+retro_base=kriscendobot-garden-pr72-review-fix-retro
+place_stale "$retro_base"
+place_stale keeper2
+run_reaper
+resync
+
+retro_ok=1
+[ -f "$V/jobs/doin/$retro_base.md" ] && { retro_ok=0; echo "    retro still present in doin/"; }
+[ -f "$V/jobs/plan/$retro_base.md" ] && { retro_ok=0; echo "    retro leaked into plan/ (should be dropped, not parked)"; }
+[ -f "$V/jobs/todo/$retro_base.md" ] && { retro_ok=0; echo "    retro leaked into todo/"; }
+[ -f "$V/inbox/maintainer/unread/doomed-$retro_base-requeue-exhausted.md" ] \
+  && { retro_ok=0; echo "    retro incorrectly surfaced a maintainer doom notice"; }
+grep -q "retro-drop: '$retro_base'" "$TR/reap.log" || { retro_ok=0; echo "    quiet retro-drop not logged"; }
+# the non-retro sibling STILL parks split-eligible + surfaces
+[ -f "$V/jobs/plan/keeper2.md" ] || { retro_ok=0; echo "    non-retro sibling keeper2 not parked in plan/"; }
+grep -q '^split_eligible: true$' "$V/jobs/plan/keeper2.md" 2>/dev/null || { retro_ok=0; echo "    keeper2 not marked split-eligible"; }
+[ -f "$V/inbox/maintainer/unread/doomed-keeper2-requeue-exhausted.md" ] || { retro_ok=0; echo "    keeper2 doom notice missing"; }
+[ "$retro_ok" -eq 1 ] \
+  && ok "retro dropped quietly (no plan, no notice, logged); non-retro sibling parks split-eligible + surfaces" \
+  || bad "retro-drop: plan=[$(ls "$V/jobs/plan" 2>/dev/null)] todo=[$(ls "$V/jobs/todo" 2>/dev/null)] doin=[$(ls "$V/jobs/doin" 2>/dev/null)] unread=[$(ls "$V/inbox/maintainer/unread" 2>/dev/null)]"
+
+# the drop is still auditable in the decision ledger (off the maintainer inbox)
+decision_ledger="$(find "$V/budget/decisions" -maxdepth 1 -name '*-testhost.jsonl' -print -quit 2>/dev/null || true)"
+if [ -n "$decision_ledger" ] && jq -e --arg base "$retro_base" '
+  select(.loop == "reaper" and .decision == "drop-retro-telemetry"
+    and .input.base == $base and .input.signature == "requeue-exhausted"
+    and .from == ("jobs/doin/" + $base + ".md")
+    and .outcome == "applied")' "$decision_ledger" >/dev/null; then
+  ok "retro drop leaves a durable reaper decision (drop-retro-telemetry) for audit"
+else
+  bad "retro drop decision record missing or malformed"
+fi
+
+# ============================================================================
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 hr
