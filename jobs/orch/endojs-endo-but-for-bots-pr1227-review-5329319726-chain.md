@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-build-guest-bot-incarnation-failure-notified: true
 child-endojs-endo-but-for-bots-build-guest-bot-incarnation-host: oros-studio-garden-ce242c49
 child-endojs-endo-but-for-bots-build-guest-bot-incarnation-reap-count: 0
 child-endojs-endo-but-for-bots-pr1227-conduct-20260927-host: oros-studio-garden-ce242c49
