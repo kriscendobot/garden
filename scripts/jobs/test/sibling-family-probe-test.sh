@@ -57,6 +57,12 @@ fires 'pr1099 harden+ses both touched, divergent (PR diff)' \
 fires 'pr475 immutable-arraybuffer lib.js host (a4767d542 / 4dbe5ffff)' \
   packages/immutable-arraybuffer/src/lib.js
 
+# #1125 aff3b059: formula-record.js hosts per-formula-type inspector branches; the
+# PR added host/guest planes+networks yet left the host registry slot unmirrored
+# (fix 4ca79d80d). The PR's diff touched the host file alongside the formulas.
+fires 'pr1125 daemon formula-record.js host (fix 4ca79d80d)' \
+  packages/daemon/src/formula-record.js packages/daemon/src/guest.js
+
 # --- Controls ---
 
 # A diff touching no seeded sibling family abstains (6ee3fda77 fix(cbor)).

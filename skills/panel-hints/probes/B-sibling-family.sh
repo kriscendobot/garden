@@ -21,6 +21,9 @@
 #   harden/make-hardener.js ~ ses/src/make-hardener.js  duplicated copies (#1099)
 #   immutable-arraybuffer/src/lib.js                     paired DataView/TypedArray
 #                                                        emulation constructors (#475)
+#   daemon/src/formula-record.js                         per-formula-type inspector
+#                                                        branches mirroring every
+#                                                        formula's reference slots (#1125)
 set -uo pipefail
 BASE=${BASE:-origin/master}
 
@@ -29,6 +32,7 @@ FAMILIES=(
   "pair|packages/hex/|packages/base64/|hex/base64 byte-codec twins (#1099/#573)"
   "pair|packages/harden/make-hardener.js|packages/ses/src/make-hardener.js|duplicated make-hardener copies (#1099)"
   "host|packages/immutable-arraybuffer/src/lib.js|paired DataView/TypedArray emulation constructors maintaining the reverse buffer-map invariant (#475)"
+  "host|packages/daemon/src/formula-record.js|per-formula-type inspector branches that must carry every reference slot the formula type declares (types.d.ts, manager.js dependency graph); #1125 added planes/networks but left host registry missing"
 )
 
 if [ "${1:-}" = "--files-stdin" ]; then
