@@ -54,6 +54,7 @@ end the report with these exact lines in order:
 <<<GARDEN-JOB-COMPLETE>>>
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=16 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
