@@ -200,12 +200,21 @@ head_pushable() {  # head_pushable <head-repo-full-name>
 # pre-check the live board so a shepherd already in flight is not re-posted.
 _VERIFY_FETCHED=""
 verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/tick unless fresh)
-  ensure_clone_or_latch_outage "$VERIFY" ci-watcher-verify  # timeout → quiet exit 75, not FATAL
+  local rc=0
+  # Hold the clone lock across the clone-check AND the fetch (mirrors comment-watcher):
+  # the per-slug clone normally has one user, but an overlapping run (a manual tick
+  # beside the systemd one, or a shared GARDEN_CI_VERIFY_CLONE override) must never
+  # race a check against a fetch into a corrupt clone and a forced full reclone.
+  clone_lock "$VERIFY"
+  # A subshell swallows ensure_clone's offline `exit`/die (and its internal
+  # clone_unlock only drops the subshell's fd copy); re-raise it after unlocking.
+  # ensure_clone_or_latch_outage: timeout → quiet exit 75, not FATAL.
+  if ( ensure_clone_or_latch_outage "$VERIFY" ci-watcher-verify ); then :; else rc=$?; clone_unlock "$VERIFY"; exit "$rc"; fi
   if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
-    journal_fetch "$VERIFY" >/dev/null 2>&1 || return 1
-    _VERIFY_FETCHED=1
+    if journal_fetch "$VERIFY" >/dev/null 2>&1; then _VERIFY_FETCHED=1; else rc=1; fi
   fi
-  return 0
+  clone_unlock "$VERIFY"
+  return "$rc"
 }
 # rc 0 if <base> is LIVE (todo/doin) on origin/journal2. A completed shepherd (tada)
 # does NOT count as live — but post-job.sh's own todo/doin/tada idempotency still

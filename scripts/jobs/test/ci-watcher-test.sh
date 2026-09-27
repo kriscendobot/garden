@@ -784,6 +784,34 @@ else
 fi
 
 # ============================================================================
+hr; echo "VLOCK — the VERIFY clone's fetch runs under its clone lock"; hr
+# A fetch shim probes (non-blocking) whether $VERIFY.lock is held at the moment each
+# VERIFY fetch runs, then fetches; an unlocked check+fetch could race an overlapping
+# run on the same clone into a corrupt clone and a forced reclone.
+VLOCK_LOG="$TR/vlock.log"; : > "$VLOCK_LOG"
+VLOCK_FETCH="$TR/vlock-fetch.sh"
+cat > "$VLOCK_FETCH" <<'SH'
+#!/bin/bash
+case "$GARDEN_FETCH_DIR" in
+  */ci-watcher/verify-*)
+    if flock -n "$GARDEN_FETCH_DIR.lock" true 2>/dev/null; then echo FREE; else echo HELD; fi >> "$VLOCK_LOG" ;;
+esac
+exec git -C "$GARDEN_FETCH_DIR" fetch -q origin "$JOURNAL_BRANCH"
+SH
+chmod +x "$VLOCK_FETCH"
+BARE_VL="$TR/vl.git"; seed_bare "$BARE_VL"
+FIX_VL="$TR/fix-vl.tsv"; prline 58 kriscendobot "$REPO" > "$FIX_VL"
+run_ci_env "$TR/state-vl" "$BARE_VL" "$FIX_VL" "58=0" "$SLUG" \
+  VLOCK_LOG="$VLOCK_LOG" GARDEN_FETCH_CMD="$VLOCK_FETCH" || true
+board_has "$BARE_VL" "$SLUG-pr58-shepherd" && ok "shepherd still posted with the locked verify fetch" \
+  || bad "shepherd job missing under the locked verify fetch"
+grep -qx HELD "$VLOCK_LOG" && ! grep -qx FREE "$VLOCK_LOG" \
+  && ok "every VERIFY fetch ran while holding the clone lock ($(grep -c . "$VLOCK_LOG") fetch(es))" \
+  || bad "a VERIFY fetch ran without the clone lock ($(tr '\n' ' ' < "$VLOCK_LOG"))"
+flock -n "$TR/state-vl/ci-watcher/verify-$SLUG.lock" true \
+  && ok "the VERIFY clone lock is released after the run" || bad "VERIFY clone lock still held after exit"
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
