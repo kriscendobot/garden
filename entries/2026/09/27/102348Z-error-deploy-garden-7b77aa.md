@@ -1,0 +1,19 @@
+---
+kind: error
+role: deploy-garden
+host: endolin-garden-ece02cb4
+at: 2026-09-27T10:23:51Z
+---
+kind: error
+
+# Deploy candidate test gate rejected main2
+
+candidate: `773813fb507cecdfe1d66066b7e05f4fe2404b3b`
+failing suites: scripts/jobs/test/triager-pacing-test.sh(rc=1; diagnostic=/home/kris/garden/.garden-state/deploy/candidate-gate-diagnostics/773813fb507cecdfe1d66066b7e05f4fe2404b3b/attempt2-01-scripts_jobs_test_triager-pacing-test.sh.log)
+
+Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+are host-local on `endolin-garden-ece02cb4` and retain at most
+`16384` bytes of output per suite.
+
+The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+for a deliberate emergency deploy after assessing this failure.
