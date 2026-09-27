@@ -1,0 +1,19 @@
+---
+kind: error
+role: deploy-garden
+host: endolin-garden2-5bcdff64
+at: 2026-09-27T07:48:52Z
+---
+kind: error
+
+# Deploy candidate test gate rejected main2
+
+candidate: `0350fdd5bda4fc9abdae0de590397f8445b0165f`
+failing suites: scripts/jobs/test/retry-narrowing-test.sh(rc=124; diagnostic=/home/kris/garden2/.garden-state/deploy/candidate-gate-diagnostics/0350fdd5bda4fc9abdae0de590397f8445b0165f/attempt2-01-scripts_jobs_test_retry-narrowing-test.sh.log)
+
+Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+are host-local on `endolin-garden2-5bcdff64` and retain at most
+`16384` bytes of output per suite.
+
+The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+for a deliberate emergency deploy after assessing this failure.
