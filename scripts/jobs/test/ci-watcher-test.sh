@@ -812,6 +812,33 @@ flock -n "$TR/state-vl/ci-watcher/verify-$SLUG.lock" true \
   && ok "the VERIFY clone lock is released after the run" || bad "VERIFY clone lock still held after exit"
 
 # ============================================================================
+hr; echo "V — default VERIFY/RETIRE clones are PER-SLUG (no shared clone_lock)"; hr
+# With GARDEN_CI_VERIFY_CLONE / GARDEN_CI_RETIRE_CLONE unset, each templated
+# garden-ci-watcher@<slug> instance must sync its OWN verify-<slug> / retire-<slug>
+# clone (and so its own sibling .lock), never the old shared ci-watcher/verify and
+# ci-watcher/retire whose single clone_lock made sibling instances FATAL on contention.
+# Two slugs share one GARDEN_STATE; each runs red→green so both the verify and the
+# retire (stale-shepherd sweep) clones are exercised.
+STATE_V="$TR/state-v"; BARE_V="$TR/v.git"; seed_bare "$BARE_V"
+SLUG_V2=kriscendobot-proposal-compartments
+FIX_V1="$TR/fix-v1.tsv"; prline 110 kriscendobot "$REPO" > "$FIX_V1"
+FIX_V2="$TR/fix-v2.tsv"; prline 111 kriscendobot "kriscendobot/proposal-compartments" > "$FIX_V2"
+run_ci "$STATE_V" "$BARE_V" "$FIX_V1" "110=0" "$SLUG"
+run_ci "$STATE_V" "$BARE_V" "$FIX_V2" "111=0" "$SLUG_V2"
+run_ci "$STATE_V" "$BARE_V" "$FIX_V1" "110=10" "$SLUG"
+run_ci "$STATE_V" "$BARE_V" "$FIX_V2" "111=10" "$SLUG_V2"
+for kind in verify retire; do
+  A="$STATE_V/ci-watcher/$kind-$SLUG"; B="$STATE_V/ci-watcher/$kind-$SLUG_V2"
+  if [ -d "$A/.git" ] && [ -d "$B/.git" ] && [ "$A" != "$B" ]; then
+    ok "default $kind clone is per-slug (distinct $kind-<slug> dirs per instance)"
+  else
+    bad "default $kind clone was not per-slug (A=$A exists=$([ -d "$A/.git" ] && echo y) B=$B exists=$([ -d "$B/.git" ] && echo y))"
+  fi
+  [ ! -e "$STATE_V/ci-watcher/$kind" ] && ok "no shared ci-watcher/$kind clone created" \
+    || bad "shared ci-watcher/$kind clone still created (instances would contend on one lock)"
+done
+
+# ============================================================================
 hr
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
