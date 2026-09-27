@@ -1,0 +1,7 @@
+<6>14:24:40 [monk/1] resuming session ae52b49c-e169-53e3-ac5d-880d8daee097 for requeued job 'kriscendobot-minion.town-pr68-retcon' in worktree /home/kris/garden2/scratch/gardener-wt-kriscendobot-minion.town-pr68-retcon
+<6>14:24:40 [monk/1] job 'kriscendobot-minion.town-pr68-retcon' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>14:24:40 [monk/1] job 'kriscendobot-minion.town-pr68-retcon' call ceiling: tier=minion max-budget-usd=8.80 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
