@@ -4631,10 +4631,9 @@ clone_lock_is_busy_contention() {  # <rc> <diagnostic>
 # loud rc=1 herd (two simultaneous cursor reads dying at once, the incident this
 # closes). Contract:
 #   * success: the clone is ready; return 0.
-#   * clone-lock contention with a live peer (clone_lock_is_busy_contention): skip
-#     this tick quietly with GARDEN_OFFLINE_RC but do NOT latch the host-wide journal
-#     outage cooldown — the journal is fine, only this one shared clone is busy, so
-#     unrelated journal readers on the host must keep running.
+#   * clone-lock contention with a live peer (clone_lock_is_busy_contention): latch
+#     the cooldown and skip this tick quietly with GARDEN_OFFLINE_RC, so sibling
+#     instances sharing the clone do not repeat the same bounded wait ladder.
 #   * a transient transport outage (a known offline signature, or the bounded
 #     ambiguous rc=1 clone-failure shape): latch the shared cooldown (the winner owns
 #     the single warning) and exit GARDEN_OFFLINE_RC so sibling reads/writes skip
@@ -4652,7 +4651,9 @@ ensure_clone_or_latch_outage() {
   diagnostic="$(cat "$err")"; rm -f "$err"
   [ "$rc" -eq 0 ] && return 0
   if clone_lock_is_busy_contention "$rc" "$diagnostic"; then
-    log "$tag: clone lock for $dir held by a live peer past the wait ladder; skipping this tick (no outage latch)"
+    if start_journal_outage_cooldown "$tag"; then
+      log "$tag: clone lock for $dir held by a live peer past the wait ladder; latched host cooldown ($(_journal_outage_secs)s) so sibling instances skip quietly"
+    fi
     exit "${GARDEN_OFFLINE_RC:-75}"
   fi
   if _fetch_stderr_is_offline "$diagnostic" \

@@ -170,18 +170,19 @@ run_clone_classify clone-ok 'ensure_clone() { :; }; ensure_clone_or_latch_outage
   && ok "a healthy clone returns 0 and latches nothing" \
   || bad "healthy clone exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
 
-# (a7) clone_lock giving up on a LIVE peer (the shared ci-watcher VERIFY clone) skips
-# quietly with GARDEN_OFFLINE_RC but does NOT latch the host-wide journal cooldown.
+# (a7) clone_lock giving up on a LIVE peer (the shared ci-watcher VERIFY clone)
+# latches and skips quietly with GARDEN_OFFLINE_RC, preventing sibling instances
+# from repeating the same bounded wait ladder during the cooldown.
 LOCK_BUSY_MARK='11:11:11 [t] FATAL: cannot acquire clone lock /s/ci-watcher/verify.lock after 3 waits of 60s and 0 reclaim attempt(s) (a live holder is still busy; if it is crashed, rm -f /s/ci-watcher/verify.lock)'
 rm -f "$MARKER"; rc=0
 CE="$TR/clone-lock-busy.err"
 run_clone_classify clone-lock-busy \
   'ensure_clone() { echo "'"$LOCK_BUSY_MARK"'" >&2; exit 1; }; ensure_clone_or_latch_outage /tmp/c ci-watcher-verify' \
   2>"$CE" || rc=$?
-{ [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ ! -e "$MARKER" ] \
-    && grep -q 'held by a live peer past the wait ladder; skipping this tick (no outage latch)' "$CE" \
+{ [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ -e "$MARKER" ] \
+    && grep -q 'held by a live peer past the wait ladder; latched host cooldown' "$CE" \
     && ! grep -q 'FATAL: cannot acquire clone lock' "$CE"; } \
-  && ok "live-holder clone-lock contention skips temporary-unavailable without latching" \
+  && ok "live-holder clone-lock contention latches and skips temporary-unavailable" \
   || bad "clone-lock busy exited $rc / marker $( [ -e "$MARKER" ] && echo present || echo absent)"
 
 # (a8) the same lock give-up alongside a definite local fault stays loud.
