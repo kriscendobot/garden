@@ -56,3 +56,13 @@ Route to a designer. Output: an update to (or successor of)
 
 Origin: PR #96 review comment
 https://github.com/kriscendobot/minion.town/pull/96#discussion_r4067419982
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T06:44:55Z
