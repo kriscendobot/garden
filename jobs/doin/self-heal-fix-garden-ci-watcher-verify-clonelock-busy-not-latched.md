@@ -14,3 +14,13 @@ Fix: extend `journal_bounded_fetch_is_ambiguous_outage` (or add a sibling check 
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T02:26:06Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T02:26:11Z
