@@ -812,6 +812,36 @@ flock -n "$TR/state-vl/ci-watcher/verify-$SLUG.lock" true \
   && ok "the VERIFY clone lock is released after the run" || bad "VERIFY clone lock still held after exit"
 
 # ============================================================================
+hr; echo "VBUSY — a busy live VERIFY lock holder is a quiet exit 75, not FATAL"; hr
+# verify_fetch takes the VERIFY clone lock SOFT: a live holder (an overlapping run)
+# must cost one short bounded wait and exit GARDEN_OFFLINE_RC (non-attributable to
+# self-heal), never the full wait ladder then a FATAL "cannot acquire clone lock".
+STATE_VB="$TR/state-vb"; BARE_VB="$TR/vb.git"; seed_bare "$BARE_VB"
+FIX_VB="$TR/fix-vb.tsv"; prline 59 kriscendobot "$REPO" > "$FIX_VB"
+VB_LOCK="$STATE_VB/ci-watcher/verify-$SLUG.lock"; mkdir -p "$(dirname "$VB_LOCK")"
+VB_READY="$TR/vb.ready"; rm -f "$VB_READY"
+# Live holder: flock the file and stamp it with its OWN live pid + fresh time, so
+# clone_lock's stale-reclaim path never steals it.
+( exec 9<>"$VB_LOCK"; flock 9; printf '%s %s\n' "$BASHPID" "$(date +%s)" >&9; : > "$VB_READY"; exec sleep 60 ) &
+VB_HOLDER=$!
+for _ in $(seq 1 100); do [ -e "$VB_READY" ] && break; sleep 0.05; done
+VB_ERR="$TR/vb.err"; vb_rc=0; vb_t0=$(date +%s)
+env GARDEN_STATE="$STATE_VB" JOURNAL_REMOTE="$BARE_VB" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_BOT_LOGIN=kriscendobot GARDEN_LOCK_WAIT=30 GARDEN_LOCK_SOFT_WAIT=1 \
+    GARDEN_CI_PR_SOURCE="$SRCSTUB" CI_FIXTURE="$FIX_VB" \
+    GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP="59=0" \
+    GARDEN_CI_POST="$JOBS/post-job.sh" \
+    "$JOBS/ci-watcher.sh" "$SLUG" >/dev/null 2>"$VB_ERR" || vb_rc=$?
+vb_dt=$(( $(date +%s) - vb_t0 ))
+kill "$VB_HOLDER" 2>/dev/null || true; wait "$VB_HOLDER" 2>/dev/null || true
+[ "$vb_rc" -eq 75 ] && ok "busy VERIFY lock → exit 75 (GARDEN_OFFLINE_RC)" \
+  || bad "busy VERIFY lock exited rc=$vb_rc, want 75 ($(tail -n 3 "$VB_ERR" | tr '\n' ' '))"
+! grep -q 'FATAL' "$VB_ERR" && ok "no FATAL on busy VERIFY lock" \
+  || bad "FATAL emitted on busy VERIFY lock ($(grep FATAL "$VB_ERR" | head -n 1))"
+[ "$vb_dt" -lt 25 ] && ok "failed open after the short soft wait (${vb_dt}s), not the ${GARDEN_LOCK_WAIT:-30}s ladder" \
+  || bad "busy VERIFY lock waited ${vb_dt}s (the hard ladder ran)"
+
+# ============================================================================
 hr; echo "V — default VERIFY/RETIRE clones are PER-SLUG (no shared clone_lock)"; hr
 # With GARDEN_CI_VERIFY_CLONE / GARDEN_CI_RETIRE_CLONE unset, each templated
 # garden-ci-watcher@<slug> instance must sync its OWN verify-<slug> / retire-<slug>

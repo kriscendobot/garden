@@ -205,10 +205,16 @@ verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/ti
   # the per-slug clone normally has one user, but an overlapping run (a manual tick
   # beside the systemd one, or a shared GARDEN_CI_VERIFY_CLONE override) must never
   # race a check against a fetch into a corrupt clone and a forced full reclone.
-  clone_lock "$VERIFY"
+  # This board check is OPTIONAL per-tick work (a missed tick only delays a shepherd
+  # post/retire to the next firing), so take the lock SOFT, as the triager does for
+  # its pacing clone: a busy live holder costs one short bounded wait and a quiet
+  # exit GARDEN_OFFLINE_RC (75, non-attributable to self-heal) — never the 3×60s
+  # ladder and a FATAL rc=1 "cannot acquire clone lock .../verify*.lock".
+  GARDEN_CLONE_LOCK_SOFT=1 clone_lock "$VERIFY"
   # A subshell swallows ensure_clone's offline `exit`/die (and its internal
   # clone_unlock only drops the subshell's fd copy); re-raise it after unlocking.
-  # ensure_clone_or_latch_outage: timeout → quiet exit 75, not FATAL.
+  # Lock contention (above) or ensure_clone_or_latch_outage's network timeout / busy
+  # peer → quiet exit 75, not FATAL.
   if ( ensure_clone_or_latch_outage "$VERIFY" ci-watcher-verify ); then :; else rc=$?; clone_unlock "$VERIFY"; exit "$rc"; fi
   if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
     if journal_fetch "$VERIFY" >/dev/null 2>&1; then _VERIFY_FETCHED=1; else rc=1; fi

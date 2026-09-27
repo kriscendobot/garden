@@ -4041,7 +4041,8 @@ clone_lock() {
   # and a fail-open WARN+exit instead of the FATAL give-up (§ GARDEN_LOCK_SOFT_WAIT).
   # The give-up EXITS (like die) rather than returning, so ensure_clone/sync_clone —
   # which never check clone_lock's status — abandon the optional refresh cleanly
-  # instead of proceeding lock-less. Only ever set for the triager pacing subshell.
+  # instead of proceeding lock-less. Set only for optional work (the triager pacing
+  # subshell, ci-watcher's verify_fetch board check, journal-contention-watch remedies).
   local wait="$GARDEN_LOCK_WAIT" retries="$GARDEN_LOCK_RETRIES"
   if [ "${GARDEN_CLONE_LOCK_SOFT:-0}" = 1 ]; then wait="$GARDEN_LOCK_SOFT_WAIT"; retries=1; fi
   [ -n "${_CLONE_LOCK_FD[$dir]:-}" ] && return 0       # this process already holds it
