@@ -44,15 +44,4 @@ Base: endojs/endo-but-for-bots  branch llm
 
 Posted by the conductor (pr897-conduct) after a needs-weave rebase refusal.
 
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-27T05:42:59Z
+<!-- garden-reaped: 0 -->
