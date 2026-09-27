@@ -81,3 +81,13 @@ table (claimed → verified, with PR citations) so every correction is auditable
 Land as a draft PR against a frozen `llm-<sha>` snapshot per
 [frozen-base-branch](../../skills/frozen-base-branch/SKILL.md) — never bare
 floating `llm`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T07:16:53Z
