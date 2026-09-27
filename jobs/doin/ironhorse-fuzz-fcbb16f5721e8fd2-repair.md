@@ -62,6 +62,7 @@ pull request for fuzz findings.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-27T14:03:14Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
