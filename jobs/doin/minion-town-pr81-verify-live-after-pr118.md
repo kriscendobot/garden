@@ -32,3 +32,13 @@ This job is unblocked when kriscendobot/minion.town#118 merges. Then:
 3. Comment a short note on kriscendobot/minion.town#81: deployed and ready for evaluation. Mention
    the /account gate arming.
 If the deploy fails again, diagnose it from the journal dump that #118 adds to the smoke-failure log.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-27T08:51:17Z
