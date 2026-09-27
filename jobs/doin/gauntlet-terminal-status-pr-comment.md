@@ -33,3 +33,13 @@ thread gets no loop-status line. So a green DRAFT sits with no visible
    does not fail the finish.
 3. Update skills/pr-creation-flow (or the gauntlet docs) to say where the terminal
    status is surfaced.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-27T15:42:37Z
