@@ -1,0 +1,36 @@
+<6>07:37:38 [monk/1] job 'endojs-endo-but-for-bots-pr1298-gauntlet-fix-3' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>07:37:38 [monk/1] job 'endojs-endo-but-for-bots-pr1298-gauntlet-fix-3' call ceiling: tier=mentor max-budget-usd=15.40 (scaled by fresh seven-day headroom when available)
+panel-head-freshness: managed target=endojs-endo-but-for-bots-pr1298-gauntlet-fix-3 disposition=gauntlet-driver-owns-next-panel
+<6>09:07:45 [assert-followup-posted] gate: BLOCK — 'endojs-endo-but-for-bots-pr1298-gauntlet-fix-3' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# Fix round 3 — endojs/endo-but-for-bots #1298: fixes pushed, CI still pending
+
+All six must-fix items from the panel-3 review are applied and pushed to `kriscendobot:ironhorse-fuzz-findings`. CI did not reach a result before the 3600s deadline: when time ran out, 26 of 33 checks had passed, none had failed, and 7 test jobs were still running. The main cause is a peer (the continuous-fuzz producer) that kept pushing new finding locks during the wait. Each push restarted CI, so no single head finished.
+
+## What changed
+1. **`results_agree` (breaker, wire-watcher):** when the oracle reports that the result is not a Number, the harness now requires the two strings to be byte-identical. I deleted `as_ecma_number`. New regression tests: the String `"51298827675632340"` vs `"51298827675632344"`, `"1e2"` vs `"100"`, and `"100000000000000000000"` vs `"1e+20"` must all diverge. The proptest now checks only the Number path.
+2. **Fixtures tied to their inputs (wire-watcher):**
+   - Every VM finding test that has an input fixture now asserts the input's cited sha256, using the in-tree `ironhorse-meter` sha256 (no new dependency).
+   - New test `ironhorse-fuzz/tests/vm_finding_fixtures.rs` regenerates each program, regexp-case, bytecode and symbols fixture from its input and requires a byte-for-byte match. Setting `IRONHORSE_BLESS_VM_FIXTURES=1` rewrites them.
+   - All 20 existing bytecode fixtures that have an input regenerated identically. Four older bytecode fixtures from the base branch have no input file, so the test skips them.
+3. **Pasted generator copies (integrator):** I removed all 28 pasted generator copies, plus one more in a lock the peer added mid-job. Each generated program or regexp case is now a checked-in fixture file (`finding-<id>.program.txt` or `finding-<id>.regexp-case.txt`), and a new `tests/common/fixtures.rs` reads the regexp-case files.
+4. **Stale docs:** updated `rust/engine/README.md`, `ARCHITECTURE.md` and the `ironhorse-text` crate doc. The finding tests' doc comments no longer mention "the standing branch", local generator copies, or the old parse-equality check; they name `xs_oracle::number_to_ecma_string` over `OracleOutcome::result_number` instead.
+5. **Commit grouping:** all 6 `style(...)` commits are folded into the commits whose lines they reformatted, matched hunk by hunk with `git blame`. `4b95dc199` is folded into `fdb9fef6e`, and `02c92f512` into `3f0af44b0`, each with a combined message. Before adding my changes, I confirmed the regrouped tree was identical to the old head. That left 78 commits; my follow-up commits sit on top of them.
+6. **Code points:** replaced `…`, `×` and `−` with ASCII in the named doc comments, including the VM test files.
+
+I also took some of the comment-only suggestions:
+- A single shared `ironhorse_text::number::number_to_ecma_string`; the parser and VM wrappers now call it, and the parser's stale comment is gone.
+- `number.rs` now states that IronHorse's Number spelling intentionally departs from XS's `fxNumberToString`.
+- A new xs-oracle test checks that a `-0` result keeps its sign bit.
+
+I updated the PR body to describe the fixture checks. Because of the regroup, the push used `safe-push-pr-head.sh --mode rewrite` (a force-push). The peer had pushed two locks in the meantime; I cherry-picked them onto the new history so none of their work was lost.
+
+**Local verification:** all new VM finding tests and the ironhorse-fuzz, ironhorse-text, ironhorse-compile, xs-oracle and ironhorse-262 suites pass; the standalone `rustc --test comparison.rs` passes; `cargo +1.88.0 fmt --check` and `clippy --workspace -D warnings` are clean.
+
+## Follow-ups
+- **CI on the latest head (`91f38a663`) still needs to finish;** the driver should re-post this stage.
+- **The peer added a new `style(ironhorse)` rustfmt fixup commit (`c9c0d95d9`)** after my regroup. That is the same interleaved-style pattern the integrator flagged, and a later round may need to fold it. Its new locks do follow the new conventions: sha asserts and no pasted generators.
+- **Some older finding tests from the base branch still have stale doc prose** (for example `finding_314f811064b8febb`, `finding_7152c1a9960a0688` and `finding_d99d263fcf6ca7a7`). I left them alone because they are outside this PR's diff.
+
+<!-- gauntlet-stage-result: fix=still-pending -->
