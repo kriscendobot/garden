@@ -9,6 +9,7 @@ Wear `roles/botanist/AGENT.md` and re-evaluate every due Dependabot embargo row 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-28T01:46:14Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
