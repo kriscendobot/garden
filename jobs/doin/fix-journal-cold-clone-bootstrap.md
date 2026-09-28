@@ -36,3 +36,13 @@ the same stuck workers (fleet-wide only 3 jobs were running with 8 monks declare
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-28T09:56:13Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T09:56:28Z
