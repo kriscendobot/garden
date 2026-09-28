@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: designer
+tier: mentat
+handler-timeout: 10800
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-28T07:56:18Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-28T07:56:18Z
+---
+
+---
 tier: mentat
 dispatch: manual
 ---
@@ -45,19 +67,3 @@ any), the open questions for the maintainer, and a proposed build sequence (as s
 - **Specialized indelible capabilities for guests on this platform, related to queuing and scheduling** (Queues, Cron Triggers, Durable Object alarms, Workflows): design what a guest-held capability to enqueue or schedule would look like, how it stays attenuable and revocable in the ocap model, and how it is metered.
 - The runtime question: can the daemon or its workers run on Workers/DO (V8 isolates, SES/lockdown compatibility, limits), or does Cloudflare serve only as the persistence and edge layer in front of containers elsewhere? Compare the options.
 - Output `designs/cloudflare-backend.md`.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-28T07:46:17Z -->
-
-<!-- garden-transient-elapsed: kind=signature through=1 values=4,8 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-28T07:48:16Z
