@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T01:11:46Z_
+_As of 2026-09-28T01:32:57Z_
 
 ## Latest
 
@@ -535,6 +535,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
+- `20260928T012322Z-a069e5` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T012322Z-a069e5.md)
+
+> M2’s remaining records are draft PRs: reconcile hardened-url-shim via [endojs/endo-but-for-bots#1355](https://github.com/endojs/endo-but-for-bots/issues/1355) and complete the XS smoke coverage via #1349. Please decide whether to run the gauntlet on these drafts; no autonomous work job can advance the manual-review gate.
+
 - `watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness.md)
 
 > RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` has CLEARED (first seen 2026-09-26T16:25:29Z, cleared 2026-09-27T10:22:20Z).
@@ -763,6 +767,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `20260928T011318Z-526106` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T011318Z-526106.md)
+
+> M2 is blocked at draft PR [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) for the hardened TextEncoder/TextDecoder XS smoke check; all CI is green. Decide whether to promote it by running the gauntlet.
 
 - `doomed-build-hardened-url-shim-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-build-hardened-url-shim-requeue-exhausted.md)
 
@@ -1252,11 +1260,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-09-26T16:16:46Z, cleared 2026-09-28T01:00:54Z).
-> It was observed 37 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #38 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T01:25:44Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 38 times; this is ONE
+> coalesced notice that updates in place, not 38 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 10 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1790559000 set-by=receipt:kriscendobot-minion.town:journal prerequisite
+> - kriscendobot/cosgov: watcher ticking but cooldown for 2114s (since 2026-09-28T00:50:30Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 1372s (since 2026-09-28T01:02:52Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 1794s (since 2026-09-28T00:55:50Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2549s (since 2026-09-28T00:43:15Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2554s (since 2026-09-28T00:43:10Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1383s (since 2026-09-28T01:02:41Z)
+> - kriscendobot/list: watcher ticking but cooldown for 1795s (since 2026-09-28T00:55:49Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 1789s (since 2026-09-28T00:55:55Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 2549s (since 2026-09-28T00:43:15Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 1371s (since 2026-09-28T01:02:53Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -1457,11 +1476,23 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-25T10:20:11Z, cleared 2026-09-27T11:20:18Z).
-> It was observed 4 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-25T10:20:11Z, latest 2026-09-28T01:24:55Z).
+> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
+> Rolling deploy HALTED on a failed canary.
+> canary host: oros-studio-garden-ce242c49
+> target sha:  18f02975bc8cbe47860b58ed0eb4a1349c2b8012
+> failing signal: released 1821s ago, no deferral published for 1821s (budget 1500s), never advanced to the target sha (deploy stuck/failed on the canary)
+> This canary was RETRIED 3 time(s) automatically and kept
+> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
+> confirmed regression, not a transient blip — treat it as higher severity than a
+> first-tick halt.
+> The roll released no further followers and the LEADER did NOT advance itself — a
+> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
+> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
+> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
+> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -2119,8 +2150,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal.md)
 
-> RECOVERED — the watchdog condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-27T12:33:19Z, cleared 2026-09-28T00:38:15Z).
-> It was observed 6 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-27T12:33:19Z, cleared 2026-09-28T01:27:30Z).
+> It was observed 7 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` cleared on oros-studio-garden-ce242c49.
@@ -3256,9 +3287,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 38.2M | $329.20 _(notional, rate-card)_ | 27% of 143.0M (ok) |
-| Codex | 56.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Codex | 56.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 48760576 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 46274736 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 8.969282s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 3 open notice(s); checker healthy
@@ -3267,16 +3298,18 @@ worst fetch p95 8.969282s/45s (/home/kris/garden/.garden-state/regenerate-topics
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (3)
+- [`claude-on-minion-town-completion-press-20260928-012250`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260928-012250.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`claude-on-minion-town-press-20260928-012250`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260928-012250.md) — Press the Claude-on-minion.town arc forward
+- [`dependabotany-recheck-endo-but-for-bots-20260928-012250`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20260928-012250.md) — ---
 
-### tada (9292)
+### tada (9295)
+- [`token-backoff-ramp-065`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/token-backoff-ramp-065.md) — Cost
+- [`fu-minion-town-containment-gateway-endo-sock-1-20260928-012250`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fu-minion-town-containment-gateway-endo-sock-1-20260928-012250.md) — Cost
+- [`design-hardened-url-shim`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/design-hardened-url-shim.md) — Cost
 - [`fix-endojs-endo-but-for-bots-pr1356-zizmor-action-pin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fix-endojs-endo-but-for-bots-pr1356-zizmor-action-pin.md) — Completion report
 - [`build-hardened-url-shim`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/build-hardened-url-shim.md) — Completion report: build-hardened-url-shim
-- [`design-hardened-url-shim-status-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/design-hardened-url-shim-status-reconciliation.md) — Cost
-- [`endojs-endo-but-for-bots-pr1350-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1350-dependabot.md) — Cost
-- [`reconcile-hardened-text-codecs-shim-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/reconcile-hardened-text-codecs-shim-status.md) — Completion report: reconcile-hardened-text-codecs-shim-status
-- … and 9287 more
+- … and 9290 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
