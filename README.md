@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T13:11:48Z_
+_As of 2026-09-28T13:25:42Z_
 
 ## Latest
 
@@ -1445,21 +1445,20 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #64 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T12:51:48Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 64 times; this is ONE
-> coalesced notice that updates in place, not 64 messages. Latest detail:
+> WATCHDOG notice — occurrence #65 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T13:17:08Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 65 times; this is ONE
+> coalesced notice that updates in place, not 65 messages. Latest detail:
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 10 source(s); they post no acknowledgments while it holds.
-> - kriscendobot/ocapn: watcher ticking but cooldown for 4676s (since 2026-09-28T11:33:51Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 3538s (since 2026-09-28T11:52:49Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 5684s (since 2026-09-28T11:17:03Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1650s (since 2026-09-28T12:24:17Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2469s (since 2026-09-28T12:10:38Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2465s (since 2026-09-28T12:10:42Z)
-> - kriscendobot/list: watcher ticking but cooldown for 10071s (since 2026-09-28T10:03:56Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 2419s (since 2026-09-28T12:11:28Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2022s (since 2026-09-28T12:18:05Z)
-> - kriscendobot/minion.town: watcher ticking but cooldown for 1648s (since 2026-09-28T12:24:19Z)
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 7 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1790601702 set-by=receipt:kriscendobot-ymax-e2e:journal prerequisite
+> journal-outage marker: 1790601438 cursor-get 
+> - kriscendobot/cosgov: watcher ticking but cooldown for 1700s (since 2026-09-28T12:48:48Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 2142s (since 2026-09-28T12:41:26Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2136s (since 2026-09-28T12:41:32Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 3986s (since 2026-09-28T12:10:42Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 3940s (since 2026-09-28T12:11:28Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 2136s (since 2026-09-28T12:41:32Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2135s (since 2026-09-28T12:41:33Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -3537,7 +3536,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.8M | $404.56 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 43.9M | $405.36 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49795057 tokens/day lower bound._
@@ -3552,13 +3551,13 @@ worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### doin (0)
 (none)
 
-### tada (9365)
+### tada (9366)
+- [`canary-probe-endolin-garden2-5bcdff64-2c3c6bc4a6e5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-2c3c6bc4a6e5.md) — rolling-deploy canary probe — round trip OK
 - [`improve-mentor-provider-order-reject-retired-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-mentor-provider-order-reject-retired-local.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1298-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1298-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-fix-4.md) — Gauntlet fix round 4: endojs/endo-but-for-bots#1298
-- [`claude-on-minion-town-press-20260928-104106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-104106.md) — Cost
-- … and 9360 more
+- … and 9361 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
