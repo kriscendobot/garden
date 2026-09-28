@@ -1,0 +1,15 @@
+<6>21:51:05 [monk/2] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T214910Z' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>21:51:06 [monk/2] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T214910Z' call ceiling: tier=mentor max-budget-usd=19.00 (scaled by fresh seven-day headroom when available)
+panel-head-freshness: not-applicable target=kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T214910Z reason=no-presented-pr
+<6>21:51:53 [assert-followup-posted] gate: BLOCK — 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T214910Z' declares handoff to 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z' but that successor is not durably posted on the board; leaving in doin for retry
+
+--- handler report (partial) ---
+**Handed off: PR #81 isn't deployed on this host yet, so I scheduled a retry and made no pty test or PR comment.**
+
+- **PR #81:** merged 2026-09-28T21:04:43Z as merge commit `4767705b28d522b591eddbd3b47976273c5e1853`.
+- **This host (`endolin-garden2-5bcdff64`):** `deployed_sha` is still `e036bb8e0650b66a4ae00dc1516c4c8df39901ca`. I fetched `origin/main2` in the job worktree, and the ancestry check fails: the merge commit is not an ancestor of the deployed SHA. The previous attempt on `oros-studio-garden-ce242c49` found the same deployed SHA. Following the job's instructions, I did not wait on the host, since an active gardener would block the drained deploy.
+- **Retry scheduled:** I ran `scripts/jobs/set-schedule-once.sh` to create the one-time schedule `kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`, due at 2026-09-28T21:56:36Z. It carries the full task body with an updated retry note. It is on `origin/journal2`, where `schedules/<base>.md` has the `once:` time and `job_basename_prefix` set to that base.
+- **Slip:** I ran one read-only `git log` in the root's `journal/` worktree, which the brief forbids. It changed nothing.
+- **Follow-up:** both hosts have now reported the same old SHA. If later retries keep finding `e036bb8e06`, check the rolling deploy and upgrade monitor: this host's `.garden-state/upgrade-monitor` directory is empty, so no upgrade-ready record is there. Otherwise this retry pattern could repeat indefinitely.
+
+<<<GARDEN-JOB-HANDED-OFF: kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z>>>
