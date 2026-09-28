@@ -1,13 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:budget-level
-sent_at: 2026-09-27T23:34:56Z
+sent_at: 2026-09-28T05:11:25Z
 watchdog_key: budget-level-monk-endolin-garden-ece02cb4-2
-notice_count: 12
+notice_count: 13
 first_seen: 2026-09-12T03:20:10Z
-last_seen: 2026-09-27T23:34:56Z
+last_seen: 2026-09-28T05:11:25Z
 ---
-WATCHDOG notice — occurrence #12 (first seen 2026-09-12T03:20:10Z, latest 2026-09-27T23:34:56Z).
-The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-2`) has now been observed 12 times; this is ONE
-coalesced notice that updates in place, not 12 messages. Latest detail:
+WATCHDOG notice — occurrence #13 (first seen 2026-09-12T03:20:10Z, latest 2026-09-28T05:11:25Z).
+The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-2`) has now been observed 13 times; this is ONE
+coalesced notice that updates in place, not 13 messages. Latest detail:
 
-budget-level changed endolin-garden-ece02cb4 monk workers 1 -> 2 (target 2): subscription claude-endolin1 spend=37976465 cap=143000000 pace-bias=0 ceiling=2 target=2
+budget-level changed endolin-garden-ece02cb4 monk workers 1 -> 2 (target 2): subscription claude-endolin1 spend=39352517 cap=143000000 pace-bias=0.027638 ceiling=3 target=2
