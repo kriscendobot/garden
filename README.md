@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T23:23:55Z_
+_As of 2026-09-28T23:25:13Z_
 
 ## Latest
 
@@ -2555,12 +2555,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #20 (first seen 2026-09-28T21:29:28Z, latest 2026-09-28T23:19:37Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 20 times; this is ONE
-> coalesced notice that updates in place, not 20 messages. Latest detail:
+> WATCHDOG notice — occurrence #21 (first seen 2026-09-28T21:29:28Z, latest 2026-09-28T23:24:31Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 21 times; this is ONE
+> coalesced notice that updates in place, not 21 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/86](https://github.com/kriscendobot/minion.town/pull/86)#discussion_r4127032558 (age=7954s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/86](https://github.com/kriscendobot/minion.town/pull/86)#discussion_r4127032558 (age=8255s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
@@ -3675,7 +3675,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 81165362 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
+worst fetch p95 6.463606s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (6)
