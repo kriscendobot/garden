@@ -54,3 +54,13 @@ state.
    the issue). Lead with a one-line verdict (fully verified / bench-only /
    not yet verifiable, and why) before the runbook.
 3. Your job completion report: the same content, plus the comment URL.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T14:26:38Z
