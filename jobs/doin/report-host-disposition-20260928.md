@@ -85,3 +85,13 @@ after landing) — the liaison needs both to hand the maintainer a fully
 qualified `https://github.com/kriscendobot/garden/blob/journal2/<path>` URL.
 Also paste the headline numbers (worst and best completion rate, by host)
 directly in this report so they're visible without opening the link.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T06:40:41Z
