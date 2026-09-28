@@ -47,8 +47,9 @@ Do **not** use it for: content from the garden's own repos and journal;
 GitHub *metadata* (statuses, authorship, shas) read field-wise by
 deterministic code; text already gated by the deterministic sender-trust
 gates (`CLAUDE.md` § Monitoring safety constraint) — though quoted third-party
-text inside trusted-sender messages is a candidate surface, tracked by its own
-follow-on job.
+text inside trusted-sender messages is a candidate surface, designed (open
+questions pending) in
+[jev-trusted-sender-quoted-text](../../designs/jev-trusted-sender-quoted-text.md).
 
 ## Inputs
 
