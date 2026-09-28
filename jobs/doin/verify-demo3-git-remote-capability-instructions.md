@@ -58,3 +58,13 @@ verified or performed — do not attempt to build it yourself in this job
    the issue). Lead with a one-line verdict (fully verified / not yet
    implemented — needs a build) before the detail.
 3. Your job completion report: the same content, plus the comment URL.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T14:27:10Z
