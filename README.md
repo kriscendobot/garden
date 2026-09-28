@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T18:13:28Z_
+_As of 2026-09-28T18:14:29Z_
 
 ## Latest
 
@@ -3630,7 +3630,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 53224427 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
+worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
@@ -3743,4 +3743,4 @@ kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oro
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
-- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 4 monks
+- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 3 monks
