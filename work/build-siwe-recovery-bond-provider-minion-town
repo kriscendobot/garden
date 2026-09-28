@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-28T21:37:42Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-build-siwe-recovery-bond-provider-minion-town
+pr_number: 133
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/133
+pr_head: build/siwe-recovery-bond-provider
