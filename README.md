@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T14:43:39Z_
+_As of 2026-09-28T14:50:54Z_
 
 ## Latest
 
@@ -815,6 +815,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `watchdog-handler-budget-overrun-verify-demo3-git-remote-capability-instructions` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-verify-demo3-git-remote-capability-instructions.md)
+
+> gardener job 'verify-demo3-git-remote-capability-instructions' declared handler-timeout=14400s, which exceeds what a single claim can hold (max 14339s = GARDEN_CLAIM_TTL 14400s − GARDEN_HANDLER_KILL_AFTER 60s − 1). A run-to-completion handler that needs longer than one claim cannot be claim-scoped without breaking the duplicate-execution guard: after GARDEN_CLAIM_TTL the reaper would requeue the same base onto a second gardener while this one is still running. Run it DETACHED (outside the claim-scoped handler) or SPLIT it into claim-sized stages. This cycle the handler runs clamped at 14339s and will be SIGTERM-killed at that bound — it will not complete.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -3545,7 +3549,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.0M | $420.56 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 45.0M | $421.14 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49988967 tokens/day lower bound._
@@ -3554,20 +3558,19 @@ _Fleet token-unlock pace: 49988967 tokens/day lower bound._
 worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`verify-demo2-cross-host-locator-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/verify-demo2-cross-host-locator-instructions.md) — Verify demo 2: adopt a live capability across the network, from your own laptop
-- [`verify-demo3-git-remote-capability-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/verify-demo3-git-remote-capability-instructions.md) — Verify demo 3: git push an artifact straight into a capability
+### todo (0)
+(none)
 
 ### doin (1)
 - [`auto-derotate-offline-host-worker-capacity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/auto-derotate-offline-host-worker-capacity.md) — Standing automation: derotate a silent host's worker capacity, auto-restore o...
 
-### tada (9369)
+### tada (9371)
+- [`verify-demo3-git-remote-capability-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/verify-demo3-git-remote-capability-instructions.md) — Completion report: verify-demo3-git-remote-capability-instructions
+- [`verify-demo2-cross-host-locator-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/verify-demo2-cross-host-locator-instructions.md) — Completion report — verify-demo2-cross-host-locator-instructions
 - [`verify-demo1-confined-agent-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/verify-demo1-confined-agent-instructions.md) — What I did
 - [`claude-on-minion-town-press-20260928-135605`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-135605.md) — Cost
 - [`claude-on-minion-town-completion-press-20260928-134105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-134105.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-2c3c6bc4a6e5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-2c3c6bc4a6e5.md) — rolling-deploy canary probe — round trip OK
-- [`improve-mentor-provider-order-reject-retired-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-mentor-provider-order-reject-retired-local.md) — Cost
-- … and 9364 more
+- … and 9366 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
