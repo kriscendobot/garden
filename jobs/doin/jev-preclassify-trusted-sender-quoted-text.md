@@ -23,3 +23,13 @@ costly — the policy likely differs from the scholar's), cost at watcher tick
 cadence, and interaction with the existing allowlists. This is a
 design-with-open-questions candidate: if real maintainer-facing forks remain,
 use the frozen-base-branch open-questions PR carve-out.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T08:02:20Z
