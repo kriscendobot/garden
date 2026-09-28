@@ -34,6 +34,7 @@ Poll the journal board with a bounded deadline for that test basename to reach `
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
