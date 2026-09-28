@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T08:17:04Z_
+_As of 2026-09-28T08:20:41Z_
 
 ## Latest
 
@@ -3522,7 +3522,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.1M | $399.57 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 43.2M | $403.68 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 50088384 tokens/day lower bound._
@@ -3531,10 +3531,9 @@ _Fleet token-unlock pace: 50088384 tokens/day lower bound._
 worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (9)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
 - [`jev-preclassify-trusted-sender-quoted-text`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/jev-preclassify-trusted-sender-quoted-text.md) — Design: Jev defense-in-depth on sender-gated comment/mention/issue text
-- [`daily-progress-summary-20260928-071105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260928-071105.md) — Daily midnight Pacific progress summary
 - [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-378372c8706a48a8-repair.md) — Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
 - [`mentat-minion-town-cloudflare-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-minion-town-cloudflare-backend-plan.md) — Plan: minion.town on Cloudflare (R2, D1, Durable Objects, Workers, Queues, Cr...
 - [`ironhorse-fuzz-d38f12f4884e186c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-d38f12f4884e186c-repair.md) — Repair Ironhorse engine defect d38f12f4884e186c (target differential_regexp_s...
@@ -3544,18 +3543,18 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/doc-readme-control-surfaces-prompt-first.md) — Reorient README's "Control surfaces" section around what a maintainer says, n...
 
 ### doin (4)
+- [`daily-progress-summary-20260928-071105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260928-071105.md) — Daily midnight Pacific progress summary
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1298
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-journal-cold-clone-bootstrap.md) — Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new work...
 - [`mentat-endo-cask-rust-content-store-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-endo-cask-rust-content-store-design.md) — Design: CASK in Rust as Endo's content store (and substrate for Endo's virtua...
-- [`mentat-minion-town-aws-distributed-persistence-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-minion-town-aws-distributed-persistence-plan.md) — Plan: finish minion.town distributed persistence on AWS (S3 + DynamoDB)
 
-### tada (9341)
+### tada (9342)
+- [`mentat-minion-town-aws-distributed-persistence-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/mentat-minion-town-aws-distributed-persistence-plan.md) — Job: mentat-minion-town-aws-distributed-persistence-plan — DONE
 - [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-284de587e16bce32-repair.md) — Cost
 - [`jev-preclassify-foreign-content-survey`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/jev-preclassify-foreign-content-survey.md) — Completion report: jev-preclassify-foreign-content-survey
 - [`jev-preclassify-botanist-release-notes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/jev-preclassify-botanist-release-notes.md) — Completion report: jev-preclassify-botanist-release-notes
 - [`fix-codex-budget-live-spend-label`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fix-codex-budget-live-spend-label.md) — Cost
-- [`ironhorse-fuzz-e773681b6d831dc1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-e773681b6d831dc1-repair.md) — Cost
-- … and 9336 more
+- … and 9337 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
