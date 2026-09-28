@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T11:21:09Z_
+_As of 2026-09-28T11:27:51Z_
 
 ## Latest
 
@@ -262,12 +262,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-26T16:00:57Z, latest 2026-09-28T11:02:22Z).
-> The SAME condition (`comment-watcher-dead-kriscendobot-endo-but-for-bots`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-endo-but-for-bots` has CLEARED (first seen 2026-09-26T16:00:57Z, cleared 2026-09-28T11:27:07Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment acknowledgment dead anomaly for kriscendobot/endo-but-for-bots:
-> watcher heartbeat stale (age=287s > 270s; outcome=cooldown)
+> Comment acknowledgment condition cleared.
 
 - `20260927T205038Z-fe23d6` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T205038Z-fe23d6.md)
 
@@ -1446,24 +1445,17 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #60 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T11:02:29Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 60 times; this is ONE
-> coalesced notice that updates in place, not 60 messages. Latest detail:
+> WATCHDOG notice — occurrence #61 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T11:27:14Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 61 times; this is ONE
+> coalesced notice that updates in place, not 61 messages. Latest detail:
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 11 source(s); they post no acknowledgments while it holds.
-> gh-api cooldown marker: expiry=1790593608 set-by=receipt:kriscendobot-oros-ckm-data-readiness:journal prerequisite
-> journal-outage marker: 1790593354 cursor-get 
-> - kriscendobot/cosgov: watcher ticking but cooldown for 2792s (since 2026-09-28T10:15:43Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 4325s (since 2026-09-28T09:50:10Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 3918s (since 2026-09-28T09:56:57Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 4006s (since 2026-09-28T09:55:29Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 3846s (since 2026-09-28T09:58:09Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 8030s (since 2026-09-28T08:48:25Z)
-> - kriscendobot/list: watcher ticking but cooldown for 3499s (since 2026-09-28T10:03:56Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 4001s (since 2026-09-28T09:55:34Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 3918s (since 2026-09-28T09:56:57Z)
-> - kriscendobot/minion.town: watcher ticking but cooldown for 3158s (since 2026-09-28T10:09:37Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 3840s (since 2026-09-28T09:58:15Z)
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 4 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1790595109 set-by=receipt:kriscendobot-minion.town:journal prerequisite
+> journal-outage marker: 1790594926 approval-reconciler-verify 
+> - kriscendobot/cosgov: watcher ticking but cooldown for 4284s (since 2026-09-28T10:15:43Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 5817s (since 2026-09-28T09:50:10Z)
+> - kriscendobot/list: watcher ticking but cooldown for 4991s (since 2026-09-28T10:03:56Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 5332s (since 2026-09-28T09:58:15Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -3549,7 +3541,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.5M | $401.27 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 43.6M | $401.80 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49745077 tokens/day lower bound._
