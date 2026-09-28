@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T17:15:09Z_
+_As of 2026-09-28T17:22:33Z_
 
 ## Latest
 
@@ -386,11 +386,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
 
-> RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-28T16:28:17Z).
-> It was observed 30 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #31 (first seen 2026-09-27T02:00:48Z, latest 2026-09-28T17:18:23Z).
+> The SAME condition (`journal-outage-stuck`) has now been observed 31 times; this is ONE
+> coalesced notice that updates in place, not 31 messages. Latest detail:
 >
-> Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
+> Journal outage latch stuck on endolin-garden-ece02cb4 for 601s (limit 600s); skips this tick=1, trailing skips=1.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -3569,28 +3569,28 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.9M | $425.27 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Claude | 45.9M | $425.51 _(notional, rate-card)_ | 32% of 143.0M (ok) |
 | Codex | 278.5k _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53216507 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
+worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 3 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`report-completions-since-friday-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/report-completions-since-friday-reset.md) — Report: everything the fleet completed since the Friday quota reset
+### todo (0)
+(none)
 
 ### doin (0)
 (none)
 
-### tada (9375)
+### tada (9376)
+- [`report-completions-since-friday-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/report-completions-since-friday-reset.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2.md) — rolling-deploy canary probe — round trip OK
 - [`claude-on-minion-town-press-20260928-165614`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-165614.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-7438d06ba1ff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-7438d06ba1ff.md) — rolling-deploy canary probe — round trip OK
 - [`auto-derotate-offline-host-worker-capacity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/auto-derotate-offline-host-worker-capacity.md) — Cost
-- [`verify-demo3-git-remote-capability-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/verify-demo3-git-remote-capability-instructions.md) — Completion report: verify-demo3-git-remote-capability-instructions
-- … and 9370 more
+- … and 9371 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
