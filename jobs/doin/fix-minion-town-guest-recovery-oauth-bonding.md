@@ -36,3 +36,13 @@ Repo: kriscendobot/minion.town, live deployment https://minion.town. Requested b
 6. **Propose the change:** open a PR on kriscendobot/minion.town with the fix, the regression test and the evidence (what reproduced, the root cause, what was deployed, and post-deploy validation results). Leave it as a draft for the maintainer's gauntlet. Rebase before pushing, since main moves.
 
 Report which parts could not be verified automatically and why.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T20:29:13Z
