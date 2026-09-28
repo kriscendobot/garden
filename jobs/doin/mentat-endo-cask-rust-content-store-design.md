@@ -79,6 +79,7 @@ proposed phases.
 <!-- garden-plain-retry-not-before: 2026-09-28T07:36:14Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=3,7 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
