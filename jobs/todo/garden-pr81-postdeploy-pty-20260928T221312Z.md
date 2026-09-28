@@ -1,11 +1,8 @@
-once: 2026-09-28T22:18:12Z
-job_basename_prefix: garden-pr81-postdeploy-pty-20260928T221312Z
----
 ---
 role: fixer
-tier: minion
+tier: mentor
 model-burned: mentor
-fallback-tier: 
+fallback-tier: minion
 provider: anthropic
 dispatch: automatic
 handler-timeout: 10800
