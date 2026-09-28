@@ -1,11 +1,12 @@
 ---
 slug: hardened-url-shim
 repository: endo-but-for-bots
-status: Not Started
+status: In Progress
 milestone: M2
 depends_on: []
+pr: endo-but-for-bots#1356
 created: 2026-05-04
-updated: 2026-07-12
+updated: 2026-09-28
 source: imported from origin/llm designs/README.md
 ---
 
@@ -15,7 +16,7 @@ source: imported from origin/llm designs/README.md
 |---|---|
 | **Created** | 2026-05-04 |
 | **Author** | Kris Kowal (prompted) |
-| **Status** | Not Started |
+| **Status** | In Progress |
 
 ## What is the Problem Being Solved?
 
@@ -582,3 +583,18 @@ moved to
 
 ---
 _Groomed 2026-07-12: filed under **M2** (Project Hygiene) — a hardened SES intrinsic shim (`packages/ses/` only), the same package-hardening lane as endo-bytes, hex-package, and base64-native-fallthrough._
+---
+_Reconciled 2026-09-28 (job `design-hardened-url-shim`): **In Progress**, implemented in draft [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356)._
+
+- **The PR.** Head `build/hardened-url-shim` (`3655a3c3c5`), base frozen `master-6ee3fda`, opened 2026-09-27 by job `build-hardened-url-shim`. It stops at draft under the manual-gauntlet regime and needs an explicit **run the gauntlet #1356** to go further. All 15 CI checks were green on 2026-09-28.
+- **Phase 1 (permits and sampling): implemented in #1356.** `URLSearchParams` is on `universalPropertyNames`. `get-anonymous-intrinsics.js` samples `%URLSearchParamsIteratorPrototype%`. The new `src/tame-url-constructor.js` does the `Date`-style split, and `lockdown.js` takes the `urlBlobMethods` option (`'keepOnInitialGlobal'` or `'remove'`, env `LOCKDOWN_URL_BLOB_METHODS`), documented in `docs/lockdown.md` and typed in `types.d.ts`.
+- **Phase 2 (tests and changeset): implemented in #1356.** Test-plan items 1-8 are in `tame-url.test.js`, `tame-url-remove-blob-methods.test.js`, and `tame-url-missing.test.js`. Item 9 (XS smoke) is a new block in `test/_xs.js`. The changeset is `.changeset/hardened-url-shim.md`.
+- **Phase 3 (downstream audit): done on `master`.** The PR reports no `createObjectURL`/`revokeObjectURL` call sites outside SES. As with the text-codecs sibling, `llm` was not audited.
+- **Where the build departs from this design:**
+  - The start-compartment intrinsic is named `%InitialURL%`, not `%URL%`, to match `%InitialDate%` and the other `initialGlobalPropertyNames` entries.
+  - `%InitialURL%` forwards `createObjectURL`/`revokeObjectURL` through concise methods instead of copying the host functions. Node's versions own a mutable `prototype` that made the permit pass warn on every lockdown.
+  - The URL, `URLSearchParams`, and iterator prototypes also permit `RegisteredSymbol(nodejs.util.inspect.custom)`, so Node does not warn and `console.log(url)` still works.
+  - `URL.prototype.constructor` is `%SharedURL%`, mirroring `Date.prototype.constructor === %SharedDate%`.
+- **Open questions.** For both, the build took this design's recommendation: the `%URLSearchParamsIteratorPrototype%` name, and one prototype shared by the two `URL` intrinsics. The maintainer can confirm or overturn them in review.
+- **Before merge.** The diff also bumps the pinned `dorny/paths-filter` action in `.github/workflows/ci.yml`, which is unrelated to this design and should come out or be justified during review.
+- **Completion:** `plan/reconcile.sh` flips this record to Complete when #1356 merges.
