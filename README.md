@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T08:13:28Z_
+_As of 2026-09-28T08:17:04Z_
 
 ## Latest
 
@@ -3500,10 +3500,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment condition cleared.
 
-- `watchdog-budget-level-cleric-endolin-garden-ece02cb4-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-0.md)
-
-> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 0 (target 0): shared codex subscription demand active=0 queue=8 quota=ok fleet-envelope=0 target=0
-
 - `20260927T025745Z-ebc859` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T025745Z-ebc859.md)
 
 > kind: error
@@ -3526,7 +3522,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.1M | $398.62 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 43.1M | $399.57 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 50088384 tokens/day lower bound._
