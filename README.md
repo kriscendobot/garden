@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T11:35:02Z_
+_As of 2026-09-28T11:38:37Z_
 
 ## Latest
 
@@ -2177,13 +2177,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-foreman-handler-failed-endolin-garden-ece02cb4` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-foreman-handler-failed-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #20 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T10:37:08Z).
-> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 20 times; this is ONE
-> coalesced notice that updates in place, not 20 messages. Latest detail:
+> WATCHDOG notice — occurrence #32 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T11:37:12Z).
+> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 32 times; this is ONE
+> coalesced notice that updates in place, not 32 messages. Latest detail:
 >
 > garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden-ece02cb4; the board pump is starving. stderr tail:  only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit on :11434, run as the `ollama` user) is active. Bring up the garden unit for hermit workers. Also confirm ollama is on PATH and the serving user has GPU group access — context/operations/local-inference-amd.md.
-> <6>10:37:08 [foreman-claude] foreman provider 'local' unavailable; trying the next configured provider
-> <3>10:37:08 [foreman-claude] FATAL: no configured foreman inference provider was available
+> <6>11:37:12 [foreman-claude] foreman provider 'local' unavailable; trying the next configured provider
+> <3>11:37:12 [foreman-claude] FATAL: no configured foreman inference provider was available
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
