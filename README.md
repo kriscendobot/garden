@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T22:03:48Z_
+_As of 2026-09-28T22:07:14Z_
 
 ## Latest
 
@@ -846,11 +846,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
-> WATCHDOG notice — occurrence #9 (first seen 2026-09-12T03:20:21Z, latest 2026-09-28T05:12:09Z).
-> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-2`) has now been observed 9 times; this is ONE
-> coalesced notice that updates in place, not 9 messages. Latest detail:
+> WATCHDOG notice — occurrence #10 (first seen 2026-09-12T03:20:21Z, latest 2026-09-28T22:05:37Z).
+> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-2`) has now been observed 10 times; this is ONE
+> coalesced notice that updates in place, not 10 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 monk workers 1 -> 2 (target 2): subscription claude-endolin2 spend=14990446 cap=64000000 pace-bias=0.075816 ceiling=3 target=2
+> budget-level changed endolin-garden2-5bcdff64 monk workers 3 -> 2 (target 2): subscription claude-endolin2 spend=24646287 cap=64000000 pace-bias=0.695454 window-start=2026-09-26T03:00Z(calendar) deadline=2026-09-30T03:00Z(planned) ceiling=3 target=2
 
 - `watchdog-comment-watcher-dead-kriscendobot-list` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-list.md)
 
@@ -1371,6 +1371,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > END your completion report with EXACTLY ONE of these marker lines (last line):
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
+
+- `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
+
+> RECOVERED — the watchdog condition `worker-derotate-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-28T21:20:13Z, cleared 2026-09-28T22:05:14Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (303s old; sampled_at_epoch=1790632803)); it is PRESENT again and its config/worker-leveling caps are restored to 4 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
@@ -2549,12 +2557,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-28T21:29:28Z, latest 2026-09-28T21:59:30Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-09-28T21:29:28Z, latest 2026-09-28T22:04:30Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/86](https://github.com/kriscendobot/minion.town/pull/86)#discussion_r4127032558 (age=3149s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/86](https://github.com/kriscendobot/minion.town/pull/86)#discussion_r4127032558 (age=3449s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
@@ -3667,16 +3675,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 50.8M | $465.91 _(notional, rate-card)_ | 36% of 143.0M (ok) |
-| Codex | 5.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 21% _(plan; codex-reported)_ |
+| Claude | 50.8M | $467.47 _(notional, rate-card)_ | 36% of 143.0M (ok) |
+| Codex | 5.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 22% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58975698 tokens/day lower bound._
+_Fleet token-unlock pace: 80081052 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 
 ### doin (9)
@@ -3794,7 +3803,7 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 3 monks
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 2 monks
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
