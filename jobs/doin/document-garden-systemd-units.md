@@ -28,3 +28,13 @@ Scope:
 - Add a cheap completeness check (for example a test under scripts/jobs/test/) that fails when a unit file in scripts/systemd/ has no entry in the doc, so the doc can't silently drift.
 
 Do not change unit behavior; this is documentation plus the drift check only.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T19:40:06Z
