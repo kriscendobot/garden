@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T15:37:39Z_
+_As of 2026-09-28T15:51:10Z_
 
 ## Latest
 
@@ -1463,22 +1463,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #69 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T15:27:14Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 69 times; this is ONE
-> coalesced notice that updates in place, not 69 messages. Latest detail:
+> WATCHDOG notice — occurrence #70 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T15:47:16Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 70 times; this is ONE
+> coalesced notice that updates in place, not 70 messages. Latest detail:
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 10 source(s); they post no acknowledgments while it holds.
-> journal-outage marker: 1790609246 cursor-get 
-> - kriscendobot/cosgov: watcher ticking but cooldown for 2486s (since 2026-09-28T14:45:47Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 4343s (since 2026-09-28T14:14:50Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 4320s (since 2026-09-28T14:15:13Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 4300s (since 2026-09-28T14:15:33Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 4324s (since 2026-09-28T14:15:09Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 4237s (since 2026-09-28T14:16:36Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 3543s (since 2026-09-28T14:28:10Z)
-> - kriscendobot/minion.town: watcher ticking but cooldown for 3536s (since 2026-09-28T14:28:17Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 2487s (since 2026-09-28T14:45:46Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2502s (since 2026-09-28T14:45:31Z)
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 1 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1790610717 set-by=receipt:kriscendobot-list:journal prerequisite
+> journal-outage marker: 1790610548 cursor-get 
+> - kriscendobot/ocapn: watcher ticking but cooldown for 5545s (since 2026-09-28T14:14:50Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -2188,13 +2180,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-foreman-handler-failed-endolin-garden-ece02cb4` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-foreman-handler-failed-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #69 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T14:42:13Z).
-> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 69 times; this is ONE
-> coalesced notice that updates in place, not 69 messages. Latest detail:
+> WATCHDOG notice — occurrence #82 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T15:47:08Z).
+> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 82 times; this is ONE
+> coalesced notice that updates in place, not 82 messages. Latest detail:
 >
 > garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden-ece02cb4; the board pump is starving. stderr tail:  only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit on :11434, run as the `ollama` user) is active. Bring up the garden unit for hermit workers. Also confirm ollama is on PATH and the serving user has GPU group access — context/operations/local-inference-amd.md.
-> <6>14:42:13 [foreman-claude] foreman provider 'local' unavailable; trying the next configured provider
-> <3>14:42:13 [foreman-claude] FATAL: no configured foreman inference provider was available
+> <6>15:47:08 [foreman-claude] foreman provider 'local' unavailable; trying the next configured provider
+> <3>15:47:08 [foreman-claude] FATAL: no configured foreman inference provider was available
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
@@ -3492,11 +3484,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #938 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T14:32:20Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 938 times; this is ONE
-> coalesced notice that updates in place, not 938 messages. Latest detail:
+> WATCHDOG notice — occurrence #946 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T15:44:54Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 946 times; this is ONE
+> coalesced notice that updates in place, not 946 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 2c3c6bc4a6e5 55 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 7438d06ba1ff 22 min ago
 > but still reports deployed_sha 586aee8196b4c03fdb68c7d2368856cb756de4eb. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -3567,7 +3559,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 45.0M | $418.19 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 50508454 tokens/day lower bound._
+_Fleet token-unlock pace: 50519430 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.805983s/45s (/home/kris/garden/.garden-state/decisions/journal); 3 open notice(s); checker healthy
