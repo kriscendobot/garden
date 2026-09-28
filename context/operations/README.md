@@ -59,6 +59,12 @@ schedule). The conversational first-run tour is the sibling tree,
   migrate ordering. Records the 2026-07-28 `kriskowal/garden` →
   `kriscendobot/garden` move.
 
+- **[ironhorse-test262-ratchet-gate.md](ironhorse-test262-ratchet-gate.md)** —
+  *"did this Ironhorse sweep lose coverage?"* Pin a test262 coverage floor, and
+  check a whole-corpus sweep against it. The verdict is pass, fail, or
+  incompatible, and a classifier change comes back incompatible instead of a
+  false regression.
+
 - **[schedules.md](schedules.md)** — *"run something weekly / once at a time."*
   Recurring and one-shot schedules. Routes to `skills/schedule/SKILL.md`.
 
