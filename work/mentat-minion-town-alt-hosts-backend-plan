@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-28T06:53:48Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-mentat-minion-town-alt-hosts-backend-plan
+pr_number: 125
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/125
+pr_head: design/alt-hosts-backend
