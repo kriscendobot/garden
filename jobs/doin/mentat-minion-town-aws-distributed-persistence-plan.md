@@ -44,3 +44,13 @@ any), the open questions for the maintainer, and a proposed build sequence (as s
 - Map each Pet Daemon persistence interface (formula store, content-addressed store, any others) onto AWS: DynamoDB tables/keys/indexes and consistency, S3 layout/addressing/GC, and the coordination primitives needed for multiple daemon hosts (leases, fencing, ordering).
 - Operational plan: migration from the single EC2 box, backup/restore, cost model at a few scales, failure modes, and how metering (`clip-usage-metering`) maps.
 - Output `designs/aws-distributed-persistence.md` (or refine the existing plan document in place if one exists).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T08:02:32Z
