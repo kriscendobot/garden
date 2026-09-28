@@ -129,8 +129,10 @@ scripted loop can no longer let the swallow pass unnoticed.
   `jobs/bids/<base>/`, record the `reputation/` event, push.
   `--orchestration-failed` removes the exact worker failure signal and stamps
   `orchestration-failed: true` into leading YAML frontmatter mechanically.
-  `--handed-off BASE` first verifies that the named successor job or orchestration
-  exists, removes its exact worker disposition signal, and stamps `handed-off: BASE`
+  `--handed-off BASE` first verifies that the named successor job, orchestration,
+  staged gauntlet, or pending one-time schedule (`set-schedule-once.sh` record whose
+  `job_basename_prefix` is exactly `BASE` — the way to defer a deployment-gated
+  retry) exists, removes its exact worker disposition signal, and stamps `handed-off: BASE`
   plus `deliverable-complete: false`. This completes an evidenced transfer, never
   the unfinished deliverable itself.
   Touches only your own basename, so **retry with backoff until it lands**.

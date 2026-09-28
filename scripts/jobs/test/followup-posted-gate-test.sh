@@ -248,6 +248,59 @@ reset_clone
   || fail 'gate wrongly blocked a handoff to a durable staged-gauntlet record'
 echo '   gate passed on a staged-gauntlet handoff'
 
+# Put a schedule record directly onto origin/journal2 (set-schedule-once.sh shape).
+schedule_put() {  # schedule_put <name> <header-lines>
+  local name="$1" hdr="$2" w="$TR/put"
+  rm -rf "$w"; git clone -q --single-branch --branch journal2 "$TR/journal.git" "$w" >/dev/null 2>&1
+  mkdir -p "$w/schedules"
+  printf '%s\n---\nretry after deploy.\n' "$hdr" >"$w/schedules/$name.md"
+  git -C "$w" add -A
+  git -C "$w" -c user.name=t -c user.email=t@t.invalid commit -q -m "schedule $name"
+  git -C "$w" push -q origin HEAD:journal2
+}
+handoff_report() {  # handoff_report <file> <successor>
+  printf 'Deferred the deployment-gated retry.\n\n<<<GARDEN-JOB-HANDED-OFF: %s>>>\n' "$2" >"$1"
+}
+
+echo '== (c3) PASS: a pending one-time schedule dispatching the successor satisfies the handoff =='
+schedule_put retry-after-deploy-sched "once: 2099-01-01T00:00:00Z
+job_basename_prefix: deploy-gated-retry"
+handoff_report "$TR/r3c.md" deploy-gated-retry
+reset_clone
+"$GATE" deploy-gated-source "$JOB" "$TR/r3c.md" \
+  || fail 'gate wrongly blocked a handoff to a pending one-time schedule (by job_basename_prefix)'
+echo '   gate passed on a one-time-schedule handoff (prefix)'
+# Without a prefix the scheduler dispatches the schedule name itself.
+schedule_put deploy-gated-retry-noprefix "once: 2099-01-01T00:00:00Z"
+handoff_report "$TR/r3d.md" deploy-gated-retry-noprefix
+reset_clone
+"$GATE" deploy-gated-source "$JOB" "$TR/r3d.md" \
+  || fail 'gate wrongly blocked a handoff to a pending one-time schedule (by name)'
+echo '   gate passed on a one-time-schedule handoff (name fallback)'
+
+echo '== (c4) BLOCK: a schedule name, a recurring cadence, or an unparseable once: is not the successor =='
+# The prefix, not the schedule file name, is the dispatched basename.
+handoff_report "$TR/r3e.md" retry-after-deploy-sched
+reset_clone
+if "$GATE" deploy-gated-source "$JOB" "$TR/r3e.md"; then
+  fail 'gate accepted a schedule NAME whose job_basename_prefix dispatches a different base'
+fi
+schedule_put recurring-sweep "cadence: 1h
+job_basename_prefix: recurring-sweep"
+handoff_report "$TR/r3f.md" recurring-sweep
+reset_clone
+if "$GATE" deploy-gated-source "$JOB" "$TR/r3f.md"; then
+  fail 'gate accepted a recurring cadence schedule as a named successor'
+fi
+schedule_put bogus-once "once: not-a-date
+job_basename_prefix: bogus-once"
+handoff_report "$TR/r3g.md" bogus-once
+reset_clone
+if "$GATE" deploy-gated-source "$JOB" "$TR/r3g.md"; then
+  fail 'gate accepted a one-time schedule with an unparseable once: timestamp'
+fi
+echo '   gate correctly blocked non-matching schedule records (rc 1)'
+
 echo '== (d) PASS: an actual maintainer-inbox message (reply_to=base) satisfies the gate =='
 inbox_put pr876-rebase
 cat >"$TR/r4.md" <<'EOF'

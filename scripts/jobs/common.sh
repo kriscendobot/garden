@@ -6234,11 +6234,42 @@ followups_only_surface_decision() {
 # doin->tada stamp on it and assert-followup-posted.sh reuses the SAME predicate,
 # so a report's handoff and the completion gate can never disagree on what
 # "posted" means. The caller sync_clone's <clone-dir> first.
+#
+# A pending ONE-TIME schedule (handoff_successor_scheduled) is also durable: it is
+# how an agent defers a deployment-gated retry to a future moment without being
+# reaped. Grounding: the 2026-09-28T21:06:18Z completion gate rejected exactly
+# such a successor because only an already-materialized board job counted.
 handoff_successor_posted() {
   local dir="$1" successor="$2"
   job_in_lifecycle "$dir" "$successor" && return 0
   [ -e "$dir/$JOBS_ORCH/$successor.md" ] && return 0
   [ -e "$dir/$JOBS_GAUNTLET/$successor.md" ] && return 0
+  handoff_successor_scheduled "$dir" "$successor" && return 0
+  return 1
+}
+
+# handoff_successor_scheduled <clone-dir> <successor-base> — 0 iff a pending
+# one-time schedule (schedules/<name>.md written by set-schedule-once.sh) will
+# dispatch EXACTLY <successor-base>. It mirrors scheduler.sh's once: path: the
+# record carries a parseable `once:` timestamp, and the dispatched basename is
+# its `job_basename_prefix:` (no timestamp suffix), else the schedule name. The
+# scheduler deletes the record and creates jobs/todo/<base>.md in ONE commit, so
+# the successor is always visible as either this record or a board job. A due
+# but not-yet-fired record still counts: it is durable and the next scheduler
+# tick materializes it. Recurring `cadence:` schedules never match, because
+# their dispatches carry a timestamp suffix no report can name in advance.
+handoff_successor_scheduled() {
+  local dir="$1" successor="$2" f once prefix name
+  [ -d "$dir/schedules" ] || return 1
+  for f in "$dir/schedules"/*.md; do
+    [ -f "$f" ] || continue
+    once="$(sed -n 's/^once:[[:space:]]*//p' "$f" | head -1)"
+    [ -n "$once" ] || continue
+    date -u -d "$once" +%s >/dev/null 2>&1 || continue
+    prefix="$(sed -n 's/^job_basename_prefix:[[:space:]]*//p' "$f" | head -1)"
+    name="$(basename "$f" .md)"
+    [ "${prefix:-$name}" = "$successor" ] && return 0
+  done
   return 1
 }
 

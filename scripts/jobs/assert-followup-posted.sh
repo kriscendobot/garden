@@ -41,7 +41,9 @@
 # The four accepted dispositions:
 #   1. HANDOFF   — the report ends with <<<GARDEN-JOB-HANDED-OFF: successor>>> AND
 #      that successor is durably posted on the board (handoff_successor_posted,
-#      the SAME existence check complete-job.sh --handed-off enforces). Checked
+#      the SAME existence check complete-job.sh --handed-off enforces; a pending
+#      one-time `schedules/*.md` record whose `once:` dispatch names exactly that
+#      successor counts too, for a deployment-gated deferred retry). Checked
 #      first and unconditionally because the marker itself declares unfinished
 #      work, even when the report has no `## Follow-ups` section.
 #   2. OVERRIDE  — the report carries a standalone
