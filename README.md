@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T16:05:11Z_
+_As of 2026-09-28T16:19:36Z_
 
 ## Latest
 
@@ -1463,14 +1463,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #70 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T15:47:16Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 70 times; this is ONE
-> coalesced notice that updates in place, not 70 messages. Latest detail:
+> WATCHDOG notice — occurrence #71 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T16:12:17Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 71 times; this is ONE
+> coalesced notice that updates in place, not 71 messages. Latest detail:
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 1 source(s); they post no acknowledgments while it holds.
-> gh-api cooldown marker: expiry=1790610717 set-by=receipt:kriscendobot-list:journal prerequisite
-> journal-outage marker: 1790610548 cursor-get 
-> - kriscendobot/ocapn: watcher ticking but cooldown for 5545s (since 2026-09-28T14:14:50Z)
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 2 source(s); they post no acknowledgments while it holds.
+> journal-outage marker: 1790612018 cursor-get 
+> - kriscendobot/moddable: watcher ticking but cooldown for 1771s (since 2026-09-28T15:42:46Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 1389s (since 2026-09-28T15:49:08Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -3563,7 +3563,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 45.0M | $418.92 _(notional, rate-card)_ | 32% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 50519850 tokens/day lower bound._
+_Fleet token-unlock pace: 50530631 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
