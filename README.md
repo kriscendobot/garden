@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T05:47:24Z_
+_As of 2026-09-28T05:50:56Z_
 
 ## Latest
 
@@ -3274,7 +3274,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.7M | $378.18 _(notional, rate-card)_ | 29% of 143.0M (ok) |
+| Claude | 41.7M | $378.87 _(notional, rate-card)_ | 29% of 143.0M (ok) |
 | Codex | 60.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 54401085 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -3283,7 +3283,7 @@ _Fleet token-unlock pace: 54401085 tokens/day lower bound; incomplete where a su
 worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (30)
+### todo (31)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
 - [`doc-readme-dispatch-tier-section`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/doc-readme-dispatch-tier-section.md) — Add a "dispatch tier system" section to README.md
 - [`mentat-minion-town-endor-ironhorse-snapshot-platforms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-minion-town-endor-ironhorse-snapshot-platforms.md) — Plan: endor / Iron Horse orthogonal persistence of running processes on each ...
@@ -3291,6 +3291,7 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`kriscendobot-minion.town-pr68-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr68-retcon.md) — retcon directive on kriscendobot/minion.town PR #68
 - [`deadmail-20260928T052807Z-a50de7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20260928T052807Z-a50de7.md) — Dead-lettered message — pick up its intent
 - [`mentat-minion-town-per-principal-sharding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-minion-town-per-principal-sharding.md) — Plan: shard minion.town by principal (user / guest / agent)
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1298-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1298
 - [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Repair Ironhorse engine defect e0fe14e41d5074a6 (target differential_source) ...
 - [`report-host-disposition-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/report-host-disposition-20260928.md) — Report: per-host job disposition, for maintainer/operator socialization
 - [`kriscendobot-minion.town-pr56-review-7d4dc95d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr56-review-7d4dc95d.md) — Review directive on kriscendobot/minion.town PR #56
