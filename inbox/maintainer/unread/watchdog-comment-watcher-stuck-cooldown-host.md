@@ -1,24 +1,23 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-09-28T01:25:44Z
+sent_at: 2026-09-28T01:50:45Z
 watchdog_key: comment-watcher-stuck-cooldown-host
-notice_count: 38
+notice_count: 39
 first_seen: 2026-09-26T16:16:46Z
-last_seen: 2026-09-28T01:25:44Z
+last_seen: 2026-09-28T01:50:45Z
 ---
-WATCHDOG notice — occurrence #38 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T01:25:44Z).
-The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 38 times; this is ONE
-coalesced notice that updates in place, not 38 messages. Latest detail:
+WATCHDOG notice — occurrence #39 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T01:50:45Z).
+The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 39 times; this is ONE
+coalesced notice that updates in place, not 39 messages. Latest detail:
 
-Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 10 source(s); they post no acknowledgments while it holds.
-gh-api cooldown marker: expiry=1790559000 set-by=receipt:kriscendobot-minion.town:journal prerequisite
-- kriscendobot/cosgov: watcher ticking but cooldown for 2114s (since 2026-09-28T00:50:30Z)
-- kriscendobot/ocapn: watcher ticking but cooldown for 1372s (since 2026-09-28T01:02:52Z)
-- kriscendobot/test262: watcher ticking but cooldown for 1794s (since 2026-09-28T00:55:50Z)
-- kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2549s (since 2026-09-28T00:43:15Z)
-- endojs/endo-but-for-bots: watcher ticking but cooldown for 2554s (since 2026-09-28T00:43:10Z)
-- kriscendobot/proposal-compartments: watcher ticking but cooldown for 1383s (since 2026-09-28T01:02:41Z)
-- kriscendobot/list: watcher ticking but cooldown for 1795s (since 2026-09-28T00:55:49Z)
-- kriscendobot/garden: watcher ticking but cooldown for 1789s (since 2026-09-28T00:55:55Z)
-- kriscendobot/minion.town: watcher ticking but cooldown for 2549s (since 2026-09-28T00:43:15Z)
-- kriscendobot/vattr97: watcher ticking but cooldown for 1371s (since 2026-09-28T01:02:53Z)
+Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 8 source(s); they post no acknowledgments while it holds.
+journal-outage marker: 1790560239 cursor-get 
+- kriscendobot/test262: watcher ticking but cooldown for 3295s (since 2026-09-28T00:55:50Z)
+- kriscendobot/moddable: watcher ticking but cooldown for 2436s (since 2026-09-28T01:10:09Z)
+- kriscendobot/finbot: watcher ticking but cooldown for 1720s (since 2026-09-28T01:22:05Z)
+- kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 4050s (since 2026-09-28T00:43:15Z)
+- endojs/endo-but-for-bots: watcher ticking but cooldown for 4055s (since 2026-09-28T00:43:10Z)
+- kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 1364s (since 2026-09-28T01:28:01Z)
+- kriscendobot/list: watcher ticking but cooldown for 3296s (since 2026-09-28T00:55:49Z)
+- kriscendobot/garden: watcher ticking but cooldown for 3290s (since 2026-09-28T00:55:55Z)
+watcher ticking but cooldown for 1728s (since 2026-09-28T01:21:57Z)
