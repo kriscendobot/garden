@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: designer
+tier: mentat
+handler-timeout: 14000
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-28T07:46:17Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-28T07:46:17Z
+---
+
+---
 tier: mentat
 dispatch: manual
 ---
@@ -73,19 +95,3 @@ This is a **design** job: no implementation.
 Put genuine maintainer decisions in `## Open questions` (and use the review-PR carve-out). Settle everything else.
 Complete via the normal completion path. Report the design file(s), the PR if any, the open questions, and the
 proposed phases.
-
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-28T07:36:14Z -->
-
-<!-- garden-transient-elapsed: kind=signature through=1 values=3,7 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-28T07:40:48Z

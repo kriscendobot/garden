@@ -65,13 +65,6 @@ regression case AND the causal fix, then amend the ONE standing pull request.
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=7 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-28T07:34:42Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-28T07:56:14Z -->
