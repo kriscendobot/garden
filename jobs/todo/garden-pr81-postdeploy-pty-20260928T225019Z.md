@@ -1,6 +1,3 @@
-once: 2026-09-28T22:55:19Z
-job_basename_prefix: garden-pr81-postdeploy-pty-20260928T225019Z
----
 ---
 role: fixer
 tier: mentor
