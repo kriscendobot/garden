@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1097
 build_job: 
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1097-gauntlet-20260928-clean
+current_child: endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-1
 state: running
 created_by: retcon
 created_at: 2026-09-28T20:54:42Z
