@@ -117,6 +117,7 @@ open-questions carve-out (a review PR against `main2`), not bare, so the
 maintainer can decide before it becomes standing automated behavior
 controlling real spend, unattended, indefinitely.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=5 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
