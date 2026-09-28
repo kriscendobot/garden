@@ -14,3 +14,13 @@ kriskowal APPROVED with "Please conduct." (review https://github.com/endojs/endo
 Head at dispatch: 1d69bc1d0 (the approval is on this exact head). Bot repo only; never merge agoric-sdk or endojs/endo upstream. Re-verify OPEN/mergeable/green/approval-effective before merging; idempotent if already merged.
 
 Note: an earlier conduct job for the 2026-09-27 approval (`endojs-endo-but-for-bots-pr1345-conduct`, now in jobs/plan/) was doomed by the reaper (requeue-exhausted, repeated plain exit). Check its reports/log if the merge path fails the same way, and surface rather than looping.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T21:42:39Z
