@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T17:22:33Z_
+_As of 2026-09-28T17:26:09Z_
 
 ## Latest
 
@@ -386,11 +386,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
 
-> WATCHDOG notice — occurrence #31 (first seen 2026-09-27T02:00:48Z, latest 2026-09-28T17:18:23Z).
-> The SAME condition (`journal-outage-stuck`) has now been observed 31 times; this is ONE
-> coalesced notice that updates in place, not 31 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-28T17:23:25Z).
+> It was observed 31 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal outage latch stuck on endolin-garden-ece02cb4 for 601s (limit 600s); skips this tick=1, trailing skips=1.
+> Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -685,6 +685,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > This is transient/environmental (deploy-lag), not a fresh code defect, so no JOB block.
 >
 > The `garden-ci-watcher@kriscendobot-minion.town` FATAL (clone-lock busy after 3 retries) is the already-fixed shared-verify-clone-lock contention bug. Commits `5620bdbe5f6` and `e6ea1d33
+
+- `20260928T172319Z-a6992a` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T172319Z-a6992a.md)
+
+> M2 is blocked at draft PR [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), the hardened TextEncoder/TextDecoder XS smoke check. Decide whether to run the gauntlet for #1349; no other M2 work remains unblocked.
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-2.md)
 
@@ -3575,7 +3579,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 53216507 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 3 open notice(s); checker healthy
+worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
@@ -3584,13 +3588,13 @@ worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 ### doin (0)
 (none)
 
-### tada (9376)
+### tada (9377)
+- [`canary-probe-endolin-garden2-5bcdff64-39d0c5ef0aca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-39d0c5ef0aca.md) — rolling-deploy canary probe — round trip OK
 - [`report-completions-since-friday-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/report-completions-since-friday-reset.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2.md) — rolling-deploy canary probe — round trip OK
 - [`claude-on-minion-town-press-20260928-165614`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-165614.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-7438d06ba1ff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-7438d06ba1ff.md) — rolling-deploy canary probe — round trip OK
-- [`auto-derotate-offline-host-worker-capacity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/auto-derotate-offline-host-worker-capacity.md) — Cost
-- … and 9371 more
+- … and 9372 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
