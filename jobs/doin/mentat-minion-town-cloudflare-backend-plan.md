@@ -51,6 +51,7 @@ any), the open questions for the maintainer, and a proposed build sequence (as s
 <!-- garden-plain-retry-not-before: 2026-09-28T07:46:17Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=4,8 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
