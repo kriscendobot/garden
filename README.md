@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T15:20:29Z_
+_As of 2026-09-28T15:34:01Z_
 
 ## Latest
 
@@ -13,11 +13,11 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 11d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 16d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 24d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 26d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 26d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 26d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 26d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 26d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 27d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 26d)
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -1463,24 +1463,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #68 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T15:02:25Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 68 times; this is ONE
-> coalesced notice that updates in place, not 68 messages. Latest detail:
+> WATCHDOG notice — occurrence #69 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T15:27:14Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 69 times; this is ONE
+> coalesced notice that updates in place, not 69 messages. Latest detail:
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 11 source(s); they post no acknowledgments while it holds.
-> journal-outage marker: 1790607800 cursor-get 
-> - kriscendobot/ocapn: watcher ticking but cooldown for 2855s (since 2026-09-28T14:14:50Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 2800s (since 2026-09-28T14:15:45Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 2832s (since 2026-09-28T14:15:13Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2812s (since 2026-09-28T14:15:33Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2832s (since 2026-09-28T14:15:13Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2836s (since 2026-09-28T14:15:09Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2836s (since 2026-09-28T14:15:09Z)
-> - kriscendobot/list: watcher ticking but cooldown for 2756s (since 2026-09-28T14:16:29Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 2749s (since 2026-09-28T14:16:36Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2055s (since 2026-09-28T14:28:10Z)
-> watcher ticking but cooldown for 2834s (since 2026-09-28T14:15:11Z)
-> - kriscendobot/minion.town: watcher ticking but cooldown for 2048s (since 2026-09-28T14:28:17Z)
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 10 source(s); they post no acknowledgments while it holds.
+> journal-outage marker: 1790609246 cursor-get 
+> - kriscendobot/cosgov: watcher ticking but cooldown for 2486s (since 2026-09-28T14:45:47Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 4343s (since 2026-09-28T14:14:50Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 4320s (since 2026-09-28T14:15:13Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 4300s (since 2026-09-28T14:15:33Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 4324s (since 2026-09-28T14:15:09Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 4237s (since 2026-09-28T14:16:36Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 3543s (since 2026-09-28T14:28:10Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 3536s (since 2026-09-28T14:28:17Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 2487s (since 2026-09-28T14:45:46Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2502s (since 2026-09-28T14:45:31Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -3566,13 +3564,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.9M | $417.48 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 45.0M | $418.19 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 50004690 tokens/day lower bound._
+_Fleet token-unlock pace: 50508454 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 8.008780s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 3 open notice(s); checker healthy
+worst fetch p95 7.805983s/45s (/home/kris/garden/.garden-state/decisions/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
