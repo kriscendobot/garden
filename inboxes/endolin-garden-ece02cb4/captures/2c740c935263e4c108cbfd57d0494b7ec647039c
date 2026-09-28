@@ -1,0 +1,27 @@
+<6>22:12:35 [monk/1] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>22:12:35 [monk/1] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z' call ceiling: tier=minion max-budget-usd=7.00 (scaled by fresh seven-day headroom when available)
+panel-head-freshness: not-applicable target=kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z reason=no-presented-pr
+<6>22:13:58 [assert-followup-posted] gate: BLOCK — 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z' declares handoff to 'garden-pr81-postdeploy-pty-20260928T221312Z' but that successor is not durably posted on the board; leaving in doin for retry
+
+--- handler report (partial) ---
+The one-time schedule is durably committed to `origin/journal2`, and the dispatched successor job basename will be `garden-pr81-postdeploy-pty-20260928T221312Z`. All remaining work (post-deploy re-check, pty test-job dispatch, PR #81 comment) is owned by that successor. Handing off honestly rather than staying active and blocking the drained deploy.
+
+## Completion report
+
+**Job:** Post-deploy interactive validation and maintainer report for garden PR #81.
+
+**What I verified:**
+- PR #81 is **MERGED** (`state: MERGED`, `mergedAt: 2026-09-28T21:04:43Z`), merge commit **`4767705b28d522b591eddbd3b47976273c5e1853`**.
+- This host's deployed garden SHA (via deployed `common.sh`/`deployed_sha`) is **`e036bb8e0650b66a4ae00dc1516c4c8df39901ca`**.
+- Fetched `origin/main2` in this job worktree and ran `git merge-base --is-ancestor 4767705b28d… e036bb8e06…` → **exit 1 (NOT an ancestor)**. The merge is **not yet deployed** on `endolin-garden-ece02cb4`.
+
+**What I did:**
+- Did **not** sleep or remain active (an active gardener blocks the drained deploy).
+- Created a one-time schedule via `set-schedule-once.sh` carrying the full task body, fresh timestamped basename **`garden-pr81-postdeploy-pty-20260928T221312Z`**, firing at **2026-09-28T22:18:12Z** (5 min out).
+- Verified the schedule file is present on `origin/journal2` at `schedules/garden-pr81-postdeploy-pty-20260928T221312Z.md`.
+
+**What changed:** One journal `journal2` schedule entry added. No garden `main2` source changed; no PR comment posted yet (deferred to the successor, which will post it once the ancestry check passes).
+
+**Follow-ups:** The successor re-runs the deploy-ancestry check; if still not deployed it re-schedules the same pattern; once deployed it dispatches the `lane: pty` / `role: assayer` test job, polls for its `tada/` report, and posts the mandated PR #81 comment.
+
+<<<GARDEN-JOB-HANDED-OFF: garden-pr81-postdeploy-pty-20260928T221312Z>>>
