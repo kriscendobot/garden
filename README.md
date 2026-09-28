@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T10:39:28Z_
+_As of 2026-09-28T10:50:10Z_
 
 ## Latest
 
@@ -682,7 +682,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_maintainer_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_maintainer_journal.md)
 
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/maintainer/journal: p95=18.375742s max=45.009140s; hard guard=31.500000s (70% of 45s cap); remedy=deferred.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_maintainer_journal` has CLEARED (first seen 2026-09-28T04:43:27Z, cleared 2026-09-28T10:42:50Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_maintainer_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-ymax-stdio-mcp.md)
 
@@ -1731,6 +1735,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > self-heal: garden-ci-watcher@kriscendobot-moddable exited rc=1 with no scoped fix. Capture: 4f1e59b7151fbe9ac1c5e7a52cf463b0ca254e41 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 4f1e59b7151fbe9ac1c5e7a52cf463b0ca254e41). Diagnosis: This is the same known deploy-lag pattern already tracked in memory, not a new defect. `garden-ci-watcher@kriscendobot-moddable`'s FATAL "cannot acquire clone lock verify.lock after 3 waits ... 0 reclaim attempt(s)" matches a signature already fixed on `origin/main2` (the `5620bdbe5f6`/`e6ea1d33fc8` clone-lock-contention fix plus follow-on hardening commits like `ab66fece68f`, `ad55dea66f9`, `1570aa85a47`), but the deployed root checkout (HEAD `47b41af5a14`) is 31 commits behind `origin/main2` and hasn't picked those up yet. There's a stuck-canary marker (`endolin-garden2-5bcdff64`) blocking the rolling deploy, but it's only ~20 minutes stuck — well under the watchdog's escalation threshold, so no manual intervention needed there either.
 >
 > No JOB block — this will self-resolve once the 
+
+- `endojs-endo-but-for-bots-pr1298-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1298-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1298-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr1298-gauntlet HALTED: stage 'endojs-endo-but-for-bots-pr1298-gauntlet-fix-4' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
 - `20260927T202425Z-0a0b4c` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T202425Z-0a0b4c.md)
 
@@ -3545,25 +3553,25 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 43.4M | $400.40 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 49734105 tokens/day lower bound._
+_Fleet token-unlock pace: 49757791 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 5 open notice(s); checker healthy
+worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1298
+### doin (0)
+(none)
 
-### tada (9360)
+### tada (9363)
+- [`endojs-endo-but-for-bots-pr1298-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1298-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-fix-4.md) — Gauntlet fix round 4: endojs/endo-but-for-bots#1298
+- [`claude-on-minion-town-press-20260928-104106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-104106.md) — Cost
 - [`kriscendobot-minion.town-pr128-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr128-dependabot.md) — Cost
 - [`improve-foreman-local-endpoint-unreachable-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-foreman-local-endpoint-unreachable-dedup.md) — Cost
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-panel-4.md) — Cost
-- [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fix-journal-cold-clone-bootstrap.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots PR #1298
-- … and 9355 more
+- … and 9358 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
