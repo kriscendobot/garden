@@ -27,3 +27,13 @@ CAUTION, needed to avoid undoing live production fixes:
 - A CD run triggered by merging pull/68 will revert those two files.
 - If pull/129 and pull/131 are not merged by then: after CD, verify guest.js/guest.html on the box by sha256 over SSM. If they were reverted, redeploy exactly pull/131's head versions of those two files with `deploy-www.sh` (per-file SSM), re-verify by sha256, and rerun the guest-recovery browser suite (`MT_E2E_ORIGIN=https://minion.town`).
 - Also check that the daemon deploy race fixed by https://github.com/kriscendobot/minion.town/pull/130 doesn't bite again (EADDRINUSE on 127.0.0.1:8920). If it does, recover as in that PR, and confirm `/healthz` 200 and guest creation.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T21:25:14Z
