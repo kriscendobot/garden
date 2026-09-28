@@ -783,7 +783,7 @@ _budget_publish_legacy_local_pool_once() {
 
 _budget_publish_local_pool_once() {
   local dir="$1" context_file="${2:-}" pool row provider kind cap mapping root
-  local cutoff spend now bucket file old_bucket old_status status rc snapshot_secs
+  local cutoff spend now bucket file old_bucket old_status status rc snapshot_secs label
   root="$(dirname "$(budget_pool_file "$dir")")"; root="$(dirname "$root")"
   mapping="$root/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
   [ -r "$mapping" ] || { _budget_publish_legacy_local_pool_once "$dir" "$context_file"; return; }
@@ -818,13 +818,29 @@ _budget_publish_local_pool_once() {
   [ "$old_bucket" != "$bucket" ] || continue
   old_status="$(sed -n 's/^status:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
   if [ -n "${used_percent:-}" ]; then status="$(meter_verdict "$used_percent" 100)"; else status="$(meter_verdict "$spend" "$cap")"; fi
+  # A percent pool's cap is a percentage ceiling and its gate reads used_percent,
+  # while spend stays the raw codex token count (quota-panel sums it across hosts
+  # through meter_remote_snapshot_total). Never pair those two units in one label
+  # or under the spend:/cap: field pair: spend=48285769/100 reads as a catastrophic
+  # overrun when it is a correctly gated 95%-of-quota state.
+  if [ "$kind" = percent ]; then
+    case "${used_percent:-}" in ''|-*) label="spend=unknown%/$cap%" ;; *) label="spend=$used_percent%/$cap%" ;; esac
+    label="$label tokens=$spend"
+  else
+    label="spend=$spend/$cap"
+  fi
   mkdir -p "$(dirname "$file")"
   {
     printf 'subscription: %s\n' "$pool"
     printf 'host: %s\n' "$GARDEN"
     printf 'window_start_epoch: %s\n' "$cutoff"
     printf 'spend: %s\n' "$spend"
-    printf 'cap: %s\n' "$cap"
+    if [ "$kind" = percent ]; then
+      printf 'spend_unit: tokens\n'
+      printf 'cap_percent: %s\n' "$cap"
+    else
+      printf 'cap: %s\n' "$cap"
+    fi
     printf 'status: %s\n' "$status"
     printf 'sampled_at_epoch: %s\n' "$now"
     printf 'sampled_at: %s\n' "$(date -u -d "@$now" +%FT%TZ)"
@@ -835,11 +851,11 @@ _budget_publish_local_pool_once() {
   # truncated snapshot (a half-written spend line would read as a smaller number).
   mv -f "$file.tmp.$$" "$file"
   git -C "$dir" add "budget/live/$pool/$GARDEN"
-  rc=0; commit_and_push "$dir" "budget-live($GARDEN) $status spend=$spend/$cap" || rc=$?
+  rc=0; commit_and_push "$dir" "budget-live($GARDEN) $status $label" || rc=$?
   if [ "$rc" -eq 0 ] || [ "$rc" -eq 2 ]; then
     if [ "$old_status" != "$status" ] && { [ -n "$old_status" ] || [ "$status" = backoff ]; }; then
       alert_maintainer "budget-zone-$GARDEN-$status" \
-        "subscription $pool changed zone ${old_status:-unpublished} -> $status at spend=$spend of cap=$cap."
+        "subscription $pool changed zone ${old_status:-unpublished} -> $status at $label."
     fi
     continue
   fi
