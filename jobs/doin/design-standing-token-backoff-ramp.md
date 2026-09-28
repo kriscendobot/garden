@@ -118,6 +118,7 @@ maintainer can decide before it becomes standing automated behavior
 controlling real spend, unattended, indefinitely.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=5 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
