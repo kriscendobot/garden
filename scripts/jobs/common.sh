@@ -1908,19 +1908,20 @@ worker_health_probe() {
 # ever reached by the worker that won the atomic edge claim below. Never fails its
 # caller: a journal push cannot be assumed to work on a host this broken.
 _worker_health_report() {
-  local kind="$1" id="$2" state="$3" detail="$4" entry_kind msg key
+  local kind="$1" id="$2" state="$3" detail="$4" headline="${5:-}" entry_kind msg key
+  [ "$state" = unhealthy ] && : "${headline:=cannot resolve their agent CLI}"
   key="worker-agent-bin-$kind-$GARDEN"
   if [ "$state" = unhealthy ]; then
     entry_kind=error
     msg="$(printf '%s\n' \
-      "$kind workers on $GARDEN cannot resolve their agent CLI ($detail) — the pool has SELF-DISQUALIFIED and is claiming nothing." \
+      "$kind workers on $GARDEN $headline ($detail) — the pool has SELF-DISQUALIFIED and is claiming nothing." \
       "" \
       "Every $kind on this host is parked in its poll loop, re-probing on a backoff; it resumes claiming by itself the moment the CLI resolves (no restart needed). This is deliberate: a worker whose handler dies in a second wins claim races against healthy workers doing real work, so it would drain the shared board into doin/ and doom it. Parking makes the host merely IDLE instead of a work SINK." \
       "" \
-      "To fix: install or repair the CLI on $GARDEN (the fleet probes PATH first, then /usr/local/bin, /usr/bin, ~/.local/bin, ~/.claude/local, \$NVM_BIN, ~/.npm-global/bin, ~/.node/bin, ~/bin), or pin it explicitly with the GARDEN_<NAME>_BIN override. One entry is emitted per host per kind per episode, not per tick; recovery reports itself.")"
+      "To fix: see the parenthetical above for a cause-specific cure; for a missing CLI, install or repair the CLI on $GARDEN (the fleet probes PATH first, then /usr/local/bin, /usr/bin, ~/.local/bin, ~/.claude/local, \$NVM_BIN, ~/.npm-global/bin, ~/.node/bin, ~/bin), or pin it explicitly with the GARDEN_<NAME>_BIN override. One entry is emitted per host per kind per episode, not per tick; recovery reports itself.")"
   else
     entry_kind=progress
-    msg="$kind workers on $GARDEN resolved their agent CLI again ($detail); the pool has UN-parked and is claiming normally. Closing the self-disqualification episode."
+    msg="$kind workers on $GARDEN ${headline:-resolved their agent CLI again} ($detail); the pool has UN-parked and is claiming normally. Closing the self-disqualification episode."
   fi
   log "health gate: $kind on $GARDEN is $state ($detail)"
   printf '%s\n' "$msg" \
@@ -1965,6 +1966,65 @@ worker_model_unsupported_latch() {
   fi
 }
 
+# worker_credential_fingerprint <kind> — a content hash of every credential the
+# kind's agent CLI could authenticate with: its login file (Claude Code's
+# claude_credential_file, Codex's ${CODEX_HOME:-~/.codex}/auth.json) plus any
+# provider API-key env var this process carries. CONTENT, never mtime: a human
+# re-running the login flow rewrites the file, and a rewrite inside mtime
+# granularity must still read as a change. A restart with a new key in the env
+# changes it too. Cheap (one file read + sha256, no CLI, no network), so the gate
+# can compare it on every tick. Prints the hex digest; never fails.
+worker_credential_fingerprint() {
+  local kind="${1:?worker_credential_fingerprint: kind required}" name cred="" v
+  name="$(worker_agent_bin "$kind" 2>/dev/null || true)"
+  case "$name" in
+    claude) cred="$(claude_credential_file)" ;;
+    codex)  cred="${CODEX_HOME:-$HOME/.codex}/auth.json" ;;
+  esac
+  {
+    printf 'kind=%s\n' "$kind"
+    if [ -n "$cred" ] && [ -r "$cred" ]; then printf 'file:\n'; cat "$cred" 2>/dev/null
+    else printf 'file:absent\n'; fi
+    for v in ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN OPENAI_API_KEY CODEX_API_KEY \
+             OLLAMA_CLOUD_API_KEY FIREWORKS_API_KEY OPENROUTER_API_KEY MOONSHOT_API_KEY; do
+      [ -n "${!v:-}" ] && printf '\nenv:%s=%s' "$v" "${!v}"
+    done
+  } | sha256sum 2>/dev/null | cut -d' ' -f1
+}
+
+# worker_auth_failure_latch <kind> <id> [excerpt] — open an unhealthy episode
+# because the kind's agent CLI is RESOLVABLE but its CREDENTIAL is dead
+# (is_auth_failure_signature: an expired OAuth session that could not be
+# refreshed, a revoked token, an invalid API key). Nothing about the CLI changes
+# on re-auth, so the marker records reason=auth-failure plus the credential
+# CONTENT fingerprint at latch time, and worker_health_gate keeps the pool parked
+# until that fingerprint CHANGES (a human re-running `claude /login` / `codex
+# login` rewrites the file), then recovers normally. Deliberately NO live API
+# call to confirm auth works: the gate must stay a cheap pre-claim check, and a
+# re-login that is somehow still broken simply reopens the episode on the next
+# failed claim. mkdir is the atomic edge exactly as in the gate: the first failed
+# handler latches and raises the ONE maintainer notice, repeats are silent.
+worker_auth_failure_latch() {
+  local kind="${1:?worker_auth_failure_latch: kind required}" id="${2:-0}" excerpt="${3:-}" marker fp name cure
+  marker="$(worker_health_marker "$kind")"
+  fp="$(worker_credential_fingerprint "$kind")"
+  name="$(worker_agent_bin "$kind" 2>/dev/null || true)"
+  case "$name" in
+    claude) cure="run \`claude\` then /login (or \`claude auth login\`) as the garden user on $GARDEN" ;;
+    codex)  cure="run \`codex login\` (or \`codex login --device-auth\` headless) as the garden user on $GARDEN" ;;
+    *)      cure="re-authenticate ${name:-the agent CLI} on $GARDEN" ;;
+  esac
+  mkdir -p "$GARDEN_WORKER_HEALTH_DIR" 2>/dev/null || true
+  if mkdir "$marker" 2>/dev/null; then
+    printf 'auth-failure\n' > "$marker/reason" 2>/dev/null || true
+    printf '%s\n' "${fp:-unknown}" > "$marker/credential-fingerprint" 2>/dev/null || true
+    if [ -n "$excerpt" ]; then printf '%s\n' "$excerpt" > "$marker/excerpt" 2>/dev/null || true; fi
+    date -u +%FT%TZ > "$marker/since" 2>/dev/null || true
+    _worker_health_report "$kind" "$id" unhealthy "${name:-agent CLI} is installed but its credential is REJECTED${excerpt:+: \"$excerpt\"}; every claim dies in seconds on authentication. To fix: $cure — the pool un-parks by itself when the credential file changes (a restart with a new API key in the env works too)" \
+      "cannot AUTHENTICATE their agent CLI"
+  fi
+}
+
 # worker_health_gate <kind> <id> — THE PRE-CLAIM GATE. Returns 0 when this worker
 # may claim, 1 when it must not. Idempotent and cheap on the happy path: one probe
 # plus one directory test, no fork, no journal traffic, so a healthy fleet behaves
@@ -1987,14 +2047,30 @@ worker_health_gate() {
         return 1
       fi
     fi
+    # An AUTH-FAILURE episode likewise outlives a resolvable binary (see
+    # worker_auth_failure_latch above): the CLI runs, its credential does not. It
+    # closes only when the credential CONTENT differs from the fingerprint
+    # recorded at latch time — a re-login is the cure — then recovers below.
+    if [ -d "$marker" ] && [ "$(cat "$marker/reason" 2>/dev/null)" = auth-failure ]; then
+      cur="$(worker_credential_fingerprint "$kind")"
+      rec="$(cat "$marker/credential-fingerprint" 2>/dev/null)"
+      if [ -z "$cur" ] || [ "$cur" = "$rec" ]; then
+        return 1
+      fi
+    fi
     # HEALTHY. Fast path when no episode is open. When one IS open, exactly one
     # worker wins the recovery report: the rename succeeds for the first caller
     # only, and every later caller finds the marker already gone.
     if [ -d "$marker" ]; then
       claimed="$marker.recovered.$$"
       if mv "$marker" "$claimed" 2>/dev/null; then
+        case "$(cat "$claimed/reason" 2>/dev/null)" in
+          auth-failure)      rec="have a CHANGED credential (re-login detected)" ;;
+          model-unsupported) rec="have a CHANGED agent CLI version (update detected)" ;;
+          *)                 rec="" ;;
+        esac
         rm -rf "$claimed" 2>/dev/null || true
-        _worker_health_report "$kind" "$id" healthy "${cli:-${name:-agent CLI}}"
+        _worker_health_report "$kind" "$id" healthy "${cli:-${name:-agent CLI}}" "$rec"
       fi
     fi
     return 0
@@ -2023,6 +2099,13 @@ worker_health_gate() {
 # than depend on it, because the probe runs in the scaler and in set-workers, not
 # only in the worker poll loop.
 
+# claude_credential_file — the ONE spelling of Claude Code's OAuth login file.
+# claude_auth_ok checks its presence; worker_credential_fingerprint hashes its
+# content so an auth-failure park lifts when a re-login rewrites it.
+claude_credential_file() {
+  printf '%s\n' "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.credentials.json"
+}
+
 # claude_auth_ok — the one NEW probe (the gardener handler today checks only that the
 # CLI is on PATH). Software: claude on PATH. Credentials: ANTHROPIC_API_KEY non-empty
 # OR a non-empty Claude Code OAuth credential file. PRESENCE, not freshness, is the
@@ -2032,7 +2115,8 @@ worker_health_gate() {
 claude_auth_ok() {                         # -> 0 authed+installed, 1 otherwise
   command -v claude >/dev/null 2>&1 || { echo "claude not on PATH" >&2; return 1; }
   [ -n "${ANTHROPIC_API_KEY:-}" ] && return 0
-  local cred="${CLAUDE_CONFIG_DIR:-$HOME/.claude}/.credentials.json"
+  local cred
+  cred="$(claude_credential_file)"
   [ -s "$cred" ] || { echo "no ANTHROPIC_API_KEY and no Claude login credential ($cred)" >&2; return 1; }
   return 0
 }
@@ -5221,6 +5305,51 @@ is_explicit_cap_signature() {
 # host) and latch THIS host's pre-claim gate. Case-insensitive.
 is_model_unsupported_signature() {
   printf '%s' "$1" | grep -qiE "$GARDEN_MODEL_UNSUPPORTED_SIGNATURES"
+}
+
+# AUTH-FAILURE subset: the agent CLI runs, but its CREDENTIAL is dead. Wordings
+# are the CLIs' own, not guesses. Claude Code (every one observed in the fleet —
+# 110 captures on endolin-garden2 2026-09-27/28 — is the first):
+#   "Failed to authenticate: OAuth session expired and could not be refreshed"
+#   "OAuth token revoked · Please run /login", "Login expired · Please run /login",
+#   "Invalid API key · Please run /login", "Session expired. Please run /login",
+#   "Not logged in. Run claude auth login to authenticate."
+# Codex: "Your access token could not be refreshed[ because ...]. Please log out
+#   and sign in again.", "no Codex credentials were found", "please re-run
+#   `codex login`".
+# Deliberately NOT matched: Claude Code's "OAuth access token could not be
+# refreshed: another Claude Code process is holding the refresh lock" — a
+# transient lock race between concurrent workers, not a dead credential. The
+# alternatives are anchored on the CLIs' exact sentences (a bare "401" or
+# "Please run /login" alone is too loose). Like every capture classifier this
+# can in principle match a transcript that merely QUOTES these sentences, so
+# gardener.sh latches only on a FAST death (GARDEN_AUTH_FAILURE_LATCH_MAX_SECS).
+# The endolin-garden2 incident (2026-09-27/28): an expired `endolin-claude2`
+# session, 178 claims / 109 terminal-failure escalations in ~24h, every one
+# landing only as a generic gardener-inbox diagnostic while the host kept
+# winning claim races.
+# (Assigned with an explicit unset-test, not the usual : "${VAR:=...}" idiom:
+# the regex's {1,6} bounds would close that expansion early.)
+[ -n "${GARDEN_AUTH_FAILURE_SIGNATURES:-}" ] \
+  || GARDEN_AUTH_FAILURE_SIGNATURES='Failed to authenticate: OAuth|OAuth session expired|OAuth token revoked|Login expired.{1,6}Please run /login|Invalid API key.{1,6}Please run /login|Session expired\. Please run /login|Not logged in\. Run claude auth login|access token could not be refreshed\.|access token could not be refreshed because|no Codex credentials were found|re-run .?codex login'
+# A handler that ran longer than this before dying is not treated as an auth
+# failure even if its capture carries the wording (a real dead credential kills
+# the CLI on its first API call, in seconds): protects against a long job whose
+# transcript merely discusses auth errors parking a healthy host. A credential
+# that expires MID-job still latches on the next (fast) claim. 0 = no bound.
+: "${GARDEN_AUTH_FAILURE_LATCH_MAX_SECS:=300}"
+
+# Classify a failed handler's combined output ($1) as a dead-credential
+# rejection (returns 0). Callers keep the job transient (requeue to a healthy
+# host) and latch THIS host's pre-claim gate. Case-insensitive.
+is_auth_failure_signature() {
+  printf '%s' "$1" | grep -qiE "$GARDEN_AUTH_FAILURE_SIGNATURES"
+}
+
+# auth_failure_excerpt <text> — the first line of <text> matching the auth
+# signature, trimmed to 200 chars, for the maintainer notice. Empty if none.
+auth_failure_excerpt() {
+  printf '%s' "$1" | grep -iE "$GARDEN_AUTH_FAILURE_SIGNATURES" 2>/dev/null | head -n1 | cut -c1-200
 }
 
 # Classify a handler exit code ($1) as an EXTERNAL signal-kill: SIGTERM (143),

@@ -325,15 +325,23 @@ while :; do
   # common.sh § pre-claim worker health gate. Placed after the drain/stop checks and
   # the bus read so a parked worker still honors a stop, a deploy, and its messages.
   if ! worker_health_gate "$KIND" "$id"; then
+    # Name WHY the pool is parked: an open episode's marker records its reason
+    # (model-unsupported / auth-failure); no reason file is the CLI-missing case.
+    health_why="$(cat "$(worker_health_marker "$KIND")/reason" 2>/dev/null || true)"
+    case "$health_why" in
+      auth-failure)      health_why="agent CLI credential rejected (re-login required)" ;;
+      model-unsupported) health_why="agent CLI too old for the tier model (update required)" ;;
+      *)                 health_why="agent CLI unresolvable" ;;
+    esac
     if [ "$GARDEN_ONESHOT" = "1" ]; then
       # A ONESHOT run is timer-rearmed and short-lived by contract; parking in a
       # sleep loop would hold the slot until the timer's own kill. Exit CLEAN (never
       # a failure rc, which would arm a self-heal responder against an environmental
       # condition no code fix addresses) — the next tick re-probes and self-heals.
-      log "agent CLI unresolvable; SELF-DISQUALIFIED — claiming nothing and exiting cleanly (oneshot; the next timer tick re-probes)"
+      log "$health_why; SELF-DISQUALIFIED — claiming nothing and exiting cleanly (oneshot; the next timer tick re-probes)"
       exit 0
     fi
-    log "agent CLI unresolvable; SELF-DISQUALIFIED — claiming nothing, parked and re-probing (park tick $health_attempt)"
+    log "$health_why; SELF-DISQUALIFIED — claiming nothing, parked and re-probing (park tick $health_attempt)"
     idle_backoff "$health_attempt"; health_attempt=$((health_attempt+1))
     continue
   fi
@@ -1352,6 +1360,34 @@ while :; do
         "$(sed -n "s/.*resolved tier '[^']*' -> .* --model \([^ ]*\).*/\1/p" "$capture" 2>/dev/null | head -n1)" || true
     fi
 
+    # HOST SELF-DISQUALIFICATION on a DEAD CREDENTIAL (is_auth_failure_signature:
+    # Claude Code's "Failed to authenticate: OAuth session expired and could not
+    # be refreshed" / "Invalid API key · Please run /login", Codex's "Your access
+    # token could not be refreshed ..."). Same shape as the model-unsupported
+    # case above: TRANSIENT FOR THE JOB (a host with a live login runs it
+    # unchanged) but DETERMINISTIC FOR THIS HOST until a human re-authenticates
+    # — endolin-garden2 2026-09-27/28 won 178 claims in ~24h on an expired
+    # session, 109 of them escalated as generic terminal failures, and nothing
+    # parked the host or told the maintainer. Latch the pre-claim gate (ONE
+    # maintainer notice per episode); it un-parks by itself when the credential
+    # file's content changes. Only a FAST death latches: a dead credential kills
+    # the CLI on its first API call, while a long job whose transcript merely
+    # quotes these sentences must not park a healthy host
+    # (GARDEN_AUTH_FAILURE_LATCH_MAX_SECS, 0 = unbounded). declare -F guards a
+    # stale-base common.sh missing the helpers.
+    auth_failure=0
+    auth_max="${GARDEN_AUTH_FAILURE_LATCH_MAX_SECS:-300}"
+    case "$auth_max" in ''|*[!0-9]*) auth_max=300 ;; esac
+    if declare -F is_auth_failure_signature >/dev/null 2>&1 \
+        && declare -F worker_auth_failure_latch >/dev/null 2>&1 \
+        && { [ "$auth_max" -eq 0 ] || [ "$elapsed" -le "$auth_max" ]; } \
+        && is_auth_failure_signature "$(tail -c 65536 "$capture" 2>/dev/null)"; then
+      transient=1; auth_failure=1
+      log "handler for '$base' died in ${elapsed}s on an AUTHENTICATION failure (dead credential on this host, not a job defect); requeueing the job and parking this host's $KIND pool until the credential changes"
+      worker_auth_failure_latch "$KIND" "$id" \
+        "$(auth_failure_excerpt "$(tail -c 65536 "$capture" 2>/dev/null)")" || true
+    fi
+
     if [ "$transient" -eq 1 ]; then
       append_usage requeue
       # Classify the cycle as an outage BEFORE any reason-specific counter is
@@ -1493,7 +1529,11 @@ while :; do
         # quota-backoff hint below (which holds THIS claim to a named reset); the
         # cooldown governs the whole route's CLAIM CADENCE. Reset-aligned window when a
         # concrete reset is parsed, else the default; always capped, never extended.
-        if [ -n "${WORKER_PROVIDER:-}" ] && is_provider_outage_signature "$quota_text"; then
+        # A DEAD CREDENTIAL (auth_failure, above) is this host's fault, not the
+        # provider's: the health gate already parks the pool until re-login, and a
+        # route cooldown would only delay the un-park after the human fixes it.
+        if [ -n "${WORKER_PROVIDER:-}" ] && [ "${auth_failure:-0}" -eq 0 ] \
+            && is_provider_outage_signature "$quota_text"; then
           cd_secs=""
           if [[ "$quota_reset_epoch" =~ ^[0-9]+$ ]]; then
             now_epoch="$(date -u +%s 2>/dev/null || echo 0)"

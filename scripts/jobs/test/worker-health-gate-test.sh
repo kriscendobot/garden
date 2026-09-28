@@ -37,6 +37,13 @@
 #                           previously refused. One error entry, one progress entry.
 #   SUBTEST 5  UNCHANGED  — with the CLI resolvable the gate is a no-op: the worker
 #                           claims and completes exactly as before.
+#   SUBTEST 6  MODEL      — a CLI too old for the tier model parks until the
+#                           installed version changes.
+#   SUBTEST 7  AUTH       — a dead credential (matcher, latch, same-content park,
+#                           re-login recovery, codex fingerprint).
+#   SUBTEST 8  AUTH SIM   — the endolin-garden2 scenario through the real poll
+#                           loop: transient job, park after one failure, ONE
+#                           maintainer notice, self-un-park on re-login.
 #
 # Usage: worker-health-gate-test.sh
 set -euo pipefail
@@ -92,7 +99,7 @@ seed_board() {
     mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
     for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
     printf '# %s\n\ndo the work for %s\n' "$base" "$base" > "jobs/todo/$base.md" )
-  seed_calibrated_test_pool "$seed" "$host" gardener
+  seed_calibrated_test_pool "$seed" "$host" monk
   git -C "$seed" add -A
   git -C "$seed" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
   git -C "$seed" remote add origin "$bare"
@@ -110,7 +117,7 @@ check_bin() { # check_bin <kind> <expected>
   local got; got="$(worker_agent_bin "$1" 2>/dev/null || true)"
   if [ "$got" = "$2" ]; then ok "$1 → $2"; else bad "$1 → '$got', expected '$2'"; fi
 }
-check_bin gardener   claude
+check_bin monk       claude
 check_bin cleric     codex
 check_bin hermit     codex
 check_bin mystic     kimi
@@ -145,11 +152,11 @@ export GARDEN=healthhost
 REPORTS="$TR/reports"; : > "$REPORTS"
 _worker_health_report() { printf '%s %s\n' "$3" "$1" >> "$REPORTS"; }
 
-MARKER="$(worker_health_marker gardener)"
+MARKER="$(worker_health_marker monk)"
 
 # (a) CLI absent → the gate REFUSES and latches the episode.
 export GARDEN_CLAUDE_BIN="$TR/nowhere/claude"
-if worker_health_gate gardener 1 2>/dev/null; then
+if worker_health_gate monk 1 2>/dev/null; then
   bad "the gate PERMITTED a claim with the agent CLI unresolvable"
 else
   ok "the gate refuses to claim when the agent CLI is unresolvable"
@@ -158,7 +165,7 @@ fi
 
 # (b) further ticks and further WORKERS keep refusing — silently. This is the ps23
 # flood: hundreds of near-identical error entries, one per failed job, for hours.
-for i in 2 3 4 5; do worker_health_gate gardener "$i" 2>/dev/null || true; done
+for i in 2 3 4 5; do worker_health_gate monk "$i" 2>/dev/null || true; done
 n="$(grep -c '^unhealthy ' "$REPORTS" || true)"
 if [ "${n:-0}" -eq 1 ]; then
   ok "exactly ONE unhealthy report across 5 ticks/workers (edge, not per tick)"
@@ -169,13 +176,13 @@ fi
 # (c) the CLI returns → the gate PERMITS again and reports recovery exactly once.
 mkdir -p "$TR/late"; printf '#!/bin/sh\nexit 0\n' > "$TR/late/claude"; chmod +x "$TR/late/claude"
 export GARDEN_CLAUDE_BIN="$TR/late/claude"
-if worker_health_gate gardener 1 2>/dev/null; then
+if worker_health_gate monk 1 2>/dev/null; then
   ok "the gate permits claiming once the agent CLI resolves again"
 else
   bad "the gate still refuses though the agent CLI resolves"
 fi
 [ -d "$MARKER" ] && bad "the episode marker survived recovery" || ok "the episode marker is cleared on recovery"
-for i in 2 3 4 5; do worker_health_gate gardener "$i" 2>/dev/null || true; done
+for i in 2 3 4 5; do worker_health_gate monk "$i" 2>/dev/null || true; done
 n="$(grep -c '^healthy ' "$REPORTS" || true)"
 if [ "${n:-0}" -eq 1 ]; then
   ok "exactly ONE recovery report across 5 ticks/workers (edge, not per tick)"
@@ -186,7 +193,7 @@ fi
 # (d) a fresh unhealthy episode reports again — the gate is edge-triggered, not
 # fire-once-per-process-lifetime.
 export GARDEN_CLAUDE_BIN="$TR/nowhere/claude"
-worker_health_gate gardener 1 2>/dev/null || true
+worker_health_gate monk 1 2>/dev/null || true
 n="$(grep -c '^unhealthy ' "$REPORTS" || true)"
 if [ "${n:-0}" -eq 2 ]; then
   ok "a NEW episode reports again (edge-triggered, not fire-once)"
@@ -315,7 +322,7 @@ else
 fi
 
 verify_clone "$BARE" "$D/v3"
-errs="$( (ls -1 "$D/v3/entries"/*/*/*/*-error-gardener-*.md 2>/dev/null || true) | wc -l | tr -d ' ')"
+errs="$( (ls -1 "$D/v3/entries"/*/*/*/*-error-monk-*.md 2>/dev/null || true) | wc -l | tr -d ' ')"
 progs="$( (grep -rl 'resolved their agent CLI again' "$D/v3/entries" 2>/dev/null || true) | wc -l | tr -d ' ')"
 if [ "$errs" = 1 ]; then
   ok "exactly ONE journal error entry for the whole unhealthy episode"
@@ -352,7 +359,7 @@ if grep -q 'SELF-DISQUALIF' "$D5/g.log"; then
 else
   ok "no self-disqualification on a healthy host"
 fi
-if [ -d "$D5/gstate/health/gardener.unhealthy" ]; then
+if [ -d "$D5/gstate/health/monk.unhealthy" ]; then
   bad "a healthy worker latched an unhealthy episode"
 else
   ok "no unhealthy episode latched, and no journal traffic added on the happy path"
@@ -453,6 +460,271 @@ fi
 
 unset -f _worker_health_report
 unset GARDEN_CLAUDE_BIN GARDEN_WORKER_HEALTH_DIR
+
+# ============================================================================
+hr; echo "SUBTEST 7 — AUTH-FAILURE: a dead credential parks the pool until the credential file CHANGES"; hr
+
+# Regression (endolin-garden2, 2026-09-27/28): the host's Claude Code session
+# expired, so every claim died in seconds with "Failed to authenticate: OAuth
+# session expired and could not be refreshed" — 178 claims, 109 generic
+# terminal-failure escalations in ~24h, no maintainer notice, and nothing
+# stopped the host winning the next claim race. The latch records a CONTENT
+# hash of the credential; the episode ends only when that content changes.
+
+export GARDEN_STATE="$TR/state7"
+export GARDEN_WORKER_HEALTH_DIR="$GARDEN_STATE/health"
+export GARDEN_NO_MAINTAINER_ALERT=1
+export GARDEN=authhost
+REPORTS7="$TR/reports7"; : > "$REPORTS7"
+_worker_health_report() { printf '%s %s %s\n' "$3" "$1" "${5:-}" >> "$REPORTS7"; }
+
+# (a) the matcher recognizes the real wordings (the endolin-garden2 capture and
+# the other Claude Code / Codex dead-credential sentences), and not a transient
+# refresh-lock race, an overload, or a model rejection.
+real='--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed'
+hits=0 misses=""
+for t in "$real" \
+    'OAuth token revoked · Please run /login' \
+    'Login expired · Please run /login' \
+    'API Error: 401 Invalid API key · Please run /login' \
+    'Session expired. Please run /login to sign in again.' \
+    'Not logged in. Run claude auth login to authenticate.' \
+    'Your access token could not be refreshed. Please log out and sign in again.' \
+    'Your access token could not be refreshed because your refresh token was already used. Please log out and sign in again.' \
+    'no Codex credentials were found' \
+    'ChatGPT account ID not available, please re-run `codex login`'; do
+  if is_auth_failure_signature "$t"; then hits=$((hits+1)); else misses="$misses [$t]"; fi
+done
+if [ -z "$misses" ]; then
+  ok "is_auth_failure_signature matches all $hits real Claude Code / Codex dead-credential wordings"
+else
+  bad "is_auth_failure_signature missed:$misses"
+fi
+for t in 'OAuth access token could not be refreshed: another Claude Code process is holding the refresh lock' \
+    'API Error: 529 overloaded' \
+    'API Error: 400 Claude Code 2.1.267 does not support this model; version 2.1.280 or newer is required.' \
+    "You've hit your session limit · resets 2am (UTC)"; do
+  if is_auth_failure_signature "$t"; then
+    bad "non-auth text matched the auth-failure subset: [$t]"
+  else
+    ok "does NOT match: [$t]"
+  fi
+done
+if [ "$(auth_failure_excerpt "$real")" = 'Failed to authenticate: OAuth session expired and could not be refreshed' ]; then
+  ok "auth_failure_excerpt extracts the CLI's own sentence for the notice"
+else
+  bad "auth_failure_excerpt gave '$(auth_failure_excerpt "$real")'"
+fi
+
+# (b) latch with a resolvable CLI and a credential file → the gate REFUSES
+# though the binary probes healthy, reports ONCE, repeats are silent, and an
+# identical rewrite of the credential does NOT clear it.
+mkdir -p "$TR/authcli" "$TR/cc7"
+printf '#!/bin/sh\nexit 0\n' > "$TR/authcli/claude"; chmod +x "$TR/authcli/claude"
+export GARDEN_CLAUDE_BIN="$TR/authcli/claude"
+export CLAUDE_CONFIG_DIR="$TR/cc7"
+unset ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN || true
+printf '{"claudeAiOauth":{"accessToken":"dead","refreshToken":"dead"}}\n' > "$CLAUDE_CONFIG_DIR/.credentials.json"
+if [ "$(claude_credential_file)" = "$TR/cc7/.credentials.json" ]; then
+  ok "claude_credential_file names the same file claude_auth_ok checks"
+else
+  bad "claude_credential_file gave '$(claude_credential_file)'"
+fi
+MARKER7="$(worker_health_marker monk)"
+fp0="$(worker_credential_fingerprint monk)"
+worker_auth_failure_latch monk 1 'Failed to authenticate: OAuth session expired and could not be refreshed'
+if [ -d "$MARKER7" ] && [ "$(cat "$MARKER7/reason" 2>/dev/null)" = auth-failure ]; then
+  ok "the latch opened an auth-failure episode (reason recorded)"
+else
+  bad "no auth-failure marker latched"
+fi
+if [ -n "$fp0" ] && [ "$(cat "$MARKER7/credential-fingerprint" 2>/dev/null)" = "$fp0" ]; then
+  ok "the credential CONTENT fingerprint is recorded in the marker"
+else
+  bad "recorded fingerprint '$(cat "$MARKER7/credential-fingerprint" 2>/dev/null)' != '$fp0'"
+fi
+if grep -q '^unhealthy monk cannot AUTHENTICATE' "$REPORTS7"; then
+  ok "the report carries the auth-specific headline (not 'cannot resolve their agent CLI')"
+else
+  bad "report headline wrong: $(cat "$REPORTS7")"
+fi
+if worker_health_gate monk 1 2>/dev/null; then
+  bad "the gate PERMITTED a claim on a dead credential"
+else
+  ok "the gate refuses to claim on an auth-failure episode (binary resolvable)"
+fi
+worker_auth_failure_latch monk 2 'Failed to authenticate: OAuth session expired and could not be refreshed'
+printf '{"claudeAiOauth":{"accessToken":"dead","refreshToken":"dead"}}\n' > "$CLAUDE_CONFIG_DIR/.credentials.json"
+touch -d '+1 minute' "$CLAUDE_CONFIG_DIR/.credentials.json" 2>/dev/null || true
+for i in 2 3 4; do worker_health_gate monk "$i" 2>/dev/null || true; done
+n7="$(grep -c '^unhealthy ' "$REPORTS7" || true)"
+if [ "${n7:-0}" -eq 1 ]; then
+  ok "exactly ONE unhealthy report across repeated latches and ticks (one notice per episode)"
+else
+  bad "$n7 unhealthy reports, expected exactly 1"
+fi
+if [ -d "$MARKER7" ]; then
+  ok "an IDENTICAL-content rewrite (new mtime, same bytes) does not un-park"
+else
+  bad "the episode cleared without the credential content changing"
+fi
+
+# (c) the credential CHANGES (a human re-ran /login) → the gate permits,
+# clears the marker, and reports recovery exactly once.
+printf '{"claudeAiOauth":{"accessToken":"fresh","refreshToken":"fresh"}}\n' > "$CLAUDE_CONFIG_DIR/.credentials.json"
+if worker_health_gate monk 1 2>/dev/null; then
+  ok "the gate permits claiming once the credential content differs from the recorded one"
+else
+  bad "the gate still refuses after re-login"
+fi
+[ -d "$MARKER7" ] && bad "the auth-failure marker survived the re-login" || ok "the marker is cleared on the credential change"
+for i in 2 3 4; do worker_health_gate monk "$i" 2>/dev/null || true; done
+n7="$(grep -c '^healthy ' "$REPORTS7" || true)"
+if [ "${n7:-0}" -eq 1 ]; then
+  ok "exactly ONE recovery report (edge, not per tick)"
+else
+  bad "$n7 recovery reports, expected exactly 1"
+fi
+
+# (d) the codex side fingerprints its own login file.
+export CODEX_HOME="$TR/codex7"; mkdir -p "$CODEX_HOME"
+printf '{"tokens":"old"}\n' > "$CODEX_HOME/auth.json"; fc0="$(worker_credential_fingerprint cleric)"
+printf '{"tokens":"new"}\n' > "$CODEX_HOME/auth.json"; fc1="$(worker_credential_fingerprint cleric)"
+if [ -n "$fc0" ] && [ "$fc0" != "$fc1" ]; then
+  ok "a cleric's fingerprint tracks \$CODEX_HOME/auth.json content (codex login un-parks it)"
+else
+  bad "cleric fingerprint did not change with auth.json ($fc0 / $fc1)"
+fi
+unset CODEX_HOME
+
+unset -f _worker_health_report
+unset GARDEN_CLAUDE_BIN GARDEN_WORKER_HEALTH_DIR
+source "$JOBS/common.sh"   # restore the real _worker_health_report for SUBTEST 8
+
+# ============================================================================
+hr; echo "SUBTEST 8 — SIMULATION: the endolin-garden2 scenario through the REAL poll loop"; hr
+
+# A handler that dies in a second printing the real capture text, against a
+# board holding THREE jobs. Before the fix this host claimed and failed all of
+# them, one generic escalation each. Now: (a) the failed job is classified
+# TRANSIENT (requeue, no terminal-failure escalation), (b) the host parks after
+# ONE failure and claims nothing else, (c) exactly ONE maintainer notice; then a
+# re-login (credential rewrite) un-parks the host by itself.
+D8="$TR/authsim"; mkdir -p "$D8/bin" "$D8/cc"
+BARE8="$(seed_board "$D8" authjob-a authsimhost)"
+( git clone -q --branch journal2 "$BARE8" "$D8/add" 2>/dev/null
+  printf '# authjob-b\n\ndo b\n' > "$D8/add/jobs/todo/authjob-b.md"
+  printf '# authjob-c\n\ndo c\n' > "$D8/add/jobs/todo/authjob-c.md"
+  git -C "$D8/add" add -A && git -C "$D8/add" "${git_id[@]}" commit -q -m "two more jobs"
+  git -C "$D8/add" push -q origin journal2 )
+printf '#!/bin/sh\nexit 0\n' > "$D8/bin/claude"; chmod +x "$D8/bin/claude"
+printf '{"claudeAiOauth":{"accessToken":"expired"}}\n' > "$D8/cc/.credentials.json"
+AUTHSTUB="$D8/auth-stub.sh"
+cat > "$AUTHSTUB" <<'AUTHSTUB_EOF'
+#!/bin/bash
+# Dies like endolin-garden2's claude did while the credential is the expired one;
+# runs normally once it has been rewritten (the human re-login).
+set -uo pipefail
+echo x >> "${AUTH_RUNS:?}"
+if grep -q expired "$CLAUDE_CONFIG_DIR/.credentials.json"; then
+  echo "Claude structured API error (status=unknown)."
+  printf 'Failed to authenticate: OAuth session expired and could not be refreshed\n' > "${3:?}"
+  exit 1
+fi
+printf '# report\nok\n' > "${3:?}"
+[ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && : > "$GARDEN_COMPLETION_SENTINEL"
+exit 0
+AUTHSTUB_EOF
+chmod +x "$AUTHSTUB"
+ALERTS8="$D8/alerts"; : > "$ALERTS8"
+ALERTCMD="$D8/alert-cmd.sh"
+printf '#!/bin/sh\nprintf "%%s|%%s\\n" "$1" "$(printf "%%s" "$2" | head -n1)" >> "%s"\n' "$ALERTS8" > "$ALERTCMD"
+chmod +x "$ALERTCMD"
+: > "$D8/runs"
+
+set -m
+env GARDEN=authsimhost GARDEN_STATE="$D8/gstate" \
+    JOURNAL_REMOTE="$BARE8" JOURNAL_BRANCH=journal2 GARDEN_TEST=1 \
+    GARDEN_ONESHOT=0 GARDEN_IDLE_SLEEP=1 GARDEN_IDLE_SLEEP_CAP=2 \
+    GARDEN_ALERT_CMD="$ALERTCMD" GARDEN_NO_MAINTAINER_ALERT=0 GARDEN_WORKER_HEALTH_GATE=1 \
+    GARDEN_CLAUDE_BIN="$D8/bin/claude" CLAUDE_CONFIG_DIR="$D8/cc" \
+    AUTH_RUNS="$D8/runs" GARDEN_JOB_HANDLER="$AUTHSTUB" \
+    "$JOBS/gardener.sh" 1 > "$D8/g.log" 2>&1 &
+GPID8=$!
+set +m
+
+# Wait for the first failure to latch, then give it several more ticks.
+for _ in $(seq 1 60); do
+  [ -d "$D8/gstate/health" ] && ls "$D8/gstate/health" 2>/dev/null | grep -q unhealthy && break
+  sleep 1
+done
+sleep 6
+runs="$(wc -l < "$D8/runs" | tr -d ' ')"
+if grep -q 'credential rejected (re-login required); SELF-DISQUALIFIED' "$D8/g.log"; then
+  ok "the park log names the cause (credential rejected), not 'agent CLI unresolvable'"
+else
+  bad "park log does not name the auth cause: $(grep SELF-DISQ "$D8/g.log" | tail -1)"
+fi
+if [ "$runs" = 1 ]; then
+  ok "(b) the host PARKED after ONE auth failure — the handler ran once for three available jobs"
+else
+  bad "(b) the handler ran $runs times before parking, expected 1: $(tail -5 "$D8/g.log" | tr '\n' ' ')"
+fi
+if grep -q "AUTHENTICATION failure" "$D8/g.log" && grep -q "authjob-.* looks transient" "$D8/g.log" \
+    && ! grep -q "published a bounded health cooldown" "$D8/g.log"; then
+  ok "(a) the failed job was classified TRANSIENT (requeue), not escalated as a terminal failure"
+else
+  bad "(a) classification wrong: $(grep -E 'transient|DETERMINISTIC|escalat' "$D8/g.log" | tail -3 | tr '\n' ' ')"
+fi
+V8="$D8/v1"; verify_clone "$BARE8" "$V8"
+todo8="$(ls "$V8/jobs/todo" | grep -c '^authjob-' || true)"
+if [ "$todo8" = 2 ]; then
+  ok "the other two jobs were never claimed (still in todo/)"
+else
+  bad "$todo8 authjob-* left in todo/, expected 2"
+fi
+na="$(grep -c '^worker-agent-bin-' "$ALERTS8" || true)"
+if [ "$na" = 1 ] && grep -q 'cannot AUTHENTICATE' "$ALERTS8"; then
+  ok "(c) exactly ONE maintainer notice for the episode: $(head -1 "$ALERTS8" | cut -c1-140)"
+else
+  bad "(c) $na maintainer notices (expected 1): $(cat "$ALERTS8" | cut -c1-160 | tr '\n' ' ')"
+fi
+if grep -q 'Failed to authenticate: OAuth session expired' "$D8/gstate/health/"*.unhealthy/excerpt 2>/dev/null; then
+  ok "the episode marker carries the CLI's own sentence"
+else
+  bad "no excerpt recorded in the marker"
+fi
+
+# The human re-logs in: the credential file is rewritten. Nothing restarts the
+# worker — it must un-park by itself and work the remaining jobs.
+printf '{"claudeAiOauth":{"accessToken":"fresh"}}\n' > "$D8/cc/.credentials.json"
+# The failed job stays in doin/ for the reaper's requeue (not this worker's to
+# re-run); the OTHER two must now complete here.
+failed8="$(basename "$(ls "$V8/jobs/doin"/authjob-*.md 2>/dev/null | head -n1)" .md)"
+resumed=0
+for _ in $(seq 1 60); do
+  verify_clone "$BARE8" "$D8/v2"
+  left=0
+  for j in authjob-a authjob-b authjob-c; do
+    [ "$j" = "$failed8" ] && continue
+    fixture_has_tada "$D8/v2" "$j" || left=1
+  done
+  [ -n "$failed8" ] && [ "$left" = 0 ] && { resumed=1; break; }
+  sleep 1
+done
+kill -TERM "$GPID8" 2>/dev/null || true
+wait "$GPID8" 2>/dev/null || true
+if [ "$resumed" = 1 ]; then
+  ok "the host UN-PARKED by itself after the re-login and completed the two remaining jobs ('$failed8' awaits the reaper's requeue)"
+else
+  bad "the host did not resume after re-login: $(tail -5 "$D8/g.log" | tr '\n' ' ')"
+fi
+if grep -q '^worker-agent-bin-.*|RECOVERED:.*CHANGED credential' "$ALERTS8" && [ "$(grep -c '^worker-agent-bin-' "$ALERTS8")" = 2 ]; then
+  ok "exactly one RECOVERED notice closes the episode"
+else
+  bad "recovery notices wrong: $(cat "$ALERTS8" | cut -c1-120 | tr '\n' ' ')"
+fi
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
