@@ -63,3 +63,13 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 7. Document THIS case and its solution in the standing PR body or a PR comment (finding d38f12f4884e186c).
 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T07:41:09Z
