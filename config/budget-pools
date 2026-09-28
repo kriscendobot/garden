@@ -6,4 +6,4 @@
 claude-endolin1	anthropic	weekly-tokens	143000000	manual-regression-fresh-contiguous-cluster	2026-09-04T22:10:57Z
 claude-endolin2	anthropic	weekly-tokens	64000000	manual-single-point-first-fresh-pair	2026-09-05T11:44:00Z
 claude-oros	anthropic	weekly-tokens	73000000	manual-single-point-fresh-pair	2026-09-17T02:06:49Z
-codex-endolin	openai	percent	100	placeholder	2026-09-28
+codex-endolin	openai	percent	100	codex-cli-rate-limit	2026-09-28
