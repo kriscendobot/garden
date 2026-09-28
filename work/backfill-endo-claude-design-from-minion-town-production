@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-28T04:53:02Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-backfill-endo-claude-design-from-minion-town-production
+pr_number: 1357
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1357
+pr_head: design/endo-claude-inference-backends
