@@ -65,13 +65,6 @@ pull request for fuzz findings.
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=7 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-28T07:06:03Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-28T07:26:13Z -->
