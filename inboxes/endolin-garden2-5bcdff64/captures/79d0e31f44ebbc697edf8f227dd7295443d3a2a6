@@ -1,0 +1,23 @@
+elapsed-constancy overrun-suspect: daily-progress-summary-20260928-071105
+
+gardener-1 on endolin-garden2-5bcdff64: job daily-progress-summary-20260928-071105 was classified TRANSIENT (rc=1) but its
+handler has now died at a near-CONSTANT elapsed across the last 2 requeue
+cycles (elapsed window, oldest->newest: 5,4s; requeue cycle 1; tolerance +/-15%).
+
+That is the signature of a DETERMINISTIC overrun MISclassified as a
+self-resolving blip (a Claude Code session/usage cap tripping at the same
+point every run, or a prompt that drives the CLI to the same failure), NOT
+an external signal-kill or wall-clock timeout (those vary in elapsed and
+are excluded). Left in doin for the reaper (requeue ownership UNCHANGED),
+with the elapsed-constancy counter stamped so it surfaces after
+GARDEN_REAP_ELAPSED_CONSTANCY_THRESHOLD (2) confirmations instead of the full 5-cycle threshold. Triage the
+job spec / handler rather than waiting out the doom threshold.
+
+Handler capture (last 60 lines; this cycle):
+<6>07:27:39 [cleric/1] requeued job 'daily-progress-summary-20260928-071105' has no local codex sidecar on endolin-garden2-5bcdff64; prior session and worktree were lost — starting fresh with lost-state framing
+<6>07:27:39 [cleric/1] job 'daily-progress-summary-20260928-071105' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+Reading additional input from stdin...
+{"type":"thread.started","thread_id":"01a0e6e9-8ac8-7d80-9f83-e9881602c3a3"}
+{"type":"turn.started"}
+{"type":"error","message":"You’ve hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Oct 3rd, 2026 5:20 PM."}
+{"type":"turn.failed","error":{"message":"You’ve hit your usage limit. Visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at Oct 3rd, 2026 5:20 PM."}}
