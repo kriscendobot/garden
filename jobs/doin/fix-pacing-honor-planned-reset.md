@@ -41,3 +41,13 @@ claude-endolin1 was at 19% and claude-endolin2 at 12%, on track to finish the ef
 
 Context: the maintainer separately raised `monk-fleet-ceiling` from 6 to 10 (`config/worker-leveling`) as a
 stopgap until this reset. It will go back to 6 afterward. Don't touch it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T04:44:23Z
