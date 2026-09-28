@@ -44,3 +44,13 @@ any), the open questions for the maintainer, and a proposed build sequence (as s
 - Cover: principal identity and key management (per-principal keys, rotation, recovery, including SIWE guest recovery per `designs/siwe-guest-recovery.md`); shard routing and placement; cross-shard capability references (how an OCapN sturdy ref crosses shards); isolation guarantees; metering and quota enforcement per principal; and noisy-neighbor and cost controls.
 - Per-platform realization (e.g. a Durable Object per principal on Cloudflare; a partition key and prefix per principal on AWS; machine per principal on fly.io), migration from today's shared daemon, and the operational cost of many small shards.
 - Output `designs/per-principal-sharding.md`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T06:23:38Z
