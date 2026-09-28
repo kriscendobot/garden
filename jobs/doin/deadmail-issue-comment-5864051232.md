@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/114#issuecomment-58640512
 @kriscendobot Please expand all of these into verified step-by-step instructions. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T18:10:40Z
