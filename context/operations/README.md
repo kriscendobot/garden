@@ -1,6 +1,6 @@
 ---
 created: 2026-07-04
-updated: 2026-09-27
+updated: 2026-09-28
 author: gardener
 ---
 
@@ -68,6 +68,11 @@ schedule). The conversational first-run tour is the sibling tree,
   the host-local journal-contention probe and clone remedy, the restore
   engagement (routes to `skills/restore/SKILL.md`), and the self-healing services
   in one paragraph each.
+
+- **[systemd-units.md](systemd-units.md)** — *"what does this unit do" /
+  "where does it run" / "how do I stop it."* Complete shipped-unit inventory:
+  cadence, host scope, drain/brake behavior, worker effects, knobs, state,
+  inspection, durable masking, and known anomalies.
 
 - **[turnkey-host.md](turnkey-host.md)** — *"bake / launch the one-click Amazon
   garden host."* The private ARM64 AMI + launch template: bake pipeline, credential

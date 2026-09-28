@@ -1,6 +1,6 @@
 ---
 created: 2026-07-04
-updated: 2026-09-27
+updated: 2026-09-28
 author: gardener
 ---
 
@@ -14,6 +14,10 @@ question is "scale up/down" or "pause without killing
 in-flight work," you are here; the leadership-handoff use of drain is
 [leader-follower.md](leader-follower.md), and the deliberate-deploy use is
 [deploy.md](deploy.md).
+
+The worker template, all rendered worker kinds, the scaler, foreman, and budget
+controllers are cataloged in
+[systemd-units.md](systemd-units.md#worker-pools-and-leveling).
 
 ## Sizing the pool
 

@@ -1,6 +1,6 @@
 ---
 created: 2026-07-04
-updated: 2026-09-27
+updated: 2026-09-28
 author: gardener
 ---
 
@@ -16,6 +16,9 @@ page routes to. If your question is "is the fleet OK," "why can't this host's
 workers find `claude`," "recover after an API or quota outage," or "what
 happened to my dead job," you are here; pausing a *healthy* fleet is
 [scaling.md](scaling.md).
+
+For the exact command, cadence, host scope, state paths, and durable stop for
+any `garden-*` unit, use [systemd-units.md](systemd-units.md).
 
 ## The health check
 

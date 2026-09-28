@@ -1,6 +1,6 @@
 ---
 created: 2026-07-04
-updated: 2026-09-27
+updated: 2026-09-28
 author: gardener
 ---
 
@@ -14,6 +14,10 @@ operator procedure; the rationale (why a marker and not a lease, the failover
 follow-on) is `designs/multibot-leader-follower.md`. If your question is "I'm
 adding a second host" or "how do I move leadership," you are here; single-host
 bring-up is [starting.md](starting.md).
+
+For the audited scope of every shipped service, including units that run on
+every host without appearing in the short operational list below, see
+[systemd-units.md](systemd-units.md).
 
 ## The core invariants
 

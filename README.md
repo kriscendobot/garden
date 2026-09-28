@@ -72,6 +72,11 @@ of the liaison, and `./garden reset` removes the container so the next `./garden
 starts fresh (everything the bot accumulates — keys, tokens, claude credentials,
 worktrees — lives in this bind-mounted directory and survives a reset).
 
+For day-2 service operations, the complete user-unit inventory is
+[context/operations/systemd-units.md](context/operations/systemd-units.md): what
+each unit runs, its cadence and host scope, its state, and how to inspect or
+durably stop it.
+
 Running more than one instance? Name each with `echo <name> > .garden` before
 its first `./garden`; the tutorial covers why the name must be unique.
 

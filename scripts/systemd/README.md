@@ -1,6 +1,6 @@
 ---
 created: 2026-06-02
-updated: 2026-06-29
+updated: 2026-09-28
 author: builder, gardener
 ---
 
@@ -8,6 +8,12 @@ author: builder, gardener
 
 Systemd user unit files for the garden's per-feed activity watchers (and the
 other long-running `garden-*` services rendered by `install-units.sh`).
+
+The complete inventory of every shipped source unit and every rendered worker
+unit is [context/operations/systemd-units.md](../../context/operations/systemd-units.md).
+It is the operator reference for purpose, cadence, host scope, drain/brake
+behavior, state, inspection, and durable stops. The material below is the legacy
+per-feed watcher setup note.
 
 | File                                | Instance arg (`%i`) | Invokes                                       |
 | ----------------------------------- | ------------------- | --------------------------------------------- |

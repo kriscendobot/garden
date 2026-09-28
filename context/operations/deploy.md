@@ -1,6 +1,6 @@
 ---
 created: 2026-07-04
-updated: 2026-09-27
+updated: 2026-09-28
 author: gardener
 ---
 
@@ -15,6 +15,9 @@ operator procedure and the mental model behind it; the rationale (why deliberate
 and not continuous fast-forward) is `designs/deliberate-deploy.md`. If your
 question is "an upgrade is ready — what do I do" or "why isn't the root checkout
 tracking `main2`," you are here.
+
+The per-unit reference for the upgrade monitor, self-deployer, rolling
+conductor, watchman, and root guard is [systemd-units.md](systemd-units.md#deploy-and-evolution).
 
 ## What the root checkout is
 
