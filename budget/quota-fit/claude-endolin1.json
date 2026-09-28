@@ -1,0 +1,163 @@
+{
+  "host": "claude-endolin1",
+  "generated_at": "2026-09-28T23:43:02Z",
+  "confidence": "provisional",
+  "method": "contiguous-segment-low-band (governing = max total-confidence-weight run, best = freshest highest-confidence point, cap = its low-end rounding band)",
+  "selected_cap_tokens": 147687576,
+  "selected_cap_band": {
+    "low": 147687576,
+    "point": 148773514,
+    "high": 149875540
+  },
+  "governing_point": {
+    "checked_at": "2026-09-09T19:23:00Z",
+    "weekly_percent": 68,
+    "meter_spend_tokens": 101165990,
+    "pairing_confidence": "high",
+    "window_start_epoch": 1788577200
+  },
+  "governing_segment": {
+    "segment_id": "run-3-anchor-1788577200",
+    "run_index": 3,
+    "window_start_epoch": 1788577200,
+    "first_checked_at": "2026-09-05T03:37:00Z",
+    "last_checked_at": "2026-09-09T19:23:00Z",
+    "n_points": 8,
+    "total_confidence_weight": 21,
+    "percent_range": [
+      4,
+      68
+    ],
+    "cap_point_spread": [
+      147801475,
+      168517442
+    ],
+    "spread_ratio": 1.14,
+    "is_live_window": false
+  },
+  "checks": {
+    "enough_points": true,
+    "min_points": 3,
+    "spread_within_tolerance": true,
+    "tolerance": 1.20,
+    "boost_active": false,
+    "boost_unknown_start": false,
+    "live_window_matches": false,
+    "live_window_start_epoch": 1790391600
+  },
+  "segments": [
+    {
+      "segment_id": "run-0-anchor-1788286674",
+      "run_index": 0,
+      "window_start_epoch": 1788286674,
+      "first_checked_at": "2026-09-03T14:40:00Z",
+      "last_checked_at": "2026-09-03T20:57:00Z",
+      "n_points": 3,
+      "total_weight": 7,
+      "percent_range": [
+        17,
+        28
+      ],
+      "cap_point_low": 179438700,
+      "cap_point_high": 606342121,
+      "spread_ratio": 3.379
+    },
+    {
+      "segment_id": "run-1-anchor-1787976000",
+      "run_index": 1,
+      "window_start_epoch": 1787976000,
+      "first_checked_at": "2026-09-03T21:18:00Z",
+      "last_checked_at": "2026-09-03T23:45:00Z",
+      "n_points": 4,
+      "total_weight": 7,
+      "percent_range": [
+        30,
+        37
+      ],
+      "cap_point_low": 481646775,
+      "cap_point_high": 569656913,
+      "spread_ratio": 1.183
+    },
+    {
+      "segment_id": "run-2-anchor-1788286674",
+      "run_index": 2,
+      "window_start_epoch": 1788286674,
+      "first_checked_at": "2026-09-04T03:11:00Z",
+      "last_checked_at": "2026-09-04T21:57:00Z",
+      "n_points": 3,
+      "total_weight": 5,
+      "percent_range": [
+        5,
+        56
+      ],
+      "cap_point_low": 150660728,
+      "cap_point_high": 1920908340,
+      "spread_ratio": 12.75
+    },
+    {
+      "segment_id": "run-3-anchor-1788577200",
+      "run_index": 3,
+      "window_start_epoch": 1788577200,
+      "first_checked_at": "2026-09-05T03:37:00Z",
+      "last_checked_at": "2026-09-09T19:23:00Z",
+      "n_points": 8,
+      "total_weight": 21,
+      "percent_range": [
+        4,
+        68
+      ],
+      "cap_point_low": 147801475,
+      "cap_point_high": 168517442,
+      "spread_ratio": 1.14
+    },
+    {
+      "segment_id": "run-4-anchor-1789182000",
+      "run_index": 4,
+      "window_start_epoch": 1789182000,
+      "first_checked_at": "2026-09-16T04:33:53Z",
+      "last_checked_at": "2026-09-18T21:28:11Z",
+      "n_points": 7,
+      "total_weight": 13,
+      "percent_range": [
+        53,
+        95
+      ],
+      "cap_point_low": 82602660,
+      "cap_point_high": 130172342,
+      "spread_ratio": 1.576
+    },
+    {
+      "segment_id": "run-5-anchor-1789786800",
+      "run_index": 5,
+      "window_start_epoch": 1789786800,
+      "first_checked_at": "2026-09-20T05:11:29Z",
+      "last_checked_at": "2026-09-24T20:55:14Z",
+      "n_points": 5,
+      "total_weight": 10,
+      "percent_range": [
+        14,
+        64
+      ],
+      "cap_point_low": 90123704,
+      "cap_point_high": 160537734,
+      "spread_ratio": 1.781
+    },
+    {
+      "segment_id": "run-6-anchor-1790391600",
+      "run_index": 6,
+      "window_start_epoch": 1790391600,
+      "first_checked_at": "2026-09-28T03:58:07Z",
+      "last_checked_at": "2026-09-28T23:42:33Z",
+      "n_points": 2,
+      "total_weight": 4,
+      "percent_range": [
+        19,
+        33
+      ],
+      "cap_point_low": 171954054,
+      "cap_point_high": 205151900,
+      "spread_ratio": 1.193
+    }
+  ],
+  "boost_active": false
+}
