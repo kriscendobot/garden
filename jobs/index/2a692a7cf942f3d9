@@ -1,2 +1,2 @@
-base: improve-foreman-provider-order-reject-retired-local
+base: improve-foreman-retired-provider-fallback
 identity: mentor:scripts/jobs/handlers/foreman-claude.sh
