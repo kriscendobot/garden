@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-09-28T07:19:15Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-fix-journal-cold-clone-bootstrap

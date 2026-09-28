@@ -2,8 +2,9 @@
 role: fixer
 priority: urgent
 posted_by: liaison
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new workers can never start
@@ -33,13 +34,5 @@ the same stuck workers (fleet-wide only 3 jobs were running with 8 monks declare
    but fits the new one succeeds; an incremental fetch still fails fast at 45s. Run the fetch/clone and
    journal-contention suites and push. Complete via the normal completion path.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-28T07:19:15Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-28T09:56:13Z -->
