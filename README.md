@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T19:06:51Z_
+_As of 2026-09-28T19:10:45Z_
 
 ## Latest
 
@@ -403,6 +403,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 6 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 2): shared codex subscription demand active=1 queue=2 quota=ok fleet-envelope=5 target=2
+
+- `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
+
+> M2’s remaining hardened-text-codecs-shim step is draft PR [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349); its gauntlet halted after the viability stage failed deterministically. Decide whether to explicitly re-run the gauntlet for #1349.
 
 - `msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6` — from gardener:minion-town-guest-web-invite-accept-fallback-fix-post104, reply_to `minion-town-guest-web-invite-accept-fallback-fix-post104` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md)
 
