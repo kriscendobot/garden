@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T00:12:14Z_
+_As of 2026-09-28T01:11:46Z_
 
 ## Latest
 
@@ -302,11 +302,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
 
-> WATCHDOG notice — occurrence #17 (first seen 2026-09-27T02:00:48Z, latest 2026-09-27T23:57:16Z).
-> The SAME condition (`journal-outage-stuck`) has now been observed 17 times; this is ONE
-> coalesced notice that updates in place, not 17 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-28T00:42:20Z).
+> It was observed 18 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal outage latch stuck on endolin-garden-ece02cb4 for 601s (limit 600s); skips this tick=3, trailing skips=3.
+> Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -510,6 +510,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `20260928T001335Z-94a8aa` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T001335Z-94a8aa.md)
+
+> Milestone M2 is blocked on clean draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349): decide whether to run its gauntlet and whether the remaining llm Phase 3 audit is required before completion.
+
+- `20260928T002311Z-e341fc` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T002311Z-e341fc.md)
+
+> M2’s remaining `hardened-text-codecs-shim` work is draft PR [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), with all checks green. Decide whether to promote it by running the gauntlet; autonomous work cannot advance this draft.
 
 - `20260927T231723Z-9f76cf` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T231723Z-9f76cf.md)
 
@@ -780,6 +788,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` cleared on endolin-garden-ece02cb4.
+
+- `20260928T004303Z-1c5610` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T004303Z-1c5610.md)
+
+> Milestone M2’s next step is to run the gauntlet for draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349); its CI is green, but promotion requires your explicit manual trigger.
 
 - `20260927T190020Z-7b30f4` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T190020Z-7b30f4.md)
 
@@ -1240,24 +1252,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #35 (first seen 2026-09-26T16:16:46Z, latest 2026-09-27T23:50:42Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 35 times; this is ONE
-> coalesced notice that updates in place, not 35 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-09-26T16:16:46Z, cleared 2026-09-28T01:00:54Z).
+> It was observed 37 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 11 source(s); they post no acknowledgments while it holds.
-> journal-outage marker: 1790553060 cursor-get 
-> - kriscendobot/cosgov: watcher ticking but cooldown for 5325s (since 2026-09-27T22:21:57Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 2084s (since 2026-09-27T23:15:58Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 5344s (since 2026-09-27T22:21:38Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 6026s (since 2026-09-27T22:10:16Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 2393s (since 2026-09-27T23:10:49Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2388s (since 2026-09-27T23:10:54Z)
-> - kriscendobot/list: watcher ticking but cooldown for 3792s (since 2026-09-27T22:47:30Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 5672s (since 2026-09-27T22:16:10Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 4955s (since 2026-09-27T22:28:07Z)
-> watcher ticking but cooldown for 1246s (since 2026-09-27T23:29:56Z)
-> - kriscendobot/minion.town: watcher ticking but cooldown for 2350s (since 2026-09-27T23:11:32Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 5322s (since 2026-09-27T22:22:00Z)
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -2120,11 +2119,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-27T12:33:19Z, latest 2026-09-27T22:30:24Z).
-> The SAME condition (`journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-27T12:33:19Z, cleared 2026-09-28T00:38:15Z).
+> It was observed 6 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal fetch drift on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: oldest-third median=18.599392s newest-third median=22.438466s over 4535s/256 samples; floor=10s, 1.5x rise or projected-to-guard=10704s within 86400s.
+> Journal contention condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` cleared on oros-studio-garden-ce242c49.
 
 - `20260927T025145Z-1055ad` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T025145Z-1055ad.md)
 
@@ -2856,6 +2855,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Milestone M2 is blocked at green draft PR [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) for hardened-text-codecs-shim. Decide whether to run the gauntlet for #1349 or give it another disposition.
 
+- `20260928T005823Z-2bd1f9` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T005823Z-2bd1f9.md)
+
+> Milestone M2’s remaining PRs are draft: #1349 is green and #1356 awaits its in-flight security-audit fix. Decide whether to advance each to its maintainer-triggered gauntlet once green.
+
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-ok.md)
 
 > subscription codex-endolin changed zone backoff -> ok at spend=5159932 of cap=100.
@@ -3180,11 +3183,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-25T03:17:02Z, cleared 2026-09-27T23:16:55Z).
-> It was observed 813 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #814 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T00:42:05Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 814 times; this is ONE
+> coalesced notice that updates in place, not 814 messages. Latest detail:
 >
-> canary oros-studio-garden-ce242c49 is no longer stuck (release 18f02975bc8cbe47860b58ed0eb4a1349c2b8012, deployed 586aee8196b4c03fdb68c7d2368856cb756de4eb).
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 18f02975bc8c 24 min ago
+> but still reports deployed_sha 586aee8196b4c03fdb68c7d2368856cb756de4eb. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -3248,13 +3255,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.1M | $327.98 _(notional, rate-card)_ | 27% of 143.0M (ok) |
-| Codex | 55.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 38.2M | $329.20 _(notional, rate-card)_ | 27% of 143.0M (ok) |
+| Codex | 56.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 48600187 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 48760576 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 24.606247s/45s (/home/kris/garden/.garden-state/maintainer/journal); 4 open notice(s); checker healthy
+worst fetch p95 8.969282s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
@@ -3263,13 +3270,13 @@ worst fetch p95 24.606247s/45s (/home/kris/garden/.garden-state/maintainer/journ
 ### doin (0)
 (none)
 
-### tada (9291)
+### tada (9292)
+- [`fix-endojs-endo-but-for-bots-pr1356-zizmor-action-pin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fix-endojs-endo-but-for-bots-pr1356-zizmor-action-pin.md) — Completion report
 - [`build-hardened-url-shim`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/build-hardened-url-shim.md) — Completion report: build-hardened-url-shim
 - [`design-hardened-url-shim-status-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/design-hardened-url-shim-status-reconciliation.md) — Cost
 - [`endojs-endo-but-for-bots-pr1350-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/endojs-endo-but-for-bots-pr1350-dependabot.md) — Cost
 - [`reconcile-hardened-text-codecs-shim-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/reconcile-hardened-text-codecs-shim-status.md) — Completion report: reconcile-hardened-text-codecs-shim-status
-- [`shepherd-endo-but-for-bots-pull-request-1349`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/27/shepherd-endo-but-for-bots-pull-request-1349.md) — Shepherd report: endojs/endo-but-for-bots#1349 (hardened TextEncoder/TextDeco...
-- … and 9286 more
+- … and 9287 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
