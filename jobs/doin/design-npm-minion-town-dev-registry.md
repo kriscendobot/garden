@@ -80,3 +80,13 @@ registry override, ahead of any future promotion to production npm.
 Post this as a normal design job (open draft PR(s) per the repo split above);
 the standard design-only-PR gauntlet variant applies to each. This job's
 deliverable is the design(s), not the implementation.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T23:19:36Z
