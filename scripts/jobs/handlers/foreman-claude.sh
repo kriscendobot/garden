@@ -25,7 +25,8 @@
 #
 # GARDEN_FOREMAN_PROVIDER_ORDER controls the live provider order. Its normal,
 # reversible default is `anthropic`; an operator can temporarily set
-# `openai,local,anthropic` while the Claude subscription is constrained. A provider
+# `openai,anthropic` while the Claude subscription is constrained. `local` is
+# rejected: the local-qwen hermit lane was retired 2026-09-13. A provider
 # outage or quota error advances to the next provider. A malformed model response
 # is a semantic error, not an availability signal, and stops safely without posting.
 # Test harnesses may still override GARDEN_FOREMAN_HANDLER with a deterministic stub.
@@ -114,7 +115,15 @@ provider_order() {
   [ "${#parts[@]}" -gt 0 ] || die "GARDEN_FOREMAN_PROVIDER_ORDER is empty"
   for item in "${parts[@]}"; do
     item="$(printf '%s' "$item" | tr -d '[:space:]')"
-    case "$item" in openai|local|anthropic) ;; *) die "invalid GARDEN_FOREMAN_PROVIDER_ORDER provider '$item' (allowed: openai, local, anthropic; Moonshot is explicit-job-only)" ;; esac
+    case "$item" in
+      openai|anthropic) ;;
+      # The local-qwen hermit lane was retired fleet-wide 2026-09-13 (job
+      # retire-local-qwen-hermit-lane; common.sh `hermit`): no host runs Ollama, so
+      # a `local` attempt is a guaranteed dead probe. Fail at parse time so a stale
+      # drop-in is loud instead of burning every tick on a dead branch.
+      local) die "GARDEN_FOREMAN_PROVIDER_ORDER provider 'local' is retired (local-qwen hermit lane dropped 2026-09-13, job retire-local-qwen-hermit-lane); remove it from the garden-foreman drop-in (allowed: openai, anthropic)" ;;
+      *) die "invalid GARDEN_FOREMAN_PROVIDER_ORDER provider '$item' (allowed: openai, anthropic; Moonshot is explicit-job-only)" ;;
+    esac
     case "$seen" in *",$item,"*) die "duplicate provider '$item' in GARDEN_FOREMAN_PROVIDER_ORDER" ;; esac
     seen+="$item,"
     out+="${out:+ }$item"

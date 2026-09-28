@@ -29,58 +29,57 @@ run_handler() { # <order> [environment assignments...]
     GARDEN_TOKEN_WEEKLY_QUOTA=0 GARDEN_FOREMAN_PROVIDER_ORDER="$order" "$@" "$HANDLER" "$DIGEST"
 }
 
-hr; echo "SUBTEST 1 — quota/error advances from OpenAI to local"; hr
+hr; echo "SUBTEST 1 — quota/error advances from OpenAI to Claude"; hr
 LOG1="$TR/log1"
-if out="$(run_handler openai,local,anthropic \
-  GARDEN_TEST_PROVIDER_LOG="$LOG1" GARDEN_TEST_OPENAI_CODEX_RC=1 \
-  GARDEN_TEST_LOCAL_CURL_RC=0 \
-  GARDEN_TEST_LOCAL_OUTPUT='JOB local-step\nlocal fallback body\nENDJOB\n')"; then
-  [ "$out" = $'JOB local-step\nlocal fallback body\nENDJOB' ] \
-    && ok "valid local response is returned after OpenAI failure" \
-    || bad "unexpected local response: '$out'"
+if out="$(run_handler openai,anthropic \
+  GARDEN_TEST_PROVIDER_LOG="$LOG1" GARDEN_TEST_OPENAI_CODEX_RC=1)"; then
+  [ "$out" = $'JOB anthropic-step\nanthropic fallback body\nENDJOB' ] \
+    && ok "Claude response is returned after OpenAI failure" \
+    || bad "unexpected Claude response: '$out'"
 else
-  bad "OpenAI failure did not advance to local"
+  bad "OpenAI failure did not advance to Claude"
 fi
-[ "$(tr '\n' ' ' < "$LOG1")" = "openai local-preflight local " ] \
-  && ok "attempt order is OpenAI then local, with the pinned-model probe" \
+[ "$(tr '\n' ' ' < "$LOG1")" = "openai anthropic " ] \
+  && ok "attempt order is OpenAI then Claude" \
   || bad "wrong provider attempt order: $(tr '\n' ' ' < "$LOG1")"
 
 rm -rf "$TR/state"; mkdir -p "$TR/state"
-hr; echo "SUBTEST 2 — unavailable OpenAI and local advance to Claude"; hr
+hr; echo "SUBTEST 2 — unavailable OpenAI advances to Claude without exec"; hr
 LOG2="$TR/log2"
-if out="$(run_handler openai,local,anthropic \
-  GARDEN_TEST_PROVIDER_LOG="$LOG2" GARDEN_TEST_CODEX_LOGIN_RC=1 \
-  GARDEN_TEST_LOCAL_CURL_RC=1)"; then
+if out="$(run_handler openai,anthropic \
+  GARDEN_TEST_PROVIDER_LOG="$LOG2" GARDEN_TEST_CODEX_LOGIN_RC=1)"; then
   [ "$out" = $'JOB anthropic-step\nanthropic fallback body\nENDJOB' ] \
     && ok "Claude receives the final fallback" \
     || bad "unexpected Claude response: '$out'"
 else
-  bad "availability failures did not advance to Claude"
+  bad "availability failure did not advance to Claude"
 fi
-[ "$(tr '\n' ' ' < "$LOG2")" = "local-preflight local-preflight anthropic " ] \
-  && ok "OpenAI auth failure skips its exec; local failure probes status then reaches Claude" \
+[ "$(tr '\n' ' ' < "$LOG2")" = "anthropic " ] \
+  && ok "OpenAI auth failure skips its exec and reaches Claude" \
   || bad "wrong fallback trace: $(tr '\n' ' ' < "$LOG2")"
 
 rm -rf "$TR/state"; mkdir -p "$TR/state"
-hr; echo "EMPTY MODEL LIST — local preflight advances to Claude without Codex"; hr
-LOG_EMPTY="$TR/log-empty"
-if out="$(run_handler local,anthropic \
-  GARDEN_TEST_PROVIDER_LOG="$LOG_EMPTY" \
-  GARDEN_TEST_LOCAL_MODELS_JSON='{"object":"list","data":null}')"; then
-  [ "$out" = $'JOB anthropic-step\nanthropic fallback body\nENDJOB' ] \
-    && ok "empty local model list falls through to Claude" \
-    || bad "unexpected empty-list fallback response: '$out'"
-else
-  bad "empty local model list did not advance to Claude"
-fi
-[ "$(tr '\n' ' ' < "$LOG_EMPTY")" = "local-preflight local-preflight anthropic " ] \
-  && ok "empty model list prevents the local Codex dispatch" \
-  || bad "empty-list fallback trace: $(tr '\n' ' ' < "$LOG_EMPTY")"
+hr; echo "RETIRED LOCAL — a stale 'local' entry fails fast at parse time"; hr
+for order in openai,local local,anthropic openai,local,anthropic; do
+  LOG_LOCAL="$TR/log-local"; : > "$LOG_LOCAL"
+  if run_handler "$order" GARDEN_TEST_PROVIDER_LOG="$LOG_LOCAL" \
+    >"$TR/local.out" 2>"$TR/local.err"; then
+    bad "retired provider order '$order' was accepted"
+  else
+    ok "retired provider order '$order' is rejected"
+  fi
+  grep -q "provider 'local' is retired" "$TR/local.err" && grep -q 'retire-local-qwen-hermit-lane' "$TR/local.err" \
+    && ok "'$order' refusal names the 2026-09-13 retirement" \
+    || bad "'$order' refusal lacks the retirement diagnostic: $(cat "$TR/local.err")"
+  [ ! -s "$LOG_LOCAL" ] \
+    && ok "'$order' is rejected before any provider is attempted" \
+    || bad "'$order' attempted providers before rejecting: $(tr '\n' ' ' < "$LOG_LOCAL")"
+done
 
 rm -rf "$TR/state"; mkdir -p "$TR/state"
 hr; echo "SUBTEST 3 — malformed semantic output never fans out"; hr
 LOG3="$TR/log3"
-if run_handler openai,local,anthropic \
+if run_handler openai,anthropic \
   GARDEN_TEST_PROVIDER_LOG="$LOG3" GARDEN_TEST_OPENAI_OUTPUT='JOB one\nbody\nENDJOB\nJOB two\nbody\nENDJOB\n' \
   >"$TR/malformed.out" 2>"$TR/malformed.err"; then
   bad "malformed multi-job output was accepted"
