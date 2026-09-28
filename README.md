@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T17:26:09Z_
+_As of 2026-09-28T17:29:47Z_
 
 ## Latest
 
@@ -1467,11 +1467,20 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-09-26T16:16:46Z, cleared 2026-09-28T16:52:27Z).
-> It was observed 72 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #73 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T17:27:24Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 73 times; this is ONE
+> coalesced notice that updates in place, not 73 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 8 source(s); they post no acknowledgments while it holds.
+> journal-outage marker: 1790616531 approval-reconciler-verify 
+> - kriscendobot/cosgov: watcher ticking but cooldown for 2749s (since 2026-09-28T16:41:35Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 1992s (since 2026-09-28T16:54:12Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 2342s (since 2026-09-28T16:48:22Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 2860s (since 2026-09-28T16:39:44Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2814s (since 2026-09-28T16:40:30Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1292s (since 2026-09-28T17:05:52Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 2804s (since 2026-09-28T16:40:40Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 2860s (since 2026-09-28T16:39:44Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -1869,6 +1878,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `20260928T172814Z-aab24c` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T172814Z-aab24c.md)
+
+> Milestone M2 is blocked on its two green draft PRs: decide whether the hardened-text Phase 3 `llm` audit is required, then authorize gauntlet promotion for #1349 and #1356.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify.md)
 
@@ -2563,11 +2576,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify.md)
 
-> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` has CLEARED (first seen 2026-09-28T14:33:12Z, cleared 2026-09-28T17:03:07Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-28T14:33:12Z, latest 2026-09-28T17:28:24Z).
+> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` cleared on endolin-garden-ece02cb4.
+> Journal lock contention on endolin-garden-ece02cb4 for _home_kris_garden__garden_state_approval_reconciler_verify: p95=78.311853s, giveups=0, steals=0 (max 3/window), wait floor=60s.
 
 - `doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted.md)
 
@@ -3574,12 +3587,12 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 45.9M | $425.51 _(notional, rate-card)_ | 32% of 143.0M (ok) |
-| Codex | 278.5k _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 492.3k _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53216507 tokens/day lower bound._
+_Fleet token-unlock pace: 53222164 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
+worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
