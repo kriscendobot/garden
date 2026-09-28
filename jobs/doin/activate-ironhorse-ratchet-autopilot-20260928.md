@@ -31,3 +31,13 @@ Exact controls from a checkout containing this code:
 - permanent revoke: scripts/jobs/ironhorse-ratchet.sh revoke /path/to/maintainer-reason.txt
 
 Report actual deployed/runtime evidence and any remaining PR-side blocker to the maintainer. Never claim the ratchet is running at mentat based only on its schedule definition.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T20:58:48Z
