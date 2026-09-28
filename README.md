@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T22:45:14Z_
+_As of 2026-09-28T22:47:49Z_
 
 ## Latest
 
@@ -3675,7 +3675,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.7M | $483.17 _(notional, rate-card)_ | 37% of 143.0M (ok) |
+| Claude | 52.7M | $483.22 _(notional, rate-card)_ | 37% of 143.0M (ok) |
 | Codex | 5.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53132237 tokens/day lower bound._
@@ -3684,16 +3684,16 @@ _Fleet token-unlock pace: 53132237 tokens/day lower bound._
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
-- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 
-### doin (8)
+### doin (9)
 - [`garden-pr81-postdeploy-pty-20260928T221312Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-pr81-postdeploy-pty-20260928T221312Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-minion-town-pr86-review-finalize-prod-5344649026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr86-review-finalize-prod-5344649026.md) — Finish review directive 5344649026 on kriscendobot/minion.town PR #86
 - [`endojs-endo-but-for-bots-pr897-conduct-5344801548`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-conduct-5344801548.md) — Conduct endojs/endo-but-for-bots PR #897
 - [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260928.md) — Finish activation of the authorized Ironhorse ratchet autopilot
 - [`kriscendobot-minion.town-pr86-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr86-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #86
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`endojs-endo-but-for-bots-pr1343-review-fcb5f817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-review-fcb5f817.md) — Review directive on endojs/endo-but-for-bots PR #1343
 - [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1097
 - [`kriscendobot-minion-town-pr130-conduct-prod-validate-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr130-conduct-prod-validate-20260928.md) — Conduct minion.town PR #130 and finish PR #117 production validation
