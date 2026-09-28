@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T20:20:04Z_
+_As of 2026-09-28T20:22:04Z_
 
 ## Latest
 
@@ -9,7 +9,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 1d)
-- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 10d)
+- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 11d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 11d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 16d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 25d)
@@ -3645,9 +3645,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 45.9M | $425.67 _(notional, rate-card)_ | 32% of 143.0M (ok) |
-| Codex | 2.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 2.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 56537560 tokens/day lower bound._
+_Fleet token-unlock pace: 56545510 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
@@ -3656,7 +3656,8 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`improve-ironhorse-test262-ratchet-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ironhorse-test262-ratchet-gate.md) — ---
 - [`ironhorse-test262-ratchet-round3-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-round3-20260928.md) — Ironhorse test262 compliance ratchet — round 3
 - [`build-ironhorse-ratchet-autopilot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-ratchet-autopilot.md) — Build: autonomous Ironhorse test262 ratchet (per-crank PRs, mentat merge watc...
 
