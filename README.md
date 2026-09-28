@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T14:29:08Z_
+_As of 2026-09-28T14:39:56Z_
 
 ## Latest
 
@@ -283,6 +283,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `msg-auto-derotate-offline-host-worker-capacity-220de6ddb042` — from gardener:auto-derotate-offline-host-worker-capacity, reply_to `auto-derotate-offline-host-worker-capacity` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-auto-derotate-offline-host-worker-capacity-220de6ddb042.md)
+
+> Question on oros-studio takeover (job auto-derotate-offline-host-worker-capacity):
+>
+> oros-studio's budget/live heartbeat — the liveness signal you asked me to reuse from rolling-deploy.sh — is FRESH, not stale: budget/live/claude-oros/oros-studio-garden-ce242c49 has published every ~15 min all morning (latest 14:15:56Z) with spend flat at 447868. It also acks sysop ops (last at 14:20Z). So it isn't silent by the heartbeat; it's silent by CLAIMS (and it's a stuck deploy canary).
+>
+> Your spec's case (b) ("already heartbeating → restore 4 0 immediately") would therefore put it right back into rotation, undoing your manual zero while it still isn't claiming.
+>
+> My plan unless you say otherwise: land the heartbeat-driven mechanism as specified (it will own/restore rows only when IT zeroed them on a real heartbeat outage), and leave oros-studio's hand-set 0 0 UNMARKED (human-owned: it won't be auto-restored). Once oros is fixed, one command puts it back: `scripts/jobs/worker-derotate.sh adopt oros-studio-garden-ce242c49 4 0`. If you ask for it, that command also works as a "restore on next heartbeat" handoff. Reply "restore oros" to have me restore 4 0 now instead.
 
 - `doomed-daily-progress-summary-20260928-071105-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-daily-progress-summary-20260928-071105-requeue-exhausted.md)
 
@@ -806,14 +816,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment condition cleared.
 
-- `watchdog-handler-budget-overrun-verify-demo3-git-remote-capability-instructions` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-verify-demo3-git-remote-capability-instructions.md)
-
-> gardener job 'verify-demo3-git-remote-capability-instructions' declared handler-timeout=14400s, which exceeds what a single claim can hold (max 14339s = GARDEN_CLAIM_TTL 14400s − GARDEN_HANDLER_KILL_AFTER 60s − 1). A run-to-completion handler that needs longer than one claim cannot be claim-scoped without breaking the duplicate-execution guard: after GARDEN_CLAIM_TTL the reaper would requeue the same base onto a second gardener while this one is still running. Run it DETACHED (outside the claim-scoped handler) or SPLIT it into claim-sized stages. This cycle the handler runs clamped at 14339s and will be SIGTERM-killed at that bound — it will not complete.
-
-- `watchdog-handler-budget-overrun-verify-demo2-cross-host-locator-instructions` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-verify-demo2-cross-host-locator-instructions.md)
-
-> gardener job 'verify-demo2-cross-host-locator-instructions' declared handler-timeout=14400s, which exceeds what a single claim can hold (max 14339s = GARDEN_CLAIM_TTL 14400s − GARDEN_HANDLER_KILL_AFTER 60s − 1). A run-to-completion handler that needs longer than one claim cannot be claim-scoped without breaking the duplicate-execution guard: after GARDEN_CLAIM_TTL the reaper would requeue the same base onto a second gardener while this one is still running. Run it DETACHED (outside the claim-scoped handler) or SPLIT it into claim-sized stages. This cycle the handler runs clamped at 14339s and will be SIGTERM-killed at that bound — it will not complete.
-
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
 > WATCHDOG notice — occurrence #9 (first seen 2026-09-12T03:20:21Z, latest 2026-09-28T05:12:09Z).
@@ -1003,10 +1005,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
-
-- `watchdog-handler-budget-overrun-verify-demo1-confined-agent-instructions` — from watchdog:monk/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-verify-demo1-confined-agent-instructions.md)
-
-> gardener job 'verify-demo1-confined-agent-instructions' declared handler-timeout=14400s, which exceeds what a single claim can hold (max 14339s = GARDEN_CLAIM_TTL 14400s − GARDEN_HANDLER_KILL_AFTER 60s − 1). A run-to-completion handler that needs longer than one claim cannot be claim-scoped without breaking the duplicate-execution guard: after GARDEN_CLAIM_TTL the reaper would requeue the same base onto a second gardener while this one is still running. Run it DETACHED (outside the claim-scoped handler) or SPLIT it into claim-sized stages. This cycle the handler runs clamped at 14339s and will be SIGTERM-killed at that bound — it will not complete.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -1457,18 +1455,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #67 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T14:06:59Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 67 times; this is ONE
-> coalesced notice that updates in place, not 67 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-09-26T16:16:46Z, cleared 2026-09-28T14:32:13Z).
+> It was observed 67 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 5 source(s); they post no acknowledgments while it holds.
-> gh-api cooldown marker: expiry=1790604690 set-by=receipt:kriscendobot-endo:journal prerequisite
-> journal-outage marker: 1790604501 approval-reconciler-verify 
-> - kriscendobot/cosgov: watcher ticking but cooldown for 4691s (since 2026-09-28T12:48:48Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 5133s (since 2026-09-28T12:41:26Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1706s (since 2026-09-28T13:38:33Z)
-> - kriscendobot/list: watcher ticking but cooldown for 2150s (since 2026-09-28T13:31:09Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 5126s (since 2026-09-28T12:41:33Z)
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -2554,6 +2545,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > ---
 > issue-inbox-watcher.sh:386 calls `cursor-get.sh` in a bare pipeline (`"$HERE/cursor-get.sh" "$CURSOR_KEY" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1`) under `set -euo pipefail`. cursor-get.sh's sync_clone can `die` with rc=1 (unrecognized fetch-failure stderr) or `exit $GARDEN_OFFLINE_RC` (75, recognized offline signature) on a journal fetch hiccup; pipefail propagates either nonzero rc through the sed/head stages, tripping set -e and hard-killing the whole garden-issue-inbox unit instead of skipping the tick. This is the exact bug class fixed today in triager.sh (commits 73c2432e89, b320648e47): capture the rc via `if cursor_out=$("$HERE/cursor-get.sh" "$CURSOR_KEY"); then rc=0; else rc=$?; fi`, and on any nonzero rc, `log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc); skipping this tick"; exit 0` instead of letting set -e kill the process — a cursor read is best-effort (a missed read just re-triages/re-polls next tick, never loses data). Apply the identical fix to the same unguarded pattern in comment-watcher.sh:423 and mention-watcher.sh:83, which share this exact vulnerable shape and will hit the same failure the next time the journal blips.
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for _home_kris_garden__garden_state_approval_reconciler_verify: p95=64.270629s, giveups=0, steals=0 (max 3/window), wait floor=60s.
+
 - `doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -3354,6 +3349,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment condition cleared.
 
+- `stale-panel-head-endojs-endo-but-for-bots-pr1015-971fe22c-de6d073c` — from gardener:verify-demo1-confined-agent-instructions, reply_to `verify-demo1-confined-agent-instructions` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1015-971fe22c-de6d073c.md)
+
+> Stale panel coverage for completed job `verify-demo1-confined-agent-instructions`: [https://github.com/endojs/endo-but-for-bots/pull/1015](https://github.com/endojs/endo-but-for-bots/pull/1015) moved from panel-reviewed head `971fe22c` to presented head `de6d073c3bb1c3d6bf65e1ab9c3743e463b82ee5`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo.md)
 
 > RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo` has CLEARED (first seen 2026-09-27T13:37:16Z, cleared 2026-09-27T13:41:29Z).
@@ -3474,11 +3477,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #932 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T13:30:31Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 932 times; this is ONE
-> coalesced notice that updates in place, not 932 messages. Latest detail:
+> WATCHDOG notice — occurrence #938 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T14:32:20Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 938 times; this is ONE
+> coalesced notice that updates in place, not 938 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to fac772d7c6c3 144 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 2c3c6bc4a6e5 55 min ago
 > but still reports deployed_sha 586aee8196b4c03fdb68c7d2368856cb756de4eb. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -3546,30 +3549,29 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.8M | $412.53 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 44.9M | $419.32 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49822008 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 3 open notice(s); checker healthy
+worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (2)
+- [`verify-demo2-cross-host-locator-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/verify-demo2-cross-host-locator-instructions.md) — Verify demo 2: adopt a live capability across the network, from your own laptop
+- [`verify-demo3-git-remote-capability-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/verify-demo3-git-remote-capability-instructions.md) — Verify demo 3: git push an artifact straight into a capability
 
-### doin (3)
-- [`verify-demo2-cross-host-locator-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-demo2-cross-host-locator-instructions.md) — Verify demo 2: adopt a live capability across the network, from your own laptop
-- [`verify-demo1-confined-agent-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-demo1-confined-agent-instructions.md) — Verify demo 1: a confined AI agent that literally cannot escape its box
-- [`verify-demo3-git-remote-capability-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/verify-demo3-git-remote-capability-instructions.md) — Verify demo 3: git push an artifact straight into a capability
+### doin (1)
+- [`auto-derotate-offline-host-worker-capacity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/auto-derotate-offline-host-worker-capacity.md) — Standing automation: derotate a silent host's worker capacity, auto-restore o...
 
-### tada (9368)
+### tada (9369)
+- [`verify-demo1-confined-agent-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/verify-demo1-confined-agent-instructions.md) — What I did
 - [`claude-on-minion-town-press-20260928-135605`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-135605.md) — Cost
 - [`claude-on-minion-town-completion-press-20260928-134105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-134105.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-2c3c6bc4a6e5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-2c3c6bc4a6e5.md) — rolling-deploy canary probe — round trip OK
 - [`improve-mentor-provider-order-reject-retired-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-mentor-provider-order-reject-retired-local.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3.md) — rolling-deploy canary probe — round trip OK
-- … and 9363 more
+- … and 9364 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
