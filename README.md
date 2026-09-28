@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T20:48:51Z_
+_As of 2026-09-28T21:12:28Z_
 
 ## Latest
 
@@ -17,7 +17,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 27d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 28d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 27d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 26d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 27d)
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -134,11 +134,16 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-26T07:17:10Z, cleared 2026-09-28T00:10:42Z).
-> It was observed 35 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #36 (first seen 2026-09-26T07:17:10Z, latest 2026-09-28T20:53:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 36 times; this is ONE
+> coalesced notice that updates in place, not 36 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1801s (offline threshold 1800s; sampled_at_epoch=1790626981).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
 
 - `msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6.md)
 
@@ -918,6 +923,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > dispatch: automatic
 > ---
 > Build the M2 `hardened-url-shim` design in `endojs/endo-but-for-bots` on a `master`-based branch, reconciling the vetted URL/URLSearchParams SES shim and opening a draft implementation PR if work remains.
+
+- `kriscendobot-minion.town-pr86-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr86-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr86-gauntlet-halted.md)
+
+> Gauntlet kriscendobot-minion.town-pr86-gauntlet HALTED: PR [kriscendobot/minion.town#86](https://github.com/kriscendobot/minion.town/issues/86) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #86') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
 
 - `20260928T174855Z-61c52e` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T174855Z-61c52e.md)
 
@@ -3648,10 +3657,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 47.0M | $444.23 _(notional, rate-card)_ | 33% of 143.0M (ok) |
-| Codex | 3.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
+| Claude | 48.5M | $445.64 _(notional, rate-card)_ | 34% of 143.0M (ok) |
+| Codex | 4.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 56586481 tokens/day lower bound._
+_Fleet token-unlock pace: 62414793 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
@@ -3660,21 +3669,24 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (0)
 (none)
 
-### doin (6)
-- [`fix-minion-town-guest-recovery-oauth-bonding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-guest-recovery-oauth-bonding.md) — minion.town: guest account recovery and OAuth recovery bonding are broken. Ve...
-- [`kriscendobot-minion.town-pr117-review-e2f26bcf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr117-review-e2f26bcf.md) — Review directive on kriscendobot/minion.town PR #117
-- [`kriscendobot-minion.town-pr117-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr117-shepherd.md) — shepherd (auto: approved but CI needs work) on kriscendobot/minion.town PR #117
+### doin (9)
+- [`endojs-endo-but-for-bots-pr1357-593395b4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-593395b4-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1357 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1357-593395b4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-593395b4.md) — attention directive on endojs/endo-but-for-bots PR #1357
+- [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260928.md) — Finish activation of the authorized Ironhorse ratchet autopilot
+- [`kriscendobot-minion.town-pr120-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-retcon.md) — retcon directive on kriscendobot/minion.town PR #120
+- [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1097
 - [`design-endo-store-locator-url-pivot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-store-locator-url-pivot.md) — Pivot endo adopt-locator into endo store --locator, and make "locator" mean a...
-- [`kriscendobot-garden-pr81-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-refresh.md) — refresh directive on kriscendobot/garden PR #81
-- [`build-ironhorse-ratchet-autopilot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-ratchet-autopilot.md) — Build: autonomous Ironhorse test262 ratchet (per-crank PRs, mentat merge watc...
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493.md) — Post-deploy interactive validation and maintainer report for garden PR #81
+- [`kriscendobot-minion-town-pr130-conduct-prod-validate-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr130-conduct-prod-validate-20260928.md) — Conduct minion.town PR #130 and finish PR #117 production validation
+- [`kriscendobot-minion.town-pr86-review-eee45c8f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr86-review-eee45c8f.md) — Review directive on kriscendobot/minion.town PR #86
 
-### tada (9395)
-- [`deadmail-20260928T204100Z-1260b7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/deadmail-20260928T204100Z-1260b7.md) — Cost
-- [`endojs-endo-but-for-bots-pr1345-weave-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1345-weave-20260928.md) — Manual gauntlet handoff
-- [`endojs-endo-but-for-bots-pr1345-conduct-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1345-conduct-20260928.md) — PR #1345 was not merged: stalled needs weave
-- [`improve-ironhorse-test262-ratchet-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-ironhorse-test262-ratchet-gate.md) — Cost
-- [`kriscendobot-minion.town-pr117-review-e2f26bcf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr117-review-e2f26bcf-retro.md) — Cost
-- … and 9390 more
+### tada (9413)
+- [`kriscendobot-minion.town-pr117-review-e2f26bcf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr117-review-e2f26bcf.md) — Cost
+- [`kriscendobot-minion.town-pr86-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-gauntlet.md) — gauntlet kriscendobot-minion.town-pr86-gauntlet — HALTED
+- [`fix-minion-town-copy-guest-url-clipboard`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fix-minion-town-copy-guest-url-clipboard.md) — Cost
+- [`kriscendobot-minion.town-pr86-a11fd8d4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-a11fd8d4-retro.md) — Cost
+- [`kriscendobot-minion.town-pr86-a11fd8d4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-a11fd8d4.md) — Completion report: kriscendobot-minion.town-pr86-a11fd8d4
+- … and 9408 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3752,7 +3764,7 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`kriscendobot-minion.town-pr86-review-eee45c8f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr86-review-eee45c8f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #86 (primary: kriscendobot-minio...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
