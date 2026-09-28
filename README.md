@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T15:02:25Z_
+_As of 2026-09-28T15:13:13Z_
 
 ## Latest
 
@@ -1463,11 +1463,24 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-09-26T16:16:46Z, cleared 2026-09-28T14:32:13Z).
-> It was observed 67 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #68 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T15:02:25Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 68 times; this is ONE
+> coalesced notice that updates in place, not 68 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 11 source(s); they post no acknowledgments while it holds.
+> journal-outage marker: 1790607800 cursor-get 
+> - kriscendobot/ocapn: watcher ticking but cooldown for 2855s (since 2026-09-28T14:14:50Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 2800s (since 2026-09-28T14:15:45Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 2832s (since 2026-09-28T14:15:13Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2812s (since 2026-09-28T14:15:33Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2832s (since 2026-09-28T14:15:13Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 2836s (since 2026-09-28T14:15:09Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2836s (since 2026-09-28T14:15:09Z)
+> - kriscendobot/list: watcher ticking but cooldown for 2756s (since 2026-09-28T14:16:29Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 2749s (since 2026-09-28T14:16:36Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 2055s (since 2026-09-28T14:28:10Z)
+> watcher ticking but cooldown for 2834s (since 2026-09-28T14:15:11Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 2048s (since 2026-09-28T14:28:17Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -2372,11 +2385,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal.md)
 
-> RECOVERED — the watchdog condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-27T12:33:19Z, cleared 2026-09-28T14:59:33Z).
-> It was observed 12 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #13 (first seen 2026-09-27T12:33:19Z, latest 2026-09-28T15:09:54Z).
+> The SAME condition (`journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal`) has now been observed 13 times; this is ONE
+> coalesced notice that updates in place, not 13 messages. Latest detail:
 >
-> Journal contention condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` cleared on oros-studio-garden-ce242c49.
+> Journal fetch drift on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: oldest-third median=15.504192s newest-third median=25.050867s over 4668s/256 samples; floor=10s, 1.5x rise or projected-to-guard=3153s within 86400s.
 
 - `20260927T025145Z-1055ad` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T025145Z-1055ad.md)
 
@@ -3553,10 +3566,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.1M | $422.25 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Claude | 44.9M | $417.48 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 49986300 tokens/day lower bound._
+_Fleet token-unlock pace: 50004690 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 4 open notice(s); checker healthy
@@ -3565,16 +3578,16 @@ worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (0)
 (none)
 
-### doin (1)
-- [`auto-derotate-offline-host-worker-capacity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/auto-derotate-offline-host-worker-capacity.md) — Standing automation: derotate a silent host's worker capacity, auto-restore o...
+### doin (0)
+(none)
 
-### tada (9371)
+### tada (9373)
+- [`canary-probe-endolin-garden2-5bcdff64-7438d06ba1ff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-7438d06ba1ff.md) — rolling-deploy canary probe — round trip OK
+- [`auto-derotate-offline-host-worker-capacity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/auto-derotate-offline-host-worker-capacity.md) — Cost
 - [`verify-demo3-git-remote-capability-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/verify-demo3-git-remote-capability-instructions.md) — Completion report: verify-demo3-git-remote-capability-instructions
 - [`verify-demo2-cross-host-locator-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/verify-demo2-cross-host-locator-instructions.md) — Completion report — verify-demo2-cross-host-locator-instructions
 - [`verify-demo1-confined-agent-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/verify-demo1-confined-agent-instructions.md) — What I did
-- [`claude-on-minion-town-press-20260928-135605`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-135605.md) — Cost
-- [`claude-on-minion-town-completion-press-20260928-134105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-134105.md) — Cost
-- … and 9366 more
+- … and 9368 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
