@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T21:34:53Z_
+_As of 2026-09-28T21:35:43Z_
 
 ## Latest
 
@@ -3668,17 +3668,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.6M | $447.41 _(notional, rate-card)_ | 34% of 143.0M (ok) |
-| Codex | 4.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
+| Claude | 49.1M | $450.47 _(notional, rate-card)_ | 34% of 143.0M (ok) |
+| Codex | 4.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 59023997 tokens/day lower bound._
+_Fleet token-unlock pace: 61592234 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`endojs-endo-but-for-bots-pr1345-conduct-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1345-conduct-20260928.md) — Merge endojs/endo-but-for-bots PR #1345
+- [`xs-locals-limit-check-20260928-213507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs-locals-limit-check-20260928-213507.md) — Has Moddable's XS 65535-locals-per-frame parser fix landed upstream yet?
 - [`kriscendobot-minion.town-pr80-conduct-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr80-conduct-20260928.md) — Conduct kriscendobot/minion.town PR #80
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`build-siwe-recovery-bond-provider-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-siwe-recovery-bond-provider-minion-town.md) — Build: register SIWE as a recovery-bond provider on minion.town
