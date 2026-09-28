@@ -75,6 +75,7 @@ Complete via the normal completion path. Report the design file(s), the PR if an
 proposed phases.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
