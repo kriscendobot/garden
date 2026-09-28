@@ -50,3 +50,13 @@ Do each step and record exact commands, outputs and exit codes in your report:
    signal line immediately before the completion signal line; otherwise emit only the
    completion signal. Follow the pty-lane completion protocol appended to your prompt
    (write the final report to the signal file too).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T23:31:13Z
