@@ -89,7 +89,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | ci-no-npm-lifecycle | endo-but-for-bots | M2 | Complete | S | — |
 | endo-bytes | endo-but-for-bots | M2 | Complete | S | — |
 | hardened-text-codecs-shim | endo-but-for-bots | M2 | In Progress | — | endo-but-for-bots#1349 |
-| hardened-url-shim | endo-but-for-bots | M2 | Not Started | — | — |
+| hardened-url-shim | endo-but-for-bots | M2 | In Progress | — | endo-but-for-bots#1356 |
 | hex-package | endo-but-for-bots | M2 | Complete | M | — |
 | daemon-agent-tools | endo-but-for-bots | M3 | Not Started | L | — |
 | daemon-capability-filesystem | endo-but-for-bots | M3 | Reference | L | — |
