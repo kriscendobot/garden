@@ -46,11 +46,11 @@ any), the open questions for the maintainer, and a proposed build sequence (as s
 - The runtime question: can the daemon or its workers run on Workers/DO (V8 isolates, SES/lockdown compatibility, limits), or does Cloudflare serve only as the persistence and edge layer in front of containers elsewhere? Compare the options.
 - Output `designs/cloudflare-backend.md`.
 
-<!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-28T07:46:17Z -->
 
+<!-- garden-transient-elapsed: kind=signature through=1 values=4,8 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
