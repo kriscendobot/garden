@@ -25,13 +25,6 @@ design-with-open-questions candidate: if real maintainer-facing forks remain,
 use the frozen-base-branch open-questions PR carve-out.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=7 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-28T08:02:20Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-28T08:16:15Z -->
