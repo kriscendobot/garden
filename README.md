@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T07:39:15Z_
+_As of 2026-09-28T07:53:24Z_
 
 ## Latest
 
@@ -1025,6 +1025,91 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_comment_watcher_verify` cleared on endolin-garden-ece02cb4.
+
+- `doomed-mentat-endo-cask-rust-content-store-design-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-mentat-endo-cask-rust-content-store-design-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/mentat-endo-cask-rust-content-store-design; it stays HELD until a human promotes it
+> (promote-plan.sh mentat-endo-cask-rust-content-store-design) or removes it, so nothing is lost.
+> Original job base: mentat-endo-cask-rust-content-store-design
+>
+> --- original job body ---
+> ---
+> tier: mentat
+> dispatch: manual
+> ---
+> role: designer
+> handler-timeout: 14000
+>
+> # Design: CASK in Rust as Endo's content store (and substrate for Endo's virtual filesystem)
+>
+> Repo: `endojs/endo-but-for-bots` (design lands under `designs/` against the `llm` line, per that repo's
+> conventions and the garden designer norms in `roles/designer/AGENT.md`, including the open-questions carve-out).
+> This is a **design** job: no implementation.
+>
+> ## Maintainer direction (kriskowal, 2026-09-28)
+> - Port **CASK to Rust, inside Endo**. **Every design detail is flexible**: CASK has not materially shipped anywhere and
+>   can be **redefined to serve Endo's needs**. Shape CASK's data model to fit Endo's, and shape Endo to surface CASK's
+>   specialized content capabilities (e.g. **attenuations on content stores**, and possibly CASK's fancier
+>   content-stored data structures).
+> - The most interesting virtue: CASK can model **exactly what Endo needs from a content-addressed store, including
+>   embedded capabilities**, and be a **better substrate for Endo's virtual filesystem**.
+> - **Do not limit ambition to current needs.** In particular, Endo should be able to **meter storage classes
+>   separately**, for example:
+>   - **block storage**: pay to grow an allocation; pay compute prices for writes within the allocation;
+>   - **content storage**: pay for writes; pay compute prices for garbage collection; **rebates for released storage**;
+>   - **append-only storage**: pay for writes; bulk collection; or tiered automated roll-up or archive;
+>   - …and other classes the design finds natural.
+> - **Somewhat orthogonal but related:** Endo needs **better compare-and-swap facilities for writing values into
+>   storage**, and CAS semantics may differ across filesystem and storage platforms (local FS, SQLite, S3 conditional
+>   writes, DynamoDB conditional expressions, Cloudflare Durable Objects / D1 / R2, etc.). Design a portable CAS
+>   capability and its per-platform realizations. It can be a section of this design or a companion design file,
+>   whichever reads better.
+>
+> ## Read first
+> - **CASK prior art in the garden library** (`journal/library/`): 237 entries, including `sources/cask--architecture`,
+>   `cask--allocator-design`, `cask--blob-design`, `cask--array-design`, `cask--bigint-design`,
+>   `cask--caskroot-design`, `cask--cell-capabilities`, `cask--cask-go`, and concepts such as `cask-cell-bank`,
+>   `cask-cell-facets`, `cask-three-gate-access`, `cask-entry-type-capability`, `cask-named-typed-pointer`,
+>   `cask-block-backbones`, `cask-nursery`, `cask-reducer-pattern`, `cask-operational-transform`, `cask-verb-catalog`,
+>   `caskdir-directory-format`, `casknet-wire-protocol`, `casksock-local-protocol`, and `cask-protocol-v2-abandoned`.
+>   Also the GEFS / Bεtree material (`betree`, the GEFS ingest from 2026-09-18, which cross-referenced CASK and the Endo
+>   VFS). Use the librarian conventions (`skills/library-lookup`) to find more.
+> - **Endo designs** (branch `llm`): `daemon-cas-management`, `daemon-content-store-gc`, `daemon-endo-rust-sqlite`,
+>   `daemon-mount`, `daemon-mount-capabilities`, `agent-tools-mount-fs-tools`, `mount-stream-glob-grep`,
+>   `daemon-worker-import-from-mount`, `readableblob-range-attenuation`, `endo-content-locators-magnet-urn`,
+>   `ironhorse-snapshot-store-seam`, `daemon-xs-worker-metering`, `ironhorse-meter-opcode-cost-instrumentation`,
+>   `daemon-rust-xs-performance`, and the current content-store and formula-persistence code in `packages/daemon`.
+> - The concurrent minion.town platform designs (mentat jobs posted 2026-09-28): `aws-distributed-persistence`,
+>   `cloudflare-backend`, `alt-hosts-backend`, `process-snapshot-persistence-by-platform`, `per-principal-sharding`.
+>   Read whichever have landed. The per-principal content store and the per-platform CAS realizations should line up
+>   with them.
+>
+> ## The design must cover
+> 1. **Data model**: what CASK becomes for Endo. Content addressing (hash choice, chunking, dedup), typed nodes,
+>    **embedded capabilities** (how a content object can carry or reference capabilities without leaking authority
+>    through content-addressing), directories and the VFS mapping, large blobs and range reads (compatible with
+>    readable-blob range attenuation), and which CASK data structures (cells, arrays, bigints, …) Endo should surface.
+> 2. **Capability surface**: content-store capabilities and **attenuations** (read-only, prefix/subtree, range, quota-bounded,
+>    append-only, …), how they compose with Endo's existing mount/blob capabilities, and how they cross OCapN.
+> 3. **Storage classes and metering**: the classes above (and others), the accounting model for each (allocation growth,
+>    write, GC compute, rebates on release, roll-up and archive), how it plugs into Endo metering
+>    (`daemon-xs-worker-metering`), and how it maps to per-principal quotas.
+> 4. **GC and lifetime**: reachability from capabilities and formulas, rebates, and interaction with snapshots
+>    (Iron Horse process snapshots stored as content).
+> 5. **Compare-and-swap**: the portable CAS capability (semantics, failure modes, linearizability), its use for
+>    formula/value writes, and its per-platform realization and guarantees across local FS, SQLite, and the cloud stores.
+> 6. **Rust architecture**: crate layout inside Endo, the boundary with the JS daemon (FFI, sidecar, or wasm, weighing
+>    the existing `daemon-endo-rust-sqlite` direction), on-disk and on-wire formats, and pluggable backends (local,
+>    S3/R2, DynamoDB/D1/DO…).
+> 7. **Migration and interop**: from the current Endo content store, and what of CASK's original design to drop, keep, or
+>    redefine (be explicit; this is a redefinition, not a faithful port).
+> 8. **Phased plan**: milestones and suggested job basenames (not posted), with the first milestone small enough to build.
+>
+> Put genuine maintainer decisions in `## Open questions` (and use the review-PR carve-out). Settle everything else.
+> Complete via the normal completion path. Report the design file(s), the PR if any, the open questions, and the
+> proposed phases.
 
 - `doomed-ironhorse-fuzz-bc3d0df623811a38-repair-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-bc3d0df623811a38-repair-requeue-exhausted.md)
 
@@ -2074,11 +2159,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-26T13:50:44Z, latest 2026-09-28T07:38:29Z).
-> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` has CLEARED (first seen 2026-09-26T13:50:44Z, cleared 2026-09-28T07:42:41Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-moddable: gc.log present; size=247847936B packs=51 gc.log=1; automatic remedy=deferred.
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-endo` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-endo.md)
 
@@ -3367,21 +3452,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.6M | $391.70 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 42.7M | $393.49 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 47594032 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 50433831 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 5 open notice(s); checker healthy
+worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (12)
+### todo (9)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
-- [`mentat-endo-cask-rust-content-store-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-endo-cask-rust-content-store-design.md) — Design: CASK in Rust as Endo's content store (and substrate for Endo's virtua...
-- [`mentat-minion-town-cloudflare-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-minion-town-cloudflare-backend-plan.md) — Plan: minion.town on Cloudflare (R2, D1, Durable Objects, Workers, Queues, Cr...
-- [`ironhorse-fuzz-e773681b6d831dc1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-e773681b6d831dc1-repair.md) — Repair Ironhorse engine defect e773681b6d831dc1 (target differential_regexp_s...
-- [`jev-preclassify-foreign-content-survey`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/jev-preclassify-foreign-content-survey.md) — Survey the garden for foreign-content-reading surfaces; wire Jev pre-classifi...
+- [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-284de587e16bce32-repair.md) — Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
 - [`fix-codex-budget-live-spend-label`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-codex-budget-live-spend-label.md) — Fix misleading spend/cap units in codex-endolin's budget-live snapshot
 - [`ironhorse-fuzz-d38f12f4884e186c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-d38f12f4884e186c-repair.md) — Repair Ironhorse engine defect d38f12f4884e186c (target differential_regexp_s...
 - [`design-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-standing-token-backoff-ramp.md) — Design: a standing, automatic token-backoff-fraction reset-to-reset ramp
@@ -3393,16 +3475,16 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1298
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-journal-cold-clone-bootstrap.md) — Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new work...
-- [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Repair Ironhorse engine defect fd8517d5f3071227 (target differential_regexp) ...
-- [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-284de587e16bce32-repair.md) — Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
+- [`mentat-minion-town-cloudflare-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-minion-town-cloudflare-backend-plan.md) — Plan: minion.town on Cloudflare (R2, D1, Durable Objects, Workers, Queues, Cr...
+- [`jev-preclassify-foreign-content-survey`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/jev-preclassify-foreign-content-survey.md) — Survey the garden for foreign-content-reading surfaces; wire Jev pre-classifi...
 
-### tada (9335)
+### tada (9337)
+- [`ironhorse-fuzz-e773681b6d831dc1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-e773681b6d831dc1-repair.md) — Cost
+- [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Cost
 - [`claude-on-minion-town-press-20260928-072639`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-072639.md) — Cost
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-panel-3.md) — Cost
 - [`claude-on-minion-town-completion-press-20260928-072639`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-072639.md) — Cost
-- [`claude-on-minion-town-press-20260927-133532`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260927-133532.md) — Cost
-- [`kriscendobot-minion.town-pr56-review-7d4dc95d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr56-review-7d4dc95d.md) — Completion report
-- … and 9330 more
+- … and 9332 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3453,6 +3535,7 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`oros-ckm-dependabot-audit-0013418`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-ckm-dependabot-audit-0013418.md) — _normal_ · ---
 - [`build-usage-scrape-ingest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-usage-scrape-ingest.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1226 (primary: endojs-endo-but-...
+- [`mentat-endo-cask-rust-content-store-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/mentat-endo-cask-rust-content-store-design.md) — _normal_ · Design: CASK in Rust as Endo's content store (and substrate for Endo's virtua...
 - [`design-hardened-ses-shim-status-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-hardened-ses-shim-status-reconciliation.md) — _normal_ · ---
 - [`fix-endojs-endo-but-for-bots-pr610`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr610.md) — _normal_ · ---
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
