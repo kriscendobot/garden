@@ -1,9 +1,9 @@
 ---
-gate: deferred
-priority: normal
-posted_by: producer
-posted_at: 2026-09-28T22:13:10Z
+role: fixer
+tier: mentor
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-28T23:04:05Z cleared=none -->
 
 ---
 role: fixer
