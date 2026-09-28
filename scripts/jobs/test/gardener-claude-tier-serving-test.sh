@@ -7,7 +7,8 @@
 # board the moment a host declared gardeners > 0 (2026-08-01).
 #
 #   1. MENTAT IS AN AUTHORIZATION BOUNDARY. tier: mentat runs only on an explicit
-#      `dispatch: manual` job. No automatic producer may reach Fable/Mythos.
+#      `dispatch: manual` job, with the scoped Ironhorse watcher exception covered
+#      by ratchet-watcher-test.py. Other automatic producers cannot reach it.
 #   2. THE ANTHROPIC AUTOMATIC CEILING IS claude-opus-5-5 (design opus55-tier.md,
 #      Option B, 2026-09-23). Opus 5.5 is the first-match anthropic mentor row, so an
 #      automatic mentor job is served AT mentor (claude-opus-5-5) — the same tier it
@@ -78,7 +79,7 @@ hr; echo "MENTAT — still an authorization boundary, not a price point"; hr
 # now the warning-free forwarding wrapper onto it; gardener->monk rename).
 H="$JOBS/handlers/monk-claude.sh"
 grep -q 'requested_tier" = mentat \] && \[ .*dispatch.*!= manual' "$H" \
-  && ok "handler refuses tier: mentat unless dispatch: manual" \
+  && ok "handler retains the mentat manual-dispatch boundary" \
   || bad "handler's mentat guard is missing or reshaped"
 grep -q 'accepts only explicit manual mentat/Fable jobs' "$H" \
   && bad "the OLD blanket gate is still present — automatic jobs would still die" \

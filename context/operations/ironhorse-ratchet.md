@@ -31,7 +31,9 @@ The helpers use their own journal clones and CAS pushes; do not edit or run git
 in the deployed root or its journal worktree.
 Only arm after the delegated merge and watcher tests have passed and landed.
 The deployed scheduler/claim/handler code must contain this change; older
-schedulers cannot grant the exception.
+schedulers cannot grant the exception. During rollout, use `snooze-schedule.sh`
+to defer the first fire until the leader has deployed this revision; an old
+scheduler would normalize the task to mentor, which the watcher refuses.
 
 ```sh
 scripts/jobs/ironhorse-ratchet.sh seed

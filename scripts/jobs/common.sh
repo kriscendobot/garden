@@ -4629,7 +4629,6 @@ host_liveness() {
     HOST_LIVENESS_DETAIL="heartbeat stale by ${age}s (offline threshold ${GARDEN_HOST_OFFLINE_AFTER}s; sampled_at_epoch=$sampled)"
     return 1
   fi
-  # shellcheck disable=SC2034 # read by rolling-deploy.sh and worker-derotate.sh
   HOST_LIVENESS_DETAIL="heartbeat fresh (${age}s old; sampled_at_epoch=$sampled)"
   return 0
 }
