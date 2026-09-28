@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T09:44:02Z_
+_As of 2026-09-28T09:47:39Z_
 
 ## Latest
 
@@ -3540,7 +3540,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.4M | $400.40 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 43.3M | $399.20 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53368562 tokens/day lower bound._
@@ -3549,20 +3549,19 @@ _Fleet token-unlock pace: 53368562 tokens/day lower bound._
 worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (0)
+### todo (1)
+- [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-journal-cold-clone-bootstrap.md) — Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new work...
+
+### doin (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1298
-- [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-journal-cold-clone-bootstrap.md) — Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new work...
-
-### tada (9355)
+### tada (9356)
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots PR #1298
 - [`canary-probe-endolin-garden2-5bcdff64-f3e5ea54007a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-f3e5ea54007a.md) — rolling-deploy canary probe — round trip OK
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Completion report: ironhorse-fuzz-ed616f6ec22095dc-repair
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Cost
 - [`improve-foreman-provider-order-reject-retired-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-foreman-provider-order-reject-retired-local.md) — Cost
-- [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/doc-readme-control-surfaces-prompt-first.md) — Cost
-- … and 9350 more
+- … and 9351 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
