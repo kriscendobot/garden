@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T13:25:42Z_
+_As of 2026-09-28T13:35:57Z_
 
 ## Latest
 
@@ -3464,11 +3464,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #922 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T12:29:42Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 922 times; this is ONE
-> coalesced notice that updates in place, not 922 messages. Latest detail:
+> WATCHDOG notice — occurrence #932 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T13:30:31Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 932 times; this is ONE
+> coalesced notice that updates in place, not 932 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to fac772d7c6c3 83 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to fac772d7c6c3 144 min ago
 > but still reports deployed_sha 586aee8196b4c03fdb68c7d2368856cb756de4eb. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
