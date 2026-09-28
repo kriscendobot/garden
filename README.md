@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T18:56:41Z_
+_As of 2026-09-28T18:58:37Z_
 
 ## Latest
 
@@ -3633,11 +3633,11 @@ _Fleet token-unlock pace: 56525053 tokens/day lower bound._
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`canary-probe-oros-studio-garden-ce242c49-e036bb8e0650`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-e036bb8e0650.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ e036bb8e0650
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`canary-probe-oros-studio-garden-ce242c49-e036bb8e0650`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-e036bb8e0650.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ e036bb8e0650
 
 ### tada (9382)
 - [`canary-probe-endolin-garden2-5bcdff64-e036bb8e0650`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-e036bb8e0650.md) — rolling-deploy canary probe — round trip OK
