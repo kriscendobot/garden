@@ -1,0 +1,15 @@
+<6>21:05:39 [monk/1] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>21:05:39 [monk/1] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493' call ceiling: tier=mentor max-budget-usd=15.80 (scaled by fresh seven-day headroom when available)
+panel-head-freshness: not-applicable target=kriscendobot-garden-pr81-postdeploy-pty-5119818493 reason=no-presented-pr
+<6>21:06:18 [assert-followup-posted] gate: BLOCK — 'kriscendobot-garden-pr81-postdeploy-pty-5119818493' declares handoff to 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z' but that successor is not durably posted on the board; leaving in doin for retry
+
+--- handler report (partial) ---
+PR #81 has not been validated yet: its merge isn't deployed on this host. Following the job's instructions, I scheduled a retry and am handing off to it.
+
+- **PR #81:** merged at 2026-09-28T21:04:43Z as merge commit `4767705b28d522b591eddbd3b47976273c5e1853`.
+- **Deploy check:** this host (`endolin-garden-ece02cb4`) reports its deployed version via `deployed_sha` as `e036bb8e0650b66a4ae00dc1516c4c8df39901ca`. After fetching `origin/main2` in the job worktree, `git merge-base --is-ancestor` showed the merge commit is not part of that deployed version. The merge landed about a minute before this job was claimed, so the rolling deploy has not reached this host.
+- **Handoff:** I did not wait, because an active gardener blocks the drained deploy. Instead I used `scripts/jobs/set-schedule-once.sh` to create a one-time schedule, `kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`, due at 2026-09-28T21:11:02Z. It carries the full task body plus a note on why this attempt handed off. I confirmed it is on `origin/journal2` at `schedules/<name>.md` with the correct `once:` time and job name.
+- **Not done yet (the successor owns all of it):** posting the `lane: pty` assayer test job, polling it to `jobs/tada/`, and posting the top-level comment on PR #81. No comment was posted and no test job was created in this attempt.
+- **Changes:** no garden code changed and nothing was committed to main2. The only write was the schedule entry on the journal.
+
+<<<GARDEN-JOB-HANDED-OFF: kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z>>>
