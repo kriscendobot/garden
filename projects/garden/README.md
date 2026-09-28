@@ -28,7 +28,9 @@ There is no two-identity switching dance for this project; both identities push 
 
 ## Per-topic detail
 
-(None yet; the scholar grows this set as garden-tagged journal entries accumulate. Likely topic candidates: `meta-evolution-flow.md` (gardener dispatches and self-improvement routing), `bot-vs-maintainer-identity.md` (the two identities on different hosts), `bulletin-ownership.md` (which role owns which section).)
+- [`openshell-confinement-fit.md`](openshell-confinement-fit.md) evaluates NVIDIA OpenShell as a per-job garden confinement and secret-masking layer, maps every garden credential class, and recommends a rootless-Podman pilot alongside the current Docker control plane.
+
+Likely future topic candidates: `meta-evolution-flow.md` (gardener dispatches and self-improvement routing), `bot-vs-maintainer-identity.md` (the two identities on different hosts), `bulletin-ownership.md` (which role owns which section).
 
 Source entries to consult when growing this directory:
 
