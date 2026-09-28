@@ -65,6 +65,7 @@ regression case AND the causal fix, then amend the ONE standing pull request.
    comment, and record the unsolved finding visibly in the PR — never let it disappear.
 
 <!-- garden-productive-cycle -->
+<!-- garden-transient-elapsed: kind=signature through=0 values=3132 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
