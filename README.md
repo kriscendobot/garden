@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T17:05:29Z_
+_As of 2026-09-28T17:07:53Z_
 
 ## Latest
 
@@ -3569,7 +3569,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.9M | $423.67 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Claude | 45.9M | $425.27 _(notional, rate-card)_ | 32% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 53050002 tokens/day lower bound._
@@ -3578,11 +3578,10 @@ _Fleet token-unlock pace: 53050002 tokens/day lower bound._
 worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`report-completions-since-friday-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/report-completions-since-friday-reset.md) — Report: everything the fleet completed since the Friday quota reset
 
-### doin (2)
-- [`report-completions-since-friday-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/report-completions-since-friday-reset.md) — Report: everything the fleet completed since the Friday quota reset
+### doin (1)
 - [`canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 7438d06ba1ff
 
 ### tada (9374)
