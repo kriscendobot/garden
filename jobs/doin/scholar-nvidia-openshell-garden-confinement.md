@@ -27,3 +27,13 @@ Ingest https://github.com/NVIDIA/OpenShell (README, docs, architecture, security
 6. **Recommendation:** a staged adoption path (for example, a pilot on one worker kind or one secret class), with the smallest useful first step and what to measure.
 
 Report as a scholar note under the garden's `references/` or `library/` conventions (whichever the scholar role specifies), and summarize in the completion report. Read-only research: install or run it only in a throwaway scratch sandbox, if at all, and never with real credentials.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T23:03:14Z
