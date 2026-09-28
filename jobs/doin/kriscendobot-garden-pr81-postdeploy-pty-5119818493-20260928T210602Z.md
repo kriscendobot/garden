@@ -34,3 +34,13 @@ Poll the journal board with a bounded deadline for that test basename to reach `
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-28T21:33:06Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T21:37:10Z
