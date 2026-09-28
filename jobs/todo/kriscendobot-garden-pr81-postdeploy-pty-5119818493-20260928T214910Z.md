@@ -1,6 +1,3 @@
-once: 2026-09-28T21:49:10Z
-job_basename_prefix: kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T214910Z
----
 ---
 role: fixer
 tier: mentor
