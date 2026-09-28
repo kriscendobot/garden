@@ -127,3 +127,13 @@ jobs posted, the question taxonomy and threshold policy you chose (with
 justification), and confirm the maintainer-authorization note above is
 recorded plainly somewhere durable (this job's own completion report is
 sufficient, but say so).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T07:48:26Z
