@@ -47,13 +47,6 @@ any), the open questions for the maintainer, and a proposed build sequence (as s
 - Output `designs/cloudflare-backend.md`.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-28T07:25:50Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-28T07:46:17Z -->
