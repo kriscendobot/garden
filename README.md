@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T07:32:11Z_
+_As of 2026-09-28T07:39:15Z_
 
 ## Latest
 
@@ -283,6 +283,80 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `doomed-daily-progress-summary-20260928-071105-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-daily-progress-summary-20260928-071105-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/daily-progress-summary-20260928-071105; it stays HELD until a human promotes it
+> (promote-plan.sh daily-progress-summary-20260928-071105) or removes it, so nothing is lost.
+> Original job base: daily-progress-summary-20260928-071105
+>
+> --- original job body ---
+> Scheduled dispatch context (computed by the scheduler at fire time):
+>
+> - window_start: 2026-09-27T07:00:00Z (UTC, inclusive)
+> - window_end: 2026-09-28T07:00:00Z (UTC, exclusive)
+> - pacific_date: 2026-09-27 (the Pacific day this periodical covers)
+> - output: journal/periodicals/2026/09/27.md
+>
+> ---
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+>
+> # Daily midnight Pacific progress summary
+>
+> Act as the [journalist](../../roles/journalist/AGENT.md) with purpose
+> `daily-progress-summary` (see that role's § Daily progress summaries). Write one
+> daily progress-summary periodical covering the prior 24 hours across every project,
+> then commit it to `journal2`.
+>
+> 1. **Window.** If the scheduler prepended a "Scheduled dispatch context" block
+>    above (it does under the anchored `daily-at-00:00-America/Los_Angeles`
+>    cadence), use its `window_start`, `window_end`, `pacific_date`, and `output`
+>    verbatim. Otherwise fall back to the Pacific day that most recently closed:
+>    window `[<pacific_date> 00:00, next-day 00:00)` in America/Los_Angeles, and
+>    `output = journal/periodicals/<YYYY>/<MM>/<DD>.md` keyed by that `pacific_date`.
+> 2. **Read.** Every entry under `journal/entries/<YYYY>/<MM>/<DD>/` whose `ts:` is
+>    in `[window_start, window_end)` (a UTC window can straddle two day-directories;
+>    scan both and filter by `ts:`), plus the board transitions in the window
+>    (`jobs/{todo,doin,tada}` moves from `git -C journal log --since=... --until=...`).
+>    Scope is intentionally everything: dispatches, results, ticks, messages, and
+>    worktree-lifecycle entries alike.
+> 3. **Write.** One abstract-first periodical at `output`, partitioned by project
+>    (the `project:` slug; one section per project with any entry, plus a garden-meta
+>    section for untagged entries) and, within each, by activity kind. Do not skip a
+>    project for having only a couple of entries. Cite sources by relative path;
+>    paraphrase, do not copy. House style applies (no em-dashes in prose, no Latin
+>    shorthand, relative paths). Commit and push the one file with the usual CAS; if
+>    the file already exists for that Pacific date, overwrite it (the periodical is a
+>    function of the window, so a re-run is idempotent).
+>
+> Deliverable: the periodical file committed to `journal2`, or (empty window) a
+> one-line periodical saying nothing moved. No board writes, no upstream actions.
+>
+> ---
+> Translated from v1 `schedule/garden/20260513T070000Z--5a93f9.md`
+> (recurrence `daily-at-00:00-America/Los_Angeles`, dispatch `journalist` /
+> `daily-progress-summary`, window "prior 24 hours", scope all projects).
+> The v1 trigger/short-id/fired machinery is dropped: v2 schedules are recurring
+> specs keyed by cadence, not pre-computed per-fire event files. The v1 periodicals
+> output tree is archived under `legacy/v1/periodicals/`. The v1 original is
+> retained on `journal-v1` and `origin/journal`.
+>
+> The cadence is the anchored, DST-aware `daily-at-00:00-America/Los_Angeles` (which
+> the scheduler learned on main2 commit 85a1cd8e6): due-ness is decided against the
+> most recent Pacific-midnight anchor at-or-before now and `last_dispatched` is
+> stamped to that anchor, so the fire never drifts off local midnight and a 23h/25h
+> DST day is spanned correctly. It was flipped from the earlier fixed-interval
+> `daily` (which drifted, firing at each actual dispatch time rather than at local
+> midnight) once the anchored scheduler landed on the leader host; do not revert it
+> to `daily` while any leader host still runs a pre-anchor scheduler, or that
+> scheduler would treat the token as its weekly default.
 
 - `20260927T142027Z-56bccd` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T142027Z-56bccd.md)
 
@@ -1773,6 +1847,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `doomed-ironhorse-fuzz-378372c8706a48a8-repair-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-378372c8706a48a8-repair-requeue-exhausted.md)
 
+> DOOM notice — occurrence #2 (first seen 2026-09-27T09:43:38Z, latest 2026-09-28T07:37:05Z).
+> This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+> this is an AMENDED notice, not a new one. Latest detail:
+>
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
 > The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
 > The work is preserved at jobs/plan/ironhorse-fuzz-378372c8706a48a8-repair; it stays HELD until a human promotes it
@@ -1780,6 +1858,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Original job base: ironhorse-fuzz-378372c8706a48a8-repair
 >
 > --- original job body ---
+> ---
+> role: builder
+> tier: mentor
+> token-budget: 250000
+> ---
+> <!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-28T04:51:26Z cleared=none -->
+>
 > ---
 > role: builder
 > tier: mentor
@@ -1989,11 +2074,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` has CLEARED (first seen 2026-09-26T13:50:44Z, cleared 2026-09-26T13:55:10Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-26T13:50:44Z, latest 2026-09-28T07:38:29Z).
+> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` cleared on endolin-garden-ece02cb4.
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-moddable: gc.log present; size=247847936B packs=51 gc.log=1; automatic remedy=deferred.
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-endo` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-endo.md)
 
@@ -2170,11 +2255,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal.md)
 
-> RECOVERED — the watchdog condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-27T12:33:19Z, cleared 2026-09-28T06:27:57Z).
-> It was observed 8 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #9 (first seen 2026-09-27T12:33:19Z, latest 2026-09-28T07:37:59Z).
+> The SAME condition (`journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> Journal contention condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` cleared on oros-studio-garden-ce242c49.
+> Journal fetch drift on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: oldest-third median=9.011906s newest-third median=12.160914s over 5301s/256 samples; floor=10s, 1.5x rise or projected-to-guard=32555s within 86400s.
 
 - `20260927T025145Z-1055ad` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T025145Z-1055ad.md)
 
@@ -3282,22 +3367,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.6M | $391.53 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 42.6M | $391.70 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 47594032 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
-worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
+worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (15)
+### todo (12)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
-- [`claude-on-minion-town-press-20260928-072639`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260928-072639.md) — Press the Claude-on-minion.town arc forward
-- [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-378372c8706a48a8-repair.md) — Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
 - [`mentat-endo-cask-rust-content-store-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-endo-cask-rust-content-store-design.md) — Design: CASK in Rust as Endo's content store (and substrate for Endo's virtua...
-- [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Repair Ironhorse engine defect fd8517d5f3071227 (target differential_regexp) ...
-- [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-284de587e16bce32-repair.md) — Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
+- [`mentat-minion-town-cloudflare-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-minion-town-cloudflare-backend-plan.md) — Plan: minion.town on Cloudflare (R2, D1, Durable Objects, Workers, Queues, Cr...
 - [`ironhorse-fuzz-e773681b6d831dc1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-e773681b6d831dc1-repair.md) — Repair Ironhorse engine defect e773681b6d831dc1 (target differential_regexp_s...
 - [`jev-preclassify-foreign-content-survey`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/jev-preclassify-foreign-content-survey.md) — Survey the garden for foreign-content-reading surfaces; wire Jev pre-classifi...
 - [`fix-codex-budget-live-spend-label`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-codex-budget-live-spend-label.md) — Fix misleading spend/cap units in codex-endolin's budget-live snapshot
@@ -3308,20 +3390,19 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Repair Ironhorse engine defect 2a2de75b75de4894 (target differential_source) ...
 - [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/doc-readme-control-surfaces-prompt-first.md) — Reorient README's "Control surfaces" section around what a maintainer says, n...
 
-### doin (5)
-- [`claude-on-minion-town-completion-press-20260928-072639`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260928-072639.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
-- [`daily-progress-summary-20260928-071105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20260928-071105.md) — Daily midnight Pacific progress summary
+### doin (4)
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1298
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-journal-cold-clone-bootstrap.md) — Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new work...
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1298
-- [`mentat-minion-town-cloudflare-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-minion-town-cloudflare-backend-plan.md) — Plan: minion.town on Cloudflare (R2, D1, Durable Objects, Workers, Queues, Cr...
+- [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Repair Ironhorse engine defect fd8517d5f3071227 (target differential_regexp) ...
+- [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-284de587e16bce32-repair.md) — Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
 
-### tada (9332)
+### tada (9335)
+- [`claude-on-minion-town-press-20260928-072639`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-072639.md) — Cost
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-panel-3.md) — Cost
+- [`claude-on-minion-town-completion-press-20260928-072639`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-072639.md) — Cost
 - [`claude-on-minion-town-press-20260927-133532`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260927-133532.md) — Cost
 - [`kriscendobot-minion.town-pr56-review-7d4dc95d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr56-review-7d4dc95d.md) — Completion report
-- [`ironhorse-fuzz-fad9672dc7a6e6be-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-fad9672dc7a6e6be-repair.md) — Cost
-- [`mentat-minion-town-alt-hosts-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/mentat-minion-town-alt-hosts-backend-plan.md) — Completion report — mentat-minion-town-alt-hosts-backend-plan
-- [`ironhorse-fuzz-bc3d0df623811a38-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-bc3d0df623811a38-repair.md) — Panel-head freshness
-- … and 9327 more
+- … and 9330 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3350,6 +3431,7 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/retire-gardener-worker-kind-alias.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1286-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1286-receipt.md) — _normal_ · receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1286 (me...
 - [`endojs-endo-but-for-bots-pr1345-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1345-conduct.md) — _normal_ · Finalize (curate -> merge) endojs/endo-but-for-bots PR #1345
+- [`daily-progress-summary-20260928-071105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20260928-071105.md) — _normal_ · Daily midnight Pacific progress summary
 - [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/harness-provider-matrix-handoff-20260901.md) — _normal_ · Hand-off: harness × inference-provider matrix, and what to probe next
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
@@ -3366,6 +3448,7 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
 - [`design-hardened-ses-shims-plan-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-hardened-ses-shims-plan-reconciliation.md) — _normal_ · ---
 - [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/run-the-gauntlet-minion-town-pr90.md) — _normal_ · ---
+- [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-378372c8706a48a8-repair.md) — _normal_ · Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1301-review-3220af4b-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1301 (primary: endojs-endo-but-...
 - [`oros-ckm-dependabot-audit-0013418`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-ckm-dependabot-audit-0013418.md) — _normal_ · ---
 - [`build-usage-scrape-ingest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-usage-scrape-ingest.md) — _normal_ · ---
