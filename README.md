@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T22:33:07Z_
+_As of 2026-09-28T22:36:13Z_
 
 ## Latest
 
@@ -2557,12 +2557,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #11 (first seen 2026-09-28T21:29:28Z, latest 2026-09-28T22:29:29Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 11 times; this is ONE
-> coalesced notice that updates in place, not 11 messages. Latest detail:
+> WATCHDOG notice — occurrence #12 (first seen 2026-09-28T21:29:28Z, latest 2026-09-28T22:34:31Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 12 times; this is ONE
+> coalesced notice that updates in place, not 12 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/86](https://github.com/kriscendobot/minion.town/pull/86)#discussion_r4127032558 (age=4951s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/86](https://github.com/kriscendobot/minion.town/pull/86)#discussion_r4127032558 (age=5251s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
@@ -3675,38 +3675,37 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.7M | $482.77 _(notional, rate-card)_ | 37% of 143.0M (ok) |
-| Codex | 5.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 52.7M | $482.87 _(notional, rate-card)_ | 37% of 143.0M (ok) |
+| Codex | 5.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 59597538 tokens/day lower bound._
+_Fleet token-unlock pace: 53132237 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`garden-pr81-postdeploy-pty-20260928T221312Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-pr81-postdeploy-pty-20260928T221312Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-minion.town-pr86-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr86-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #86
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 
-### doin (9)
-- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
+### doin (7)
 - [`kriscendobot-minion-town-pr86-review-finalize-prod-5344649026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr86-review-finalize-prod-5344649026.md) — Finish review directive 5344649026 on kriscendobot/minion.town PR #86
 - [`endojs-endo-but-for-bots-pr897-conduct-5344801548`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-conduct-5344801548.md) — Conduct endojs/endo-but-for-bots PR #897
 - [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260928.md) — Finish activation of the authorized Ironhorse ratchet autopilot
 - [`endojs-endo-but-for-bots-pr1343-review-fcb5f817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-review-fcb5f817.md) — Review directive on endojs/endo-but-for-bots PR #1343
-- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1097
 - [`build-siwe-recovery-bond-provider-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-siwe-recovery-bond-provider-minion-town.md) — Build: register SIWE as a recovery-bond provider on minion.town
 - [`kriscendobot-minion-town-pr130-conduct-prod-validate-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr130-conduct-prod-validate-20260928.md) — Conduct minion.town PR #130 and finish PR #117 production validation
 
-### tada (9443)
+### tada (9444)
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z.md) — Cost
 - [`kriscendobot-minion.town-pr86-review-eee45c8f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-review-eee45c8f.md) — Cost
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221403Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221403Z.md) — Cost
 - [`kriscendobot-minion.town-pr86-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-gauntlet-panel-3.md) — Cost
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T214910Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T214910Z.md) — Completion report
-- [`kriscendobot-minion.town-pr86-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-gauntlet-fix-2.md) — Cost
-- … and 9438 more
+- … and 9439 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
