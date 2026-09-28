@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T10:50:10Z_
+_As of 2026-09-28T10:57:23Z_
 
 ## Latest
 
@@ -617,7 +617,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_sysop_journal.md)
 
-> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=15.608259s max=21.049566s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_Users_dom_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-09-28T06:12:57Z, cleared 2026-09-28T10:53:00Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_Users_dom_garden__garden_state_sysop_journal` cleared on oros-studio-garden-ce242c49.
 
 - `watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness.md)
 
@@ -3550,13 +3554,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.4M | $400.40 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 43.5M | $401.08 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 49757791 tokens/day lower bound._
+_Fleet token-unlock pace: 49731503 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 4 open notice(s); checker healthy
+worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
@@ -3565,13 +3569,13 @@ worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### doin (0)
 (none)
 
-### tada (9363)
+### tada (9364)
+- [`canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1298-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1298-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-fix-4.md) — Gauntlet fix round 4: endojs/endo-but-for-bots#1298
 - [`claude-on-minion-town-press-20260928-104106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-104106.md) — Cost
 - [`kriscendobot-minion.town-pr128-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr128-dependabot.md) — Cost
-- [`improve-foreman-local-endpoint-unreachable-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-foreman-local-endpoint-unreachable-dedup.md) — Cost
-- … and 9358 more
+- … and 9359 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
