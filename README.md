@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T20:10:35Z_
+_As of 2026-09-28T20:12:12Z_
 
 ## Latest
 
@@ -2082,6 +2082,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > 7. Document THIS case and its solution in the standing PR body or a PR comment (finding 378372c8706a48a8).
 > 8. If the case cannot yet be solved, still land the regression test as `#[ignore]` with a
 >    comment, and record the unsolved finding visibly in the PR — never let it disappear.
+
+- `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
+
+> M3’s confined-Claude critical path is blocked on draft [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/issues/1348), the `endo-agent-tools` dependency of #1015. Decide whether to run the gauntlet for #1348 so it can merge and unblock `endo-claude`.
 
 - `watchdog-self-heal-garden-ci-watcher-kriscendobot-list` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-list.md)
 
