@@ -25,7 +25,7 @@ GARDEN_TAG="mentor-claude"
 sha="${1:?usage: mentor-claude.sh <digest-sha> <clone-dir>}"
 dir="${2:-${GARDEN_MENTOR_CLONE:-$GARDEN_STATE/mentor/journal}}"
 role_brief="$GARDEN_ROOT/roles/mentor/AGENT.md"
-: "${GARDEN_MENTOR_PROVIDER_ORDER:=openai,local,anthropic}"
+: "${GARDEN_MENTOR_PROVIDER_ORDER:=openai,anthropic}"
 
 prompt="$(cat <<EOF
 You are the garden mentor (role brief: $role_brief). Recent failure surfaces —
@@ -80,7 +80,15 @@ provider_order() {
   [ "${#parts[@]}" -gt 0 ] || die "GARDEN_MENTOR_PROVIDER_ORDER is empty"
   for item in "${parts[@]}"; do
     item="$(printf '%s' "$item" | tr -d '[:space:]')"
-    case "$item" in openai|local|anthropic) ;; *) die "invalid GARDEN_MENTOR_PROVIDER_ORDER provider '$item' (allowed: openai, local, anthropic; Moonshot is explicit-job-only)" ;; esac
+    case "$item" in
+      openai|anthropic) ;;
+      # The local-qwen hermit lane was retired fleet-wide 2026-09-13 (job
+      # retire-local-qwen-hermit-lane; common.sh `hermit`): no host runs Ollama, so
+      # a `local` attempt is a guaranteed dead probe. Fail at parse time so a stale
+      # drop-in is loud instead of burning every tick on a dead branch.
+      local) die "GARDEN_MENTOR_PROVIDER_ORDER provider 'local' is retired (local-qwen hermit lane dropped 2026-09-13, job retire-local-qwen-hermit-lane); remove it from the garden-mentor drop-in (allowed: openai, anthropic)" ;;
+      *) die "invalid GARDEN_MENTOR_PROVIDER_ORDER provider '$item' (allowed: openai, anthropic; Moonshot is explicit-job-only)" ;;
+    esac
     case "$seen" in *",$item,"*) die "duplicate provider '$item' in GARDEN_MENTOR_PROVIDER_ORDER" ;; esac
     seen+="$item,"; out+="${out:+ }$item"
   done

@@ -5,9 +5,10 @@ Description=Garden mentor (watch the log for automation-improvement opportunitie
 Type=oneshot
 Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # Availability-aware inner-agent order. Claude remains the final candidate; an
-# operator may override this in a leader-host drop-in. See
+# operator may override this in a leader-host drop-in. `local` is REJECTED (the
+# local-qwen hermit lane was retired 2026-09-13); the handler FATALs on it. See
 # context/operations/foreman-providers.md.
-# Environment=GARDEN_MENTOR_PROVIDER_ORDER=openai,local,anthropic
+# Environment=GARDEN_MENTOR_PROVIDER_ORDER=openai,anthropic
 # Leader-only singleton: run only on the host whose GARDEN identity matches the
 # journal `leader` marker. On a follower the timer still fires but this
 # ExecCondition fails, so the tick is SKIPPED CLEANLY (condition-failed, never

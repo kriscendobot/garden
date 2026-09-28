@@ -41,18 +41,32 @@ else bad "Claude quota did not fall through to Codex"; fi
 [ "$(tr '\n' ' ' < "$LOG1")" = 'anthropic openai ' ] && ok "attempted Claude then OpenAI" || bad "wrong trace: $(tr '\n' ' ' < "$LOG1")"
 
 rm -rf "$TR/state"; mkdir -p "$TR/state"
-echo 'SUBTEST 2 — unavailable providers traverse configured order'
+echo 'SUBTEST 2 — unavailable OpenAI advances to Claude without exec'
 LOG2="$TR/log2"
-if run_handler openai,local,anthropic GARDEN_TEST_PROVIDER_LOG="$LOG2" GARDEN_TEST_CODEX_LOGIN_RC=1 GARDEN_TEST_LOCAL_CURL_RC=1 \
+if run_handler openai,anthropic GARDEN_TEST_PROVIDER_LOG="$LOG2" GARDEN_TEST_CODEX_LOGIN_RC=1 \
   GARDEN_TEST_ANTHROPIC_OUTPUT='JOB improve-claude\nscripts/jobs/other.sh\nmake failure visible\nENDJOB\n'; then
   VERIFY2="$TR/verify2"; git clone -q --branch journal2 "$BARE" "$VERIFY2"
-  [ -f "$VERIFY2/jobs/todo/improve-claude.md" ] && ok "unavailable Codex/local providers reach Claude" || bad "Claude fallback job was not posted"
+  [ -f "$VERIFY2/jobs/todo/improve-claude.md" ] && ok "unavailable Codex reaches Claude" || bad "Claude fallback job was not posted"
 else bad "unavailable provider traversal failed"; fi
-[ "$(tr '\n' ' ' < "$LOG2")" = 'local-preflight local-preflight anthropic ' ] && ok "unavailable providers were each skipped once" || bad "wrong traversal: $(tr '\n' ' ' < "$LOG2")"
+[ "$(tr '\n' ' ' < "$LOG2")" = 'anthropic ' ] && ok "OpenAI auth failure skips its exec and reaches Claude" || bad "wrong traversal: $(tr '\n' ' ' < "$LOG2")"
+
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+echo 'SUBTEST 2b — a stale retired local entry fails fast at parse time'
+for order in openai,local local,anthropic openai,local,anthropic; do
+  LOG_LOCAL="$TR/log-local"; : > "$LOG_LOCAL"
+  if run_handler "$order" GARDEN_TEST_PROVIDER_LOG="$LOG_LOCAL" >"$TR/local.out" 2>"$TR/local.err"; then
+    bad "retired provider order '$order' was accepted"
+  else ok "retired provider order '$order' is rejected"; fi
+  grep -q "provider 'local' is retired" "$TR/local.err" && grep -q 'retire-local-qwen-hermit-lane' "$TR/local.err" \
+    && ok "'$order' refusal names the 2026-09-13 retirement" \
+    || bad "'$order' refusal lacks the retirement diagnostic: $(cat "$TR/local.err")"
+  [ ! -s "$LOG_LOCAL" ] && ok "'$order' is rejected before any provider is attempted" \
+    || bad "'$order' attempted providers before rejecting: $(tr '\n' ' ' < "$LOG_LOCAL")"
+done
 
 rm -rf "$TR/state"; mkdir -p "$TR/state"
 echo 'SUBTEST 3 — all unavailable fails without a decision'
-if run_handler openai,local,anthropic GARDEN_TEST_CODEX_LOGIN_RC=1 GARDEN_TEST_LOCAL_CURL_RC=1 GARDEN_TEST_ANTHROPIC_RC=1 >"$TR/all.out" 2>"$TR/all.err"; then
+if run_handler openai,anthropic GARDEN_TEST_CODEX_LOGIN_RC=1 GARDEN_TEST_ANTHROPIC_RC=1 >"$TR/all.out" 2>"$TR/all.err"; then
   bad "all unavailable providers unexpectedly succeeded"
 else grep -q 'no configured mentor inference provider was available' "$TR/all.err" && ok "all unavailable reports no provider" || bad "missing all-unavailable diagnostic"; fi
 
