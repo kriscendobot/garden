@@ -63,6 +63,9 @@ fleet_draining && { log "fleet draining; refusing to claim"; exit 3; }
 # box serves qwen, not gpt-oss.
 job_eligible_for_kind() {
   local jf="$1" tier pin constrained_provider role routed_model trial
+  if [ "$(plan_field "$jf" ratchet-arc)" = ironhorse-test262-ratchet ]; then
+    python3 "$HERE/ratchet/policy.py" active "$DIR" >/dev/null 2>&1 || return 1
+  fi
   # ROLE backend-fit: a job whose `role:` demands the full Claude-agent posture (the
   # self-directed `gardener` loop the codex/local handlers cannot honor) is claimable
   # only by an anthropic kind — the role analogue of the provider filter below, fencing
@@ -98,7 +101,7 @@ job_eligible_for_kind() {
     routed_model="$(resolve_model_tier anthropic "$routed_model")"
     [ -n "$routed_model" ] || return 1
     tier="$(model_dispatch_tier anthropic "$routed_model" 2>/dev/null || true)"
-    [ "$tier" != mentat ] || [ "$(plan_field "$jf" dispatch)" = manual ] || return 1
+    [ "$tier" != mentat ] || [ "$(plan_field "$jf" dispatch)" = manual ] || ratchet_watcher_job "$jf" "$DIR" || return 1
     if job_provider_is_constrained "$jf"; then
       [ "$(job_provider_constraint "$jf" 2>/dev/null || true)" = anthropic ] || return 1
     fi
@@ -119,14 +122,14 @@ job_eligible_for_kind() {
     [ "$constrained_provider" = "$KIND_PROVIDER" ] || return 1
   fi
   # Mentat is an authorization boundary, not merely a price point: it is
-  # dispatchable ONLY on an explicit manual dispatch, on ANY provider (this gate
+  # dispatchable on manual authority or the scoped ratchet watcher (this gate
   # is keyed on the tier string, never a provider — mentat is multi-provider like
   # mentor: Anthropic Fable/Mythos and OpenAI GPT-6 Astra both live at mentat).
   # Which providers may actually take a mentat job is decided provider-agnostically
   # by the backend-fit filter below (`tier_model_for_provider`), which admits only a
   # provider that has a model at this tier — so a provider without a mentat row
   # (moonshot/fireworks/local/…) still fails closed with no hardcoded allowlist.
-  [ "$tier" != mentat ] || [ "$(plan_field "$jf" dispatch)" = manual ] || return 1
+  [ "$tier" != mentat ] || [ "$(plan_field "$jf" dispatch)" = manual ] || ratchet_watcher_job "$jf" "$DIR" || return 1
   # A concrete `model:` pin binds the job to the provider that owns that model,
   # so a multi-provider tier (mentor spans Opus 5 / Sol / Kimi) never lets a worker
   # claim a job pinned to a foreign provider's model. resolve_model_tier resolves the

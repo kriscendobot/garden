@@ -1,6 +1,6 @@
 ---
 created: 2026-06-10
-updated: 2026-09-27
+updated: 2026-09-28
 author: gardener
 ---
 
@@ -14,7 +14,7 @@ unclassified and cannot acquire an automatic route.
 
 | Tier | Fleet models | Dispatch boundary |
 | --- | --- | --- |
-| mentat | Anthropic Fable 5 (`claude-fable-5`; Mythos is equivalent when enabled), OpenAI GPT-6 Astra (`gpt-6-astra`) | Manual only. Use `post-manual-job.sh`; it stamps `dispatch: manual`. Multi-provider like mentor: a manual mentat job is claimable by whichever provider's worker is live (monk on Fable, cleric on GPT-6 Astra); the manual-dispatch gate is keyed on the tier string, not a provider, so no automatic path reaches any mentat model regardless of provider. |
+| mentat | Anthropic Fable 5 (`claude-fable-5`; Mythos is equivalent when enabled), OpenAI GPT-6 Astra (`gpt-6-astra`) | Manual by default; the scoped Ironhorse watcher exception is below. Use `post-manual-job.sh`; it stamps `dispatch: manual`. Multi-provider like mentor: a manual mentat job is claimable by whichever provider's worker is live (monk on Fable, cleric on GPT-6 Astra); the manual-dispatch gate is keyed on the tier string, not a provider, with only the journal-authorized Ironhorse watcher exception below. |
 | mentor | Anthropic Opus 5.5 (`claude-opus-5-5`; Opus 5 `claude-opus-5` stays selectable behind it), OpenAI Sol (`gpt-5.6-sol`), Moonshot Kimi K3 (`kimi-k3`), Fireworks GLM 5.2 (`fireworks/accounts/fireworks/models/glm-5p2`) and Kimi K3 (`fireworks/accounts/fireworks/models/kimi-k3`) | Highest tier automatic producers may emit, and the anthropic automatic ceiling. Multi-provider: a mentor job is claimable by whichever provider's worker is live (monk on Opus 5.5, cleric on Sol, mystic on Kimi, fireworker on Fireworks). Opus 5.5 is the first-match anthropic mentor row, so it is the anthropic mentor default; Opus 5 remains selectable by the `opus5` alias / concrete pin. See the collision note below: a Fireworks mentor job resolves to GLM 5.2, so the registered Fireworks K3 is not yet independently selectable. |
 | minion | Anthropic Opus 4.x, OpenAI/Codex models below Sol, served local Qwen (`hermit` lane RETIRED 2026-09-13 — pool pinned 0, no worker claims it), Fireworks Deepseek V4 Pro (`fireworks/accounts/fireworks/models/deepseek-v4-pro`), OpenRouter GLM 5.2 free (`openrouter/z-ai/glm-5.2:free`), Ollama Cloud Qwen 3.5 (`qwen3.5:cloud`) | The tier below mentor; the automatic fallback tier. |
 | myrmidon | Sonnet, Haiku, Fireworks gpt-oss-120b (`fireworks/accounts/fireworks/models/gpt-oss-120b`) | Expedient tier; not an automatic escalation path. |
@@ -101,11 +101,11 @@ failure the reaper advances only the qualified non-Claude fallback. This routing
 reversible by changing the choke-point policy; the four-tier inventory remains
 unchanged.
 
-No automatic path may emit Fable/mentat or any other manual-only pin.
+Except for the Ironhorse watcher below, no automatic path may emit Fable/mentat or any other manual-only pin.
 The monk
 Claude handler and the backend-fit predicate (`job_eligible_for_kind`,
 `claim-job.sh`) both refuse `tier: mentat` unless the job carries
-`dispatch: manual`. **Mentat is the only tier they gate on** — the handler serves
+`dispatch: manual` or passes the canonical delegated-watcher gate below. **Mentat is the only tier they gate on** — the handler serves
 every other tier normally.
 
 That distinction is load-bearing. Until 2026-08-01 the handler refused *anything*
@@ -115,6 +115,19 @@ yes, handler said no, and a host with `gardeners: N>0` would claim/die/requeue
 across the whole board in a hot loop. That is why both endolin hosts sat at
 `gardeners: 0`. The two are now consistent, and
 `scripts/jobs/test/gardener-claude-tier-serving-test.sh` asserts the agreement per tier.
+
+### Scoped Ironhorse watcher exception
+
+The maintainer's 2026-09-28 Ironhorse delegation permits one recurring mentat
+watcher, detailed in [ratchet operations](../../context/operations/ironhorse-ratchet.md).
+Only scheduler `ironhorse-ratchet` with prefix `ironhorse-ratchet-watch` may emit
+its tracked canonical task as `tier: mentat`, `dispatch: ratchet-delegated`,
+`delegation: ironhorse-test262-ratchet`. The scheduler, claim predicate, and
+monk/cleric handler gates all require the active journal authorization. Claim
+and handlers also verify the timestamped basename and canonical task text.
+No fallback, model pin, provider override, or unrelated task enters this path.
+The ordinary automatic producer normalization is unchanged. Pause/revocation
+blocks admission and the delegated merge path, including previously queued ticks.
 
 ### The anthropic automatic ceiling (claude-opus-5-5)
 

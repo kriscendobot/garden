@@ -8,7 +8,7 @@
 # which bit the same PR twice).
 #
 # Invoked as: ci-wait-merge.sh <owner/name> <pr-number>
-#               [--merge|--no-merge|--dependabot-auto-merge]
+#               [--merge|--no-merge|--dependabot-auto-merge|--ratchet-delegated-merge]
 #
 # Behaviour:
 #   * Polls the statusCheckRollup (the source of truth — check_run/check_suite
@@ -76,6 +76,10 @@
 # verification; only the current-maintainer APPROVED signature is omitted after
 # both the author and bot-owned-repository checks succeed.
 #
+# --ratchet-delegated-merge requires the active Ironhorse delegation and a mentat
+# attestation for this exact head. Maintainer veto/dismissal still blocks; the
+# final head-matched merge cannot be queued for later execution after revocation.
+#
 # Silent-failure discipline (the 2026-06-24 jq-outage lesson): require_tools fails
 # LOUD on a missing binary, and a failed gh read returns non-zero (escalate) rather
 # than being swallowed into a false green.
@@ -92,15 +96,17 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/../common.sh"
 export GARDEN_TAG="ci-wait-merge"
 
-repo="${1:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge]}"
-pr="${2:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge]}"
+repo="${1:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge|--ratchet-delegated-merge]}"
+pr="${2:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge|--ratchet-delegated-merge]}"
 do_merge=1
 dependabot_auto_merge=0
+ratchet_delegated_merge=0
 case "${3:-}" in
   --no-merge) do_merge=0 ;;
   --merge|"") do_merge=1 ;;
   --dependabot-auto-merge) do_merge=1; dependabot_auto_merge=1 ;;
-  *) die "unknown flag: ${3:-} (expected --merge, --no-merge, or --dependabot-auto-merge)" ;;
+  --ratchet-delegated-merge) ratchet_delegated_merge=1 ;;
+  *) die "unknown flag: ${3:-} (expected --merge, --no-merge, --dependabot-auto-merge, or --ratchet-delegated-merge)" ;;
 esac
 
 # Resolve the gh binary DURABLY for the whole (potentially 90-minute) CI-wait.
@@ -180,6 +186,29 @@ if [ "$dependabot_auto_merge" -eq 1 ]; then
   fi
 fi
 
+# Check scope before rebase; check the head-pinned attestation again at merge.
+ratchet_gate() {
+  local phase="$1" temporary
+  temporary="$(mktemp -d)"
+  if ! "$GH" pr view "$pr" -R "$repo" --json baseRefName,author,body,state,headRefOid,isDraft,reviewDecision > "$temporary/metadata"; then
+    rm -rf "$temporary"; return 1
+  fi
+  local result=0
+  if [ "$phase" = scope ]; then
+    "$HERE/../ratchet-delegation.sh" scope "$repo" "$temporary/metadata" || result=$?
+  else
+    if ! "$GH" api --paginate "repos/$repo/pulls/$pr/reviews?per_page=100" | jq -s . > "$temporary/reviews"; then
+      rm -rf "$temporary"; return 1
+    fi
+    "$HERE/../ratchet-delegation.sh" merge "$repo" "$pr" "$post_rebase_head" "$temporary/metadata" "$temporary/reviews" || result=$?
+  fi
+  rm -rf "$temporary"
+  return "$result"
+}
+if [ "$ratchet_delegated_merge" -eq 1 ]; then
+  ratchet_gate scope || exit 1
+fi
+
 deadline_secs="${GARDEN_CI_DEADLINE_SECS:-5400}"
 poll_secs="${GARDEN_CI_POLL_SECS:-60}"
 poll_max="${GARDEN_CI_POLL_MAX_SECS:-60}"
@@ -202,6 +231,17 @@ read_rollup() {
   # own contract forbids exactly that).
   printf '%s' "$json" | jq -e . >/dev/null 2>&1 \
     || { log "unparseable PR state for $repo#$pr (not JSON); aborting this tick (never fabricate green)"; return 1; }
+  if [ "$ratchet_delegated_merge" -eq 1 ]; then
+    printf '%s' "$json" | jq -e '
+      (.state == "MERGED" or .state == "CLOSED") or
+      ((.statusCheckRollup | type) == "array" and all(.statusCheckRollup[];
+        ((.status // .state) as $status |
+          ["QUEUED", "IN_PROGRESS", "PENDING", "WAITING"] | index($status)) != null or
+        ((.conclusion // .state) as $conclusion |
+          ["SUCCESS", "NEUTRAL", "SKIPPED", "FAILURE", "ERROR", "CANCELLED",
+           "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"] | index($conclusion)) != null))
+    ' >/dev/null || { log "ratchet CI rollup unreadable"; return 1; }
+  fi
   state="$(printf '%s' "$json" | jq -r '.state // ""')"
   failed="$(printf '%s' "$json" | jq -r '
     [ .statusCheckRollup[]?
@@ -374,7 +414,7 @@ while :; do
   # started. Treat total=0 like pending: keep polling; the deadline's exit 4
   # (re-enqueue) covers a repo that never attaches checks. A genuinely
   # checkless repo opts in via GARDEN_CI_ALLOW_NO_CHECKS=1.
-  if [ "${total:-0}" -eq 0 ] && [ "${GARDEN_CI_ALLOW_NO_CHECKS:-0}" != 1 ]; then
+  if [ "${total:-0}" -eq 0 ] && { [ "$ratchet_delegated_merge" -eq 1 ] || [ "${GARDEN_CI_ALLOW_NO_CHECKS:-0}" != 1 ]; }; then
     # A CONFLICTING PR attaches NO checks at all, ever: GitHub cannot compute
     # refs/pull/N/merge, so `pull_request` workflows never dispatch and the
     # rollup stays [] until a human rebases. Waiting the full deadline and
@@ -493,7 +533,10 @@ fi
 # journal maintainer here, at the final merge point. The explicit botanist path
 # omits only that signature after the live dependabot-author and bot-owned-repo
 # checks above. CHANGES_REQUESTED remains the independent absolute veto above.
-if [ "$dependabot_approval_bypass" -eq 1 ]; then
+if [ "$ratchet_delegated_merge" -eq 1 ]; then
+  ratchet_gate merge || exit 1
+  echo "approval-bypass repo=$repo pr=$pr mode=ratchet-delegated-merge head=$post_rebase_head"
+elif [ "$dependabot_approval_bypass" -eq 1 ]; then
   echo "approval-bypass repo=$repo pr=$pr author=$GARDEN_DEPENDABOT_LOGIN mode=dependabot-auto-merge"
 elif ! "$HERE/../handlers/pr-maintainer-approval-gh.sh" "$repo" "$pr"; then
   echo "merge blocked: no maintainer approval repo=$repo pr=$pr"
@@ -517,11 +560,17 @@ else
   delete_flag=""
 fi
 
-if ! merr="$("$GH" pr merge "$pr" -R "$repo" --merge ${delete_flag:+"$delete_flag"} 2>&1)"; then
+merge_head_arguments=()
+if [ "$ratchet_delegated_merge" -eq 1 ]; then
+  ratchet_gate merge || exit 1
+  merge_head_arguments=(--match-head-commit "$post_rebase_head")
+fi
+
+if ! merr="$("$GH" pr merge "$pr" -R "$repo" --merge ${delete_flag:+"$delete_flag"} "${merge_head_arguments[@]}" 2>&1)"; then
   # Auto-merge fallback: if direct merge is momentarily blocked but the repo
   # supports queued auto-merge, queue it so GitHub completes on the now-green CI.
   log "direct --merge failed for $repo#$pr: $merr"
-  if printf '%s' "$merr" | grep -qi 'auto-merge\|not mergeable\|required status'; then
+  if [ "$ratchet_delegated_merge" -eq 0 ] && printf '%s' "$merr" | grep -qi 'auto-merge\|not mergeable\|required status'; then
     if "$GH" pr merge "$pr" -R "$repo" --auto --merge >/dev/null 2>&1; then
       state="$("$GH" pr view "$pr" -R "$repo" --json state,autoMergeRequest \
         --jq '.state + " auto=" + (.autoMergeRequest != null | tostring)' 2>/dev/null || echo '?')"
@@ -538,7 +587,7 @@ fi
 verify="$("$GH" pr view "$pr" -R "$repo" --json state,autoMergeRequest \
   --jq '.state + "|" + ((.autoMergeRequest != null) | tostring)' 2>/dev/null || echo '|')"
 IFS='|' read -r vstate vauto <<<"$verify"
-if [ "$vstate" = MERGED ] || [ "$vauto" = true ]; then
+if [ "$vstate" = MERGED ] || { [ "$ratchet_delegated_merge" -eq 0 ] && [ "$vauto" = true ]; }; then
   echo "merged repo=$repo pr=$pr state=$vstate auto=$vauto"
   exit 0
 fi

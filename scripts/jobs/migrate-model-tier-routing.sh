@@ -18,6 +18,10 @@ for attempt in $(seq 1 50); do
         if [ "$(job_tier "$f" 2>/dev/null || true)" = mentat ]; then
           sed -E 's/^model:[[:space:]]*(claude-fable-5|mentat|fable)[[:space:]]*$/tier: mentat/' "$f" > "$tmp"
         else cp "$f" "$tmp"; fi
+      elif [ "$(plan_field "$f" dispatch)" = ratchet-delegated ]; then
+        # Leave revoked/paused tasks inert; migration must not convert them to
+        # ordinary automatic work that escapes the delegated admission gate.
+        cp "$f" "$tmp"
       else automatic_route_body < "$f" > "$tmp"; fi
       if ! cmp -s "$f" "$tmp"; then mv "$tmp" "$f"; git -C "$DIR" add "${f#"$DIR/"}"; changed=$((changed+1)); else rm -f "$tmp"; fi
     done

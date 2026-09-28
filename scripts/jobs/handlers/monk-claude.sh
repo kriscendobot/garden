@@ -199,14 +199,16 @@ fi
 # NOT silently drop to the role default, since naming `model:` at all signals an
 # intent to override the role policy. A concrete `claude-*` id passes through.
 model_args=()
+if [ "$(plan_field "$jobfile" ratchet-arc)" = ironhorse-test262-ratchet ]; then
+  "$HERE/../ratchet-delegation.sh" active || die "Ironhorse delegation is inactive"
+fi
 requested_tier="$(job_tier "$jobfile" 2>/dev/null || true)"
 requested_role="$(plan_role "$jobfile")"
-# MENTAT IS AN AUTHORIZATION BOUNDARY, NOT A PRICE POINT. Fable/Mythos runs only
-# on an explicitly maintainer-dispatched job; no automatic producer may reach it
-# (skills/model-selection/SKILL.md). Everything else is a routine capability tier
-# this handler serves.
+# Mentat needs manual dispatch or the journal-authorized canonical ratchet task.
+# Keep this gate aligned with claim-job.sh for every provider.
 if [ "$requested_tier" = mentat ] && [ "$(plan_field "$jobfile" dispatch)" != manual ]; then
-  die "Claude handler accepts tier: mentat only on an explicit manual dispatch"
+  "$HERE/../ratchet-delegation.sh" job "$jobfile" \
+    || die "Claude mentat requires manual dispatch or an active Ironhorse watcher delegation"
 fi
 if [ -n "$requested_tier" ]; then
   # ANTHROPIC AUTOMATIC CEILING = claude-opus-5-5 (design opus55-tier.md, Option B,

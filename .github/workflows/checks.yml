@@ -112,3 +112,6 @@ jobs:
           bash scripts/jobs/test/muster-pilot-test.sh
           bash scripts/jobs/test/classify-foreign-content-test.sh
           bash scripts/jobs/test/ironhorse-test262-ratchet-gate-test.sh
+          python3 scripts/jobs/test/ci-wait-merge-ratchet-test.py
+          python3 scripts/jobs/test/ratchet-watcher-test.py
+          python3 scripts/jobs/test/ratchet-evidence-test.py

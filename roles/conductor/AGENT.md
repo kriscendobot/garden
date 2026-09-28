@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-17
+updated: 2026-09-28
 author: liaison, gardener
 ---
 
@@ -77,6 +77,24 @@ For each PR in the job:
 8. **Pick the next PR**, return to step 1.
 
 End the job when the queue is empty, every remaining entry has stalled this run, or the harness is about to time out.
+
+## Ironhorse delegated ratchet
+
+The sole Ironhorse exception is `--ratchet-delegated-merge`, governed by
+[the ratchet operations page](../../context/operations/ironhorse-ratchet.md)
+and journal `config/delegations/ironhorse-test262-ratchet`. It substitutes an
+active delegation and a mentat watcher's exact-head gauntlet/coverage attestation
+for the APPROVED signature only on marked bot PRs in
+`endojs/endo-but-for-bots` targeting live `llm`. Never invoke a bare merge or
+queue auto-merge under this delegation. The spine retains CI freshness,
+maintainer veto/dismissal, and downstream branch retention. Tidying or rebasing
+invalidates the attestation and requires another watcher verification.
+
+A canonical scheduled ratchet watcher also wears conductor. Within that exact
+task, its one-step driver may post the authorized builder, gauntlet, shepherd,
+or delegated conductor and update the tracker after merge. This is the scoped
+exception to the ordinary conductor's no-follow-up rule; it confers no general
+automatic mentat or merge authority.
 
 ## Operating norms
 

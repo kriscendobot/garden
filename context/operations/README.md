@@ -128,3 +128,6 @@ Within-tree cross-references are relative; cross-tree references (skills,
 designs, roles) are repo-root paths. A new operational topic lands as a new leaf
 with a row above; split this directory only when this README stops routing
 cleanly.
+
+The [Ironhorse ratchet autopilot](ironhorse-ratchet.md) documents the scoped
+mentat schedule, delegated merge authority, and pause/revoke controls.

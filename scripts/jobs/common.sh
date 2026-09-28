@@ -4629,6 +4629,7 @@ host_liveness() {
     HOST_LIVENESS_DETAIL="heartbeat stale by ${age}s (offline threshold ${GARDEN_HOST_OFFLINE_AFTER}s; sampled_at_epoch=$sampled)"
     return 1
   fi
+  # shellcheck disable=SC2034 # read by rolling-deploy.sh and worker-derotate.sh
   HOST_LIVENESS_DETAIL="heartbeat fresh (${age}s old; sampled_at_epoch=$sampled)"
   return 0
 }
@@ -8390,6 +8391,13 @@ tier_model_for_provider() {
     [ "$p" = "$provider" ] && [ "$t" = "$wanted" ] && _model_classify "$p" "$m" && { printf '%s\n' "$m"; return 0; }
   done < "$(_model_tier_inventory_file)"
   return 1
+}
+
+# The sole automatic mentat exception reads an already-synchronized claim clone.
+ratchet_watcher_job() {
+  local job="$1" journal="${2:-${GARDEN_GARDENER_CLONE:-}}"
+  [ -n "$journal" ] || return 1
+  python3 "$(dirname "${BASH_SOURCE[0]}")/ratchet/policy.py" job "$journal" "$job" >/dev/null 2>&1
 }
 
 # automatic_route_body rewrites producer output to the current quota-posture

@@ -509,6 +509,9 @@ compose_stage_body() {  # <base> <rec-file> <stage> <iter> <child>
 
   printf -- '---\n'
   printf 'role: gardener\n'
+  if [ "$(plan_field "$rec" created_by)" = ironhorse-test262-ratchet ]; then
+    printf 'ratchet-arc: ironhorse-test262-ratchet\n'
+  fi
   case "$stage" in
     clean|fix) printf 'handler-budget-role: shepherd\n' ;;
     panel)     printf 'handler-budget-role: panel\n' ;;
@@ -978,6 +981,9 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
   f="$DIR/$JOBS_GAUNTLET/$j"; [ -f "$f" ] || continue
   base="${j%.md}"
 
+  if [ "$(plan_field "$f" created_by)" = ironhorse-test262-ratchet ]; then
+    python3 "$HERE/ratchet/policy.py" active "$DIR" >/dev/null 2>&1 || continue
+  fi
   state="$(gauntlet_state "$f")"
   case "$state" in done|halted) continue;; esac   # terminal record — leave it
 

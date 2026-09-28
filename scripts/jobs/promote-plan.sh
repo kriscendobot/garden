@@ -237,6 +237,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   role="$(plan_field "$src" role)"
   tier="$(plan_field "$src" tier)"
   model="$(plan_field "$src" model)"
+  ratchet_arc="$(plan_field "$src" ratchet-arc)"
   budget_role="$(plan_field "$src" handler-budget-role)"
   htimeout="$(plan_field "$src" handler-timeout)"
   token_budget="$(plan_field "$src" token-budget)"
@@ -274,6 +275,7 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
       [ -n "$role" ]     && printf 'role: %s\n' "$role"
       [ -n "$tier" ]     && printf 'tier: %s\n' "$tier"
       [ -n "$model" ]    && printf 'model: %s\n' "$model"
+      [ -n "$ratchet_arc" ] && printf 'ratchet-arc: %s\n' "$ratchet_arc"
       [ -n "$budget_role" ] && printf 'handler-budget-role: %s\n' "$budget_role"
       [ -n "$htimeout" ] && printf 'handler-timeout: %s\n' "$htimeout"
       [ -n "$token_budget" ] && printf 'token-budget: %s\n' "$token_budget"
@@ -293,6 +295,10 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
     fi
     strip_frontmatter "$src" | strip_cycle_markers
   } > "$DIR/$JOBS_TODO/$base.md"
+  if [ "$(plan_field "$src" dispatch)" = ratchet-delegated ]; then
+    ratchet_watcher_job "$src" "$DIR" || die "cannot promote an inactive or altered ratchet watcher"
+    cat "$HERE/ratchet/watcher.md" > "$DIR/$JOBS_TODO/$base.md"
+  fi
   git -C "$DIR" rm -q "$JOBS_PLAN/$base.md"
   git -C "$DIR" add "$JOBS_TODO/$base.md"
 

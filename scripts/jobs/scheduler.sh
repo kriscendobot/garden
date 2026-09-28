@@ -496,6 +496,13 @@ for name in $(list_jobs "$DIR" schedules); do
     stamp="$(schedule_due_stamp "$cad" "$last" "$now")" || { log "$name no longer due; skip"; break; }
 
     body="$(sed '1,/^---$/d' "$DIR/schedules/$name" | automatic_route_body)"
+    if [ "$name" = ironhorse-ratchet.md ]; then
+      # This gate is fail-closed, unlike optional schedule preflights. The task
+      # comes from tracked code; editing a schedule cannot widen delegated work.
+      python3 "$HERE/ratchet/policy.py" active "$DIR" || break
+      [ "$prefix" = ironhorse-ratchet-watch ] || break
+      body="$(cat "$HERE/ratchet/watcher.md")"
+    fi
     handler_timeout_raw="$(sed -n 's/^handler-timeout:[[:space:]]*//p' "$DIR/schedules/$name" | head -1)"
     handler_timeout=""
     handler_timeout="$(schedule_handler_timeout "$name" "$handler_timeout_raw")" || handler_timeout=""
@@ -667,6 +674,9 @@ for name in $(list_jobs "$DIR" schedules); do
     # producer, no external comment), so post-job.sh's identity index is a no-op here;
     # the occupancy gate above is the scheduler's own dedup. `unknown`/`off` budget
     # state routes to todo/ (fail-open), matching post-job.sh.
+    if [ "$name" = ironhorse-ratchet.md ]; then
+      composed="$body"
+    fi
     budget_status="$(budget_fleet_status "$DIR")"
     if [ "$budget_status" = backoff ]; then
       target_dir="$JOBS_PLAN"

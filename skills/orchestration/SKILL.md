@@ -1,6 +1,6 @@
 ---
 created: 2026-07-01
-updated: 2026-09-27
+updated: 2026-09-28
 author: gardener, builder
 ---
 
@@ -237,3 +237,16 @@ also leaves a maintainer-inbox note.
 - **Budgets gate admission, not execution:** an already-promoted child is never
   killed. Its actual cost may overshoot the declaration; the watcher reports the
   overshoot and stops before the next promotion.
+
+## Authorized Ironhorse ratchet
+
+The [Ironhorse autopilot](../../context/operations/ironhorse-ratchet.md) is a
+scoped serial controller: one crank PR, then its staged gauntlet, shepherd as
+needed, independent mentat attestation, and delegated conductor. Only after an
+observed merge does it update the tracker and admit the next builder. The
+September 28 authorization is also its exception to the manual gauntlet trigger
+and mentat-manual-only policy. Neither exception applies to other orchestration
+records or PRs. It uses persistent date/head action identities, waits on existing
+children, and pauses on repeated criterion failures or a stuck child. An active
+record is required at admission, gauntlet advancement, and final merge. A
+completed-but-declined conductor never satisfies its merge transition.
