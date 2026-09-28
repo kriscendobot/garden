@@ -12,3 +12,13 @@ https://github.com/endojs/endo-but-for-bots/pull/1345 ("docs(designs): reconcile
 Task: rebase the head onto current `llm`, resolving the `designs/README.md` conflict by preserving BOTH the roadmap reconciliation this PR makes and whatever landed on llm since llm-efabaed (the README is the live ranked roadmap; do not drop llm-side entries). Force-push with lease. Leave the base as live `llm` (the PR is about to be merged, so do not pin a new frozen base). Then reply on the PR noting the rebase and that a fresh maintainer approval of the rebased head is needed before the conductor can merge.
 
 Posted by conductor job endojs-endo-but-for-bots-pr1345-conduct-20260928.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T20:42:44Z
