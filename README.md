@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T08:53:04Z_
+_As of 2026-09-28T08:56:42Z_
 
 ## Latest
 
@@ -3438,11 +3438,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #885 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T07:53:53Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 885 times; this is ONE
-> coalesced notice that updates in place, not 885 messages. Latest detail:
+> WATCHDOG notice — occurrence #895 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T08:55:31Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 895 times; this is ONE
+> coalesced notice that updates in place, not 895 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 18f02975bc8c 456 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 18f02975bc8c 517 min ago
 > but still reports deployed_sha 586aee8196b4c03fdb68c7d2368856cb756de4eb. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -3510,10 +3510,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.1M | $396.82 _(notional, rate-card)_ | 30% of 143.0M (ok) |
-| Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
+| Claude | 43.1M | $397.22 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 49759306 tokens/day lower bound._
+_Fleet token-unlock pace: 49299627 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
@@ -3521,21 +3521,21 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ## Board
 ### todo (2)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
-- [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/doc-readme-control-surfaces-prompt-first.md) — Reorient README's "Control surfaces" section around what a maintainer says, n...
+- [`improve-foreman-provider-order-reject-retired-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-foreman-provider-order-reject-retired-local.md) — ---
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1298
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-journal-cold-clone-bootstrap.md) — Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new work...
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Repair Ironhorse engine defect ed616f6ec22095dc (target differential_regexp) ...
-- [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Repair Ironhorse engine defect 2a2de75b75de4894 (target differential_source) ...
+- [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/doc-readme-control-surfaces-prompt-first.md) — Reorient README's "Control surfaces" section around what a maintainer says, n...
 
-### tada (9349)
+### tada (9350)
+- [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Finding 2a2de75b75de4894 (differential_source): regression test added, no eng...
 - [`ironhorse-fuzz-d38f12f4884e186c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-d38f12f4884e186c-repair.md) — Cost
 - [`mentat-minion-town-cloudflare-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/mentat-minion-town-cloudflare-backend-plan.md) — Completion report: mentat-minion-town-cloudflare-backend-plan
 - [`design-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/design-standing-token-backoff-ramp.md) — Cost
 - [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-378372c8706a48a8-repair.md) — Panel-head freshness
-- [`jev-preclassify-trusted-sender-quoted-text`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/jev-preclassify-trusted-sender-quoted-text.md) — Cost
-- … and 9344 more
+- … and 9345 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
