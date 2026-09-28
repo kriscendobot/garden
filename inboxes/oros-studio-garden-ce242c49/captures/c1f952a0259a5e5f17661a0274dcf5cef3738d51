@@ -1,0 +1,27 @@
+<6>23:00:28 [monk/2] requeued job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z' has no local transcript on oros-studio-garden-ce242c49; prior session and worktree were lost — starting FRESH session b3313769-5068-5274-bbbd-5aad1d7495dc with lost-state framing
+<6>23:00:28 [monk/2] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>23:00:38 [monk/2] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z' call ceiling: tier=minion max-budget-usd=9.50 (scaled by fresh seven-day headroom when available)
+panel-head-freshness: not-applicable target=kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z reason=no-presented-pr
+<6>23:08:33 [assert-followup-posted] gate: BLOCK — 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z' declares handoff to 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T230126Z' but that successor is not durably posted on the board; leaving in doin for retry
+
+--- handler report (partial) ---
+The schedule is verified on `origin/journal2`. The successor owns all remaining work. This is an honest handoff — the core deliverable can't proceed until the merge deploys on this host, and remaining git in the journal worktree was a read-only fetch/show of the expected branch (no HEAD/origin mutation).
+
+## Completion report
+
+**Job:** Post-deploy interactive validation + maintainer report for garden PR #81 (`lane: pty`).
+
+**What I re-derived (clean start after reaper requeue):**
+- PR #81 is **MERGED** (2026-09-28T21:04:43Z), merge commit `4767705b28d522b591eddbd3b47976273c5e1853`. Confirmed the merge is an ancestor of `origin/main2`.
+- This claiming host is `oros-studio-garden-ce242c49`, deployed SHA `e036bb8e0650b66a4ae00dc1516c4c8df39901ca`.
+- **Deployed-ancestry check FAILED:** the merge commit is *not* an ancestor of the deployed SHA — PR #81 is merged but **not yet deployed on this host**. The pty test job therefore cannot run yet.
+
+**What I did:**
+- Per the job spec, I did **not** sleep/remain active (an active gardener blocks the drained deploy). Instead I created a one-time schedule via `set-schedule-once.sh` with a fresh timestamped basename carrying the full task body (frontmatter `role: fixer`, `provider: anthropic`, etc. preserved), due `2026-09-28T23:06:26Z`.
+- Verified it landed on `origin/journal2`: `schedules/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T230126Z.md` (`once: 2026-09-28T23:06:26Z`).
+
+**Successor:** `kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T230126Z` — it re-verifies deployed ancestry on its next attempt, proceeds to the pty test job + PR #81 comment once deployed, or reschedules itself again otherwise. No GitHub comment was posted (correctly deferred until there is real test evidence).
+
+**Follow-up:** none needed beyond the self-correcting schedule loop; once I finish and the drained deploy advances this host past `4767705b28d`, the successor completes the validation and posts the PR #81 report.
+
+<<<GARDEN-JOB-HANDED-OFF: kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T230126Z>>>
