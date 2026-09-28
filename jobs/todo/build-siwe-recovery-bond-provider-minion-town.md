@@ -1,6 +1,7 @@
 ---
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Build: register SIWE as a recovery-bond provider on minion.town
@@ -12,13 +13,6 @@ Maintainer decision (kriskowal, PR #80 review https://github.com/kriscendobot/mi
 Task: register the deployed `siwe-idp.minion.town` OIDC issuer (iss `https://siwe-idp.minion.town`, sub = EIP-55 checksummed address) as one more optional recovery-bond provider in the existing account/recovery layer (`src/auth/accounts.ts`, guest web router recovery routes, `deploy/aws/www/guest.{js,html}` "Add a recovery provider"). A SIWE bond is a recovery pointer only: no admission, no scopes, no `config/policy.json` entries, no allowlist, no on-chain reads for authorization. Checksum casing is significant. Add tests. Confirm the issuer is inert under the current scope-based path (no SIWE policy entries). If a live Cognito IdP binding or deploy step is needed and it isn't already in the repo, surface it in the PR body instead of doing it by hand.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=1112 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-28T21:37:42Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-28T22:23:05Z -->
