@@ -46,6 +46,7 @@ Repo: endojs/endo-but-for-bots (and dependents in kriscendobot/minion.town and k
 - **Dependents:** find and update the demos and docs that use `adopt-locator`, for example kriscendobot/minion.town#117 (guest locator reveal and federation wiring), the verify-demo1/demo2 instruction work, garden issue 114 demo material, and the help text (`help.md`, `help-text-data.js`). minion.town should present share links in the https-fragment form once the design is accepted. Propose those changes as draft PRs or PR updates, and don't deploy anything.
 - Leave every PR as a draft for the maintainer's gauntlet. Report every PR touched.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
