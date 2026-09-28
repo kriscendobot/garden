@@ -1,0 +1,42 @@
+<6>05:31:42 [monk/2] job 'doc-readme-dispatch-tier-section' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>05:31:42 [monk/2] job 'doc-readme-dispatch-tier-section' call ceiling: tier=mentor max-budget-usd=17.40 (scaled by fresh seven-day headroom when available)
+panel-head-freshness: not-applicable target=doc-readme-dispatch-tier-section reason=no-presented-pr
+<6>05:33:16 [assert-followup-posted] gate: BLOCK — 'doc-readme-dispatch-tier-section' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+## Completion report: doc-readme-dispatch-tier-section
+
+I added a `### The dispatch tier system` section to `README.md` and pushed it straight to `main2` as commit **`6a50e9b2d72`** ("docs(readme): explain the dispatch tier system"). No PR was opened because the design had no open questions.
+
+**The section** is in § 3 "How it works", between "The life of an issue" and "Self-healing". The first tier names in the README are in the § 1 vocabulary table, so the `americanize`, `deslop` and `mentat job` rows there now link to the new section. That way a reader who meets a tier name before § 3 can jump to its explanation.
+
+Heading and first paragraph:
+
+> ### The dispatch tier system
+>
+> Every job carries a **tier**: how much model thought the job deserves. The four tiers, in descending thoughtfulness, are **mentat**, **mentor**, **minion**, and **myrmidon**. A tier is not a model. Several providers back most tiers, and the concrete model depends on which worker kind claims the job: a monk runs an Anthropic model, a cleric an OpenAI model, and the opt-in kinds (mystic, fireworker, and the like) run their own providers' models.
+
+After that paragraph the section has:
+- **A four-row table** giving each tier's purpose and how a job gets it:
+  - mentat is manual-only through `post-manual-job.sh`, and any live provider worker can claim it;
+  - mentor is the default and the ceiling for automatic jobs;
+  - minion is the fallback the reaper can reroute to, never below a role's floor;
+  - myrmidon is an expedient tier, not a step jobs escalate or fall to.
+- **Examples** using verbs from the § 1 vocabulary: design and build as mentor, americanize and deslop as myrmidon.
+- **Pointers** to `skills/model-selection/SKILL.md` and the closed `scripts/jobs/model-tier-inventory.tsv`, instead of a copy of the model table.
+
+I wrote it from the current skill file (updated 2026-09-27) and left out its specific model IDs, which change over time.
+
+**Validation:**
+- All 5 checks in `scripts/checks/run-all.sh --dry-run` pass. That is the same set of five doc checks that `mentat-garden-docs-refresh-20260927` ran.
+- Every relative link and anchor in `README.md` resolves (I checked them with a script), including the 3 new links to `#the-dispatch-tier-system`.
+- `git diff --check` is clean and there are no double spaces between sentences. I bumped the `updated:` date in the frontmatter.
+
+**Problem found while checking the facts:** `comment-watcher.sh` puts `tier: myrmidon` on americanize and deslop jobs. But `post-job.sh` passes every automatic job through `automatic_route_body`, which rewrites the tier to `mentor`; I confirmed this by running it on a sample job. So in practice no automatically posted job runs at myrmidon today. The new section says this plainly rather than claiming those jobs run at myrmidon.
+
+## Follow-ups
+- Decide how myrmidon should work for automatic jobs. There are two options:
+  - Let `automatic_route_body` keep an explicit `tier: myrmidon` for the expedient roles (americanizer and deslopper). This changes routing policy, so it needs a maintainer decision.
+  - Or keep the current behavior, and fix the pages that say these jobs run at myrmidon: `roles/americanizer`, `roles/deslopper`, the comment in `comment-watcher.sh`, and the CLAUDE.md vocabulary rows.
+
+  When that is settled, the "currently run at mentor too" sentence in the new README section needs updating.
