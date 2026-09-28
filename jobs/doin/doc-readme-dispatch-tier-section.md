@@ -79,3 +79,13 @@ Confirm the new section's internal links resolve.
 
 Quote the section you wrote (or its final heading + first paragraph) in your
 completion report, and name the commit that landed it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T05:30:50Z
