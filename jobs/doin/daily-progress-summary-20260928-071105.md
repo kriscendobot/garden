@@ -68,6 +68,7 @@ scheduler would treat the token as its weekly default.
 <!-- garden-plain-retry-not-before: 2026-09-28T07:26:13Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=5,4 -->
+<!-- garden-elapsed-constancy: 1 -->
 <!-- garden-reap-now -->
 ---
 claim:
