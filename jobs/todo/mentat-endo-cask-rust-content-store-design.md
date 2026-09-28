@@ -75,13 +75,6 @@ Complete via the normal completion path. Report the design file(s), the PR if an
 proposed phases.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-09-28T07:19:09Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-28T07:36:14Z -->
