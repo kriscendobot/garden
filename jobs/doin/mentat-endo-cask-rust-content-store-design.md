@@ -73,3 +73,13 @@ This is a **design** job: no implementation.
 Put genuine maintainer decisions in `## Open questions` (and use the review-PR carve-out). Settle everything else.
 Complete via the normal completion path. Report the design file(s), the PR if any, the open questions, and the
 proposed phases.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T07:19:09Z
