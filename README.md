@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T17:59:33Z_
+_As of 2026-09-28T18:13:28Z_
 
 ## Latest
 
@@ -1234,8 +1234,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-ymax-e2e` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ymax-e2e.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ymax-e2e` has CLEARED (first seen 2026-09-26T16:00:27Z, cleared 2026-09-28T04:31:02Z).
-> It was observed 4 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ymax-e2e` has CLEARED (first seen 2026-09-26T16:00:27Z, cleared 2026-09-28T18:09:00Z).
+> It was observed 5 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
@@ -1364,11 +1364,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-25T03:35:47Z, latest 2026-09-27T16:26:30Z).
-> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-3`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-25T03:35:47Z, latest 2026-09-28T18:05:36Z).
+> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-3`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 3 (target 4): subscription claude-oros spend=671535 cap=73000000 pace-bias=1.000000 ceiling=4 target=4
+> budget-level changed oros-studio-garden-ce242c49 monk workers 4 -> 3 (target 3): subscription claude-oros spend=842330 cap=73000000 pace-bias=1.000000 window-start=2026-09-23T06:59Z(calendar) deadline=2026-09-30T06:59Z(calendar) ceiling=3 target=3
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_approval_reconciler_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_approval_reconciler_verify.md)
 
@@ -1491,23 +1491,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #74 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T17:52:10Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 74 times; this is ONE
-> coalesced notice that updates in place, not 74 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-09-26T16:16:46Z, cleared 2026-09-28T18:05:53Z).
+> It was observed 74 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 10 source(s); they post no acknowledgments while it holds.
-> gh-api cooldown marker: expiry=1790618202 set-by=receipt:kriscendobot-oros-ckm-data-readiness:journal prerequisite
-> - kriscendobot/cosgov: watcher ticking but cooldown for 4235s (since 2026-09-28T16:41:35Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 4346s (since 2026-09-28T16:39:44Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 1383s (since 2026-09-28T17:29:07Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1390s (since 2026-09-28T17:29:00Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2778s (since 2026-09-28T17:05:52Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 1310s (since 2026-09-28T17:30:20Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2457s (since 2026-09-28T17:11:13Z)
-> watcher ticking but cooldown for 4290s (since 2026-09-28T16:40:40Z)
-> - kriscendobot/minion.town: watcher ticking but cooldown for 2461s (since 2026-09-28T17:11:09Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 4346s (since 2026-09-28T16:39:44Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 1385s (since 2026-09-28T17:29:05Z)
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -2237,13 +2225,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-foreman-handler-failed-endolin-garden-ece02cb4` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-foreman-handler-failed-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #82 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T15:47:08Z).
-> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 82 times; this is ONE
-> coalesced notice that updates in place, not 82 messages. Latest detail:
+> WATCHDOG notice — occurrence #94 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T18:09:10Z).
+> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 94 times; this is ONE
+> coalesced notice that updates in place, not 94 messages. Latest detail:
 >
-> garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden-ece02cb4; the board pump is starving. stderr tail:  only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit on :11434, run as the `ollama` user) is active. Bring up the garden unit for hermit workers. Also confirm ollama is on PATH and the serving user has GPU group access — context/operations/local-inference-amd.md.
-> <6>15:47:08 [foreman-claude] foreman provider 'local' unavailable; trying the next configured provider
-> <3>15:47:08 [foreman-claude] FATAL: no configured foreman inference provider was available
+> garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden-ece02cb4; the board pump is starving. stderr tail: <3>18:09:04 [foreman-claude] FATAL: GARDEN_FOREMAN_PROVIDER_ORDER provider 'local' is retired (local-qwen hermit lane dropped 2026-09-13, job retire-local-qwen-hermit-lane); remove it from the garden-foreman drop-in (allowed: openai, anthropic)
+> <3>18:09:04 [foreman-claude] FATAL: no configured foreman inference provider was available
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
@@ -2916,8 +2903,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-ymax-stdio-mcp` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-ymax-stdio-mcp.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ymax-stdio-mcp` has CLEARED (first seen 2026-09-26T16:00:43Z, cleared 2026-09-26T17:05:41Z).
-> It was observed 3 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-ymax-stdio-mcp` has CLEARED (first seen 2026-09-26T16:00:43Z, cleared 2026-09-28T18:09:15Z).
+> It was observed 4 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
@@ -3366,8 +3353,8 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-dead-kriscendobot-test262` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-test262.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-test262` has CLEARED (first seen 2026-09-26T16:06:20Z, cleared 2026-09-26T16:55:32Z).
-> It was observed 3 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-test262` has CLEARED (first seen 2026-09-26T16:06:20Z, cleared 2026-09-28T18:08:54Z).
+> It was observed 4 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
@@ -3637,10 +3624,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.9M | $425.51 _(notional, rate-card)_ | 32% of 143.0M (ok) |
-| Codex | 1.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Claude | 45.9M | $425.67 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Codex | 1.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53224003 tokens/day lower bound._
+_Fleet token-unlock pace: 53224427 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
@@ -3652,13 +3639,13 @@ worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 ### doin (0)
 (none)
 
-### tada (9378)
+### tada (9380)
+- [`deadmail-issue-comment-5864051232`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/deadmail-issue-comment-5864051232.md) — Cost
+- [`token-backoff-ramp-080`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/token-backoff-ramp-080.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-39d0c5ef0aca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-39d0c5ef0aca.md) — rolling-deploy canary probe — round trip OK
 - [`report-completions-since-friday-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/report-completions-since-friday-reset.md) — Completion report
-- [`canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2.md) — rolling-deploy canary probe — round trip OK
-- [`claude-on-minion-town-press-20260928-165614`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-165614.md) — Cost
-- … and 9373 more
+- … and 9375 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3752,8 +3739,8 @@ worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): ? gardeners
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 0 gardeners
-- [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): 8 gardeners
-- [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): 1 gardeners
-- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): ? gardeners
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 2 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
+- [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
+- [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
+- [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 4 monks
