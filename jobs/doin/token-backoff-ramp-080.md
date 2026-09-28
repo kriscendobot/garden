@@ -22,3 +22,13 @@ so a scheduler-style caller sees "no work to post" — you are running it
 directly, not via the scheduler, so just confirm the log line reads
 "set token-backoff-fraction=0.80" or "no change (already 0.80)", either
 of which means done). Report done; no further action required.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T18:06:04Z
