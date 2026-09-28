@@ -3345,5 +3345,93 @@ flock -n "$TR/state-vl/comment-watcher/verify.lock" true \
   && ok "the VERIFY clone lock is released after the tick" || bad "VERIFY clone lock still held after exit"
 
 # ============================================================================
+hr; echo "GA1 — 'Please run a gauntlet.' (not just 'run THE gauntlet') → a gauntlet record"; hr
+# endo-but-for-bots #1072 (2026-09-28): the gauntlet verb matched only the literal
+# "run the gauntlet", so "run a gauntlet" never fired it.
+BARE_GA1="$TR/ga1.git"; seed_bare "$BARE_GA1"
+FIX_GA1="$TR/fix-ga1.tsv"; RLOG_GA1="$TR/react-ga1.log"; : > "$RLOG_GA1"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-09-28T10:00:00Z issue-comment 4900001071 1071 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/1071#issuecomment-4900001071 \
+  'Please run a gauntlet.' > "$FIX_GA1"
+run_watcher "$TR/state-ga1" "$BARE_GA1" "$FIX_GA1" "$RLOG_GA1"
+board_has_gauntlet "$BARE_GA1" "$SLUG-pr1071-gauntlet" \
+  && ok "'run a gauntlet' recorded a staged gauntlet" \
+  || bad "'run a gauntlet' did not record a gauntlet"
+
+hr; echo "GA2 — trusted 'Please run a gauntlet and then retcon.' → gauntlet + retcon parked BLOCKED on it"; hr
+# The #1072 comment: the gauntlet was silently dropped and only a retcon minted. A
+# pure two-step sequence of mechanical verbs now records the first step and parks
+# the second blocked_on the first's base (unblock.sh promotes it on tada).
+BARE_GA2="$TR/ga2.git"; seed_bare "$BARE_GA2"
+FIX_GA2="$TR/fix-ga2.tsv"; RLOG_GA2="$TR/react-ga2.log"; : > "$RLOG_GA2"
+ALLOW_GA2="$TR/allow-ga2"; printf 'kriskowal\n' > "$ALLOW_GA2"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-09-28T10:05:00Z issue-comment 4900001072 1072 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/1072#issuecomment-4900001072 \
+  'Please run a gauntlet and then retcon.' > "$FIX_GA2"
+ga_run() {  # ga_run <state> <bare> <fixture> <reactlog>  (kriskowal trusted)
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" \
+      CW_FIXTURE="$3" CW_REACTJI_LOG="$4" \
+      GARDEN_COMMENT_SOURCE="$SRCSTUB" \
+      GARDEN_COMMENT_REACTJI="$REACTSTUB" \
+      GARDEN_COMMENT_REPLY="$REPLYSTUB" CW_REPLY_LOG=/dev/null \
+      GARDEN_COMMENT_POST="$JOBS/post-job.sh" \
+      GARDEN_RETRO_POST="$JOBS/post-plan.sh" \
+      GARDEN_COMMENT_TRUST=/bin/false \
+      GARDEN_TRUSTED_ALLOWLIST="$ALLOW_GA2" \
+      GARDEN_PR_MERGEABLE="$MERGEABLE_OPEN" \
+      "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"${CW_LOG:-/dev/null}"
+}
+ga_run "$TR/state-ga2" "$BARE_GA2" "$FIX_GA2" "$RLOG_GA2"
+board_has_gauntlet "$BARE_GA2" "$SLUG-pr1072-gauntlet" \
+  && ok "the gauntlet (first step) was recorded" \
+  || bad "the gauntlet was dropped (the #1072 defect)"
+GA2_THEN="$SLUG-pr1072-retcon-$(printf '%s' 4900001072 | sha1sum | cut -c1-8)"
+board_has_plan "$BARE_GA2" "$GA2_THEN" \
+  && ok "the retcon (second step) was parked in plan/" \
+  || bad "the retcon follow-up was not parked ($GA2_THEN)"
+GA2_BODY="$(plan_body "$BARE_GA2" "$GA2_THEN" || true)"
+printf '%s\n' "$GA2_BODY" | grep -qx 'gate: blocked' \
+  && ok "the retcon is gated blocked" || bad "the retcon is not gate: blocked"
+printf '%s\n' "$GA2_BODY" | grep -qx "blocked_on: $SLUG-pr1072-gauntlet" \
+  && ok "the retcon is blocked_on the gauntlet base" || bad "the retcon is not blocked_on the gauntlet"
+printf '%s\n' "$GA2_BODY" | grep -qx 'role: retcon' \
+  && ok "the parked retcon carries role: retcon" || bad "the parked retcon lost its role"
+board_has "$BARE_GA2" "$SLUG-pr1072-retcon" \
+  && bad "an UNBLOCKED retcon job was minted alongside" || ok "no unblocked retcon job"
+[ "$(todo_count "$BARE_GA2")" -eq 0 ] && ok "no attention/todo job (the sequence was decomposed, not triaged)" \
+  || bad "unexpected todo job(s) (todo=$(todo_count "$BARE_GA2"))"
+grep -q '4900001072' "$RLOG_GA2" && ok "the sequenced directive was acked" || bad "the sequenced directive was not acked"
+# A re-poll of the same comment is idempotent: still one plan entry, still one record.
+: > "$RLOG_GA2"; rm -f "$TR/state-ga2/comment-watcher/"*cursor* 2>/dev/null || true
+ga_run "$TR/state-ga2" "$BARE_GA2" "$FIX_GA2" "$RLOG_GA2"
+[ "$(plan_count "$BARE_GA2")" -eq 1 ] && ok "re-poll parked no duplicate follow-up" \
+  || bad "re-poll duplicated the follow-up (plan=$(plan_count "$BARE_GA2"))"
+
+hr; echo "GA3 — trusted 'Rebase, then refactor the helper.' (an open verb rides along) → still attention"; hr
+# Only a PURE sequence of mechanical verbs decomposes; an open directive needs reading.
+BARE_GA3="$TR/ga3.git"; seed_bare "$BARE_GA3"
+FIX_GA3="$TR/fix-ga3.tsv"; RLOG_GA3="$TR/react-ga3.log"; : > "$RLOG_GA3"
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-09-28T10:10:00Z issue-comment 4900001073 1073 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/1073#issuecomment-4900001073 \
+  'Rebase, then refactor the helper.' > "$FIX_GA3"
+ga_run "$TR/state-ga3" "$BARE_GA3" "$FIX_GA3" "$RLOG_GA3"
+# (plan/ may hold the attention job's deferred retro; no BLOCKED follow-up may appear.)
+ga3v="$(mktemp -d "$TR/ga3v.XXXXXX")"
+git clone -q --single-branch --branch "$BRANCH" "$BARE_GA3" "$ga3v" 2>/dev/null
+ls "$ga3v/jobs/plan" >&2 2>/dev/null || true
+if grep -lx 'gate: blocked' "$ga3v"/jobs/plan/*.md >/dev/null 2>&1; then
+  bad "an open-verb sequence was decomposed into a blocked follow-up"
+else ok "no sequenced follow-up parked for an open verb"; fi
+rm -rf "$ga3v"
+board_has "$BARE_GA3" "$SLUG-pr1073-rebase" && bad "reduced to a bare rebase (dropped the refactor)" \
+  || ok "not reduced to a bare rebase"
+[ "$(todo_count "$BARE_GA3")" -eq 1 ] && ok "one attention job triages the whole directive" \
+  || bad "expected one attention job (todo=$(todo_count "$BARE_GA3"))"
+
+# ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
 [ "$FAIL" -eq 0 ]
