@@ -1,0 +1,46 @@
+<6>14:28:06 [monk/1] job 'verify-demo3-git-remote-capability-instructions' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>14:28:06 [monk/1] job 'verify-demo3-git-remote-capability-instructions' call ceiling: tier=mentor max-budget-usd=14.80 (scaled by fresh seven-day headroom when available)
+<6>14:32:12 [assert-followup-posted] gate: BLOCK — 'verify-demo3-git-remote-capability-instructions' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# Completion report: verify-demo3-git-remote-capability-instructions
+
+**Verdict: partly verified.** The `git remote add` / `git push` half is built and works. I ran it end to end locally. The "show the pushed artifact live inside the Endo directory" half is not built, so demo 3 can't be performed as pitched. It needs one more build job.
+
+**Reply comment:** https://github.com/kriscendobot/garden/issues/114#issuecomment-5872080033 (the issue is left open)
+
+## What I found
+- **The 2026-09-28 spot-check was wrong.** An implementation does exist: https://github.com/kriscendobot/minion.town/pull/86, "feat(git-remote): capability-addressed smart-HTTP git remote (increment 1)".
+  - It is a **draft**, last touched 2026-09-03 at head `bdc706d`.
+  - It is 97 commits behind `main` but merges cleanly.
+  - It has never been through a gauntlet review.
+  - It is **not deployed**: `git.minion.town` has no DNS record.
+- **How #86 works:** a separate process runs `git http-backend` in front of one bare repo per partition. Each capability URL carries a token that allows read, write, or both. After each push, the pushed files are copied into the gateway's content store (CAS) as a manifest.
+- **Nothing else is building on this.** I searched every PR opened since 2026-08-01 in both `kriscendobot/minion.town` and `endojs/endo-but-for-bots`. On the endo side the only related PRs are drafts:
+  - endojs/endo-but-for-bots#1028 (git object store)
+  - endojs/endo-but-for-bots#1081 and #1082 (git-binding prototypes)
+  - endojs/endo-but-for-bots#988 (a design)
+- **Endo-side designs:** the `daemon-git-*` trio is In Progress but covers the daemon's local Git capability, not an incoming remote. `endor-git-bindings` is still Proposed. #86 routes around both, so they only block the "pushed straight into the Endo CAS" version of the story.
+
+## What I ran
+- The branch's test suite passed, 31 of 31.
+- I created a partition with read-write and read-only capability URLs through the operator-side script, then started the server.
+- With a stock git client, `git remote add endo <url>` and `git push endo main` succeeded. The pushed files showed up in the content store as a manifest (`index.html`, `style.css`), and the partition record pointed at it.
+- A push with the read-only URL was refused (403), and a made-up token was rejected (401).
+- `git clone` with the read-only URL returned the pushed files unchanged.
+- The exact commands are in the issue comment.
+
+## What's missing (deferred in #86's own design doc)
+1. **No Endo-directory side.** The partition is not a named capability in a guest's Endo inventory, and there's no way to create or adopt one over MCP. This is the part the pitch actually promises.
+2. **Not served live.** Nothing connects a pushed partition to a clip site, so a push doesn't show up at any public URL.
+3. **Not deployed:** no DNS, TLS, or service unit.
+
+## Follow-ups for the liaison to post (I built nothing)
+- **run the gauntlet kriscendobot/minion.town#86**, to review and land the part that exists.
+- A **build** job for the missing piece: make the partition a named capability in the guest's Endo directory via MCP, or at least connect pushes to a live clip site.
+- Deployment of the git remote behind `git.minion.town`.
+
+## Housekeeping
+- I couldn't check this job's inbox: the journal clone timed out on the network. I posted the reply anyway.
+- I killed the temporary server and deleted the temp directory.
+- I saved a memory note that the git-remote build is draft #86, so a future search doesn't miss it again.
