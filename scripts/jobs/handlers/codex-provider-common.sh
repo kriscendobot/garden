@@ -138,9 +138,20 @@ codex_provider_preflight() {
     # PER-JOB liveness (NOT the per-boot marker): probe now; self-heal only if the
     # caller requested it (a pinned hermit tick), else fail through for the caller
     # (the foreman) to try the next provider.
-    if codex_local_endpoint_ready "$model"; then return 0; fi
-    if [ "$self_heal" = 1 ] && codex_local_self_heal "$kind" "$base" "$model"; then return 0; fi
+    # Both host-defect notices below are keyed alerts, so a down endpoint probed every
+    # foreman tick folds into ONE throttled notice; a ready endpoint retires them
+    # (alert_maintainer_clear is a single file test when nothing was raised).
+    if codex_local_endpoint_ready "$model" \
+      || { [ "$self_heal" = 1 ] && codex_local_self_heal "$kind" "$base" "$model"; }; then
+      alert_maintainer_clear "local-endpoint-unreachable-${GARDEN}" \
+        "local inference endpoint $GARDEN_LOCAL_OLLAMA_URL is reachable again on $GARDEN."
+      alert_maintainer_clear "ollama-model-less-endpoint-${GARDEN}" \
+        "local inference endpoint $GARDEN_LOCAL_OLLAMA_URL serves $model again on $GARDEN."
+      return 0
+    fi
     if codex_local_endpoint_responds; then
+      alert_maintainer_clear "local-endpoint-unreachable-${GARDEN}" \
+        "local inference endpoint $GARDEN_LOCAL_OLLAMA_URL is reachable again on $GARDEN (but serves no $model)."
       # The store that matters is the one owned by the daemon holding the port — a model
       # sitting in another user's ~/.ollama is invisible to the endpoint (the bot's store
       # held qwen3.6 while the `ollama`-user system unit served an empty list, 2026-07-28).
@@ -152,10 +163,13 @@ codex_provider_preflight() {
       printf '%s\n' "$msg" >&2
       return 1
     fi
-    printf 'local inference endpoint %s not reachable%s; %s cannot run %q. %s Also confirm ollama is on PATH and the serving user has GPU group access — context/operations/local-inference-amd.md.\n' \
+    local msg
+    msg="$(printf 'local inference endpoint %s not reachable%s; %s cannot run %q. %s Also confirm ollama is on PATH and the serving user has GPU group access — context/operations/local-inference-amd.md.' \
       "$GARDEN_LOCAL_OLLAMA_URL" \
       "$([ "$self_heal" = 1 ] && printf ' and self-heal (start garden-ollama.service + %ss poll) failed' "$GARDEN_OLLAMA_HEAL_TIMEOUT")" \
-      "$kind" "$base" "$(codex_local_endpoint_unit_hint)" >&2
+      "$kind" "$base" "$(codex_local_endpoint_unit_hint)")"
+    alert_maintainer "local-endpoint-unreachable-${GARDEN}" "$msg"
+    printf '%s\n' "$msg" >&2
     return 1
   fi
 

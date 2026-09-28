@@ -19,6 +19,8 @@
 #                 DOWN re-probes (and self-heals) instead of being masked for the boot.
 #   NO-MODEL    — a reachable endpoint with an empty /v1/models list is rejected with
 #                 an actionable `ollama pull` host-defect diagnostic.
+#   UNREACHABLE ALERT — a down endpoint raises ONE keyed, deduped maintainer notice
+#                 across ticks, retired (with the model-less one) once it is ready.
 #   HOST DERIVE — ollama_serve_host strips scheme + /v1 from GARDEN_LOCAL_OLLAMA_URL,
 #                 so the served OLLAMA_HOST and the client URL cannot drift.
 #   UNIT HINT   — the operator-facing diagnostics name the unit ACTUALLY serving on this
@@ -132,6 +134,25 @@ after="$(date +%s)"
 called_systemctl_start && bad "self_heal=0 still started garden-ollama (should just advance)" || ok "self_heal=0 issues NO systemctl start (foreman advances providers)"
 [ "$(curl_call_count)" = 2 ] && ok "self_heal=0 probes model readiness then endpoint status (no poll loop)" || bad "self_heal=0 probed $(curl_call_count) times (expected 2)"
 [ $((after - before)) -lt "$GARDEN_OLLAMA_HEAL_TIMEOUT" ] && ok "self_heal=0 returns without waiting the heal window" || bad "self_heal=0 blocked on the heal poll"
+
+# ============================================================================
+hr; echo "UNREACHABLE ALERT — down endpoint folds into ONE keyed notice, retired on recovery"; hr
+reset_ctl
+codex_provider_preflight local hermit job-u1 hermits 0 qwen3.6 >/dev/null 2>&1 || true
+codex_provider_preflight local hermit job-u2 hermits 0 qwen3.6 >/dev/null 2>&1 || true
+n_unreach="$(grep -c '^KEY=local-endpoint-unreachable-' "$GARDEN_ALERT_RECORD" 2>/dev/null || true)"
+[ "$n_unreach" = 1 ] && ok "unreachable endpoint raises ONE deduped maintainer alert across ticks" \
+  || bad "unreachable endpoint alerts: $n_unreach (expected 1)"
+[ -f "$GARDEN_STATE/alerts/local-endpoint-unreachable-${GARDEN}.last" ] \
+  && ok "unreachable alert is latched for a later clear" || bad "unreachable alert not latched"
+: > "$HEAL_CTL/up"
+codex_provider_preflight local hermit job-u3 hermits 0 qwen3.6 >/dev/null 2>&1 || true
+grep -q 'RECOVERED: local inference endpoint .* reachable again' "$GARDEN_ALERT_RECORD" \
+  && ok "recovered endpoint retires the unreachable notice" || bad "no recovery notice for the unreachable alert"
+[ ! -f "$GARDEN_STATE/alerts/local-endpoint-unreachable-${GARDEN}.last" ] \
+  && ok "unreachable latch cleared on recovery" || bad "unreachable latch survived recovery"
+[ ! -f "$GARDEN_STATE/alerts/ollama-model-less-endpoint-${GARDEN}.last" ] \
+  && ok "ready endpoint also retires the model-less notice" || bad "model-less latch survived a ready endpoint"
 
 # ============================================================================
 hr; echo "PER-JOB — local branch consults NO once-per-boot auth marker"; hr
