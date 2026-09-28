@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: kriscendobot-garden-pr81-review-5119818493-followthrough
-priority: urgent
 role: fixer
-posted_by: review
-posted_at: 2026-09-05T08:00:22Z
+tier: mentor
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=urgent at=2026-09-28T21:04:55Z cleared=none -->
 
 ---
 handler-timeout: 10800
