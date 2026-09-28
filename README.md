@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T13:35:57Z_
+_As of 2026-09-28T13:53:25Z_
 
 ## Latest
 
@@ -1445,20 +1445,23 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #65 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T13:17:08Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 65 times; this is ONE
-> coalesced notice that updates in place, not 65 messages. Latest detail:
+> WATCHDOG notice — occurrence #66 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T13:41:51Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 66 times; this is ONE
+> coalesced notice that updates in place, not 66 messages. Latest detail:
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 7 source(s); they post no acknowledgments while it holds.
-> gh-api cooldown marker: expiry=1790601702 set-by=receipt:kriscendobot-ymax-e2e:journal prerequisite
-> journal-outage marker: 1790601438 cursor-get 
-> - kriscendobot/cosgov: watcher ticking but cooldown for 1700s (since 2026-09-28T12:48:48Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 2142s (since 2026-09-28T12:41:26Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 2136s (since 2026-09-28T12:41:32Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 3986s (since 2026-09-28T12:10:42Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 3940s (since 2026-09-28T12:11:28Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2136s (since 2026-09-28T12:41:32Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 2135s (since 2026-09-28T12:41:33Z)
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 10 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1790603192 set-by=receipt:kriscendobot-moddable:journal prerequisite
+> journal-outage marker: 1790602885 cursor-get 
+> - kriscendobot/cosgov: watcher ticking but cooldown for 3183s (since 2026-09-28T12:48:48Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 3625s (since 2026-09-28T12:41:26Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 2448s (since 2026-09-28T13:01:03Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 1679s (since 2026-09-28T13:13:52Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 3619s (since 2026-09-28T12:41:32Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 5469s (since 2026-09-28T12:10:42Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 2396s (since 2026-09-28T13:01:55Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 2395s (since 2026-09-28T13:01:56Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 2397s (since 2026-09-28T13:01:54Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3618s (since 2026-09-28T12:41:33Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -2168,13 +2171,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-foreman-handler-failed-endolin-garden-ece02cb4` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-foreman-handler-failed-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #45 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T12:42:06Z).
-> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 45 times; this is ONE
-> coalesced notice that updates in place, not 45 messages. Latest detail:
+> WATCHDOG notice — occurrence #57 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T13:42:09Z).
+> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 57 times; this is ONE
+> coalesced notice that updates in place, not 57 messages. Latest detail:
 >
 > garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden-ece02cb4; the board pump is starving. stderr tail:  only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit on :11434, run as the `ollama` user) is active. Bring up the garden unit for hermit workers. Also confirm ollama is on PATH and the serving user has GPU group access — context/operations/local-inference-amd.md.
-> <6>12:42:06 [foreman-claude] foreman provider 'local' unavailable; trying the next configured provider
-> <3>12:42:06 [foreman-claude] FATAL: no configured foreman inference provider was available
+> <6>13:42:09 [foreman-claude] foreman provider 'local' unavailable; trying the next configured provider
+> <3>13:42:09 [foreman-claude] FATAL: no configured foreman inference provider was available
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
@@ -2363,11 +2366,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal.md)
 
-> RECOVERED — the watchdog condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-27T12:33:19Z, cleared 2026-09-28T13:09:15Z).
-> It was observed 10 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #11 (first seen 2026-09-27T12:33:19Z, latest 2026-09-28T13:49:28Z).
+> The SAME condition (`journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal`) has now been observed 11 times; this is ONE
+> coalesced notice that updates in place, not 11 messages. Latest detail:
 >
-> Journal contention condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` cleared on oros-studio-garden-ce242c49.
+> Journal fetch drift on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: oldest-third median=24.695315s newest-third median=28.102405s over 4886s/256 samples; floor=10s, 1.5x rise or projected-to-guard=4872s within 86400s.
 
 - `20260927T025145Z-1055ad` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T025145Z-1055ad.md)
 
@@ -3539,10 +3542,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 43.9M | $405.36 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 49795057 tokens/day lower bound._
+_Fleet token-unlock pace: 49807346 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 4 open notice(s); checker healthy
+worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
@@ -3551,13 +3554,13 @@ worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### doin (0)
 (none)
 
-### tada (9366)
+### tada (9367)
+- [`claude-on-minion-town-completion-press-20260928-134105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-134105.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-2c3c6bc4a6e5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-2c3c6bc4a6e5.md) — rolling-deploy canary probe — round trip OK
 - [`improve-mentor-provider-order-reject-retired-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-mentor-provider-order-reject-retired-local.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1298-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1298-gauntlet — HALTED
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-fix-4.md) — Gauntlet fix round 4: endojs/endo-but-for-bots#1298
-- … and 9361 more
+- … and 9362 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
