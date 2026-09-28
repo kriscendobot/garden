@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T10:08:00Z_
+_As of 2026-09-28T10:15:13Z_
 
 ## Latest
 
@@ -376,11 +376,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
 
-> RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-28T09:37:52Z).
-> It was observed 25 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #26 (first seen 2026-09-27T02:00:48Z, latest 2026-09-28T10:12:52Z).
+> The SAME condition (`journal-outage-stuck`) has now been observed 26 times; this is ONE
+> coalesced notice that updates in place, not 26 messages. Latest detail:
 >
-> Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
+> Journal outage latch stuck on endolin-garden-ece02cb4 for 900s (limit 600s); skips this tick=3, trailing skips=3.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -3527,27 +3527,27 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 43.4M | $399.80 _(notional, rate-card)_ | 30% of 143.0M (ok) |
-| Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
+| Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53371012 tokens/day lower bound._
+_Fleet token-unlock pace: 49740938 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 5 open notice(s); checker healthy
+worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1298
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1298
 
-### tada (9357)
+### tada (9358)
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-panel-4.md) — Cost
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fix-journal-cold-clone-bootstrap.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots PR #1298
 - [`canary-probe-endolin-garden2-5bcdff64-f3e5ea54007a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-f3e5ea54007a.md) — rolling-deploy canary probe — round trip OK
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Completion report: ironhorse-fuzz-ed616f6ec22095dc-repair
-- [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Cost
-- … and 9352 more
+- … and 9353 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
