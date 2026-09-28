@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T10:36:19Z_
+_As of 2026-09-28T10:39:28Z_
 
 ## Latest
 
@@ -2178,13 +2178,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-foreman-handler-failed-endolin-garden-ece02cb4` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-foreman-handler-failed-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T09:37:07Z).
-> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> WATCHDOG notice — occurrence #20 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T10:37:08Z).
+> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 20 times; this is ONE
+> coalesced notice that updates in place, not 20 messages. Latest detail:
 >
 > garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden-ece02cb4; the board pump is starving. stderr tail:  only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit on :11434, run as the `ollama` user) is active. Bring up the garden unit for hermit workers. Also confirm ollama is on PATH and the serving user has GPU group access — context/operations/local-inference-amd.md.
-> <6>09:37:07 [foreman-claude] foreman provider 'local' unavailable; trying the next configured provider
-> <3>09:37:07 [foreman-claude] FATAL: no configured foreman inference provider was available
+> <6>10:37:08 [foreman-claude] foreman provider 'local' unavailable; trying the next configured provider
+> <3>10:37:08 [foreman-claude] FATAL: no configured foreman inference provider was available
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
@@ -3542,7 +3542,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.5M | $402.04 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 43.4M | $400.40 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49734105 tokens/day lower bound._
@@ -3554,17 +3554,16 @@ worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (0)
 (none)
 
-### doin (2)
-- [`kriscendobot-minion.town-pr128-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr128-dependabot.md) — botanist (auto: dependabot PR) on kriscendobot/minion.town PR #128
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1298
 
-### tada (9359)
+### tada (9360)
+- [`kriscendobot-minion.town-pr128-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr128-dependabot.md) — Cost
 - [`improve-foreman-local-endpoint-unreachable-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-foreman-local-endpoint-unreachable-dedup.md) — Cost
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-panel-4.md) — Cost
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fix-journal-cold-clone-bootstrap.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots PR #1298
-- [`canary-probe-endolin-garden2-5bcdff64-f3e5ea54007a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-f3e5ea54007a.md) — rolling-deploy canary probe — round trip OK
-- … and 9354 more
+- … and 9355 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
