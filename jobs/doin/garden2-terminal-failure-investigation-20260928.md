@@ -83,3 +83,13 @@ validation evidence. If you don't fully resolve it within this job's budget,
 post a direct follow-up job `garden2-terminal-failure-investigation-round2`
 with your findings so far (ruled-out causes, current best hypothesis, what's
 left to check) rather than leaving it silently unresolved.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T03:46:59Z
