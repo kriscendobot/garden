@@ -116,3 +116,13 @@ State plainly what happened to oros-studio's row as a result of this job
 landing (restored to `4 0`, or marked for future auto-restore at `4 0`,
 whichever applies), and confirm the maintainer-notice dedup behavior with a
 concrete before/after.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T14:33:01Z
