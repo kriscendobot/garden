@@ -15,3 +15,13 @@ The head is 92 commits behind main. There are real conflicts in:
 Resolve them so the PR's feature (publish a clip from a guest-stored content value) is rebuilt on main's current registration design. Don't reintroduce what main replaced unless main's design cannot express the feature; if so, say so explicitly in the PR. Use GARDEN_YARN=npm, and rebase immediately before pushing since main moves. Get CI green on the woven head. Summarize the conflict resolution in a PR comment so the maintainer can re-approve knowingly.
 
 Do NOT merge or deploy. After the weave the maintainer re-reviews and re-approves; conduct, deploy and validate are re-posted separately.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T21:32:56Z
