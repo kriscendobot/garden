@@ -123,33 +123,37 @@ instructive way, cited back to the journal entry that records it.
 
 ### Lever semantics: what each control does not reach
 
-**A parked `gate: go-ahead` or `gate: awaiting-maintainer` job will never start
-by itself.**
-`go-ahead` means the work awaits maintainer authorization. `awaiting-maintainer`
-means work awaits an answer to its recorded `maintainer_question:` at `asked_at:`.
-Neither gate is an authorization or a schedule. Only an explicit promotion moves
-it from `plan/` to `todo/`; `awaiting-maintainer` additionally requires
-`promote-plan.sh --maintainer <job>`. The foreman selects only `gate: deferred` jobs
+**Saying "go ahead on X" is the only thing that starts a parked job gated
+`go-ahead` or `awaiting-maintainer`; nothing starts it by itself.**
+A `go-ahead` gate means the work awaits your authorization; an
+`awaiting-maintainer` gate means it awaits your answer to its recorded
+`maintainer_question:` (asked at `asked_at:`). Neither gate is an
+authorization or a schedule. Only an explicit promotion moves the job from
+`plan/` to `todo/`, and an `awaiting-maintainer` job additionally needs the
+liaison to promote it as answered (`promote-plan.sh --maintainer <job>`). The
+foreman selects only `gate: deferred` jobs
 ([`foreman.sh`](scripts/jobs/foreman.sh)); no timer turns a `go-ahead` record
 into a promotion. This is the first thing to check when apparently ready work
 has stayed parked.
 
-The other levers have similarly narrow boundaries. This table is the reference;
-follow its operation link for commands and recovery procedure, or the
-[gallery](context/control-surface-gallery.md) for worked cases.
+The other asks have similarly narrow reach. Each row leads with what you
+might say to the liaison; the last column names the mechanism it runs, for
+when you want to go deeper. Follow a row's operation link for commands and
+recovery procedure, or the [gallery](context/control-surface-gallery.md) for
+worked cases.
 
-| Lever | What it does | What it does **not** reach | Interacting lever to check |
-| --- | --- | --- | --- |
-| `promote-plan.sh <job>` / “go ahead on X” | Moves one parked job to `todo/`; for a `go-ahead` gate, the maintainer's explicit direction is the authorization. | Merely writing `gate: go-ahead` does not authorize, schedule, or auto-promote anything. The foreman auto-promotes only `deferred`. | Inspect `jobs/plan/<job>.md`, then promote explicitly ([plan-queue procedure](context/operations/plan-queue.md)). |
-| `promote-plan.sh --maintainer <job>` / “the maintainer answered X” | Clears an `awaiting-maintainer` gate after the linked answer lands. | It does not infer an answer from time or from prose in the job. Without `--maintainer`, the promotion is refused. | Read `maintainer_question:` and follow `asked_at:` before promoting. |
-| `drain-fleet.sh on` | Stops this host from taking new claims while its in-flight work finishes. | It is not a producer freeze: the leader scheduler still dispatches due schedules; `repo-watcher.sh` still reconciles watcher units; `self-heal-run.sh` may post a scoped repair; and the host sysop deliberately still runs. Direct job-producing watchers are drain-gated. | Use the control that owns the producer, and distinguish a drain from capacity zero ([scaling](context/operations/scaling.md)). |
-| Foreman brake / active target | `brake-foreman.sh on` stops only the foreman; the shipped active target is 2. | Drain also stops claims and drain-gated watchers/orchestration; Setting the foreman target to zero is another pump stop, not the shipped default. | Use the journal-backed brake for a temporary foreman pause ([scaling](context/operations/scaling.md)). |
-| `set-deadline-nudge.sh off` | Disables the shared deadline-warning scanner through journal-backed fleet state; `on` restores it and `status` reports it. | It does not extend or stop a handler deadline, interrupt an agent, change a job body, or drain workers. | A delivered warning is queued in the job's own inbox and is observed only at the agent's next `inbox-read.sh` checkpoint. |
-| `set-workers.sh <kind> <N> [host]` | Declares one worker kind's capacity on the host where the command runs. | It refuses to write another host's record; It also refuses `monks=0` unless the temporary quota route is active and a configured, probe-qualified non-Claude class remains. | Address an unattended host through its sysop; use drain for a temporary pause ([host operations](context/operations/host-operations.md), [scaling](context/operations/scaling.md)). |
-| Sysop benign tier | Applies host-scoped `set-workers`, `drain`, `reset-failed`, and deterministic `restore`. | It does not confer authority for `unit`, `deploy`, `local-model`, or `maintain`. | The latter tier needs a maintainer-authored `authorized_by: <login>` attestation ([host operations](context/operations/host-operations.md)). |
-| Sysop attested tier | Applies bounded `unit`, `deploy`, `local-model`, or `maintain` operations after allowlist attestation. | An agent's request for the operation is not the attestation, and no agent may originate `authorized_by`. | The maintainer must send or explicitly supply the attested host-op artifact ([host operations](context/operations/host-operations.md)). |
-| `deploy-garden.sh` | Tests the candidate, drains if needed, waits up to 600 seconds, advances the deployed tree, clears the drain on successful advance, and restarts. | Its wait cannot outlast legitimate 7,200- or 10,800-second job budgets; It defers before draining when a live job is already at least 300 seconds old; A pre-existing operator drain is not lifted on abort. | On a busy fleet, pre-drain, wait for quiescence, then deploy; diagnose stale drains separately ([deploy](context/operations/deploy.md)). |
-| `git mv schedules/X.md paused-schedules/X.md` | Pauses a schedule by taking it out of the only directory the scheduler enumerates. | It does not cancel a job already dispatched to `todo/` or `doin/`. | Reverse the move to restore the schedule ([schedules](context/operations/schedules.md)). |
+| You say | What happens | What it does **not** reach | If it looks stuck, check | Mechanism |
+| --- | --- | --- | --- | --- |
+| “go ahead on X” / “promote X” | Moves one parked job to `todo/`; for a `go-ahead` gate, your explicit direction is the authorization. | Merely writing `gate: go-ahead` does not authorize, schedule, or auto-promote anything. The foreman auto-promotes only `deferred`. | Inspect `jobs/plan/<job>.md`, then promote explicitly ([plan-queue procedure](context/operations/plan-queue.md)). | `promote-plan.sh <job>` |
+| “I answered X; promote it” | Clears an `awaiting-maintainer` gate after the linked answer lands. | It does not infer an answer from time or from prose in the job. Without the answered flag, the promotion is refused. | Read `maintainer_question:` and follow `asked_at:` before promoting. | `promote-plan.sh --maintainer <job>` |
+| “drain the fleet” / “lift the drain” | Stops this host from taking new claims while its in-flight work finishes. | It is not a producer freeze: the leader scheduler still dispatches due schedules; `repo-watcher.sh` still reconciles watcher units; `self-heal-run.sh` may post a scoped repair; and the host sysop deliberately still runs. Direct job-producing watchers are drain-gated. | Use the control that owns the producer, and distinguish a drain from capacity zero ([scaling](context/operations/scaling.md)). | `drain-fleet.sh on` / `off` |
+| “brake the foreman” / “release the foreman” | Stops only the foreman's promotion of deferred work; the shipped active target is 10. | Drain also stops claims and drain-gated watchers/orchestration; setting the foreman target to zero is another pump stop, not the shipped default. | Use the journal-backed brake for a temporary foreman pause ([scaling](context/operations/scaling.md)). | `brake-foreman.sh on\|off\|status`; `GARDEN_FOREMAN_ACTIVE_TARGET` |
+| “turn off the deadline nudges” / “turn them back on” | Disables (or restores) the shared deadline-warning scanner through journal-backed fleet state. | It does not extend or stop a handler deadline, interrupt an agent, change a job body, or drain workers. | A delivered warning is queued in the job's own inbox and is observed only at the agent's next `inbox-read.sh` checkpoint. | `set-deadline-nudge.sh off\|on\|status` |
+| “run N monks here” / “scale down to 50” | Declares one worker kind's capacity on the host where the liaison runs. | It refuses to write another host's record; it also refuses `monks=0` unless the temporary quota route is active and a configured, probe-qualified non-Claude class remains. | Address an unattended host through its sysop; use drain for a temporary pause ([host operations](context/operations/host-operations.md), [scaling](context/operations/scaling.md)). | `set-workers.sh <kind> <N>` |
+| “throttle petunia to 2 workers”, “drain petunia”, “reset petunia's failed units”, “restore petunia” | Sends a benign host op to that host's sysop, which applies `set-workers`, `drain`, `reset-failed`, or deterministic `restore` there. | It does not confer authority for `unit`, `deploy`, `local-model`, or `maintain`. | The latter tier needs a maintainer-authored `authorized_by: <login>` attestation ([host operations](context/operations/host-operations.md)). | `send-host-op.sh <GARDEN> op=…` (sysop benign tier) |
+| “deploy petunia”, “restart unit U on petunia”, “pull the local model on petunia”, “run repo maintenance on petunia” | Applies a bounded `deploy`, `unit`, `local-model`, or `maintain` operation after allowlist attestation. | An agent's request for the operation is not the attestation, and no agent may originate `authorized_by`. | You must send or explicitly supply the attested host-op artifact ([host operations](context/operations/host-operations.md)). | `send-host-op.sh … authorized_by=<login>` (sysop attested tier) |
+| “deploy the garden now” | Tests the candidate, drains if needed, waits up to 600 seconds, advances the deployed tree, clears the drain on successful advance, and restarts. | Its wait cannot outlast legitimate 7,200- or 10,800-second job budgets; it defers before draining when a live job is already at least 300 seconds old; a pre-existing operator drain is not lifted on abort. | On a busy fleet, pre-drain, wait for quiescence, then deploy; diagnose stale drains separately ([deploy](context/operations/deploy.md)). | `deploy-garden.sh` |
+| “pause schedule X” / “resume schedule X” | Pauses a schedule by taking it out of the only directory the scheduler enumerates. | It does not cancel a job already dispatched to `todo/` or `doin/`. | Reverse the move to restore the schedule ([schedules](context/operations/schedules.md)). | `git mv schedules/X.md paused-schedules/X.md` |
 
 The executable sources behind these boundaries are
 [`foreman.sh`](scripts/jobs/foreman.sh) and
@@ -177,9 +181,9 @@ Common interactions, mined from practice:
 
 - **Start work**: a sentence of intent becomes a `design` or `build` job.
 - **Unstick a PR**: the fix/weave/retcon/shepherd verbs above.
-- **Answer workers**: the maintainer-inbox Monitor surfaces questions;
-  `maintainer-reply.sh` routes your answer back into the asking worker's
-  inbox mid-job.
+- **Answer workers**: when a worker asks you something, the liaison surfaces
+  it; answer in plain words ("tell X to target the frozen base") and your
+  reply lands in the asking worker's inbox mid-job (`maintainer-reply.sh`).
 - **Steer the plan**: "defer X", "promote X", "go ahead on the retcon".
 - **Operate the fleet**: "drain the fleet" (a moratorium on new claims —
   in-flight jobs finish; "lift" resumes claiming), "hand off leadership to
@@ -203,9 +207,11 @@ crowd, is the prompt-injection defense —
   fresh job, so a late thought is never lost.
 - 👀 on your comment means "received and processing."
 
-The leader also measures that receipt from GitHub's own reaction timestamp. Run
-`scripts/jobs/comment-latency-probe.sh` for cached per-repo p50/p95 latency and
-watcher-heartbeat age, or add `--live` for a read-only GitHub lookback. The
+Ask the liaison "how fast are comments being acknowledged?" to see that
+receipt measured: the leader times it from GitHub's own reaction timestamp and
+reports cached per-repo p50/p95 latency and watcher-heartbeat age
+(`scripts/jobs/comment-latency-probe.sh`, or `--live` for a read-only GitHub
+lookback). The
 checker pages through one coalesced watchdog notice per condition; a deliberate
 fleet drain is shown as muted and never reported as a dead watcher.
 
@@ -237,7 +243,8 @@ own without an authorization carried in the job
 
 ### The ferry: a permissioned CLI on one host
 
-Everything above runs as the bot. **Ferrying** — carrying an approved PR from
+Say **"ferry #96"** to the liaison, then run `scripts/ferry.sh` yourself on
+the credentialed host. Everything above runs as the bot. **Ferrying** — carrying an approved PR from
 the fork to the actual upstream repo — lands commits under *your* name, so it
 is deliberately a separate, permissioned surface with its **own dispatch, off
 the job board** ([`designs/dedicated-ferry-dispatch.md`](designs/dedicated-ferry-dispatch.md)):
@@ -262,8 +269,8 @@ the job board** ([`designs/dedicated-ferry-dispatch.md`](designs/dedicated-ferry
 - Transferred commits are re-attributed to you alone: no bot author, no
   co-author trailers ([roles/boatman/AGENT.md](roles/boatman/AGENT.md)).
 
-Usage: say **"ferry #96"** to the liaison to stage the directive, then run
-`scripts/ferry.sh` on the credentialed host to carry it upstream.
+The liaison's part of "ferry #96" is staging the directive; your
+`scripts/ferry.sh` run is what carries it upstream.
 
 ### The bulletin: GitHub Pages
 

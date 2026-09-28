@@ -99,7 +99,7 @@ If the intent is only to stop autonomous foreman pumping, use
 The
 journal-backed `config/foreman-brake` follows leadership and stops only the
 foreman.
-The shipped `GARDEN_FOREMAN_ACTIVE_TARGET` is **2**; setting it to zero
+The shipped `GARDEN_FOREMAN_ACTIVE_TARGET` is **10**; setting it to zero
 also stops pumping, but is not the current default.
 Budget-ramp and mandate
 inputs are described in [cybernetics.md](cybernetics.md).
