@@ -1,0 +1,16 @@
+{
+  "actions": {},
+  "branch_point": "47f6965d882b9c1c3eaaa836dd8d75971a924bb4",
+  "builder": "ironhorse-test262-ratchet-round3-20260928",
+  "corpus": "be13516fb6441b950ba8a3df97eb34062c186972",
+  "crank": 3,
+  "crank_date": "20260928",
+  "floor": {
+    "path": "rust/engine/ironhorse-262/baseline/refresh-20260904/covered.txt",
+    "revision": "47f6965d882b9c1c3eaaa836dd8d75971a924bb4",
+    "sha256": "322ca2ba759cf356bea57f8e8cd9badef7a855f52e4870227bfc55b072d0994f"
+  },
+  "last_progress": "2026-09-28T20:51:28.527989+00:00",
+  "queue": [],
+  "schema": 1
+}

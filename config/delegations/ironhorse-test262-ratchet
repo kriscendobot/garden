@@ -1,0 +1,11 @@
+{
+  "author": "kriscendobot",
+  "authorization": "entries/2026/09/28/201230Z-message-gardener-aa49da.md",
+  "authorization_sha256": "92cc11db41d0e19962fc19ce365bb98ce5a58815a8ac7533d2d095dc601d918d",
+  "authorized_by": "kriskowal",
+  "base": "llm",
+  "marker": "<!-- garden-arc: ironhorse-test262-ratchet -->",
+  "repository": "endojs/endo-but-for-bots",
+  "schema": 1,
+  "status": "active"
+}
