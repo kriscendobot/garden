@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7214 (530 parent indexes + 6684 children).
+Total section files: 7229 (530 parent indexes + 6699 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -9832,6 +9832,57 @@ Total section files: 7214 (530 parent indexes + 6684 children).
 - [web--fakecloud-parity--core-service-parity-rows](web--fakecloud-parity--core-service-parity-rows.md)
 - [web--fakecloud-parity--roadmap-projects](web--fakecloud-parity--roadmap-projects.md)
 - [web--fakecloud-parity--will-never-implement](web--fakecloud-parity--will-never-implement.md)
+
+### web--fakecloud-reference-introspection
+
+- [web--fakecloud-reference-introspection--endpoint-catalog](web--fakecloud-reference-introspection--endpoint-catalog.md)
+
+### web--fakecloud-reference-limitations
+
+- [web--fakecloud-reference-limitations--known-limitations](web--fakecloud-reference-limitations--known-limitations.md)
+
+### web--fakecloud-reference-security
+
+- [web--fakecloud-reference-security--iam-evaluator-and-condition-keys](web--fakecloud-reference-security--iam-evaluator-and-condition-keys.md)
+- [web--fakecloud-reference-security--sigv4-verification-and-root-bypass](web--fakecloud-reference-security--sigv4-verification-and-root-bypass.md)
+
+### web--fakecloud-sdks
+
+- [web--fakecloud-sdks--seven-language-test-sdks-and-common-surface](web--fakecloud-sdks--seven-language-test-sdks-and-common-surface.md)
+
+### web--fakecloud-sdks-typescript
+
+- [web--fakecloud-sdks-typescript--typescript-client-surface-and-license](web--fakecloud-sdks-typescript--typescript-client-surface-and-license.md)
+
+### web--fakecloud-services
+
+- [web--fakecloud-services--service-catalog](web--fakecloud-services--service-catalog.md)
+
+### web--fakecloud-services-cognito
+
+- [web--fakecloud-services-cognito--auth-flows-oauth-endpoints-and-introspection](web--fakecloud-services-cognito--auth-flows-oauth-endpoints-and-introspection.md)
+
+### web--fakecloud-services-dynamodb
+
+- [web--fakecloud-services-dynamodb--features-transactions-and-fine-grained-iam](web--fakecloud-services-dynamodb--features-transactions-and-fine-grained-iam.md)
+- [web--fakecloud-services-dynamodb--startup-import-and-introspection](web--fakecloud-services-dynamodb--startup-import-and-introspection.md)
+
+### web--fakecloud-services-iam
+
+- [web--fakecloud-services-iam--policy-features-and-trust-enforcement](web--fakecloud-services-iam--policy-features-and-trust-enforcement.md)
+
+### web--fakecloud-services-s3
+
+- [web--fakecloud-services-s3--cors-evaluation](web--fakecloud-services-s3--cors-evaluation.md)
+- [web--fakecloud-services-s3--objects-post-policy-and-sigv4-gotcha](web--fakecloud-services-s3--objects-post-policy-and-sigv4-gotcha.md)
+
+### web--fakecloud-services-secretsmanager
+
+- [web--fakecloud-services-secretsmanager--versioning-rotation-and-kms](web--fakecloud-services-secretsmanager--versioning-rotation-and-kms.md)
+
+### web--fakecloud-services-ssm
+
+- [web--fakecloud-services-ssm--run-command-lifecycle-and-session-manager](web--fakecloud-services-ssm--run-command-lifecycle-and-session-manager.md)
 
 ### web--fireworks-firectl
 
