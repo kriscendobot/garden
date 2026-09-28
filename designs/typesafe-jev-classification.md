@@ -8,7 +8,7 @@ author: gardener
 
 | Field | Value |
 | --- | --- |
-| Status | **Accepted for a bounded Muster pilot.** This design was landed on `main2` before its review PR was opened; the PR remains an answer-surface under the garden's-own-repo open-questions carve-out, not a pending merge. |
+| Status | **Accepted; the Muster pilot graduated from opt-in to standing practice on 2026-09-28** (see addendum). This design was landed on `main2` before its review PR was opened; the PR remains an answer-surface under the garden's-own-repo open-questions carve-out, not a pending merge. |
 | Directive | kriskowal, 2026-09-23: is TypeSafe AI's Jev a fit for classification-shaped work such as triage and muster? |
 | Decision | Jev is a non-agentic structured-decision classifier, not a generative LLM. Do not onboard it as a worker kind or tier-inventory row. Pilot direct TypeSafe access as an optional advisory classification primitive at the beginning of Muster. Muster remains an interactive liaison session with regular-inference fallback and human disposition. |
 | Related design | [Opus 5.5 tier placement](opus55-tier.md) |
@@ -72,6 +72,22 @@ maintainer-inbox items remains a liaison conversation, and the pre-classifier
 never disposes of anything; it gates whether fetched foreign text may enter an
 agent's context, escalating flagged or uncertain content to the maintainer
 over the message bus.
+
+## Addendum — graduated to standing practice (2026-09-28)
+
+Maintainer directive (kriskowal, 2026-09-28, liaison session): "The Jev pilot
+appears to be working out, so let's graduate that to standing instructions
+for this and future musters." The liaison no longer asks at the start of each
+muster whether to engage the pilot (§ Resolved pilot questions, "First
+decision point"); `roles/liaison/AGENT.md` § Muster now runs
+`scripts/jobs/muster-pilot.sh` unconditionally at the start of every muster,
+with a spoken opt-out ("skip the pilot this time") for a single session. This
+addendum changes only *when* the pilot runs, not what it is permitted to do:
+§ Muster boundary and § Pilot implementation are otherwise unchanged — still
+advisory and read-only, still never disposing of a message, still falling
+back to regular inference on any unavailability. It does not reopen the
+rejected autonomous-muster alternative (§ Alternatives considered):
+disposition of maintainer-inbox items remains a liaison conversation.
 
 ## Alternatives considered
 

@@ -326,13 +326,18 @@ The inbox accumulates faster than any human reads it (81 unread on 2026-08-16,
 oldest from 07-25), so a muster is three passes, in this order. Never skip
 straight to the third.
 
-Begin by asking the maintainer whether to engage the **TypeSafe muster pilot**.
-If yes, run `scripts/jobs/muster-pilot.sh` before the compact pass and use its
-typed compaction, recurring-pattern, and muster-class labels as advisory grouping
+Run the **TypeSafe muster pilot** at the start of every muster — standing
+practice as of 2026-09-28 (maintainer directive, kriskowal: the pilot "appears
+to be working out"), no longer an ask-each-session opt-in; see
+[typesafe-jev-classification](../../designs/typesafe-jev-classification.md)
+§ Addendum — graduated to standing practice. Run
+`scripts/jobs/muster-pilot.sh` before the compact pass and use its typed
+compaction, recurring-pattern, and muster-class labels as advisory grouping
 hints. Verify current state before archiving or reposting anything: the pilot
 never disposes of a message. If the key is absent, TypeSafe is unavailable, or
 the call fails, say so briefly and perform all three passes with regular
-inference. A failed pilot never blocks or shortens muster.
+inference. A failed pilot never blocks or shortens muster. The maintainer may
+still say "skip the pilot this time" to opt out for a single session.
 
 **1. Compact.** Most of a stale inbox is already dead. Before reading anything
 closely, retire what time has answered:
