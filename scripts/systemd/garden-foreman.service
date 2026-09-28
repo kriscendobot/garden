@@ -33,8 +33,8 @@ Environment=GARDEN_FOREMAN_ACTIVE_TARGET=10
 # Leave this unset for the ordinary Claude-only posture (the handler default is
 # `anthropic`). While the quota is constrained, set a systemd drop-in or this
 # environment line to `openai,anthropic`: Codex first, then Claude as the last
-# fallback. `local` is REJECTED (the local-qwen hermit lane was retired 2026-09-13);
-# the handler FATALs on it. Remove the line to restore the normal `anthropic` order.
+# fallback. `local` is RETIRED (the local-qwen hermit lane was dropped 2026-09-13);
+# the handler filters it out with a one-time WARN (FATAL only if nothing else is left). Remove the line to restore the normal `anthropic` order.
 # See context/operations/foreman-providers.md.
 # Environment=GARDEN_FOREMAN_PROVIDER_ORDER=openai,anthropic
 # --- weekly token meter / back-off gate (Claude Max x20 subscription) ---------

@@ -108,8 +108,17 @@ EOF
 
 # Parse a strict comma-delimited operational order. Repeated providers are a
 # configuration error rather than a hidden duplicate inference call.
+#
+# The local-qwen hermit lane was retired fleet-wide 2026-09-13 (job
+# retire-local-qwen-hermit-lane; common.sh `hermit`): no host runs Ollama, so a
+# `local` attempt is a guaranteed dead probe. A stale drop-in naming it must not
+# take the foreman down (a parse-time FATAL left it unavailable every tick), so
+# `local` is FILTERED out with a WARN logged once per distinct order value
+# (latched under $GARDEN_STATE/foreman), and the remaining providers run. Only an
+# order with nothing but `local` left fails.
 provider_order() {
-  local raw="$GARDEN_FOREMAN_PROVIDER_ORDER" item seen="," out=""
+  local raw="$GARDEN_FOREMAN_PROVIDER_ORDER" item seen="," out="" retired=0
+  local latch="$GARDEN_STATE/foreman/retired-local-warned"
   local -a parts=()
   IFS=',' read -r -a parts <<< "$raw"
   [ "${#parts[@]}" -gt 0 ] || die "GARDEN_FOREMAN_PROVIDER_ORDER is empty"
@@ -117,17 +126,22 @@ provider_order() {
     item="$(printf '%s' "$item" | tr -d '[:space:]')"
     case "$item" in
       openai|anthropic) ;;
-      # The local-qwen hermit lane was retired fleet-wide 2026-09-13 (job
-      # retire-local-qwen-hermit-lane; common.sh `hermit`): no host runs Ollama, so
-      # a `local` attempt is a guaranteed dead probe. Fail at parse time so a stale
-      # drop-in is loud instead of burning every tick on a dead branch.
-      local) die "GARDEN_FOREMAN_PROVIDER_ORDER provider 'local' is retired (local-qwen hermit lane dropped 2026-09-13, job retire-local-qwen-hermit-lane); remove it from the garden-foreman drop-in (allowed: openai, anthropic)" ;;
+      local) retired=1; continue ;;
       *) die "invalid GARDEN_FOREMAN_PROVIDER_ORDER provider '$item' (allowed: openai, anthropic; Moonshot is explicit-job-only)" ;;
     esac
     case "$seen" in *",$item,"*) die "duplicate provider '$item' in GARDEN_FOREMAN_PROVIDER_ORDER" ;; esac
     seen+="$item,"
     out+="${out:+ }$item"
   done
+  if [ "$retired" -eq 1 ]; then
+    [ -n "$out" ] || die "GARDEN_FOREMAN_PROVIDER_ORDER='$raw' names only provider 'local', which is retired (local-qwen hermit lane dropped 2026-09-13, job retire-local-qwen-hermit-lane); set it to openai,anthropic in the garden-foreman drop-in (or remove it)"
+    if [ "$(cat "$latch" 2>/dev/null)" != "$raw" ]; then
+      log "WARN: GARDEN_FOREMAN_PROVIDER_ORDER='$raw' names provider 'local', which is retired (local-qwen hermit lane dropped 2026-09-13, job retire-local-qwen-hermit-lane); ignoring it and continuing with: $out. Remove it from the garden-foreman drop-in (allowed: openai, anthropic)."
+      mkdir -p "${latch%/*}" 2>/dev/null && printf '%s\n' "$raw" > "$latch" 2>/dev/null || true
+    fi
+  else
+    rm -f "$latch" 2>/dev/null || true
+  fi
   [ -n "$out" ] || die "GARDEN_FOREMAN_PROVIDER_ORDER contains no providers"
   printf '%s\n' "$out"
 }
@@ -295,7 +309,7 @@ for provider in $(provider_order); do
   : > "$raw"
   rc=0
   case "$provider" in
-    openai|local) foreman_codex_attempt "$provider" "$prompt" > "$raw" || rc=$? ;;
+    openai)       foreman_codex_attempt "$provider" "$prompt" > "$raw" || rc=$? ;;
     anthropic)    foreman_anthropic_attempt "$prompt" > "$raw" || rc=$? ;;
   esac
   if [ "$rc" -eq 10 ]; then

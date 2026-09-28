@@ -22,12 +22,15 @@ systemd drop-in and restart the timer/service:
 Environment=GARDEN_FOREMAN_PROVIDER_ORDER=openai,anthropic
 ```
 
-The foreman and the mentor both **reject `local`**: the local-qwen hermit lane was retired fleet-wide
+Both handlers retire `local`: the local-qwen hermit lane was retired fleet-wide
 on 2026-09-13 (job `retire-local-qwen-hermit-lane`; no host runs Ollama), so a
-`local` entry would be a guaranteed dead probe on every tick. A stale drop-in that
-still names `local` (such as `openai,local`) makes the handler FATAL at
-parse time with a message naming the retirement; fix the drop-in to
-`openai,anthropic` (or remove it) and restart.
+`local` entry would be a guaranteed dead probe on every tick. The **foreman**
+filters a stale `local` out of the order (such as `openai,local`), logs a WARN once
+per distinct order value (latched in `$GARDEN_STATE/foreman/retired-local-warned`),
+and continues with the remaining providers; it fails only when nothing but `local`
+is left. The **mentor** still FATALs at parse time with a message naming the
+retirement. Either way, fix the drop-in to `openai,anthropic` (or remove it) and
+restart.
 
 The mentor's normal order is already the resilient sequence:
 

@@ -59,22 +59,42 @@ fi
   || bad "wrong fallback trace: $(tr '\n' ' ' < "$LOG2")"
 
 rm -rf "$TR/state"; mkdir -p "$TR/state"
-hr; echo "RETIRED LOCAL — a stale 'local' entry fails fast at parse time"; hr
+hr; echo "RETIRED LOCAL — a stale 'local' entry is filtered with a one-time WARN"; hr
 for order in openai,local local,anthropic openai,local,anthropic; do
+  rm -rf "$TR/state"; mkdir -p "$TR/state"
   LOG_LOCAL="$TR/log-local"; : > "$LOG_LOCAL"
   if run_handler "$order" GARDEN_TEST_PROVIDER_LOG="$LOG_LOCAL" \
     >"$TR/local.out" 2>"$TR/local.err"; then
-    bad "retired provider order '$order' was accepted"
+    ok "order '$order' still runs with 'local' filtered out"
   else
-    ok "retired provider order '$order' is rejected"
+    bad "order '$order' failed instead of filtering 'local': $(cat "$TR/local.err")"
   fi
-  grep -q "provider 'local' is retired" "$TR/local.err" && grep -q 'retire-local-qwen-hermit-lane' "$TR/local.err" \
-    && ok "'$order' refusal names the 2026-09-13 retirement" \
-    || bad "'$order' refusal lacks the retirement diagnostic: $(cat "$TR/local.err")"
-  [ ! -s "$LOG_LOCAL" ] \
-    && ok "'$order' is rejected before any provider is attempted" \
-    || bad "'$order' attempted providers before rejecting: $(tr '\n' ' ' < "$LOG_LOCAL")"
+  want="$(printf '%s' "$order" | tr ',' '\n' | grep -v '^local$' | head -1) "
+  [ "$(tr '\n' ' ' < "$LOG_LOCAL")" = "$want" ] \
+    && ok "'$order' runs the first remaining provider ($want)" \
+    || bad "'$order' attempt trace: $(tr '\n' ' ' < "$LOG_LOCAL") (want $want)"
+  grep -q "WARN: .*provider 'local', which is retired" "$TR/local.err" && grep -q 'retire-local-qwen-hermit-lane' "$TR/local.err" \
+    && ok "'$order' WARN names the 2026-09-13 retirement" \
+    || bad "'$order' lacks the retirement WARN: $(cat "$TR/local.err")"
+  run_handler "$order" >/dev/null 2>"$TR/local2.err" || true
+  ! grep -q "provider 'local'" "$TR/local2.err" \
+    && ok "'$order' WARN is not repeated on the next tick" \
+    || bad "'$order' WARN repeated on the second tick"
 done
+run_handler openai,anthropic GARDEN_TEST_OPENAI_CODEX_RC=1 >/dev/null 2>&1 || true
+[ ! -e "$TR/state/foreman/retired-local-warned" ] \
+  && ok "a clean order clears the WARN latch" || bad "WARN latch survived a clean order"
+
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+LOG_LOCAL="$TR/log-local"; : > "$LOG_LOCAL"
+if run_handler local GARDEN_TEST_PROVIDER_LOG="$LOG_LOCAL" >"$TR/local.out" 2>"$TR/local.err"; then
+  bad "an order of only 'local' was accepted"
+else
+  ok "an order of only 'local' fails (no valid provider remains)"
+fi
+grep -q "names only provider 'local'" "$TR/local.err" \
+  && ok "local-only refusal names the retirement" || bad "local-only refusal diagnostic: $(cat "$TR/local.err")"
+[ ! -s "$LOG_LOCAL" ] && ok "local-only order attempts no provider" || bad "local-only attempted: $(tr '\n' ' ' < "$LOG_LOCAL")"
 
 rm -rf "$TR/state"; mkdir -p "$TR/state"
 hr; echo "SUBTEST 3 — malformed semantic output never fans out"; hr
