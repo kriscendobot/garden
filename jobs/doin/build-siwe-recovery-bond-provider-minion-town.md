@@ -16,3 +16,13 @@ Task: register the deployed `siwe-idp.minion.town` OIDC issuer (iss `https://siw
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-28T22:23:05Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T22:31:27Z
