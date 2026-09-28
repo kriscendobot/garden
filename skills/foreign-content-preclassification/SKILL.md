@@ -37,7 +37,7 @@ conversation.
 Any time a role is about to put externally-authored document content in front
 of an LLM agent: an upstream README, a paper, a web page, a changelog, release
 notes. The scholar's ingestion procedure (`roles/scholar/AGENT.md` step 4) is
-the canonical caller. Prefer routing foreign-document needs through the
+the canonical caller. The botanist (`roles/botanist/AGENT.md` step 4) gates the upstream prose around a Dependabot bump (changelogs, release bodies, advisory descriptions, package READMEs, the Dependabot-rendered PR body) and exempts source code read as code, with its rationale recorded there. Prefer routing foreign-document needs through the
 scholar/library pipeline (which carries this gate) over any direct web read;
 when a role genuinely needs its own direct read, fetch through
 `scripts/jobs/fetch-source.sh` and classify the fetched text with this skill
