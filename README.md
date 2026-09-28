@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T20:22:04Z_
+_As of 2026-09-28T20:33:04Z_
 
 ## Latest
 
@@ -3309,6 +3309,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Milestone M2 is blocked: draft [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/issues/1356) is superseded by merged upstream work and needs your decision to close it, while #1349 needs an explicit gauntlet authorization and a decision whether its remaining Phase 3 audit is required.
 
+- `msg-ironhorse-test262-ratchet-round3-20260928-dd7cd74ec3fa` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-dd7cd74ec3fa.md)
+
+> Draft [https://github.com/endojs/endo-but-for-bots/pull/1359](https://github.com/endojs/endo-but-for-bots/pull/1359) is open with agreed arc marker; head f6a8388bf1c5bf7863262433320e730dcbb46037, base llm-47f6965. One constants-descriptor cluster: +74 covered (36599->36673), 2822->2748 failures, zero branch-point loss; five historic cases restored, 901 historical losses remain. No classifier/profile/pin changes. Do NOT adopt latest refresh directory as enforced merely because its date is newer: refresh-20260928/baseline.json explicitly has supersedes:null. Keep refresh-20260904 plus branch-point coverage as required.
+>
+> Durable raw original artifacts: rust/engine/ironhorse-262/baseline/refresh-20260928/{before-report.json,report.json,before-covered.txt,covered.txt,baseline.json,gained.txt,restored-historical.txt,historical-losses.json,README.md}. Both report.json files retain original schema/provenance/cases; baseline.json has report SHA256 values and full comparison. Source probe/test evidence in README and tests/intrinsic_numeric_constants.rs: five red-before/green-after oracle tests, 52 JS programs; all3304 required Rust tests pass (43ignored). New-code line coverage was not instrumented; the changed installation call executes in every constant descriptor test.
+>
+> Tracker decision and queue: [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)#issuecomment-5877917421. No reconciliation authorization received. Named successor ironhorse-test262-ratchet-round3-floor-resolution-20260928 is being parked awaiting that answer, owns every unresolved acceptance requirement, and must coordinate with you before branch mutation. This attempt will report declared handoff, not clean round completion. Please fail closed on historical no-loss and leave the draft for the maintainer's direction.
+
 - `20260927T030343Z-2a70db` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T030343Z-2a70db.md)
 
 > kind: error
@@ -3644,10 +3652,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.9M | $425.67 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Claude | 46.0M | $428.61 _(notional, rate-card)_ | 32% of 143.0M (ok) |
 | Codex | 2.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 56545510 tokens/day lower bound._
+_Fleet token-unlock pace: 62694798 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
@@ -3657,17 +3665,17 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 (none)
 
 ### doin (3)
+- [`fix-minion-town-guest-recovery-oauth-bonding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-guest-recovery-oauth-bonding.md) — minion.town: guest account recovery and OAuth recovery bonding are broken. Ve...
 - [`improve-ironhorse-test262-ratchet-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ironhorse-test262-ratchet-gate.md) — ---
-- [`ironhorse-test262-ratchet-round3-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-round3-20260928.md) — Ironhorse test262 compliance ratchet — round 3
 - [`build-ironhorse-ratchet-autopilot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-ratchet-autopilot.md) — Build: autonomous Ironhorse test262 ratchet (per-crank PRs, mentat merge watc...
 
-### tada (9387)
+### tada (9388)
+- [`ironhorse-test262-ratchet-round3-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-test262-ratchet-round3-20260928.md) — Cost
 - [`claude-on-minion-town-press-20260928-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-200508.md) — Cost
 - [`improve-comment-primary-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-comment-primary-quota-cooldown.md) — Cost
 - [`document-garden-systemd-units`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/document-garden-systemd-units.md) — Cost
 - [`claude-on-minion-town-completion-press-20260928-195005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-195005.md) — Cost
-- [`canary-probe-oros-studio-garden-ce242c49-e036bb8e0650`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-oros-studio-garden-ce242c49-e036bb8e0650.md) — rolling-deploy canary probe — round trip OK
-- … and 9382 more
+- … and 9383 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3740,6 +3748,7 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`endojs-endo-but-for-bots-pr1310-c9dfce07-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1310-c9dfce07-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1310 (primary: endojs-endo-but-...
 
 ### awaiting maintainer decision (answer at the linked question)
+- [`ironhorse-test262-ratchet-round3-floor-resolution-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-test262-ratchet-round3-floor-resolution-20260928.md) - [Reconcile the historical floor with current verdict/resource policy, or restore all 901 genuinely under unchanged pins and policy?](https://github.com/kriscendobot/garden/issues/51#issuecomment-5877917421)
 - [`minion-town-pr87-production-gate-resume-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr87-production-gate-resume-20260922.md) - [PR #87 production-reality gate: which backend is the production provider (CLI/Agent-SDK; re-run failed SDK track first?), proceed before endo#1015 lands or gate on it, and what counts as production evidence + are credentials provided?](https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5770203120)
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
