@@ -439,9 +439,45 @@ unfinished_end_turn() {
   [ "$outcome" = complete-candidate ] && [ "$rc" -eq 0 ] && ! report_has_completion_marker "$report"
 }
 
-claude_call "$max_budget_usd" "$prompt" "${session_args[@]}"
-claude_parse
-claude_map_rc
+# --- EXPERIMENTAL opt-in pty lane (`lane: pty`) -------------------------------
+#
+# Default OFF: a job with no `lane:` header, or any value other than `pty`, takes the
+# unchanged headless `claude -p` path (claude_call below). A job that opts in with
+# `lane: pty` runs the SAME prompt in an interactive session ENCLOSED IN A PSEUDO-TERMINAL
+# (pty-lane/run.sh → run.py) so Claude Code's statusLine fires and persists the live
+# context-window figure to a per-job state file a skill/hook can read
+# (skills/pty-context-introspection, designs/pty-context-introspection-lane.md). The lane
+# is anthropic-only (the interactive-auth story for the ollama-cloud friar is unverified);
+# a pty request on any other provider falls back to headless rather than failing the job.
+#
+# run.py writes the completion report (extracted from the session transcript, not the ANSI
+# TUI) to $report and returns 0 iff the worker emitted the completion marker — so the SAME
+# downstream sentinel/teardown contract applies to both lanes. There is no stream-json
+# result event in interactive mode, so the lane records outcome=complete-candidate with an
+# empty $result_event: the completion nudge (which needs rc 0 WITHOUT the marker) and the
+# nested-metering delta (which needs a result event) are both skipped, and usage accounting
+# DELIBERATELY degrades to the spine's session-snapshot fallback (gardener.sh: absent
+# GARDEN_USAGE_FILE → meter_job_session_usage delta) — an honest experimental limitation.
+# The per-call --max-budget-usd ceiling likewise has no interactive equivalent; the
+# gardener's handler-timeout wall is the lane's bound.
+lane="$(plan_field "$jobfile" lane 2>/dev/null || true)"
+if [ "$lane" = pty ] && [ "$provider" = anthropic ]; then
+  log "job '$base' opts into the EXPERIMENTAL pty lane (lane: pty); running an interactive pty-enclosed session for statusLine context introspection"
+  prompt_file="$(mktemp "${TMPDIR:-/tmp}/garden-pty-prompt-$base.XXXXXX")"
+  printf '%s' "$prompt" > "$prompt_file"
+  set +e
+  "$HERE/../pty-lane/run.sh" "$base" "$worktree" "$session_id" "$resuming" "$report" \
+    "$prompt_file" "$claude_cli" -- "${session_args[@]}" "${model_args[@]}" --dangerously-skip-permissions
+  rc=$?
+  set -e
+  rm -f "$prompt_file" 2>/dev/null || true
+  outcome=complete-candidate
+  result_event=""
+else
+  claude_call "$max_budget_usd" "$prompt" "${session_args[@]}"
+  claude_parse
+  claude_map_rc
+fi
 
 # --- in-process completion nudge (fix-finished-but-not-completed-requeue) -----
 #
@@ -557,5 +593,13 @@ if [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && [ -e "$GARDEN_COMPLETION_SENTINEL
   # fresh session against its fresh worktree.
   rm -f "$proj_dir/$session_id.jsonl" "$proj_dir_alt/$session_id.jsonl" 2>/dev/null || true
 fi
+# Prune the pty lane's per-job context state file on completion, whether or not this job
+# used the lane (a no-op when absent). An unpruned per-job file rewritten on every status
+# refresh is the same unbounded-growth shape that wedged a host at zero free inodes twice
+# (per-id journal clones under GARDEN_STATE); the lane must not reintroduce it. A dead
+# job's leftover is separately detectable as STALE by pty-context-read.sh, and the
+# reaper's scratch janitor is the long-stop.
+rm -f "${GARDEN_STATE:-$GARDEN_ROOT/.garden-state}/pty-context/$base.env" \
+      "${GARDEN_STATE:-$GARDEN_ROOT/.garden-state}/pty-context/$base.settings.json" 2>/dev/null || true
 rm -f "$envelope" "$rusage" 2>/dev/null || true
 exit "$rc"
