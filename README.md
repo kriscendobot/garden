@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T19:03:54Z_
+_As of 2026-09-28T19:06:51Z_
 
 ## Latest
 
@@ -15,7 +15,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 25d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 26d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 26d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 27d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 28d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 26d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 26d)
 
@@ -3627,7 +3627,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 45.9M | $425.67 _(notional, rate-card)_ | 32% of 143.0M (ok) |
 | Codex | 1.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 56525053 tokens/day lower bound._
+_Fleet token-unlock pace: 56525228 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
