@@ -1,2 +1,2 @@
-base: improve-foreman-heredoc-backtick-exec
+base: improve-foreman-provider-order-reject-retired-local
 identity: mentor:scripts/jobs/handlers/foreman-claude.sh
