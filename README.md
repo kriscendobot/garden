@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T13:53:25Z_
+_As of 2026-09-28T13:57:05Z_
 
 ## Latest
 
@@ -3539,7 +3539,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.9M | $405.36 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 44.0M | $406.50 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49807346 tokens/day lower bound._
@@ -3551,8 +3551,8 @@ worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-press-20260928-135605`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260928-135605.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (9367)
 - [`claude-on-minion-town-completion-press-20260928-134105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-134105.md) — Cost
