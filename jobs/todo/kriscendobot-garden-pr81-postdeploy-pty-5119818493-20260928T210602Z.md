@@ -32,16 +32,4 @@ Once deployed, post exactly one fresh test job through `scripts/jobs/post-job.sh
 
 Poll the journal board with a bounded deadline for that test basename to reach `jobs/tada/`; inspect its durable report. Whether it passes, fails, is requeued repeatedly, or times out, post one top-level comment on PR #81 describing the deployed SHA, test job basename, whether the pty lane was genuinely selected, work/test evidence, context-reader evidence, and the final outcome. Do not claim success without evidence. If the test does not pass, post the failure report first and then emit the orchestration-failure signal before your own completion signal. If it passes, complete normally.
 
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-28T22:33:05Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-28T22:47:09Z
+<!-- garden-reaped: 0 -->
