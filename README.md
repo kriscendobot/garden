@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T12:22:52Z_
+_As of 2026-09-28T12:34:26Z_
 
 ## Latest
 
@@ -3463,11 +3463,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #912 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T11:28:27Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 912 times; this is ONE
-> coalesced notice that updates in place, not 912 messages. Latest detail:
+> WATCHDOG notice — occurrence #922 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T12:29:42Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 922 times; this is ONE
+> coalesced notice that updates in place, not 922 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to fac772d7c6c3 22 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to fac772d7c6c3 83 min ago
 > but still reports deployed_sha 586aee8196b4c03fdb68c7d2368856cb756de4eb. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -3535,7 +3535,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.6M | $402.30 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 43.7M | $403.63 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49766092 tokens/day lower bound._
