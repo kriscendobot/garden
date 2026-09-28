@@ -512,7 +512,26 @@ esac'
     && bad ".nvmrc matching the active major false-tripped the guard" || ok ".nvmrc is honored as a pin surface"
   rm -f "$RNP/.nvmrc"
 
-  # (g) the guard ADOPTS a matching runtime discovered under a version-manager
+  # (g) package.json pins use the same selector: Volta's exact runtime wins,
+  # then an engines.node range confined to one major. An open-ended engines
+  # floor is compatibility metadata rather than a pin and remains inert.
+  printf '{"name":"fixture","volta":{"node":"%s.1.0"},"scripts":{"lint":"lint"}}\n' "$NODEMAJ" > "$RNP/package.json"
+  ov="$(GARDEN_YARN="bash $RNP/yarn-stub.sh" "$LV" "$RNP" 2>&1)"
+  printf '%s' "$ov" | grep -q 'NODE RUNTIME PARITY' \
+    && bad "matching package.json volta.node false-tripped the guard" \
+    || ok "package.json volta.node is honored as a pin surface"
+  printf '{"name":"fixture","engines":{"node":"^%s.0.0"},"scripts":{"lint":"lint"}}\n' "$NODEMAJ" > "$RNP/package.json"
+  oe3="$(GARDEN_YARN="bash $RNP/yarn-stub.sh" "$LV" "$RNP" 2>&1)"
+  printf '%s' "$oe3" | grep -q 'NODE RUNTIME PARITY' \
+    && bad "single-major engines.node false-tripped the guard" \
+    || ok "single-major package.json engines.node is honored as a pin surface"
+  printf '{"name":"fixture","engines":{"node":">=1"},"scripts":{"lint":"lint"}}\n' > "$RNP/package.json"
+  oe4="$(GARDEN_YARN="bash $RNP/yarn-stub.sh" "$LV" "$RNP" 2>&1)"
+  printf '%s' "$oe4" | grep -q 'NODE RUNTIME PARITY' \
+    && bad "open-ended engines.node floor was mistaken for a runtime pin" \
+    || ok "open-ended engines.node remains compatibility metadata"
+
+  # (h) the guard ADOPTS a matching runtime discovered under a version-manager
   # root: a fake nvm node reporting v<OTHER> lets a mismatched pin pass by PATH
   # swap. Proves find_node_bin_for_major -> PATH prepend, not just the refusal.
   # The adopt path invokes the discovered node DIRECTLY, so the fake must live on

@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-09-27
+updated: 2026-09-28
 author: gardener
 ---
 
@@ -83,9 +83,10 @@ just the green.
 ### Runtime parity (the Node version)
 
 The sharpest environment divergence is the **runtime itself**. A project pins the
-Node version its CI runs (`.node-version`, `.nvmrc`); GitHub's `actions/setup-node`
-resolves that file — including the nvm-style `lts/*` alias — and runs every check
-under the resolved major. A host whose `node` is a **different major** verifies
+Node version its CI runs (`.node-version`, `.nvmrc`, `package.json#volta.node`,
+or a single-major `package.json#engines.node` range). For version files, GitHub's
+`actions/setup-node` resolves aliases such as `lts/*` and runs every check under
+the resolved major. A host whose `node` is a **different major** verifies
 under the wrong runtime, and type-aware lint (`@endo/restrict-comparison-operands`,
 `import/order`), module-resolution edge cases, and syntax support all move between
 majors — so the gate can go **green here while the pinned-major CI goes red**.
@@ -93,22 +94,29 @@ This is exactly the class 2 divergence above, and it silently defeats the whole
 contract: a green that does not imply a green on CI.
 
 So the harness runs a **Node runtime-parity guard** before any step
-(`scripts/jobs/gardening/local-verify.sh`, backed by `required_node_major` /
-`active_node_major` / `find_node_bin_for_major` in `scripts/jobs/common.sh`):
+(`scripts/jobs/gardening/local-verify.sh`, backed by the shared
+`select_node_runtime` helper in `scripts/jobs/common.sh`). The project-worktree
+provisioner calls the same helper before dependency-cache lookup, so native
+modules are installed and verified under the same runtime and ABI:
 
-1. Resolve the pinned major from `.node-version` (then `.nvmrc`). Explicit
+1. Resolve the pinned major from `.node-version`, `.nvmrc`, Volta, or a
+   single-major `engines.node` range, in that order. An open compatibility range
+   such as `>=22` is not a pin and remains inert. Explicit
    versions (`24`, `v24.18.0`, `24.x`) map directly; `lts/*`, `lts/-N`, and
    `lts/<codename>` resolve from a small static table plus a documented
    "current newest LTS" constant (`GARDEN_NODE_LTS_LATEST`, default `24`) — **no
    network**, so the gate stays deterministic and fails safe offline. Bump the
    constant when a new even major enters LTS (see
    [node-lts-window-watch](../node-lts-window-watch/SKILL.md)).
-2. If the active `node` already matches, proceed silently.
+2. If the active `node` already matches, proceed silently. The worktree
+   provisioner keys its warm cache by that runtime's `process.versions.modules`.
 3. Else look for a matching runtime under the common version-manager roots (nvm,
    fnm, n, volta) or an explicit `GARDEN_NODE`; if found, **adopt** it by
-   prepending its `bin` to `PATH` for the run.
+   prepending its `bin` to `PATH` before either cache lookup or verification.
 4. Else **refuse to run**, emitting a single `NODE RUNTIME PARITY:` line naming
    the pinned major, its source, and the active major, and exit non-zero (3).
+   Worktree creation still succeeds but skips dependency provisioning, rather
+   than publishing native modules under a runtime verification will reject.
    Failing loud is the point: a silent green under the wrong Node is the defect.
 
 Escape hatches (all auditable): `GARDEN_SKIP_NODE_PARITY=1` bypasses the guard;
@@ -548,9 +556,13 @@ control that must diagnose an environment fault. A final group covers the Node
 runtime-parity guard, driven relative to the host's actual node major so it holds
 on any runner: a mismatched pin fails loud (`NODE RUNTIME PARITY`, non-zero) with
 the steps proven **not** to run; a matching pin passes; `GARDEN_SKIP_NODE_PARITY`,
-`GARDEN_REQUIRED_NODE_MAJOR`, `GARDEN_NODE_LTS_LATEST`, `.nvmrc` fallback, and the
-adopt-a-discovered-runtime path (a fake nvm node on an exec-capable base) are each
-asserted. The XS fixture begins with a real direct git submodule uninitialized,
+`GARDEN_REQUIRED_NODE_MAJOR`, `GARDEN_NODE_LTS_LATEST`, `.nvmrc`, Volta, and
+single-major `engines.node` pins, plus the adopt-a-discovered-runtime path (a
+fake nvm node on an exec-capable base), are each asserted.
+`project-worktree-isolation-test.sh` first populates a native cache under one
+ABI, then exposes a repository-pinned runtime with another ABI and proves the
+provisioner builds a separate entry. The XS fixture begins with a real direct
+git submodule uninitialized,
 requires its pinned source marker from every `test:xs` command, and proves the
 harness initializes it while retaining silent success. A package-uniformity
 group proves the additive check reconstructs CI's

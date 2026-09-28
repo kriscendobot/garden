@@ -76,10 +76,11 @@
 # install on an already-warm yarn store, with better-sqlite3's prebuilt .node
 # keeping its cached inode and mtime). Both numbers appear in the HIT log line.
 # Native addons are only portable across runtimes with the same Node module ABI.
-# The active Node's `process.versions.modules` therefore participates in the
-# cache key, is recorded in each completed entry, and is checked again before a
-# hit is linked. An entry whose marker disagrees is discarded and rebuilt; if
-# the active ABI cannot be resolved consistently, caching is bypassed.
+# The shared runtime selector first adopts the repository-pinned Node, then that
+# Node's `process.versions.modules` participates in the cache key, is recorded in
+# each completed entry, and is checked again before a hit is linked. An entry
+# whose marker disagrees is discarded and rebuilt; if the selected ABI cannot be
+# resolved consistently, caching is bypassed.
 #
 # ── Isolation guarantees asserted by test/project-worktree-isolation-test.sh ──
 #   * two DIFFERENT bases, same repo+branch  → DISTINCT paths (the #58 fix);
@@ -655,6 +656,14 @@ git -C "$wt" config user.name  "$(bot_name)"
 git -C "$wt" config user.email "$(bot_email)"
 
 # ── warm dependency provisioning (native-module reuse across worktrees) ──────
+# Select the project runtime before looking up the cache. local-verify.sh calls
+# this same common.sh helper, so dependency installation and verification cannot
+# silently choose different Node majors (and therefore different native ABIs).
+if ! select_node_runtime "$wt"; then
+  log "WARN: $(node_runtime_parity_message | tr '\n' ' ') warm dependency provisioning skipped"
+  printf '%s\n' "$wt"
+  exit 0
+fi
 # See the header § Warm dependency cache. Best-effort: the `|| log` net suspends
 # `set -e` for the whole call, so a provisioning failure logs and continues —
 # the worktree handoff (the printf below) is never blocked.

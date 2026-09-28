@@ -24,8 +24,8 @@
 #      resume stability and isolation without consuming UNIX-socket path space.
 #   9. A branch absent upstream resolves from the garden fork, and the fetched
 #      ref is verified before checkout.
-#  10. Warm dependency caches are keyed by, and revalidated against, the active
-#      Node native-module ABI before any cached tree is hardlinked.
+#  10. Warm dependency caches are keyed by, and revalidated against, the
+#      repository-selected Node native-module ABI before any tree is hardlinked.
 #
 # Hermetic: throwaway bare "fork" clones + a throwaway garden root, no network.
 
@@ -510,6 +510,47 @@ STUBNODE
   grep -q "dep-cache bypass: could not resolve.*installing without cache" "$AW4_ERR" \
     && ok "an unresolved Node ABI emits a deterministic bypass diagnostic" \
     || bad "an unresolved Node ABI was not diagnosed"
+
+  # Reproduce the reported split-brain path. First populate a cache under the
+  # host runtime by deliberately bypassing parity. Then provision the same
+  # lockfile normally while the repository pins a discoverable different Node
+  # major. ensure-project-worktree and local-verify share select_node_runtime,
+  # so the second install must use that runtime's ABI instead of hitting the
+  # host-ABI entry.
+  make_node_fork endojs pinned-abi-cache main
+  PIN_SEED="$TR/seed-endojs-pinned-abi-cache"
+  printf '%s\n' 99 > "$PIN_SEED/.nvmrc"
+  git -C "$PIN_SEED" "${git_id[@]}" add .nvmrc
+  git -C "$PIN_SEED" "${git_id[@]}" commit -qm 'pin test runtime'
+  git -C "$PIN_SEED" push -q origin main
+  PIN_ROOT="$EXECDIR/pinned-nvm"
+  PIN_BIN="$PIN_ROOT/versions/node/v99.0.0/bin"
+  mkdir -p "$PIN_BIN"
+  cat > "$PIN_BIN/node" <<'STUBNODE'
+#!/bin/sh
+case "${1:-}" in
+  --version) echo v99.0.0 ;;
+  -p) echo 222 ;;
+  *) exit 1 ;;
+esac
+STUBNODE
+  chmod +x "$PIN_BIN/node"
+  HOST_ABI="$(node -p 'process.versions.modules')"
+  PIN_INSTALL='mkdir -p node_modules; node -p '\''process.versions.modules'\'' > node_modules/native.node'
+  PW1="$(GARDEN_SKIP_NODE_PARITY=1 GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" \
+    GARDEN_DEP_INSTALL_CMD="$PIN_INSTALL" GARDEN_DEP_RECONCILE_CMD=: \
+    bash "$HELPER" garden-pinned-host endojs/pinned-abi-cache main)"
+  PW2_ERR="$TR/pinned-abi.stderr"
+  PW2="$(NVM_DIR="$PIN_ROOT" GARDEN_ROOT="$GROOT" GARDEN_SCRATCH="$SCRATCH" \
+    GARDEN_DEP_INSTALL_CMD="$PIN_INSTALL" GARDEN_DEP_RECONCILE_CMD=: \
+    bash "$HELPER" garden-pinned-selected endojs/pinned-abi-cache main 2>"$PW2_ERR")"
+  [ "$(cat "$PW1/node_modules/native.node" 2>/dev/null)" = "$HOST_ABI" ] \
+    && [ "$(cat "$PW2/node_modules/native.node" 2>/dev/null)" = 222 ] \
+    && ok "a warm cache populated under one ABI is re-keyed for the repository-selected runtime" \
+    || bad "repository runtime selection reused the host-ABI native cache"
+  grep -q 'WARM-CACHE built:.*node ABI 222' "$PW2_ERR" \
+    && ok "the selected runtime builds and records its own ABI cache entry" \
+    || bad "the selected runtime ABI was not used before cache lookup"
 fi
 
 # Resume-reuse must NOT repopulate: re-run the first base, mutate its node_modules,

@@ -3289,7 +3289,8 @@ hermetic_gitconfig() {
 }
 
 # ── Node runtime parity ──────────────────────────────────────────────────────
-# A project pins the Node version its CI runs (`.node-version`, `.nvmrc`).
+# A project pins the Node version its CI runs (`.node-version`, `.nvmrc`, Volta,
+# or a single-major `engines.node` range).
 # GitHub's actions/setup-node resolves that file — including the nvm-style
 # `lts/*` alias — and runs every check under the resolved runtime. A host whose
 # `node` is a DIFFERENT major then verifies under the wrong runtime: type-aware
@@ -3334,8 +3335,9 @@ _node_lts_major_for_alias() {
   esac
 }
 
-# node_version_spec <worktree> — echo "<raw-spec>\t<source-file>" from the first
-# of .node-version / .nvmrc that carries a token, else nothing.
+# node_version_spec <worktree> — echo "<raw-spec>\t<source>" from the first
+# runtime pin that carries a token, else nothing. Version files take precedence
+# over package.json's Volta pin, which takes precedence over engines.node.
 node_version_spec() {
   local wt="$1" f raw
   for f in .node-version .nvmrc; do
@@ -3344,28 +3346,64 @@ node_version_spec() {
     raw="$(printf '%s' "$raw" | tr -d '[:space:]' | head -c 64)"
     [ -n "$raw" ] && { printf '%s\t%s\n' "$raw" "$f"; return 0; }
   done
+  if [ -f "$wt/package.json" ] && command -v jq >/dev/null 2>&1; then
+    raw="$(jq -r 'if (.volta.node | type) == "string" then .volta.node else empty end' "$wt/package.json" 2>/dev/null || true)"
+    [ -n "$raw" ] && { printf '%s\t%s\n' "$raw" 'package.json#volta.node'; return 0; }
+    raw="$(jq -r 'if (.engines.node | type) == "string" then .engines.node else empty end' "$wt/package.json" 2>/dev/null || true)"
+    [ -n "$raw" ] && { printf '%s\t%s\n' "$raw" 'package.json#engines.node'; return 0; }
+  fi
   return 0
+}
+
+# _node_major_from_spec <spec> <source> - resolve a deterministic major. Volta
+# and version-file spellings are versions/aliases. engines.node is used only
+# when its range is confined to one major; an open floor such as >=22 is not a
+# pin and must not make the garden choose an arbitrary supported runtime.
+_node_major_from_spec() {
+  local raw="$1" source="${2:-}" compact major upper
+  compact="$(printf '%s' "$raw" | tr -d '[:space:]')"
+  case "$compact" in
+    lts/*) _node_lts_major_for_alias "$compact"; return 0 ;;
+  esac
+  if [ "$source" = 'package.json#engines.node' ]; then
+    case "$compact" in
+      v[0-9]*|[0-9]*|\^[v0-9]*|\~[v0-9]*)
+        # Reject unions and open-ended/composite ranges unless they explicitly
+        # cap the next major (>=24<25).
+        case "$compact" in *'||'*|*' '*|*'>='*) ;; *)
+          major="${compact#\^}"; major="${major#\~}"; major="${major#v}"
+          major="${major%%.*}"
+          case "$major" in ''|*[!0-9]*) return 0 ;; esac
+          printf '%s\n' "$major"; return 0
+        esac ;;
+    esac
+    if [[ "$compact" =~ ^\>\=?v?([0-9]+)(\.[0-9xX*]+)*\<v?([0-9]+)(\.[0-9xX*]+)*$ ]]; then
+      major="${BASH_REMATCH[1]}"; upper="${BASH_REMATCH[3]}"
+      [ "$upper" -eq $((major + 1)) ] && printf '%s\n' "$major"
+    fi
+    return 0
+  fi
+  case "$compact" in
+    v[0-9]*|[0-9]*) compact="${compact#v}"; compact="${compact%%.*}"; printf '%s\n' "$(printf '%s' "$compact" | tr -cd '0-9')" ;;
+  esac
 }
 
 # required_node_major <worktree> — echo the Node MAJOR the project pins, else "".
 # GARDEN_REQUIRED_NODE_MAJOR overrides the file resolution entirely (set to "-"
 # or "none" to declare no requirement).
 required_node_major() {
-  local raw spec_line
+  local raw source spec_line
   if [ -n "${GARDEN_REQUIRED_NODE_MAJOR:-}" ]; then
     case "$GARDEN_REQUIRED_NODE_MAJOR" in
       -|none) return 0 ;;
-      *) printf '%s\n' "$(printf '%s' "${GARDEN_REQUIRED_NODE_MAJOR#v}" | tr -cd '0-9' )" ; return 0 ;;
+      *) _node_major_from_spec "$GARDEN_REQUIRED_NODE_MAJOR" GARDEN_REQUIRED_NODE_MAJOR; return 0 ;;
     esac
   fi
   spec_line="$(node_version_spec "$1")"
   raw="${spec_line%%$'\t'*}"
+  source="${spec_line#*$'\t'}"
   [ -n "$raw" ] || return 0
-  case "$raw" in
-    lts/*)          _node_lts_major_for_alias "$raw" ;;
-    v[0-9]*|[0-9]*) raw="${raw#v}"; raw="${raw%%.*}"; printf '%s\n' "$(printf '%s' "$raw" | tr -cd '0-9')" ;;
-    *)              printf '' ;;   # 'node'/'current'/'stable' aliases are not an LTS pin
-  esac
+  _node_major_from_spec "$raw" "$source"
 }
 
 # active_node_major — echo the major of the `node` currently on PATH, else "".
@@ -3412,6 +3450,45 @@ find_node_bin_for_major() {
     done
   done
   return 0
+}
+
+# select_node_runtime <worktree> - make PATH select the same pinned runtime for
+# every garden caller. Returns 0 when no pin applies or parity is satisfied and
+# 3 when a pin exists but no matching runtime is available. Callers use the
+# exported NODE_RUNTIME_* fields for one consistent diagnosis.
+select_node_runtime() {
+  local wt="$1" spec_line swap_bin
+  NODE_RUNTIME_REQUIRED_MAJOR=""
+  NODE_RUNTIME_ACTIVE_MAJOR="$(active_node_major)"
+  NODE_RUNTIME_RAW_SPEC=""
+  NODE_RUNTIME_SOURCE=""
+  export NODE_RUNTIME_REQUIRED_MAJOR NODE_RUNTIME_ACTIVE_MAJOR NODE_RUNTIME_RAW_SPEC NODE_RUNTIME_SOURCE
+  [ "${GARDEN_SKIP_NODE_PARITY:-}" = 1 ] && return 0
+  NODE_RUNTIME_REQUIRED_MAJOR="$(required_node_major "$wt")"
+  [ -n "$NODE_RUNTIME_REQUIRED_MAJOR" ] || return 0
+  spec_line="$(node_version_spec "$wt")"
+  NODE_RUNTIME_RAW_SPEC="${spec_line%%$'\t'*}"
+  NODE_RUNTIME_SOURCE="${spec_line#*$'\t'}"
+  if [ -n "${GARDEN_REQUIRED_NODE_MAJOR:-}" ]; then
+    NODE_RUNTIME_RAW_SPEC="$GARDEN_REQUIRED_NODE_MAJOR"
+    NODE_RUNTIME_SOURCE=GARDEN_REQUIRED_NODE_MAJOR
+  fi
+  if [ "$NODE_RUNTIME_ACTIVE_MAJOR" != "$NODE_RUNTIME_REQUIRED_MAJOR" ]; then
+    swap_bin="$(find_node_bin_for_major "$NODE_RUNTIME_REQUIRED_MAJOR")"
+    if [ -n "$swap_bin" ]; then
+      PATH="$swap_bin:$PATH"; export PATH
+      NODE_RUNTIME_ACTIVE_MAJOR="$(active_node_major)"
+    fi
+  fi
+  export NODE_RUNTIME_REQUIRED_MAJOR NODE_RUNTIME_ACTIVE_MAJOR NODE_RUNTIME_RAW_SPEC NODE_RUNTIME_SOURCE
+  [ "$NODE_RUNTIME_ACTIVE_MAJOR" = "$NODE_RUNTIME_REQUIRED_MAJOR" ] && return 0
+  return 3
+}
+
+node_runtime_parity_message() {
+  printf 'NODE RUNTIME PARITY: project pins Node %s (%s = %s) but the active node is %s - refusing to run under a mismatched runtime. Install Node %s (nvm/fnm/n), point GARDEN_NODE at a matching runtime, or set GARDEN_SKIP_NODE_PARITY=1 to bypass deliberately.\n' \
+    "$NODE_RUNTIME_REQUIRED_MAJOR" "${NODE_RUNTIME_SOURCE:-.node-version}" "${NODE_RUNTIME_RAW_SPEC:-?}" \
+    "${NODE_RUNTIME_ACTIVE_MAJOR:-none}" "$NODE_RUNTIME_REQUIRED_MAJOR"
 }
 
 # state_cleanup <dir> — remove a per-identity state dir under $GARDEN_STATE.

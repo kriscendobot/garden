@@ -315,3 +315,20 @@ like one of these recurring classes.
   override and still wins. General lesson: a runner hardcoded to one ecosystem is
   a parity defect the moment the fleet touches a repo in another; detect from the
   project's own declaration, do not make the operator carry an env override.
+- _2026-09-28_: closed a split-brain runtime selection in warm dependency
+  provisioning (job `fix-project-worktree-warm-cache-node-abi`). The cache was
+  correctly keyed by `process.versions.modules`, but it resolved that ABI from
+  the host's active Node before `local-verify.sh` independently adopted the
+  repository-pinned Node. A cache hit built under Node 22 ABI 127 could therefore
+  be handed to verification under Node 24 ABI 137, where `better-sqlite3` failed
+  to load. Fix: `select_node_runtime` in `common.sh` now owns pin resolution and
+  PATH adoption for both callers; `ensure-project-worktree.sh` calls it before
+  cache lookup, so the selected runtime's ABI participates in the key. Pin
+  discovery now also covers Volta and single-major `engines.node` declarations;
+  open-ended engine floors remain inert. If a pinned runtime is unavailable,
+  provisioning skips instead of publishing a cache verification will reject.
+  The regression first populates the same lockfile under one ABI, then exposes a
+  discoverable pinned runtime with another ABI and proves a distinct native
+  cache is built. General lesson: a cache can carry the right compatibility key
+  and still be wrong when producers and consumers choose that key through
+  different runtime-selection paths.
