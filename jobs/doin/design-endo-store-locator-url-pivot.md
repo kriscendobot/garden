@@ -45,3 +45,13 @@ Repo: endojs/endo-but-for-bots (and dependents in kriscendobot/minion.town and k
 - **The implementation pivot:** rework #1333 (same branch, or a successor PR that supersedes it; state which) to `endo store --locator … --name …`, with the locator parser accepting both `endo://` and the proposed https-fragment form behind that single parser. Include tests: round-trip, canonical form, rejection of non-locator https URLs and of unknown `v`, and CLI stdin handling. Update the Chat app accordingly, with tests. If you judge the https form should wait for design sign-off, implement `endo://` fully, keep the https path behind the parser with tests, and say so.
 - **Dependents:** find and update the demos and docs that use `adopt-locator`, for example kriscendobot/minion.town#117 (guest locator reveal and federation wiring), the verify-demo1/demo2 instruction work, garden issue 114 demo material, and the help text (`help.md`, `help-text-data.js`). minion.town should present share links in the https-fragment form once the design is accepted. Propose those changes as draft PRs or PR updates, and don't deploy anything.
 - Leave every PR as a draft for the maintainer's gauntlet. Report every PR touched.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T20:46:03Z
