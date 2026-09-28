@@ -35,6 +35,7 @@ Poll the journal board with a bounded deadline for that test basename to reach `
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-28T22:43:06Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
