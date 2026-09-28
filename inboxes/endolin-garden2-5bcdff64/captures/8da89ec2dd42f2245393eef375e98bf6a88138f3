@@ -1,0 +1,22 @@
+<6>21:20:57 [monk/3] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>21:20:57 [monk/3] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z' call ceiling: tier=mentor max-budget-usd=14.20 (scaled by fresh seven-day headroom when available)
+panel-head-freshness: not-applicable target=kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z reason=no-presented-pr
+<6>21:21:44 [assert-followup-posted] gate: BLOCK — 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z' declares handoff to 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T212121Z' but that successor is not durably posted on the board; leaving in doin for retry
+
+--- handler report (partial) ---
+PR #81 is merged, but this host (`endolin-garden2-5bcdff64`) isn't running the merged code yet. I've scheduled a retry job for five minutes out and am handing the work to it. No test job has been posted and nothing has been commented on PR #81 yet.
+
+**Checks on this attempt:**
+- `gh pr view 81` shows the PR merged at 2026-09-28T21:04:43Z as merge commit `4767705b28d522b591eddbd3b47976273c5e1853`.
+- `deployed_sha`, read through the deployed root's `scripts/jobs/common.sh`, returns `e036bb8e0650b66a4ae00dc1516c4c8df39901ca`.
+- After fetching `origin/main2` in this job's worktree, `git merge-base --is-ancestor 4767705b28 e036bb8e06` fails. The deployed version therefore doesn't include the merge. Git was run only in the job worktree, never in the deployed root.
+- The job says not to wait here, because an active gardener holds up the deploy. I didn't post the pty test job or comment on PR #81.
+
+**Handoff:**
+- I created a one-time schedule with `scripts/jobs/set-schedule-once.sh`, named `kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T212121Z` and due at 2026-09-28T21:26:21Z. Its job basename is the same as its name.
+- The job body is the full task text. The only change is the "Retry successor" note, which now records this attempt's host and time.
+- I confirmed the schedule is on `origin/journal2` under `schedules/…212121Z.md`, with the right `once:` time, basename prefix, frontmatter and complete task text.
+
+**Follow-up:** When the retry runs, it will check deployed ancestry again. Once the merge is deployed, it will post the `lane: pty` assayer test job, poll for its report and comment on PR #81. If the merge still isn't deployed, it will schedule another retry the same way.
+
+<<<GARDEN-JOB-HANDED-OFF: kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T212121Z>>>
