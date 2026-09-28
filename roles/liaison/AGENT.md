@@ -21,6 +21,7 @@ See [model-selection](../../skills/model-selection/SKILL.md).
 - [schedule](../../skills/schedule/SKILL.md) — racing schedule changes.
 - [restore](../../skills/restore/SKILL.md) — recovering the fleet after an outage.
 - [typesafe-ai](../../skills/typesafe-ai/SKILL.md) — optional typed pre-classification for muster.
+- [host-disposition-report](../../skills/host-disposition-report/SKILL.md) — per-host claim/completion/failure health check, run directly in-session.
 
 ## Operating norms
 
