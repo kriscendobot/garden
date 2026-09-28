@@ -1,0 +1,49 @@
+<6>14:27:02 [monk/1] job 'verify-demo2-cross-host-locator-instructions' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>14:27:02 [monk/1] job 'verify-demo2-cross-host-locator-instructions' call ceiling: tier=mentor max-budget-usd=14.80 (scaled by fresh seven-day headroom when available)
+panel-head-freshness: unreviewed target=endojs/endo-but-for-bots#1333 disposition=manual-gauntlet-not-triggered
+<6>14:35:07 [assert-followup-posted] gate: BLOCK — 'verify-demo2-cross-host-locator-instructions' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# verify-demo2-cross-host-locator-instructions: completion report
+
+**Verdict: the demo works on a local two-daemon bench, but it cannot run on production minion.town yet.** I did not force or bypass the production gate. I found two defects that would hurt a live demo. They are in the code of endojs/endo-but-for-bots#1333 and are unchanged by endojs/endo-but-for-bots#1335.
+
+**Comment posted:** https://github.com/kriscendobot/garden/issues/114#issuecomment-5872132557. It opens with the verdict line, and the issue is left open.
+
+## Production status (checked 2026-09-28)
+- **endojs/endo-but-for-bots#1333** (`adopt-locator`, head `11e726e7b1`) is still draft with no review, and its CI is green.
+- **endojs/endo-but-for-bots#1335** (session-binding fix, head `cb88b00fde`) is also still draft with no review, and its CI is green.
+- **endojs/endo-but-for-bots#1124** (the base #1333 is built on) is draft too.
+- **kriscendobot/minion.town#117** (the page and route that reveal your guest's locator, plus the activation script) is draft and marked "do not activate". The live landing page doesn't have that section yet.
+- **The gate is wider than #1335.** #117 lists four blockers before activation:
+  - the peer-gateway authority fix (#1335);
+  - the setting that lets minion.town advertise its public address, `ocapn-advertise-addr` (also in #1335);
+  - #1124 and #1333 merged to `llm`;
+  - your answers to authority questions (1) and (3) on endojs/endo-but-for-bots#1332.
+
+## Bench claim ("two real daemons, survives a restart")
+- **Tests:** at #1335's head, which includes #1333, the three relevant test files pass 18 of 18: `locator-adoption-ocapn`, `ocapn-endpoint-locator` and `networks-ocapn`.
+- **By hand:** I ran the demo using only the `endo` CLI, with daemon A standing in for minion.town and daemon B standing in for your laptop. I ran it on #1333 alone and on #1335, and the results were identical. These steps worked:
+  - `endo adopt-locator minion-town < locator` succeeded;
+  - `endo eval 'E(g).lookup("greeting")' g:minion-town` returned the value stored on A;
+  - a write from B showed up on A;
+  - everything still worked after restarting B;
+  - locators with one hex digit changed were rejected and left no name behind.
+- **The runbook in the comment** uses the real current commands, checked against `packages/cli/src/endo.js`. Two setup details it covers:
+  - the laptop needs the OCapN network installed too (`setup-ocapn.js`), or the adopt fails for lack of a common route;
+  - two daemons on one machine need different `ENDO_ADDR` values, or the second one fails to start.
+
+## Defects found (same on both heads)
+1. **One failed adopt breaks the working name until the laptop restarts.** After a bad adopt against the same host, the good name `minion-town` fails with `Session disconnected`, and retrying doesn't help. Restarting B fixes it.
+2. **After the hosting daemon restarts, a laptop that already adopted from it can't recover.**
+   - The restart gives the host a new session key, so it hands out a different locator.
+   - B fails with the old name, fails again after its own restart, and fails even when it adopts the new locator.
+   - A brand-new daemon adopts the new locator without trouble.
+   - In production, every minion.town deploy restarts that daemon, so every laptop that had adopted from it would break.
+   - The only workaround I verified is a laptop daemon with fresh state; I didn't test `endo purge`.
+
+## Follow-ups (not posted as jobs)
+- The two defects above should be fixed on #1333/#1335 before activation.
+- The production walkthrough (sign in, copy the locator, adopt against `minion.town:8940`) stays unverified until #1124, #1333 and #1335 merge, #117 lands, and you run `deploy-endo-federation.sh enable`.
+
+I made no garden repo changes. The bench daemons are stopped, and the scenario script is reproduced in the comment's `<details>` section.
