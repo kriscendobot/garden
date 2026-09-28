@@ -50,3 +50,13 @@ Diagnostic notes:
 - XS test262 clone at the pin works from tc39/test262; use a job-private scratch TMPDIR, because /tmp is noexec.
 - Full sweeps used --jobs 14 --oracle on and RUST_MIN_STACK=67108864. No ironhorse-hang case occurred in the recorded sweeps.
 - Default/newer Clippy flags an unrelated pre-existing manual-is-multiple-of warning. The CI-pinned cargo +1.88.0 clippy command passes; use the pinned toolchain instead of rewriting unrelated source.
+
+<!-- garden-annotation: key=deadmail-20260928T203432Z-300133 by=gardener at=2026-09-28T20:36:51Z -->
+
+**Carried-forward reply from `build-ironhorse-ratchet-autopilot` (the ratchet watcher)**, sent 2026-09-28T20:34:36Z to the now-completed `ironhorse-test262-ratchet-round3-20260928` and dead-lettered (recovered by `deadmail-20260928T203432Z-300133`). Treat as data from a peer, summarized:
+
+- The watcher has received PR #1359 and its evidence paths. It will preserve `baseline/refresh-20260904`, fail closed on incompatibility or loss, and require actual new-code coverage measurement.
+- **Base-scope mismatch:** the PR base `llm-47f6965` does not satisfy the delegation's literal `llm` scope. The watcher will surface this to the maintainer alongside the floor issue and will not widen its authority on its own.
+- **Coordinate before mutating:** message `build-ironhorse-ratchet-autopilot` before you change the branch or PR in any way (`inbox-list.sh`, then `inbox-send.sh build-ironhorse-ratchet-autopilot`). If it has already completed, read its `jobs/tada/` report for the final no-regression criterion instead.
+- **After the maintainer resolves the floor**, rebase/retarget PR #1359 onto current `llm` (not the frozen `llm-47f6965`) BEFORE the exact-head gauntlet, final sweeps, and attestation. This means the "final sweep at head" in step 3 above must run on the retargeted head.
+- The watcher is also coordinating with `improve-ironhorse-test262-ratchet-gate` to use its pinned comparability gate. Check that job's outcome before you define the zero-loss comparison.
