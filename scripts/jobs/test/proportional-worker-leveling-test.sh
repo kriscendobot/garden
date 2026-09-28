@@ -95,4 +95,13 @@ git -C "$SEED" add config/worker-leveling;git -C "$SEED" -c user.name=test -c us
 : >"$ACT";rm -rf "$TR/state"
 env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/state" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_USAGE_NOW="$(date -u +%s)" GARDEN_BUDGET_LEVEL_UP_CONFIRM=1 GARDEN_BUDGET_LEVEL_STEP=10 GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" "$JOBS/budget-level.sh" >"$TR/invalid-cap.out" 2>&1
 if grep -q '^large op=set-workers kind=monk count=4$' "$ACT"&&! grep -q '^small op=set-workers kind=monk' "$ACT"&&grep -q 'monk allocation frozen for pool anthropic:small on host small' "$TR/invalid-cap.out"&&! grep -q 'fleet monk allocation frozen' "$TR/invalid-cap.out";then ok "an invalid monk physical cap freezes only its pool while valid hosts keep leveling";else bad "invalid physical cap isolated incorrectly: act=$(tr '\n' ';'<"$ACT") log=$(tr '\n' ';'<"$TR/invalid-cap.out")";fi
+
+# A zero cap written by worker-derotate.sh (its journal marker present) is excluded
+# the same way, but quietly: the derotation already posted the episode's notice.
+git -C "$SEED" pull -q --rebase
+mkdir -p "$SEED/worker-derotate";printf 'host: small\nreason: heartbeat-offline\nprior_monk: 4\nprior_cleric: 4\n' >"$SEED/worker-derotate/small"
+git -C "$SEED" add worker-derotate;git -C "$SEED" -c user.name=test -c user.email=test@example.invalid commit -qm derotated-cap;git -C "$SEED" push -q
+: >"$ACT";rm -rf "$TR/state"
+env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/state" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_USAGE_NOW="$(date -u +%s)" GARDEN_BUDGET_LEVEL_UP_CONFIRM=1 GARDEN_BUDGET_LEVEL_STEP=10 GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" "$JOBS/budget-level.sh" >"$TR/derotated-cap.out" 2>&1
+if grep -q '^large op=set-workers kind=monk count=4$' "$ACT"&&! grep -q '^small op=set-workers kind=monk' "$ACT"&&grep -q 'excluded: host derotated by worker-derotate' "$TR/derotated-cap.out"&&! grep -q 'monk allocation frozen' "$TR/derotated-cap.out";then ok "a derotated host is excluded without a second freeze notice";else bad "derotated cap handled incorrectly: act=$(tr '\n' ';'<"$ACT") log=$(tr '\n' ';'<"$TR/derotated-cap.out")";fi
 echo "RESULT: $pass passed, $fail failed";[ "$fail" -eq 0 ]

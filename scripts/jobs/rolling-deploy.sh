@@ -229,41 +229,11 @@ all_follower_hosts() {
   done | sort
 }
 
-# The authoritative liveness fact is the periodically refreshed budget heartbeat,
-# NOT fleet/health (which is deploy-event-only and can look healthy for days after a
-# host dies). A host can contribute to more than one pool; its freshest heartbeat is
-# authoritative. Legacy flat budget/live/<host> records remain readable during the
-# rolling format migration.
-host_heartbeat_epoch() {  # host_heartbeat_epoch <host>
-  local host="$1" file at latest=""
-  for file in "$DIR"/budget/live/*/"$host" "$DIR"/budget/live/"$host"; do
-    [ -f "$file" ] || continue
-    at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
-    if ! [[ "$at" =~ ^[0-9]+$ ]]; then
-      at="$(sed -n 's/^sampled_at:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
-      at="$(date -u -d "$at" +%s 2>/dev/null || true)"
-    fi
-    [[ "$at" =~ ^[0-9]+$ ]] || continue
-    { [ -z "$latest" ] || [ "$at" -gt "$latest" ]; } && latest="$at"
-  done
-  printf '%s\n' "$latest"
-}
-
-HOST_LIVENESS_DETAIL=""
-host_is_online() {  # host_is_online <host>; detail is suitable for logs/records
-  local host="$1" sampled age
-  sampled="$(host_heartbeat_epoch "$host")"
-  if ! [[ "$sampled" =~ ^[0-9]+$ ]]; then
-    HOST_LIVENESS_DETAIL="no budget/live heartbeat"
-    return 1
-  fi
-  age=$(( now - sampled )); [ "$age" -lt 0 ] && age=0
-  if [ "$age" -gt "$GARDEN_HOST_OFFLINE_AFTER" ]; then
-    HOST_LIVENESS_DETAIL="heartbeat stale by ${age}s (offline threshold ${GARDEN_HOST_OFFLINE_AFTER}s; sampled_at_epoch=$sampled)"
-    return 1
-  fi
-  HOST_LIVENESS_DETAIL="heartbeat fresh (${age}s old; sampled_at_epoch=$sampled)"
-  return 0
+# Liveness is the shared budget-heartbeat predicate (common.sh host_liveness), the
+# same one worker-derotate.sh applies to worker-leveling capacity. Here a host with
+# no heartbeat at all is as absent as a stale one.
+host_is_online() {  # host_is_online <host>; HOST_LIVENESS_DETAIL is log-ready
+  host_liveness "$DIR" "$1" "$now"
 }
 
 # Public selection predicate: only PRESENT peers enter the canary rotation. Offline

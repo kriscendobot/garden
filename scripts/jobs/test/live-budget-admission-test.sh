@@ -495,7 +495,7 @@ SCHED_LOG="$TR/scheduler-budget.log"
 for tick in 1 2; do
   env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/scheduler-budget-state" JOURNAL_REMOTE="$LBARE" \
     GARDEN_SCHEDULER_CLONE="$TR/scheduler-budget-state/journal" GARDEN_SCHEDULER_NOW=$(( NOW + tick )) \
-    GARDEN_BUDGET_LEVEL_CONTROLLER="$TR/level-controller" GARDEN_ALERT_CMD="$ALERT_SINK" GARDEN_ALERT_RECORD="$ALERT_LOG" \
+    GARDEN_WORKER_DEROTATE_ENABLED=0 GARDEN_BUDGET_LEVEL_CONTROLLER="$TR/level-controller" GARDEN_ALERT_CMD="$ALERT_SINK" GARDEN_ALERT_RECORD="$ALERT_LOG" \
     "$JOBS/scheduler.sh" >>"$SCHED_LOG" 2>&1
 done
 if [ "$(grep -c '^KEY=' "$ALERT_LOG")" -eq 1 ] \
@@ -512,12 +512,12 @@ fi
 printf '#!/bin/bash\nexit 0\n' > "$TR/level-controller"
 env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/scheduler-budget-state" JOURNAL_REMOTE="$LBARE" \
   GARDEN_SCHEDULER_CLONE="$TR/scheduler-budget-state/journal" GARDEN_SCHEDULER_NOW=$(( NOW + 3 )) \
-  GARDEN_BUDGET_LEVEL_CONTROLLER="$TR/level-controller" GARDEN_ALERT_CMD="$ALERT_SINK" GARDEN_ALERT_RECORD="$ALERT_LOG" \
+  GARDEN_WORKER_DEROTATE_ENABLED=0 GARDEN_BUDGET_LEVEL_CONTROLLER="$TR/level-controller" GARDEN_ALERT_CMD="$ALERT_SINK" GARDEN_ALERT_RECORD="$ALERT_LOG" \
   "$JOBS/scheduler.sh" >/dev/null 2>&1
 printf '#!/bin/bash\necho "fixture controller exploded: bad pool row" >&2\nexit 37\n' > "$TR/level-controller"
 env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/scheduler-budget-state" JOURNAL_REMOTE="$LBARE" \
   GARDEN_SCHEDULER_CLONE="$TR/scheduler-budget-state/journal" GARDEN_SCHEDULER_NOW=$(( NOW + 4 )) \
-  GARDEN_BUDGET_LEVEL_CONTROLLER="$TR/level-controller" GARDEN_ALERT_CMD="$ALERT_SINK" GARDEN_ALERT_RECORD="$ALERT_LOG" \
+  GARDEN_WORKER_DEROTATE_ENABLED=0 GARDEN_BUDGET_LEVEL_CONTROLLER="$TR/level-controller" GARDEN_ALERT_CMD="$ALERT_SINK" GARDEN_ALERT_RECORD="$ALERT_LOG" \
   "$JOBS/scheduler.sh" >/dev/null 2>&1
 if [ "$(grep -c '^KEY=' "$ALERT_LOG")" -eq 3 ] \
    && grep -q '^MSG=RECOVERED:' "$ALERT_LOG" \

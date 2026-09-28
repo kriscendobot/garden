@@ -4576,6 +4576,62 @@ is_main_host() {
   [ "$leader" = "$GARDEN" ]
 }
 
+# --- host liveness (the budget heartbeat) ------------------------------------
+#
+# The authoritative host-liveness fact is the periodically refreshed budget
+# heartbeat budget/live/<pool>/<host> every host publishes, NOT fleet/health (which
+# is deploy-event-only and can look healthy for days after a host dies). A host can
+# contribute to more than one pool; its freshest heartbeat is authoritative. Legacy
+# flat budget/live/<host> records remain readable. Shared by rolling-deploy.sh (the
+# canary rotation) and worker-derotate.sh (the worker-leveling rotation) so the two
+# rotations can never disagree about what "offline" means.
+#
+# host_heartbeat_epoch <journal-dir> <host> — echo the freshest sampled epoch, or
+# nothing when no parseable heartbeat exists.
+host_heartbeat_epoch() {
+  local dir="$1" host="$2" file at latest=""
+  for file in "$dir"/budget/live/*/"$host" "$dir"/budget/live/"$host"; do
+    [ -f "$file" ] || continue
+    at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
+    if ! [[ "$at" =~ ^[0-9]+$ ]]; then
+      at="$(sed -n 's/^sampled_at:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
+      # An empty value must stay unparseable: `date -d ""` is today's midnight,
+      # which would read a broken record as a fresh heartbeat.
+      [ -z "$at" ] || at="$(date -u -d "$at" +%s 2>/dev/null || true)"
+    fi
+    [[ "$at" =~ ^[0-9]+$ ]] || continue
+    { [ -z "$latest" ] || [ "$at" -gt "$latest" ]; } && latest="$at"
+  done
+  printf '%s\n' "$latest"
+}
+
+# host_liveness <journal-dir> <host> <now-epoch> — classify the host against
+# GARDEN_HOST_OFFLINE_AFTER: rc 0 = PRESENT (fresh heartbeat), 1 = OFFLINE (a
+# parseable heartbeat that is stale), 2 = UNKNOWN (no parseable heartbeat, or an
+# unusable clock). HOST_LIVENESS_DETAIL carries a log-ready explanation. The canary
+# rotation treats any nonzero rc as absent; the capacity rotation must fail safe on
+# an ambiguous read, so it distinguishes 2 and neither zeroes nor restores on it.
+HOST_LIVENESS_DETAIL=""
+host_liveness() {
+  local dir="$1" host="$2" now="$3" sampled age
+  if ! [[ "$now" =~ ^[0-9]+$ ]]; then
+    HOST_LIVENESS_DETAIL="unusable clock '$now'"
+    return 2
+  fi
+  sampled="$(host_heartbeat_epoch "$dir" "$host")"
+  if ! [[ "$sampled" =~ ^[0-9]+$ ]]; then
+    HOST_LIVENESS_DETAIL="no budget/live heartbeat"
+    return 2
+  fi
+  age=$(( now - sampled )); [ "$age" -lt 0 ] && age=0
+  if [ "$age" -gt "$GARDEN_HOST_OFFLINE_AFTER" ]; then
+    HOST_LIVENESS_DETAIL="heartbeat stale by ${age}s (offline threshold ${GARDEN_HOST_OFFLINE_AFTER}s; sampled_at_epoch=$sampled)"
+    return 1
+  fi
+  HOST_LIVENESS_DETAIL="heartbeat fresh (${age}s old; sampled_at_epoch=$sampled)"
+  return 0
+}
+
 # Bounded journal fetch: timeout-wrapped, with backoff + retry. git has no IO
 # timeout of its own, so a half-open connection can hang a fetch forever; every
 # fetch routes through _journal_git_fetch (above), which bounds it with

@@ -80,14 +80,32 @@ The host scaler applies the resulting declarations subject to backend health.
   can still step down toward the floor.
   Freeze/recovery notices are edge-latched.
 
-**Known gap:** allocation still iterates configured hosts without excluding
-remote drained/offline hosts.
+**Offline hosts are derotated.**
+[worker-derotate.sh](../../scripts/jobs/worker-derotate.sh) runs just before the
+leveler in the same leader-only scheduler tick.
+A host whose `budget/live` heartbeat is stale past `GARDEN_HOST_OFFLINE_AFTER`
+(the rolling-deploy canary predicate, shared as `host_liveness` in `common.sh`) on
+two consecutive ticks has its row zeroed.
+The same commit records its exact prior caps in journal `worker-derotate/<host>`.
+The leveler then excludes it quietly, and the live hosts absorb the envelope.
+A fresh heartbeat restores those caps and drops the marker.
+Each episode posts one notice and one recovery.
+Only marker-owned rows are restored.
+A row an operator zeroes by hand stays zeroed.
+If an operator re-sets a derotated row, the marker is relinquished and the
+operator's value stands.
+A missing or unparseable heartbeat is treated as unknown, so the host is neither
+zeroed nor restored.
+A stale reading of the leader's own heartbeat freezes the tick.
+To hand a hand-zeroed row to the mechanism, run
+`worker-derotate.sh adopt <host> <monk> <cleric>`.
+The host's next fresh heartbeat then restores those caps.
+`worker-derotate.sh status` lists the markers.
+
+**Known gap:** a host that still heartbeats but does not claim (drained, wedged
+workers, a stuck deploy) is live by this signal and keeps its allocation.
 The leader's own drain guard does not solve this.
-The 2026-09-26 observation of oros-studio retaining 3–4 idle monk slots is
-consistent with this code.
-Treat allocation as configured capacity, not live
-capacity; a follow-up implementation should add liveness/drain eligibility and
-regression coverage before claiming the fleet ceiling is fully usable.
+Treat allocation as heartbeat-live capacity, not claiming capacity.
 
 ## Production, pacing, and decision records
 

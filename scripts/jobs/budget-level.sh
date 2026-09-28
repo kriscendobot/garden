@@ -124,6 +124,9 @@ for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";c="${pcaps[i]}";p="${p
  # Keep its freeze edge-latched to this pool/host and leave the host untouched.
  if ! [[ "${mcap[$h]:-}" =~ ^[1-9][0-9]*$ ]];then
   excluded_monk_pools=$((excluded_monk_pools+1))
+  # A row worker-derotate.sh zeroed for a silent host is expected, and that tick
+  # already posted the episode's one notice; do not raise a second freeze for it.
+  if [ -f "$DIR/${GARDEN_WORKER_DEROTATE_PATH:-worker-derotate}/$h" ];then log "monk pool $pool on $h excluded: host derotated by worker-derotate";continue;fi
   report_freeze "budget-level-monk-cap-$pool-$h" "$pool missing/invalid monk physical cap" "monk allocation frozen for pool $pool on host $h: missing/invalid monk physical cap; this pool is excluded while other configured hosts continue leveling."
   continue
  fi

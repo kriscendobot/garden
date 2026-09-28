@@ -22,6 +22,7 @@ export GARDEN_TAG="scheduler"
 : "${GARDEN_HANDLER_KILL_AFTER:=60}"
 : "${GARDEN_CLAIM_TTL:=14400}"
 : "${GARDEN_BUDGET_LEVEL_CONTROLLER:=$HERE/budget-level.sh}"
+: "${GARDEN_WORKER_DEROTATE_CONTROLLER:=$HERE/worker-derotate.sh}"
 # Per-invocation wall-clock bound on a schedule's `preflight:` gate, and the grace
 # between its SIGTERM and SIGKILL. Several due schedules share one tick under the
 # unit's TimeoutStartSec, so a single gate must not be able to spend all of it.
@@ -365,6 +366,22 @@ note_missing_preflight() {
 DIR="${GARDEN_SCHEDULER_CLONE:-$GARDEN_STATE/scheduler/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
+
+# Worker derotation runs first on the same leader-only substrate, so the leveler
+# below apportions against caps that already exclude a silent host (and include
+# one whose heartbeat just resumed). Fail-open: a derotation fault must never block
+# leveling or recurring-job dispatch.
+if [ "${GARDEN_WORKER_DEROTATE_ENABLED:-1}" = 1 ]; then
+  if /bin/bash "$GARDEN_WORKER_DEROTATE_CONTROLLER"; then
+    alert_maintainer_clear "scheduler-worker-derotate-failed" \
+      "worker-derotate controller is succeeding again on $GARDEN."
+  else
+    derotate_rc=$?
+    log "WARN: worker-derotate controller tick failed exit_status=$derotate_rc; leveling and dispatch continue (fail-open)"
+    alert_maintainer "scheduler-worker-derotate-failed" \
+      "worker-derotate controller failed on leader host $GARDEN (exit_status=$derotate_rc); no host's worker-leveling caps were changed by the failed tick, and leveling/dispatch continue. Run $GARDEN_WORKER_DEROTATE_CONTROLLER directly on $GARDEN to see the fault."
+  fi
+fi
 
 # The live-budget leveler is a deterministic controller, not a job. Run it on
 # this existing 15-minute leader-only scheduler substrate so it follows leader
