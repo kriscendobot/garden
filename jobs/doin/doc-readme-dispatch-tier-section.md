@@ -80,6 +80,7 @@ Confirm the new section's internal links resolve.
 Quote the section you wrote (or its final heading + first paragraph) in your
 completion report, and name the commit that landed it.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
