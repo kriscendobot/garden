@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T08:42:17Z_
+_As of 2026-09-28T08:53:04Z_
 
 ## Latest
 
@@ -376,11 +376,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
 
-> WATCHDOG notice — occurrence #24 (first seen 2026-09-27T02:00:48Z, latest 2026-09-28T08:37:45Z).
-> The SAME condition (`journal-outage-stuck`) has now been observed 24 times; this is ONE
-> coalesced notice that updates in place, not 24 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-28T08:47:46Z).
+> It was observed 24 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal outage latch stuck on endolin-garden-ece02cb4 for 601s (limit 600s); skips this tick=2, trailing skips=2.
+> Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -1431,20 +1431,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #53 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T08:21:41Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 53 times; this is ONE
-> coalesced notice that updates in place, not 53 messages. Latest detail:
+> WATCHDOG notice — occurrence #54 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T08:46:41Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 54 times; this is ONE
+> coalesced notice that updates in place, not 54 messages. Latest detail:
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 7 source(s); they post no acknowledgments while it holds.
-> gh-api cooldown marker: expiry=1790583944 set-by=receipt:kriscendobot-cosgov:journal prerequisite
-> journal-outage marker: 1790583754 cursor-get 
-> - kriscendobot/cosgov: watcher ticking but cooldown for 3291s (since 2026-09-28T07:26:50Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 3290s (since 2026-09-28T07:26:51Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 3234s (since 2026-09-28T07:27:47Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3292s (since 2026-09-28T07:26:49Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 3318s (since 2026-09-28T07:26:23Z)
-> - kriscendobot/minion.town: watcher ticking but cooldown for 2519s (since 2026-09-28T07:39:42Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 3300s (since 2026-09-28T07:26:41Z)
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 2 source(s); they post no acknowledgments while it holds.
+> journal-outage marker: 1790585215 cursor-get 
+> - kriscendobot/ocapn: watcher ticking but cooldown for 2132s (since 2026-09-28T08:11:09Z)
+> - kriscendobot/test262: watcher ticking but cooldown for 2141s (since 2026-09-28T08:11:00Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -3516,33 +3510,32 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.0M | $396.25 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 43.1M | $396.82 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 25% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49759306 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 5 open notice(s); checker healthy
+worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (2)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
-- [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Repair Ironhorse engine defect 2a2de75b75de4894 (target differential_source) ...
 - [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/doc-readme-control-surfaces-prompt-first.md) — Reorient README's "Control surfaces" section around what a maintainer says, n...
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1298
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-journal-cold-clone-bootstrap.md) — Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new work...
-- [`ironhorse-fuzz-d38f12f4884e186c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-d38f12f4884e186c-repair.md) — Repair Ironhorse engine defect d38f12f4884e186c (target differential_regexp_s...
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Repair Ironhorse engine defect ed616f6ec22095dc (target differential_regexp) ...
+- [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Repair Ironhorse engine defect 2a2de75b75de4894 (target differential_source) ...
 
-### tada (9348)
+### tada (9349)
+- [`ironhorse-fuzz-d38f12f4884e186c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-d38f12f4884e186c-repair.md) — Cost
 - [`mentat-minion-town-cloudflare-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/mentat-minion-town-cloudflare-backend-plan.md) — Completion report: mentat-minion-town-cloudflare-backend-plan
 - [`design-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/design-standing-token-backoff-ramp.md) — Cost
 - [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-378372c8706a48a8-repair.md) — Panel-head freshness
 - [`jev-preclassify-trusted-sender-quoted-text`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/jev-preclassify-trusted-sender-quoted-text.md) — Cost
-- [`mentat-endo-cask-rust-content-store-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/mentat-endo-cask-rust-content-store-design.md) — Completion report: mentat-endo-cask-rust-content-store-design
-- … and 9343 more
+- … and 9344 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
