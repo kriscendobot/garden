@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-09-28T20:45:19Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-deadmail-20260928T204100Z-1260b7
