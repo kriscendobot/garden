@@ -59,3 +59,13 @@ relevant suite before completing.
 
 Confirm the fixed output for a live example (re-derive it, don't just quote
 this job body) and name the landed commit.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T07:54:29Z
