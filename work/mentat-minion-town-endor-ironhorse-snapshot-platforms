@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-28T05:54:29Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-mentat-minion-town-endor-ironhorse-snapshot-platforms
+pr_number: 123
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/123
+pr_head: design/process-snapshot-persistence-by-platform
