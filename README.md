@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T16:19:36Z_
+_As of 2026-09-28T16:26:24Z_
 
 ## Latest
 
@@ -386,11 +386,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
 
-> RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-28T15:58:28Z).
-> It was observed 29 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #30 (first seen 2026-09-27T02:00:48Z, latest 2026-09-28T16:23:22Z).
+> The SAME condition (`journal-outage-stuck`) has now been observed 30 times; this is ONE
+> coalesced notice that updates in place, not 30 messages. Latest detail:
 >
-> Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
+> Journal outage latch stuck on endolin-garden-ece02cb4 for 601s (limit 600s); skips this tick=2, trailing skips=2.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -3560,13 +3560,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.0M | $418.92 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Claude | 45.1M | $419.65 _(notional, rate-card)_ | 32% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 50530631 tokens/day lower bound._
+_Fleet token-unlock pace: 50636534 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
+worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
