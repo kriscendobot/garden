@@ -108,3 +108,13 @@ scenario (or the real thing, if it's still unresolved when you run) now (a)
 forces the job transient instead of doom-cycling it, (b) parks the host after
 one failure instead of 109, and (c) produces exactly one maintainer-inbox
 notice for the episode, not one per failure.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T05:44:51Z
