@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 3
+worker_kind: monk
+claimed_at: 2026-09-28T21:20:45Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z
