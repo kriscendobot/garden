@@ -1,13 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-09-27T23:57:16Z
+sent_at: 2026-09-28T00:17:35Z
 watchdog_key: journal-outage-stuck
 notice_count: 17
 first_seen: 2026-09-27T02:00:48Z
-last_seen: 2026-09-27T23:57:16Z
+last_seen: 2026-09-28T00:17:35Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #17 (first seen 2026-09-27T02:00:48Z, latest 2026-09-27T23:57:16Z).
-The SAME condition (`journal-outage-stuck`) has now been observed 17 times; this is ONE
-coalesced notice that updates in place, not 17 messages. Latest detail:
+RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-28T00:17:35Z).
+It was observed 17 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Journal outage latch stuck on endolin-garden-ece02cb4 for 601s (limit 600s); skips this tick=3, trailing skips=3.
+Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
