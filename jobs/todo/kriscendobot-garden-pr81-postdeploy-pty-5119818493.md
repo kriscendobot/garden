@@ -38,13 +38,5 @@ Poll the journal board with a bounded deadline for that test basename to reach `
 
 <!-- garden-annotation: key=pr81-postdeploy-supervisor-long-budget by=review at=2026-09-05T08:00:57Z fields=role=fixer -->
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-28T21:05:26Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-28T21:23:05Z -->
