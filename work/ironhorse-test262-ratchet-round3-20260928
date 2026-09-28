@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-09-28T20:09:31Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-ironhorse-test262-ratchet-round3-20260928
+pr_number: 1359
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1359
+pr_head: feat/ironhorse-test262-ratchet-round3
