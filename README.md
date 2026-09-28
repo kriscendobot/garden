@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T05:50:56Z_
+_As of 2026-09-28T06:19:41Z_
 
 ## Latest
 
@@ -531,6 +531,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > M2’s remaining records are draft PRs: reconcile hardened-url-shim via [endojs/endo-but-for-bots#1355](https://github.com/endojs/endo-but-for-bots/issues/1355) and complete the XS smoke coverage via #1349. Please decide whether to run the gauntlet on these drafts; no autonomous work job can advance the manual-review gate.
 
+- `watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_Users_dom_garden__garden_state_sysop_journal.md)
+
+> Journal fetch anomaly on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/sysop/journal: p95=15.608259s max=21.049566s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+
 - `watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-oros-ckm-data-readiness.md)
 
 > RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-oros-ckm-data-readiness` has CLEARED (first seen 2026-09-26T16:25:29Z, cleared 2026-09-27T10:22:20Z).
@@ -755,6 +759,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `msg-scholar-ingest-fakecloud-dev-services-sdks-f3d8b09f6714` — from scholar:scholar-ingest-fakecloud-dev-services-sdks, reply_to `scholar-ingest-fakecloud-dev-services-sdks` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-fakecloud-dev-services-sdks-f3d8b09f6714.md)
+
+> fakecloud follow-on ingest done (12 docs pages, 15 sections, plus an addendum to the minion.town fit note). Verdict: the case for fakecloud's DynamoDB CI tier is stronger now. Upstream source confirms that `TransactWriteItems` returns AWS-shaped per-item `CancellationReasons`, and `dynamodb:Attributes`/`LeadingKeys` are documented as enforced under `--iam strict`, so the admin-ceiling invariant can get its first non-AWS negative test (it must sign with a non-`test*` key). SSM Run Command does not execute scripts, which confirms that deploy rehearsal is out of scope. S3 presigned URLs are only signature-checked under `--verify-sigv4`. The `fakecloud` npm SDK is AGPL-3.0-or-later, so I recommend raw HTTP calls instead of a devDependency. Also a correction: the global reset is `POST /_reset`, not `/_fakecloud/reset`. Details: journal/projects/minion-town/fakecloud-aws-emulation-fit-addendum.md; result entries/2026/09/28/055859Z-result-scholar-1ff88e.md.
 
 - `watchdog-comment-ack-latency-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-latency-kriscendobot-garden.md)
 
@@ -3202,11 +3210,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #855 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T04:51:11Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 855 times; this is ONE
-> coalesced notice that updates in place, not 855 messages. Latest detail:
+> WATCHDOG notice — occurrence #865 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T05:52:33Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 865 times; this is ONE
+> coalesced notice that updates in place, not 865 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 18f02975bc8c 273 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 18f02975bc8c 334 min ago
 > but still reports deployed_sha 586aee8196b4c03fdb68c7d2368856cb756de4eb. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -3274,25 +3282,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.7M | $378.87 _(notional, rate-card)_ | 29% of 143.0M (ok) |
-| Codex | 60.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 96% _(plan; codex-reported)_ |
+| Claude | 42.0M | $383.52 _(notional, rate-card)_ | 29% of 143.0M (ok) |
+| Codex | 60.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 98% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 54401085 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
+_Fleet token-unlock pace: 54763216 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
 
 ## Journal contention (this host)
 worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (31)
+### todo (24)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
-- [`doc-readme-dispatch-tier-section`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/doc-readme-dispatch-tier-section.md) — Add a "dispatch tier system" section to README.md
-- [`mentat-minion-town-endor-ironhorse-snapshot-platforms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-minion-town-endor-ironhorse-snapshot-platforms.md) — Plan: endor / Iron Horse orthogonal persistence of running processes on each ...
-- [`ironhorse-fuzz-d5413146a257bc30-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-d5413146a257bc30-repair.md) — Repair Ironhorse engine defect d5413146a257bc30 (target differential_regexp_s...
-- [`kriscendobot-minion.town-pr68-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr68-retcon.md) — retcon directive on kriscendobot/minion.town PR #68
-- [`deadmail-20260928T052807Z-a50de7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20260928T052807Z-a50de7.md) — Dead-lettered message — pick up its intent
 - [`mentat-minion-town-per-principal-sharding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-minion-town-per-principal-sharding.md) — Plan: shard minion.town by principal (user / guest / agent)
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1298-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1298
-- [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Repair Ironhorse engine defect e0fe14e41d5074a6 (target differential_source) ...
 - [`report-host-disposition-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/report-host-disposition-20260928.md) — Report: per-host job disposition, for maintainer/operator socialization
 - [`kriscendobot-minion.town-pr56-review-7d4dc95d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr56-review-7d4dc95d.md) — Review directive on kriscendobot/minion.town PR #56
 - [`ironhorse-fuzz-bc3d0df623811a38-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bc3d0df623811a38-repair.md) — Repair Ironhorse engine defect bc3d0df623811a38 (target differential_regexp_s...
@@ -3317,19 +3318,19 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/doc-readme-control-surfaces-prompt-first.md) — Reorient README's "Control surfaces" section around what a maintainer says, n...
 
 ### doin (5)
-- [`scholar-ingest-fakecloud-dev-services-sdks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-fakecloud-dev-services-sdks.md) — Ingest fakecloud.dev remainder: docs/services and docs/sdks
-- [`ironhorse-fuzz-27824c75429b8581-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-27824c75429b8581-repair.md) — Repair Ironhorse engine defect 27824c75429b8581 (target differential_source) ...
 - [`ironhorse-fuzz-e2a75557f762cd9c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e2a75557f762cd9c-repair.md) — Repair Ironhorse engine defect e2a75557f762cd9c (target differential_regexp) ...
 - [`fix-harness-auth-failure-health-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-harness-auth-failure-health-gate.md) — Detect harness auth-failure deterministically, park the host, alert the maint...
-- [`ironhorse-fuzz-ccb76a40851925f9-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ccb76a40851925f9-repair.md) — Repair Ironhorse engine defect ccb76a40851925f9 (target differential_regexp) ...
+- [`ironhorse-fuzz-d5413146a257bc30-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-d5413146a257bc30-repair.md) — Repair Ironhorse engine defect d5413146a257bc30 (target differential_regexp_s...
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1298
+- [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Repair Ironhorse engine defect e0fe14e41d5074a6 (target differential_source) ...
 
-### tada (9311)
-- [`ironhorse-fuzz-50834e82d3af453d-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-50834e82d3af453d-repair.md) — Completion report: ironhorse-fuzz-50834e82d3af453d-repair
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-panel-2.md) — Completion report
-- [`ironhorse-fuzz-c781c9b9de456ab2-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-c781c9b9de456ab2-repair.md) — Finding c781c9b9de456ab2 repaired: regression tests pushed to #1298
-- [`ironhorse-fuzz-fcbb16f5721e8fd2-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-fcbb16f5721e8fd2-repair.md) — Panel-head freshness
-- [`scholar-ingest-fakecloud-dev`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/scholar-ingest-fakecloud-dev.md) — Completion report: scholar-ingest-fakecloud-dev
-- … and 9306 more
+### tada (9318)
+- [`mentat-minion-town-endor-ironhorse-snapshot-platforms`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/mentat-minion-town-endor-ironhorse-snapshot-platforms.md) — Cost
+- [`kriscendobot-minion.town-pr68-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr68-retcon.md) — Completion report: retcon of kriscendobot/minion.town PR #68
+- [`deadmail-20260928T052807Z-a50de7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/deadmail-20260928T052807Z-a50de7.md) — Panel-head freshness
+- [`scholar-ingest-fakecloud-dev-services-sdks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/scholar-ingest-fakecloud-dev-services-sdks.md) — Completion report: scholar-ingest-fakecloud-dev-services-sdks
+- [`doc-readme-dispatch-tier-section`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/doc-readme-dispatch-tier-section.md) — Completion report
+- … and 9313 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
