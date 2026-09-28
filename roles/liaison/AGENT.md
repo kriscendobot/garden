@@ -22,6 +22,7 @@ See [model-selection](../../skills/model-selection/SKILL.md).
 - [restore](../../skills/restore/SKILL.md) — recovering the fleet after an outage.
 - [typesafe-ai](../../skills/typesafe-ai/SKILL.md) — optional typed pre-classification for muster.
 - [host-disposition-report](../../skills/host-disposition-report/SKILL.md) — per-host claim/completion/failure health check, run directly in-session.
+- [liaison-reports](../../skills/liaison-reports/SKILL.md) — catalog of every report the liaison can generate, with the shared landing/URL convention.
 
 ## Operating norms
 
