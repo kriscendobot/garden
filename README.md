@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T07:53:24Z_
+_As of 2026-09-28T08:13:28Z_
 
 ## Latest
 
@@ -1431,17 +1431,26 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #51 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T07:31:23Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 51 times; this is ONE
-> coalesced notice that updates in place, not 51 messages. Latest detail:
+> WATCHDOG notice — occurrence #52 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T07:56:40Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 52 times; this is ONE
+> coalesced notice that updates in place, not 52 messages. Latest detail:
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 3 source(s); they post no acknowledgments while it holds.
-> gh-api cooldown marker: expiry=1790580967 set-by=receipt:kriscendobot-endo:journal prerequisite
-> journal-outage marker: 1790580754 cursor-get 
-> - kriscendobot/ocapn: watcher ticking but cooldown for 2527s (since 2026-09-28T06:49:16Z)
-> - kriscendobot/endo: watcher ticking but cooldown for 8472s (since 2026-09-28T05:10:11Z)
-> - kriscendobot/garden: [https://github.com/kriscendobot/garden/issues/114](https://github.com/kriscendobot/garden/issues/114)#issuecomment-5864051232 (age=7280s; heartbeat=cooldown)
-> watcher ticking but cooldown for 2503s (since 2026-09-28T06:49:40Z)
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 11 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1790582429 set-by=receipt:kriscendobot-cosgov:journal prerequisite
+> journal-outage marker: 1790582195 cursor-get 
+> - kriscendobot/cosgov: watcher ticking but cooldown for 1784s (since 2026-09-28T07:26:50Z)
+> - kriscendobot/ocapn: watcher ticking but cooldown for 4038s (since 2026-09-28T06:49:16Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 1349s (since 2026-09-28T07:34:05Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 1783s (since 2026-09-28T07:26:51Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1727s (since 2026-09-28T07:27:47Z)
+> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 1835s (since 2026-09-28T07:25:59Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 1774s (since 2026-09-28T07:27:00Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 1785s (since 2026-09-28T07:26:49Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1811s (since 2026-09-28T07:26:23Z)
+> - kriscendobot/garden: [https://github.com/kriscendobot/garden/issues/114](https://github.com/kriscendobot/garden/issues/114)#issuecomment-5864051232 (age=8782s; heartbeat=cooldown)
+> watcher ticking but cooldown for 1870s (since 2026-09-28T07:25:24Z)
+> watcher ticking but cooldown for 4014s (since 2026-09-28T06:49:40Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 1793s (since 2026-09-28T07:26:41Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -2336,7 +2345,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
-> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=123450924 cap=143000000 pace-bias=0.776442 ceiling=3 target=3
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-12T03:35:10Z, latest 2026-09-28T08:11:20Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-3`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=42821049 cap=143000000 pace-bias=0.020559 ceiling=4 target=3
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal.md)
 
@@ -3252,6 +3265,63 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal lock contention on endolin-garden2-5bcdff64 for _home_kris_garden2__garden_state_leader_journal: p95=0.049422s, giveups=59, steals=0 (max 3/window), wait floor=60s.
 
+- `doomed-mentat-minion-town-cloudflare-backend-plan-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-mentat-minion-town-cloudflare-backend-plan-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/mentat-minion-town-cloudflare-backend-plan; it stays HELD until a human promotes it
+> (promote-plan.sh mentat-minion-town-cloudflare-backend-plan) or removes it, so nothing is lost.
+> Original job base: mentat-minion-town-cloudflare-backend-plan
+>
+> --- original job body ---
+> ---
+> tier: mentat
+> dispatch: manual
+> ---
+> role: designer
+> handler-timeout: 10800
+>
+> # Plan: minion.town on Cloudflare (R2, D1, Durable Objects, Workers, Queues, Cron, Git storage)
+>
+> Repo: `kriscendobot/minion.town` (design lands under `designs/` per that repo's conventions; follow the
+> garden designer norms in `roles/designer/AGENT.md`, including the open-questions review-PR carve-out). Cross-repo
+> design implications for Endo belong in a clearly marked section, not in edits to `endojs/endo-but-for-bots`.
+>
+> ## Maintainer framing (kriskowal, 2026-09-28)
+> A core notion of minion.town is that it scales to a distributed system by taking advantage of platform persistence
+> (S3 and DynamoDB on AWS). This works because the **Pet Daemon capabilities are generic and precise enough that the
+> database (formula store) and the content store can be replaced with platform-specific variants.** The work is to plan
+> finishing that on AWS (already planned), to plan the analogous stand-up on other backends, to integrate
+> endor/Iron Horse orthogonal persistence of running processes, and to shard by principal.
+>
+> ## Read first (prior art, verify each against the code)
+> - minion.town: the provider portability boundary (`src/` has no AWS SDK imports; adapters load by config, e.g.
+>   `ACCOUNT_STORE=dynamodb`; `src/auth/stores/dynamodb.ts`, `src/billing/stores/dynamodb.ts`),
+>   `designs/git-content-substrate.md`, `designs/clip-usage-metering.md`, `designs/clip-formula-id-origin-and-content-gc.md`,
+>   the deploy tree `deploy/aws/`, and `DEPLOYMENT.md`.
+> - Endo (`endojs/endo-but-for-bots`, branch `llm`): the daemon formula/persistence and content-store interfaces, the
+>   designs README entries for `daemon-xs-worker-snapshot`, `snapshot-mapper`, and `@endo/thixotrope` (orthogonally
+>   persistent ocap machine with XS and Iron Horse worker engines), and metering designs.
+> - Garden library (`journal/library/`): topics `xs-agent-runtimes`, `persistence`, `capability-security`, and the
+>   concept `xs-heap-snapshot-agent-persistence` (KaozKit, ingested 2026-09-25).
+> - Sibling mentat jobs posted together (read whichever have already landed, and cross-reference them):
+>   `mentat-minion-town-aws-distributed-persistence-plan`, `mentat-minion-town-cloudflare-backend-plan`,
+>   `mentat-minion-town-alt-hosts-backend-plan`, `mentat-minion-town-endor-ironhorse-snapshot-platforms`,
+>   `mentat-minion-town-per-principal-sharding`.
+>
+> ## Ground rules
+> Planning only: no deployments, no cloud accounts or resources created, no spending. Vendor facts must come from
+> current first-party documentation, with citations and "as of" dates; flag anything uncertain or pricing-sensitive
+> rather than guessing. Complete via the normal completion path. The report should name the design file, PR (if
+> any), the open questions for the maintainer, and a proposed build sequence (as suggested job basenames, not posted).
+>
+> ## This job
+> - Map the same persistence interfaces onto Cloudflare offerings: R2 for content, D1 and/or Durable Objects storage for formulas, and evaluate Cloudflare's Git storage offerings for the git content substrate. Say which help and which do not, and why.
+> - **Durable Objects** as a natural home for a per-principal or per-formula actor: consistency model, hibernation, and limits.
+> - **Specialized indelible capabilities for guests on this platform, related to queuing and scheduling** (Queues, Cron Triggers, Durable Object alarms, Workflows): design what a guest-held capability to enqueue or schedule would look like, how it stays attenuable and revocable in the ocap model, and how it is metered.
+> - The runtime question: can the daemon or its workers run on Workers/DO (V8 isolates, SES/lockdown compatibility, limits), or does Cloudflare serve only as the persistence and edge layer in front of containers elsewhere? Compare the options.
+> - Output `designs/cloudflare-backend.md`.
+
 - `watchdog-comment-watcher-dead-kriscendobot-finbot` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-dead-kriscendobot-finbot.md)
 
 > RECOVERED — the watchdog condition `comment-watcher-dead-kriscendobot-finbot` has CLEARED (first seen 2026-09-26T16:10:56Z, cleared 2026-09-26T17:30:27Z).
@@ -3380,11 +3450,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #875 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T06:53:37Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 875 times; this is ONE
-> coalesced notice that updates in place, not 875 messages. Latest detail:
+> WATCHDOG notice — occurrence #885 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T07:53:53Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 885 times; this is ONE
+> coalesced notice that updates in place, not 885 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 18f02975bc8c 395 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 18f02975bc8c 456 min ago
 > but still reports deployed_sha 586aee8196b4c03fdb68c7d2368856cb756de4eb. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -3430,6 +3500,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Comment acknowledgment condition cleared.
 
+- `watchdog-budget-level-cleric-endolin-garden-ece02cb4-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-0.md)
+
+> budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 0 (target 0): shared codex subscription demand active=0 queue=8 quota=ok fleet-envelope=0 target=0
+
 - `20260927T025745Z-ebc859` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T025745Z-ebc859.md)
 
 > kind: error
@@ -3452,22 +3526,23 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.7M | $393.49 _(notional, rate-card)_ | 30% of 143.0M (ok) |
-| Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 23% _(plan; codex-reported)_ |
+| Claude | 43.1M | $398.62 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 50433831 tokens/day lower bound._
+_Fleet token-unlock pace: 50088384 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (10)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
-- [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-284de587e16bce32-repair.md) — Repair Ironhorse engine defect 284de587e16bce32 (target differential_source) ...
-- [`fix-codex-budget-live-spend-label`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-codex-budget-live-spend-label.md) — Fix misleading spend/cap units in codex-endolin's budget-live snapshot
+- [`jev-preclassify-trusted-sender-quoted-text`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/jev-preclassify-trusted-sender-quoted-text.md) — Design: Jev defense-in-depth on sender-gated comment/mention/issue text
+- [`daily-progress-summary-20260928-071105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260928-071105.md) — Daily midnight Pacific progress summary
+- [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-378372c8706a48a8-repair.md) — Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
+- [`mentat-minion-town-cloudflare-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-minion-town-cloudflare-backend-plan.md) — Plan: minion.town on Cloudflare (R2, D1, Durable Objects, Workers, Queues, Cr...
 - [`ironhorse-fuzz-d38f12f4884e186c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-d38f12f4884e186c-repair.md) — Repair Ironhorse engine defect d38f12f4884e186c (target differential_regexp_s...
 - [`design-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-standing-token-backoff-ramp.md) — Design: a standing, automatic token-backoff-fraction reset-to-reset ramp
-- [`mentat-minion-town-aws-distributed-persistence-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-minion-town-aws-distributed-persistence-plan.md) — Plan: finish minion.town distributed persistence on AWS (S3 + DynamoDB)
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Repair Ironhorse engine defect ed616f6ec22095dc (target differential_regexp) ...
 - [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Repair Ironhorse engine defect 2a2de75b75de4894 (target differential_source) ...
 - [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/doc-readme-control-surfaces-prompt-first.md) — Reorient README's "Control surfaces" section around what a maintainer says, n...
@@ -3475,16 +3550,16 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1298
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-journal-cold-clone-bootstrap.md) — Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new work...
-- [`mentat-minion-town-cloudflare-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-minion-town-cloudflare-backend-plan.md) — Plan: minion.town on Cloudflare (R2, D1, Durable Objects, Workers, Queues, Cr...
-- [`jev-preclassify-foreign-content-survey`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/jev-preclassify-foreign-content-survey.md) — Survey the garden for foreign-content-reading surfaces; wire Jev pre-classifi...
+- [`mentat-endo-cask-rust-content-store-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-endo-cask-rust-content-store-design.md) — Design: CASK in Rust as Endo's content store (and substrate for Endo's virtua...
+- [`mentat-minion-town-aws-distributed-persistence-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-minion-town-aws-distributed-persistence-plan.md) — Plan: finish minion.town distributed persistence on AWS (S3 + DynamoDB)
 
-### tada (9337)
+### tada (9341)
+- [`ironhorse-fuzz-284de587e16bce32-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-284de587e16bce32-repair.md) — Cost
+- [`jev-preclassify-foreign-content-survey`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/jev-preclassify-foreign-content-survey.md) — Completion report: jev-preclassify-foreign-content-survey
+- [`jev-preclassify-botanist-release-notes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/jev-preclassify-botanist-release-notes.md) — Completion report: jev-preclassify-botanist-release-notes
+- [`fix-codex-budget-live-spend-label`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fix-codex-budget-live-spend-label.md) — Cost
 - [`ironhorse-fuzz-e773681b6d831dc1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-e773681b6d831dc1-repair.md) — Cost
-- [`ironhorse-fuzz-fd8517d5f3071227-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-fd8517d5f3071227-repair.md) — Cost
-- [`claude-on-minion-town-press-20260928-072639`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-072639.md) — Cost
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-panel-3.md) — Cost
-- [`claude-on-minion-town-completion-press-20260928-072639`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-072639.md) — Cost
-- … and 9332 more
+- … and 9336 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3513,7 +3588,6 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/retire-gardener-worker-kind-alias.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1286-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1286-receipt.md) — _normal_ · receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1286 (me...
 - [`endojs-endo-but-for-bots-pr1345-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1345-conduct.md) — _normal_ · Finalize (curate -> merge) endojs/endo-but-for-bots PR #1345
-- [`daily-progress-summary-20260928-071105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daily-progress-summary-20260928-071105.md) — _normal_ · Daily midnight Pacific progress summary
 - [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/harness-provider-matrix-handoff-20260901.md) — _normal_ · Hand-off: harness × inference-provider matrix, and what to probe next
 - [`ebfb-llm-xs-daemon-bundle-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-xs-daemon-bundle-reconcile.md) — _normal_ · ---
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
@@ -3530,12 +3604,10 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
 - [`design-hardened-ses-shims-plan-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-hardened-ses-shims-plan-reconciliation.md) — _normal_ · ---
 - [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/run-the-gauntlet-minion-town-pr90.md) — _normal_ · ---
-- [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-378372c8706a48a8-repair.md) — _normal_ · Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
 - [`endojs-endo-but-for-bots-pr1301-review-3220af4b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1301-review-3220af4b-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1301 (primary: endojs-endo-but-...
 - [`oros-ckm-dependabot-audit-0013418`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/oros-ckm-dependabot-audit-0013418.md) — _normal_ · ---
 - [`build-usage-scrape-ingest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-usage-scrape-ingest.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1226-review-179ff5ab-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1226 (primary: endojs-endo-but-...
-- [`mentat-endo-cask-rust-content-store-design`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/mentat-endo-cask-rust-content-store-design.md) — _normal_ · Design: CASK in Rust as Endo's content store (and substrate for Endo's virtua...
 - [`design-hardened-ses-shim-status-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-hardened-ses-shim-status-reconciliation.md) — _normal_ · ---
 - [`fix-endojs-endo-but-for-bots-pr610`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-endojs-endo-but-for-bots-pr610.md) — _normal_ · ---
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
