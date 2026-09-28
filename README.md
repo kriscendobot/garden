@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T21:12:28Z_
+_As of 2026-09-28T21:18:20Z_
 
 ## Latest
 
@@ -923,10 +923,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > dispatch: automatic
 > ---
 > Build the M2 `hardened-url-shim` design in `endojs/endo-but-for-bots` on a `master`-based branch, reconciling the vetted URL/URLSearchParams SES shim and opening a draft implementation PR if work remains.
-
-- `kriscendobot-minion.town-pr86-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr86-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr86-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion.town-pr86-gauntlet HALTED: PR [kriscendobot/minion.town#86](https://github.com/kriscendobot/minion.town/issues/86) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #86') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
 
 - `20260928T174855Z-61c52e` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T174855Z-61c52e.md)
 
@@ -2568,11 +2564,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-09-27T03:15:38Z, cleared 2026-09-27T09:59:03Z).
-> It was observed 8 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #9 (first seen 2026-09-27T03:15:38Z, latest 2026-09-28T21:14:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-endolin-garden2-5bcdff64`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> canary endolin-garden2-5bcdff64 is no longer stuck (release 773813fb507cecdfe1d66066b7e05f4fe2404b3b, deployed 773813fb507cecdfe1d66066b7e05f4fe2404b3b).
+> Rolling-deploy canary endolin-garden2-5bcdff64 is STUCK: it was released to 9a9553c70e99 60 min ago
+> but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on endolin-garden2-5bcdff64
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_ymax_stdio_mcp.md)
 
@@ -3657,7 +3657,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.5M | $445.64 _(notional, rate-card)_ | 34% of 143.0M (ok) |
+| Claude | 48.6M | $445.94 _(notional, rate-card)_ | 34% of 143.0M (ok) |
 | Codex | 4.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 62414793 tokens/day lower bound._
@@ -3666,27 +3666,24 @@ _Fleet token-unlock pace: 62414793 tokens/day lower bound._
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (2)
+- [`design-endo-store-locator-url-pivot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endo-store-locator-url-pivot.md) — Pivot endo adopt-locator into endo store --locator, and make "locator" mean a...
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 
-### doin (9)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1357-593395b4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-593395b4-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1357 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1357-593395b4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-593395b4.md) — attention directive on endojs/endo-but-for-bots PR #1357
 - [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260928.md) — Finish activation of the authorized Ironhorse ratchet autopilot
-- [`kriscendobot-minion.town-pr120-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-retcon.md) — retcon directive on kriscendobot/minion.town PR #120
-- [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1097
-- [`design-endo-store-locator-url-pivot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-store-locator-url-pivot.md) — Pivot endo adopt-locator into endo store --locator, and make "locator" mean a...
-- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493.md) — Post-deploy interactive validation and maintainer report for garden PR #81
+- [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1097
 - [`kriscendobot-minion-town-pr130-conduct-prod-validate-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr130-conduct-prod-validate-20260928.md) — Conduct minion.town PR #130 and finish PR #117 production validation
 - [`kriscendobot-minion.town-pr86-review-eee45c8f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr86-review-eee45c8f.md) — Review directive on kriscendobot/minion.town PR #86
 
-### tada (9413)
-- [`kriscendobot-minion.town-pr117-review-e2f26bcf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr117-review-e2f26bcf.md) — Cost
-- [`kriscendobot-minion.town-pr86-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-gauntlet.md) — gauntlet kriscendobot-minion.town-pr86-gauntlet — HALTED
-- [`fix-minion-town-copy-guest-url-clipboard`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fix-minion-town-copy-guest-url-clipboard.md) — Cost
-- [`kriscendobot-minion.town-pr86-a11fd8d4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-a11fd8d4-retro.md) — Cost
-- [`kriscendobot-minion.town-pr86-a11fd8d4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-a11fd8d4.md) — Completion report: kriscendobot-minion.town-pr86-a11fd8d4
-- … and 9408 more
+### tada (9418)
+- [`kriscendobot-minion.town-pr86-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-conduct.md) — Conduct kriscendobot/minion.town#86: not merged (stalled)
+- [`endojs-endo-but-for-bots-pr1102-5b4b465b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1102-5b4b465b.md) — Completion report: endojs/endo-but-for-bots PR #1102, attention directive (co...
+- [`kriscendobot-minion.town-pr120-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr120-retcon.md) — Cost
+- [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-1.md) — Cost
+- [`endojs-endo-but-for-bots-pr1357-593395b4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1357-593395b4.md) — Completion report: endojs/endo-but-for-bots#1357, comment r4126953829
+- … and 9413 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3765,6 +3762,7 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 
 ### deferred (top by priority; foreman auto-promotes when idle)
 - [`kriscendobot-minion.town-pr86-review-eee45c8f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr86-review-eee45c8f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #86 (primary: kriscendobot-minio...
+- [`endojs-endo-but-for-bots-pr1102-5b4b465b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1102-5b4b465b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1102 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
