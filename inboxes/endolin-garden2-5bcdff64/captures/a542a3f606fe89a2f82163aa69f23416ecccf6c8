@@ -1,0 +1,26 @@
+<6>20:46:16 [monk/1] job 'design-endo-store-locator-url-pivot' resolved tier 'mentat' -> claude --model claude-fable-5
+<6>20:46:16 [monk/1] job 'design-endo-store-locator-url-pivot' call ceiling: tier=mentat max-budget-usd=28.80 (scaled by fresh seven-day headroom when available)
+panel-head-freshness: unreviewed target=endojs/endo-but-for-bots#1360 disposition=manual-gauntlet-not-triggered
+<6>21:09:19 [assert-followup-posted] gate: BLOCK — 'design-endo-store-locator-url-pivot' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# Completion report: design-endo-store-locator-url-pivot
+
+## What I did
+
+**1. Design doc (draft PR endojs/endo-but-for-bots#1360).** Wrote `designs/capability-url-locators.md` on a branch off `llm` (frozen base `llm-47f6965`). It specifies: the fold of `adopt-locator` into `endo store --locator <locator|-> --name <name>` (stdin via `--locator -`, file via `--locator-file`, one exclusive `store` mode, all of #1333's safety properties kept); the unification of the daemon surfaces (`adoptFromLocator` = verify-then-commit for foreign input, `storeLocator` = identity-commit primitive, one shared parser); the https fragment grammar — "locator" means any capability URL, and an https URL is a locator iff its fragment parses with the recognized version key `v` (currently `1`, defined as a shared registry with minion.town's existing `#v=1&invitation=…` envelope; locator family keys `v,node,formula,type,hint*,from,fromNode,view`); exact encodings, canonical form, lossless `endo://` ⇄ https round-trip, version-evolution rules; the origin/path as semantically inert; the `parseCapabilityUrl`/`formatCapabilityUrl` API; mechanically computed worked examples (the #1333 guest locator both forms, multi-hint, minion.town share link); security guidance (fragment leak channels including landing-origin script access and messenger pastes, look-alike-origin phishing since origin carries no authority, hint-dialing hazards); and a real `## Open questions` section (origin-as-default-hint, envelope-family custody, argv bearer refusal, share-link default form, `adoptFromLocator` rename, `view`).
+
+**2. Implementation pivot — on #1333's own branch** (`build/guest-locator-adoption`, commit `6e946d4d09`; same PR reworked, not a successor; retitled, still draft, base pin untouched). New browser-safe `@endo/daemon/capability-url.js` (parser for both forms, canonicalizer, formatters) exported from the package; `EndoHost.adoptFromLocator` and `EndoDirectory.storeLocator` normalize through it with redaction preserved; `parseLocator` admits the `view` key already produced in the wild. CLI: `adopt-locator` removed, `store --locator`/`--locator-file` added. Chat: `/adopt-locator` executor command renamed `/store`, the Connect-to-Channel paste flow accepts either form via the shared parser (replacing hand URL surgery), LAL primers and daemon help regenerated. As the design allows, **https share-link emission is deferred to design sign-off** — the https path is fully implemented and tested behind the parser; every accepting surface understands both forms now.
+
+**Verified by execution:** daemon `capability-url.test.js` + `locator.test.js` (52 pass, including round-trip, canonical/idempotence, non-locator https and unknown-`v` rejection, duplicate/mixed-family/envelope refusal, redaction); the two-daemon OCapN adoption test with a new https-form adoption case (3 pass); CLI offline flag tests incl. stdin handling (5 pass); chat command tests (97 pass); eslint 0 errors; prettier clean; `lint:types` clean in daemon and cli. Not verified: browser-rendered Chat UI (unit/DOM-less only).
+
+**3. Dependents.** minion.town's #117 had already **merged**, so the update is a new draft PR **kriscendobot/minion.town#132** (base `main-b32291d`): landing/shell/DEPLOYMENT instructions become `endo store --locator-file guest-locator.txt --name minion-town`, the federation acceptance test drives the new verb and re-gates on the pivoted CLI, https share-link presentation explicitly noted as gated on design acceptance; typecheck clean; nothing deployed. The verify-demo2 runbook and garden issue 114 demo material were updated by comment: https://github.com/kriscendobot/garden/issues/114#issuecomment-5878612891.
+
+## PRs touched
+- endojs/endo-but-for-bots#1360 — **opened**, draft (design).
+- endojs/endo-but-for-bots#1333 — pushed pivot commit, retitled, body updated, draft.
+- kriscendobot/minion.town#132 — **opened**, draft (dependent text/test pivot).
+
+## Follow-ups (maintainer-gated, named in the PRs)
+- Design review of #1360's open questions; then the stage-2 https share-link emission in Chat (`channel-header`, `/share`) and minion.town's reveal flow.
+- ebfb #152 (command-executor `adopt` → `storeIdentifier`) touches a different case of the same file; no conflict with the `/store` rename.
