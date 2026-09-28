@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T12:54:19Z_
+_As of 2026-09-28T13:05:03Z_
 
 ## Latest
 
@@ -3537,7 +3537,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.8M | $404.06 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 43.8M | $404.56 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49781098 tokens/day lower bound._
@@ -3552,13 +3552,13 @@ worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### doin (0)
 (none)
 
-### tada (9364)
+### tada (9365)
+- [`improve-mentor-provider-order-reject-retired-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-mentor-provider-order-reject-retired-local.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1298-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1298-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-fix-4.md) — Gauntlet fix round 4: endojs/endo-but-for-bots#1298
 - [`claude-on-minion-town-press-20260928-104106`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-104106.md) — Cost
-- [`kriscendobot-minion.town-pr128-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr128-dependabot.md) — Cost
-- … and 9359 more
+- … and 9360 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
