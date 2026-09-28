@@ -33,3 +33,13 @@ the four "unverified" cells (CancellationReasons fidelity if documented, S3
 presign, SSM Run Command, dynamodb:Attributes) and the SDK license question.
 Standard scholar procedure, integrity gate, regenerators, result entry, and
 maintainer digest.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T05:42:21Z
