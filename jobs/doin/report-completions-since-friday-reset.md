@@ -98,3 +98,13 @@ needs both to hand the maintainer a fully qualified
 `https://github.com/kriscendobot/garden/blob/journal2/<path>` URL. Paste the
 narrative section's headline (theme summary) directly in this report too, so
 it's visible without opening the link.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T16:55:43Z
