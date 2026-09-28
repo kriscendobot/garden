@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T19:52:20Z_
+_As of 2026-09-28T19:54:08Z_
 
 ## Latest
 
@@ -3632,7 +3632,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.0M | $426.31 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Claude | 45.9M | $425.67 _(notional, rate-card)_ | 32% of 143.0M (ok) |
 | Codex | 2.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 2% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56527310 tokens/day lower bound._
@@ -3644,16 +3644,16 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-comment-primary-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-primary-quota-cooldown.md) — ---
+### doin (0)
+(none)
 
-### tada (9385)
+### tada (9386)
+- [`improve-comment-primary-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-comment-primary-quota-cooldown.md) — Cost
 - [`document-garden-systemd-units`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/document-garden-systemd-units.md) — Cost
 - [`claude-on-minion-town-completion-press-20260928-195005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-195005.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-e036bb8e0650`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-oros-studio-garden-ce242c49-e036bb8e0650.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-e036bb8e0650`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-e036bb8e0650.md) — rolling-deploy canary probe — round trip OK
-- [`improve-foreman-retired-provider-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-foreman-retired-provider-fallback.md) — Cost
-- … and 9380 more
+- … and 9381 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
