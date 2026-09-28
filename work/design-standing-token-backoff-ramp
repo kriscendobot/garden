@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-09-28T08:28:49Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-standing-token-backoff-ramp
-pr_number: 116
-pr_repo: kriscendobot/garden
-pr_url: https://github.com/kriscendobot/garden/pull/116
-pr_head: design/standing-token-backoff-ramp
