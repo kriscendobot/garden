@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T17:37:45Z_
+_As of 2026-09-28T17:41:21Z_
 
 ## Latest
 
@@ -3595,19 +3595,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 45.9M | $425.51 _(notional, rate-card)_ | 32% of 143.0M (ok) |
-| Codex | 492.3k _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
+| Codex | 789.0k _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53222164 tokens/day lower bound._
+_Fleet token-unlock pace: 53223712 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 39d0c5ef0aca
-
-### doin (0)
+### todo (0)
 (none)
+
+### doin (1)
+- [`canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 39d0c5ef0aca
 
 ### tada (9377)
 - [`canary-probe-endolin-garden2-5bcdff64-39d0c5ef0aca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-39d0c5ef0aca.md) — rolling-deploy canary probe — round trip OK
