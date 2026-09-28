@@ -1,0 +1,83 @@
+{
+  "host": "codex-endolin",
+  "generated_at": "2026-09-28T23:43:12Z",
+  "confidence": "provisional",
+  "method": "contiguous-segment-low-band (governing = max total-confidence-weight run, best = freshest highest-confidence point, cap = its low-end rounding band)",
+  "selected_cap_tokens": 60692512,
+  "selected_cap_band": {
+    "low": 60692512,
+    "point": 60995975,
+    "high": 61302487
+  },
+  "governing_point": {
+    "checked_at": "2026-09-28T16:44:31Z",
+    "weekly_percent": 100,
+    "meter_spend_tokens": 60995975,
+    "pairing_confidence": "medium",
+    "window_start_epoch": 1789808673
+  },
+  "governing_segment": {
+    "segment_id": "run-0-anchor-1789808673",
+    "run_index": 0,
+    "window_start_epoch": 1789808673,
+    "first_checked_at": "2026-09-23T16:17:18Z",
+    "last_checked_at": "2026-09-28T05:53:13Z",
+    "n_points": 7,
+    "total_confidence_weight": 13,
+    "percent_range": [
+      61,
+      100
+    ],
+    "cap_point_spread": [
+      32221237,
+      60995975
+    ],
+    "spread_ratio": 1.893,
+    "is_live_window": false
+  },
+  "checks": {
+    "enough_points": true,
+    "min_points": 3,
+    "spread_within_tolerance": false,
+    "tolerance": 1.20,
+    "boost_active": false,
+    "boost_unknown_start": false,
+    "live_window_matches": false,
+    "live_window_start_epoch": 1790613960
+  },
+  "segments": [
+    {
+      "segment_id": "run-0-anchor-1789808673",
+      "run_index": 0,
+      "window_start_epoch": 1789808673,
+      "first_checked_at": "2026-09-23T16:17:18Z",
+      "last_checked_at": "2026-09-28T05:53:13Z",
+      "n_points": 7,
+      "total_weight": 13,
+      "percent_range": [
+        61,
+        100
+      ],
+      "cap_point_low": 32221237,
+      "cap_point_high": 60995975,
+      "spread_ratio": 1.893
+    },
+    {
+      "segment_id": "run-1-anchor-1790613960",
+      "run_index": 1,
+      "window_start_epoch": 1790613960,
+      "first_checked_at": "2026-09-28T23:42:43Z",
+      "last_checked_at": "2026-09-28T23:42:43Z",
+      "n_points": 1,
+      "total_weight": 2,
+      "percent_range": [
+        28,
+        28
+      ],
+      "cap_point_low": 22181578,
+      "cap_point_high": 22181578,
+      "spread_ratio": 1
+    }
+  ],
+  "boost_active": false
+}
