@@ -39,3 +39,13 @@ In your completion report, list every PR URL you opened, one per line,
 unambiguously (e.g. `Opened: https://github.com/<owner>/<repo>/pull/<N>`) —
 a follow-up job parses this report mechanically to find them, so do not bury
 the URLs in prose.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T23:56:18Z
