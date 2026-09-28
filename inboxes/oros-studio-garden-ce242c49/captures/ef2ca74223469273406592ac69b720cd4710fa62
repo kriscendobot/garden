@@ -1,0 +1,20 @@
+<6>22:49:22 [monk/1] job 'garden-pr81-postdeploy-pty-20260928T221312Z' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>22:49:29 [monk/1] job 'garden-pr81-postdeploy-pty-20260928T221312Z' call ceiling: tier=mentor max-budget-usd=13.80 (scaled by fresh seven-day headroom when available)
+panel-head-freshness: not-applicable target=garden-pr81-postdeploy-pty-20260928T221312Z reason=no-presented-pr
+<6>22:52:35 [assert-followup-posted] gate: BLOCK — 'garden-pr81-postdeploy-pty-20260928T221312Z' declares handoff to 'garden-pr81-postdeploy-pty-20260928T225019Z' but that successor is not durably posted on the board; leaving in doin for retry
+
+--- handler report (partial) ---
+PR #81 is merged, but this host still hasn't deployed it, so I posted no test job and no PR comment. I scheduled a retry for five minutes out and am handing off to it.
+
+**Checks:**
+- PR #81 is `MERGED` (2026-09-28T21:04:43Z) with merge commit `4767705b28d522b591eddbd3b47976273c5e1853`.
+- This host (`oros-studio-garden-ce242c49`) has deployed `e036bb8e0650b66a4ae00dc1516c4c8df39901ca` (from `deployed_sha` / `.garden-state/deploy/deployed-sha`). After fetching `origin/main2` in the job worktree, `git merge-base --is-ancestor 4767705b… e036bb8e…` fails, so the merge is not in the deployed code.
+- The fleet deploy is still moving. This host's `upgrade-ready` fact (detected 22:47:02Z) shows it 12 commits behind `main2` tip `e3e285a3958e`. The leader is `endolin-garden-ece02cb4`, and its `deploy/leader-sha` is also still `e036bb8e06`. The canary `endolin-garden2-5bcdff64` is being rolled to `e3e285a3958e`; this host comes after the canary.
+
+**Handoff:**
+- I created a one-time schedule, `garden-pr81-postdeploy-pty-20260928T225019Z`, with `set-schedule-once.sh`. It fires at 2026-09-28T22:55:19Z and carries the full task body, with a note on what this attempt found about the deploy.
+- `schedules/garden-pr81-postdeploy-pty-20260928T225019Z.md` is on `origin/journal2` with `once:` set and a matching `job_basename_prefix`.
+
+**Follow-up:** this is at least the fourth deferred attempt since the merge, about 1h45m of waiting. If the canary roll to `e3e285a` stalls, a successor should check the rolling-deploy state on the leader. The known 45s journal-clone livelock on this host has blocked fleet deploys before.
+
+<<<GARDEN-JOB-HANDED-OFF: garden-pr81-postdeploy-pty-20260928T225019Z>>>
