@@ -66,6 +66,7 @@ regression case AND the causal fix, then amend the ONE standing pull request.
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=signature through=0 values=3132 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
