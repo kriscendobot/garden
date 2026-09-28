@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T23:08:55Z_
+_As of 2026-09-28T23:10:54Z_
 
 ## Latest
 
@@ -2551,12 +2551,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #17 (first seen 2026-09-28T21:29:28Z, latest 2026-09-28T23:04:46Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 17 times; this is ONE
-> coalesced notice that updates in place, not 17 messages. Latest detail:
+> WATCHDOG notice — occurrence #18 (first seen 2026-09-28T21:29:28Z, latest 2026-09-28T23:09:34Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 18 times; this is ONE
+> coalesced notice that updates in place, not 18 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/86](https://github.com/kriscendobot/minion.town/pull/86)#discussion_r4127032558 (age=7053s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/86](https://github.com/kriscendobot/minion.town/pull/86)#discussion_r4127032558 (age=7355s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
@@ -3669,7 +3669,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.4M | $494.45 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 54.5M | $495.13 _(notional, rate-card)_ | 38% of 143.0M (ok) |
 | Codex | 5.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55086208 tokens/day lower bound._
@@ -3678,10 +3678,9 @@ _Fleet token-unlock pace: 55086208 tokens/day lower bound._
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (4)
 - [`garden-pr81-postdeploy-pty-20260928T221312Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-pr81-postdeploy-pty-20260928T221312Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`garden-pr81-postdeploy-pty-20260928T225019Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-pr81-postdeploy-pty-20260928T225019Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
-- [`kriscendobot-minion.town-pr86-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr86-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #86
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 
@@ -3692,15 +3691,15 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260928.md) — Finish activation of the authorized Ironhorse ratchet autopilot
 - [`scholar-nvidia-openshell-garden-confinement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-nvidia-openshell-garden-confinement.md) — ---
 - [`kriscendobot-garden-pr81-postdeploy-pty-20260928T224844Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-20260928T224844Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
-- [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1097
+- [`kriscendobot-minion.town-pr86-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr86-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #86
 
-### tada (9451)
+### tada (9452)
+- [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-3.md) — Cost
 - [`kriscendobot-minion.town-pr86-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-gauntlet-fix-3.md) — Cost
 - [`deadmail-20260928T225949Z-0e1440`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/deadmail-20260928T225949Z-0e1440.md) — Cost
 - [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-2.md) — Fix round 2 for endojs/endo-but-for-bots PR #1097: done, CI green
 - [`kriscendobot-minion-town-pr130-conduct-prod-validate-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion-town-pr130-conduct-prod-validate-20260928.md) — Cost
-- [`fix-project-worktree-warm-cache-node-abi`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fix-project-worktree-warm-cache-node-abi.md) — Cost
-- … and 9446 more
+- … and 9447 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
