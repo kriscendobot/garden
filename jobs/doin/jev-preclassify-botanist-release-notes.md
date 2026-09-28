@@ -22,3 +22,13 @@ and to the maintainer). Source-code diffs read as code are a different surface
 — decide and document whether to gate them or exempt them with a rationale, as
 `roles/scholar/AGENT.md` exempts gated-repo bare-clone reads. Update
 `roles/botanist/AGENT.md` accordingly. Land on main2 direct.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T07:58:54Z
