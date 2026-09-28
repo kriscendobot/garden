@@ -116,3 +116,13 @@ per-subscription, the ramp curve shape) — land per the frozen-base-branch
 open-questions carve-out (a review PR against `main2`), not bare, so the
 maintainer can decide before it becomes standing automated behavior
 controlling real spend, unattended, indefinitely.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T07:55:40Z
