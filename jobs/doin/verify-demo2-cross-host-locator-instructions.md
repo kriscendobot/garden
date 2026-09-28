@@ -55,6 +55,7 @@ state.
    not yet verifiable, and why) before the runbook.
 3. Your job completion report: the same content, plus the comment URL.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
