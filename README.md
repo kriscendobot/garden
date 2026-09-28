@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T15:54:53Z_
+_As of 2026-09-28T16:05:11Z_
 
 ## Latest
 
@@ -386,11 +386,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-outage-stuck` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-outage-stuck.md)
 
-> WATCHDOG notice — occurrence #29 (first seen 2026-09-27T02:00:48Z, latest 2026-09-28T15:53:16Z).
-> The SAME condition (`journal-outage-stuck`) has now been observed 29 times; this is ONE
-> coalesced notice that updates in place, not 29 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-outage-stuck` has CLEARED (first seen 2026-09-27T02:00:48Z, cleared 2026-09-28T15:58:28Z).
+> It was observed 29 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal outage latch stuck on endolin-garden-ece02cb4 for 601s (limit 600s); skips this tick=5, trailing skips=5.
+> Journal contention condition `journal-outage-stuck` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -2558,7 +2558,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify.md)
 
-> Journal lock contention on endolin-garden-ece02cb4 for _home_kris_garden__garden_state_approval_reconciler_verify: p95=64.270629s, giveups=0, steals=0 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` has CLEARED (first seen 2026-09-28T14:33:12Z, cleared 2026-09-28T15:58:01Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` cleared on endolin-garden-ece02cb4.
 
 - `doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted.md)
 
@@ -3556,13 +3560,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.0M | $418.75 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 45.0M | $418.92 _(notional, rate-card)_ | 32% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 50519430 tokens/day lower bound._
+_Fleet token-unlock pace: 50519850 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.805983s/45s (/home/kris/garden/.garden-state/decisions/journal); 4 open notice(s); checker healthy
+worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
