@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-28T06:23:38Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-mentat-minion-town-per-principal-sharding
-pr_number: 124
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/124
-pr_head: design/per-principal-sharding
