@@ -25,3 +25,13 @@ mergeable, green, an effective maintainer approval), then merge. The conductor
 chooses the merge method. If the PR has regressed, post a shepherd or fixer job
 instead. When it is done, reply on the PR to close the loop on the maintainer's
 comment.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T20:39:24Z
