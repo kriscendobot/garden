@@ -1,0 +1,7 @@
+<6>01:48:43 [monk/1] resuming session 7d1484a0-f048-594e-9a03-6278e3d7344a for requeued job 'dependabotany-recheck-endo-but-for-bots-20260928-012250' in worktree /home/kris/garden2/scratch/gardener-wt-dependabotany-recheck-endo-but-for-bots-20260928-012250
+<6>01:48:43 [monk/1] job 'dependabotany-recheck-endo-but-for-bots-20260928-012250' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>01:48:43 [monk/1] job 'dependabotany-recheck-endo-but-for-bots-20260928-012250' call ceiling: tier=minion max-budget-usd=8.20 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
