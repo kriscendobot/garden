@@ -39,6 +39,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: viability=merged -->
   <!-- gauntlet-stage-result: viability=overtaken -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
