@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T10:18:48Z_
+_As of 2026-09-28T10:29:09Z_
 
 ## Latest
 
@@ -3526,10 +3526,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.4M | $399.80 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 43.5M | $401.59 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 49740938 tokens/day lower bound._
+_Fleet token-unlock pace: 49734105 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 5 open notice(s); checker healthy
@@ -3538,16 +3538,17 @@ worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`kriscendobot-minion.town-pr128-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr128-dependabot.md) — botanist (auto: dependabot PR) on kriscendobot/minion.town PR #128
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1298
 
-### tada (9358)
+### tada (9359)
+- [`improve-foreman-local-endpoint-unreachable-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-foreman-local-endpoint-unreachable-dedup.md) — Cost
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-panel-4.md) — Cost
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/fix-journal-cold-clone-bootstrap.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots PR #1298
 - [`canary-probe-endolin-garden2-5bcdff64-f3e5ea54007a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-f3e5ea54007a.md) — rolling-deploy canary probe — round trip OK
-- [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Completion report: ironhorse-fuzz-ed616f6ec22095dc-repair
-- … and 9353 more
+- … and 9354 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
