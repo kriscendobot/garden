@@ -20,3 +20,13 @@ Repo: kriscendobot/garden, main2 (garden's own repo; land directly). Reported by
 - have ensure-project-worktree.sh and local-verify.sh share one runtime-selection helper so they can't disagree again.
 
 Add a test that reproduces the mismatch (a cache populated under one ABI, then verification under another) and proves the rebuild or re-key. Note the related garden memory: ebfb's floating Node 24.x plus better-sqlite3 has bitten CI before.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T22:52:12Z
