@@ -69,6 +69,7 @@ pull request for fuzz findings.
 <!-- garden-plain-retry-not-before: 2026-09-28T07:26:13Z -->
 
 <!-- garden-transient-elapsed: kind=signature through=1 values=7,3 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
