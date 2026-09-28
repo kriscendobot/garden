@@ -47,6 +47,7 @@ any), the open questions for the maintainer, and a proposed build sequence (as s
 - Output `designs/cloudflare-backend.md`.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=4 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
