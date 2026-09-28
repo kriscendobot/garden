@@ -1910,7 +1910,7 @@ EOF
 chmod +x "$RATE_WATCH_SOURCE"
 RATE_WATCH_ERR="$TR/rate-watch.err"
 set +e
-env GARDEN_STATE="$TR/state-rate-watch" JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+env GARDEN_STATE="$TR/state-rate-watch" GARDEN_API_COOLDOWN_DIR="$TR/state-rate-watch/gh-api-cooldown" JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$RATE_WATCH_SOURCE" \
     GARDEN_NO_MAINTAINER_ALERT=1 \
     "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$RATE_WATCH_ERR"
@@ -1927,6 +1927,55 @@ if bash -c 'source "$1"; is_nonattributable_rc "$2"' _ "$JOBS/common.sh" "$rate_
 else
   bad "rc 75 was not accepted by is_nonattributable_rc"
 fi
+[ ! -e "$TR/state-rate-watch/gh-api-cooldown/marker" ] \
+  && ok "rc 75 without a primary-quota signature opens no shared cooldown" \
+  || bad "rc 75 without a primary-quota signature opened a cooldown"
+
+# rc 75 carrying the real primary-quota stderr (comment-source-gh.sh's gh_api_retry
+# WARN) must open the host-shared REST cooldown for the full quota window HERE —
+# not leave a sibling (comment-latency-watch) to discover it later — and skip the
+# tick cleanly (exit 0) with the cursor still frozen below the partial row.
+RATE_PQ_SOURCE="$TR/rate-pq-source.sh"
+cat > "$RATE_PQ_SOURCE" <<'EOF'
+#!/bin/bash
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-08-06T13:30:50Z pr-comment 403002 678 kriskowal \
+  https://github.com/endojs/endo-but-for-bots/pull/678#issuecomment-403002 \
+  'Please rebase.'
+echo '<4>19:33:37 [comment-source] WARN: gh api repos/x/y/issues/comments RATE LIMITED by GitHub primary quota (rc=1); not retrying: gh: API rate limit exceeded for user ID 279080640 (HTTP 403)' >&2
+echo '<6>19:33:37 [comment-source] RATE LIMITED: GitHub primary API quota exhausted while enumerating x/y' >&2
+exit 75
+EOF
+chmod +x "$RATE_PQ_SOURCE"
+RATE_PQ_STATE="$TR/state-rate-pq"
+RATE_PQ_ERR="$TR/rate-pq.err"
+pq_before="$(date +%s)"
+set +e
+env GARDEN_STATE="$RATE_PQ_STATE" GARDEN_API_COOLDOWN_DIR="$RATE_PQ_STATE/gh-api-cooldown" \
+    GARDEN_API_COOLDOWN_SECS=300 GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+    JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$RATE_PQ_SOURCE" \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$RATE_PQ_ERR"
+rate_pq_rc=$?
+set -e
+[ "$rate_pq_rc" -eq 0 ] \
+  && ok "primary-quota rc 75 is a clean skipped tick" \
+  || bad "primary-quota rc 75 exited $rate_pq_rc (want 0)"
+pq_expiry="$(sed -n 1p "$RATE_PQ_STATE/gh-api-cooldown/marker" 2>/dev/null || echo 0)"
+[ "$pq_expiry" -ge $(( pq_before + 3600 )) ] \
+  && grep -q 'primary-quota' "$RATE_PQ_STATE/gh-api-cooldown/marker" \
+  && ok "primary-quota rc 75 opens the shared cooldown for the quota window" \
+  || bad "primary-quota cooldown missing/short (expiry=$pq_expiry before=$pq_before)"
+[ "$(grep -c 'primary quota exhaustion' "$RATE_PQ_ERR")" -eq 1 ] \
+  && ok "primary-quota skip warns once" \
+  || bad "primary-quota warning count wrong ($(cat "$RATE_PQ_ERR"))"
+[ -z "$(cursor_seen "$RATE_PQ_STATE" "$BARE_RATE")" ] \
+  && ok "primary-quota skip freezes the cursor below the partial row" \
+  || bad "primary-quota skip advanced the cursor"
+grep -q 'FATAL:' "$RATE_PQ_ERR" \
+  && bad "primary-quota skip emitted FATAL" \
+  || ok "primary-quota skip did not emit FATAL"
 
 # Exercise the watcher's generic stderr classifier with the production failure
 # shape: a transient signature on the first line followed by enough output to make

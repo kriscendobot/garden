@@ -1665,6 +1665,18 @@ if [ "$src_rc" -ne 0 ]; then
   # below; rc 75 must never sort/process SRC or slide last_seen.
   if is_nonattributable_rc "$src_rc"; then
     sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
+    # A primary-quota refusal cannot clear until the hourly quota resets, so open
+    # the host-shared cooldown for the quota window HERE rather than leaving every
+    # sibling gh-api watcher to rediscover it (the 2026-09-28 gap where only
+    # comment-latency-watch opened it, later). The cursor is still frozen: we exit
+    # before SRC is read.
+    if is_gh_primary_rate_limit_text "$(cat "$ERRF" 2>/dev/null || true)"; then
+      pq_secs="$(api_primary_quota_secs)"
+      if start_api_cooldown "comment:$slug:primary-quota" "$pq_secs"; then
+        log "WARN: comment source hit GitHub primary quota exhaustion (rc=$src_rc) — cursor frozen; cooling REST gh-api watchers for ${pq_secs}s"
+      fi
+      exit 0
+    fi
     log "RATE LIMITED: comment source ended this tick non-attributably (rc=$src_rc) — cursor frozen; propagating rc for self-heal normalization"
     exit "$src_rc"
   fi
