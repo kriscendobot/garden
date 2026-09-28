@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T16:30:02Z_
+_As of 2026-09-28T16:33:42Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336]
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 10d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 11d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 16d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 24d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 25d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 26d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 26d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 26d)
@@ -1463,14 +1463,20 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #71 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T16:12:17Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 71 times; this is ONE
-> coalesced notice that updates in place, not 71 messages. Latest detail:
+> WATCHDOG notice — occurrence #72 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T16:32:00Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 72 times; this is ONE
+> coalesced notice that updates in place, not 72 messages. Latest detail:
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 2 source(s); they post no acknowledgments while it holds.
-> journal-outage marker: 1790612018 cursor-get 
-> - kriscendobot/moddable: watcher ticking but cooldown for 1771s (since 2026-09-28T15:42:46Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 1389s (since 2026-09-28T15:49:08Z)
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 8 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1790613388 set-by=receipt:kriscendobot-endo:journal prerequisite
+> - kriscendobot/cosgov: watcher ticking but cooldown for 1454s (since 2026-09-28T16:07:45Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 1468s (since 2026-09-28T16:07:31Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1457s (since 2026-09-28T16:07:42Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1457s (since 2026-09-28T16:07:42Z)
+> - kriscendobot/list: watcher ticking but cooldown for 1410s (since 2026-09-28T16:08:29Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 1466s (since 2026-09-28T16:07:33Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 1782s (since 2026-09-28T16:02:17Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 1458s (since 2026-09-28T16:07:41Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
