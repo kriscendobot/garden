@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T09:24:14Z_
+_As of 2026-09-28T09:29:32Z_
 
 ## Latest
 
@@ -2377,10 +2377,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
-- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
-
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=16.480625s max=16.480625s; hard guard=31.500000s (70% of 45s cap); remedy=none.
-
 - `20260927T191856Z-6c3431` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T191856Z-6c3431.md)
 
 > kind: error
@@ -3528,10 +3524,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.4M | $399.74 _(notional, rate-card)_ | 30% of 143.0M (ok) |
-| Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
+| Claude | 43.4M | $400.35 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 18% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 49323507 tokens/day lower bound._
+_Fleet token-unlock pace: 53791914 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 5 open notice(s); checker healthy
@@ -3544,13 +3540,13 @@ worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1298
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-journal-cold-clone-bootstrap.md) — Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new work...
 
-### tada (9354)
+### tada (9355)
+- [`canary-probe-endolin-garden2-5bcdff64-f3e5ea54007a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-f3e5ea54007a.md) — rolling-deploy canary probe — round trip OK
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Completion report: ironhorse-fuzz-ed616f6ec22095dc-repair
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Cost
 - [`improve-foreman-provider-order-reject-retired-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-foreman-provider-order-reject-retired-local.md) — Cost
 - [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/doc-readme-control-surfaces-prompt-first.md) — Cost
-- [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Finding 2a2de75b75de4894 (differential_source): regression test added, no eng...
-- … and 9349 more
+- … and 9350 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
