@@ -91,6 +91,7 @@ INBOX_ALLOWLIST=(
   skills/self-healing-wrapper/SKILL.md
   skills/orchestration/SKILL.md
   skills/restore/SKILL.md
+  skills/liaison-reports/SKILL.md
 )
 
 in_git=0

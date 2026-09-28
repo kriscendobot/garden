@@ -29,7 +29,7 @@ opinions." That authorization covers Jev as a *content pre-classifier* inside
 autonomous ingestion flows (the scholar's, and any surface a scoped follow-on
 job wires up). It does **not** reopen the autonomous-muster question the
 [typesafe-jev-classification design](../../designs/typesafe-jev-classification.md)
-rejected — disposition of maintainer-inbox items remains a liaison
+rejected — disposition of items awaiting the maintainer remains a liaison
 conversation.
 
 ## When to use
@@ -116,9 +116,11 @@ verdict exits **3**, so a boolean caller cannot ignore a flag.
      ingested artifact (for a library source: a `content_caveat:` note in the
      source page's provenance) and into the job's report.
    - `halt_and_escalate` (exit 3) — do **not** read/summarize/ingest the
-     content. Message the maintainer (`message-user.sh <job-base>`) with the
-     source URL, the manifest, and the on-disk path of the fetched bytes;
-     record the skip in the job's result; move on to the next source. Await
+     content. Escalate the source URL, the manifest, and the on-disk path of
+     the fetched bytes through your role's own maintainer channel (a
+     free-standing role such as the scholar uses the bus; a PR/issue-scoped
+     role such as the botanist surfaces the halt on its own thread); record
+     the skip in the job's result; move on to the next source. Await
      maintainer disposition — never retry-until-it-passes.
    - `proceed_unclassified` — continue as today, and record the
      unavailability (with `classify_unavailable_reason`) in the ingested
