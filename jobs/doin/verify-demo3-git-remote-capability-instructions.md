@@ -59,6 +59,7 @@ verified or performed — do not attempt to build it yourself in this job
    implemented — needs a build) before the detail.
 3. Your job completion report: the same content, plus the comment URL.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
