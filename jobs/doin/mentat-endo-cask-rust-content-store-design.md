@@ -74,6 +74,7 @@ Put genuine maintainer decisions in `## Open questions` (and use the review-PR c
 Complete via the normal completion path. Report the design file(s), the PR if any, the open questions, and the
 proposed phases.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=3 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
