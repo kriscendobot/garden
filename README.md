@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T18:19:40Z_
+_As of 2026-09-28T18:22:04Z_
 
 ## Latest
 
@@ -1040,9 +1040,9 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-09T21:05:16Z, latest 2026-09-28T17:11:21Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-09T21:05:16Z, latest 2026-09-28T18:20:25Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 0 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=5 target=1
 
@@ -3625,9 +3625,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 45.9M | $425.67 _(notional, rate-card)_ | 32% of 143.0M (ok) |
-| Codex | 1.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 1.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 1% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53224427 tokens/day lower bound._
+_Fleet token-unlock pace: 53230915 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
@@ -3636,8 +3636,8 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-foreman-retired-provider-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-foreman-retired-provider-fallback.md) — ---
 
 ### tada (9380)
 - [`deadmail-issue-comment-5864051232`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/deadmail-issue-comment-5864051232.md) — Cost
