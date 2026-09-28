@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T06:51:41Z_
+_As of 2026-09-28T06:55:26Z_
 
 ## Latest
 
@@ -3214,11 +3214,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #865 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T05:52:33Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 865 times; this is ONE
-> coalesced notice that updates in place, not 865 messages. Latest detail:
+> WATCHDOG notice — occurrence #875 (first seen 2026-09-25T03:17:02Z, latest 2026-09-28T06:53:37Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 875 times; this is ONE
+> coalesced notice that updates in place, not 875 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 18f02975bc8c 334 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 18f02975bc8c 395 min ago
 > but still reports deployed_sha 586aee8196b4c03fdb68c7d2368856cb756de4eb. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -3286,7 +3286,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.3M | $386.05 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 42.3M | $386.39 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 60.9M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 100% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 48668770 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
@@ -3295,11 +3295,9 @@ _Fleet token-unlock pace: 48668770 tokens/day lower bound; incomplete where a su
 worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (21)
+### todo (19)
 - [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
-- [`ironhorse-fuzz-bc3d0df623811a38-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bc3d0df623811a38-repair.md) — Repair Ironhorse engine defect bc3d0df623811a38 (target differential_regexp_s...
 - [`ironhorse-fuzz-fad9672dc7a6e6be-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-fad9672dc7a6e6be-repair.md) — Repair Ironhorse engine defect fad9672dc7a6e6be (target differential_source) ...
-- [`mentat-minion-town-alt-hosts-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/mentat-minion-town-alt-hosts-backend-plan.md) — Plan: minion.town on Hetzner, DigitalOcean, fly.io, and exe.dev
 - [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-378372c8706a48a8-repair.md) — Fix Ironhorse fuzz finding 378372c8706a48a8 (target differential_regexp_surfa...
 - [`fix-claim-admission-decline-churn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-claim-admission-decline-churn.md) — Fix: claim-admission records a decision commit on every declined claim (journ...
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-journal-cold-clone-bootstrap.md) — Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new work...
@@ -3318,19 +3316,20 @@ worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journ
 - [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Repair Ironhorse engine defect 2a2de75b75de4894 (target differential_source) ...
 - [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/doc-readme-control-surfaces-prompt-first.md) — Reorient README's "Control surfaces" section around what a maintainer says, n...
 
-### doin (4)
+### doin (5)
 - [`fix-harness-auth-failure-health-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-harness-auth-failure-health-gate.md) — Detect harness auth-failure deterministically, park the host, alert the maint...
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1298
-- [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Repair Ironhorse engine defect e0fe14e41d5074a6 (target differential_source) ...
 - [`kriscendobot-minion.town-pr56-review-7d4dc95d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr56-review-7d4dc95d.md) — Review directive on kriscendobot/minion.town PR #56
+- [`ironhorse-fuzz-bc3d0df623811a38-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-bc3d0df623811a38-repair.md) — Repair Ironhorse engine defect bc3d0df623811a38 (target differential_regexp_s...
+- [`mentat-minion-town-alt-hosts-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/mentat-minion-town-alt-hosts-backend-plan.md) — Plan: minion.town on Hetzner, DigitalOcean, fly.io, and exe.dev
 
-### tada (9323)
+### tada (9324)
+- [`ironhorse-fuzz-e0fe14e41d5074a6-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-e0fe14e41d5074a6-repair.md) — Cost
 - [`kriscendobot-minion.town-pr124-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr124-shepherd.md) — Cost
 - [`report-host-disposition-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/report-host-disposition-20260928.md) — Cost
 - [`ironhorse-fuzz-e2a75557f762cd9c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-e2a75557f762cd9c-repair.md) — Cost
 - [`mentat-minion-town-per-principal-sharding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/mentat-minion-town-per-principal-sharding.md) — Completion report: mentat-minion-town-per-principal-sharding
-- [`ironhorse-fuzz-d5413146a257bc30-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-d5413146a257bc30-repair.md) — Ironhorse fuzz finding d5413146a257bc30: regression lock added, no engine fix...
-- … and 9318 more
+- … and 9319 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
