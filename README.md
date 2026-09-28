@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T20:42:13Z_
+_As of 2026-09-28T20:48:51Z_
 
 ## Latest
 
@@ -3648,7 +3648,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.9M | $439.83 _(notional, rate-card)_ | 33% of 143.0M (ok) |
+| Claude | 47.0M | $444.23 _(notional, rate-card)_ | 33% of 143.0M (ok) |
 | Codex | 3.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56586481 tokens/day lower bound._
@@ -3660,19 +3660,21 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (0)
 (none)
 
-### doin (4)
-- [`endojs-endo-but-for-bots-pr1345-conduct-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1345-conduct-20260928.md) — Conduct (merge) endojs/endo-but-for-bots PR #1345
+### doin (6)
 - [`fix-minion-town-guest-recovery-oauth-bonding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-guest-recovery-oauth-bonding.md) — minion.town: guest account recovery and OAuth recovery bonding are broken. Ve...
 - [`kriscendobot-minion.town-pr117-review-e2f26bcf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr117-review-e2f26bcf.md) — Review directive on kriscendobot/minion.town PR #117
+- [`kriscendobot-minion.town-pr117-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr117-shepherd.md) — shepherd (auto: approved but CI needs work) on kriscendobot/minion.town PR #117
+- [`design-endo-store-locator-url-pivot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-store-locator-url-pivot.md) — Pivot endo adopt-locator into endo store --locator, and make "locator" mean a...
+- [`kriscendobot-garden-pr81-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-refresh.md) — refresh directive on kriscendobot/garden PR #81
 - [`build-ironhorse-ratchet-autopilot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-ratchet-autopilot.md) — Build: autonomous Ironhorse test262 ratchet (per-crank PRs, mentat merge watc...
 
-### tada (9392)
+### tada (9395)
+- [`deadmail-20260928T204100Z-1260b7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/deadmail-20260928T204100Z-1260b7.md) — Cost
+- [`endojs-endo-but-for-bots-pr1345-weave-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1345-weave-20260928.md) — Manual gauntlet handoff
+- [`endojs-endo-but-for-bots-pr1345-conduct-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1345-conduct-20260928.md) — PR #1345 was not merged: stalled needs weave
 - [`improve-ironhorse-test262-ratchet-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-ironhorse-test262-ratchet-gate.md) — Cost
 - [`kriscendobot-minion.town-pr117-review-e2f26bcf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr117-review-e2f26bcf-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr1345-048da619`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1345-048da619.md) — Cost
-- [`deadmail-20260928T203432Z-300133`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/deadmail-20260928T203432Z-300133.md) — Cost
-- [`ironhorse-test262-ratchet-round3-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-test262-ratchet-round3-20260928.md) — Cost
-- … and 9387 more
+- … and 9390 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
