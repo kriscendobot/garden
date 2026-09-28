@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 handler-timeout: 21600
 token-budget: 2000000
@@ -100,13 +101,6 @@ narrative section's headline (theme summary) directly in this report too, so
 it's visible without opening the link.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=246 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-28T16:55:43Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-28T17:16:07Z -->
