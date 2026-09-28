@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7205 (530 parent indexes + 6675 children).
+Total section files: 7214 (530 parent indexes + 6684 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -9814,6 +9814,24 @@ Total section files: 7205 (530 parent indexes + 6675 children).
 
 - [web--esbuild-api--conditions-main-fields-and-packages](web--esbuild-api--conditions-main-fields-and-packages.md)
 - [web--esbuild-api--tree-shaking-and-sideeffects](web--esbuild-api--tree-shaking-and-sideeffects.md)
+
+### web--fakecloud-home
+
+- [web--fakecloud-home--positioning-and-localstack-comparison](web--fakecloud-home--positioning-and-localstack-comparison.md)
+
+### web--fakecloud-llms-txt
+
+- [web--fakecloud-llms-txt--identity-data-and-secrets-services](web--fakecloud-llms-txt--identity-data-and-secrets-services.md)
+- [web--fakecloud-llms-txt--install-and-configuration](web--fakecloud-llms-txt--install-and-configuration.md)
+- [web--fakecloud-llms-txt--positioning-and-conformance-claims](web--fakecloud-llms-txt--positioning-and-conformance-claims.md)
+- [web--fakecloud-llms-txt--test-introspection-endpoints-and-sdks](web--fakecloud-llms-txt--test-introspection-endpoints-and-sdks.md)
+
+### web--fakecloud-parity
+
+- [web--fakecloud-parity--conformance-versus-behavior-parity](web--fakecloud-parity--conformance-versus-behavior-parity.md)
+- [web--fakecloud-parity--core-service-parity-rows](web--fakecloud-parity--core-service-parity-rows.md)
+- [web--fakecloud-parity--roadmap-projects](web--fakecloud-parity--roadmap-projects.md)
+- [web--fakecloud-parity--will-never-implement](web--fakecloud-parity--will-never-implement.md)
 
 ### web--fireworks-firectl
 
