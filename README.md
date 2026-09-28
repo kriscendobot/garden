@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T20:36:47Z_
+_As of 2026-09-28T20:38:50Z_
 
 ## Latest
 
@@ -3648,7 +3648,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.1M | $430.88 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Claude | 46.8M | $436.48 _(notional, rate-card)_ | 33% of 143.0M (ok) |
 | Codex | 3.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56586481 tokens/day lower bound._
@@ -3663,17 +3663,17 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### doin (5)
 - [`fix-minion-town-guest-recovery-oauth-bonding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-guest-recovery-oauth-bonding.md) — minion.town: guest account recovery and OAuth recovery bonding are broken. Ve...
 - [`kriscendobot-minion.town-pr117-review-e2f26bcf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr117-review-e2f26bcf.md) — Review directive on kriscendobot/minion.town PR #117
-- [`deadmail-20260928T203432Z-300133`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260928T203432Z-300133.md) — Dead-lettered message — pick up its intent
 - [`improve-ironhorse-test262-ratchet-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ironhorse-test262-ratchet-gate.md) — ---
+- [`endojs-endo-but-for-bots-pr1345-048da619`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1345-048da619.md) — attention directive on endojs/endo-but-for-bots PR #1345
 - [`build-ironhorse-ratchet-autopilot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-ratchet-autopilot.md) — Build: autonomous Ironhorse test262 ratchet (per-crank PRs, mentat merge watc...
 
-### tada (9388)
+### tada (9389)
+- [`deadmail-20260928T203432Z-300133`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/deadmail-20260928T203432Z-300133.md) — Cost
 - [`ironhorse-test262-ratchet-round3-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-test262-ratchet-round3-20260928.md) — Cost
 - [`claude-on-minion-town-press-20260928-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-200508.md) — Cost
 - [`improve-comment-primary-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-comment-primary-quota-cooldown.md) — Cost
 - [`document-garden-systemd-units`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/document-garden-systemd-units.md) — Cost
-- [`claude-on-minion-town-completion-press-20260928-195005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-195005.md) — Cost
-- … and 9383 more
+- … and 9384 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
