@@ -161,6 +161,14 @@ subscription_reset_fact() {
 
 # subscription_window_start_epoch <subscription> [journal-dir] [now]
 subscription_window_start_epoch() {
+  local row
+  row="$(_subscription_window_start "$@")" || return 1
+  printf '%s\n' "${row%%$'\t'*}"
+}
+
+# _subscription_window_start <subscription> [journal-dir] [now] — prints
+# "<epoch>\t<source>", where source is calendar or observed.
+_subscription_window_start() {
   local subscription="$1" dir="${2:-}" now="${3:-$(meter_now)}"
   local fact mode dow hhmm tz precision observed anchor observed_epoch
   fact="$(subscription_reset_fact "$subscription" "$dir")" || return 1
@@ -175,14 +183,15 @@ subscription_window_start_epoch() {
       observed_epoch=""
       [ "$observed" = - ] || observed_epoch="$(date -u -d "$observed" +%s 2>/dev/null || true)"
       if [[ "$observed_epoch" =~ ^[0-9]+$ ]] && [ "$observed_epoch" -le "$now" ] && [ "$observed_epoch" -gt "$anchor" ]; then
-        printf '%s\n' "$observed_epoch"
+        printf '%s\tobserved\n' "$observed_epoch"
       else
-        printf '%s\n' "$anchor"
+        printf '%s\tcalendar\n' "$anchor"
       fi
       ;;
     manual|observed)
       [ "$observed" != - ] || return 1
-      date -u -d "$observed" +%s 2>/dev/null
+      observed_epoch="$(date -u -d "$observed" +%s 2>/dev/null)" || return 1
+      printf '%s\tobserved\n' "$observed_epoch"
       ;;
     *) return 1 ;;
   esac
@@ -202,6 +211,66 @@ subscription_next_reset_epoch() {
   anchor="$(_calendar_anchor_epoch "$dow" "$hhmm" "$tz" "$now")" || return 1
   day="$(TZ="$tz" date -d "@$anchor" +%Y-%m-%d 2>/dev/null)" || return 1
   TZ="$tz" date -d "$day $hhmm 7 days" +%s 2>/dev/null
+}
+
+# subscription_planned_reset_row <subscription> [journal-dir] — the most recent
+# maintainer-planned reset ("expected-next-scheduled"), as
+# "<reset_at>\t<recorded_at>".  Callers decide whether it is still pending.
+subscription_planned_reset_row() {
+  local subscription="$1" dir="${2:-}" file
+  file="$(subscription_reset_file "$subscription" "$dir")" || return 1
+  command -v jq >/dev/null 2>&1 || return 1
+  jq -sr 'map(select((.event_type // "") == "expected-next-scheduled"
+                      and (.reset_at // "") != "")) | last
+          | select(. != null) | [.reset_at, (.recorded_at // "")] | @tsv' "$file" 2>/dev/null \
+    | grep .
+}
+
+# subscription_pacing_window <subscription> [journal-dir] [now] — the window
+# pacing measures against, as
+#   <start>\t<start-source>\t<deadline>\t<deadline-source>\t<note>
+# The start is subscription_window_start_epoch (calendar or observed).  The
+# deadline is the calendar next reset, unless a pending maintainer-planned reset
+# falls before it: then the planned instant is the deadline, so spare quota is
+# spent against the shorter window.  A planned row is ignored once its instant
+# has passed, when it lies at/after the calendar deadline (noted), or when an
+# observed reset recorded after the plan already began a new window.
+subscription_pacing_window() {
+  local subscription="$1" dir="${2:-}" now="${3:-$(meter_now)}"
+  local start_row start start_source deadline row planned recorded planned_epoch recorded_epoch note=""
+  start_row="$(_subscription_window_start "$subscription" "$dir" "$now")" || return 1
+  IFS=$'\t' read -r start start_source <<<"$start_row"
+  deadline="$(subscription_next_reset_epoch "$subscription" "$dir" "$now")" || return 1
+  if row="$(subscription_planned_reset_row "$subscription" "$dir")"; then
+    IFS=$'\t' read -r planned recorded <<<"$row"
+    planned_epoch="$(date -u -d "$planned" +%s 2>/dev/null || true)"
+    recorded_epoch="$(date -u -d "$recorded" +%s 2>/dev/null || true)"
+    if ! [[ "$planned_epoch" =~ ^[0-9]+$ ]]; then
+      note="planned reset $planned unparseable; ignored"
+    elif [ "$planned_epoch" -le "$now" ]; then
+      :
+    elif [ "$start_source" = observed ] && [[ "$recorded_epoch" =~ ^[0-9]+$ ]] && [ "$start" -ge "$recorded_epoch" ]; then
+      note="planned reset $planned superseded by observed reset"
+    elif [ "$planned_epoch" -ge "$deadline" ]; then
+      note="planned reset $planned not before calendar deadline; ignored"
+    else
+      printf '%s\t%s\t%s\tplanned\t%s\n' "$start" "$start_source" "$planned_epoch" "$note"
+      return 0
+    fi
+  fi
+  printf '%s\t%s\t%s\tcalendar\t%s\n' "$start" "$start_source" "$deadline" "$note"
+}
+
+# subscription_pacing_summary <subscription> [journal-dir] [now] — one
+# human-readable token for decision reasons.
+subscription_pacing_summary() {
+  local start start_source deadline deadline_source note text
+  IFS=$'\t' read -r start start_source deadline deadline_source note \
+    < <(subscription_pacing_window "$@") || { printf 'deadline=unknown\n'; return 0; }
+  [[ "$deadline" =~ ^[0-9]+$ ]] || { printf 'deadline=unknown\n'; return 0; }
+  text="window-start=$(date -u -d "@$start" +%Y-%m-%dT%H:%MZ)($start_source) deadline=$(date -u -d "@$deadline" +%Y-%m-%dT%H:%MZ)($deadline_source)"
+  [ -z "$note" ] || text+=" [$note]"
+  printf '%s\n' "$text"
 }
 
 # Compatibility wrappers resolve this host's Anthropic subscription rather than
@@ -1043,12 +1112,14 @@ budget_fleet_next_reset_epoch() {
 
 # subscription_pacing_bias <subscription> <spent-or-percent> <cap> [dir] [now]
 # 0 means no urgency. Positive slack exists only when quota remaining exceeds
-# time remaining in the subscription's own window, and rises smoothly to 1.
+# time remaining in the subscription's own window, and rises smoothly to 1. The
+# window ends at subscription_pacing_window's deadline (a pending planned reset
+# when one precedes the calendar reset).
 subscription_pacing_bias() {
   local subscription="$1" spent="$2" cap="$3" dir="${4:-}" now="${5:-$(meter_now)}"
-  local start next
-  start="$(subscription_window_start_epoch "$subscription" "$dir" "$now")" || { printf '0\n'; return; }
-  next="$(subscription_next_reset_epoch "$subscription" "$dir" "$now")" || { printf '0\n'; return; }
+  local start next window
+  window="$(subscription_pacing_window "$subscription" "$dir" "$now")" || { printf '0\n'; return; }
+  IFS=$'\t' read -r start _ next _ <<<"$window"
   awk -v spent="$spent" -v cap="$cap" -v now="$now" -v start="$start" -v reset="$next" '
     BEGIN { duration=reset-start; left=reset-now; if(cap<=0||duration<=0||left<=0){print 0;exit}
       quota=(cap-spent)/cap; if(quota<0)quota=0; time=left/duration; slack=quota-time

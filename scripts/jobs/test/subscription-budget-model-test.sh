@@ -72,6 +72,52 @@ awk -v bias="$bias" 'BEGIN { exit !(bias > 0) }'
 oros_weight="$(subscription_allocation_weight 73000000 "$bias")"
 awk -v weight="$oros_weight" 'BEGIN { exit !(weight >= 1200000000) }'
 
+# A pending maintainer-planned reset before the calendar reset becomes the
+# pacing deadline; the window start is unchanged. Past, later-than-calendar, and
+# already-executed plans leave calendar pacing exactly as before.
+endolin2_declared='{"subscription_id":"claude-endolin2","event_type":"declared-schedule","cadence":"calendar","schedule_weekday":5,"schedule_time":"20:00","timezone":"America/Los_Angeles","reset_at_precision":"exact","reset_at":"2026-09-19T03:00:00Z"}'
+endolin2_events="$TEST_ROOT/budget/reset-events/claude-endolin2.jsonl"
+planned_row() { printf '{"subscription_id":"claude-endolin2","event_type":"expected-next-scheduled","cadence":"observed","reset_at":"%s","reset_at_precision":"scheduled","recorded_at":"%s","timezone":"UTC"}\n' "$1" "$2"; }
+calendar_window="$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
+calendar_bias="$(subscription_pacing_bias claude-endolin2 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
+[ "$(cut -f2,3,4 <<<"$calendar_window")" = "calendar	$(date -u -d 2026-09-26T03:00:00Z +%s)	calendar" ]
+[ "$(cut -f1 <<<"$calendar_window")" = "$(date -u -d 2026-09-19T03:00:00Z +%s)" ]
+
+{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-22T03:00:00Z 2026-09-20T06:00:00Z; } > "$endolin2_events"
+planned_window="$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
+[ "$(cut -f1,2 <<<"$planned_window")" = "$(cut -f1,2 <<<"$calendar_window")" ]
+[ "$(cut -f3,4 <<<"$planned_window")" = "$(date -u -d 2026-09-22T03:00:00Z +%s)	planned" ]
+planned_bias="$(subscription_pacing_bias claude-endolin2 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
+awk -v p="$planned_bias" -v c="$calendar_bias" 'BEGIN { exit !(p > c) }'
+awk -v p="$(subscription_allocation_weight 100000000 "$planned_bias")" \
+    -v c="$(subscription_allocation_weight 100000000 "$calendar_bias")" 'BEGIN { exit !(p > c) }'
+[[ "$(subscription_pacing_summary claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" == *"deadline=2026-09-22T03:00Z(planned)"* ]]
+# An offset-qualified plan (the 09-26 row's shape) parses to the same instant.
+{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-21T20:00:00-07:00 2026-09-20T06:00:00Z; } > "$endolin2_events"
+[ "$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW" | cut -f3)" = "$(date -u -d 2026-09-22T03:00:00Z +%s)" ]
+# The latest plan wins, even when an earlier plan was sooner.
+{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-21T00:00:00Z 2026-09-20T06:00:00Z; planned_row 2026-09-23T00:00:00Z 2026-09-20T07:00:00Z; } > "$endolin2_events"
+[ "$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW" | cut -f3)" = "$(date -u -d 2026-09-23T00:00:00Z +%s)" ]
+
+# Once the planned instant passes, the calendar deadline returns.
+{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-20T11:00:00Z 2026-09-19T06:00:00Z; } > "$endolin2_events"
+[ "$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" = "$calendar_window" ]
+[ "$(subscription_pacing_bias claude-endolin2 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" = "$calendar_bias" ]
+
+# A plan later than the calendar reset is ignored, and the reason says so.
+{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-28T03:00:00Z 2026-09-20T06:00:00Z; } > "$endolin2_events"
+[ "$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW" | cut -f1-4)" = "$(cut -f1-4 <<<"$calendar_window")" ]
+[ "$(subscription_pacing_bias claude-endolin2 20000000 100000000 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" = "$calendar_bias" ]
+[[ "$(subscription_pacing_summary claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")" == *"(calendar) [planned reset 2026-09-28T03:00:00Z not before calendar deadline; ignored]" ]]
+
+# The plan was executed early: the observed reset starts the new window and the
+# calendar deadline governs it, instead of a minutes-long window to the plan.
+{ printf '%s\n' "$endolin2_declared"; planned_row 2026-09-22T03:00:00Z 2026-09-20T06:00:00Z
+  printf '%s\n' '{"subscription_id":"claude-endolin2","event_type":"manual-reset","cadence":"observed","reset_at":"2026-09-20T11:00:00Z","reset_at_precision":"exact","timezone":"UTC"}'; } > "$endolin2_events"
+observed_window="$(subscription_pacing_window claude-endolin2 "$TEST_ROOT" "$GARDEN_USAGE_NOW")"
+[ "$(cut -f1-4 <<<"$observed_window")" = "$(date -u -d 2026-09-20T11:00:00Z +%s)	observed	$(date -u -d 2026-09-26T03:00:00Z +%s)	calendar" ]
+printf '%s\n' "$endolin2_declared" > "$endolin2_events"
+
 fleet="$(budget_fleet_rate_json "$TEST_ROOT")"
 [ "$(jq -r '.tokens_per_day_lower_bound > 0' <<<"$fleet")" = true ]
 [ "$(jq -r .complete <<<"$fleet")" = false ]

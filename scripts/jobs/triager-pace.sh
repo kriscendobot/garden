@@ -121,7 +121,8 @@ sampled_at_epoch="$(live_field sampled_at_epoch)"
 [ $((now - sampled_at_epoch)) -le "$snapshot_max_age" ] || fallback stale-live-pace-input
 
 expected_window_start="$(subscription_window_start_epoch "$pool" "$directory" "$now" 2>/dev/null || true)"
-reset_epoch="$(subscription_next_reset_epoch "$pool" "$directory" "$now" 2>/dev/null || true)"
+# A pending maintainer-planned reset shortens the window like any other pacing.
+reset_epoch="$(subscription_pacing_window "$pool" "$directory" "$now" 2>/dev/null | cut -f3 || true)"
 if [[ "$pool" == anthropic:* ]] && ! [[ "$expected_window_start" =~ ^[0-9]+$ ]]; then
   expected_window_start="$(meter_week_anchor_epoch "$now" 2>/dev/null || true)"
   reset_epoch="$(meter_next_reset_epoch "$now" 2>/dev/null || true)"
