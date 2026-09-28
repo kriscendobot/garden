@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T23:25:13Z_
+_As of 2026-09-28T23:27:06Z_
 
 ## Latest
 
@@ -3669,7 +3669,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.7M | $516.19 _(notional, rate-card)_ | 40% of 143.0M (ok) |
+| Claude | 56.7M | $516.51 _(notional, rate-card)_ | 40% of 143.0M (ok) |
 | Codex | 5.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 81165362 tokens/day lower bound._
@@ -3678,10 +3678,9 @@ _Fleet token-unlock pace: 81165362 tokens/day lower bound._
 worst fetch p95 6.463606s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (5)
 - [`garden-pr81-postdeploy-pty-20260928T221312Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-pr81-postdeploy-pty-20260928T221312Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1097
-- [`kriscendobot-minion.town-pr86-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr86-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #86
 - [`claude-on-minion-town-press-20260928-232006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260928-232006.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-garden-pr81-pty-lane-test-5119818493`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-pty-lane-test-5119818493.md) — PR #81 pty-lane live validation test (kriscendobot/garden#81, review 5119818493)
@@ -3693,16 +3692,16 @@ worst fetch p95 6.463606s/45s (/home/kris/garden/.garden-state/design-pr-gauntle
 - [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260928.md) — Finish activation of the authorized Ironhorse ratchet autopilot
 - [`design-npm-minion-town-dev-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-npm-minion-town-dev-registry.md) — Context — read before designing
 - [`kriscendobot-garden-pr81-postdeploy-pty-20260928T224844Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-20260928T224844Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
-- [`pty-lane-assay-rev5119818493`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pty-lane-assay-rev5119818493.md) — Interactive pty-lane self-validation for garden PR #81
+- [`kriscendobot-minion.town-pr86-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr86-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #86
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 
-### tada (9457)
+### tada (9458)
+- [`pty-lane-assay-rev5119818493`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/pty-lane-assay-rev5119818493.md) — pty-lane assay (garden PR #81): FAILED, because the pty lane was never selected
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T230126Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T230126Z.md) — Cost
 - [`kriscendobot-minion.town-pr86-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-gauntlet-panel-4.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-894f26756377`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-894f26756377.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr897-conduct-5344801548`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr897-conduct-5344801548.md) — Cost
-- [`scholar-nvidia-openshell-garden-confinement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/scholar-nvidia-openshell-garden-confinement.md) — Cost
-- … and 9452 more
+- … and 9453 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
