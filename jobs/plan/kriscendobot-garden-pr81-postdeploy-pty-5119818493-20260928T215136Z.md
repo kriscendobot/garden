@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: minion
+handler-timeout: 10800
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-09-28T23:33:07Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-09-28T23:33:07Z
+---
+
+---
 role: fixer
 tier: minion
 model-burned: mentor
@@ -31,17 +53,3 @@ Once deployed, post exactly one fresh test job through `scripts/jobs/post-job.sh
 - emit the orchestration-failure signal if any required assertion fails, then the completion signal.
 
 Poll the journal board with a bounded deadline for that test basename to reach `jobs/tada/`; inspect its durable report. Whether it passes, fails, is requeued repeatedly, or times out, post one top-level comment on PR #81 describing the deployed SHA, test job basename, whether the pty lane was genuinely selected, work/test evidence, context-reader evidence, and the final outcome. Do not claim success without evidence. If the test does not pass, post the failure report first and then emit the orchestration-failure signal before your own completion signal. If it passes, complete normally.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-28T22:43:06Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-28T22:59:28Z
