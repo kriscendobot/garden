@@ -1,14 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-09-28T17:03:07Z
+sent_at: 2026-09-28T17:28:24Z
 watchdog_key: journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify
-notice_count: 2
+notice_count: 3
 first_seen: 2026-09-28T14:33:12Z
-last_seen: 2026-09-28T17:03:07Z
-recovered: true
+last_seen: 2026-09-28T17:28:24Z
 ---
-RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` has CLEARED (first seen 2026-09-28T14:33:12Z, cleared 2026-09-28T17:03:07Z).
-It was observed 2 time(s) while open. Nothing further is required;
-this notice closes the loop so the end of the condition is on the record.
+WATCHDOG notice — occurrence #3 (first seen 2026-09-28T14:33:12Z, latest 2026-09-28T17:28:24Z).
+The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify`) has now been observed 3 times; this is ONE
+coalesced notice that updates in place, not 3 messages. Latest detail:
 
-Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` cleared on endolin-garden-ece02cb4.
+Journal lock contention on endolin-garden-ece02cb4 for _home_kris_garden__garden_state_approval_reconciler_verify: p95=78.311853s, giveups=0, steals=0 (max 3/window), wait floor=60s.
