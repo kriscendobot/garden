@@ -120,8 +120,11 @@ remedy_clone() { # clone slug reason; prints applied|backoff|disabled|deferred|o
   if (
     GARDEN_CLONE_LOCK_SOFT=1 GARDEN_LOCK_SOFT_WAIT="${GARDEN_CONTENTION_REMEDY_LOCK_WAIT:-2}"
     export GARDEN_CLONE_LOCK_SOFT GARDEN_LOCK_SOFT_WAIT
-    # Fit the rebuild's bounded fetch attempts into what is left of the tick.
-    fit=$(( $(tick_remaining) / (GARDEN_FETCH_TIMEOUT + GARDEN_FETCH_KILL_AFTER) ))
+    # Fit the rebuild's bounded attempts into what is left of the tick. A rebuild is
+    # a COLD clone (ensure_clone -> reclone_clone), bounded by GARDEN_CLONE_TIMEOUT,
+    # not the incremental-fetch cap; budget by that so a single attempt is not started
+    # against a tick that cannot hold it.
+    fit=$(( $(tick_remaining) / (${GARDEN_CLONE_TIMEOUT:-$GARDEN_FETCH_TIMEOUT} + GARDEN_FETCH_KILL_AFTER) ))
     [ "$fit" -ge 1 ] || fit=1
     if [ "$fit" -lt "$GARDEN_FETCH_RETRIES" ]; then export GARDEN_FETCH_RETRIES="$fit"; fi
     clone_lock "$clone"

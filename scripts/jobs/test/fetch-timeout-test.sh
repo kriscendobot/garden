@@ -636,6 +636,134 @@ else
 fi
 
 # ============================================================================
+hr; echo "SUBTEST 11 — a missing journal clone is bootstrapped via the LOCAL root objects (--reference-if-able)"; hr
+# SIXTH shape (2026-09-28): journal2 grew back to ~322 MiB / 29k commits, and a fresh
+# single-branch clone over SSH could not finish inside the 45s fetch cap (rc=124), so a
+# newly-scaled worker whose clone dir was missing logged `offline; skipping tick (rc=75)`
+# forever and never claimed. reclone_clone now bootstraps a cold clone from the root
+# repo's LOCAL objects with `--reference-if-able "$GARDEN_ROOT/.git" --dissociate` — the
+# root shares journal2's object store with the journal/ worktree — turning a full network
+# transfer into a seconds-long local copy. Prove the flag is actually passed to `git clone`
+# whenever $GARDEN_ROOT/.git is a real repo directory, and that the resulting clone is
+# healthy (has origin/journal2) and holds NO dangling alternate (--dissociate copied in).
+# A recording git that flags any `clone` carrying --reference-if-able, then execs the
+# REAL git. Install it FIRST (subtest 10 left a failing fake git on PATH) so the setup
+# clones below use real git; it records nothing for a plain (no-reference) clone.
+REF_FLAG_SEEN="$TR/ref-flag-seen"; : > "$REF_FLAG_SEEN"
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+sub=
+for a in "\$@"; do case "\$a" in clone) sub=clone; break ;; esac; done
+if [ "\$sub" = clone ]; then
+  for a in "\$@"; do [ "\$a" = --reference-if-able ] && echo yes > "$REF_FLAG_SEEN"; done
+fi
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/git"
+REFBARE="$TR/ref-journal.git"; git init -q --bare "$REFBARE"
+git -C "$CS" push -q "$REFBARE" HEAD:journal2
+# A real (non-worktree) root clone: its .git is a DIRECTORY holding journal2 objects.
+ROOTREPO="$TR/rootrepo"
+git clone -q --single-branch --branch journal2 "$REFBARE" "$ROOTREPO"
+: > "$REF_FLAG_SEEN"   # reset after setup clones so we only observe reclone_clone's call
+REFDIR="$TR/ref-clone"; rm -rf "$REFDIR"
+start="$(date +%s)"; rc=0
+( export JOURNAL_REMOTE="$REFBARE" GARDEN_ROOT="$ROOTREPO" GARDEN_FETCH_RETRIES=1
+  ensure_clone "$REFDIR" ) >/dev/null 2>&1 || rc=$?
+elapsed=$(( $(date +%s) - start ))
+if [ "$rc" -eq 0 ] && [ "$(cat "$REF_FLAG_SEEN")" = yes ] \
+   && git -C "$REFDIR" rev-parse -q --verify "refs/remotes/origin/journal2^{commit}" >/dev/null 2>&1 \
+   && [ ! -s "$REFDIR/.git/objects/info/alternates" ]; then
+  ok "reclone_clone bootstrapped the missing clone via --reference-if-able in ${elapsed}s, dissociated (no alternate)"
+else
+  bad "reclone_clone reference-path wrong (rc=$rc, ref-flag=$(cat "$REF_FLAG_SEEN"), journal2=$(git -C "$REFDIR" rev-parse -q --verify refs/remotes/origin/journal2^{commit} >/dev/null 2>&1 && echo y || echo n), alternate=$([ -s "$REFDIR/.git/objects/info/alternates" ] && echo present || echo gone))"
+fi
+
+# A linked WORKTREE's .git is a FILE, not a valid reference target: the guard must skip
+# the reference flag there (and a plain clone must still succeed) so a worktree-rooted
+# host never passes an unusable --reference-if-able target.
+WTFILE_ROOT="$TR/worktree-root"; mkdir -p "$WTFILE_ROOT"
+printf 'gitdir: /nonexistent/does-not-matter\n' > "$WTFILE_ROOT/.git"  # a .git FILE, not a dir
+REF_FLAG_SEEN2="$TR/ref-flag-seen2"; : > "$REF_FLAG_SEEN2"
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+sub=
+for a in "\$@"; do case "\$a" in clone) sub=clone; break ;; esac; done
+if [ "\$sub" = clone ]; then
+  for a in "\$@"; do [ "\$a" = --reference-if-able ] && echo yes > "$REF_FLAG_SEEN2"; done
+fi
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/git"
+NOREFDIR="$TR/noref-clone"; rm -rf "$NOREFDIR"; rc=0
+( export JOURNAL_REMOTE="$REFBARE" GARDEN_ROOT="$WTFILE_ROOT" GARDEN_FETCH_RETRIES=1
+  ensure_clone "$NOREFDIR" ) >/dev/null 2>&1 || rc=$?
+if [ "$rc" -eq 0 ] && [ -z "$(cat "$REF_FLAG_SEEN2")" ] \
+   && git -C "$NOREFDIR" rev-parse -q --verify "refs/remotes/origin/journal2^{commit}" >/dev/null 2>&1; then
+  ok "reclone_clone skipped the reference flag when the root .git is a worktree FILE and still cloned cleanly"
+else
+  bad "reclone_clone worktree-file guard wrong (rc=$rc, ref-flag=$(cat "$REF_FLAG_SEEN2"), journal2=$(git -C "$NOREFDIR" rev-parse -q --verify refs/remotes/origin/journal2^{commit} >/dev/null 2>&1 && echo y || echo n))"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 12 — a cold clone that exceeds the 45s FETCH cap but fits the larger CLONE cap succeeds"; hr
+# The crux of the fix: a fresh clone is slower than an incremental fetch, so it must be
+# bounded by GARDEN_CLONE_TIMEOUT, not the 45s fetch cap. Model a clone that takes 3s
+# with GARDEN_FETCH_TIMEOUT=1 (the OLD bound, which would SIGTERM it at 1s -> rc=124 ->
+# EX_TEMPFAIL 75 -> stranded worker) and GARDEN_CLONE_TIMEOUT=10 (the new bound, which
+# lets it finish). The fake git sleeps 3s on clone, then execs the real clone.
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+sub=
+for a in "\$@"; do case "\$a" in clone) sub=clone; break ;; esac; done
+if [ "\$sub" = clone ]; then sleep 3; fi
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/git"
+SLOWDIR="$TR/slow-cold-clone"; rm -rf "$SLOWDIR"
+start="$(date +%s)"; rc=0
+( export JOURNAL_REMOTE="$REFBARE" GARDEN_ROOT="$WTFILE_ROOT" \
+    GARDEN_FETCH_RETRIES=1 GARDEN_FETCH_TIMEOUT=1 GARDEN_CLONE_TIMEOUT=10
+  ensure_clone "$SLOWDIR" ) >/dev/null 2>&1 || rc=$?
+elapsed=$(( $(date +%s) - start ))
+if [ "$rc" -eq 0 ] \
+   && git -C "$SLOWDIR" rev-parse -q --verify "refs/remotes/origin/journal2^{commit}" >/dev/null 2>&1; then
+  ok "cold clone (${elapsed}s, > the 1s fetch cap) succeeded under the 10s clone cap instead of being killed at 1s"
+else
+  bad "cold clone was NOT allowed the larger clone cap (rc=$rc, elapsed=${elapsed}s; the fetch cap still bounds clones)"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 13 — an INCREMENTAL fetch still fails fast at the fetch cap, NOT the clone cap"; hr
+# The larger clone cap must NOT leak into the fetch path: a stalled incremental fetch has
+# a prior clone to fall back on and must still be killed fast so it never serves stale
+# refs. A fake git that hangs 30s on fetch, with GARDEN_FETCH_TIMEOUT=1 and a much larger
+# GARDEN_CLONE_TIMEOUT=30: journal_fetch must return in ~seconds (fetch cap), not ~30s.
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+for a in "\$@"; do [ "\$a" = fetch ] && { sleep 30; exit 0; }; done
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/git"
+FFCLONE="$TR/fast-fetch-clone"; mkdir -p "$FFCLONE"
+start="$(date +%s)"; rc=0
+( export GARDEN_FETCH_TIMEOUT=1 GARDEN_FETCH_RETRIES=2 GARDEN_CLONE_TIMEOUT=30
+  journal_fetch "$FFCLONE" ) >/dev/null 2>&1 || rc=$?
+elapsed=$(( $(date +%s) - start ))
+if [ "$rc" -ne 0 ] && [ "$elapsed" -lt 15 ]; then
+  ok "incremental fetch failed fast in ${elapsed}s at the 1s fetch cap (the 30s clone cap did not leak in)"
+else
+  bad "incremental fetch took ${elapsed}s / rc=$rc — the clone cap leaked into the fetch path (a hang would be >=30s)"
+fi
+# Restore the original hanging fake git in case a later subtest is appended.
+cat > "$TR/bin/git" <<EOF
+#!/bin/bash
+for a in "\$@"; do [ "\$a" = fetch ] && { sleep 30; exit 0; }; done
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/bin/git"
+
+# ============================================================================
 hr
 rm -rf "$TR"
 echo "RESULTS: $PASS passed, $FAIL failed"

@@ -394,6 +394,16 @@ export GARDEN
 # alongside the rc=124 wall-clock kill (journal_fetch / sync_clone below).
 : "${GARDEN_FETCH_KILL_AFTER:=10}"  # seconds after SIGTERM before SIGKILL escalation
 : "${GARDEN_FETCH_RETRIES:=3}"    # bounded attempts for a journal fetch
+# A COLD clone gets its own, larger wall-clock bound than an incremental fetch.
+# The 45s GARDEN_FETCH_TIMEOUT cap exists so a STALE fetch fails fast and never
+# serves stale refs (a fetch has a prior clone to fall back on); a FIRST clone has
+# no stale ref to protect — it must simply finish. journal2 is ~322 MiB / 29k
+# commits, and a fresh single-branch clone over SSH cannot complete in 45s (rc=124),
+# so a newly-scaled worker (or a clone the contention watch rebuilt) logged
+# `offline; skipping tick (rc=75)` forever and never claimed (2026-09-28). bounded_clone
+# uses this larger, still-bounded cap; reclone_clone additionally bootstraps from the
+# root repo's local objects (--reference-if-able) so a cold clone is seconds, not minutes.
+: "${GARDEN_CLONE_TIMEOUT:=300}"  # seconds before a COLD clone is killed (a fetch keeps the 45s cap)
 : "${GARDEN_OFFLINE_RC:=75}"      # EX_TEMPFAIL: sync_clone exit on a connectivity/DNS outage
 # Overall wall-clock bound on a producer's push-CAS retry loop (post-job.sh /
 # post-plan.sh). The loop is bounded only by GARDEN_POST_ATTEMPTS (attempt COUNT),
@@ -2828,17 +2838,20 @@ bounded_fetch() {
 # Returns 0 on success, the last non-zero rc after the retry budget is spent.
 # The final attempt's stderr is captured for the journal clone caller's offline
 # classification (a transient SSH/DNS outage is a clean EX_TEMPFAIL skip).
+# A clone is always COLD (no stale ref to protect), so it is bounded by the larger
+# GARDEN_CLONE_TIMEOUT, not the 45s incremental-fetch cap — see that knob above.
 GARDEN_CLONE_STDERR=""
 bounded_clone() {
   local src="$1" abs="$2"; shift 2
   local attempt=1 rc=0 tmp retries="${GARDEN_CLONE_RETRIES:-$GARDEN_FETCH_RETRIES}"
+  local clone_timeout="${GARDEN_CLONE_TIMEOUT:-$GARDEN_FETCH_TIMEOUT}"
   local flags=("$@"); [ "${#flags[@]}" -eq 0 ] && flags=(--bare)
   GARDEN_CLONE_STDERR=""
   mkdir -p "$(dirname "$abs")"
   while :; do
     tmp="${abs%/}.reclone.$$.$attempt"
     rm -rf "$tmp"
-    if GARDEN_CLONE_STDERR="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
+    if GARDEN_CLONE_STDERR="$(timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$clone_timeout" \
          git clone -q "${flags[@]}" "$src" "$tmp" 2>&1 1>/dev/null)"; then
       if mv -T "$tmp" "$abs" 2>/dev/null; then
         return 0
@@ -2851,7 +2864,7 @@ bounded_clone() {
       rm -rf "$tmp"
     fi
     { [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; } \
-      && log "clone of $src into $abs timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$rc) on attempt $attempt"
+      && log "clone of $src into $abs timed out (>${clone_timeout}s, rc=$rc) on attempt $attempt"
     if [ "$attempt" -ge "$retries" ]; then
       log "clone of $src into $abs failed after $attempt attempt(s) (last rc=$rc)${GARDEN_CLONE_STDERR:+: $GARDEN_CLONE_STDERR}"
       return "$rc"
@@ -4419,10 +4432,27 @@ clone_is_corrupt() {
 reclone_clone() {
   local dir="$1" remote="$2" rc
   rm -rf "$dir"
+  # Bootstrap a COLD clone from the root repo's LOCAL objects. The deployed root
+  # ($GARDEN_ROOT/.git) is the SAME object store the journal/ worktree checks out
+  # journal2 in, so it already holds journal2's objects. `--reference-if-able` borrows
+  # them locally (seconds, not a full ~322 MiB network transfer that overran the fetch
+  # cap and stranded every fresh worker, 2026-09-28); `--dissociate` then copies the
+  # borrowed objects INTO the new clone so it holds no dangling alternate afterward
+  # (safe to keep/rebuild independently). `-if-able` degrades to a plain network clone
+  # if the root repo is missing/unusable, so this never hard-depends on local objects.
+  # Guard on a real .git DIRECTORY: a linked worktree's .git is a FILE (not a valid
+  # reference target), and a test harness that repoints GARDEN_ROOT at a worktree must
+  # exercise the plain path. The reference is READ-ONLY — git never mutates it and never
+  # runs a git subcommand IN $GARDEN_ROOT, so this respects the root-repo invariant.
+  local ref_flags=()
+  if [ -d "$GARDEN_ROOT/.git" ]; then
+    ref_flags=(--reference-if-able "$GARDEN_ROOT/.git" --dissociate)
+  fi
   # Journal callers already own their cadence/outer clone retry policy (notably
   # inbox-read's three-attempt cold-clone loop). Keep this primitive to one
   # bounded network attempt so those retry budgets do not multiply 3×3.
-  if GARDEN_CLONE_RETRIES=1 bounded_clone "$remote" "$dir" --single-branch --branch "$JOURNAL_BRANCH"; then
+  if GARDEN_CLONE_RETRIES=1 bounded_clone "$remote" "$dir" \
+       --single-branch --branch "$JOURNAL_BRANCH" "${ref_flags[@]}"; then
     return 0
   else
     rc=$?
