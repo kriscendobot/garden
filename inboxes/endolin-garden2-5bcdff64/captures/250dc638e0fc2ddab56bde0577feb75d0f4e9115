@@ -1,0 +1,7 @@
+<6>01:47:16 [monk/1] resuming session 3cf1d5fa-488a-5568-a3cc-5b5500e32fb4 for requeued job 'claude-on-minion-town-completion-press-20260928-012250' in worktree /home/kris/garden2/scratch/gardener-wt-claude-on-minion-town-completion-press-20260928-012250
+<6>01:47:16 [monk/1] job 'claude-on-minion-town-completion-press-20260928-012250' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>01:47:16 [monk/1] job 'claude-on-minion-town-completion-press-20260928-012250' call ceiling: tier=minion max-budget-usd=8.20 (scaled by fresh seven-day headroom when available)
+Claude structured API error (status=unknown).
+
+--- handler report (partial) ---
+Failed to authenticate: OAuth session expired and could not be refreshed
