@@ -1,24 +1,26 @@
 #!/bin/bash
 # foreman-maintainer-notice-dedup-test.sh — regression guard for the foreman's
-# milestone/bottleneck maintainer-notice DEDUP (job foreman-dedup-maintainer-notices).
+# milestone/bottleneck maintainer-notice DEDUP (jobs foreman-dedup-maintainer-notices,
+# fix-foreman-milestone-notice-dedup).
 #
-# THE BUG: when the board is bottlenecked on a maintainer merge/review, the foreman
-# has nothing to promote, so its `claude -p` handler returns a MAINTAINER block
-# EVERY tick. The old code keyed the note_once dedup on a `cksum` of the notice's
-# PROSE — but the handler rewords the prose each tick, so the cksum changed and the
-# near-identical notice re-posted every few minutes, flooding the maintainer inbox.
+# THE BUG (twice): the handler's `claude -p` rewords its MAINTAINER notice every
+# tick. A prose cksum re-posted every tick; the exact-set signature of the notice's
+# M/# tokens that replaced it still re-posted whenever the prose named a different
+# SUBSET of the same blockers (2026-09-27/28: 25 notices for M2 stalled on #1349 and
+# #1356, alternating {#1349}, {#1349,#1356}, {#1356}).
 #
-# THE FIX (mirrors identity-drift-guard.sh): key the dedup on a stable SUBSTANCE
-# signature — the milestone ids (M2, M3, …) and PR/issue numbers (#719, #263, …)
-# the notice references, normalized+sorted — recorded in a marker under
-# $GARDEN_STATE. An unchanged state posts NOTHING; a new/closed PR or advancing
-# milestone changes the signature and fires exactly once.
+# THE FIX: key by milestone, deliver only a never-seen ref (or after the TTL), and
+# deliver through inbox-send.sh's coalescing mode so each milestone has ONE unread
+# entry whose notice_count counts deliveries.
 #
-# SUBTEST 1 — two consecutive ticks over the SAME substance (prose reworded) post
-#             the maintainer notice ONCE, not twice.
-# SUBTEST 2 — a tick after the substance CHANGES (a PR number added) posts again
-#             exactly once.
-# SUBTEST 3 — the dedup marker lives under $GARDEN_STATE.
+# SUBTEST 1 — the first notice for a milestone is delivered.
+# SUBTEST 2 — the real captured M2 notices (subset/order/prose variation over the
+#             SAME blockers) deliver nothing further.
+# SUBTEST 3 — a genuinely new blocking PR is delivered, amending the SAME entry.
+# SUBTEST 4 — a different milestone gets its own entry.
+# SUBTEST 5 — past GARDEN_FOREMAN_NOTICE_TTL the stalled state re-reminds once,
+#             still into the same entry.
+# SUBTEST 6 — the seen-set lives under $GARDEN_STATE.
 #
 # systemd is not required: the test drives foreman.sh directly against a throwaway
 # journal remote and inspects what lands in inbox/maintainer/unread/.
@@ -62,81 +64,110 @@ git -C "$SEED" "${GIT_ID[@]}" commit -q -m "seed: empty board + live maintainer 
 git -C "$SEED" remote add origin "$BARE"
 git -C "$SEED" push -q -u origin "$BRANCH"
 
-# Count the messages currently in inbox/maintainer/unread/ on the remote
-# (excluding the .gitkeep placeholder).
-maintainer_count() {
-  local v n=0 f; v="$(mktemp -d)"
+# inbox_stat — print "<files> <deliveries>" for inbox/maintainer/unread/ on the
+# remote: the entry count, and the sum of notice_count (an entry without one is 1).
+inbox_stat() {
+  local v files=0 deliv=0 f n; v="$(mktemp -d)"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$v" 2>/dev/null
   for f in "$v"/inbox/maintainer/unread/*; do
     [ -e "$f" ] || continue
     case "${f##*/}" in .gitkeep) continue ;; esac
-    n=$(( n + 1 ))
+    files=$(( files + 1 ))
+    n="$(sed -n 's/^notice_count: *//p' "$f" | head -1)"
+    deliv=$(( deliv + ${n:-1} ))
   done
   rm -rf "$v"
-  printf '%s\n' "$n"
+  printf '%s %s\n' "$files" "$deliv"
 }
 
 # Run ONE foreman tick against the fixture. The board is empty (in-flight 0 < the
 # default target 5) and IDLE_SETTLE=0, so any tick past the priming tick pumps.
-# The handler is our stub, emitting the MAINTAINER body from $body_file.
+# The handler is our stub, emitting the MAINTAINER body given as $1.
+N=0
 tick() {
-  local body_file="$1"
+  N=$(( N + 1 )); printf '%s\n' "$1" > "$TR/body-$N"
   env -i PATH="$PATH" HOME="$TR" \
     GARDEN="okhost" GARDEN_STATE="$STATE" \
     JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
     GARDEN_FOREMAN_IDLE_SETTLE=0 \
+    GARDEN_FOREMAN_NOTICE_TTL="${TTL:-86400}" \
     GARDEN_FOREMAN_HANDLER="$STUB" \
-    GARDEN_TEST_NOTICE_BODY="$body_file" \
+    GARDEN_TEST_NOTICE_BODY="$TR/body-$N" \
     "$JOBS/foreman.sh" >/dev/null 2>&1 || true
 }
 
-BODY_A1="$TR/body-a1"; BODY_A2="$TR/body-a2"; BODY_B="$TR/body-b"
-# A1 and A2 describe the SAME substance (milestone M2/M3, PRs #719 and #263) with
-# DIFFERENT prose — the exact flood the fix targets.
-printf 'M2/M3 are stalled on the merge decision between #719 and #263.\n' > "$BODY_A1"
-printf 'The milestone M2 (and M3) is one merge from complete: choose #263 over #719.\n' > "$BODY_A2"
-# B changes the substance: a NEW PR (#800) enters the decision.
-printf 'M2/M3 now stalled on #719 vs #263 vs the new #800.\n' > "$BODY_B"
+# Real notices captured from inbox/maintainer/unread/ on 2026-09-27/28, in posting
+# order. Every one describes the same static state; the old signature gave them
+# {#1349,M2}, {#1349,#1356,M2}, {#1356,M2}, {#1349,#1356,M2}, {#1349,M2} — five posts.
+M2_FIRST='M2 is blocked at green draft PRs endojs/endo-but-for-bots#1349 and #1356. Decide the outstanding audit/design scope and authorize `run the gauntlet` for the PR(s); no autonomous work job can advance them.'
+M2_VARIANTS=(
+  'M2 hardened-url-shim is blocked at draft PR endojs/endo-but-for-bots#1356; decide whether to run its manual gauntlet and confirm the documented URL-shim design choices.'
+  'M2 is awaiting promotion of draft PRs endojs/endo-but-for-bots#1349 and #1356. Decide whether to run the gauntlet for either PR; no autonomous work step may advance them past draft.'
+  'Milestone M2 is blocked on maintainer-only manual-gauntlet promotion of its two green draft implementation PRs: endojs/endo-but-for-bots#1356 and #1349. Decide whether to run the gauntlet for each, and whether #1349 requires its remaining `llm` downstream audit before completion.'
+  'Milestone M2 is blocked at draft endojs/endo-but-for-bots#1349 (hardened-text-codecs-shim), whose checks are clean. Decide whether to promote it with `run the gauntlet #1349`.'
+)
 
 # Priming tick: the first below-target observation only starts the settle clock
 # (foreman.sh always exits after writing idle-since), so it posts nothing.
-tick "$BODY_A1"
-primed="$(maintainer_count)"
+tick "$M2_FIRST"
+read -r f0 d0 < <(inbox_stat)
 
-hr; echo "SUBTEST 1 — two ticks, SAME substance (reworded) → posts ONCE"; hr
-tick "$BODY_A1"; after1="$(maintainer_count)"
-tick "$BODY_A2"; after2="$(maintainer_count)"   # reworded, same substance
-posted_same=$(( after2 - primed ))
-[ "$after1" -gt "$primed" ] \
-  && ok "first real tick posted the notice (count $primed → $after1)" \
-  || bad "first real tick did NOT post (count stayed $primed)"
-[ "$posted_same" -eq 1 ] \
-  && ok "two consecutive same-substance ticks posted exactly ONCE (net +1), reworded prose deduped" \
-  || bad "same-substance ticks posted $posted_same times (expected exactly 1)"
+hr; echo "SUBTEST 1 — first M2 notice is delivered"; hr
+tick "$M2_FIRST"; read -r f1 d1 < <(inbox_stat)
+[ "$f1" -eq $(( f0 + 1 )) ] && [ "$d1" -eq $(( d0 + 1 )) ] \
+  && ok "first notice delivered (entries $f0 → $f1)" \
+  || bad "first notice not delivered once (entries $f0 → $f1, deliveries $d0 → $d1)"
 
-hr; echo "SUBTEST 2 — substance CHANGES (a PR added) → posts again ONCE"; hr
-tick "$BODY_B"; after3="$(maintainer_count)"
-delta_changed=$(( after3 - after2 ))
-[ "$delta_changed" -eq 1 ] \
-  && ok "the changed-substance tick posted again exactly once (net +1)" \
-  || bad "changed-substance tick posted $delta_changed times (expected exactly 1)"
-# And re-confirm the new state now dedups too.
-printf 'Reworded: M2/M3 blocked across #263, #719, #800.\n' > "$BODY_B.re"
-tick "$BODY_B.re"; after4="$(maintainer_count)"
-[ "$(( after4 - after3 ))" -eq 0 ] \
-  && ok "the changed state then dedups on repeat (net +0)" \
-  || bad "changed state re-posted on repeat (expected +0)"
+hr; echo "SUBTEST 2 — real reworded/subset M2 notices deliver nothing"; hr
+for v in "${M2_VARIANTS[@]}"; do tick "$v"; done
+read -r f2 d2 < <(inbox_stat)
+[ "$f2" -eq "$f1" ] && [ "$d2" -eq "$d1" ] \
+  && ok "${#M2_VARIANTS[@]} variant notices over the same blockers delivered nothing" \
+  || bad "variants re-posted (entries $f1 → $f2, deliveries $d1 → $d2)"
 
-hr; echo "SUBTEST 3 — the dedup marker lives under \$GARDEN_STATE"; hr
-[ -f "$STATE/foreman/notice-sig" ] \
-  && ok "marker present at \$GARDEN_STATE/foreman/notice-sig" \
-  || bad "expected marker \$GARDEN_STATE/foreman/notice-sig not found"
-sig="$(cat "$STATE/foreman/notice-sig" 2>/dev/null || true)"
-# The signature must carry substance tokens (PR numbers + milestone ids), not prose.
-case "$sig" in
-  *"#800"*|*"M2"*) ok "signature keys on substance tokens (sig='$sig')" ;;
-  *)               bad "signature does not look substance-keyed (sig='$sig')" ;;
-esac
+hr; echo "SUBTEST 3 — a NEW blocking PR is delivered, into the same entry"; hr
+tick 'M2 is now also blocked on draft #1400, alongside #1349 and #1356.'
+read -r f3 d3 < <(inbox_stat)
+[ "$f3" -eq "$f2" ] && [ "$d3" -eq $(( d2 + 1 )) ] \
+  && ok "new PR #1400 delivered as an amend (deliveries $d2 → $d3, entries stay $f3)" \
+  || bad "new PR not delivered as one amend (entries $f2 → $f3, deliveries $d2 → $d3)"
+tick 'M2 blocked on #1400.'
+read -r f3b d3b < <(inbox_stat)
+[ "$d3b" -eq "$d3" ] \
+  && ok "the new blocker then dedups on repeat" \
+  || bad "new blocker re-posted on repeat (deliveries $d3 → $d3b)"
+v="$(mktemp -d)"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$v" 2>/dev/null
+grep -qs '#1400' "$v"/inbox/maintainer/unread/*foreman-milestone-M2* \
+  && ok "the M2 entry carries the latest detail (#1400)" \
+  || bad "the M2 entry does not carry the new blocker"
+rm -rf "$v"
+
+hr; echo "SUBTEST 4 — a different milestone gets its own entry"; hr
+tick 'M3 is blocked on approval of draft #1015.'
+read -r f4 d4 < <(inbox_stat)
+[ "$f4" -eq $(( f3b + 1 )) ] && [ "$d4" -eq $(( d3b + 1 )) ] \
+  && ok "M3 notice delivered as a separate entry" \
+  || bad "M3 notice not delivered separately (entries $f3b → $f4, deliveries $d3b → $d4)"
+
+hr; echo "SUBTEST 5 — past the TTL a stalled milestone re-reminds once"; hr
+TTL=0 tick "${M2_VARIANTS[0]}"
+read -r f5 d5 < <(inbox_stat)
+[ "$f5" -eq "$f4" ] && [ "$d5" -eq $(( d4 + 1 )) ] \
+  && ok "expired seen-set re-delivered as an amend (deliveries $d4 → $d5)" \
+  || bad "TTL reminder wrong (entries $f4 → $f5, deliveries $d4 → $d5)"
+tick "${M2_VARIANTS[1]}"   # #1349 was dropped from the seen-set at the restart
+read -r _ d6 < <(inbox_stat)
+[ "$d6" -eq $(( d5 + 1 )) ] \
+  && ok "after the TTL restart the seen-set restarts from the reminder" \
+  || bad "seen-set did not restart (deliveries $d5 → $d6)"
+
+hr; echo "SUBTEST 6 — the seen-set lives under \$GARDEN_STATE"; hr
+seen="$STATE/foreman/notice-seen/M2"
+[ -f "$seen" ] && ok "seen-set present at \$GARDEN_STATE/foreman/notice-seen/M2" \
+  || bad "expected \$GARDEN_STATE/foreman/notice-seen/M2 not found"
+grep -qx '#1356' "$seen" 2>/dev/null && grep -qx '#1349' "$seen" 2>/dev/null \
+  && ok "seen-set records the refs ($(tail -n +2 "$seen" | paste -sd, -))" \
+  || bad "seen-set does not record the refs"
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

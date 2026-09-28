@@ -48,10 +48,10 @@
 #
 # State (host-local, outside any reset-prone worktree) lives in
 # GARDEN_STATE/foreman/: `idle-since` (the below-target settle clock), `last-step`
-# (anti-flap), `noted` (maintainer-note dedupe), `notice-sig` (the substance
-# signature of the last milestone/bottleneck maintainer notice, so a stalled board
-# posts that notice ONCE per distinct state, not every tick — mirroring
-# identity-drift-guard.sh's per-signature dedup), and `decisions.log` (a durable,
+# (anti-flap), `noted` (maintainer-note dedupe), `notice-seen/<milestones>` (the
+# PR/issue refs already surfaced in a milestone/bottleneck maintainer notice, so a
+# stalled milestone notifies once per NEW blocker, not every tick or every
+# rewording), and `decisions.log` (a durable,
 # self-trimming per-tick DECISION record: one line per tick giving inflight,
 # target, and the guard/branch that ended it — added after the "malingering
 # foreman" investigation, job investigate-malingering-foreman 2026-09-16, found a
@@ -112,10 +112,14 @@ mkdir -p "$STATE"
 IDLE_SINCE="$STATE/idle-since"
 LAST_STEP="$STATE/last-step"
 NOTED="$STATE/noted"
-# Substance signature of the last milestone/bottleneck maintainer notice posted.
-# Lives under $GARDEN_STATE (per-host, outside any reset-prone worktree), exactly
-# like identity-drift-guard.sh's drift marker.
-NOTICE_SIG="$STATE/notice-sig"
+# Per-milestone record of the refs already surfaced in a milestone/bottleneck
+# maintainer notice (one file per milestone key; see note_milestone_once). Lives
+# under $GARDEN_STATE (per-host, outside any reset-prone worktree).
+NOTICE_SEEN="$STATE/notice-seen"
+# Seconds a milestone's seen-set stays authoritative. Past it, the next notice for
+# that milestone is delivered even with no new ref: a once-a-day reminder of a
+# still-stalled decision, amended into the same inbox entry.
+: "${GARDEN_FOREMAN_NOTICE_TTL:=86400}"
 # Durable per-tick DECISION record. Every tick appends ONE line saying how it
 # resolved: the inflight count, the active-job target, the guard/branch that
 # ended the tick, and any detail (what was promoted/pumped). This closes the gap
@@ -175,45 +179,66 @@ note_once() {
   printf '%s\n' "$key" > "$NOTED"
 }
 
-# Compute a stable signature of a milestone/bottleneck notice's SUBSTANCE — the
-# milestone ids (M2, M3, …) and PR/issue numbers (#719, #263, …) it references —
-# independent of the varying PROSE the `claude -p` handler generates. Two ticks
-# describing the same underlying board state yield the SAME signature (the tokens
-# are normalized, de-duplicated, and sorted, so phrasing and token order do not
-# matter); a new/closed PR or an advancing milestone changes the token set and so
-# the signature. This is why the drift-guard-style dedup keys on substance, not on
-# a `cksum` of the reworded prose (which changed every tick and flooded the inbox).
-# A notice that names no milestone or PR has no substance handle, so we fall back
-# to a prose cksum for it — identical prose still dedups, and such token-less
-# notices are the rare case.
-notice_signature() {
-  local body="$1" sig
-  sig="$(printf '%s\n' "$body" \
-    | grep -oE '\b[Mm][0-9]+\b|#[0-9]+' 2>/dev/null \
-    | tr '[:lower:]' '[:upper:]' | sort -u | paste -sd, - || true)"
-  if [ -z "$sig" ]; then
-    sig="prose:$(printf '%s' "$body" | cksum | awk '{print $1}')"
-  fi
-  printf '%s\n' "$sig"
+# Milestone/bottleneck maintainer notices are keyed by MILESTONE and gated on NEW
+# refs, not on a signature of the whole notice. The handler's `claude -p` prose
+# varies which PRs it names for the same static board (2026-09-27/28: M2 stalled on
+# green drafts #1349 and #1356 produced 25 notices over nine hours, alternating
+# {#1349,M2}, {#1349,#1356,M2}, {#1356,M2}), so an exact-set signature re-fired on
+# every change of subset and every A→B→A flip. Instead:
+#   - the key is the notice's milestone ids (`M2`, or `M2-M3`); a notice naming no
+#     milestone keys to `general`;
+#   - the key's seen-set accumulates every #ref delivered under it; a notice is
+#     delivered only when it names a ref NOT yet seen (a genuinely new blocker), or
+#     when the seen-set is absent or older than GARDEN_FOREMAN_NOTICE_TTL;
+#   - delivery is inbox-send.sh's coalescing mode keyed `foreman-milestone-<key>`,
+#     so even a delivered notice amends the milestone's ONE open unread entry
+#     (notice_count, latest body) rather than adding a file.
+# A `general` notice with no refs uses a prose cksum as its ref, so identical prose
+# stays quiet and a reworded one amends the single `general` entry.
+notice_milestone_key() {
+  local ms
+  ms="$(printf '%s\n' "$1" | grep -oE '\b[Mm][0-9]+\b' 2>/dev/null \
+    | tr '[:lower:]' '[:upper:]' | sort -u | paste -sd- - || true)"
+  printf '%s\n' "${ms:-general}"
 }
 
-# Post the milestone/bottleneck maintainer notice at most ONCE per distinct
-# substance signature, recorded in the $NOTICE_SIG marker under $GARDEN_STATE —
-# exactly like identity-drift-guard.sh posts its report once per distinct drift
-# signature. An unchanged state (same signature as last posted) posts NOTHING; a
-# genuinely new decision (a new/closed PR, an advancing milestone) changes the
-# signature and fires exactly once, then goes quiet again.
+notice_refs() {
+  printf '%s\n' "$1" | grep -oE '#[0-9]+' 2>/dev/null | sort -u || true
+}
+
 note_milestone_once() {
-  local body="$1" sig prev
-  sig="$(notice_signature "$body")"
-  prev="$(cat "$NOTICE_SIG" 2>/dev/null || true)"
-  if [ "$sig" = "$prev" ]; then
-    log "milestone/bottleneck notice unchanged (sig=$sig); not re-posting"
-    return 0
+  local body="$1" key refs seen stamp age fresh=""
+  key="$(notice_milestone_key "$body")"
+  refs="$(notice_refs "$body")"
+  if [ -z "$refs" ] && [ "$key" = general ]; then
+    refs="prose:$(printf '%s' "$body" | cksum | awk '{print $1}')"
   fi
-  printf '%s\n' "$body" | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER=foreman "$HERE/inbox-send.sh" maintainer
-  printf '%s\n' "$sig" > "$NOTICE_SIG"
-  log "posted milestone/bottleneck notice to maintainer inbox (sig=$sig)"
+  seen="$NOTICE_SEEN/$key"
+  stamp="$(head -1 "$seen" 2>/dev/null || true)"
+  [[ "$stamp" =~ ^[0-9]+$ ]] || stamp=""
+  if [ -n "$stamp" ]; then
+    age=$(( $(now) - stamp ))
+    if [ "$age" -lt "$GARDEN_FOREMAN_NOTICE_TTL" ]; then
+      fresh="$(comm -23 <(printf '%s\n' "$refs" | grep . || true) \
+                        <(tail -n +2 "$seen" | sort -u))"
+      if [ -z "$fresh" ]; then
+        log "milestone notice for $key adds no new ref ($(printf '%s' "$refs" | paste -sd, -)); not re-posting"
+        return 0
+      fi
+    fi
+  fi
+  printf '%s\n' "$body" | GARDEN_SKIP_REF_CHECK=1 GARDEN_SENDER=foreman \
+    GARDEN_MSG_COALESCE=1 GARDEN_MSG_COALESCE_THROTTLE_SECS=0 \
+    GARDEN_MSG_ID="foreman-milestone-$key" "$HERE/inbox-send.sh" maintainer
+  mkdir -p "$NOTICE_SEEN"
+  {
+    now
+    { printf '%s\n' "$refs"
+      # Within the TTL the seen-set accumulates; past it, it restarts from this notice.
+      if [ -n "$fresh" ]; then tail -n +2 "$seen" 2>/dev/null || true; fi
+    } | { grep . || true; } | sort -u
+  } > "$seen.tmp" && mv "$seen.tmp" "$seen"
+  log "posted milestone notice for $key to maintainer inbox (new: $(printf '%s' "${fresh:-$refs}" | paste -sd, -))"
 }
 
 # --- capacity detection ------------------------------------------------------
@@ -345,8 +370,6 @@ while [ "$promoted" -lt "$slots" ]; do
 done
 if [ "$promoted" -gt 0 ]; then
   : > "$NOTED"           # forward progress clears the maintainer-note dedupe
-  rm -f "$NOTICE_SIG"    # …and the milestone-notice dedupe: a bottleneck that
-                         # recurs after real progress is a new state, worth one note
   printf '%s\n' "$NOW" > "$IDLE_SINCE"
   decide promoted "count=$promoted last=$(cat "$LAST_STEP" 2>/dev/null || true)"
   exit 0
@@ -424,18 +447,15 @@ case "$btype" in
       fi
       printf '%s\n' "$base" > "$LAST_STEP"
       : > "$NOTED"           # forward progress clears the maintainer-note dedupe
-      rm -f "$NOTICE_SIG"    # …and the milestone-notice dedupe (real work resumed)
       log "pumped next milestone step '$base'"
       decide pumped "base=$base${role:+ role=$role}"
     fi
     ;;
   MAINTAINER)
-    # Dedup on the notice's SUBSTANCE signature, not the reworded prose: a board
-    # stalled on the same decision re-emits a near-identical notice every tick, and
-    # keying on a `cksum` of that varying prose re-posted every time (the inbox
-    # flood this fixes). note_milestone_once posts once per distinct state.
+    # A board stalled on the same decision re-emits a reworded notice every tick;
+    # note_milestone_once delivers only a new blocker, into one entry per milestone.
     note_milestone_once "$body"
-    log "next step blocked on a maintainer decision; noted to maintainer inbox (dedup by substance)"
+    log "next step blocked on a maintainer decision; noted to maintainer inbox (dedup by milestone + new refs)"
     decide maintainer-note
     ;;
   *)
