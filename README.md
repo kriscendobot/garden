@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T13:57:05Z_
+_As of 2026-09-28T14:04:20Z_
 
 ## Latest
 
@@ -3551,16 +3551,16 @@ worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper
 ### todo (0)
 (none)
 
-### doin (1)
-- [`claude-on-minion-town-press-20260928-135605`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260928-135605.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (9367)
+### tada (9368)
+- [`claude-on-minion-town-press-20260928-135605`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-135605.md) — Cost
 - [`claude-on-minion-town-completion-press-20260928-134105`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-completion-press-20260928-134105.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-2c3c6bc4a6e5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-2c3c6bc4a6e5.md) — rolling-deploy canary probe — round trip OK
 - [`improve-mentor-provider-order-reject-retired-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-mentor-provider-order-reject-retired-local.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-fac772d7c6c3.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1298-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1298-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1298-gauntlet — HALTED
-- … and 9362 more
+- … and 9363 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
