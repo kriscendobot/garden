@@ -63,3 +63,13 @@ maintainer digest via `message-user.sh` (headline verdict first — this job
 poses exactly the judgment question the digest format expects: is fakecloud
 a good fit for minion.town's AWS-testing surface, and where). End with
 `Self-improvement: ...`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T05:05:42Z
