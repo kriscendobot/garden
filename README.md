@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T12:34:26Z_
+_As of 2026-09-28T12:44:50Z_
 
 ## Latest
 
@@ -2167,13 +2167,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-foreman-handler-failed-endolin-garden-ece02cb4` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-foreman-handler-failed-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #32 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T11:37:12Z).
-> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 32 times; this is ONE
-> coalesced notice that updates in place, not 32 messages. Latest detail:
+> WATCHDOG notice — occurrence #45 (first seen 2026-09-28T08:35:57Z, latest 2026-09-28T12:42:06Z).
+> The SAME condition (`foreman-handler-failed-endolin-garden-ece02cb4`) has now been observed 45 times; this is ONE
+> coalesced notice that updates in place, not 45 messages. Latest detail:
 >
 > garden-foreman's pump handler (/home/kris/garden/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden-ece02cb4; the board pump is starving. stderr tail:  only where `hermits: N>0`) nor `systemctl status ollama.service` (the installer system unit on :11434, run as the `ollama` user) is active. Bring up the garden unit for hermit workers. Also confirm ollama is on PATH and the serving user has GPU group access — context/operations/local-inference-amd.md.
-> <6>11:37:12 [foreman-claude] foreman provider 'local' unavailable; trying the next configured provider
-> <3>11:37:12 [foreman-claude] FATAL: no configured foreman inference provider was available
+> <6>12:42:06 [foreman-claude] foreman provider 'local' unavailable; trying the next configured provider
+> <3>12:42:06 [foreman-claude] FATAL: no configured foreman inference provider was available
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_moddable.md)
 
@@ -3538,7 +3538,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Claude | 43.7M | $403.63 _(notional, rate-card)_ | 31% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 49766092 tokens/day lower bound._
+_Fleet token-unlock pace: 49781098 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 16.480625s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 4 open notice(s); checker healthy
