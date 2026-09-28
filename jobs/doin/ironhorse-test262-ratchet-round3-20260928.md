@@ -37,3 +37,13 @@ Repo: endojs/endo-but-for-bots, base `llm`. The maintainer resumed this on 2026-
 - /tmp is noexec; use a scratch TMPDIR.
 
 If the round cannot finish in one session, push progress to the branch each time a cluster lands, so a requeue resumes from the branch rather than starting over.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T20:09:31Z
