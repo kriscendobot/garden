@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T06:26:24Z_
+_As of 2026-09-28T06:30:04Z_
 
 ## Latest
 
@@ -2174,11 +2174,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal.md)
 
-> WATCHDOG notice — occurrence #8 (first seen 2026-09-27T12:33:19Z, latest 2026-09-28T05:02:54Z).
-> The SAME condition (`journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal`) has now been observed 8 times; this is ONE
-> coalesced notice that updates in place, not 8 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` has CLEARED (first seen 2026-09-27T12:33:19Z, cleared 2026-09-28T06:27:57Z).
+> It was observed 8 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal fetch drift on oros-studio-garden-ce242c49 for /Users/dom/garden/.garden-state/leader/journal: oldest-third median=8.398603s newest-third median=11.376745s over 5524s/256 samples; floor=10s, 1.5x rise or projected-to-guard=37326s within 86400s.
+> Journal contention condition `journal-fetch-drift-_Users_dom_garden__garden_state_leader_journal` cleared on oros-studio-garden-ce242c49.
 
 - `20260927T025145Z-1055ad` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T025145Z-1055ad.md)
 
@@ -3282,7 +3282,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 42.1M | $385.63 _(notional, rate-card)_ | 29% of 143.0M (ok) |
+| Claude | 42.4M | $389.46 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 60.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 98% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49229093 tokens/day lower bound; incomplete where a subscription has no token-paired sample._
