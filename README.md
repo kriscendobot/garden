@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T08:56:42Z_
+_As of 2026-09-28T09:06:13Z_
 
 ## Latest
 
@@ -588,6 +588,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `msg-improve-foreman-provider-order-reject-retired-local-284ba9178b34` — from gardener:improve-foreman-provider-order-reject-retired-local, reply_to `improve-foreman-provider-order-reject-retired-local` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-improve-foreman-provider-order-reject-retired-local-284ba9178b34.md)
+
+> Stale foreman drop-in on endolin-garden-ece02cb4: garden-foreman.service carries `Environment=GARDEN_FOREMAN_PROVIDER_ORDER=openai,local`. The `local` (Ollama/hermit) lane was retired 2026-09-13, so every idle-pump tick burned a dead probe and FATALed (4x in 30 min on 2026-09-28, zero foreman throughput).
+>
+> main2 f3e5ea54007 now makes the foreman reject `local` at parse time with a message naming the retirement. After this host deploys, the drop-in will FATAL immediately on every tick until it is fixed. Please change it to `openai,anthropic`, or delete the line to go back to Claude-only, then run `systemctl --user daemon-reload` and restart garden-foreman.timer. Find the file with: systemctl --user cat garden-foreman.service
 
 - `20260927T231723Z-9f76cf` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T231723Z-9f76cf.md)
 
@@ -3510,7 +3516,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.1M | $397.22 _(notional, rate-card)_ | 30% of 143.0M (ok) |
+| Claude | 43.2M | $398.38 _(notional, rate-card)_ | 30% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49299627 tokens/day lower bound._
@@ -3519,23 +3525,22 @@ _Fleet token-unlock pace: 49299627 tokens/day lower bound._
 worst fetch p95 12.649006s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
-- [`improve-foreman-provider-order-reject-retired-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-foreman-provider-order-reject-retired-local.md) — ---
+### todo (0)
+(none)
 
 ### doin (4)
+- [`ironhorse-fuzz-bd4559ecbc0432c1-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-bd4559ecbc0432c1-repair.md) — Repair Ironhorse engine defect bd4559ecbc0432c1 (target differential_source) ...
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1298
 - [`fix-journal-cold-clone-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-journal-cold-clone-bootstrap.md) — Fix: a fresh journal clone can't finish inside the 45s fetch cap, so new work...
 - [`ironhorse-fuzz-ed616f6ec22095dc-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-fuzz-ed616f6ec22095dc-repair.md) — Repair Ironhorse engine defect ed616f6ec22095dc (target differential_regexp) ...
-- [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/doc-readme-control-surfaces-prompt-first.md) — Reorient README's "Control surfaces" section around what a maintainer says, n...
 
-### tada (9350)
+### tada (9352)
+- [`improve-foreman-provider-order-reject-retired-local`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-foreman-provider-order-reject-retired-local.md) — Cost
+- [`doc-readme-control-surfaces-prompt-first`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/doc-readme-control-surfaces-prompt-first.md) — Cost
 - [`ironhorse-fuzz-2a2de75b75de4894-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-2a2de75b75de4894-repair.md) — Finding 2a2de75b75de4894 (differential_source): regression test added, no eng...
 - [`ironhorse-fuzz-d38f12f4884e186c-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-d38f12f4884e186c-repair.md) — Cost
 - [`mentat-minion-town-cloudflare-backend-plan`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/mentat-minion-town-cloudflare-backend-plan.md) — Completion report: mentat-minion-town-cloudflare-backend-plan
-- [`design-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/design-standing-token-backoff-ramp.md) — Cost
-- [`ironhorse-fuzz-378372c8706a48a8-repair`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/ironhorse-fuzz-378372c8706a48a8-repair.md) — Panel-head freshness
-- … and 9345 more
+- … and 9347 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
