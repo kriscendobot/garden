@@ -99,6 +99,7 @@ needs both to hand the maintainer a fully qualified
 narrative section's headline (theme summary) directly in this report too, so
 it's visible without opening the link.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=246 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
