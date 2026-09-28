@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T19:10:45Z_
+_As of 2026-09-28T19:15:20Z_
 
 ## Latest
 
@@ -406,7 +406,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> M2’s remaining hardened-text-codecs-shim step is draft PR [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349); its gauntlet halted after the viability stage failed deterministically. Decide whether to explicitly re-run the gauntlet for #1349.
+> COALESCED message — occurrence #2 (first seen 2026-09-28T19:10:11Z, latest 2026-09-28T19:14:46Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
+>
+> M2 is blocked: PR #1349 is a green draft awaiting your decision to run its gauntlet, while superseded draft PR #1356 needs a close-as-superseded decision.
 
 - `msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6` — from gardener:minion-town-guest-web-invite-accept-fallback-fix-post104, reply_to `minion-town-guest-web-invite-accept-fallback-fix-post104` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md)
 
