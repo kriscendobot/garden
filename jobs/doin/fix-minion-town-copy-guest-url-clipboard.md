@@ -26,3 +26,13 @@ Repo: kriscendobot/minion.town, live at https://minion.town. Reported by the mai
 4. **Deploy** via `deploy-www.sh` (per-file SSM, `GARDEN_YARN=npm`). Verify by sha256 which files changed on the box.
 5. **Re-validate on production** with the same scripts, and record before/after evidence.
 6. Leave the PR as a draft, with evidence in the body.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T20:51:58Z
