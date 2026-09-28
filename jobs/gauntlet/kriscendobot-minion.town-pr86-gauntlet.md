@@ -9,11 +9,11 @@ max_resumes: 6
 max_stage_retries: 2
 created_by: gardener
 created_at: 2026-09-28T21:08:05Z
-stage: panel
+stage: fix
 iteration: 3
 resumes: 0
 stage_retries: 0
-current_child: kriscendobot-minion.town-pr86-gauntlet-panel-3
+current_child: kriscendobot-minion.town-pr86-gauntlet-fix-3
 state: running
 resumed_at: 2026-09-28T21:22:18Z
 resumed_from_stage: viability
