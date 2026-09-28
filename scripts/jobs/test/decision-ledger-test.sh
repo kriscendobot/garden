@@ -164,6 +164,88 @@ else
   bad "claim backoff was not durably attributable (rc=$claim_result probe=$(printf '%s' "$claim_probe" | tr '\n' ';') log=$(printf '%s' "$claim_output" | tr '\n' ';'))"
 fi
 
+# Record-on-change: every later claim tick in the same backoff declines again, but
+# the ledger keeps the one decline already recorded (the 2026-09-27 churn).
+for _ in 1 2 3; do
+  env GARDEN_TEST=1 GARDEN=claim-host GARDEN_STATE="$TEMPORARY_ROOT/claim-state" \
+    GARDEN_WORKER_KIND=monk \
+    JOURNAL_REMOTE="$REMOTE" GARDEN_WORKER_CLONE="$TEMPORARY_ROOT/claim-worker" \
+    GARDEN_DECISION_CLONE="$TEMPORARY_ROOT/claim-decisions" \
+    GARDEN_DECISION_NOW_EPOCH="$((ACTUATOR_EPOCH + 60))" GARDEN_USAGE_NOW="$ACTUATOR_EPOCH" \
+    GARDEN_CCUSAGE_LOGDIR="$TEMPORARY_ROOT/no-claim-session-logs" \
+    GARDEN_USAGE_LEDGER="$CLAIM_USAGE_LEDGER" GARDEN_BUDGET_POOLS_FILE="$SEED/config/budget-pools" \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/claim-job.sh" 1 >/dev/null 2>&1 || true
+done
+git -C "$SEED" pull -q --rebase
+declines="$(jq -c 'select(.loop == "claim-admission" and .decision == "decline-claim")' "$CLAIM_LEDGER" | wc -l)"
+if [ "$declines" -eq 1 ]; then
+  ok "repeated identical claim declines record one decision"
+else
+  bad "repeated identical claim declines recorded $declines decisions (want 1)"
+fi
+
+change_append() { # epoch reason [extra decision-append args...]
+  local epoch="$1" why="$2"; shift 2
+  env GARDEN=change-host GARDEN_STATE="$TEMPORARY_ROOT/change-state" \
+    JOURNAL_REMOTE="$REMOTE" GARDEN_DECISION_CLONE="$TEMPORARY_ROOT/change-clone" \
+    GARDEN_DECISION_NOW_EPOCH="$epoch" \
+    "$JOBS/decision-append.sh" --loop claim-admission \
+      --input-json '{"worker_kind":"cleric","status":"backoff"}' \
+      --decision decline-claim --reason "$why" --outcome applied \
+      --record-on-change claim-admission-cleric "$@" >/dev/null 2>&1
+}
+change_rows() {
+  git -C "$SEED" pull -q --rebase
+  jq -r 'select(.loop == "claim-admission") | .reason' \
+    "$SEED/budget/decisions/2026-03-08-change-host.jsonl" | paste -sd, -
+}
+for offset in 0 30 60 90 120; do
+  change_append "$((ACTUATOR_EPOCH + offset))" high-water
+done
+if [ "$(change_rows)" = high-water ]; then
+  ok "N consecutive identical decisions under --record-on-change record once"
+else
+  bad "identical decisions were not collapsed ($(change_rows))"
+fi
+change_append "$((ACTUATOR_EPOCH + 150))" no-trustworthy-ceiling
+change_append "$((ACTUATOR_EPOCH + 180))" no-trustworthy-ceiling
+if [ "$(change_rows)" = high-water,no-trustworthy-ceiling ]; then
+  ok "a changed reason records a second decision"
+else
+  bad "a changed reason was not recorded exactly once ($(change_rows))"
+fi
+change_append "$((ACTUATOR_EPOCH + 180 + 21600))" no-trustworthy-ceiling
+if [ "$(change_rows)" = high-water,no-trustworthy-ceiling,no-trustworthy-ceiling ]; then
+  ok "an unchanged decision is re-recorded once the heartbeat elapses"
+else
+  bad "heartbeat did not re-record ($(change_rows))"
+fi
+env GARDEN=change-host GARDEN_STATE="$TEMPORARY_ROOT/change-state" \
+  bash -c 'source "$1/common.sh"; clear_decision_change claim-admission-cleric' _ "$JOBS"
+change_append "$((ACTUATOR_EPOCH + 21900))" no-trustworthy-ceiling
+if [ "$(change_rows)" = high-water,no-trustworthy-ceiling,no-trustworthy-ceiling,no-trustworthy-ceiling ]; then
+  ok "a cleared change latch records the returning decision"
+else
+  bad "clear_decision_change did not re-arm recording ($(change_rows))"
+fi
+# A failed append must not consume the change: the next reachable tick records it.
+env GARDEN=change-host GARDEN_STATE="$TEMPORARY_ROOT/change-state" \
+  JOURNAL_REMOTE="$TEMPORARY_ROOT/absent.git" GARDEN_FETCH_ATTEMPTS=1 \
+  GARDEN_FETCH_BACKOFF_MAX=0 GARDEN_DECISION_ATTEMPTS=1 \
+  GARDEN_DECISION_CLONE="$TEMPORARY_ROOT/change-offline" \
+  GARDEN_DECISION_NOW_EPOCH="$((ACTUATOR_EPOCH + 22000))" \
+  "$JOBS/decision-append.sh" --loop claim-admission \
+    --input-json '{"worker_kind":"cleric","status":"backoff"}' \
+    --decision decline-claim --reason after-outage --outcome applied \
+    --record-on-change claim-admission-cleric >/dev/null 2>&1
+change_append "$((ACTUATOR_EPOCH + 22030))" after-outage
+if [ "$(change_rows | tr , '\n' | tail -1)" = after-outage ]; then
+  ok "a change whose append failed is recorded on the next tick"
+else
+  bad "a failed append consumed the change ($(change_rows))"
+fi
+
 # An unavailable journal is an observability failure, never an actuator failure.
 if env GARDEN=fail-open-host GARDEN_STATE="$TEMPORARY_ROOT/fail-state" \
   JOURNAL_REMOTE="$TEMPORARY_ROOT/absent.git" GARDEN_FETCH_ATTEMPTS=1 \

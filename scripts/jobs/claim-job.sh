@@ -209,6 +209,12 @@ if ! CLAIM_POOL="$(budget_subscription_for_host_kind "$GARDEN" "$KIND" "$DIR" 2>
   esac
   fi
 fi
+# Every claimer of one worker kind on this host re-runs admission each tick, so a
+# pool in backoff would otherwise commit an identical decline per worker per tick
+# (~2,200 journal commits/day from one cleric pool, 2026-09-27).  Record only when
+# the admission decision for this host's worker kind changes, plus the ledger's
+# heartbeat, and forget it when the pool admits again.
+CLAIM_DECISION_KEY="claim-admission-$KIND"
 record_claim_budget_decision() { # status decision outcome reason detail
   local status="$1" decision_name="$2" decision_outcome="$3"
   local decision_reason="$4" decision_detail="$5" decision_input_json
@@ -218,7 +224,8 @@ record_claim_budget_decision() { # status decision outcome reason detail
     '{pool:$pool,provider:$provider,host:$host,worker_kind:$worker_kind,status:$status,sensor:"budget-pool"}')"; then
     record_decision --loop claim-admission --input-json "$decision_input_json" \
       --decision "$decision_name" --reason "$decision_reason" \
-      --outcome "$decision_outcome" --outcome-detail "$decision_detail"
+      --outcome "$decision_outcome" --outcome-detail "$decision_detail" \
+      --record-on-change "$CLAIM_DECISION_KEY"
   fi
 }
 if claim_budget_status="$(pool_admits "$CLAIM_POOL" "$DIR")"; then
@@ -227,6 +234,8 @@ if claim_budget_status="$(pool_admits "$CLAIM_POOL" "$DIR")"; then
     record_claim_budget_decision unknown allow-claim fail-open-skipped \
       "budget sensor unreadable; admission fails open" \
       "budget guard skipped; candidate selection continues"
+  else
+    clear_decision_change "$CLAIM_DECISION_KEY"
   fi
 elif [ "$claim_budget_status" = refuse ]; then
   # FAIL CLOSED: an unknown source, or a configured subscription with no trustworthy

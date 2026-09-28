@@ -19,9 +19,17 @@ Usage: decision-append.sh --loop NAME --input-json OBJECT --decision NAME
                           --reason TEXT --outcome OUTCOME
                           [--outcome-detail TEXT]
                           [--from-json JSON] [--to-json JSON]
+                          [--record-on-change KEY [--heartbeat-secs N]]
 
 OUTCOME is one of: applied, fail-open-skipped, no-op, superseded.
 The JSON values supplied to --from-json and --to-json default to null.
+
+--record-on-change KEY is the shared churn guard for a controller that makes the
+same decision on every tick.  The row is recorded only when its content (all
+fields but the timestamp) differs from the last row recorded under KEY on this
+host, or when the heartbeat (default 21600s) has elapsed since that record.
+clear_decision_change KEY (common.sh) forgets the last record, so the next
+decision is recorded even if it matches the one before the state cleared.
 EOF
 }
 
@@ -33,6 +41,8 @@ outcome=""
 outcome_detail=""
 from_json=null
 to_json=null
+change_key=""
+heartbeat_secs="${GARDEN_DECISION_HEARTBEAT_SECS:-21600}"
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --loop) loop="${2:?--loop needs a value}"; shift 2 ;;
@@ -43,6 +53,8 @@ while [ "$#" -gt 0 ]; do
     --outcome-detail) outcome_detail="${2:?--outcome-detail needs a value}"; shift 2 ;;
     --from-json) from_json="${2:?--from-json needs a value}"; shift 2 ;;
     --to-json) to_json="${2:?--to-json needs a value}"; shift 2 ;;
+    --record-on-change) change_key="${2:?--record-on-change needs a value}"; shift 2 ;;
+    --heartbeat-secs) heartbeat_secs="${2:?--heartbeat-secs needs a value}"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     *) usage >&2; exit 2 ;;
   esac
@@ -67,6 +79,7 @@ jq -e 'type' >/dev/null 2>&1 <<<"$from_json" \
   || { log "invalid --from-json"; exit 2; }
 jq -e 'type' >/dev/null 2>&1 <<<"$to_json" \
   || { log "invalid --to-json"; exit 2; }
+[[ "$heartbeat_secs" =~ ^[0-9]+$ ]] || { log "invalid --heartbeat-secs '$heartbeat_secs'"; exit 2; }
 
 decision_week_start() { # epoch -> Pacific-local Sunday date
   local epoch="$1" local_date weekday days_since_sunday
@@ -174,9 +187,53 @@ note_outage_clear() { # a write succeeded: one recovery summary if an outage was
   log "decision ledger recovered on $GARDEN; $n fail-open decision drop(s) during the journal outage${since:+ since $since}"
 }
 
+# Record-on-change churn guard (--record-on-change).  Every decision is a journal
+# COMMIT, so a controller that re-decides the same thing each tick regrows the
+# journal without adding information: 2,232 of 6,252 journal2 commits on
+# 2026-09-27 were one cleric's identical claim-admission decline, retried every
+# tick through a budget backoff (the same shape as the triager-pacing churn,
+# 74461976fd / 3c696ea6c8).  The latch is host-local ($GARDEN_STATE) and holds
+# "<content signature> <recorded epoch>".  It is claimed under a lock BEFORE the
+# append so that concurrent workers of one kind record once, and restored if the
+# append fails so that the next tick retries instead of losing the record.
+change_file=""
+change_previous=""
+change_claim() { # 0 = record now; 1 = suppress as an unchanged repeat
+  local signature now_epoch recorded_signature recorded_epoch
+  change_file="$(decision_change_latch "$change_key")"
+  mkdir -p "$(dirname "$change_file")" 2>/dev/null || return 0
+  signature="$(printf '%s\n' "$loop" "$input_json" "$decision" "$from_json" \
+    "$to_json" "$reason" "$outcome" "$outcome_detail" | cksum | tr ' ' '-')"
+  now_epoch="${GARDEN_DECISION_NOW_EPOCH:-$(date -u +%s)}"
+  (
+    command -v flock >/dev/null 2>&1 && flock -w 10 9
+    change_previous="$(cat "$change_file" 2>/dev/null || true)"
+    read -r recorded_signature recorded_epoch <<<"$change_previous" || true
+    if [ "$recorded_signature" = "$signature" ] && [[ "$recorded_epoch" =~ ^[0-9]+$ ]] \
+       && [ $(( now_epoch - recorded_epoch )) -lt "$heartbeat_secs" ]; then
+      exit 1
+    fi
+    printf '%s\n' "$change_previous" > "$change_file.previous" 2>/dev/null || true
+    printf '%s %s\n' "$signature" "$now_epoch" > "$change_file" 2>/dev/null || true
+  ) 9>>"$change_file.lock"
+}
+change_release() { # the append failed: restore the latch so the next tick retries
+  [ -n "$change_file" ] || return 0
+  change_previous="$(cat "$change_file.previous" 2>/dev/null || true)"
+  if [ -n "$change_previous" ]; then
+    printf '%s\n' "$change_previous" > "$change_file" 2>/dev/null || true
+  else
+    rm -f "$change_file" 2>/dev/null || true
+  fi
+}
+if [ -n "$change_key" ] && ! change_claim; then
+  exit 0
+fi
+
 # sync_clone deliberately exits on an offline journal.  Isolate the whole writer
 # in a subshell so that exit is converted into the promised fail-open result.
 if ! ( append_decision ); then
+  change_release
   note_outage_drop
 else
   note_outage_clear

@@ -608,6 +608,21 @@ record_decision() {
   return 0
 }
 
+# decision_change_latch KEY — the host-local latch file behind
+# `decision-append.sh --record-on-change KEY`.  clear_decision_change KEY forgets
+# the last recorded decision for KEY, so that when the controller's state leaves
+# and later returns to the same decision, the return is recorded as a change.
+decision_change_latch() {
+  printf '%s/%s\n' "${GARDEN_DECISION_CHANGE_DIR:-$GARDEN_STATE/decisions/change}" \
+    "$(printf '%s' "$1" | tr -c 'A-Za-z0-9._-' '-')"
+}
+clear_decision_change() {
+  local latch
+  latch="$(decision_change_latch "$1")"
+  [ -e "$latch" ] || return 0
+  rm -f "$latch" 2>/dev/null || true
+}
+
 # is_transient_net_error <stderr-file-or-string> — true (0) when the given text
 # bears the fingerprint of a TRANSIENT connectivity failure (a GitHub outage, a
 # DNS blip, a TLS/handshake/read timeout) rather than a STRUCTURAL one (auth,
