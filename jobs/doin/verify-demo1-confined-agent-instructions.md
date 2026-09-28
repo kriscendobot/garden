@@ -53,3 +53,13 @@ what's missing.
    one-line verdict (fully verified / partially verified / not yet
    verifiable, and why) before the runbook.
 3. Your job completion report: the same content, plus the comment URL.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T14:26:10Z
