@@ -1,4 +1,5 @@
 ---
+child-build-npm-minion-town-dev-registry-reap-count: 0
 child-design-npm-minion-town-dev-registry-host: endolin-garden2-5bcdff64
 child-design-npm-minion-town-dev-registry-reap-count: 0
 order: serial
