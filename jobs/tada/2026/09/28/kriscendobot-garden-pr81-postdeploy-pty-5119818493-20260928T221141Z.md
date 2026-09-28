@@ -1,37 +1,41 @@
 ---
-handed-off: garden-pr81-postdeploy-pty-20260928T221312Z
+handed-off: kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z
 deliverable-complete: false
 ---
-I haven't run the validation or posted anything on PR #81. The merge is still not deployed on this host, so I handed this attempt off to a successor job that is already on the board and didn't create a new one.
+I handed this attempt off to the agreed owner, `kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`. The pty lane has not been validated yet: the one test job ran on a host without the PR #81 merge, so it failed.
 
-**Checks run**
-- PR #81 is merged, as merge commit `4767705b28d522b591eddbd3b47976273c5e1853` (2026-09-28T21:04:43Z).
-- This host (`oros-studio-garden-ce242c49`) is still deployed at `e036bb8e0650b66a4ae00dc1516c4c8df39901ca`, read through the deployed `common.sh` `deployed_sha`.
-- In this job's worktree, after `git fetch origin main2`, `git merge-base --is-ancestor 4767705b… e036bb8e…` fails. The merge is not deployed here, so I did not post the `lane: pty` test job.
+**Deployment check:**
+- PR https://github.com/kriscendobot/garden/pull/81 is MERGED as `4767705b28d522b591eddbd3b47976273c5e1853`.
+- This host (`endolin-garden-ece02cb4`, the leader) is still deployed at `e036bb8e0650b66a4ae00dc1516c4c8df39901ca`.
+- `git merge-base --is-ancestor` shows the merge is **not** in that SHA. `pty-context-test.sh` and `pty-context-read.sh` are missing from the deployed root.
+- A rolling deploy to `894f2675` is in progress. The follower `oros-studio` is in the roll now, and the leader deploys last.
 
-**Deploy state (from the freshly synced producer journal clone, 22:28Z)**
-- `deploy/leader-sha` is `e036bb8e…`.
-- A rolling deploy to `e3e285a3958e…` is under way: `deploy/roll/endolin-garden2-5bcdff64` is the follower canary. `e3e285a` contains the #81 merge. The deploy is moving, not stuck, and I stopped quickly because an active gardener blocks the drained deploy.
+**Board state:**
+- About 7 copies of this task are running, spread across oros, garden2 and this host. The peers have agreed that `...-20260928T210602Z` (in `doin/` on endolin-garden2) is the only one that watches the test job and posts the one report comment on PR #81.
+- The test job `kriscendobot-garden-pr81-pty-lane-test-5119818493` was already posted from garden2 and is now in `jobs/tada/` with `orchestration-failed: true`. It failed because **this** undeployed host claimed it, not because of the lane code:
+  - The deployed code has no pty branch, so it ignored `lane: pty` and ran as ordinary headless `claude -p` (`GARDEN_PTY_LANE` was empty).
+  - Checks A1, A3 and A4 failed because the deployed files were absent.
+  - The `main2` copy of `pty-context-test.sh` passed 16 tests with 0 failures.
+- As of 23:34Z nobody has posted the report comment on PR #81.
 
-**Why I didn't create another schedule**
-Earlier attempts already left two unclaimed copies of this full task in `jobs/todo/`:
-- `garden-pr81-postdeploy-pty-20260928T221312Z`
-- `kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`
+**What I did:**
+- I did not post a test job, post a PR comment or schedule a successor. Another successor would only add to the pile of copies and keep a worker slot busy, which slows the drained deploy.
+- I sent the owner the failure diagnosis, message `20260928T233441Z-1f1643`. It says a real re-test needs a fresh basename and must be claimed on a deployed host.
 
-Both carry the same body, including the re-check-ancestry-then-reschedule loop. A third copy would only add more duplicates. I handed off to `garden-pr81-postdeploy-pty-20260928T221312Z`, which owns all the remaining work (deploy check, pty test job, PR #81 report). I made no commits and changed nothing on the journal.
-
-**Follow-ups**
-- If both todo copies run after the deploy lands, PR #81 could get two report comments. The test job itself won't be doubled, because its basename is derived from the review ID. A liaison or maintainer may want to retire the older `…210602Z` copy.
-- A plan entry under this job's own base is still in `jobs/plan/`. It is harmless because promotion is idempotent against a base already in the lifecycle.
+**Follow-ups for the maintainer:**
+- **Re-test:** the deployed `claim-job.sh` cannot pin a job to a host, so re-post the test with a fresh basename only once every host has the merge, or add host pinning.
+- **Silent fallback:** a `lane:` value on a host without PR #81 quietly runs headless; it should warn or refuse.
+- **Leftover copies:** the task copies still in `todo/` or `plan/` can be removed: `garden-pr81-postdeploy-pty-20260928T221312Z` (todo) and `...-5119818493-20260928T215136Z`, which the reaper parked in plan.
+- **Retry loop:** the handoff-and-reschedule pattern keeps multiplying copies of this task, which is worth fixing.
 
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 18 tokens (385535 cached reads)
-- Output: 4216 tokens
-- Cost: $0.482739
-- Wall-clock: 112s
-- Model(s): claude-opus-5-5 ×1
+- Engagements: 2 on 2 host(s)
+- Input: 46 tokens (1188999 cached reads)
+- Output: 10537 tokens
+- Cost: $1.2465558
+- Wall-clock: 190s
+- Model(s): claude-opus-5-5 ×2
 
 <!-- garden-usage-end -->

@@ -7,17 +7,17 @@ thoughtfulness: medium
 work_class: fix:l
 target: main2
 accepted: true
-agentic_dollars: 0.482739
+agentic_dollars: 1.246556
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.007728
+estimated_dollars: 0.005382
 attempts: 1
-duration_secs: 112
+duration_secs: 78
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: oros-studio-garden-ce242c49/monk-3
-recorded_at: 2026-09-28T22:34:02Z
+recorded_by: endolin-garden-ece02cb4/monk-2
+recorded_at: 2026-09-28T23:35:04Z
 ---
 reputation event for kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z: arm anthropic/claude-opus-5-5/medium work_class fix:l target main2 accepted true
