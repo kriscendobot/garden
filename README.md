@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-09-27
+updated: 2026-09-28
 author: gardener
 ---
 
@@ -90,8 +90,8 @@ deterministically. `#N` is a pull-request number.
 | **rebase #N** ★ | rebase the PR branch on its base |
 | **weave #N** / **pin the merge base #N** ★ | update the PR's merge base to the current base-branch hash (a new frozen `<base>-<short-sha>`), rebase the head onto it, resolve conflicts, force-push, and move the PR's `base` field — both refs move together. "pin the merge base" is an **alias** for *weave*, not a distinct verb: the rebase and conflict resolution are implicit in the verb ([frozen-base-branch](skills/frozen-base-branch/SKILL.md), [verify-upstream-state-before-pinning](skills/verify-upstream-state-before-pinning/SKILL.md)) |
 | **retcon #N** ★ | reset and restage the branch per-package, separate `chore: Update yarn.lock` commit; net diff unchanged |
-| **americanize #N** ★ | convert flagged British spellings to the American/Chicago form (a `myrmidon`-tier americanizer running the deterministic apply-then-re-grep loop). Search-gated: posted only when `orthographer-divergence-grep.sh` finds a candidate ([american-english-normalization](skills/american-english-normalization/SKILL.md)) |
-| **deslop #N** ★ | rewrite flagged Botese (AI-slop cliché) phrases like "load-bearing invariant" / "seam where" into plain prose (a `myrmidon`-tier deslopper running the deterministic apply-then-re-grep loop). Search-gated: posted only when `thesaurus-cliche-grep.sh` finds a candidate ([botese-normalization](skills/botese-normalization/SKILL.md)) |
+| **americanize #N** ★ | convert flagged British spellings to the American/Chicago form (a [`myrmidon`-tier](#the-dispatch-tier-system) americanizer running the deterministic apply-then-re-grep loop). Search-gated: posted only when `orthographer-divergence-grep.sh` finds a candidate ([american-english-normalization](skills/american-english-normalization/SKILL.md)) |
+| **deslop #N** ★ | rewrite flagged Botese (AI-slop cliché) phrases like "load-bearing invariant" / "seam where" into plain prose (a [`myrmidon`-tier](#the-dispatch-tier-system) deslopper running the deterministic apply-then-re-grep loop). Search-gated: posted only when `thesaurus-cliche-grep.sh` finds a candidate ([botese-normalization](skills/botese-normalization/SKILL.md)) |
 | **refresh #N** ★ | re-sync the branch, regenerate derived artifacts |
 | **shepherd #N** ★ | drive CI back to green |
 | **fix #N** | address review feedback with commits and thread replies |
@@ -100,7 +100,7 @@ deterministically. `#N` is a pull-request number.
 | **defer X** / park X | park a job on the plan queue; the foreman promotes it when the board idles |
 | **await maintainer on X** | park a job with the exact pending question and its issue/PR/comment URL; only an explicit maintainer promotion can release it |
 | **promote X** / go ahead on X | move a parked job onto the board now |
-| **mentat job** | an explicitly requested high-tier job posted with `post-manual-job.sh <base> [body-file]`; automatic producers cannot select this tier |
+| **mentat job** | an explicitly requested high-tier job posted with `post-manual-job.sh <base> [body-file]`; automatic producers cannot select this tier ([the dispatch tier system](#the-dispatch-tier-system)) |
 | **monk / cleric** | Anthropic / OpenAI worker kinds; **gardener** is their shared role and worker spine, not a separate slot kind |
 | **quiesce for deploy** | stop a busy follower taking more work so its current job can finish and the pinned rolling deploy can proceed ([deploy](context/operations/deploy.md)) |
 | **muster** | work the maintainer inbox with the liaison: compact the duplicates, classify what is left, and dispose of it item by item; The optional TypeSafe Jev pilot supplies advisory labels only; A conversation, not a board entry, so no watcher recognizes it |
@@ -341,6 +341,42 @@ The board's serialization point is a `git push` to the journal branch —
 first pusher wins, the rejected claim backs off to another job. No lock
 service, no scheduler-of-schedulers
 ([`designs/job-board.md`](designs/job-board.md)).
+
+### The dispatch tier system
+
+Every job carries a **tier**: how much model thought the job deserves. The
+four tiers, in descending thoughtfulness, are **mentat**, **mentor**,
+**minion**, and **myrmidon**. A tier is not a model. Several providers back
+most tiers, and the concrete model depends on which worker kind claims the
+job: a monk runs an Anthropic model, a cleric an OpenAI model, and the
+opt-in kinds (mystic, fireworker, and the like) run their own providers'
+models.
+
+| Tier | What it is for | How a job gets it |
+| --- | --- | --- |
+| **mentat** | the most capable models, for work you explicitly ask to be done at the top | **manual only**: you (or the liaison, acting on your explicit directive) post it with `post-manual-job.sh`. No automatic producer can reach it. Any live worker whose provider has a mentat model can claim it |
+| **mentor** | the everyday ceiling for design, build, review, and fix work | the default for every automatic job (watchers, schedules, the foreman, follow-ups). Automatic work never goes higher |
+| **minion** | the capable-but-cheaper tier below mentor | the automatic **fallback**: after a genuine failure the reaper may reroute a job one step down, but never below its role's floor (designers and builders stay at mentor) |
+| **myrmidon** | fast, inexpensive models for narrow, mechanical passes | an expedient tier, chosen on purpose for a role. It is **not** a rung that failing jobs escalate or fall to |
+
+In the vocabulary you have already seen, **design X** and **build #N** run
+at mentor, the automatic ceiling (Opus on a monk), and their roles are
+floored there. **americanize #N** and **deslop #N** are the myrmidon
+examples: the expensive judgment was already made by a review seat, and
+what remains is a deterministic apply-then-re-grep loop. Their watcher
+stamps `tier: myrmidon` on the job, but today the automatic posting path
+(`post-job.sh`) rewrites every automatic job to mentor, so those jobs
+currently run at mentor too. A **mentat job** is the one vocabulary entry
+that reaches above mentor, and only because you asked for it.
+
+Which models sit in which tier changes as providers ship new ones, so this
+README does not list them. The canonical map, with the per-provider rows and
+routing caveats, is
+[`skills/model-selection/SKILL.md`](skills/model-selection/SKILL.md). The
+executable inventory is
+[`scripts/jobs/model-tier-inventory.tsv`](scripts/jobs/model-tier-inventory.tsv).
+That inventory is **closed**: a model without a row there is unclassified
+and never receives automatic work.
 
 ### Self-healing, self-improvement, reflection
 
