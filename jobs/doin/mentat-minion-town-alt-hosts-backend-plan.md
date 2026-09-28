@@ -44,3 +44,13 @@ any), the open questions for the maintainer, and a proposed build sequence (as s
 - Identify which providers can reuse the S3-compatible adapter unchanged, versus which need a new adapter.
 - A comparison table (fit for the daemon persistence interfaces, cost at a few scales, ops effort, lock-in, regions), plus a recommended order of support. exe.dev: establish from first-party sources what it actually offers; if its fit is unclear, say so.
 - Output `designs/alt-hosts-backend.md`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T06:53:48Z
