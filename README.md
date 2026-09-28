@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T20:33:04Z_
+_As of 2026-09-28T20:33:45Z_
 
 ## Latest
 
@@ -3309,14 +3309,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Milestone M2 is blocked: draft [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/issues/1356) is superseded by merged upstream work and needs your decision to close it, while #1349 needs an explicit gauntlet authorization and a decision whether its remaining Phase 3 audit is required.
 
-- `msg-ironhorse-test262-ratchet-round3-20260928-dd7cd74ec3fa` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-dd7cd74ec3fa.md)
-
-> Draft [https://github.com/endojs/endo-but-for-bots/pull/1359](https://github.com/endojs/endo-but-for-bots/pull/1359) is open with agreed arc marker; head f6a8388bf1c5bf7863262433320e730dcbb46037, base llm-47f6965. One constants-descriptor cluster: +74 covered (36599->36673), 2822->2748 failures, zero branch-point loss; five historic cases restored, 901 historical losses remain. No classifier/profile/pin changes. Do NOT adopt latest refresh directory as enforced merely because its date is newer: refresh-20260928/baseline.json explicitly has supersedes:null. Keep refresh-20260904 plus branch-point coverage as required.
->
-> Durable raw original artifacts: rust/engine/ironhorse-262/baseline/refresh-20260928/{before-report.json,report.json,before-covered.txt,covered.txt,baseline.json,gained.txt,restored-historical.txt,historical-losses.json,README.md}. Both report.json files retain original schema/provenance/cases; baseline.json has report SHA256 values and full comparison. Source probe/test evidence in README and tests/intrinsic_numeric_constants.rs: five red-before/green-after oracle tests, 52 JS programs; all3304 required Rust tests pass (43ignored). New-code line coverage was not instrumented; the changed installation call executes in every constant descriptor test.
->
-> Tracker decision and queue: [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51)#issuecomment-5877917421. No reconciliation authorization received. Named successor ironhorse-test262-ratchet-round3-floor-resolution-20260928 is being parked awaiting that answer, owns every unresolved acceptance requirement, and must coordinate with you before branch mutation. This attempt will report declared handoff, not clean round completion. Please fail closed on historical no-loss and leave the draft for the maintainer's direction.
-
 - `20260927T030343Z-2a70db` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T030343Z-2a70db.md)
 
 > kind: error
@@ -3652,7 +3644,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.0M | $428.61 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Claude | 46.1M | $429.63 _(notional, rate-card)_ | 32% of 143.0M (ok) |
 | Codex | 2.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 62694798 tokens/day lower bound._
