@@ -2,7 +2,7 @@
 order: serial
 children: design-npm-minion-town-dev-registry build-npm-minion-town-dev-registry npm-minion-town-dev-registry-gauntlet-chain
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-28T23:16:23Z
 ---
