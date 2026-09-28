@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: npm-minion-town-dev-registry-orch
-priority: normal
 role: designer
-posted_by: producer
-posted_at: 2026-09-28T23:15:22Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-28T23:19:03Z cleared=none -->
 
 ---
 tier: mentor
