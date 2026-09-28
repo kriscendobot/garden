@@ -1,6 +1,6 @@
 ---
 created: 2026-09-21
-updated: 2026-09-27
+updated: 2026-09-28
 author: gardener
 ---
 
@@ -192,7 +192,13 @@ the `usage` token counts, since calls are metered.
   scheduler, a standing loop), that is a rate-card / quota-classification
   decision analogous to how Fireworks / OpenRouter / Ollama-Cloud were each
   given their own provider treatment — raise it with the maintainer; do not
-  assume it falls under an existing model pool or budget.
+  assume it falls under an existing model pool or budget. **One autonomous use
+  is already authorized:** foreign-content pre-classification before ingestion
+  (maintainer directive, kriskowal, 2026-09-28, job
+  `jev-preclassify-foreign-content-survey`) — see
+  [foreign-content-preclassification](../foreign-content-preclassification/SKILL.md)
+  § Authorization for the recorded scope. Any *other* autonomous wiring still
+  requires its own sign-off.
 - **Cookbook lookup (targeted read, not bulk fetch).** The live docs are a large
   cookbook; fetch *only* the page you need rather than ingesting everything.
   Entry points: the index at `https://docs.typesafe.ai/llms.txt`, the root at

@@ -69,6 +69,8 @@ jobs:
             scripts/jobs/test/bulletin-fetch-outage-backoff-test.sh \
             scripts/jobs/test/muster-pilot-fake-curl.sh \
             scripts/jobs/test/muster-pilot-test.sh \
+            scripts/jobs/test/classify-foreign-content-fake-curl.sh \
+            scripts/jobs/test/classify-foreign-content-test.sh \
             scripts/jobs/test/report-error-reachable-test.sh \
             scripts/jobs/test/reputation-reduce-incremental-test.sh \
             scripts/jobs/test/worktree-sweeper-follower-test.sh
@@ -107,3 +109,4 @@ jobs:
           bash scripts/jobs/test/cursor-outage-cooldown-test.sh
           bash scripts/jobs/test/bulletin-fetch-outage-backoff-test.sh
           bash scripts/jobs/test/muster-pilot-test.sh
+          bash scripts/jobs/test/classify-foreign-content-test.sh

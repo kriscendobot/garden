@@ -1,6 +1,6 @@
 ---
 created: 2026-09-23
-updated: 2026-09-23
+updated: 2026-09-28
 author: gardener
 ---
 
@@ -54,6 +54,24 @@ flowchart LR
 - When credentials are absent, TypeSafe is unavailable, its request fails, or its response shape is invalid, the script reports the fallback and exits successfully. The liaison performs the same three passes with regular inference.
 - Record cost per decision, if needed, outside the bid-market arm rate card.
 - The maintainer accepted TypeSafe's retention and training terms for this trial. This acceptance covers the opt-in Muster pilot, not an autonomous watcher or broader PR-comment monitoring surface.
+
+## Addendum — second accepted decision point: foreign-content pre-classification (2026-09-28)
+
+Maintainer directive (kriskowal, 2026-09-28, job
+`jev-preclassify-foreign-content-survey`): use Jev to classify suspicious
+external documents — watching for prompt-injection attacks and mis-aligned
+opinions — before ingesting them with a full LLM agent. This authorizes Jev as
+a **content pre-classifier inside autonomous ingestion flows** (first
+consumer: the scholar's `fetch-source.sh` acquisitions), implemented as
+[`scripts/jobs/classify-foreign-content.sh`](../scripts/jobs/classify-foreign-content.sh)
+with taxonomy, thresholds, and disposition policy in
+[`skills/foreign-content-preclassification/SKILL.md`](../skills/foreign-content-preclassification/SKILL.md).
+The Muster boundary above is untouched: the rejected alternative was an
+*autonomous muster disposition* job, which this is not — disposition of
+maintainer-inbox items remains a liaison conversation, and the pre-classifier
+never disposes of anything; it gates whether fetched foreign text may enter an
+agent's context, escalating flagged or uncertain content to the maintainer
+over the message bus.
 
 ## Alternatives considered
 

@@ -157,6 +157,15 @@
 # This script makes network calls (a direct fetch, then possibly the erights
 # mirror, the Wayback availability API, and an archive fetch). It writes ONLY to
 # the output path (or a temp file) and never to the journal or any garden tree.
+#
+# BEFORE AN AGENT READS THE FETCHED CONTENT: run the Jev pre-classification
+# gate, classify-foreign-content.sh (skill:
+# skills/foreign-content-preclassification/SKILL.md), on the text artifact
+# (source_text_path for a PDF, else source_output_path). This script stays a
+# pure fetch+hash (classification is deliberately NOT embedded here, so
+# reachability probes like check-source-children.sh do not pay a metered
+# classification for content no agent ever reads); the gate belongs at the
+# point where the bytes are about to enter an LLM context.
 
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
