@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T18:14:29Z_
+_As of 2026-09-28T18:19:40Z_
 
 ## Latest
 
@@ -2606,11 +2606,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-28T14:33:12Z, latest 2026-09-28T17:28:24Z).
-> The SAME condition (`journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` has CLEARED (first seen 2026-09-28T14:33:12Z, cleared 2026-09-28T18:18:11Z).
+> It was observed 3 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal lock contention on endolin-garden-ece02cb4 for _home_kris_garden__garden_state_approval_reconciler_verify: p95=78.311853s, giveups=0, steals=0 (max 3/window), wait floor=60s.
+> Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_approval_reconciler_verify` cleared on endolin-garden-ece02cb4.
 
 - `doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-budget-level-single-host-cap-freeze-requeue-exhausted.md)
 
@@ -3630,7 +3630,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 53224427 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 2 open notice(s); checker healthy
+worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
