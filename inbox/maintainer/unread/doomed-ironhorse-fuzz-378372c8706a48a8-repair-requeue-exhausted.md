@@ -1,12 +1,16 @@
 from_host: endolin-garden-ece02cb4
 from: reaper:endolin-garden-ece02cb4
-sent_at: 2026-09-27T09:43:38Z
+sent_at: 2026-09-28T07:37:05Z
 doom_base: ironhorse-fuzz-378372c8706a48a8-repair
 doom_signature: requeue-exhausted
-notice_count: 1
+notice_count: 2
 first_seen: 2026-09-27T09:43:38Z
-last_seen: 2026-09-27T09:43:38Z
+last_seen: 2026-09-28T07:37:05Z
 ---
+DOOM notice — occurrence #2 (first seen 2026-09-27T09:43:38Z, latest 2026-09-28T07:37:05Z).
+This job has been doom-parked 2 times for the same condition (requeue-exhausted);
+this is an AMENDED notice, not a new one. Latest detail:
+
 SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
 The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
 The work is preserved at jobs/plan/ironhorse-fuzz-378372c8706a48a8-repair; it stays HELD until a human promotes it
@@ -14,6 +18,13 @@ The work is preserved at jobs/plan/ironhorse-fuzz-378372c8706a48a8-repair; it st
 Original job base: ironhorse-fuzz-378372c8706a48a8-repair
 
 --- original job body ---
+---
+role: builder
+tier: mentor
+token-budget: 250000
+---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-09-28T04:51:26Z cleared=none -->
+
 ---
 role: builder
 tier: mentor
