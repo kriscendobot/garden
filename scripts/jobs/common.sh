@@ -4612,6 +4612,7 @@ host_heartbeat_epoch() {
 # rotation treats any nonzero rc as absent; the capacity rotation must fail safe on
 # an ambiguous read, so it distinguishes 2 and neither zeroes nor restores on it.
 HOST_LIVENESS_DETAIL=""
+# shellcheck disable=SC2034  # HOST_LIVENESS_DETAIL is read by callers (rolling-deploy.sh, worker-derotate.sh)
 host_liveness() {
   local dir="$1" host="$2" now="$3" sampled age
   if ! [[ "$now" =~ ^[0-9]+$ ]]; then
