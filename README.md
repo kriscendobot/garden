@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T20:33:45Z_
+_As of 2026-09-28T20:36:47Z_
 
 ## Latest
 
@@ -3183,6 +3183,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > self-heal: garden-receipt-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 49aa0d37e12234073cc7d49cb472c52bfe391cdd (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 49aa0d37e12234073cc7d49cb472c52bfe391cdd). Diagnosis: Diagnosis: a genuine, new classification bug in `reclone_clone` (`scripts/jobs/common.sh:4302-4316`), distinct from the already-fixed clone_lock stderr-silencing bug in memory. It drops `bounded_clone`'s exit code and classifies "offline" only by grepping captured stderr for known network-error text; a bare 45s `timeout`-SIGTERM clone kill (rc=124) that lands before git prints anything leaves that stderr empty, so the offline check misses and the failure escalates as a loud `FATAL` instead of a quiet transient skip. Posted the fix job above.
 
+- `watchdog-budget-level-monk-endolin-garden2-5bcdff64-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-3.md)
+
+> budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 3 (target 3): subscription claude-endolin2 spend=21001922 cap=64000000 pace-bias=0.760507 window-start=2026-09-26T03:00Z(calendar) deadline=2026-09-30T03:00Z(planned) ceiling=3 target=3
+
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-ok.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-01T18:30:59Z, latest 2026-09-28T06:46:47Z).
@@ -3644,10 +3648,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 46.1M | $429.63 _(notional, rate-card)_ | 32% of 143.0M (ok) |
-| Codex | 2.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 5% _(plan; codex-reported)_ |
+| Claude | 46.1M | $430.88 _(notional, rate-card)_ | 32% of 143.0M (ok) |
+| Codex | 3.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 10% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 62694798 tokens/day lower bound._
+_Fleet token-unlock pace: 56586481 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
@@ -3656,8 +3660,10 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (5)
 - [`fix-minion-town-guest-recovery-oauth-bonding`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-minion-town-guest-recovery-oauth-bonding.md) — minion.town: guest account recovery and OAuth recovery bonding are broken. Ve...
+- [`kriscendobot-minion.town-pr117-review-e2f26bcf`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr117-review-e2f26bcf.md) — Review directive on kriscendobot/minion.town PR #117
+- [`deadmail-20260928T203432Z-300133`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-20260928T203432Z-300133.md) — Dead-lettered message — pick up its intent
 - [`improve-ironhorse-test262-ratchet-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ironhorse-test262-ratchet-gate.md) — ---
 - [`build-ironhorse-ratchet-autopilot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-ratchet-autopilot.md) — Build: autonomous Ironhorse test262 ratchet (per-crank PRs, mentat merge watc...
 
@@ -3745,7 +3751,7 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`kriscendobot-minion.town-pr117-review-e2f26bcf-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr117-review-e2f26bcf-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #117 (primary: kriscendobot-mini...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
@@ -3762,7 +3768,7 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 2 monks
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 3 monks
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
