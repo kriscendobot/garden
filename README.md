@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T23:10:54Z_
+_As of 2026-09-28T23:13:35Z_
 
 ## Latest
 
@@ -1033,6 +1033,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > journal worktree /home/kris/garden/journal has been STALE for ~2h (8998s since it last reconciled to origin/journal2; threshold 7200s). The keeper cannot self-resolve it: this tick could not reconcile — diverged; self-heal did not reach origin tip this tick (behind=239). Agents landing in journal/ are reading a LAGGED board and must route around it by hand. Investigate: check this host's connectivity to the journal remote, then 'git -C /home/kris/garden/journal status' and the journal-worktree-keeper log. This is one alert per staleness episode — it will NOT re-page, and clears automatically once the worktree reconciles. (host=endolin-garden-ece02cb4)
+
+- `msg-scholar-nvidia-openshell-garden-confinement-80f65fb1a25f` — from scholar:scholar-nvidia-openshell-garden-confinement, reply_to `scholar-nvidia-openshell-garden-confinement` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-nvidia-openshell-garden-confinement-80f65fb1a25f.md)
+
+> Recommendation: pilot OpenShell on one follower as a rootless-Podman, per-job secret and egress boundary alongside the current Docker control plane; do not attempt a fleet-wide replacement yet. It can mask a GitHub HTTPS token and proxy-side AWS SigV4 well, and its gateway-managed Codex refresh pattern is promising, but the shipped Claude profile does not support Anthropic subscription OAuth and OpenShell does not broker outbound SSH keys. The full garden-grounded assessment, credential-class map, caveats, handler/worktree changes, and staged measurements are in `journal2:projects/garden/openshell-confinement-fit.md`.
 
 - `20260927T234414Z-3fa87b` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T234414Z-3fa87b.md)
 
@@ -3669,7 +3673,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 54.5M | $495.13 _(notional, rate-card)_ | 38% of 143.0M (ok) |
+| Claude | 55.5M | $503.60 _(notional, rate-card)_ | 39% of 143.0M (ok) |
 | Codex | 5.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 24% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55086208 tokens/day lower bound._
@@ -3678,28 +3682,27 @@ _Fleet token-unlock pace: 55086208 tokens/day lower bound._
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`garden-pr81-postdeploy-pty-20260928T221312Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-pr81-postdeploy-pty-20260928T221312Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`garden-pr81-postdeploy-pty-20260928T225019Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-pr81-postdeploy-pty-20260928T225019Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
+- [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1097
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T221141Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 
-### doin (7)
+### doin (5)
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-minion-town-pr86-review-finalize-prod-5344649026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr86-review-finalize-prod-5344649026.md) — Finish review directive 5344649026 on kriscendobot/minion.town PR #86
-- [`endojs-endo-but-for-bots-pr897-conduct-5344801548`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-conduct-5344801548.md) — Conduct endojs/endo-but-for-bots PR #897
 - [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260928.md) — Finish activation of the authorized Ironhorse ratchet autopilot
-- [`scholar-nvidia-openshell-garden-confinement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-nvidia-openshell-garden-confinement.md) — ---
 - [`kriscendobot-garden-pr81-postdeploy-pty-20260928T224844Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-20260928T224844Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-minion.town-pr86-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr86-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #86
 
-### tada (9452)
+### tada (9454)
+- [`endojs-endo-but-for-bots-pr897-conduct-5344801548`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr897-conduct-5344801548.md) — Cost
+- [`scholar-nvidia-openshell-garden-confinement`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/scholar-nvidia-openshell-garden-confinement.md) — Cost
 - [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-3.md) — Cost
 - [`kriscendobot-minion.town-pr86-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-gauntlet-fix-3.md) — Cost
 - [`deadmail-20260928T225949Z-0e1440`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/deadmail-20260928T225949Z-0e1440.md) — Cost
-- [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-2.md) — Fix round 2 for endojs/endo-but-for-bots PR #1097: done, CI green
-- [`kriscendobot-minion-town-pr130-conduct-prod-validate-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion-town-pr130-conduct-prod-validate-20260928.md) — Cost
-- … and 9447 more
+- … and 9449 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
