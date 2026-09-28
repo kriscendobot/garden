@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T21:35:43Z_
+_As of 2026-09-28T21:39:39Z_
 
 ## Latest
 
@@ -710,6 +710,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > This is transient/environmental (deploy-lag), not a fresh code defect, so no JOB block.
 >
 > The `garden-ci-watcher@kriscendobot-minion.town` FATAL (clone-lock busy after 3 retries) is the already-fixed shared-verify-clone-lock contention bug. Commits `5620bdbe5f6` and `e6ea1d33
+
+- `20260928T213819Z-35a8f7` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T213819Z-35a8f7.md)
+
+> awaiting maintainer — beyond proxy authority: gardener kriscendobot-minion-town-pr130-conduct-prod-validate-20260928, msgid msg-kriscendobot-minion-town-pr130-conduct-prod-validate-20260928-c733ec833743.md — Approving a PR for merge is an authority grant (trusted-maintainer review), not a progress/direction question — reserved to the maintainer.
 
 - `20260928T172319Z-a6992a` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T172319Z-a6992a.md)
 
@@ -3668,7 +3672,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.1M | $450.47 _(notional, rate-card)_ | 34% of 143.0M (ok) |
+| Claude | 50.1M | $460.22 _(notional, rate-card)_ | 35% of 143.0M (ok) |
 | Codex | 4.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 20% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61592234 tokens/day lower bound._
@@ -3677,31 +3681,30 @@ _Fleet token-unlock pace: 61592234 tokens/day lower bound._
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (3)
 - [`endojs-endo-but-for-bots-pr1345-conduct-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1345-conduct-20260928.md) — Merge endojs/endo-but-for-bots PR #1345
 - [`xs-locals-limit-check-20260928-213507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/xs-locals-limit-check-20260928-213507.md) — Has Moddable's XS 65535-locals-per-frame parser fix landed upstream yet?
 - [`kriscendobot-minion.town-pr80-conduct-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr80-conduct-20260928.md) — Conduct kriscendobot/minion.town PR #80
-- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
-- [`build-siwe-recovery-bond-provider-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-siwe-recovery-bond-provider-minion-town.md) — Build: register SIWE as a recovery-bond provider on minion.town
 
-### doin (9)
-- [`endojs-endo-but-for-bots-pr1357-593395b4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-593395b4-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1357 (primary: endojs-endo-but-...
+### doin (10)
 - [`endojs-endo-but-for-bots-pr897-conduct-5344801548`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr897-conduct-5344801548.md) — Conduct endojs/endo-but-for-bots PR #897
 - [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260928.md) — Finish activation of the authorized Ironhorse ratchet autopilot
 - [`kriscendobot-minion-town-pr68-weave-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-weave-20260928.md) — ---
 - [`kriscendobot-minion.town-pr86-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr86-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #86
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`endojs-endo-but-for-bots-pr1343-review-fcb5f817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-review-fcb5f817.md) — Review directive on endojs/endo-but-for-bots PR #1343
 - [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1097
+- [`build-siwe-recovery-bond-provider-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-siwe-recovery-bond-provider-minion-town.md) — Build: register SIWE as a recovery-bond provider on minion.town
 - [`kriscendobot-minion-town-pr130-conduct-prod-validate-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr130-conduct-prod-validate-20260928.md) — Conduct minion.town PR #130 and finish PR #117 production validation
 - [`kriscendobot-minion.town-pr86-review-eee45c8f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr86-review-eee45c8f.md) — Review directive on kriscendobot/minion.town PR #86
 
-### tada (9429)
+### tada (9430)
+- [`endojs-endo-but-for-bots-pr1357-593395b4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1357-593395b4-retro.md) — Cost
 - [`kriscendobot-minion.town-pr80-review-f8795f32`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr80-review-f8795f32.md) — Cost
 - [`kriscendobot-minion.town-pr80-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr80-shepherd.md) — shepherd (auto) retired: CI recovered/settled before claim
 - [`endojs-endo-but-for-bots-pr1345-review-e13f1716`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1345-review-e13f1716.md) — Cost
 - [`kriscendobot-minion.town-pr86-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-gauntlet-clean.md) — Cost
-- [`kriscendobot-minion-town-pr68-conduct-deploy-validate-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion-town-pr68-conduct-deploy-validate-20260928.md) — kriscendobot/minion.town#68: conduct stalled on needs weave. It was not merge...
-- … and 9424 more
+- … and 9425 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
