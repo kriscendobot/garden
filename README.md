@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T19:54:08Z_
+_As of 2026-09-28T20:01:21Z_
 
 ## Latest
 
@@ -406,11 +406,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
-> COALESCED message — occurrence #2 (first seen 2026-09-28T19:10:11Z, latest 2026-09-28T19:14:46Z).
-> The SAME message (episode key `foreman-milestone-M2`) has now been sent 2 times; this is
-> ONE entry that updates in place, not 2 messages. Latest detail:
+> COALESCED message — occurrence #3 (first seen 2026-09-28T19:10:11Z, latest 2026-09-28T20:00:32Z).
+> The SAME message (episode key `foreman-milestone-M2`) has now been sent 3 times; this is
+> ONE entry that updates in place, not 3 messages. Latest detail:
 >
-> M2 is blocked: PR #1349 is a green draft awaiting your decision to run its gauntlet, while superseded draft PR #1356 needs a close-as-superseded decision.
+> M2 is blocked on disposition of the duplicate hardened URL shim: PR #1356 was overtaken by upstream endo#3332 and must be closed/superseded, with the journal plan record reconciled. Decide whether the remaining #1349 XS-smoke PR should proceed after its halted gauntlet viability stage.
 
 - `msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6` — from gardener:minion-town-guest-web-invite-accept-fallback-fix-post104, reply_to `minion-town-guest-web-invite-accept-fallback-fix-post104` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md)
 
