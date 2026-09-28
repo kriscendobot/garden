@@ -1,41 +1,27 @@
----
-orchestration-failed: true
----
-orchestration-failed: true
+PR #1345 is merged into `llm` (merge commit `eb654c4bf7a9531a489cb4e842476283da859665`, 2026-09-28T21:43:33Z).
 
-## PR #1345 was not merged: stalled `needs weave`
-
-**What I found**
-- The earlier attempts failed for the same reason this one did. The reaper's doom record doesn't say why, but I reproduced it: rebasing the head (`4b0bd5abea`, one commit) onto live `llm` (`47f6965d882`) gives a content conflict in `designs/README.md`. The PR looked mergeable on GitHub only because its base was still the frozen snapshot `llm-efabaed`.
-- The guards passed at claim time: the repo is `endojs/endo-but-for-bots`, the PR is OPEN and not draft, kriskowal's approval is on the current head, and checks were green.
+**Checks before merging**
+- The PR was open, not a draft, and based on live `llm`. Its head was `1d69bc1d0`, which is the weaver's rebased head from the earlier `needs weave` stall.
+- kriskowal's approval (review 5344859351) is on that exact head, so it was still valid after the rebase.
+- The previous attempt of this job stalled with `needs weave`. That weave has landed, so the merge did not fail the way it did before.
 
 **What I did**
-- Ran `ci-wait-merge.sh endojs/endo-but-for-bots 1345` from an isolated project worktree.
-  - It retargeted the PR base from `llm-efabaed` to `llm`; the PR now shows `baseRefName: llm`.
-  - `safe-rebase.sh` then refused with `reason=needs-weave` (rc=1). It aborted the rebase, and the head is unchanged.
-- Posted weaver job `endojs-endo-but-for-bots-pr1345-weave-20260928`. It is already claimed (it's in `jobs/doin/` on `journal2`). It asks the weaver to:
-  - rebase onto `llm` and resolve `designs/README.md` so both sides' roadmap entries survive;
-  - force-push with a lease, keeping the base as live `llm`;
-  - comment on the PR asking the maintainer to re-approve the rebased head.
-- Replied on the PR to close the loop on the maintainer's "icymi" comment: https://github.com/endojs/endo-but-for-bots/pull/1345#issuecomment-5878148669
+- Ran `ci-wait-merge.sh endojs/endo-but-for-bots 1345` from an isolated project worktree. No rebase was needed and CI was green (30 checks, 0 failed). The script confirmed kriskowal's approval on `1d69bc1d07` and merged with `--merge`. It exited 0.
+- No open PR was based on `groom/endo-roadmap-20260927`, and that branch no longer exists on the remote.
+- Ran `sweep-frozen-bases.sh`. It found no frozen-base snapshot to delete; it saw only live `llm`. The old snapshot `llm-efabaed` is still used by open PRs #1344, #897 and #871, so it has to stay anyway.
+- No garden code changed.
 
 **Follow-ups**
-- After the weave, the existing approval is stale because the head changes. kriskowal needs to approve the rebased head, and then a new conduct job can merge it.
-- Three other open PRs (#1344, #897, #871) still sit on the frozen base `llm-efabaed`. They are independent, but a conductor working any of them will likely need the same unfreeze and weave.
-- The doomed plan entry `endojs-endo-but-for-bots-pr1345-conduct` is superseded and can be withdrawn.
-
-
-## Manual gauntlet handoff
-
-The completion guard found https://github.com/endojs/endo-but-for-bots/pull/1345 ready without gauntlet coverage. A deduplicated maintainer action was recorded; the PR was not re-drafted and no gauntlet was staged.
+- The doomed plan entry `endojs-endo-but-for-bots-pr1345-conduct` in `jobs/plan/` is now fully superseded and can be withdrawn.
+- #1344, #897 and #871 are still on the frozen base `llm-efabaed`. When any of them is conducted, it will probably need to be moved to `llm` and woven the same way.
 <!-- garden-usage-begin: machine-stamped by complete-job.sh from usage/endojs-endo-but-for-bots-pr1345-conduct-20260928.jsonl; not agent-authored — do not edit -->
 
 ## Cost
-- Engagements: 1 on 1 host(s)
-- Input: 28 tokens (820976 cached reads)
-- Output: 4371 tokens
-- Cost: $0.7026872000000001
-- Wall-clock: 208s
-- Model(s): claude-opus-5-5 ×1
+- Engagements: 2 on 1 host(s)
+- Input: 42 tokens (1167095 cached reads)
+- Output: 6519 tokens
+- Cost: $1.192807
+- Wall-clock: 266s
+- Model(s): claude-opus-5-5 ×2
 
 <!-- garden-usage-end -->
