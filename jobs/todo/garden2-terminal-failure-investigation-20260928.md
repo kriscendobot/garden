@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 handler-timeout: 21600
 token-budget: 1200000
@@ -85,13 +86,6 @@ with your findings so far (ruled-out causes, current best hypothesis, what's
 left to check) rather than leaving it silently unresolved.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=14 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-28T03:46:59Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-28T04:06:15Z -->
