@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T21:18:20Z_
+_As of 2026-09-28T21:24:22Z_
 
 ## Latest
 
@@ -1030,6 +1030,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Recommendation: add an opt-in fakecloud DynamoDB integration tier in CI and keep mock-as and the in-memory stores for dev. Suggested job: `build-minion-town-fakecloud-dynamodb-tier`, optionally followed by `build-minion-town-fakecloud-cognito-tier`.
 >
 > Ingested 3 sources as 9 sections (llms.txt, docs/parity, home). New topic `cloud-emulation`. Analysis note: `projects/minion-town/fakecloud-aws-emulation-fit.md`. Result entry: `entries/2026/09/28/052433Z-result-scholar-37b4ad.md`. Follow-on scholar job `scholar-ingest-fakecloud-dev-services-sdks` covers docs/services and docs/sdks and will settle the remaining unverified cells.
+
+- `msg-kriscendobot-minion-town-pr130-conduct-prod-validate-20260928-c733ec833743` — from gardener:kriscendobot-minion-town-pr130-conduct-prod-validate-20260928, reply_to `kriscendobot-minion-town-pr130-conduct-prod-validate-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion-town-pr130-conduct-prod-validate-20260928-c733ec833743.md)
+
+> Approval needed: [https://github.com/kriscendobot/minion.town/pull/130](https://github.com/kriscendobot/minion.town/pull/130) (fix(deploy): avoid daemon health-probe spawn race) is ready, mergeable, CI green at head d24effe2c3214fff021c330155513e72bd1c2804, and has no review yet. The conductor will not merge without a trusted-maintainer APPROVED review. Note: the base is frozen main-b32291d == current main, so no rebase should be needed and an approval at this head should stay fresh.
+>
+> Production status meanwhile (checked 21:10Z via SSM, read-only): endo-daemon unit active since 21:07:57Z, 127.0.0.1:8920 held by the supervised manager-node (child of the unit MainPID), no orphan; POST https://minion.town/api/guest returns 201. Once PR 130 is approved I will merge, watch main CD to terminal, and validate production for [https://github.com/kriscendobot/minion.town/pull/117](https://github.com/kriscendobot/minion.town/pull/117).
 
 - `watchdog-journal-worktree-stale-endolin-garden-ece02cb4` — from watchdog:journal-worktree-keeper, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-worktree-stale-endolin-garden-ece02cb4.md)
 
@@ -3657,33 +3663,38 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 48.6M | $445.94 _(notional, rate-card)_ | 34% of 143.0M (ok) |
-| Codex | 4.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 17% _(plan; codex-reported)_ |
+| Claude | 48.6M | $447.43 _(notional, rate-card)_ | 34% of 143.0M (ok) |
+| Codex | 4.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 19% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 62414793 tokens/day lower bound._
+_Fleet token-unlock pace: 59023997 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`design-endo-store-locator-url-pivot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-endo-store-locator-url-pivot.md) — Pivot endo adopt-locator into endo store --locator, and make "locator" mean a...
-- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493.md) — Post-deploy interactive validation and maintainer report for garden PR #81
+### todo (3)
+- [`kriscendobot-minion-town-pr68-conduct-deploy-validate-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-conduct-deploy-validate-20260928.md) — ---
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
+- [`endojs-endo-but-for-bots-pr897-review-e477f524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr897-review-e477f524.md) — Review directive on endojs/endo-but-for-bots PR #897
 
-### doin (5)
+### doin (9)
 - [`endojs-endo-but-for-bots-pr1357-593395b4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-593395b4-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1357 (primary: endojs-endo-but-...
+- [`improve-scheduled-handoff-verification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-scheduled-handoff-verification.md) — ---
 - [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260928.md) — Finish activation of the authorized Ironhorse ratchet autopilot
+- [`design-endo-store-locator-url-pivot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-endo-store-locator-url-pivot.md) — Pivot endo adopt-locator into endo store --locator, and make "locator" mean a...
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493.md) — Post-deploy interactive validation and maintainer report for garden PR #81
+- [`endojs-endo-but-for-bots-pr1343-review-fcb5f817`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-review-fcb5f817.md) — Review directive on endojs/endo-but-for-bots PR #1343
 - [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1097
 - [`kriscendobot-minion-town-pr130-conduct-prod-validate-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr130-conduct-prod-validate-20260928.md) — Conduct minion.town PR #130 and finish PR #117 production validation
 - [`kriscendobot-minion.town-pr86-review-eee45c8f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr86-review-eee45c8f.md) — Review directive on kriscendobot/minion.town PR #86
 
-### tada (9418)
+### tada (9420)
+- [`kriscendobot-minion.town-pr86-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-gauntlet-viability.md) — Cost
+- [`kriscendobot-minion.town-pr86-review-eee45c8f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-review-eee45c8f-retro.md) — Retrospective on kriscendobot/minion.town#86, review 5344649026
+- [`endojs-endo-but-for-bots-pr1102-5b4b465b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1102-5b4b465b-retro.md) — Cost
 - [`kriscendobot-minion.town-pr86-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-conduct.md) — Conduct kriscendobot/minion.town#86: not merged (stalled)
 - [`endojs-endo-but-for-bots-pr1102-5b4b465b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1102-5b4b465b.md) — Completion report: endojs/endo-but-for-bots PR #1102, attention directive (co...
-- [`kriscendobot-minion.town-pr120-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr120-retcon.md) — Cost
-- [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1357-593395b4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1357-593395b4.md) — Completion report: endojs/endo-but-for-bots#1357, comment r4126953829
-- … and 9413 more
+- … and 9415 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -3761,8 +3772,8 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-minion.town-pr86-review-eee45c8f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr86-review-eee45c8f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #86 (primary: kriscendobot-minio...
-- [`endojs-endo-but-for-bots-pr1102-5b4b465b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1102-5b4b465b-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1102 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1343-review-fcb5f817-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1343-review-fcb5f817-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1343 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr897-review-e477f524-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr897-review-e477f524-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #897 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
