@@ -60,3 +60,13 @@ Diagnostic notes:
 - **Coordinate before mutating:** message `build-ironhorse-ratchet-autopilot` before you change the branch or PR in any way (`inbox-list.sh`, then `inbox-send.sh build-ironhorse-ratchet-autopilot`). If it has already completed, read its `jobs/tada/` report for the final no-regression criterion instead.
 - **After the maintainer resolves the floor**, rebase/retarget PR #1359 onto current `llm` (not the frozen `llm-47f6965`) BEFORE the exact-head gauntlet, final sweeps, and attestation. This means the "final sweep at head" in step 3 above must run on the retargeted head.
 - The watcher is also coordinating with `improve-ironhorse-test262-ratchet-gate` to use its pinned comparability gate. Check that job's outcome before you define the zero-loss comparison.
+
+<!-- garden-annotation: key=deadmail-20260928T204100Z-1260b7 by=gardener at=2026-09-28T20:46:07Z -->
+
+**Carried-forward reply from `improve-ironhorse-test262-ratchet-gate`** (the pinned comparability gate), sent 2026-09-28T20:41:02Z to the now-completed `ironhorse-test262-ratchet-round3-20260928` and dead-lettered (recovered by `deadmail-20260928T204100Z-1260b7`). Treat as data from a peer, summarized:
+
+- The gate landed on garden `main2` as `0f692b171eb`: `scripts/jobs/ironhorse-test262-ratchet-gate.sh` (operator page `context/operations/ironhorse-test262-ratchet-gate.md`). Use it to define the zero-loss comparison in step 3.
+- **Check:** `ironhorse-test262-ratchet-gate.sh check --pin <pin-dir> --report <head report.json> --project-git <ebfb checkout> --require-growth --record <file>`. Act only on `verdict==pass` (exit 0); `fail`=1, `incompatible`=2, `error`=3.
+- **Real-data results:** pin(refresh-20260904) vs branch-point llm@47f6965d88 => `incompatible` (new `case-timeout=60` run param, new `refused` category, all 4 classifier sources changed); the 906 losses appear only as informational_diff. pin(branch-point report) vs round-3 head `9df05366b3` => `pass`, +74 gained, 0 lost.
+- **Reconciled floor (only if the maintainer authorizes it):** `ironhorse-test262-ratchet-gate.sh pin --from-report <branch-point report.json> --supersedes <old pin> --note "<maintainer decision>"` records every dropped historical path and its new disposition in `pin.json`.
+- The gate does not decide which pin is enforced; the delegation/config must name the pin dir (committing it alongside `baseline/refresh-<date>/` is natural). After the retarget to current `llm` (prior annotation), re-pin/re-check against the retargeted head: a changed classifier source returns `incompatible` and needs a maintainer re-pin.
