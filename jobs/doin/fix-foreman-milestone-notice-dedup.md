@@ -89,3 +89,13 @@ Confirm before/after: what the old signature would have produced across a few
 of the real captured notices (showing why they differed), what your new
 mechanism produces for the same inputs (showing they now match), and how many
 stale duplicates you archived.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T03:49:22Z
