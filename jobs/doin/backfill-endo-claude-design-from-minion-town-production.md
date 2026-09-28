@@ -26,3 +26,13 @@ Back-fill and solidify the Endo design from what actually worked. Compare the Cl
 and Claude Agent SDK paths, record observed versus merely documented behavior, settle the
 backend boundary and confinement residuals, and open a fresh draft design PR against
 `llm`. Do not revive PR #1228 or assume its speculative contract remains valid.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T04:53:02Z
