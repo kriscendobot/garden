@@ -138,3 +138,4 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - KaozKit, kaoz, TyKaoz, heap snapshot agent, resident agent, agent brain is a file, `writeSnapshot`, `init(snapshot:)`, agents on ice, XS agent persistence -> xs-heap-snapshot-agent-persistence
 - XS agent runtime, XS for agents, one XS machine per agent, `host.llm`, `host.schedule`, host global capability surface -> principle-of-least-authority
 - hardened URL shim, `hardened-url-shim`, URL vetted shim, `%InitialURL%`, `%SharedURL%`, `urlBlobTaming` -> hardened-url-vetted-shim
+- fakecloud, fakecloud.dev, faiscadev/fakecloud, local AWS emulator, AWS emulator, LocalStack alternative, Moto alternative, `/_fakecloud/reset` -> fakecloud
