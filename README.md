@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T18:22:04Z_
+_As of 2026-09-28T18:24:03Z_
 
 ## Latest
 
@@ -3630,22 +3630,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 53230915 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
+worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-foreman-retired-provider-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-foreman-retired-provider-fallback.md) — ---
+### doin (0)
+(none)
 
-### tada (9380)
+### tada (9381)
+- [`improve-foreman-retired-provider-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/improve-foreman-retired-provider-fallback.md) — Cost
 - [`deadmail-issue-comment-5864051232`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/deadmail-issue-comment-5864051232.md) — Cost
 - [`token-backoff-ramp-080`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/token-backoff-ramp-080.md) — Cost
 - [`canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-39d0c5ef0aca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-39d0c5ef0aca.md) — rolling-deploy canary probe — round trip OK
-- [`report-completions-since-friday-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/report-completions-since-friday-reset.md) — Completion report
-- … and 9375 more
+- … and 9376 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
