@@ -29,3 +29,13 @@ days after the 09-23 truncation), which slows every fetch and made fresh clones 
 3. Tests: N consecutive identical declines give one record, and a changed reason gives a second. Run the claim-job and
    decision-ledger suites and push. Report the estimated commits/day before and after. Complete via the normal
    completion path.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T07:13:12Z
