@@ -35,3 +35,13 @@ Repo: kriscendobot/garden, main2 (garden's own repo; land directly). The maintai
 - Update `roles/conductor/AGENT.md`, the orchestration/model-selection skill docs, and `context/operations/` (a short page on the ratchet autopilot, plus how to pause or revoke it) so the new authority is documented where the approval rule is.
 - Coordinate with the running job `ironhorse-test262-ratchet-round3-20260928`. The liaison has told it to deliver just the first crank as a single draft PR with the arc marker. That PR is the watcher's first subject. Use the same arc marker string it uses; message that job over the bus to agree on one if needed.
 - Do not arm the schedule until the delegated path and its tests land and pass. Report the exact commands used to arm it, pause it and revoke it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T20:13:17Z
