@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T14:50:54Z_
+_As of 2026-09-28T14:54:26Z_
 
 ## Latest
 
@@ -1138,6 +1138,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Put genuine maintainer decisions in `## Open questions` (and use the review-PR carve-out). Settle everything else.
 > Complete via the normal completion path. Report the design file(s), the PR if any, the open questions, and the
 > proposed phases.
+
+- `proxy-delivery-failed-msg-auto-derotate-offline-host-worker-capacity-220de6ddb042.md` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/proxy-delivery-failed-msg-auto-derotate-offline-host-worker-capacity-220de6ddb042.md.md)
+
+> awaiting maintainer: proxy answer delivery failed for gardener auto-derotate-offline-host-worker-capacity, msgid msg-auto-derotate-offline-host-worker-capacity-220de6ddb042.md; the tentative reply was not fully delivered, so please review the original question.
 
 - `doomed-ironhorse-fuzz-bc3d0df623811a38-repair-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-bc3d0df623811a38-repair-requeue-exhausted.md)
 
@@ -3549,7 +3553,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 45.0M | $421.14 _(notional, rate-card)_ | 31% of 143.0M (ok) |
+| Claude | 45.1M | $421.71 _(notional, rate-card)_ | 32% of 143.0M (ok) |
 | Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 26% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 49988967 tokens/day lower bound._
