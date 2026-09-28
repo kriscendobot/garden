@@ -44,3 +44,13 @@ any), the open questions for the maintainer, and a proposed build sequence (as s
 - Per platform: where snapshots live (content-addressed store), when they are taken (idle only, as Endo's XS-worker snapshot design requires), restore and migration across hosts, compatibility and versioning (engine version, architecture, host-function table), and cold-start and cost implications.
 - Compare against KaozKit's approach (garden library `xs-agent-runtimes`), and state what Iron Horse must provide (a stable snapshot format and determinism guarantees) versus what the platform layer provides.
 - Output `designs/process-snapshot-persistence-by-platform.md`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T05:54:29Z
