@@ -75,12 +75,15 @@ highlights from that reconciliation:
   (a new pre-claim health-gate lands on `main2` so a recurrence parks the
   host instead of sinking the board). Capacity restored, validated with real
   work completing cleanly.
-- **endolin-garden2: under investigation, not yet resolved.** ~63% of its
-  claims over the last 24h ended in a non-transient "terminal" failure — a
-  different, newly-discovered problem, likely resource/contention-related
-  now that it's carrying a full share of the raised worker-saturation target.
-  A pinned investigation job (`garden2-terminal-failure-investigation-20260928`)
-  is in flight; I'll report when it resolves.
+- **endolin-garden2: root cause confirmed (kriskowal) — credential
+  expiration.** ~63% of its claims over the last 24h ended in a non-transient
+  "terminal" failure; the cause was `endolin-claude2`'s Claude Code CLI
+  session on this host not being authenticated (expired credentials), not a
+  resource/contention issue. The pinned investigation job I'd dispatched was
+  withdrawn as redundant once the cause was known. Re-authentication is
+  interactive (a browser/device-code login), so it needs the maintainer or
+  someone with host access to that container — confirm once done and I'll
+  validate with a few real claims before calling it closed.
 - **The foreman's milestone-notice dedup was flooding your inbox** — ~30
   near-duplicate notices over 20 hours, all describing the same static M2
   blocker, because the dedup keyed on the LLM's own varying prose instead of
