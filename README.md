@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T17:07:53Z_
+_As of 2026-09-28T17:15:09Z_
 
 ## Latest
 
@@ -1012,11 +1012,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-09T21:05:16Z, latest 2026-09-27T17:55:20Z).
-> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-09T21:05:16Z, latest 2026-09-28T17:11:21Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=2 queue=0 quota=ok fleet-envelope=5 target=1
+> budget-level changed endolin-garden-ece02cb4 cleric workers 0 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=5 target=1
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal.md)
 
@@ -3060,11 +3060,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-09T20:50:24Z, latest 2026-09-28T07:26:23Z).
-> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #7 (first seen 2026-09-09T20:50:24Z, latest 2026-09-28T17:11:50Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 7 times; this is ONE
+> coalesced notice that updates in place, not 7 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 cleric workers 0 -> 1 (target 1): shared codex subscription demand active=2 queue=10 quota=ok fleet-envelope=5 target=1
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 0 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=5 target=1
 
 - `20260927T194513Z-bc8aa0` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T194513Z-bc8aa0.md)
 
@@ -3570,9 +3570,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 45.9M | $425.27 _(notional, rate-card)_ | 32% of 143.0M (ok) |
-| Codex | 61.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 278.5k _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53050002 tokens/day lower bound._
+_Fleet token-unlock pace: 53216507 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
@@ -3581,16 +3581,16 @@ worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 ### todo (1)
 - [`report-completions-since-friday-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/report-completions-since-friday-reset.md) — Report: everything the fleet completed since the Friday quota reset
 
-### doin (1)
-- [`canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 7438d06ba1ff
+### doin (0)
+(none)
 
-### tada (9374)
+### tada (9375)
+- [`canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2.md) — rolling-deploy canary probe — round trip OK
 - [`claude-on-minion-town-press-20260928-165614`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-165614.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-7438d06ba1ff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-7438d06ba1ff.md) — rolling-deploy canary probe — round trip OK
 - [`auto-derotate-offline-host-worker-capacity`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/auto-derotate-offline-host-worker-capacity.md) — Cost
 - [`verify-demo3-git-remote-capability-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/verify-demo3-git-remote-capability-instructions.md) — Completion report: verify-demo3-git-remote-capability-instructions
-- [`verify-demo2-cross-host-locator-instructions`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/verify-demo2-cross-host-locator-instructions.md) — Completion report — verify-demo2-cross-host-locator-instructions
-- … and 9369 more
+- … and 9370 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
