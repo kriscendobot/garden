@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T17:45:02Z_
+_As of 2026-09-28T17:59:33Z_
 
 ## Latest
 
@@ -907,6 +907,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > ---
 > Build the M2 `hardened-url-shim` design in `endojs/endo-but-for-bots` on a `master`-based branch, reconciling the vetted URL/URLSearchParams SES shim and opening a draft implementation PR if work remains.
 
+- `20260928T174855Z-61c52e` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T174855Z-61c52e.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `39d0c5ef0aca4f55612eb774f13fb5907ec3a769`
+> failing suites: scripts/jobs/test/triager-pacing-test.sh(rc=1; diagnostic=/home/kris/garden/.garden-state/deploy/candidate-gate-diagnostics/39d0c5ef0aca4f55612eb774f13fb5907ec3a769/attempt2-01-scripts_jobs_test_triager-pacing-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden-ece02cb4` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
+
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town.md)
 
 > RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_minion_town` has CLEARED (first seen 2026-09-27T03:01:35Z, cleared 2026-09-27T03:05:49Z).
@@ -1475,20 +1491,23 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #73 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T17:27:24Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 73 times; this is ONE
-> coalesced notice that updates in place, not 73 messages. Latest detail:
+> WATCHDOG notice — occurrence #74 (first seen 2026-09-26T16:16:46Z, latest 2026-09-28T17:52:10Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 74 times; this is ONE
+> coalesced notice that updates in place, not 74 messages. Latest detail:
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 8 source(s); they post no acknowledgments while it holds.
-> journal-outage marker: 1790616531 approval-reconciler-verify 
-> - kriscendobot/cosgov: watcher ticking but cooldown for 2749s (since 2026-09-28T16:41:35Z)
-> - kriscendobot/ocapn: watcher ticking but cooldown for 1992s (since 2026-09-28T16:54:12Z)
-> - kriscendobot/test262: watcher ticking but cooldown for 2342s (since 2026-09-28T16:48:22Z)
-> - kriscendobot/moddable: watcher ticking but cooldown for 2860s (since 2026-09-28T16:39:44Z)
-> - kriscendobot/ymax-e2e: watcher ticking but cooldown for 2814s (since 2026-09-28T16:40:30Z)
-> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 1292s (since 2026-09-28T17:05:52Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 2804s (since 2026-09-28T16:40:40Z)
-> - kriscendobot/vattr97: watcher ticking but cooldown for 2860s (since 2026-09-28T16:39:44Z)
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 10 source(s); they post no acknowledgments while it holds.
+> gh-api cooldown marker: expiry=1790618202 set-by=receipt:kriscendobot-oros-ckm-data-readiness:journal prerequisite
+> - kriscendobot/cosgov: watcher ticking but cooldown for 4235s (since 2026-09-28T16:41:35Z)
+> - kriscendobot/moddable: watcher ticking but cooldown for 4346s (since 2026-09-28T16:39:44Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 1383s (since 2026-09-28T17:29:07Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 1390s (since 2026-09-28T17:29:00Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 2778s (since 2026-09-28T17:05:52Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 1310s (since 2026-09-28T17:30:20Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 2457s (since 2026-09-28T17:11:13Z)
+> watcher ticking but cooldown for 4290s (since 2026-09-28T16:40:40Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 2461s (since 2026-09-28T17:11:09Z)
+> - kriscendobot/vattr97: watcher ticking but cooldown for 4346s (since 2026-09-28T16:39:44Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 1385s (since 2026-09-28T17:29:05Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -1972,6 +1991,22 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > URL. See designs/pr-completion-receipts.md and scripts/jobs/pr-receipt.sh.
 >
 > PR: [https://github.com/kriscendobot/oros-ckm-data-readiness/pull/1](https://github.com/kriscendobot/oros-ckm-data-readiness/pull/1)
+
+- `20260928T175544Z-3d14da` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T175544Z-3d14da.md)
+
+> kind: error
+>
+> # Deploy candidate test gate rejected main2
+>
+> candidate: `39d0c5ef0aca4f55612eb774f13fb5907ec3a769`
+> failing suites: scripts/jobs/test/triager-pacing-test.sh(rc=1; diagnostic=/home/kris/garden/.garden-state/deploy/candidate-gate-diagnostics/39d0c5ef0aca4f55612eb774f13fb5907ec3a769/attempt2-01-scripts_jobs_test_triager-pacing-test.sh.log)
+>
+> Each executed failing suite above names its bounded stdout/stderr diagnostic. Diagnostics
+> are host-local on `endolin-garden-ece02cb4` and retain at most
+> `16384` bytes of output per suite.
+>
+> The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
+> for a deliberate emergency deploy after assessing this failure.
 
 - `doomed-ironhorse-fuzz-378372c8706a48a8-repair-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-ironhorse-fuzz-378372c8706a48a8-repair-requeue-exhausted.md)
 
@@ -2859,6 +2894,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > budget-level: fleet monk allocation recovered on endolin-garden-ece02cb4; a calibrated, physically-backed monk configuration returned and leveling has resumed.
 
+- `20260928T174815Z-192b50` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T174815Z-192b50.md)
+
+> M2’s next unblocked step is advancing the CI-green draft `endojs/endo-but-for-bots#1349` for `hardened-text-codecs-shim`. Decide whether to authorize `run the gauntlet #1349`; the manual gauntlet trigger is required before fleet work can proceed.
+
 - `20260927T025445Z-4ac2a8` — from deploy-garden, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T025445Z-4ac2a8.md)
 
 > kind: error
@@ -3599,9 +3638,9 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 45.9M | $425.51 _(notional, rate-card)_ | 32% of 143.0M (ok) |
-| Codex | 789.0k _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
+| Codex | 1.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 0% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 53223712 tokens/day lower bound._
+_Fleet token-unlock pace: 53224003 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments); 2 open notice(s); checker healthy
@@ -3610,16 +3649,16 @@ worst fetch p95 9.580610s/45s (/home/kris/garden/.garden-state/receipt-watcher/j
 ### todo (0)
 (none)
 
-### doin (1)
-- [`canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca.md) — rolling-deploy canary probe for oros-studio-garden-ce242c49 @ 39d0c5ef0aca
+### doin (0)
+(none)
 
-### tada (9377)
+### tada (9378)
+- [`canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-oros-studio-garden-ce242c49-39d0c5ef0aca.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden2-5bcdff64-39d0c5ef0aca`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-39d0c5ef0aca.md) — rolling-deploy canary probe — round trip OK
 - [`report-completions-since-friday-reset`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/report-completions-since-friday-reset.md) — Completion report
 - [`canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-oros-studio-garden-ce242c49-7438d06ba1ff-r2.md) — rolling-deploy canary probe — round trip OK
 - [`claude-on-minion-town-press-20260928-165614`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-165614.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-7438d06ba1ff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/canary-probe-endolin-garden2-5bcdff64-7438d06ba1ff.md) — rolling-deploy canary probe — round trip OK
-- … and 9372 more
+- … and 9373 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
