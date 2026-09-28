@@ -84,6 +84,7 @@ post a direct follow-up job `garden2-terminal-failure-investigation-round2`
 with your findings so far (ruled-out causes, current best hypothesis, what's
 left to check) rather than leaving it silently unresolved.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=14 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
