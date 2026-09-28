@@ -51,3 +51,13 @@ Relevant already-posted artifacts:
 - gauntlet fix-round-1 summary https://github.com/kriscendobot/minion.town/pull/86#issuecomment-5879378357
 
 Re-fetch live state and exact SHAs; later gauntlet stages may rewrite the head.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T22:25:59Z
