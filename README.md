@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-28T20:06:55Z_
+_As of 2026-09-28T20:10:35Z_
 
 ## Latest
 
@@ -3644,8 +3644,8 @@ worst fetch p95 9.323601s/45s (/home/kris/garden/.garden-state/transcripts/journ
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`ironhorse-test262-ratchet-round3-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ironhorse-test262-ratchet-round3-20260928.md) — Ironhorse test262 compliance ratchet — round 3
 
 ### tada (9387)
 - [`claude-on-minion-town-press-20260928-200508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/claude-on-minion-town-press-20260928-200508.md) — Cost
