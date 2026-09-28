@@ -45,3 +45,13 @@ any), the open questions for the maintainer, and a proposed build sequence (as s
 - **Specialized indelible capabilities for guests on this platform, related to queuing and scheduling** (Queues, Cron Triggers, Durable Object alarms, Workflows): design what a guest-held capability to enqueue or schedule would look like, how it stays attenuable and revocable in the ocap model, and how it is metered.
 - The runtime question: can the daemon or its workers run on Workers/DO (V8 isolates, SES/lockdown compatibility, limits), or does Cloudflare serve only as the persistence and edge layer in front of containers elsewhere? Compare the options.
 - Output `designs/cloudflare-backend.md`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-28T07:25:50Z
