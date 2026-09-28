@@ -32,3 +32,13 @@ the same stuck workers (fleet-wide only 3 jobs were running with 8 monks declare
 4. Tests: a missing clone dir is created via the reference path within budget; a cold clone that exceeds the old cap
    but fits the new one succeeds; an incremental fetch still fails fast at 45s. Run the fetch/clone and
    journal-contention suites and push. Complete via the normal completion path.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-28T07:19:15Z
