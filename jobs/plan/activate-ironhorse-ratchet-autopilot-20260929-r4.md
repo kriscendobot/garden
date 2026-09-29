@@ -33,3 +33,15 @@ If the roll is still wedged on oros-studio, re-message the maintainer (message-u
 <!-- garden-annotation: key=maintainer-directive-5884119530 by=gardener at=2026-09-29T06:11:44Z -->
 
 **Maintainer directive (kriskowal, issue #51 comment id 5884119530, 2026-09-29T05:15Z):** resume the arc only through a budgeted press interval that ONLY the foreman can wake; each engagement parks a plan to continue, promoted by the foreman only if budget permits. Consequently deadmail-issue-comment-5884119530 SNOOZED the ironhorse-ratchet schedule to 2027-01-01T00:00Z. Do NOT snooze it back to a near-future instant or otherwise admit a scheduler tick (step 3 of this job is superseded). Deploy-verification (step 1) remains useful. Foreman-woken admission is owned by build-ironhorse-foreman-woken-press — coordinate with it via inbox-send.sh before any schedule/delegation change.
+
+<!-- garden-annotation: key=foreman-press-handoff-9bf25f4362f by=builder at=2026-09-29T08:40:19Z -->
+
+**Foreman-press activation handoff (garden main2 `9bf25f4362f`):** the implementation and source tests are complete. This existing activation successor now owns every remaining runtime step that cannot be done by the still-running builder on the old leader.
+
+1. Wait until the deployed leader HEAD is a descendant of `9bf25f4362f`. Verify the deployed `scheduler.sh` permanently ignores `ironhorse-ratchet.md`; `policy.py` accepts only `ironhorse-test262-press-<UTC stamp>`; claim and monk/cleric handler gates admit the canonical press; and `foreman.sh` runs the `not_before` + rolling arc-budget gate.
+2. Retire the snoozed legacy row with `scripts/jobs/remove-schedule.sh ironhorse-ratchet`. Never unsnooze or recreate it.
+3. Check the maintainer reply on https://github.com/kriscendobot/garden/issues/51#issuecomment-5886712927 (and the job inbox carried forward if any). If the maintainer names a cap/window/interval, install exactly those values with `scripts/jobs/set-arc-budget.sh ironhorse-test262-ratchet <cap> <window-seconds> <press-interval-seconds>`. Do not invent a cap. If no answer has landed, leave the budget config absent.
+4. Park the first engagement with `scripts/jobs/seed-ironhorse-press.sh`. This is safe before a cap exists: the foreman fails closed with `arc-budget-untrusted` and leaves the canonical plan parked. Confirm exactly one `ironhorse-test262-press-*` exists in plan/todo/doin, carries the issue spine from comment 5884119530, and was not scheduler-produced.
+5. Report deployed/runtime evidence on https://github.com/kriscendobot/garden/issues/51. Do not close the issue. Do not resolve the separate 901-path historical-floor question.
+
+Source verification already completed: `ironhorse-press-budget-test.sh` 11/11, `ratchet-watcher-test.py` 13/13, `annotate-plan-test.sh` 47/47, `foreman-decision-log-test.sh` 7/7, `foreman-deferred-sigpipe-test.sh` 5/5, and `promote-plan-shepherd-budget-test.sh` 9/9.
