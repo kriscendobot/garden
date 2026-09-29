@@ -1,5 +1,7 @@
-once: 2026-09-29T18:00:00Z
-job_basename_prefix: token-backoff-ramp-095
+---
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 Run this exact command from the garden root checkout and report only its
 output:
