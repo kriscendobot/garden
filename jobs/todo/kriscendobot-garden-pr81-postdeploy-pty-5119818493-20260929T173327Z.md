@@ -1,11 +1,8 @@
-once: 2026-09-29T17:38:27Z
-job_basename_prefix: kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z
----
 ---
 role: fixer
-tier: minion
+tier: mentor
 model-burned: mentor
-fallback-tier: 
+fallback-tier: minion
 provider: anthropic
 dispatch: automatic
 handler-timeout: 10800
