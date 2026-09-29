@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T17:12:18Z_
+_As of 2026-09-29T17:18:49Z_
 
 ## Latest
 
-Board activity was thin since the last bulletin — the sole transition was the post-deploy validation job for garden [PR#81](https://github.com/kriscendobot/garden/pull/81) moving from queued to claimed. The bigger story is upstream and unread: the leader host is stalled 25 commits behind `origin/main2` (candidate `39d0c5ef0aca4f55612eb774f13fb5907ec3a769` was rejected by the deploy gate on a failing `triager-pacing-test.sh` suite), which is holding back every singleton producer on that host, including the rolling-deploy canary that HALTED on `oros-studio-garden-ce242c49` after three failed retries. A large backlog of M2/M3 milestone blockers is piling up in the maintainer inbox awaiting explicit gauntlet authorization — chiefly [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke) and the likely-superseded [endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) — plus the M3 confinement-core decision on [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and design questions on #1340. Separately, a quarterly completions rollup (9,490 jobs, June–September) has been published, and the Ironhorse test262 ratchet round-3 work is asking for a maintainer ruling on how to reconcile ~906 lost historical-floor paths against a stricter current classifier.
+A new draft, [endojs/endo-but-for-bots#1378](https://github.com/endojs/endo-but-for-bots/pull/1378), landed adding a `nonExtensibleDirectory` option to `provideGuest`/`provideHost` for sealing agent directories against new introductions while still allowing rebind/remove; a pre-spend viability check on its gauntlet is now queued. Elsewhere, gauntlet work continues in the background — PR #1072 is through the clean stage, PR #1097 is being conducted, and [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68) is in its sixth panel round — while a fix job to address the subscription-based-budget-model's deploy-gate regression has been posted. The bigger story for the maintainer is the pile of unread mail: a rolling deploy remains halted on a persistently failing canary at `oros-studio-garden-ce242c49`, the root checkout on the leader is now 25 commits behind and stalled, and several M2/M3 milestones (hardened-text PR #1349, superseded #1356, and the confinement-core PR #1015) are sitting on gauntlet/merge decisions that only the maintainer can make.
 
 ## Parked for maintainer feedback
 
@@ -128,6 +128,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` cleared on endolin-garden-ece02cb4.
+
+- `msg-endojs-endo-but-for-bots-agent-non-extensible-directory-29fa571b09a3` — from gardener:endojs-endo-but-for-bots-agent-non-extensible-directory, reply_to `endojs-endo-but-for-bots-agent-non-extensible-directory` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-agent-non-extensible-directory-29fa571b09a3.md)
+
+> Opened draft [https://github.com/endojs/endo-but-for-bots/pull/1378](https://github.com/endojs/endo-but-for-bots/pull/1378) (agent-maker option nonExtensibleDirectory on provideGuest+provideHost; Object.preventExtensions semantics — rebind/remove OK, add refused; persisted on formula). Non-blocking open questions in the PR body: option name (nonExtensibleDirectory vs sealDirectory), guest-only vs both, whether host re-introductions to an existing sealed agent should also be refused, and whether removals should be refused too. No reply needed unless you want a change; the gauntlet proceeds.
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
@@ -501,11 +505,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-29T03:14:02Z, cleared 2026-09-29T06:38:10Z).
-> It was observed 47 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #48 (first seen 2026-09-29T03:14:02Z, latest 2026-09-29T17:17:03Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 48 times; this is ONE
+> coalesced notice that updates in place, not 48 messages. Latest detail:
 >
-> canary oros-studio-garden-ce242c49 is no longer stuck (release 18df481c04b5aca0fec1f93ebdf8a0393b69544f, deployed e036bb8e0650b66a4ae00dc1516c4c8df39901ca).
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 36def9fd9e81 21 min ago
+> but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-0.md)
 
@@ -521,7 +529,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 135.7M | $939.92 _(notional, rate-card)_ | 95% of 143.0M (backoff) |
+| Claude | 136.4M | $941.60 _(notional, rate-card)_ | 95% of 143.0M (backoff) |
 | Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56827532 tokens/day lower bound._
@@ -530,27 +538,27 @@ _Fleet token-unlock pace: 56827532 tokens/day lower bound._
 worst fetch p95 10.084415s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (3)
 - [`oros-ckm-dependabot-audit-0013418`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-ckm-dependabot-audit-0013418.md) — ---
-- [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
+- [`endojs-endo-but-for-bots-agent-non-extensible-directory-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-agent-non-extensible-directory-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1378
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
-- [`improve-handoff-sync-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-handoff-sync-failopen.md) — ---
-- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Host calls as transcript events, logical handles, and barriers
 
-### doin (5)
+### doin (7)
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
-- [`endojs-endo-but-for-bots-agent-non-extensible-directory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-agent-non-extensible-directory.md) — ---
 - [`endojs-endo-but-for-bots-pr1072-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1072
+- [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
 - [`endojs-endo-but-for-bots-pr1097-conduct-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-conduct-20260929.md) — Conduct endojs/endo-but-for-bots PR #1097
 - [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
+- [`improve-handoff-sync-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-handoff-sync-failopen.md) — ---
+- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Host calls as transcript events, logical handles, and barriers
 
-### tada (9675)
+### tada (9676)
+- [`endojs-endo-but-for-bots-agent-non-extensible-directory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-agent-non-extensible-directory.md) — Cost
 - [`kriscendobot-oros-ckm-data-readiness-pr1-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-oros-ckm-data-readiness-pr1-receipt.md) — Completion report — kriscendobot-oros-ckm-data-readiness-pr1-receipt
 - [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — Completion report
 - [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/harness-provider-matrix-handoff-20260901.md) — Completion report: harness-provider-matrix-handoff-20260901
 - [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — Manual gauntlet handoff
-- … and 9670 more
+- … and 9671 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
