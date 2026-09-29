@@ -44,6 +44,12 @@ unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' |
 # sleep, so the test is fast and clock-independent.
 export GARDEN_BACKOFF_BASE_MS=0 GARDEN_BACKOFF_CAP_MS=0
 
+# gh_api_retry latches primary-quota refusals into the host-shared cooldown dir;
+# keep this suite's latches in a private dir (never the checkout's .garden-state).
+TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-ghretry.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
+export GARDEN_API_COOLDOWN_DIR="$TR/gh-api-cooldown"
+clear_latches() { rm -f "$GARDEN_API_COOLDOWN_DIR"/marker "$GARDEN_API_COOLDOWN_DIR"/marker-graphql; }
+
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
 
@@ -109,8 +115,6 @@ done
 
 # ============================================================================
 hr; echo "SUBTEST 2 — gh_api_retry: retry transient, return payload, never guess on failure"; hr
-TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-ghretry.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
-
 # Shadow `gh` with a shell FUNCTION rather than a PATH stub: a function takes
 # precedence over the fleet wrapper on PATH, is inherited by gh_api_retry's
 # command-substitution subshell, and needs no executable file (so the test runs
@@ -211,6 +215,13 @@ transient_blips=$(grep -c 'transient blip' "$TR/primary.err" || true)
   [ "$primary_warns" -eq 1 ] && [ "$transient_blips" -eq 0 ]; } \
   && ok "gh client-side primary quota: one attempt, primary-quota WARN, no transient retry" \
   || bad "gh client-side primary quota fast-fail wrong (rc=$rc out='$out' calls=$n primary-warns=$primary_warns transient-blips=$transient_blips)"
+# ... and the refusal latched the host-wide marker for the primary-quota window.
+if [ -f "$GARDEN_API_COOLDOWN_DIR/marker" ] && grep -q 'gh-api:repos/o/r/pulls/primary:primary-quota' "$GARDEN_API_COOLDOWN_DIR/marker"; then
+  ok "primary-quota refusal latched the host-wide gh-api cooldown"
+else
+  bad "primary-quota refusal did not latch the host-wide marker"
+fi
+clear_latches
 
 # (c3) secondary throttling remains transient and can recover inside the budget.
 : > "$GH_STUB_CALLS"; set +e
@@ -326,6 +337,128 @@ n=$(wc -l < "$GH_STUB_CALLS")
 { [ "$rc" -ne 0 ] && [ -z "$out" ] && [ "$n" -eq 1 ]; } \
   && ok "pr view definitive error: not retried — single call, nonzero, empty (fast + loud)" \
   || bad "pr view definitive path wrong (rc=$rc out='$out' calls=$n want 1)"
+
+# ============================================================================
+hr; echo "SUBTEST 4 — gh_api_retry single-flight admission under the cooldown lock"; hr
+# The 2026-09-29 19:35:34-35 race: concurrent sources each passed their cooldown
+# check, then each issued its own request into an exhausted primary quota. Every
+# attempt is now admitted under the cooldown flock and the latch is written before
+# release, so N concurrent callers make exactly ONE request.
+PRIMARY_STUB="$HERE/gh-api-primary-rate-limit-stub.sh"
+run_concurrent() {  # run_concurrent <n> <tag> [env…] — N callers in separate processes
+  local n="$1" tag="$2" i; shift 2
+  for i in $(seq 1 "$n"); do
+    env "$@" GARDEN_GH="$PRIMARY_STUB" GH_STUB_CALLS="$GH_STUB_CALLS" GH_STUB_SLEEP=0.3 \
+      bash -c 'source "$1"; gh_api_retry "repos/o/r/issues/comments?caller=$2"; echo "rc=$?" >"$3"' \
+      _ "$JOBS/common.sh" "$i" "$TR/$tag.rc.$i" 2>"$TR/$tag.err.$i" &
+  done
+  wait
+}
+
+# (a) N concurrent callers against a primary-quota stub: one gh invocation, the
+#     marker latched, every other caller refused without a request (rc 75).
+clear_latches; : > "$GH_STUB_CALLS"
+run_concurrent 6 sf
+n=$(wc -l < "$GH_STUB_CALLS")
+refused=$(cat "$TR"/sf.err.* | grep -c 'NOT ISSUED: host-shared gh-api cooldown live' || true)
+rc75=$(cat "$TR"/sf.rc.* | grep -c '^rc=75$' || true)
+nonzero=$(cat "$TR"/sf.rc.* | grep -vc '^rc=0$' || true)
+[ "$n" -eq 1 ] && ok "6 concurrent callers: exactly one gh request" \
+  || bad "6 concurrent callers made $n gh requests (want 1)"
+{ [ "$refused" -eq 5 ] && [ "$rc75" -eq 5 ] && [ "$nonzero" -eq 6 ]; } \
+  && ok "the other 5 were refused at admission (distinct log line, rc 75), none succeeded" \
+  || bad "admission refusals wrong (refused=$refused rc75=$rc75 nonzero=$nonzero)"
+grep -q 'primary-quota' "$GARDEN_API_COOLDOWN_DIR/marker" 2>/dev/null \
+  && ok "the primary-quota latch is recorded in the host-wide marker" \
+  || bad "no primary-quota latch after the concurrent refusal"
+# A refusal behind a primary-quota latch names it so callers classify it as primary.
+if is_gh_primary_rate_limit_text "$(cat "$TR"/sf.err.*)" && _gh_api_stderr_is_transient "$(cat "$TR"/sf.err.*)"; then
+  ok "admission refusal text classifies as primary-quota (and transient) for callers"
+else
+  bad "admission refusal text is not classifiable by callers"
+fi
+
+# (b) a live latch refuses even a would-succeed call, and a GraphQL latch does not
+#     silence a REST call (separate buckets), while a REST latch refuses GraphQL.
+clear_latches; : > "$GH_STUB_CALLS"
+start_api_cooldown "t:graphql" 600 graphql
+set +e
+out="$(GH_STUB_MODE=succeed GH_STUB_PAYLOAD=REST_OK gh_api_retry "repos/o/r/pulls/9" 2>/dev/null)"; rc=$?
+gq="$(GH_STUB_MODE=succeed gh_api_retry graphql -f query=x 2>"$TR/gq.err")"; gqrc=$?
+set -e
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$rc" -eq 0 ] && [ "$out" = REST_OK ] && [ "$gqrc" -eq 75 ] && [ -z "$gq" ] && [ "$n" -eq 1 ]; } \
+  && ok "GraphQL latch: REST call admitted, GraphQL call refused without a request" \
+  || bad "GraphQL-scope admission wrong (rest rc=$rc out='$out' gql rc=$gqrc calls=$n)"
+clear_latches; : > "$GH_STUB_CALLS"
+set +e
+GARDEN_GH="$PRIMARY_STUB" gh_api_retry graphql -f query=x >/dev/null 2>&1
+set -e
+{ [ -f "$GARDEN_API_COOLDOWN_DIR/marker-graphql" ] && [ ! -e "$GARDEN_API_COOLDOWN_DIR/marker" ]; } \
+  && ok "a GraphQL primary refusal latches only the GraphQL marker" \
+  || bad "GraphQL primary refusal latched the wrong marker"
+clear_latches; start_api_cooldown "t:rest" 600
+set +e; GH_STUB_MODE=succeed gh_api_retry graphql -f query=x >/dev/null 2>&1; gqrc=$?; set -e
+[ "$gqrc" -eq 75 ] && ok "host-wide latch refuses a GraphQL call too" \
+  || bad "host-wide latch did not refuse GraphQL (rc=$gqrc)"
+
+# (c) GARDEN_API_COOLDOWN_SECS=0 disables admission: the old behavior, every caller
+#     makes its own request and nothing is latched.
+clear_latches; : > "$GH_STUB_CALLS"
+run_concurrent 4 off GARDEN_API_COOLDOWN_SECS=0
+n=$(wc -l < "$GH_STUB_CALLS")
+{ [ "$n" -eq 4 ] && [ ! -e "$GARDEN_API_COOLDOWN_DIR/marker" ]; } \
+  && ok "GARDEN_API_COOLDOWN_SECS=0: no lock, no latch, 4 requests (old behavior)" \
+  || bad "disable hatch not honored (calls=$n marker=$([ -e "$GARDEN_API_COOLDOWN_DIR/marker" ] && echo yes || echo no))"
+
+# (d) a transient failure releases the lock before its backoff: while caller A
+#     sleeps between attempts, caller B is admitted and completes.
+clear_latches
+set +e
+( GARDEN_BACKOFF_BASE_MS=3000 GARDEN_BACKOFF_CAP_MS=3000 GARDEN_GH_API_ATTEMPTS=2 \
+  GH_STUB_CALLS="$TR/slow.calls" GH_STUB_MODE=transient-always \
+  gh_api_retry "repos/o/r/pulls/slow" >/dev/null 2>&1 ) &
+slow=$!
+sleep 0.3
+: > "$TR/fast.calls"
+t0=$(date +%s)
+out="$(GH_STUB_CALLS="$TR/fast.calls" GH_STUB_MODE=succeed GH_STUB_PAYLOAD=FAST \
+       GARDEN_GH_API_ADMISSION_WAIT_SECS=30 gh_api_retry "repos/o/r/pulls/fast" 2>/dev/null)"; rc=$?
+t1=$(date +%s)
+wait "$slow"
+set -e
+{ [ "$rc" -eq 0 ] && [ "$out" = FAST ] && [ $((t1 - t0)) -le 1 ]; } \
+  && ok "the lock is not held across a transient backoff sleep" \
+  || bad "a sibling waited on a backing-off caller (rc=$rc out='$out' waited=$((t1 - t0))s)"
+
+# (e) a nested gh_api_retry inside an admitted gh child passes through instead of
+#     deadlocking on its parent's lock.
+clear_latches
+set +e
+nested="$(timeout 20 bash -c '
+  source "$1"
+  gh() { case "$2" in */outer) gh_api_retry repos/o/r/inner ;; *) printf INNER ;; esac; }
+  gh_api_retry repos/o/r/outer' _ "$JOBS/common.sh" 2>/dev/null)"; rc=$?
+set -e
+{ [ "$rc" -eq 0 ] && [ "$nested" = INNER ]; } \
+  && ok "nested gh_api_retry inside an admitted request passes through (no deadlock)" \
+  || bad "nested gh_api_retry deadlocked or failed (rc=$rc out='$nested')"
+
+# (f) a lock held past GARDEN_GH_API_ADMISSION_WAIT_SECS: the caller proceeds
+#     unserialized (logged) rather than stalling its tick.
+clear_latches; mkdir -p "$GARDEN_API_COOLDOWN_DIR"
+( exec 7>>"$GARDEN_API_COOLDOWN_DIR/marker.lock"; flock 7; sleep 4 ) &
+holder=$!
+sleep 0.3
+set +e
+out="$(GH_STUB_MODE=succeed GH_STUB_PAYLOAD=LATE GARDEN_GH_API_ADMISSION_WAIT_SECS=1 \
+       gh_api_retry "repos/o/r/pulls/busy" 2>"$TR/busy.err")"; rc=$?
+set -e
+kill "$holder" 2>/dev/null || true; wait "$holder" 2>/dev/null || true
+{ [ "$rc" -eq 0 ] && [ "$out" = LATE ] && grep -q 'admission lock busy' "$TR/busy.err"; } \
+  && ok "bounded admission wait: proceeds unserialized with a WARN" \
+  || bad "bounded admission wait wrong (rc=$rc out='$out')"
+clear_latches
 
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"

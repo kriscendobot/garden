@@ -524,7 +524,9 @@ exit 1
 EOF
 chmod +x "$QGHSTUB"
 qerr="$TR/mirror-state-quota.err"
-out_q="$(env GARDEN_GH="$QGHSTUB" GH_CALL_LOG=/dev/null \
+# gh_api_retry latches the refusal into the shared cooldown; give it a private dir
+# so the latch cannot refuse the later cases' reads.
+out_q="$(env GARDEN_GH="$QGHSTUB" GH_CALL_LOG=/dev/null GARDEN_API_COOLDOWN_DIR="$TR/gh-api-cooldown-j-quota" \
     "$STATE_HANDLER" endojs/endo 3137 2>"$qerr")"; rc_q=$?
 [ "$rc_q" -ne 0 ] && [ -z "$out_q" ] \
   && ok "primary-quota refusal → nonzero + empty stdout (no-state contract preserved)" \

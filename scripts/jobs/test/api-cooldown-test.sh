@@ -153,5 +153,21 @@ run_common ci 'api_cooldown_active' && bad "expired markers still read live" \
 [ ! -e "$GQL_MARKER" ] && [ ! -e "$MARKER" ] && ok "expired markers are reaped" \
   || bad "expired markers were not reaped"
 
+# gh_api_retry latches a primary refusal from inside a watcher's source process
+# (tag gh-api:…), where nobody announces it. The first detector adopts that window:
+# rc 0 (it owns the one WARN), the expiry untouched; later detectors stay observers.
+rm -f "$MARKER" "$GQL_MARKER"
+adopt_exp=$(( $(date +%s) + 3000 ))
+printf '%s\ngh-api:repos/o/r/issues/comments:primary-quota\n' "$adopt_exp" > "$MARKER"
+run_common comment 'start_api_cooldown "comment:o-r:primary-quota" 3600' \
+  && ok "the first detector adopts a gh_api_retry latch (owns the warning)" \
+  || bad "the first detector did not adopt the gh_api_retry latch"
+[ "$(sed -n 1p "$MARKER")" = "$adopt_exp" ] && grep -q '^comment:o-r:primary-quota <- gh-api:' "$MARKER" \
+  && ok "adoption records the detector's tag without extending the window" \
+  || bad "adoption rewrote the expiry or lost the tag: $(tr '\n' ' ' < "$MARKER")"
+run_common issue 'start_api_cooldown "issue-inbox:o-r:primary-quota" 3600' \
+  && bad "a second detector re-announced an adopted window" \
+  || ok "a second detector stays an observer once the latch is adopted"
+
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
