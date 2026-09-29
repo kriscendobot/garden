@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-29T11:50:56Z_
+_As of 2026-09-29T11:52:53Z_
 
 ## Latest
 
@@ -444,6 +444,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > canary oros-studio-garden-ce242c49 is no longer stuck (release 18df481c04b5aca0fec1f93ebdf8a0393b69544f, deployed e036bb8e0650b66a4ae00dc1516c4c8df39901ca).
 
+- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1.md)
+
+> Host-requirements gate: job 'canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1' has remained unclaimed for 901s with requires: host=endolin-garden2-5bcdff64. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-0.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-28T08:11:48Z, latest 2026-09-29T09:35:26Z).
@@ -458,7 +462,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.3M | $898.90 _(notional, rate-card)_ | 87% of 143.0M (backoff) |
+| Claude | 124.4M | $899.17 _(notional, rate-card)_ | 87% of 143.0M (backoff) |
 | Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63231424 tokens/day lower bound._
