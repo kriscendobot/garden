@@ -39,6 +39,10 @@ else
     "$_BUDGET_PUBLISH_FAILURE_POOL" \
     "$_BUDGET_PUBLISH_FAILURE_RC" \
     "$_BUDGET_PUBLISH_FAILURE_CLASS"
+  # An outage older than the snapshot max-age gets one fresh-clone retry; the
+  # clone is swapped only on a successful re-clone, so reconciliation below
+  # still reads a journal either way.
+  if budget_publish_outage_recover "$DIR"; then budget_publish_note_success; fi
 fi
 
 # Host-identity DRIFT guard — a deterministic preflight that runs EVERY tick,

@@ -957,7 +957,56 @@ budget_publish_note_success() {
     rm -rf "$claimed" 2>/dev/null || true
     log "live budget snapshot publication recovered after $count failed scaler tick(s)${elapsed:+ over ${elapsed}s}${since:+ (outage since $since)}; remote admission visibility restored"
   fi
+  alert_maintainer_edge_clear "budget-publish-stale-$GARDEN" \
+    "live budget snapshot publication from $GARDEN recovered; the leader again sees this host's pool." \
+    >/dev/null 2>&1 || true
   return 0
+}
+
+# budget_publish_outage_recover <journal-clone> — the bounded CAS retry and the
+# per-tick sync reuse the SAME clone, so a clone that is wedged (bloated, lock- or
+# ref-stale) fails identically every minute while the suppressed latch counts, and
+# the leader's view of this host's pool quietly passes GARDEN_BUDGET_SNAPSHOT_MAX_AGE
+# (observed: a 21:01:05 CAS-exhaustion WARN, then a stale remote snapshot at
+# 21:20:11). Once an open outage is older than that max-age, replace the clone with
+# a fresh one and retry publication ONCE for the outage. The fresh clone lands in a
+# sibling directory and is swapped in only after it succeeds, so a failed re-clone
+# leaves the old clone in place for worker reconciliation. If the retry still
+# fails, escalate to the maintainer once (edge-latched; cleared on recovery).
+# Returns 0 only when the retry published. Never exits its caller.
+budget_publish_outage_recover() {
+  local dir="$1"
+  local latch="${GARDEN_BUDGET_PUBLISH_OUTAGE_LATCH:-$GARDEN_STATE/gardener-scaler/budget-publish-outage}"
+  local max_age="$GARDEN_BUDGET_SNAPSHOT_MAX_AGE" since_epoch since now fresh old rc=0
+  [[ "$max_age" =~ ^[1-9][0-9]{0,17}$ ]] || max_age=1800
+  [ -d "$latch" ] && [ ! -e "$latch/recloned" ] || return 1
+  since_epoch="$(cat "$latch/since_epoch" 2>/dev/null || true)"
+  [[ "$since_epoch" =~ ^[0-9]+$ ]] || return 1
+  now="$(date -u +%s)"
+  [ $((now - since_epoch)) -ge "$max_age" ] || return 1
+  # Claim the one attempt before trying, so a retry that dies mid-way (offline
+  # exit, a scaler kill) is not re-attempted every tick for the same outage.
+  date -u +%FT%TZ > "$latch/recloned" 2>/dev/null || return 1
+  since="$(cat "$latch/since" 2>/dev/null || true)"
+  log "live budget snapshot unpublished for $((now - since_epoch))s (>= max-age ${max_age}s); re-cloning $dir and retrying publication once"
+  fresh="$dir.budget-reclone.$$"
+  old="$dir.budget-stale.$$"
+  (
+    clone_lock "$dir"
+    rm -rf "$fresh" "$old"
+    reclone_clone "$fresh" "$(journal_remote)"
+    mv "$dir" "$old" && mv "$fresh" "$dir" || { [ -e "$dir" ] || mv "$old" "$dir"; exit 1; }
+    rm -rf "$old"
+    clone_unlock "$dir"
+    ensure_clone "$dir"
+    GARDEN_BUDGET_PUBLISH_ATTEMPTS=1 budget_publish_local_pool "$dir"
+  ) || rc=$?
+  rm -rf "$fresh" 2>/dev/null || true
+  [ "$rc" -eq 0 ] && return 0
+  alert_maintainer_edge "budget-publish-stale-$GARDEN" stale-after-reclone \
+    "live budget snapshot publication from $GARDEN has failed since ${since:-unknown}, longer than the ${max_age}s snapshot max-age, and a fresh journal re-clone plus one retry also failed (rc=$rc). The leader treats this host's pool as unknown (fail-open); worker reconciliation continues. Check journal push access and $dir." \
+    >/dev/null 2>&1 || true
+  return 1
 }
 
 meter_journal_provider_usd() {
