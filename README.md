@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T04:21:44Z_
+_As of 2026-09-29T04:24:56Z_
 
 ## Latest
 
-The board transitions are thin: two gauntlet stages advanced for [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) (panel round 2 completed, fix round 2 now claimed), and a new design job opened on daemon git remotes. Meanwhile the rolling deploy remains wedged — the oros-studio canary has been stuck 81 minutes short of target `65f0c2e4414d` despite a fresh heartbeat, blocking the Ironhorse ratchet autopilot activation and leaving several M2/M3 milestone decisions (gauntlet authorization for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), closing superseded #1356, and the #1015/#1340 confinement-core direction) parked pending maintainer input. The deploy-gate also rejected candidate `39d0c5ef0ac` on a failing triager-pacing test. A number of doomed/requeue-exhausted gauntlet and retrospective jobs (PR #356, #450, #982, minion.town #68) sit held in the plan queue awaiting promotion, and the federation release gate for minion.town remains blocked on #1124 review.
+Gauntlet activity dominated the past cycle: fix and panel rounds landed for [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) and #1348, and [kriscendobot/minion.town#120](https://github.com/kriscendobot/minion.town/pull/120)'s gauntlet closed out with its review budget reached. The rolling deploy is stuck, though — canary `oros-studio-garden-ce242c49` has been wedged at commit e036bb8e for over 80 minutes (21 coalesced watchdog notices), stalling the M2/M3 Ironhorse ratchet activation behind it; it needs hands-on diagnosis or an attested sysop `deploy` op, both outside proxy authority. Milestone M2 has several stacked foreman asks awaiting a gauntlet-authorization decision on draft PR [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) and a close decision on #1356 as superseded by upstream endojs/endo#3332. M3's confined-agent track remains blocked on choosing between advancing #1015 or resolving four open design questions on #1340. Separately, the ironhorse test262 ratchet round 3 sweep surfaced a policy question — 906 historical-floor paths lost under the stricter current classifier — needing a maintainer call on how to reconcile the floor, and a quarterly completions dashboard (9,490 jobs, June–September) was published for review.
 
 ## Parked for maintainer feedback
 
@@ -854,7 +854,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: packs 1006 >= 1000; size=276320256B packs=1006 gc.log=0; automatic remedy=applied.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-09-29T04:19:16Z, cleared 2026-09-29T04:24:13Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64.md)
 
@@ -1278,13 +1282,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.0M | $770.69 _(notional, rate-card)_ | 69% of 143.0M (ok) |
+| Claude | 98.1M | $771.34 _(notional, rate-card)_ | 69% of 143.0M (ok) |
 | Codex | 10.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58060088 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
+worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
