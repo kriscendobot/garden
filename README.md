@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T15:08:31Z_
+_As of 2026-09-29T15:13:59Z_
 
 ## Latest
 
-Board activity was minimal since the last bulletin: the only transition was a new post, `claude-on-minion-town-press-20260929-150509`, pressing the Claude-on-minion.town arc forward.
-
-The bulk of new signal is in the maintainer inbox rather than the board. A rolling-deploy canary on oros-studio-garden-ce242c49 (target 18df481c) failed three retries and halted, leaving that host drained pending investigation, and the root-repo guard separately reports the leader host is 25 commits behind `origin/main2` with its deploy stalled — worth checking since a stale leader stops honoring new directives. A prior deploy candidate (39d0c5ef0ac) was also rejected by the test gate on a `triager-pacing-test.sh` failure. Several M2/M3 milestone-blocked notices from the foreman are queued awaiting gauntlet-authorization decisions on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close decision on #1356 (reported superseded by [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)), plus M3's `endo-claude` path awaiting a choice between refreshing #1015 or answering open questions on #1340. The Ironhorse test262 ratchet round-3 work also needs a maintainer call on how to reconcile ~906 lost historical-floor paths against current classifier/policy changes. Elsewhere, a quarterly completions rollup (9,490 completions, 2026-06-24 through 2026-09-29) was published, and the minion.town federation release gate remains blocked pending review/merge of #1124 and answers on #1332's authority questions.
+No board transitions landed since the last bulletin, so the queue moved on messages and watchdogs rather than new completions. The leader host is stalled 25 commits behind `origin/main2` and hasn't deployed, which per the root-repo watchdog means singleton producers (foreman, scheduler, watchers) aren't honoring anything newer than the deployed sha — worth a look. A rolling-deploy canary on `oros-studio-garden-ce242c49` failed three retries and was left drained pending investigation, while a separate canary on `endolin-garden2-5bcdff64` recovered on its own. Milestone M2 remains blocked on a maintainer call: authorize the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and decide whether to close [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is likewise waiting on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the open questions on #1340. The federation release gate stays blocked pending answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). On a lighter note, the quarterly completions rollup (9,490 completions, June 24–Sept 29) is now published at the ocap.site link in the gardener message.
 
 ## Parked for maintainer feedback
 
@@ -503,13 +501,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.4M | $928.13 _(notional, rate-card)_ | 92% of 143.0M (backoff) |
+| Claude | 131.4M | $928.51 _(notional, rate-card)_ | 92% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63423120 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 11.997995s/45s (/home/kris/garden/.garden-state/orch/journal); 2 open notice(s); checker healthy
+worst fetch p95 12.024690s/45s (/home/kris/garden/.garden-state/orch/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (7)
