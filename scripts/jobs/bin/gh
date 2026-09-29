@@ -1,5 +1,8 @@
 #!/bin/bash
 # gh — fleet identity wrapper.
+# GARDEN_GH_WRAPPER_MARKER — do not remove. Every copy of this wrapper carries
+# this token so the real-gh resolution below can recognize (and skip) ALL wrapper
+# copies on PATH, not just its own path. See the resolution block for why.
 #
 # WHY THIS EXISTS
 # The garden's systemd units carry no GH_TOKEN, so a bare `gh` resolves its
@@ -38,14 +41,27 @@ set -euo pipefail
 # authorized upstream ferry; nothing else should set it.
 : "${GARDEN_GH_IDENTITY:=kriscendobot}"
 
-# Resolve the REAL gh, skipping this wrapper (which is first on PATH). `command
-# gh` would re-find this wrapper (command bypasses functions/aliases, not PATH
-# order) and recurse, so walk `type -aP gh` and take the first entry that is not
-# this file.
+# Resolve the REAL gh, skipping EVERY copy of this wrapper on PATH. `command gh`
+# would re-find this wrapper (command bypasses functions/aliases, not PATH order)
+# and recurse, so walk `type -aP gh` and take the first entry that is not a
+# wrapper copy. Skipping only "$self" is NOT enough: two DIFFERENT wrapper paths
+# can co-exist on PATH — a per-job worktree's scripts/jobs/bin prepended by that
+# worktree's common.sh ahead of the deployed root's scripts/jobs/bin already
+# inherited from the gardener env. When they do, each copy skips only itself and
+# picks the OTHER copy as "real_gh", so they exec each other endlessly and, with
+# `env -u GH_TOKEN` forcing every child to re-resolve, fork-bomb the host (502
+# stuck `gh auth token --user` processes, 2026-09-29). Recognize any wrapper copy
+# by its content marker (GARDEN_GH_WRAPPER_MARKER, present near the top of every
+# copy) and skip them all; the first non-wrapper candidate is the genuine gh.
 self="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
 real_gh=""
 while IFS= read -r cand; do
   [ "$cand" = "$self" ] && continue
+  # Another copy of this same wrapper (any path). head -c bounds the read so the
+  # real gh (a large Go binary that never carries the marker) is not fully scanned;
+  # process substitution keeps the condition's status purely grep's (an early grep
+  # match SIGPIPEs head, which pipefail would otherwise surface as a failure).
+  if [ -r "$cand" ] && grep -q 'GARDEN_GH_WRAPPER_MARKER' <(head -c 65536 "$cand" 2>/dev/null); then continue; fi
   real_gh="$cand"; break
 done < <(type -aP gh 2>/dev/null)
 [ -n "$real_gh" ] || { printf 'gh-wrapper: no real gh found on PATH after %s\n' "$self" >&2; exit 127; }
