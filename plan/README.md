@@ -94,7 +94,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | daemon-agent-tools | endo-but-for-bots | M3 | Not Started | L | — |
 | daemon-capability-filesystem | endo-but-for-bots | M3 | Reference | L | — |
 | daemon-content-store-gc | endo-but-for-bots | M3 | Complete | S | — |
-| daemon-docker-selfhost | endo-but-for-bots | M3 | Not Started | M | — |
+| daemon-docker-selfhost | endo-but-for-bots | M3 | Declined | M | — |
 | daemon-git-capability | endo-but-for-bots | M3 | Proposed | — | — |
 | daemon-git-next-steps | endo-but-for-bots | M3 | Proposed | — | — |
 | daemon-git-remotes | endo-but-for-bots | M3 | Proposed | — | — |
