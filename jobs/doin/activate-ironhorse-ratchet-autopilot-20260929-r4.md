@@ -45,6 +45,7 @@ If the roll is still wedged on oros-studio, re-message the maintainer (message-u
 
 Source verification already completed: `ironhorse-press-budget-test.sh` 11/11, `ratchet-watcher-test.py` 13/13, `annotate-plan-test.sh` 47/47, `foreman-decision-log-test.sh` 7/7, `foreman-deferred-sigpipe-test.sh` 5/5, and `promote-plan-shepherd-budget-test.sh` 9/9.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
