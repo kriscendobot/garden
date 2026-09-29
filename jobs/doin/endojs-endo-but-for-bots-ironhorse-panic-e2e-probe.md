@@ -21,3 +21,13 @@ Open a DRAFT PR through scripts/jobs/gardening/ensure-pr.sh, with `Refs: #1018` 
 ## This leg
 
 Work under skills/gap-revealing-build: a DRAFT PR that STAYS draft (no fix, panel, or un-draft chain) and delivers a structured gap report. Drive one worker, end to end, through: a panic mid-delivery (an FFI callback panic, a StackOverflow, a MeterAbort) → supervisor-visible Panicked → outbound embargo discard → terminate → snapshot restore → transcript replay up to, but not including, the panicking delivery → debugger stop at the panic site. Where a stage does not exist yet, write the test as a pending/skipped case naming the missing mechanism. The gap report maps each gap to the later leg of `endojs-endo-but-for-bots-pr1018-followups-20260929` that owns it, or names an unowned gap. Post the report as a PR comment and put it in your completion report, so the later legs and the mentat job can read it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T08:59:34Z
