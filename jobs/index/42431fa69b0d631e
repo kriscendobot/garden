@@ -1,0 +1,2 @@
+base: improve-schedule-once-producer-livelock
+identity: mentor:scripts/jobs/set-schedule-once.sh
