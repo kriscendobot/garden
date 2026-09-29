@@ -479,6 +479,19 @@ if [ "$src_rc" -ne 0 ]; then
   # that is_transient_net_error doesn't catch. Absorb it the same way (WARN + skip)
   # via the shared GARDEN_TRANSIENT_GH_API_SIGNATURES gate, so an overload page
   # doesn't detonate the restart storm. A structural failure still dies loud below.
+  # A PRIMARY hourly-quota refusal also matches the transient set, but the
+  # short default window would expire and the next tick would retry a known-doomed
+  # source call inside the same quota hour (2026-09-29T18:38:35Z). Classify it first
+  # and request the full primary-quota window. The source is the paginated REST
+  # pulls list, so the refusal proves the REST core bucket spent: arm the host-wide
+  # (REST-capable) marker, not the GraphQL-only one the rollup detector uses.
+  if is_gh_primary_rate_limit_text "$(cat "$ERRF" 2>/dev/null || true)"; then
+    secs="$(api_primary_quota_secs)"
+    if start_api_cooldown "ci:$slug:source" "$secs"; then
+      log "WARN: ci PR source hit GitHub primary REST quota exhaustion — cooling all gh-api watchers for ${secs}s (never guess)"
+    fi
+    exit 0
+  fi
   if is_transient_gh_source_error "$ERRF"; then
     if start_api_cooldown "ci:$slug"; then
       log "WARN: ci PR source hit a transient gh-api blip (5xx/HTML/rate-limit) — cooling all gh-api watchers for $(_api_cooldown_secs)s (never guess)"

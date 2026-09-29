@@ -324,6 +324,70 @@ set -e
 [ "$xkind_rc" -eq 0 ] && ok "the shared api_cooldown_active predicate reports the window active for EVERY watcher kind" || bad "cross-kind predicate did not see the shared window (rc $xkind_rc)"
 
 # ============================================================================
+hr; echo "QUOTA — a primary REST-quota source refusal arms the host-wide latch for the quota window"; hr
+# 2026-09-29T18:38:35Z: the REST pulls-list source was refused for GitHub's PRIMARY
+# hourly quota. That text also matches the transient set, so the watcher opened only
+# the 300s default window and resumed known-doomed source polls inside the same quota
+# hour. It must classify primary quota FIRST and request api_primary_quota_secs on the
+# host-wide (REST-capable) marker — not the GraphQL-only marker the rollup uses.
+QUOTA_SRC="$TR/quota-source.sh"
+cat > "$QUOTA_SRC" <<'EOF'
+#!/bin/bash
+echo 'gh api repos/kriscendobot/test262/pulls?state=open&per_page=100 failed (definitive, rc=1); not retrying: gh: API rate limit already exceeded for user ID 279080640. (HTTP 403)' >&2
+exit 1
+EOF
+chmod +x "$QUOTA_SRC"
+ROOT_Q="$TR/root-quota"; mkdir -p "$ROOT_Q"
+q_before="$(date +%s)"
+set +e
+env GARDEN_ROOT="$ROOT_Q" GARDEN_STATE="$TR/state-quota" GARDEN_API_COOLDOWN_SECS=300 \
+    GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+    JOURNAL_REMOTE="$BARE_BLIP" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_BOT_LOGIN=kriscendobot GARDEN_CI_PR_SOURCE="$QUOTA_SRC" \
+    GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' GARDEN_CI_POST="$JOBS/post-job.sh" \
+    GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/ci-watcher.sh" "$SLUG" >/dev/null 2>"$TR/quota.err"
+quota_rc=$?
+set -e
+[ "$quota_rc" -eq 0 ] && ok "primary-quota source refusal exits 0 — no CI-watcher crash-loop" || bad "primary-quota source refusal exited $quota_rc"
+grep -qi 'primary REST quota exhaustion' "$TR/quota.err" && ok "primary-quota source refusal logs the primary-quota WARN, not the generic blip" || bad "no primary-quota WARN ($(cat "$TR/quota.err"))"
+Q_MARKER="$ROOT_Q/.garden-state/gh-api-cooldown/marker"
+q_expiry="$(sed -n '1p' "$Q_MARKER" 2>/dev/null || echo 0)"
+case "$q_expiry" in ''|*[!0-9]*) q_expiry=0 ;; esac
+[ "$q_expiry" -ge $((q_before + 3600)) ] \
+  && ok "host-wide marker armed for the full primary-quota window ($((q_expiry - q_before))s), not the 300s default" \
+  || bad "host-wide marker expiry $q_expiry is not a full quota window past $q_before"
+grep -q 'ci:endojs-endo-but-for-bots:source' "$Q_MARKER" 2>/dev/null \
+  && ok "the latch names the ci source as its owner" || bad "latch tag missing ($(cat "$Q_MARKER" 2>/dev/null))"
+[ ! -e "$ROOT_Q/.garden-state/gh-api-cooldown/marker-graphql" ] \
+  && ok "a REST-source refusal does not arm the GraphQL-only marker" || bad "REST refusal armed marker-graphql"
+
+# A later tick inside the same quota window — well past what the 300s default would
+# have covered — must not re-poll the doomed source. Age the marker's START by
+# rewriting it as if armed 600s ago with the same window length.
+printf '%s\n%s\n' "$((q_expiry - 600))" "ci:endojs-endo-but-for-bots:source" > "$Q_MARKER"
+Q_CNT="$TR/quota.count"; printf '0\n' > "$Q_CNT"
+Q_COUNT_SRC="$TR/quota-counting-source.sh"
+cat > "$Q_COUNT_SRC" <<EOF
+#!/bin/bash
+n=\$(( \$(cat "$Q_CNT" 2>/dev/null || echo 0) + 1 )); printf '%s\n' "\$n" > "$Q_CNT"
+exit 1
+EOF
+chmod +x "$Q_COUNT_SRC"
+set +e
+env GARDEN_ROOT="$ROOT_Q" GARDEN_STATE="$TR/state-quota-later" GARDEN_API_COOLDOWN_SECS=300 \
+    JOURNAL_REMOTE="$BARE_BLIP" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_BOT_LOGIN=kriscendobot GARDEN_CI_PR_SOURCE="$Q_COUNT_SRC" \
+    GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='' GARDEN_CI_POST="$JOBS/post-job.sh" \
+    GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/ci-watcher.sh" "$SLUG" >/dev/null 2>"$TR/quota-later.err"
+ql_rc=$?
+set -e
+[ "$ql_rc" -eq 0 ] && [ "$(cat "$Q_CNT")" -eq 0 ] \
+  && ok "a tick 600s into the quota window skips before polling the doomed source" \
+  || bad "later tick polled the source ($(cat "$Q_CNT") calls, rc $ql_rc) inside the quota window"
+
+# ============================================================================
 hr; echo "A — bot PR + completed-red CI → exactly one shepherd job"; hr
 BARE_A="$TR/a.git"; seed_bare "$BARE_A"
 FIX_A="$TR/fix-a.tsv"; prline 58 kriscendobot "$REPO" > "$FIX_A"
