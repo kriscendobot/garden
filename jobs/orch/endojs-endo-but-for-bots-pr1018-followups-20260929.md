@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-ironhorse-panic-classification-lint-reap-count: 0
 child-endojs-endo-but-for-bots-ironhorse-panic-e2e-probe-host: endolin-garden2-5bcdff64
 child-endojs-endo-but-for-bots-ironhorse-panic-e2e-probe-reap-count: 0
 order: serial
