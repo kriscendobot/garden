@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T11:35:57Z_
+_As of 2026-09-29T11:38:42Z_
 
 ## Latest
 
-One new job posted since the last bulletin — a timer release for the IronHorse ratchet autopilot round 4 (`ironhorse-ratchet-r4-timer-20260929`), currently parked in `todo`. The board otherwise churned heavily in the background: four jobs are active in `doin`, including a round-6 fix pass on [endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) and a base-pin weave on [endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097). The maintainer inbox has accumulated a large backlog of unread notices worth a look when free: a **halted rolling deploy** on host oros-studio-garden-ce242c49 after three failed canary retries on a confirmed regression (auto-rollback deliberately not performed), plus a **stalled leader deploy** — the leader is 25 commits behind `origin/main2` and therefore not honoring any directive newer than its deployed SHA. Several foreman notices repeat the same ask: authorize `run the gauntlet` on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (or its duplicate #1356) to unblock milestone M2, and M3 needs a decision between advancing #1015 or answering open questions on #1340. The IronHorse test262 ratchet round 3 also needs a maintainer call on how to reconcile 906 historical "covered" paths against the current, stricter classifier.
+Board activity since the last bulletin was minimal: a single new posting, [minion-town-pr135-registry-state-directory-rename](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr135-registry-state-directory-rename.md), queued to rename `REGISTRY_STATE_DIR` to `REGISTRY_STATE_DIRECTORY` on kriscendobot/minion.town#135. The inbox is dominated by routine budget/watchdog noise and several stale gauntlet-authorization asks that keep resurfacing from the foreman for M2 ([endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), plus a superseded duplicate #1356) and M3 ([endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015)). More pressing: the root repo guard reports the leader host has been stalled ~25 commits behind `origin/main2` and a deploy candidate was rejected on a failing `triager-pacing-test.sh` suite, so the fleet is currently running stale code and not honoring any newer directives. A rolling-deploy canary also halted on oros-studio-garden-ce242c49 after three failed retries and was left drained pending investigation, and that same host's heartbeat has gone stale, so worker-derotate zeroed its caps. Separately, the IronHorse test262 ratchet round-3 work surfaced a genuine floor-reconciliation question (906 lost historical paths, mostly reclassified false positives) awaiting a maintainer policy call, and the minion.town federation release gate remains blocked on the same open PR chain (#1124, #1332, #1333) as before.
 
 ## Parked for maintainer feedback
 
@@ -458,7 +458,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.2M | $897.29 _(notional, rate-card)_ | 87% of 143.0M (backoff) |
+| Claude | 124.2M | $898.01 _(notional, rate-card)_ | 87% of 143.0M (backoff) |
 | Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63204960 tokens/day lower bound._
@@ -467,9 +467,10 @@ _Fleet token-unlock pace: 63204960 tokens/day lower bound._
 worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`ironhorse-ratchet-r4-timer-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-ratchet-r4-timer-20260929.md) — Timer: release activate-ironhorse-ratchet-autopilot-20260929-r4
 - [`endojs-endo-but-for-bots-pr1072-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1072-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1072
+- [`minion-town-pr135-registry-state-directory-rename`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr135-registry-state-directory-rename.md) — Rename REGISTRY_STATE_DIR → REGISTRY_STATE_DIRECTORY in minion.town#135
 - [`canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ c9bfa87823ea
 - [`endojs-endo-but-for-bots-pr1286-review-cc7d78b9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1286-review-cc7d78b9.md) — Review directive on endojs/endo-but-for-bots PR #1286
 - [`canary-probe-endolin-garden2-5bcdff64-9bf25f4362f9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-9bf25f4362f9-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 9bf25f4362f9
