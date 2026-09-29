@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T03:54:49Z_
+_As of 2026-09-29T03:57:35Z_
 
 ## Latest
 
-Overnight activity was dominated by the Ironhorse test262 ratchet round 3, where the gardener flagged a real policy question rather than papering over it: the current-llm sweep shows 906 lost paths against the historical floor (443 engine-limit aborts, 397 shared-positive-test-failures, 66 other), several hundred of which the old classifier had marked covered as false positives. The gardener is fixing genuine regressions (e.g. `Object.getOwnPropertyDescriptor` missing lazy intrinsic accessors) but is holding on relabeling anything to fake a literal zero-loss match, and is waiting on a maintainer decision about reconciling the floor. Separately, the rolling deploy to `65f0c2e4414d` is stuck: canary `oros-studio-garden-ce242c49` never advanced past `e036bb8e` despite a fresh heartbeat, which is blocking the Ironhorse ratchet-autopilot activation and needs hands-on-host diagnosis or a maintainer-attested sysop `deploy`. On the M2/M3 milestone front, the foreman has repeatedly surfaced that the only unblocked work is authorizing "run the gauntlet" on draft PRs [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and deciding on the superseded duplicate [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356). Fix round 4 on [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) also needs a maintainer call on two scope questions (lifting the JSON agent-tools parking from #731, and whether Phase 4 daemon-grants consumer work stays in scope). A quarterly completions rollup (9,490 completions, 2026-06-24 through today) was published and passed its live checks. Finally, the endo/minion.town federation release gate remains blocked pending authority-question answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124).
+Fix round 4 landed on [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) (the `@endo/agentry` workspace-agent build), but the gauntlet stalls there: the panel's two remaining must-fix items — whether to lift the #731 parking of JSON agent-tools wrappers for this slice, and whether the ledger's deferred Phase 2/4 work means the PR should be reclassified as a draft slice/probe rather than a full deliverable — need a maintainer call before another panel round can pass. Elsewhere the board is quiet: three jobs are mid-flight (minion.town PR #120 fix round 6, endo PR #1362 fix round 1, and the Ironhorse ratchet autopilot activation, which remains blocked on a stuck oros-studio deploy canary), and the rest of the inbox is routine watchdog/budget noise plus several unpromoted M2/M3 gauntlet-authorization requests already surfaced in prior bulletins.
 
 ## Parked for maintainer feedback
 
@@ -1279,7 +1279,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.4M | $765.59 _(notional, rate-card)_ | 67% of 143.0M (ok) |
+| Claude | 96.4M | $765.67 _(notional, rate-card)_ | 67% of 143.0M (ok) |
 | Codex | 9.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55470637 tokens/day lower bound._
@@ -1291,19 +1291,18 @@ worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr120-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #120
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1362
-- [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1348
 - [`activate-ironhorse-ratchet-autopilot-20260929-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929-r3.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 
-### tada (9550)
+### tada (9551)
+- [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-fix-4.md) — Cost
 - [`kriscendobot-minion.town-pr120-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr120-gauntlet-panel-6.md) — Cost
 - [`deadmail-issue-comment-5882639551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/deadmail-issue-comment-5882639551.md) — Cost
 - [`kriscendobot-minion.town-pr120-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr120-gauntlet-fix-5.md) — Cost
 - [`npm-minion-town-dev-registry-postgauntlet-pr135`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/npm-minion-town-dev-registry-postgauntlet-pr135.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1348-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-panel-4.md) — Cost
-- … and 9545 more
+- … and 9546 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
