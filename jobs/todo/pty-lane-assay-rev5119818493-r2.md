@@ -4,7 +4,7 @@ tier: mentor
 provider: anthropic
 lane: pty
 handler-timeout: 7200
-requires: host=endolin-garden-ece02cb4
+requires: host=endolin-garden2-5bcdff64
 fallback-tier: minion
 dispatch: automatic
 ---
@@ -12,7 +12,7 @@ dispatch: automatic
 # pty-lane self-validation (round 2) for garden PR #81
 
 Repository: kriscendobot/garden. PR: https://github.com/kriscendobot/garden/pull/81 (review 5119818493).
-This is a READ-ONLY validation job: do NOT edit tracked files, open PRs, or post GitHub comments. Your deliverable is the completion report only. It is pinned to a host whose deployed garden contains the PR #81 merge commit 4767705b28d522b591eddbd3b47976273c5e1853.
+This is a READ-ONLY validation job: do NOT edit tracked files, open PRs, or post GitHub comments. Your deliverable is the completion report only. It is pinned to a host (endolin-garden2-5bcdff64, deployed at d5fb51b1440 or later) whose deployed garden contains the PR #81 merge commit 4767705b28d522b591eddbd3b47976273c5e1853.
 
 Do the following, in order, and report each with evidence:
 
