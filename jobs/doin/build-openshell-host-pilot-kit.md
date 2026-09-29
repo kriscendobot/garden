@@ -18,3 +18,13 @@ The kit (suggested home `scripts/openshell-pilot/`, entry `scripts/openshell-pil
 6. **uninstall**: full teardown of units, state and prefix.
 
 Also: a short README / `context/operations/openshell-pilot.md` telling the maintainer exactly what to type on the host. Add a container-side guard test that runs the kit's logic in dry-run/mocked mode (no real install), shellcheck-clean. Surface anything that needs a maintainer decision (root package installs, host kernel settings) in the completion report rather than guessing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T00:43:44Z
