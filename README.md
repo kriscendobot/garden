@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T01:10:23Z_
+_As of 2026-09-29T01:14:24Z_
 
 ## Latest
 
-The minion.town npm-registry campaign finished its orchestration end to end: [kriscendobot/minion.town#120](https://github.com/kriscendobot/minion.town/pull/120) and [kriscendobot/minion.town#135](https://github.com/kriscendobot/minion.town/pull/135) both cleared panel review and moved into fix rounds, with #120 now on fix round 2 and #135's clean stage already claimed. A separate M2 gauntlet for [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) also started (clean stage in progress). Meanwhile the foreman sent a string of repeated pings flagging that M2's remaining work is stuck on two draft PRs — [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim, CI-green) and #1356 (likely superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)) — awaiting a maintainer decision to authorize the gauntlet on #1349 and to close #1356. Several gauntlet and retrospective jobs (PR #356, #450, #982, minion.town #68) doom-parked after exhausting retries and are held in the plan queue pending promotion, and a deploy candidate (`39d0c5ef0a`) was rejected by the test gate on a failing `triager-pacing-test.sh` suite, so the deployed tree stayed on the prior commit.
+The board stayed quiet since the last check-in: the only transition was the `minion-town-cd-endo-daemon-restart-orphan-20260929` job cycling back from doin to todo, so nothing new landed. Fleet attention remains dominated by maintainer decisions piling up — M2 is stalled waiting on authorization to run the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a call on whether to close #1356 as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332), and the minion.town federation release gate is still blocked pending review of [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). A deploy candidate (39d0c5ef0ac) was rejected by the test gate on a triager-pacing failure, so the deployed tree is unchanged. Codex quota dipped into backoff on both hosts before recovering, and worker levels fluctuated normally across hosts under the budget-level watchdog. The quarterly completions rollup (9,490 jobs since June 24) has been published.
 
 ## Parked for maintainer feedback
 
@@ -1205,7 +1205,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.0M | $613.48 _(notional, rate-card)_ | 49% of 143.0M (ok) |
+| Claude | 70.2M | $615.09 _(notional, rate-card)_ | 49% of 143.0M (ok) |
 | Codex | 7.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 60788817 tokens/day lower bound._
@@ -1214,12 +1214,12 @@ _Fleet token-unlock pace: 60788817 tokens/day lower bound._
 worst fetch p95 4.305599s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`minion-town-cd-endo-daemon-restart-orphan-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-cd-endo-daemon-restart-orphan-20260929.md) — Fix the endo-daemon restart orphan that wedges minion.town CD
 - [`kriscendobot-minion.town-pr120-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr120-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #120
 
-### doin (11)
+### doin (10)
 - [`improve-deadline-nudge-failure-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-failure-diagnostics.md) — ---
-- [`minion-town-cd-endo-daemon-restart-orphan-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-cd-endo-daemon-restart-orphan-20260929.md) — Fix the endo-daemon restart orphan that wedges minion.town CD
 - [`endojs-endo-but-for-bots-sync-llm-master-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-sync-llm-master-20260929.md) — Merge upstream master into llm on endojs/endo-but-for-bots (maintainer direct...
 - [`pty-lane-assay-rev5119818493-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pty-lane-assay-rev5119818493-r1.md) — Interactive pty-lane self-validation for garden PR #81 (host-pinned to a depl...
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1348
