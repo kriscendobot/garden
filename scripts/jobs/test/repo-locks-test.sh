@@ -141,7 +141,7 @@ GARDEN_REPO_LOCK_WAIT=0.1 git -C "$TR/linked" rev-parse HEAD >/dev/null || fail 
 rc=0
 GARDEN_REPO_LOCK_WAIT=0.1 git -C "$TR/linked" update-ref refs/heads/blocked HEAD 2>"$TR/timeout" || rc=$?
 [ "$rc" = 124 ] || fail "lock timeout rc=$rc"
-rg -q 'garden repo lock: timeout' "$TR/timeout" || fail 'missing timeout diagnostic'
+grep -q 'garden repo lock: timeout' "$TR/timeout" || fail 'missing timeout diagnostic'
 GARDEN_REPO_LOCK_WAIT=0.1 git --git-dir="$TR/upstream.git" rev-parse journal2 >/dev/null || fail 'unrelated repo blocked'
 wait "$holder"
 git -C "$TR/linked" update-ref refs/heads/unblocked HEAD
@@ -160,7 +160,7 @@ rm "$TR/held"
 for n in {1..100}; do [ -f "$TR/held" ] && break; sleep 0.01; done
 GARDEN_ROOT_GUARD_REPO="$TR/repo" GARDEN_REPO_LOCK_WAIT=0.1 \
   GARDEN_SYSOP_MAINT_STATE="$TR/maintenance" bash "$JOBS/root-maintenance.sh" >"$TR/maintenance.log" 2>&1
-rg -q '^outcome: refused$' "$TR/maintenance/result" || fail 'blocked maintenance reported success'
+grep -q '^outcome: refused$' "$TR/maintenance/result" || fail 'blocked maintenance reported success'
 wait "$holder"
 echo 'PASS: maintenance lock timeout reports refused, never applied'
 
@@ -178,7 +178,7 @@ inode="$(stat -c %i "$GARDEN_STATE/repo-locks/$key/repo.lock")"
 rc=0
 GARDEN_REPO_LOCK_WAIT=0.1 git -C "$TR/repo" rev-parse HEAD 2>"$TR/stale" || rc=$?
 [ "$rc" = 124 ] || fail 'stale metadata bypassed exclusion'
-rg -q 'dead-holder pid=99999999' "$TR/stale" || fail 'stale holder not logged'
+grep -q 'dead-holder pid=99999999' "$TR/stale" || fail 'stale holder not logged'
 [ "$(stat -c %i "$GARDEN_STATE/repo-locks/$key/repo.lock")" = "$inode" ] || fail 'lock inode replaced'
 wait "$holder"
 echo 'PASS: stale holder detected without stealing the lock'
@@ -190,7 +190,7 @@ touch -d @1 "$GARDEN_LEADER_CACHE"
 touch "$TR/fail"
 [ "$(leader_host 2>"$TR/leader-error")" = old-leader ] || fail 'leader fallback changed'
 [ "$(stat -c %Y "$GARDEN_LEADER_CACHE")" = 1 ] || fail 'stale leader marked fresh'
-rg -q 'not fresh' "$TR/leader-error" || fail 'leader fallback not logged'
+grep -q 'not fresh' "$TR/leader-error" || fail 'leader fallback not logged'
 rm "$TR/fail"
 echo 'PASS: leader outage retains fallback without refreshing its age'
 echo 'All repository lock tests passed.'
