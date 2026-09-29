@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: moot: the maintainer-dispatched manual job kriscendobot-minion-town-pr86-git-minion-town-production-20260929 (in doin) owns the full PR 86 merge + deploy + validation arc; handing the merge arc to it avoids a double conductor
+withdrawn_by: gardener
+withdrawn_at: 2026-09-29T00:31:36Z
+withdrawn_from_gate: awaiting-maintainer
+---
+
+---
 gate: awaiting-maintainer
 maintainer_question: 'PR #86 gauntlet hit review-budget-reached (6/6, not a pass) though kriskowal APPROVED earlier; merge current head eed124c + prod-validate, resume one more gauntlet round, or hold?'
 asked_at: https://github.com/kriscendobot/minion.town/pull/86#issuecomment-5881307809
