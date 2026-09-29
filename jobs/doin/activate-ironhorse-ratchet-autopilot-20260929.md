@@ -22,3 +22,13 @@ Remaining:
 3. Snooze to a near-future instant to admit the first real tick; observe a canonical `tier: mentat` / `dispatch: ratchet-delegated` claim, actual mentat runtime model/handler evidence, and that the driver records exactly one step (or a correctly evidenced criterion failure / halt) with no overlapping children. Status: `scripts/jobs/ironhorse-ratchet.sh status`.
 4. Subject https://github.com/endojs/endo-but-for-bots/pull/1359 (targets llm-47f6965, incompatible historical floor, 901 informational historical losses, no instrumented coverage) MUST NOT merge or acquire an attestation; a correctly halted watcher is the required safe outcome. Parked ironhorse-test262-ratchet-round3-floor-resolution-20260928 owns PR-side resolution; coordinate before mutations. Never lower the enforced floor.
 Report deployed/runtime evidence to the maintainer; never claim mentat operation from the schedule definition alone. End only with live activation verified or another named durable handoff owning all remaining work.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T00:17:52Z
