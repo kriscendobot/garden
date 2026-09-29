@@ -52,3 +52,13 @@ no credential in its MCP child env; a live verification against a real daemon (l
 that a confined turn (or a scripted stdio client standing in for Claude if no credential is
 available — say which) reaches exactly one guest's tools. Report on
 https://github.com/kriscendobot/garden/issues/89 is the press's job; just name the PR in your report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T08:41:19Z
