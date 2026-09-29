@@ -96,3 +96,13 @@ automatically once each PR is merged (no further action needed from the
 maintainer except reviewing and merging when ready). Then complete this job —
 do NOT wait for the gauntlets or the merges yourselves; the notices you
 parked are what carries the rest of the campaign forward.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T01:02:51Z
