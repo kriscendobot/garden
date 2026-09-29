@@ -218,13 +218,28 @@ _straggler_alive() {  # _straggler_alive <pid>
   [ "$st" != Z ]
 }
 
+# _proc_starttime <pid> — the kernel start time (clock ticks since boot, stat field 22).
+_proc_starttime() {
+  awk '{ s=$0; sub(/^.*\) /,"",s); split(s,f," "); print f[20] }' "/proc/$1/stat" 2>/dev/null
+}
+
 # Fell descendants that escaped the source process group but remain in this
 # watcher's service cgroup. The leaf guard and keep-set make this a strict no-op
 # outside garden-receipt-watcher services and ensure $$ and its ancestors are never
 # signalled. A test-only cgroup.procs fixture exercises the loop without granting CI
 # control over a real cgroup.
-reap_cgroup_stragglers() {
-  local procs
+#
+# `reap_cgroup_stragglers startup` runs the same sweep BEFORE the PR source starts,
+# restricted to VERIFIED prior-run stragglers: a pid that started strictly before this
+# run's eldest in-cgroup ancestor (the self-heal-run.sh main PID). Every process this
+# run spawned — our own children and the wrapper's concurrent tee sibling — descends
+# from that ancestor and so is no older than it. The age test deliberately does not
+# consult parentage: an orphaned prior-run git is reparented to the user manager, which
+# is also this run's main PID's parent. This fells the git helpers a previous tick left
+# behind (systemd "Found left-over process ... (git)" at start, 2026-09-29) before they
+# can race the new tick's fetch/clone.
+reap_cgroup_stragglers() {  # reap_cgroup_stragglers [startup]
+  local mode="${1:-exit}" procs
   if [ -n "${GARDEN_RECEIPT_CGROUP_PROCS_FILE:-}" ] && _in_test_context; then
     procs="$GARDEN_RECEIPT_CGROUP_PROCS_FILE"
     [ -r "$procs" ] || return 0
@@ -256,8 +271,23 @@ reap_cgroup_stragglers() {
   # can fork after the first snapshot, and SIGKILL can be queued while the victim is
   # still present during watcher teardown. Stop only once no live stragglers remain,
   # or at the bounded deadline for an unkillable D-state process.
+  # Startup mode: this run began when its eldest ancestor still in the cgroup started
+  # (in a fixture no ancestor is listed, so fall back to $$). Anything older that is
+  # not in our own process tree can only be left over from a previous tick.
+  local run_start="" st k
+  if [ "$mode" = startup ]; then
+    run_start="$(_proc_starttime "$$")"
+    while read -r k; do
+      [ -n "$k" ] || continue
+      case "$keep" in *" $k "*) ;; *) continue ;; esac
+      st="$(_proc_starttime "$k")"
+      [ -n "$st" ] && [ -n "$run_start" ] && [ "$st" -lt "$run_start" ] && run_start="$st"
+    done < "$procs"
+    [ -n "$run_start" ] || return 0
+  fi
+
   local deadline_secs="$GARDEN_RECEIPT_CGROUP_REAP_DEADLINE_SECS"
-  local now start pid remaining
+  local now start pid remaining felled=""
   start="$(date +%s 2>/dev/null || echo 0)"
   while :; do
     remaining=0
@@ -265,13 +295,21 @@ reap_cgroup_stragglers() {
       [ -n "$pid" ] || continue
       case "$keep" in *" $pid "*) continue ;; esac
       _straggler_alive "$pid" || continue
+      if [ "$mode" = startup ]; then
+        st="$(_proc_starttime "$pid")"
+        [ -n "$st" ] && [ "$st" -lt "$run_start" ] || continue
+        case " $felled " in *" $pid "*) ;; *) felled="$felled $pid" ;; esac
+      fi
       kill -KILL "$pid" 2>/dev/null || true
       remaining=$((remaining + 1))
     done < "$procs"
-    [ "$remaining" -eq 0 ] && return 0
+    if [ "$remaining" -eq 0 ]; then
+      [ -z "$felled" ] || log "reaped prior-run cgroup straggler(s) at startup:$felled"
+      return 0
+    fi
     now="$(date +%s 2>/dev/null || echo 0)"
     if [ $((now - start)) -ge "$deadline_secs" ]; then
-      log "WARN: cgroup still holds $remaining straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; next start may migrate them"
+      log "WARN: cgroup still holds $remaining $mode straggler(s) after ${deadline_secs}s reap deadline ($procs) — best-effort; next start may migrate them"
       return 0
     fi
     sleep 0.1 2>/dev/null || sleep 1
@@ -291,6 +329,9 @@ cleanup() {
 trap 'cleanup' EXIT
 trap 'cleanup; exit 143' TERM
 trap 'cleanup; exit 130' INT
+
+# Fell verified prior-run stragglers before this tick's source spawns its own git.
+reap_cgroup_stragglers startup
 
 src_rc=0
 if command -v timeout >/dev/null 2>&1; then

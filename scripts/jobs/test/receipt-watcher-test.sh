@@ -175,7 +175,7 @@ run_watch() {  # run_watch <slug> <stderr-file> [fetch-command] [source-command]
     GARDEN_API_COOLDOWN_SECS=120)
   [ -z "$fetch" ] || runenv+=(GARDEN_FETCH_CMD="$fetch")
   [ -z "$cgroup_procs" ] || runenv+=(GARDEN_RECEIPT_CGROUP_PROCS_FILE="$cgroup_procs")
-  "${runenv[@]}" "$JOBS/receipt-watcher.sh" "$slug" >/dev/null 2>"$err"
+  ${WATCH_WRAP:+$WATCH_WRAP} "${runenv[@]}" "$JOBS/receipt-watcher.sh" "$slug" >/dev/null 2>"$err"
 }
 
 # Like run_watch but WITHOUT pinning GARDEN_RECEIPT_WATCH_CLONE, so the watcher's own
@@ -354,6 +354,48 @@ else
   bad "cgroup sweep left a straggler alive after watcher exit"
   kill -KILL "$SPID1" "$SPID2" 2>/dev/null || true
 fi
+
+# The STARTUP sweep fells verified prior-run stragglers BEFORE the PR source runs
+# (systemd "Found left-over process ... (git)" at start, 2026-09-29). The fixture
+# models the service cgroup: an orphan (double-forked, so reparented away) left by a
+# previous tick; then a wrapper standing in for the self-heal-run.sh main PID, which
+# lists itself in cgroup.procs and starts a tee-like sibling before running the
+# watcher. The orphan predates the main PID and must die; the sibling does not and
+# must be spared. The source records what it sees, proving the sweep ran before the
+# source, not only at exit.
+SUPROCS="$TR/startup-cgroup.procs"; SUORPH="$TR/su-orphan.pid"; SUSIB="$TR/su-sib.pid"
+rm -f "$SUORPH" "$SUSIB" "$TR/su-seen"; : > "$SUPROCS"
+setsid bash -c '(exec sleep 600) & echo $! > "'"$SUORPH"'"' &
+for _ in $(seq 1 100); do [ -s "$SUORPH" ] && break; sleep 0.1; done
+SUO="$(cat "$SUORPH" 2>/dev/null || true)"
+echo "$SUO" >> "$SUPROCS"
+sleep 0.2
+cat > "$TR/bin/su-main" <<'EOF'
+#!/usr/bin/env bash
+echo $$ >> "$SUPROCS"
+sleep 600 & echo $! > "$SUSIB"; echo $! >> "$SUPROCS"
+"$@"
+EOF
+cat > "$TR/bin/startup-probe-source" <<'EOF'
+#!/usr/bin/env bash
+alive() { kill -0 "$1" 2>/dev/null && [ "$(awk '{ x=$0; sub(/^.*\) /,"",x); print substr(x,1,1) }' "/proc/$1/stat" 2>/dev/null || echo Z)" != Z ]; }
+o=dead; s=dead
+alive "$(cat "$SUORPH")" && o=alive
+alive "$(cat "$SUSIB")" && s=alive
+echo "orphan=$o sibling=$s" > "$SUSEEN"
+EOF
+chmod +x "$TR/bin/su-main" "$TR/bin/startup-probe-source"
+rm -f "$STATE/gh-api-cooldown/marker"
+export SUPROCS SUORPH SUSIB SUSEEN="$TR/su-seen"
+WATCH_WRAP="$TR/bin/su-main" \
+  run_watch kriscendobot-startup "$TR/startup-reap.err" "" "$TR/bin/startup-probe-source" 0 "$WATCH_CLONE" "$SUPROCS" || true
+if grep -qx 'orphan=dead sibling=alive' "$TR/su-seen" 2>/dev/null \
+   && grep -q "reaped prior-run cgroup straggler(s) at startup: $SUO\$" "$TR/startup-reap.err"; then
+  ok "startup sweep fells a verified prior-run straggler before the source, sparing this run's processes"
+else
+  bad "startup sweep did not fell only the prior-run straggler before the source (seen: $(cat "$TR/su-seen" 2>/dev/null))"
+fi
+kill -KILL "$SUO" "$(cat "$SUSIB" 2>/dev/null)" 2>/dev/null || true
 
 # The DEFAULT receipt clone is PER-SLUG: with GARDEN_RECEIPT_WATCH_CLONE unset, each
 # templated instance syncs its OWN $GARDEN_STATE/receipt-watcher/journal-<slug> with its
