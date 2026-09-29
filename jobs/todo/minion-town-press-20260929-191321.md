@@ -1,10 +1,8 @@
 ---
-gate: deferred
-priority: normal
 role: gardener
-posted_by: minion-town-press
-posted_at: 2026-09-29T19:13:28Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-29T19:24:06Z cleared=none -->
 
 ---
 role: gardener
