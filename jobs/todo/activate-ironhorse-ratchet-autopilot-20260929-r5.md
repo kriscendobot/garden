@@ -1,9 +1,9 @@
-once: 2026-09-29T17:15:00Z
-job_basename_prefix: activate-ironhorse-ratchet-autopilot-20260929-r5
----
 ---
 role: builder
 handler-timeout: 5400
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 # Finish activation of the Ironhorse foreman-woken press (continued, round 5)
 
