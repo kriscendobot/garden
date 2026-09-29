@@ -1,4 +1,5 @@
 ---
+child-ebfb-pr1357-inference-probe-20260929-host: endolin-garden2-5bcdff64
 child-ebfb-pr1357-inference-probe-20260929-reap-count: 0
 child-ebfb-pr1357-revise-review-20260929-host: endolin-garden2-5bcdff64
 child-ebfb-pr1357-revise-review-20260929-reap-count: 0
