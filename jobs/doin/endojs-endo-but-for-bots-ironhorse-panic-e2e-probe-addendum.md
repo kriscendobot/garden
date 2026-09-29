@@ -32,3 +32,13 @@ The mentat answers landed after this probe ran, so the "open-question decisions"
 
 The probe head `db4c6fd77b` is green on CI. The PR stays draft.
 ----- END COMMENT BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T09:55:41Z
