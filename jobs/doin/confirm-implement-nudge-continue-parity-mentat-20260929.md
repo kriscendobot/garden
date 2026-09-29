@@ -45,6 +45,7 @@ keeping OpenCode disabled pending its existing paid canary. It is design-only
 4. Report the confirm/deny verdict, what you implemented (or why you didn't),
    and the landed commit.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
