@@ -17,3 +17,13 @@ Final ask of kriskowal's APPROVED review https://github.com/endojs/endo-but-for-
 migration, and retcon children, confirm mergeable + checks green (the Node-24 ubuntu
 runner-infra red is a known non-regression) and un-draft if needed, then merge.
 Head lives on endojs/endo-but-for-bots itself.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T16:16:45Z
