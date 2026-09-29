@@ -1,10 +1,9 @@
 ---
-gate: blocked
-blocked_on: ironhorse-ratchet-r4-timer-20260929
-priority: normal
-posted_by: builder
-posted_at: 2026-09-29T04:33:10Z
+role: builder
+tier: mentor
+handler-timeout: 14339
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-29T12:46:08Z cleared=none -->
 
 ---
 tier: mentor
