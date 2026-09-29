@@ -23,13 +23,5 @@ redirects scoped to minion.town only; roles/proxy, roles/conductor, roles/fixer,
 roles/COMMON.md and a context/operations page updated. Do NOT arm (seed) the
 delegation — leave arming as the documented post-deploy step and say so in the report.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-29T23:10:43Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-30T00:03:03Z -->
