@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1072-resume-gauntlet-20260929-host: endolin-garden-ece02cb4
 child-endojs-endo-but-for-bots-pr1072-resume-gauntlet-20260929-reap-count: 0
 child-endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929-host: oros-studio-garden-ce242c49
 child-endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929-reap-count: 0
