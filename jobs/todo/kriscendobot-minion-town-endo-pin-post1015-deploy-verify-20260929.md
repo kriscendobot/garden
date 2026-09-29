@@ -1,12 +1,8 @@
 ---
-gate: blocked-failed
-blocked_failed_reason: blocker 'conduct-kriscendobot-minion-town-pr139-20260929' completed but declined its gated outcome; held for a human decision
-blocked_on: conduct-kriscendobot-minion-town-pr139-20260929
-priority: high
 role: builder
-posted_by: producer
-posted_at: 2026-09-29T08:05:52Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked-failed priority=high at=2026-09-29T21:59:43Z cleared=none -->
 
 ---
 role: builder
