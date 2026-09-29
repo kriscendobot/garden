@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1015-approval-followthrough-20260929
-priority: high
-posted_by: producer
-posted_at: 2026-09-29T05:41:36Z
+role: gardener
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-09-29T08:07:04Z cleared=none -->
 
 ---
 role: gardener
