@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T12:48:11Z_
+_As of 2026-09-29T12:50:30Z_
 
 ## Latest
 
-Board activity was light: [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362)'s gauntlet ran to its review-budget ceiling — six panel/fix rounds applied, fix round 6 landed with CI green, but subjective review never converged, so it's parked for a human merge/review call. The IronHorse panic-adapter and ratchet-r4 timer jobs also completed. Weaving continues on [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) (base-pin advance) and unify-endowments work continues on #1343, both still in progress.
+Board activity was flat since the last bulletin — no new job postings, claims, or completions resolved in this window — so the fleet's own churn continues via the doin/tada queues (PR #1097 weave and PR #1343 endowment-unification job still in progress) without a fresh transition to report.
 
-A cluster of items awaits maintainer decisions: milestone M2 remains blocked on whether to run the gauntlet for #1349 and how to disposition #1356 (foreman flags it as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)); M3 is blocked choosing between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering #1340's open design questions; and the minion.town federation release gate is still fully blocked pending answers on #1332's authority questions. Two rolling-deploy canaries failed and were left drained (oros-studio-garden-ce242c49 and endolin-garden2-5bcdff64), and the leader host is now reported 25 commits behind on its own deploy after a candidate test-gate rejection — worth a look since a stale leader can silently stop honoring new directives.
+What most needs maintainer attention right now is the backlog of blocked milestone decisions and infrastructure alarms piling up in the inbox. M2 is stalled entirely on a gauntlet-authorization decision for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and a close-or-keep call on duplicate #1356 (superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/issues/3332)); M3 is similarly stuck choosing between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering four open questions on design #1340. Separately, the leader host (endolin-garden-ece02cb4) is reporting a stalled deploy — 25 commits behind origin/main2 — which per the watchdog means no directive newer than the deployed SHA (including any project pause) is being honored; that's worth a look. Two rolling-deploy canaries (oros-studio-garden-ce242c49 and endolin-garden2-5bcdff64) also halted after repeated failed retries and are sitting drained awaiting a decision. On the review side, the IronHorse test262 ratchet round-3 work needs a maintainer call on how to reconcile ~906 lost historical-floor paths against the current stricter classifier, and the minion.town federation release gate remains blocked pending answers on the [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) authority questions before any of its four dependent PRs can move.
 
 ## Parked for maintainer feedback
 
@@ -156,10 +156,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
-
-- `endojs-endo-but-for-bots-pr1362-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1362-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1362-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet endojs-endo-but-for-bots-pr1362-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
 
@@ -480,10 +476,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 126.0M | $898.61 _(notional, rate-card)_ | 88% of 143.0M (backoff) |
+| Claude | 126.1M | $899.87 _(notional, rate-card)_ | 88% of 143.0M (backoff) |
 | Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63275943 tokens/day lower bound._
+_Fleet token-unlock pace: 63324893 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 0 open notice(s); checker healthy
