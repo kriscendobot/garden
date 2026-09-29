@@ -47,3 +47,13 @@ Source verification already completed: `ironhorse-press-budget-test.sh` 11/11, `
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-29T16:33:04Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T17:03:25Z
