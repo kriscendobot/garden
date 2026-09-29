@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T17:09:32Z_
+_As of 2026-09-29T17:12:18Z_
 
 ## Latest
 
-Board movement was thin this cycle: the only transitions since the last bulletin were the Ironhorse ratchet-autopilot job (`activate-ironhorse-ratchet-autopilot-20260929-r4`) getting claimed into doin, and an oros-ckm Dependabot audit job being promoted to todo. The real activity is in the maintainer inbox, which is backed up with decisions. Milestone M2 has several foreman pings converging on the same asks: authorize `run the gauntlet` for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check), and close [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is waiting on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or first answering four open questions on design PR #1340, and separately on approving [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) itself alongside the dependent #1102 design.
-
-The Ironhorse test262 ratchet round 3 needs a policy call: the gardener found 906 historical "covered" paths that no longer hold under the current (stricter, more honest) classifier and wants explicit sign-off to record a reconciled current-llm floor rather than paper over the regressions. The minion.town/endo federation release gate remains fully blocked pending answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332)'s authority questions, with a four-PR merge sequence queued behind it. A rolling deploy canary failure on oros-studio-garden-ce242c49 (target `18df481c`) has halted after three retries and needs investigation before it's un-drained; separately the root repo guard flagged the leader host stalled 25 commits behind main2, though a deploy candidate gate rejection (failing `triager-pacing-test.sh`) explains part of that lag. Claude spend is at 95% of weekly quota (backoff engaged), and a quarterly completions dashboard covering 9,490 jobs since June 24 was published for review.
+Board activity was thin since the last bulletin — the sole transition was the post-deploy validation job for garden [PR#81](https://github.com/kriscendobot/garden/pull/81) moving from queued to claimed. The bigger story is upstream and unread: the leader host is stalled 25 commits behind `origin/main2` (candidate `39d0c5ef0aca4f55612eb774f13fb5907ec3a769` was rejected by the deploy gate on a failing `triager-pacing-test.sh` suite), which is holding back every singleton producer on that host, including the rolling-deploy canary that HALTED on `oros-studio-garden-ce242c49` after three failed retries. A large backlog of M2/M3 milestone blockers is piling up in the maintainer inbox awaiting explicit gauntlet authorization — chiefly [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke) and the likely-superseded [endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) — plus the M3 confinement-core decision on [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and design questions on #1340. Separately, a quarterly completions rollup (9,490 jobs, June–September) has been published, and the Ironhorse test262 ratchet round-3 work is asking for a maintainer ruling on how to reconcile ~906 lost historical-floor paths against a stricter current classifier.
 
 ## Parked for maintainer feedback
 
@@ -523,7 +521,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 135.6M | $939.36 _(notional, rate-card)_ | 95% of 143.0M (backoff) |
+| Claude | 135.7M | $939.92 _(notional, rate-card)_ | 95% of 143.0M (backoff) |
 | Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56827532 tokens/day lower bound._
@@ -532,15 +530,15 @@ _Fleet token-unlock pace: 56827532 tokens/day lower bound._
 worst fetch p95 10.084415s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (6)
-- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
+### todo (5)
 - [`oros-ckm-dependabot-audit-0013418`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-ckm-dependabot-audit-0013418.md) — ---
 - [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 - [`improve-handoff-sync-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-handoff-sync-failopen.md) — ---
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Host calls as transcript events, logical handles, and barriers
 
-### doin (4)
+### doin (5)
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`endojs-endo-but-for-bots-agent-non-extensible-directory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-agent-non-extensible-directory.md) — ---
 - [`endojs-endo-but-for-bots-pr1072-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1072
 - [`endojs-endo-but-for-bots-pr1097-conduct-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-conduct-20260929.md) — Conduct endojs/endo-but-for-bots PR #1097
