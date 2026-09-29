@@ -48,3 +48,13 @@ gauntlet's pre-pass has an honest ledger.
 Draft PR on `kriscendobot/minion.town` `main` via `ensure-pr.sh`, CI green, tests for restart
 survival of the index, cancel-kills-spawn, and a mail-attach delegation round trip against a
 real daemon at the current pin.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T08:41:43Z
