@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T17:44:23Z_
+_As of 2026-09-29T17:52:32Z_
 
 ## Latest
 
-The rolling deploy that started at 25123fdae03 is stuck at the canary: [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) failed re-validation three times and is now drained pending a maintainer decision, and separately the leader itself (endolin-garden-ece02cb4) has fallen 25 commits behind origin/main2 with no deploy landing — the deploy-candidate gate rejected `39d0c5ef0ac` outright on a failing `triager-pacing-test.sh`. Milestone M2 remains stalled on the same decision the foreman has now flagged five times: authorize the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke) and close #1356 as superseded by upstream endojs/endo#3332. M3 is likewise waiting on a call between advancing #1015 or answering the four open questions on #1340. The minion.town/endo federation release gate is still blocked behind #1124 review and the gateway session-binding PR. On the lighter side, a quarterly completions rollup covering 9,490 jobs since June 24 is now published, and the IronHorse test262 ratchet round-3 sweep is nearly done pending a maintainer call on how to reconcile ~906 lost historical-floor paths against a stricter, more honest classifier.
+Board activity was light since the last bulletin: a maintainer-facing report was filed for the [kriscendobot/garden#81](https://github.com/kriscendobot/garden/pull/81) post-deploy validation job, which was then re-posted for a fresh round (`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z`), and a new `improve-verified-handoff-terminalization` job was queued. The larger picture is unchanged: the rolling deploy remains stuck on canary host `oros-studio-garden-ce242c49` (48 occurrences and counting, still reporting an old deployed SHA), the leader itself is now 25 commits behind `origin/main2` and stalled, and a deploy candidate was separately rejected on a failing `triager-pacing-test.sh` suite — all of which needs a maintainer look before the fleet advances further. Also queued for review: milestone M2/M3 gating decisions on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), #1356, #1015, and #1340, plus the Ironhorse test262 ratchet round-3 floor-reconciliation question.
 
 ## Parked for maintainer feedback
 
@@ -267,11 +267,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 4 source(s); they post no acknowledgments while it holds.
-> - kriscendobot/moddable: watcher ticking but cooldown for 3684s (since 2026-09-29T16:39:01Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 3649s (since 2026-09-29T16:39:36Z)
-> - kriscendobot/minion.town: watcher ticking but cooldown for 3646s (since 2026-09-29T16:39:39Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3569s (since 2026-09-29T16:40:56Z)
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-09-29T17:40:26Z, cleared 2026-09-29T17:45:26Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -409,6 +409,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=842330 cap=73000000 pace-bias=1.000000 window-start=2026-09-23T06:59Z(calendar) deadline=2026-09-30T06:59Z(calendar) ceiling=4 target=4
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: packs 1003 >= 1000; size=249812992B packs=1003 gc.log=0; automatic remedy=deferred-deadline.
 
 - `watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64.md)
 
@@ -561,18 +565,20 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 139.2M | $960.31 _(notional, rate-card)_ | 97% of 143.0M (backoff) |
+| Claude | 139.7M | $962.38 _(notional, rate-card)_ | 98% of 143.0M (backoff) |
 | Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 56840030 tokens/day lower bound._
+_Fleet token-unlock pace: 56888531 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal); 2 open notice(s); checker healthy
+worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (7)
 - [`review-improve-cross-platform-test-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/review-improve-cross-platform-test-coverage.md) — review-improve-cross-platform-test-coverage
+- [`improve-verified-handoff-terminalization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-verified-handoff-terminalization.md) — ---
 - [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/run-the-gauntlet-minion-town-pr90.md) — ---
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`review-improve-pr-description-reviewer-attention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/review-improve-pr-description-reviewer-attention.md) — review-improve-pr-description-reviewer-attention
 - [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
