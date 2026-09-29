@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T17:39:11Z_
+_As of 2026-09-29T17:44:23Z_
 
 ## Latest
 
-Only one board transition landed since the last bulletin: the retire-gardener-worker-kind-alias job moved from todo into doin and is now running.
-
-The queue otherwise stayed quiet, but the inbox carries a lot for the maintainer to weigh in on. A rolling deploy is stuck on oros-studio-garden-ce242c49, which has failed its canary against target 18df481c0 three times and stayed drained pending investigation, while the leader itself is now 25 commits behind origin/main2 with no deploy landing — worth a look since a stale leader has caused missed directives before. M2 remains blocked pending a gauntlet decision on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close/supersede call on #1356; M3 is blocked on choosing between refreshing [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving the open questions on #1340. The minion.town federation release gate is still blocked on maintainer authority answers on #1332 and review/merge of #1124 before the rest of the stack can proceed. Separately, the Ironhorse test262 round-3 ratchet needs a floor-reconciliation decision (906 lost paths against the historical baseline), and a dependabot audit of kriscendobot/oros-ckm-data-readiness found 10 high-severity issues, all in dev tooling with no production exposure — 9 clear with a non-breaking `npm audit fix`, one needs a breaking vite/vitest major bump.
+The rolling deploy that started at 25123fdae03 is stuck at the canary: [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49) failed re-validation three times and is now drained pending a maintainer decision, and separately the leader itself (endolin-garden-ece02cb4) has fallen 25 commits behind origin/main2 with no deploy landing — the deploy-candidate gate rejected `39d0c5ef0ac` outright on a failing `triager-pacing-test.sh`. Milestone M2 remains stalled on the same decision the foreman has now flagged five times: authorize the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke) and close #1356 as superseded by upstream endojs/endo#3332. M3 is likewise waiting on a call between advancing #1015 or answering the four open questions on #1340. The minion.town/endo federation release gate is still blocked behind #1124 review and the gateway session-binding PR. On the lighter side, a quarterly completions rollup covering 9,490 jobs since June 24 is now published, and the IronHorse test262 ratchet round-3 sweep is nearly done pending a maintainer call on how to reconcile ~906 lost historical-floor paths against a stricter, more honest classifier.
 
 ## Parked for maintainer feedback
 
@@ -266,6 +264,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 0 (target 0): shared codex subscription demand active=0 queue=1 quota=ok fleet-envelope=1 target=0
+
+- `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
+
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 4 source(s); they post no acknowledgments while it holds.
+> - kriscendobot/moddable: watcher ticking but cooldown for 3684s (since 2026-09-29T16:39:01Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 3649s (since 2026-09-29T16:39:36Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 3646s (since 2026-09-29T16:39:39Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3569s (since 2026-09-29T16:40:56Z)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
@@ -555,7 +561,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 138.9M | $958.96 _(notional, rate-card)_ | 97% of 143.0M (backoff) |
+| Claude | 139.2M | $960.31 _(notional, rate-card)_ | 97% of 143.0M (backoff) |
 | Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56840030 tokens/day lower bound._
