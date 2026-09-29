@@ -1,0 +1,50 @@
+<6>23:10:57 [monk/2] job 'build-minion-town-pr-screening' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>23:10:57 [monk/2] job 'build-minion-town-pr-screening' call ceiling: tier=mentor max-budget-usd=9.20 (scaled by fresh seven-day headroom when available)
+<6>23:10:57 [monk/2] job 'build-minion-town-pr-screening' attaching minion.town MCP (stdio bridge)
+<6>23:43:59 [auto-gauntlet-handoff] auto-gauntlet: builder 'build-minion-town-pr-screening' named no PR in its completion report; no handoff
+panel-head-freshness: not-applicable target=build-minion-town-pr-screening reason=no-presented-pr
+<6>23:44:04 [assert-followup-posted] gate: BLOCK — 'build-minion-town-pr-screening' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# Completion report: build-minion-town-pr-screening
+
+I built steps 1–6 of the design's build plan (`designs/minion-town-pr-screening.md`) with tests, and pushed it to `main2` as **`b3b5fc27e5d`**. **The delegation is not armed.** The screener does nothing until someone runs `scripts/jobs/minion-town-screening.sh seed` on the leader after this deploys. That command is the arming act, and it is documented on the new operations page.
+
+## What changed
+- **Delegation record and operator command (step 1).**
+  - `scripts/jobs/screening/policy.py` and `control.py` follow the Ironhorse ratchet shape. The record `config/delegations/minion-town-pr-screening` holds the SHA-256 of an authorization entry that quotes the #139 review (`entries/2026/09/29/205400Z-message-gardener-mtpr139.md`, written by `seed`), the scope (minion.town, base `main`, author `kriscendobot`), the status, and the escalation lists.
+  - A missing, changed, or revoked record means no delegation; a paused one allows only marked heal PRs. Either way, other PRs fall back to maintainer approval.
+  - `scripts/jobs/minion-town-screening.sh seed|pause|resume|revoke|status` works like `ironhorse-ratchet.sh`: its own journal clone and CAS pushes.
+- **The screen, as proxy pre-pass 1d (step 2).**
+  - `scripts/jobs/screen-delegated-prs.sh` and `screening/driver.py` apply gates 1–6 at each PR's exact head. No LLM is involved, and the PR body is only checked for the exact heal marker.
+  - A pass writes `screenings/kriscendobot-minion.town/<N>/<head>.json` and posts `screen-minion-town-pr<N>-<sha7>-conduct`.
+  - A PR touching a reserved path gets one maintainer notice and a review request.
+  - `proxy.sh` runs it without letting a failure block the rest of the proxy tick. The PR-comment auto-clear now skips `from: proxy:screen` notices.
+- **Merge mode (step 3).** `ci-wait-merge.sh --screened-delegated-merge` checks scope before changing anything. At merge time it needs an attestation for the head after its own rebase, and otherwise stops with `merge blocked: awaiting re-screen`. It merges with `--match-head-commit` and never uses `--auto`. The conductor role has a new section on this.
+- **After a merge (step 4).** The screener watches `deploy.yml` and the MCP watchdog for the merge commit.
+  - On failure it pauses the delegation, posts the `heal-minion-town-<sha7>` fixer, and sends one notice.
+  - It resumes by itself only from a pause it made; a maintainer's pause stays until they resume it.
+- **Maintainer touchpoints (step 5).** The fixer rule and the `COMMON.md` fixer bullet change for minion.town only. The bulletin's parked list drops minion.town PRs unless they were escalated, and a new *Screened by proxy (minion.town)* section shows the last 24 hours.
+- **Docs (step 6).** New page `context/operations/minion-town-screening.md`, a row in the operations index, and one sentence in `CLAUDE.md`'s monitoring-safety section.
+
+## Additions beyond the design
+- **Gauntlet records now carry the PR head.** Completed gauntlet reports didn't record which head the panel reviewed, so gate 2 had nothing to compare. `gauntlet.sh` now records `panel_head` when a panel passes, and carries `repo`, `pr_number` and `panel_head` into the completed report. Gauntlets that finished before this build lack it, so each open PR gets one fresh gauntlet keyed to its head.
+- **Rebases don't force a new gauntlet.** Without this, every rebase by the merge step would need a whole new gauntlet. The screener now also accepts a panel verdict when the PR's patch is identical apart from line offsets (checked through GitHub's compare API).
+- **Bounded conductor retries.** If a conductor finishes without merging and the head hasn't changed, the screener re-posts it as `-r2`, then `-r3`, then sends one "stalled" notice.
+- **Escalation paths**, derived from the repo:
+  - `.github/workflows/**`.
+  - `deploy/aws/scripts/**`, except the nine scripts `deploy.yml` actually runs.
+  - `DEPLOYMENT.md` § *Continuous deployment (GitHub Actions)*, matched by hunk line ranges. A missing patch counts as touching it.
+
+## Tests
+- **New suites (both added to `checks.yml`):** `minion-town-screening-test.py` (24 tests, OK) and `ci-wait-merge-screening-test.py` (13 tests, OK). They cover the whole test plan.
+- **Existing suites that pass:** `ci-wait-merge-ratchet-test.py` (18), `tests/checks/run.sh` (12 suites), `proxy-qualified-reply-test.sh`, `bulletin-fetch-outage-backoff-test.sh`, and the gauntlet panel-quota, pin-gate and resume tests.
+- **`gauntlet-test.sh`:** my new `panel_head` assertion passes, but the run hit my 900 s timeout under host load before finishing. It showed no failures up to that point.
+- **Failures that are not mine:**
+  - `proxy-park-body-hygiene-test.sh` has 2 failures that also fail on a clean `origin/main2`.
+  - `run-test.sh` has 4 failures: set-workers WARN, deferral log, inbox cold clone, and plan-queue deferred group. The first three also fail on the clean baseline.
+  - I didn't see the plan-queue result on the baseline because that run was stopped before it got there. That subtest only pulls `job_desc`, `render_plan_queue` and `common.sh` helpers, none of which I changed. Its bulletin layout and parked-list assertions passed.
+
+## Follow-ups
+- Arm it after deploy with `scripts/jobs/minion-town-screening.sh seed` on the leader.
+- The rebase-equivalence check means a clean rebase is not re-reviewed by a panel; CI on the rebased head is the check. The operations page says so.
