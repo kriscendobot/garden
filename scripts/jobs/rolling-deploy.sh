@@ -266,6 +266,17 @@ sd() { printf '%s\n' "${1:0:12}"; }   # short sha for state dir / names
 roll_dir() { printf '%s/roll/%s\n' "$STATE" "$(sd "$1")"; }
 rstat_get() { rdline "$(roll_dir "$1")/$2.status"; }
 rstat_set() { local d; d="$(roll_dir "$1")"; mkdir -p "$d" 2>/dev/null || true; printf '%s\n' "$3" > "$d/$2.status"; }
+# canary_host_busy <host>: 0 when the host's in-flight claims (jobs/doin/) fill its
+# declared worker capacity (hosts/<host>, all kinds; at least one slot), so a probe
+# pinned to it cannot be claimed until one of those jobs ends.
+canary_host_busy() {
+  local host="$1" cap inflight
+  cap="$(sed -nE 's/^(monks|clerics|hermits|mystics|fireworkers):[[:space:]]*([0-9]+)[[:space:]]*$/\2/p' \
+    "$DIR/hosts/$host" 2>/dev/null | awk '{s+=$1} END {print s+0}')"
+  [ "$cap" -ge 1 ] 2>/dev/null || cap=1
+  inflight="$(grep -lx "  host: $host" "$DIR/$JOBS_DOIN"/*.md 2>/dev/null | wc -l)"
+  [ "$inflight" -ge "$cap" ]
+}
 rfield_get() { rdline "$(roll_dir "$1")/$2.$3"; }
 rfield_set() { local d; d="$(roll_dir "$1")"; mkdir -p "$d" 2>/dev/null || true; printf '%s\n' "$4" > "$d/$2.$3"; }
 
@@ -321,6 +332,21 @@ validate_canary() {  # validate_canary <host> <target>
   if tada_exists "$DIR" "$probe"; then
     :  # probe completed — fall through to the regression watch
   else
+    # An UNCLAIMED probe on a canary whose every worker is mid-job is waiting for a
+    # slot, not evidence of a broken spine (2026-09-29: garden2's workers held 7200s
+    # jobs across three probe windows and the roll halted on a healthy canary). Slide
+    # the deadline from the last tick the host was seen busy; the deferral ceiling
+    # from the probe's posting stays the hard cap. A host that goes idle and still
+    # never claims fails exactly as before.
+    local busy_at
+    if [ -e "$DIR/$JOBS_TODO/$probe.md" ] && canary_host_busy "$host" \
+       && [ $(( now - posted_at )) -lt "$GARDEN_ROLL_DEFER_CEILING" ]; then
+      rfield_set "$target" "$host" probe_busy_at "$now"
+      VAL_DETAIL="probe '$probe' unclaimed while every worker on $host is mid-job ($(( now - posted_at ))s; ceiling ${GARDEN_ROLL_DEFER_CEILING}s)"
+      return 2
+    fi
+    busy_at="$(rfield_get "$target" "$host" probe_busy_at)"
+    [[ "$busy_at" =~ ^[0-9]+$ ]] && [ "$busy_at" -gt "$posted_at" ] && posted_at="$busy_at"
     if [ $(( now - posted_at )) -ge "$GARDEN_CANARY_PROBE_DEADLINE" ]; then
       VAL_DETAIL="probe '$probe' did not reach tada within ${GARDEN_CANARY_PROBE_DEADLINE}s (claim/spine broken on new code)"
       return 1

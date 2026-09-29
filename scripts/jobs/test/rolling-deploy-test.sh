@@ -901,6 +901,33 @@ if grep -q '^TICK_START=\$SECONDS' "$JOBS/rolling-deploy.sh" && ! grep -qE '(put
 else bad "rolling-deploy.sh still has a per-call deadline clock (or no TICK_START)"; fi
 
 # ============================================================================
+hr; echo "BUSY CANARY — an unclaimed probe on a fully-occupied canary waits, then fails once idle"; hr
+T2="2222222222222222222222222222222222222222"; T2_12="${T2:0:12}"
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release for busy-canary"
+seed_fleet_hosts "$F1"                                        # monks: 1
+set_leader_signal "$T2"; reset_leader_roll_state
+: > "$DEPLOY_LOG"; : > "$DRAIN_LOG"
+run_conductor GARDEN_ROLLING_NOW=2000                         # release F1
+simulate_follower_deploy "$F1" "$T2"
+run_conductor GARDEN_ROLLING_NOW=2000                         # posts the probe at 2000
+BUSY_PROBE="canary-probe-$F1-$T2_12"
+[ -n "$(from_bare "jobs/todo/$BUSY_PROBE.md")" ] && ok "BUSY: probe posted for $T2_12" || bad "BUSY: no probe posted"
+push_change "jobs/doin/busy-long-job.md" $'---\nrole: builder\n---\n# long job\n\n---\nclaim:\n  host: '"$F1"$'\n  gardener: 1\n' "sim: F1's only worker is mid-job"
+run_conductor GARDEN_ROLLING_NOW=2700                         # 700s > 600s deadline, but F1 is busy
+if [ -z "$(cat "$DRAIN_LOG")" ] && [ "$(cat "$TR/state-leader/rolling-deploy/roll/$T2_12/$F1.status" 2>/dev/null)" = released ]; then
+  ok "BUSY: unclaimed probe past the deadline while every F1 worker is mid-job → still validating (no drain, no failure)"
+else bad "BUSY: busy canary was failed (drain: $(cat "$DRAIN_LOG"); status: $(cat "$TR/state-leader/rolling-deploy/roll/$T2_12/$F1.status" 2>/dev/null))"; fi
+push_change "jobs/doin/busy-long-job.md" "@DELETE" "sim: F1's long job finished"
+run_conductor GARDEN_ROLLING_NOW=2900                         # idle 200s after last busy tick → still in flight
+[ -z "$(cat "$DRAIN_LOG")" ] && ok "BUSY: the deadline slides from the last busy tick (200s idle, not failed)" \
+  || bad "BUSY: failed before the slid deadline (drain: $(cat "$DRAIN_LOG"))"
+run_conductor GARDEN_ROLLING_NOW=3350                         # idle 650s and still unclaimed → genuine failure
+grep -q 'state=on' "$DRAIN_LOG" && ok "BUSY: an idle canary that still never claims its probe fails as before" \
+  || bad "BUSY: idle unclaimed probe did not fail (status: $(cat "$TR/state-leader/rolling-deploy/roll/$T2_12/$F1.status" 2>/dev/null))"
+grep -q deploy-invoked "$DEPLOY_LOG" && bad "BUSY: leader advanced without a passing canary" || ok "BUSY: leader never advanced"
+push_change "deploy/roll/$F1" "@DELETE" "clear F1 release after busy-canary"
+
+# ============================================================================
 hr; echo "RESULTS"; hr
 echo "  PASS=$PASS FAIL=$FAIL"
 [ "$FAIL" -eq 0 ] || { echo "  (test root kept: $TR)"; exit 1; }
