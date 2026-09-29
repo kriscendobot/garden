@@ -21,3 +21,13 @@ Open a DRAFT PR through scripts/jobs/gardening/ensure-pr.sh, with `Refs: #1018` 
 ## This leg
 
 The standing should-fix refactor in § Alternatives Considered and the last Open Question: fold `Halt::StackOverflow`/`Halt::MeterAbort` (and any other flat panic variants) into `PanicKind`, keeping their payloads, so the classification discipline is enforced by the type rather than by the lint alone. Account for https://github.com/endojs/endo-but-for-bots/pull/1364 (ResourceLimitPolicy) if it has merged. If the mentat answer rejects unification, complete without a PR and explain why in the report.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T22:44:29Z
