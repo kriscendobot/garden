@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T18:22:24Z_
+_As of 2026-09-29T18:24:42Z_
 
 ## Latest
 
-The rolling deploy chased a broken tip through three canary halts before the fleet caught its footing: oros-studio-garden-ce242c49 failed canary validation, drained itself, and needed a manual re-trigger, while endolin-garden2 briefly stuck and then recovered on its own. Two fixes landed to steady this (job `pty-lane-assay-rev5119818493-r2` and the `retire-gardener-worker-kind-alias` doin job in flight), and the root checkout is now flagged 25 commits behind `origin/main2` — the leader itself needs a deploy before any newer directive takes effect. Ironhorse's test262 ratchet round 3 surfaced a real policy question rather than papering over it: current-`llm` sweeps show 906 lost paths against the pre-change historical floor, and the gardener is asking whether to record an explicitly reconciled floor (36,599 covered) rather than relabel any of those losses as covered. The federation release gate for endo/minion.town stays firmly blocked on manual review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332), and [endojs/endo-but-for-bots#1333](https://github.com/endojs/endo-but-for-bots/pull/1333), plus [kriscendobot/minion.town#117](https://github.com/kriscendobot/minion.town/pull/117). Milestone M2 has several stale asks piling up in the inbox for the same decision — authorize the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and close the superseded [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) — and M3 is waiting on a call between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving the four open questions on #1340 first. A quarterly completions rollup (9,490 jobs since June 24) is now published and live-verified at ocap.site, and Claude spend is pressing the weekly cap at 99%.
+Board activity was light since the last bulletin: the only transition was the completion of `endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`, a support job for the ongoing Ironhorse live native-handle re-seating work in xsnap. The larger queue remains dominated by maintainer decisions that are still pending — most notably the M2 milestone gauntlet authorizations for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and the disposition of superseded duplicate #1356, the M3 confined-agent path choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the open questions on #1340, and the blocked minion.town/Endo federation release gate awaiting authority answers on #1332 and review of #1124. A rolling-deploy canary on oros-studio-garden-ce242c49 failed and was retried three times before halting for maintainer investigation, and the leader host is now flagged 25 commits behind on its own deploy after a test-gate rejection (failing `triager-pacing-test.sh`) — both worth a look, since the stalled leader deploy also holds back any directive issued after the current deployed commit.
 
 ## Parked for maintainer feedback
 
@@ -565,7 +565,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 141.8M | $972.58 _(notional, rate-card)_ | 99% of 143.0M (backoff) |
+| Claude | 141.9M | $974.41 _(notional, rate-card)_ | 99% of 143.0M (backoff) |
 | Codex | 15.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59109018 tokens/day lower bound._
@@ -583,20 +583,19 @@ worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal
 - [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 - [`improve-schedule-once-producer-livelock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-schedule-once-producer-livelock.md) — ---
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat.md) — Ironhorse: live native-handle re-seating in xsnap, and lifting #1150's suspen...
 - [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias.md) — ---
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
-- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Host calls as transcript events, logical handles, and barriers
 
-### tada (9690)
+### tada (9691)
+- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Cost
 - [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/run-the-gauntlet-minion-town-pr90.md) — Cost
 - [`token-backoff-ramp-095`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/token-backoff-ramp-095.md) — Cost
 - [`review-improve-cross-platform-test-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/review-improve-cross-platform-test-coverage.md) — Cost
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr.md) — Cost
-- [`improve-verified-handoff-terminalization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/improve-verified-handoff-terminalization.md) — Completion report: improve-verified-handoff-terminalization
-- … and 9685 more
+- … and 9686 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
