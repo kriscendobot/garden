@@ -1,9 +1,0 @@
-host: oros-studio-garden-ce242c49
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-29T09:31:33Z
-worktree_dir: /Users/dom/garden/scratch/gardener-wt-endojs-endo-but-for-bots-ironhorse-panic-e2e-probe
-pr_number: 1372
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1372
-pr_head: x
