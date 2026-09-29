@@ -189,7 +189,9 @@ job_basename_prefix: <p>   # dispatched job basename = <p> (no timestamp → ide
 - Add a one-time future job: `set-schedule-once.sh <name> <ISO> [prefix]
   [body-file]`. The scheduler dispatches it when due and removes the schedule in
   the same commit; the dispatched job basename is the prefix itself (no
-  timestamp), so a retried dispatch is basename-idempotent.
+  timestamp), so a retried dispatch is basename-idempotent. If the shared
+  producer clone is wedged or corrupt, it falls back after a bounded wait to a
+  fresh temporary clone, so a deferral does not wait on clone repair.
 - Remove: delete `schedules/<name>.md` and push (a normal CAS commit).
 - The scheduler (`scheduler.sh`, `garden-scheduler.timer`) does the dispatching;
   you only post the schedule definition.
