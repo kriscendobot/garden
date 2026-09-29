@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T16:10:49Z_
+_As of 2026-09-29T16:14:29Z_
 
 ## Latest
 
-Only one board transition landed since the last bulletin: the `garden-build-follower-self-deploy` job was promoted from the plan queue into `todo`, so the follower self-deploy build is now queued to start.
+The leader's rolling deploy has been wedged behind its lone monk since the previous cycle; the ironhorse-ratchet-autopilot job (round r4) landed a second fix to rolling-deploy.sh (main2 36def9fd9e8) that treats an unclaimed probe on a busy canary as waiting rather than failed, and the endolin-garden2 canary passed under it. The leader itself is still 25 commits behind origin/main2 per the root-repo-guard watchdog, deferring self-deploy behind the very job that unwedged the mechanism — the newly claimed `garden-build-follower-self-deploy` job is carrying that forward. oros-studio-garden-ce242c49 remains offline and has had its worker caps zeroed by worker-derotate.
 
-Otherwise the picture is unchanged from the standing backlog — the board's activity is dominated by budget/watchdog chatter and a long queue of unread maintainer messages awaiting decisions, most notably the M2 gauntlet-authorization asks for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356), the M3 fork between [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and design PR `#1340`, and the blocked minion.town federation release gate. A rolling-deploy canary on `oros-studio-garden-ce242c49` failed repeatedly and was left drained pending investigation, while a separate canary on `endolin-garden2-5bcdff64` recovered on retry. The leader host (`endolin-garden-ece02cb4`) is also flagged as stalled 25 commits behind `origin/main2` after a candidate deploy was rejected by a failing test suite, which is worth a look since it's holding back every singleton producer on that host.
+A backlog of decisions is waiting on you: authorize `run the gauntlet` for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) (M2's last unblocked step) and close [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/issues/1356) as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/issues/3332); choose M3's direction between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) or answering the open questions on #1340; and give the ironhorse test262 round-3 gardener a policy call on reconciling 906 historical-floor paths against its stricter current classifier. The endo↔minion.town federation release gate also stays blocked on your answers to [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/issues/1332)'s authority questions and review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124). Separately, the quarterly completions dashboard (9,490 jobs, June 24–Sept 29) published to ocap.site and passed its live checks.
 
 ## Parked for maintainer feedback
 
@@ -151,6 +151,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 14 messages. Latest detail:
 >
 > budget-level changed endolin-garden2-5bcdff64 monk workers 3 -> 2 (target 1): subscription claude-endolin2 spend=55993447 cap=64000000 pace-bias=0 window-start=2026-09-26T03:00Z(calendar) deadline=2026-09-30T03:00Z(planned) ceiling=4 target=1
+
+- `msg-activate-ironhorse-ratchet-autopilot-20260929-r4-6c7e0f95aff8` — from gardener:activate-ironhorse-ratchet-autopilot-20260929-r4, reply_to `activate-ironhorse-ratchet-autopilot-20260929-r4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-activate-ironhorse-ratchet-autopilot-20260929-r4-6c7e0f95aff8.md)
+
+> Update (activate-ironhorse-ratchet-autopilot-20260929-r4, 16:12Z): the rolling deploy is unwedged.
+>
+> - I added a second fix, main2 36def9fd9e8. In rolling-deploy.sh, an unclaimed probe on a canary whose workers are all mid-job is now treated as waiting, not failed. The deadline slides from the last busy tick and is capped by the defer ceiling. There is a new rolling-deploy-test BUSY case (it fails without the fix; 105/105 pass with it).
+> - The canary endolin-garden2 deployed 36def9fd9e8 and PASSED at 15:59:54Z. "All required canaries passed; leader self-deploying LAST."
+> - The leader's deploy-garden.sh is DEFERRING behind its only monk, which is this r4 job (11.5k s mid-job). I'm ending now so the leader can deploy.
+> - The remaining steps (verify the deployed gates, seed the first press, report on [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51)) move to a one-time schedule, activate-ironhorse-ratchet-autopilot-20260929-r5, firing at 17:15Z. If the leader still hasn't deployed then, r5 reschedules itself instead of blocking.
+> - The legacy ironhorse-ratchet schedule is retired. No arc budget is installed and no press has been seeded yet.
+> - oros-studio is still offline.
 
 - `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
 
@@ -503,7 +514,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.1M | $935.90 _(notional, rate-card)_ | 93% of 143.0M (backoff) |
+| Claude | 133.1M | $929.42 _(notional, rate-card)_ | 93% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63479638 tokens/day lower bound._
@@ -512,17 +523,17 @@ _Fleet token-unlock pace: 63479638 tokens/day lower bound._
 worst fetch p95 10.821002s/45s (/home/kris/garden/.garden-state/producer/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
 - [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
-- [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-build-follower-self-deploy.md) — Implement — the design's recommended path
 - [`endojs-endo-but-for-bots-pr1097-conduct-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-conduct-20260929.md) — Conduct endojs/endo-but-for-bots PR #1097
 - [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
 - [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — ---
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Host calls as transcript events, logical handles, and barriers
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1072-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1072
+- [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-build-follower-self-deploy.md) — Implement — the design's recommended path
 - [`fix-endojs-endo-but-for-bots-pr610`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endojs-endo-but-for-bots-pr610.md) — ---
 - [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 
