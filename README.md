@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T15:51:41Z_
+_As of 2026-09-29T16:05:30Z_
 
 ## Latest
 
-The board saw modest churn since the last bulletin: the outbound-embargo work for the Ironhorse panic investigation (`endojs-endo-but-for-bots-ironhorse-panic-outbound-embargo`) moved from todo into doin, a resumed panel-review orchestration for [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) was updated, and its retcon job was promoted from the plan queue to todo alongside a fresh rolling-deploy canary probe for endolin-garden2.
-
-Otherwise the maintainer's inbox is the story: the leader host has been stalled 25 commits behind `main2` after last night's candidate gate rejected a failing triager-pacing test, and a canary on oros-studio-garden-ce242c49 failed three retries before the roll halted (recovered since, per the follow-up notices). The foreman keeps surfacing M2 and M3 milestone blocks awaiting gauntlet/close decisions on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), #1356, #1015, and #1340, and the endo/minion.town federation release gate remains blocked pending review of #1124, #1332, and #1333. The round-3 IronHorse test262 ratchet needs a maintainer call on reconciling ~906 lost historical-floor paths, and a quarterly completions rollup (9,490 jobs, 2026-06-24 to 2026-09-29) has been published for review.
+The retcon and follow-ups for [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) (ReadableBlob wire encoding) completed with the same net diff, and its stream-bytes and outbound-embargo work also landed in tada, alongside a dependabot bump for [endojs/endo-but-for-bots#1354](https://github.com/endojs/endo-but-for-bots/pull/1354). A canary probe on endolin-garden2 came back clean, closing out the earlier stuck/failed-canary chatter for that host. The rolling deploy remains halted on a persistent, non-transient canary failure at oros-studio-garden-ce242c49 after three retries, and the leader itself is now 25 commits behind origin/main2 with a stalled deploy — both need a maintainer look, and the 39d0c5ef0ac candidate was separately rejected by the test gate over a failing triager-pacing test. On the review side, a stale-panel notice flags that endojs/endo-but-for-bots#1015's presented head has moved past its last panel review and needs a fresh gauntlet decision, and several foreman notices are still waiting on maintainer calls to promote or close M2/M3 drafts (notably #1349, #1356, and the #1015/#1340 fork in M3).
 
 ## Parked for maintainer feedback
 
@@ -503,38 +501,36 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.3M | $932.56 _(notional, rate-card)_ | 93% of 143.0M (backoff) |
+| Claude | 132.8M | $934.74 _(notional, rate-card)_ | 93% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63463845 tokens/day lower bound._
+_Fleet token-unlock pace: 63479638 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 11.339213s/45s (/home/kris/garden/.garden-state/leader/journal); 2 open notice(s); checker healthy
+worst fetch p95 10.821002s/45s (/home/kris/garden/.garden-state/producer/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (9)
+### todo (7)
 - [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
-- [`endojs-endo-but-for-bots-pr1354-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1354-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
-- [`endojs-endo-but-for-bots-pr1097-retcon-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-retcon-20260929.md) — Retcon endojs/endo-but-for-bots PR #1097 (if necessary)
-- [`claude-on-minion-town-press-20260929-150509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260929-150509.md) — Press the Claude-on-minion.town arc forward
-- [`canary-probe-endolin-garden2-5bcdff64-36def9fd9e81-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-36def9fd9e81-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 36def9fd9e81
 - [`fix-endojs-endo-but-for-bots-pr610`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr610.md) — ---
+- [`endojs-endo-but-for-bots-pr1097-conduct-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-conduct-20260929.md) — Conduct endojs/endo-but-for-bots PR #1097
 - [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
 - [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — ---
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
+- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Host calls as transcript events, logical handles, and barriers
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-ironhorse-panic-outbound-embargo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-outbound-embargo.md) — Outbound embargo, commit-gated release, duplicate suppression
+- [`claude-on-minion-town-press-20260929-150509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260929-150509.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1072-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1072
 - [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 
-### tada (9663)
+### tada (9667)
+- [`endojs-endo-but-for-bots-pr1097-retcon-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1097-retcon-20260929.md) — Retcon of endojs/endo-but-for-bots#1097: done, with the same net diff
+- [`endojs-endo-but-for-bots-pr1354-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1354-dependabot.md) — Completion report
+- [`endojs-endo-but-for-bots-ironhorse-panic-outbound-embargo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-outbound-embargo.md) — Cost
+- [`canary-probe-endolin-garden2-5bcdff64-36def9fd9e81-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/canary-probe-endolin-garden2-5bcdff64-36def9fd9e81-r1.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1097-stream-bytes-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1097-stream-bytes-20260929.md) — Completion report: endojs-endo-but-for-bots-pr1097-stream-bytes-20260929
-- [`endojs-endo-but-for-bots-ironhorse-panic-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-transcript.md) — Cost
-- [`fix-endojs-endo-but-for-bots-pr1356-zizmor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/fix-endojs-endo-but-for-bots-pr1356-zizmor.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1309-conduct-20260921`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1309-conduct-20260921.md) — PR #1309 conduct report (endojs/endo-but-for-bots)
-- [`endojs-endo-but-for-bots-ironhorse-panic-debugger-panic-break`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-debugger-panic-break.md) — Cost
-- … and 9658 more
+- … and 9662 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
