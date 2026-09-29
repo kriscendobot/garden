@@ -1,5 +1,6 @@
 ---
-gate: blocked
+gate: blocked-failed
+blocked_failed_reason: blocker 'conduct-kriscendobot-minion-town-pr139-20260929' completed but declined its gated outcome; held for a human decision
 blocked_on: conduct-kriscendobot-minion-town-pr139-20260929
 priority: high
 role: builder
