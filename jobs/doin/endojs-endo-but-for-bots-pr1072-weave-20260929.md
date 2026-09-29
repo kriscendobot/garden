@@ -18,3 +18,13 @@ Source directive: https://github.com/endojs/endo-but-for-bots/pull/1072#issuecom
 Move the PR from its floating `llm` base to a freshly pinned snapshot of the current `llm` tip, rebase the head onto that snapshot, resolve any conflicts according to the weaver role and frozen-base skills, lease-push the rewritten head, and move the PR base field so the pinned ref and rebased head advance together. Preserve the PR's intended net change and post the required completion summary. Do not merge.
 
 This is serial child 1 of the directive orchestration. A failed gated outcome must use the orchestration-failure signal contract.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T06:35:13Z
