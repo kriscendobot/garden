@@ -1,0 +1,26 @@
+<6>17:17:09 [monk/1] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>17:17:31 [monk/1] job 'kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z' call ceiling: tier=minion max-budget-usd=4.40 (scaled by fresh seven-day headroom when available)
+
+--- handler report (partial) ---
+Verified: the one-time schedule is durably on `origin/journal2`. The successor will dispatch when due. I'm handing off to it.
+
+Report:
+
+## Completion report — PR #81 post-deploy pty validation (attempt on oros-studio-garden-ce242c49)
+
+**Deployed-ancestry gate: NOT satisfied on this host — correctly deferred.**
+
+- PR #81 is **MERGED** (2026-09-28T21:04:43Z) at merge commit `4767705b28d522b591eddbd3b47976273c5e1853`.
+- This claiming host `oros-studio-garden-ce242c49` deployed SHA (read via the deployed root's `common.sh`/`deployed_sha`): `e036bb8e0650b66a4ae00dc1516c4c8df39901ca`.
+- Ancestry proof (git only in this job worktree, after `git fetch origin main2`): the deployed SHA is a **strict ancestor** of the merge commit, so the merge is **not yet deployed** here. Per the job spec I did **not** proceed to the pty test job (an active gardener would block the drained deploy).
+
+**Successor durably posted (honest handoff).** I created a one-time schedule to re-run this full task ~5 minutes out:
+- Schedule file on `origin/journal2`: `schedules/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z.md` (blob `38e5874`, landed via journal2 commit `1fa90b4f92`).
+- `once: 2026-09-29T17:38:27Z`; dispatched job basename (the successor): `kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z`; body carries the complete task (re-verify ancestry; only run the pty test once deployed; else reschedule again).
+
+**Livelock note for followups.** `scripts/jobs/set-schedule-once.sh` could not land the schedule through the shared producer clone (`$GARDEN_STATE/producer/journal`): its index was corrupted to a 0-byte file and multiple `git reset --hard origin/journal2` invocations were livelocked on a stale `index.lock` (host load ~4.5, matching the known journal2 clone-livelock at the ~45s bound; `gc.log` housekeeping warning also present). I recovered by cleaning the stale lock and, since a full working-tree checkout also livelocked, building the schedule commit with **git plumbing** (`read-tree`/`hash-object`/`write-tree`/`commit-tree`) in an isolated `$TMPDIR` clone and pushing to `journal2` via a CAS loop (succeeded attempt 1). Net effect on the journal is identical to `set-schedule-once.sh`; only the vehicle differed. Follow-up worth filing: this host's producer-clone corruption + livelock is actively degrading job production.
+
+Remaining work (the pty test dispatch, journal poll, and the PR #81 comment) is owned entirely by the posted successor, which repeats this deferral pattern until the merge is deployed on the claiming host.
+
+<<<GARDEN-JOB-HANDED-OFF: kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z>>>
+<<<GARDEN-JOB-COMPLETE>>>
