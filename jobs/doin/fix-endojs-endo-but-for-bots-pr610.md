@@ -13,3 +13,13 @@ fallback-tier:
 dispatch: automatic
 ---
 Fix the must-fix panel findings on endojs/endo-but-for-bots PR #610, branch `design/gateway-bearer-token-auth-reconcile`, reconciling the gateway bearer-token-auth design and its sibling Docker/gateway references.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T16:06:44Z
