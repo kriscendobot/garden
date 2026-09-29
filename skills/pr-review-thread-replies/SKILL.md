@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-08-25
+updated: 2026-09-29
 author: gardener
 ---
 
@@ -32,6 +32,14 @@ gh api repos/<owner>/<repo>/pulls/<N>/comments/<comment-id>/replies \
   --method POST \
   -f body="Addressed in <short-sha> (<commit-headline>). <one-line explanation if needed>."
 ```
+
+**Answer the question asked, and stop.** When a reviewer asks "which test proves this?", the reply is a permalink to the test (`https://github.com/<owner>/<repo>/blob/<sha>/<path>#L<line>`), optionally with the test's title. Do not walk through its assertions, the ordering argument, or the local run count; the reviewer will read the test. A reply over about 80 words, or with three or more bullets, is a sign it explains what a link would show. Check a draft before posting:
+
+```sh
+skills/panel-hints/probes/C-pruner-pr-body.sh --kind reply --body-file /tmp/reply.md
+```
+
+`fire pruner ...` means cut it. Grounding: `kriscendobot/agoric-sdk#16`, where a 235-word, four-bullet answer to "which test tells us it's deliberate?" drew a pointer to Grice's maxims, and a one-line permalink closed the thread ([gricean-maxims](../gricean-maxims/SKILL.md)).
 
 For a deferral instead of an addressed item:
 

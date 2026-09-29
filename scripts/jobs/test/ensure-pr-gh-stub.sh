@@ -37,6 +37,19 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = list ]; then
   exit 0
 fi
 
+# `gh api graphql` — the PR-template read (pr-body-template-check.sh). Answers
+# with $FAKE_PR_TEMPLATE's text for the first template path, else no object.
+if [ "${1:-}" = api ] && [ "${2:-}" = graphql ]; then
+  expr=""
+  for a in "$@"; do case "$a" in e=*) expr="${a#e=}" ;; esac; done
+  if [ -n "${FAKE_PR_TEMPLATE:-}" ] && [ "${expr#*:}" = .github/PULL_REQUEST_TEMPLATE.md ]; then
+    jq -n --rawfile t "$FAKE_PR_TEMPLATE" '{data: {repository: {object: {text: $t}}}}'
+  else
+    echo '{"data":{"repository":{"object":null}}}'
+  fi
+  exit 0
+fi
+
 if [ "${1:-}" = api ]; then
   if [ "${FAKE_GH_FAIL:-}" = list-definitive ]; then
     echo "gh: HTTP 404: Not Found (https://api.github.com/repos/x/y/pulls)" >&2

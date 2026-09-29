@@ -150,6 +150,36 @@ run feat/sturdyref --no-draft
 jq -e '.[0].isDraft | not' "$FAKE_PR_DB" >/dev/null && ok "--no-draft opens ready-for-review" || bad "--no-draft still opened a draft"
 printf '%s\n' "$ERR" | grep -qi 'no-draft' && ok "--no-draft warns on stderr" || bad "--no-draft passed silently"
 
+hr; echo "TEMPLATE — a body that ignores the base branch's PR template is refused"; hr
+# The endojs/endo-but-for-bots#1281 shape: invented sections, no template headings.
+cat > "$TR/template.md" <<'EOF'
+> Most PRs should close a specific Issue. All PRs should at least reference one or more Issues.
+
+Closes: #XXXX
+
+## Description
+
+> Add a description of the changes that this PR introduces and the files that are the most critical to review.
+
+### Security Considerations
+
+> Does this change introduce new assumptions or dependencies that could introduce security vulnerabilities?
+EOF
+printf '## Goal\n\nSilence the report.\n\n## What was noisy\n\nSix lines.\n' > "$TR/invented.md"
+printf 'Closes: #7\n\n## Description\n\nSilences the report.\n\n### Security Considerations\n\nNone.\n' > "$TR/filled.md"
+export FAKE_PR_TEMPLATE="$TR/template.md"
+reset_db
+run feat/sturdyref --body-file "$TR/invented.md"
+[ "$RC" -ne 0 ] && [ "$(creates)" = 0 ] && ok "an invented-section body is refused and creates nothing" || bad "invented-section body: rc=$RC creates=$(creates)"
+printf '%s\n' "$ERR" | grep -q 'missing: template heading "description"' && ok "the refusal names the missing heading" || bad "refusal lacks the finding: $ERR"
+reset_db
+run feat/sturdyref --body-file "$TR/filled.md"
+[ "$RC" -eq 0 ] && [ "$(db_len)" = 1 ] && ok "a template-filled body opens the PR" || bad "filled body: rc=$RC ($ERR)"
+reset_db
+GARDEN_ALLOW_NONTEMPLATE_BODY=1 run feat/sturdyref --body-file "$TR/invented.md"
+[ "$RC" -eq 0 ] && [ "$(db_len)" = 1 ] && ok "GARDEN_ALLOW_NONTEMPLATE_BODY=1 overrides with a warning" || bad "override: rc=$RC ($ERR)"
+unset FAKE_PR_TEMPLATE
+
 hr; echo "JOURNAL — work/<base> records the number, and is the no-query fast path"; hr
 BARE="$TR/journal.git"; BRANCH=journal2
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"

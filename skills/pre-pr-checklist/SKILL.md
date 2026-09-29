@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-08-10
+updated: 2026-09-29
 author: gardener
 ---
 
@@ -30,6 +30,8 @@ gh api "repos/<owner>/<repo>/contents/.github/PULL_REQUEST_TEMPLATE.md?ref=<base
 # edit /tmp/pr-body.md to fill in the sections
 gh pr create --base <base> --head <head> --body-file /tmp/pr-body.md --title '...'
 ```
+
+`ensure-pr.sh` refuses a body that drops or reorders a template heading or keeps its guidance, and the panel re-checks the live body each round (`scripts/jobs/gardening/pr-body-template-check.sh`; details in [pr-formation](../pr-formation/SKILL.md)).
 
 The same template applies to body rewrites (`gh pr edit <N> --body-file ...`), not just initial creation. A PR that grew in scope should be reset to the template structure rather than appended to. The discipline of *what to write inside the sections* lives in [pr-formation](../pr-formation/SKILL.md).
 

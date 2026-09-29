@@ -1,6 +1,6 @@
 ---
 created: 2026-05-22
-updated: 2026-09-27
+updated: 2026-09-29
 author: builder, gardener
 ---
 
@@ -84,6 +84,18 @@ production seam, non-deliverable probe, or absent production evidence is a
 deterministic panel block; the foreperson cannot turn it into a pass. This is
 the durable review-cycle sensor for the
 `phase-slice-substitutes-for-production-evidence` review-miss cluster.
+
+The PR **description** is also outside the diff. A `panel.sh` pre-pass fetches
+the live body every round and runs `scripts/jobs/gardening/pr-body-template-check.sh`
+against the base branch's `.github/PULL_REQUEST_TEMPLATE.md`: a missing or
+out-of-order template heading, or leftover template guidance, forces the
+integrator and binds the disposition to must-fix; invented headings only force
+the integrator. The same pre-pass runs `probes/C-pruner-pr-body.sh` over the body
+and forces the `pruner` when it fires (over 300 words, a checklist, a per-file
+bullet tour, an inline test tally). In a plain `panel-hints.sh` run the probe has
+no body and abstains. This is the durable review-cycle sensor for the
+`pr-description-reviewer-attention` review-miss cluster
+(`kriscendobot/agoric-sdk#16`, `endojs/endo-but-for-bots#1281`).
 
 **Always-fire (3 seats).** Their signal lives outside the diff (in PR-comment history, in judgment-based reading, or in a coverage report): `scribe` (knowledge-capture closure; needs PR-comment history), `releaser` (reads the diff for user-facing-ness; needs judgment, not regex), and `coverage-auditor` (test coverage of new lines; its signal is the c8 report, not the diff shape). The `coverage-auditor` is *always-fire* yet **cost-gated at dispatch**: `scripts/jobs/gardening/seat-gate-coverage-auditor.sh` runs a deterministic c8 coverage pre-pass first and spends its `claude -p` only when the change has uncovered new lines, so recommending it every code round costs nothing on a well-covered change.
 

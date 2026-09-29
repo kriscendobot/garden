@@ -74,7 +74,9 @@
 #   1  usage / operational error
 #
 # Test seams: GARDEN_GH (the gh binary, as in ci-wait-merge.sh),
-# GARDEN_ENSURE_PR_NO_JOURNAL=1 (skip the work/<base> record entirely).
+# GARDEN_ENSURE_PR_NO_JOURNAL=1 (skip the work/<base> record entirely),
+# GARDEN_ENSURE_PR_TEMPLATE_FILE (read the PR template from this file instead of
+# the base branch), GARDEN_PR_BODY_TEMPLATE_CHECK=: (skip the template gate).
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -378,6 +380,41 @@ trap 'rm -f "$bodyf"' EXIT
   # body round-tripped through this script does not accumulate copies.
   case "$body_text" in *"$marker"*) : ;; *) printf '\n%s\n' "$marker" ;; esac
 } > "$bodyf"
+
+# PR-template authoring gate (skills/pr-formation § Use the upstream template;
+# the pr-description-reviewer-attention review-miss cluster). When the base branch
+# carries a GitHub PR template, the body must keep every template heading in order
+# and none of its guidance. endojs/endo-but-for-bots#1281 was opened with invented
+# sections instead and went six panel rounds before the maintainer caught it.
+# REFUSE rather than warn: this log is read by a headless agent at best, so a
+# warning is the same unenforced reminder that already failed, and the fix (refill
+# the body from the template) is mechanical and costs one retry. An invented
+# heading alone only warns: the garden adds sections of its own (the phase/evidence
+# ledger below). A template that cannot be READ fails open with a warning, because
+# the panel re-runs this check against the live body every round.
+# GARDEN_ALLOW_NONTEMPLATE_BODY=1 is the escape hatch for a justified exception.
+TEMPLATE_CHECK="${GARDEN_PR_BODY_TEMPLATE_CHECK:-$HERE/pr-body-template-check.sh}"
+if [ "$TEMPLATE_CHECK" != ":" ] && [ -e "$TEMPLATE_CHECK" ]; then
+  if [ -n "${GARDEN_ENSURE_PR_TEMPLATE_FILE:-}" ]; then
+    tpl_src=(--template-file "$GARDEN_ENSURE_PR_TEMPLATE_FILE")
+  else
+    tpl_src=(--repo "$repo" --base-ref "$base_branch")
+  fi
+  tpl_out=""; tpl_rc=0
+  tpl_out="$(GARDEN_GH="$GH" bash "$TEMPLATE_CHECK" --body-file "$bodyf" "${tpl_src[@]}" 2>&1)" || tpl_rc=$?
+  case "$tpl_rc" in
+    0)  : ;;
+    10) log "WARN: PR body adds headings the base branch's template does not name (allowed; keep them few): $tpl_out" ;;
+    20) if [ "${GARDEN_ALLOW_NONTEMPLATE_BODY:-0}" = "1" ]; then
+          log "WARN: PR body does not follow the base branch's template; GARDEN_ALLOW_NONTEMPLATE_BODY=1 overrides: $tpl_out"
+        else
+          die "refusing to open PR for job '$base': the body does not follow $repo's PR template on '$base_branch' (skills/pr-formation § Use the upstream template, section for section).
+$tpl_out
+  What to do next: read the template (gh api graphql -f query='query{repository(owner:\"${repo%%/*}\",name:\"${repo#*/}\"){object(expression:\"$base_branch:.github/PULL_REQUEST_TEMPLATE.md\"){... on Blob{text}}}}' --jq .data.repository.object.text), keep every '##'/'###' heading in order, replace each guidance blockquote with your prose (one sentence when a section does not apply), fill or delete the #XXXX lines, then re-run."
+        fi ;;
+    *)  log "WARN: could not check the PR body against a template (rc=$tpl_rc; the panel re-checks): $tpl_out" ;;
+  esac
+fi
 
 # Ordered-phase / production-evidence authoring gate. The signal spans the PR
 # body and its governing design, so run it only after the final body file exists.

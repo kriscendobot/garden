@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-27
+updated: 2026-09-29
 author: builder, gardener
 ---
 
@@ -44,9 +44,22 @@ gh api "repos/<owner>/<repo>/contents/.github/PULL_REQUEST_TEMPLATE.md?ref=<base
 
 The fetch mechanics and the no-line-wrap rule are in [pre-pr-checklist]; this skill is about what to put inside the sections.
 
+This rule is enforced. `ensure-pr.sh` runs `scripts/jobs/gardening/pr-body-template-check.sh` before it opens a PR and **refuses** a body that drops or reorders a template heading or keeps template guidance (a `> ...` prompt, a `#XXXX` placeholder); a heading the template does not name only warns, so the phase/evidence ledger below is fine. The panel re-runs the same check against the live body every round and holds the PR at must-fix until it conforms. `GARDEN_ALLOW_NONTEMPLATE_BODY=1` is for a justified exception, not a shortcut. Grounding: `endojs/endo-but-for-bots#1281`, opened with "Goal" / "What was noisy" sections in place of the template.
+
 ### No checklists
 
 The template's guidance prose under each heading is for the human author; delete it before submitting. Do not author your own checklists (`- [ ] item`) in the PR body. A reviewer who sees a checklist tries to verify each item, which is the wrong cognitive load for a description. State the verification once in prose; if a longer audit trail is useful, link to it from the body rather than expanding it inline.
+
+### Cut to what the reviewer needs
+
+Optimize for reviewer attention ([gricean-maxims](../gricean-maxims/SKILL.md)): say what the reviewer cannot get from the diff, once. In practice:
+
+- No per-file or per-package change list. "`portfolio-api`: new op; `portfolio-contract`: performs the grant; test tools: a helper" restates the diff's file list. Say the behavior in one sentence and name only the one invariant worth attention.
+- No inline verification breakdown. Do not recite test counts, suites, or versions ("25 tests pass", "553 passed under Node 22 and 26"); say what the tests pin in one clause and link the CI run or test file.
+- No contrast paragraph about an adjacent feature unless the reviewer would otherwise ask; a one-clause out-of-scope note does the job.
+- A body that fills the template with one or two sentences per section is the normal size. Past about 300 words, cut.
+
+The panel's concision probe (`skills/panel-hints/probes/C-pruner-pr-body.sh`) fires the pruner on the live body when it carries a checklist, a per-file bullet tour, an inline test tally, or more than 300 words. Grounding: `kriscendobot/agoric-sdk#16`, where the reviewer asked for the description to be made concise for reviewer attention.
 
 ### No file callouts
 
@@ -155,3 +168,4 @@ The directive was framed as relevant to PR formation in general. This skill is t
 - _2026-05-13_: extracted from kriskowal's #128 directive. The four-part body order (what / why / attend-to / out-of-scope) is the reusable core.
 - _2026-06-24_: migrated from v1. Rewired the cite sites (boatman/builder/fixer PR opens) to the v2 model: the gardening state machine's PR-open step and the `ferry` job consume this skill; producers no longer "dispatch" an authoring role.
 - _2026-07-29_: split identity from prose. PR *identity* moved out of the agent into `scripts/jobs/gardening/ensure-pr.sh` after a four-times-claimed job opened two PRs for one change (`endojs/endo-but-for-bots#865`/`#871`); this skill now owns only the title and body, and the script's `<!-- garden-job: ... -->` marker is named as the single sanctioned exception to § No methodology leak.
+- _2026-09-29_: the template rule and the concision rules gained checks (the `pr-description-reviewer-attention` review-miss cluster: `kriscendobot/agoric-sdk#16`, `endojs/endo-but-for-bots#1281`). `ensure-pr.sh` refuses a nonconforming body; the panel re-checks the template and runs the concision probe every round.
