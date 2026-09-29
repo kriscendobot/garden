@@ -1,5 +1,5 @@
 ---
-gate: go-ahead
+gate: deferred
 priority: normal
 gauntlet: endojs-endo-but-for-bots-pr1072-gauntlet
 role: gardener
