@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T07:35:45Z_
+_As of 2026-09-29T07:39:21Z_
 
 ## Latest
 
-The board saw one completion this cycle — gauntlet fix round 5 on [endojs/endo-but-for-bots#1298](https://github.com/endojs/endo-but-for-bots/pull/1298), now on to panel round 6 — while three jobs remain in flight (advancing minion.town's Endo pin past #1015, the #1298 panel, and an agent-maker nonextensible-directory fix). The rolling deploy to `oros-studio-garden-ce242c49` hit a canary failure at `18df481c04` after three automatic retries and is now halted, host drained, awaiting maintainer investigation before it can be lifted and re-triggered — a persistent regression, not a blip. Separately, a deploy candidate at `39d0c5ef0a` was rejected outright by the test gate (`triager-pacing-test.sh` failing), so the deployed tree stayed in place. The foreman continues to flag Milestone M2 as blocked pending a gauntlet-authorization decision on draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close/supersede call on #1356 (superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)), and M3 is blocked on choosing between refreshing #1015 or answering open questions on design PR #1340. The Ironhorse test262 ratchet round 3 needs a maintainer policy call on reconciling 906 historically-covered paths against a stricter current classifier, and the minion.town/Endo federation release gate remains blocked on authority questions for design #1332 ahead of any gauntlet on #1124.
+A quiet interval on the board: [endojs/endo-but-for-bots#1298](https://github.com/endojs/endo-but-for-bots/pull/1298)'s gauntlet advanced through panel round 6 and straight into fix round 6, while the [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) inference probe moved from todo into doin. Otherwise the queue is dominated by a long backlog of milestone-M2/M3 decisions still waiting on the maintainer — gauntlet authorization for #1349 and #1356, and direction on #1015/#1340 — plus a rolling-deploy canary on oros-studio-garden-ce242c49 that failed three retries and needs a manual look before the drain is lifted.
 
 ## Parked for maintainer feedback
 
@@ -396,7 +396,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.5M | $839.12 _(notional, rate-card)_ | 77% of 143.0M (ok) |
+| Claude | 110.8M | $840.28 _(notional, rate-card)_ | 77% of 143.0M (ok) |
 | Codex | 12.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58441362 tokens/day lower bound._
@@ -407,7 +407,7 @@ worst fetch p95 5.408336s/45s (/home/kris/garden/.garden-state/design-pr-gauntle
 ## Board
 ### todo (12)
 - [`endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929.md) — retcon endojs/endo-but-for-bots PR #1072 before resuming its gauntlet
-- [`ebfb-pr1357-inference-probe-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-pr1357-inference-probe-20260929.md) — Probe: speculative build + deployment of the #1357 inference design (real evi...
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1298-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1298
 - [`canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 7b2d6a401c8d
 - [`ebfb-pr1357-rsvp-ack-5348050214`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-pr1357-rsvp-ack-5348050214.md) — Post the rsvp acknowledgment on endojs/endo-but-for-bots PR #1357
 - [`daily-progress-summary-20260929-070507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20260929-070507.md) — Daily midnight Pacific progress summary
@@ -421,16 +421,16 @@ worst fetch p95 5.408336s/45s (/home/kris/garden/.garden-state/design-pr-gauntle
 
 ### doin (3)
 - [`kriscendobot-minion-town-endo-pin-post1015-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-endo-pin-post1015-20260929.md) — Advance minion.town's Endo pin past endojs/endo-but-for-bots#1015
-- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1298
+- [`ebfb-pr1357-inference-probe-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr1357-inference-probe-20260929.md) — Probe: speculative build + deployment of the #1357 inference design (real evi...
 - [`endojs-endo-but-for-bots-agent-maker-nonextensible-directory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-agent-maker-nonextensible-directory.md) — ---
 
-### tada (9589)
+### tada (9590)
+- [`endojs-endo-but-for-bots-pr1298-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1298-gauntlet-panel-6.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-5b002b646066`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/canary-probe-endolin-garden2-5bcdff64-5b002b646066.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1298-gauntlet-fix-5.md) — Gauntlet fix round 5: endojs/endo-but-for-bots PR #1298
 - [`ebfb-pr1357-revise-review-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/ebfb-pr1357-revise-review-20260929.md) — Completion report: ebfb-pr1357-revise-review-20260929
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1362-gauntlet-panel-4.md) — Cost
-- [`kriscendobot-minion.town-pr120-disposition-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr120-disposition-20260929.md) — Cost
-- … and 9584 more
+- … and 9585 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
