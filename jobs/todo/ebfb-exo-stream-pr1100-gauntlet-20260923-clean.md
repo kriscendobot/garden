@@ -1,23 +1,10 @@
 ---
-gate: deferred
-priority: normal
-gauntlet: ebfb-exo-stream-pr1100-gauntlet-20260923
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 7200
 token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: transient
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-09-23T22:43:08Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-09-23T22:43:08Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-29T10:09:16Z cleared=none -->
 
 ---
 role: gardener
