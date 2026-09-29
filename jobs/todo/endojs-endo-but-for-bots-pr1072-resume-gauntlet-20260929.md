@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1072-directive-5884144781
-priority: high
 role: gardener
-posted_by: gardener
-posted_at: 2026-09-29T06:23:01Z
+tier: mentor
+handler-budget-role: review
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-09-29T09:34:04Z cleared=none -->
 
 ---
 tier: mentor
