@@ -43,3 +43,13 @@ restart check passes, dispatch the conductor to un-draft and merge it (do not na
 merge method). Then verify that the post-merge AWS deploy promotes cleanly and the daemon
 does not crash-loop. If it does, revert the pin (the #111 pattern) and emit
 `<<<GARDEN-ORCHESTRATION-FAILED>>>`. Report the PR, merge SHA, and deploy evidence.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T06:12:37Z
