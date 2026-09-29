@@ -24,3 +24,13 @@ screened and approved-to-merge by the garden instead of the maintainer:
   validation / deploy-verify evidence) and hand-off to the conductor for merge.
 - Scope strictly to kriscendobot/minion.town; other repos keep maintainer review.
 - Keep the maintainer informed (inbox/bulletin summary), not gated.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T22:03:58Z
