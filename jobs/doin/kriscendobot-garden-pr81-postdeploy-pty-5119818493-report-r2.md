@@ -28,3 +28,13 @@ Procedure:
 2. When it reaches tada, read its durable report: host, deployed SHA, pty-lane evidence (GARDEN_PTY_REPORT_FILE, tty, GARDEN_PTY_LANE value), the pty-context-test pass count, reader rc and fields, final outcome, and whether it carries `orchestration-failed`. Note the engagement count and wall-clock from its Cost block (more than one engagement means the first interactive session did not finish and was resumed).
 3. Post exactly ONE top-level comment on PR #81, through a body file. Cover: the deployed SHA(s), the test basename, whether the pty lane was genuinely selected, the work/test evidence, the context-reader evidence, the final outcome, and the r1 correction above. If the deadline passes without tada, post the comment anyway with the observed state (timed out / still todo / doin on host X), and do not claim success without evidence. Before posting, check the PR's comments for one already naming `pty-lane-assay-rev5119818493-r2` (a prior claimant of this job), and do not duplicate it.
 4. If the test did not PASS (failed, timed out, or requeued without passing), emit `<<<GARDEN-ORCHESTRATION-FAILED>>>` before the completion signal. Otherwise complete normally.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T18:43:28Z
