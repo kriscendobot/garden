@@ -1,5 +1,5 @@
 ---
-gate: go-ahead
+gate: deferred
 priority: normal
 gauntlet: ebfb-exo-stream-pr1100-gauntlet-20260923
 role: gardener

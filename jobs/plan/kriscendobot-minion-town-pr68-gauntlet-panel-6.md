@@ -1,5 +1,5 @@
 ---
-gate: go-ahead
+gate: deferred
 priority: normal
 gauntlet: kriscendobot-minion-town-pr68-gauntlet
 role: gardener
