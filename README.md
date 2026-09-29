@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T19:04:39Z_
+_As of 2026-09-29T19:12:33Z_
 
 ## Latest
 
-Two gauntlet stages moved into progress against [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) and [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) (the IronHorse panic-handling follow-ups), while the deploy-gate regression fix that's been blocking fleet-wide deploys got parked back to the plan queue for a human decision rather than retried blind. A post-deploy validation pass on garden PR #81 also completed, and a self-heal fix for the issue-inbox cursor watcher is now claimed and in progress.
+The board stayed quiet this cycle: `minion-town-press-20260929-092304` moved from parked to claimed and is now running, while a small self-heal fix for the issue-inbox cursor's `get` handling (pipefail) landed and completed, alongside `improve-ci-primary-quota-source`. A `design-hardened-ses-shim-status-reconciliation` job was promoted off the plan queue onto the board and is now todo. Otherwise this remains a heavy backlog window: the IronHorse test262 ratchet round-3 floor-reconciliation question, the endo/minion.town federation release gate, and several M2/M3 milestone gauntlet-authorization asks (notably [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and #1356) are all still awaiting maintainer decisions, and the leader host remains 25 commits behind on deploy per the root-repo-guard watchdog.
 
 ## Parked for maintainer feedback
 
@@ -16,11 +16,15 @@ Two gauntlet stages moved into progress against [endojs/endo-but-for-bots#1379](
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 27d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 27d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 27d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 28d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 29d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 31d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
+
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/leader/journal: p95=4.864495s max=35.534239s; hard guard=31.500000s (70% of 45s cap); remedy=backoff.
 
 - `20260928T173257Z-02c8de` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T173257Z-02c8de.md)
 
@@ -281,11 +285,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
-> WATCHDOG notice — occurrence #14 (first seen 2026-09-12T03:20:21Z, latest 2026-09-29T14:05:17Z).
-> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-2`) has now been observed 14 times; this is ONE
-> coalesced notice that updates in place, not 14 messages. Latest detail:
+> WATCHDOG notice — occurrence #16 (first seen 2026-09-12T03:20:21Z, latest 2026-09-29T19:06:08Z).
+> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-2`) has now been observed 16 times; this is ONE
+> coalesced notice that updates in place, not 16 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 monk workers 3 -> 2 (target 1): subscription claude-endolin2 spend=55993447 cap=64000000 pace-bias=0 window-start=2026-09-26T03:00Z(calendar) deadline=2026-09-30T03:00Z(planned) ceiling=4 target=1
+> budget-level changed endolin-garden2-5bcdff64 monk workers 1 -> 2 (target 2): subscription claude-endolin2 spend=56006979 cap=64000000 pace-bias=0.183181 window-start=2026-09-26T03:00Z(calendar) deadline=2026-09-30T03:00Z(planned) ceiling=4 target=2
 
 - `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
 
@@ -373,12 +377,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-29T10:35:08Z, latest 2026-09-29T18:50:59Z).
-> The SAME condition (`worker-derotate-oros-studio-garden-ce242c49`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `worker-derotate-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-29T10:35:08Z, cleared 2026-09-29T19:05:32Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 2792s (offline threshold 1800s; sampled_at_epoch=1790705024).
-> worker-derotate zeroed its config/worker-leveling caps (were 4 0 monk cleric) so budget-level stops reserving fleet slots for it; the exact prior caps are recorded in journal worker-derotate/oros-studio-garden-ce242c49. When its budget/live heartbeat is fresh again the caps are restored automatically and this notice closes. To keep it out regardless, set its row by hand (any value other than 0 0 relinquishes the marker; delete the marker to keep 0 0). (leader=endolin-garden-ece02cb4)
+> heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (308s old; sampled_at_epoch=1790708397)); it is PRESENT again and its config/worker-leveling caps are restored to 4 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
@@ -688,10 +691,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 144.0M | $980.51 _(notional, rate-card)_ | 101% of 143.0M (backoff) |
+| Claude | 144.6M | $982.68 _(notional, rate-card)_ | 101% of 143.0M (backoff) |
 | Codex | 15.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63822010 tokens/day lower bound._
+_Fleet token-unlock pace: 59212401 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.084415s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 2 open notice(s); checker healthy
@@ -700,23 +703,23 @@ worst fetch p95 10.084415s/45s (/home/kris/garden/.garden-state/monitors/monk-1/
 ### todo (5)
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`self-heal-fix-garden-issue-inbox-cursor-get-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-issue-inbox-cursor-get-failopen.md) — ---
-- [`improve-ci-primary-quota-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-ci-primary-quota-source.md) — ---
+- [`design-hardened-ses-shim-status-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-hardened-ses-shim-status-reconciliation.md) — ---
 - [`improve-schedule-once-producer-livelock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-schedule-once-producer-livelock.md) — ---
 - [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-retry-replay.md) — Terminate, restore, replay: retry after a panic
 
 ### doin (4)
-- [`self-heal-fix-garden-issue-inbox-cursor-get-pipefail`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-issue-inbox-cursor-get-pipefail.md) — ---
+- [`minion-town-press-20260929-092304`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-press-20260929-092304.md) — Press the minion.town arc forward (foreman-paced, self-re-parking)
 - [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias.md) — ---
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1379
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1380
 
-### tada (9701)
+### tada (9703)
+- [`improve-ci-primary-quota-source`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/improve-ci-primary-quota-source.md) — Cost
+- [`self-heal-fix-garden-issue-inbox-cursor-get-pipefail`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/self-heal-fix-garden-issue-inbox-cursor-get-pipefail.md) — Completion report
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-report-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-garden-pr81-postdeploy-pty-5119818493-report-r2.md) — Cost
 - [`review-improve-pr-description-reviewer-attention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/review-improve-pr-description-reviewer-attention.md) — Cost
 - [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Completion report: activate-ironhorse-ratchet-autopilot-20260929-r4 (requeued...
-- [`canary-probe-endolin-garden2-5bcdff64-622ac410f43c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/canary-probe-endolin-garden2-5bcdff64-622ac410f43c.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-viability.md) — Cost
-- … and 9696 more
+- … and 9698 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -755,7 +758,6 @@ worst fetch p95 10.084415s/45s (/home/kris/garden/.garden-state/monitors/monk-1/
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`design-hardened-ses-shim-status-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-hardened-ses-shim-status-reconciliation.md) — _normal_ · ---
 - [`design-hardened-ses-shims-plan-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-hardened-ses-shims-plan-reconciliation.md) — _normal_ · ---
 - [`endojs-endo-but-for-bots-pr1125-23cf90c0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-23cf90c0-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1125-review-a74698d6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1125-review-a74698d6-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1125 (primary: endojs-endo-but-...
@@ -767,7 +769,6 @@ worst fetch p95 10.084415s/45s (/home/kris/garden/.garden-state/monitors/monk-1/
 - [`endojs-endo-but-for-bots-pr982-0b4f9f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr982-0b4f9f5d-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #982 (primary: endojs-endo-but-f...
 - [`kriscendobot-minion.town-pr81-review-ef599fde-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr81-review-ef599fde-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #81 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr96-review-4b828bd6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr96-review-4b828bd6-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #96 (primary: kriscendobot-minio...
-- [`minion-town-press-20260929-092304`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-press-20260929-092304.md) — _normal_ · Press the minion.town arc forward (foreman-paced, self-re-parking)
 - [`endojs-endo-but-for-bots-pr1015-review-c762ae64-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1015-review-c762ae64-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1015 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1072-31cfbab3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1072-31cfbab3-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1072 (primary: endojs-endo-but-...
 - [`kriscendobot-minion.town-pr120-75934ef0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr120-75934ef0-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #120 (primary: kriscendobot-mini...
@@ -795,7 +796,7 @@ worst fetch p95 10.084415s/45s (/home/kris/garden/.garden-state/monitors/monk-1/
 kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 1 monks
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 2 monks
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
