@@ -1,4 +1,5 @@
 ---
+child-claude-on-minion-town-resume-post1015-20260929-host: endolin-garden-ece02cb4
 child-claude-on-minion-town-resume-post1015-20260929-reap-count: 0
 child-kriscendobot-minion-town-endo-pin-post1015-20260929-host: endolin-garden-ece02cb4
 child-kriscendobot-minion-town-endo-pin-post1015-20260929-reap-count: 0
