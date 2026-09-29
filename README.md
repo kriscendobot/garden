@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-29T07:39:21Z_
+_As of 2026-09-29T07:40:42Z_
 
 ## Latest
 
-A quiet interval on the board: [endojs/endo-but-for-bots#1298](https://github.com/endojs/endo-but-for-bots/pull/1298)'s gauntlet advanced through panel round 6 and straight into fix round 6, while the [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) inference probe moved from todo into doin. Otherwise the queue is dominated by a long backlog of milestone-M2/M3 decisions still waiting on the maintainer — gauntlet authorization for #1349 and #1356, and direction on #1015/#1340 — plus a rolling-deploy canary on oros-studio-garden-ce242c49 that failed three retries and needs a manual look before the drain is lifted.
+A rolling deploy hit a confirmed canary failure on oros-studio (target `18df481c04b5aca0fec1f93ebdf8a0393b69544f`, retried 3× and stopped, host left drained) but recovered on its own shortly after — the "stuck canary" and "host offline" conditions both cleared by 06:47Z, and the host is back deploying `e036bb8e065`, so the halt may be moot but is worth a glance. Separately, a deploy candidate (`39d0c5ef0ac`) was rejected outright by the test gate on a failing `triager-pacing-test.sh` suite, so the deployed tree stayed put pending investigation.
+
+Milestone M2 is stalled purely on maintainer sign-off: the foreman has repeatedly flagged draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) as CI-green and ready for `run the gauntlet`, and flagged #1356 as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332) and ready to close. M3 is similarly blocked on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering four open design questions on #1340.
+
+On the Ironhorse test262 ratchet, round 3 surfaced a genuine floor-reconciliation question: the current sweep shows 906 historically-covered paths now lost (443 engine-limit aborts, 397 shared-positive-test-failures, 66 other) against a stricter, more honest classifier the gardener declines to weaken — a maintainer decision is needed on whether to accept an explicitly reconciled floor rather than a literal zero-loss bar. The minion.town/Endo federation release gate remains fully blocked pending review of [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332)'s authority questions and gauntlet/merge of #1124 and #1333 in sequence. A quarterly completions rollup (9,490 jobs, June 24–Sept 29) was also published to ocap.site.
 
 ## Parked for maintainer feedback
 
@@ -112,13 +116,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #22 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T07:35:00Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 22 times; this is ONE
-> coalesced notice that updates in place, not 22 messages. Latest detail:
+> WATCHDOG notice — occurrence #23 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T07:39:58Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 23 times; this is ONE
+> coalesced notice that updates in place, not 23 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=7663s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=7574s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=7963s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=7874s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -396,7 +400,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 110.8M | $840.28 _(notional, rate-card)_ | 77% of 143.0M (ok) |
+| Claude | 110.8M | $840.54 _(notional, rate-card)_ | 78% of 143.0M (ok) |
 | Codex | 12.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58441362 tokens/day lower bound._
