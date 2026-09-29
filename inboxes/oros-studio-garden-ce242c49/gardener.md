@@ -144,3 +144,14 @@ Inspect via `git -C journal cat-file -p ef2ca74223469273406592ac69b720cd4710fa62
 
 Inspect via `git -C journal cat-file -p c1f952a0259a5e5f17661a0274dcf5cef3738d51` (or read
 `journal/inboxes/oros-studio-garden-ce242c49/captures/c1f952a0259a5e5f17661a0274dcf5cef3738d51`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-09-29T17:29:06Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: c64041a19ac5a00e48bff40a6ff59b78d0629820
+- Context: gardener-2 on oros-studio-garden-ce242c49: job 'activate-ironhorse-ratchet-autopilot-20260929-r4' handler exited rc=1
+- Capture: inboxes/oros-studio-garden-ce242c49/captures/c64041a19ac5a00e48bff40a6ff59b78d0629820
+
+Inspect via `git -C journal cat-file -p c64041a19ac5a00e48bff40a6ff59b78d0629820` (or read
+`journal/inboxes/oros-studio-garden-ce242c49/captures/c64041a19ac5a00e48bff40a6ff59b78d0629820`) -- both work off-host after a plain `journal2` fetch.

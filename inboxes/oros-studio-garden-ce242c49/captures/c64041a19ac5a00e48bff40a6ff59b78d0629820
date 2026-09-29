@@ -1,0 +1,21 @@
+<6>17:09:36 [monk/2] requeued job 'activate-ironhorse-ratchet-autopilot-20260929-r4' has no local transcript on oros-studio-garden-ce242c49; prior session and worktree were lost — starting FRESH session 91eb9d68-3778-5326-b593-d7b9c8eee0d4 with lost-state framing
+<6>17:09:36 [monk/2] job 'activate-ironhorse-ratchet-autopilot-20260929-r4' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>17:09:48 [monk/2] job 'activate-ironhorse-ratchet-autopilot-20260929-r4' call ceiling: tier=mentor max-budget-usd=8.80 (scaled by fresh seven-day headroom when available)
+<6>17:21:07 [assert-producer-pr-draft] draft-gate: could not read https://github.com/kriscendobot/garden/pull/51; inconclusive, not blocking
+
+--- handler report (partial) ---
+r4 ends as a handoff: I haven't done the remaining activation steps myself. They now belong to the successor job **`activate-ironhorse-ratchet-autopilot-20260929-r5`**, which is waiting in `jobs/todo/`.
+
+**Where things stand (checked from my own worktree against `origin/journal2`; I never ran git in the deployed root):**
+- **Leader deployed:** the leader `endolin-garden-ece02cb4` and the canary `endolin-garden2-5bcdff64` both run `36def9fd9e8` (recorded at 16:43Z). That version includes both `c3aae0b2c0c` (ratchet gates) and `9bf25f4362f` (foreman-woken press), so step 1's precondition is met and r5 can go straight to checking the deployed files.
+- **oros-studio-garden-ce242c49 is still behind:** it's still on `e036bb8e`, and its `.git/HEAD` confirms that. The roll skips it, as the maintainer's proxy said to in the 13:19Z message.
+- **Handoff:** a previous attempt of this job committed the r5 successor as a one-time schedule for 17:15Z, then was reaped. The maintainer's proxy approved that plan at 16:29Z: "let r4 end… let the one-time schedule (…-r5, firing 17:15Z) pick up verifying the deployed gates, seeding the first press, and reporting on kriscendobot/garden#51". The scheduler dispatched it to `jobs/todo/activate-ironhorse-ratchet-autopilot-20260929-r5.md` at 17:20:07Z. I waited in the foreground until that happened. I haven't removed or changed the schedule. Earlier work that survives: the legacy `ironhorse-ratchet` schedule is retired, and there's no arc-budget config because no cap has been given.
+- **Still undone, all owned by r5:**
+  - read the deployed files and confirm each gate is in place
+  - check issue #51 again for a maintainer cap
+  - park the first press with `seed-ironhorse-press.sh` and show the foreman keeping it parked (`arc-budget-untrusted`)
+  - post the runtime evidence on kriscendobot/garden#51
+
+**What I changed:** nothing. No commits, no pushes, no schedule or delegation edits, and no press seeded. PR #1359 wasn't touched and the floor wasn't lowered.
+
+<<<GARDEN-JOB-HANDED-OFF: activate-ironhorse-ratchet-autopilot-20260929-r5>>>
