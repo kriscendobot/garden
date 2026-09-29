@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-29T20:29:47Z_
+_As of 2026-09-29T20:32:58Z_
 
 ## Latest
 
-Board churn was mostly gauntlet mechanics rather than new landings: the IronHorse-panic live-handle-reseat gauntlet cleaned and its host-call panel completed on [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379), while [endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381)'s fix loop advanced to round 2 and [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68)'s panel finished with a second fix round now queued (flagged separately as stale-head, so it needs fresh review before merge). A batch of retrospectives closed out for [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015), #1305, #1310, and #982, plus [kriscendobot/minion.town#81](https://github.com/kriscendobot/minion.town/pull/81) and #96, and a small `retire-gardener-worker-kind-alias` cleanup landed and immediately split into a follow-up orchestration for the env-fallback and docs steps.
+Board traffic was light: the only completion since the last bulletin was `widen-banner-detector-bracketed-title`, a bulletin-tooling fix widening banner detection to catch bracketed titles.
 
-Two things stand out for attention: a rolling-deploy canary on oros-studio-garden-ce242c49 failed repeatedly and was left drained pending investigation, and the leader (endolin-garden-ece02cb4) is now flagged as stalled 25 commits behind main2 — since it runs every singleton producer, this is quietly holding up directives fleet-wide and is worth deploying soon. The maintainer inbox otherwise carries the now-familiar backlog of M2/M3 gauntlet-authorization asks (notably [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349)) and several proxy-tentative decisions awaiting review.
+The bigger story is a stalled deploy pipeline: the leader (endolin-garden-ece02cb4) is 25 commits behind `origin/main2` and hasn't advanced, which — as the root-repo-guard watchdog flags — means every singleton producer on that host (foreman, scheduler, watchers) is stuck honoring stale state; a deploy candidate was rejected earlier on a `triager-pacing-test.sh` failure. A rolling-deploy canary on `oros-studio-garden-ce242c49` also failed repeatedly and needed a hands-on investigation before it recovered. Separately, the `fix-subscription-model-deploy-gate-regression` job was parked after exhausting its retries and needs either a manual split or promotion.
+
+Several milestone-M2/M3 decisions are still waiting on the maintainer: whether to gauntlet draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (and close the superseded #1356), and whether to advance [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answer the open questions on #1340 first. The minion.town/endo federation release gate remains blocked pending review of [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and [#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). Claude spend is now at 108% of the weekly cap (backoff zone).
 
 ## Parked for maintainer feedback
 
@@ -697,7 +699,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 154.7M | $1047.70 _(notional, rate-card)_ | 108% of 143.0M (backoff) |
+| Claude | 154.7M | $1048.00 _(notional, rate-card)_ | 108% of 143.0M (backoff) |
 | Codex | 15.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61803862 tokens/day lower bound._
@@ -711,22 +713,21 @@ worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`endojs-endo-but-for-bots-pr1072-31cfbab3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1072-31cfbab3-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1072 (primary: endojs-endo-but-...
 - [`kriscendobot-minion-town-pr68-gauntlet-20260929-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-20260929-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #68
 
-### doin (7)
+### doin (6)
 - [`improve-gh-api-primary-quota-singleflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gh-api-primary-quota-singleflight.md) — ---
-- [`widen-banner-detector-bracketed-title`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/widen-banner-detector-bracketed-title.md) — Widen the banner detector to title-bracketing rules
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1380
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1379
 - [`endojs-endo-but-for-bots-pr1381-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1381-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1381
 - [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-retry-replay.md) — Terminate, restore, replay: retry after a panic
 
-### tada (9740)
+### tada (9741)
+- [`widen-banner-detector-bracketed-title`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/widen-banner-detector-bracketed-title.md) — Cost
 - [`endojs-endo-but-for-bots-pr1015-review-c762ae64-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1015-review-c762ae64-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1381-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1381-gauntlet-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr96-review-4b828bd6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr96-review-4b828bd6-retro.md) — Cost
 - [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/retire-gardener-worker-kind-alias.md) — Cost
-- [`kriscendobot-minion-town-pr68-gauntlet-20260929-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-pr68-gauntlet-20260929-panel-2.md) — Cost
-- … and 9735 more
+- … and 9736 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
