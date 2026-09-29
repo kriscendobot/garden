@@ -34,3 +34,13 @@ the directory has no `back` entry, or the lookup throws. The clip itself serves 
    Do not hand-deploy to production.
 
 Report the live evidence either way. Scope: `kriscendobot/minion.town` only. No identity switch, no ferry.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T09:22:54Z
