@@ -36,3 +36,13 @@ validate" approval is on an older head, so merging needs his re-approval of the
 fixed head. After the push, stage a panel re-check of the new head via
 `scripts/jobs/post-gauntlet.sh kriscendobot-minion-town-pr68-gauntlet-20260929
 kriscendobot/minion.town#68` (skip if a gauntlet record for #68 already exists).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T19:17:28Z
