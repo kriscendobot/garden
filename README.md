@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T12:57:31Z_
+_As of 2026-09-29T12:59:53Z_
 
 ## Latest
 
-Gauntlet review completed for [endojs/endo-but-for-bots#1072](https://github.com/endojs/endo-but-for-bots/pull/1072), landing a viability report and a fresh CLEAN-stage job to continue the pipeline; a post-gauntlet panel-freshness check on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) found its reviewed head stale against the presented head, so it's parked back on the plan queue awaiting a merge decision rather than proceeding automatically. The weave job for [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) (advancing its merge base) was claimed and is in progress, and the Ironhorse ratchet autopilot activation (round 4) also moved into doin. Otherwise this window was dominated by routine budget/watchdog churn (worker-level rebalancing, a codex zone flip to backoff, a recovered journal-contention blip) and a growing pile of unread maintainer messages — notably a still-stalled root-repo deploy (25 commits behind on the leader), a halted rolling-deploy canary on `oros-studio-garden-ce242c49`, and several blocked M2/M3 milestones awaiting gauntlet-authorization or design-question decisions.
+Milestone M2's remaining work has stalled entirely on maintainer disposition: the foreman has repeated the same ask across a dozen inbox messages — authorize "run the gauntlet" for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and decide whether to close #1356 as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is similarly blocked pending a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the four open questions on #1340. The IronHorse test262 ratchet (round 3) surfaced a real policy question rather than a mechanical one: the current classifier now correctly demotes several hundred previously-"covered" paths, and the gardener wants explicit sign-off on reconciling the historical floor rather than quietly relabeling them. Two rolling-deploy canaries (oros-studio and endolin-garden2) failed repeatedly and are halted with the hosts drained, needing manual investigation before the roll can resume, and the leader itself is now 25 commits behind origin/main2 with a deploy stall flagged. The minion.town federation release gate remains blocked on three sequential PR approvals ([endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332), [#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), [#1333](https://github.com/endojs/endo-but-for-bots/pull/1333)) plus [kriscendobot/minion.town#117](https://github.com/kriscendobot/minion.town/pull/117). On the lighter side, a quarterly completions rollup (9,490 jobs, June–September) published successfully, and the minion.town MCP integration is proven live on garden2 pending maintainer decisions on principal/scoping before wider rollout.
 
 ## Parked for maintainer feedback
 
@@ -269,14 +269,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > comment-provenance INSTRUMENTATION GAP on host endolin-garden-ece02cb4: a fleet `gh` comment was posted by an LLM-driven caller, but NEITHER GARDEN_JOB_MODEL NOR GARDEN_WORKER_KIND resolved — so the footer named only the host and garden commit (no model/harness/provider). This is the PR #1125 defect. The comment STILL posted (fail-open); nothing is broken. FIX: find the code path posting the comment and export the job facts (GARDEN_JOB_MODEL + GARDEN_WORKER_KIND) before its `gh` call, OR set GARDEN_NO_LLM=1 if it is a deterministic (no-LLM) post.
 
-- `stale-panel-head-endojs-endo-but-for-bots-pr1362-74d52b50-62d4024a` — from gardener:npm-minion-town-dev-registry-postgauntlet-pr1362, reply_to `npm-minion-town-dev-registry-postgauntlet-pr1362` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1362-74d52b50-62d4024a.md)
-
-> Stale panel coverage for completed job `npm-minion-town-dev-registry-postgauntlet-pr1362`: [https://github.com/endojs/endo-but-for-bots/pull/1362](https://github.com/endojs/endo-but-for-bots/pull/1362) moved from panel-reviewed head `74d52b50fce53e1adde389aee7ca6c8491307f21` to presented head `62d4024ae3b35b2e923fe0fb92434f77bcafcdab`.
->
-> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
->
-> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
-
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-3.md)
 
 > WATCHDOG notice — occurrence #6 (first seen 2026-09-17T00:05:19Z, latest 2026-09-27T16:43:04Z).
@@ -482,7 +474,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 126.7M | $904.03 _(notional, rate-card)_ | 89% of 143.0M (backoff) |
+| Claude | 126.8M | $905.31 _(notional, rate-card)_ | 89% of 143.0M (backoff) |
 | Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63324893 tokens/day lower bound._
