@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1097-weave-20260929-failure-notified: true
 child-endojs-endo-but-for-bots-pr1097-weave-20260929-host: oros-studio-garden-ce242c49
 child-endojs-endo-but-for-bots-pr1097-weave-20260929-reap-count: 0
 order: serial
