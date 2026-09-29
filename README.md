@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T16:08:44Z_
+_As of 2026-09-29T16:10:49Z_
 
 ## Latest
 
-A quiet stretch since the last bulletin: [minion.town#139](https://github.com/kriscendobot/minion.town/pull/139) landed as an open, non-draft PR from the press job but stayed un-gauntleted by design — it needs an explicit "run the gauntlet" to enter review — while the fix job for [endo-but-for-bots#610](https://github.com/endojs/endo-but-for-bots/pull/610) moved from todo into doin.
+Only one board transition landed since the last bulletin: the `garden-build-follower-self-deploy` job was promoted from the plan queue into `todo`, so the follower self-deploy build is now queued to start.
 
-Otherwise the queue is dominated by messages awaiting your judgment: M2 remains blocked on whether to gauntlet [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and close the superseded #1356; M3 is stalled on choosing between refreshing [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving #1340's open questions; and the minion.town federation release gate is still blocked pending your answers on [endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332). Two operational items also need attention: a rolling deploy is halted on a confirmed, retried canary failure on oros-studio-garden-ce242c49, and the leader host itself is now 25 commits behind origin/main2 with a stalled deploy — worth a look since it's currently the singleton producer for the whole fleet.
+Otherwise the picture is unchanged from the standing backlog — the board's activity is dominated by budget/watchdog chatter and a long queue of unread maintainer messages awaiting decisions, most notably the M2 gauntlet-authorization asks for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356), the M3 fork between [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and design PR `#1340`, and the blocked minion.town federation release gate. A rolling-deploy canary on `oros-studio-garden-ce242c49` failed repeatedly and was left drained pending investigation, while a separate canary on `endolin-garden2-5bcdff64` recovered on retry. The leader host (`endolin-garden-ece02cb4`) is also flagged as stalled 25 commits behind `origin/main2` after a candidate deploy was rejected by a failing test suite, which is worth a look since it's holding back every singleton producer on that host.
 
 ## Parked for maintainer feedback
 
@@ -88,14 +88,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260929T034336Z-473eb2` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T034336Z-473eb2.md)
 
 > awaiting maintainer — beyond proxy authority: gardener activate-ironhorse-ratchet-autopilot-20260929-r3, msgid msg-activate-ironhorse-ratchet-autopilot-20260929-r3-35b22755c4d2.md — Requires maintainer action: hands-on-host diagnosis (journalctl on oros-studio) or a sysop `deploy` op, which mandates maintainer attestation (`authorized_by:` on `maintainers/allowlist`) — squarely outside proxy authority.
-
-- `manual-gauntlet-handoff-claude-on-minion-town-press-20260929-150509-kriscendobot-minion.town-pr139` — from gardener:claude-on-minion-town-press-20260929-150509, reply_to `claude-on-minion-town-press-20260929-150509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/manual-gauntlet-handoff-claude-on-minion-town-press-20260929-150509-kriscendobot-minion.town-pr139.md)
-
-> Manual gauntlet handoff for completed job `claude-on-minion-town-press-20260929-150509`: [https://github.com/kriscendobot/minion.town/pull/139](https://github.com/kriscendobot/minion.town/pull/139) is a bot-authored OPEN NON-DRAFT PR with no staged or completed gauntlet.
->
-> The implementation job is complete and has been terminalized instead of sending the same work through another agent run. The garden did not re-draft the PR and did not stage a gauntlet.
->
-> Maintainer action: if this PR should enter review, issue `run the gauntlet` for [https://github.com/kriscendobot/minion.town/pull/139](https://github.com/kriscendobot/minion.town/pull/139). Otherwise no action is required.
 
 - `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
 
@@ -511,7 +503,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 132.9M | $935.34 _(notional, rate-card)_ | 93% of 143.0M (backoff) |
+| Claude | 133.1M | $935.90 _(notional, rate-card)_ | 93% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63479638 tokens/day lower bound._
@@ -520,8 +512,9 @@ _Fleet token-unlock pace: 63479638 tokens/day lower bound._
 worst fetch p95 10.821002s/45s (/home/kris/garden/.garden-state/producer/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (7)
 - [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
+- [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-build-follower-self-deploy.md) — Implement — the design's recommended path
 - [`endojs-endo-but-for-bots-pr1097-conduct-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-conduct-20260929.md) — Conduct endojs/endo-but-for-bots PR #1097
 - [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
 - [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — ---
@@ -586,7 +579,6 @@ worst fetch p95 10.821002s/45s (/home/kris/garden/.garden-state/producer/journal
 - [`endojs-endo-but-for-bots-pr1305-review-254277ce-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1305-review-254277ce-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1305 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1310-c9dfce07-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1310-c9dfce07-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1310 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr982-0b4f9f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr982-0b4f9f5d-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #982 (primary: endojs-endo-but-f...
-- [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-build-follower-self-deploy.md) — _normal_ · Implement — the design's recommended path
 - [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/harness-provider-matrix-handoff-20260901.md) — _normal_ · Hand-off: harness × inference-provider matrix, and what to probe next
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — _normal_ · Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
