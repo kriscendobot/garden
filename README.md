@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T11:18:17Z_
+_As of 2026-09-29T11:22:51Z_
 
 ## Latest
 
-Round 6 of the fix loop opened for [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) after the panel's sixth review pass completed, so that gauntlet keeps grinding through review rounds without resolution yet. Otherwise the board is quiet since the last bulletin — the bulk of maintainer attention remains on the long backlog of parked M2/M3 gauntlet-authorization decisions (#1349, #1356, #1124, #1333), the failed rolling-deploy canary on oros-studio-garden-ce242c49, and the stalled leader deploy now 25 commits behind origin/main2.
+The leader host stalled 25 commits behind `origin/main2` after a deploy candidate failed its test gate (`triager-pacing-test.sh`), so no fixes have landed since; a separate rolling-deploy canary on oros-studio-garden-ce242c49 also failed three retries and was left drained pending a manual decision, though it has since recovered. Milestone M2 keeps surfacing the same choice across several foreman notices: authorize `run the gauntlet` on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) and close [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). The IronHorse test262 ratchet (round 3) needs a policy call on reconciling 906 historical-floor paths against the stricter current classifier before it can proceed. The minion.town federation release gate remains blocked on authority answers at [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and a maintainer review/merge of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). On the lighter side, a quarterly completions rollup (9,490 completions since June 24) is now live at ocap.site.
 
 ## Parked for maintainer feedback
 
@@ -28,11 +28,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-09-29T05:53:06Z, latest 2026-09-29T10:20:01Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> WATCHDOG notice — occurrence #30 (first seen 2026-09-29T05:53:06Z, latest 2026-09-29T11:20:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 30 times; this is ONE
+> coalesced notice that updates in place, not 30 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1941s (offline threshold 1800s; sampled_at_epoch=1790675260).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 5542s (offline threshold 1800s; sampled_at_epoch=1790675260).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -129,13 +129,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #50 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T11:15:10Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 50 times; this is ONE
-> coalesced notice that updates in place, not 50 messages. Latest detail:
+> WATCHDOG notice — occurrence #51 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T11:20:09Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 51 times; this is ONE
+> coalesced notice that updates in place, not 51 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=20876s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=20787s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=21175s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=21086s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -434,6 +434,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration npm-minion-town-dev-registry-orch complete (serial): all 3 children reached tada without a machine-readable failure declaration.
 
+- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea.md)
+
+> Host-requirements gate: job 'canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea' has remained unclaimed for 902s with requires: host=endolin-garden2-5bcdff64. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `20260928T165826Z-f6e246` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T165826Z-f6e246.md)
 
 > Milestone M2 is blocked on disposition of the two draft PRs: authorize running the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and close [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/issues/1356) as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/issues/3332).
@@ -460,10 +464,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.4M | $893.84 _(notional, rate-card)_ | 86% of 143.0M (backoff) |
+| Claude | 123.6M | $894.68 _(notional, rate-card)_ | 86% of 143.0M (backoff) |
 | Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 61797511 tokens/day lower bound._
+_Fleet token-unlock pace: 61982834 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 0 open notice(s); checker healthy
