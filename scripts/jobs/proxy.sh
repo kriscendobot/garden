@@ -25,6 +25,12 @@
 #      senders. Runs AFTER 1b and the blocked-job parking, before the gating
 #      enumeration. Maintainer directive kriskowal 2026-07-11. See roles/proxy/AGENT.md
 #      § PR-comment auto-clear.
+#   1d. SCREENED-MERGE DELEGATION pre-pass (deterministic, NO claude -p):
+#      scripts/jobs/screen-delegated-prs.sh screens kriscendobot/minion.town PRs
+#      under the maintainer's delegation, attests exact heads, posts delegated
+#      conductors, and validates production after each merge. Inert until the
+#      delegation is seeded; a failed tick is logged and never blocks the proxy.
+#      See roles/proxy/AGENT.md § Screened-merge delegation.
 #   2. enumerate inbox/maintainer/unread/ and keep only the ELIGIBLE questions:
 #        - GATING:   has a reply_to whose doer inbox is still live (blocked,
 #                    awaiting a reply). A completion report from a finished doer
@@ -323,6 +329,9 @@ clear_pr_comment_messages() {
       # handler's core input — preserve it even if it references a PR.
       reply="$(sed -n 's/^reply_to:[[:space:]]*//p' "$f" | head -1)"
       { [ -n "$reply" ] && [ -d "$dir/inbox/$reply" ]; } && continue
+      # The screener's pause, heal, and escalation notices name a PR but are the
+      # maintainer's record of a delegated decision: never swept by sender.
+      grep -qx 'from:[[:space:]]*proxy:screen' "$f" && continue
       # Criterion: archive only messages that reference a pull request.
       label="$(pr_comment_ref "$f")" || continue
       base="$(basename "$f")"
@@ -353,6 +362,8 @@ ensure_clone "$DIR"
 clear_watchdog_messages "$DIR"
 park_blocked_jobs "$DIR"
 clear_pr_comment_messages "$DIR"
+"${GARDEN_PROXY_SCREENER:-$HERE/screen-delegated-prs.sh}" \
+  || log "WARN: minion.town screening pre-pass failed; retrying next tick"
 
 SEEN="$GARDEN_STATE/proxy/seen"
 mkdir -p "$(dirname "$SEEN")"; touch "$SEEN"

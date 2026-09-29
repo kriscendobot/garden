@@ -96,6 +96,25 @@ or delegated conductor and update the tracker after merge. This is the scoped
 exception to the ordinary conductor's no-follow-up rule; it confers no general
 automatic mentat or merge authority.
 
+## Minion Town screened merge
+
+`kriscendobot/minion.town` has a second delegated path,
+`--screened-delegated-merge`, governed by
+[the screening operations page](../../context/operations/minion-town-screening.md)
+and journal `config/delegations/minion-town-pr-screening`. The proxy's
+deterministic screen posts these conductor jobs (base
+`screen-minion-town-pr<N>-<sha7>-conduct`) after it attests the exact head under
+`screenings/kriscendobot-minion.town/<N>/<head>.json`. Run exactly
+`ci-wait-merge.sh kriscendobot/minion.town <N> --screened-delegated-merge` from the
+isolated project checkout. The spine checks scope before any mutation, rebases,
+re-checks CI on the rebased head, and requires an attestation for the
+**post-rebase** head. `merge blocked: awaiting re-screen` means the rebase moved
+the head: finish and report it, because the proxy screens the new head and posts a
+fresh conductor. Never request maintainer approval on this path, never fall back to
+an ordinary merge, and never queue `--auto`. A human `CHANGES_REQUESTED` still
+blocks. The ordinary "stall `merge blocked: no maintainer approval`" rule is
+unchanged for every other repository, and for minion.town PRs the screen escalated.
+
 ## Operating norms
 
 - **One PR at a time.** Linear is the whole point.

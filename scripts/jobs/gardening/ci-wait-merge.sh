@@ -8,7 +8,7 @@
 # which bit the same PR twice).
 #
 # Invoked as: ci-wait-merge.sh <owner/name> <pr-number>
-#               [--merge|--no-merge|--dependabot-auto-merge|--ratchet-delegated-merge]
+#               [--merge|--no-merge|--dependabot-auto-merge|--ratchet-delegated-merge|--screened-delegated-merge]
 #
 # Behaviour:
 #   * Polls the statusCheckRollup (the source of truth — check_run/check_suite
@@ -80,6 +80,13 @@
 # attestation for this exact head. Maintainer veto/dismissal still blocks; the
 # final head-matched merge cannot be queued for later execution after revocation.
 #
+# --screened-delegated-merge is its sibling for kriscendobot/minion.town under the
+# proxy's screening delegation (designs/minion-town-pr-screening.md): the scope gate
+# runs before any mutation, and the merge needs the proxy's screening attestation for
+# the exact POST-REBASE head (a rebase that moved the head stalls with
+# `merge blocked: awaiting re-screen`). Same stages, same --match-head-commit, never
+# --auto; a human CHANGES_REQUESTED still blocks.
+#
 # Silent-failure discipline (the 2026-06-24 jq-outage lesson): require_tools fails
 # LOUD on a missing binary, and a failed gh read returns non-zero (escalate) rather
 # than being swallowed into a false green.
@@ -96,17 +103,23 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/../common.sh"
 export GARDEN_TAG="ci-wait-merge"
 
-repo="${1:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge|--ratchet-delegated-merge]}"
-pr="${2:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge|--ratchet-delegated-merge]}"
+repo="${1:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge|--ratchet-delegated-merge|--screened-delegated-merge]}"
+pr="${2:?usage: ci-wait-merge.sh <owner/name> <pr-number> [--merge|--no-merge|--dependabot-auto-merge|--ratchet-delegated-merge|--screened-delegated-merge]}"
 do_merge=1
 dependabot_auto_merge=0
 ratchet_delegated_merge=0
+delegation_gate=ratchet-delegation.sh
+delegation_mode=ratchet-delegated-merge
 case "${3:-}" in
   --no-merge) do_merge=0 ;;
   --merge|"") do_merge=1 ;;
   --dependabot-auto-merge) do_merge=1; dependabot_auto_merge=1 ;;
   --ratchet-delegated-merge) ratchet_delegated_merge=1 ;;
-  *) die "unknown flag: ${3:-} (expected --merge, --no-merge, --dependabot-auto-merge, or --ratchet-delegated-merge)" ;;
+  --screened-delegated-merge)
+    ratchet_delegated_merge=1
+    delegation_gate=screening-delegation.sh
+    delegation_mode=screened-delegated-merge ;;
+  *) die "unknown flag: ${3:-} (expected --merge, --no-merge, --dependabot-auto-merge, --ratchet-delegated-merge, or --screened-delegated-merge)" ;;
 esac
 
 # Resolve the gh binary DURABLY for the whole (potentially 90-minute) CI-wait.
@@ -187,6 +200,8 @@ if [ "$dependabot_auto_merge" -eq 1 ]; then
 fi
 
 # Check scope before rebase; check the head-pinned attestation again at merge.
+# ratchet_delegated_merge is the shared delegated-merge switch; delegation_gate
+# names which delegation's policy (Ironhorse ratchet or minion.town screening) rules.
 ratchet_gate() {
   local phase="$1" temporary
   temporary="$(mktemp -d)"
@@ -195,18 +210,18 @@ ratchet_gate() {
   fi
   local result=0
   if [ "$phase" = scope ]; then
-    "$HERE/../ratchet-delegation.sh" scope "$repo" "$temporary/metadata" || result=$?
+    "$HERE/../$delegation_gate" scope "$repo" "$temporary/metadata" || result=$?
   else
     if ! "$GH" api --paginate "repos/$repo/pulls/$pr/reviews?per_page=100" | jq -s . > "$temporary/reviews"; then
       rm -rf "$temporary"; return 1
     fi
-    "$HERE/../ratchet-delegation.sh" merge "$repo" "$pr" "$post_rebase_head" "$temporary/metadata" "$temporary/reviews" || result=$?
+    "$HERE/../$delegation_gate" merge "$repo" "$pr" "$post_rebase_head" "$temporary/metadata" "$temporary/reviews" || result=$?
   fi
   rm -rf "$temporary"
   return "$result"
 }
 if [ "$ratchet_delegated_merge" -eq 1 ]; then
-  ratchet_gate scope || exit 1
+  ratchet_gate scope || { echo "merge blocked: outside ${delegation_gate%-delegation.sh} delegation repo=$repo pr=$pr"; exit 1; }
 fi
 
 deadline_secs="${GARDEN_CI_DEADLINE_SECS:-5400}"
@@ -535,7 +550,7 @@ fi
 # checks above. CHANGES_REQUESTED remains the independent absolute veto above.
 if [ "$ratchet_delegated_merge" -eq 1 ]; then
   ratchet_gate merge || exit 1
-  echo "approval-bypass repo=$repo pr=$pr mode=ratchet-delegated-merge head=$post_rebase_head"
+  echo "approval-bypass repo=$repo pr=$pr mode=$delegation_mode head=$post_rebase_head"
 elif [ "$dependabot_approval_bypass" -eq 1 ]; then
   echo "approval-bypass repo=$repo pr=$pr author=$GARDEN_DEPENDABOT_LOGIN mode=dependabot-auto-merge"
 elif ! "$HERE/../handlers/pr-maintainer-approval-gh.sh" "$repo" "$pr"; then

@@ -262,6 +262,11 @@ tick   # undraft done → finish
 printf '%s' "$(tada_body g1)" | grep -qi 'gauntlet-status: complete' \
   && ok "the completion summary marks gauntlet-status: complete" \
   || bad "completion summary missing the complete marker"
+printf '%s' "$(tada_body g1)" | grep -qx "panel_head: $(printf '%040d' 1)" \
+  && printf '%s' "$(tada_body g1)" | grep -qx 'repo: testowner/testrepo' \
+  && printf '%s' "$(tada_body g1)" | grep -qx 'pr_number: 1' \
+  && ok "the completion summary binds the passing panel to repo, PR, and head (panel_head)" \
+  || bad "completion summary missing repo/pr_number/panel_head: $(tada_body g1 | head -5)"
 
 # ============================================================================
 hr; echo "SUBTEST 2 — FIXLOOP: panel-1 must-fix → fix-1 → panel-2 pass → undraft → done"; hr

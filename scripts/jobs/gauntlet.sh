@@ -382,10 +382,17 @@ notify_panel_deferred() {  # <base> <what>
 }
 
 finish_done() {  # <base> <reason>
-  local base="$1" reason="$2" sf
+  local base="$1" reason="$2" sf rec key value
   sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-done.XXXXXX")"
+  rec="$DIR/$JOBS_GAUNTLET/$base.md"
   {
     printf 'gauntlet-status: complete\n'
+    # The PR identity and the head the passing panel saw, so the minion.town
+    # screener (screening/driver.py gate 2) can bind this verdict to an exact head.
+    for key in repo pr_number panel_head; do
+      value="$(plan_field "$rec" "$key" 2>/dev/null || true)"
+      [ -n "$value" ] && printf '%s: %s\n' "$key" "$value"
+    done
     printf '# gauntlet %s — complete\n\n' "$base"
     printf '%s\n' "$reason"
   } > "$sf"
@@ -1113,6 +1120,13 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
     panel)
       case "$mresult" in
         pass)
+          # Stamp the head this verdict covers. The undraft stage never pushes, so
+          # a later head means someone pushed after the panel, which voids the pass
+          # for head-bound consumers (the minion.town screener's gate 2).
+          if passed_meta="$(gh_pr_view_retry "$(plan_field "$f" pr_number)" -R "$(plan_field "$f" repo)" --json headRefOid 2>/dev/null)"; then
+            passed_head="$(printf '%s' "$passed_meta" | jq -r '.headRefOid // empty' 2>/dev/null || true)"
+            [[ "$passed_head" =~ ^[0-9a-f]{40}$ ]] && set_gauntlet_fields "$base" "panel_head=$passed_head" || true
+          fi
           if [ "$kind" = probe ]; then
             finish_done "$base" "panel round $iter passed; kind=probe, so the PR stays DRAFT by design (never un-drafted)."
           else

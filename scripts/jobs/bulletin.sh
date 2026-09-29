@@ -593,6 +593,10 @@ parked_section() {
   age=$(( now - last ))
   if [ ! -f "$data" ] || [ "$age" -ge "$ttl" ]; then
     if rows="$(fetch_parked_rows 2>/dev/null)"; then
+      # A delegated repository (kriscendobot/minion.town under the proxy's
+      # screening delegation) is not parked for the maintainer unless the screen
+      # escalated the PR; see designs/minion-town-pr-screening.md touchpoint 4.
+      [ -z "$rows" ] || rows="$(printf '%s\n' "$rows" | python3 "$HERE/screening/report.py" parked-filter "$DIR" 2>/dev/null || printf '%s\n' "$rows")"
       render_parked "$rows" > "$data"
     fi
     printf '%s' "$now" > "$stamp"   # throttle attempts whether or not the query won
@@ -632,7 +636,7 @@ contention_section() {
 # Compute the deterministic dashboard for the current synced state of $DIR and
 # print it to stdout. This is the always-works base; it reuses the v1 board logic.
 compute_dashboard() {
-  local watch hosts_block h monks maint m mf rt frm repo link now board parked plan spend contention
+  local watch hosts_block h monks maint m mf rt frm repo link now board parked plan spend contention screened
   board=$(render_board)
   plan=$(render_plan_queue)
   parked=$(parked_section)
@@ -640,6 +644,7 @@ compute_dashboard() {
   # each cell degrades to "unavailable"/"no quota set"/"n/a" — never a fake number).
   spend=$(render_quota_panel 2>/dev/null || printf '(spend panel unavailable)\n')
   contention=$(contention_section 2>/dev/null || printf 'unavailable\n')
+  screened=$(python3 "$HERE/screening/report.py" section "$DIR" 2>/dev/null || printf '(unavailable)\n')
   watch=$(list_jobs "$DIR" repos | paste -sd' ' - 2>/dev/null); [ -n "$watch" ] || watch="(none)"
 
   hosts_block=""
@@ -696,6 +701,10 @@ _As of ${now}_
 ## Parked for maintainer feedback
 
 ${parked}
+## Screened by proxy (minion.town)
+
+${screened}
+
 ## Messages to the maintainer
 
 ${maint}

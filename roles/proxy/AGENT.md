@@ -140,6 +140,42 @@ tally** line (`cleared N PR-comment messages: <label>×K, …`) so the suppressi
 stays **auditable** from the proxy's own logs. It **never re-posts** anything to the
 maintainer.
 
+## Screened-merge delegation
+
+The proxy screens and merges `kriscendobot/minion.town` pull requests, under the
+maintainer's APPROVED review on
+[kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139#pullrequestreview-5358570484)
+("arrange for the proxy or a mentat supervisor to screen minion.town pull
+requests"). That review is the authorization your § Boundary asks for, and it
+covers that one repository only. The work is a deterministic **pre-pass 1d**
+(`scripts/jobs/screen-delegated-prs.sh`, plain code, **no `claude -p`**), after the
+PR-comment auto-clear and before the gating enumeration. It is inert until the
+delegation record `config/delegations/minion-town-pr-screening` is seeded, and a
+failed tick is logged without blocking the rest of the proxy tick.
+
+For each open PR by `kriscendobot` against `main`, at its exact head, the screen
+passes only when: the PR is ready (not draft); CI is terminal-green with at least
+one check; no human's latest review is `CHANGES_REQUESTED`; the diff avoids the
+record's escalation paths; a completed gauntlet's panel passed at this head (or at
+a head with the identical patch, the rebase-equivalence case); and production is
+healthy (last `main` deploy green, MCP watchdog heartbeat `ok` and fresh). A pass
+writes `screenings/kriscendobot-minion.town/<N>/<head>.json` and posts a delegated
+conductor. A stale panel verdict posts a head-keyed gauntlet instead. An escalated
+PR gets one maintainer notice and a review request for kriskowal.
+
+After each merge the screen watches `deploy.yml` for the merge commit and the MCP
+watchdog. A failed deploy, or a down watchdog after a green deploy, **pauses** the
+delegation, posts a heal fixer (`heal-minion-town-<sha7>`), and sends one
+maintainer notice. A marked heal PR (`<!-- garden-heal: <merge-sha> -->`) is still
+screened while paused. A later green deploy with a healthy watchdog auto-resumes a
+pause the screen made, never one the maintainer made.
+
+Notices are sent `from: proxy:screen`. The PR-comment auto-clear skips that
+sender, so these decisions stay in the maintainer inbox. Routine passes and merges
+are recorded in the bulletin's *Screened by proxy (minion.town)* section instead.
+Design: [designs/minion-town-pr-screening.md](../../designs/minion-town-pr-screening.md);
+operations: [context/operations/minion-town-screening.md](../../context/operations/minion-town-screening.md).
+
 ## Blocked-job parking
 
 A **maintainer-authorized extension** of the proxy's progress/direction authority

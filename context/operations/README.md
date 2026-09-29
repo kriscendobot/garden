@@ -136,3 +136,7 @@ cleanly.
 
 The [Ironhorse ratchet autopilot](ironhorse-ratchet.md) documents the scoped
 mentat schedule, delegated merge authority, and pause/revoke controls.
+
+The [minion.town PR screening](minion-town-screening.md) page documents the
+proxy's delegated screen-and-merge for `kriscendobot/minion.town`, its arming
+step, post-merge validation, and pause/resume/revoke controls.
