@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T06:44:45Z_
+_As of 2026-09-29T06:47:51Z_
 
 ## Latest
 
-Endo #1362's gauntlet moved to panel round 4 after fix round 3 landed. PR #1097 (ReadableBlob wire encoding) got a fresh review, then a retcon and weave were posted to advance its base pin before the gauntlet resumes. PR #1072 was similarly reviewed and weaved, with a retcon now queued ahead of resuming its gauntlet. On minion.town, [kriscendobot/minion.town#138](https://github.com/kriscendobot/minion.town/pull/138) (Endo pin bump past [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015)) merged and briefly took the endo-daemon down (~06:28–06:33Z) via a preflight-spawned stray process; it's restored on the old pin, and a fix ([kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139)) is queued to conduct. PR #1357 picked up a review and follow-up revise/RSVP-ack work. Separately, a deploy candidate (39d0c5ef0ac) was rejected by the test gate on a failing triager-pacing test, and a rolling-deploy canary on oros-studio-garden-ce242c49 recovered after being stuck.
+Overnight the board stayed dominated by unresolved gauntlet-promotion decisions rather than new code: M2 remains stuck on the CI-green draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) awaiting an explicit "run the gauntlet" authorization, alongside a close/disposition decision on duplicate #1356 (superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)). M3's `@endo/claude` confinement path is likewise blocked pending a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering open design questions on #1340/#1102.
 
-A cluster of Milestone-M2/M3 foreman messages are asking the same open questions: whether to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and #1356 (the latter possibly superseded by upstream endo#3332), and whether to advance #1015/#1340 for M3. The Ironhorse test262 ratchet round-3 sweep is also blocked on a maintainer floor-reconciliation decision (906 lost paths vs. the pre-change historical floor).
+A rolling-deploy canary on oros-studio failed three retries and was halted (not auto-rolled-back) before recovering on its own about 45 minutes later — the host has since rejoined the fleet. Separately, the minion.town Endo-pin advance past #1015 caused a brief (~5 minute) production outage from a stray daemon process holding the socket; it was hand-recovered and a fix ([kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139)) is CI-green and queued to merge. A deploy candidate on `main2` (39d0c5ef0ac) was rejected by the test gate on a failing triager-pacing test, so the deployed tree stayed put. The federation release gate for minion.town/OCapN remains fully blocked pending maintainer answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332)'s authority questions and review/merge of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). Ironhorse's test262 ratchet round 3 is also parked on a maintainer floor-reconciliation decision (906 lost paths vs. the historical baseline, largely reclassification rather than regressions).
 
 ## Parked for maintainer feedback
 
@@ -30,16 +30,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-29T05:53:06Z, latest 2026-09-29T06:38:06Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-29T05:53:06Z, cleared 2026-09-29T06:47:03Z).
+> It was observed 6 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1895s (offline threshold 1800s; sampled_at_epoch=1790661986).
-> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
-> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
-> no release token, deploy budget, failed-canary count, or halt. Restore the host and
-> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
-> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6.md)
 
@@ -119,13 +114,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #11 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T06:34:55Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 11 times; this is ONE
-> coalesced notice that updates in place, not 11 messages. Latest detail:
+> WATCHDOG notice — occurrence #12 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T06:44:54Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 12 times; this is ONE
+> coalesced notice that updates in place, not 12 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=4059s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=3970s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=4659s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=4570s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -415,7 +410,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.2M | $829.16 _(notional, rate-card)_ | 76% of 143.0M (ok) |
+| Claude | 108.4M | $830.10 _(notional, rate-card)_ | 76% of 143.0M (ok) |
 | Codex | 12.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 88953210 tokens/day lower bound._
