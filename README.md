@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T10:48:44Z_
+_As of 2026-09-29T10:51:00Z_
 
 ## Latest
 
-The most urgent item: the leader host (`endolin-garden-ece02cb4`) is now 25 commits behind `origin/main2` because deploy candidate `39d0c5ef0` failed its test gate (`triager-pacing-test.sh`) — the root-repo guard is flagging this as stalled, meaning the leader isn't honoring any directive newer than its deployed commit until someone lands a fix and redeploys. Separately, a rolling-deploy canary on `oros-studio-garden-ce242c49` failed and halted at `18df481c`, then recovered a few hours later once redeployed.
+No file-level board transitions landed since the last bulletin, but the maintainer inbox is heavy. The leader host (endolin-garden-ece02cb4) has stalled 25 commits behind `origin/main2` after a candidate deploy was rejected on a failing `triager-pacing-test.sh` suite — until that's resolved no newer directive lands, including a project pause. A canary deploy to oros-studio-garden-ce242c49 also halted after 3 retries on a persistent regression and was left drained pending investigation; that host is separately flagged offline (heartbeat stale), so its worker caps were auto-zeroed. Milestone M2 has repeatedly surfaced the same blocker: draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) is CI-green and needs an explicit "run the gauntlet" decision, and #1356 looks superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332) and should likely be closed. M3 is blocked choosing between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving open questions on #1340 first.
 
-On the PR side, work continues on [endojs/endo-but-for-bots#1072](https://github.com/endojs/endo-but-for-bots/pull/1072) (gauntlet resume/retcon), [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) (fix round 5), [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) (unify endowments), and [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) (weaving to a fresh base pin). The foreman keeps re-flagging the same two blockers: M2 needs a decision on gauntlet-authorizing [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) and closing [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) as superseded by [endojs/endo#3332](https://github.com/endojs/endo/issues/3332), while M3 is waiting on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the open questions on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340). The minion.town federation release gate remains blocked on authority questions at [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) plus review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). IronHorse's test262 ratchet round 3 is also asking for a policy call on reconciling 906 historically-covered paths against the current floor. On the lighter side, a quarterly completions rollup (9,490 jobs, June 24–Sept 29) published to [ocap.site](https://fbx2igid4iixr7kt2lzo7nx3qlynzsjqbwqmqircue4a3h5axwma.ocap.site/), and Claude spend is at 86% of its weekly quota (backoff zone).
+On the review side, an IronHorse test262 ratchet (round 3) needs a maintainer call on how to reconcile 906 historical-floor losses against a stricter, more honest classifier rather than relabeling failures as covered. The minion.town/endo federation release gate remains blocked behind four ordered manual steps, starting with answering authority questions on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332). Also worth a look: a quarterly completions rollup (9,490 jobs, June–September) was published and verified live, and `build-daemon-docker-selfhost` keeps re-spawning as a likely duplicate of open PRs [endojs/endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/pull/608)/[#694](https://github.com/endojs/endo-but-for-bots/pull/694) against a direction the maintainer already declined.
 
 ## Parked for maintainer feedback
 
@@ -131,11 +131,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> RECOVERED — the watchdog condition `comment-ack-blind-endojs-endo-but-for-bots` has CLEARED (first seen 2026-09-29T05:44:56Z, cleared 2026-09-29T10:45:09Z).
-> It was observed 44 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #45 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T10:50:09Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 45 times; this is ONE
+> coalesced notice that updates in place, not 45 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=19373s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=19284s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -460,10 +462,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 122.3M | $885.76 _(notional, rate-card)_ | 86% of 143.0M (backoff) |
+| Claude | 122.4M | $886.09 _(notional, rate-card)_ | 86% of 143.0M (backoff) |
 | Codex | 14.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 61749466 tokens/day lower bound._
+_Fleet token-unlock pace: 61769917 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 0 open notice(s); checker healthy
