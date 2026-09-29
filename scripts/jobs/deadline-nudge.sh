@@ -418,13 +418,79 @@ deadline_nudge_tick() {
   return 1
 }
 
+# Failure diagnostics for the tick subshell. A bare "tick failed (rc=1)" names
+# no stage or command, so the subshell carries two breadcrumbs:
+#   - an ERR trap (inherited into functions via `set -E`) remembers the most
+#     recent failed simple commands with their lines and call stacks; and
+#   - the EXIT trap, on a non-zero exit, logs the command executing at exit (an
+#     `exit` from a sourced helper, or the tick's final `return 1`) and its stack,
+#     together with those breadcrumbs.
+# Commands whose failure is already handled (`if`/`||`/`&&`/`!`) never fire ERR,
+# so each breadcrumb is an unhandled failure — usually the culprit.
+tick_trace_squash() {
+  local text="${1//$'\n'/ }"
+  text="${text//$'\t'/ }"
+  [ "${#text}" -le 240 ] || text="${text:0:237}..."
+  printf '%s' "$text"
+}
+
+# tick_trace_stack [innermost-line]: "fn@file:line < caller@file:line < ...",
+# skipping this helper and its trap-handler caller (frames 0 and 1). The EXIT
+# trap passes no line: bash does not report where an `exit` ran, only where each
+# enclosing frame was called from.
+tick_trace_stack() {
+  local line="${1:-}" i out=""
+  for (( i = 2; i < ${#FUNCNAME[@]}; i++ )); do
+    [ "$i" -eq 2 ] || line="${BASH_LINENO[i-1]}"
+    out+="${out:+ < }${FUNCNAME[i]}@${BASH_SOURCE[i]##*/}${line:+:$line}"
+  done
+  printf '%s' "${out:-main}"
+}
+
+# Keep the last three breadcrumbs: a failing `return 1` fires ERR again at each
+# caller up the stack (named by the `return` and its call site), so the
+# innermost, usually the real cause, would otherwise be overwritten.
+tick_on_err() {
+  local rc="$1" cmd="$2" crumb
+  crumb="rc=$rc \`$(tick_trace_squash "$cmd")\` at $(tick_trace_stack "${BASH_LINENO[0]}")"
+  TICK_ERR_TRAIL=("${TICK_ERR_TRAIL[@]: -2}" "$crumb")
+}
+
+tick_err_trail() {
+  local out="" crumb
+  for crumb in "${TICK_ERR_TRAIL[@]}"; do out+="${out:+; }$crumb"; done
+  printf '%s' "${out:-none recorded}"
+}
+
+tick_on_exit() {
+  local rc="$1" cmd="$2"
+  if [ "$rc" -ne 0 ]; then
+    log "ERROR: deadline-nudge tick exited rc=$rc during \`$(tick_trace_squash "$cmd")\` at $(tick_trace_stack); recent failed commands (oldest first): $(tick_err_trail)"
+  fi
+  clone_unlock "$DIR"
+}
+
 # Courtesy delivery fails open. Clone, fetch, parse, commit, and exhausted-push
 # failures stay local and the oneshot exits successfully for the next timer tick.
 # The EXIT trap guarantees the clone lock is released whichever path (a clean
-# return or a `set -e` abort) ends the tick subshell; clone_unlock is a no-op
-# when no lock is held, so it is safe on every exit.
-tick_rc=0
-( trap 'clone_unlock "$DIR"' EXIT; deadline_nudge_tick ) || tick_rc=$?
+# return or an `exit` from a helper) ends the tick subshell; clone_unlock is a
+# no-op when no lock is held, so it is safe on every exit.
+#
+# The subshell deliberately does NOT run as `( ... ) || tick_rc=$?`: bash
+# suppresses both `set -e` and the ERR trap for everything inside the left side
+# of `||`, which is what left earlier failures as an opaque rc. It runs as a
+# plain command with errexit off on both sides instead, which keeps the tick's
+# effective semantics (no errexit inside, as before) while letting ERR fire.
+TICK_ERR_TRAIL=()
+set +e
+(
+  set -E
+  trap 'tick_on_err "$?" "$BASH_COMMAND"' ERR
+  trap 'tick_on_exit "$?" "$BASH_COMMAND"' EXIT
+  deadline_nudge_tick
+)
+tick_rc=$?
+set -e
 if [ "$tick_rc" -ne 0 ]; then
   log "WARN: deadline nudge tick failed locally (rc=$tick_rc); next timer tick will retry"
 fi

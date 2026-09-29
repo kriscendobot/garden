@@ -260,7 +260,18 @@ printf '%s\n' 'CONDITIONAL DELIVERY RACES AND FAIL-OPEN'
 hr
 preflight_git_stub="$HERE/deadline-nudge-preflight-git-stub.sh"
 fetch_stub="$HERE/deadline-nudge-fetch-stub.sh"
-real_git="$(command -v git)"
+# The stubs exec this directly, so it must be the real executable, never the
+# fleet's scripts/jobs/bin/git lock wrapper: that wrapper resolves the stub
+# again and the two recurse without end. Walk PATH by hand, because sourcing
+# common.sh above put the wrapper first and `command -v` / `type -aP` report
+# bash's hashed entry for it.
+real_git=""
+IFS=: read -r -a path_dirs <<< "$PATH"
+for path_dir in "${path_dirs[@]}"; do
+  case "${path_dir:-.}/git" in */scripts/jobs/bin/git) continue ;; esac
+  [ -x "${path_dir:-.}/git" ] || continue
+  real_git="${path_dir:-.}/git"; break
+done
 
 add_claim_at_tip clone-retry 300
 clone_stub_bin="$TEST_ROOT/clone-stub-bin"
@@ -324,6 +335,26 @@ else
   bad "staging failure was opaque, escaped fail-open, or left partial writes (rc=$stage_fault_rc orphans=$stage_fault_orphans)"
 fi
 
+# A helper that `exit`s inside the tick shell (as `die` does) must be named, not
+# left as an opaque rc: the EXIT trap reports the exiting command with its call
+# stack. An exported `git` function (bash imports BASH_FUNC_<name>%% from the
+# environment) injects the exit at the inbox `git add` in stage_due_messages;
+# every other git call passes through.
+exit_fault_git='() { if [ "${3:-}" = add ] && [[ "${4:-}" == inbox/* ]]; then exit 7; fi; command git "$@"; }'
+add_claim_at_tip exit-fault 300
+run_nudge exit-fault-scan env "BASH_FUNC_git%%=$exit_fault_git" > "$TEST_ROOT/exit-fault.out" 2>&1
+exit_fault_rc=$?
+if [ "$exit_fault_rc" -eq 0 ] \
+  && [ -z "$(nudge_paths exit-fault)" ] \
+  && grep -qE 'tick exited rc=7 during `exit 7` at git@[^ ]* < stage_due_messages@deadline-nudge\.sh:[0-9]+ < deadline_nudge_tick@deadline-nudge\.sh:[0-9]+ < main@deadline-nudge\.sh:[0-9]+;' "$TEST_ROOT/exit-fault.out" \
+  && grep -q 'recent failed commands (oldest first): ' "$TEST_ROOT/exit-fault.out" \
+  && grep -q 'failed locally (rc=7)' "$TEST_ROOT/exit-fault.out"; then
+  ok 'a helper exit inside the tick names the exiting command, its stack, and recent failures, and fails open'
+else
+  bad "tick exit was opaque or escaped fail-open (rc=$exit_fault_rc)"
+  sed 's/^/    /' "$TEST_ROOT/exit-fault.out" | tail -5
+fi
+
 race_stub="$HERE/deadline-nudge-race-push-stub.sh"
 add_claim_at_tip claim-race 300
 old_claimed_at="$(tip_show jobs/doin/claim-race.md | sed -n 's/^  claimed_at: //p')"
@@ -358,6 +389,7 @@ add_claim_at_tip pushfail 300
 run_nudge pushfail-scan env GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS=1 \
   GARDEN_PUSH_CMD=/bin/false > "$TEST_ROOT/pushfail.out" 2>&1
 [ -z "$(nudge_paths pushfail)" ] && grep -q 'failed locally' "$TEST_ROOT/pushfail.out" \
+  && grep -q 'tick exited rc=1 during' "$TEST_ROOT/pushfail.out" \
   && ok 'exhausted push retry fails open without changing the board' \
   || bad 'push exhaustion changed the board or escaped fail-open handling'
 
