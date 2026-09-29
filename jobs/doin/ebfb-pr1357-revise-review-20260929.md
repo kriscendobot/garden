@@ -49,3 +49,13 @@ thread with the commit that resolves it.
 Keep the doc style of the fork (no Latin shorthand, American spelling, em-dash
 style per garden skills). Push to the PR head branch with a CAS loop. Leave the PR
 draft; this is a design revision.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T07:20:01Z
