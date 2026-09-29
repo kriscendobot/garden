@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T09:57:39Z_
+_As of 2026-09-29T10:02:40Z_
 
 ## Latest
 
-Board activity was minimal since the last bulletin: `improve-receipt-watcher-startup-stragglers` moved from claim into progress, and two jobs completed — `build-endo-claude-confined-stdio-mcp-20260929` and an addendum to the IronHorse panic E2E probe.
+Quiet stretch on the board itself — the only completions since the last bulletin were the receipt-watcher startup-stragglers fix and the disposition of `build-daemon-docker-selfhost`, which was halted rather than built: it would have duplicated two already-open PRs ([endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694) and #608), and kriskowal previously closed #134 saying Docker self-hosting was headed a different direction (toward @endo/gateway + @endo/mcp on AWS). That decision is still pending: mark the plan record Declined/Superseded and close those two PRs, or pick one to carry forward.
 
-The maintainer inbox is the real story right now — it's stacked with unresolved decisions. Foreman keeps flagging Milestone M2 as blocked on the green draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened text codecs) awaiting gauntlet authorization, alongside a close-or-keep call on duplicate #1356 (apparently superseded by upstream endojs/endo#3332). M3 is similarly stuck choosing between refreshing #1015 or answering four open questions on design #1340. Separately, the IronHorse test262 ratchet (round 3) needs a floor-reconciliation decision: 906 historical "covered" paths no longer hold under the stricter current classifier, and the gardener wants explicit sign-off before rewriting the floor rather than quietly relabeling failures. The minion.town/endo federation release gate remains blocked pending answers to the authority questions on design #1332, with #1124, #1333, and minion.town#117 all queued behind it.
-
-Operationally: a rolling-deploy canary on oros-studio failed three retries and was left drained pending investigation (now recovered per a later notice), and the leader host is flagged as 25 commits behind origin/main2 with deploys stalled — worth a look since a stale leader stops honoring newer directives. A deploy candidate was also rejected by the test gate (`triager-pacing-test.sh` failing). On a lighter note, the quarterly completions rollup (9,490 jobs, June–September) is published and browsable.
+The bulk of activity is maintainer-attention backlog rather than new work: the foreman has repeatedly flagged M2 as blocked on gauntlet authorization for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and a close decision on superseded duplicate #1356; M3 is blocked choosing between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering four open design questions on #1340. The IronHorse test262 ratchet (round 3) needs a floor-reconciliation call — 906 lost paths against the pre-change historical floor, with several hundred of those now believed to be false positives under the old classifier. A rolling-deploy canary on oros-studio failed and stayed drained after three automatic retries; separately the leader host itself is now 25 commits behind `origin/main2` with a stalled deploy, worth a look since singleton services (foreman, scheduler, watchers) won't honor anything newer than the deployed SHA while stale. The federation release gate for minion.town remains blocked pending authority-question answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332).
 
 ## Parked for maintainer feedback
 
@@ -120,13 +118,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #37 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T09:55:16Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 37 times; this is ONE
-> coalesced notice that updates in place, not 37 messages. Latest detail:
+> WATCHDOG notice — occurrence #38 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T10:00:06Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 38 times; this is ONE
+> coalesced notice that updates in place, not 38 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=16070s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=15981s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=16370s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=16281s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -245,6 +243,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > root repo /home/kris/garden deploy has been STALLED for ~0d / 25 commits behind (leader commits-fuse 25): deployed sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca is 25 commit(s) behind origin/main2 (9bf25f4362f9638313fdd55875bd218b11557d47) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. This host is the LEADER: it runs every singleton producer (foreman, scheduler, watchers), so while it is stale it is NOT honoring any directive newer than its deployed sha — a PROJECT PAUSE among them. This is the shape that let a stale leader run ~60 IronHorse fuzz jobs a week after the 09-09 pause (designs/project-pause-enforcement.md). DEPLOY IT. (host=endolin-garden-ece02cb4)
 
+- `manual-gauntlet-handoff-build-daemon-docker-selfhost-endojs-endo-but-for-bots-pr694` — from gardener:build-daemon-docker-selfhost, reply_to `build-daemon-docker-selfhost` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/manual-gauntlet-handoff-build-daemon-docker-selfhost-endojs-endo-but-for-bots-pr694.md)
+
+> Manual gauntlet handoff for completed job `build-daemon-docker-selfhost`: [https://github.com/endojs/endo-but-for-bots/pull/694](https://github.com/endojs/endo-but-for-bots/pull/694) is a bot-authored OPEN NON-DRAFT PR with no staged or completed gauntlet.
+>
+> The implementation job is complete and has been terminalized instead of sending the same work through another agent run. The garden did not re-draft the PR and did not stage a gauntlet.
+>
+> Maintainer action: if this PR should enter review, issue `run the gauntlet` for [https://github.com/endojs/endo-but-for-bots/pull/694](https://github.com/endojs/endo-but-for-bots/pull/694). Otherwise no action is required.
+
 - `20260928T172814Z-aab24c` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T172814Z-aab24c.md)
 
 > Milestone M2 is blocked on its two green draft PRs: decide whether the hardened-text Phase 3 `llm` audit is required, then authorize gauntlet promotion for #1349 and #1356.
@@ -318,6 +324,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
+
+- `msg-build-daemon-docker-selfhost-3f86adab41ee` — from gardener:build-daemon-docker-selfhost, reply_to `build-daemon-docker-selfhost` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-daemon-docker-selfhost-3f86adab41ee.md)
+
+> build-daemon-docker-selfhost HALTED, not built (repeat re-spawn). Two reasons:
+> 1. Duplicate: endojs/endo-but-for-bots already has OPEN PRs for this design — [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/issues/694) (Docker image + authenticated remote gateway, base llm-f7932ed, mergeable, gauntlet poisoned/parked since 07-11) and [endojs/endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/issues/608) (Docker self-hosting image, base master-eecc683). A third PR would be a duplicate.
+> 2. Direction: you closed [endojs/endo-but-for-bots#134](https://github.com/endojs/endo-but-for-bots/issues/134) on 2026-07-09 saying Docker self-hosting is "headed in another direction" (@endo/gateway + @endo/mcp grown organically with AWS).
+> The re-spawn source is journal plan/designs/endo-but-for-bots/daemon-docker-selfhost.md, still `status: Not Started` (M3). Decision needed: (a) mark that record Declined/Superseded and close [endojs/endo-but-for-bots#608](https://github.com/endojs/endo-but-for-bots/issues/608) and [endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/issues/694), or (b) pick one of them to carry forward via "run the gauntlet #N". Until (a), expect this build job to keep recurring.
 
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
@@ -439,7 +452,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.0M | $873.28 _(notional, rate-card)_ | 84% of 143.0M (backoff) |
+| Claude | 120.2M | $874.01 _(notional, rate-card)_ | 84% of 143.0M (backoff) |
 | Codex | 14.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58652750 tokens/day lower bound._
@@ -448,27 +461,25 @@ _Fleet token-unlock pace: 58652750 tokens/day lower bound._
 worst fetch p95 5.408336s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (4)
 - [`endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-summary-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-summary-20260929.md) — post the pre-gauntlet retcon summary comment on endojs/endo-but-for-bots PR #...
-- [`build-daemon-docker-selfhost`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-daemon-docker-selfhost.md) — ---
 - [`canary-probe-endolin-garden2-5bcdff64-9bf25f4362f9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-9bf25f4362f9-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 9bf25f4362f9
-- [`endojs-endo-but-for-bots-ironhorse-panic-classification-lint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-classification-lint.md) — Classification-discipline lint for Halt matching
 - [`endojs-endo-but-for-bots-pr1018-followups-reply-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1018-followups-reply-20260929.md) — Post the follow-up plan reply on endojs/endo-but-for-bots PR #1018
 - [`endojs-endo-but-for-bots-pr1072-resume-gauntlet-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1072-resume-gauntlet-20260929.md) — resume PR #1072's halted gauntlet and stage its post-gauntlet retcon
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1362
-- [`improve-receipt-watcher-startup-stragglers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-receipt-watcher-startup-stragglers.md) — ---
 - [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — ---
+- [`endojs-endo-but-for-bots-ironhorse-panic-classification-lint`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-classification-lint.md) — Classification-discipline lint for Halt matching
 - [`endojs-endo-but-for-bots-pr1097-weave-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-weave-20260929.md) — Weave endojs/endo-but-for-bots PR #1097 (advance the base pin)
 
-### tada (9624)
+### tada (9626)
+- [`build-daemon-docker-selfhost`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/build-daemon-docker-selfhost.md) — build-daemon-docker-selfhost: stopped without building
+- [`improve-receipt-watcher-startup-stragglers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/improve-receipt-watcher-startup-stragglers.md) — Cost
 - [`endojs-endo-but-for-bots-ironhorse-panic-e2e-probe-addendum`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-e2e-probe-addendum.md) — Cost
 - [`build-endo-claude-confined-stdio-mcp-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/build-endo-claude-confined-stdio-mcp-20260929.md) — Cost
 - [`endojs-endo-but-for-bots-ironhorse-panic-e2e-probe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-e2e-probe.md) — Cost
-- [`endojs-endo-but-for-bots-pr1097-weave-20260929-rebase`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1097-weave-20260929-rebase.md) — Manual gauntlet handoff
-- [`endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929.md) — Retcon of PR #1072 before the gauntlet: no rewrite needed, history already ca...
-- … and 9619 more
+- … and 9621 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
