@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T14:39:51Z_
+_As of 2026-09-29T14:52:56Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin, so the file-level diff is quiet, but the message queue tells the real story: the leader host is now 25 commits behind `origin/main2` and has been stalled for deploy, which means every singleton producer (foreman, scheduler, watchers) is currently not honoring anything newer than its deployed SHA — this needs attention. A rolling-deploy canary on oros-studio-garden-ce242c49 also HALTED after 3 failed retries at SHA `18df481c04b5aca...`, left deliberately drained pending investigation (no auto-rollback). Separately, oros-studio-garden-ce242c49 has been heartbeat-offline for over 4.5 hours, so worker-derotate zeroed its capacity and the rolling deploy is skipping it entirely.
-
-On the review front, five stacked foreman notices all point at the same M2 decision: promote draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) to the gauntlet, and close #1356 as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is similarly stalled awaiting a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering four open design questions on #1340/#1332. The IronHorse test262 ratchet (round 3) surfaced a genuine floor-reconciliation question — 906 historically-covered paths no longer pass under the stricter current classifier — and is holding for a maintainer policy call rather than silently relabeling anything. The minion.town/endo federation release gate remains blocked on the same items as before, awaiting review of #1332's authority questions and #1124. Also worth a glance: a quarterly completions dashboard (9,490 jobs, June–September) was published, and a deploy-candidate gate rejected `39d0c5ef0ac` on a failing triager-pacing test, so the deployed tree stayed in place.
+A rolling deploy attempt on **oros-studio-garden-ce242c49** failed its canary three times on target `18df481c04b5aca0fec1f93ebdf8a0393b69544f` and has halted, draining that host pending investigation; separately the leader itself is now 25 commits behind `origin/main2` and stalled after a deploy-gate rejection over a failing `triager-pacing-test.sh` suite, so no directive newer than the deployed sha is being honored fleet-wide. Milestone M2 remains blocked on maintainer gauntlet authorization for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close/supersede decision on #1356 (now superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)), while M3 awaits a choice between advancing #1015 or answering #1340's open design questions. The endo/minion.town federation release gate is still blocked pending maintainer answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review of #1124. Elsewhere, the ironhorse test262 ratchet round 3 needs a maintainer call on reconciling 906 lost historical-floor paths, a proxy tentatively cleared the ratchet autopilot roll to continue, and a quarterly completions rollup (9,490 completions since June 24) has been published to ocap.site.
 
 ## Parked for maintainer feedback
 
@@ -19,7 +17,7 @@ On the review front, five stacked foreman notices all point at the same M2 decis
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 27d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 27d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 28d)
-- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 30d)
+- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 31d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -491,10 +489,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 130.5M | $924.30 _(notional, rate-card)_ | 91% of 143.0M (backoff) |
-| Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
+| Claude | 130.7M | $925.43 _(notional, rate-card)_ | 91% of 143.0M (backoff) |
+| Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63363006 tokens/day lower bound._
+_Fleet token-unlock pace: 63391911 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 0 open notice(s); checker healthy
