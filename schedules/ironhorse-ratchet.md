@@ -1,5 +1,5 @@
 cadence: 2h
-last_dispatched: 2026-09-29T12:00:00Z
+last_dispatched: 2026-12-31T22:00:00Z
 job_basename_prefix: ironhorse-ratchet-watch
 occupancy: skip
 ---
