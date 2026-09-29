@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T01:18:12Z_
+_As of 2026-09-29T01:21:14Z_
 
 ## Latest
 
-Two kriscendobot/minion.town gauntlets advanced: [PR #135](https://github.com/kriscendobot/minion.town/pull/135) cleared its clean stage and moved into panel round 1, while [PR #120](https://github.com/kriscendobot/minion.town/pull/120) is now in fix round 2 after its panel review. The build-openshell-host-pilot-kit job also completed. Elsewhere, the board carries a heavy backlog of maintainer decisions awaiting attention — most notably the M2 milestone blocked on authorizing the gauntlet for endo-but-for-bots#1349 and disposing of the superseded #1356, plus the federation release gate still blocked on #1124 review and the Ironhorse test262 ratchet needing a floor-reconciliation call.
+Very little board movement since the last bulletin: the [minion.town MCP standing-order report](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/build-minion-town-mcp-garden2-workers.md) completed (machinery landed on main2, proven live on `endolin-garden2` for `claude -p` and `codex exec`), and it's now awaiting maintainer decisions on the principal/identity for MCP-attached jobs and on context-cost trimming before widening past that host. Otherwise the queue is dominated by unread maintainer-decision items already sitting in the inbox — chiefly the M2 gauntlet-authorization question for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and the close-as-superseded call on #1356 — plus a `kriscendobot/minion.town` PR #135 panel round moving from queued to claimed.
 
 ## Parked for maintainer feedback
 
@@ -481,11 +481,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-13T14:20:13Z, latest 2026-09-28T06:56:22Z).
-> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-0`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-13T14:20:13Z, latest 2026-09-29T01:20:18Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-0`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 0 (target 0): shared codex subscription demand active=2 queue=0 quota=ok fleet-envelope=5 target=0
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 0 (target 0): shared codex subscription demand active=0 queue=1 quota=ok fleet-envelope=1 target=0
 
 - `doomed-oros-ckm-dependabot-audit-0013418-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-oros-ckm-dependabot-audit-0013418-requeue-exhausted.md)
 
@@ -1205,37 +1205,36 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 70.5M | $616.65 _(notional, rate-card)_ | 49% of 143.0M (ok) |
-| Codex | 7.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 36% _(plan; codex-reported)_ |
+| Claude | 70.8M | $619.01 _(notional, rate-card)_ | 49% of 143.0M (ok) |
+| Codex | 7.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 60788817 tokens/day lower bound._
+_Fleet token-unlock pace: 58423965 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.305599s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`minion-town-cd-endo-daemon-restart-orphan-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-cd-endo-daemon-restart-orphan-20260929.md) — Fix the endo-daemon restart orphan that wedges minion.town CD
-- [`kriscendobot-minion.town-pr135-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr135-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #135
 
 ### doin (9)
 - [`improve-deadline-nudge-failure-diagnostics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-failure-diagnostics.md) — ---
 - [`endojs-endo-but-for-bots-sync-llm-master-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-sync-llm-master-20260929.md) — Merge upstream master into llm on endojs/endo-but-for-bots (maintainer direct...
 - [`pty-lane-assay-rev5119818493-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pty-lane-assay-rev5119818493-r1.md) — Interactive pty-lane self-validation for garden PR #81 (host-pinned to a depl...
+- [`kriscendobot-minion.town-pr135-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr135-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #135
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1348
 - [`kriscendobot-minion.town-pr120-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #120
 - [`activate-ironhorse-ratchet-autopilot-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued)
-- [`build-minion-town-mcp-garden2-workers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-mcp-garden2-workers.md) — ---
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1362
 - [`endojs-endo-but-for-bots-ironhorse-panic-configurable-hardened262-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-configurable-hardened262-20260929.md) — Make Ironhorse's resource-limit abort behavior configurable; ratchet coverage...
 
-### tada (9497)
+### tada (9498)
+- [`build-minion-town-mcp-garden2-workers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/build-minion-town-mcp-garden2-workers.md) — Completion report: build-minion-town-mcp-garden2-workers
 - [`build-openshell-host-pilot-kit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/build-openshell-host-pilot-kit.md) — Cost
 - [`kriscendobot-minion.town-pr135-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr135-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr120-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr120-gauntlet-panel-2.md) — Cost
 - [`npm-minion-town-dev-registry-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/npm-minion-town-dev-registry-orch.md) — orchestration npm-minion-town-dev-registry-orch — complete
-- [`kriscendobot-minion.town-pr135-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr135-gauntlet-viability.md) — Viability report: kriscendobot/minion.town PR #135
-- … and 9492 more
+- … and 9493 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
