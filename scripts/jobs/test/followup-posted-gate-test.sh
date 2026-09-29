@@ -586,4 +586,28 @@ if "$GATE" pr-hidden-work "$JOB" "$TR/r8d.md"; then
 fi
 echo '   gate correctly blocked owed fleet work beside a surfaced decision (rc 1)'
 
-echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; deterministic gauntlet panel/fix transitions pass; already-surfaced maintainer decisions closed for the fleet pass while owed/unsurfaced work still gates; completed clean/fix decisions are pre-forwarded with retry-safe routing and coalescing'
+echo '== (i) PASS: a failed producer-clone sync is inconclusive, not a stale-board block =='
+# Grounding: r4 was blocked at 16:12:52 although its r5 one-time schedule was
+# committed at 16:11:55; the sync failure was discarded and the gate read a stale
+# clone. Prime the clone, post the successor upstream, then make the remote
+# unreachable so the sync fails and the local clone lacks the successor.
+reset_clone
+cat >"$TR/r9.md" <<'EOF2'
+Partial work is complete; the named successor owns the remainder.
+
+<<<GARDEN-JOB-HANDED-OFF: stale-sync-successor>>>
+EOF2
+# Prime the clone (the successor is absent, so this attempt blocks).
+if "$GATE" stale-sync "$JOB" "$TR/r9.md" 2>/dev/null; then
+  fail 'priming run passed although the successor was not yet posted'
+fi
+board_put todo stale-sync-successor
+mv "$TR/journal.git" "$TR/journal.git.away"
+GARDEN_FETCH_ATTEMPTS=1 "$GATE" stale-sync "$JOB" "$TR/r9.md" 2>"$TR/r9.err" \
+  || { mv "$TR/journal.git.away" "$TR/journal.git"; cat "$TR/r9.err" >&2; fail 'gate blocked on stale board state after a failed sync'; }
+mv "$TR/journal.git.away" "$TR/journal.git"
+grep -q 'sync failed' "$TR/r9.err" \
+  || { cat "$TR/r9.err" >&2; fail 'gate did not log a diagnostic for the failed sync'; }
+echo '   gate failed open with a diagnostic on a failed sync'
+
+echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; deterministic gauntlet panel/fix transitions pass; already-surfaced maintainer decisions closed for the fleet pass while owed/unsurfaced work still gates; completed clean/fix decisions are pre-forwarded with retry-safe routing and coalescing; a failed producer-clone sync fails open with a diagnostic'

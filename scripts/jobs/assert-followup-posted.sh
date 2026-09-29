@@ -33,7 +33,8 @@
 #         purely INFORMATIONAL (a completed gauntlet stage's driver-owned
 #         transition, or a section that only surfaces an already-raised
 #         maintainer decision closed for the fleet); or the determination is
-#         inconclusive (journal clone offline).
+#         inconclusive (journal clone unavailable, or its sync failed so the
+#         board state it would read is stale).
 #   rc 1: a declared handoff names an absent successor, regardless of whether a
 #         `## Follow-ups` section exists; or a substantive follow-up section has
 #         NO checkable disposition — block completion (leave in doin for retry).
@@ -74,7 +75,8 @@
 #     of the maintainer. Grounding: the accepted #1310 status-report directive was
 #     wrongly blocked here for want of a checkable disposition and duplicate-retried.
 #
-# Fail-toward-not-wedging on an INCONCLUSIVE read (journal clone offline): rc 0
+# Fail-toward-not-wedging on an INCONCLUSIVE read (journal clone unavailable, or a
+# failed sync that leaves only stale board state): rc 0
 # rather than block a completion on a transient blip. The async garden-follow-up
 # sweep remains the backstop, and a genuine miss re-surfaces on the next claim; a
 # wedged completion during an outage would be worse. The gate bites ONLY on a
@@ -97,12 +99,32 @@ report="${3:?completion report}"
 #    path so an absent `## Follow-ups` section cannot bypass the durable-successor
 #    gate. The board read remains fail-open when inconclusive during an outage.
 DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
+
+# Refresh the producer clone, or FAIL OPEN. A board read from a clone whose sync
+# failed is stale, so neither a pass nor a block derived from it is trustworthy:
+# the grounding incident blocked a handoff at 16:12:52 whose successor (a one-time
+# schedule) had been committed at 16:11:55, because the sync failure was discarded
+# with `|| true` and the stale clone lacked the record. sync_clone may return
+# non-zero, `exit` EX_TEMPFAIL on an outage, or `die`, any of which would end this
+# script from a bare call, so run it in a subshell and treat every failure as
+# inconclusive: log a diagnostic and pass. The async follow-up sweep is the backstop.
+sync_or_fail_open() {
+  local out rc
+  if out="$( (sync_clone "$DIR") 2>&1 >/dev/null)"; then
+    return 0
+  else
+    rc=$?
+  fi
+  out="$(printf '%s\n' "$out" | grep . | tail -3 | tr '\n' ' ' || true)"
+  log "gate: producer clone $DIR sync failed (rc=$rc${out:+: $out}); board state may be stale; inconclusive, not blocking '$base'"
+  exit 0
+}
 if successor="$(report_handoff_successor "$report" 2>/dev/null)"; then
   if ! ensure_clone "$DIR" 2>/dev/null; then
     log "gate: producer clone $DIR unavailable; inconclusive, not blocking '$base'"
     exit 0
   fi
-  sync_clone "$DIR" >/dev/null 2>&1 || true
+  sync_or_fail_open
   if handoff_successor_posted "$DIR" "$successor"; then
     exit 0
   fi
@@ -157,7 +179,7 @@ if ! ensure_clone "$DIR" 2>/dev/null; then
   log "gate: producer clone $DIR unavailable; inconclusive, not blocking '$base'"
   exit 0
 fi
-sync_clone "$DIR" >/dev/null 2>&1 || true
+sync_or_fail_open
 
 # 4. INBOX — the checkable non-board-postable disposition: a maintainer-inbox
 #    message the worker actually sent, tagged reply_to=<base>.
