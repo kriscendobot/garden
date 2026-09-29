@@ -43,3 +43,13 @@ assuming either ordering.
 
 Either outcome is an acceptable "resolution" — the maintainer's ask is that
 this stops sitting stale and duplicated, not that it specifically merges.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T00:35:36Z
