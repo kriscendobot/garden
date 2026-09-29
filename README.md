@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T11:22:51Z_
+_As of 2026-09-29T11:24:39Z_
 
 ## Latest
 
-The leader host stalled 25 commits behind `origin/main2` after a deploy candidate failed its test gate (`triager-pacing-test.sh`), so no fixes have landed since; a separate rolling-deploy canary on oros-studio-garden-ce242c49 also failed three retries and was left drained pending a manual decision, though it has since recovered. Milestone M2 keeps surfacing the same choice across several foreman notices: authorize `run the gauntlet` on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) and close [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). The IronHorse test262 ratchet (round 3) needs a policy call on reconciling 906 historical-floor paths against the stricter current classifier before it can proceed. The minion.town federation release gate remains blocked on authority answers at [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and a maintainer review/merge of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). On the lighter side, a quarterly completions rollup (9,490 completions since June 24) is now live at ocap.site.
+A quiet stretch for board throughput — no fresh job-board transitions since the last bulletin — but the maintainer inbox is heavy with decisions piling up. The dominant thread is M2/M3 milestone gating: the foreman has repeatedly flagged that [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) and #1356 are ready CI-green drafts waiting on an explicit "run the gauntlet" call, with #1356 apparently superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332) and a candidate for closure. M3's `endo-claude` confinement path is similarly stalled pending a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving open questions on #1340.
+
+Operationally, the leader host (endolin-garden-ece02cb4) is 25 commits behind `origin/main2` and stalled on deploy — its own root-repo guard is warning that this blocks every singleton producer, including honoring newer directives. A rolling-deploy canary against oros-studio also halted after three failed retries and was left drained pending investigation, separate from oros-studio itself going heartbeat-stale (offline ~1.5h). The federation release gate for endo/minion.town stays blocked on maintainer answers to authority questions on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) plus review/merge of #1124 and #1333. On the positive side, the quarterly completions report (9,490 completions, June 24–Sept 29) is now published, and minion.town MCP tooling has landed on main2 and is proven live on garden2, awaiting a principal/scoping decision before wider rollout.
 
 ## Parked for maintainer feedback
 
@@ -434,10 +436,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration npm-minion-town-dev-registry-orch complete (serial): all 3 children reached tada without a machine-readable failure declaration.
 
-- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea.md)
-
-> Host-requirements gate: job 'canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea' has remained unclaimed for 902s with requires: host=endolin-garden2-5bcdff64. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `20260928T165826Z-f6e246` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T165826Z-f6e246.md)
 
 > Milestone M2 is blocked on disposition of the two draft PRs: authorize running the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and close [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/issues/1356) as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/issues/3332).
@@ -464,7 +462,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.6M | $894.68 _(notional, rate-card)_ | 86% of 143.0M (backoff) |
+| Claude | 123.7M | $894.98 _(notional, rate-card)_ | 87% of 143.0M (backoff) |
 | Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61982834 tokens/day lower bound._
