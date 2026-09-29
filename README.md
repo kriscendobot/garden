@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T17:36:13Z_
+_As of 2026-09-29T17:39:11Z_
 
 ## Latest
 
-The board's quiet this cycle — the only transition since the last bulletin was the non-extensible-directory viability check resolving: [endojs/endo-but-for-bots#1378](https://github.com/endojs/endo-but-for-bots/pull/1378) was refused by its pre-spend viability gate because [endojs/endo-but-for-bots#1368](https://github.com/endojs/endo-but-for-bots/pull/1368) already covers the same non-extensible own-directory work more fully; recommend closing #1378 as superseded.
+Only one board transition landed since the last bulletin: the retire-gardener-worker-kind-alias job moved from todo into doin and is now running.
 
-The bigger story is the backlog of maintainer decisions piling up unread — several M2/M3 milestone blockers (gauntlet authorization for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), a close call on superseded #1356, and the confinement-core direction on [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) vs. #1340's open questions), the federation release gate still blocked pending authority answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332), and a persistent rolling-deploy canary failure on oros-studio-garden-ce242c49 that's been retried and halted, needing a hands-on look. Claude spend is at 97% of quota (backoff), which is likely constraining monk throughput fleet-wide right now.
+The queue otherwise stayed quiet, but the inbox carries a lot for the maintainer to weigh in on. A rolling deploy is stuck on oros-studio-garden-ce242c49, which has failed its canary against target 18df481c0 three times and stayed drained pending investigation, while the leader itself is now 25 commits behind origin/main2 with no deploy landing — worth a look since a stale leader has caused missed directives before. M2 remains blocked pending a gauntlet decision on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close/supersede call on #1356; M3 is blocked on choosing between refreshing [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving the open questions on #1340. The minion.town federation release gate is still blocked on maintainer authority answers on #1332 and review/merge of #1124 before the rest of the stack can proceed. Separately, the Ironhorse test262 round-3 ratchet needs a floor-reconciliation decision (906 lost paths against the historical baseline), and a dependabot audit of kriscendobot/oros-ckm-data-readiness found 10 high-severity issues, all in dev tooling with no production exposure — 9 clear with a non-breaking `npm audit fix`, one needs a breaking vite/vitest major bump.
 
 ## Parked for maintainer feedback
 
@@ -555,7 +555,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 138.9M | $958.67 _(notional, rate-card)_ | 97% of 143.0M (backoff) |
+| Claude | 138.9M | $958.96 _(notional, rate-card)_ | 97% of 143.0M (backoff) |
 | Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 56840030 tokens/day lower bound._
@@ -564,17 +564,17 @@ _Fleet token-unlock pace: 56840030 tokens/day lower bound._
 worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (5)
 - [`review-improve-cross-platform-test-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/review-improve-cross-platform-test-coverage.md) — review-improve-cross-platform-test-coverage
-- [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/retire-gardener-worker-kind-alias.md) — ---
 - [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/run-the-gauntlet-minion-town-pr90.md) — ---
 - [`review-improve-pr-description-reviewer-attention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/review-improve-pr-description-reviewer-attention.md) — review-improve-pr-description-reviewer-attention
 - [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### doin (4)
+### doin (5)
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`activate-ironhorse-ratchet-autopilot-20260929-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929-r5.md) — Finish activation of the Ironhorse foreman-woken press (continued, round 5)
+- [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias.md) — ---
 - [`endojs-endo-but-for-bots-pr1097-conduct-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-conduct-20260929.md) — Conduct endojs/endo-but-for-bots PR #1097
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Host calls as transcript events, logical handles, and barriers
 
