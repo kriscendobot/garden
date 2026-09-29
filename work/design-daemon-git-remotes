@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-29T04:20:46Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-daemon-git-remotes
+pr_number: 1367
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1367
+pr_head: design/daemon-git-remote-capability-urls
