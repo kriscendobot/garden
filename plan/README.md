@@ -21,7 +21,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | Milestone | Designs | Complete | % | Est. days (remaining) |
 |---|---|---|---|---|
 | M1 | 8 | 8 | 100% | 0 |
-| M2 | 8 | 6 | 75% | 0 |
+| M2 | 8 | 7 | 87% | 0 |
 | M3 | 31 | 7 | 22% | 70 |
 | M4 | 9 | 1 | 11% | 21 |
 | M6 | 1 | 0 | 0% | 3 |
@@ -89,7 +89,7 @@ of records, so a milestone spanning repositories rolls up as one.
 | ci-no-npm-lifecycle | endo-but-for-bots | M2 | Complete | S | — |
 | endo-bytes | endo-but-for-bots | M2 | Complete | S | — |
 | hardened-text-codecs-shim | endo-but-for-bots | M2 | In Progress | — | endo-but-for-bots#1349 |
-| hardened-url-shim | endo-but-for-bots | M2 | In Progress | — | endo-but-for-bots#1356 |
+| hardened-url-shim | endo-but-for-bots | M2 | Complete | — | endo-but-for-bots#1356 |
 | hex-package | endo-but-for-bots | M2 | Complete | M | — |
 | daemon-agent-tools | endo-but-for-bots | M3 | Not Started | L | — |
 | daemon-capability-filesystem | endo-but-for-bots | M3 | Reference | L | — |
