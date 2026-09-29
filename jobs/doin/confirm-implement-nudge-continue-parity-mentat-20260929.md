@@ -44,3 +44,13 @@ keeping OpenCode disabled pending its existing paid canary. It is design-only
    (whatever covers `scripts/jobs/handlers/`) before pushing.
 4. Report the confirm/deny verdict, what you implemented (or why you didn't),
    and the landed commit.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T21:09:12Z
