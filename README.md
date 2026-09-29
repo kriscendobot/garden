@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T08:27:40Z_
+_As of 2026-09-29T08:29:50Z_
 
 ## Latest
 
-The only board transition since the last bulletin was on the Ironhorse test262 foreman-woken press: the `endojs-endo-but-for-bots-ironhorse-panic-open-questions-mentat` job completed, and it split three follow-on questions into the plan queue — the panicked C↔XS adapter, the debugger panic-break behavior, and a transcript item — while flagging a bug for the maintainer: `ensure-pr.sh`'s phase/evidence gate prefers a stale local base ref over `origin/<base>`, which had wrongly pulled unrelated changes into a design-only PR before a manual `--base origin/llm` override cleared it.
-
-Otherwise the board is quiet on new work, and the maintainer inbox is the story: several milestone blockers are stacked up awaiting a call, most pressingly whether to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and whether to close #1356 as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is likewise stalled on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving the four open questions on #1340. The federation release gate for minion.town remains blocked pending answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review/merge of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), and [kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139) (a deploy-preflight fix) needs approval to unblock the pin-advancement chain. A rolling-deploy canary on oros-studio failed three retries and is left drained pending investigation, and the Ironhorse test262 round-3 sweep needs a maintainer decision on how to reconcile ~906 lost paths against the historical floor.
+Board activity since the last bulletin was minimal: a canary re-probe job posted for `endolin-garden2-5bcdff64` at `7b2d6a401c8d` (retrying rolling-deploy validation), and a plan entry landed for an Ironhorse-panic outbound-embargo item, but nothing moved through claim or completion in this window. The maintainer queue remains heavy — most notably the rolling deploy to `oros-studio-garden-ce242c49` HALTED after a canary failed validation three times in a row and was left drained pending a decision, and the deploy-candidate gate separately rejected commit `39d0c5ef0ac` over a failing triager-pacing test, so the deployed tree stayed on the prior build. Several Milestone M2/M3 gating decisions are still parked on draft PRs [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (gauntlet authorization) and #1356 (likely superseded by [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)), plus M3's `endo-claude` path on [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and #1340. The minion.town federation release gate is still blocked at [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), and [kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139) (a production-incident deploy fix) is green and waiting on approval before it can merge.
 
 ## Parked for maintainer feedback
 
@@ -323,6 +321,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
 
+- `stale-panel-head-endojs-endo-but-for-bots-pr1298-558a9b7d-898ded58` — from gardener:fu-endojs-endo-but-for-bots-pr1298-gauntlet-fix-5-1, reply_to `fu-endojs-endo-but-for-bots-pr1298-gauntlet-fix-5-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1298-558a9b7d-898ded58.md)
+
+> Stale panel coverage for completed job `fu-endojs-endo-but-for-bots-pr1298-gauntlet-fix-5-1`: [https://github.com/endojs/endo-but-for-bots/pull/1298](https://github.com/endojs/endo-but-for-bots/pull/1298) moved from panel-reviewed head `558a9b7d` to presented head `898ded58cabab96db213dd3e82ca5a21d5ff5c4b`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
@@ -428,7 +434,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.7M | $848.51 _(notional, rate-card)_ | 79% of 143.0M (ok) |
+| Claude | 113.8M | $849.07 _(notional, rate-card)_ | 80% of 143.0M (ok) |
 | Codex | 13.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58749281 tokens/day lower bound._
@@ -437,9 +443,10 @@ _Fleet token-unlock pace: 58749281 tokens/day lower bound._
 worst fetch p95 5.408336s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (7)
 - [`endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929.md) — retcon endojs/endo-but-for-bots PR #1072 before resuming its gauntlet
 - [`claude-on-minion-town-resume-post1015-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-resume-post1015-20260929.md) — Resume the Claude-on-minion.town arc now that #1015 is landed and pinned
+- [`canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d-r2.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 7b2d6a401c8d
 - [`canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 7b2d6a401c8d
 - [`canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 7b2d6a401c8d
 - [`endojs-endo-but-for-bots-pr1097-weave-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-weave-20260929.md) — Weave endojs/endo-but-for-bots PR #1097 (advance the base pin)
