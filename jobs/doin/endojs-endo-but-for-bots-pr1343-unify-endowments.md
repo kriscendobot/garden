@@ -14,3 +14,13 @@ Replace the separate ordinary-name and special-name injection surfaces with one 
 PR endojs/endo-but-for-bots#1102 is the redundant design-only branch and is being closed so endojs/endo-but-for-bots#1343 is the sole champion.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T16:27:01Z
