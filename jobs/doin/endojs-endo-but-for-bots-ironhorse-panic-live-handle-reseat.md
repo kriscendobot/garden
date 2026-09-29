@@ -18,3 +18,13 @@ This job wires it live. Stack on the host-call branch, plus #989 and #1374 if th
 - Then lift the suspend refusal. A resumed worker must never use a handle that was not actually re-seated.
 
 Acceptance: the § Verification host-handle / effect bullets, driven against the live XS worker. Open a DRAFT PR via scripts/jobs/gardening/ensure-pr.sh with `Refs: #1018`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T18:14:21Z
