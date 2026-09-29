@@ -1,4 +1,5 @@
 ---
+child-retire-gardener-worker-kind-alias-env-fallback-reap-count: 0
 order: serial
 children: retire-gardener-worker-kind-alias-env-fallback retire-gardener-worker-kind-alias-verify-docs
 on-child-failure: halt
