@@ -54,3 +54,13 @@ past the limit.
    before touching any branch it owns (`inbox-send.sh
    build-ironhorse-ratchet-autopilot` first, per that job's own coordination
    note) if your work would collide with its PR.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T00:28:56Z
