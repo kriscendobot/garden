@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-29T16:40:05Z_
+_As of 2026-09-29T16:54:20Z_
 
 ## Latest
 
-Board traffic since the last bulletin was light on transitions but heavy on mail: the PR #1343 unified-endowments completion landed (per memory, merged 6c49234d80), and the harness-provider-matrix handoff finally closed out its stale duplicate. The dominant story is a backlog of maintainer decisions piling up around Milestone M2 and M3: the foreman has repeatedly flagged draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) as the sole unblocked M2 step awaiting gauntlet authorization, alongside a call on whether #1356 should simply be closed as superseded by upstream endojs/endo#3332. M3 is similarly stalled on choosing between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) for review or resolving the four open questions on #1340 first — complicated by a stale-panel notice that #1015's head moved from `971fe22c` to `10223934` since its last review, so any resumed gauntlet needs a fresh pass. The Ironhorse test262 ratchet (round 3) surfaced a genuine policy question rather than a bug: 906 historically-covered paths no longer pass under the current, stricter classifier, and the gardener is asking whether to record an explicitly reconciled floor instead of quietly relabeling failures as covered. Operationally, a rolling deploy canary on oros-studio-garden-ce242c49 failed three retries and halted (left drained, no auto-rollback), and the leader host is reported 25 commits behind after a deploy candidate was rejected by a failing test suite (`triager-pacing-test.sh`) — both need a look. The minion.town federation release gate remains blocked pending maintainer answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332)'s authority questions and review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124).
+The biggest news landed on `main`: [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) merged, unifying guest endowments into a single `@`-partitioned map, and a follow-up job is now posted to close the redundant #1102 and cover the non-extensible agent-directory work it left open. Otherwise the board stayed quiet — no job-board transitions since the last bulletin — and the maintainer inbox is dominated by routine budget/watchdog chatter plus several recovered rolling-deploy canary conditions.
+
+The leader host is 25 commits behind `origin/main2` and has been stalled at deploy for a full day; as the sole leader it's not honoring any directive newer than its deployed SHA, so this is worth clearing. A separate deploy attempt at `39d0c5ef` was rejected outright by a failing test gate (`triager-pacing-test.sh`). M2 remains blocked purely on maintainer sign-off: [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) needs an explicit "run the gauntlet," and #1356 is being flagged as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332) and a candidate to close. M3's `endo-claude` path is similarly stalled awaiting a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving the four open questions on #1340.
+
+The Ironhorse test262 ratchet (round 3) surfaced a real policy question rather than a code bug: against the current llm sweep, 906 historically-covered paths are now failing under a stricter, more honest classifier, and the gardener is asking whether to accept an explicitly reconciled floor rather than silently relabel failures as covered. A quarterly completions rollup (9,490 completions, June 24–Sept 29) was also published for review.
 
 ## Parked for maintainer feedback
 
@@ -28,16 +32,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #129 (first seen 2026-09-29T05:53:06Z, latest 2026-09-29T16:20:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 129 times; this is ONE
-> coalesced notice that updates in place, not 129 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-29T05:53:06Z, cleared 2026-09-29T16:53:02Z).
+> It was observed 130 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 23542s (offline threshold 1800s; sampled_at_epoch=1790675260).
-> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
-> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
-> no release token, deploy budget, failed-canary count, or halt. Restore the host and
-> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
-> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6.md)
 
@@ -519,10 +518,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.7M | $933.78 _(notional, rate-card)_ | 94% of 143.0M (backoff) |
-| Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
+| Claude | 135.0M | $936.53 _(notional, rate-card)_ | 94% of 143.0M (backoff) |
+| Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 61800283 tokens/day lower bound._
+_Fleet token-unlock pace: 61824881 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.084415s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 2 open notice(s); checker healthy
