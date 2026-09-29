@@ -31,3 +31,13 @@ the immutable-arraybuffer shim — see ebfb#1334). Keep `streamBase64` on respon
 compatibility. If the migration is infeasible or widens scope badly, reply on the review
 explaining why (the ask says "consider") instead of forcing it. Push to the head; keep CI
 green. Add a changeset if a public surface changes. No merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T14:20:23Z
