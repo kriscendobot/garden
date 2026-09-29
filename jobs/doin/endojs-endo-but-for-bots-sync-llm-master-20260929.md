@@ -52,3 +52,13 @@ content diff on any file both branches touched) and:
 
 Report every gap found and every job posted in your completion report, even
 if a gap turns out to need no action (say so and why).
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T00:31:28Z
