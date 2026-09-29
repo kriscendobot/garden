@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T12:04:01Z_
+_As of 2026-09-29T12:12:58Z_
 
 ## Latest
 
-Board motion since the last bulletin was minimal: one canary-probe job posted for `endolin-garden2-5bcdff64` and the `endojs-endo-but-for-bots-pr1343-unify-endowments` job bounced from doin back to todo (claim released, unclaimed again). Otherwise the fleet stayed busy in the background — PR #1362's gauntlet is on fix round 6, and PR #1097 (ReadableBlob wire encoding) is mid-weave to advance its base pin — but the standing story remains the pile of maintainer decisions gating the M2/M3 milestones: gauntlet authorization is still needed on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke), a close-or-carry call is due on the superseded [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356), and M3's confined-agent path is blocked on choosing between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving the open questions on design #1340. Two operational items also want attention: a rolling-deploy canary on host `oros-studio-garden-ce242c49` HALTED after repeated re-validation failures and needs a hands-on look before it's lifted or held, and the leader host is now 25 commits behind `origin/main2` with its deploy stalled — worth checking since a stale leader has previously let paused work keep running.
+No file-level board transitions landed since the last bulletin, so activity this cycle shows up mostly in messages rather than completions. The dominant thread is that **Milestone M2 is stuck on manual gauntlet authorization**: the foreman has repeatedly flagged that [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) is CI-green and ready, and #1356 is superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332) and should be closed — both await a maintainer decision. Milestone M3 is similarly blocked between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) for review or resolving open design questions on #1340/#1102 first.
+
+Operationally, a rolling deploy hit a **persistent canary failure** on oros-studio (three retries exhausted, host left drained pending investigation) and separately a deploy candidate was rejected by the test gate (`triager-pacing-test.sh` failing) — the leader is now reporting itself 25 commits behind `origin/main2` and stalled, worth a look. The federation release gate for minion.town remains blocked on maintainer answers to authority questions on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) plus review/merge of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). On the lighter side, [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) is mid-weave to advance its base pin, and a quarterly completions rollup (9,490 completions since June 24) was published. Ironhorse's test262 ratchet round 3 also needs a maintainer call on how to reconcile ~906 lost historical-floor paths against stricter current classification.
 
 ## Parked for maintainer feedback
 
@@ -458,10 +460,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.6M | $900.17 _(notional, rate-card)_ | 87% of 143.0M (backoff) |
+| Claude | 124.7M | $900.99 _(notional, rate-card)_ | 87% of 143.0M (backoff) |
 | Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63231424 tokens/day lower bound._
+_Fleet token-unlock pace: 63245415 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 0 open notice(s); checker healthy
