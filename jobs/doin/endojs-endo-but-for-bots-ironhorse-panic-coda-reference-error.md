@@ -21,3 +21,13 @@ Open a DRAFT PR through scripts/jobs/gardening/ensure-pr.sh, with `Refs: #1018` 
 ## This leg
 
 § Coda: add an off-by-default `Machine` construction option under which the `XS_CODE_GET_LOCAL`, `XS_CODE_GET_VARIABLE` and (once routed through `raise_js`) `XS_CODE_GET_CLOSURE` reference-error sites surface `Halt::Panic(PanicKind::ReferenceError)` instead of a catchable throw. Pin the setting in the worker's `snapshot` record, and reject a replay under a different setting as a deterministic replay fault. The companion design https://github.com/endojs/endo-but-for-bots/pull/1016 (panic-on-reference-error plus unhandled-rejection handling) overlaps this leg. Build the #1018 Coda, reconcile it with #1016's current text, and leave #1016's rejection-handling scope to #1016. Acceptance: the Coda bullet (a)–(c) in § Verification, with the `<panic kind="reference-error">` case building on the debugger leg.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T21:37:12Z
