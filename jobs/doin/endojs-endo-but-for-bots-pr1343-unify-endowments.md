@@ -11,3 +11,13 @@ Champion the arbitrary guest-endowment work in endojs/endo-but-for-bots#1343, as
 Replace the separate ordinary-name and special-name injection surfaces with one endowment mapping. The map's guest-side names determine policy: names beginning with `@` are special and indelible; other names are ordinary and mutable. Agent-facing values are providing-host pet names, never formula identifiers; resolve formula identifiers only behind the daemon boundary. Preserve retained-agent idempotence, restart persistence, formula-graph reachability, and clear failure behavior. Rebase before the follow-up, run the daemon tests plus lint/types and the repository pre-push gates, reply to applicable review threads with actual SHAs, and post a top-level completion summary.
 
 PR endojs/endo-but-for-bots#1102 is the redundant design-only branch and is being closed so endojs/endo-but-for-bots#1343 is the sole champion.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T07:49:51Z
