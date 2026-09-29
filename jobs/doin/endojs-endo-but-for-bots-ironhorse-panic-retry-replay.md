@@ -21,3 +21,13 @@ Open a DRAFT PR through scripts/jobs/gardening/ensure-pr.sh, with `Refs: #1018` 
 ## This leg
 
 § Slot Machine Termination and Retry, composed with debugWorker's snapshot suspend/resume (designs/daemon-debug-worker-restart.md): on `Panicked`, terminate the worker, restore the last committed snapshot, replay the transcript suffix up to (not including) the panicking delivery, and offer retry for the three "fixed" cases (a new-snapshot code fix, a config-change retry, an external-condition retry). Apply the mentat job's answer on uncaught-throw disposition (terminate vs reject-and-continue). Acceptance: metamorphic replay == live (byte-identical heap state and identical outbound-frame sequence), including handle re-seating.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T19:27:32Z
