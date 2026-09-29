@@ -21,3 +21,13 @@ Open a DRAFT PR through scripts/jobs/gardening/ensure-pr.sh, with `Refs: #1018` 
 ## This leg
 
 § The Slot Machine Message Embargo Contract: stage outbound frames per crank; release them in sequence order only after the crank commits; discard them on every non-`Quiesced` outcome (`MeterAbort` explicitly included); receivers suppress duplicates by stable event sequence, so at-least-once release is observed exactly once. Reconcile with the draft design https://github.com/endojs/endo-but-for-bots/pull/989 (worker quiescence embargo), following the mentat job's supersede/merge answer. Acceptance: one embargo-coverage case per row of the design's termination-path table, plus the crash-after-send, before-ack idempotency property.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T15:49:59Z
