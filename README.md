@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T17:18:49Z_
+_As of 2026-09-29T17:20:59Z_
 
 ## Latest
 
-A new draft, [endojs/endo-but-for-bots#1378](https://github.com/endojs/endo-but-for-bots/pull/1378), landed adding a `nonExtensibleDirectory` option to `provideGuest`/`provideHost` for sealing agent directories against new introductions while still allowing rebind/remove; a pre-spend viability check on its gauntlet is now queued. Elsewhere, gauntlet work continues in the background — PR #1072 is through the clean stage, PR #1097 is being conducted, and [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68) is in its sixth panel round — while a fix job to address the subscription-based-budget-model's deploy-gate regression has been posted. The bigger story for the maintainer is the pile of unread mail: a rolling deploy remains halted on a persistently failing canary at `oros-studio-garden-ce242c49`, the root checkout on the leader is now 25 commits behind and stalled, and several M2/M3 milestones (hardened-text PR #1349, superseded #1356, and the confinement-core PR #1015) are sitting on gauntlet/merge decisions that only the maintainer can make.
+Board activity since the last bulletin was minimal: only one new post reached `todo` (`activate-ironhorse-ratchet-autopilot-20260929-r5`, the continuation of the Ironhorse foreman-woken press activation), with `doin` still working seven jobs — including the gauntlet-clean stage on [endojs/endo-but-for-bots#1072](https://github.com/endojs/endo-but-for-bots/pull/1072), panel round 6 on [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68), and the conduct/merge attempt on [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) — and the inbox otherwise full of routine budget-level/journal-contention watchdog chatter. The rolling deploy remains the thing most worth the maintainer's attention: the leader is now 25 commits behind `origin/main2` and stalled, while the `oros-studio` canary has been stuck reporting an undeployed SHA for over 48 recorded ticks and a separate canary attempt at `18df481c04b5` failed three retries and was left drained pending a decision. A batch of foreman notices continues to press for a gauntlet decision on Milestone M2's drafts ([endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and #1356, the latter recommended for closure as superseded by [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)), and M3 remains blocked on choosing between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving the open questions on #1340.
 
 ## Parked for maintainer feedback
 
@@ -128,10 +128,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` cleared on endolin-garden-ece02cb4.
-
-- `msg-endojs-endo-but-for-bots-agent-non-extensible-directory-29fa571b09a3` — from gardener:endojs-endo-but-for-bots-agent-non-extensible-directory, reply_to `endojs-endo-but-for-bots-agent-non-extensible-directory` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-agent-non-extensible-directory-29fa571b09a3.md)
-
-> Opened draft [https://github.com/endojs/endo-but-for-bots/pull/1378](https://github.com/endojs/endo-but-for-bots/pull/1378) (agent-maker option nonExtensibleDirectory on provideGuest+provideHost; Object.preventExtensions semantics — rebind/remove OK, add refused; persisted on formula). Non-blocking open questions in the PR body: option name (nonExtensibleDirectory vs sealDirectory), guest-only vs both, whether host re-introductions to an existing sealed agent should also be refused, and whether removals should be refused too. No reply needed unless you want a change; the gauntlet proceeds.
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
@@ -529,16 +525,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 136.4M | $941.60 _(notional, rate-card)_ | 95% of 143.0M (backoff) |
-| Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 137.0M | $947.46 _(notional, rate-card)_ | 96% of 143.0M (backoff) |
+| Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 56827532 tokens/day lower bound._
+_Fleet token-unlock pace: 56630831 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.084415s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
+- [`activate-ironhorse-ratchet-autopilot-20260929-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/activate-ironhorse-ratchet-autopilot-20260929-r5.md) — Finish activation of the Ironhorse foreman-woken press (continued, round 5)
 - [`oros-ckm-dependabot-audit-0013418`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-ckm-dependabot-audit-0013418.md) — ---
 - [`endojs-endo-but-for-bots-agent-non-extensible-directory-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-agent-non-extensible-directory-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1378
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
