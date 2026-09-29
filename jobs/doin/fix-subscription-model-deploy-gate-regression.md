@@ -98,6 +98,7 @@ priority is clear to whoever reads it next.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-29T16:43:10Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
