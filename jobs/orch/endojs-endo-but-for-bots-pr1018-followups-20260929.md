@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-ironhorse-panic-outbound-embargo-host: endolin-garden2-5bcdff64
 child-endojs-endo-but-for-bots-ironhorse-panic-outbound-embargo-reap-count: 0
 child-endojs-endo-but-for-bots-ironhorse-panic-transcript-host: endolin-garden2-5bcdff64
 child-endojs-endo-but-for-bots-ironhorse-panic-transcript-reap-count: 0
