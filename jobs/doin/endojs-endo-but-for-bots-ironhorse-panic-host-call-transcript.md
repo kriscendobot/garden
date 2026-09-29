@@ -21,3 +21,13 @@ Open a DRAFT PR through scripts/jobs/gardening/ensure-pr.sh, with `Refs: #1018` 
 ## This leg
 
 § Host functions are messages too: record host-function requests and replies as transcript events. Give native resources durable logical handle ids with reconstruction descriptors. Move non-transactional effects to post-commit outbound messages. A non-idempotent provider without an idempotency protocol must be refused admission, or must declare a snapshot barrier that halts replay. A handle with no reconstruction descriptor is re-seated as broken and never silently succeeds. #1150 currently refuses suspend while native handles are open; this leg lifts that restriction by restoring handles. Acceptance: the host-handle/effect failure-branch bullets in § Verification.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T17:13:56Z
