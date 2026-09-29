@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T07:21:37Z_
+_As of 2026-09-29T07:24:32Z_
 
 ## Latest
 
-Gauntlet round 4 for [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) closed out a panel review pass and immediately kicked off fix round 4, so that PR remains in active back-and-forth. The designer began revising [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) per kriskowal's review comments. Otherwise the board is dominated by watchdog noise (budget-level rebalancing, a comment-ack blind spot on #1357's review threads, a since-recovered rolling-deploy canary stall on oros-studio) and a long queue of foreman messages asking the maintainer to authorize gauntlets for #1349/#1356 and decide the M3 confinement-core path — none of that moved this cycle.
+The gauntlet FIX loops continued on [endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) (round 4) and [endo-but-for-bots#1298](https://github.com/endojs/endo-but-for-bots/pull/1298) (round 5), and a designer revised [endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) per kriskowal's review comment. A rolling-deploy canary on oros-studio-garden-ce242c49 failed three retries and was left drained pending investigation, though it has since recovered (redeployed at e036bb8e065); separately, main2 candidate 39d0c5ef0ac was rejected by the deploy test gate on a triager-pacing test failure, so the deployed tree stayed in place. The ironhorse test262 ratchet round-3 effort surfaced a floor-reconciliation question needing a maintainer decision (906 lost paths vs. the pre-change historical floor), and the minion.town federation release gate remains blocked awaiting answers on [endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332)'s authority questions plus review/merge of [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). Several foreman notices are asking whether to authorize the gauntlet for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and whether to close the superseded [endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356). A quarterly completions report (9,490 completions, June 24–Sept 29) was also published.
 
 ## Parked for maintainer feedback
 
@@ -396,13 +396,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.8M | $836.13 _(notional, rate-card)_ | 77% of 143.0M (ok) |
+| Claude | 109.8M | $836.39 _(notional, rate-card)_ | 77% of 143.0M (ok) |
 | Codex | 12.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 84921041 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
+worst fetch p95 5.408336s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (10)
