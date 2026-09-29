@@ -31,3 +31,13 @@ This is a scope/feasibility decision, not a mandate to implement — land a
 design doc either way (even a short one concluding "capability gap, no
 action" is a valid, complete answer) so the open question in the 2026-09-23
 followup is closed rather than sitting indefinitely.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T06:08:03Z
