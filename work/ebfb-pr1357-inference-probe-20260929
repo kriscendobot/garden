@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-29T07:36:13Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-pr1357-inference-probe-20260929
-pr_number: 1369
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1369
-pr_head: probe/endo-inference-1357
