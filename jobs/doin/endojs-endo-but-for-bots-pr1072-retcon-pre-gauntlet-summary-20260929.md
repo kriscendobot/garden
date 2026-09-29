@@ -27,3 +27,13 @@ Checks: each commit touches exactly one package or top-level group. No file appe
 
 Declined: none. I didn't merge or un-draft.
 ----- END COMMENT BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T10:22:08Z
