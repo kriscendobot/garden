@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T21:52:03Z_
+_As of 2026-09-29T21:54:20Z_
 
 ## Latest
 
-Board activity was thin this cycle (no resolvable file-level transitions), but the gauntlet pipeline kept moving: [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) sits at panel round 2, [endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) is queued for un-draft plus a PR-body template fix, and [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) is being cleaned for its gauntlet. [kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139) cleared review and is queued to conduct, while [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68) is on its second fix round.
-
-The maintainer inbox is heavy with unread notices worth a pass: milestone M2 has been repeatedly blocked pending a gauntlet-authorization decision on the hardened-text draft (#1349) and a close decision on the superseded #1356; M3 is blocked on the #1015/#1340 confinement-core choice; the ironhorse test262 ratchet round 3 needs a floor-reconciliation decision (906 lost paths against the historical baseline); and the endo/minion.town federation release gate remains blocked on authority questions at [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) plus review of #1124 and #1333. Separately, the root-repo-guard flagged the leader host (`endolin-garden-ece02cb4`) as 25 commits behind and stalled on deploy — worth checking since a stale leader holds every singleton producer.
+Board activity is quiet since the last bulletin — the only transition is `confirm-implement-nudge-continue-parity-mentat-20260929` bouncing back from doin to todo, unclaimed. The active gauntlets keep moving in the background: PR [endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) is at panel round 2 with an undraft and body-template step queued behind it, PR [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) is mid-clean, and [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68) is on a second fix round. The maintainer's approval of [kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139) has landed two conduct jobs on the board ready to merge it. A large backlog of unread maintainer messages remains, most notably the root-repo deploy stall on the leader host (`endolin-garden-ece02cb4`, 25 commits behind and blocking every singleton producer) and several M2/M3 milestone gates awaiting a gauntlet-authorization decision on drafts [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and #1356.
 
 ## Parked for maintainer feedback
 
@@ -434,7 +432,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 159.8M | $1076.04 _(notional, rate-card)_ | 112% of 143.0M (backoff) |
+| Claude | 159.9M | $1077.69 _(notional, rate-card)_ | 112% of 143.0M (backoff) |
 | Codex | 15.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 68907452 tokens/day lower bound._
@@ -443,21 +441,21 @@ _Fleet token-unlock pace: 68907452 tokens/day lower bound._
 worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1379
 - [`improve-gh-api-primary-quota-singleflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-gh-api-primary-quota-singleflight.md) — Deliberate overrun decomposition for improve-gh-api-primary-quota-singleflight
 - [`endojs-endo-but-for-bots-pr1381-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1381
 - [`conduct-kriscendobot-minion-town-pr139-approved-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-kriscendobot-minion-town-pr139-approved-20260929.md) — Merge kriscendobot/minion.town#139 now that the maintainer has approved it
 - [`improve-budget-snapshot-outage-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-budget-snapshot-outage-recovery.md) — ---
 - [`kriscendobot-minion-town-pr139-conduct-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr139-conduct-20260929.md) — Conduct kriscendobot/minion.town PR #139 to merge
+- [`confirm-implement-nudge-continue-parity-mentat-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/confirm-implement-nudge-continue-parity-mentat-20260929.md) — Confirm (or deny) and, if confirmed, implement non-Claude completion-nudge pa...
 - [`endojs-endo-but-for-bots-pr1381-body-template`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-body-template.md) — Apply template-conforming PR body to endojs/endo-but-for-bots#1381
 - [`design-minion-town-pr-screening-by-proxy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-pr-screening-by-proxy.md) — Design: proxy / mentat-supervisor screening for kriscendobot/minion.town PRs
 - [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr.md) — Open the draft PR for the Ironhorse panic retry/replay leg
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/retire-gardener-worker-kind-alias-env-fallback.md) — ---
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-ironhorse-panic-coda-reference-error`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-coda-reference-error.md) — Coda: panic-on-reference-error construction option
-- [`confirm-implement-nudge-continue-parity-mentat-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/confirm-implement-nudge-continue-parity-mentat-20260929.md) — Confirm (or deny) and, if confirmed, implement non-Claude completion-nudge pa...
 - [`endojs-endo-but-for-bots-pr1097-review-c2702a77-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-review-c2702a77-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1097 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1380
 - [`claude-on-minion-town-press-20260929-212011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260929-212011.md) — Press the Claude-on-minion.town arc forward
