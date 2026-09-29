@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T04:59:38Z_
+_As of 2026-09-29T05:06:41Z_
 
 ## Latest
 
-PR [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) finished its gauntlet and un-drafted — the M2 hardened-text-codecs work reached a mergeable state overnight. Gauntlet fixing continues on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) (round 2, still in progress) and #1015 is being refreshed for preliminary review.
-
-Several M2 decisions are still stacking up in the foreman's messages: draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) is CI-green and waiting on explicit gauntlet authorization, while #1356 is flagged as superseded by upstream endojs/endo#3332 and a candidate to close outright. M3's confinement-core path is likewise blocked pending a maintainer call between advancing #1015 or first resolving the four open questions on design PR #1340.
-
-Several jobs doom-parked after exhausting retries and need a promote/close decision: the fix-1 stage of the #356 gauntlet, panel-1 of the #450 gauntlet, panel-6 of the minion.town #68 gauntlet, plus the #982 retrospective, the #1015-refresh-for-review job, the docker-selfhost build, and a couple of self-heal cursor-read fixes — all preserved in `jobs/plan/` awaiting `promote-plan.sh`. The Ironhorse test262 ratchet round-3 sweep surfaced a genuine floor-reconciliation question (906 historical-covered paths now failing under the stricter current classifier) that needs a maintainer policy call before the round can close honestly. The Ironhorse ratchet-autopilot rollout is also stalled: oros-studio is wedged at an old deploy SHA and needs a human look. Separately, a deploy candidate (39d0c5ef0ac) was rejected by the test gate on a triager-pacing test failure, so main2 stayed at the prior commit.
+Little board movement to report since the last bulletin: only two jobs are actively in flight (a fix round on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362)'s gauntlet, and a refresh of #1015's confinement-core build for preliminary review), with no new posts or completions resolved in this window. The queue backing them is heavy on maintainer-gated items: several M2/M3 milestone decisions are stalled awaiting authorization to run the gauntlet on drafts #1349 and #1356 (the latter flagged as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)), and the minion.town federation release gate remains blocked pending review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), #1332, and #1333. The IronHorse test262 ratchet round-3 sweep also surfaced a policy question needing a maintainer call on reconciling ~900 lost historical-floor paths against the current classifier, and a rolling-deploy canary on oros-studio has been stuck for over an hour, still needing a human look.
 
 ## Parked for maintainer feedback
 
@@ -1124,11 +1120,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
 
-> WATCHDOG notice — occurrence #12 (first seen 2026-09-18T05:51:21Z, latest 2026-09-29T03:35:23Z).
-> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-1`) has now been observed 12 times; this is ONE
-> coalesced notice that updates in place, not 12 messages. Latest detail:
+> WATCHDOG notice — occurrence #13 (first seen 2026-09-18T05:51:21Z, latest 2026-09-29T05:05:16Z).
+> The SAME condition (`budget-level-monk-endolin-garden-ece02cb4-1`) has now been observed 13 times; this is ONE
+> coalesced notice that updates in place, not 13 messages. Latest detail:
 >
-> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=94856291 cap=143000000 pace-bias=0.235495 window-start=2026-09-26T03:00Z(calendar) deadline=2026-09-30T03:00Z(planned) ceiling=3 target=1
+> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=101346486 cap=143000000 pace-bias=0.166539 window-start=2026-09-26T03:00Z(calendar) deadline=2026-09-30T03:00Z(planned) ceiling=4 target=1
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-3.md)
 
@@ -1279,10 +1275,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.3M | $792.03 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 10.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 101.4M | $792.74 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Codex | 11.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 55437723 tokens/day lower bound._
+_Fleet token-unlock pace: 55243839 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
@@ -1402,7 +1398,7 @@ kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oro
 
 ## Hosts
 - [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 1 monks
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
 - [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 4 monks
