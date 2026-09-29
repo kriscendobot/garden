@@ -18,3 +18,13 @@ Source directive: https://github.com/endojs/endo-but-for-bots/pull/1072#issuecom
 After the preceding weave has pinned and rebased the PR, reset and restage its unchanged net diff into canonical per-package commits, with implementation and tests together and any `yarn.lock` change in a separate `chore: Update yarn.lock` commit. Apply the canonical-shape no-op rule if the existing post-weave history already satisfies every retcon criterion. Verify the tree/net diff invariant, lease-push any rewrite, and post the required completion summary. Do not merge or un-draft.
 
 This is serial child 2 of the directive orchestration. A failed gated outcome must use the orchestration-failure signal contract.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T09:06:23Z
