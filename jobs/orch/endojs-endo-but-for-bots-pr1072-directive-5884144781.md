@@ -2,7 +2,7 @@
 order: serial
 children: endojs-endo-but-for-bots-pr1072-weave-20260929 endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929 endojs-endo-but-for-bots-pr1072-resume-gauntlet-20260929
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-09-29T06:23:09Z
 ---
