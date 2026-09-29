@@ -6367,6 +6367,27 @@ report_handoff_successor() {
   printf '%s\n' "$successor"
 }
 
+# report_signaled_handoff_successor <report-file>: like report_handoff_successor,
+# but for a report the handler has NOT yet stripped (it exited non-zero, so it
+# never confirmed the completion marker). Accepts only the full honest-handoff
+# ending — the handoff marker immediately followed by the completion marker as the
+# last two non-blank lines — so a run cut off before its final act never counts.
+# Prints the successor basename; does not modify the report.
+report_signaled_handoff_successor() {
+  local f="${1:-}" tmp successor
+  [ -f "$f" ] || return 1
+  report_has_completion_marker "$f" || return 1
+  tmp="$(mktemp "${TMPDIR:-/tmp}/garden-handoff-probe.XXXXXX")" || return 1
+  cp "$f" "$tmp" && strip_completion_marker "$tmp"
+  if successor="$(report_handoff_successor "$tmp")"; then
+    rm -f "$tmp"
+    printf '%s\n' "$successor"
+    return 0
+  fi
+  rm -f "$tmp"
+  return 1
+}
+
 # report_followup_override_reason <report-file>: print the one-line reason iff the
 # report carries a standalone follow-up-gate override marker, else return 1. The
 # safety valve for assert-followup-posted.sh: a report that mentions "follow-up"

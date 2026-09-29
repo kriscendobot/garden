@@ -28,6 +28,14 @@
 #              pre-completion gate; the worker survives and leaves it in doin.
 # SUBTEST 2D — if the pre-gate is inconclusive/stale enough to pass, complete-job
 #              returns its named soft rc and gardener still survives/leaves doin.
+# SUBTEST 2E — a handler that exits non-zero after a VERIFIED handoff (successor
+#              posted, handoff + completion markers) is terminalized handed-off.
+# SUBTEST 2F — the same non-zero exit with an UNPOSTED successor keeps the
+#              failure/retry path (stays in doin).
+# SUBTEST 2G — a non-zero exit whose handoff lacks the completion marker (never
+#              reached its final act) is not rescued even with a posted successor.
+# SUBTEST 2H — a follow-up gate block from a stale producer clone is overridden
+#              when the fresh worker clone verifies the handoff successor.
 # SUBTEST 3 — (a) handler exits 0 WITHOUT the signal → NOT in tada; left in doin
 #             with a reap-now hint; the reaper then requeues it doin→todo.
 # SUBTEST 4 — (c) each of the four named exit modes (API error / rate limit / quota
@@ -71,7 +79,7 @@ seed_board() {
     for d in jobs/todo jobs/doin jobs/tada jobs/gauntlet work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
     printf '# %s\n\ndo the work for %s\n' "$base" "$base" > "jobs/todo/$base.md" )
   for host in okhost failhost handoffhost gaphost modehost doomhost; do
-    seed_calibrated_test_pool "$seed" "$host" gardener
+    seed_calibrated_test_pool "$seed" "$host" monk
   done
   git -C "$seed" add -A
   git -C "$seed" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
@@ -258,6 +266,103 @@ V2D="$T2D/verify"; git clone -q --single-branch --branch journal2 "$BARE2D" "$V2
   && ok "complete-job's handoff-unverified rc stayed job-level; worker survived, cleaned its files, and left the claim in doin" \
   || bad "handoff soft rc escaped as worker failure (worker rc=$worker_rc, doin=$([ -f "$V2D/jobs/doin/beltjob.md" ] && echo y || echo n), tada=$([ -e "$V2D/jobs/tada/beltjob.md" ] && echo y || echo n))"
 rm -rf "$T2D"
+
+# post_successor <bare> <successor> — durably post a todo successor on <bare>.
+post_successor() {
+  local bare="$1" succ="$2" u
+  u="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig-post.XXXXXX")"
+  git clone -q --single-branch --branch journal2 "$bare" "$u/c"
+  printf 'successor owns the remainder\n' > "$u/c/jobs/todo/$succ.md"
+  git -C "$u/c" add "jobs/todo/$succ.md"
+  git -C "$u/c" -c user.name=test -c user.email=test@localhost commit -q -m 'post successor'
+  git -C "$u/c" push -q origin HEAD:journal2
+  rm -rf "$u"
+}
+
+# ============================================================================
+hr; echo "SUBTEST 2E: non-zero handler exit after a VERIFIED handoff is terminalized handed-off"; hr
+T2E="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2e.XXXXXX")"
+BARE2E="$(seed_board "$T2E" rescuejob)"
+post_successor "$BARE2E" rescuejob-r2
+set +e
+env GARDEN="handoffhost" GARDEN_STATE="$T2E/state" JOURNAL_REMOTE="$BARE2E" JOURNAL_BRANCH=journal2 \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=1 GARDEN_STUB_SIGNAL=0 \
+    GARDEN_STUB_COMPLETION_MARKER=1 GARDEN_STUB_HANDOFF_SUCCESSOR=rescuejob-r2 \
+    GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2E/gardener.log" 2>&1
+worker_rc=$?
+set -e
+V2E="$T2E/verify"; git clone -q --single-branch --branch journal2 "$BARE2E" "$V2E" 2>/dev/null
+TADA2E="$(fixture_tada_file "$V2E" rescuejob || true)"
+{ [ "$worker_rc" -eq 0 ] && [ -n "$TADA2E" ] && [ ! -e "$V2E/jobs/doin/rescuejob.md" ] \
+  && grep -qx 'handed-off: rescuejob-r2' "$TADA2E" \
+  && grep -qx 'deliverable-complete: false' "$TADA2E" \
+  && ! grep -qF '<<<GARDEN-JOB-' "$TADA2E" \
+  && grep -q "VERIFIED handoff to 'rescuejob-r2'" "$T2E/gardener.log"; } \
+  && ok "rc=1 with a verified handoff completed to tada with the handed-off disposition" \
+  || bad "verified handoff after rc=1 was not terminalized (worker rc=$worker_rc, tada=$([ -n "$TADA2E" ] && echo y || echo n), doin=$([ -e "$V2E/jobs/doin/rescuejob.md" ] && echo y || echo n))"
+rm -rf "$T2E"
+
+# ============================================================================
+hr; echo "SUBTEST 2F: non-zero handler exit with an UNPOSTED handoff keeps the retry path"; hr
+T2F="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2f.XXXXXX")"
+BARE2F="$(seed_board "$T2F" norescue)"
+set +e
+env GARDEN="handoffhost" GARDEN_STATE="$T2F/state" JOURNAL_REMOTE="$BARE2F" JOURNAL_BRANCH=journal2 \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=1 GARDEN_STUB_SIGNAL=0 \
+    GARDEN_STUB_COMPLETION_MARKER=1 GARDEN_STUB_HANDOFF_SUCCESSOR=never-posted \
+    GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2F/gardener.log" 2>&1
+worker_rc=$?
+set -e
+V2F="$T2F/verify"; git clone -q --single-branch --branch journal2 "$BARE2F" "$V2F" 2>/dev/null
+{ [ "$worker_rc" -eq 0 ] && [ -f "$V2F/jobs/doin/norescue.md" ] && ! fixture_has_tada "$V2F" norescue \
+  && grep -q "NOT verifiably posted" "$T2F/gardener.log" \
+  && grep -q "handler FAILED (rc=1) for 'norescue'" "$T2F/gardener.log"; } \
+  && ok "unverified handoff after rc=1 stayed in doin on the ordinary failure path" \
+  || bad "unverified handoff after rc=1 mishandled (worker rc=$worker_rc, doin=$([ -f "$V2F/jobs/doin/norescue.md" ] && echo y || echo n), tada=$(fixture_has_tada "$V2F" norescue && echo y || echo n))"
+rm -rf "$T2F"
+
+# ============================================================================
+hr; echo "SUBTEST 2G: a handoff without the final completion marker is never rescued"; hr
+T2G="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2g.XXXXXX")"
+BARE2G="$(seed_board "$T2G" cutoff)"
+post_successor "$BARE2G" cutoff-r2
+env GARDEN="handoffhost" GARDEN_STATE="$T2G/state" JOURNAL_REMOTE="$BARE2G" JOURNAL_BRANCH=journal2 \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=1 GARDEN_STUB_SIGNAL=0 \
+    GARDEN_STUB_HANDOFF_SUCCESSOR=cutoff-r2 GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2G/gardener.log" 2>&1 || true
+V2G="$T2G/verify"; git clone -q --single-branch --branch journal2 "$BARE2G" "$V2G" 2>/dev/null
+{ [ -f "$V2G/jobs/doin/cutoff.md" ] && ! fixture_has_tada "$V2G" cutoff \
+  && ! grep -q "VERIFIED handoff" "$T2G/gardener.log"; } \
+  && ok "handoff marker without the completion marker kept the failure path" \
+  || bad "a run cut off before its final act was rescued (doin=$([ -f "$V2G/jobs/doin/cutoff.md" ] && echo y || echo n))"
+rm -rf "$T2G"
+
+# ============================================================================
+hr; echo "SUBTEST 2H: a stale producer clone's gate block yields to a fresh verified handoff"; hr
+T2H="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2h.XXXXXX")"
+BARE2H="$(seed_board "$T2H/real" gatejob)"
+post_successor "$BARE2H" gatejob-r2
+# The producer clone tracks a DIFFERENT origin that lacks the successor, modeling
+# the 2026-09-29 gate that read a board predating the successor's commit.
+FAKE2H="$(seed_board "$T2H/fake" gatejob)"
+git clone -q --single-branch --branch journal2 "$FAKE2H" "$T2H/producer" 2>/dev/null
+set +e
+env GARDEN="handoffhost" GARDEN_STATE="$T2H/state" JOURNAL_REMOTE="$BARE2H" JOURNAL_BRANCH=journal2 \
+    GARDEN_PRODUCER_CLONE="$T2H/producer" \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 \
+    GARDEN_STUB_HANDOFF_SUCCESSOR=gatejob-r2 GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2H/gardener.log" 2>&1
+worker_rc=$?
+set -e
+V2H="$T2H/verify"; git clone -q --single-branch --branch journal2 "$BARE2H" "$V2H" 2>/dev/null
+TADA2H="$(fixture_tada_file "$V2H" gatejob || true)"
+{ [ "$worker_rc" -eq 0 ] && [ -n "$TADA2H" ] && grep -qx 'handed-off: gatejob-r2' "$TADA2H" \
+  && grep -q "fresh board read VERIFIES its handoff" "$T2H/gardener.log"; } \
+  && ok "gate block from a stale producer clone overridden by the fresh verified successor" \
+  || bad "stale gate block not overridden (worker rc=$worker_rc, tada=$([ -n "$TADA2H" ] && echo y || echo n); $(grep -E 'GATE|gate' "$T2H/gardener.log" | tail -2 | tr '\n' '|'))"
+rm -rf "$T2H"
 
 # ============================================================================
 hr; echo "SUBTEST 3 — (a) handler exits 0 WITHOUT the signal → requeued, NOT tada"; hr

@@ -22,6 +22,9 @@
 #                           report's last line; gardener.sh must translate it to
 #                           stamped frontmatter during completion.
 #   GARDEN_STUB_HANDOFF_SUCCESSOR <base> -> emit the exact handoff disposition.
+#   GARDEN_STUB_COMPLETION_MARKER 1 -> append the completion marker as the
+#                           report's last line (a worker that reached its final
+#                           act) regardless of GARDEN_STUB_SIGNAL/RC.
 #   GARDEN_STUB_CALL_LOG     optional file receiving one basename per invocation.
 #
 # Used by completion-signal-test.sh and productive-cycle-test.sh.
@@ -39,6 +42,8 @@ fi
   && printf '%s\n' '<<<GARDEN-ORCHESTRATION-FAILED>>>' >> "$report"
 [ -n "${GARDEN_STUB_HANDOFF_SUCCESSOR:-}" ] \
   && printf '<<<GARDEN-JOB-HANDED-OFF: %s>>>\n' "$GARDEN_STUB_HANDOFF_SUCCESSOR" >> "$report"
+[ "${GARDEN_STUB_COMPLETION_MARKER:-0}" = "1" ] \
+  && printf '%s\n' '<<<GARDEN-JOB-COMPLETE>>>' >> "$report"
 [ -n "${GARDEN_STUB_CAPTURE:-}" ] && { echo "$GARDEN_STUB_CAPTURE"; echo "$GARDEN_STUB_CAPTURE" >&2; }
 
 # Model real per-cycle progress: advance the persisted garden worktree's HEAD.

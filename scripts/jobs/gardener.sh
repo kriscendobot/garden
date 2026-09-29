@@ -691,6 +691,32 @@ while :; do
     "$HERE/usage-append.sh" "$base" "$elapsed_usage" "$1" "$usage_measurement" >/dev/null 2>&1 || true
   }
 
+  # VERIFIED-HANDOFF RESCUE. A handler can exit non-zero AFTER its worker reached
+  # the final act of an honest handoff (successor posted, handoff + completion
+  # markers emitted). Treating that as a failure leaves the source in doin for the
+  # reaper, which then re-runs work a live successor already owns (2026-09-29T17:48Z:
+  # activate-ironhorse-ratchet-autopilot-20260929-r4 named its queued -r5 and was
+  # still left for reaping). verified_report_handoff re-reads the board from a
+  # freshly synced worker clone; only a verified successor converts the outcome
+  # into a completion candidate, which then passes through every completion gate
+  # below exactly like a clean exit and is terminalized with --handed-off. An
+  # unverified or unreadable handoff keeps the ordinary failure/retry path.
+  verified_report_handoff() { # <successor>: 0 iff durably posted on the fresh board
+    ( sync_clone "$CLONE" ) >/dev/null 2>&1 || return 1
+    handoff_successor_posted "$CLONE" "$1"
+  }
+  if [ "$hrc" -ne 0 ] && [ ! -e "$completion_sentinel" ] \
+     && rescue_successor="$(report_signaled_handoff_successor "$report" 2>/dev/null)"; then
+    if verified_report_handoff "$rescue_successor"; then
+      log "handler exited rc=$hrc for '$base' but its report ends in a VERIFIED handoff to '$rescue_successor'; treating it as a handed-off completion, not a failure"
+      strip_completion_marker "$report"
+      : > "$completion_sentinel"
+      hrc=0
+    else
+      log "handler exited rc=$hrc for '$base' with a handoff to '$rescue_successor' that is NOT verifiably posted; keeping the failure/retry path"
+    fi
+  fi
+
   # PRODUCTIVE-CYCLE detection. For any NON-completion outcome (the job is about to be
   # left in doin for the reaper to requeue), decide whether the handler made real
   # progress this cycle and, if so, stamp the productive marker on our own still-in-doin
@@ -899,6 +925,15 @@ while :; do
     "$HERE/assert-followup-posted.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1
     followup_rc=$?
     set -e
+    # A handoff report is judged by the gate solely on its successor. The gate's
+    # producer clone can lag the board; give the fresh worker clone the final say
+    # before blocking a verified handoff into a reaper retry.
+    if [ "$followup_rc" -ne 0 ] \
+       && gate_successor="$(report_handoff_successor "$report" 2>/dev/null)" \
+       && verified_report_handoff "$gate_successor"; then
+      log "posted-follow-up GATE blocked '$base', but a fresh board read VERIFIES its handoff to '$gate_successor'; proceeding to handed-off completion"
+      followup_rc=0
+    fi
     if [ "$followup_rc" -ne 0 ]; then
       hrc=$followup_rc
       log "posted-follow-up GATE blocked completion of '$base' (rc=$hrc): a substantive follow-up was described but not posted; leaving in doin for retry"
