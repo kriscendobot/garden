@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T18:24:42Z_
+_As of 2026-09-29T18:28:01Z_
 
 ## Latest
 
-Board activity was light since the last bulletin: the only transition was the completion of `endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`, a support job for the ongoing Ironhorse live native-handle re-seating work in xsnap. The larger queue remains dominated by maintainer decisions that are still pending — most notably the M2 milestone gauntlet authorizations for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and the disposition of superseded duplicate #1356, the M3 confined-agent path choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the open questions on #1340, and the blocked minion.town/Endo federation release gate awaiting authority answers on #1332 and review of #1124. A rolling-deploy canary on oros-studio-garden-ce242c49 failed and was retried three times before halting for maintainer investigation, and the leader host is now flagged 25 commits behind on its own deploy after a test-gate rejection (failing `triager-pacing-test.sh`) — both worth a look, since the stalled leader deploy also holds back any directive issued after the current deployed commit.
+Two rolling-deploy fixes landed at the top of the tree: unclaimed probes on a fully busy canary are now treated as waiting rather than failed (36def9fd9e8), and rolling-deploy canary probes claim ahead of ordinary work (25123fdae03), alongside a receipt-watcher startup fix for stale cgroup stragglers (c9bfa87823e) and an issue-inbox quota-failure degrade (cded71d6fad). The `oros-studio-garden-ce242c49` canary, which had been stuck since early morning, recovered as a result. Job-board churn was light this cycle: the Ironhorse panic-retry-replay job moved from parked back to todo, and the #1018 follow-ups orchestration record was updated — no new completions of note beyond the ongoing IronHorse test262 ratchet work, which still awaits a maintainer call on reconciling round 3's floor (906 lost paths against the pre-change baseline).
 
 ## Parked for maintainer feedback
 
@@ -565,7 +565,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 141.9M | $974.41 _(notional, rate-card)_ | 99% of 143.0M (backoff) |
+| Claude | 142.2M | $976.64 _(notional, rate-card)_ | 99% of 143.0M (backoff) |
 | Codex | 15.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59109018 tokens/day lower bound._
@@ -574,7 +574,7 @@ _Fleet token-unlock pace: 59109018 tokens/day lower bound._
 worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`pty-lane-assay-rev5119818493-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pty-lane-assay-rev5119818493-r2.md) — pty-lane self-validation (round 2) for garden PR #81
 - [`claude-on-minion-town-press-20260929-182007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260929-182007.md) — Press the Claude-on-minion.town arc forward
@@ -582,6 +582,7 @@ worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal
 - [`review-improve-pr-description-reviewer-attention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/review-improve-pr-description-reviewer-attention.md) — review-improve-pr-description-reviewer-attention
 - [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 - [`improve-schedule-once-producer-livelock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-schedule-once-producer-livelock.md) — ---
+- [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-retry-replay.md) — Terminate, restore, replay: retry after a panic
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat.md) — Ironhorse: live native-handle re-seating in xsnap, and lifting #1150's suspen...
