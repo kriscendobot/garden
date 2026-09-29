@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-29T03:46:29Z_
+_As of 2026-09-29T03:49:21Z_
 
 ## Latest
 
@@ -225,6 +225,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 6 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 2): shared codex subscription demand active=1 queue=2 quota=ok fleet-envelope=5 target=2
+
+- `20260929T034835Z-9d2d1a` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T034835Z-9d2d1a.md)
+
+> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr1348-gauntlet-fix-4, msgid msg-endojs-endo-but-for-bots-pr1348-gauntlet-fix-4-26a9fdc12cba.md — Both items are scope/authority decisions (lifting a maintainer-set parking decision on public API design in [endojs/endo-but-for-bots#731](https://github.com/endojs/endo-but-for-bots/issues/731), and reclassifying a PR's deliverable disposition/scope), not progress or experimentation questions a proxy may answer.
 
 - `msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6` — from gardener:minion-town-guest-web-invite-accept-fallback-fix-post104, reply_to `minion-town-guest-web-invite-accept-fallback-fix-post104` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md)
 
@@ -1279,7 +1283,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.3M | $764.92 _(notional, rate-card)_ | 67% of 143.0M (ok) |
+| Claude | 96.4M | $765.50 _(notional, rate-card)_ | 67% of 143.0M (ok) |
 | Codex | 9.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55257688 tokens/day lower bound._
