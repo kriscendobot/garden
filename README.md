@@ -1,14 +1,16 @@
 # Garden bulletin
 
-_As of 2026-09-29T06:50:47Z_
+_As of 2026-09-29T06:56:10Z_
 
 ## Latest
 
-Quiet since the last bulletin at the board-transition level, but the inbox is dense. The rolling deploy halted on a failed canary at oros-studio-garden-ce242c49 (target `18df481c0`) after three automatic retries; the host was left drained pending investigation, with no auto-rollback. Separately, minion.town saw a brief endo-daemon outage (~06:28–06:33Z) caused by a preflight probe auto-starting a stray daemon during the pin bump past [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) ([kriscendobot/minion.town#138](https://github.com/kriscendobot/minion.town/pull/138)); service is restored on the old pin, and a fix ([kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139)) is green and queued to merge. A `main2` deploy candidate was rejected by the test gate on a failing triager-pacing test, so the deployed tree stayed put. On the review side, [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) is confirmed resolved and should stay draft pending gauntlet (do not close), while the Ironhorse test262 ratchet round 3 needs a maintainer call on reconciling ~906 historical-floor discrepancies against the current classifier. M2 and M3 remain stalled purely on maintainer gauntlet/promotion decisions (notably [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), #1356, and [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015)/#1340), and the minion.town/endo federation release gate is still blocked awaiting answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332).
+Deploy stayed pinned to `39d0c5ef0ac` after the candidate test gate rejected it (`triager-pacing-test.sh` failing); a fix landed on top and the following candidate went out, clearing the stuck-canary and host-offline alerts on oros-studio. Milestone M2 is otherwise idle behind maintainer sign-off: the foreman has repeatedly flagged the CI-green draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) awaiting `run the gauntlet` authorization, alongside a decision on whether to close its duplicate #1356 (foreman says it's superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)). M3's confined-agent work is similarly stalled on a choice between refreshing #1015 or resolving four open questions on design PR #1340.
+
+On the federation release gate, PR #1124 (nonce locator) remains the load-bearing blocker — everything downstream (#1333, minion.town#117, and the gateway session-binding build) waits on it, and #1332's authority questions are still unanswered. The Ironhorse test262 ratchet (round 3) needs a maintainer call on whether to reconcile ~906 lost paths against the historical floor or restore them under the old policy — full detail at the linked issue comment. Elsewhere, the proxy tentatively cleared minion.town#139 (Endo pin bump/redeploy fix) to proceed to merge, and a quarterly completions rollup (9,490 jobs, June–September) was published for review.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 28m)
+- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 34m)
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 2d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 11d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 17d)
@@ -112,13 +114,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #13 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T06:49:57Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 13 times; this is ONE
-> coalesced notice that updates in place, not 13 messages. Latest detail:
+> WATCHDOG notice — occurrence #14 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T06:55:04Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 14 times; this is ONE
+> coalesced notice that updates in place, not 14 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=4960s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=4871s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=5260s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=5171s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -287,6 +289,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=42821049 cap=143000000 pace-bias=0.020559 ceiling=4 target=3
 
+- `20260929T065403Z-0cc9e0` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T065403Z-0cc9e0.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: kriscendobot-minion-town-endo-pin-post1015-20260929
+> - question (msgid msg-kriscendobot-minion-town-endo-pin-post1015-20260929-ddad5eb161a3.md)
+> - tentative answer: proxy/tentative: No objection — this reads as a clean incident report, not a decision request. Root cause (stray daemon holding 127.0.0.1:8920 from the upgrade preflight's `endo list` probe) is well-diagnosed and unrelated to the new pin's correctness. Proceed as planned: merge [https://github.com/kriscendobot/minion.town/pull/139](https://github.com/kriscendobot/minion.town/pull/139) through the conductor, watch the redeploy retry the 1706e63 upgrade, and if it fails again, revert the pin following the [https://github.com/kriscendobot/minion.town/pull/111](https://github.com/kriscendobot/minion.town/pull/111) pattern. That's a sound, reversible fallback and doesn't need to wait on the maintainer. The maintainer may still want to double check the sandboxed auto-start/reaping logic in [https://github.com/kriscendobot/minion.town/pull/139](https://github.com/kriscendobot/minion.town/pull/139) once they're back, but that's a follow-up review, not a gate on landing it now given CI is green.
+
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=842330 cap=73000000 pace-bias=1.000000 window-start=2026-09-23T06:59Z(calendar) deadline=2026-09-30T06:59Z(calendar) ceiling=4 target=4
@@ -386,18 +395,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > canary oros-studio-garden-ce242c49 is no longer stuck (release 18df481c04b5aca0fec1f93ebdf8a0393b69544f, deployed e036bb8e0650b66a4ae00dc1516c4c8df39901ca).
 
-- `msg-kriscendobot-minion-town-endo-pin-post1015-20260929-ddad5eb161a3` — from gardener:kriscendobot-minion-town-endo-pin-post1015-20260929, reply_to `kriscendobot-minion-town-endo-pin-post1015-20260929` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion-town-endo-pin-post1015-20260929-ddad5eb161a3.md)
-
-> FYI (no action needed unless you object): minion.town endo-daemon outage, ~06:28–06:33Z 2026-09-29, now RESTORED on the old pin f9cbcfc.
->
-> Cause: the CD deploy of the Endo pin bump past [https://github.com/endojs/endo-but-for-bots/pull/1015](https://github.com/endojs/endo-but-for-bots/pull/1015) ([https://github.com/kriscendobot/minion.town/pull/138](https://github.com/kriscendobot/minion.town/pull/138), merged as 47d0c0b) ran the upgrade preflight. The preflight's `endo list` probe auto-started a stray Endo daemon, which kept 127.0.0.1:8920. The real unit then crash-looped on EADDRINUSE, both after the swap and after the automatic rollback. The new pin itself was not at fault: its preflight against the production state passed.
->
-> I killed the stray process by hand (plus a second one my own probe spawned), and the daemon is healthy again.
->
-> Fix: [https://github.com/kriscendobot/minion.town/pull/139](https://github.com/kriscendobot/minion.town/pull/139) (probes only connect to a socket that already accepts, auto-start is sandboxed, and strays are reaped). CI is green. I'm merging it through the conductor and will watch the redeploy retry the 1706e63 upgrade. If it fails again, I'll revert the pin (the [https://github.com/kriscendobot/minion.town/pull/111](https://github.com/kriscendobot/minion.town/pull/111) pattern).
->
-> Caveat until [https://github.com/kriscendobot/minion.town/pull/139](https://github.com/kriscendobot/minion.town/pull/139) lands: main pins 1706e63 while the box runs f9cbcfc.
-
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-0.md)
 
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 0 (target 0): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=1 target=0
@@ -408,7 +405,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.5M | $830.37 _(notional, rate-card)_ | 76% of 143.0M (ok) |
+| Claude | 108.8M | $831.77 _(notional, rate-card)_ | 76% of 143.0M (ok) |
 | Codex | 12.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 84623431 tokens/day lower bound._
