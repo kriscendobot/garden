@@ -129,6 +129,37 @@ unit never trips self-heal.
 - To force an immediate re-probe:
   `systemctl --user start garden-minion-mcp-watchdog.service`.
 
+## Proof record (endolin-garden2-5bcdff64, 2026-09-29)
+
+These runs record identity, scopes and tool names only, never a token.
+
+- **Principal.** `client_id`/`sub` `52ivub038n2dnvnk134s6vkqp1`
+  (`minion-mcp-test-cc`), scope `mcp/guest mcp/tools`, `expires_in` 3600. Server:
+  `minion-town` 0.1.0, protocol `2025-06-18`. Tools (16): `status`, `list`,
+  `has`, `writeText`, `readText`, `remove`, `listMessages`, `send`, `dismiss`,
+  `resolve`, `adopt`, `evaluate`, `publish`, `upgrade`, `listSites`,
+  `unpublish`. None carries `readOnlyHint`.
+- **Real handler runs.** A synthetic job went through the real handler scripts,
+  with the gate reading the journal config (not forced on):
+  - `monk-claude.sh` (claude -p) and `cleric-codex.sh` (codex exec) each listed
+    all 16 tools, called `status` (34 pet names), and wrote the completion
+    sentinel.
+  - `mystic-kimi.sh` attached the server, but the Moonshot model call failed on
+    the account balance.
+  - A direct `codex exec` run showed `mcp_tool_call` events for `status`.
+  - The fleet itself could not run the new code during the build: the deploy was
+    deferred behind the in-flight build job.
+- **Live mid-session refresh.** A bridge session was fed a bogus bearer first. It
+  got a 401 from production, refreshed the token, and the `status` call succeeded.
+- **Live watchdog.** The run went through five steps:
+  1. A healthy tick recorded `ok`/16.
+  2. A corrupted token cache was repaired (0600 re-asserted) and the tick stayed
+     `ok`.
+  3. The blocked endpoint produced heartbeat `down` and ONE maintainer notice,
+     `watchdog-minion-mcp-connection-endolin-garden2-5bcdff64`.
+  4. A second blocked tick posted no notice.
+  5. The restored endpoint produced `ok`/16 and amended the notice as recovered.
+
 ## Guard test
 
 `scripts/jobs/test/minion-mcp-test.sh` is hermetic. A fake Cognito endpoint and a
