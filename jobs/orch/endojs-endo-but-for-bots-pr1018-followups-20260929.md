@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-ironhorse-panic-transcript-reap-count: 0
 child-endojs-endo-but-for-bots-ironhorse-panic-debugger-panic-break-host: endolin-garden2-5bcdff64
 child-endojs-endo-but-for-bots-ironhorse-panic-debugger-panic-break-reap-count: 0
 child-endojs-endo-but-for-bots-ironhorse-panic-cxs-panicked-adapter-failure-notified: recovered
