@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T23:40:19Z_
+_As of 2026-09-29T23:48:22Z_
 
 ## Latest
 
-Two gauntlet stages advanced: the panel review for [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) moved from doin back to todo for a round-2 panel pass, and the retro on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) was promoted from plan into the queue. The [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68) gauntlet closed out — fix round 4, panel round 5, and the un-draft step all completed — while the retrospective on [endojs/endo-but-for-bots#1102](https://github.com/endojs/endo-but-for-bots/pull/1102) is now in progress. The clean stage for [endojs/endo-but-for-bots#1072](https://github.com/endojs/endo-but-for-bots/pull/1072) is also underway, and a viability check landed for [endojs/endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383). A large backlog of unread maintainer messages remains, most notably several foreman notices asking whether to authorize the gauntlet for #1349 and close superseded #1356, plus unresolved decisions on the IronHorse test262 floor reconciliation and the minion.town federation release gate.
+Two gauntlets advanced on [endojs/endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383) (clean stage passed, now into panel round 1) and the ironhorse-panic-host-call PR claimed into panel round 2, while [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68)'s gauntlet completed and moved on to un-drafting. Milestone M2 remains stuck on the same maintainer decision repeated across several foreman notices: authorize the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and dispose of #1356 (foreman recommends closing it as superseded by upstream endojs/endo#3332). Also worth a glance: the root checkout on the leader host (endolin-garden-ece02cb4) is now 25 commits behind and stalled on a deploy-candidate test-gate rejection (a failing triager-pacing test), and the retire-gardener-worker-kind-alias-split orchestration halted after a child stalled past its timeout.
 
 ## Parked for maintainer feedback
 
@@ -470,7 +470,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 169.4M | $1131.94 _(notional, rate-card)_ | 118% of 143.0M (backoff) |
+| Claude | 169.9M | $1133.88 _(notional, rate-card)_ | 119% of 143.0M (backoff) |
 | Codex | 15.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61750386 tokens/day lower bound._
@@ -479,26 +479,29 @@ _Fleet token-unlock pace: 61750386 tokens/day lower bound._
 worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1379
-- [`endojs-endo-but-for-bots-pr1357-review-b33b9342-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1357-review-b33b9342-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1357 (primary: endojs-endo-but-...
+### todo (6)
+- [`endojs-endo-but-for-bots-pr1357-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1357-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1357
+- [`endojs-endo-but-for-bots-pr1383-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1383-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1383
+- [`endo-daemon-idempotent-start-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-daemon-idempotent-start-build.md) — Endo daemon: idempotent start + early single-instance lock (phase 1)
+- [`kriscendobot-minion.town-pr120-75934ef0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr120-75934ef0-retro.md) — Retrospective on kriscendobot/minion.town PR #120 (primary: kriscendobot-mini...
+- [`kriscendobot-minion.town-pr120-review-f4e33453-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr120-review-f4e33453-retro.md) — Retrospective on kriscendobot/minion.town PR #120 (primary: kriscendobot-mini...
+- [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### doin (7)
+### doin (6)
+- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1379
 - [`build-minion-town-pr-screening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-pr-screening.md) — Build: proxy screening + delegated merge for kriscendobot/minion.town PRs
 - [`endojs-endo-but-for-bots-pr1102-faed8ca7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1102-faed8ca7-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1102 (primary: endojs-endo-but-...
 - [`improve-deadline-nudge-failure-trace`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-failure-trace.md) — ---
 - [`endojs-endo-but-for-bots-pr1072-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1072
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
-- [`endo-daemon-idempotent-start-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-daemon-idempotent-start-build.md) — Endo daemon: idempotent start + early single-instance lock (phase 1)
-- [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### tada (9785)
+### tada (9788)
+- [`endojs-endo-but-for-bots-pr1383-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1383-gauntlet-clean.md) — Cost
+- [`endojs-endo-but-for-bots-pr1357-review-b33b9342-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1357-review-b33b9342-retro.md) — Cost
+- [`kriscendobot-minion-town-pr68-gauntlet-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-pr68-gauntlet-20260929.md) — gauntlet kriscendobot-minion-town-pr68-gauntlet-20260929 — complete
 - [`kriscendobot-minion-town-pr68-gauntlet-20260929-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-pr68-gauntlet-20260929-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1383-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1383-gauntlet-viability.md) — Cost
-- [`kriscendobot-minion-town-pr68-gauntlet-20260929-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-pr68-gauntlet-20260929-panel-5.md) — Cost
-- [`kriscendobot-minion-town-pr68-gauntlet-20260929-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-pr68-gauntlet-20260929-fix-4.md) — Cost
-- [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr.md) — Cost
-- … and 9780 more
+- … and 9783 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -537,8 +540,6 @@ worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-minion.town-pr120-75934ef0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr120-75934ef0-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #120 (primary: kriscendobot-mini...
-- [`kriscendobot-minion.town-pr120-review-f4e33453-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr120-review-f4e33453-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #120 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr139-review-de54e8bb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr139-review-de54e8bb-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #139 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr130-review-ba8a9163-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr130-review-ba8a9163-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #130 (primary: kriscendobot-mini...
 
