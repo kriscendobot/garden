@@ -71,3 +71,13 @@ The source is the 443 `ironhorse-aborted-limit` entries of `baseline/refresh-202
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ~~~
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T02:01:44Z
