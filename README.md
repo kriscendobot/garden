@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-29T06:47:51Z_
+_As of 2026-09-29T06:50:47Z_
 
 ## Latest
 
-Overnight the board stayed dominated by unresolved gauntlet-promotion decisions rather than new code: M2 remains stuck on the CI-green draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) awaiting an explicit "run the gauntlet" authorization, alongside a close/disposition decision on duplicate #1356 (superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)). M3's `@endo/claude` confinement path is likewise blocked pending a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering open design questions on #1340/#1102.
-
-A rolling-deploy canary on oros-studio failed three retries and was halted (not auto-rolled-back) before recovering on its own about 45 minutes later — the host has since rejoined the fleet. Separately, the minion.town Endo-pin advance past #1015 caused a brief (~5 minute) production outage from a stray daemon process holding the socket; it was hand-recovered and a fix ([kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139)) is CI-green and queued to merge. A deploy candidate on `main2` (39d0c5ef0ac) was rejected by the test gate on a failing triager-pacing test, so the deployed tree stayed put. The federation release gate for minion.town/OCapN remains fully blocked pending maintainer answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332)'s authority questions and review/merge of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). Ironhorse's test262 ratchet round 3 is also parked on a maintainer floor-reconciliation decision (906 lost paths vs. the historical baseline, largely reclassification rather than regressions).
+Quiet since the last bulletin at the board-transition level, but the inbox is dense. The rolling deploy halted on a failed canary at oros-studio-garden-ce242c49 (target `18df481c0`) after three automatic retries; the host was left drained pending investigation, with no auto-rollback. Separately, minion.town saw a brief endo-daemon outage (~06:28–06:33Z) caused by a preflight probe auto-starting a stray daemon during the pin bump past [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) ([kriscendobot/minion.town#138](https://github.com/kriscendobot/minion.town/pull/138)); service is restored on the old pin, and a fix ([kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139)) is green and queued to merge. A `main2` deploy candidate was rejected by the test gate on a failing triager-pacing test, so the deployed tree stayed put. On the review side, [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) is confirmed resolved and should stay draft pending gauntlet (do not close), while the Ironhorse test262 ratchet round 3 needs a maintainer call on reconciling ~906 historical-floor discrepancies against the current classifier. M2 and M3 remain stalled purely on maintainer gauntlet/promotion decisions (notably [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), #1356, and [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015)/#1340), and the minion.town/endo federation release gate is still blocked awaiting answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332).
 
 ## Parked for maintainer feedback
 
-- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 21m)
+- [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 28m)
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 2d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 11d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 17d)
@@ -114,13 +112,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #12 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T06:44:54Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 12 times; this is ONE
-> coalesced notice that updates in place, not 12 messages. Latest detail:
+> WATCHDOG notice — occurrence #13 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T06:49:57Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 13 times; this is ONE
+> coalesced notice that updates in place, not 13 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=4659s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=4570s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=4960s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=4871s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -410,10 +408,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.4M | $830.10 _(notional, rate-card)_ | 76% of 143.0M (ok) |
-| Codex | 12.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 51% _(plan; codex-reported)_ |
+| Claude | 108.5M | $830.37 _(notional, rate-card)_ | 76% of 143.0M (ok) |
+| Codex | 12.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 88953210 tokens/day lower bound._
+_Fleet token-unlock pace: 84623431 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
