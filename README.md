@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T03:44:21Z_
+_As of 2026-09-29T03:46:29Z_
 
 ## Latest
 
-Fleet activity was mostly quiet on the board (no fresh todo/doin/tada transitions since the last bulletin), but the maintainer inbox filled with decisions gating three milestones. M2 is stalled entirely on manual gauntlet authorization: draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) is CI-green and ready for `run the gauntlet #1349`, while sibling draft #1356 is now considered superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/issues/3332) and just needs a close decision. M3's confined-agent track is similarly blocked between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (pending its #1348 prerequisite) or answering four open design questions on #1340/#1332. The [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) gauntlet itself (fix round 4) has two must-fix items only the maintainer can settle: whether to lift the JSON agent-tools parking from #731 for this slice, and whether the ledger's deferred Phase 2/4 work should reclassify the PR as a probe.
-
-Operationally, the rolling deploy to `main2` is currently wedged: canary `oros-studio-garden-ce242c49` is stuck at the old commit after the leader and `endolin-garden2` advanced, blocking the queued Ironhorse ratchet-autopilot activation — this needs hands-on host diagnosis or a maintainer-attested sysop deploy. Separately, the ironhorse test262 ratchet round 3 needs a floor-reconciliation decision (906 historical covered paths now failing under the stricter classifier), and the endo/minion.town federation release gate remains blocked pending review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124) and answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332).
+Overnight activity was dominated by the Ironhorse test262 ratchet round 3, where the gardener flagged a real policy question rather than papering over it: the current-llm sweep shows 906 lost paths against the historical floor (443 engine-limit aborts, 397 shared-positive-test-failures, 66 other), several hundred of which the old classifier had marked covered as false positives. The gardener is fixing genuine regressions (e.g. `Object.getOwnPropertyDescriptor` missing lazy intrinsic accessors) but is holding on relabeling anything to fake a literal zero-loss match, and is waiting on a maintainer decision about reconciling the floor. Separately, the rolling deploy to `65f0c2e4414d` is stuck: canary `oros-studio-garden-ce242c49` never advanced past `e036bb8e` despite a fresh heartbeat, which is blocking the Ironhorse ratchet-autopilot activation and needs hands-on-host diagnosis or a maintainer-attested sysop `deploy`. On the M2/M3 milestone front, the foreman has repeatedly surfaced that the only unblocked work is authorizing "run the gauntlet" on draft PRs [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and deciding on the superseded duplicate [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356). Fix round 4 on [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) also needs a maintainer call on two scope questions (lifting the JSON agent-tools parking from #731, and whether Phase 4 daemon-grants consumer work stays in scope). A quarterly completions rollup (9,490 completions, 2026-06-24 through today) was published and passed its live checks. Finally, the endo/minion.town federation release gate remains blocked pending authority-question answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124).
 
 ## Parked for maintainer feedback
 
@@ -451,8 +449,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-latency-kriscendobot-garden` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-latency-kriscendobot-garden.md)
 
-> Comment acknowledgment latency anomaly for kriscendobot/garden:
-> [https://github.com/kriscendobot/garden/issues/89](https://github.com/kriscendobot/garden/issues/89)#issuecomment-5882639551 (latency=3084s; heartbeat=full-poll)
+> RECOVERED — the watchdog condition `comment-ack-latency-kriscendobot-garden` has CLEARED (first seen 2026-09-29T03:39:51Z, cleared 2026-09-29T03:44:47Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Comment acknowledgment condition cleared.
 
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
 
@@ -1278,7 +1279,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.1M | $764.14 _(notional, rate-card)_ | 67% of 143.0M (ok) |
+| Claude | 96.3M | $764.92 _(notional, rate-card)_ | 67% of 143.0M (ok) |
 | Codex | 9.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55257688 tokens/day lower bound._
