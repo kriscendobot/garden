@@ -44,3 +44,13 @@ Production-npm-registry-style promotion concerns don't apply here — this is
 a garden-owned service on garden-owned infrastructure (minion.town), so
 "production" just means live and working at git.minion.town, not a
 third-party release gate.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T00:25:50Z
