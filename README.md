@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-29T04:55:01Z_
+_As of 2026-09-29T04:59:38Z_
 
 ## Latest
 
-Fix round 5 of the panel gauntlet for [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) landed and closed out that stage, while fix round 2 for the npm-registry-server work on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) is still in flight — its panel flagged an architectural must-fix (its CAS/SQLite store diverges from the design's call to reuse @endo/exo-npm) that a fix round can't resolve alone, so a maintainer decision on rehoming vs. parking vs. amending the design is needed there. The board is otherwise light: only two jobs are actively claimed, and M2/M3 milestone progress remains stalled behind a stack of unauthorized gauntlet-promotion decisions on drafts #1349, #1356, #1015, and #1340 that the foreman keeps re-surfacing. A large backlog of doom-parked and split-eligible jobs sits in the plan queue awaiting maintainer promotion, and the ironhorse test262 ratchet round-3 work is blocked on how to reconcile several hundred historical "covered" test paths against a stricter current classifier.
+PR [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) finished its gauntlet and un-drafted — the M2 hardened-text-codecs work reached a mergeable state overnight. Gauntlet fixing continues on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) (round 2, still in progress) and #1015 is being refreshed for preliminary review.
+
+Several M2 decisions are still stacking up in the foreman's messages: draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) is CI-green and waiting on explicit gauntlet authorization, while #1356 is flagged as superseded by upstream endojs/endo#3332 and a candidate to close outright. M3's confinement-core path is likewise blocked pending a maintainer call between advancing #1015 or first resolving the four open questions on design PR #1340.
+
+Several jobs doom-parked after exhausting retries and need a promote/close decision: the fix-1 stage of the #356 gauntlet, panel-1 of the #450 gauntlet, panel-6 of the minion.town #68 gauntlet, plus the #982 retrospective, the #1015-refresh-for-review job, the docker-selfhost build, and a couple of self-heal cursor-read fixes — all preserved in `jobs/plan/` awaiting `promote-plan.sh`. The Ironhorse test262 ratchet round-3 sweep surfaced a genuine floor-reconciliation question (906 historical-covered paths now failing under the stricter current classifier) that needs a maintainer policy call before the round can close honestly. The Ironhorse ratchet-autopilot rollout is also stalled: oros-studio is wedged at an old deploy SHA and needs a human look. Separately, a deploy candidate (39d0c5ef0ac) was rejected by the test gate on a triager-pacing test failure, so main2 stayed at the prior commit.
 
 ## Parked for maintainer feedback
 
@@ -677,17 +681,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
 
-- `20260929T045404Z-09fdc3` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T045404Z-09fdc3.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: endojs-endo-but-for-bots-pr1362-gauntlet-fix-2
-> - question (msgid msg-endojs-endo-but-for-bots-pr1362-gauntlet-fix-2-f4b0292663c9.md)
-> - tentative answer: Proxy/tentative (maintainer may revise): go with option (b) — park PR [https://github.com/endojs/endo-but-for-bots/pull/1362](https://github.com/endojs/endo-but-for-bots/pull/1362) behind the design at [https://github.com/endojs/endo-but-for-bots/pull/1361](https://github.com/endojs/endo-but-for-bots/pull/1361) and the tree-interface adapter landing, rather than (a) rehoming now or (c) amending the design.
->
-> Reasoning: the design ([https://github.com/endojs/endo-but-for-bots/pull/1361](https://github.com/endojs/endo-but-for-bots/pull/1361)) is itself an unlanded draft, so a full rehome onto @endo/exo-npm's tree interface right now risks being reworked again once the design settles — throw-away effort in the wrong direction. Amending the design to bless the current bespoke CAS/SQLite architecture (option c) is a design-scope decision, not something a fix-round gardener or proxy should decide unilaterally; that's for the designer/maintainer once they've weighed the tradeoff.
->
-> So: leave the round-2 fixes (all other must-fixes + security should-fixes, head e7efe19990) as committed, keep the README's honest non-conformance note, and post-plan a `--blocked --blocked-on` dependency (or park it) on PR [https://github.com/endojs/endo-but-for-bots/pull/1361](https://github.com/endojs/endo-but-for-bots/pull/1361) landing + the directory-tree adapter shipping. Do not un-draft or run the gauntlet again until that dependency clears. Flag explicitly in the PR/tracking note that this is a provisional call and the maintainer may instead choose (a) or (c) when they review.
-
 - `msg-build-minion-town-mcp-garden2-workers-76b942035c1f` — from gardener:build-minion-town-mcp-garden2-workers, reply_to `build-minion-town-mcp-garden2-workers` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-mcp-garden2-workers-76b942035c1f.md)
 
 > minion.town MCP standing order: machinery landed on main2 (1f0cc8400b5), and it is proven live on endolin-garden2 for claude -p and codex exec. Two decisions are yours before I widen it past garden2:
@@ -1286,7 +1279,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.2M | $791.54 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Claude | 101.3M | $792.03 _(notional, rate-card)_ | 71% of 143.0M (ok) |
 | Codex | 10.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55437723 tokens/day lower bound._
