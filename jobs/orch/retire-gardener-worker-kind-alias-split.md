@@ -2,7 +2,7 @@
 order: serial
 children: retire-gardener-worker-kind-alias-env-fallback retire-gardener-worker-kind-alias-verify-docs
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-29T20:16:47Z
 ---
