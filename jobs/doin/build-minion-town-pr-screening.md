@@ -22,3 +22,13 @@ validation with pause/heal/auto-resume; fixer re-request and bulletin parked-lis
 redirects scoped to minion.town only; roles/proxy, roles/conductor, roles/fixer,
 roles/COMMON.md and a context/operations page updated. Do NOT arm (seed) the
 delegation — leave arming as the documented post-deploy step and say so in the report.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T23:10:43Z
