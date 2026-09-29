@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T22:09:25Z_
+_As of 2026-09-29T22:13:06Z_
 
 ## Latest
 
-Board activity this cycle is light: the day's real motion was on [endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381), whose gauntlet ran clean through to un-draft, plus a PR-body template pass now queued for it, while [kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139)'s approved conduct completed. Ironhorse's panic-retry/replay work continues advancing through the gauntlet (panel round 2 on #1379, clean stage on #1380, coda in progress) alongside a fix round 2 on [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68).
-
-The bigger story is what's stuck: the leader host is 25 commits behind on a stalled, drained deploy, and a rolling-deploy candidate was rejected outright on a failing triager-pacing test — both need attention since the leader is currently not honoring anything newer than its deployed SHA. Several milestone decisions remain parked awaiting the maintainer, most notably whether to authorize the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (M2) and how to resolve the IronHorse test262 round-3 floor-reconciliation question tracked on [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51).
+The board stayed quiet since the last bulletin — the only movement was the completion of round 2 of the fix loop on [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68)'s gauntlet, now sitting in tada. Everything else noted above (M2/M3 milestone blockers, the federation release gate, watchdog notices) predates this window and is unchanged.
 
 ## Parked for maintainer feedback
 
@@ -435,7 +433,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 160.9M | $1082.94 _(notional, rate-card)_ | 113% of 143.0M (backoff) |
+| Claude | 161.0M | $1083.20 _(notional, rate-card)_ | 113% of 143.0M (backoff) |
 | Codex | 15.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63999153 tokens/day lower bound._
@@ -450,22 +448,21 @@ worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr.md) — Open the draft PR for the Ironhorse panic retry/replay leg
 - [`kriscendobot-minion-town-endo-pin-post1015-deploy-verify-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-endo-pin-post1015-deploy-verify-20260929.md) — Verify the minion.town CD deploy advances the Endo daemon to 1706e63 (after #...
 
-### doin (7)
+### doin (6)
 - [`endojs-endo-but-for-bots-ironhorse-panic-coda-reference-error`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-coda-reference-error.md) — Coda: panic-on-reference-error construction option
 - [`design-minion-town-pr-screening-by-proxy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-pr-screening-by-proxy.md) — Design: proxy / mentat-supervisor screening for kriscendobot/minion.town PRs
 - [`endojs-endo-but-for-bots-pr1097-review-c2702a77-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-review-c2702a77-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1097 (primary: endojs-endo-but-...
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1380
 - [`improve-gh-api-primary-quota-singleflight-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gh-api-primary-quota-singleflight-expanded-window.md) — improve-gh-api-primary-quota-singleflight-expanded-window
-- [`kriscendobot-minion-town-pr68-gauntlet-20260929-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-gauntlet-20260929-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #68
 
-### tada (9760)
+### tada (9761)
+- [`kriscendobot-minion-town-pr68-gauntlet-20260929-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-pr68-gauntlet-20260929-fix-2.md) — Gauntlet FIX round 2: kriscendobot/minion.town PR #68
 - [`confirm-implement-nudge-continue-parity-mentat-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/confirm-implement-nudge-continue-parity-mentat-20260929.md) — Completion report
 - [`kriscendobot-minion-town-pr139-conduct-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-pr139-conduct-20260929.md) — Cost
 - [`improve-budget-snapshot-outage-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/improve-budget-snapshot-outage-recovery.md) — Completion report: improve-budget-snapshot-outage-recovery
 - [`claude-on-minion-town-press-20260929-212011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/claude-on-minion-town-press-20260929-212011.md) — Manual gauntlet handoff
-- [`conduct-kriscendobot-minion-town-pr139-approved-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/conduct-kriscendobot-minion-town-pr139-approved-20260929.md) — Cost
-- … and 9755 more
+- … and 9756 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
