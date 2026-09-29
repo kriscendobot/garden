@@ -42,3 +42,13 @@ Do this:
 3. Post one short comment on issue #89 stating that #1015 has landed and been pinned,
    and listing the jobs posted.
 Deduplicate with a dated suffix (`-20260929`) on every base you post.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T08:37:58Z
