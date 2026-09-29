@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T02:54:52Z_
+_As of 2026-09-29T02:57:37Z_
 
 ## Latest
 
-Two gauntlet panel rounds closed out: [kriscendobot/minion.town#120](https://github.com/kriscendobot/minion.town/pull/120) and [kriscendobot/minion.town#135](https://github.com/kriscendobot/minion.town/pull/135) both cleared panel round 5, and #135 moved straight into its fix-5 stage, now in flight. A canary probe on endolin-garden2-5bcdff64 came back clean post-deploy. The maintainer inbox is heavy this cycle: the foreman has repeatedly flagged milestone M2 as blocked on manual-gauntlet authorization for the draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) and a close decision on the superseded #1356 (duplicated by upstream endojs/endo#3332), plus M3 is stalled pending a call on refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) versus resolving open questions on #1340. The endo/minion.town federation release gate remains blocked, waiting on maintainer answers on #1332 and a maintainer review of #1124 before it can proceed. Several gauntlet/job stages doom-parked after exhausting retries (PR #356 fix, PR #450 panel, minion.town PR #68 panel) and stay held in the plan queue for a promote decision. Budget/quota watchdogs show normal fluctuation across hosts with no action needed, and a quarterly completions rollup (9,490 jobs, June–September) was published to the ocap.site dashboard.
+Only one board transition landed since the last bulletin: [kriscendobot/minion.town#120](https://github.com/kriscendobot/minion.town/pull/120) moved into its fifth fix round after panel round 5 came back must-fix. The queue otherwise stays heavy — five jobs in doin (including fix rounds on [kriscendobot/minion.town#135](https://github.com/kriscendobot/minion.town/pull/135) and [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348), plus the llm master-sync PR and the Ironhorse ratchet autopilot activation) and a large backlog of maintainer decisions piling up on M2/M3 milestone gating (draft PRs [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and #1356 both awaiting gauntlet authorization or close-as-superseded) and the minion.town/endo federation release gate, which remains blocked pending review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124) and the #1332 authority questions.
 
 ## Parked for maintainer feedback
 
@@ -1232,7 +1232,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.1M | $735.14 _(notional, rate-card)_ | 63% of 143.0M (ok) |
+| Claude | 90.3M | $736.49 _(notional, rate-card)_ | 63% of 143.0M (ok) |
 | Codex | 8.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 81988294 tokens/day lower bound._
@@ -1241,8 +1241,8 @@ _Fleet token-unlock pace: 81988294 tokens/day lower bound._
 worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`kriscendobot-minion.town-pr120-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr120-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #120
 
 ### doin (5)
 - [`kriscendobot-minion.town-pr135-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr135-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #135
