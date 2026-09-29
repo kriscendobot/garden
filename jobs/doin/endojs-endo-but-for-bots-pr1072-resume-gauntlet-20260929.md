@@ -22,3 +22,13 @@ After the gauntlet is active (not before), park a fresh blocked retcon job named
 The older `endojs-endo-but-for-bots-pr1072-retcon-after-gauntlet-20260928` plan is a superseded `blocked-failed` artifact from the prior halted gauntlet. Withdraw it with `withdraw-plan.sh`, recording that the new directive superseded it, only after the fresh blocked retcon has been durably posted.
 
 This is serial child 3 of the directive orchestration. A failure to resume the gauntlet or durably stage the final retcon is a failed gated outcome and must use the orchestration-failure signal contract.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T10:24:15Z
