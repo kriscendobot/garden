@@ -1,12 +1,13 @@
 ---
 role: assayer
-tier: mentor
+tier: minion
+model-burned: mentor
 provider: anthropic
 lane: pty
 requires: host=endolin-garden2-5bcdff64
 handler-timeout: 7200
 dispatch: automatic
-fallback-tier: minion
+fallback-tier: 
 ---
 
 # Interactive pty-lane self-validation for garden PR #81 (host-pinned to a deployed host)
@@ -82,13 +83,5 @@ or `pty-context-test.sh` does not fully pass), emit the exact line
 `<<<GARDEN-ORCHESTRATION-FAILED>>>` immediately BEFORE your completion signal.
 Then, in all cases, emit `<<<GARDEN-JOB-COMPLETE>>>` as the very last line.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-29T00:02:08Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-29T02:23:06Z -->
