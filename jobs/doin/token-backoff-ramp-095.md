@@ -22,3 +22,13 @@ so a scheduler-style caller sees "no work to post" — you are running it
 directly, not via the scheduler, so just confirm the log line reads
 "set token-backoff-fraction=0.95" or "no change (already 0.95)", either
 of which means done). Report done; no further action required.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T18:15:50Z
