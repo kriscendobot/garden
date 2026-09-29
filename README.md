@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T17:52:32Z_
+_As of 2026-09-29T17:57:34Z_
 
 ## Latest
 
-Board activity was light since the last bulletin: a maintainer-facing report was filed for the [kriscendobot/garden#81](https://github.com/kriscendobot/garden/pull/81) post-deploy validation job, which was then re-posted for a fresh round (`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z`), and a new `improve-verified-handoff-terminalization` job was queued. The larger picture is unchanged: the rolling deploy remains stuck on canary host `oros-studio-garden-ce242c49` (48 occurrences and counting, still reporting an old deployed SHA), the leader itself is now 25 commits behind `origin/main2` and stalled, and a deploy candidate was separately rejected on a failing `triager-pacing-test.sh` suite — all of which needs a maintainer look before the fleet advances further. Also queued for review: milestone M2/M3 gating decisions on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), #1356, #1015, and #1340, plus the Ironhorse test262 ratchet round-3 floor-reconciliation question.
+Board activity was thin this cycle: the ironhorse ratchet autopilot round wrapped (`activate-ironhorse-ratchet-autopilot-20260929-r5` completed to tada), while the subscription-budget deploy-gate regression fix, the verified-handoff terminalization work, and continued conduct on [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) all remain in flight.
+
+The more consequential news is on the fleet side: the leader (endolin-garden-ece02cb4) had its deploy stalled 25 commits behind main2 while a rolling-deploy canary on oros-studio-garden-ce242c49 failed three retries against target `18df481c04b`, halting the roll — that canary has since recovered and both conditions cleared. A deploy candidate was also rejected earlier by the test gate on a triager-pacing failure. Separately, several M2/M3 milestone decisions are still parked on the maintainer: authorizing the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), closing the superseded [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356), and choosing between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving the open questions on #1340. Claude spend is at 98% of weekly quota (backoff zone), so expect continued monk-worker throttling until the reset.
 
 ## Parked for maintainer feedback
 
@@ -28,11 +30,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-29T05:53:06Z, cleared 2026-09-29T16:53:02Z).
-> It was observed 130 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #131 (first seen 2026-09-29T05:53:06Z, latest 2026-09-29T17:53:10Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 131 times; this is ONE
+> coalesced notice that updates in place, not 131 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1829s (offline threshold 1800s; sampled_at_epoch=1790702556).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
 
 - `msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6.md)
 
@@ -541,15 +548,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #48 (first seen 2026-09-29T03:14:02Z, latest 2026-09-29T17:17:03Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 48 times; this is ONE
-> coalesced notice that updates in place, not 48 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-29T03:14:02Z, cleared 2026-09-29T17:53:15Z).
+> It was observed 48 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 36def9fd9e81 21 min ago
-> but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
-> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
-> keeps it from advancing. The leader does not advance past an undeployed canary.
-> (leader=endolin-garden-ece02cb4)
+> canary oros-studio-garden-ce242c49 is no longer stuck (release 36def9fd9e81636e0335a8076b26a67f09dd2dda, deployed e036bb8e0650b66a4ae00dc1516c4c8df39901ca).
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-0.md)
 
@@ -565,38 +568,37 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 139.7M | $962.38 _(notional, rate-card)_ | 98% of 143.0M (backoff) |
+| Claude | 140.1M | $964.92 _(notional, rate-card)_ | 98% of 143.0M (backoff) |
 | Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 56888531 tokens/day lower bound._
+_Fleet token-unlock pace: 61871395 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`review-improve-cross-platform-test-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/review-improve-cross-platform-test-coverage.md) — review-improve-cross-platform-test-coverage
-- [`improve-verified-handoff-terminalization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-verified-handoff-terminalization.md) — ---
 - [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/run-the-gauntlet-minion-town-pr90.md) — ---
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`review-improve-pr-description-reviewer-attention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/review-improve-pr-description-reviewer-attention.md) — review-improve-pr-description-reviewer-attention
 - [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
-- [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
 ### doin (5)
-- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
-- [`activate-ironhorse-ratchet-autopilot-20260929-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929-r5.md) — Finish activation of the Ironhorse foreman-woken press (continued, round 5)
 - [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias.md) — ---
+- [`improve-verified-handoff-terminalization`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-verified-handoff-terminalization.md) — ---
 - [`endojs-endo-but-for-bots-pr1097-conduct-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-conduct-20260929.md) — Conduct endojs/endo-but-for-bots PR #1097
+- [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Host calls as transcript events, logical handles, and barriers
 
-### tada (9682)
+### tada (9683)
+- [`activate-ironhorse-ratchet-autopilot-20260929-r5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/activate-ironhorse-ratchet-autopilot-20260929-r5.md) — Cost
 - [`endojs-endo-but-for-bots-agent-non-extensible-directory-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-agent-non-extensible-directory-gauntlet.md) — gauntlet endojs-endo-but-for-bots-agent-non-extensible-directory-gauntlet - n...
 - [`endojs-endo-but-for-bots-agent-non-extensible-directory-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-agent-non-extensible-directory-gauntlet-viability.md) — Viability report: endojs/endo-but-for-bots #1378
 - [`oros-ckm-dependabot-audit-0013418`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/oros-ckm-dependabot-audit-0013418.md) — Completion report
 - [`improve-handoff-sync-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/improve-handoff-sync-failopen.md) — Cost
-- [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — Completion report
-- … and 9677 more
+- … and 9678 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
