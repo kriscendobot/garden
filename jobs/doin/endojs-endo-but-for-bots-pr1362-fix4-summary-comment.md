@@ -32,3 +32,13 @@ The fix-4 stage (job endojs-endo-but-for-bots-pr1362-gauntlet-fix-4) pushed `214
 - **integrator must-fix (design #1361 unlanded; phase order)**: this needs a maintainer decision on #1361, and a code change cannot settle it. The PR stays in draft.
 - **integrator, packager (history reset into logical commits)**: this is a retcon-shaped rewrite, so it is left for a separate retcon pass before un-draft.
 - **locksmith #1 (unforgeable grant brand)**, engine-realist should-fixes (batching fsync, avoiding copies), and **typist** (`types.ts` consolidation): deferred as should-fix or comment-only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T08:37:08Z
