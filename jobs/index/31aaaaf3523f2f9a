@@ -1,2 +1,2 @@
-base: improve-followup-handoff-detection
+base: improve-handoff-sync-failopen
 identity: mentor:scripts/jobs/assert-followup-posted.sh
