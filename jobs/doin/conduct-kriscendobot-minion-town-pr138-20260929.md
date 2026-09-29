@@ -19,3 +19,13 @@ restart-over-older-state check passed locally (see the PR body). Use the conduct
 After merging, report the merge SHA. The parent job
 `kriscendobot-minion-town-endo-pin-post1015-20260929` verifies the post-merge AWS deploy. Merging to `main`
 triggers `deploy (continuous deployment)`, which runs `deploy-endo-daemon.sh`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T06:24:46Z
