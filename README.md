@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T08:16:29Z_
+_As of 2026-09-29T08:27:40Z_
 
 ## Latest
 
-The board itself moved little (no file-level transitions resolved since the last bulletin), but the maintainer inbox filled up with items awaiting decisions. Milestone M2 has stalled on manual gauntlet authorization for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check), with a repeated ask to also close superseded duplicate [#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) in favor of upstream endojs/endo#3332. M3's confined-agent path remains blocked on a choice between refreshing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) for review or answering the four open questions on design [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340). The minion.town/Endo federation release gate is still blocked pending answers on [#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review/merge of [#1124](https://github.com/endojs/endo-but-for-bots/pull/1124); a separate minion.town deploy-incident fix, [kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139), is rebased and CI-green awaiting approval to merge. The rolling deploy hit a persistent canary failure on oros-studio-garden-ce242c49 (target 18df481c) that survived three retries and needs a manual decision, though the host has since reported its heartbeat recovered. A quarterly completions rollup (9,490 completions, 2026-06-24 through today) was also published for review. Claude spend sits at 79% of quota for the current window.
+The only board transition since the last bulletin was on the Ironhorse test262 foreman-woken press: the `endojs-endo-but-for-bots-ironhorse-panic-open-questions-mentat` job completed, and it split three follow-on questions into the plan queue — the panicked C↔XS adapter, the debugger panic-break behavior, and a transcript item — while flagging a bug for the maintainer: `ensure-pr.sh`'s phase/evidence gate prefers a stale local base ref over `origin/<base>`, which had wrongly pulled unrelated changes into a design-only PR before a manual `--base origin/llm` override cleared it.
+
+Otherwise the board is quiet on new work, and the maintainer inbox is the story: several milestone blockers are stacked up awaiting a call, most pressingly whether to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and whether to close #1356 as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is likewise stalled on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving the four open questions on #1340. The federation release gate for minion.town remains blocked pending answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review/merge of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), and [kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139) (a deploy-preflight fix) needs approval to unblock the pin-advancement chain. A rolling-deploy canary on oros-studio failed three retries and is left drained pending investigation, and the Ironhorse test262 round-3 sweep needs a maintainer decision on how to reconcile ~906 lost paths against the historical floor.
 
 ## Parked for maintainer feedback
 
@@ -37,6 +39,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6.md)
 
 > Decision needed for round 3: the completed current-llm sweep has 906 lost paths against the historical floor BEFORE my changes: 443 engine-limit aborts, 397 shared-positive-test-failure, 66 other. Several hundred historical covered cases were false positives under the old classifier; I will not mark them covered or weaken the current classifier. May the draft record an explicitly reconciled current-llm floor (36,599 covered) and defend zero loss against that, retaining all 906 historical dispositions for follow-up? Otherwise this round's literal superseding-floor acceptance cannot be honestly met in one constants-descriptor crank. The proposed fix already has 5 red-before/green-after dual-run tests and repairs Math/Number/TypedArray numeric constant attributes; full Rust gates and an after sweep are next.
+
+- `msg-endojs-endo-but-for-bots-ironhorse-panic-open-questions-mentat-f59de760afce` — from gardener:endojs-endo-but-for-bots-ironhorse-panic-open-questions-mentat, reply_to `endojs-endo-but-for-bots-ironhorse-panic-open-questions-mentat` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-ironhorse-panic-open-questions-mentat-f59de760afce.md)
+
+> Self-improvement observation from [endojs/endo-but-for-bots#1370](https://github.com/endojs/endo-but-for-bots/issues/1370): ensure-pr.sh's phase/evidence gate prefers a local base ref over origin/<base>. In this isolated project checkout local llm was 3aa902d0037, while origin/llm and the survey base were 1706e63247f. The stale local comparison pulled unrelated source changes into a design-only PR and demanded an implementation ledger. I reran the unchanged gate through a wrapper that supplies --base origin/llm; it returned phase-evidence-verdict=clear reason=design-only-diff, and ensure-pr opened the requested draft. Recommend resolving the intended remote base before the gate, or passing the freshly verified SHA, rather than preferring an arbitrary local branch. No garden source edits made in this project job.
 
 - `msg-endo-minion-town-federation-release-gate-33860f5fb6ad` — from gardener:endo-minion-town-federation-release-gate, reply_to `endo-minion-town-federation-release-gate` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endo-minion-town-federation-release-gate-33860f5fb6ad.md)
 
@@ -112,13 +118,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #30 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T08:15:00Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 30 times; this is ONE
-> coalesced notice that updates in place, not 30 messages. Latest detail:
+> WATCHDOG notice — occurrence #32 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T08:25:01Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 32 times; this is ONE
+> coalesced notice that updates in place, not 32 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=10065s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=9976s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=10666s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=10577s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -289,6 +295,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > M3’s next confined-agent step is blocked on your choice between advancing `endojs/endo-but-for-bots#1015` after its `#1348` prerequisite clears, or answering the four open questions on design PR `#1340` to enable its build.
 
+- `msg-build-ironhorse-foreman-woken-press-8b3b965cce7b` — from gardener:build-ironhorse-foreman-woken-press, reply_to `build-ironhorse-foreman-woken-press` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-ironhorse-foreman-woken-press-8b3b965cce7b.md)
+
+> For the Ironhorse test262 foreman-woken press, what rolling per-arc token budget should I configure, and over what window? I propose a 6-hour press interval. Until you answer, I will land the mechanism with the arc disabled from promotion and will not seed the first engagement.
+
 - `20260928T170259Z-29340b` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T170259Z-29340b.md)
 
 > M2 is blocked on the draft PRs: authorize running the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and decide whether to close superseded duplicate #1356.
@@ -418,40 +428,39 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.0M | $845.71 _(notional, rate-card)_ | 79% of 143.0M (ok) |
-| Codex | 12.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 113.7M | $848.51 _(notional, rate-card)_ | 79% of 143.0M (ok) |
+| Codex | 13.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58677488 tokens/day lower bound._
+_Fleet token-unlock pace: 58749281 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.408336s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (6)
 - [`endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929.md) — retcon endojs/endo-but-for-bots PR #1072 before resuming its gauntlet
 - [`claude-on-minion-town-resume-post1015-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-resume-post1015-20260929.md) — Resume the Claude-on-minion.town arc now that #1015 is landed and pinned
 - [`canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 7b2d6a401c8d
 - [`canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 7b2d6a401c8d
-- [`build-ironhorse-foreman-woken-press`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ironhorse-foreman-woken-press.md) — Build: foreman-woken, budgeted press for the Ironhorse test262 arc
 - [`endojs-endo-but-for-bots-pr1097-weave-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-weave-20260929.md) — Weave endojs/endo-but-for-bots PR #1097 (advance the base pin)
 - [`claude-on-minion-town-completion-press-20260929-075007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20260929-075007.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### doin (7)
 - [`endojs-endo-but-for-bots-pr1298-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1298-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1298
-- [`endojs-endo-but-for-bots-ironhorse-panic-open-questions-mentat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-open-questions-mentat.md) — Answer the open design questions of designs/ironhorse-panic.md (mentat)
 - [`conduct-kriscendobot-minion-town-pr139-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/conduct-kriscendobot-minion-town-pr139-20260929.md) — Merge kriscendobot/minion.town#139 (deploy fix: endo daemon probes auto-start...
 - [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — ---
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1362
+- [`build-ironhorse-foreman-woken-press`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ironhorse-foreman-woken-press.md) — Build: foreman-woken, budgeted press for the Ironhorse test262 arc
 - [`endojs-endo-but-for-bots-pr1018-e1ff4501`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1018-e1ff4501.md) — attention directive on endojs/endo-but-for-bots PR #1018
 - [`fu-endojs-endo-but-for-bots-pr1298-gauntlet-fix-5-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1298-gauntlet-fix-5-1.md) — ---
 
-### tada (9596)
+### tada (9597)
+- [`endojs-endo-but-for-bots-ironhorse-panic-open-questions-mentat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-open-questions-mentat.md) — Cost
 - [`daily-progress-summary-20260929-070507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/daily-progress-summary-20260929-070507.md) — Cost
 - [`kriscendobot-minion-town-endo-pin-post1015-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-endo-pin-post1015-20260929.md) — Cost
 - [`ebfb-pr1357-rsvp-ack-5348050214`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/ebfb-pr1357-rsvp-ack-5348050214.md) — Cost
 - [`endojs-endo-but-for-bots-agent-maker-nonextensible-directory`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-agent-maker-nonextensible-directory.md) — Cost
-- [`ebfb-pr1357-review-5348050214-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/ebfb-pr1357-review-5348050214-orch.md) — orchestration ebfb-pr1357-review-5348050214-orch — complete
-- … and 9591 more
+- … and 9592 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
