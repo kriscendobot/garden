@@ -24,3 +24,13 @@ Known facts (verify; don't trust blindly):
 **Surface to the maintainer rather than deciding alone:**
 - Every job in the fleet would act as the test CC client's principal on **production** minion.town, which can mutate real daemon guest state. Propose a dedicated garden client/principal or a read-only scope. Don't create Cognito clients or change scopes without approval; until approved, prove it on garden2 only.
 - The per-job token/context cost of the tool list, and whether some roles (jurors, cheap myrmidon-tier jobs) should get a narrower tool set.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T00:40:12Z
