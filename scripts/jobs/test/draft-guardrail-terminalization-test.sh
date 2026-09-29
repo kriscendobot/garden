@@ -6,7 +6,10 @@
 set -euo pipefail
 # A live gardener can invoke this suite with its own worker-kind/clone routing in
 # the environment. Keep every journal write inside the throwaway fixture.
-unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+mapfile -t inherited_garden_vars < <(
+  compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true
+)
+[ "${#inherited_garden_vars[@]}" -eq 0 ] || unset "${inherited_garden_vars[@]}"
 export GARDEN_TEST=1
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
@@ -53,7 +56,8 @@ env GARDEN=draft-terminal-test GARDEN_STATE="$TR/state" \
   "$JOBS/gardener.sh" 1 > "$TR/gardener.log" 2>&1 || true
 
 git clone -q --single-branch --branch journal2 "$TR/journal.git" "$TR/verify"
-[ -f "$TR/verify/jobs/tada/readyjob.md" ] || fail 'guarded completed job did not terminalize in tada'
+tada="$(find "$TR/verify/jobs/tada" -type f -name readyjob.md -print -quit)"
+[ -n "$tada" ] || fail 'guarded completed job did not terminalize in tada'
 [ ! -e "$TR/verify/jobs/doin/readyjob.md" ] || fail 'guarded completed job remained in doin'
 [ ! -e "$TR/verify/jobs/todo/readyjob.md" ] || fail 'guarded completed job was requeued'
 [ "$(wc -l < "$TR/handler-calls.log")" -eq 1 ] || fail 'handler ran more than once'
@@ -63,7 +67,7 @@ msg="$TR/verify/inbox/maintainer/unread/manual-gauntlet-handoff-readyjob-endojs-
 grep -q 'reply_to: readyjob' "$msg" || fail 'maintainer action is not attributed to the completed job'
 grep -q 'did not re-draft the PR and did not stage a gauntlet' "$msg" \
   || fail 'maintainer action does not preserve the non-mutating contract'
-grep -q '## Manual gauntlet handoff' "$TR/verify/jobs/tada/readyjob.md" \
+grep -q '## Manual gauntlet handoff' "$tada" \
   || fail 'completion report does not record the terminal handoff'
 grep -q 'terminalized it' "$TR/gardener.log" || fail 'terminalization was not logged'
 ! grep -q 'leaving in doin for retry' "$TR/gardener.log" \

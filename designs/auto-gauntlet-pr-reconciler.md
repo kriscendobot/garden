@@ -1,6 +1,6 @@
 ---
 created: 2026-08-05
-updated: 2026-08-05
+updated: 2026-09-29
 author: gardener
 ---
 
@@ -8,17 +8,14 @@ author: gardener
 
 | Created | 2026-08-05 |
 | Author | gardener |
-| Status | **Superseded 2026-09-16 by [manual-gauntlet-trigger.md](manual-gauntlet-trigger.md).** Proposed — completion-edge slice landed 2026-08-14 |
+| Status | Completion-local automatic handoff restored 2026-09-29; standing reconciler remains unimplemented. |
 
-> **Superseded.** This design aimed to make the *automatic* gauntlet edge more
-> robust (PR-keyed coverage, a non-`role: builder` completion sensor, a reconciler
-> that re-stages a missed gauntlet). The manual-gauntlet-trigger design
-> ([manual-gauntlet-trigger.md](manual-gauntlet-trigger.md), adopted 2026-09-16 as a
-> cost control) instead **removes the automatic edge entirely**: `run the gauntlet
-> #N` is the sole ordinary trigger, `auto-gauntlet-handoff.sh` is retired, the
-> completion sensor is now the draft guardrail `assert-producer-pr-draft.sh`, and the
-> periodic audit is a non-mutating readiness *alert*, never a stager. The
-> repo-property framing below is historical; the mechanics it describes no longer run.
+> The automatic completion edge was retired on 2026-09-16 as a cost control and
+> restored on 2026-09-29 after the maintainer judged the garden healthy enough to
+> resume automatic gauntlets. The restored edge keeps the later safety lessons: it
+> considers only a PR named by the current completion, never changes PR state, and
+> leaves the periodic audit as a non-mutating alert. The broader standing
+> reconciler proposed below remains unimplemented.
 
 ## Status: what has landed (2026-08-14)
 

@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-17
+updated: 2026-09-29
 author: gardener
 ---
 
@@ -39,9 +39,9 @@ just the directive the triager maps to the job.
 
 ## When to use
 
-- A gardener claims a `build` job: the build stage opens the draft PR and **stops
-  there** (manual-gauntlet-trigger regime — the rest of the chain runs only on an
-  explicit `run the gauntlet #N`).
+- A gardener claims a `build` job: the build stage opens the draft PR and stops
+  its own claim there. Successful completion records the remaining gauntlet
+  automatically, and the deterministic driver advances its claim-sized stages.
 - A gardener claims a `run the gauntlet #N` job: resume an existing draft PR from
   its next-stage-owed (see *The next-stage-owed heuristic*) and drive to un-draft.
 - A cold PR opened by someone else needs a panel after the fact: the cleaner and
@@ -173,22 +173,19 @@ separate dispatched agents. The panel-fixer loop lives entirely inside
   design-only PR is the project's bot-fork roadmap branch; see *Designs versus
   implementations*. A design PR is usually opened not by a `build` but by a
   `design` job (a designer), or by a research/issue job that happens to carry a
-  design — none of which is `role: builder`. Under the manual-gauntlet-trigger
-  regime ([designs/manual-gauntlet-trigger.md](../../designs/manual-gauntlet-trigger.md),
-  adopted 2026-09-16 as a cost control) the garden **no longer stages this gauntlet
-  automatically at completion** for any role: a design job completes at its open
-  **draft** PR, and the design panel runs only when the maintainer requests it with
-  **run the gauntlet #N** (→ `post-gauntlet.sh`, PR-keyed base
-  `<owner>-<repo>-pr<N>-gauntlet`). What the completion machinery still enforces is
-  the draft boundary, not a staged gauntlet:
+  design — none of which is `role: builder`. The completion machinery recognizes
+  the bot-authored, open, draft, design-only artifact and records its gauntlet
+  automatically with the PR-keyed base `<owner>-<repo>-pr<N>-gauntlet`. It
+  considers only the PR named by the current completion, skips probes and garden
+  open-question answer surfaces, and never changes PR state. Independently,
   [`scripts/jobs/assert-producer-pr-draft.sh`](../../scripts/jobs/assert-producer-pr-draft.sh)
-  passes a draft producer PR and detects when a completion named a bot-authored
+  detects when a completion named a bot-authored
   **non-draft** PR with no gauntlet coverage (the "opened ready by mistake" class).
-  On that conclusive result, the gardener records one deduplicated manual-gauntlet
+  On that conclusive result, the gardener records one deduplicated review
   action for the maintainer and terminalizes the already-complete producer job; it
-  never re-drafts the PR or automatically stages a gauntlet. A non-mutating hourly
-  readiness audit alerts the maintainer about any later uncovered transition. The
-  un-draft is still earned only by the panel, once a gauntlet is run.
+  never re-drafts the PR. A non-mutating hourly readiness audit alerts the
+  maintainer about any later uncovered transition. The un-draft is still earned
+  only by the panel.
 - **No must-fix on first panel round.** The fixer stage does not run; the panel
   declares the loop done after the first verdict, the appellate pass runs, then
   `gh pr ready <N>`.

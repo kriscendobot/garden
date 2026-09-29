@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-09-27
+updated: 2026-09-29
 author: gardener
 ---
 
@@ -94,9 +94,9 @@ The `procurer` similarly reuses the export index/build-vs-buy detector.
 
 Seat tiers come from `seat-model-tiers.tsv`; nested seat calls are metered, and
 aggregate reports put seat prose behind disclosure blocks.
-Ordinary producer
-PRs stay draft until the maintainer explicitly requests the gauntlet; this skill
-does not authorize automatic review staging.
+Ordinary producer PRs stay draft while their producer runs. Successful builder
+and design-PR completions stage the gauntlet automatically; the panel itself
+still runs only as a separately claimed gauntlet stage.
 The gauntlet also checks panel
 provider quota before spending on seats.
 

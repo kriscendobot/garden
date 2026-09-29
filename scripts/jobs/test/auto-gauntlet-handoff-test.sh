@@ -1,0 +1,80 @@
+#!/bin/bash
+# auto-gauntlet-handoff-test.sh — completion-local automatic staging.
+set -euo pipefail
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+JOBS="$(cd "$HERE/.." && pwd)"
+TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-auto-gauntlet-test.XXXXXX")"
+trap 'rm -rf "$TR"' EXIT
+fail() { echo "FAIL: $*" >&2; exit 1; }
+
+git init -q --bare "$TR/journal.git"
+git init -q "$TR/seed"
+git -C "$TR/seed" checkout -q -b journal2
+mkdir -p "$TR/seed/jobs/"{todo,doin,tada,index,gauntlet} "$TR/seed/work"
+touch "$TR/seed/jobs/todo/.gitkeep" "$TR/seed/jobs/doin/.gitkeep" \
+  "$TR/seed/jobs/tada/.gitkeep" "$TR/seed/jobs/index/.gitkeep" \
+  "$TR/seed/jobs/gauntlet/.gitkeep" "$TR/seed/work/.gitkeep"
+git -C "$TR/seed" add -A
+git -C "$TR/seed" -c user.name=test -c user.email=test@example.invalid commit -q -m seed
+git -C "$TR/seed" remote add origin "$TR/journal.git"
+git -C "$TR/seed" push -q origin HEAD:journal2
+
+GARDEN_ROOT="$(cd "$JOBS/../.." && pwd)"
+export GARDEN_ROOT
+export GARDEN_TEST=1 JOURNAL_REMOTE="$TR/journal.git" JOURNAL_BRANCH=journal2
+export GARDEN_STATE="$TR/state" GARDEN=auto-gauntlet-test
+export GARDEN_BOT_LOGIN=kriscendobot
+export GARDEN_PRODUCER_CLONE="$TR/state/producer/journal"
+export GARDEN_GH="$HERE/assert-producer-pr-draft-gh-stub.sh"
+export GARDEN_GH_CALL_LOG="$TR/gh-calls.log"
+
+builder="$TR/builder.md"
+designer="$TR/designer.md"
+web_builder="$TR/web-builder.md"
+probe="$TR/probe.md"
+printf -- '---\nrole: builder\n---\nBuild.\n' >"$builder"
+printf -- '---\nrole: designer\n---\nDesign.\n' >"$designer"
+printf -- '---\nrole: web-builder\n---\nBuild a web surface.\n' >"$web_builder"
+printf -- '---\nrole: builder\n---\nProbe the design.\n' >"$probe"
+
+run_hook() { # <base> <job> <pr>
+  local base="$1" job="$2" pr="$3" report
+  report="$TR/$base-report.md"
+  printf 'Artifact: https://github.com/endojs/endo-but-for-bots/pull/%s\n' "$pr" >"$report"
+  "$JOBS/auto-gauntlet-handoff.sh" "$base" "$job" "$report"
+}
+
+echo '== builder draft records its staged gauntlet =='
+run_hook build-x "$builder" 200
+[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/build-x-gauntlet.md" ] \
+  || fail 'builder gauntlet was not recorded'
+grep -q '^build_job: build-x$' "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/build-x-gauntlet.md" \
+  || fail 'builder provenance missing'
+run_hook build-web "$web_builder" 200
+[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/build-web-gauntlet.md" ] \
+  || fail 'web-builder gauntlet was not recorded'
+
+echo '== design-only non-builder records a PR-keyed gauntlet =='
+run_hook design-x "$designer" 208
+[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr208-gauntlet.md" ] \
+  || fail 'design gauntlet was not recorded'
+
+echo '== exclusions do not stage =='
+run_hook probe-x "$probe" 203
+run_hook ordinary-fix "$designer" 209
+run_hook ready-build "$builder" 210
+[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/probe-x-gauntlet.md" ] \
+  || fail 'probe staged a gauntlet'
+[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr209-gauntlet.md" ] \
+  || fail 'non-design non-builder staged a gauntlet'
+[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/ready-build-gauntlet.md" ] \
+  || fail 'ready PR staged through the draft-only hook'
+! grep -qE 'pr (ready|merge|edit|close|reopen)' "$TR/gh-calls.log" \
+  || fail 'auto handoff mutated GitHub PR state'
+
+echo '== idempotent replay keeps one record =='
+run_hook build-x "$builder" 200
+[ "$(find "$GARDEN_PRODUCER_CLONE/jobs/gauntlet" -name 'build-x-gauntlet.md' | wc -l)" -eq 1 ] \
+  || fail 'builder replay duplicated the record'
+
+echo 'PASS: completion-local auto handoff stages builder/design gauntlets, skips exceptions, never mutates PR state, and replays idempotently'

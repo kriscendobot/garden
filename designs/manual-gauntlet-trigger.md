@@ -2,7 +2,18 @@
 
 | Created | 2026-09-05 |
 | Author  | gardener (job `design-manual-gauntlet-trigger`) |
-| Status  | Accepted — implemented 2026-09-16 (job `credit-controls-manual-gauntlet-trigger`, child 2 of orchestration `credit-controls-20260916`). |
+| Status  | Superseded 2026-09-29 by the restored completion-local automatic handoff. |
+
+## Supersession note (2026-09-29)
+
+The maintainer reversed the manual default after the garden's health improved:
+jobs that produce an artifact calling for a gauntlet again stage it automatically.
+The restored edge is narrower and safer than the pre-2026-09-16 mechanism. It
+examines only the PR named by the completing job, stages builder and design-only
+PRs, skips probes and garden open-question answer surfaces, and never changes PR
+state. The hourly historical-coverage audit remains alert-only, so restoring the
+completion edge does not repeat the 2026-08-30 mass-stage event. The decision and
+implementation below remain as the record of the intervening cost-control regime.
 
 ## Implementation note (2026-09-16)
 

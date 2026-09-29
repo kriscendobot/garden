@@ -710,10 +710,24 @@ while :; do
       fi
     fi
   fi
-  # COMPLETION-TIME DRAFT GUARDRAIL (manual-gauntlet-trigger regime,
-  # designs/manual-gauntlet-trigger.md). The garden no longer stages gauntlets
-  # automatically at completion — `run the gauntlet #N` is the sole ordinary trigger,
-  # so a completed build/design stops at its open DRAFT PR and owes no gauntlet. What
+  # AUTOMATIC GAUNTLET HANDOFF. A successful producer that names its new draft PR
+  # must durably stage the review it calls for before the producer settles. The
+  # hook is deliberately completion-local: it never scans historical drafts, never
+  # changes PR state, skips probes/open-question answer surfaces, and limits the
+  # non-builder path to design-only PRs. A failed post leaves the job retryable.
+  if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
+    set +e
+    "$HERE/auto-gauntlet-handoff.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1
+    auto_gauntlet_rc=$?
+    set -e
+    if [ "$auto_gauntlet_rc" -ne 0 ]; then
+      hrc=$auto_gauntlet_rc
+      log "automatic gauntlet handoff FAILED for '$base' (rc=$hrc); leaving in doin for retry"
+    fi
+  fi
+
+  # COMPLETION-TIME DRAFT GUARDRAIL. Automatic handoff expects a producer artifact
+  # to still be draft. What
   # a completion still may NOT do is silently slip a *ready* (non-draft) PR into the
   # maintainer's mergeable queue with no review. assert-producer-pr-draft.sh enforces
   # exactly that: it passes a DRAFT PR unconditionally and signals a handoff (rc 1)

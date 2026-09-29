@@ -1,15 +1,13 @@
 #!/bin/bash
 # assert-producer-pr-draft-test.sh — the completion-time DRAFT GUARDRAIL of the
-# manual-gauntlet-trigger regime (designs/manual-gauntlet-trigger.md). Replaces the
-# retired assert-design-pr-gauntlet.sh sensor and auto-gauntlet-handoff.sh stager.
+# automatic completion regime. It remains independent of auto-gauntlet-handoff.sh.
 #
-# The guardrail's whole job: a producer PR may complete WITHOUT a gauntlet only while
-# DRAFT; a bot-authored OPEN NON-DRAFT PR named by the completion report needs a
+# The guardrail's whole job: the automatic stager never mutates PR state, so a
+# bot-authored OPEN NON-DRAFT PR named by the completion report needs a
 # gauntlet, else completion is blocked. It NEVER mutates PR state.
 #
 # Under test (all deterministic, NO LLM):
-#   * NEGATIVE (the retired-stager replacement proof): a DRAFT producer PR completes
-#     cleanly (rc 0), stages NO gauntlet record, and makes NO GitHub mutation.
+#   * A DRAFT producer PR passes this independent sensor without GitHub mutation.
 #   * A NON-DRAFT PR with no gauntlet is BLOCKED (rc 1), still with no mutation.
 #   * A NON-DRAFT PR already covered by a gauntlet record passes (rc 0).
 #   * A probe, a non-bot-authored PR, and an open-questions carve-out all pass.

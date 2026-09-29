@@ -166,9 +166,10 @@ where `local_src` and `provider_src` are each capped at 120 lines.
 against `--base-ref`. It **fails** on each unwaived `strong` hit, and on each
 idiom hit whose waiver does not apply. It prints `file:line name -> import
 { export } from 'specifier' (def path:line)` or the waiver syntax. It is silent
-on `weak` and `blocked` hits, which belong to the seat's judgment. Draft builds
-run no gauntlet under the manual-gauntlet regime, so the pre-push gate is the
-only check a draft PR gets. That is why the strong tier must be enforced there
+on `weak` and `blocked` hits, which belong to the seat's judgment. The pre-push
+gate runs before the later automatic gauntlet, so it is the first check a draft
+PR gets and gives the builder an immediate repair loop. That is why the strong
+tier must be enforced there
 (`096c055fc18` moved `Far` to pre-push for the same reason).
 
 **Absorbing `prefer-endo-primitives`.** Every signature in the current awk

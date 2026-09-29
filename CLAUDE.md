@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-09-27
+updated: 2026-09-29
 author: gardener, liaison, builder
 ---
 
@@ -54,10 +54,10 @@ The maintainer steers the liaison in plain language; these verbs are just precis
 | **help** / **help &lt;topic&gt;** | run the interactive first-run tutorial ([`roles/liaison/AGENT.md`](roles/liaison/AGENT.md) § Help; track in [context/first-run/README.md](context/first-run/README.md)) / answer a topic from `context/` and offer to do what the answer prescribes. **Liaison-session vocabulary only — never watcher-recognized** (a tutorial is a conversation, not a board entry). Distinct from the CLI built-in `/help`. |
 | **start the garden** | perform the starting stage directly ([context/operations/starting.md](context/operations/starting.md)) — for the user who wants motion, not a tour; the liaison runs the bring-up itself, asking before each consequential step. Also liaison-session only. |
 | **muster** | work the maintainer inbox interactively: compact, classify, dispose ([`roles/liaison/AGENT.md`](roles/liaison/AGENT.md) § Muster). **Liaison-session vocabulary only, never watcher-recognized**, like *help*: triage is a conversation, not a board entry. |
-| **run the gauntlet #N** | post the full PR-creation chain end to end: clean → panel review → fix-loop → un-draft ([pr-creation-flow](skills/pr-creation-flow/SKILL.md)). Under the manual-gauntlet-trigger regime ([designs/manual-gauntlet-trigger.md](designs/manual-gauntlet-trigger.md)) this is the **sole ordinary trigger** — the garden no longer stages gauntlets automatically. Use it to review any garden-authored draft PR (from a `build`, a `design`, a maintainer-authored PR, or a promoted probe). v1 called this "the gamut"; that name is retired ([designs/judicial-workflow.md](designs/judicial-workflow.md) § the rename). |
+| **run the gauntlet #N** | post the full PR-creation chain end to end: clean → panel review → fix-loop → un-draft ([pr-creation-flow](skills/pr-creation-flow/SKILL.md)). Successful build jobs and design-PR producers stage the gauntlet automatically at completion; use this explicit form for an existing draft PR that has no producing job, or to request review directly. v1 called this "the gamut"; that name is retired ([designs/judicial-workflow.md](designs/judicial-workflow.md) § the rename). |
 | **design X** / **propose X** / **spec X** | post a [designer](roles/designer/AGENT.md) job. |
-| **build #N** / **build X** | post a [builder](roles/builder/AGENT.md) job. The build **stops at an open DRAFT PR** and stages no gauntlet ([designs/manual-gauntlet-trigger.md](designs/manual-gauntlet-trigger.md)); the maintainer promotes it to review with an explicit **run the gauntlet #N**. A **probe** (next row) likewise stays draft. |
-| **probe #N** | a builder job under [gap-revealing-build](skills/gap-revealing-build/SKILL.md): a DRAFT PR that stays draft, delivering a structured gap report on a tentative design (no fix/panel/un-draft chain follows). Like every producer PR under the manual-gauntlet regime it stops draft; unlike an ordinary build it is not meant to be promoted to a mergeable gauntlet. |
+| **build #N** / **build X** | post a [builder](roles/builder/AGENT.md) job. The builder opens a DRAFT PR; successful completion automatically records the clean → panel → fix-loop → un-draft gauntlet. A **probe** (next row) is the intentional exception. |
+| **probe #N** | a builder job under [gap-revealing-build](skills/gap-revealing-build/SKILL.md): a DRAFT PR that stays draft, delivering a structured gap report on a tentative design; no fix/panel/un-draft chain follows. |
 | **fix #N** | post a [fixer](roles/fixer/AGENT.md) job. |
 | **retcon #N** | a fixer job that resets and restages per-package with a separate `chore: Update yarn.lock` commit, net diff invariant ([retcon](skills/retcon/SKILL.md)). |
 | **americanize #N** | post an [americanizer](roles/americanizer/AGENT.md) job (a `myrmidon`-tier fixer variant) that converts flagged British spellings to the American/Chicago form, running the deterministic apply-then-re-grep loop to a zero-candidate fixpoint. Search-gated: the triager runs `orthographer-divergence-grep.sh` first and posts the job **only** on a grep hit ([american-english-normalization](skills/american-english-normalization/SKILL.md)). |

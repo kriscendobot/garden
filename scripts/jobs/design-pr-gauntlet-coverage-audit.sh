@@ -1,7 +1,6 @@
 #!/bin/bash
 # design-pr-gauntlet-coverage-audit.sh — the STANDING PERIODIC READINESS AUDIT for the
-# manual-gauntlet-trigger regime (designs/manual-gauntlet-trigger.md, adopted
-# 2026-09-16). It is NON-MUTATING: it ALERTS the maintainer about a bot-authored,
+# readiness backstop. It is NON-MUTATING: it ALERTS the maintainer about a bot-authored,
 # OPEN, NON-DRAFT PR with no gauntlet coverage; it NEVER stages a gauntlet record and
 # NEVER re-drafts a PR.
 #
@@ -9,9 +8,9 @@
 # found. On 2026-08-30 that autonomous staging mass-staged 69 gauntlets in a single
 # hourly pass (~$482 on one host — reports/credit-investigation-endolin-garden2-
 # 20260905.md), including stale/superseded PRs churning at iteration 6/6. Under the
-# manual-gauntlet regime the garden no longer stages gauntlets autonomously at all:
-# `run the gauntlet #N` is the sole ordinary trigger. So this backstop is demoted from
-# a stager to a READINESS AUDIT — it still catches the "a bot PR reached the mergeable
+# producer completions now stage their own gauntlets automatically, but a periodic
+# backlog sweep must not do so. This backstop remains a READINESS AUDIT — it catches
+# the "a bot PR reached the mergeable
 # queue with no review" drift, but it does so by telling the maintainer, not by
 # spending a gauntlet. A maintainer who wants review answers with `run the gauntlet #N`.
 #
@@ -20,8 +19,8 @@
 #   1. Enumerate the OPEN PRs on every actively-watched repo (the journal's
 #      comment-repos/ set — the same gate the CI and comment watchers use), skipping
 #      the garden's own repo (no PR workflow runs on it — CLAUDE.md § Conventions).
-#   2. Keep only BOT-AUTHORED, OPEN, NON-DRAFT PRs (draft is the manual regime's hard
-#      boundary — a draft PR is parked-by-design and owes nothing), exempting a probe.
+#   2. Keep only BOT-AUTHORED, OPEN, NON-DRAFT PRs (draft artifacts belong to their
+#      completion-local handoff), exempting a probe.
 #   3. If NO staged-gauntlet RECORD already covers the PR (active in jobs/gauntlet/ or
 #      completed in jobs/tada/), raise a DEDUPLICATED maintainer alert.
 #
@@ -220,7 +219,7 @@ while IFS= read -r repo; do
     fi
 
     alert_maintainer "pr-gauntlet-readiness-${slug}-pr${number}-${head_oid:0:12}" \
-      "Readiness audit: bot-authored OPEN NON-DRAFT PR $pr_url ($repo#$number) is in the mergeable queue with NO gauntlet review staged (head $head_oid). Under the manual-gauntlet regime the garden no longer stages gauntlets automatically. If you want it reviewed, reply with 'run the gauntlet #$number'; otherwise no action is needed. This audit never re-drafts or stages anything."
+      "Readiness audit: bot-authored OPEN NON-DRAFT PR $pr_url ($repo#$number) is in the mergeable queue with NO gauntlet review staged (head $head_oid). Producer jobs normally stage their gauntlet at completion, but the periodic audit never mass-stages historical PRs. If you want this PR reviewed, reply with 'run the gauntlet #$number'; otherwise no action is needed. This audit never re-drafts or stages anything."
     printf '%s\n' "$head_oid" > "$marker" 2>/dev/null || true
     alerted=$((alerted + 1))
     log "audit: ALERTED maintainer about uncovered non-draft PR $pr_url (head $head_oid); no gauntlet staged, PR untouched"

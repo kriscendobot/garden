@@ -863,9 +863,9 @@ RETRO_DIRECTIVE_GLUE="please kindly pls and or then next now also first second t
 # verbs (conduct/rebase/shepherd/retcon/weave/merge/close/gauntlet) — a directive to
 # advance an approved branch through its merge pipeline, indicting no reviewed work
 # product (endo-but-for-bots #123 "Please rebase, retcon, and conduct"; #598
-# "conduct"; minion.town #68 "please run a gauntlet"). Under the manual-gauntlet
-# regime a body that is only the gauntlet-trigger verb is always a maintainer-
-# invoked pipeline advance, never review-catchable feedback.
+# "conduct"; minion.town #68 "please run a gauntlet"). A body that is only the
+# gauntlet-trigger verb is a maintainer-invoked pipeline advance, never
+# review-catchable feedback.
 # Strips the source state markers, folds to lowercase, splits on non-letters, and
 # removes the pipeline-op verbs plus the fixed glue set; if at least one pipeline-op
 # verb was seen and NOTHING else remains, it is pipeline-op-only. A body carrying

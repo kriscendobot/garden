@@ -13,19 +13,25 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = view ]; then
     # NON-DRAFT PR consumed by the explicitly attested #99 undraft job.
     */pull/99) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"feat: harness","body":"b",%s}\n' "$url" "$bot" ;;
     # a DRAFT producer PR — the ordinary parked-draft completion (pass, no mutation).
-    */pull/200) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"feat: x","body":"b",%s}\n' "$url" "$bot" ;;
+    */pull/200) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"feat: x","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
     # NON-DRAFT, uncovered → BLOCK.
     */pull/201) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"feat: y","body":"b",%s}\n' "$url" "$bot" ;;
     # NON-DRAFT, covered by a seeded gauntlet record → pass.
     */pull/202) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"feat: z","body":"b",%s}\n' "$url" "$bot" ;;
     # NON-DRAFT probe → pass (exempt).
-    */pull/203) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"probe (gap-revealing prototype)","body":"gap",%s}\n' "$url" "$bot" ;;
+    */pull/203) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"probe (gap-revealing prototype)","body":"gap",%s,"files":[{"path":"src/probe.js"}]}\n' "$url" "$bot" ;;
     # NON-DRAFT authored by someone else → pass (citation of another author's PR).
     */pull/204) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"feat: w","body":"b","author":{"login":"interloper"}}\n' "$url" ;;
     # NON-DRAFT open-questions carve-out → pass.
     */pull/205) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"design: oq","body":"<!-- garden-design-open-questions -->",%s}\n' "$url" "$bot" ;;
     # inconclusive read (gh error) → the gate fails open.
     */pull/207) echo "boom" >&2; exit 1 ;;
+    # DRAFT design-only producer PR → automatic design gauntlet.
+    */pull/208) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"design: x","body":"b",%s,"files":[{"path":"designs/x.md"}]}\n' "$url" "$bot" ;;
+    # DRAFT non-design PR from a non-builder → no inferred gauntlet.
+    */pull/209) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"fix: x","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
+    # OPEN, non-draft builder artifact → auto-handoff does not mutate or stage.
+    */pull/210) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"feat: ready","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
     *) echo "unexpected pr view: $url" >&2; exit 64 ;;
   esac
   exit 0

@@ -1,6 +1,6 @@
 ---
 created: 2026-06-24
-updated: 2026-09-28
+updated: 2026-09-29
 author: gardener
 ---
 
@@ -89,9 +89,9 @@ deterministically. `#N` is a pull-request number.
 | Verb | What the garden does |
 | --- | --- |
 | **design X** / propose X / spec X | draft a design document and open it as a DRAFT PR on the roadmap branch |
-| **build #N** / build X | implement an approved design and **stop at an open DRAFT code PR** — no gauntlet is staged automatically ([designs/manual-gauntlet-trigger.md](designs/manual-gauntlet-trigger.md)). Promote it to review with an explicit *run the gauntlet #N* |
+| **build #N** / build X | implement an approved design as a DRAFT code PR, then automatically stage its clean → panel review → fix-loop → un-draft gauntlet |
 | **probe #N** | a build that **stays draft**: a gap report on a tentative design. The gauntlet chain deliberately does **not** run |
-| **run the gauntlet #N** ★ | the full PR chain end to end (clean → panel review → fix-loop → un-draft). The **sole ordinary trigger** for reviewing a garden-authored draft PR (from a build, a design, a maintainer-authored PR, or a promoted probe) — the garden no longer stages gauntlets automatically |
+| **run the gauntlet #N** ★ | explicitly stage the full PR chain end to end (clean → panel review → fix-loop → un-draft) for an existing draft PR. Build jobs and design-PR producers already stage this automatically at successful completion |
 | **rebase #N** ★ | rebase the PR branch on its base |
 | **weave #N** / **pin the merge base #N** ★ | update the PR's merge base to the current base-branch hash (a new frozen `<base>-<short-sha>`), rebase the head onto it, resolve conflicts, force-push, and move the PR's `base` field — both refs move together. "pin the merge base" is an **alias** for *weave*, not a distinct verb: the rebase and conflict resolution are implicit in the verb ([frozen-base-branch](skills/frozen-base-branch/SKILL.md), [verify-upstream-state-before-pinning](skills/verify-upstream-state-before-pinning/SKILL.md)) |
 | **retcon #N** ★ | reset and restage the branch per-package, separate `chore: Update yarn.lock` commit; net diff unchanged |

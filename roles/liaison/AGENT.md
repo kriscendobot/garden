@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-27
+updated: 2026-09-29
 author: gardener, liaison
 ---
 
@@ -78,24 +78,19 @@ See [model-selection](../../skills/model-selection/SKILL.md).
   budget. A build-heavy job that omits it and overruns is now surfaced fast (the
   reaper dooms a no-progress deadline overrun after **one** cycle, parking it held
   with a notice) so you can re-post it with the header rather than watch it churn.
-- **A `build` job stops at an open DRAFT PR — the gauntlet is MANUAL.** Under the
-  manual-gauntlet-trigger regime ([designs/manual-gauntlet-trigger.md](../../designs/manual-gauntlet-trigger.md),
-  adopted 2026-09-16 as a cost control) the garden no longer stages gauntlets
-  automatically at completion: a `build` (and a `design`-then-`build`) leaves its
-  draft PR parked, and **run the gauntlet #N** is the sole ordinary trigger that
-  carries it through the gardening state machine (`scripts/jobs/gardening/garden-pr.sh`
-  plus `panel.sh`, terminating by un-drafting on a clean panel). So when the
-  maintainer wants a build-produced draft reviewed, post **run the gauntlet #N** —
-  do not assume it already ran. A probe (`gap-revealing-build`, triager *probe #N*)
-  likewise stays draft; unlike an ordinary build it is not meant to be promoted to a
-  mergeable gauntlet. A completed build/design never silently pushes a PR into the
-  mergeable queue: the completion-time draft guardrail
-  (`scripts/jobs/assert-producer-pr-draft.sh`) catches a completion that named a
-  bot-authored non-draft PR with no gauntlet. Because the producer work is already
-  complete, the gardener terminalizes it after recording one deduplicated
-  maintainer action to run the gauntlet if review is wanted; it never re-drafts the
-  PR or automatically stages review. A non-mutating hourly readiness audit catches
-  later drift with the same alert-only posture.
+- **A successful `build` automatically hands its DRAFT PR to the gauntlet.** The
+  completion path records the clean → panel → fix-loop → un-draft chain before the
+  producer settles. The same completion-local edge covers design-only PRs produced
+  by other roles. It inspects only the PR named by this completion, so it does not
+  revive a historical backlog or reproduce the 2026-08-30 mass-stage incident.
+  **Run the gauntlet #N** remains the explicit trigger for an existing draft PR
+  without a producing job. A probe (`gap-revealing-build`, triager *probe #N*) is
+  the deliberate exception and stays draft. The auto-handoff never changes PR
+  state; the completion-time draft guardrail
+  (`scripts/jobs/assert-producer-pr-draft.sh`) catches an accidentally non-draft,
+  uncovered artifact and records a maintainer-visible review action without
+  re-drafting a PR that may already be under live review. The hourly readiness
+  audit remains non-mutating and alert-only.
 - **Watch the maintainer inbox via the Monitor tool.** Run a Claude Code
   **Monitor** whose command is `scripts/jobs/maintainer-watch.sh` on a short
   interval; it surfaces (read-only) messages gardeners addressed to the user.

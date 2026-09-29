@@ -1,21 +1,20 @@
 #!/bin/bash
 # assert-producer-pr-draft.sh — DETERMINISTIC completion-time DRAFT GUARDRAIL for the
-# manual-gauntlet-trigger regime (designs/manual-gauntlet-trigger.md, adopted
-# 2026-09-16 as a cost control: gauntlets are no longer staged automatically, so a
-# completing producer must not be able to slip a *ready* PR into the maintainer's
-# mergeable queue with no review either).
+# automatic-gauntlet completion regime. A completing producer must not be able to
+# slip a *ready* PR into the maintainer's mergeable queue with no review, and the
+# auto-handoff deliberately never mutates PR state.
 #
-# This REPLACES the old assert-design-pr-gauntlet.sh sensor. That sensor enforced
-# "a bot-authored DRAFT design PR must have a staged gauntlet." Under the manual
-# regime the invariant is inverted and generalized:
+# This REPLACES the old assert-design-pr-gauntlet.sh sensor. The automatic
+# completion hook owns staging, while this independent sensor owns the
+# no-unreviewed-ready-artifact invariant:
 #
-#   > A garden-authored producer PR may complete WITHOUT a gauntlet only while it is
-#   > DRAFT. Moving it into the mergeable queue (non-draft) requires a separate,
-#   > maintainer-visible act.
+#   > A garden-authored producer PR must remain DRAFT until its gauntlet earns the
+#   > transition. An already-ready uncovered artifact receives a separate,
+#   > maintainer-visible disposition rather than an automatic state mutation.
 #
 # So this gate passes a DRAFT PR unconditionally (draft is the hard boundary — GitHub
-# merging is unavailable while it holds; the maintainer explicitly requests a gauntlet
-# with `run the gauntlet #N`) and BLOCKS completion only when a completing job newly
+# merging is unavailable while it holds; the completion hook stages its gauntlet) and
+# BLOCKS completion only when a completing job newly
 # names a bot-authored, OPEN, NON-DRAFT PR that has NO staged/completed gauntlet
 # covering it. That is the "opened ready by mistake" class (endojs/endo-but-for-bots
 # #874 and peers): a producer that opened ready-for-review against the unconditional
@@ -24,16 +23,15 @@
 # #671/#867 corruption hazard, so a mis-identified non-draft PR is only ever a
 # blocked completion, never a touched PR.
 #
-# Applies to EVERY role (unlike the retired sensor, which skipped `role: builder`
-# because the retired auto-gauntlet-handoff builder path re-drafted+staged for it;
-# that path is gone, so builders are guarded here too).
+# Applies to EVERY role. The auto-handoff stages review but deliberately does not
+# re-draft, so builders need this independent guard too.
 #
 # Usage: assert-producer-pr-draft.sh <base> <job-file> <completion-report>
 #   rc 0: nothing owed — no PR named, a citation of another author's PR, a non-open
 #         PR, an existing PR consumed by a review/attention feedback job, an
 #         explicitly maintainer-attested undraft job, a probe, an
-#         open-questions review surface, a DRAFT PR (the ordinary parked-draft
-#         completion), a non-draft PR already covered by a gauntlet, or any
+#         open-questions review surface, a DRAFT PR (the auto-handoff's expected
+#         input), a non-draft PR already covered by a gauntlet, or any
 #         INCONCLUSIVE read (fail-open).
 #   rc 1: a bot-authored OPEN NON-DRAFT PR newly named by the report has NO gauntlet
 #         record — request the gardener's terminal manual-gauntlet handoff. The
@@ -151,8 +149,8 @@ author="$(printf '%s' "$pr_json" | jq -r '.author.login // empty' 2>/dev/null ||
 # Not an open PR → nothing to gate.
 [ "$state" = OPEN ] || exit 0
 
-# DRAFT is the hard boundary: a draft producer PR completes with NO gauntlet owed.
-# This is the whole point of the manual-gauntlet regime — the ordinary path.
+# DRAFT is the hard boundary. The preceding auto-handoff owns any gauntlet owed by
+# an ordinary producer; this sensor only prevents an unsafe ready artifact.
 [ "$draft" = true ] && exit 0
 
 # ── Beyond here the PR is bot-authored, OPEN, and NON-DRAFT ──────────────────────
@@ -193,5 +191,5 @@ if gauntlet_record_for_pr "$DIR" "$repo" "$pr_number" >/dev/null \
   exit 0
 fi
 
-log "draft-gate: HANDOFF — $pr_url ($repo#$pr_number) named by completing job '$base' is a bot-authored OPEN NON-DRAFT PR with NO staged or completed gauntlet. Under the manual-gauntlet regime a producer PR may complete without a gauntlet only while DRAFT; a ready PR needs an explicit 'run the gauntlet #N'. Requesting a terminal, deduplicated maintainer handoff. (Not re-drafting: the PR may be under maintainer review.)"
+log "draft-gate: HANDOFF — $pr_url ($repo#$pr_number) named by completing job '$base' is a bot-authored OPEN NON-DRAFT PR with NO staged or completed gauntlet. Producer artifacts must remain DRAFT until review earns the transition; requesting a terminal, deduplicated maintainer handoff. (Not re-drafting: the PR may be under maintainer review.)"
 exit 1
