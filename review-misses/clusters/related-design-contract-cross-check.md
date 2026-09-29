@@ -2,11 +2,13 @@
 slug: related-design-contract-cross-check
 category: spec-violation
 status: open
-count: 1
+count: 2
 members:
   - endojs-endo-but-for-bots-pr1072-review-c8a0f42b
-prs: [1072]
+  - endojs-endo-but-for-bots-pr1357-review-b33b9342
+prs: [1072, 1357]
 ---
+
 
 
 A design or review-feedback edit states a protocol or wire-format rule that contradicts an already-landed authoritative design in the same repository, because the producing and review paths do not cross-check related design contracts before presenting the change to the maintainer.
