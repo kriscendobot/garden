@@ -25,3 +25,13 @@ Successor to activate-ironhorse-ratchet-autopilot-20260929-r4 (chain: build-iron
 5. Report the deployed and runtime evidence on https://github.com/kriscendobot/garden/issues/51. Do not close the issue. Do not resolve the separate 901-path historical-floor question.
 
 https://github.com/endojs/endo-but-for-bots/pull/1359 MUST NOT merge or acquire an attestation. Never lower the enforced floor. Never originate a sysop `deploy` op. Never force a canary or CI bypass. Coordinate with build-ironhorse-foreman-woken-press (inbox-send.sh) before any schedule or delegation change beyond the above.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T17:32:24Z
