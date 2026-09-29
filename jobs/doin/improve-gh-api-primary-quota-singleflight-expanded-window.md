@@ -31,3 +31,13 @@ Guidance to stay inside the window:
 Commit explicit pathspecs and push to main2 with the rebase CAS loop under `garden_repo_lock`.
 
 split-indivisible-reason: the fix is one critical section inside gh_api_retry (scripts/jobs/common.sh:5451): take the gh-api cooldown flock, re-check the all-API marker under it, issue the request, and on a primary-quota refusal write the latch BEFORE releasing the flock. Admission, re-check, and latch-before-release must land together; any partial child (lock without latch, or latch without serialized admission) leaves the exact 19:35:34-35 race in place and ships no observable fix, and its regression test (concurrent stubbed callers, exactly one doomed request) exercises all three at once.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T22:08:21Z
