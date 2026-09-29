@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-09-29T12:40:46Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-ironhorse-ratchet-r4-timer-20260929
