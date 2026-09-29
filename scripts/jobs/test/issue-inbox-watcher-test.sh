@@ -401,6 +401,80 @@ grep -q 'Bad credentials (HTTP 401)' "$SOURCE_ERR" \
   && ok "source stderr contains the definitive gh diagnostic" \
   || bad "source stderr lost gh diagnostic: $(cat "$SOURCE_ERR")"
 
+# Primary quota and exhausted transient API failures are explicitly
+# non-attributable. The source preserves gh's diagnostic but must not stamp it
+# FATAL; the watcher owns the shared cooldown and its sole warning.
+GHQUOTA="$TR/gh-primary-quota-stub.sh"
+cat > "$GHQUOTA" <<'EOF'
+#!/bin/bash
+echo 'gh: API rate limit exceeded for user ID 279080640 (HTTP 403)' >&2
+exit 1
+EOF
+chmod +x "$GHQUOTA"
+QUOTA_SOURCE_ERR="$TR/issue-source-primary-quota.err"
+set +e
+env PATH="$TR:$PATH" GARDEN_GH="$GHQUOTA" GARDEN_GH_API_ATTEMPTS=4 \
+  "$JOBS/handlers/issue-source-gh.sh" "$REPO" 2026-07-06T00:00:00Z \
+  >/dev/null 2>"$QUOTA_SOURCE_ERR"
+quota_source_rc=$?
+set -e
+[ "$quota_source_rc" -eq 75 ] \
+  && ok "primary-quota source failure returns the distinguishable transient rc" \
+  || bad "primary-quota source rc=$quota_source_rc (want 75)"
+{ grep -q 'API rate limit exceeded' "$QUOTA_SOURCE_ERR" && ! grep -q 'FATAL' "$QUOTA_SOURCE_ERR"; } \
+  && ok "primary-quota source preserves the diagnostic without logging FATAL" \
+  || bad "primary-quota source diagnostic/FATAL contract wrong: $(cat "$QUOTA_SOURCE_ERR")"
+
+BARE_QUOTA="$TR/quota.git"; seed_bare "$BARE_QUOTA"
+QUOTA_WATCH_ERR="$TR/issue-watcher-primary-quota.err"
+QUOTA_COOLDOWN="$TR/quota-cooldown"
+t0="$(date +%s)"
+set +e
+env PATH="$TR:$PATH" GARDEN_STATE="$TR/state-quota" \
+    JOURNAL_REMOTE="$BARE_QUOTA" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_GARDEN_REPO="$REPO" GARDEN_MAINTAINERS_ALLOWLIST="$ALLOW" \
+    GARDEN_ISSUE_SOURCE="$JOBS/handlers/issue-source-gh.sh" GARDEN_GH="$GHQUOTA" \
+    GARDEN_GH_API_ATTEMPTS=4 GARDEN_ISSUE_REACTJI="$REACTSTUB" \
+    GARDEN_ISSUE_POST="$POSTSTUB" GARDEN_ISSUE_MSG="$MSGSTUB" \
+    GARDEN_ISSUE_MAINT_SEND="$MAINTSTUB" GARDEN_NO_MAINTAINER_ALERT=1 \
+    GARDEN_API_COOLDOWN_SECS=300 GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+    GARDEN_API_COOLDOWN_DIR="$QUOTA_COOLDOWN" \
+    "$JOBS/issue-inbox-watcher.sh" >/dev/null 2>"$QUOTA_WATCH_ERR"
+quota_watch_rc=$?
+set -e
+quota_expiry="$(sed -n '1p' "$QUOTA_COOLDOWN/marker" 2>/dev/null || echo 0)"
+[ "$quota_watch_rc" -eq 0 ] \
+  && ok "watcher degrades primary quota to a clean skipped tick" \
+  || bad "watcher returned rc=$quota_watch_rc on primary quota"
+{ [ "$(grep -o 'WARN:' "$QUOTA_WATCH_ERR" | wc -l)" -eq 1 ] \
+    && grep -q 'primary quota exhaustion' "$QUOTA_WATCH_ERR" \
+    && grep -q 'API rate limit exceeded' "$QUOTA_WATCH_ERR" \
+    && ! grep -q 'FATAL' "$QUOTA_WATCH_ERR"; } \
+  && ok "watcher emits one diagnostic primary-quota warning and no FATAL" \
+  || bad "watcher primary-quota logging was not singular/diagnostic: $(cat "$QUOTA_WATCH_ERR")"
+[ "$quota_expiry" -ge $((t0 + 3500)) ] 2>/dev/null \
+  && ok "watcher arms the shared cooldown for the primary-quota window" \
+  || bad "primary-quota cooldown expiry too short/missing ($quota_expiry)"
+
+GHTRANSIENT="$TR/gh-transient-stub.sh"
+cat > "$GHTRANSIENT" <<'EOF'
+#!/bin/bash
+echo 'gh: HTTP 503: Service Unavailable' >&2
+exit 1
+EOF
+chmod +x "$GHTRANSIENT"
+TRANSIENT_SOURCE_ERR="$TR/issue-source-transient.err"
+set +e
+env PATH="$TR:$PATH" GARDEN_GH="$GHTRANSIENT" GARDEN_GH_API_ATTEMPTS=1 \
+  "$JOBS/handlers/issue-source-gh.sh" "$REPO" 2026-07-06T00:00:00Z \
+  >/dev/null 2>"$TRANSIENT_SOURCE_ERR"
+transient_source_rc=$?
+set -e
+{ [ "$transient_source_rc" -eq 75 ] && grep -q 'HTTP 503' "$TRANSIENT_SOURCE_ERR" \
+    && ! grep -q 'FATAL' "$TRANSIENT_SOURCE_ERR"; } \
+  && ok "exhausted transient API failure returns rc 75 with its diagnostic and no FATAL" \
+  || bad "transient source contract wrong (rc=$transient_source_rc err=$(cat "$TRANSIENT_SOURCE_ERR"))"
+
 # ============================================================================
 hr; echo "ADDRESS - issue comments require the exact first-line bot marker"; hr
 BARE_ADDR="$TR/address.git"; seed_bare "$BARE_ADDR"

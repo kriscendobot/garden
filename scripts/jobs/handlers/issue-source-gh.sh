@@ -77,9 +77,19 @@ issues_errf="$(mktemp)"
 comments_errf="$(mktemp)"
 trap 'rm -f "$issues_errf" "$comments_errf"' EXIT
 
-enum_die() { # enum_die <description> <rc> <stderr-file>
+enum_fail() { # enum_fail <description> <rc> <stderr-file>
   local description="$1" rc="$2" errf="$3" detail
   detail="$(tail -n 5 "$errf" 2>/dev/null || true)"
+  # The caller owns degradation and the shared cooldown.  Preserve the captured
+  # gh diagnostic, but return the explicit non-attributable status without
+  # logging FATAL here: otherwise a recoverable primary-quota/transient refusal
+  # produces both this handler's FATAL and the watcher's cooldown warning.
+  if [ "$rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ] \
+      || is_gh_primary_rate_limit_text "$detail" \
+      || is_transient_gh_source_error "$detail"; then
+    [ -z "$detail" ] || printf '%s\n' "$detail" >&2
+    exit "${GARDEN_TRANSIENT_RC:-75}"
+  fi
   if [ -n "$detail" ]; then
     die "$description for $repo failed (rc=$rc); failing the tick so the cursor holds; gh stderr (last 5 lines):
 $detail"
@@ -96,7 +106,7 @@ gh_api_retry --paginate "repos/$repo/issues?state=all&since=$since&sort=created&
       | [ \"issue\", .created_at, (.id|tostring), (.number|tostring),
           .user.login, .user.login, .state, (.closed_by.login // \"-\"),
           (.closed_at // \"-\"), .html_url, ($oneline) ] | @tsv" \
-  || enum_die "issues enumeration" "$?" "$issues_errf"
+  || enum_fail "issues enumeration" "$?" "$issues_errf"
 
 # 2) NEW ISSUE COMMENTS — join the parent issue for submitter/state/closed_by and
 #    to drop PR comments. The issues/comments feed is repo-wide and `since=` here
@@ -112,14 +122,18 @@ gh_api_retry --paginate "repos/$repo/issues?state=all&since=$since&sort=created&
 #    comment-source-gh.sh's repo_has_issues/repo_issues_disabled shape.
 declare -A _ISSUE_META=()   # number -> "submitter\tstate\tclosed_by\tclosed_at\tis_pr"
 issue_meta() {  # issue_meta <number> -> echoes submitter \t state \t closed_by \t closed_at \t is_pr
-  local n="$1" raw
+  local n="$1" raw rc errf
   if [ -n "${_ISSUE_META[$n]+x}" ]; then printf '%s' "${_ISSUE_META[$n]}"; return; fi
   # closed_by AND closed_at use a '-' sentinel when empty so the TAB-IFS `read` below
   # does not collapse an empty middle field and mis-assign is_pr (see watcher's note).
-  raw="$(gh_api_retry "repos/$repo/issues/$n" \
+  errf="$(mktemp)"
+  rc=0
+  raw="$(gh_api_retry "repos/$repo/issues/$n" 2>"$errf" \
          | jq -r '[ .user.login, .state, (.closed_by.login // "-"), (.closed_at // "-"),
                     (if has("pull_request") then "pr" else "issue" end) ] | @tsv' \
-         | head -1 || true)"
+         | head -1)" || rc=$?
+  if [ "$rc" -ne 0 ]; then enum_fail "parent issue #$n lookup" "$rc" "$errf"; fi
+  rm -f "$errf"
   _ISSUE_META[$n]="$raw"; printf '%s' "$raw"
 }
 
@@ -132,7 +146,9 @@ gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&sort=created&d
           .user.login, .html_url, ($oneline) ] | @tsv" \
   | while IFS=$'\t' read -r created cid number author url body; do
       [ -n "$number" ] || continue
-      meta="$(issue_meta "$number")"
+      meta_rc=0
+      meta="$(issue_meta "$number")" || meta_rc=$?
+      [ "$meta_rc" -eq 0 ] || exit "$meta_rc"
       IFS=$'\t' read -r submitter state closed_by closed_at is_pr <<<"$meta"
       [ "$is_pr" = pr ] && continue                 # a PR comment — not our inbox
       if [ -z "$submitter" ]; then
@@ -146,4 +162,4 @@ gh_api_retry --paginate "repos/$repo/issues/comments?since=$since&sort=created&d
         "issue-comment" "$created" "$cid" "$number" "$author" "$submitter" \
         "$state" "$closed_by" "$closed_at" "$url" "$body"
     done \
-  || enum_die "issue-comments enumeration/join" "$?" "$comments_errf"
+  || enum_fail "issue-comments enumeration/join" "$?" "$comments_errf"

@@ -674,6 +674,26 @@ else
   "$GARDEN_ISSUE_SOURCE" "$REPO" "${last_seen:-}" > "$SRC" 2>"$ERRF" || src_rc=$?
 fi
 if [ "$src_rc" -ne 0 ]; then
+  # EX_TEMPFAIL is the source's explicit transient contract. It carries the
+  # captured gh diagnostic in ERRF, but the source deliberately emits no FATAL:
+  # this parent owns the shared cooldown and its ONE warning. Keep this branch
+  # before the text-only compatibility paths and before SRC is ever processed.
+  if is_nonattributable_rc "$src_rc"; then
+    source_diag="$(grep -v '^[[:space:]]*$' "$ERRF" 2>/dev/null | tail -1 \
+      | sed -E 's/^<[0-9]>//; s/^[^[]*\[[^]]+\] WARN:[[:space:]]*//' \
+      | tr '\n\t' '  ' | cut -c1-300 || true)"
+    if is_gh_primary_rate_limit_text "$(cat "$ERRF" 2>/dev/null || true)"; then
+      pq_secs="$(api_primary_quota_secs)"
+      if start_api_cooldown "issue-inbox:$slug:primary-quota" "$pq_secs"; then
+        log "WARN: issue source hit GitHub primary quota exhaustion (rc=$src_rc) — cursor frozen; cooling REST gh-api watchers for ${pq_secs}s${source_diag:+; diagnostic: $source_diag}"
+      fi
+      exit 0
+    fi
+    if start_api_cooldown "issue-inbox:$slug"; then
+      log "WARN: issue source hit a transient gh-api failure (rc=$src_rc) — cursor frozen; cooling REST gh-api watchers for $(_api_cooldown_secs)s${source_diag:+; diagnostic: $source_diag}"
+    fi
+    exit 0
+  fi
   sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   if is_transient_net_error "$ERRF"; then
     log "WARN: issue source unreachable (transient network) — skipping tick (never guess)"
