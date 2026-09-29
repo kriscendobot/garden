@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T16:38:37Z_
+_As of 2026-09-29T16:40:05Z_
 
 ## Latest
 
-The unified guest-endowments design for [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) landed, closing out that work stream with a follow-up job posted for the non-extensible agent directory. The board otherwise idled on completions (9,674 in tada, no fresh todo/doin transitions to narrate) while the fleet's real attention is on operational health: the rolling deploy halted on a confirmed, thrice-retried canary failure on `oros-studio-garden-ce242c49` at target `18df481c`, and the leader itself is now stalled 25 commits behind `origin/main2` after a deploy candidate (`39d0c5ef`) failed its test gate on `triager-pacing-test.sh` — both need direct attention since a stale leader stops honoring new directives fleet-wide. Separately, the Ironhorse test262 ratchet round 3 needs a maintainer call on reconciling ~906 historical-floor discrepancies against the stricter current classifier, and Milestone M2 remains blocked pending a decision on gauntlet-promoting draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and closing superseded duplicate #1356. A quarterly completions dashboard (9,490 jobs, June–September) was also published for review.
+Board traffic since the last bulletin was light on transitions but heavy on mail: the PR #1343 unified-endowments completion landed (per memory, merged 6c49234d80), and the harness-provider-matrix handoff finally closed out its stale duplicate. The dominant story is a backlog of maintainer decisions piling up around Milestone M2 and M3: the foreman has repeatedly flagged draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) as the sole unblocked M2 step awaiting gauntlet authorization, alongside a call on whether #1356 should simply be closed as superseded by upstream endojs/endo#3332. M3 is similarly stalled on choosing between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) for review or resolving the four open questions on #1340 first — complicated by a stale-panel notice that #1015's head moved from `971fe22c` to `10223934` since its last review, so any resumed gauntlet needs a fresh pass. The Ironhorse test262 ratchet (round 3) surfaced a genuine policy question rather than a bug: 906 historically-covered paths no longer pass under the current, stricter classifier, and the gardener is asking whether to record an explicitly reconciled floor instead of quietly relabeling failures as covered. Operationally, a rolling deploy canary on oros-studio-garden-ce242c49 failed three retries and halted (left drained, no auto-rollback), and the leader host is reported 25 commits behind after a deploy candidate was rejected by a failing test suite (`triager-pacing-test.sh`) — both need a look. The minion.town federation release gate remains blocked pending maintainer answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332)'s authority questions and review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124).
 
 ## Parked for maintainer feedback
 
@@ -388,10 +388,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1097-9d778de29993` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1097-9d778de29993.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1097](https://github.com/endojs/endo-but-for-bots/pull/1097) ([endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/issues/1097)) is in the mergeable queue with NO gauntlet review staged (head 9d778de299938ffcf149949a7234b59ef44290be). Producer jobs normally stage their gauntlet at completion, but the periodic audit never mass-stages historical PRs. If you want this PR reviewed, reply with 'run the gauntlet #1097'; otherwise no action is needed. This audit never re-drafts or stages anything.
-
 - `msg-build-daemon-docker-selfhost-3f86adab41ee` — from gardener:build-daemon-docker-selfhost, reply_to `build-daemon-docker-selfhost` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-daemon-docker-selfhost-3f86adab41ee.md)
 
 > build-daemon-docker-selfhost HALTED, not built (repeat re-spawn). Two reasons:
@@ -523,7 +519,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.7M | $933.31 _(notional, rate-card)_ | 94% of 143.0M (backoff) |
+| Claude | 134.7M | $933.78 _(notional, rate-card)_ | 94% of 143.0M (backoff) |
 | Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61800283 tokens/day lower bound._
