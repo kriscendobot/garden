@@ -20,3 +20,13 @@ Answer each question in the design's `## Open Questions`, grounding every answer
 Also reconcile the overlap with the open designs https://github.com/endojs/endo-but-for-bots/pull/989 (worker quiescence embargo; supersede, merge, or scope-split with this design's transcript/embargo) and https://github.com/endojs/endo-but-for-bots/pull/1016 (panic-on-reference-error plus rejection handling vs this design's § Coda).
 
 Deliverable: a design-amendment PR against `llm` that moves each answer from Open Questions into the body (opened via scripts/jobs/gardening/ensure-pr.sh). Any question that is still a genuine maintainer fork stays in Open Questions, stated as a decision request. Also post a short comment on #1018 that links the PR and gives a one-line answer per question. The build legs of orchestration `endojs-endo-but-for-bots-pr1018-followups-20260929` read your completion report, so list the answers there as well, keyed by question number.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T08:08:58Z
