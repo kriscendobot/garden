@@ -426,11 +426,15 @@ fi
 PHASE_EVIDENCE_GATE="${GARDEN_PHASE_EVIDENCE_GATE:-$HERE/phase-evidence-gate.sh}"
 if [ "$draft" -eq 1 ] && [ "$PHASE_EVIDENCE_GATE" != ":" ] && [ -e "$PHASE_EVIDENCE_GATE" ]; then
   phase_root="${GARDEN_PHASE_EVIDENCE_WORKTREE:-$PWD}"
+  # Prefer the remote-tracking base. A per-job project worktree's LOCAL base
+  # branch is not fast-forwarded and can lag origin by days; diffing against it
+  # folds the base's own advance into the PR (endojs/endo-but-for-bots#1370: a
+  # design-only PR was asked for an implementation ledger). Same rule as panel.sh.
   phase_base=""
-  if git -C "$phase_root" rev-parse --verify --quiet "$base_branch^{commit}" >/dev/null 2>&1; then
-    phase_base="$base_branch"
-  elif git -C "$phase_root" rev-parse --verify --quiet "origin/$base_branch^{commit}" >/dev/null 2>&1; then
+  if git -C "$phase_root" rev-parse --verify --quiet "refs/remotes/origin/$base_branch^{commit}" >/dev/null 2>&1; then
     phase_base="origin/$base_branch"
+  elif git -C "$phase_root" rev-parse --verify --quiet "$base_branch^{commit}" >/dev/null 2>&1; then
+    phase_base="$base_branch"
   fi
   phase_args=(author "$phase_root" --body-file "$bodyf" --head HEAD --draft yes)
   [ -z "$phase_base" ] || phase_args+=(--base "$phase_base")

@@ -213,6 +213,52 @@ grep -q 'phase/evidence pre-pass = BLOCKED' "$PANEL_ERR" \
   && ok "panel audit trail records the deterministic block" \
   || bad "panel block audit line missing"
 
+echo "== stale local base: a bare --base resolves to the fresher origin/<base> (#1370) =="
+# A per-job worktree whose LOCAL base branch lags origin/<base>. The base's own
+# advance touched src/, so a diff from the stale local ref makes a design-only PR
+# look like an implementation that owes a ledger.
+UP="$TR/stale-up.git"
+git init -q --bare "$UP"
+SWT="$TR/stale-wt"
+git clone -q "$WT" "$SWT" 2>/dev/null
+git -C "$SWT" config user.email t@localhost
+git -C "$SWT" config user.name test
+git -C "$SWT" checkout -q -B llm "$BASE"
+git -C "$SWT" remote set-url origin "$UP"
+git -C "$SWT" push -q origin llm
+STALE_LLM="$(git -C "$SWT" rev-parse llm)"
+printf 'advanced upstream\n' >> "$SWT/src/feature.js"
+git -C "$SWT" commit -qam 'feat: base advances'
+git -C "$SWT" push -q origin llm
+git -C "$SWT" reset -q --hard "$STALE_LLM"
+git -C "$SWT" fetch -q origin
+git -C "$SWT" checkout -q -b design-only origin/llm
+mkdir -p "$SWT/designs"
+cat > "$SWT/designs/proposal.md" <<'DESIGN'
+# Proposed production work
+## Production sequence and stop gates
+1. Land the substrate.
+2. Wire the feature.
+## Acceptance evidence
+- Observe the deployed canary.
+DESIGN
+git -C "$SWT" add -A
+git -C "$SWT" commit -qm 'design: propose production sequence'
+[ "$(git -C "$SWT" rev-parse llm)" != "$(git -C "$SWT" rev-parse origin/llm)" ] \
+  && ok "fixture: local llm is behind origin/llm" || bad "fixture: local llm is not stale"
+OUT=""; RC=0
+OUT="$(bash "$GATE" author "$SWT" --base llm --head HEAD \
+  --body-file "$TR/design-body.md" --draft yes)" || RC=$?
+[ "$RC" -eq 0 ] && printf '%s\n' "$OUT" | grep -q 'reason=design-only-diff' \
+  && ok "bare --base llm compares against origin/llm and clears the design-only PR" \
+  || bad "bare --base llm used the stale local ref (rc=$RC, $OUT)"
+OUT=""; RC=0
+OUT="$(bash "$GATE" author "$SWT" --base "$STALE_LLM" --head HEAD \
+  --body-file "$TR/design-body.md" --draft yes)" || RC=$?
+[ "$RC" -eq 20 ] \
+  && ok "an explicit stale sha is honored as given (control: the stale diff does demand a ledger)" \
+  || bad "explicit stale sha should still see the base advance (rc=$RC, $OUT)"
+
 echo
 echo "phase-evidence-gate: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

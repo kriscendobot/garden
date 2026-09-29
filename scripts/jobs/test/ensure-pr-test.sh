@@ -180,6 +180,40 @@ GARDEN_ALLOW_NONTEMPLATE_BODY=1 run feat/sturdyref --body-file "$TR/invented.md"
 [ "$RC" -eq 0 ] && [ "$(db_len)" = 1 ] && ok "GARDEN_ALLOW_NONTEMPLATE_BODY=1 overrides with a warning" || bad "override: rc=$RC ($ERR)"
 unset FAKE_PR_TEMPLATE
 
+hr; echo "PHASE GATE — compares against origin/<base>, not a stale local base (#1370)"; hr
+# A per-job project worktree whose LOCAL base branch lags origin/<base>. The base's
+# own advance touched src/, so diffing from the stale local ref makes this
+# design-only head look like an implementation that owes a phase/evidence ledger.
+PUP="$TR/phase-up.git"; PWT="$TR/phase-wt"
+git init -q --bare "$PUP"
+git init -q "$PWT"
+git -C "$PWT" config user.email t@localhost; git -C "$PWT" config user.name test
+mkdir -p "$PWT/src" "$PWT/designs"
+printf 'base\n' > "$PWT/src/feature.js"
+git -C "$PWT" add -A; git -C "$PWT" commit -qm base
+git -C "$PWT" branch -M "$BASE_BRANCH"
+git -C "$PWT" remote add origin "$PUP"
+git -C "$PWT" push -q origin "$BASE_BRANCH"
+stale="$(git -C "$PWT" rev-parse HEAD)"
+printf 'advanced upstream\n' >> "$PWT/src/feature.js"
+git -C "$PWT" commit -qam 'feat: base advances'
+git -C "$PWT" push -q origin "$BASE_BRANCH"
+git -C "$PWT" reset -q --hard "$stale"
+git -C "$PWT" checkout -q -b feat/design-only "origin/$BASE_BRANCH"
+printf '# Proposal\n## Production sequence and stop gates\n1. Land the substrate.\n2. Wire it.\n## Acceptance evidence\n- Observe the canary.\n' \
+  > "$PWT/designs/proposal.md"
+git -C "$PWT" add -A; git -C "$PWT" commit -qm 'design: propose'
+[ "$(git -C "$PWT" rev-parse "$BASE_BRANCH")" = "$stale" ] \
+  && ok "fixture: local $BASE_BRANCH is behind origin/$BASE_BRANCH" || bad "fixture: local base is not stale"
+reset_db
+( cd "$PWT" && GARDEN_PHASE_EVIDENCE_WORKTREE="$PWT" run feat/design-only \
+    --body 'Proposes `designs/proposal.md` for later implementation.'
+  printf '%s\n%s\n' "$RC" "$ERR" > "$TR/phase-result" )
+PRC="$(head -1 "$TR/phase-result")"
+[ "$PRC" -eq 0 ] && [ "$(db_len)" = 1 ] \
+  && ok "a design-only PR over a stale local base opens (gate saw origin/$BASE_BRANCH)" \
+  || bad "phase gate compared against the stale local base: rc=$PRC $(tail -n +2 "$TR/phase-result")"
+
 hr; echo "JOURNAL — work/<base> records the number, and is the no-query fast path"; hr
 BARE="$TR/journal.git"; BRANCH=journal2
 export JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH"

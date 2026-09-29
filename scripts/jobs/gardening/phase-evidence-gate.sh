@@ -72,6 +72,19 @@ else
   exit 3
 fi
 
+# Resolve a bare base branch name to its remote-tracking tip, as panel.sh does.
+# A local branch in a per-job worktree can be stale against origin, and a diff
+# from it counts the base's own advance as PR changes (endojs/endo-but-for-bots
+# #1370). An explicit `origin/...`, a sha, or `HEAD~N` is left untouched.
+case "$base" in
+  ''|*/*|HEAD*|[0-9a-f][0-9a-f][0-9a-f][0-9a-f]*) ;;
+  *)
+    if git -C "$worktree" rev-parse --verify --quiet "refs/remotes/origin/$base^{commit}" >/dev/null 2>&1; then
+      base="origin/$base"
+    fi
+    ;;
+esac
+
 design_paths="$temporary_directory/design-paths"
 : > "$design_paths"
 changed_paths="$temporary_directory/changed-paths"
