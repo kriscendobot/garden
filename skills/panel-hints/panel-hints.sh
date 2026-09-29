@@ -136,6 +136,19 @@ if [ -d "$PROBES_DIR" ]; then
   done
 fi
 
+# A seat a probe fires, or one that is always-on/always-fire, is never "suppressed"
+# (C-platform-arm.sh emits skip lines for coverage-auditor/engine-realist that
+# another probe or the always-fire list may override).
+kept=()
+for s in "${skip_list[@]:-}"; do
+  [ -n "$s" ] || continue
+  case " ${fire_list[*]:-} " in *" $s "*) continue;; esac
+  case ", $ALWAYS_ON, $ALWAYS_FIRE, " in *", $s, "*) continue;; esac
+  kept+=("$s")
+done
+skip_list=("${kept[@]:-}")
+[ -z "${skip_list[0]:-}" ] && skip_list=()
+
 # Partition fire_list into path-triggered (B-*) and content-triggered (C-*)
 # by re-reading the probe filename prefix.
 path_seats=()

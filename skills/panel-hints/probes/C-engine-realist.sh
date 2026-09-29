@@ -8,4 +8,12 @@ if [ -n "$hit" ]; then
   echo "fire engine-realist matched: $hit"
   exit 0
 fi
+# Platform-arm / native-vs-shim signals (cross-platform-test-coverage cluster)
+# live in C-platform-arm.sh; fire from here too so engine-realist is never listed
+# as suppressed while that probe fires it.
+plat=$(BASE="$BASE" bash "$(dirname "$0")/C-platform-arm.sh" 2>/dev/null | grep '^fire engine-realist ' | head -1)
+if [ -n "$plat" ]; then
+  echo "$plat"
+  exit 0
+fi
 echo "skip engine-realist"

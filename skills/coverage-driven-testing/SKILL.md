@@ -66,6 +66,45 @@ machine.
    to 92% by adding three meaningful tests is better than one that hits 95% with
    twelve contortion-tests that mock half the dependencies.
 
+## Platform-conditional arms
+
+c8 runs on Node. A line in a `browser`, `xs`, or `endor` arm that a Node-side spy
+or stub reaches counts as covered, even though that arm has never run on its
+platform. Coverage percentages therefore say nothing about platform arms, and
+this rule applies whatever the report shows:
+
+- **When a change adds or alters a platform-conditional arm, it carries a test
+  that executes on that platform.** A platform-conditional arm is a non-`node`/
+  `default` condition key (`browser`, `xs`, `endor`, `hermes`, `react-native`, ...)
+  in a `package.json` `exports`/`imports` map, the platform-named source file it
+  routes to (`*-browser*.js`, `*-xs*.js`, `*-endor*.js`), or a `test:<platform>`
+  script. For endo-but-for-bots:
+  - `browser`: add a case to the top-level `browser-test/` Playwright suite that
+    bundles the package through the compartment mapper under the `browser`
+    condition and exercises the arm in a real browser (precedent:
+    `browser-test/tests/sha256.spec.js`, #1290).
+  - `xs` / `endor`: a real `test:xs` / `test:endor` run (for example
+    `xst` over generated test bundles), not an `exit 0` stub, and one that CI
+    actually invokes.
+- **If the platform test cannot be written**, say so in the PR body: name the arm,
+  why it cannot run there (no harness for that engine yet, for example), and what
+  covers it in the meantime. Silence is not an acceptable substitute.
+- **A test must not assert a shim-only shape without a native-detection guard.**
+  Assertions that hold only while the engine lacks a native feature (the
+  immutable-ArrayBuffer emulation's `ArrayBuffer.isView(view) === false`, the
+  `[object ImmutableArrayBuffer]` tag) pass on Node and fail the day an engine
+  ships the feature or `test:xs` stops being a stub. Branch on a detection
+  predicate (`typeof ArrayBuffer.prototype.sliceToImmutable === 'function'`) and
+  assert the native shape in the other branch, as in #475's fix `0984dd89b`.
+- A package whose `test:xs` is an `exit 0` stub has no XS coverage at all. Treat
+  touching its tests as a prompt to replace the stub, or say in the PR body why
+  it stays.
+
+Grounding: review-miss cluster `cross-platform-test-coverage`
+(endojs/endo-but-for-bots #836, #475, #1290). The panel counterpart is the
+`C-platform-arm` panel-hints probe, which also stops the coverage-auditor's c8
+gate from approving a platform arm unseen.
+
 ## Prefer integration tests
 
 A public-API exercise covers more of the package per test, breaks honestly when
