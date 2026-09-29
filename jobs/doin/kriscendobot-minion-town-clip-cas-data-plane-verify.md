@@ -29,3 +29,13 @@ Deliver the answer as your completion report (plus a comment on
 https://github.com/kriscendobot/garden/issues/58 ONLY if it definitively checks the box or names a concrete gap).
 Do not change code or production. If a build is warranted, name it as a follow-up; do not post it.
 Scope: read-only. No identity switch, no ferry.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T09:27:45Z
