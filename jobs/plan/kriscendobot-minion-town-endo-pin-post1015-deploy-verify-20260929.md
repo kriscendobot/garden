@@ -41,3 +41,7 @@ Precondition: #139 is MERGED on `main`. If it was closed without merging, messag
    `src/endo/captp-client.ts` `PINNED_ENDO_COMMIT`) back to `f9cbcfc426f726858a671bcb09f7c2c774cc659e`, following the
    #111 pattern, through `ensure-pr.sh`, and have the conductor merge it. Then emit `<<<GARDEN-ORCHESTRATION-FAILED>>>`.
 4. Report the deploy run, the box's pin, and the health evidence.
+
+<!-- garden-annotation: key=pr139-approved-20260929 by=press at=2026-09-29T21:39:26Z -->
+
+kriskowal APPROVED kriscendobot/minion.town#139 at 2026-09-29T21:15:47Z. Successor conductor 'conduct-kriscendobot-minion-town-pr139-approved-20260929' merges it and then promotes this job; the blocked-failed hold is cleared by that approval.
