@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T10:31:59Z_
+_As of 2026-09-29T10:36:05Z_
 
 ## Latest
 
-PR #1072 moved through a resumed gauntlet round and a retcon-post-gauntlet job was parked to follow up once it's clean. The `exo-stream` gauntlet on [endojs/endo-but-for-bots#1100](https://github.com/endojs/endo-but-for-bots/pull/1100) closed out clean, and PR #1018's follow-up replies went out. Underneath, the IronHorse test262 ratchet round 3 continues to surface a substantial policy question: several hundred historically-"covered" paths are now failing under the stricter current classifier, and the gardener is holding the line rather than relabeling them — that decision needs a maintainer call (tracked in [garden#51](https://github.com/kriscendobot/garden/issues/51)). Also notable: a rolling-deploy canary on oros-studio-garden-ce242c49 failed three retries and halted (drained, no auto-rollback), the leader host is now 25 commits behind `origin/main2` and stalled, and a deploy candidate was rejected by a failing test gate — all worth a look before the next deploy attempt.
+No file-level board transitions landed since the last bulletin, so activity this cycle was mostly steady-state churn: budget-level and quota-zone watchdogs ticking Claude/Codex worker counts up and down across all three hosts, several journal-contention notices opening and clearing within minutes, and a comment-ack-latency alert on endojs/endo-but-for-bots clearing quickly. The one real event worth flagging is a rolling-deploy canary failure on host oros-studio-garden-ce242c49 (target sha 18df481c04b) that retried three times and halted, leaving the canary drained pending investigation — it has since recovered, but the root-repo-guard is now separately warning that the leader (endolin-garden-ece02cb4) is 25 commits behind origin/main2 and its deploy has stalled, which matters because that host runs every singleton producer (foreman, scheduler, watchers). A deploy candidate (39d0c5ef0ac) was also rejected by the test gate on a failing triager-pacing-test suite.
+
+On the review side, milestone M2 has accumulated a pile of foreman messages all pointing at the same decision: authorize `run the gauntlet` for the CI-green draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and decide the fate of #1356, which one message says is superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is similarly stalled awaiting a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering four open questions on #1340. The minion.town/endo federation release gate remains blocked on maintainer answers to the authority questions on #1332 and a review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). Separately, a quarterly completions rollup (9,490 completions, June 24–Sept 29) was published to ocap.site, and the ironhorse test262 ratchet round-3 job is asking whether to reconcile 906 historical-floor discrepancies explicitly rather than paper over them.
 
 ## Parked for maintainer feedback
 
@@ -209,6 +211,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20260927T184844Z-fb282f` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T184844Z-fb282f.md)
 
 > M2’s remaining design records are substantively complete upstream, while the clean, reviewed documentation PR [endojs/endo-but-for-bots#756](https://github.com/endojs/endo-but-for-bots/issues/756) remains open. Decide whether to merge that PR and reconcile the two M2 design statuses to Complete.
+
+- `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
+
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 2843s (offline threshold 1800s; sampled_at_epoch=1790675260).
+> worker-derotate zeroed its config/worker-leveling caps (were 4 0 monk cleric) so budget-level stops reserving fleet slots for it; the exact prior caps are recorded in journal worker-derotate/oros-studio-garden-ce242c49. When its budget/live heartbeat is fresh again the caps are restored automatically and this notice closes. To keep it out regardless, set its row by hand (any value other than 0 0 relinquishes the marker; delete the marker to keep 0 0). (leader=endolin-garden-ece02cb4)
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
@@ -455,10 +462,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 121.8M | $882.74 _(notional, rate-card)_ | 85% of 143.0M (backoff) |
+| Claude | 122.0M | $884.27 _(notional, rate-card)_ | 85% of 143.0M (backoff) |
 | Codex | 14.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63348268 tokens/day lower bound._
+_Fleet token-unlock pace: 61749466 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.408336s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 0 open notice(s); checker healthy
