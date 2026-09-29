@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T06:57:47Z_
+_As of 2026-09-29T06:59:36Z_
 
 ## Latest
 
-A rolling deploy to `e036bb8e0650` cleared its stuck canary on oros-studio and recovered, though it had briefly halted on a failed canary earlier and needed a maintainer look before the retry succeeded. The gauntlet on [endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) is mid-flight (panel round 4 queued after a round-3 fix), and [endo-but-for-bots#1298](https://github.com/endojs/endo-but-for-bots/pull/1298) is on its fifth fix round. [endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) picked up a review and a weave (base-pin advance) is queued next, and [endo-but-for-bots#1072](https://github.com/endojs/endo-but-for-bots/pull/1072) is also queued for a retcon ahead of resuming its gauntlet. On [endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), a review landed and a designer revision plus an RSVP acknowledgment are queued to address kriskowal's feedback. The ironhorse test262 ratchet (round 3) surfaced a floor-reconciliation question — 906 lost paths versus the pre-change historical floor, largely explained by stricter classifier behavior — and is waiting on a maintainer call on how to record the new floor. M2 and M3 milestones remain blocked on a stack of gauntlet-authorization and promotion decisions (notably #1349, #1356, #1015, and #1340) that the foreman has repeatedly flagged. Separately, the minion.town federation release gate is still blocked pending maintainer answers on [endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review/merge of [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), and a quarterly completions rollup (9,490 jobs, June–September) was published for review.
+A rolling deploy of `e036bb8e065` had a rocky ride overnight: the canary on oros-studio halted after three failed re-validation retries and was left drained pending investigation, but it has since recovered — the canary is unstuck and the deploy landed. A prior deploy candidate (`39d0c5ef0ac`) was rejected outright by the test gate on a `triager-pacing-test.sh` failure, so the tree stayed on the previous build until the fix landed.
+
+On the PR front, [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) is queued for another weave (advancing its base pin), and [endojs/endo-but-for-bots#1072](https://github.com/endojs/endo-but-for-bots/pull/1072) needs a retcon before its gauntlet can resume. PR #1362 is in gauntlet panel round 4, and #1298 is in fix round 5. Several open items still await maintainer sign-off, most persistently milestone M2's stalled drafts: [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) needs explicit gauntlet authorization, and #1356 is flagged as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332) and awaiting a close decision. The Ironhorse test262 ratchet round 3 also needs a maintainer call on how to reconcile ~906 lost paths against the pre-change historical floor. The federation release gate for minion.town remains blocked pending review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124) and the authority questions on the #1332 design. Separately, a quarterly completions rollup (9,490 completions, June 24–Sept 29) has been published to ocap.site.
 
 ## Parked for maintainer feedback
 
@@ -287,13 +289,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=42821049 cap=143000000 pace-bias=0.020559 ceiling=4 target=3
 
-- `20260929T065403Z-0cc9e0` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T065403Z-0cc9e0.md)
-
-> proxy answered a gating question (tentative — review and override):
-> - gardener: kriscendobot-minion-town-endo-pin-post1015-20260929
-> - question (msgid msg-kriscendobot-minion-town-endo-pin-post1015-20260929-ddad5eb161a3.md)
-> - tentative answer: proxy/tentative: No objection — this reads as a clean incident report, not a decision request. Root cause (stray daemon holding 127.0.0.1:8920 from the upgrade preflight's `endo list` probe) is well-diagnosed and unrelated to the new pin's correctness. Proceed as planned: merge [https://github.com/kriscendobot/minion.town/pull/139](https://github.com/kriscendobot/minion.town/pull/139) through the conductor, watch the redeploy retry the 1706e63 upgrade, and if it fails again, revert the pin following the [https://github.com/kriscendobot/minion.town/pull/111](https://github.com/kriscendobot/minion.town/pull/111) pattern. That's a sound, reversible fallback and doesn't need to wait on the maintainer. The maintainer may still want to double check the sandboxed auto-start/reaping logic in [https://github.com/kriscendobot/minion.town/pull/139](https://github.com/kriscendobot/minion.town/pull/139) once they're back, but that's a follow-up review, not a gate on landing it now given CI is green.
-
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=842330 cap=73000000 pace-bias=1.000000 window-start=2026-09-23T06:59Z(calendar) deadline=2026-09-30T06:59Z(calendar) ceiling=4 target=4
@@ -323,10 +318,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20260928T174815Z-192b50` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T174815Z-192b50.md)
 
 > M2’s next unblocked step is advancing the CI-green draft `endojs/endo-but-for-bots#1349` for `hardened-text-codecs-shim`. Decide whether to authorize `run the gauntlet #1349`; the manual gauntlet trigger is required before fleet work can proceed.
-
-- `watchdog-unclaimable-host-requirements-ebfb-pr1357-rsvp-ack-5348050214` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-ebfb-pr1357-rsvp-ack-5348050214.md)
-
-> Host-requirements gate: job 'ebfb-pr1357-rsvp-ack-5348050214' has remained unclaimed for 902s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `20260927T184412Z-988223` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260927T184412Z-988223.md)
 
@@ -407,7 +398,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.9M | $832.27 _(notional, rate-card)_ | 76% of 143.0M (ok) |
+| Claude | 109.0M | $832.55 _(notional, rate-card)_ | 76% of 143.0M (ok) |
 | Codex | 12.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 84623431 tokens/day lower bound._
