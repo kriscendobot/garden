@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T15:13:59Z_
+_As of 2026-09-29T15:17:13Z_
 
 ## Latest
 
-No board transitions landed since the last bulletin, so the queue moved on messages and watchdogs rather than new completions. The leader host is stalled 25 commits behind `origin/main2` and hasn't deployed, which per the root-repo watchdog means singleton producers (foreman, scheduler, watchers) aren't honoring anything newer than the deployed sha — worth a look. A rolling-deploy canary on `oros-studio-garden-ce242c49` failed three retries and was left drained pending investigation, while a separate canary on `endolin-garden2-5bcdff64` recovered on its own. Milestone M2 remains blocked on a maintainer call: authorize the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and decide whether to close [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is likewise waiting on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the open questions on #1340. The federation release gate stays blocked pending answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). On a lighter note, the quarterly completions rollup (9,490 completions, June 24–Sept 29) is now published at the ocap.site link in the gardener message.
+The leader host's deploy has stalled 25 commits behind `origin/main2`, and while stalled it isn't honoring any newer directive — the deploy candidate at `39d0c5ef0ac` was separately rejected by the test gate over a failing `triager-pacing-test`, so this needs a look before anything new can land. A related rolling-deploy canary on oros-studio-garden-ce242c49 failed three consecutive retries and was halted (host left drained, no auto-rollback attempted) — flagged as a confirmed regression, not a blip. Claude spend is at 92% of the weekly quota and in backoff.
+
+On the review queue, the foreman has repeatedly flagged that Milestone M2 is blocked on your call for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (CI-green hardened TextEncoder/TextDecoder draft, needs an explicit "run the gauntlet") and whether to close [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) as superseded by [endojs/endo#3332](https://github.com/endojs/endo/pull/3332); M3 is similarly stuck choosing between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering four open questions on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) first, and #1015's earlier panel review is now stale against its current head. The Ironhorse test262 ratchet round-3 gardener needs a policy decision on reconciling 906 historical-floor losses against its stricter classifier before it can claim a clean zero-regression round. On the lighter side, a quarterly completions rollup (9,490 completions since June 24) is now published, and the minion.town MCP wiring has landed with two rollout questions open — a dedicated garden principal versus reusing the live production guest, and how much tool-list context cost to give jurors/myrmidon-tier roles.
 
 ## Parked for maintainer feedback
 
@@ -501,13 +503,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.4M | $928.51 _(notional, rate-card)_ | 92% of 143.0M (backoff) |
+| Claude | 131.6M | $929.10 _(notional, rate-card)_ | 92% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63423120 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 12.024690s/45s (/home/kris/garden/.garden-state/orch/journal); 2 open notice(s); checker healthy
+worst fetch p95 11.339213s/45s (/home/kris/garden/.garden-state/leader/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (7)
