@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T00:08:59Z_
+_As of 2026-09-29T00:12:15Z_
 
 ## Latest
 
-Board activity was minimal since the last bulletin: the Ironhorse ratchet-autopilot activation job completed and immediately re-posted its continuation, and the minion.town [#120](https://github.com/kriscendobot/minion.town/pull/120) gauntlet panel round 1 was claimed. The bulk of what needs attention is the backlog of unread maintainer messages — M2 remains blocked on a cluster of foreman notices asking whether to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and whether to close #1356 as superseded by upstream endo#3332; M3's `endo-claude` critical path is similarly stalled pending a decision on [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and its `endo-agent-tools` dependency #1348. Several gauntlet and retrospective jobs (PR #356, #450, #982, minion.town #68) were doom-parked after exhausting requeues and are held in the plan queue awaiting promotion. The Ironhorse test262 ratchet round-3 sweep is also stuck on a floor-reconciliation policy question the maintainer needs to answer. Separately, a deploy candidate (39d0c5ef0ac) was rejected by the test gate on a `triager-pacing-test.sh` failure, and host oros-studio-garden-ce242c49 briefly went offline for the rolling-deploy watchdog but has since recovered.
+Gauntlet activity on [kriscendobot/minion.town#86](https://github.com/kriscendobot/minion.town/pull/86) advanced another round: panel-6 completed and fix-6 is now posted to address its feedback. Elsewhere the board stayed dominated by a long queue of parked maintainer decisions — notably several stalled M2/M3 milestone gates on endo-but-for-bots (whether to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and how to dispose of the superseded [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356)), plus doom-parked gauntlet stages on [endojs/endo-but-for-bots#356](https://github.com/endojs/endo-but-for-bots/pull/356) and [endojs/endo-but-for-bots#450](https://github.com/endojs/endo-but-for-bots/pull/450) and on [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68), all awaiting promotion.
 
 ## Parked for maintainer feedback
 
@@ -802,12 +802,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #29 (first seen 2026-09-28T21:29:28Z, latest 2026-09-29T00:04:45Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 29 times; this is ONE
-> coalesced notice that updates in place, not 29 messages. Latest detail:
+> WATCHDOG notice — occurrence #30 (first seen 2026-09-28T21:29:28Z, latest 2026-09-29T00:09:43Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 30 times; this is ONE
+> coalesced notice that updates in place, not 30 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/86](https://github.com/kriscendobot/minion.town/pull/86)#discussion_r4127032558 (age=10657s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/86](https://github.com/kriscendobot/minion.town/pull/86)#discussion_r4127032558 (age=10958s; heartbeat=full-poll)
 
 - `doomed-self-heal-fix-garden-issue-inbox-cursor-get-pipefail-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-self-heal-fix-garden-issue-inbox-cursor-get-pipefail-requeue-exhausted.md)
 
@@ -831,6 +831,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > dispatch: automatic
 > ---
 > issue-inbox-watcher.sh:386 calls `cursor-get.sh` in a bare pipeline (`"$HERE/cursor-get.sh" "$CURSOR_KEY" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1`) under `set -euo pipefail`. cursor-get.sh's sync_clone can `die` with rc=1 (unrecognized fetch-failure stderr) or `exit $GARDEN_OFFLINE_RC` (75, recognized offline signature) on a journal fetch hiccup; pipefail propagates either nonzero rc through the sed/head stages, tripping set -e and hard-killing the whole garden-issue-inbox unit instead of skipping the tick. This is the exact bug class fixed today in triager.sh (commits 73c2432e89, b320648e47): capture the rc via `if cursor_out=$("$HERE/cursor-get.sh" "$CURSOR_KEY"); then rc=0; else rc=$?; fi`, and on any nonzero rc, `log "WARN: cursor read failed for $CURSOR_KEY (rc=$rc); skipping this tick"; exit 0` instead of letting set -e kill the process — a cursor read is best-effort (a missed read just re-triages/re-polls next tick, never loses data). Apply the identical fix to the same unguarded pattern in comment-watcher.sh:423 and mention-watcher.sh:83, which share this exact vulnerable shape and will hit the same failure the next time the journal blips.
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: packs 1010 >= 1000; size=288312320B packs=1010 gc.log=0; automatic remedy=applied.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-2.md)
 
@@ -1210,7 +1214,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.8M | $549.84 _(notional, rate-card)_ | 42% of 143.0M (ok) |
+| Claude | 61.0M | $560.60 _(notional, rate-card)_ | 43% of 143.0M (ok) |
 | Codex | 6.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58829640 tokens/day lower bound._
@@ -1220,27 +1224,27 @@ worst fetch p95 4.305599s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 
 ## Board
 ### todo (2)
-- [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1097
+- [`kriscendobot-minion.town-pr86-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr86-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #86
 - [`activate-ironhorse-ratchet-autopilot-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/activate-ironhorse-ratchet-autopilot-20260929.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued)
 
 ### doin (9)
 - [`garden-pr81-postdeploy-pty-20260928T221312Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-pr81-postdeploy-pty-20260928T221312Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-minion-town-pr86-review-finalize-prod-5344649026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr86-review-finalize-prod-5344649026.md) — Finish review directive 5344649026 on kriscendobot/minion.town PR #86
 - [`kriscendobot-minion.town-pr120-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #120
-- [`kriscendobot-minion.town-pr86-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr86-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #86
+- [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1097
 - [`pty-lane-assay-rev5119818493-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pty-lane-assay-rev5119818493-r1.md) — Interactive pty-lane self-validation for garden PR #81 (host-pinned to a depl...
 - [`build-npm-minion-town-dev-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-npm-minion-town-dev-registry.md) — ---
 - [`build-host-local-git-repo-locks`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-host-local-git-repo-locks.md) — ---
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`claude-on-minion-town-press-20260928-232006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260928-232006.md) — Press the Claude-on-minion.town arc forward
 
-### tada (9470)
+### tada (9471)
+- [`kriscendobot-minion.town-pr86-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr86-gauntlet-panel-6.md) — Cost
 - [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/activate-ironhorse-ratchet-autopilot-20260928.md) — Activation report: activate-ironhorse-ratchet-autopilot-20260928
 - [`kriscendobot-minion.town-pr120-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr120-gauntlet-clean.md) — Clean stage report: kriscendobot/minion.town PR #120
 - [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1343-review-fcb5f817-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1343-review-fcb5f817-retro.md) — Cost
-- [`kriscendobot-minion.town-pr86-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-gauntlet-fix-5.md) — Cost
-- … and 9465 more
+- … and 9466 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
