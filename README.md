@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T04:36:59Z_
+_As of 2026-09-29T04:39:31Z_
 
 ## Latest
 
-Overnight activity was mostly maintenance churn rather than PR movement: the fix round for [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) landed and went green, and the design-daemon-git-remotes job completed. The bigger story is a wedged rolling deploy — canary `oros-studio-garden-ce242c49` has been stuck for over an hour on release 65f0c2e4414d (retry 1 of 3, will page after ~2h) despite a fresh heartbeat, so its self-deploy/health publishing appears dead while its workers keep claiming jobs on stale code; this is also blocking the Ironhorse ratchet-autopilot activation. Milestone M2 remains stalled purely on maintainer gauntlet authorization for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (repeated foreman notices) and a close/supersede decision on #1356; M3's confined-agent path is similarly blocked pending a decision between advancing #1015 or answering #1340's open questions. Several gauntlets and jobs doom-parked awaiting promotion (PR #356 fix, PR #450 panel, minion.town PR #68 panel), and the federation release gate is still blocked on #1124 review. A quarterly completions report (9,490 jobs, June–September) also published.
+Fix round 5 of the panel gauntlet for [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) landed and closed out that stage, while fix round 2 for the npm-registry-server work on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) is still in flight — its panel flagged an architectural must-fix (its CAS/SQLite store diverges from the design's call to reuse @endo/exo-npm) that a fix round can't resolve alone, so a maintainer decision on rehoming vs. parking vs. amending the design is needed there. The board is otherwise light: only two jobs are actively claimed, and M2/M3 milestone progress remains stalled behind a stack of unauthorized gauntlet-promotion decisions on drafts #1349, #1356, #1015, and #1340 that the foreman keeps re-surfacing. A large backlog of doom-parked and split-eligible jobs sits in the plan queue awaiting maintainer promotion, and the ironhorse test262 ratchet round-3 work is blocked on how to reconcile several hundred historical "covered" test paths against a stricter current classifier.
 
 ## Parked for maintainer feedback
 
@@ -361,17 +361,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 2 (target 2): shared codex subscription demand active=2 queue=6 quota=ok fleet-envelope=5 target=2
-
-- `msg-activate-ironhorse-ratchet-autopilot-20260929-r3-35b22755c4d2` — from gardener:activate-ironhorse-ratchet-autopilot-20260929-r3, reply_to `activate-ironhorse-ratchet-autopilot-20260929-r3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-activate-ironhorse-ratchet-autopilot-20260929-r3-35b22755c4d2.md)
-
-> Ironhorse ratchet activation is blocked on a wedged rolling deploy. I have not bypassed it, and the ratchet is not live.
->
-> - Target: main2 65f0c2e4414d. Canary endolin-garden2 deployed and passed validation (~02:50Z).
-> - Canary oros-studio-garden-ce242c49 is STUCK at e036bb8e. It was released ~02:53Z, failed with "never advanced to the target sha, no deferral published", and is now in retry backoff (retry 1 of 3).
-> - Oros is alive: budget/live heartbeat is fresh (~03:01Z), and it claimed kriscendobot-minion.town-pr120-gauntlet-fix-5 at 02:59Z. But its fleet/health record hasn't been republished since 2026-09-28T23:46Z (it still says deferred for target 894f2675). So oros's self-deploy / health publishing looks dead or failing while its workers keep claiming on old code.
-> - The leader (endolin-garden-ece02cb4) is still at e036bb8e. It predates the ratchet gates (c3aae0b2c0c) and advances last.
->
-> Needs a human on oros-studio: check `journalctl --user -u garden-self-deploy` / `garden-upgrade-monitor` there, or authorize a sysop `deploy` op for it (that op needs maintainer attestation). The roll will halt and page you after 3 retries (~2h). The ironhorse-ratchet schedule stays snoozed to 2026-09-29T14:00Z, and PR 1359 is untouched.
 
 - `doomed-kriscendobot-minion-town-pr68-gauntlet-panel-6-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion-town-pr68-gauntlet-panel-6-requeue-exhausted.md)
 
@@ -1290,7 +1279,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.4M | $771.68 _(notional, rate-card)_ | 69% of 143.0M (ok) |
+| Claude | 98.3M | $769.70 _(notional, rate-card)_ | 69% of 143.0M (ok) |
 | Codex | 10.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 45% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58119128 tokens/day lower bound._
@@ -1302,18 +1291,17 @@ worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1348
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1362
 - [`endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review.md) — ---
 
-### tada (9558)
+### tada (9559)
+- [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-fix-5.md) — Gauntlet fix round 5: endojs/endo-but-for-bots PR #1348
 - [`activate-ironhorse-ratchet-autopilot-20260929-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/activate-ironhorse-ratchet-autopilot-20260929-r3.md) — Cost
 - [`design-daemon-git-remotes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/design-daemon-git-remotes.md) — Completion report: design-daemon-git-remotes
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1362-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-panel-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1362-gauntlet-fix-1.md) — Fix round 1 for endojs/endo-but-for-bots#1362: must-fix items applied, CI green
-- … and 9553 more
+- … and 9554 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
