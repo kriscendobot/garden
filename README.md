@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T16:22:02Z_
+_As of 2026-09-29T16:28:08Z_
 
 ## Latest
 
-The board's quiet on the surface — one new job posted (`improve-handoff-sync-failopen`), no fresh claims or completions since the last bulletin — but the real story is the rolling deploy that spent the day wedged and is now moving again. A canary probe-scheduling bug was hunted down and fixed twice in succession (25123fdae03, then 36def9fd9e8), the last of which distinguishes an unclaimed probe on a fully-busy canary from a genuine failure; `endolin-garden2` deployed and passed the corrected build at 15:59:54Z, and the leader is now deferring its own deploy only behind its single busy monk. `oros-studio-garden-ce242c49` remains offline and stays a skipped canary throughout, unaffected by this fix. Separately, the Ironhorse test262 ratchet round-3 sweep surfaced a real policy question: the current classifier finds 906 historical "covered" paths are false positives (443 engine-limit aborts, 397 shared-positive-test-failures, 66 other), and the gardener is asking whether to record an explicitly reconciled floor rather than relabel failures as covered. Milestone M2 continues to pile up foreman nudges for a gauntlet decision on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close decision on the superseded #1356, and M3 is blocked choosing between advancing #1015 or answering the open questions on #1340. A quarterly completions rollup (9,490 completions, June 24–Sept 29) was also published for review.
+The rolling deploy that spent the last several hours wedged is unstuck: a second fix on main2 (`36def9fd9e8`) now treats an unclaimed canary probe as *waiting* rather than *failed* when all of a canary's workers are mid-job, closing the gap that let a fully-busy canary get misread as down. The `endolin-garden2` canary picked up the fix and passed at 15:59:54Z, and the leader is expected to self-deploy last once its one busy monk frees up; `oros-studio-garden-ce242c49` remains offline and continues to be skipped by the roll, as before.
+
+Elsewhere, gauntlet work for [endo-but-for-bots#356](https://github.com/endojs/endo-but-for-bots/pull/356), [#450](https://github.com/endojs/endo-but-for-bots/pull/450), and the `harness-provider-matrix-handoff` job all landed in tada, while [#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) (endowments unification) and [#1072](https://github.com/endojs/endo-but-for-bots/pull/1072)'s gauntlet-clean stage moved into doin. A large backlog of decisions is still parked for review: milestone M2 needs a call on running the gauntlet for [#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) and closing the superseded [#1356](https://github.com/endojs/endo-but-for-bots/issues/1356), M3 is waiting on a choice between [#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) and [#1340](https://github.com/endojs/endo-but-for-bots/issues/1340)'s open questions, and the minion.town federation release gate remains blocked pending maintainer answers on [#1332](https://github.com/endojs/endo-but-for-bots/issues/1332) and review of [#1124](https://github.com/endojs/endo-but-for-bots/issues/1124).
 
 ## Parked for maintainer feedback
 
@@ -341,6 +343,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > M3’s next confined-agent step is blocked on your choice between advancing `endojs/endo-but-for-bots#1015` after its `#1348` prerequisite clears, or answering the four open questions on design PR `#1340` to enable its build.
 
+- `msg-harness-provider-matrix-handoff-20260901-078a5de2bad0` — from gardener:harness-provider-matrix-handoff-20260901, reply_to `harness-provider-matrix-handoff-20260901` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-harness-provider-matrix-handoff-20260901-078a5de2bad0.md)
+
+> harness-provider-matrix-handoff-20260901: all three posts it asked for already exist and finished on 2026-09-01 (jobs/tada/2026/09/01/):
+> - update-provider-model-catalog-matrix: the matrix is in designs/provider-model-catalog.md § "Harness x provider matrix".
+> - probe-opencode-anthropic: the kind landed in 77b82f7f2d. The live canary is NOT verified: this host has no opencode binary and no ANTHROPIC_API_KEY. The activation steps are in context/operations/opencode-anthropic.md.
+> - design-claude-ollama-cloud-worker-kind: the `friar` kind (provider ollama-cloud) landed in ceeb7306a0 with no workers. To turn it on, export OLLAMA_CLOUD_API_KEY (from your ollama.com account, via the seed-api-key-handoff path), rebuild the image, and declare `friars: N` on a host.
+>
+> Needs your call: opencode-google (Gemini, the third-ranked probe) was left unqueued on purpose until there's a concrete Gemini use case. Tell me one if you want it probed. Otherwise there's nothing to do.
+>
+> Note: the reaper had doomed this hand-off job for requeue exhaustion, and a stale parked copy is still at jobs/plan/harness-provider-matrix-handoff-20260901. You can remove it; please don't promote it again.
+
 - `20260928T170259Z-29340b` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T170259Z-29340b.md)
 
 > M2 is blocked on the draft PRs: authorize running the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and decide whether to close superseded duplicate #1356.
@@ -512,7 +525,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.8M | $933.63 _(notional, rate-card)_ | 94% of 143.0M (backoff) |
+| Claude | 134.4M | $936.81 _(notional, rate-card)_ | 94% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63284956 tokens/day lower bound._
@@ -521,26 +534,25 @@ _Fleet token-unlock pace: 63284956 tokens/day lower bound._
 worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (5)
-- [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
-- [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — ---
-- [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
+### todo (4)
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
+- [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 - [`improve-handoff-sync-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-handoff-sync-failopen.md) — ---
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Host calls as transcript events, logical handles, and barriers
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1072-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1072
 - [`endojs-endo-but-for-bots-pr1097-conduct-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-conduct-20260929.md) — Conduct endojs/endo-but-for-bots PR #1097
-- [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #450
-- [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
+- [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — ---
+- [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### tada (9670)
+### tada (9673)
+- [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/harness-provider-matrix-handoff-20260901.md) — Completion report: harness-provider-matrix-handoff-20260901
+- [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Cost
+- [`endojs-endo-but-for-bots-pr450-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr450-gauntlet-panel-1.md) — Manual gauntlet handoff
 - [`garden-build-follower-self-deploy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/garden-build-follower-self-deploy.md) — Cost
 - [`fix-endojs-endo-but-for-bots-pr610`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/fix-endojs-endo-but-for-bots-pr610.md) — Completion report
-- [`claude-on-minion-town-press-20260929-150509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/claude-on-minion-town-press-20260929-150509.md) — Manual gauntlet handoff
-- [`endojs-endo-but-for-bots-pr1097-retcon-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1097-retcon-20260929.md) — Retcon of endojs/endo-but-for-bots#1097: done, with the same net diff
-- [`endojs-endo-but-for-bots-pr1354-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1354-dependabot.md) — Completion report
-- … and 9665 more
+- … and 9668 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -587,8 +599,6 @@ worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal
 - [`endojs-endo-but-for-bots-pr1305-review-254277ce-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1305-review-254277ce-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1305 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1310-c9dfce07-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1310-c9dfce07-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #1310 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr982-0b4f9f5d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr982-0b4f9f5d-retro.md) — _normal_ · Retrospective on endojs/endo-but-for-bots PR #982 (primary: endojs-endo-but-f...
-- [`harness-provider-matrix-handoff-20260901`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/harness-provider-matrix-handoff-20260901.md) — _normal_ · Hand-off: harness × inference-provider matrix, and what to probe next
-- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — _normal_ · Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-minion-town-pr68-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr68-gauntlet-panel-6.md) — _normal_ · Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #68
 - [`kriscendobot-minion.town-pr81-review-ef599fde-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr81-review-ef599fde-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #81 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr96-review-4b828bd6-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr96-review-4b828bd6-retro.md) — _normal_ · Retrospective on kriscendobot/minion.town PR #96 (primary: kriscendobot-minio...
