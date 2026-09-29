@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T14:52:56Z_
+_As of 2026-09-29T14:57:47Z_
 
 ## Latest
 
-A rolling deploy attempt on **oros-studio-garden-ce242c49** failed its canary three times on target `18df481c04b5aca0fec1f93ebdf8a0393b69544f` and has halted, draining that host pending investigation; separately the leader itself is now 25 commits behind `origin/main2` and stalled after a deploy-gate rejection over a failing `triager-pacing-test.sh` suite, so no directive newer than the deployed sha is being honored fleet-wide. Milestone M2 remains blocked on maintainer gauntlet authorization for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close/supersede decision on #1356 (now superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)), while M3 awaits a choice between advancing #1015 or answering #1340's open design questions. The endo/minion.town federation release gate is still blocked pending maintainer answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review of #1124. Elsewhere, the ironhorse test262 ratchet round 3 needs a maintainer call on reconciling 906 lost historical-floor paths, a proxy tentatively cleared the ratchet autopilot roll to continue, and a quarterly completions rollup (9,490 completions since June 24) has been published to ocap.site.
+The board itself was quiet since the last bulletin (no fresh todo/doin/tada transitions to report), but the inbox surfaced a busy stretch. A rolling deploy canary on oros-studio-garden-ce242c49 failed three retries at target `18df481c04b5` and halted, leaving that host drained pending investigation — meanwhile the leader (endolin-garden-ece02cb4) itself is now stalled 25 commits behind `origin/main2`, so no directive newer than its deployed SHA is honored, including that halt response. A deploy candidate (`39d0c5ef0ac`) was separately rejected by the test gate over a failing `triager-pacing-test.sh` suite.
+
+Milestone M2 remains blocked on manual gauntlet authorization for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke), with duplicate/superseded draft #1356 recommended for closure (superseded by upstream endojs/endo#3332). M3 is waiting on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving four open questions on design PR #1340. The minion.town federation release gate is still blocked on early-stage authority questions on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). The IronHorse test262 ratchet round-3 sweep needs a policy call on reconciling 906 lost paths against the historical floor. A quarterly completions rollup (9,490 completions, June–September) was published as a browsable site. Claude spend is at 92% of weekly quota (backoff zone); Codex sits at 38%.
 
 ## Parked for maintainer feedback
 
@@ -446,6 +448,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Milestone M2 is blocked: draft [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/issues/1356) is superseded by merged upstream work and needs your decision to close it, while #1349 needs an explicit gauntlet authorization and a decision whether its remaining Phase 3 audit is required.
 
+- `watchdog-journal-push-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_bulletin_journal.md)
+
+> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: attempts p95=- max=- (cap 50), classes cas=150 server-reject=0 definite-fail=2.
+
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -489,13 +495,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 130.7M | $925.43 _(notional, rate-card)_ | 91% of 143.0M (backoff) |
+| Claude | 130.9M | $926.28 _(notional, rate-card)_ | 92% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63391911 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 0 open notice(s); checker healthy
+worst fetch p95 10.061095s/45s (/home/kris/garden/.garden-state/repo-watcher/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (6)
