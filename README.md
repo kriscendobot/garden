@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T14:36:34Z_
+_As of 2026-09-29T14:38:39Z_
 
 ## Latest
 
-Small board churn since the last snapshot: the IronHorse panic-transcript job moved from parked into active work, the write-ahead-transcript effort for the debugger-panic-break case landed, and PR #1309's conduct report closed out. On the fix side, the PR #1356 zizmor advisory fix completed and reported in, while a PR #610 fix and the subscription-based-budget-model deploy-gate regression fix were both queued up to todo. Gauntlet work continues to churn in the background (panel/fix rounds posted for #356 and #450, PR #1072's clean stage still in doin, PR #1097's stream-bytes migration in progress), but the bulk of the maintainer's queue remains the same as before: several M2/M3 milestone decisions are still waiting (gauntlet authorization for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), closing #1356 as superseded, and the #1015/#1340 confinement-core choice), plus the failed canary on oros-studio-garden-ce242c49 and the stalled leader deploy (25 commits behind origin/main2) that are worth a look given they can hold up fleet-wide progress.
+Board churn since the last bulletin was light — a single orchestration progress note landed on the `endojs-endo-but-for-bots-pr1018-followups-20260929` follow-up chain, with no new posts, claims, or completions otherwise recorded in the diff. The dashboard's real news lives in the backlog of unread maintainer messages: a rolling-deploy canary on host `oros-studio-garden-ce242c49` has HALTED after three failed retries against target sha `18df481c04b5aca0fec1f93ebdf8a0393b69544f`, leaving that host drained pending a decision; separately, the leader itself is now 25 commits behind `origin/main2` and stalled, meaning no directive newer than its deployed sha (including any project pause) is currently honored fleet-wide. Milestone M2 has several foreman messages converging on the same ask — authorize `run the gauntlet` for the green draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), and close the now-superseded duplicate [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) (superseded by upstream endo#3332). The IronHorse test262 ratchet round-3 gardener is asking for a floor-reconciliation policy decision (906 lost paths vs. the pre-change historical floor) before it can honestly claim zero regression. The minion.town/endo federation release gate remains blocked on maintainer answers to the open authority questions on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and a maintainer review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). Also worth a look: a quarterly completions rollup (9,490 completions, June 24–Sept 29) has been published, and PR [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) is now mergeable-queue-ready with no gauntlet staged.
 
 ## Parked for maintainer feedback
 
@@ -342,6 +342,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 3 (target 3): subscription claude-endolin1 spend=42821049 cap=143000000 pace-bias=0.020559 ceiling=4 target=3
 
+- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1097-99b69ceed706` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1097-99b69ceed706.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1097](https://github.com/endojs/endo-but-for-bots/pull/1097) ([endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/issues/1097)) is in the mergeable queue with NO gauntlet review staged (head 99b69ceed70601d37f1395192dfbc4065595fe5d). Under the manual-gauntlet regime the garden no longer stages gauntlets automatically. If you want it reviewed, reply with 'run the gauntlet #1097'; otherwise no action is needed. This audit never re-drafts or stages anything.
+
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-4.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 4 (target 4): subscription claude-oros spend=842330 cap=73000000 pace-bias=1.000000 window-start=2026-09-23T06:59Z(calendar) deadline=2026-09-30T06:59Z(calendar) ceiling=4 target=4
@@ -489,7 +493,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 130.4M | $923.74 _(notional, rate-card)_ | 91% of 143.0M (backoff) |
+| Claude | 130.4M | $924.02 _(notional, rate-card)_ | 91% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 48% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63363006 tokens/day lower bound._
