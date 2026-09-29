@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T15:20:58Z_
+_As of 2026-09-29T15:39:05Z_
 
 ## Latest
 
-The board shows no fresh claims or completions since the last bulletin, so activity centers on outstanding maintainer decisions and infrastructure signals rather than new merges. The leader host is now 25 commits behind `origin/main2` and stalled — a deploy candidate (`39d0c5ef0ac`) was rejected by the test gate on a `triager-pacing-test.sh` failure, worth a look since a stale leader risks running work it shouldn't. A rolling-deploy canary on `oros-studio-garden-ce242c49` failed three retries and was left drained pending a decision; that host is also flagged offline (heartbeat stale ~5.5h), with worker caps auto-zeroed until it heals. Milestone M2 remains blocked on a cluster of foreman pings asking you to authorize `run the gauntlet` for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and to close the superseded duplicate #1356 (superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)); M3 is similarly blocked pending your call on [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) versus answering the open design questions on #1340. The IronHorse test262 ratchet (round 3) needs a policy decision on reconciling 906 lost paths against the historical floor rather than silently relabeling failures as covered. Separately, a quarterly completions rollup (9,490 jobs, June 24–Sept 29) is now published at the linked ocap.site report, and Claude spend sits at 92% of weekly quota (backoff zone) while Codex is at 38%.
+Quiet stretch since the last bulletin: the only board movement was the Ironhorse panic-debugger transcript job completing (`endojs-endo-but-for-bots-ironhorse-panic-transcript`), while three jobs remain in flight — the PR #1072 gauntlet clean stage, the [endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) streamBase64-to-stream() migration, and continued activation of the Ironhorse ratchet autopilot (round 4).
+
+The backlog needing maintainer attention hasn't moved: M2 remains stuck on whether to run the gauntlet for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and whether to close #1356 as superseded by upstream [endo#3332](https://github.com/endojs/endo/issues/3332); M3 is blocked choosing between refreshing #1015 or answering #1340's open questions. The Ironhorse test262 round-3 ratchet needs a maintainer call on reconciling 906 lost paths against the historical floor rather than silently weakening the classifier. Infrastructure-wise, the deploy candidate `39d0c5ef0ac` was rejected by the test gate (triager-pacing-test failure) and the root repo is now 25 commits behind origin — worth a look since the leader host won't honor newer directives until it redeploys. A rolling-deploy canary on oros-studio also failed persistently (3 retries) and was left drained pending investigation, separate from the host's broader offline/heartbeat-stale condition already flagged.
 
 ## Parked for maintainer feedback
 
@@ -501,10 +503,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.6M | $929.42 _(notional, rate-card)_ | 92% of 143.0M (backoff) |
+| Claude | 131.8M | $930.40 _(notional, rate-card)_ | 92% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63453750 tokens/day lower bound._
+_Fleet token-unlock pace: 63467055 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 11.339213s/45s (/home/kris/garden/.garden-state/leader/journal); 2 open notice(s); checker healthy
@@ -519,19 +521,18 @@ worst fetch p95 11.339213s/45s (/home/kris/garden/.garden-state/leader/journal);
 - [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — ---
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### doin (4)
-- [`endojs-endo-but-for-bots-ironhorse-panic-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-transcript.md) — Slot Machine per-worker write-ahead transcript
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1072-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1072-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1072
 - [`endojs-endo-but-for-bots-pr1097-stream-bytes-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-stream-bytes-20260929.md) — PR #1097: migrate streamBase64 usage to stream() with passable byte arrays
 - [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 
-### tada (9661)
+### tada (9662)
+- [`endojs-endo-but-for-bots-ironhorse-panic-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-transcript.md) — Cost
 - [`fix-endojs-endo-but-for-bots-pr1356-zizmor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/fix-endojs-endo-but-for-bots-pr1356-zizmor.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1309-conduct-20260921`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1309-conduct-20260921.md) — PR #1309 conduct report (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-ironhorse-panic-debugger-panic-break`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-debugger-panic-break.md) — Cost
 - [`endojs-endo-but-for-bots-pr1351-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1351-dependabot.md) — Completion report
-- [`endojs-endo-but-for-bots-pr1353-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1353-dependabot.md) — Completion report
-- … and 9656 more
+- … and 9657 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
