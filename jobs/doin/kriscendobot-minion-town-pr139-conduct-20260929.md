@@ -13,3 +13,13 @@ ask (proxy/mentat screening of minion.town PRs) is tracked separately in job
 `design-minion-town-pr-screening-by-proxy` and does not gate this merge.
 Re-verify mergeability + checks, then merge and run any minion.town post-merge
 production deploy validation the conductor role prescribes.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T22:04:22Z
