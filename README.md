@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T15:39:05Z_
+_As of 2026-09-29T15:41:48Z_
 
 ## Latest
 
-Quiet stretch since the last bulletin: the only board movement was the Ironhorse panic-debugger transcript job completing (`endojs-endo-but-for-bots-ironhorse-panic-transcript`), while three jobs remain in flight — the PR #1072 gauntlet clean stage, the [endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) streamBase64-to-stream() migration, and continued activation of the Ironhorse ratchet autopilot (round 4).
-
-The backlog needing maintainer attention hasn't moved: M2 remains stuck on whether to run the gauntlet for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and whether to close #1356 as superseded by upstream [endo#3332](https://github.com/endojs/endo/issues/3332); M3 is blocked choosing between refreshing #1015 or answering #1340's open questions. The Ironhorse test262 round-3 ratchet needs a maintainer call on reconciling 906 lost paths against the historical floor rather than silently weakening the classifier. Infrastructure-wise, the deploy candidate `39d0c5ef0ac` was rejected by the test gate (triager-pacing-test failure) and the root repo is now 25 commits behind origin — worth a look since the leader host won't honor newer directives until it redeploys. A rolling-deploy canary on oros-studio also failed persistently (3 retries) and was left drained pending investigation, separate from the host's broader offline/heartbeat-stale condition already flagged.
+Board activity was quiet since the last bulletin — the only real movement was PR #1018's follow-up orchestration record being updated and the ironhorse-panic outbound-embargo job (commit-gated release, duplicate suppression) moving from parked plan to the todo queue, ready to claim. The maintainer's attention is better spent on the accumulated backlog of decisions than on fleet churn: rolling deploy hit a **confirmed, retried-and-failed canary on oros-studio-garden-ce242c49** (target `18df481c0`) and stopped rather than auto-rollback — that host is also offline on heartbeat and has been de-rotated from worker leveling, and separately the leader itself is now 25 commits behind `origin/main2` after a deploy candidate was rejected by a failing test suite (`triager-pacing-test.sh`). Milestone M2 has several foreman pings all pointing at the same fork: authorize the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and close #1356 as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is waiting on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering four open questions on #1340/#1332 first, and the ironhorse test262 ratchet round-3 work is asking for a policy call on reconciling ~906 historical-floor losses rather than silently relabeling them covered. On the brighter side, a quarterly completions rollup (9,490 completions, June–September) has been published, and the minion.town MCP standing order is live on endolin-garden2 pending two decisions — a dedicated principal/guest instead of reusing production, and how much tool-context weight to give jurors/myrmidon roles.
 
 ## Parked for maintainer feedback
 
@@ -503,7 +501,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.8M | $930.40 _(notional, rate-card)_ | 92% of 143.0M (backoff) |
+| Claude | 131.9M | $930.96 _(notional, rate-card)_ | 92% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63467055 tokens/day lower bound._
@@ -512,8 +510,9 @@ _Fleet token-unlock pace: 63467055 tokens/day lower bound._
 worst fetch p95 11.339213s/45s (/home/kris/garden/.garden-state/leader/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
+- [`endojs-endo-but-for-bots-ironhorse-panic-outbound-embargo`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-outbound-embargo.md) — Outbound embargo, commit-gated release, duplicate suppression
 - [`endojs-endo-but-for-bots-pr1354-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1354-dependabot.md) — botanist (auto: dependabot PR, INCOMPATIBLE by preflight) on endojs/endo-but-...
 - [`claude-on-minion-town-press-20260929-150509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260929-150509.md) — Press the Claude-on-minion.town arc forward
 - [`fix-endojs-endo-but-for-bots-pr610`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endojs-endo-but-for-bots-pr610.md) — ---
