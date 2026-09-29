@@ -1,5 +1,6 @@
 ---
 role: builder
+tier: mentor
 ---
 **STANDING ORDER (expanded scope — supersedes the original single-host ask).** Keep **every inference source in the garden automatically connected to the minion.town MCP server** (`https://minion.town/mcp`), on **every host**, and **automatically reconnect** whenever a connection is lost. Land garden-side changes direct to `main2` in `kriscendobot/garden`.
 
