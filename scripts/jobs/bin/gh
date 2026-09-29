@@ -57,10 +57,17 @@ self="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]
 real_gh=""
 while IFS= read -r cand; do
   [ "$cand" = "$self" ] && continue
-  # Another copy of this same wrapper (any path). head -c bounds the read so the
-  # real gh (a large Go binary that never carries the marker) is not fully scanned;
-  # process substitution keeps the condition's status purely grep's (an early grep
-  # match SIGPIPEs head, which pipefail would otherwise surface as a failure).
+  # Every garden wrapper copy is installed at .../scripts/jobs/bin/gh — skip any
+  # candidate at that canonical path. This recognizes even an OLDER deployed copy
+  # that predates the content marker below (during a rolling deploy the running
+  # worktree copy may be new while the root copy is still old), so the two can
+  # never pick each other as real_gh and fork-bomb across the deploy boundary.
+  case "$cand" in */scripts/jobs/bin/gh) continue;; esac
+  # Belt-and-braces for a wrapper copy at a non-canonical path: recognize it by a
+  # content sentinel (GARDEN_GH_WRAPPER_MARKER, near the top of every copy). head -c
+  # bounds the read so the real gh (a large Go binary that never carries the marker)
+  # is not fully scanned; process substitution keeps the condition's status purely
+  # grep's (an early grep match SIGPIPEs head, which pipefail would else surface).
   if [ -r "$cand" ] && grep -q 'GARDEN_GH_WRAPPER_MARKER' <(head -c 65536 "$cand" 2>/dev/null); then continue; fi
   real_gh="$cand"; break
 done < <(type -aP gh 2>/dev/null)
