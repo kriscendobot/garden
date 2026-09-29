@@ -1,9 +1,14 @@
 from_host: endolin-garden2-5bcdff64
 from: watchdog:journal-contention-watch
-sent_at: 2026-09-29T15:01:16Z
+sent_at: 2026-09-29T21:02:01Z
 watchdog_key: journal-push-contention-_home_kris_garden2__garden_state_producer_journal
 notice_count: 1
 first_seen: 2026-09-29T15:01:16Z
-last_seen: 2026-09-29T15:01:16Z
+last_seen: 2026-09-29T21:02:01Z
+recovered: true
 ---
-Journal push contention on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/producer/journal: attempts p95=2.000000 max=2.000000 (cap 50), classes cas=3 server-reject=6 definite-fail=3.
+RECOVERED — the watchdog condition `journal-push-contention-_home_kris_garden2__garden_state_producer_journal` has CLEARED (first seen 2026-09-29T15:01:16Z, cleared 2026-09-29T21:02:01Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+Journal contention condition `journal-push-contention-_home_kris_garden2__garden_state_producer_journal` cleared on endolin-garden2-5bcdff64.
