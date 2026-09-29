@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T23:13:03Z_
+_As of 2026-09-29T23:18:18Z_
 
 ## Latest
 
-Board activity was light: the panel round on [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379)'s Ironhorse panic-handling gauntlet advanced to a second round, and the [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68) gauntlet moved from its third panel pass into a third fix round. The Ironhorse panic live-handle-reseat gauntlet clean stage for [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) failed and parked back to plan, awaiting a maintainer promotion. Elsewhere, [endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) landed as a completed body-template job with no gauntlet staged — it needs an explicit "run the gauntlet" if it should go to review — and two new design-question jobs (CLI no-autostart exit codes, daemon orphan-safe-stop) parked awaiting maintainer answers on [endojs/endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383). The maintainer inbox otherwise carries the usual budget/watchdog noise plus several stale M2/M3 milestone-blocked reminders (draft PRs [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349)/#1356/#1015/#1340) still awaiting a go/no-go, and a root-repo deploy-stalled warning on the leader host (25 commits behind `origin/main2`) worth a look.
+The gauntlet for [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68) advanced through another panel/fix cycle, now on fix round 4 after panel round 4 completed; the Ironhorse panic retry-replay job also finished and cleared off the board. Otherwise the board churned mostly on routine budget-level and journal-contention watchdog chatter, with the leader host (endolin-garden-ece02cb4) still flagged as 25 commits behind on a stalled deploy — worth a look since it's holding back every singleton producer.
 
 ## Parked for maintainer feedback
 
@@ -461,7 +461,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.1M | $1125.37 _(notional, rate-card)_ | 118% of 143.0M (backoff) |
+| Claude | 168.2M | $1125.95 _(notional, rate-card)_ | 118% of 143.0M (backoff) |
 | Codex | 15.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 54% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 59709850 tokens/day lower bound._
@@ -470,27 +470,26 @@ _Fleet token-unlock pace: 59709850 tokens/day lower bound._
 worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (2)
 - [`endojs-endo-but-for-bots-pr1072-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1072-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1072
-- [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr.md) — Open the draft PR for the Ironhorse panic retry/replay leg
 - [`endojs-endo-but-for-bots-pr1383-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1383-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1383
 
 ### doin (7)
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1379
 - [`build-minion-town-pr-screening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-pr-screening.md) — Build: proxy screening + delegated merge for kriscendobot/minion.town PRs
 - [`improve-deadline-nudge-failure-trace`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-failure-trace.md) — ---
-- [`kriscendobot-minion-town-pr68-gauntlet-20260929-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-gauntlet-20260929-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #68
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
+- [`kriscendobot-minion-town-pr68-gauntlet-20260929-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr68-gauntlet-20260929-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #68
 - [`endo-daemon-idempotent-start-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-daemon-idempotent-start-build.md) — Endo daemon: idempotent start + early single-instance lock (phase 1)
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### tada (9779)
+### tada (9781)
+- [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr.md) — Cost
+- [`kriscendobot-minion-town-pr68-gauntlet-20260929-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-pr68-gauntlet-20260929-panel-4.md) — Cost
 - [`deadmail-20260929T225705Z-deb454`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/deadmail-20260929T225705Z-deb454.md) — Cost
 - [`improve-gh-api-primary-quota-singleflight-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/improve-gh-api-primary-quota-singleflight-split.md) — orchestration improve-gh-api-primary-quota-singleflight-split — complete
 - [`improve-gh-api-primary-quota-singleflight-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/improve-gh-api-primary-quota-singleflight-expanded-window.md) — Completion report: improve-gh-api-primary-quota-singleflight-expanded-window
-- [`endojs-endo-but-for-bots-pr1018-followups-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1018-followups-20260929.md) — orchestration endojs-endo-but-for-bots-pr1018-followups-20260929 — complete
-- [`endojs-endo-but-for-bots-ironhorse-panic-halt-shape-unification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-halt-shape-unification.md) — Cost
-- … and 9774 more
+- … and 9776 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
