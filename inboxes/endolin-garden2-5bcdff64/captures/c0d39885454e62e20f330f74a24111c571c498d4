@@ -1,0 +1,50 @@
+<6>08:59:46 [monk/1] job 'endojs-endo-but-for-bots-ironhorse-panic-e2e-probe' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>08:59:46 [monk/1] job 'endojs-endo-but-for-bots-ironhorse-panic-e2e-probe' call ceiling: tier=mentor max-budget-usd=11.40 (scaled by fresh seven-day headroom when available)
+<6>08:59:46 [monk/1] job 'endojs-endo-but-for-bots-ironhorse-panic-e2e-probe' attaching minion.town MCP (stdio bridge)
+<6>09:07:27 [auto-gauntlet-handoff] auto-gauntlet: https://github.com/endojs/endo-but-for-bots/pull/1372 is a probe; leaving it draft
+panel-head-freshness: unreviewed target=endojs/endo-but-for-bots#1372 disposition=manual-gauntlet-not-triggered
+<6>09:07:35 [assert-followup-posted] gate: BLOCK — 'endojs-endo-but-for-bots-ironhorse-panic-e2e-probe' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# Completion report: `endojs-endo-but-for-bots-ironhorse-panic-e2e-probe`
+
+I opened draft PR **https://github.com/endojs/endo-but-for-bots/pull/1372** (head `db4c6fd77b`, branch `llm-ironhorse-panic-e2e-probe`, base `llm-1706e63`). It is a probe, so it stays draft, its body carries `Refs: #1018`, and no gauntlet follows. The gap report is in the PR body and in a PR comment (https://github.com/endojs/endo-but-for-bots/pull/1372#issuecomment-5887121928), where the later legs and the mentat job can read it.
+
+## What I did
+- I added one file, `rust/endo/xsnap/tests/panic_e2e_probe.rs`. It drives a real C-XS `Machine` worker (the real guarded `host_send_frame`, a recording transport, and a test-only callback that panics inside the FFI guard) through each stage of the design's pipeline. It covers three panic sources: an FFI callback panic, a JS stack overflow, and a meter abort.
+- `cargo test --test panic_e2e_probe`: 5 passed, 6 ignored. The 6 ignored tests are pending cases, each naming the missing mechanism and the leg that owns it; they fail as intended under `--ignored`.
+- The mentat job had not reported, so I followed the design's recorded leanings. I listed those three decisions in the PR body as review items: `Decode`/`StepLimit` count as panics, an uncaught throw terminates the worker, and the first transcript backend is the XS/CAS one.
+
+## What exists today, stage by stage
+1. **Panic mid-delivery:** partly.
+   - Stack overflow and meter abort really are uncatchable: XS aborts with exit codes 2 and 7, and the enclosing `catch` never runs.
+   - An FFI callback panic is confined to its worker, but the guest keeps running past the panic site.
+2. **One `Panicked` outcome the supervisor can see:** missing. The live loop reports every XS abort as a metering `"terminated"`, so a stack overflow is billed as a metering death. An FFI panic reaches the supervisor by a different route (`XsnapError::Panicked`).
+3. **Discarding the crank's outbound messages:** missing. The message sent before the panic escapes for all three sources.
+4. **Terminate:** exists, through `unregister`.
+5. **Snapshot restore:** the engine primitive exists, but nothing decides when to take snapshots.
+6. **Replay up to the panicking delivery:** the transcript and replay mode are missing. Restoring the snapshot and re-delivering the committed deliveries by hand reproduces the exact pre-panic heap for all three sources, but every message is sent again.
+7. **Debugger stop at the panic site:** missing; nothing emits a `<panic>` message.
+
+## Gaps (12) and which leg owns each
+| Gap | Owner |
+|---|---|
+| 1. FFI panic lets the guest run on past the panic site | cxs-panicked-adapter (needs a design decision first) |
+| 2. Every XS abort is reported as a metering termination | cxs-panicked-adapter |
+| 3. XS has seven recoverable abort exits but the design classifies two; the design's table also omits `ReentryLimit` and `HeapExhausted` | mentat amendment, then cxs-panicked-adapter and classification-lint |
+| 4. No holding back of outbound messages | outbound-embargo |
+| 5. "Slot Machine" has no code home (`packages/slots` does not exist) | **unowned**; a design question for the mentat |
+| 6. No transcript; one crank can consume several inbound envelopes, which the design's crank definition doesn't cover | transcript, plus a mentat amendment |
+| 7. No replay mode that suppresses re-sent messages | retry-replay |
+| 8. None of the host callbacks are classified for replay | host-call-transcript |
+| 9. No restore point while native handles are open | host-call-transcript and retry-replay |
+| 10. No `<panic>` message and no hook where XS aborts | debugger-panic-break |
+| 11. What an uncaught throw should do was not probed | mentat, then retry-replay |
+| 12. The Ironhorse engine is not on the delivery path, so this probe covers C-XS only | **unowned**; the `-e ironhorse` stage 8/9 integration |
+
+Gaps 1, 3, 5 and 6 need design decisions before the build legs proceed. Gaps 2, 4, 7, 8, 9 and 10 can be settled inside their owning legs, and gaps 11 and 12 need broader review.
+
+## Follow-ups
+- Gaps 5 and 12 have no leg in this orchestration.
+- The mentat job wasn't running when I finished, so I didn't message it (the message would have become a new job). It can read the PR comment.
+- The build needs the moddable submodule and three generated JavaScript bundles. None of these were committed; they are gitignored or the submodule.
