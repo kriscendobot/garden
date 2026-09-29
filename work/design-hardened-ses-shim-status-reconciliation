@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-29T19:14:18Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-hardened-ses-shim-status-reconciliation
+pr_number: 1381
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1381
+pr_head: design/hardened-text-codecs-shim-status-reconciliation
