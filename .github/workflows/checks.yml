@@ -49,6 +49,8 @@ jobs:
             scripts/daemons/status.sh \
             scripts/daemons/logs.sh \
             scripts/daemons/config.sh.example \
+            scripts/openshell-pilot.sh \
+            scripts/openshell-pilot/test.sh \
             scripts/watcher/endo-but-for-bots/watcher.sh \
             scripts/checks/run-all.sh \
             scripts/checks/bench-engines-rename/check.sh \
@@ -96,6 +98,7 @@ jobs:
 
       - name: Run focused tests
         run: |
+          bash scripts/openshell-pilot/test.sh
           bash tests/checks/run.sh
           bash scripts/jobs/test/repo-locks-test.sh
           bash scripts/jobs/test/journal-entry-project-test.sh
