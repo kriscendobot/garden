@@ -1,7 +1,7 @@
 ---
 slug: pr-description-reviewer-attention
 category: docs-drift
-status: improvement-dispatched
+status: closed
 count: 3
 members:
   - kriscendobot-agoric-sdk-pr16-a45a180a
@@ -9,7 +9,9 @@ members:
   - endojs-endo-but-for-bots-pr1281-b2a4cb13
 prs: [16, 1281]
 improvement_job: review-improve-pr-description-reviewer-attention
+improved_by: 8ebbdb344a0: scripts/jobs/gardening/pr-body-template-check.sh (ensure-pr.sh refusal + panel.sh pre-pass binding must-fix), skills/panel-hints/probes/C-pruner-pr-body.sh, pr-formation/pr-review-thread-replies concision rules, integrator/pruner/fixer brief lines; test scripts/jobs/test/pr-body-template-check-test.sh
 ---
+
 
 
 
