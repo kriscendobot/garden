@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T09:16:16Z_
+_As of 2026-09-29T09:20:20Z_
 
 ## Latest
 
-Since the last bulletin, the fleet closed a fix round on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) (round 4 pushed with CI fully green, 33 checks) and immediately moved it into panel round 5, keeping that gauntlet moving. The retcon on [endojs/endo-but-for-bots#1072](https://github.com/endojs/endo-but-for-bots/pull/1072) was claimed and is now in progress ahead of resuming its gauntlet, and a rolling-deploy canary probe against endolin-garden2 completed a clean round trip before a fresh probe round was posted at the new base SHA. The Ironhorse panic end-to-end probe job was re-queued to todo after its prior attempt didn't land. Otherwise the inbox remains heavy with milestone-blocking decisions awaiting the maintainer — notably M2's stalled draft PRs ([endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and #1356) and the leader host's root-repo deploy, which is now 25 commits behind `origin/main2` and should be deployed.
+One press job (`minion-town-press-20260929-054326`) came off the plan queue back into rotation; the rest of the board is quiet aside from six jobs still in flight — a pre-gauntlet retcon on [endo-but-for-bots#1072](https://github.com/endojs/endo-but-for-bots/pull/1072), the confined stdio-MCP build for the endo-claude arc, panel round 5 on [endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362), and a weave advancing the base pin on [endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097). Nothing landed or closed since the last bulletin; the inbox is where the actual news is — a failed rolling-deploy canary on oros-studio-garden-ce242c49 that's now been retried three times and needs a hands-on decision, plus the leader host itself sitting 25 commits behind `origin/main2` after its own deploy candidate got rejected by a failing test gate, which is stalling every singleton service on that host. Several M2/M3 milestone items also remain parked on maintainer gauntlet-authorization decisions (notably [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356)).
 
 ## Parked for maintainer feedback
 
@@ -431,17 +431,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.5M | $869.80 _(notional, rate-card)_ | 82% of 143.0M (backoff) |
-| Codex | 13.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 117.7M | $871.93 _(notional, rate-card)_ | 82% of 143.0M (backoff) |
+| Codex | 14.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 59066106 tokens/day lower bound._
+_Fleet token-unlock pace: 59216784 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.408336s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (4)
 - [`endojs-endo-but-for-bots-ironhorse-panic-e2e-probe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-e2e-probe.md) — Probe the Ironhorse panic feature end to end (gap-revealing build)
+- [`minion-town-press-20260929-054326`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-press-20260929-054326.md) — Press the minion.town arc forward (foreman-paced, self-re-parking)
 - [`canary-probe-endolin-garden2-5bcdff64-9bf25f4362f9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-9bf25f4362f9-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 9bf25f4362f9
 - [`endojs-endo-but-for-bots-pr1018-followups-reply-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1018-followups-reply-20260929.md) — Post the follow-up plan reply on endojs/endo-but-for-bots PR #1018
 
@@ -496,7 +497,6 @@ worst fetch p95 5.408336s/45s (/home/kris/garden/.garden-state/design-pr-gauntle
 - [`ironhorse-computron-benchmark-baseline-build-after-approval`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-computron-benchmark-baseline-build-after-approval.md) - [Will the maintainer lift the Ironhorse pause, approve design PR #1283 (or direct an early build), and answer its six open questions (or direct the recommended defaults)?](https://github.com/endojs/endo-but-for-bots/pull/1283)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`minion-town-press-20260929-054326`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-press-20260929-054326.md) — _normal_ · Press the minion.town arc forward (foreman-paced, self-re-parking)
 - [`build-daemon-docker-selfhost`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-daemon-docker-selfhost.md) — _normal_ · ---
 - [`dependabotany-recheck-endo-but-for-bots-20260928-012250`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/dependabotany-recheck-endo-but-for-bots-20260928-012250.md) — _normal_ · ---
 - [`design-hardened-ses-shim-status-reconciliation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/design-hardened-ses-shim-status-reconciliation.md) — _normal_ · ---
