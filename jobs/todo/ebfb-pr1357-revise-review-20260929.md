@@ -1,10 +1,7 @@
 ---
-gate: orchestrated
-orchestrated_by: ebfb-pr1357-review-5348050214-orch
-priority: normal
-posted_by: producer
-posted_at: 2026-09-29T06:28:00Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-29T06:40:09Z cleared=none -->
 
 ---
 tier: mentor
