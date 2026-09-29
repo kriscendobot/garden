@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T18:28:01Z_
+_As of 2026-09-29T18:41:44Z_
 
 ## Latest
 
-Two rolling-deploy fixes landed at the top of the tree: unclaimed probes on a fully busy canary are now treated as waiting rather than failed (36def9fd9e8), and rolling-deploy canary probes claim ahead of ordinary work (25123fdae03), alongside a receipt-watcher startup fix for stale cgroup stragglers (c9bfa87823e) and an issue-inbox quota-failure degrade (cded71d6fad). The `oros-studio-garden-ce242c49` canary, which had been stuck since early morning, recovered as a result. Job-board churn was light this cycle: the Ironhorse panic-retry-replay job moved from parked back to todo, and the #1018 follow-ups orchestration record was updated — no new completions of note beyond the ongoing IronHorse test262 ratchet work, which still awaits a maintainer call on reconciling round 3's floor (906 lost paths against the pre-change baseline).
+Two Ironhorse gauntlet-clean stages landed for endojs-endo-but-for-bots panic-recovery PRs — [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (host-call open-PR) claimed into doin, and [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) (live-handle reseat) freshly posted to todo. The garden PR #81 post-deploy pty-lane validation continued: an earlier pty run completed and a second report/collection round is now queued. Elsewhere, the fleet is mostly waiting on the maintainer rather than producing new work: a stack of foreman notices asks for a gauntlet decision on M2's draft PRs (#1349, #1356) and M3's #1015/#1340, a rolling deploy is halted on a confirmed-failing canary at oros-studio-garden-ce242c49, and the root repo on the leader host has been stalled 25 commits behind main2, so no directive newer than its deployed SHA (including yesterday's deploy-blocking commits) is being honored until it's deployed.
 
 ## Parked for maintainer feedback
 
@@ -26,13 +26,26 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > M2’s next advance is draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349); decide whether its remaining llm downstream audit is required, then explicitly authorize `run the gauntlet #1349`.
 
+- `manual-gauntlet-handoff-claude-on-minion-town-press-20260929-182007-kriscendobot-minion.town-pr139` — from gardener:claude-on-minion-town-press-20260929-182007, reply_to `claude-on-minion-town-press-20260929-182007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/manual-gauntlet-handoff-claude-on-minion-town-press-20260929-182007-kriscendobot-minion.town-pr139.md)
+
+> Manual gauntlet handoff for completed job `claude-on-minion-town-press-20260929-182007`: [https://github.com/kriscendobot/minion.town/pull/139](https://github.com/kriscendobot/minion.town/pull/139) is a bot-authored OPEN NON-DRAFT PR with no staged or completed gauntlet.
+>
+> The implementation job is complete and has been terminalized instead of sending the same work through another agent run. The garden did not re-draft the PR and did not stage a gauntlet.
+>
+> Maintainer action: if this PR should enter review, issue `run the gauntlet` for [https://github.com/kriscendobot/minion.town/pull/139](https://github.com/kriscendobot/minion.town/pull/139). Otherwise no action is required.
+
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-29T05:53:06Z, cleared 2026-09-29T18:05:02Z).
-> It was observed 131 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #132 (first seen 2026-09-29T05:53:06Z, latest 2026-09-29T18:35:03Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 132 times; this is ONE
+> coalesced notice that updates in place, not 132 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1879s (offline threshold 1800s; sampled_at_epoch=1790705024).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
 
 - `msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6.md)
 
@@ -65,6 +78,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 4. Say "run the gauntlet [endojs/endo-but-for-bots#1333](https://github.com/endojs/endo-but-for-bots/issues/1333)" once it has been re-pointed at llm.
 >
 > This job is parked on [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) (block-job.sh) and resumes automatically when that PR merges or closes. On resume it re-checks merged vs. closed.
+
+- `msg-activate-ironhorse-ratchet-autopilot-20260929-r4-af81f298394b` — from gardener:activate-ironhorse-ratchet-autopilot-20260929-r4, reply_to `activate-ironhorse-ratchet-autopilot-20260929-r4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-activate-ironhorse-ratchet-autopilot-20260929-r4-af81f298394b.md)
+
+> FYI, no decision needed beyond the one already open on [https://github.com/kriscendobot/garden/issues/51](https://github.com/kriscendobot/garden/issues/51) (the arc-budget cap).
+>
+> Correction to the 17:53Z comment on that issue: oros-studio-garden-ce242c49 is NOT offline. It is still at e036bb8e (pre-ratchet) and its fleet/health last updated at 06:41Z (roll-drained), yet its workers are claiming jobs: gardener-3 finished endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript at 18:23Z, and monk-2 claimed this r4 job at 17:03Z and failed. The rolling deploy still skips it. This does not affect the Ironhorse press: e036bb8e's claim-job.sh refuses any tier: mentat job not marked dispatch: manual, so oros can never claim the ratchet-delegated press. It is still a stale-code host doing live work and needs you on that box.
+>
+> Press status: leader and garden2 run 36def9f with all gates. ironhorse-test262-press-20260929-173306 is parked, and the foreman fails closed (arc-budget-untrusted) until you name a cap, window and interval on the issue. Verifying the first live engagement is now handed to the parked plan verify-ironhorse-press-first-engagement-20260929, which unblocks when the press completes.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -565,38 +586,35 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 142.2M | $976.64 _(notional, rate-card)_ | 99% of 143.0M (backoff) |
-| Codex | 15.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 142.7M | $976.17 _(notional, rate-card)_ | 100% of 143.0M (backoff) |
+| Codex | 15.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 59% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 59109018 tokens/day lower bound._
+_Fleet token-unlock pace: 61638301 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal); 4 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (5)
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
-- [`pty-lane-assay-rev5119818493-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/pty-lane-assay-rev5119818493-r2.md) — pty-lane self-validation (round 2) for garden PR #81
-- [`claude-on-minion-town-press-20260929-182007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260929-182007.md) — Press the Claude-on-minion.town arc forward
-- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1379
-- [`review-improve-pr-description-reviewer-attention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/review-improve-pr-description-reviewer-attention.md) — review-improve-pr-description-reviewer-attention
-- [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
+- [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1380
+- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-report-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-report-r2.md) — Collect the pty-lane test result and post the maintainer report on garden PR #81
 - [`improve-schedule-once-producer-livelock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-schedule-once-producer-livelock.md) — ---
 - [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-retry-replay.md) — Terminate, restore, replay: retry after a panic
 
 ### doin (4)
-- [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat.md) — Ironhorse: live native-handle re-seating in xsnap, and lifting #1150's suspen...
 - [`retire-gardener-worker-kind-alias`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias.md) — ---
-- [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260929T173327Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
+- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1379
+- [`review-improve-pr-description-reviewer-attention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-pr-description-reviewer-attention.md) — review-improve-pr-description-reviewer-attention
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### tada (9691)
-- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Cost
-- [`run-the-gauntlet-minion-town-pr90`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/run-the-gauntlet-minion-town-pr90.md) — Cost
-- [`token-backoff-ramp-095`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/token-backoff-ramp-095.md) — Cost
-- [`review-improve-cross-platform-test-coverage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/review-improve-cross-platform-test-coverage.md) — Cost
-- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr.md) — Cost
-- … and 9686 more
+### tada (9699)
+- [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Completion report: activate-ironhorse-ratchet-autopilot-20260929-r4 (requeued...
+- [`canary-probe-endolin-garden2-5bcdff64-622ac410f43c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/canary-probe-endolin-garden2-5bcdff64-622ac410f43c.md) — rolling-deploy canary probe — round trip OK
+- [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-viability.md) — Cost
+- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-viability.md) — Cost
+- [`claude-on-minion-town-press-20260929-182007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/claude-on-minion-town-press-20260929-182007.md) — Manual gauntlet handoff
+- … and 9694 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -660,6 +678,7 @@ worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
+- [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ironhorse-press-first-engagement-20260929.md) — awaiting `ironhorse-test262-press-20260929-173306` · Verify the first live Ironhorse foreman-press engagement (successor of activa...
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`npm-minion-town-dev-registry-merge-pr1362`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/npm-minion-town-dev-registry-merge-pr1362.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1362` · npm.minion.town dev-registry campaign — merge notice for PR #1362
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
