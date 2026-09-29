@@ -16,6 +16,7 @@ PR endojs/endo-but-for-bots#1102 is the redundant design-only branch and is bein
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-29T12:13:05Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
