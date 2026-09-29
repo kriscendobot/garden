@@ -2,7 +2,7 @@
 order: serial
 children: improve-gh-api-primary-quota-singleflight-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-09-29T21:56:08Z
 ---
