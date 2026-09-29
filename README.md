@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T19:18:48Z_
+_As of 2026-09-29T19:22:02Z_
 
 ## Latest
 
-Since the last bulletin, minion.town gauntlet cleanup progressed: a fix went into `doin` for [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68) to address panel round-6 must-fixes, while the periodic minion.town press for 2026-09-29 09:23Z completed and re-parked its next cycle. A new gauntlet clean stage opened for [endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381), joining two other clean-stage jobs already in flight for the Ironhorse panic fixes ([#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) and [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)). A design-status reconciliation for the hardened SES shim also completed. The board otherwise remains dominated by a long queue of maintainer decisions awaiting the human, most pressingly a stalled leader deploy (25 commits behind, blocking every singleton producer) and a halted rolling-deploy canary on `oros-studio-garden-ce242c49`.
+Board activity since the last bulletin is narrow: a new pre-spend viability check was posted for [endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381), gating whether its gauntlet is worth running before any review spend happens. Meanwhile the queue stays dominated by decisions parked on the maintainer — the M2 hardened-text drafts ([endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and #1356), M3's confinement-core PR ([endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015)) and its `#1340` design questions, and the minion.town federation release gate, which remains blocked pending review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124) and the authority questions on `#1332`. The rolling deploy hit a persistent canary failure on `oros-studio-garden-ce242c49` (three automatic retries exhausted) and was left drained rather than rolled back, while the leader host is now 25 commits behind `origin/main2` with its own deploy stalled — both need direct attention since the leader's staleness is holding up every singleton producer on the fleet.
 
 ## Parked for maintainer feedback
 
@@ -687,18 +687,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.0M | $984.46 _(notional, rate-card)_ | 101% of 143.0M (backoff) |
+| Claude | 145.2M | $985.12 _(notional, rate-card)_ | 102% of 143.0M (backoff) |
 | Codex | 15.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 59212401 tokens/day lower bound._
+_Fleet token-unlock pace: 59272646 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.084415s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T215136Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`self-heal-fix-garden-issue-inbox-cursor-get-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/self-heal-fix-garden-issue-inbox-cursor-get-failopen.md) — ---
+- [`endojs-endo-but-for-bots-pr1381-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1381
 - [`improve-schedule-once-producer-livelock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-schedule-once-producer-livelock.md) — ---
 - [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-retry-replay.md) — Terminate, restore, replay: retry after a panic
 
