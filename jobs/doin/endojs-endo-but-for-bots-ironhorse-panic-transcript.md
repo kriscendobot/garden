@@ -21,3 +21,13 @@ Open a DRAFT PR through scripts/jobs/gardening/ensure-pr.sh, with `Refs: #1018` 
 ## This leg
 
 § Slot Machine per-worker write-ahead transcript: one SQLite WAL database per worker, holding snapshot watermarks, crank state, inbound and outbound rows, and stable event identifiers. Use the commit discipline (store-backed ATTACH/2PC or XS/CAS watermark ordering) the mentat job chose for the first production backend. Apply the SQLite I/O-failure disposition and the per-crank fsync bound it chose. Acceptance: the crash-injection matrix over every ordering point of a committing crank, run with a deterministic fault-injection seam (fail the Nth fsync/write), asserting replay reaches exactly the pre-crank or the post-crank state and never a torn one. Performance tuning is out of scope; correctness gates landing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T14:34:28Z
