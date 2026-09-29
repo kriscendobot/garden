@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T03:10:56Z_
+_As of 2026-09-29T03:12:39Z_
 
 ## Latest
 
-Little moved on the board since the last bulletin — one gauntlet panel round for [kriscendobot/minion.town#135](https://github.com/kriscendobot/minion.town/pull/135) completed and dropped from doin to tada, with the fix and follow-on gauntlet stages for that PR still queued behind it. The larger backlog is unchanged: four jobs remain in-flight (PR #120 and #1348 fix rounds, PR #1362's first fix round, and the Ironhorse ratchet-autopilot activation), and the maintainer inbox is heavy with milestone-blocking decisions — M2 needs a call on gauntleting [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and closing the superseded #1356, M3 is waiting on #1015 vs. #1340, and the federation release gate is still blocked on #1124 review.
+Fleet activity was light since the last bulletin: [kriscendobot/minion.town#135](https://github.com/kriscendobot/minion.town/pull/135) advanced to fix round 6 in its gauntlet. The board otherwise remains dominated by a large backlog awaiting maintainer attention — most notably the M2/M3 milestone decisions piling up from the foreman (whether to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and close the superseded [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356)), the blocked minion.town/Endo federation release gate, and several doom-parked gauntlet/retrospective jobs (including endo-but-for-bots PRs #356, #450, and #982, and minion.town PR #68) held in the plan queue pending promotion.
 
 ## Parked for maintainer feedback
 
@@ -1236,7 +1236,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.8M | $751.31 _(notional, rate-card)_ | 65% of 143.0M (ok) |
+| Claude | 93.1M | $752.54 _(notional, rate-card)_ | 65% of 143.0M (ok) |
 | Codex | 8.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 54811986 tokens/day lower bound._
@@ -1248,9 +1248,10 @@ worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (5)
 - [`kriscendobot-minion.town-pr120-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #120
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1362
+- [`kriscendobot-minion.town-pr135-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr135-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #135
 - [`activate-ironhorse-ratchet-autopilot-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued)
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1348
 
