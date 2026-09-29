@@ -16,3 +16,13 @@ Goals:
 Constraints: flock-based, with no new daemon. Lock files go under `$GARDEN_STATE` (host-local, never in the journal). Put timeouts on every lock wait so a hung git can't wedge the fleet. Detect stale holders and log them. Keep the fail-open/fail-closed semantics that exist today (read the callers). Before editing, survey every git fetch/push call site in `scripts/jobs/` and route them through one helper in `common.sh`. Don't re-implement the helper per script. Watch out for the garden-root-repo-guard, deploy-garden.sh and gc/maintain paths, which also touch the root repo.
 
 Deliverables: the helper in `common.sh`, migrated call sites, a guard/test script exercising contention (parallel fetchers coalesce to one fetch; parallel CAS writers serialize; the freshness window is honored; a demand-fresh caller refetches; lock timeouts behave), and a short design note in `designs/`. Report the measured fetch reduction on a live host if you can.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T00:03:05Z
