@@ -30,6 +30,7 @@ Permission denied` on every served request (ProtectHome + no home dir);
 setting Environment=HOME=/var/lib/minion-git (or GIT_CONFIG_GLOBAL=/dev/null)
 in deploy/aws/systemd/minion-git-remote.service silences it.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
