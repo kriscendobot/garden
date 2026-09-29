@@ -16,3 +16,13 @@ for npm.minion.town) still sets `REGISTRY_STATE_DIR` in the systemd unit, the
 admin/verify scripts, and its tests. Rename every occurrence to
 `REGISTRY_STATE_DIRECTORY`, push a follow-up commit to the #135 head, and watch CI.
 Surfaced by panel round 6 (integrator) on endojs/endo-but-for-bots#1362.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T12:27:19Z
