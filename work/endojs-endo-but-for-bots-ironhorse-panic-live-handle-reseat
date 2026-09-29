@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-29T18:14:21Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat
+pr_number: 1380
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1380
+pr_head: llm-ironhorse-panic-live-handle-reseat
