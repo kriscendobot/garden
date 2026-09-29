@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-588411953
 @kriscendobot I note that the title still claims this arc is paused. I would like to resume, but within a budget and a press interval scheduler that only the foreman can wake. That is, each engagement should be followed by a plan to continue the arc, which the foreman will pick u
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T06:09:38Z
