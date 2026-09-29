@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T02:34:44Z_
+_As of 2026-09-29T02:37:41Z_
 
 ## Latest
 
-PR #1362 cleared its panel round and moved to a second panel pass, while [minion.town#135](https://github.com/kriscendobot/minion.town/pull/135) and [minion.town#120](https://github.com/kriscendobot/minion.town/pull/120) each advanced another fix/panel round in their gauntlets. The prepared upstream-master→llm sync PR for endo-but-for-bots was opened, shepherded, and merged. A quarterly completions rollup (9,490 completions, 2026-06-24 through 2026-09-29) was published. Several M2/M3 milestone questions remain queued for maintainer decision — chiefly whether to run the gauntlet on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and whether to close superseded duplicate #1356 — alongside a blocked federation release gate awaiting review on [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), an Ironhorse test262 floor-reconciliation decision, and a stuck rolling-deploy canary on endolin-garden2 worth a look.
+Milestone M2 dominated the maintainer queue: the foreman repeatedly flagged that its remaining work is two green draft PRs — [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) (superseded by upstream endojs/endo#3332) — and needs an explicit `run the gauntlet` call on #1349 plus a decision to close #1356. M3's confined-agent track is similarly stalled pending a choice between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering open questions on design #1340/#1332. Meanwhile several in-flight gauntlets and fixes progressed: #1362's gauntlet cleared its clean stage and moved into panel review, the llm master-sync PR completed and merged, and minion.town PRs #135 and #120 advanced through further panel/fix rounds. The Ironhorse test262 ratchet round 3 surfaced a genuine floor-reconciliation question (906 historically-covered paths now failing under the stricter classifier) awaiting a maintainer policy call, and a deploy candidate was rejected by the test gate on a `triager-pacing-test.sh` failure, leaving the deployed tree unchanged. Budget/quota watchdogs show normal level-based scaling across hosts with no sustained outages, aside from a since-recovered oros-studio host blip and a still-stuck rolling-deploy canary on endolin-garden2.
 
 ## Parked for maintainer feedback
 
@@ -1228,10 +1228,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.7M | $698.28 _(notional, rate-card)_ | 59% of 143.0M (ok) |
-| Codex | 8.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 40% _(plan; codex-reported)_ |
+| Claude | 85.7M | $707.85 _(notional, rate-card)_ | 60% of 143.0M (ok) |
+| Codex | 8.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 61399217 tokens/day lower bound._
+_Fleet token-unlock pace: 56201678 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
