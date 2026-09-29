@@ -21,3 +21,13 @@ Open a DRAFT PR through scripts/jobs/gardening/ensure-pr.sh, with `Refs: #1018` 
 ## This leg
 
 § Debugger Interaction: a panic is categorically uncatchable. It never consults `jumps` and is distinct from an uncaught throw (`Halt::Throw` with `jumps.is_empty()`). Emit a distinct `<panic kind=...>` wire message, orthogonal to `setExceptionBreakMode`, and when a debugger is attached stop the world at the panic site, before teardown, even under `setExceptionBreakMode('none')`. Extend the DebugSession consumer (designs/daemon-xs-worker-debugger.md). Degrade safely with parsers that do not know `<panic>`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T13:43:50Z
