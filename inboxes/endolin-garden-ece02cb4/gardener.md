@@ -4439,3 +4439,14 @@ Inspect via `git -C journal cat-file -p ec4be86260c7935dc975b5060824f46386551367
 
 Inspect via `git -C journal cat-file -p 2c740c935263e4c108cbfd57d0494b7ec647039c` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/2c740c935263e4c108cbfd57d0494b7ec647039c`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-09-29T16:13:04Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: ab02e7327e8802c29173b1cb606b5473f2c0652c
+- Context: gardener-1 on endolin-garden-ece02cb4: job 'activate-ironhorse-ratchet-autopilot-20260929-r4' handler exited rc=1
+- Capture: inboxes/endolin-garden-ece02cb4/captures/ab02e7327e8802c29173b1cb606b5473f2c0652c
+
+Inspect via `git -C journal cat-file -p ab02e7327e8802c29173b1cb606b5473f2c0652c` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/ab02e7327e8802c29173b1cb606b5473f2c0652c`) -- both work off-host after a plain `journal2` fetch.

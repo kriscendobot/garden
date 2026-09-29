@@ -1,0 +1,42 @@
+<6>12:56:34 [monk/1] job 'activate-ironhorse-ratchet-autopilot-20260929-r4' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>12:56:34 [monk/1] job 'activate-ironhorse-ratchet-autopilot-20260929-r4' call ceiling: tier=mentor max-budget-usd=9.20 (scaled by fresh seven-day headroom when available)
+panel-head-freshness: unreviewed target=endojs/endo-but-for-bots#1359 disposition=manual-gauntlet-not-triggered
+<6>16:12:52 [assert-followup-posted] gate: BLOCK — 'activate-ironhorse-ratchet-autopilot-20260929-r4' declares handoff to 'activate-ironhorse-ratchet-autopilot-20260929-r5' but that successor is not durably posted on the board; leaving in doin for retry
+
+--- handler report (partial) ---
+I didn't finish activating the press. The leader is still on e036bb8e065, and the one thing holding its deploy was this job. The roll's canary passed at 15:59:54Z. After that, the leader's own `deploy-garden.sh` kept deferring behind its single monk, which was this r4 job (mid-job 11538s). The remaining work moves to a one-time schedule, `activate-ironhorse-ratchet-autopilot-20260929-r5`, which fires at 17:15Z. I'm ending now so the leader can deploy.
+
+**Why the roll was stuck.** The canary endolin-garden2 had failed validation for c9bfa87823e at 12:44Z, but its new code was fine. garden2's only free worker claimed a 7200s gauntlet job at 11:32:08, one second after the r1 probe was posted. The r1–r3 probes (and the earlier 9bf25f4 probe) were never claimed, so each missed its 600s deadline.
+
+**Two fixes pushed to main2:**
+- **`25123fdae03`:** `claim-job.sh` now tries `canary-probe: true` jobs before ordinary work. The new test `canary-probe-claim-priority-test.sh` passes 2/2 with the fix and fails without it.
+- **`36def9fd9e8`:** `rolling-deploy.sh` no longer fails a canary whose probe is unclaimed only because all its workers are mid-job. It keeps waiting from the last tick the host was seen busy, up to the existing defer ceiling. A new case in `rolling-deploy-test.sh` passes (105/105) and fails without the fix.
+- **Other tests:** boatman-board-lockout, project-pause-enforcement and retry-narrowing pass. host-requirements-gating fails 1 case, and it fails the same way without my changes.
+
+**Deploy evidence:**
+- **garden2:** deployed `36def9fd9e8` at 15:49Z and its probe reached tada at 15:59:54Z. The conductor then logged "all required canaries passed; leader self-deploying LAST".
+- **Leader:** still on e036bb8e065 at 16:11Z, with the deploy deferred behind this job. The leader will only run 36def9fd9e8 once it deploys; the leader's own conductor never used the second fix.
+- **oros-studio-garden-ce242c49:** offline (heartbeat stale about 3.5h, stuck at e036bb8e). The roll skips it; it needs the maintainer.
+
+**Other steps:**
+- I retired the snoozed legacy schedule `ironhorse-ratchet` with `remove-schedule.sh`.
+- No `ironhorse-ratchet-watch-*` tick was ever emitted, so there was nothing to reconcile.
+- The maintainer hasn't named a cap on kriscendobot/garden#51, so no arc budget is installed.
+- I haven't seeded a press yet: the old leader's foreman would have promoted it without the budget and timing gates.
+- https://github.com/endojs/endo-but-for-bots/pull/1359 is untouched.
+- I originated no sysop deploy op and made no bypass.
+
+**Messages:**
+- I sent the maintainer two messages: the diagnosis at 13:03Z and the handoff at 16:12Z.
+- The liaison replied provisionally ("proxy/tentative"; the maintainer may revise): proceed, and leave oros-studio flagged for the maintainer.
+- I saved a memory note: on a one-monk leader, a job that waits for the leader deploy is itself what blocks it.
+
+**r5 owns the rest:**
+- Verify the deployed gates on the leader and followers.
+- Install an arc budget only if the maintainer names the values.
+- Seed the first press with `seed-ironhorse-press.sh` once the leader runs 9bf25f4362f or later, and show the foreman leaving it parked.
+- Report the evidence on kriscendobot/garden#51.
+
+If the leader still hasn't deployed when r5 fires, r5 reschedules itself instead of waiting in the foreground.
+
+<<<GARDEN-JOB-HANDED-OFF: activate-ironhorse-ratchet-autopilot-20260929-r5>>>
