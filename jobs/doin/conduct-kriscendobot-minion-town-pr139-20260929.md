@@ -18,3 +18,13 @@ this PR fixes the deploy script.
 
 Un-draft it, unfreeze to `main` per the conductor brief, wait for green CI, and merge it with the standard method.
 CI was green at head `6d77266`. Report the merge SHA. The parent job watches the resulting CD deploy.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T08:06:46Z
