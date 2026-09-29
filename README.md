@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T08:29:50Z_
+_As of 2026-09-29T08:34:32Z_
 
 ## Latest
 
-Board activity since the last bulletin was minimal: a canary re-probe job posted for `endolin-garden2-5bcdff64` at `7b2d6a401c8d` (retrying rolling-deploy validation), and a plan entry landed for an Ironhorse-panic outbound-embargo item, but nothing moved through claim or completion in this window. The maintainer queue remains heavy — most notably the rolling deploy to `oros-studio-garden-ce242c49` HALTED after a canary failed validation three times in a row and was left drained pending a decision, and the deploy-candidate gate separately rejected commit `39d0c5ef0ac` over a failing triager-pacing test, so the deployed tree stayed on the prior build. Several Milestone M2/M3 gating decisions are still parked on draft PRs [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (gauntlet authorization) and #1356 (likely superseded by [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)), plus M3's `endo-claude` path on [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and #1340. The minion.town federation release gate is still blocked at [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), and [kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139) (a production-incident deploy fix) is green and waiting on approval before it can merge.
+Board activity since the last bulletin was light: one new plan record was parked for the Ironhorse panic investigation, and a todo job was posted to have the fix-round-4 summary comment written up on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362), which is now in its fourth gauntlet fix round. The maintainer inbox otherwise carries a heavy backlog of standing decisions rather than new developments — notably several stacked asks to authorize `run the gauntlet` for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and to close the superseded #1356, an approval still pending on [kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139) (a deploy-script fix for the daemon auto-start incident), and an unresolved rolling-deploy canary failure on oros-studio-garden that was left drained pending investigation.
 
 ## Parked for maintainer feedback
 
@@ -116,13 +116,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #32 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T08:25:01Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 32 times; this is ONE
-> coalesced notice that updates in place, not 32 messages. Latest detail:
+> WATCHDOG notice — occurrence #33 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T08:30:04Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 33 times; this is ONE
+> coalesced notice that updates in place, not 33 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=10666s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=10577s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=10966s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=10877s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -395,6 +395,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Milestone M2 is blocked: draft [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/issues/1356) is superseded by merged upstream work and needs your decision to close it, while #1349 needs an explicit gauntlet authorization and a decision whether its remaining Phase 3 audit is required.
 
+- `20260929T083346Z-5538f2` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T083346Z-5538f2.md)
+
+> awaiting maintainer — beyond proxy authority: gardener conduct-kriscendobot-minion-town-pr139-20260929, msgid msg-conduct-kriscendobot-minion-town-pr139-20260929-b91a1b9be0fb.md — Merging a PR into kriscendobot/minion.town's main is an outward-facing, irreversible merge action requiring maintainer approval — proxy authority is scoped to progress/direction questions, not merge/approve gates.
+
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -434,17 +438,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 113.8M | $849.07 _(notional, rate-card)_ | 80% of 143.0M (ok) |
+| Claude | 114.2M | $850.71 _(notional, rate-card)_ | 80% of 143.0M (ok) |
 | Codex | 13.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 57% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58749281 tokens/day lower bound._
+_Fleet token-unlock pace: 63201560 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.408336s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (7)
+### todo (8)
 - [`endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929.md) — retcon endojs/endo-but-for-bots PR #1072 before resuming its gauntlet
+- [`endojs-endo-but-for-bots-pr1362-fix4-summary-comment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1362-fix4-summary-comment.md) — Post the fix-round-4 summary comment on endojs/endo-but-for-bots#1362
 - [`claude-on-minion-town-resume-post1015-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-resume-post1015-20260929.md) — Resume the Claude-on-minion.town arc now that #1015 is landed and pinned
 - [`canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d-r2.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 7b2d6a401c8d
 - [`canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-7b2d6a401c8d-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 7b2d6a401c8d
