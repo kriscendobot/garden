@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1072-weave-20260929-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1072-weave-20260929 endojs-endo-but-for-bots-pr1072-retcon-pre-gauntlet-20260929 endojs-endo-but-for-bots-pr1072-resume-gauntlet-20260929
 on-child-failure: halt
