@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-29T06:12:37Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-kriscendobot-minion-town-endo-pin-post1015-20260929
-pr_number: 138
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/138
-pr_head: chore/endo-pin-1706e63
