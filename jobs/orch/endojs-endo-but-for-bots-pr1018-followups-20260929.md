@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-ironhorse-panic-e2e-probe-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-ironhorse-panic-e2e-probe endojs-endo-but-for-bots-ironhorse-panic-classification-lint endojs-endo-but-for-bots-ironhorse-panic-cxs-panicked-adapter endojs-endo-but-for-bots-ironhorse-panic-debugger-panic-break endojs-endo-but-for-bots-ironhorse-panic-transcript endojs-endo-but-for-bots-ironhorse-panic-outbound-embargo endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript endojs-endo-but-for-bots-ironhorse-panic-retry-replay endojs-endo-but-for-bots-ironhorse-panic-coda-reference-error endojs-endo-but-for-bots-ironhorse-panic-halt-shape-unification
 on-child-failure: continue
