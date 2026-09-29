@@ -21,3 +21,13 @@ Open a DRAFT PR through scripts/jobs/gardening/ensure-pr.sh, with `Refs: #1018` 
 ## This leg
 
 Build the clippy (or dylint/custom) lint from § The Formal `Panic` Category: no commit-path code may match a raw `Halt` variant shape outside `Halt::is_panic()` or `ExecutionOutcome`. Wire it into CI so it fails the build, with a fixture that adds a raw `Halt::StackOverflow` (or `Halt::Decode`) commit-path match (must fail) and the same decision routed through the predicate (must pass). § Verification, the classification-discipline bullet.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T10:01:38Z
