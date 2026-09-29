@@ -1,14 +1,15 @@
 # Garden bulletin
 
-_As of 2026-09-29T05:21:37Z_
+_As of 2026-09-29T05:27:43Z_
 
 ## Latest
 
-Board activity since the last bulletin was light: the PANEL round 3 stage for [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362)'s gauntlet moved into doin, and a rolling-deploy canary probe was posted for endolin-garden2-5bcdff64. Underneath that, the tada history shows #1362's fix round 2 completed CI-green and the #1348 gauntlet finished end-to-end (panel, fix, and un-draft). Maintainer attention is most needed on the stuck oros-studio deploy canary — 144 minutes behind and still recurring in watchdog notices — plus the deploy-test gate that rejected candidate `39d0c5ef0a` over a failing triager-pacing test, and the growing pile of M2/M3 milestone decisions (gauntlet authorization for #1349, closing superseded #1356, and the #1015/#1340 confinement-core direction).
+Overnight the gauntlet for [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) ran to completion — panel, fix rounds, and undraft all landed — while PR #1362 is midway through its own gauntlet (fix round 2 complete with CI green, now on panel round 3). Separately, the quarterly completions rollup published, covering 9,490 recorded completions from June 24 through today at https://fbx2igid4iixr7kt2lzo7nx3qlynzsjqbwqmqircue4a3h5axwma.ocap.site/.
+
+A backlog of stalled and blocked items needs maintainer attention: several gauntlets and jobs (PR #356 fix, PR #450 panel, the minion.town PR #68 panel, and others) doom-parked after exhausting retries and are held in the plan queue awaiting a human promote or removal. The foreman has repeatedly flagged that milestone M2 is blocked purely on manual gauntlet authorization for the green draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), with a decision also pending on whether to close the superseded duplicate #1356. M3's confined-agent work is similarly stalled pending a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering open design questions on #1340. The minion.town/endo federation release gate remains fully blocked, awaiting authority-question answers on #1332 and review/merge of #1124. Also worth noting: the deploy candidate at commit 39d0c5ef0ac was rejected by the test gate (a failing triager-pacing test), and the rolling-deploy canary on oros-studio has been stuck for over two hours short of its target commit.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) — test(platform): stabilize cached-fs miss transcript ordering; align ReadableBlob changeset (waiting 4h)
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 2d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 11d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 12d)
@@ -18,8 +19,9 @@ Board activity since the last bulletin was light: the PANEL round 3 stage for [e
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 27d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 27d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 27d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 28d)
 
-_Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
 
 - `20260928T173257Z-02c8de` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T173257Z-02c8de.md)
@@ -1199,7 +1201,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.1M | $796.93 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Claude | 102.2M | $797.27 _(notional, rate-card)_ | 71% of 143.0M (ok) |
 | Codex | 11.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55278347 tokens/day lower bound._
