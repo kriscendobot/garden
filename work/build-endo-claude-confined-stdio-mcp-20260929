@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-29T08:41:19Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-build-endo-claude-confined-stdio-mcp-20260929
-pr_number: 1371
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1371
-pr_head: bot/build/claude-confined-stdio-mcp
