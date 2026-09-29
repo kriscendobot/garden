@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1018-followups-20260929
-priority: normal
 role: builder
-posted_by: gardener
-posted_at: 2026-09-29T08:25:24Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-29T14:34:09Z cleared=none -->
 
 ---
 tier: mentor
