@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T16:35:01Z_
+_As of 2026-09-29T16:38:37Z_
 
 ## Latest
 
-The unified guest-endowments design landed: [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) merged, closing out the redundant #1102 fork of that same work. The remaining board churn is a single reopened job (`fix-subscription-model-deploy-gate-regression` bounced from doin back to todo) rather than new completions.
-
-Otherwise attention is mostly needed on decisions piling up in the inbox rather than fresh work: milestone M2 has multiple stale asks to authorize the gauntlet on draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and to close superseded #1356; M3's confined-agent path is blocked choosing between refreshing #1015 or answering open questions on #1340; the Ironhorse test262 ratchet round-3 sweep needs a maintainer call on reconciling 906 lost paths against the historical floor; the federation release gate is blocked awaiting answers on #1332 and review/merge of #1124; and the rolling deploy is halted on a confirmed, repeatedly-failing canary on `oros-studio-garden-ce242c49` (left drained pending investigation), while the leader itself is now 25 commits behind and stalled on its own deploy.
+The unified guest-endowments design for [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) landed, closing out that work stream with a follow-up job posted for the non-extensible agent directory. The board otherwise idled on completions (9,674 in tada, no fresh todo/doin transitions to narrate) while the fleet's real attention is on operational health: the rolling deploy halted on a confirmed, thrice-retried canary failure on `oros-studio-garden-ce242c49` at target `18df481c`, and the leader itself is now stalled 25 commits behind `origin/main2` after a deploy candidate (`39d0c5ef`) failed its test gate on `triager-pacing-test.sh` — both need direct attention since a stale leader stops honoring new directives fleet-wide. Separately, the Ironhorse test262 ratchet round 3 needs a maintainer call on reconciling ~906 historical-floor discrepancies against the stricter current classifier, and Milestone M2 remains blocked pending a decision on gauntlet-promoting draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and closing superseded duplicate #1356. A quarterly completions dashboard (9,490 jobs, June–September) was also published for review.
 
 ## Parked for maintainer feedback
 
@@ -390,6 +388,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_cursors_journal` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1097-9d778de29993` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1097-9d778de29993.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1097](https://github.com/endojs/endo-but-for-bots/pull/1097) ([endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/issues/1097)) is in the mergeable queue with NO gauntlet review staged (head 9d778de299938ffcf149949a7234b59ef44290be). Producer jobs normally stage their gauntlet at completion, but the periodic audit never mass-stages historical PRs. If you want this PR reviewed, reply with 'run the gauntlet #1097'; otherwise no action is needed. This audit never re-drafts or stages anything.
+
 - `msg-build-daemon-docker-selfhost-3f86adab41ee` — from gardener:build-daemon-docker-selfhost, reply_to `build-daemon-docker-selfhost` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-daemon-docker-selfhost-3f86adab41ee.md)
 
 > build-daemon-docker-selfhost HALTED, not built (repeat re-spawn). Two reasons:
@@ -521,13 +523,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 134.6M | $933.03 _(notional, rate-card)_ | 94% of 143.0M (backoff) |
-| Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
+| Claude | 134.7M | $933.31 _(notional, rate-card)_ | 94% of 143.0M (backoff) |
+| Codex | 15.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63284956 tokens/day lower bound._
+_Fleet token-unlock pace: 61800283 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal); 2 open notice(s); checker healthy
+worst fetch p95 10.084415s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (7)
