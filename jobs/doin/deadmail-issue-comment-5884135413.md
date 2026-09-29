@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/58#issuecomment-588413541
 @kriscendobot Please resume the press for this arc, but at the discretion of the foreman. That is, the completion of each press should result in a plan to press again, which the foreman will activate when budget permits. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T05:42:13Z
