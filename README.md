@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-29T03:50:44Z_
+_As of 2026-09-29T03:54:49Z_
 
 ## Latest
 
@@ -225,10 +225,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 6 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 3 -> 2 (target 2): shared codex subscription demand active=1 queue=2 quota=ok fleet-envelope=5 target=2
-
-- `20260929T034835Z-9d2d1a` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T034835Z-9d2d1a.md)
-
-> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr1348-gauntlet-fix-4, msgid msg-endojs-endo-but-for-bots-pr1348-gauntlet-fix-4-26a9fdc12cba.md — Both items are scope/authority decisions (lifting a maintainer-set parking decision on public API design in [endojs/endo-but-for-bots#731](https://github.com/endojs/endo-but-for-bots/issues/731), and reclassifying a PR's deliverable disposition/scope), not progress or experimentation questions a proxy may answer.
 
 - `msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6` — from gardener:minion-town-guest-web-invite-accept-fallback-fix-post104, reply_to `minion-town-guest-web-invite-accept-fallback-fix-post104` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-guest-web-invite-accept-fallback-fix-post104-0cc7bb5e48e6.md)
 
@@ -1283,7 +1279,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.4M | $765.50 _(notional, rate-card)_ | 67% of 143.0M (ok) |
+| Claude | 96.4M | $765.59 _(notional, rate-card)_ | 67% of 143.0M (ok) |
 | Codex | 9.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 43% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55470637 tokens/day lower bound._
@@ -1295,20 +1291,19 @@ worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
+- [`kriscendobot-minion.town-pr120-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #120
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1362
-- [`deadmail-issue-comment-5882639551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/deadmail-issue-comment-5882639551.md) — Issue follow-up — fold a late comment into the issue work
-- [`kriscendobot-minion.town-pr120-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #120
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1348
 - [`activate-ironhorse-ratchet-autopilot-20260929-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929-r3.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 
-### tada (9548)
+### tada (9550)
+- [`kriscendobot-minion.town-pr120-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr120-gauntlet-panel-6.md) — Cost
+- [`deadmail-issue-comment-5882639551`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/deadmail-issue-comment-5882639551.md) — Cost
 - [`kriscendobot-minion.town-pr120-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr120-gauntlet-fix-5.md) — Cost
 - [`npm-minion-town-dev-registry-postgauntlet-pr135`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/npm-minion-town-dev-registry-postgauntlet-pr135.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-panel-4.md) — Cost
-- [`activate-ironhorse-ratchet-autopilot-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/activate-ironhorse-ratchet-autopilot-20260929.md) — Cost
-- [`kriscendobot-minion.town-pr135-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr135-gauntlet.md) — gauntlet kriscendobot-minion.town-pr135-gauntlet — review budget reached
-- … and 9543 more
+- … and 9545 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
