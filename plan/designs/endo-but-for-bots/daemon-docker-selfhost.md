@@ -1,12 +1,12 @@
 ---
 slug: daemon-docker-selfhost
 repository: endo-but-for-bots
-status: Not Started
+status: Declined
 size: M
 milestone: M3
 depends_on: []
 created: 2026-03-02
-updated: 2026-03-02
+updated: 2026-09-29
 source: imported from origin/llm designs/README.md
 ---
 
@@ -15,9 +15,9 @@ source: imported from origin/llm designs/README.md
 | | |
 |---|---|
 | **Created** | 2026-03-02 |
-| **Updated** | 2026-03-02 |
+| **Updated** | 2026-09-29 |
 | **Author** | Kris Kowal (prompted) |
-| **Status** | Not Started |
+| **Status** | Declined — kriskowal closed endojs/endo-but-for-bots#134 (2026-07-09) noting Docker self-hosting is headed in another direction (`@endo/gateway` + `@endo/mcp` grown organically with AWS instead). Two later duplicate build attempts against this record, #608 and #694, were closed 2026-09-29 for the same reason. |
 
 ## What is the Problem Being Solved?
 
