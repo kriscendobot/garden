@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T11:52:53Z_
+_As of 2026-09-29T11:54:38Z_
 
 ## Latest
 
-Board activity was minimal since the last bulletin: the only transition is a fresh post to press the Claude-on-minion.town arc forward (`claude-on-minion-town-press-20260929-115007`), joining the queue behind several already-doin gauntlet and weave jobs. The larger picture in the maintainer inbox hasn't moved — M2 remains blocked on a gauntlet decision for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close decision for #1356, M3 is blocked choosing between advancing #1015 or answering #1340's open questions, and the federation release gate is still parked on #1332's authority questions. Operationally, a rolling-deploy canary on oros-studio-garden-ce242c49 failed three retries and was left drained pending investigation, and the leader host is now reported 25 commits behind origin/main2 with a stalled deploy — worth a look since a stale leader stops honoring newer directives fleet-wide.
+The leader host has fallen 25 commits behind `origin/main2` and stopped deploying — a candidate at `39d0c5ef0ac` was rejected by the test gate over a `triager-pacing-test.sh` failure — so no directive newer than the currently deployed commit is being honored; this needs a look. Separately, a rolling-deploy canary on oros-studio-garden-ce242c49 halted after three failed retries and was left drained, though a later notice shows it has since recovered on its own. In-flight work in `doin` includes a base-pin weave on [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097), fix round 6 of the gauntlet on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362), and IronHorse panic-adapter work — but no jobs completed the transition window.
+
+The bulk of the queue is maintainer decisions waiting on you: Milestone M2 needs authorization to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) and a call on closing the superseded [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/issues/1356); M3 is blocked choosing between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) or answering open questions on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340); and the endo/minion.town federation release gate is still blocked on authority answers for [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/issues/1332) plus review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124). The IronHorse test262 ratchet round-3 sweep is also asking how to reconcile 906 historical-floor discrepancies rather than silently relabeling them. On the lighter side, the quarterly completions rollup (9,490 completions, June–September) has been published to ocap.site.
 
 ## Parked for maintainer feedback
 
@@ -444,10 +446,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > canary oros-studio-garden-ce242c49 is no longer stuck (release 18df481c04b5aca0fec1f93ebdf8a0393b69544f, deployed e036bb8e0650b66a4ae00dc1516c4c8df39901ca).
 
-- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1.md)
-
-> Host-requirements gate: job 'canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1' has remained unclaimed for 901s with requires: host=endolin-garden2-5bcdff64. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-0.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-28T08:11:48Z, latest 2026-09-29T09:35:26Z).
@@ -462,7 +460,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.4M | $899.17 _(notional, rate-card)_ | 87% of 143.0M (backoff) |
+| Claude | 124.4M | $899.46 _(notional, rate-card)_ | 87% of 143.0M (backoff) |
 | Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63231424 tokens/day lower bound._
