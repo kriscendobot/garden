@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T15:17:13Z_
+_As of 2026-09-29T15:20:58Z_
 
 ## Latest
 
-The leader host's deploy has stalled 25 commits behind `origin/main2`, and while stalled it isn't honoring any newer directive — the deploy candidate at `39d0c5ef0ac` was separately rejected by the test gate over a failing `triager-pacing-test`, so this needs a look before anything new can land. A related rolling-deploy canary on oros-studio-garden-ce242c49 failed three consecutive retries and was halted (host left drained, no auto-rollback attempted) — flagged as a confirmed regression, not a blip. Claude spend is at 92% of the weekly quota and in backoff.
-
-On the review queue, the foreman has repeatedly flagged that Milestone M2 is blocked on your call for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (CI-green hardened TextEncoder/TextDecoder draft, needs an explicit "run the gauntlet") and whether to close [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) as superseded by [endojs/endo#3332](https://github.com/endojs/endo/pull/3332); M3 is similarly stuck choosing between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering four open questions on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) first, and #1015's earlier panel review is now stale against its current head. The Ironhorse test262 ratchet round-3 gardener needs a policy decision on reconciling 906 historical-floor losses against its stricter classifier before it can claim a clean zero-regression round. On the lighter side, a quarterly completions rollup (9,490 completions since June 24) is now published, and the minion.town MCP wiring has landed with two rollout questions open — a dedicated garden principal versus reusing the live production guest, and how much tool-list context cost to give jurors/myrmidon-tier roles.
+The board shows no fresh claims or completions since the last bulletin, so activity centers on outstanding maintainer decisions and infrastructure signals rather than new merges. The leader host is now 25 commits behind `origin/main2` and stalled — a deploy candidate (`39d0c5ef0ac`) was rejected by the test gate on a `triager-pacing-test.sh` failure, worth a look since a stale leader risks running work it shouldn't. A rolling-deploy canary on `oros-studio-garden-ce242c49` failed three retries and was left drained pending a decision; that host is also flagged offline (heartbeat stale ~5.5h), with worker caps auto-zeroed until it heals. Milestone M2 remains blocked on a cluster of foreman pings asking you to authorize `run the gauntlet` for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and to close the superseded duplicate #1356 (superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)); M3 is similarly blocked pending your call on [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) versus answering the open design questions on #1340. The IronHorse test262 ratchet (round 3) needs a policy decision on reconciling 906 lost paths against the historical floor rather than silently relabeling failures as covered. Separately, a quarterly completions rollup (9,490 jobs, June 24–Sept 29) is now published at the linked ocap.site report, and Claude spend sits at 92% of weekly quota (backoff zone) while Codex is at 38%.
 
 ## Parked for maintainer feedback
 
@@ -30,11 +28,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #90 (first seen 2026-09-29T05:53:06Z, latest 2026-09-29T14:20:05Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 90 times; this is ONE
-> coalesced notice that updates in place, not 90 messages. Latest detail:
+> WATCHDOG notice — occurrence #110 (first seen 2026-09-29T05:53:06Z, latest 2026-09-29T15:20:05Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 110 times; this is ONE
+> coalesced notice that updates in place, not 110 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 16342s (offline threshold 1800s; sampled_at_epoch=1790675260).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 19942s (offline threshold 1800s; sampled_at_epoch=1790675260).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -503,10 +501,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 131.6M | $929.10 _(notional, rate-card)_ | 92% of 143.0M (backoff) |
+| Claude | 131.6M | $929.42 _(notional, rate-card)_ | 92% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63423120 tokens/day lower bound._
+_Fleet token-unlock pace: 63453750 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 11.339213s/45s (/home/kris/garden/.garden-state/leader/journal); 2 open notice(s); checker healthy
