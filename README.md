@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T21:12:38Z_
+_As of 2026-09-29T21:15:02Z_
 
 ## Latest
 
-The gauntlet on [endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) advanced another round (fix round 2 complete, panel round 3 and a PR-body template fix now queued), and PR #1072's clean stage and comment retrospectives (#1018, #1072, #1097) moved through as well. The `retire-gardener-worker-kind-alias-split` orchestration halted after its `env-fallback` child stalled for over 40 minutes on endolin-garden2, leaving the docs-verification child parked — worth a look if that alias retirement is wanted soon. Separately, the rolling deploy's canary on endolin-garden2 passed a round-trip probe, but the leader (endolin-garden-ece02cb4) itself is now 25 commits behind and stalled on deploy, and a canary on oros-studio-garden-ce242c49 failed three retries and was left drained pending investigation — both leader staleness and the oros canary failure are blocking normal singleton-producer directives and should get attention. The maintainer inbox otherwise carries the accumulated backlog of M2/M3 gauntlet-authorization asks, budget/quota watchdog churn, and the IronHorse test262 floor-reconciliation question, none of which moved this cycle.
+Ironhorse's PR #1381 gauntlet advanced through a fix round and into panel round 3, while its companion pane of work — the panic retry/replay leg — landed a fix round for [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) and moved a "clean" stage forward on [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380), with the draft-PR step for the retry/replay leg itself now queued. The `retire-gardener-worker-kind-alias-split` orchestration halted after its `env-fallback` child stalled past its timeout on endolin-garden2; the remaining `verify-docs` step is parked, and the `env-fallback` job has been requeued to `todo` for a retry. Elsewhere, the board is otherwise steady: routine retrospectives and gauntlet-stage jobs continue to clear through `tada`, and no new maintainer decisions were introduced beyond the backlog already parked for review.
 
 ## Parked for maintainer feedback
 
@@ -204,19 +204,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> Rolling deploy HALTED on a failed canary.
-> canary host: oros-studio-garden-ce242c49
-> target sha:  18df481c04b5aca0fec1f93ebdf8a0393b69544f
-> failing signal: retries exhausted after re-validation kept failing
-> This canary was RETRIED 3 time(s) automatically and kept
-> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
-> confirmed regression, not a transient blip — treat it as higher severity than a
-> first-tick halt.
-> The roll released no further followers and the LEADER did NOT advance itself — a
-> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
-> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
-> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
-> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
+> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-29T06:14:06Z, cleared 2026-09-29T21:14:08Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -416,7 +408,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 157.2M | $1064.26 _(notional, rate-card)_ | 110% of 143.0M (backoff) |
+| Claude | 157.3M | $1064.96 _(notional, rate-card)_ | 110% of 143.0M (backoff) |
 | Codex | 15.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57351268 tokens/day lower bound._
@@ -425,18 +417,18 @@ _Fleet token-unlock pace: 57351268 tokens/day lower bound._
 worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
 - [`endojs-endo-but-for-bots-pr1381-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1381
 - [`endojs-endo-but-for-bots-pr1381-body-template`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-body-template.md) — Apply template-conforming PR body to endojs/endo-but-for-bots#1381
 - [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr.md) — Open the draft PR for the Ironhorse panic retry/replay leg
 - [`endojs-endo-but-for-bots-pr1097-review-c2702a77-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-review-c2702a77-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1097 (primary: endojs-endo-but-...
+- [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/retire-gardener-worker-kind-alias-env-fallback.md) — ---
 - [`kriscendobot-minion-town-pr68-gauntlet-20260929-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-20260929-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #68
 
-### doin (7)
+### doin (6)
 - [`improve-gh-api-primary-quota-singleflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gh-api-primary-quota-singleflight.md) — ---
 - [`fix-ensure-pr-phase-gate-stale-local-base-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-ensure-pr-phase-gate-stale-local-base-20260929.md) — ensure-pr.sh's phase/evidence gate prefers a stale local base ref over origin...
 - [`confirm-implement-nudge-continue-parity-mentat-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/confirm-implement-nudge-continue-parity-mentat-20260929.md) — Confirm (or deny) and, if confirmed, implement non-Claude completion-nudge pa...
-- [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1380
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1379
 - [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-retry-replay.md) — Terminate, restore, replay: retry after a panic
