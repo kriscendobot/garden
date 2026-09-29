@@ -1,6 +1,6 @@
 ---
 gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1097-orch-20260929
+orchestrated_by: endojs-endo-but-for-bots-pr1097-orch-20260929-resume
 priority: normal
 role: conductor
 posted_by: producer
