@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T04:09:54Z_
+_As of 2026-09-29T04:11:41Z_
 
 ## Latest
 
-Two gauntlets advanced overnight: [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) cleared panel round 5 and is now on fix round 5, while [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) got a fix round 1 landed (must-fix items applied, CI green) and moved into panel round 2. Otherwise the board is quiet — no new posts, and the maintainer inbox is dominated by a long backlog of M2/M3 milestone decisions (gauntlet authorization for #1349/#1356, the #1015 confinement-core path), several doom/split-eligible jobs parked pending promotion, and an oros-studio canary stuck mid-rolling-deploy that still needs a hands-on-host look.
+Board activity was light: the only board transition since the last bulletin was the claim of `endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review` into doin, rebasing the confined `@endo/claude` build onto current `llm` ahead of preliminary review. The ratchet-autopilot activation for Ironhorse stays stuck — oros-studio's canary is wedged at `e036bb8e` and needs a human on-host (journalctl or a maintainer-attested sysop deploy) before it can advance. The three M2 foreman notices continue asking for a gauntlet decision on the green draft [endojs-endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close/supersede call on [#1356](https://github.com/endojs/endo-but-for-bots/pull/1356). The federation release gate remains blocked pending review of [endojs-endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124) and answers on [#1332](https://github.com/endojs/endo-but-for-bots/pull/1332). Also worth a look: the Ironhorse test262 ratchet round-3 floor-reconciliation question, and the quarterly completions rollup (9,490 jobs, June–September) now published.
 
 ## Parked for maintainer feedback
 
@@ -1270,7 +1270,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.4M | $767.40 _(notional, rate-card)_ | 68% of 143.0M (ok) |
+| Claude | 97.6M | $768.88 _(notional, rate-card)_ | 68% of 143.0M (ok) |
 | Codex | 9.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58084457 tokens/day lower bound._
@@ -1282,9 +1282,10 @@ worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1362
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1348
+- [`endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review.md) — ---
 - [`activate-ironhorse-ratchet-autopilot-20260929-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929-r3.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 
 ### tada (9555)
