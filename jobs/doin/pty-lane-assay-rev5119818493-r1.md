@@ -82,6 +82,7 @@ or `pty-context-test.sh` does not fully pass), emit the exact line
 `<<<GARDEN-ORCHESTRATION-FAILED>>>` immediately BEFORE your completion signal.
 Then, in all cases, emit `<<<GARDEN-JOB-COMPLETE>>>` as the very last line.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
