@@ -13,6 +13,7 @@ export GARDEN_TAG=budget-level
 : "${GARDEN_BUDGET_LEVEL_UP_CONFIRM:=2}"
 : "${GARDEN_BUDGET_LEVEL_DOWN_CONFIRM:=1}"
 : "${GARDEN_BUDGET_LEVEL_DWELL_DIR:=$GARDEN_STATE/budget-level/dwell}"
+: "${GARDEN_BUDGET_LEVEL_FAILURE_LATCH_DIR:=$GARDEN_STATE/budget-level/remote-spend-failures}"
 : "${GARDEN_BUDGET_LEVEL_SET_WORKERS:=$HERE/set-workers.sh}"
 : "${GARDEN_BUDGET_LEVEL_SEND_HOST_OP:=$HERE/send-host-op.sh}"
 : "${GARDEN_WORKER_LEVELING_PATH:=config/worker-leveling}"
@@ -39,12 +40,69 @@ uncalibrated() { case "$(printf %s "${1:-}" | tr '[:upper:]' '[:lower:]')" in ''
 # meter_remote_snapshot_total's stderr (its rc-9 field-mismatch detail) lands here
 # per call, so pool_failure can name WHICH snapshot field diverged.
 SNAP_ERR="$GARDEN_STATE/budget-level/snapshot.err"
+remote_spend_failure_key() { # pool host operation reason
+  printf '%s\0%s\0%s\0%s' "$1" "$2" "$3" "$4" | sha256sum | cut -d' ' -f1
+}
+remote_spend_failure() { # pool host operation exit_status reason detail
+  local pool="$1" host="$2" operation="$3" status="$4" reason="$5" detail="$6"
+  local root="$GARDEN_BUDGET_LEVEL_FAILURE_LATCH_DIR" key incident suppressed tmp suffix=""
+  key="$(remote_spend_failure_key "$pool" "$host" "$operation" "$reason")"
+  incident="$root/$key"
+  [ -z "$detail" ] || suffix=" ($detail)"
+  mkdir -p "$root" 2>/dev/null || true
+  if mkdir "$incident" 2>/dev/null; then
+    printf '%s\n' "$pool" >"$incident/pool" 2>/dev/null || true
+    printf '%s\n' "$host" >"$incident/host" 2>/dev/null || true
+    printf '%s\n' "$operation" >"$incident/operation" 2>/dev/null || true
+    printf '%s\n' "$reason" >"$incident/reason" 2>/dev/null || true
+    printf '0\n' >"$incident/suppressed" 2>/dev/null || true
+    log "WARN: pool=$pool host=$host operation=$operation failed exit_status=$status reason=$reason$suffix; failure isolated (fail-open; further identical repeats suppressed until a valid snapshot returns)"
+    return 0
+  fi
+  if [ -d "$incident" ]; then
+    suppressed="$(cat "$incident/suppressed" 2>/dev/null || true)"
+    [[ "$suppressed" =~ ^[0-9]+$ ]] || suppressed=0
+    suppressed=$((suppressed + 1))
+    tmp="$incident/suppressed.$$"
+    if printf '%s\n' "$suppressed" >"$tmp" 2>/dev/null; then
+      mv "$tmp" "$incident/suppressed" 2>/dev/null || true
+    fi
+    return 0
+  fi
+  log "WARN: pool=$pool host=$host operation=$operation failed exit_status=$status reason=$reason$suffix; failure isolated (fail-open; warning latch unavailable)"
+}
+remote_spend_recovered() { # pool host operation
+  local pool="$1" host="$2" operation="$3" root="$GARDEN_BUDGET_LEVEL_FAILURE_LATCH_DIR"
+  local incident claimed latched_pool latched_host latched_operation reason suppressed
+  [ -d "$root" ] || return 0
+  for incident in "$root"/*; do
+    [ -d "$incident" ] || continue
+    latched_pool="$(cat "$incident/pool" 2>/dev/null || true)"
+    latched_host="$(cat "$incident/host" 2>/dev/null || true)"
+    latched_operation="$(cat "$incident/operation" 2>/dev/null || true)"
+    [ "$latched_pool" = "$pool" ] && [ "$latched_host" = "$host" ] \
+      && [ "$latched_operation" = "$operation" ] || continue
+    claimed="$incident.recovered.$$"
+    if mv "$incident" "$claimed" 2>/dev/null; then
+      reason="$(cat "$claimed/reason" 2>/dev/null || echo unknown)"
+      suppressed="$(cat "$claimed/suppressed" 2>/dev/null || true)"
+      [[ "$suppressed" =~ ^[0-9]+$ ]] || suppressed=0
+      rm -rf "$claimed" 2>/dev/null || true
+      log "remote spend snapshot recovered for pool=$pool host=$host operation=$operation reason=$reason after $suppressed suppressed repeat(s); valid snapshot accepted"
+    fi
+  done
+}
 pool_failure() { # pool host operation exit_status
   local reason="" detail=""
   [ "$3" = read-remote-spend ] && reason=" reason=$(meter_journal_failure_reason "$4")"
   if [ "$3" = read-remote-spend ] && [ "$4" = 9 ] && [ -s "$SNAP_ERR" ]; then
     detail="$(grep -m1 '^snapshot mismatch ' "$SNAP_ERR" 2>/dev/null || true)"
     [ -z "$detail" ] || reason+=" ($detail)"
+  fi
+  if [ "$3" = read-remote-spend ]; then
+    remote_spend_failure "$1" "$2" "$3" "$4" \
+      "$(meter_journal_failure_reason "$4")" "$detail"
+    return
   fi
   log "WARN: pool=$1 host=$2 operation=$3 failed exit_status=$4$reason; failure isolated (fail-open)"
 }
@@ -205,7 +263,12 @@ for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";cap="${pcaps[i]}";prov
  [ "${monk_pool_eligible[i]}" -eq 1 ] || continue
  [ "$mv" -eq 1 ]||! uncalibrated "$prov"||continue
  cutoff="$(subscription_window_start_epoch "$pool" "$DIR" 2>/dev/null || true)"; if ! [[ "$cutoff" =~ ^[0-9]+$ ]];then case "$pool" in anthropic:*)cutoff="$(meter_window_cutoff anchor 2>/dev/null)"||{ pool_failure "$pool" "$h" read-window-cutoff "$?";continue;};;*)pool_failure "$pool" "$h" read-window-cutoff 1;continue;;esac;fi
- snap_rc=0;snap_err="$SNAP_ERR";{ mkdir -p "${SNAP_ERR%/*}"&&: >"$snap_err";} 2>/dev/null||snap_err=/dev/null;spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$cutoff" 2>"$snap_err")"||snap_rc=$?;[ "$snap_rc" -eq 0 ]||{ if [ "$h" = "$GARDEN" ];then if [[ "$pool" == anthropic:* ]];then spend="$(meter_window_total anchor 2>/dev/null)";else spend="$(meter_subscription_window_total "$pool" "$DIR" 2>/dev/null)";fi||{ pool_failure "$pool" "$h" read-local-spend "$?";continue;};elif [[ "$pool" == anthropic:* ]];then spend="$(meter_journal_host_tokens "$DIR" "$h" "$cutoff" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-remote-spend "$?";continue;};else pool_failure "$pool" "$h" read-remote-spend "$snap_rc";continue;fi; }
+ snap_rc=0;snap_err="$SNAP_ERR";{ mkdir -p "${SNAP_ERR%/*}"&&: >"$snap_err";} 2>/dev/null||snap_err=/dev/null;spend="$(meter_remote_snapshot_total "$DIR" "$pool" "$cap" "$cutoff" 2>"$snap_err")"||snap_rc=$?
+ if [ "$snap_rc" -eq 0 ];then
+  remote_spend_recovered "$pool" "$h" read-remote-spend
+ else
+  if [ "$h" = "$GARDEN" ];then if [[ "$pool" == anthropic:* ]];then spend="$(meter_window_total anchor 2>/dev/null)";else spend="$(meter_subscription_window_total "$pool" "$DIR" 2>/dev/null)";fi||{ pool_failure "$pool" "$h" read-local-spend "$?";continue;};elif [[ "$pool" == anthropic:* ]];then spend="$(meter_journal_host_tokens "$DIR" "$h" "$cutoff" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-remote-spend "$?";continue;};else pool_failure "$pool" "$h" read-remote-spend "$snap_rc";continue;fi
+ fi
  [[ "$spend" =~ ^[0-9]+$ ]]||{ pool_failure "$pool" "$h" validate-spend 1;continue;};hf="$DIR/hosts/$h";if [ -n "$GARDEN_BUDGET_LEVEL_KIND" ];then kind="$GARDEN_BUDGET_LEVEL_KIND";else kind=monk;fi;key="$(worker_kind_field "$kind" count_key 2>/dev/null||echo monks)";cur="$(read_desired_count "$hf" "$key" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-host-workers "$?";continue;}
  if [ "$mv" -ne 1 ];then uncalibrated "$prov"&&continue;awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" 'BEGIN{exit !(t>=q*f)}'||continue;target="$GARDEN_BUDGET_LEVEL_MIN";else hi="${mceil[$h]}";target="$(awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{m=q*f;if(m<=0||t>=m)n=lo;else n=lo+int((1-t/m)*(hi-lo)+.5);if(n<lo)n=lo;if(n>hi)n=hi;print n}')";bias="$(subscription_pacing_bias "$pool" "$spend" "$cap" "$DIR")";pacing="$(subscription_pacing_summary "$pool" "$DIR")";case "$pacing" in *'(planned)'*|*'['*)log "budget-level pacing $pool: $pacing";;esac;pace_target="$(awk -v b="$bias" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{print lo+int(b*(hi-lo)+.5)}')";[ "$pace_target" -le "$target" ]||target="$pace_target";fi
  apply_target "$pool" "$h" "$kind" "$cur" "$target" "subscription $pool spend=$spend cap=$cap pace-bias=${bias:-0} ${pacing:-deadline=unknown} ceiling=${mceil[$h]:-frozen} target=$target" "$spend" "$cap" "$prov" weekly-token-spend

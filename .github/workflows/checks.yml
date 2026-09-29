@@ -110,6 +110,7 @@ jobs:
           bash scripts/jobs/test/gauntlet-resume-test.sh
           bash scripts/jobs/test/reputation-reduce-incremental-test.sh
           bash scripts/jobs/test/alert-maintainer-edge-test.sh
+          bash scripts/jobs/test/budget-level-snapshot-warning-dedup-test.sh
           bash scripts/jobs/test/docs-claim-accuracy-probe-test.sh
           bash scripts/jobs/test/cursor-outage-cooldown-test.sh
           bash scripts/jobs/test/bulletin-fetch-outage-backoff-test.sh
