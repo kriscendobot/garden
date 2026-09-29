@@ -1,0 +1,1 @@
+{"source":"none","terminal_outcome":"transient-failure","terminal":{"stream_valid":false},"ts":"2026-09-29T01:02:35Z","base":"minion-town-cd-endo-daemon-restart-orphan-20260929","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":158,"provider":"anthropic"}
