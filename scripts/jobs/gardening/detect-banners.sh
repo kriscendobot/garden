@@ -3,7 +3,9 @@
 # leaking into a proposed change. It scans the change's ADDED diff lines (the new
 # decoration, not pre-existing context) for the banner shape defined in
 # skills/no-comment-banners/SKILL.md: a code comment line whose body is nothing
-# but a run of repeated rule characters used as a decorative separator.
+# but a run of repeated rule characters used as a decorative separator, or whose
+# body is a title bracketed by runs of 2+ rule characters on BOTH sides
+# (`// --- Section title ---`, `# === Title ===`).
 #
 # This is a deterministic panel pre-pass. A hit forces the archivist juror into
 # even a trimmed code panel and hands it the offending lines as review evidence;
@@ -14,7 +16,8 @@
 #   * QUIET BY DESIGN in `check` mode: prints nothing; answers via exit status.
 #       check: exit 0 -> banner added   exit 1 -> clean (path is quiet)
 #   * FAVORS FALSE POSITIVES in what it matches: any added comment line that is a
-#     4-or-more run of rule chars counts. It is cheaper to flag a borderline line
+#     4-or-more run of rule chars counts, as does any title bracketed by 2-or-more
+#     runs on both sides. It is cheaper to flag a borderline line
 #     than to let a decorative rule land; the archivist juror judges the result.
 #
 # We can only speak about NEW banners against a base: with no base ref (shallow
@@ -26,7 +29,10 @@
 # fenced-code/data dashes, and directional-arrow prose ("foo -> bar") are NOT
 # banners (skills/no-comment-banners SKILL.md, "What is not a banner") and never
 # match — markdown is excluded by extension, and a rule run with any prose on the
-# line fails the "nothing but rule chars" anchor.
+# line fails the "nothing but rule chars" anchor. The bracketed-title shape needs
+# a rule run anchored at BOTH ends of the comment body, separated from the title
+# by whitespace, so `// foo -- bar` (no leading run), `// a -> b`, and JSDoc
+# `* **bold**` emphasis (no whitespace inside the runs) do not match.
 #
 # Subcommands:
 #   check <worktree> [base]   exit 0 if a banner appears in an added line
@@ -49,6 +55,9 @@ git -C "$wt" rev-parse --verify --quiet "$base^{commit}" >/dev/null 2>&1 || exit
 # is written as four explicit rule-char classes plus one (4+) so it needs no awk
 # interval support, and the anchors demand the comment body be nothing but the
 # run — prose on the line (a directional arrow, a sentence with a dash) fails it.
+# The bracketed-title form (`// --- title ---`) is two 2+ runs anchored at the
+# ends of the comment body with a whitespace-separated title between them; the
+# title must start with a non-rule character.
 offending_lines() {
   git -C "$wt" diff "$base" -- 2>/dev/null | awk '
     /^\+\+\+ /{
@@ -59,7 +68,9 @@ offending_lines() {
     iscode && /^\+/ {
       text=substr($0,2)
       if (text ~ /^[ \t]*(\/\/|#|\*)[ \t]*[-=*~_][-=*~_][-=*~_][-=*~_]+[ \t]*$/ \
-       || text ~ /\/\*[ \t]*[-=*~_][-=*~_][-=*~_][-=*~_]+[ \t]*\*\//)
+       || text ~ /\/\*[ \t]*[-=*~_][-=*~_][-=*~_][-=*~_]+[ \t]*\*\// \
+       || text ~ /^[ \t]*(\/\/|#|\*)[ \t]*[-=*~_][-=*~_]+[ \t]+[^-=*~_ \t].*[ \t][-=*~_][-=*~_]+[ \t]*$/ \
+       || text ~ /\/\*\*?[ \t]*[-=*~_][-=*~_]+[ \t]+[^-=*~_ \t].*[ \t][-=*~_][-=*~_]+[ \t]*\*\//)
         print path ": " text
     }
   '

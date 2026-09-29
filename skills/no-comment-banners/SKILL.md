@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-09-15
+updated: 2026-09-29
 author: gardener
 ---
 
@@ -20,9 +20,18 @@ separator rather than as prose:
 
 The forbidden shapes are a comment line (`//`, `#`, `/* … */`, or a JSDoc
 ` * ` continuation) whose remaining content is four or more repeated rule
-characters from the set `- = * ~ _` and nothing else. The section title is
-fine; the rules bracketing it are not. Write the title as a plain comment and
-delete the rules:
+characters from the set `- = * ~ _` and nothing else, **or** whose content
+is a title bracketed by runs of two or more of those rule characters on both
+sides:
+
+```js
+// --- Fallible work, before the consume ---
+# === Setup ===
+```
+
+The section title is fine; the rules bracketing it are not, whether they sit
+on their own lines or on the title's line. Write the title as a plain comment
+and delete the rules:
 
 ```js
 // Section title.
@@ -39,7 +48,8 @@ thinner shape.
 ## What is *not* a banner
 
 - A `// foo -> bar` directional arrow or any comment that is prose containing a
-  dash.
+  dash, including a mid-sentence `// foo -- bar`. The bracketed-title shape
+  needs a rule run at *both* ends of the comment body.
 - A markdown thematic break (`---` on its own line in a `.md` file) used as a
   real section divider in prose. This rule is about *code comments*, not
   markdown structure.
@@ -71,10 +81,14 @@ sites:
 ```sh
 grep -nE '^[[:space:]]*(//|#|\*)[[:space:]]*[-=*~_]{4,}[[:space:]]*$' path/to/file
 grep -nE '/\*[[:space:]]*[-=*~_]{4,}[[:space:]]*\*/' path/to/file
+# Bracketed titles: `// --- Title ---`, `# === Title ===`, `/* -- Title -- */`.
+grep -nE '^[[:space:]]*(//|#|\*)[[:space:]]*[-=*~_]{2,}[[:space:]]+[^-=*~_[:space:]].*[[:space:]][-=*~_]{2,}[[:space:]]*$' path/to/file
+grep -nE '/\*\*?[[:space:]]*[-=*~_]{2,}[[:space:]]+[^-=*~_[:space:]].*[[:space:]][-=*~_]{2,}[[:space:]]*\*/' path/to/file
 ```
 
-Delete each matched line. When the banner bracketed a section title, keep the
-title line and adjust its punctuation so it reads as a sentence.
+Delete each matched rule-only line. When the banner bracketed a section title, keep the
+title line and adjust its punctuation so it reads as a sentence. For a
+bracketed title, strip the rule runs from both ends and keep the title.
 
 ## Notes from the field
 
@@ -90,3 +104,8 @@ title line and adjust its punctuation so it reads as a sentence.
 - _2026-09-15_: moved banner detection from a pre-review LLM deletion handler
   into the panel pre-pass. A hit now forces the archivist juror, preserving the
   normal review, disposition, and fixer-loop accountability.
+- _2026-09-29_: widened the rule and `detect-banners.sh` to titles bracketed by
+  2+ rule runs on both sides after kriskowal flagged
+  `// --- Fallible work, before the consume ---` on
+  `endojs/endo-but-for-bots#1125` (review `5215956390`); the 4+-run-only
+  predicate had let it through.

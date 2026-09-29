@@ -13,6 +13,11 @@
 #      thematic break in a `.md` file are NOT hits.
 #   5. EQUALS/STAR/BLOCK forms: `# ====`, ` * ~~~~`, and `/* ---- */` all hit.
 #   6. No base ref -> clean & quiet (exit 1).
+#   7. BRACKETED TITLE: a title bracketed by 2+ rule runs on both sides
+#      (`// --- title ---`, `# === title ===`) hits, including the two lines
+#      kriskowal flagged on endojs/endo-but-for-bots#1125 (review 5215956390).
+#   8. NOT-BRACKETED: `// foo -- bar`, `// a -> b`, prose with dashes, and JSDoc
+#      `**bold**` emphasis do not hit.
 #
 # Hermetic: throwaway git repos, no network, no systemd. The test itself draws no
 # real banner in its own source — the fixtures are built into throwaway files, so
@@ -101,6 +106,31 @@ printf 'first = 1;\n// %s\n' "$(rule 20)" > "$R6/file.js"
 git -C "$R6" add -A; git -C "$R6" commit -qm only >/dev/null   # no HEAD~1
 "$DET" check "$R6" >/dev/null 2>&1 \
   && bad "check hit with no resolvable base" || ok "check: unresolvable base -> clean & quiet (exit 1)"
+
+# --- 7: BRACKETED TITLE — each shape hits on its own ---------------------
+# hits <label> <file> <line> — assert the single added line is a banner.
+hits() {
+  local label="$1" f="$2" line="$3" r
+  r="$(mktemp -d "$TR/br.XXXXXX")"; make_repo "$r" "$f"
+  commit_lines "$r" "$f" 'const base = 1;' "$line"
+  "$DET" check "$r" >/dev/null 2>&1 && ok "check: $label hits" || bad "check missed $label: $line"
+}
+misses() {
+  local label="$1" f="$2" line="$3" r
+  r="$(mktemp -d "$TR/nb.XXXXXX")"; make_repo "$r" "$f"
+  commit_lines "$r" "$f" 'const base = 1;' "$line"
+  "$DET" check "$r" >/dev/null 2>&1 && bad "check flagged $label: $line" || ok "check: $label is NOT a banner"
+}
+hits '#1125 fallible-work title' manager.js '        // --- Fallible work, before the consume ---'
+hits '#1125 consume-last title' manager.js '        // --- Consume, last: only now that the fallible work has succeeded ---'
+hits 'hash equals title' file.ts '# === Title ==='
+hits 'JSDoc tilde title' file.js ' * ~~ Section ~~'
+hits 'block-comment title' file.js '/* -- Section -- */'
+misses 'double-dash prose' file.js '// foo -- bar'
+misses 'directional arrow' file.js '// a -> b'
+misses 'prose with dashes' file.js '// the re-entrant path -- rarely taken -- stays sync'
+misses 'JSDoc bold emphasis' file.js ' * **Note** this is emphasis'
+misses 'leading run only' file.js '// -- not a bracket'
 
 echo "----------------------------------------------------------------"
 echo "detect-banners: $PASS passed, $FAIL failed"
