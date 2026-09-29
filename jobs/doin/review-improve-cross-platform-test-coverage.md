@@ -60,3 +60,13 @@ it and demonstrate the probe fires on that PR's historical diff (#836, #475, #12
 fetch via `gh pr diff`). Then close the cluster:
 `scripts/jobs/review-miss-record.sh cluster-status cross-platform-test-coverage closed --improved-by "<commits/files>"`.
 Garden edits land directly on main2 (no PR).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T18:09:12Z
