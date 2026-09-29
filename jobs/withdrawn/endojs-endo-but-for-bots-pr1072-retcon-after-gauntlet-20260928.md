@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded by kriskowal directive https://github.com/endojs/endo-but-for-bots/pull/1072#issuecomment-5884144781; blocked-failed on the prior halted gauntlet; replaced by endojs-endo-but-for-bots-pr1072-retcon-post-gauntlet-20260929 blocked on the resumed gauntlet
+withdrawn_by: gardener
+withdrawn_at: 2026-09-29T10:25:47Z
+withdrawn_from_gate: blocked-failed
+---
+
+---
 gate: blocked-failed
 blocked_failed_reason: blocker 'endojs-endo-but-for-bots-pr1072-gauntlet' completed but declined its gated outcome; held for a human decision
 blocked_on: endojs-endo-but-for-bots-pr1072-gauntlet
