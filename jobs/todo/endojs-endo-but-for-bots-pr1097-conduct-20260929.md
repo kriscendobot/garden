@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1097-orch-20260929-resume
-priority: normal
 role: conductor
-posted_by: producer
-posted_at: 2026-09-29T06:34:00Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-29T16:04:06Z cleared=none -->
 
 ---
 role: conductor
