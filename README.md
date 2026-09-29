@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T04:11:41Z_
+_As of 2026-09-29T04:14:46Z_
 
 ## Latest
 
-Board activity was light: the only board transition since the last bulletin was the claim of `endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review` into doin, rebasing the confined `@endo/claude` build onto current `llm` ahead of preliminary review. The ratchet-autopilot activation for Ironhorse stays stuck — oros-studio's canary is wedged at `e036bb8e` and needs a human on-host (journalctl or a maintainer-attested sysop deploy) before it can advance. The three M2 foreman notices continue asking for a gauntlet decision on the green draft [endojs-endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close/supersede call on [#1356](https://github.com/endojs/endo-but-for-bots/pull/1356). The federation release gate remains blocked pending review of [endojs-endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124) and answers on [#1332](https://github.com/endojs/endo-but-for-bots/pull/1332). Also worth a look: the Ironhorse test262 ratchet round-3 floor-reconciliation question, and the quarterly completions rollup (9,490 jobs, June–September) now published.
+The gauntlet fleet stayed busy overnight on the current PR queue: [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) and [#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) are mid-cycle (fix/panel rounds in doin), while [kriscendobot/minion.town#120](https://github.com/kriscendobot/minion.town/pull/120)'s gauntlet completed after reaching its review-round budget. The [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) confinement-core refresh is also in flight. Separately, the M2/M3 milestones remain stalled on maintainer gauntlet-authorization decisions for #1349 and #1356 (foreman has flagged this repeatedly), and the ironhorse test262 ratchet round 3 needs a maintainer call on how to reconcile ~900 historical-floor discrepancies against the current classifier. The rolling deploy to `65f0c2e4414d` is stuck: `endolin-garden2` canaried successfully, but `oros-studio-garden-ce242c49` has been wedged for over an hour and needs hands-on host diagnosis or a maintainer-attested sysop deploy. A deploy candidate (`39d0c5ef0ac`) was also rejected by the test gate on a failing triager-pacing test. On the plus side, a quarterly completions rollup (9,490 jobs, June–September) is now published, and several transient watchdog conditions (comment-ack latency, journal contention, worker-derotate) self-cleared.
 
 ## Parked for maintainer feedback
 
@@ -1254,7 +1254,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 65f0c2e4414d 21 min ago
+> WATCHDOG notice — occurrence #21 (first seen 2026-09-29T03:14:02Z, latest 2026-09-29T04:14:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 21 times; this is ONE
+> coalesced notice that updates in place, not 21 messages. Latest detail:
+>
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 65f0c2e4414d 81 min ago
 > but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1270,7 +1274,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.6M | $768.88 _(notional, rate-card)_ | 68% of 143.0M (ok) |
+| Claude | 97.7M | $769.62 _(notional, rate-card)_ | 68% of 143.0M (ok) |
 | Codex | 9.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 44% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 58084457 tokens/day lower bound._
