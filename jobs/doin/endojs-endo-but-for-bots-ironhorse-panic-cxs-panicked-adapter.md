@@ -23,6 +23,8 @@ Open a DRAFT PR through scripts/jobs/gardening/ensure-pr.sh, with `Refs: #1018` 
 § Architectural Boundary: the live C-XS worker adapter must map the existing `fxAbort` exits (stack overflow, meter abort) together with the #1150 `XsnapError::Panicked` to ONE supervisor-visible `Panicked` arm. Consume `ExecutionOutcome` (`Quiesced` / `Uncaught` / `Panicked`) on the delivery path; #1150 left that classifier unconsumed. Where the `-e ironhorse` `Machine` seam is not integrated yet (roadmap stage 8/9), land the consumer against the C-XS adapter and file the dependency note on the integration work that the design's Open Questions call for. Settle the Decode/StepLimit membership per the mentat answer.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
