@@ -18,3 +18,13 @@ Ask 1 of kriskowal's APPROVED review https://github.com/endojs/endo-but-for-bots
 Snapshot current `llm` tip to a new frozen `llm-<sha7>`, rebase the head (2 commits:
 changeset wording + cached-fs.test.js race canonicalizer) onto it, resolve conflicts,
 force-push, move the PR base. Reply on the review when done. No merge.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T08:47:54Z
