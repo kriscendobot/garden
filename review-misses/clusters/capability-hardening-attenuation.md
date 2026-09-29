@@ -2,17 +2,19 @@
 slug: capability-hardening-attenuation
 category: security-hardening
 status: improvement-dispatched
-count: 5
+count: 6
 members:
   - endojs-endo-but-for-bots-pr874-review-fd62e60e
   - endojs-endo-but-for-bots-pr881-review-5111ec6e
   - endojs-endo-but-for-bots-pr881-review-b8bb5665
   - endojs-endo-but-for-bots-pr881-review-baf7087b
   - endojs-endo-but-for-bots-pr881-review-d23c8dbf
-prs: [874, 881]
+  - endojs-endo-but-for-bots-pr1125-23cf90c0
+prs: [874, 881, 1125]
 improvement_job: review-improve-capability-hardening-attenuation
 improved_by: main2 37b04ec909: roles/builder/AGENT.md (structural-hardening directive) + roles/jurors/locksmith/AGENT.md (runtime-flag-attenuation finding)
 ---
+
 
 
 
