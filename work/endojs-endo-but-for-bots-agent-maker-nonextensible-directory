@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-09-29T06:35:37Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-agent-maker-nonextensible-directory
+pr_number: 1368
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1368
+pr_head: bot/build/agent-maker-nonextensible-directory
