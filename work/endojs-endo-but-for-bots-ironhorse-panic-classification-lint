@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-29T10:01:38Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-endojs-endo-but-for-bots-ironhorse-panic-classification-lint
+pr_number: 1373
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1373
+pr_head: ironhorse-panic-classification-lint
