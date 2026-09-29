@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T11:33:20Z_
+_As of 2026-09-29T11:35:57Z_
 
 ## Latest
 
-Board activity since the last bulletin was minimal: fix round 6 of the gauntlet on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) was claimed off todo into doin, its round-5 fix/panel work landed in tada, and a completion receipt posted for [endojs/endo-but-for-bots#1286](https://github.com/endojs/endo-but-for-bots/pull/1286). A fresh rolling-deploy canary probe was queued for endolin-garden2-5bcdff64 @ c9bfa87823ea. The bigger story sits in the maintainer inbox rather than the board: the leader host is stalled 25 commits behind on deploy, a rolling-deploy canary on oros-studio-garden-ce242c49 halted after three failed retries and needs a manual decision, and M2/M3 milestone progress remains gated on several outstanding gauntlet-authorization and PR-disposition calls (notably [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), #1356, #1015, and #1340).
+One new job posted since the last bulletin — a timer release for the IronHorse ratchet autopilot round 4 (`ironhorse-ratchet-r4-timer-20260929`), currently parked in `todo`. The board otherwise churned heavily in the background: four jobs are active in `doin`, including a round-6 fix pass on [endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362) and a base-pin weave on [endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097). The maintainer inbox has accumulated a large backlog of unread notices worth a look when free: a **halted rolling deploy** on host oros-studio-garden-ce242c49 after three failed canary retries on a confirmed regression (auto-rollback deliberately not performed), plus a **stalled leader deploy** — the leader is 25 commits behind `origin/main2` and therefore not honoring any directive newer than its deployed SHA. Several foreman notices repeat the same ask: authorize `run the gauntlet` on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (or its duplicate #1356) to unblock milestone M2, and M3 needs a decision between advancing #1015 or answering open questions on #1340. The IronHorse test262 ratchet round 3 also needs a maintainer call on how to reconcile 906 historical "covered" paths against the current, stricter classifier.
 
 ## Parked for maintainer feedback
 
@@ -458,16 +458,17 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.1M | $896.70 _(notional, rate-card)_ | 87% of 143.0M (backoff) |
-| Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
+| Claude | 124.2M | $897.29 _(notional, rate-card)_ | 87% of 143.0M (backoff) |
+| Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 61982834 tokens/day lower bound._
+_Fleet token-unlock pace: 63204960 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (7)
+- [`ironhorse-ratchet-r4-timer-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ironhorse-ratchet-r4-timer-20260929.md) — Timer: release activate-ironhorse-ratchet-autopilot-20260929-r4
 - [`endojs-endo-but-for-bots-pr1072-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1072-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1072
 - [`canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ c9bfa87823ea
 - [`endojs-endo-but-for-bots-pr1286-review-cc7d78b9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1286-review-cc7d78b9.md) — Review directive on endojs/endo-but-for-bots PR #1286
