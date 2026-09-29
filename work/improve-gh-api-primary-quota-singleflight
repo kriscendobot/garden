@@ -1,5 +1,0 @@
-host: oros-studio-garden-ce242c49
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-09-29T19:55:37Z
-worktree_dir: /Users/dom/garden/scratch/gardener-wt-improve-gh-api-primary-quota-singleflight
