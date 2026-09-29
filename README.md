@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T03:42:34Z_
+_As of 2026-09-29T03:44:21Z_
 
 ## Latest
 
-The gauntlet on [kriscendobot/minion.town#120](https://github.com/kriscendobot/minion.town/pull/120) advanced a round: fix-5 completed and panel-6 is now running. Separately, a deadmail follow-up job was opened to fold a late issue comment back into its originating work.
+Fleet activity was mostly quiet on the board (no fresh todo/doin/tada transitions since the last bulletin), but the maintainer inbox filled with decisions gating three milestones. M2 is stalled entirely on manual gauntlet authorization: draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) is CI-green and ready for `run the gauntlet #1349`, while sibling draft #1356 is now considered superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/issues/3332) and just needs a close decision. M3's confined-agent track is similarly blocked between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (pending its #1348 prerequisite) or answering four open design questions on #1340/#1332. The [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) gauntlet itself (fix round 4) has two must-fix items only the maintainer can settle: whether to lift the JSON agent-tools parking from #731 for this slice, and whether the ledger's deferred Phase 2/4 work should reclassify the PR as a probe.
+
+Operationally, the rolling deploy to `main2` is currently wedged: canary `oros-studio-garden-ce242c49` is stuck at the old commit after the leader and `endolin-garden2` advanced, blocking the queued Ironhorse ratchet-autopilot activation — this needs hands-on host diagnosis or a maintainer-attested sysop deploy. Separately, the ironhorse test262 ratchet round 3 needs a floor-reconciliation decision (906 historical covered paths now failing under the stricter classifier), and the endo/minion.town federation release gate remains blocked pending review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124) and answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332).
 
 ## Parked for maintainer feedback
 
@@ -239,6 +241,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 - `20260928T174334Z-b75912` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T174334Z-b75912.md)
 
 > Milestone M2 is blocked: its remaining work is in clean draft PRs [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349) and #1356. Decide whether to promote either for the manual gauntlet.
+
+- `20260929T034336Z-473eb2` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T034336Z-473eb2.md)
+
+> awaiting maintainer — beyond proxy authority: gardener activate-ironhorse-ratchet-autopilot-20260929-r3, msgid msg-activate-ironhorse-ratchet-autopilot-20260929-r3-35b22755c4d2.md — Requires maintainer action: hands-on-host diagnosis (journalctl on oros-studio) or a sysop `deploy` op, which mandates maintainer attestation (`authorized_by:` on `maintainers/allowlist`) — squarely outside proxy authority.
 
 - `doomed-endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-endojs-endo-but-for-bots-pr1015-refresh-for-review-20260919-requeue-exhausted.md)
 
@@ -1272,7 +1278,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.0M | $763.65 _(notional, rate-card)_ | 67% of 143.0M (ok) |
+| Claude | 96.1M | $764.14 _(notional, rate-card)_ | 67% of 143.0M (ok) |
 | Codex | 9.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55257688 tokens/day lower bound._
