@@ -1,8 +1,5 @@
-once: 2026-09-29T11:30:00Z
-job_basename_prefix: ironhorse-ratchet-r4-timer-20260929
 ---
----
-tier: minion
+tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---
