@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T14:08:35Z_
+_As of 2026-09-29T14:11:20Z_
 
 ## Latest
 
-The most pressing item is a stalled deploy: the leader host (endolin-garden-ece02cb4) has been running deployed commit `e036bb8e` for roughly a day while `main2` has advanced 25 commits ahead, and since this host runs every singleton producer (foreman, scheduler, watchers), it isn't honoring anything newer — including a rejected deploy candidate (`39d0c5ef0`) that failed the triager-pacing test gate. Separately, a rolling-deploy canary on oros-studio-garden-ce242c49 failed three automatic retries and was left drained pending a decision; that host is also flagged offline on heartbeat, with worker-derotate having zeroed its capacity until it's restored.
-
-On the review side, the foreman has repeatedly flagged Milestone M2 as blocked on disposing of two draft PRs — [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened text-codec shim, CI-green, awaiting `run the gauntlet`) and [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) (superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332), recommended for closure) — and M3 is blocked choosing between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering open questions on design PR #1340. The minion.town federation release gate remains blocked on maintainer review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124) and authority-question answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332). The IronHorse test262 ratchet round-3 gardener needs a policy call on reconciling 906 lost historical-floor paths rather than silently relabeling them covered. On the lighter side, a quarterly completions dashboard (9,490 completions since June 24) was published and verified live.
+Board activity was quiet this cycle — no job-board transitions resolved since the last bulletin — but the inbox surfaced several items worth the maintainer's attention. M2 is stalled on manual gauntlet authorization: the foreman has repeatedly flagged draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) as the sole remaining unblocked step, alongside a decision to close duplicate #1356 as superseded by upstream endo/endo#3332. M3 is similarly waiting on a choice between advancing #1015 (confinement core, pending its #1348 prerequisite) or answering four open design questions on #1340. The rolling deploy hit a confirmed, retried-and-failed canary on host oros-studio-garden-ce242c49 at 18df481c04b — the host was left drained pending investigation, and separately the root repo guard reports the leader is now 25 commits behind origin/main2 with no deploy landing, which matters because a stale leader silences every singleton producer (foreman, scheduler, watchers). A deploy candidate (39d0c5ef0ac) was also rejected by the test gate on a failing triager-pacing suite. On the research side, ironhorse test262 ratchet round 3 needs a maintainer call on reconciling ~906 historical floor discrepancies rather than relabeling failures as covered, and a quarterly completions rollup (9,490 jobs, June–September) has been published. Other open decisions: the minion.town MCP rollout awaits a principal/credential decision before widening past garden2, and `build-daemon-docker-selfhost` keeps re-spawning against a design the maintainer already declined — it needs to be marked Declined/Superseded to stop recurring.
 
 ## Parked for maintainer feedback
 
@@ -72,10 +70,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 4. Say "run the gauntlet [endojs/endo-but-for-bots#1333](https://github.com/endojs/endo-but-for-bots/issues/1333)" once it has been re-pointed at llm.
 >
 > This job is parked on [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) (block-job.sh) and resumes automatically when that PR merges or closes. On resume it re-checks merged vs. closed.
-
-- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-25123fdae03a-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-25123fdae03a-r2.md)
-
-> Host-requirements gate: job 'canary-probe-endolin-garden2-5bcdff64-25123fdae03a-r2' has remained unclaimed for 902s with requires: host=endolin-garden2-5bcdff64. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -203,7 +197,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/repo-watcher/journal: packs 1001 >= 1000; size=316389376B packs=1001 gc.log=0; automatic remedy=applied.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` has CLEARED (first seen 2026-09-29T14:04:43Z, cleared 2026-09-29T14:09:35Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
@@ -491,13 +489,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.2M | $918.84 _(notional, rate-card)_ | 90% of 143.0M (backoff) |
+| Claude | 129.4M | $919.48 _(notional, rate-card)_ | 90% of 143.0M (backoff) |
 | Codex | 14.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61907889 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (10)
