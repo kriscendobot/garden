@@ -28,3 +28,13 @@ Build (deterministic, no LLM in the gate path; tests under scripts/jobs/test/):
 3. Self-continuation: every arc engagement (the mentat ratchet-watcher step, and any crank builder it dispatches) ends by parking exactly one deferred successor `ironhorse-test262-press-<UTC stamp>` with `not_before = now + press interval` (propose 6h; make it config) carrying the arc marker, idempotent against a live successor. A halted/paused/revoked arc parks none. Make the foreman-promoted successor satisfy the watcher's claim/handler gates in place of the scheduler-canonical basename.
 4. Update context/operations/ironhorse-ratchet.md (and skills/job-board / schedule docs where they describe press cadence), land on main2, verify on the deployed leader before seeding the first successor plan.
 5. Reply on https://github.com/kriscendobot/garden/issues/51 with what landed and how to set the budget/interval; refresh the issue title/body if state changed. Never close the issue.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T08:20:33Z
