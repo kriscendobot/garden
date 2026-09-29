@@ -16,3 +16,13 @@ Steps:
 4. Post one top-level PR comment giving the decision, the rationale, and what (if anything) remains open.
 
 Note: the approval reconciler auto-posted a mentor-tier `kriscendobot-minion.town-pr120-conduct` job. It was asked by inbox message to stand down in favor of this job. If that job already merged the PR, confirm the result and report any open feedback as follow-ups.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T06:39:51Z
