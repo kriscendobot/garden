@@ -1,7 +1,7 @@
 ---
 slug: cross-platform-test-coverage
 category: test-gap
-status: improvement-dispatched
+status: closed
 count: 3
 members:
   - endojs-endo-but-for-bots-pr836-review-eda700a0
@@ -9,7 +9,9 @@ members:
   - endojs-endo-but-for-bots-pr1290-review-fe19b903
 prs: [836, 475, 1290]
 improvement_job: review-improve-cross-platform-test-coverage
+improved_by: main2 622ac410f43: skills/panel-hints/probes/C-platform-arm.sh, scripts/jobs/gardening/seat-gate-coverage-auditor.sh, skills/coverage-driven-testing/SKILL.md § Platform-conditional arms, roles/builder/AGENT.md, roles/jurors/{coverage-auditor,engine-realist}/AGENT.md, scripts/jobs/test/cross-platform-test-coverage-probe-test.sh
 ---
+
 
 
 
