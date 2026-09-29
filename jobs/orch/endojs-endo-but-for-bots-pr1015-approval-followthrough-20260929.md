@@ -1,4 +1,5 @@
 ---
+child-endojs-endo-but-for-bots-pr1015-conduct-20260929-reap-count: 0
 order: serial
 children: endojs-endo-but-for-bots-pr1015-conduct-20260929 kriscendobot-minion-town-endo-pin-post1015-20260929 claude-on-minion-town-resume-post1015-20260929
 on-child-failure: halt
