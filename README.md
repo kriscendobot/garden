@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T12:59:53Z_
+_As of 2026-09-29T13:04:50Z_
 
 ## Latest
 
-Milestone M2's remaining work has stalled entirely on maintainer disposition: the foreman has repeated the same ask across a dozen inbox messages — authorize "run the gauntlet" for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and decide whether to close #1356 as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is similarly blocked pending a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the four open questions on #1340. The IronHorse test262 ratchet (round 3) surfaced a real policy question rather than a mechanical one: the current classifier now correctly demotes several hundred previously-"covered" paths, and the gardener wants explicit sign-off on reconciling the historical floor rather than quietly relabeling them. Two rolling-deploy canaries (oros-studio and endolin-garden2) failed repeatedly and are halted with the hosts drained, needing manual investigation before the roll can resume, and the leader itself is now 25 commits behind origin/main2 with a deploy stall flagged. The minion.town federation release gate remains blocked on three sequential PR approvals ([endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332), [#1124](https://github.com/endojs/endo-but-for-bots/pull/1124), [#1333](https://github.com/endojs/endo-but-for-bots/pull/1333)) plus [kriscendobot/minion.town#117](https://github.com/kriscendobot/minion.town/pull/117). On the lighter side, a quarterly completions rollup (9,490 jobs, June–September) published successfully, and the minion.town MCP integration is proven live on garden2 pending maintainer decisions on principal/scoping before wider rollout.
+Board activity was minimal since the last bulletin — a single job (`endojs-endo-but-for-bots-pr1343-unify-endowments`) was claimed and then returned to `todo` without completing. The larger story is a rolling-deploy incident: the leader halted canaries on both `oros-studio-garden-ce242c49` and `endolin-garden2-5bcdff64` after repeated probe failures, diagnosed the root cause as a claim-ordering bug (workers weren't preferring canary-probe jobs), and landed a fix on `main2` (`25123fdae03`) that the roll has now picked up as its new target. The leader itself (`endolin-garden-ece02cb4`) is still 25 commits behind `origin/main2` and stalled on deploy, so none of this newer code — including the ratchet gates and foreman press work — is live there yet; `oros-studio-garden-ce242c49` also remains offline (heartbeat stale ~3h+), skipped by the roll. Elsewhere, the Ironhorse test262 ratchet round-3 sweep surfaced a policy question worth a maintainer decision: reconciling ~906 lost paths against the historical floor rather than silently relabeling them as covered. A quarterly completions rollup (9,490 jobs, June–September) was also published for review.
 
 ## Parked for maintainer feedback
 
@@ -134,6 +134,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `msg-activate-ironhorse-ratchet-autopilot-20260929-r4-8e94bede58af` — from gardener:activate-ironhorse-ratchet-autopilot-20260929-r4, reply_to `activate-ironhorse-ratchet-autopilot-20260929-r4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-activate-ironhorse-ratchet-autopilot-20260929-r4-8e94bede58af.md)
+
+> Rolling-deploy HALT diagnosis (activate-ironhorse-ratchet-autopilot-20260929-r4):
+>
+> The roll HALTED at 12:44Z on canary endolin-garden2 for c9bfa87823e ("probe did not reach tada within 600s", retries exhausted). The leader endolin-garden-ece02cb4 is still on e036bb8e065, which predates both the ratchet gates (c3aae0b2c0c) and the foreman press (9bf25f4362f).
+>
+> The new code was not broken. garden2 has one worker. Claim order was an id-offset rotation that didn't prefer probes. That worker claimed endojs-endo-but-for-bots-pr1362-gauntlet-fix-6 (7200s timeout) at 11:32:08, one second after probe r1 was posted. Probes r1, r2 and r3 (and the earlier 9bf25f4-r1 probe) sat in todo and were never claimed. Earlier probes on garden2 all passed.
+>
+> Fix: main2 25123fdae03 makes claim-job.sh try canary-probe: true candidates first. New test canary-probe-claim-priority-test.sh fails without the fix and passes with it. The roll has picked 25123fdae03 as its new target (settling at 13:02Z), so it restarts without a bypass. garden2 will defer behind the running pr1362 fix job first.
+>
+> oros-studio-garden-ce242c49 is still OFFLINE: heartbeat stale about 3h, stuck at e036bb8e. The roll skips it. It needs your attention on that host.
+>
+> No cap reply on [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51), so no arc budget is installed. I'll seed the first press only after the leader deploys, because the old foreman would promote it ungated.
+>
+> The stale probe jobs left in todo are inert (they're host-pinned to garden2). Once the new code is live, garden2 will claim them first and complete them as no-ops.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -474,7 +490,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 126.8M | $905.31 _(notional, rate-card)_ | 89% of 143.0M (backoff) |
+| Claude | 127.0M | $906.90 _(notional, rate-card)_ | 89% of 143.0M (backoff) |
 | Codex | 14.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63324893 tokens/day lower bound._
@@ -483,20 +499,20 @@ _Fleet token-unlock pace: 63324893 tokens/day lower bound._
 worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`endojs-endo-but-for-bots-ironhorse-panic-debugger-panic-break`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-debugger-panic-break.md) — Debugger: <panic> wire message and stop-the-world at the panic site
 - [`canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r3.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ c9bfa87823ea
 - [`endojs-endo-but-for-bots-pr1072-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1072-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1072
 - [`canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r2.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ c9bfa87823ea
 - [`canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ c9bfa87823ea
+- [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — ---
 - [`canary-probe-endolin-garden2-5bcdff64-9bf25f4362f9-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-9bf25f4362f9-r1.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 9bf25f4362f9
 - [`claude-on-minion-town-press-20260929-115007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260929-115007.md) — Press the Claude-on-minion.town arc forward
 - [`canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-c9bfa87823ea.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ c9bfa87823ea
 - [`endojs-endo-but-for-bots-pr1097-weave-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-weave-20260929.md) — Weave endojs/endo-but-for-bots PR #1097 (advance the base pin)
 - [`endojs-endo-but-for-bots-pr1293-receipt`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1293-receipt.md) — receipt (auto) — completion receipt for endojs/endo-but-for-bots PR #1293 (cl...
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — ---
+### doin (1)
 - [`activate-ironhorse-ratchet-autopilot-20260929-r4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929-r4.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued, r...
 
 ### tada (9643)
