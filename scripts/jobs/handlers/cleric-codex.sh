@@ -31,6 +31,10 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/../common.sh"
 # shellcheck source=worker-common.sh
 source "$HERE/worker-common.sh"     # shared worktree lifecycle + prompt (anti-drift)
+# minion.town MCP attach (fail-open: a missing lib must never stop a job, so it
+# degrades to "never attach").
+# shellcheck source=../minion-mcp-lib.sh
+if [ -f "$HERE/../minion-mcp-lib.sh" ]; then source "$HERE/../minion-mcp-lib.sh"; else minion_mcp_prepare() { return 1; }; fi
 # shellcheck source=codex-provider-common.sh
 source "$HERE/codex-provider-common.sh" # shared Codex/OpenAI/Ollama conventions
 
@@ -283,6 +287,17 @@ if [ "$provider" = local ] || $custom_openai_compat; then
   else
     log "job '$base' running on $provider provider (explicit model selected; endpoint configured)"
   fi
+fi
+
+# minion.town MCP (standing order; context/operations/minion-town-mcp.md): declare the
+# shared stdio bridge inline via `-c`, like the provider block above, so nothing is
+# persisted to ~/.codex/config.toml. The bridge fetches its bearer per request, which
+# `bearer_token_env_var` (read once at startup) cannot do across a 3600s token.
+# Fail-open: one log line and the job runs without it.
+if minion_mcp_prepare "$base" "$jobfile"; then
+  minion_mcp_codex_args
+  codex_args+=("${MINION_MCP_CODEX_ARGS[@]}")
+  log "job '$base' attaching minion.town MCP (stdio bridge)"
 fi
 
 set +e

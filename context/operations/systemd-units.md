@@ -62,6 +62,7 @@ systemd `%i` value described in the detailed entry.
 | `garden-watchman` | 2 minutes after the prior run | host; broadcast leader-only in-loop | Broadcast role and skill changes after deploy. |
 | `garden-root-repo-guard` | every 30 minutes at `:22` | host | Check and repair deployed-root and inode invariants. |
 | `garden-container-hardening` | daily at 06:17 and 18:17 host time | host | Probe the container's unprivileged posture. |
+| `garden-minion-mcp-watchdog` | every 10 minutes at `:04` | host | Probe and reconnect the minion.town MCP connection; edge-latched alert. |
 | `garden-journal-contention-watch` | 3 minutes after boot, then 5 minutes | host | Detect journal contention and remedy bloated clones. |
 | `garden-journal-worktree-keeper` | every 30 minutes at `:15` | host | Keep the shared journal read worktree current and recover divergence. |
 | `garden-clone-keeper` | every 30 minutes at `:00` | host | Fetch and fast-forward standing bare clones. |
@@ -551,6 +552,15 @@ Foreman brake affects none. Inspect and mask the matching pair. See
   `$GARDEN_STATE/root-repo-guard` and `$GARDEN_STATE/deploy/dirty-tree-backups`;
   notices go to the journal maintainer inbox. Key knobs set fetch bounds and
   leader/follower stall thresholds.
+- **`garden-minion-mcp-watchdog.timer`, `garden-minion-mcp-watchdog.service`:**
+  every host at `:04/10`; runs `scripts/jobs/minion-mcp-watchdog.sh` (no LLM)
+  with a 10-minute unit timeout. It honors the `config/minion-mcp` gate and
+  otherwise probes token acquisition plus MCP `initialize`/`tools/list` through
+  the worker stdio bridge. On failure it forces a fresh token and re-probes, then
+  posts one edge-latched `watchdog-notice.sh` notice
+  (`minion-mcp-connection-<GARDEN>`) and a recovery close-out. State and the
+  heartbeat are in `$GARDEN_STATE/minion-mcp`. See
+  [minion-town-mcp.md](minion-town-mcp.md).
 - **`garden-container-hardening.timer`,
   `garden-container-hardening.service`:** every host at 06:17 and 18:17; runs
   `scripts/check-container-hardening.sh` and treats the documented pending-image

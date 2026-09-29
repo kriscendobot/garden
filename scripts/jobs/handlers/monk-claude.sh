@@ -19,6 +19,10 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/../common.sh"
 # shellcheck source=worker-common.sh
 source "$HERE/worker-common.sh"     # shared worktree lifecycle + prompt (anti-drift)
+# minion.town MCP attach (fail-open: a missing lib must never stop a job, so it
+# degrades to "never attach").
+# shellcheck source=../minion-mcp-lib.sh
+if [ -f "$HERE/../minion-mcp-lib.sh" ]; then source "$HERE/../minion-mcp-lib.sh"; else minion_mcp_prepare() { return 1; }; fi
 
 base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report-out}"
 
@@ -300,6 +304,18 @@ if [ "$provider" = ollama-cloud ]; then
   )
 fi
 
+# --- minion.town MCP (standing order; context/operations/minion-town-mcp.md) ----
+#
+# Attach the minion.town MCP server via the shared stdio bridge. Fail-open: a gate
+# that says no, or a failed token preflight, logs one line and the job runs without
+# it. --mcp-config is variadic, so the array is placed where the next argument is an
+# option (never directly before the prompt).
+mcp_args=()
+if minion_mcp_prepare "$base" "$jobfile"; then
+  mcp_args=(--mcp-config "$(minion_mcp_claude_config)")
+  log "job '$base' attaching minion.town MCP (stdio bridge)"
+fi
+
 # The terminal JSON envelope is Claude's own cumulative accounting for exactly this
 # invocation. Keep it outside the report: the report remains the agent's .result,
 # while the code-only handoff gives gardener.sh the immutable measurement. Do not
@@ -361,9 +377,9 @@ claude_call() {
   set +e
   set -m
   if [ -x /usr/bin/time ]; then
-    ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format stream-json --verbose --dangerously-skip-permissions --max-budget-usd "$call_budget" "$@" "${model_args[@]}" "$call_prompt" ) > "$envelope" &
+    ( cd "$worktree" && /usr/bin/time -o "$rusage" -f '%U\t%S\t%M' env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p "${mcp_args[@]}" --output-format stream-json --verbose --dangerously-skip-permissions --max-budget-usd "$call_budget" "$@" "${model_args[@]}" "$call_prompt" ) > "$envelope" &
   else
-    ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p --output-format stream-json --verbose --dangerously-skip-permissions --max-budget-usd "$call_budget" "$@" "${model_args[@]}" "$call_prompt" ) > "$envelope" &
+    ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE "${provider_auth_env[@]}" "$claude_cli" -p "${mcp_args[@]}" --output-format stream-json --verbose --dangerously-skip-permissions --max-budget-usd "$call_budget" "$@" "${model_args[@]}" "$call_prompt" ) > "$envelope" &
   fi
   claude_pgid=$!
   set +m
@@ -467,7 +483,7 @@ if [ "$lane" = pty ] && [ "$provider" = anthropic ]; then
   printf '%s' "$prompt" > "$prompt_file"
   set +e
   "$HERE/../pty-lane/run.sh" "$base" "$worktree" "$session_id" "$resuming" "$report" \
-    "$prompt_file" "$claude_cli" -- "${session_args[@]}" "${model_args[@]}" --dangerously-skip-permissions
+    "$prompt_file" "$claude_cli" -- "${session_args[@]}" "${model_args[@]}" "${mcp_args[@]}" --dangerously-skip-permissions
   rc=$?
   set -e
   rm -f "$prompt_file" 2>/dev/null || true

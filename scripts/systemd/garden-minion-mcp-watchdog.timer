@@ -1,0 +1,13 @@
+[Unit]
+Description=Garden minion.town MCP watchdog timer
+
+[Timer]
+# Absolute wall-clock schedule every 10 minutes (offset :04), not a relative
+# OnUnitActiveSec pair that the fleet's frequent daemon-reload can defer forever (see
+# garden-root-repo-guard.timer). Ten minutes also keeps the host's token cache warm:
+# the probe refreshes a token inside its 600s refresh margin before a job needs it.
+OnCalendar=*:04/10
+Persistent=true
+
+[Install]
+WantedBy=timers.target

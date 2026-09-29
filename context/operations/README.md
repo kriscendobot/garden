@@ -1,6 +1,6 @@
 ---
 created: 2026-07-04
-updated: 2026-09-28
+updated: 2026-09-29
 author: gardener
 ---
 
@@ -19,6 +19,11 @@ schedule). The conversational first-run tour is the sibling tree,
 
 - **[cybernetics.md](cybernetics.md)** — budget admission, subscription metering,
   fleet allocation, controller restraint, decision records, and known gaps.
+
+- **[minion-town-mcp.md](minion-town-mcp.md)** — the standing order keeping
+  every worker harness connected to the minion.town MCP server. It covers the
+  token cache, the stdio bridge, the per-host watchdog, the fleet-wide
+  `config/minion-mcp` switch, and the per-harness coverage and known gaps.
 
 - **[harden-container.md](harden-container.md)** — recreate older privileged
   containers and distinguish pending recreation from security regressions.

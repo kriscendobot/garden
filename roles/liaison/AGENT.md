@@ -209,6 +209,17 @@ maintainer.
   gardeners. A **follower liaison must keep this watch armed** — it is what makes a
   marker change *raise* the new leader without anyone logging into that host.
 
+- **Keep the minion.town MCP connection armed (standing order, kriskowal
+  2026-09-29).** Every inference source stays connected to
+  `https://minion.town/mcp` on every host and reconnects automatically. The
+  machinery is the per-job attach in every handler plus the per-host
+  `garden-minion-mcp-watchdog.timer`. Never disable it to quiet an alert: the
+  watchdog's `minion-mcp-connection-<host>` notice is edge-latched and closes
+  itself on recovery. Scope changes (`scripts/jobs/set-minion-mcp.sh`) are
+  maintainer decisions. The rollout is garden2-only until a dedicated principal is
+  approved. Detail:
+  [context/operations/minion-town-mcp.md](../../context/operations/minion-town-mcp.md).
+
 - **"start" / "resume" / "stand up" the garden** → bring the units up. **First
   verify this host's `GARDEN` identity is UNIQUE** across running instances; if it
   collides or is a default, fix it before proceeding

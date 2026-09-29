@@ -12,6 +12,10 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/../common.sh"
 # shellcheck source=worker-common.sh
 source "$HERE/worker-common.sh"
+# minion.town MCP attach (fail-open: a missing lib must never stop a job, so it
+# degrades to "never attach").
+# shellcheck source=../minion-mcp-lib.sh
+if [ -f "$HERE/../minion-mcp-lib.sh" ]; then source "$HERE/../minion-mcp-lib.sh"; else minion_mcp_prepare() { return 1; }; fi
 # shellcheck source=kimi-provider-common.sh
 source "$HERE/kimi-provider-common.sh"
 
@@ -51,6 +55,16 @@ worker_ensure_worktree "$worktree" "$main_branch" "$resuming"
 umask 077
 mkdir -p "$kimi_home"
 chmod 700 "$kimi_home" 2>/dev/null || true
+
+# minion.town MCP (standing order; context/operations/minion-town-mcp.md). Kimi Code
+# reads MCP servers only from $KIMI_CODE_HOME/mcp.json, so write (or remove) it in the
+# job's private home on every launch; a resumed job re-evaluates the gate. Fail-open.
+if minion_mcp_prepare "$base" "$jobfile"; then
+  minion_mcp_kimi_write "$kimi_home" on
+  log "job '$base' attaching minion.town MCP (stdio bridge)"
+else
+  minion_mcp_kimi_write "$kimi_home" off
+fi
 
 if $resuming; then
   log "resuming Kimi Code session for requeued job '$base' in $kimi_home"

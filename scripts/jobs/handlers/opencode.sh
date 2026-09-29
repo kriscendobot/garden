@@ -7,6 +7,10 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/../common.sh"
 # shellcheck source=worker-common.sh
 source "$HERE/worker-common.sh"
+# minion.town MCP attach (fail-open: a missing lib must never stop a job, so it
+# degrades to "never attach").
+# shellcheck source=../minion-mcp-lib.sh
+if [ -f "$HERE/../minion-mcp-lib.sh" ]; then source "$HERE/../minion-mcp-lib.sh"; else minion_mcp_prepare() { return 1; }; fi
 
 base="${1:?base}"; jobfile="${2:?jobfile}"; report="${3:?report-out}"
 KIND="${GARDEN_WORKER_KIND:-opencode-anthropic}"
@@ -74,6 +78,13 @@ $resuming && args+=(--session "$resume_sid")
 # longer a supported CLI variable. external_directory=deny bounds tool access to
 # the per-job cwd while --auto permits the ordinary in-worktree tool loop.
 config='{"permission":{"external_directory":"deny"},"share":"disabled","autoupdate":false}'
+# minion.town MCP (standing order; context/operations/minion-town-mcp.md): merge the
+# shared stdio bridge into the per-job config as an OpenCode `local` MCP server.
+# Fail-open. UNVERIFIED on a live opencode (not installed on the proving host).
+if minion_mcp_prepare "$base" "$jobfile"; then
+  config="$(minion_mcp_opencode_config "$config")"
+  log "job '$base' attaching minion.town MCP (stdio bridge)"
+fi
 set +e
 ( cd "$worktree" && \
   XDG_DATA_HOME="$data_home" XDG_CONFIG_HOME="$config_home" XDG_CACHE_HOME="$cache_home" \
