@@ -21,3 +21,13 @@ Remaining (PR write surface only):
    (ask 1: "Please advance the base pin") with a short top-level PR comment: base pin advanced
    `llm-db664fa` → `llm-1706e63`, head `273765a08`, clean rebase (no conflicts), cached-fs tests 8/8 pass.
 No merge.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T09:32:44Z
