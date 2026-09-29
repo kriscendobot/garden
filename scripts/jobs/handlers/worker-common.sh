@@ -165,6 +165,50 @@ end it with the completion signal in that same final message.
 EOF
 }
 
+# --- shared completion-nudge policy (designs/non-claude-completion-nudge-parity.md)
+#
+# A session that ends its turn CLEANLY (CLI rc 0) without the completion marker has
+# usually done the work and then stopped — most often after backgrounding a wait
+# that headless never delivers. Every backend handler may resume that same session
+# ONCE, in-process, with the honest `continue` framing, instead of paying for a
+# journal requeue, a fresh claim, and a full handler relaunch. The policy knobs and
+# admissibility checks live here so the backends cannot drift on them; each handler
+# supplies only its own CLI resume primitive (claude --resume, codex exec resume,
+# kimi --continue, opencode run --session). Bounded by GARDEN_COMPLETION_NUDGES
+# (default 1; 0 disables) and by the remaining handler wall time; the monk handler
+# additionally retains its per-call dollar floor (a stricter backend check requires
+# both). A backend with no resumable session state never nudges — ordinary requeue
+# is safer than replaying the continuation prompt into a fresh context.
+: "${GARDEN_COMPLETION_NUDGES:=1}"
+: "${GARDEN_COMPLETION_NUDGE_MIN_SECONDS:=300}"
+case "$GARDEN_COMPLETION_NUDGES" in ''|*[!0-9]*) GARDEN_COMPLETION_NUDGES=0 ;; esac
+case "$GARDEN_COMPLETION_NUDGE_MIN_SECONDS" in ''|*[!0-9]*) GARDEN_COMPLETION_NUDGE_MIN_SECONDS=300 ;; esac
+
+# worker_unfinished_marker <worktree> — the host-local unfinished-end-turn marker in
+# the worktree's PRIVATE git admin dir: it exists only while this same-host worktree
+# does and is never committed. Its presence at the next same-host claim means the
+# prior attempt STOPPED cleanly without completing (as opposed to being interrupted),
+# so that claim selects the honest `continue` framing, never the false "you were
+# interrupted" resume framing. Prints an empty string when the worktree has no
+# resolvable git dir (caller then skips marker handling).
+worker_unfinished_marker() {
+  local worktree="${1:?worker_unfinished_marker: worktree required}" d
+  d="$(git -C "$worktree" rev-parse --absolute-git-dir 2>/dev/null || true)"
+  [ -n "$d" ] && printf '%s\n' "$d/garden-unfinished-end-turn" || true
+}
+
+# worker_nudge_time_ok — 0 iff enough of the handler's wall budget remains to admit
+# one more turn: GARDEN_APPLIED_HANDLER_BUDGET (exported by gardener.sh around every
+# handler) minus elapsed handler time ($SECONDS) must be at least
+# GARDEN_COMPLETION_NUDGE_MIN_SECONDS. This keeps a handler from starting a second
+# turn immediately before the wall SIGTERMs it. An absent/invalid budget admits (a
+# direct/test invocation has no wall; the outer timeout still bounds production).
+worker_nudge_time_ok() {
+  local budget="${GARDEN_APPLIED_HANDLER_BUDGET:-}"
+  case "$budget" in ''|*[!0-9]*) return 0 ;; esac
+  [ $(( budget - SECONDS )) -ge "$GARDEN_COMPLETION_NUDGE_MIN_SECONDS" ]
+}
+
 # worker_job_prompt <base> <jobfile> <worktree> <main-branch> <mode> — the full
 # prompt a handler feeds its CLI. mode=fresh|resume|fallback selects the framing;
 # all three carry the SAME completion-signal contract, worktree note, messaging

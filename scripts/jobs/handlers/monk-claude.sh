@@ -129,9 +129,9 @@ worker_ensure_worktree "$worktree" "$main_branch" "$resuming"
 #     asked to verify the deliverable and complete (never a bare resume of a
 #     finished session; fix-finished-but-not-completed-requeue).
 # The unfinished marker lives in the worktree's private git admin dir, so it exists
-# only while this same-host worktree does and is never committed.
-unfinished_marker="$(git -C "$worktree" rev-parse --absolute-git-dir 2>/dev/null || true)"
-[ -n "$unfinished_marker" ] && unfinished_marker="$unfinished_marker/garden-unfinished-end-turn"
+# only while this same-host worktree does and is never committed (shared helper:
+# worker-common.sh § completion-nudge policy, used identically by every backend).
+unfinished_marker="$(worker_unfinished_marker "$worktree")"
 if $resuming && [ -n "$unfinished_marker" ] && [ -e "$unfinished_marker" ]; then
   prompt_mode="continue"
 elif $resuming; then
@@ -504,16 +504,21 @@ fi
 # stage-retry tick, and (before the stream fix) a resume that died in seconds. So
 # while the worktree and session are still warm, resume the SAME session once in
 # THIS process with the explicit continuation prompt: "you stopped without
-# completing; verify the deliverable and complete now". Bounded by
-# GARDEN_COMPLETION_NUDGES (default 1; 0 disables) and by the call ceiling's
-# REMAINING headroom (skipped under GARDEN_COMPLETION_NUDGE_MIN_USD), so it can
-# never spend past what a single call was allowed. The nudge's usage is summed into
-# the one handoff record so the ledger stays whole.
-: "${GARDEN_COMPLETION_NUDGES:=1}"
+# completing; verify the deliverable and complete now". Bounded by the SHARED
+# policy in worker-common.sh § completion-nudge policy — GARDEN_COMPLETION_NUDGES
+# (default 1; 0 disables) plus the remaining-wall-time floor
+# (GARDEN_COMPLETION_NUDGE_MIN_SECONDS) — and ADDITIONALLY by this backend's call
+# ceiling's REMAINING dollar headroom (skipped under
+# GARDEN_COMPLETION_NUDGE_MIN_USD), so it can never spend past what a single call
+# was allowed. The nudge's usage is summed into the one handoff record so the
+# ledger stays whole.
 : "${GARDEN_COMPLETION_NUDGE_MIN_USD:=0.50}"
-case "$GARDEN_COMPLETION_NUDGES" in ''|*[!0-9]*) GARDEN_COMPLETION_NUDGES=0 ;; esac
 nudges=0
 while [ "$nudges" -lt "$GARDEN_COMPLETION_NUDGES" ] && [ -n "$session_id" ] && unfinished_end_turn; do
+  if ! worker_nudge_time_ok; then
+    log "job '$base' ended its turn without the completion signal; no completion nudge (remaining handler wall time under ${GARDEN_COMPLETION_NUDGE_MIN_SECONDS}s floor)"
+    break
+  fi
   spent="$(jq -r '.total_cost_usd // 0' <<<"${result_event:-{\}}" 2>/dev/null || echo 0)"
   nudge_budget="$(awk -v m="$max_budget_usd" -v s="${spent:-0}" 'BEGIN{r=m-s; if (r<0) r=0; printf "%.2f", r}')"
   if ! awk -v r="$nudge_budget" -v f="$GARDEN_COMPLETION_NUDGE_MIN_USD" 'BEGIN{exit !(r+0 >= f+0)}'; then

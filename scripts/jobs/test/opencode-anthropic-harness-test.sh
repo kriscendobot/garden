@@ -34,6 +34,22 @@ case "${FAKE_OC_MODE:-success}" in
       '{"type":"step_finish","sessionID":"ses_probe_resume","part":{"cost":0.01,"tokens":{"input":10,"output":2,"cache":{"read":3,"write":4}}}}' \
       '{"type":"step_finish","sessionID":"ses_probe_resume","part":{"cost":0.02,"tokens":{"input":20,"output":5,"cache":{"read":6,"write":7}}}}' \
       '{"type":"text","sessionID":"ses_probe_resume","part":{"text":"canary complete\n<<<GARDEN-JOB-COMPLETE>>>"}}' ;;
+  nudge)
+    # First call ends cleanly WITHOUT the marker; the in-process completion nudge's
+    # second call finishes. Both calls carry one priced step_finish event.
+    calls=0; [ -f "${FAKE_OC_CALLS:?}" ] && calls="$(cat "$FAKE_OC_CALLS")"
+    calls=$((calls + 1)); printf '%s\n' "$calls" > "$FAKE_OC_CALLS"
+    if [ "$calls" -ge 2 ]; then
+      printf '%s\n' \
+        '{"type":"step_start","sessionID":"ses_probe_nudge"}' \
+        '{"type":"step_finish","sessionID":"ses_probe_nudge","part":{"cost":0.02,"tokens":{"input":20,"output":5,"cache":{"read":6,"write":7}}}}' \
+        '{"type":"text","sessionID":"ses_probe_nudge","part":{"text":"nudged to completion\n<<<GARDEN-JOB-COMPLETE>>>"}}'
+    else
+      printf '%s\n' \
+        '{"type":"step_start","sessionID":"ses_probe_nudge"}' \
+        '{"type":"step_finish","sessionID":"ses_probe_nudge","part":{"cost":0.01,"tokens":{"input":10,"output":2,"cache":{"read":3,"write":4}}}}' \
+        '{"type":"text","sessionID":"ses_probe_nudge","part":{"text":"stopped without completing"}}'
+    fi ;;
 esac
 EOF
 chmod +x "$TR/bin/opencode"
@@ -51,6 +67,7 @@ run_handler() { # mode base
     GARDEN_AGENT_BIN_ATTEMPTS=1 ANTHROPIC_API_KEY=fixture-not-a-credential \
     GARDEN_COMPLETION_SENTINEL="$sentinel" GARDEN_USAGE_FILE="$usage" \
     GARDEN_TRANSCRIPTS_SPOOL="$TR/spool" FAKE_OC_ARGS="$TR/args" FAKE_OC_MODE="$mode" \
+    FAKE_OC_CALLS="$TR/oc-calls" \
     bash "$JOBS/handlers/opencode.sh" "$base" "$job" "$report" > "$TR/$base.log" 2>&1
   run_rc=$?
   set -e
@@ -85,6 +102,26 @@ mapfile -t native_arm < <(rep_resolve_arm monk "$native_job")
   && [ "$(canonical_worker_kind opencode-anthropic)" != "$(canonical_worker_kind monk)" ] \
   && ok 'same provider/model/thoughtfulness remains a distinct kind arm' \
   || bad 'OpenCode/native arm identity collapsed or model tuples differ'
+
+echo 'COMPLETION NUDGE'
+rm -f "$TR/oc-calls" "$TR/args"
+run_handler nudge opencode-nudge
+[ "$run_rc" -eq 0 ] && [ -e "$sentinel" ] && ok 'markerless end-turn nudged to completion in-process' \
+  || bad "nudge rc=$run_rc/sentinel missing"
+[ "$(cat "$TR/oc-calls" 2>/dev/null)" = 2 ] && ok 'exactly one in-process nudge call' \
+  || bad "expected 2 opencode calls, saw $(cat "$TR/oc-calls" 2>/dev/null)"
+grep -q -- '--session ses_probe_nudge' "$TR/args" \
+  && ok 'nudge resumed the first call'\''s session id' || bad 'nudge --session arg absent'
+grep -q 'CONTINUING garden job' "$TR/args" \
+  && ok 'nudge carries the honest continue framing' || bad 'continue framing missing from nudge prompt'
+if jq -e '.total_cost_usd == 0.03 and .input_tokens == 30 and .output_tokens == 7 and
+          .cache_read_tokens == 9 and .cache_creation_tokens == 11 and .completion_nudges == 1' \
+    "$usage" >/dev/null 2>&1; then
+  ok 'usage summed across BOTH event streams with the nudge count'
+else
+  bad "nudge usage wrong: $(cat "$usage" 2>/dev/null)"
+fi
+grep -q '<<<GARDEN-JOB-COMPLETE>>>' "$report" && bad 'marker leaked into report' || ok 'marker stripped from report'
 
 echo 'REFUSED KEY'
 run_handler refused opencode-refused

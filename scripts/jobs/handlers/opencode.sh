@@ -59,7 +59,14 @@ umask 077
 mkdir -p "$data_home" "$config_home" "$cache_home"
 chmod 700 "$private_root" "$data_home" "$config_home" "$cache_home" 2>/dev/null || true
 
-if $resuming; then
+# A resumed attempt whose predecessor STOPPED cleanly without completing (the
+# shared unfinished-end-turn marker, worker-common.sh § completion-nudge policy)
+# gets the honest `continue` framing rather than the false interruption framing.
+unfinished_marker="$(worker_unfinished_marker "$worktree")"
+if $resuming && [ -n "$unfinished_marker" ] && [ -e "$unfinished_marker" ]; then
+  log "resuming OpenCode session $resume_sid for job '$base' that STOPPED without completing; continue framing"
+  prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" continue)"
+elif $resuming; then
   log "resuming OpenCode session $resume_sid for requeued job '$base'"
   prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" resume)"
 elif [ "$(reap_count "$jobfile")" -gt 0 ]; then
@@ -105,9 +112,57 @@ fi
 jq -r 'select(.type=="text") | (.part.text // .text // empty)' "$events" \
   > "$report" 2>/dev/null || true
 
-# Sum every priced step_finish event. Never turn an absent price into a zero-dollar
-# invoice: without at least one numeric cost, leave the usage handoff absent so the
-# ledger records source:none/censored.
+# --- in-process completion nudge (designs/non-claude-completion-nudge-parity.md) --
+#
+# An OpenCode run that exited 0 WITHOUT the completion marker stopped rather than
+# finished. Rerun `opencode run --session <sid>` once in THIS process against the
+# same private XDG directories with the honest `continue` framing, bounded by the
+# shared policy (worker-common.sh § completion-nudge policy). A failed nudge
+# restores the first report and the clean-markerless outcome (rc=0) so the spine
+# takes the ordinary requeue; the unfinished marker below gives the next same-host
+# claim the `continue` framing. Every capture is kept so the usage sum below spans
+# both event streams.
+oc_unfinished_end_turn() {
+  [ "$rc" -eq 0 ] && ! report_has_completion_marker "$report"
+}
+event_files=("$events")
+nudges=0
+while [ "$nudges" -lt "$GARDEN_COMPLETION_NUDGES" ] && [ -n "$sid" ] && oc_unfinished_end_turn; do
+  if ! worker_nudge_time_ok; then
+    log "job '$base' ended its turn without the completion signal; no completion nudge (remaining handler wall time under ${GARDEN_COMPLETION_NUDGE_MIN_SECONDS}s floor)"
+    break
+  fi
+  nudges=$((nudges + 1))
+  log "job '$base' ended its turn without the completion signal; nudging OpenCode session $sid to verify and complete (nudge $nudges/$GARDEN_COMPLETION_NUDGES)"
+  cp "$report" "$report.pre-nudge" 2>/dev/null || true
+  nudge_prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" continue)"
+  nudge_events="$(mktemp "${TMPDIR:-/tmp}/garden-opencode-nudge-$base.XXXXXX")"
+  event_files+=("$nudge_events")
+  set +e
+  ( cd "$worktree" && \
+    XDG_DATA_HOME="$data_home" XDG_CONFIG_HOME="$config_home" XDG_CACHE_HOME="$cache_home" \
+    OPENCODE_CONFIG_CONTENT="$config" OPENCODE_DISABLE_AUTOUPDATE=true \
+    "$cli" run --pure --auto --format json -m "anthropic/$model" --session "$sid" "$nudge_prompt" ) > "$nudge_events" 2>&1
+  rc=$?
+  set -e
+  jq -r 'select(.type=="text") | (.part.text // .text // empty)' "$nudge_events" \
+    > "$report" 2>/dev/null || true
+  if [ "$rc" -ne 0 ] || [ ! -s "$report" ]; then
+    log "OpenCode completion nudge for '$base' failed (rc=$rc); restoring first report and taking the ordinary requeue"
+    printf 'OpenCode completion nudge failed (rc=%s); first report restored, private state retained for resume.\n' "$rc" >&2
+    { cat "$report.pre-nudge" 2>/dev/null; printf '\n[completion nudge failed: rc=%s]\n' "$rc"; } > "$report.merged" \
+      && mv "$report.merged" "$report"
+    rc=0
+    rm -f "$report.pre-nudge"
+    break
+  fi
+  rm -f "$report.pre-nudge"
+done
+
+# Sum every priced step_finish event across every stream this handler ran (the
+# first call and any completion nudge). Never turn an absent price into a
+# zero-dollar invoice: without at least one numeric cost, leave the usage handoff
+# absent so the ledger records source:none/censored.
 if [ -n "${GARDEN_USAGE_FILE:-}" ] && command -v jq >/dev/null 2>&1; then
   usage="$(jq -sce --arg model "$model" '
     [ .[] | select(.type=="step_finish")
@@ -118,8 +173,18 @@ if [ -n "${GARDEN_USAGE_FILE:-}" ] && command -v jq >/dev/null 2>&1; then
          output_tokens: ([$s[] | (.tokens.output // 0)] | add),
          cache_read_tokens:  ([$s[] | (.tokens.cache.read // 0)] | add),
          cache_creation_tokens: ([$s[] | (.tokens.cache.write // 0)] | add),
-         total_cost_usd: ([$s[] | .cost] | add)} end' "$events" 2>/dev/null || true)"
+         total_cost_usd: ([$s[] | .cost] | add)} end
+    | . + (if ($n|tonumber) > 0 then {completion_nudges:($n|tonumber)} else {} end)' \
+      --arg n "$nudges" "${event_files[@]}" 2>/dev/null || true)"
   [ -n "$usage" ] && printf '%s\n' "$usage" > "$GARDEN_USAGE_FILE"
+fi
+
+# Remember, in the worktree's private admin dir, that this attempt STOPPED without
+# completing (as opposed to being interrupted), so the next same-host claim resumes
+# with the honest `continue` framing rather than "you were interrupted".
+if [ -n "$unfinished_marker" ]; then
+  if oc_unfinished_end_turn; then : > "$unfinished_marker" 2>/dev/null || true
+  else rm -f "$unfinished_marker" 2>/dev/null || true; fi
 fi
 
 # OpenCode 1.18.25 returns rc=1 for a refused API key. That is a host credential
@@ -160,5 +225,5 @@ if [ -n "${GARDEN_COMPLETION_SENTINEL:-}" ] && [ -e "$GARDEN_COMPLETION_SENTINEL
   rm -rf "$private_root"
   rm -f "$session_sidecar" 2>/dev/null || true
 fi
-rm -f "$events" 2>/dev/null || true
+rm -f "${event_files[@]}" 2>/dev/null || true
 exit "$rc"

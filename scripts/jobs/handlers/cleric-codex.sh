@@ -114,8 +114,16 @@ worker_ensure_worktree "$worktree" "$main_branch" "$resuming"
 # host (no sidecar, or claimed elsewhere) recreated a fresh worktree and lost its
 # in-progress state, so it gets the `fallback` framing rather than the plain `fresh`
 # one that would hide the requeue (issue #62 follow-up: cross-host requeue loses
-# both transcript and worktree; do not imply otherwise).
-if $resuming; then
+# both transcript and worktree; do not imply otherwise). A resumed attempt whose
+# predecessor STOPPED cleanly without completing (the shared unfinished-end-turn
+# marker below, worker-common.sh § completion-nudge policy) gets the honest
+# `continue` framing — it was not interrupted, so "carried forward intact after an
+# interruption" would be false.
+unfinished_marker="$(worker_unfinished_marker "$worktree")"
+if $resuming && [ -n "$unfinished_marker" ] && [ -e "$unfinished_marker" ]; then
+  log "resuming codex session $resume_sid for job '$base' that STOPPED without completing; continue framing"
+  prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" continue)"
+elif $resuming; then
   log "resuming codex session $resume_sid for requeued job '$base' in worktree $worktree"
   prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" resume)"
 elif [ "$(reap_count "$jobfile")" -gt 0 ]; then
@@ -349,15 +357,94 @@ fi
 # exposes token classes but no provider-computed dollars, so this is a real token
 # measurement and deliberately remains unpriced for reputation.  Do not guess a
 # rate card here: a measured row must never masquerade as an invoice.
-if command -v jq >/dev/null 2>&1 && [ -n "${GARDEN_USAGE_FILE:-}" ]; then
-  codex_usage="$(jq -sce '
-    [ . | select(.payload.type? == "token_count") | .payload.info.last_token_usage ] | last // empty
+# codex_terminal_usage <capture> — print the measured row for ONE codex call, or
+# nothing (the completion nudge below reuses this on its own capture and sums).
+# `.[]` (not `.`): the capture is slurped into ONE array, and indexing that array
+# with .payload used to abort the whole extraction (swallowed by `|| true`), so
+# the codex lane's token row silently never materialized from a real multi-event
+# stream — a defect the completion-nudge test exposed.
+codex_terminal_usage() {
+  jq -sce '
+    [ .[] | select(.payload.type? == "token_count") | .payload.info.last_token_usage ] | last // empty
     | {source:"result", model:$model,
        input_tokens: ((.input_tokens // 0) - (.cached_input_tokens // 0) | if . < 0 then 0 else . end),
        output_tokens:(.output_tokens // 0), cache_read_tokens:(.cached_input_tokens // 0)}' \
-      --arg model "$model" "$json_capture" 2>/dev/null || true)"
+      --arg model "$model" "$1" 2>/dev/null || true
+}
+if command -v jq >/dev/null 2>&1 && [ -n "${GARDEN_USAGE_FILE:-}" ]; then
+  codex_usage="$(codex_terminal_usage "$json_capture")"
   [ -n "$codex_usage" ] && printf '%s\n' "$codex_usage" > "$GARDEN_USAGE_FILE" 2>/dev/null || true
 fi
+# --- in-process completion nudge (designs/non-claude-completion-nudge-parity.md) --
+#
+# A codex run that exited 0 WITHOUT the completion marker has usually done the work
+# and then stopped (the same headless end-turn failure mode as the claude lane).
+# While the worktree and session are warm, resume the SAME session once in THIS
+# process with the honest `continue` framing instead of paying for a journal
+# requeue. Bounded by the shared policy (worker-common.sh § completion-nudge
+# policy): GARDEN_COMPLETION_NUDGES and the remaining-wall-time floor. A failed
+# nudge NEVER falls back to a fresh session (duplicating the continuation prompt
+# into a new context is worse than an ordinary requeue): the first report and rc=0
+# are restored so the spine takes the exact exit-0-unsatisfying requeue it would
+# have taken with no nudge, and the unfinished marker below gives the next
+# same-host claim the `continue` framing.
+codex_unfinished_end_turn() {
+  [ "$rc" -eq 0 ] && ! report_has_completion_marker "$report"
+}
+nudges=0
+while [ "$nudges" -lt "$GARDEN_COMPLETION_NUDGES" ] && [ -n "$sid" ] && codex_unfinished_end_turn; do
+  if ! worker_nudge_time_ok; then
+    log "job '$base' ended its turn without the completion signal; no completion nudge (remaining handler wall time under ${GARDEN_COMPLETION_NUDGE_MIN_SECONDS}s floor)"
+    break
+  fi
+  nudges=$((nudges + 1))
+  log "job '$base' ended its turn without the completion signal; nudging codex session $sid to verify and complete (nudge $nudges/$GARDEN_COMPLETION_NUDGES)"
+  prior_usage=""
+  [ -s "${GARDEN_USAGE_FILE:-/dev/null}" ] && prior_usage="$(cat "$GARDEN_USAGE_FILE" 2>/dev/null || true)"
+  cp "$report" "$report.pre-nudge" 2>/dev/null || true
+  nudge_prompt="$(worker_job_prompt "$base" "$jobfile" "$worktree" "$main_branch" continue)"
+  nudge_capture="$(mktemp "${TMPDIR:-/tmp}/garden-codex-nudge-$base.XXXXXX")"
+  set +e
+  ( cd "$worktree" && env -u GARDEN_USAGE_FILE -u GARDEN_ENGAGEMENT_USAGE codex exec resume "$sid" "${codex_args[@]}" "$nudge_prompt" ) > "$nudge_capture" 2>&1
+  rc=$?
+  set -e
+  # Sum both calls' measured token rows into the one handoff so the ledger stays
+  # whole (additive counters add; the row shape stays the single-call shape).
+  if command -v jq >/dev/null 2>&1 && [ -n "${GARDEN_USAGE_FILE:-}" ]; then
+    nudge_usage="$(codex_terminal_usage "$nudge_capture")"
+    [ -n "$nudge_usage" ] && printf '%s\n' "$nudge_usage" > "$GARDEN_USAGE_FILE" 2>/dev/null || true
+    if [ -n "$prior_usage" ] && [ -s "${GARDEN_USAGE_FILE:-/dev/null}" ]; then
+      jq --argjson p "$prior_usage" --argjson n "$nudges" '
+        reduce ("input_tokens","output_tokens","cache_read_tokens") as $k (.;
+          if ($p[$k] != null) then .[$k] = ((.[$k] // 0) + $p[$k]) else . end)
+        + {completion_nudges:$n}' "$GARDEN_USAGE_FILE" > "$GARDEN_USAGE_FILE.tmp" 2>/dev/null \
+        && mv "$GARDEN_USAGE_FILE.tmp" "$GARDEN_USAGE_FILE" || rm -f "$GARDEN_USAGE_FILE.tmp"
+    fi
+  fi
+  if [ "$rc" -ne 0 ] || [ ! -s "$report" ]; then
+    # The nudge failed (or produced no message): keep the first session's report
+    # for the requeue diagnostics, surface the nudge's tail on stderr for the
+    # spine's capture, and restore the clean-markerless outcome (rc=0, requeue).
+    log "codex completion nudge for '$base' failed (rc=$rc); restoring first report and taking the ordinary requeue"
+    printf 'codex completion nudge failed (rc=%s); first report restored.\n' "$rc" >&2
+    if ! $custom_openai_compat; then tail -n 20 "$nudge_capture" >&2 2>/dev/null || true; fi
+    { cat "$report.pre-nudge" 2>/dev/null; printf '\n[completion nudge failed: rc=%s]\n' "$rc"; } > "$report.merged" \
+      && mv "$report.merged" "$report"
+    rc=0
+    rm -f "$report.pre-nudge" "$nudge_capture" 2>/dev/null || true
+    break
+  fi
+  rm -f "$report.pre-nudge" "$nudge_capture" 2>/dev/null || true
+done
+
+# Remember, in the worktree's private admin dir, that this attempt STOPPED without
+# completing (as opposed to being interrupted), so the next same-host claim resumes
+# with the honest `continue` framing rather than "you were interrupted".
+if [ -n "$unfinished_marker" ]; then
+  if codex_unfinished_end_turn; then : > "$unfinished_marker" 2>/dev/null || true
+  else rm -f "$unfinished_marker" 2>/dev/null || true; fi
+fi
+
 # The --json capture also carries any codex diagnostics; fold its tail onto the
 # report's stderr channel (the spine captures the handler's stdout+stderr for
 # failure hashing) so a codex failure is not silent. Keep it off the report body,

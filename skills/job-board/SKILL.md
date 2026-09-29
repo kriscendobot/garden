@@ -54,8 +54,10 @@ An end-turn is not a successful completion.
 Finish foreground waits, push the
 deliverable, then end the report with the worker prompt's exact completion
 signal.
-The monk handler has a bounded in-process completion nudge and a
-same-session `continue` prompt for unfinished end-turns.
+Every worker handler (monk/claude, cleric/codex, mystic/kimi, opencode) has a
+bounded in-process completion nudge and a same-session `continue` prompt for
+unfinished end-turns
+([non-claude-completion-nudge-parity](../../designs/non-claude-completion-nudge-parity.md)).
 First-session HEAD is
 recorded before work begins for the productivity baseline.
 Recovery is not a

@@ -33,6 +33,16 @@ printf '%s\n' "$KIMI_CODE_HOME" > "$FAKE_KIMI_RECORD.home"
 printf '%s\n' KIMI_CODE_HOME KIMI_MODEL_NAME KIMI_MODEL_API_KEY KIMI_MODEL_BASE_URL > "$FAKE_KIMI_RECORD.env"
 [ -z "${GARDEN_USAGE_FILE+x}" ] && printf '%s\n' absent > "$FAKE_KIMI_RECORD.usage" || printf '%s\n' present > "$FAKE_KIMI_RECORD.usage"
 printf '%s\n' "$@" > "$FAKE_KIMI_RECORD.args"
+# Per-call records, so a test can see the handler's in-process completion nudge
+# (a SECOND kimi call in the same handler run) and each call's own arguments.
+calls=0; [ -f "$FAKE_KIMI_RECORD.calls" ] && calls="$(cat "$FAKE_KIMI_RECORD.calls" 2>/dev/null || echo 0)"
+calls=$((calls + 1)); printf '%s\n' "$calls" > "$FAKE_KIMI_RECORD.calls"
+printf '%s\n' "$@" > "$FAKE_KIMI_RECORD.args.$calls"
+# FAKE_KIMI_FAIL_FROM_CALL=N: the CLI itself fails (rc=66, no output) on call N on.
+if [ -n "${FAKE_KIMI_FAIL_FROM_CALL:-}" ] && [ "$calls" -ge "$FAKE_KIMI_FAIL_FROM_CALL" ]; then
+  echo 'fake Kimi exploded' >&2
+  exit 66
+fi
 has_prompt=0
 has_auto=0
 has_yolo=0
@@ -64,7 +74,13 @@ if [ -n "${FAKE_KIMI_USAGE:-}" ]; then
     "${fk_i:-0}" "${fk_o:-0}" "${fk_cc:-0}" "${fk_cr:-0}" >> "$wire_dir/wire.jsonl"
 fi
 bullet="$(printf '\342\200\242')"
-if [ "${FAKE_KIMI_COMPLETE:-0}" = 1 ]; then
+# FAKE_KIMI_COMPLETE_FROM_CALL=N: the session "stops without completing" (clean
+# exit 0, no marker) on every call before the Nth — the completion-nudge shape.
+complete="${FAKE_KIMI_COMPLETE:-0}"
+if [ -n "${FAKE_KIMI_COMPLETE_FROM_CALL:-}" ] && [ "$calls" -lt "$FAKE_KIMI_COMPLETE_FROM_CALL" ]; then
+  complete=0
+fi
+if [ "$complete" = 1 ]; then
   printf '%s %s\n' "$bullet" 'completed by fake Kimi'
   case "${FAKE_KIMI_MARKER_FORM:-bullet}" in
     bullet) printf '%s %s\n' "$bullet" '<<<GARDEN-JOB-COMPLETE>>>' ;;
@@ -108,10 +124,15 @@ job="$TR/job.md"
 printf '%s\n' '---' 'model: kimi-k3' 'role: builder' '---' 'offline Mystic harness job' > "$job"
 run_handler() { # <base> <complete 0|1> [marker-form] [trailing-blanks 0|1]
   local base="$1" complete="$2" marker_form="${3:-bullet}" trailing_blanks="${4:-0}"
+  rm -f "$TR/run.calls" "$TR"/run.args.* 2>/dev/null
   env PATH="$BIN:$PATH" GARDEN_ROOT="$ROOT" GARDEN_STATE="$TR/state" GARDEN_SCRATCH="$TR/scratch" \
     GARDEN_MAIN_BRANCH=main2 GARDEN_WORKER_KIND=mystic GARDEN_COMPLETION_SENTINEL="$TR/sentinel" \
     MOONSHOT_API_KEY='offline-fixture-not-a-credential' FAKE_KIMI_RECORD="$TR/run" FAKE_KIMI_COMPLETE="$complete" \
     FAKE_KIMI_MARKER_FORM="$marker_form" FAKE_KIMI_TRAILING_BLANKS="$trailing_blanks" \
+    FAKE_KIMI_COMPLETE_FROM_CALL="${FAKE_KIMI_COMPLETE_FROM_CALL:-}" \
+    FAKE_KIMI_FAIL_FROM_CALL="${FAKE_KIMI_FAIL_FROM_CALL:-}" \
+    GARDEN_COMPLETION_NUDGES="${GARDEN_COMPLETION_NUDGES:-}" \
+    GARDEN_APPLIED_HANDLER_BUDGET="${GARDEN_APPLIED_HANDLER_BUDGET:-}" \
     "$HANDLER" "$base" "$job" "$TR/report"
 }
 
@@ -183,6 +204,74 @@ rm -f "$TR/sentinel"
 run_handler suffixed-marker-case 1 suffixed
 [ ! -e "$TR/sentinel" ] && ok "suffixed marker does not gate sentinel" || bad "suffixed marker forged completion"
 [ -d "$TR/state/mystics/kimi/suffixed-marker-case" ] && ok "suffixed marker retains state for requeue" || bad "suffixed marker incorrectly cleaned state"
+
+hr; echo "COMPLETION NUDGE: a markerless end-turn resumes the same session in-process"; hr
+rm -f "$TR/sentinel"
+FAKE_KIMI_COMPLETE_FROM_CALL=2 GARDEN_USAGE_FILE="$TR/nudge.usage" FAKE_KIMI_USAGE='100,10,2,30' \
+  run_handler nudge-case 1
+[ "$(cat "$TR/run.calls" 2>/dev/null)" = 2 ] && ok "markerless end-turn gets exactly ONE in-process nudge" \
+  || bad "expected 2 kimi calls, saw $(cat "$TR/run.calls" 2>/dev/null)"
+if grep -qx -- '--continue' "$TR/run.args.1" 2>/dev/null; then
+  bad "first (fresh) call incorrectly passed --continue"
+else
+  ok "first call starts the session without --continue"
+fi
+grep -qx -- '--continue' "$TR/run.args.2" 2>/dev/null && ok "nudge resumes the SAME session via --continue" \
+  || bad "nudge call missing --continue"
+grep -q 'CONTINUING garden job' "$TR/run.args.2" 2>/dev/null && ok "nudge carries the honest continue framing" \
+  || bad "nudge prompt lacks continue framing"
+[ -e "$TR/sentinel" ] && ok "nudge completion gates the sentinel" || bad "nudge completion did not write sentinel"
+[ ! -d "$TR/state/mystics/kimi/nudge-case" ] && ok "nudged completion retires private state" \
+  || bad "nudged completion left private state"
+if jq -e '.input_tokens==200 and .output_tokens==20 and .cache_creation_tokens==4 and .cache_read_tokens==60 and .completion_nudges==1' \
+    "$TR/nudge.usage" >/dev/null 2>&1; then
+  ok "usage delta spans both turns and records the nudge count"
+else
+  bad "nudge usage handoff wrong: $(cat "$TR/nudge.usage" 2>/dev/null || echo MISSING)"
+fi
+
+hr; echo "COMPLETION NUDGE: GARDEN_COMPLETION_NUDGES=0 preserves the plain requeue"; hr
+rm -f "$TR/sentinel"
+GARDEN_COMPLETION_NUDGES=0 FAKE_KIMI_COMPLETE_FROM_CALL=99 run_handler nudge-off-case 1
+[ "$(cat "$TR/run.calls" 2>/dev/null)" = 1 ] && ok "nudge disabled: exactly one kimi call" \
+  || bad "nudge ran despite GARDEN_COMPLETION_NUDGES=0"
+[ ! -e "$TR/sentinel" ] && ok "markerless run withholds sentinel (requeue)" || bad "sentinel forged"
+off_marker="$(git -C "$TR/scratch/gardener-wt-nudge-off-case" rev-parse --absolute-git-dir 2>/dev/null)/garden-unfinished-end-turn"
+[ -e "$off_marker" ] && ok "unfinished-end-turn marker recorded for continue framing" \
+  || bad "unfinished-end-turn marker absent"
+
+hr; echo "COMPLETION NUDGE: insufficient remaining wall time skips the nudge"; hr
+rm -f "$TR/sentinel"
+GARDEN_APPLIED_HANDLER_BUDGET=5 FAKE_KIMI_COMPLETE_FROM_CALL=99 run_handler nudge-time-case 1
+[ "$(cat "$TR/run.calls" 2>/dev/null)" = 1 ] && ok "under the wall-time floor: exactly one kimi call" \
+  || bad "nudge ran despite insufficient remaining wall time"
+[ ! -e "$TR/sentinel" ] && ok "wall-floored markerless run withholds sentinel" || bad "sentinel forged"
+
+hr; echo "COMPLETION NUDGE: a failed nudge preserves the first report and requeues"; hr
+rm -f "$TR/sentinel"
+set +e
+FAKE_KIMI_FAIL_FROM_CALL=2 FAKE_KIMI_COMPLETE_FROM_CALL=99 run_handler nudge-fail-case 1
+nfrc=$?
+set -e
+[ "$nfrc" -eq 0 ] && ok "failed nudge restores the clean-markerless outcome (rc=0 requeue)" \
+  || bad "failed nudge leaked rc=$nfrc"
+[ "$(cat "$TR/run.calls" 2>/dev/null)" = 2 ] && ok "failed nudge attempted exactly once" \
+  || bad "unexpected call count $(cat "$TR/run.calls" 2>/dev/null)"
+grep -q 'unfinished fake Kimi attempt' "$TR/report" && ok "first session's report preserved" \
+  || bad "first report lost after failed nudge"
+grep -q 'completion nudge failed: rc=66' "$TR/report" && ok "failed nudge annotated in report" \
+  || bad "failed-nudge annotation missing"
+[ ! -e "$TR/sentinel" ] && [ -d "$TR/state/mystics/kimi/nudge-fail-case" ] \
+  && ok "failed nudge retains resumable state and withholds sentinel" \
+  || bad "failed nudge broke state/sentinel contract"
+
+hr; echo "COMPLETION NUDGE: the next same-host claim gets continue framing"; hr
+FAKE_KIMI_COMPLETE_FROM_CALL=1 run_handler nudge-fail-case 1
+grep -q 'CONTINUING garden job' "$TR/run.args.1" 2>/dev/null && ok "requeued claim after a clean stop is framed as continue" \
+  || bad "requeued claim lacked continue framing"
+grep -qx -- '--continue' "$TR/run.args.1" 2>/dev/null && ok "requeued claim resumes the session" \
+  || bad "requeued claim did not resume"
+[ -e "$TR/sentinel" ] && ok "continued claim completes" || bad "continued claim did not complete"
 
 hr; echo "REAL SPINE: gardener selects Mystic, reaps its handler group, and completes"; hr
 # This is intentionally not a direct handler invocation. gardener.sh sources the
