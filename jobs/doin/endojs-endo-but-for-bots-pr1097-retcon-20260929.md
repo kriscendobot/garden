@@ -17,3 +17,13 @@ Ask 3 of kriskowal's APPROVED review https://github.com/endojs/endo-but-for-bots
 skills/retcon/SKILL.md: reset + restage per-package with a separate
 `chore: Update yarn.lock` commit, net diff invariant. If the history is already clean
 per-package (and no yarn.lock churn), record that and make no change. No merge.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T16:01:01Z
