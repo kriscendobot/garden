@@ -1,12 +1,12 @@
 ---
 slug: hardened-url-shim
 repository: endo-but-for-bots
-status: In Progress
+status: Complete
 milestone: M2
 depends_on: []
 pr: endo-but-for-bots#1356
 created: 2026-05-04
-updated: 2026-09-28
+updated: 2026-09-29
 source: imported from origin/llm designs/README.md
 ---
 
@@ -16,7 +16,7 @@ source: imported from origin/llm designs/README.md
 |---|---|
 | **Created** | 2026-05-04 |
 | **Author** | Kris Kowal (prompted) |
-| **Status** | In Progress |
+| **Status** | Complete |
 
 ## What is the Problem Being Solved?
 
@@ -598,3 +598,6 @@ _Reconciled 2026-09-28 (job `design-hardened-url-shim`): **In Progress**, implem
 - **Open questions.** For both, the build took this design's recommendation: the `%URLSearchParamsIteratorPrototype%` name, and one prototype shared by the two `URL` intrinsics. The maintainer can confirm or overturn them in review.
 - **Before merge.** The diff also bumps the pinned `dorny/paths-filter` action in `.github/workflows/ci.yml`, which is unrelated to this design and should come out or be justified during review.
 - **Completion:** `plan/reconcile.sh` flips this record to Complete when #1356 merges.
+
+---
+_Reconciled 2026-09-29 (job `endojs-endo-but-for-bots-pr1356-refresh-mentat-20260929`): **Complete — delivered upstream, not via #1356.** [endojs/endo#3332](https://github.com/endojs/endo/pull/3332) (merged 2026-08-21, squash commit `30147f5aa17`) landed this design on upstream `master`: the `%InitialURL%`/`%SharedURL%` split, `%URLSearchParamsIteratorPrototype%` sampling, permits, docs, types, and the missing-`URL` degradation path. It is already on `llm` (`packages/ses/src/tame-url-constructor.js`, brought in at `d745d3fb4b`). Draft [#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) was therefore **closed as superseded** with a comment naming the subsuming commit. Upstream settled the departures differently from the build: the option is `urlBlobTaming: 'retain' | 'remove'` (not `urlBlobMethods`), the Node inspect symbol is not permitted, and `%InitialURL%` keeps the host blob methods rather than forwarding wrappers. Small residuals #1356 carried (a subclassing test, an invoke-`createObjectURL` test, an XS smoke block in `test/_xs.js`) were judged not worth a refresh; if wanted, they are a small fresh upstream PR against the `urlBlobTaming` API. This record is terminal; the reconciler leaves Complete untouched._
