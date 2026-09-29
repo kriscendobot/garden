@@ -281,9 +281,26 @@ esac
 if [[ "$id" =~ ^[0-9]+$ ]]; then off="$id"; else off=$(( $(printf '%s' "$id" | cksum | cut -d' ' -f1) )); fi
 off=$(( off % n ))
 
+# Rolling-deploy canary probes go FIRST, ahead of the offset rotation. A released
+# canary is often a single-worker host; if its one worker races an ordinary
+# multi-hour job ahead of the probe, the probe misses its deadline and the whole
+# roll halts on a healthy canary (2026-09-29: garden2 took a 7200s gauntlet fix one
+# second after probe r1 landed; r1..r3 all expired). Host eligibility is still
+# decided by the ordinary requires: gate below.
+probes=(); rest=()
+for ((k=0; k<n; k++)); do
+  c="${cand[$(( (off + k) % n ))]}"
+  if grep -q '^canary-probe: true' "$DIR/$JOBS_TODO/$c" 2>/dev/null; then
+    probes+=("$c")
+  else
+    rest+=("$c")
+  fi
+done
+cand=("${probes[@]}" "${rest[@]}")
+
 for ((k=0; k<n; k++)); do
   # candidates are leaf filenames (<base>.md); the spine key is extensionless.
-  base="${cand[$(( (off + k) % n ))]%.md}"
+  base="${cand[$k]%.md}"
   # re-sync each attempt: the board may have moved under us
   sync_clone "$DIR"
   [ -e "$DIR/$JOBS_TODO/$base.md" ] || { log "'$base' already taken; next"; continue; }
