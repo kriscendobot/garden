@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T00:06:10Z_
+_As of 2026-09-29T00:08:59Z_
 
 ## Latest
 
-Three jobs completed today: minion.town's Claude press, [endo-but-for-bots#1336](https://github.com/endojs/endo-but-for-bots/pull/1336) shepherd, and a self-heal fix. The maintainer inbox surfaces critical waits: federation-release is gated on authority decisions for [endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332), minion.town's guest-invite fix is blocked on an endo daemon pin landing to main, and several infrastructure improvements (worktree sweeper un-gating, budget-level cap isolation, CI watcher cooldown hardening) remain parked after handler retries.
+Board activity was minimal since the last bulletin: the Ironhorse ratchet-autopilot activation job completed and immediately re-posted its continuation, and the minion.town [#120](https://github.com/kriscendobot/minion.town/pull/120) gauntlet panel round 1 was claimed. The bulk of what needs attention is the backlog of unread maintainer messages — M2 remains blocked on a cluster of foreman notices asking whether to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and whether to close #1356 as superseded by upstream endo#3332; M3's `endo-claude` critical path is similarly stalled pending a decision on [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and its `endo-agent-tools` dependency #1348. Several gauntlet and retrospective jobs (PR #356, #450, #982, minion.town #68) were doom-parked after exhausting requeues and are held in the plan queue awaiting promotion. The Ironhorse test262 ratchet round-3 sweep is also stuck on a floor-reconciliation policy question the maintainer needs to answer. Separately, a deploy candidate (39d0c5ef0ac) was rejected by the test gate on a `triager-pacing-test.sh` failure, and host oros-studio-garden-ce242c49 briefly went offline for the rolling-deploy watchdog but has since recovered.
 
 ## Parked for maintainer feedback
 
@@ -107,6 +107,15 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > END your completion report with EXACTLY ONE of these marker lines (last line):
 >   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
 >   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
+
+- `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
+
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1857s (offline threshold 1800s; sampled_at_epoch=1790638625).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
 
 - `msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6.md)
 
@@ -434,10 +443,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > subscription codex-endolin changed zone ok -> backoff at spend=41944294 of cap=100.
 
-- `msg-scholar-ingest-fakecloud-dev-services-sdks-f3d8b09f6714` — from scholar:scholar-ingest-fakecloud-dev-services-sdks, reply_to `scholar-ingest-fakecloud-dev-services-sdks` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-fakecloud-dev-services-sdks-f3d8b09f6714.md)
-
-> fakecloud follow-on ingest done (12 docs pages, 15 sections, plus an addendum to the minion.town fit note). Verdict: the case for fakecloud's DynamoDB CI tier is stronger now. Upstream source confirms that `TransactWriteItems` returns AWS-shaped per-item `CancellationReasons`, and `dynamodb:Attributes`/`LeadingKeys` are documented as enforced under `--iam strict`, so the admin-ceiling invariant can get its first non-AWS negative test (it must sign with a non-`test*` key). SSM Run Command does not execute scripts, which confirms that deploy rehearsal is out of scope. S3 presigned URLs are only signature-checked under `--verify-sigv4`. The `fakecloud` npm SDK is AGPL-3.0-or-later, so I recommend raw HTTP calls instead of a devDependency. Also a correction: the global reset is `POST /_reset`, not `/_fakecloud/reset`. Details: journal/projects/minion-town/fakecloud-aws-emulation-fit-addendum.md; result entries/2026/09/28/055859Z-result-scholar-1ff88e.md.
-
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
 
 > subscription codex-endolin changed zone ok -> backoff at spend=11420683 of cap=100.
@@ -448,22 +453,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > - gardener: build-daemon-agent-tools
 > - question (msgid msg-build-daemon-agent-tools-ab6ed31c15ed.md)
 > - tentative answer: proxy/tentative — go with **Option A**: target a frozen `llm` base (matching how this stack has landed all along — [endojs/endo-but-for-bots#614](https://github.com/endojs/endo-but-for-bots/issues/614), [endojs/endo-but-for-bots#615](https://github.com/endojs/endo-but-for-bots/issues/615), [endojs/endo-but-for-bots#616](https://github.com/endojs/endo-but-for-bots/issues/616), [endojs/endo-but-for-bots#661](https://github.com/endojs/endo-but-for-bots/issues/661), [endojs/endo-but-for-bots#705](https://github.com/endojs/endo-but-for-bots/issues/705), and [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707) all live there, not on `master`) and integrate an explicit harness that composes shell+remote without relying on [endojs/endo-but-for-bots#707](https://github.com/endojs/endo-but-for-bots/issues/707)'s ambiguous `inspect`-collision `makeWorkspaceTools`, and without resurrecting the dynamic-discovery approach [endojs/endo-but-for-bots#618](https://github.com/endojs/endo-but-for-bots/issues/618) was closed over for capability-leak reasons — pick names/an explicit registration surface instead. Option B (porting the entire transitive capability stack to `master`) is a much bigger, separate undertaking that doesn't belong inside this one build job's scope; if a `master` port is ever wanted, that should be its own job/design, not folded into "build daemon agent tools." Keep building toward the draft PR on `llm` per your current plan — this is provisional and the maintainer may revise it when they're back.
-
-- `msg-scholar-ingest-fakecloud-dev-471eafb03c72` — from scholar:scholar-ingest-fakecloud-dev, reply_to `scholar-ingest-fakecloud-dev` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-fakecloud-dev-471eafb03c72.md)
-
-> **fakecloud × minion.town: a good fit, but only for part of the surface.**
->
-> - **Main win: the DynamoDB adapters.** They are the app's only AWS SDK use. Today they never run outside production: the account adapter has no test, and the credit ledger is tested only for the shape of the commands it builds, against a fake. fakecloud's DynamoDB is graded Full/Full with transactions, so the conditional writes and exactly-once logic could be tested for real in CI.
-> - **Cognito:** a fidelity upgrade over mock-as. fakecloud issues real Cognito-shaped tokens and runs the PreTokenGeneration Lambda.
-> - **Gaps:** SSM send-command deploy delivery, App Runner, and enforcement of the `dynamodb:Attributes` IAM condition.
->
-> Recommendation: add an opt-in fakecloud DynamoDB integration tier in CI and keep mock-as and the in-memory stores for dev. Suggested job: `build-minion-town-fakecloud-dynamodb-tier`, optionally followed by `build-minion-town-fakecloud-cognito-tier`.
->
-> Ingested 3 sources as 9 sections (llms.txt, docs/parity, home). New topic `cloud-emulation`. Analysis note: `projects/minion-town/fakecloud-aws-emulation-fit.md`. Result entry: `entries/2026/09/28/052433Z-result-scholar-37b4ad.md`. Follow-on scholar job `scholar-ingest-fakecloud-dev-services-sdks` covers docs/services and docs/sdks and will settle the remaining unverified cells.
-
-- `msg-scholar-nvidia-openshell-garden-confinement-80f65fb1a25f` — from scholar:scholar-nvidia-openshell-garden-confinement, reply_to `scholar-nvidia-openshell-garden-confinement` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-nvidia-openshell-garden-confinement-80f65fb1a25f.md)
-
-> Recommendation: pilot OpenShell on one follower as a rootless-Podman, per-job secret and egress boundary alongside the current Docker control plane; do not attempt a fleet-wide replacement yet. It can mask a GitHub HTTPS token and proxy-side AWS SigV4 well, and its gateway-managed Codex refresh pattern is promising, but the shipped Claude profile does not support Anthropic subscription OAuth and OpenShell does not broker outbound SSH keys. The full garden-grounded assessment, credential-class map, caveats, handler/worktree changes, and staged measurements are in `journal2:projects/garden/openshell-confinement-fit.md`.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -562,24 +551,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > dispatch: automatic
 > ---
 > Wear `roles/botanist/AGENT.md` and re-evaluate every due Dependabot embargo row for project `endo-but-for-bots` / repo `endojs/endo-but-for-bots`, executing each now-due verdict on this bot-owned repository. Recover the cumulative ledger with `grep -rl '^project: endo-but-for-bots$' journal/entries/ | xargs grep -il '^# *dependabotany'`; re-fetch live PR/base state and do not rely on stale rows.
-
-- `msg-foreman-requiesce-target-0-d86350033dab` — from gardener:foreman-requiesce-target-0, reply_to `foreman-requiesce-target-0` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-foreman-requiesce-target-0-d86350033dab.md)
-
-> STALE-JOB CONFLICT — not applying, need your call.
->
-> Job `foreman-requiesce-target-0` (your 2026-09-17 directive: set
-> GARDEN_FOREMAN_ACTIVE_TARGET 2 -> 0 for a full quiesce) was promoted from the
-> plan queue today at 07:34Z. But at 07:30Z today you raised the target 2 -> 10
-> (commit 0350fdd5bd "raise active-job target 2 -> 10 to saturate worker pool",
-> now HEAD/origin/main2), ~4 min before this job was promoted.
->
-> Applying this job would silently revert that newer, on-point directive
-> (10 -> 0). I have NOT done so. The 2026-09-17 go-to-0 rationale was quota
-> pressure; your 2026-09-27 raise-to-10 explicitly makes
-> GARDEN_TOKEN_BACKOFF_FRACTION the spend brake instead of the concurrency cap.
->
-> Leaving baseline at 10 (honoring the newest directive) and closing this stale
-> job as a no-op. If you still want a full quiesce to 0, re-post and I'll land it.
 
 - `endojs-endo-but-for-bots-pr1298-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-pr1298-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1298-gauntlet-halted.md)
 
@@ -869,64 +840,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > budget-level changed oros-studio-garden-ce242c49 monk workers 1 -> 2 (target 4): subscription claude-oros spend=447868 cap=73000000 pace-bias=1.000000 ceiling=4 target=4
 
-- `msg-upgrade-fleet-to-main2-uniform-20260918-b70389c59e3d` — from gardener:upgrade-fleet-to-main2-uniform-20260918, reply_to `upgrade-fleet-to-main2-uniform-20260918` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-upgrade-fleet-to-main2-uniform-20260918-b70389c59e3d.md)
-
-> # Fleet-uniformity drive stuck on 2 of 3 hosts — needs operator action
->
-> Job `upgrade-fleet-to-main2-uniform-20260918`, pass 1. Pinned target this pass:
-> `7bd312a6379` (main2 has since advanced to `b9a0411e52f`). Fleet is NOT uniform.
->
-> ## Per host
->
-> - **endolin-garden2-5bcdff64** — AT target `7bd312a6379`, 0 unit failures, reporting
->   normally (host record 17:54Z). Deployed by the autonomous roll (canary PASSED
->   17:56). ✅ nothing to do.
->
-> - **oros-studio-garden-ce242c49** — OFFLINE. Stuck at `586aee8196b`. Host record
->   `hosts/oros-studio-garden-ce242c49` last `updated_at` 2026-09-27T16:49:55Z (~80 min
->   stale); heartbeat stale ~65 min; health record stale ~11h. The leader's roll
->   correctly SKIPS it as offline (>1800s). **Cannot be deployed remotely while it is
->   not heartbeating** — a `send-host-op deploy` would queue but never execute. This is
->   a host-level outage that needs an operator to bring oros back up. I did NOT send it
->   a queued op. Please recover/restart the oros container/host.
->
-> - **endolin-garden-ece02cb4 (LEADER, the host I ran on)** — stuck at `47b41af5a14`,
->   47 behind. In a **bootstrap trap**: the autonomous rolling-deploy is actively
->   self-deploying-LAST but its candidate gate keeps INTERMITTENTLY rejecting the
->   target on `triager-pacing-test.sh`. Root cause: commit `6fc21936148` made the
->   triager emit a `cgroup reap skipped` WARN when its cgroup sweep runs outside a
->   `garden-triager@*` cgroup; on the leader the gate runs under
->   `rolling-deploy.service`'s cgroup, so that WARN leaks into the test's output and
->   breaks its assertions. It is a flake (the SAME gate PASSED this suite at 17:56;
->   passes 14/14 standalone), but the gate ran both retries ~2s apart in one load
->   window and misclassified it as a "real regression." Today's fixes that would end
->   this (`improve-rolling-deploy-rejected-candidate-backoff` b7e65392bd; the pacing
->   test's cgroup fixtures; the deferring-canary fix) are all on main2 but the leader
->   can't deploy them because its OLD gate flakes on exactly the leak they fix.
->   Additional throttle: continuous main2 churn keeps resetting the leader's 600s
->   settle timer, and long-running clerics (>=300s) trigger deploy deferrals.
->
-> ## Requests
->
-> 1. **oros**: operator recovery — bring the host/container back online; the roll will
->    then re-adopt it as a canary.
-> 2. **leader**: to break the bootstrap trap, an emergency override deploy from the
->    leader host itself is warranted:
->    `GARDEN_DEPLOY_TEST_OVERRIDE=1 scripts/jobs/deploy-garden.sh` (the target is proven
->    healthy — endolin-garden2 runs it clean; the failing test is a harness-contamination
->    flake, not a code regression). I did NOT do this from the job because deploying the
->    leader restarts my own worker mid-job and would race the active rolling-deploy
->    service — a two-driver wedge risk. It is your call.
->
-> ## Already delegated
->
-> Posted fix job **`fix-triager-pacing-rolling-deploy-cgroup-leak`** (fixer) to make the
-> test hermetic against the WARN under the `rolling-deploy.service` cgroup, so the gate
-> stops flaking on the leader path once deployed.
->
-> I did NOT touch any drain (all hosts read `roll_status: deployed`; no stuck operator
-> drain found) and did NOT chase the newer `b9a0411` commits past the pinned target.
-
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-1.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 1 (target 1): subscription claude-oros spend=394514 cap=73000000 pace-bias=0.509782 ceiling=1 target=1
@@ -1169,10 +1082,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=38053832 cap=143000000 pace-bias=0.003112 ceiling=1 target=1
 
-- `watchdog-self-heal-garden-receipt-watcher-kriscendobot-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-receipt-watcher-kriscendobot-endo-but-for-bots.md)
-
-> self-heal: garden-receipt-watcher@kriscendobot-endo-but-for-bots exited rc=1 with no scoped fix. Capture: 49aa0d37e12234073cc7d49cb472c52bfe391cdd (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p 49aa0d37e12234073cc7d49cb472c52bfe391cdd). Diagnosis: Diagnosis: a genuine, new classification bug in `reclone_clone` (`scripts/jobs/common.sh:4302-4316`), distinct from the already-fixed clone_lock stderr-silencing bug in memory. It drops `bounded_clone`'s exit code and classifies "offline" only by grepping captured stderr for known network-error text; a bare 45s `timeout`-SIGTERM clone kill (rc=124) that lands before git prints anything leaves that stderr empty, so the offline check misses and the failure escalates as a loud `FATAL` instead of a quiet transient skip. Posted the fix job above.
-
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-3.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-22T22:21:43Z, latest 2026-09-29T00:05:20Z).
@@ -1285,11 +1194,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 894f26756377 32 min ago
-> but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
-> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
-> keeps it from advancing. The leader does not advance past an undeployed canary.
-> (leader=endolin-garden-ece02cb4)
+> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-28T23:56:01Z, cleared 2026-09-29T00:08:12Z).
+> It was observed 4 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> canary oros-studio-garden-ce242c49 is no longer stuck (release 894f26756377be6837b1d613f849cb2c7d2d1b1c, deployed e036bb8e0650b66a4ae00dc1516c4c8df39901ca).
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-0.md)
 
@@ -1301,23 +1210,23 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.2M | $546.62 _(notional, rate-card)_ | 41% of 143.0M (ok) |
+| Claude | 59.8M | $549.84 _(notional, rate-card)_ | 42% of 143.0M (ok) |
 | Codex | 6.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 28% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 52239400 tokens/day lower bound._
+_Fleet token-unlock pace: 58829640 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.305599s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (2)
-- [`kriscendobot-minion.town-pr120-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr120-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #120
 - [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1097
+- [`activate-ironhorse-ratchet-autopilot-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/activate-ironhorse-ratchet-autopilot-20260929.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued)
 
 ### doin (9)
 - [`garden-pr81-postdeploy-pty-20260928T221312Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-pr81-postdeploy-pty-20260928T221312Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`kriscendobot-minion-town-pr86-review-finalize-prod-5344649026`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr86-review-finalize-prod-5344649026.md) — Finish review directive 5344649026 on kriscendobot/minion.town PR #86
-- [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260928.md) — Finish activation of the authorized Ironhorse ratchet autopilot
+- [`kriscendobot-minion.town-pr120-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #120
 - [`kriscendobot-minion.town-pr86-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr86-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #86
 - [`pty-lane-assay-rev5119818493-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pty-lane-assay-rev5119818493-r1.md) — Interactive pty-lane self-validation for garden PR #81 (host-pinned to a depl...
 - [`build-npm-minion-town-dev-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-npm-minion-town-dev-registry.md) — ---
@@ -1325,13 +1234,13 @@ worst fetch p95 4.305599s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr81-postdeploy-pty-5119818493-20260928T210602Z.md) — Post-deploy interactive validation and maintainer report for garden PR #81
 - [`claude-on-minion-town-press-20260928-232006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260928-232006.md) — Press the Claude-on-minion.town arc forward
 
-### tada (9469)
+### tada (9470)
+- [`activate-ironhorse-ratchet-autopilot-20260928`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/activate-ironhorse-ratchet-autopilot-20260928.md) — Activation report: activate-ironhorse-ratchet-autopilot-20260928
 - [`kriscendobot-minion.town-pr120-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr120-gauntlet-clean.md) — Clean stage report: kriscendobot/minion.town PR #120
 - [`endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1097-gauntlet-20260928-fix-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1343-review-fcb5f817-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/endojs-endo-but-for-bots-pr1343-review-fcb5f817-retro.md) — Cost
 - [`kriscendobot-minion.town-pr86-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/kriscendobot-minion.town-pr86-gauntlet-fix-5.md) — Cost
-- [`design-npm-minion-town-dev-registry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/28/design-npm-minion-town-dev-registry.md) — Cost
-- … and 9464 more
+- … and 9465 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
