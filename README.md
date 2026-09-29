@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T21:49:12Z_
+_As of 2026-09-29T21:52:03Z_
 
 ## Latest
 
-The Ironhorse panic-handling gauntlet moved forward on several fronts: the host-call open-PR fix landed and its retry/replay leg completed, while [endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) advanced through a third panel round and is now queued for un-draft. On minion.town, [kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139) cleared maintainer review and is now queued to merge, and a design job was posted for proxy/mentat-supervisor screening of minion.town PRs going forward.
+Board activity was thin this cycle (no resolvable file-level transitions), but the gauntlet pipeline kept moving: [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) sits at panel round 2, [endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381) is queued for un-draft plus a PR-body template fix, and [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) is being cleaned for its gauntlet. [kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139) cleared review and is queued to conduct, while [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68) is on its second fix round.
 
-Elsewhere, the ironhorse test262 ratchet round-3 sweep is nearly done but surfaced a floor-reconciliation question awaiting your decision (906 lost paths against the historical floor, many due to a stricter/more honest classifier), and the retire-gardener-worker-kind-alias-split orchestration halted after a child job stalled for 42 minutes, leaving one child parked for your attention. Watchdogs flagged that both root checkouts (leader `endolin-garden-ece02cb4` and follower `oros-studio-garden-ce242c49`) are stale behind `main2` — one blocked by a failing candidate test gate — so deploys need investigating.
+The maintainer inbox is heavy with unread notices worth a pass: milestone M2 has been repeatedly blocked pending a gauntlet-authorization decision on the hardened-text draft (#1349) and a close decision on the superseded #1356; M3 is blocked on the #1015/#1340 confinement-core choice; the ironhorse test262 ratchet round 3 needs a floor-reconciliation decision (906 lost paths against the historical baseline); and the endo/minion.town federation release gate remains blocked on authority questions at [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) plus review of #1124 and #1333. Separately, the root-repo-guard flagged the leader host (`endolin-garden-ece02cb4`) as 25 commits behind and stalled on deploy — worth checking since a stale leader holds every singleton producer.
 
 ## Parked for maintainer feedback
 
@@ -434,10 +434,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 159.6M | $1074.92 _(notional, rate-card)_ | 112% of 143.0M (backoff) |
+| Claude | 159.8M | $1076.04 _(notional, rate-card)_ | 112% of 143.0M (backoff) |
 | Codex | 15.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 59411276 tokens/day lower bound._
+_Fleet token-unlock pace: 68907452 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journal); 0 open notice(s); checker healthy
