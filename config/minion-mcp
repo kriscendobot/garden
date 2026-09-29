@@ -1,0 +1,6 @@
+# minion.town MCP standing order (context/operations/minion-town-mcp.md).
+# Read by every worker handler and the per-host watchdog via
+# scripts/jobs/minion-mcp-lib.sh. Edit with scripts/jobs/set-minion-mcp.sh.
+enabled: true
+hosts: endolin-garden2-5bcdff64
+optout-hosts:
