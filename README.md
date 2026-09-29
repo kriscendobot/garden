@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-29T04:51:20Z_
+_As of 2026-09-29T04:55:01Z_
 
 ## Latest
 
@@ -16,8 +16,8 @@ Fix round 5 of the panel gauntlet for [endojs/endo-but-for-bots#1348](https://gi
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 25d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 27d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 27d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 28d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 27d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 27d)
 
 _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 ## Messages to the maintainer
@@ -345,10 +345,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > dispatch: automatic
 > ---
 > Reconcile the M2 `hardened-url-shim` and `hardened-text-codecs-shim` design records in `endojs/endo-but-for-bots` on the `llm` branch against their upstream-landed successors, updating their statuses and evidence so milestone sequencing can advance.
-
-- `msg-endojs-endo-but-for-bots-pr1362-gauntlet-fix-2-f4b0292663c9` — from gardener:endojs-endo-but-for-bots-pr1362-gauntlet-fix-2, reply_to `endojs-endo-but-for-bots-pr1362-gauntlet-fix-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1362-gauntlet-fix-2-f4b0292663c9.md)
-
-> PR [https://github.com/endojs/endo-but-for-bots/pull/1362](https://github.com/endojs/endo-but-for-bots/pull/1362) (npm-registry-server): the panel-2 integrator flagged an architectural must-fix that a gauntlet fix round cannot resolve. The PR builds its own CAS and SQLite store, but goal 5 of the design ([https://github.com/endojs/endo-but-for-bots/pull/1361](https://github.com/endojs/endo-but-for-bots/pull/1361), itself an unlanded draft) asks it to reuse the @endo/exo-npm tree and ingestion machinery. The design allows a temporary adapter only when its handler is written against the tree interface, and this one is not. Decision needed: (a) rehome over @endo/exo-npm and the tree interface, (b) park the PR behind the design and the directory-tree adapter landing, or (c) accept the divergence and amend the design. Fix round 2 applied every other must-fix item plus the security should-fixes (head e7efe19990). The README now states the non-conformance honestly.
 
 - `20260928T172319Z-a6992a` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T172319Z-a6992a.md)
 
@@ -680,6 +676,17 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deployed tree was left in place. Set `GARDEN_DEPLOY_TEST_OVERRIDE=1` only
 > for a deliberate emergency deploy after assessing this failure.
+
+- `20260929T045404Z-09fdc3` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T045404Z-09fdc3.md)
+
+> proxy answered a gating question (tentative — review and override):
+> - gardener: endojs-endo-but-for-bots-pr1362-gauntlet-fix-2
+> - question (msgid msg-endojs-endo-but-for-bots-pr1362-gauntlet-fix-2-f4b0292663c9.md)
+> - tentative answer: Proxy/tentative (maintainer may revise): go with option (b) — park PR [https://github.com/endojs/endo-but-for-bots/pull/1362](https://github.com/endojs/endo-but-for-bots/pull/1362) behind the design at [https://github.com/endojs/endo-but-for-bots/pull/1361](https://github.com/endojs/endo-but-for-bots/pull/1361) and the tree-interface adapter landing, rather than (a) rehoming now or (c) amending the design.
+>
+> Reasoning: the design ([https://github.com/endojs/endo-but-for-bots/pull/1361](https://github.com/endojs/endo-but-for-bots/pull/1361)) is itself an unlanded draft, so a full rehome onto @endo/exo-npm's tree interface right now risks being reworked again once the design settles — throw-away effort in the wrong direction. Amending the design to bless the current bespoke CAS/SQLite architecture (option c) is a design-scope decision, not something a fix-round gardener or proxy should decide unilaterally; that's for the designer/maintainer once they've weighed the tradeoff.
+>
+> So: leave the round-2 fixes (all other must-fixes + security should-fixes, head e7efe19990) as committed, keep the README's honest non-conformance note, and post-plan a `--blocked --blocked-on` dependency (or park it) on PR [https://github.com/endojs/endo-but-for-bots/pull/1361](https://github.com/endojs/endo-but-for-bots/pull/1361) landing + the directory-tree adapter shipping. Do not un-draft or run the gauntlet again until that dependency clears. Flag explicitly in the PR/tracking note that this is a provisional call and the maintainer may instead choose (a) or (c) when they review.
 
 - `msg-build-minion-town-mcp-garden2-workers-76b942035c1f` — from gardener:build-minion-town-mcp-garden2-workers, reply_to `build-minion-town-mcp-garden2-workers` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-mcp-garden2-workers-76b942035c1f.md)
 
@@ -1279,7 +1286,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.1M | $790.23 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Claude | 101.2M | $791.54 _(notional, rate-card)_ | 71% of 143.0M (ok) |
 | Codex | 10.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55437723 tokens/day lower bound._
@@ -1291,18 +1298,17 @@ worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1362
 - [`endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review.md) — ---
-- [`endojs-endo-but-for-bots-pr1348-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1348
 
-### tada (9560)
+### tada (9562)
+- [`endojs-endo-but-for-bots-pr1348-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1348-gauntlet — complete
+- [`endojs-endo-but-for-bots-pr1348-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-fix-5.md) — Gauntlet fix round 5: endojs/endo-but-for-bots PR #1348
 - [`activate-ironhorse-ratchet-autopilot-20260929-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/activate-ironhorse-ratchet-autopilot-20260929-r3.md) — Cost
-- [`design-daemon-git-remotes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/design-daemon-git-remotes.md) — Completion report: design-daemon-git-remotes
-- [`endojs-endo-but-for-bots-pr1362-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1362-gauntlet-panel-2.md) — Cost
-- … and 9555 more
+- … and 9557 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
