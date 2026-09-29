@@ -1,8 +1,9 @@
 ---
 role: fixer
 handler-budget-role: review
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -12,12 +13,5 @@ Replace the separate ordinary-name and special-name injection surfaces with one 
 
 PR endojs/endo-but-for-bots#1102 is the redundant design-only branch and is being closed so endojs/endo-but-for-bots#1343 is the sole champion.
 
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-29T07:49:51Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-29T12:13:05Z -->
