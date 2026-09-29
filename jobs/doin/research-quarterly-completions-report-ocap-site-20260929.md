@@ -50,3 +50,13 @@ demonstrated working, authenticated minion-town MCP access (it completed
    completion report, and also send it to the maintainer inbox
    (`scripts/jobs/message-user.sh <this-job-base>`) so it's visible without
    having to read the job report.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T00:33:37Z
