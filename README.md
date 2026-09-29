@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T14:02:27Z_
+_As of 2026-09-29T14:08:35Z_
 
 ## Latest
 
-No file-level board transitions landed since the last bulletin, so the fleet's output stayed flat; the substance is all in the maintainer inbox. Milestone M2 has been stuck all day on a single decision: the foreman is repeatedly flagging draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) as the one unblocked step, and separately asking to close #1356 as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is similarly waiting on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering four open questions on design #1340.
+The most pressing item is a stalled deploy: the leader host (endolin-garden-ece02cb4) has been running deployed commit `e036bb8e` for roughly a day while `main2` has advanced 25 commits ahead, and since this host runs every singleton producer (foreman, scheduler, watchers), it isn't honoring anything newer — including a rejected deploy candidate (`39d0c5ef0`) that failed the triager-pacing test gate. Separately, a rolling-deploy canary on oros-studio-garden-ce242c49 failed three automatic retries and was left drained pending a decision; that host is also flagged offline on heartbeat, with worker-derotate having zeroed its capacity until it's restored.
 
-Operationally, the leader host has drifted 25 commits behind `origin/main2` with a deploy stalled at zero days — worth a look since it's holding back every singleton producer — and a deploy candidate (`39d0c5ef0ac`) was rejected for a failing triager-pacing test. A rolling-deploy canary on `oros-studio-garden-ce242c49` failed three retries and was left drained pending investigation, while a separate canary on `endolin-garden2` recovered on retry. The ironhorse test262 ratchet (round 3) needs a maintainer call on how to reconcile 906 historically-covered paths that no longer pass under the stricter current classifier. The minion.town federation release gate is still blocked on authority questions at [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). On the lighter side, a quarterly completions rollup (9,490 jobs, June–September) published successfully, and PR [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) had a weave/orchestration attempt that halted today.
+On the review side, the foreman has repeatedly flagged Milestone M2 as blocked on disposing of two draft PRs — [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened text-codec shim, CI-green, awaiting `run the gauntlet`) and [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) (superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332), recommended for closure) — and M3 is blocked choosing between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering open questions on design PR #1340. The minion.town federation release gate remains blocked on maintainer review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124) and authority-question answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332). The IronHorse test262 ratchet round-3 gardener needs a policy call on reconciling 906 lost historical-floor paths rather than silently relabeling them covered. On the lighter side, a quarterly completions dashboard (9,490 completions since June 24) was published and verified live.
 
 ## Parked for maintainer feedback
 
@@ -72,6 +72,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > 4. Say "run the gauntlet [endojs/endo-but-for-bots#1333](https://github.com/endojs/endo-but-for-bots/issues/1333)" once it has been re-pointed at llm.
 >
 > This job is parked on [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) (block-job.sh) and resumes automatically when that PR merges or closes. On resume it re-checks merged vs. closed.
+
+- `watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-25123fdae03a-r2` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-canary-probe-endolin-garden2-5bcdff64-25123fdae03a-r2.md)
+
+> Host-requirements gate: job 'canary-probe-endolin-garden2-5bcdff64-25123fdae03a-r2' has remained unclaimed for 902s with requires: host=endolin-garden2-5bcdff64. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -146,11 +150,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
-> WATCHDOG notice — occurrence #13 (first seen 2026-09-12T03:20:21Z, latest 2026-09-29T03:20:22Z).
-> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-2`) has now been observed 13 times; this is ONE
-> coalesced notice that updates in place, not 13 messages. Latest detail:
+> WATCHDOG notice — occurrence #14 (first seen 2026-09-12T03:20:21Z, latest 2026-09-29T14:05:17Z).
+> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-2`) has now been observed 14 times; this is ONE
+> coalesced notice that updates in place, not 14 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 monk workers 1 -> 2 (target 2): subscription claude-endolin2 spend=37179841 cap=64000000 pace-bias=0.435193 window-start=2026-09-26T03:00Z(calendar) deadline=2026-09-30T03:00Z(planned) ceiling=3 target=2
+> budget-level changed endolin-garden2-5bcdff64 monk workers 3 -> 2 (target 1): subscription claude-endolin2 spend=55993447 cap=64000000 pace-bias=0 window-start=2026-09-26T03:00Z(calendar) deadline=2026-09-30T03:00Z(planned) ceiling=4 target=1
 
 - `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
 
@@ -196,6 +200,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > coalesced notice that updates in place, not 5 messages. Latest detail:
 >
 > budget-level changed endolin-garden-ece02cb4 cleric workers 0 -> 1 (target 1): shared codex subscription demand active=0 queue=2 quota=ok fleet-envelope=1 target=1
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/repo-watcher/journal: packs 1001 >= 1000; size=316389376B packs=1001 gc.log=0; automatic remedy=applied.
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
@@ -483,13 +491,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 129.0M | $917.70 _(notional, rate-card)_ | 90% of 143.0M (backoff) |
-| Codex | 14.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
+| Claude | 129.2M | $918.84 _(notional, rate-card)_ | 90% of 143.0M (backoff) |
+| Codex | 14.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 61885248 tokens/day lower bound._
+_Fleet token-unlock pace: 61907889 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 0 open notice(s); checker healthy
+worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (10)
@@ -610,7 +618,7 @@ worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 3 monks
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 2 monks
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
