@@ -26,3 +26,13 @@ may be stale in a per-job worktree. Add a regression test that reproduces
 the stale-local-vs-fresh-origin divergence (a worktree whose local branch
 ref is behind `origin/<base>`) and asserts the gate compares against the
 fresher `origin/<base>`.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T21:00:19Z
