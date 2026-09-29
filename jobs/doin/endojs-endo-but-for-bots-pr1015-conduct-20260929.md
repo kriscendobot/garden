@@ -35,3 +35,13 @@ are green (shepherd first if CI is red). Un-draft it if it is still a draft and 
 onto `llm`. You choose the merge method. In the report, record the **merge commit SHA on
 `llm`**, because the next sibling pins minion.town to it. If it cannot be merged, emit
 `<<<GARDEN-ORCHESTRATION-FAILED>>>` so the orchestration halts.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T05:44:15Z
