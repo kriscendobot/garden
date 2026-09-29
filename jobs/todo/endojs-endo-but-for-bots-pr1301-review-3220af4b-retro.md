@@ -1,23 +1,9 @@
 ---
-gate: deferred
-priority: normal
 role: prosecutor
 tier: mentor
 token-budget: 100000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-split_eligible: true
-split_reason: repeated-plain-exit
-failure_classification: deterministic
-requeue_cycles: 2
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-09-27T17:06:21Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-09-27T17:06:21Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-29T19:44:55Z cleared=none -->
 
 ---
 role: prosecutor
