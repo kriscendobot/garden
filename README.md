@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T22:13:06Z_
+_As of 2026-09-29T22:17:18Z_
 
 ## Latest
 
-The board stayed quiet since the last bulletin — the only movement was the completion of round 2 of the fix loop on [kriscendobot/minion.town#68](https://github.com/kriscendobot/minion.town/pull/68)'s gauntlet, now sitting in tada. Everything else noted above (M2/M3 milestone blockers, the federation release gate, watchdog notices) predates this window and is unchanged.
+The board's active work continues to be dominated by the gauntlet lanes: the [minion.town#68](https://github.com/kriscendobot/minion.town/pull/68) gauntlet advanced into panel round 3 after its second fix round completed, and a second review round posted for the Ironhorse panic host-call PR ([endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379)). Otherwise the queue stayed busy but routine — clean/panel stages moving forward on the Ironhorse panic-handling PRs, a PR-body template fix queued for #1381, and the CD-verify job for the post-#1015 Endo pin on minion.town — with nothing new for the maintainer to weigh in beyond what's already parked above.
 
 ## Parked for maintainer feedback
 
@@ -433,7 +433,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 161.0M | $1083.20 _(notional, rate-card)_ | 113% of 143.0M (backoff) |
+| Claude | 161.2M | $1084.17 _(notional, rate-card)_ | 113% of 143.0M (backoff) |
 | Codex | 15.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 53% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63999153 tokens/day lower bound._
@@ -442,8 +442,9 @@ _Fleet token-unlock pace: 63999153 tokens/day lower bound._
 worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1379
+- [`kriscendobot-minion-town-pr68-gauntlet-20260929-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-20260929-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #68
 - [`endojs-endo-but-for-bots-pr1381-body-template`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-body-template.md) — Apply template-conforming PR body to endojs/endo-but-for-bots#1381
 - [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr.md) — Open the draft PR for the Ironhorse panic retry/replay leg
 - [`kriscendobot-minion-town-endo-pin-post1015-deploy-verify-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-endo-pin-post1015-deploy-verify-20260929.md) — Verify the minion.town CD deploy advances the Endo daemon to 1706e63 (after #...
