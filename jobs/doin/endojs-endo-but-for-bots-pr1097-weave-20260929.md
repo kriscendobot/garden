@@ -20,3 +20,13 @@ changeset wording + cached-fs.test.js race canonicalizer) onto it, resolve confl
 force-push, move the PR base. Reply on the review when done. No merge.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T13:40:27Z
