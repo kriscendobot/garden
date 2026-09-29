@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T03:12:39Z_
+_As of 2026-09-29T03:18:25Z_
 
 ## Latest
 
-Fleet activity was light since the last bulletin: [kriscendobot/minion.town#135](https://github.com/kriscendobot/minion.town/pull/135) advanced to fix round 6 in its gauntlet. The board otherwise remains dominated by a large backlog awaiting maintainer attention — most notably the M2/M3 milestone decisions piling up from the foreman (whether to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and close the superseded [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356)), the blocked minion.town/Endo federation release gate, and several doom-parked gauntlet/retrospective jobs (including endo-but-for-bots PRs #356, #450, and #982, and minion.town PR #68) held in the plan queue pending promotion.
+The PR #1348 hardened-text-codecs gauntlet advanced another round: fix round 3 completed and panel round 4 is now in progress against [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (the same milestone-M2 PR the foreman has been flagging repeatedly as blocked on gauntlet authorization — it appears that authorization has now been given). Elsewhere on the board, gauntlets continue to churn on [kriscendobot/minion.town#120](https://github.com/kriscendobot/minion.town/pull/120) and [kriscendobot/minion.town#135](https://github.com/kriscendobot/minion.town/pull/135), and a fresh fix round just started on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362).
 
 ## Parked for maintainer feedback
 
@@ -793,10 +793,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > M2 is blocked on the draft PRs: authorize running the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and decide whether to close superseded duplicate #1356.
 
-- `msg-endojs-endo-but-for-bots-pr1348-gauntlet-fix-3-489d813f734b` — from gardener:endojs-endo-but-for-bots-pr1348-gauntlet-fix-3, reply_to `endojs-endo-but-for-bots-pr1348-gauntlet-fix-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1348-gauntlet-fix-3-489d813f734b.md)
-
-> [https://github.com/endojs/endo-but-for-bots/pull/1348](https://github.com/endojs/endo-but-for-bots/pull/1348) (explicit workspace-agent harness) needs your decision. The round-3 gauntlet panel's integrator seat blocks it: the PR adds new JSON-tool work (the @endo/agentry/workspace-agent subpath over JSON ToolRecords, plus a breaking inspect->inspectShell/inspectGitRemote rename in the composed workspace catalog), and [https://github.com/endojs/endo-but-for-bots/issues/731](https://github.com/endojs/endo-but-for-bots/issues/731) parks exactly that kind of work. No fixer can resolve this. Options: (a) lift the parking for this slice and record that on the parking issue and in designs/daemon-agent-tools.md; (b) route Phase 4 provisioning through code mode (code-mode-provisioning, the grants from [https://github.com/endojs/endo-but-for-bots/pull/965](https://github.com/endojs/endo-but-for-bots/pull/965)) and close 1348 as superseded; (c) keep 1348 draft until the Phase 4 lal/fae consumer exists. The PR stays draft. Fix round 3 applied the tractable should-fix items: the endow hook no longer sees the granted tools, there are docs and types fixes, and the ledger now carries a Draft-hold line.
-
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-12T03:35:10Z, latest 2026-09-28T08:11:20Z).
@@ -1136,10 +1132,6 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration npm-minion-town-dev-registry-orch complete (serial): all 3 children reached tada without a machine-readable failure declaration.
 
-- `20260929T030835Z-e184d4` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T030835Z-e184d4.md)
-
-> awaiting maintainer — beyond proxy authority: gardener endojs-endo-but-for-bots-pr1348-gauntlet-fix-3, msgid msg-endojs-endo-but-for-bots-pr1348-gauntlet-fix-3-489d813f734b.md — Lifting the issues#731 parking (option a) is a scope-change/authority grant, and closing PR #1348 as superseded (option b) is an outward-facing closing action — both reserved to the maintainer, not something a proxy may pick between.
-
 - `20260928T165826Z-f6e246` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T165826Z-f6e246.md)
 
 > Milestone M2 is blocked on disposition of the two draft PRs: authorize running the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and close [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/issues/1356) as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/issues/3332).
@@ -1226,6 +1218,14 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 >   <!-- gauntlet-stage-result: panel=pass -->
 >   <!-- gauntlet-stage-result: panel=must-fix -->
 
+- `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
+
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 65f0c2e4414d 21 min ago
+> but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
+
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-0.md)
 
 > budget-level changed endolin-garden-ece02cb4 cleric workers 1 -> 0 (target 0): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=1 target=0
@@ -1236,7 +1236,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.1M | $752.54 _(notional, rate-card)_ | 65% of 143.0M (ok) |
+| Claude | 93.8M | $757.68 _(notional, rate-card)_ | 66% of 143.0M (ok) |
 | Codex | 8.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 54811986 tokens/day lower bound._
@@ -1249,19 +1249,19 @@ worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 (none)
 
 ### doin (5)
+- [`endojs-endo-but-for-bots-pr1348-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1348
 - [`kriscendobot-minion.town-pr120-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #120
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1362
 - [`kriscendobot-minion.town-pr135-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr135-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #135
 - [`activate-ironhorse-ratchet-autopilot-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued)
-- [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1348
 
-### tada (9541)
+### tada (9542)
+- [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots PR #1348
 - [`kriscendobot-minion.town-pr135-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr135-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-sync-llm-master-20260929-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-sync-llm-master-20260929-pr.md) — Cost
 - [`kriscendobot-minion.town-pr135-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr135-gauntlet-fix-5.md) — Cost
 - [`kriscendobot-minion.town-pr120-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr120-gauntlet-panel-5.md) — Cost
-- [`kriscendobot-minion.town-pr135-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr135-gauntlet-panel-5.md) — Cost
-- … and 9536 more
+- … and 9537 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
