@@ -1,11 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: improve-gh-api-primary-quota-singleflight-split
-priority: normal
 role: gardener
-posted_by: orchestrator
-posted_at: 2026-09-29T21:55:51Z
+tier: mentor
+handler-timeout: 7200
+split-indivisible-reason: 'the fix is one critical section inside gh_api_retry (scripts/jobs/common.sh:5451): take the gh-api cooldown flock, re-check the all-API marker under it, issue the request, and on a primary-quota refusal write the latch BEFORE releasing the flock. Admission, re-check, and latch-before-release must land together; any partial child (lock without latch, or latch without serialized admission) leaves the exact 19:35:34-35 race in place and ships no observable fix, and its regression test (concurrent stubbed callers, exactly one doomed request) exercises all three at once.'
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-29T21:56:38Z cleared=none -->
 
 ---
 tier: mentor
