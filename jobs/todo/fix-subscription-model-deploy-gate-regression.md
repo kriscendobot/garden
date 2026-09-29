@@ -95,13 +95,5 @@ way, don't just assume. This unblocks deploys on EVERY host once it lands
 and rolls out — say that explicitly in your completion report so its
 priority is clear to whoever reads it next.
 
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-29T16:23:42Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-29T16:43:10Z -->
