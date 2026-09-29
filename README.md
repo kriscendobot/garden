@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T05:18:48Z_
+_As of 2026-09-29T05:21:37Z_
 
 ## Latest
 
-The board stayed largely idle this cycle — the only transition was fix round 2 landing green on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362), which now sits with CI passing. Meanwhile the maintainer inbox has piled up: several `foreman` notices flag milestone M2 as blocked on draft PRs [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (awaiting `run the gauntlet` authorization) and #1356 (recommended for closure as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)), and M3 is stalled on a choice between advancing #1015's confinement-core refresh or answering open design questions on #1340. The `oros-studio-garden-ce242c49` host has a rolling-deploy canary stuck for over two hours on an undeployed SHA, worth a look. The Ironhorse test262 ratchet round-3 sweep is also awaiting a maintainer policy call on reconciling ~906 lost historical-floor paths against a stricter classifier, and the endo/minion.town federation release gate remains blocked pending authority-question answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332).
+Board activity since the last bulletin was light: the PANEL round 3 stage for [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362)'s gauntlet moved into doin, and a rolling-deploy canary probe was posted for endolin-garden2-5bcdff64. Underneath that, the tada history shows #1362's fix round 2 completed CI-green and the #1348 gauntlet finished end-to-end (panel, fix, and un-draft). Maintainer attention is most needed on the stuck oros-studio deploy canary — 144 minutes behind and still recurring in watchdog notices — plus the deploy-test gate that rejected candidate `39d0c5ef0a` over a failing triager-pacing test, and the growing pile of M2/M3 milestone decisions (gauntlet authorization for #1349, closing superseded #1356, and the #1015/#1340 confinement-core direction).
 
 ## Parked for maintainer feedback
 
@@ -1199,19 +1199,20 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.9M | $796.25 _(notional, rate-card)_ | 71% of 143.0M (ok) |
-| Codex | 11.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 102.1M | $796.93 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Codex | 11.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 47% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 55243839 tokens/day lower bound._
+_Fleet token-unlock pace: 55278347 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`canary-probe-endolin-garden2-5bcdff64-18df481c04b5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-18df481c04b5.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 18df481c04b5
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1362-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1362
 - [`endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review.md) — ---
 
 ### tada (9563)
