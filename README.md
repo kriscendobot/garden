@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T16:20:55Z_
+_As of 2026-09-29T16:22:02Z_
 
 ## Latest
 
-The rolling deploy that was wedged behind a false canary-failed signal is now fixed: main2 36def9fd9e8 changes rolling-deploy.sh to treat an unclaimed probe on a fully busy canary as waiting rather than failed, and the endolin-garden2 canary already passed on it. The leader itself is still deferring its own deploy behind its one busy monk (the `activate-ironhorse-ratchet-autopilot-20260929-r4` job), with a one-time schedule queued to pick up the remaining steps once it lands; oros-studio-garden-ce242c49 remains offline and continues to be skipped by the roll.
-
-Several M2/M3 decisions are stacking up awaiting explicit maintainer sign-off: whether to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and close the superseded duplicate #1356, and whether to advance [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answer the open questions on #1340/#1332 to unblock the confined-agent and federation-release tracks — the latter (`endo-minion-town-federation-release-gate`) is fully blocked pending review of #1124, #1332's authority questions, and three more PRs in sequence. Separately, the Ironhorse test262 ratchet round 3 needs a maintainer call on whether to accept a reconciled current-llm floor (36,599 covered) against 906 historically-covered paths now failing under stricter classification, rather than relabeling them as covered.
+The board's quiet on the surface — one new job posted (`improve-handoff-sync-failopen`), no fresh claims or completions since the last bulletin — but the real story is the rolling deploy that spent the day wedged and is now moving again. A canary probe-scheduling bug was hunted down and fixed twice in succession (25123fdae03, then 36def9fd9e8), the last of which distinguishes an unclaimed probe on a fully-busy canary from a genuine failure; `endolin-garden2` deployed and passed the corrected build at 15:59:54Z, and the leader is now deferring its own deploy only behind its single busy monk. `oros-studio-garden-ce242c49` remains offline and stays a skipped canary throughout, unaffected by this fix. Separately, the Ironhorse test262 ratchet round-3 sweep surfaced a real policy question: the current classifier finds 906 historical "covered" paths are false positives (443 engine-limit aborts, 397 shared-positive-test-failures, 66 other), and the gardener is asking whether to record an explicitly reconciled floor rather than relabel failures as covered. Milestone M2 continues to pile up foreman nudges for a gauntlet decision on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close decision on the superseded #1356, and M3 is blocked choosing between advancing #1015 or answering the open questions on #1340. A quarterly completions rollup (9,490 completions, June 24–Sept 29) was also published for review.
 
 ## Parked for maintainer feedback
 
@@ -514,7 +512,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.7M | $932.69 _(notional, rate-card)_ | 93% of 143.0M (backoff) |
+| Claude | 133.8M | $933.63 _(notional, rate-card)_ | 94% of 143.0M (backoff) |
 | Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63284956 tokens/day lower bound._
@@ -523,10 +521,11 @@ _Fleet token-unlock pace: 63284956 tokens/day lower bound._
 worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (4)
+### todo (5)
 - [`endojs-endo-but-for-bots-pr356-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr356-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #356
 - [`endojs-endo-but-for-bots-pr1343-unify-endowments`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-unify-endowments.md) — ---
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
+- [`improve-handoff-sync-failopen`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-handoff-sync-failopen.md) — ---
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-transcript.md) — Host calls as transcript events, logical handles, and barriers
 
 ### doin (4)
