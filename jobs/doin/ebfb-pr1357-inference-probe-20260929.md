@@ -36,3 +36,13 @@ Deliver:
   a comment on #1357 linking it. Do not use deployment credentials beyond what
   the design and maintainer authorize: the kriscendobot subscription for the
   deployed root user.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T07:36:13Z
