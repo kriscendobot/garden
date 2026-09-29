@@ -108,9 +108,9 @@ class Bridge:
             self.session = sid
         return resp.status, resp
 
-    def relay(self, msg, replaying=False):
-        """Send msg; forward every server message it yields to self.emit.
-        Returns the list of messages emitted (used by probe/replay)."""
+    def relay(self, msg, replaying=False, sink=None):
+        """Send msg; forward every server message it yields to sink (default
+        self.emit). Returns the list of messages received (used by probe)."""
         token = self.bearer()
         status, resp = self.post(msg, token)
         if status == 401:
@@ -122,9 +122,9 @@ class Bridge:
             status, resp = self.post(msg, self.bearer())
         if resp is None:
             raise TransportError("HTTP %s from %s" % (status, URL))
-        return self.read(resp)
+        return self.read(resp, sink or self.emit)
 
-    def read(self, resp):
+    def read(self, resp, sink):
         out = []
         ctype = (resp.headers.get("Content-Type") or "").lower()
         with resp:
@@ -134,19 +134,19 @@ class Bridge:
                     line = raw.decode("utf-8", "replace").rstrip("\r\n")
                     if line == "":
                         if data:
-                            out.extend(self.deliver("\n".join(data)))
+                            out.extend(self.deliver("\n".join(data), sink))
                             data = []
                     elif line.startswith("data:"):
                         data.append(line[5:].lstrip(" ") if line[5:6] == " " else line[5:])
                 if data:
-                    out.extend(self.deliver("\n".join(data)))
+                    out.extend(self.deliver("\n".join(data), sink))
             else:
                 body = resp.read().decode("utf-8", "replace").strip()
                 if body:
-                    out.extend(self.deliver(body))
+                    out.extend(self.deliver(body, sink))
         return out
 
-    def deliver(self, text):
+    def deliver(self, text, sink):
         try:
             parsed = json.loads(text)
         except ValueError:
@@ -154,7 +154,7 @@ class Bridge:
             return []
         msgs = parsed if isinstance(parsed, list) else [parsed]
         for m in msgs:
-            self.emit(m)
+            sink(m)
         return msgs
 
     def reinitialize(self):
@@ -162,12 +162,9 @@ class Bridge:
             raise TransportError("session expired before initialize was seen")
         self.session = None
         replay = dict(self.init_msg, id="bridge-reinit-%d" % int(time.time() * 1000))
-        saved, self.emit = self.emit, (lambda m: None)   # the harness never asked for these
-        try:
-            self.relay(replay, replaying=True)
-            self.relay({"jsonrpc": "2.0", "method": "notifications/initialized"}, replaying=True)
-        finally:
-            self.emit = saved
+        drop = lambda m: None   # the harness never asked for these replies
+        self.relay(replay, replaying=True, sink=drop)
+        self.relay({"jsonrpc": "2.0", "method": "notifications/initialized"}, replaying=True, sink=drop)
 
     # --- one client message ---------------------------------------------------
     def handle(self, msg):
@@ -244,6 +241,13 @@ def serve():
     bridge.close()
 
 
+def err_text(reply):
+    e = reply.get("error")
+    if isinstance(e, dict):
+        return e.get("message") or json.dumps(e)
+    return str(e) if e else "no response"
+
+
 def probe(call=None):
     got = {}
     bridge = Bridge(lambda m: got.__setitem__(m.get("id"), m))
@@ -254,14 +258,14 @@ def probe(call=None):
             "clientInfo": {"name": "garden-minion-mcp-probe", "version": "1"}}})
         init = got.get(1, {})
         if "result" not in init:
-            summary["error"] = "initialize: %s" % init.get("error", "no response")
+            summary["error"] = "initialize: %s" % err_text(init)
             return summary
         summary["server"] = init["result"].get("serverInfo", {})
         bridge.handle({"jsonrpc": "2.0", "method": "notifications/initialized"})
         bridge.handle({"jsonrpc": "2.0", "id": 2, "method": "tools/list"})
         tools = got.get(2, {})
         if "result" not in tools:
-            summary["error"] = "tools/list: %s" % tools.get("error", "no response")
+            summary["error"] = "tools/list: %s" % err_text(tools)
             return summary
         summary["tools"] = [t.get("name") for t in tools["result"].get("tools", [])]
         if call:
