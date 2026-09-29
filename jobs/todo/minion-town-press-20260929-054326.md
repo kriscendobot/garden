@@ -1,10 +1,8 @@
 ---
-gate: deferred
-priority: normal
 role: gardener
-posted_by: deadmail-issue-comment-5884135413
-posted_at: 2026-09-29T05:43:37Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-29T09:18:05Z cleared=none -->
 
 ---
 role: gardener
