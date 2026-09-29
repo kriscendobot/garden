@@ -81,3 +81,13 @@ If ANY required assertion fails (the reader never returns a fresh exit-0 figure,
 or `pty-context-test.sh` does not fully pass), emit the exact line
 `<<<GARDEN-ORCHESTRATION-FAILED>>>` immediately BEFORE your completion signal.
 Then, in all cases, emit `<<<GARDEN-JOB-COMPLETE>>>` as the very last line.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T00:02:08Z
