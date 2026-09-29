@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T22:22:16Z_
+_As of 2026-09-29T22:24:46Z_
 
 ## Latest
 
-The Ironhorse panic-retry-replay stack continued moving forward: [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) is into a second panel review round and #1380's gauntlet is cleaning, while the reference/coda leg and a fresh draft-PR-opening job stay in progress. The `kriscendobot/minion.town` [PR #68](https://github.com/kriscendobot/minion.town/pull/68) gauntlet also advanced (fix round 2 landed, panel round 3 now queued). Separately, a design job for proxy/mentat-supervisor screening of minion.town PRs is underway.
-
-Otherwise the board is dominated by long-running Ironhorse test262 ratchet work and a backlog of foreman escalations awaiting maintainer decisions — most notably whether to authorize the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and #1356 (M2), and the confinement-core direction on #1015/#1340 (M3) — plus a stalled leader deploy (25 commits behind) and an offline follower host (`oros-studio-garden-ce242c49`) that rolling-deploy is correctly skipping.
+Quiet since the last check: the only board movement was a new build job posted to `todo`, `build-minion-town-pr-screening`, standing up proxy screening and delegated merge for kriscendobot/minion.town PRs. Nothing claimed or completed in the interval, so the substantial backlog — the M2/M3 gauntlet decisions, the federation release gate, and the stalled leader deploy on endolin-garden-ece02cb4 — is unchanged and still needs maintainer attention.
 
 ## Parked for maintainer feedback
 
@@ -440,7 +438,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 161.4M | $1084.93 _(notional, rate-card)_ | 113% of 143.0M (backoff) |
+| Claude | 161.4M | $1085.30 _(notional, rate-card)_ | 113% of 143.0M (backoff) |
 | Codex | 15.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 64030589 tokens/day lower bound._
@@ -449,7 +447,8 @@ _Fleet token-unlock pace: 64030589 tokens/day lower bound._
 worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
+- [`build-minion-town-pr-screening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr-screening.md) — Build: proxy screening + delegated merge for kriscendobot/minion.town PRs
 - [`improve-deadline-nudge-failure-trace`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-deadline-nudge-failure-trace.md) — ---
 - [`kriscendobot-minion-town-pr68-gauntlet-20260929-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr68-gauntlet-20260929-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #68
 - [`endojs-endo-but-for-bots-pr1381-body-template`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-body-template.md) — Apply template-conforming PR body to endojs/endo-but-for-bots#1381
