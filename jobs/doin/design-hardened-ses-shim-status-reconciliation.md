@@ -16,3 +16,13 @@ Reconcile the M2 `hardened-url-shim` and `hardened-text-codecs-shim` design reco
 <!-- garden-annotation: key=hardened-url-shim-complete-endo3332 by=designer at=2026-09-27T21:55:10Z -->
 
 The `hardened-url-shim` portion is complete: upstream endojs/endo#3332 merged on 2026-08-21, and endojs/endo-but-for-bots#1355 records the design-status evidence. Do not schedule or repeat URL implementation or reconciliation; only the text-codecs portion remains in scope.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T19:14:18Z
