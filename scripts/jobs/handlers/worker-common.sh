@@ -105,6 +105,12 @@ Your working directory is a dedicated git worktree for THIS job, checked out off
 origin/$main_branch at $worktree. Do ALL development for this job here, in your
 cwd: never edit the deployed garden root checkout. Commit explicit pathspecs and
 push with a rebase CAS loop to $main_branch (git push origin HEAD:$main_branch).
+In the shell that runs that loop, source $jobs_dir/common.sh and acquire
+\`garden_repo_lock "$worktree" exclusive\` before fetching. Hold it through
+rebase and push, then call \`garden_repo_unlock "$worktree"\` in the same shell.
+Use GARDEN_FETCH_MAX_AGE_OVERRIDE=0 for CAS fetches.
+This queues same-host pushes and maintenance against the shared repository.
+
 The worktree is torn down when you finish and is garbage-collected if your run
 dies, so nothing you need to keep should live outside a commit.
 

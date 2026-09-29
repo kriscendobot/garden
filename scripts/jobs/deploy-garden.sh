@@ -564,7 +564,7 @@ oldest_busy() {
 # Fetch before any drain: a bad candidate must not pause the fleet merely to learn
 # that its own deterministic regression suites fail. The candidate is unpacked and
 # tested above, never overlaid on the deployed root.
-git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>/dev/null \
+GARDEN_FETCH_MAX_AGE_OVERRIDE=0 git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>/dev/null \
   || { log "WARN: fetch of origin/$GARDEN_MAIN_BRANCH failed (offline?); aborting deploy"; exit 1; }
 candidate_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "origin/$GARDEN_MAIN_BRANCH" || true)"
 [ -n "$candidate_sha" ] || { log "FATAL: cannot resolve fetched origin/$GARDEN_MAIN_BRANCH"; exit 1; }
@@ -674,6 +674,7 @@ done
 
 # --- 3. MERGE ----------------------------------------------------------------
 
+garden_repo_lock "$GARDEN_ROOT" exclusive || { log "repository lock unavailable; aborting deploy"; lift_drain_if_we_engaged; exit 1; }
 old_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet HEAD || true)"
 [ -n "$old_sha" ] || { log "FATAL: cannot resolve HEAD in $GARDEN_ROOT"; lift_drain_if_we_engaged; exit 1; }
 up_sha="$candidate_sha"
@@ -750,6 +751,7 @@ elif [ "$ff_rc" -eq 2 ]; then
   exit 1
 fi
 new_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify HEAD)"
+garden_repo_unlock "$GARDEN_ROOT"
 log "advanced the root tree atomically (per-file rename): $old_sha -> $new_sha"
 
 # --- 4. RECORD + LIFT + RESTART ----------------------------------------------

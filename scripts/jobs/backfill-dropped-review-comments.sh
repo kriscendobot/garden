@@ -227,7 +227,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
   fi
   rm -f "$jb"
   # Refresh the dedup view so a later row in THIS run sees the just-posted job.
-  journal_fetch "$VERIFY" >/dev/null 2>&1 || true
+  journal_fetch "$VERIFY" 0 >/dev/null 2>&1 || true
 done < "$SRC"
 
 log "backfill $REPO complete: examined $examined review(s); recovered${APPLY:+/posted} $recovered; skipped-owned $skipped; untrusted $untrusted${capped:+; CAP HIT at $MAX_RECOVER}${APPLY:+}"

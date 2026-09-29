@@ -48,6 +48,7 @@ GARDEN_ROOT_GUARD_ESCALATION_RESULT="$GR" \
 
 res="$(head -1 "$GR" 2>/dev/null || true)"
 case "$res" in
+  repo-busy)       write_result refused "repository lock timed out; maintenance did not run; retry once the holder exits";;
   noop-healthy)    write_result applied "store already maintainable; no stale gc lock to break";;
   gc-ok)           write_result applied "git gc succeeded (no stale lock was in the way)";;
   unlocked-gc-ok)  write_result applied "removed a stale gc.pid lock; git gc then succeeded";;

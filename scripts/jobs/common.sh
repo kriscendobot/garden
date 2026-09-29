@@ -11,6 +11,224 @@
 #
 # Source this; do not execute it.
 
+# --- host-local repository coordination -------------------------------------
+# Also loaded by bin/git without loading the rest of the job-board library.
+: "${GARDEN_REPO_LOCK_WAIT:=10}"
+: "${GARDEN_REPO_LOCK_STALE:=120}"
+: "${GARDEN_FETCH_MAX_AGE:=5}"
+: "${GARDEN_REPO_GIT_TIMEOUT:=120}"
+declare -A _GARDEN_REPO_FDS _GARDEN_REPO_MODES
+
+# Resolve through the real executable, never through bin/git recursively.
+_garden_real_git() {
+  if [ -n "${GARDEN_REAL_GIT:-}" ]; then "$GARDEN_REAL_GIT" "$@"; return; fi
+  local entry candidate wrapper
+  wrapper="$(readlink -f "${BASH_SOURCE[0]%/*}/bin/git")"
+  local -a paths; IFS=: read -r -a paths <<< "$PATH"
+  for entry in "${paths[@]}"; do
+    candidate="${entry:-.}/git"
+    [ -x "$candidate" ] || continue
+    [ "$(readlink -f "$candidate")" != "$wrapper" ] || continue
+    "$candidate" "$@"; return
+  done
+  printf 'garden repo lock: no git executable found\n' >&2; return 127
+}
+
+# Add safety configuration through Git's environment interface so argv remains
+# byte-for-byte intact for callers, hooks and PATH-injected Git adapters.
+_garden_git_exec() (
+  local kind="$1" count="${GIT_CONFIG_COUNT:-0}"; shift
+  if [ "$kind" = fetch ]; then
+    export "GIT_CONFIG_KEY_$count=gc.auto" "GIT_CONFIG_VALUE_$count=0"
+    count=$((count + 1))
+    export "GIT_CONFIG_KEY_$count=maintenance.auto" "GIT_CONFIG_VALUE_$count=false"
+  else
+    export "GIT_CONFIG_KEY_$count=gc.autoDetach" "GIT_CONFIG_VALUE_$count=false"
+    count=$((count + 1))
+    export "GIT_CONFIG_KEY_$count=maintenance.autoDetach" "GIT_CONFIG_VALUE_$count=false"
+  fi
+  export GIT_CONFIG_COUNT=$((count + 1))
+  _garden_real_git "$@"
+)
+
+# Canonical common-dir unifies worktrees and symlink spellings of one repo.
+garden_repo_key() {
+  local gd
+  gd="$(_garden_real_git -C "$1" rev-parse --path-format=absolute --git-common-dir)" || return
+  gd="$(realpath -e "$gd")" || return
+  printf '%s' "$gd" | sha256sum | cut -d' ' -f1
+}
+
+_garden_lock_wait() { # <fd> <shared|exclusive> <lock-path>
+  local fd="$1" mode="$2" path="$3" stamp pid started now status
+  if flock "--$mode" -w "$GARDEN_REPO_LOCK_WAIT" "$fd"; then return 0; fi
+  now="$(date +%s)"
+  printf 'garden repo lock: timeout after %ss: %s (%s)\n' "$GARDEN_REPO_LOCK_WAIT" "$path" "$mode" >&2
+  for stamp in "$path".holder.*; do
+    [ -f "$stamp" ] || continue
+    read -r pid started < "$stamp" || continue
+    status=busy
+    if ! kill -0 "$pid" 2>/dev/null; then status=dead-holder;
+    elif [[ "$started" =~ ^[0-9]+$ ]] && (( now - started >= GARDEN_REPO_LOCK_STALE )); then status=overdue-holder; fi
+    printf 'garden repo lock: %s pid=%s since=%s; retaining lock inode\n' "$status" "$pid" "$started" >&2
+  done
+  return 124
+}
+
+garden_repo_lock() { # <repo> <shared|exclusive>; held until unlock or process exit
+  local key marker held mode="${2:-exclusive}" fd path
+  key="$(garden_repo_key "$1")" || return
+  marker="GARDEN_REPO_HELD_$key"; held="${!marker:-}"
+  path="$(realpath -m "$GARDEN_STATE/repo-locks/$key/repo.lock")"
+  if [ -n "$held" ]; then
+    local held_mode="${held%%:*}" held_fd="${held#*:}"
+    if [ "$(readlink "/proc/self/fd/$held_fd" 2>/dev/null)" = "$path" ]; then
+      if [ "$held_mode" = exclusive ] || [ "$mode" = shared ]; then return 0; fi
+      printf 'garden repo lock: refusing shared-to-exclusive upgrade: %s\n' "$path" >&2
+      return 1
+    fi
+  fi
+  mkdir -p "${path%/*}" || return
+  exec {fd}<>"$path" || return
+  if ! _garden_lock_wait "$fd" "$mode" "$path"; then exec {fd}>&-; return 124; fi
+  # Metadata is advisory. Only remove records for exited processes, never the
+  # flock inode, even if a surviving child still inherited the descriptor.
+  local record old_pid
+  for record in "$path".holder.*; do
+    [ -f "$record" ] || continue
+    read -r old_pid _ < "$record" || continue
+    [[ "$old_pid" =~ ^[0-9]+$ ]] || continue
+    if ! kill -0 "$old_pid" 2>/dev/null; then
+      printf 'garden repo lock: cleared dead-holder metadata pid=%s after acquiring %s\n' "$old_pid" "$path" >&2
+      rm -f "$record"
+    fi
+  done
+  printf '%s %s\n' "$BASHPID" "$(date +%s)" > "$path.holder.$BASHPID"
+  _GARDEN_REPO_FDS["$key"]="$fd"
+  _GARDEN_REPO_MODES["$key"]="$BASHPID"
+  export "$marker=$mode:$fd"
+}
+
+garden_repo_unlock() {
+  local key fd marker
+  key="$(garden_repo_key "$1")" || return
+  fd="${_GARDEN_REPO_FDS[$key]:-}"
+  [ -n "$fd" ] || return 0
+  # A subshell borrowing a parent's fd must not erase its ownership metadata.
+  [ "${_GARDEN_REPO_MODES[$key]:-}" = "$BASHPID" ] || return 0
+  rm -f "$GARDEN_STATE/repo-locks/$key/repo.lock.holder.$BASHPID"
+  marker="GARDEN_REPO_HELD_$key"; unset "$marker" '_GARDEN_REPO_FDS[$key]' '_GARDEN_REPO_MODES[$key]'
+  exec {fd}>&-
+}
+
+garden_repo_run() ( # <repo> <shared|exclusive> <command...>
+  local repo="$1" mode="$2"; shift 2
+  garden_repo_lock "$repo" "$mode" || return
+  trap 'garden_repo_unlock "$repo"' EXIT
+  "$@"
+)
+
+# One successful timestamp per repository/remote/branch, with a separate fetch
+# mutex: fetch is a shared repository operation but only one fetch mutates refs
+# and FETCH_HEAD at a time. Never reuse FETCH_HEAD for an unrelated branch.
+_garden_repo_fetch() {
+  local repo="$1"; shift
+  local key fd path cache='' remote='' branch='' arg now stamp=0 oid='' actual='' url='' rc=0
+  local max_age="${GARDEN_FETCH_MAX_AGE_OVERRIDE:-$GARDEN_FETCH_MAX_AGE}"
+  [[ "$max_age" =~ ^[0-9]+$ ]] || { echo 'garden fetch: invalid max age' >&2; return 2; }
+  key="$(garden_repo_key "$repo")" || return
+  path="$GARDEN_STATE/repo-locks/$key/fetch.lock"
+  exec {fd}<>"$path" || return
+  _garden_lock_wait "$fd" exclusive "$path" || { exec {fd}>&-; return 124; }
+  printf '%s %s\n' "$BASHPID" "$(date +%s)" > "$path.holder.$BASHPID"
+  # Only the unambiguous garden branch fetch form is cacheable. Options with
+  # different semantics (--refetch, --prune, refspecs, filters) always run.
+  local -a positional=()
+  for arg in "$@"; do
+    case "$arg" in -q|--quiet) ;; -*) positional+=(invalid) ;; *) positional+=("$arg") ;; esac
+  done
+  if [ "${#positional[@]}" = 2 ]; then
+    remote="${positional[0]}"; branch="${positional[1]}"
+    case "$branch" in "${JOURNAL_BRANCH:-journal2}"|"${GARDEN_MAIN_BRANCH:-main2}")
+      url="$(_garden_real_git -C "$repo" remote get-url "$remote" 2>/dev/null)" || url=''
+      if [ -n "$url" ]; then
+        cache="$GARDEN_STATE/repo-locks/$key/fetch-$(printf '%s\0%s\0%s' "$remote" "$url" "$branch" | sha256sum | cut -d' ' -f1)"
+      fi ;;
+    esac
+  fi
+  now="$(date +%s%N)"
+  if [ -n "$cache" ] && [ -f "$cache" ]; then
+    read -r stamp oid < "$cache" || stamp=0
+    actual="$(_garden_real_git -C "$repo" rev-parse --verify "refs/remotes/$remote/$branch" 2>/dev/null)" || actual=''
+    # FETCH_HEAD must still describe this fetch for callers that consume it.
+    local fetch_head
+    fetch_head="$(_garden_real_git -C "$repo" rev-parse --verify FETCH_HEAD 2>/dev/null)" || fetch_head=''
+    if [[ "$stamp" =~ ^[0-9]+$ ]] && (( now >= stamp && (stamp > _garden_fetch_requested || (max_age > 0 && now - stamp < max_age * 1000000000)) )) \
+        && [ -n "$oid" ] && [ "$actual" = "$oid" ] && [ "$fetch_head" = "$oid" ]; then
+      rm -f "$path.holder.$BASHPID"; exec {fd}>&-; return 0
+    fi
+  fi
+  [ -z "$cache" ] || rm -f "$cache"
+  # Disable detached automatic maintenance: it could outlive the shared lock.
+  _garden_git_exec fetch "${original[@]}" || rc=$?
+  if [ "$rc" = 0 ] && [ -n "$cache" ]; then
+    oid="$(_garden_real_git -C "$repo" rev-parse --verify "refs/remotes/$remote/$branch" 2>/dev/null)" || oid=''
+    [ -z "$oid" ] || { printf '%s %s\n' "$(date +%s%N)" "$oid" > "$cache.tmp.$BASHPID" && mv "$cache.tmp.$BASHPID" "$cache"; }
+  fi
+  rm -f "$path.holder.$BASHPID"; exec {fd}>&-
+  return "$rc"
+}
+
+# All fleet git argv arrive here, including commands underneath timeout. A
+# narrow parser identifies the repository; unknown global flags bypass caching
+# but still take an exclusive lock when Git can resolve the repository.
+garden_git() (
+  local repo="$PWD" arg cmd='' mode=exclusive
+  local _garden_fetch_requested; _garden_fetch_requested="$(date +%s%N)"
+  local -a original=("$@") globals=()
+  while [ "$#" -gt 0 ]; do
+    arg="$1"; shift
+    case "$arg" in
+      -C)
+        [ "$#" -gt 0 ] || { _garden_real_git "${original[@]}"; return; }
+        if [ -n "$1" ]; then repo="$(cd "$repo" && cd "$1" && pwd -P)" || return; fi
+        shift ;;
+      -c|--git-dir|--work-tree|--namespace|--config-env) globals+=("$arg" "$1"); shift ;;
+      --git-dir=*|--work-tree=*|--namespace=*|--config-env=*|--exec-path=*|--bare|--no-optional-locks|--literal-pathspecs|--glob-pathspecs|--noglob-pathspecs|--icase-pathspecs|--no-replace-objects|--no-lazy-fetch|--no-advice|-p|-P|--no-pager|--paginate) globals+=("$arg") ;;
+      *) cmd="$arg"; break ;;
+    esac
+  done
+  # Repository discovery is read-only and has to precede flock. init/clone own a
+  # new destination (the caller's clone lock covers publication).
+  case "$cmd" in init|clone|--version|version|--help|'') _garden_real_git "${original[@]}"; return ;; esac
+  # Preserve clone/init's existing caller-owned budgets. Bound operations on
+  # existing repositories, including both the lock wait and the Git process tree.
+  if [ "${GARDEN_GIT_BOUNDED:-0}" != 1 ]; then
+    timeout --kill-after=5 "${GARDEN_REPO_GIT_TIMEOUT}s" env GARDEN_GIT_BOUNDED=1 \
+      "${BASH_SOURCE[0]%/*}/bin/git" "${original[@]}"
+    return
+  fi
+  unset GARDEN_GIT_BOUNDED
+  local gd
+  gd="$(_garden_real_git -C "$repo" "${globals[@]}" rev-parse --absolute-git-dir 2>/dev/null)" || {
+    _garden_real_git "${original[@]}"; return;
+  }
+  case "$cmd" in fetch|rev-parse|show|log|diff|diff-tree|ls-tree|cat-file|merge-base|rev-list|for-each-ref|ls-remote|count-objects|archive|check-ref-format) mode=shared ;; esac
+  [ "${#globals[@]}" = 0 ] || mode=exclusive
+  # Use the resolved admin directory to honor --git-dir and worktree gitfiles.
+  garden_repo_lock "$gd" "$mode" || return
+  trap 'garden_repo_unlock "$gd"' EXIT
+  if [ "$cmd" = fetch ] && [ "${#globals[@]}" = 0 ]; then
+    _garden_repo_fetch "$repo" "$@"
+  else
+    # With custom git options, fetch cannot be cached and needs exclusivity.
+    _garden_git_exec "$cmd" "${original[@]}"
+  fi
+)
+
+# bin/git needs only the coordination layer, not job-board initialization.
+if [ "${GARDEN_REPO_HELPERS_ONLY:-0}" = 1 ]; then return 0; fi
+
 # --- configuration (all overridable) ----------------------------------------
 
 # Garden root (where main + journal worktrees live).
@@ -494,7 +712,9 @@ fi
 # for the boatman's authorized-kriskowal ferries. See scripts/jobs/bin/gh and
 # designs/fleet-gh-identity.md. Guarded so repeated sourcing in one process tree
 # does not stack the entry.
-GARDEN_BIN="$GARDEN_ROOT/scripts/jobs/bin"
+GARDEN_BIN="$(cd "$(dirname "${BASH_SOURCE[0]}")/bin" && pwd)"
+export GARDEN_ROOT GARDEN_STATE JOURNAL_BRANCH GARDEN_MAIN_BRANCH
+export GARDEN_REPO_LOCK_WAIT GARDEN_REPO_LOCK_STALE GARDEN_FETCH_MAX_AGE GARDEN_REPO_GIT_TIMEOUT
 case ":$PATH:" in
   ":$GARDEN_BIN:"*) : ;;            # already at the front; nothing to do
   *) export PATH="$GARDEN_BIN:$PATH" ;;
@@ -4313,6 +4533,9 @@ clone_lock() {
       _clone_lock_stamp "$fd"                          # record our pid + time for the next waiter
       _CLONE_LOCK_FD["$dir"]="$fd"
       export "$key=held"
+      if [ -e "$dir/.git" ]; then
+        garden_repo_lock "$dir" exclusive || { clone_unlock "$dir"; die "repository lock unavailable for $dir"; }
+      fi
       _contention_stamp_us
       contention_record "$dir" lock-wait "$(( _CONTENTION_US - _lock_t0 ))"
       return 0
@@ -4356,6 +4579,7 @@ clone_lock() {
 # releases the flock). A borrowed lock (owned by an ancestor) is left alone.
 clone_unlock() {
   local dir="$1" key fd
+  if [ -e "$dir/.git" ]; then garden_repo_unlock "$dir" || true; fi
   fd="${_CLONE_LOCK_FD[$dir]:-}"
   [ -n "$fd" ] || return 0
   unset '_CLONE_LOCK_FD[$dir]'
@@ -4569,6 +4793,7 @@ ensure_clone() {
     log "WARN: $dir has a corrupt clone; self-healing by re-cloning"
     reclone_clone "$dir" "$remote"
   fi
+  garden_repo_lock "$dir" exclusive || die "repository lock unavailable for $dir"
   _sweep_stale_git_locks "$dir"
   git -C "$dir" config user.name  "$(bot_name)"
   git -C "$dir" config user.email "$(bot_email)"
@@ -4591,7 +4816,7 @@ _journal_git_fetch() {
   local _t0 _rc=0
   _contention_stamp_us; _t0="$_CONTENTION_US"
   timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_FETCH_TIMEOUT" \
-    git -C "$1" fetch -q origin "$JOURNAL_BRANCH" || _rc=$?
+    env GARDEN_FETCH_MAX_AGE_OVERRIDE="${2:-$GARDEN_FETCH_MAX_AGE}" git -C "$1" fetch -q origin "$JOURNAL_BRANCH" || _rc=$?
   _contention_stamp_us
   contention_record "$1" fetch "$(( _CONTENTION_US - _t0 ))" "$_rc"
   return "$_rc"
@@ -4628,7 +4853,13 @@ leader_host() {
   # plain non-zero status the `|| true` absorbs; the clone lock is released with
   # the subshell's fds, and the fallback-to-cache path below still runs.
   ( ensure_clone "$dir" ) >/dev/null 2>&1 || true
-  _journal_git_fetch "$dir" >/dev/null 2>&1 || true
+  if ! _journal_git_fetch "$dir" 0 >/dev/null 2>&1; then
+    log "WARN: leader fetch failed; using last-known leader cache (not fresh)"
+    val="$(git -C "$dir" show "origin/$JOURNAL_BRANCH:$GARDEN_LEADER_MARKER_PATH" 2>/dev/null | head -1 | tr -d '[:space:]')"
+    if [ -n "$val" ]; then printf '%s\n' "$val";
+    else head -1 "$cache" 2>/dev/null | tr -d '[:space:]'; fi
+    return 0
+  fi
   val="$(git -C "$dir" show "origin/$JOURNAL_BRANCH:$GARDEN_LEADER_MARKER_PATH" 2>/dev/null | head -1 | tr -d '[:space:]')"
   if [ -n "$val" ]; then
     mkdir -p "$(dirname "$cache")" 2>/dev/null || true
@@ -4727,7 +4958,7 @@ host_liveness() {
 # the same diagnostic strings git would.
 GARDEN_FETCH_STDERR=""
 journal_fetch() {
-  local dir="$1" attempt=1 rc=0
+  local dir="$1" max_age="${2:-$GARDEN_FETCH_MAX_AGE}" attempt=1 rc=0
   GARDEN_FETCH_STDERR=""
   while :; do
     # Capture the fetch's stderr AND its exit code. The assignment must sit inside
@@ -4742,7 +4973,7 @@ journal_fetch() {
     if [ -n "${GARDEN_FETCH_CMD:-}" ]; then
       if GARDEN_FETCH_STDERR="$(GARDEN_FETCH_DIR="$dir" "$GARDEN_FETCH_CMD" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
     else
-      if GARDEN_FETCH_STDERR="$(_journal_git_fetch "$dir" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
+      if GARDEN_FETCH_STDERR="$(_journal_git_fetch "$dir" "$max_age" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
     fi
     [ "$rc" -eq 0 ] && return 0
     # 124 = SIGTERM ended the fetch at the deadline; 137 = a SIGTERM-ignoring transport
@@ -7219,7 +7450,7 @@ sync_clone() {
   # `set -e` exit), killing the process before we can classify the failure as a
   # transient outage below. Capture the rc through an `if` so `set -e` is suspended
   # for the call and the offline path is actually reachable from a bare caller.
-  if journal_fetch "$dir"; then rc=0; else rc=$?; fi
+  if journal_fetch "$dir" 0; then rc=0; else rc=$?; fi
   if [ "$rc" -ne 0 ]; then
     # A transient network/resolver outage is not a real failure: exit EX_TEMPFAIL
     # so the wrapper and callers skip the tick and retry next cadence instead of
@@ -7250,7 +7481,7 @@ sync_clone() {
       # ensure_clone re-enters the inherited lock in a subshell and closes only
       # that subshell's fd, so this sync_clone invocation remains serialized.
       ( ensure_clone "$dir" )
-      if journal_fetch "$dir"; then rc=0; else rc=$?; fi
+      if journal_fetch "$dir" 0; then rc=0; else rc=$?; fi
       if [ "$rc" -ne 0 ]; then
         if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
           log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
@@ -7302,7 +7533,7 @@ sync_clone() {
       log "WARN: $dir corrupt (${corrupt_sig:-stale gc.log}); self-healing by re-cloning"
       rm -rf "$dir"
       ( ensure_clone "$dir" )
-      if journal_fetch "$dir"; then rc=0; else rc=$?; fi
+      if journal_fetch "$dir" 0; then rc=0; else rc=$?; fi
       if [ "$rc" -ne 0 ]; then
         if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
           log "offline; skipping tick (rc=$GARDEN_OFFLINE_RC)"
@@ -7326,7 +7557,7 @@ sync_clone() {
       if [ ! -d "$dir/.git" ]; then
         ( ensure_clone "$dir" )
       fi
-      if journal_fetch "$dir"; then rc=0; else rc=$?; fi
+      if journal_fetch "$dir" 0; then rc=0; else rc=$?; fi
       if [ "$rc" -ne 0 ] && _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
         log "offline on reset; skipping tick (rc=$GARDEN_OFFLINE_RC)"
         exit "$GARDEN_OFFLINE_RC"
@@ -7364,7 +7595,7 @@ _verify_pushed() {
   local dir="$1" head remote
   GARDEN_VERIFY_FETCH_RC=0
   head="$(git -C "$dir" rev-parse HEAD 2>/dev/null)"               || return 1
-  if journal_fetch "$dir" >/dev/null 2>&1; then
+  if journal_fetch "$dir" 0 >/dev/null 2>&1; then
     GARDEN_VERIFY_FETCH_RC=0
   else
     # shellcheck disable=SC2034 # consumed by cursor-set after commit_and_push returns

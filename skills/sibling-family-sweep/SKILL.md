@@ -1,6 +1,6 @@
 ---
 created: 2026-09-17
-updated: 2026-09-17
+updated: 2026-09-29
 author: builder (gardener, job review-improve-incomplete-sibling-transformation)
 ---
 
@@ -80,3 +80,11 @@ norms.
 
 A change in which every sibling of a generalized operation is either converted or
 explicitly, reasoned-out left alone — never silently skipped.
+
+## Notes from the field
+
+- _2026-09-29_ — When adding fetch freshness caching, follow a caller's `fresh`
+  flag through every intermediate wrapper. Six garden watcher post-confirm paths
+  already accepted that flag but needed to pass zero max-age to the new shared
+  helper. A warm verification clone followed by a push from a second clone exposed
+  the stale confirmation; the regression exercises each wrapper's actual function.

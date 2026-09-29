@@ -172,7 +172,7 @@ is_trusted() {  # is_trusted <login>
 verify_posted() {
   local base="$1" dir="$VERIFY" sub
   ensure_clone "$dir"
-  journal_fetch "$dir" >/dev/null 2>&1 || return 1
+  journal_fetch "$dir" 0 >/dev/null 2>&1 || return 1
   for sub in todo doin tada; do
     git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
   done
@@ -193,7 +193,7 @@ base_parked() {  # base_parked <base>
 gauntlet_recorded() {
   local base="$1" dir="$VERIFY"
   ensure_clone "$dir"
-  journal_fetch "$dir" >/dev/null 2>&1 || return 1
+  journal_fetch "$dir" 0 >/dev/null 2>&1 || return 1
   git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/gauntlet/$base.md" 2>/dev/null && return 0
   tada_find_tree "$dir" "origin/$JOURNAL_BRANCH" "$base" >/dev/null && return 0
   return 1

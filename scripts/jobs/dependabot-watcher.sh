@@ -174,7 +174,7 @@ verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/ti
   # ensure_clone_or_latch_outage: timeout → quiet exit 75, not FATAL.
   if ( ensure_clone_or_latch_outage "$VERIFY" dependabot-watcher-verify ); then :; else rc=$?; clone_unlock "$VERIFY"; exit "$rc"; fi
   if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
-    if journal_fetch "$VERIFY" >/dev/null 2>&1; then _VERIFY_FETCHED=1; else rc=1; fi
+    if journal_fetch "$VERIFY" "${1:+0}" >/dev/null 2>&1; then _VERIFY_FETCHED=1; else rc=1; fi
   fi
   clone_unlock "$VERIFY"
   return "$rc"

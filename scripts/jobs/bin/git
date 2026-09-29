@@ -1,0 +1,14 @@
+#!/bin/bash
+# Fleet git entrypoint; the implementation and lock policy live in common.sh.
+# Resolve the real git before sourcing, preserving PATH-injected test shims.
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+: "${GARDEN_ROOT:=$(cd "$here/../../.." && pwd)}"
+: "${GARDEN_STATE:=$GARDEN_ROOT/.garden-state}"
+if [ -z "${GARDEN_REAL_GIT:-}" ]; then
+  while IFS= read -r candidate; do
+    case "$candidate" in */scripts/jobs/bin/git) continue ;; esac
+    export GARDEN_REAL_GIT="$candidate"; break
+  done < <(type -aP git)
+fi
+GARDEN_REPO_HELPERS_ONLY=1 source "$here/../common.sh"
+garden_git "$@"

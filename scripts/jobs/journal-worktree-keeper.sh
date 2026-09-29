@@ -122,6 +122,11 @@ export GARDEN_TAG="journal-worktree-keeper"
 # The shared journal worktree. Overridable for tests; defaults to the real one.
 : "${GARDEN_JOURNAL_WORKTREE:=$GARDEN_ROOT/journal}"
 JW="$GARDEN_JOURNAL_WORKTREE"
+# A standalone journal clone (fixtures and supported overrides) owns its own
+# gitdir; a broken journal gitfile is repaired under the root repository lock.
+_keeper_lock_repo="$GARDEN_ROOT"
+[ -e "$GARDEN_ROOT/.git" ] || _keeper_lock_repo="$JW"
+garden_repo_lock "$_keeper_lock_repo" exclusive || { log "repository busy; skipping worktree keeper"; exit 0; }
 
 # Self-heal knobs (all overridable for tests):
 #   GARDEN_JW_BACKUP_DIR   root for lossless backups, OUTSIDE the worktree.

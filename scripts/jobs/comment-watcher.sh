@@ -489,7 +489,7 @@ verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/ti
   # 75 quietly instead of a FATAL die that crashes the tick into a self-heal.
   if ( ensure_clone_or_latch_outage "$VERIFY" comment-watcher-verify ); then :; else rc=$?; clone_unlock "$VERIFY"; exit "$rc"; fi
   if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
-    if journal_fetch "$VERIFY" >/dev/null 2>&1; then _VERIFY_FETCHED=1; else rc=1; fi
+    if journal_fetch "$VERIFY" "${1:+0}" >/dev/null 2>&1; then _VERIFY_FETCHED=1; else rc=1; fi
   fi
   clone_unlock "$VERIFY"
   return "$rc"

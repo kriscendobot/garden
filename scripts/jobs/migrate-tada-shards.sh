@@ -20,6 +20,7 @@
 # race re-syncs to origin/journal2 and recomputes (already-sharded entries are
 # not inputs, so a re-run is a no-op once the flat level is empty).
 set -euo pipefail
+source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
 
 dry=0 archive=""
 while [ $# -gt 0 ]; do
@@ -81,6 +82,8 @@ migrate_once() {  # -> prints the number of flat entries moved
   echo "$n"
 }
 
+garden_repo_lock "$J" exclusive || exit $?
+export GARDEN_FETCH_MAX_AGE_OVERRIDE=0
 for attempt in $(seq 1 20); do
   git -C "$J" fetch -q origin journal2
   git -C "$J" reset -q --hard origin/journal2

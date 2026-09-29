@@ -69,7 +69,7 @@ GARDEN_DEADMAIL_VERIFY_CLONE="${GARDEN_DEADMAIL_VERIFY_CLONE:-$GARDEN_STATE/dead
 verify_posted() {  # verify_posted <base>
   local base="$1" dir="$GARDEN_DEADMAIL_VERIFY_CLONE" sub
   ensure_clone "$dir"
-  journal_fetch "$dir" >/dev/null 2>&1 || return 1
+  journal_fetch "$dir" 0 >/dev/null 2>&1 || return 1
   for sub in todo doin tada; do
     git -C "$dir" cat-file -e "origin/$JOURNAL_BRANCH:jobs/$sub/$base.md" 2>/dev/null && return 0
   done

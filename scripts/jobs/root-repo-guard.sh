@@ -502,7 +502,7 @@ count_gc_logs() {
 # diagnostics so a failure can be reported verbatim.
 attempt_root_gc() {
   timeout --kill-after=30 "$GARDEN_ROOT_GUARD_GC_TIMEOUT" \
-    git -C "$ROOT" -c gc.worktreePruneExpire=never gc --quiet 2>&1
+    env GARDEN_REPO_GIT_TIMEOUT="$GARDEN_ROOT_GUARD_GC_TIMEOUT" git -C "$ROOT" -c gc.worktreePruneExpire=never gc --quiet 2>&1
 }
 
 # Recognize the gc LOCK-CONTENTION error — git's `fatal: gc is already running on
@@ -872,4 +872,10 @@ guard_root_repo() {
   return 0
 }
 
+# Keep raw lock-file cleanup, ref repairs and gc in the same repository lease.
+if ! garden_repo_lock "$ROOT" exclusive; then
+  log "root repository busy; skipping guard tick"
+  esc_result repo-busy
+  exit 0
+fi
 guard_root_repo

@@ -75,7 +75,7 @@ _VERIFY_FETCHED=""
 verify_fetch() {  # ensure+fetch the VERIFY clone (once/tick unless a `fresh` arg)
   ensure_clone_or_latch_outage "$VERIFY" pages-watcher-verify  # timeout → quiet exit 75, not FATAL
   if [ -n "${1:-}" ] || [ -z "$_VERIFY_FETCHED" ]; then
-    journal_fetch "$VERIFY" >/dev/null 2>&1 || return 1
+    journal_fetch "$VERIFY" "${1:+0}" >/dev/null 2>&1 || return 1
     _VERIFY_FETCHED=1
   fi
   return 0
