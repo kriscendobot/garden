@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T03:03:29Z_
+_As of 2026-09-29T03:05:08Z_
 
 ## Latest
 
-Board activity was quiet since the last bulletin: [kriscendobot/minion.town#135](https://github.com/kriscendobot/minion.town/pull/135) fix round 5 completed and its gauntlet advanced into panel round 6, while [kriscendobot/minion.town#120](https://github.com/kriscendobot/minion.town/pull/120) also moved into a fix round 5 claim. Otherwise the board is dominated by a large backlog of unread maintainer messages and doom/split-eligible parked jobs awaiting disposition — most notably the M2 milestone stalled on draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) pending gauntlet authorization, with duplicate #1356 recommended for closure as superseded by upstream endojs/endo#3332; M3's confined-agent work is blocked on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering open questions on #1340; and the minion.town/Endo federation release gate remains blocked pending maintainer answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124).
+Overnight activity was light: the only board transition since the last bulletin was the completion of the llm↔master sync PR for [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) (`endojs-endo-but-for-bots-sync-llm-master-20260929-pr`). Five gauntlet stages remain in flight (fix rounds on [kriscendobot/minion.town#120](https://github.com/kriscendobot/minion.town/pull/120), a panel round on [kriscendobot/minion.town#135](https://github.com/kriscendobot/minion.town/pull/135), and a fix round on [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) and #1362), alongside the Ironhorse ratchet-autopilot activation job. The maintainer inbox has a substantial backlog worth attention: milestone M2 is stalled on a cluster of foreman notices asking for gauntlet authorization on draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close decision on the superseded #1356; M3 is similarly blocked awaiting a decision between refreshing #1015 or resolving the four open questions on #1340/#1332. The federation release gate remains blocked pending review of #1124, and a Ironhorse test262 ratchet round has surfaced a floor-reconciliation question that needs a maintainer call on how to treat 906 historically-covered paths that no longer pass under the stricter current classifier.
 
 ## Parked for maintainer feedback
 
@@ -1232,7 +1232,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.0M | $739.14 _(notional, rate-card)_ | 64% of 143.0M (ok) |
+| Claude | 91.6M | $743.50 _(notional, rate-card)_ | 64% of 143.0M (ok) |
 | Codex | 8.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 81988294 tokens/day lower bound._
@@ -1244,21 +1244,20 @@ worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`kriscendobot-minion.town-pr120-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #120
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1362
-- [`endojs-endo-but-for-bots-sync-llm-master-20260929-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-sync-llm-master-20260929-pr.md) — Open, shepherd, and merge the prepared upstream-master → llm sync PR on endoj...
 - [`activate-ironhorse-ratchet-autopilot-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued)
 - [`kriscendobot-minion.town-pr135-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr135-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #135
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1348
 
-### tada (9539)
+### tada (9540)
+- [`endojs-endo-but-for-bots-sync-llm-master-20260929-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-sync-llm-master-20260929-pr.md) — Cost
 - [`kriscendobot-minion.town-pr135-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr135-gauntlet-fix-5.md) — Cost
 - [`kriscendobot-minion.town-pr120-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr120-gauntlet-panel-5.md) — Cost
 - [`kriscendobot-minion.town-pr135-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr135-gauntlet-panel-5.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-65f0c2e4414d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/canary-probe-endolin-garden2-5bcdff64-65f0c2e4414d.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1348-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-panel-3.md) — Panel round 3: endojs/endo-but-for-bots#1348 is **must-fix**
-- … and 9534 more
+- … and 9535 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
