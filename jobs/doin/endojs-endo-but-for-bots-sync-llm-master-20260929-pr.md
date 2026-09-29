@@ -58,3 +58,13 @@ Upstream endo#3332 (URL/URLSearchParams shim) was already merged into `llm` by #
 <!-- garden-job: endojs-endo-but-for-bots-sync-llm-master-20260929-pr -->
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-09-29T01:49:16Z
