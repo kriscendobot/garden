@@ -23,3 +23,13 @@ Do the following, in order, and report each with evidence:
 5. **Summary.** Worker host, deployed SHA, whether the pty lane was genuinely selected, the test pass count, the reader result/rc, and the final outcome (PASSED/FAILED).
 
 If ANY REQUIRED assertion fails, emit the line `<<<GARDEN-ORCHESTRATION-FAILED>>>` just before the completion signal. In all cases, finish with the completion signal once the report is written.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T18:32:12Z
