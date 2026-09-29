@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 import sys
+import datetime
 from pathlib import Path
 
 IDENTITY = 'ironhorse-test262-ratchet'
@@ -50,8 +51,8 @@ def fields(content):
 def watcher_job(journal, path, base=None):
     active(journal)
     path = Path(path)
-    require(re.fullmatch(r'ironhorse-ratchet-watch-\d{8}-\d{6}', base or path.stem),
-            'not a scheduled ratchet watcher')
+    require(re.fullmatch(r'ironhorse-test262-press-\d{8}-\d{6}', base or path.stem),
+            'not a foreman-woken ratchet press')
     content = path.read_text().split('\n---\nclaim:\n')[0].strip()
     metadata = fields(content)
     for key, value in dict(tier='mentat', dispatch='ratchet-delegated',
@@ -67,6 +68,40 @@ def watcher_job(journal, path, base=None):
             all(line == '---' or not line.strip() or re.fullmatch(r'[a-z][a-z_-]*:.*', line)
                 for line in prefix.splitlines()), 'unexpected watcher task prose')
     return metadata
+
+
+def write_press_plan(journal, path, not_before, posted_at):
+    """Write the one canonical parked-plan envelope around the watcher task."""
+    active(journal)
+    path = Path(path)
+    require(re.fullmatch(r'ironhorse-test262-press-\d{8}-\d{6}', path.stem),
+            'invalid press basename')
+    for label, value in (('not_before', not_before), ('posted_at', posted_at)):
+        parsed = datetime.datetime.fromisoformat(value.replace('Z', '+00:00'))
+        require(parsed.tzinfo == datetime.timezone.utc, f'{label} is not UTC')
+        require(parsed.isoformat().replace('+00:00', 'Z') == value, f'{label} is not canonical ISO-UTC')
+    instructions = TEMPLATE.read_text().split('\n---\n', 1)[1].strip()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(f'''---
+gate: deferred
+priority: normal
+foreman_only: true
+not_before: {not_before}
+posted_by: ironhorse-test262-ratchet
+posted_at: {posted_at}
+tier: mentat
+dispatch: ratchet-delegated
+role: conductor
+delegation: {IDENTITY}
+ratchet-arc: {IDENTITY}
+handler-timeout: 14339
+issue_spine: issue-kriscendobot-garden-51
+issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5884119530
+submitter: kriscendobot
+---
+{instructions}
+''')
+    watcher_job(journal, path)
 
 
 def scope(repository, metadata, head=None):
@@ -111,7 +146,7 @@ def attestation(journal, number, head):
             'attestation criteria not met')
     require(record['watcher_tier'] == 'mentat', 'attestor is not mentat')
     base = record['watcher_job']
-    require(re.fullmatch(r'ironhorse-ratchet-watch-\d{8}-\d{6}', base), 'invalid attestor')
+    require(re.fullmatch(r'ironhorse-test262-press-\d{8}-\d{6}', base), 'invalid attestor')
     archive = Path(journal) / f'ratchets/{IDENTITY}/attestations/{number}/{head}'
     watcher = archive / 'watcher.md'
     require(digest(watcher.read_bytes()) == record['watcher_sha256'], 'watcher receipt changed')
@@ -141,6 +176,8 @@ def main():
         active(journal)
     elif command == 'job':
         watcher_job(journal, arguments[0])
+    elif command == 'plan':
+        write_press_plan(journal, arguments[0], arguments[1], arguments[2])
     elif command == 'scope':
         active(journal)
         scope(arguments[0], read_json(arguments[1]))

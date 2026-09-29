@@ -107,6 +107,9 @@ def job_body(state, action, number=None, head=None):
         cluster = state['queue'][0]
         return f'''role: builder
 ratchet-arc: {IDENTITY}
+issue_spine: issue-kriscendobot-garden-51
+issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5884119530
+submitter: kriscendobot
 # One Ironhorse test262 ratchet crank
 Authorization: journal {AUTHORIZATION}; delegation {CONFIGURATION} must remain active.
 Repo {REPOSITORY}, base llm, branch point {state['branch_point']}.
@@ -127,6 +130,9 @@ Do not begin another cluster or PR; leave this one draft. Do not lower the floor
     if action == 'shepherd':
         return f'''role: shepherd
 ratchet-arc: {IDENTITY}
+issue_spine: issue-kriscendobot-garden-51
+issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5884119530
+submitter: kriscendobot
 Drive CI to green for https://github.com/{REPOSITORY}/pull/{number}, currently {head}.
 This is one authorized Ironhorse ratchet crank ({AUTHORIZATION}). Check the delegation
 is active before mutations. Preserve its scope and enforced floor {state['floor']}.
@@ -135,6 +141,9 @@ a changed head requires a new gauntlet and mentat attestation. Do not merge or s
 '''
     return f'''role: conductor
 ratchet-arc: {IDENTITY}
+issue_spine: issue-kriscendobot-garden-51
+issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5884119530
+submitter: kriscendobot
 Merge https://github.com/{REPOSITORY}/pull/{number} only through the delegated spine:
 scripts/jobs/gardening/ci-wait-merge.sh {REPOSITORY} {number} --ratchet-delegated-merge
 Use your own ensure-project-worktree.sh checkout. Expected attested head: {head}.

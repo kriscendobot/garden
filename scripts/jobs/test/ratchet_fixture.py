@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'ratchet'))
 import policy
 
 HEAD = 'a' * 40
-WATCHER = 'ironhorse-ratchet-watch-20260928-220000'
+WATCHER = 'ironhorse-test262-press-20260928-220000'
 
 
 def write_json(path, content):

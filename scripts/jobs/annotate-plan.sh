@@ -11,7 +11,8 @@
 #
 # Usage:
 #   annotate-plan.sh [--note TEXT] [--key KEY] [--priority LEVEL] [--roadmap ITEM]
-#                    [--role ROLE] [--awaiting-maintainer --question TEXT
+#                    [--role ROLE] [--not-before ISO-UTC]
+#                    [--awaiting-maintainer --question TEXT
 #                    --asked-at URL] [--by ROLE] [--if-parked] <basename> [body-file]
 #
 #   --note TEXT       the annotation text, inline. Mutually exclusive with
@@ -28,6 +29,8 @@
 #   --priority LEVEL  update the `priority:` field (urgent|high|normal|low).
 #   --roadmap ITEM    update the `roadmap:` field.
 #   --role ROLE       update the `role:` field (the role a gardener wears).
+#   --not-before ISO-UTC
+#                     update the earliest foreman promotion instant.
 #   --awaiting-maintainer
 #                     atomically re-gate a parked job as awaiting a maintainer
 #                     decision. Requires --question and --asked-at, and removes
@@ -90,7 +93,8 @@ retune its selection metadata).
 
 Usage:
   annotate-plan.sh [--note TEXT] [--key KEY] [--priority LEVEL] [--roadmap ITEM]
-                   [--role ROLE] [--awaiting-maintainer --question TEXT
+                   [--role ROLE] [--not-before ISO-UTC]
+                   [--awaiting-maintainer --question TEXT
                    --asked-at URL] [--by ROLE] [--if-parked] <basename> [body-file]
 
   --note TEXT       annotation text inline (else [body-file], else stdin).
@@ -99,6 +103,8 @@ Usage:
   --priority LEVEL  update priority: urgent|high|normal|low.
   --roadmap ITEM    update roadmap:.
   --role ROLE       update role:.
+  --not-before ISO-UTC
+                    update the earliest foreman promotion instant.
   --awaiting-maintainer
                     atomically re-gate as awaiting a maintainer decision.
   --question TEXT   one-line pending decision (required by that transition).
@@ -119,6 +125,7 @@ key=""
 priority=""
 roadmap=""
 role=""
+not_before=""
 awaiting_maintainer=0
 maintainer_question=""
 asked_at=""
@@ -132,6 +139,7 @@ while [ $# -gt 0 ]; do
     --priority)  priority="${2:?--priority needs a value}"; shift 2;;
     --roadmap)   roadmap="${2:?--roadmap needs a value}"; shift 2;;
     --role)      role="${2:?--role needs a value}"; shift 2;;
+    --not-before) not_before="${2:?--not-before needs an ISO-UTC timestamp}"; shift 2;;
     --awaiting-maintainer) awaiting_maintainer=1; shift;;
     --question) maintainer_question="${2:?--question needs a value}"; shift 2;;
     --asked-at) asked_at="${2:?--asked-at needs a URL}"; shift 2;;
@@ -162,6 +170,10 @@ if [ -n "$priority" ]; then
     urgent|high|normal|low) :;;
     *) die "illegal --priority '$priority' (urgent|high|normal|low)";;
   esac
+fi
+if [ -n "$not_before" ]; then
+  not_before="$(date -u -d "$not_before" +%FT%TZ 2>/dev/null)" \
+    || die "--not-before must be a parseable ISO-UTC timestamp"
 fi
 if [ "$awaiting_maintainer" = 1 ]; then
   [ -n "$maintainer_question" ] || die "--awaiting-maintainer requires --question TEXT"
@@ -218,6 +230,7 @@ fields=""
 if [ -n "$priority" ]; then fields+="priority=$priority"$'\n'; fi
 if [ -n "$roadmap" ];  then fields+="roadmap=$roadmap"$'\n';   fi
 if [ -n "$role" ];     then fields+="role=$role"$'\n';         fi
+if [ -n "$not_before" ]; then fields+="not_before=$not_before"$'\n'; fi
 if [ "$awaiting_maintainer" = 1 ]; then
   fields+="gate=awaiting-maintainer"$'\n'
   fields+="maintainer_question=$(yaml_single_quote_scalar "$maintainer_question")"$'\n'

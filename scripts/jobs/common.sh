@@ -9722,19 +9722,78 @@ plan_rank() {
   esac
 }
 
-# Print the deferred plan jobs in promotion order: highest priority first, oldest
+# plan_deferred_status <dir> <plan-file> [now-epoch] — print `ready` or a
+# machine-readable reason why the foreman must leave this deferred plan parked.
+# A present-but-empty or unparseable not_before fails closed. Arc budgets are
+# likewise fail-closed: no valid config or no trustworthy derived ledger means no
+# promotion. The budget quantity matches campaign-spend.sh (input + output +
+# cache-creation; cache reads excluded), derived by arc-spend.sh without a mutable
+# counter.
+plan_deferred_status() {
+  local dir="${1:?}" f="${2:?}" now="${3:-${GARDEN_PLAN_NOW:-${GARDEN_FOREMAN_NOW:-$(date -u +%s)}}}"
+  local raw due arc snapshot rc spend cap window
+  case "$now" in ''|*[!0-9]*) printf 'invalid-clock\n'; return 1 ;; esac
+  if grep -q '^not_before:' "$f" 2>/dev/null; then
+    raw="$(plan_field "$f" not_before)"
+    due="$(date -u -d "$raw" +%s 2>/dev/null || true)"
+    if [ -z "$raw" ] || [[ ! "$due" =~ ^[0-9]+$ ]]; then
+      printf 'invalid-not-before:%s\n' "${raw:-empty}"
+      return 1
+    fi
+    if [ "$now" -lt "$due" ]; then
+      printf 'not-before:%s\n' "$(date -u -d "@$due" +%FT%TZ)"
+      return 1
+    fi
+  fi
+  arc="$(plan_field "$f" ratchet-arc)"
+  if [ -n "$arc" ]; then
+    rc=0
+    snapshot="$(GARDEN_ARC_BUDGET_NOW="$now" \
+      "$(dirname "${BASH_SOURCE[0]}")/arc-spend.sh" --dir "$dir" --now-epoch "$now" "$arc" 2>/dev/null)" || rc=$?
+    if [ "$rc" -ne 0 ]; then
+      printf 'arc-budget-untrusted:%s:rc=%s\n' "$arc" "$rc"
+      return 1
+    fi
+    spend="$(jq -r '.spend_tokens' <<<"$snapshot")"
+    cap="$(jq -r '.token_cap' <<<"$snapshot")"
+    window="$(jq -r '.window_seconds' <<<"$snapshot")"
+    if [ "$(jq -r '.over_budget' <<<"$snapshot")" = true ]; then
+      printf 'arc-budget-over:%s:spend=%s:cap=%s:window=%s\n' "$arc" "$spend" "$cap" "$window"
+      return 1
+    fi
+  fi
+  printf 'ready\n'
+}
+
+# Print every deferred plan skipped by temporal/budget admission as
+# `<base>\t<reason>`, in ordinary board order. The foreman folds this into its
+# durable per-tick decision log.
+plan_deferred_skipped() {
+  local dir="$1" base f status
+  for base in $(list_jobs "$dir" "$JOBS_PLAN"); do
+    f="$dir/$JOBS_PLAN/$base"
+    [ -f "$f" ] || continue
+    [ "$(plan_gate "$f")" = deferred ] || continue
+    status="$(plan_deferred_status "$dir" "$f" 2>/dev/null || true)"
+    [ "$status" = ready ] || printf '%s\t%s\n' "${base%.md}" "${status:-admission-error}"
+  done
+}
+
+# Print the eligible deferred plan jobs in promotion order: highest priority first, oldest
 # first within a priority (FIFO fairness). One basename (extensionless) per line.
 # Every gate except exactly `deferred` is EXCLUDED. In particular,
 # awaiting-maintainer jobs survive every foreman tick until an explicit
 # `promote-plan.sh --maintainer` call records that the answer arrived.
 # $1 = a synced journal clone root.
 plan_deferred_ranked() {
-  local dir="$1" base f gate rank mtime
+  local dir="$1" base f gate rank mtime status
   for base in $(list_jobs "$dir" "$JOBS_PLAN"); do
     f="$dir/$JOBS_PLAN/$base"
     [ -f "$f" ] || continue
     gate="$(plan_gate "$f")"
     [ "$gate" = "deferred" ] || continue
+    status="$(plan_deferred_status "$dir" "$f" 2>/dev/null || true)"
+    [ "$status" = ready ] || continue
     rank="$(plan_rank "$(plan_priority "$f")")"
     mtime="$(stat -c %Y "$f" 2>/dev/null || echo 0)"
     printf '%s\t%s\t%s\n' "$rank" "$mtime" "${base%.md}"

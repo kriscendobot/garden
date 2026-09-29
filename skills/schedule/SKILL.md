@@ -4,6 +4,11 @@ Race a schedule change onto the journal, so the scheduler service dispatches a
 recurring job on its cadence. Use this when the user asks to add, change, or
 remove a regularly scheduled task (most commonly a weekly task duplication).
 
+The historical `ironhorse-ratchet` schedule is retired. Ironhorse test262 is a
+foreman-woken, self-continuing press with `not_before` and a rolling arc budget;
+never recreate or unsnooze its scheduler row. See
+[`context/operations/ironhorse-ratchet.md`](../../context/operations/ironhorse-ratchet.md).
+
 ## Purpose
 
 Schedules are garden state on the bus. A dedicated `garden-scheduler` service is

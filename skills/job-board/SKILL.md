@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-27
+updated: 2026-09-29
 author: gardener
 ---
 
@@ -254,7 +254,10 @@ posted_at: <iso8601>
 
 - **Park** (`post-plan.sh [--go-ahead|--deferred|--awaiting-maintainer|--budget-hold]
   [--question Q --asked-at URL] [--priority L] [--roadmap I]
-  [--by R] <base> [body]`): write `jobs/plan/<base>.md`. Default gate `--deferred`.
+  [--not-before ISO-UTC] [--by R] <base> [body]`): write
+  `jobs/plan/<base>.md`. Default gate `--deferred`. A deferred plan carrying
+  `not_before:` is invisible to foreman ranking until that instant; an
+  unparseable value fails closed and is never promoted early.
   `--budget-hold` is a `go-ahead` subset carrying the machine fields that let
   `budget-refresh.sh` promote it after the rolling window or an optional
   `--budget-resets-at` timestamp; a generic `--go-ahead` remains human-only.
@@ -269,7 +272,8 @@ posted_at: <iso8601>
   ordinary post's frontmatter is unchanged. The strip is idempotent and drops only
   whole cycle-marker lines (a body's own `---` rules and other HTML comments survive).
 - **Annotate** (`annotate-plan.sh [--note TEXT] [--key K] [--priority L]
-  [--roadmap I] [--role R] [--by R] [--if-parked] <base> [body-file]`): append a
+  [--roadmap I] [--role R] [--not-before ISO-UTC] [--by R] [--if-parked]
+  <base> [body-file]`): append a
   note to a job **already parked** in `plan/`, and/or retune its selection
   metadata. `post-plan.sh` is **idempotent-only** (a re-post of the same basename
   is a deliberate no-op, so a re-running producer can never fork a parked item),
@@ -285,7 +289,7 @@ posted_at: <iso8601>
     change (identical re-annotation collapses for free); pass `--key` for a
     stable external identity (a comment id) or to append the same text again
     deliberately.
-  - **Field updates are in place.** `priority`/`roadmap`/`role` are rewritten
+  - **Field updates are in place.** `priority`/`roadmap`/`role`/`not_before` are rewritten
     within the leading frontmatter (inserted if absent); every other key passes
     through untouched, including the execution pins `model:` /
     `handler-timeout:` / `requires:`.

@@ -36,7 +36,7 @@
 #   post-plan.sh [--go-ahead|--deferred|--awaiting-maintainer|--blocked|--orchestrated|--budget-hold]
 #                [--question TEXT] [--asked-at URL]
 #                [--blocked-on ARTIFACT] [--orchestrated-by ORCH-BASE]
-#                [--budget-resets-at ISO]
+#                [--budget-resets-at ISO] [--not-before ISO-UTC]
 #                [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 #
 #   --go-ahead / --deferred / --awaiting-maintainer / --blocked / --orchestrated / --budget-hold
@@ -53,6 +53,7 @@
 #   --budget-hold            a go-ahead plan held specifically for quota refresh;
 #                            the budget-refresh watcher may promote this subset.
 #   --budget-resets-at ISO   optional parseable provider reset for --budget-hold.
+#   --not-before ISO-UTC     earliest instant the foreman may promote the plan.
 #   --priority LEVEL         urgent|high|normal|low (default normal). The
 #                            selection key the foreman uses for deferred jobs.
 #   --roadmap ITEM           optional roadmap item / milestone this serves, so a
@@ -115,7 +116,7 @@ Usage:
   post-plan.sh [--go-ahead|--deferred|--awaiting-maintainer|--blocked|--orchestrated|--budget-hold]
                [--question TEXT] [--asked-at URL]
                [--blocked-on ARTIFACT] [--orchestrated-by ORCH-BASE]
-               [--budget-resets-at ISO]
+               [--budget-resets-at ISO] [--not-before ISO-UTC]
                [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 
   --go-ahead / --deferred / --awaiting-maintainer / --blocked / --orchestrated
@@ -126,6 +127,7 @@ Usage:
                            required with --awaiting-maintainer.
   --budget-hold            park under go-ahead for automatic quota-window refresh.
   --budget-resets-at ISO   optional parseable reset timestamp for --budget-hold.
+  --not-before ISO-UTC     earliest foreman promotion instant; stored canonically.
   --blocked-on ARTIFACT    the blocker (PR URL or job basename); required with --blocked.
   --orchestrated-by ORCH   the owning orchestration base; required with --orchestrated.
                            A failed child ends its report with the exact lines
@@ -151,6 +153,7 @@ maintainer_question=""
 asked_at=""
 budget_hold=false
 budget_resets_at=""
+not_before=""
 role=""
 by="${GARDEN_SENDER:-producer}"
 while [ $# -gt 0 ]; do
@@ -163,6 +166,7 @@ while [ $# -gt 0 ]; do
     --orchestrated) gate="orchestrated"; shift;;
     --budget-hold)  gate="go-ahead"; budget_hold=true; shift;;
     --budget-resets-at) budget_resets_at="${2:?--budget-resets-at needs an ISO timestamp}"; shift 2;;
+    --not-before) not_before="${2:?--not-before needs an ISO-UTC timestamp}"; shift 2;;
     --blocked-on) blocked_on="${2:?--blocked-on needs a value}"; shift 2;;
     --question) maintainer_question="${2:?--question needs a value}"; shift 2;;
     --asked-at) asked_at="${2:?--asked-at needs a URL}"; shift 2;;
@@ -225,6 +229,10 @@ if $budget_hold && [ -z "$budget_resets_at" ]; then
   budget_reset_epoch="$(meter_next_reset_epoch 2>/dev/null || true)"
   [[ "$budget_reset_epoch" =~ ^[0-9]+$ ]] \
     && budget_resets_at="$(date -u -d "@$budget_reset_epoch" +%FT%TZ)"
+fi
+if [ -n "$not_before" ]; then
+  not_before="$(date -u -d "$not_before" +%FT%TZ 2>/dev/null)" \
+    || die "--not-before must be a parseable ISO-UTC timestamp"
 fi
 
 # Body source guard: a non-empty body arg that is not a readable file is almost
@@ -301,6 +309,7 @@ compose() {
   fi
   [ -n "$blocked_on" ] && printf 'blocked_on: %s\n' "$blocked_on"
   [ -n "$orchestrated_by" ] && printf 'orchestrated_by: %s\n' "$orchestrated_by"
+  [ -n "$not_before" ] && printf 'not_before: %s\n' "$not_before"
   printf 'priority: %s\n' "$priority"
   [ -n "$roadmap" ] && printf 'roadmap: %s\n' "$roadmap"
   [ -n "$role" ] && printf 'role: %s\n' "$role"

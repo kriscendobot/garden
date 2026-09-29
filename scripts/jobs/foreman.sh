@@ -344,6 +344,13 @@ esac
 # the target the next tick clears the settle clock — exactly like a normal post.
 slots=$(( GARDEN_FOREMAN_ACTIVE_TARGET - inflight ))
 promoted=0
+# Snapshot every deferred item the temporal/per-arc admission gate is holding.
+# This is folded into the tick's one durable decision-log line even when another
+# eligible plan is promoted, so "the foreman did nothing to this arc" is
+# diagnosable without live tracing.
+deferred_skips="$(plan_deferred_skipped "$DIR" 2>/dev/null \
+  | awk -F'\t' '{printf "%s%s:%s", (NR==1?"":","), $1, $2}' || true)"
+skip_detail="${deferred_skips:+ skipped=$deferred_skips}"
 while [ "$promoted" -lt "$slots" ]; do
   # Leaf-first (omega-ranked) admission: plan_deferred_ranked_omega floats the
   # lowest-ranked deferred work (leaf R0) ahead of its higher-ranked parents,
@@ -358,7 +365,7 @@ while [ "$promoted" -lt "$slots" ]; do
   [ -n "$top_line" ] || break        # no more deferred plan jobs queued this tick
   top_rank="${top_line%%$'\t'*}"     # the derived omega rank (0=leaf, admitted first)
   top_deferred="${top_line#*$'\t'}"  # the job base
-  if "$HERE/promote-plan.sh" --omega-rank "$top_rank" "$top_deferred" >/dev/null 2>&1; then
+  if "$HERE/promote-plan.sh" --foreman --omega-rank "$top_rank" "$top_deferred" >/dev/null 2>&1; then
     promoted=$(( promoted + 1 ))
     printf '%s\n' "$top_deferred" > "$LAST_STEP"
     log "promoted deferred plan job '$top_deferred' (omega rank $top_rank; $promoted/$slots toward active-job target $GARDEN_FOREMAN_ACTIVE_TARGET)"
@@ -371,7 +378,7 @@ done
 if [ "$promoted" -gt 0 ]; then
   : > "$NOTED"           # forward progress clears the maintainer-note dedupe
   printf '%s\n' "$NOW" > "$IDLE_SINCE"
-  decide promoted "count=$promoted last=$(cat "$LAST_STEP" 2>/dev/null || true)"
+  decide promoted "count=$promoted last=$(cat "$LAST_STEP" 2>/dev/null || true)$skip_detail"
   exit 0
 fi
 # No deferred plan job was available; fall through to generate one new step.
@@ -432,13 +439,13 @@ case "$btype" in
     base="$(printf '%s' "$base" | tr -d '[:space:]')"
     if [ -z "$base" ]; then
       log "handler returned an empty JOB base; staying idle"
-      decide noop "empty-base"
+      decide noop "empty-base$skip_detail"
     elif [ "$base" = "$last_step" ]; then
       # Anti-flap: the same step recurred after the previous post drained without
       # milestone progress. Do not blindly re-post; surface it for review.
       note_once "repeat:$base" "foreman: next step '$base' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck."
       log "anti-flap: '$base' repeats last posted step; surfaced to maintainer, not re-posted"
-      decide anti-flap "base=$base"
+      decide anti-flap "base=$base$skip_detail"
     else
       if [ -n "$role" ]; then
         printf '%s' "$body" | "$HERE/post-job.sh" --role "$role" "$base"
@@ -448,7 +455,7 @@ case "$btype" in
       printf '%s\n' "$base" > "$LAST_STEP"
       : > "$NOTED"           # forward progress clears the maintainer-note dedupe
       log "pumped next milestone step '$base'"
-      decide pumped "base=$base${role:+ role=$role}"
+      decide pumped "base=$base${role:+ role=$role}$skip_detail"
     fi
     ;;
   MAINTAINER)
@@ -456,11 +463,11 @@ case "$btype" in
     # note_milestone_once delivers only a new blocker, into one entry per milestone.
     note_milestone_once "$body"
     log "next step blocked on a maintainer decision; noted to maintainer inbox (dedup by milestone + new refs)"
-    decide maintainer-note
+    decide maintainer-note "$skip_detail"
     ;;
   *)
     log "handler proposed no next step; staying idle"
-    decide noop "no-block"
+    decide noop "no-block$skip_detail"
     ;;
 esac
 

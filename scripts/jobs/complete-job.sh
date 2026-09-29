@@ -39,6 +39,65 @@ case "$handed_off" in -*|*/*|.*|*' '*) die "illegal handoff successor: '$handed_
 DIR="${GARDEN_WORKER_CLONE:-${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/monks/$id/journal}}"
 ensure_clone "$DIR"
 
+# An Ironhorse engagement self-schedules the next press in the SAME CAS as its
+# completion. This makes "job done but continuation forgotten" impossible and
+# makes concurrent watcher/child completions converge on one live successor.
+# Paused, halted, malformed, or revoked delegation state parks nothing. An active
+# arc with malformed/missing press config refuses completion instead of silently
+# breaking the chain.
+PRESS_NOW_EPOCH="${GARDEN_PRESS_NOW:-$(date -u +%s)}"
+stage_ironhorse_press_successor() {
+  local jf="$DIR/$JOBS_DOIN/$base.md" arc config interval next stamp successor live d f
+  [ -f "$jf" ] || return 0
+  arc="$(plan_field "$jf" ratchet-arc)"
+  [ "$arc" = ironhorse-test262-ratchet ] || return 0
+  if ! python3 "$HERE/ratchet/policy.py" active "$DIR" >/dev/null 2>&1; then
+    log "Ironhorse arc is halted/paused/revoked/inactive; parking no press successor for '$base'"
+    return 0
+  fi
+  case "$PRESS_NOW_EPOCH" in ''|*[!0-9]*) log "invalid GARDEN_PRESS_NOW '$PRESS_NOW_EPOCH'"; return 1 ;; esac
+  config="$DIR/config/arc-budgets/$arc"
+  if ! interval="$(jq -er --arg arc "$arc" '
+      select(type=="object" and .schema==1 and .status=="active" and .arc==$arc)
+      | .press_interval_seconds
+      | select(type=="number" and floor==. and .>0)
+    ' "$config" 2>/dev/null)"; then
+    log "active Ironhorse arc has no trustworthy press interval config; refusing completion of '$base'"
+    return 1
+  fi
+  # A current watcher counts as the live generation only while somebody ELSE is
+  # completing. The watcher completing itself must create the following one.
+  live=""
+  for d in "$JOBS_PLAN" "$JOBS_TODO" "$JOBS_DOIN"; do
+    for f in "$DIR/$d"/ironhorse-test262-press-[0-9]*.md; do
+      [ -e "$f" ] || continue
+      [ "$(basename "$f" .md)" = "$base" ] && continue
+      if ! python3 "$HERE/ratchet/policy.py" job "$DIR" "$f" >/dev/null 2>&1; then
+        log "live Ironhorse press candidate '$(basename "$f" .md)' is noncanonical; refusing to suppress a successor silently"
+        return 1
+      fi
+      live="$(basename "$f" .md)"; break 2
+    done
+  done
+  if [ -n "$live" ]; then
+    log "Ironhorse press successor '$live' already live; '$base' creates no duplicate"
+    return 0
+  fi
+  stamp="$(date -u -d "@$PRESS_NOW_EPOCH" +%Y%m%d-%H%M%S)"
+  successor="ironhorse-test262-press-$stamp"
+  if tada_exists "$DIR" "$successor"; then
+    log "Ironhorse successor basename '$successor' collides with tada; refusing ambiguous continuation"
+    return 1
+  fi
+  next="$(date -u -d "@$(( PRESS_NOW_EPOCH + interval ))" +%FT%TZ)"
+  mkdir -p "$DIR/$JOBS_PLAN"
+  python3 "$HERE/ratchet/policy.py" plan "$DIR" "$DIR/$JOBS_PLAN/$successor.md" \
+    "$next" "$(date -u -d "@$PRESS_NOW_EPOCH" +%FT%TZ)" >/dev/null \
+    || return 1
+  git -C "$DIR" add "$JOBS_PLAN/$successor.md"
+  log "staged Ironhorse press successor '$successor' (not_before=$next) with completion '$base'"
+}
+
 # record_reputation_event — write reputation/{events,pending}/<base>.md for this
 # completed base and git-add it so it rides the completion push (design §4.5). It
 # reads the still-present doin job file to resolve the ran arm and classify the
@@ -176,8 +235,18 @@ for attempt in $(seq 1 100); do
   # The final engagement rides this same completion CAS.  Only append while the
   # doin claim exists: a retry after a successful transition must re-stamp the
   # view but never duplicate a CostRecord.
-  if [ -e "$DIR/$JOBS_DOIN/$base.md" ] && [ -n "${GARDEN_ENGAGEMENT_USAGE:-}" ]; then
-    usage_ledger_stage_row "$DIR" "$base" "${GARDEN_JOB_DURATION_SECS:-0}" tada "$GARDEN_ENGAGEMENT_USAGE" || true
+  if [ -e "$DIR/$JOBS_DOIN/$base.md" ]; then
+    completion_arc="$(plan_field "$DIR/$JOBS_DOIN/$base.md" ratchet-arc)"
+    if [ -n "${GARDEN_ENGAGEMENT_USAGE:-}" ] || [ "$completion_arc" = ironhorse-test262-ratchet ]; then
+      if ! usage_ledger_stage_row "$DIR" "$base" "${GARDEN_JOB_DURATION_SECS:-0}" tada "${GARDEN_ENGAGEMENT_USAGE:-}"; then
+        [ "$completion_arc" != ironhorse-test262-ratchet ] \
+          || die "could not stage required Ironhorse usage accounting for '$base'"
+      fi
+    fi
+  fi
+  if [ -e "$DIR/$JOBS_DOIN/$base.md" ]; then
+    stage_ironhorse_press_successor \
+      || die "could not stage the required Ironhorse press successor for '$base'"
   fi
   # An agent can copy a stale/fake block into its report.  Strip it wholesale and
   # derive the replacement exclusively from the external journal ledger.

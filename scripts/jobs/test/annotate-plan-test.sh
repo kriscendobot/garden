@@ -157,6 +157,15 @@ run_ann --priority high ann-b
 [ "$RC" -eq 0 ] && ok "metadata-only annotation exits 0" || bad "metadata-only exit $RC: $OUT"
 grep -q '^priority: high$' <<<"$(plan_at_origin ann-b)" && ok "metadata-only update landed" || bad "metadata-only did not land"
 
+run_ann --not-before 2026-10-01T12:34:56Z ann-b
+[ "$RC" -eq 0 ] && grep -q '^not_before: 2026-10-01T12:34:56Z$' <<<"$(plan_at_origin ann-b)" \
+  && ok "not_before is inserted canonically" || bad "not_before update failed: $OUT"
+before_bad_time="$(plan_at_origin ann-b)"
+run_ann --not-before definitely-not-a-time ann-b
+[ "$RC" -eq 1 ] && [ "$(plan_at_origin ann-b)" = "$before_bad_time" ] \
+  && ok "unparseable not_before fails closed without changing the plan" \
+  || bad "bad not_before was accepted or changed the plan"
+
 # ============================================================================
 hr; echo "LIFECYCLE — a job past plan/ is refused (rc 3) or skipped"; hr
 "$JOBS/promote-plan.sh" ann-b >/dev/null

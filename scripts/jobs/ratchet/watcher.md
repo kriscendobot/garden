@@ -5,6 +5,9 @@ role: conductor
 delegation: ironhorse-test262-ratchet
 ratchet-arc: ironhorse-test262-ratchet
 handler-timeout: 14339
+issue_spine: issue-kriscendobot-garden-51
+issue_url: https://github.com/kriscendobot/garden/issues/51#issuecomment-5884119530
+submitter: kriscendobot
 ---
 Advance exactly one step of the authorized Ironhorse test262 ratchet. Read
 context/operations/ironhorse-ratchet.md and the authorization referenced there.

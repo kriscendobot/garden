@@ -1,6 +1,6 @@
 ---
 created: 2026-06-10
-updated: 2026-09-28
+updated: 2026-09-29
 author: gardener
 ---
 
@@ -120,14 +120,18 @@ across the whole board in a hot loop. That is why both endolin hosts sat at
 
 The maintainer's 2026-09-28 Ironhorse delegation permits one recurring mentat
 watcher, detailed in [ratchet operations](../../context/operations/ironhorse-ratchet.md).
-Only scheduler `ironhorse-ratchet` with prefix `ironhorse-ratchet-watch` may emit
-its tracked canonical task as `tier: mentat`, `dispatch: ratchet-delegated`,
-`delegation: ironhorse-test262-ratchet`. The scheduler, claim predicate, and
-monk/cleric handler gates all require the active journal authorization. Claim
-and handlers also verify the timestamped basename and canonical task text.
+Only a foreman promotion of a self-continued
+`ironhorse-test262-press-<UTC stamp>` plan may emit its tracked canonical task as
+`tier: mentat`, `dispatch: ratchet-delegated`,
+`delegation: ironhorse-test262-ratchet`. The claim predicate and monk/cleric
+handler gates all require the active journal authorization. Claim and handlers
+also verify the timestamped press basename, arc marker, and canonical task text.
 No fallback, model pin, provider override, or unrelated task enters this path.
-Budget-held watcher promotion revalidates the authorization and restores the canonical task, preserving the dispatch boundary across plan-to-todo. The ordinary automatic producer normalization is unchanged. Pause/revocation
-blocks admission and the delegated merge path, including previously queued ticks.
+Press promotion revalidates the authorization and restores the canonical task,
+preserving the dispatch boundary across plan-to-todo. Its `not_before` instant
+and rolling arc token budget are foreman admission gates. The ordinary automatic
+producer normalization is unchanged. Pause/revocation blocks admission and the
+delegated merge path, including previously queued presses.
 
 ### The anthropic automatic ceiling (claude-opus-5-5)
 

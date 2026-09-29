@@ -2,7 +2,7 @@
 # promote-plan.sh — move a parked plan job into the live queue: plan/<base> →
 # todo/<base>, so a gardener can claim it normally.
 #
-# Usage: promote-plan.sh [--maintainer] [--unblock]
+# Usage: promote-plan.sh [--maintainer] [--unblock] [--foreman]
 #                        [--require-tada <predecessor>]...
 #                        [--require-failed <predecessor>]... <basename>
 #
@@ -82,6 +82,7 @@ required_tada=()
 required_failed=()
 maintainer_promotion=0
 unblock_promotion=0
+foreman_promotion=0
 # The derived leaf-first omega rank of this job, when a ranked promoter selected it
 # (the foreman's deferred-admission loop passes it). Recorded in the decision ledger
 # so the ranked ordering is auditable (designs/cybernetics-economic-resilience.md
@@ -95,6 +96,10 @@ while [ $# -gt 0 ]; do
       ;;
     --unblock)
       unblock_promotion=1
+      shift
+      ;;
+    --foreman)
+      foreman_promotion=1
       shift
       ;;
     --omega-rank)
@@ -210,6 +215,24 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
 
   gate="$(plan_gate "$src")"
   priority="$(plan_priority "$src")"
+  if [ "$(plan_field "$src" foreman_only)" = true ] && [ "$foreman_promotion" != 1 ]; then
+    clone_unlock "$DIR"
+    log "refusing to promote '$base': foreman_only=true"
+    exit 7
+  fi
+  if [ "$foreman_promotion" = 1 ]; then
+    if [ "$gate" != deferred ]; then
+      clone_unlock "$DIR"
+      log "refusing foreman promotion of '$base': expected gate=deferred, found gate=$gate"
+      exit 7
+    fi
+    admission="$(plan_deferred_status "$DIR" "$src" 2>/dev/null || true)"
+    if [ "$admission" != ready ]; then
+      clone_unlock "$DIR"
+      log "refusing foreman promotion of '$base': ${admission:-admission-error}"
+      exit 7
+    fi
+  fi
   if [ "$gate" = awaiting-maintainer ] && [ "$maintainer_promotion" != 1 ]; then
     clone_unlock "$DIR"
     log "refusing to promote '$base': gate=awaiting-maintainer requires an explicit maintainer decision (re-run with --maintainer after the answer at $(plan_field "$src" asked_at))"

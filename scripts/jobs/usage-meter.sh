@@ -1578,7 +1578,7 @@ usage_capture_rusage() {
 # Stage one append-only CostRecord.  This is stage-only so a completion can carry
 # its row on the existing completion push while failures use usage-append.sh.
 usage_ledger_stage_row() {
-  local dir="$1" base="$2" elapsed="$3" outcome="$4" measurement="${5:-}" jf tada_path role provider row
+  local dir="$1" base="$2" elapsed="$3" outcome="$4" measurement="${5:-}" jf tada_path role provider arc row
   mkdir -p "$dir/usage" || return 1
   jf="$dir/$JOBS_DOIN/$base.md"
   if [ ! -f "$jf" ]; then
@@ -1586,18 +1586,20 @@ usage_ledger_stage_row() {
     [ -z "$tada_path" ] || jf="$dir/$tada_path"
   fi
   role="$(plan_role "$jf" 2>/dev/null || true)"
+  arc="$(plan_field "$jf" ratchet-arc 2>/dev/null || true)"
   provider="$(sed -n 's/^[[:space:]]*provider:[[:space:]]*//p' "$jf" 2>/dev/null | tail -1)"
   case "$elapsed" in ''|*[!0-9]*) elapsed=0 ;; esac
   if command -v jq >/dev/null 2>&1 && [ -n "$measurement" ] && jq -e . >/dev/null 2>&1 <<<"$measurement"; then
     row="$(jq -cn --arg ts "$(date -u +%FT%TZ)" --arg base "$base" --arg host "$GARDEN" --arg provider "$provider" \
-      --arg gardener "${GARDEN_GARDENER_ID:-}" --arg role "$role" --arg outcome "$outcome" --argjson elapsed "$elapsed" \
+      --arg gardener "${GARDEN_GARDENER_ID:-}" --arg role "$role" --arg arc "$arc" --arg outcome "$outcome" --argjson elapsed "$elapsed" \
       --argjson measurement "$measurement" '
         $measurement + {ts:$ts,base:$base,host:$host,outcome:$outcome,elapsed_s:$elapsed}
         + (if $gardener!="" then {gardener:($gardener|tonumber)} else {} end)
         + (if $role!="" then {role:$role} else {} end)
+        + (if $arc!="" then {arc:$arc} else {} end)
         + (if $provider!="" then {provider:$provider} else {} end)' 2>/dev/null)" || return 1
   else
-    row="{\"ts\":\"$(date -u +%FT%TZ)\",\"base\":\"$base\",\"host\":\"$GARDEN\",\"outcome\":\"$outcome\",\"source\":\"none\",\"elapsed_s\":$elapsed}"
+    row="{\"ts\":\"$(date -u +%FT%TZ)\",\"base\":\"$base\",\"host\":\"$GARDEN\",\"outcome\":\"$outcome\",\"source\":\"none\",\"elapsed_s\":$elapsed${arc:+,\"arc\":\"$arc\"}}"
   fi
   printf '%s\n' "$row" >> "$dir/usage/$base.jsonl" || return 1
   git -C "$dir" add "usage/$base.jsonl"

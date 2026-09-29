@@ -1,6 +1,6 @@
 ---
 created: 2026-09-28
-updated: 2026-09-28
+updated: 2026-09-29
 author: gardener
 ---
 
@@ -24,22 +24,41 @@ A missing, unreadable, changed, paused, or revoked record denies the delegation.
 Journal push access is the existing authority boundary; a PR body cannot grant it.
 A maintainer revocation message must be applied with the revoke command below.
 
-## Schedule and controls
+## Foreman press and controls
 
 Run these from a garden development checkout containing the landed scripts.
 The helpers use their own journal clones and CAS pushes; do not edit or run git
 in the deployed root or its journal worktree.
-Only arm after the delegated merge and watcher tests have passed and landed.
-The deployed scheduler/claim/handler code must contain this change; older
-schedulers cannot grant the exception. During rollout, use `snooze-schedule.sh`
-to defer the first fire until the leader has deployed this revision; an old
-scheduler would normalize the task to mentor, which the watcher refuses.
+Only arm after the press, budget, claim, and handler tests have passed and the
+leader has deployed this revision. The old `ironhorse-ratchet` schedule is
+retired and the scheduler refuses to dispatch it even if a stale journal row
+survives. Do not restore or unsnooze it.
 
 ```sh
 scripts/jobs/ironhorse-ratchet.sh seed
-GARDEN_SCHEDULE_OCCUPANCY=skip scripts/jobs/set-schedule.sh \
-  ironhorse-ratchet 2h ironhorse-ratchet-watch scripts/jobs/ratchet/watcher.md
+scripts/jobs/set-arc-budget.sh ironhorse-test262-ratchet \
+  <token-cap> <rolling-window-seconds> <press-interval-seconds>
+scripts/jobs/seed-ironhorse-press.sh [not-before-ISO-UTC]
 ```
+
+The maintainer chooses all three numbers. The proposed press interval is six
+hours (`21600`). No default token cap exists: a missing, inactive, or malformed
+`config/arc-budgets/ironhorse-test262-ratchet` makes the foreman leave the press
+parked. Spend is derived on every admission from `usage/*.jsonl` rows stamped
+`arc: ironhorse-test262-ratchet`; it sums input, output, and cache-creation tokens
+inside the rolling window and never updates a mutable counter. An unmetered or
+malformed matching row also fails closed until it leaves the window.
+`seed-ironhorse-press.sh` is idempotent against any live canonical press. It may
+be used before the budget is chosen: the missing budget then keeps that first
+engagement parked rather than inventing a cap.
+
+Every completed arc engagement atomically parks exactly one
+`ironhorse-test262-press-<UTC stamp>` deferred successor. It carries
+`not_before: completion + press_interval_seconds` and `foreman_only: true`.
+Existing live press work in `plan/`, `todo/`, or `doin/` suppresses duplicates.
+Only the foreman's deferred selector may promote it, and that selector rechecks
+both `not_before` and the rolling arc budget in the promotion CAS. Completion
+parks no successor when the delegation is paused, halted, or revoked.
 
 Pause admission, staged gauntlet advancement, and delegated merges:
 
@@ -47,7 +66,8 @@ Pause admission, staged gauntlet advancement, and delegated merges:
 scripts/jobs/ironhorse-ratchet.sh pause
 ```
 
-After a maintainer resolves the recorded blocker, resume the same schedule:
+After a maintainer resolves the recorded blocker, resume the delegation. A live
+successor remains parked until its press time and budget both permit promotion:
 
 ```sh
 scripts/jobs/ironhorse-ratchet.sh resume
@@ -61,22 +81,22 @@ scripts/jobs/ironhorse-ratchet.sh revoke /path/to/revocation-reason.txt
 
 `seed` never replaces an existing record or removes a revocation.
 Reauthorization after revocation requires a new reviewed authorization/change;
-`resume` refuses a tombstone. A paused/revoked schedule may remain registered:
-the scheduler's mandatory gate posts nothing, and queued watcher/arc children
-cannot be claimed or served. Already running workers must recheck before
+`resume` refuses a tombstone. A paused, halted, or revoked arc parks no new
+successor, and queued watcher/arc children cannot be claimed or served. Already
+running workers must recheck before
 mutations; revocation does not kill an operating-system process. The merge spine
 always fetches the journal again immediately before its head-matched merge.
 It never queues delegated auto-merge for a future, potentially revoked moment.
 
-The schedule is the only automatic mentat producer. It substitutes the tracked
-canonical watcher task for the schedule body, preserves budget admission and
-occupancy, and emits no fallback tier or concrete provider pin. Claim and both
-native handlers require that exact task, its date/time basename, and an active
+The foreman-promoted press successor is the only automatic mentat producer. It
+carries the tracked canonical watcher task and emits no fallback tier or concrete
+provider pin. Claim and both native handlers require that exact task, the
+`ironhorse-test262-press-<UTC stamp>` basename, the arc marker, and an active
 record. Other automatic producers retain the mentor/minion route.
 
 ## One step per tick
 
-The mentat watcher calls `scripts/jobs/ironhorse-ratchet.sh step` once.
+Each foreman-woken mentat watcher calls `scripts/jobs/ironhorse-ratchet.sh step` once.
 The durable state is `ratchets/ironhorse-test262-ratchet/state.json`.
 The driver waits for existing children, then performs one transition:
 

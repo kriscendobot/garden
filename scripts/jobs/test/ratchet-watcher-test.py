@@ -68,13 +68,10 @@ class Watcher(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         return list((self.directory / 'scheduler/jobs/todo').glob('*.md'))
 
-    def test_scheduler_canonical_task_and_occupancy(self):
-        jobs = self.scheduler()
-        self.assertEqual(len(jobs), 1)
-        self.assertEqual(jobs[0].read_text(), policy.TEMPLATE.read_text())
-        policy.watcher_job(self.directory / 'scheduler', jobs[0])
+    def test_legacy_scheduler_can_no_longer_wake_arc(self):
+        self.assertEqual(self.scheduler(), [])
         self.environment['GARDEN_SCHEDULER_NOW'] = '1790640000'
-        self.assertEqual(len(self.scheduler()), 1)
+        self.assertEqual(self.scheduler(), [])
 
     def test_budget_held_watcher_keeps_authority_through_promotion(self):
         job = self.journal / f'jobs/plan/{WATCHER}.md'
@@ -147,7 +144,7 @@ job_eligible_for_kind "{job}"
 
     def test_live_transactions_pause_and_notify_atomically(self):
         first = WATCHER
-        second = 'ironhorse-ratchet-watch-20260929-000000'
+        second = 'ironhorse-test262-press-20260929-000000'
         for base in (first, second):
             (self.journal / f'jobs/doin/{base}.md').write_text(policy.TEMPLATE.read_text())
         self.publish()
@@ -171,7 +168,7 @@ job_eligible_for_kind "{job}"
         with patch.object(driver, 'notify') as notify:
             self.assertEqual(driver.failure(self.state, 'coverage lost')['action'], 'retry-next-tick')
             self.assertEqual(driver.failure(self.state, 'coverage lost')['action'], 'retry-next-tick')
-            driver.WATCHER = 'ironhorse-ratchet-watch-20260929-000000'
+            driver.WATCHER = 'ironhorse-test262-press-20260929-000000'
             self.assertEqual(driver.failure(self.state, 'coverage lost')['action'], 'halt')
             notify.assert_called_once()
             self.assertEqual(json.loads((self.journal / policy.CONFIGURATION).read_text())['status'], 'paused')
