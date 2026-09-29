@@ -48,6 +48,7 @@ Source verification already completed: `ironhorse-press-budget-test.sh` 11/11, `
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-29T16:33:04Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
