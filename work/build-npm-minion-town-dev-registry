@@ -3,7 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-28T23:56:18Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-build-npm-minion-town-dev-registry
-pr_number: 1362
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1362
-pr_head: build/npm-dev-registry-serving
+pr_number: 135
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/135
+pr_head: build/npm-minion-town-registry
