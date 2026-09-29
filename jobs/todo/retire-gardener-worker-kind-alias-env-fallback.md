@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: retire-gardener-worker-kind-alias-split
-priority: normal
-posted_by: producer
-posted_at: 2026-09-29T20:16:10Z
+tier: mentor
+token-budget: 100000
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-29T20:19:07Z cleared=none -->
 
 ---
 tier: mentor
