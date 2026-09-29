@@ -35,3 +35,13 @@ Push directly to main2 (no PR). This also serves as the prevention and
 sensing half for review-miss cluster `comment-banner-decoration`. When it
 lands, close that cluster with
 `scripts/jobs/review-miss-record.sh cluster-status comment-banner-decoration closed --improved-by "<commit>"`.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T19:54:54Z
