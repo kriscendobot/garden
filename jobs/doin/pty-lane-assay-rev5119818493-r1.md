@@ -85,3 +85,13 @@ Then, in all cases, emit `<<<GARDEN-JOB-COMPLETE>>>` as the very last line.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-29T02:23:06Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T02:40:13Z
