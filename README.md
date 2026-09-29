@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T16:18:27Z_
+_As of 2026-09-29T16:20:55Z_
 
 ## Latest
 
-The rolling deploy that got stuck earlier is now unwedged: a second fix (main2 36def9fd9e8) landed treating an unclaimed probe on a fully-busy canary as waiting rather than failed, and the endolin-garden2 canary deployed and passed on it. The leader itself is still deferring self-deploy behind its lone busy monk, so it remains 25 commits behind — the standing root-repo-guard notice on that lag is expected to clear once the monk frees up. Separately, oros-studio-garden-ce242c49 remains offline and is being skipped by the roll and de-rotated from worker leveling; no action needed there beyond eventual host recovery. On the review side, [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) is out of doin and into conduct, and PR #610's fix and the follower-self-deploy build both completed. Several M2/M3 milestone items are still parked awaiting your gauntlet/close decisions (#1349, #1356, #1015, #1332, #1340), and the Ironhorse test262 ratchet round-3 work is blocked on a maintainer call about reconciling the historical floor.
+The rolling deploy that was wedged behind a false canary-failed signal is now fixed: main2 36def9fd9e8 changes rolling-deploy.sh to treat an unclaimed probe on a fully busy canary as waiting rather than failed, and the endolin-garden2 canary already passed on it. The leader itself is still deferring its own deploy behind its one busy monk (the `activate-ironhorse-ratchet-autopilot-20260929-r4` job), with a one-time schedule queued to pick up the remaining steps once it lands; oros-studio-garden-ce242c49 remains offline and continues to be skipped by the roll.
+
+Several M2/M3 decisions are stacking up awaiting explicit maintainer sign-off: whether to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and close the superseded duplicate #1356, and whether to advance [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answer the open questions on #1340/#1332 to unblock the confined-agent and federation-release tracks — the latter (`endo-minion-town-federation-release-gate`) is fully blocked pending review of #1124, #1332's authority questions, and three more PRs in sequence. Separately, the Ironhorse test262 ratchet round 3 needs a maintainer call on whether to accept a reconciled current-llm floor (36,599 covered) against 906 historically-covered paths now failing under stricter classification, rather than relabeling them as covered.
 
 ## Parked for maintainer feedback
 
@@ -28,11 +30,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #110 (first seen 2026-09-29T05:53:06Z, latest 2026-09-29T15:20:05Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 110 times; this is ONE
-> coalesced notice that updates in place, not 110 messages. Latest detail:
+> WATCHDOG notice — occurrence #129 (first seen 2026-09-29T05:53:06Z, latest 2026-09-29T16:20:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 129 times; this is ONE
+> coalesced notice that updates in place, not 129 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 19942s (offline threshold 1800s; sampled_at_epoch=1790675260).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 23542s (offline threshold 1800s; sampled_at_epoch=1790675260).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -512,13 +514,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 133.2M | $930.06 _(notional, rate-card)_ | 93% of 143.0M (backoff) |
-| Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 133.7M | $932.69 _(notional, rate-card)_ | 93% of 143.0M (backoff) |
+| Codex | 14.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 49% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63479638 tokens/day lower bound._
+_Fleet token-unlock pace: 63284956 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.700611s/45s (/home/kris/garden/.garden-state/producer/journal); 2 open notice(s); checker healthy
+worst fetch p95 6.473536s/45s (/home/kris/garden/.garden-state/follow-up/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (4)
