@@ -1,11 +1,9 @@
 ---
-gate: awaiting-maintainer
-maintainer_question: 'Approve https://github.com/kriscendobot/minion.town/pull/130 so the conductor can merge it and finish PR 117 production validation'
-asked_at: https://github.com/kriscendobot/minion.town/pull/130
-priority: normal
-posted_by: producer
-posted_at: 2026-09-28T22:55:43Z
+role: conductor
+tier: mentor
+handler-budget-role: conductor
 ---
+<!-- garden-promoted-from-plan: gate=awaiting-maintainer priority=normal maintainer=true at=2026-09-29T22:37:18Z cleared=none -->
 
 ---
 role: conductor
