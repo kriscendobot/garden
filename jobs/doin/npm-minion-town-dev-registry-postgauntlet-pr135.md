@@ -76,3 +76,13 @@ to a merged #1362 commit on `llm`, so a full deploy needs BOTH merged.
    actually runs/imports correctly.
 4. Report pass/fail per package with the exact commands run. Production-npm promotion is explicitly
    future work — do not attempt it.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T03:26:28Z
