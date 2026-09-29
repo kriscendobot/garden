@@ -41,3 +41,13 @@ Precondition: #139 is MERGED on `main`. If it was closed without merging, messag
 <!-- garden-annotation: key=pr139-approved-20260929 by=press at=2026-09-29T21:39:26Z -->
 
 kriskowal APPROVED kriscendobot/minion.town#139 at 2026-09-29T21:15:47Z. Successor conductor 'conduct-kriscendobot-minion-town-pr139-approved-20260929' merges it and then promotes this job; the blocked-failed hold is cleared by that approval.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T22:40:06Z
