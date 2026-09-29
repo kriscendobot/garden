@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T22:24:46Z_
+_As of 2026-09-29T22:27:40Z_
 
 ## Latest
 
-Quiet since the last check: the only board movement was a new build job posted to `todo`, `build-minion-town-pr-screening`, standing up proxy screening and delegated merge for kriscendobot/minion.town PRs. Nothing claimed or completed in the interval, so the substantial backlog — the M2/M3 gauntlet decisions, the federation release gate, and the stalled leader deploy on endolin-garden-ece02cb4 — is unchanged and still needs maintainer attention.
+Board activity since the last bulletin was minimal: the only transition was the minion.town PR-screening design job (`design-minion-town-pr-screening-by-proxy`) moving from in-progress to complete. No PRs opened, merged, or closed in this window. The inbox remains heavy with unresolved maintainer decisions carried over from prior cycles — most notably the M2 gauntlet authorization for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and the disposition of superseded draft #1356, the M3 choice between refreshing #1015 or answering the open questions on #1340, and the blocked federation release gate awaiting review on #1124. Also flagged: the leader host (`endolin-garden-ece02cb4`) is 25 commits behind `origin/main2` with its deploy stalled, and `oros-studio-garden-ce242c49` remains offline and skipped from rolling deploys — both worth a look given they can silently freeze fleet-wide directives.
 
 ## Parked for maintainer feedback
 
@@ -438,7 +438,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 161.4M | $1085.30 _(notional, rate-card)_ | 113% of 143.0M (backoff) |
+| Claude | 161.5M | $1085.55 _(notional, rate-card)_ | 113% of 143.0M (backoff) |
 | Codex | 15.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 64030589 tokens/day lower bound._
@@ -455,22 +455,21 @@ worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-retry-replay-open-pr.md) — Open the draft PR for the Ironhorse panic retry/replay leg
 - [`kriscendobot-minion-town-endo-pin-post1015-deploy-verify-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-endo-pin-post1015-deploy-verify-20260929.md) — Verify the minion.town CD deploy advances the Endo daemon to 1706e63 (after #...
 
-### doin (7)
+### doin (6)
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1379
 - [`endojs-endo-but-for-bots-ironhorse-panic-coda-reference-error`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-coda-reference-error.md) — Coda: panic-on-reference-error construction option
-- [`design-minion-town-pr-screening-by-proxy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-pr-screening-by-proxy.md) — Design: proxy / mentat-supervisor screening for kriscendobot/minion.town PRs
 - [`endojs-endo-but-for-bots-pr1097-review-c2702a77-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1097-review-c2702a77-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1097 (primary: endojs-endo-but-...
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1380
 - [`improve-gh-api-primary-quota-singleflight-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gh-api-primary-quota-singleflight-expanded-window.md) — improve-gh-api-primary-quota-singleflight-expanded-window
 
-### tada (9761)
+### tada (9762)
+- [`design-minion-town-pr-screening-by-proxy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/design-minion-town-pr-screening-by-proxy.md) — What I did
 - [`kriscendobot-minion-town-pr68-gauntlet-20260929-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-pr68-gauntlet-20260929-fix-2.md) — Gauntlet FIX round 2: kriscendobot/minion.town PR #68
 - [`confirm-implement-nudge-continue-parity-mentat-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/confirm-implement-nudge-continue-parity-mentat-20260929.md) — Completion report
 - [`kriscendobot-minion-town-pr139-conduct-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion-town-pr139-conduct-20260929.md) — Cost
 - [`improve-budget-snapshot-outage-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/improve-budget-snapshot-outage-recovery.md) — Completion report: improve-budget-snapshot-outage-recovery
-- [`claude-on-minion-town-press-20260929-212011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/claude-on-minion-town-press-20260929-212011.md) — Manual gauntlet handoff
-- … and 9756 more
+- … and 9757 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
