@@ -24,3 +24,13 @@ Work under skills/gap-revealing-build: a DRAFT PR that STAYS draft (no fix, pane
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-29T09:23:05Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T09:31:33Z
