@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T02:52:16Z_
+_As of 2026-09-29T02:54:52Z_
 
 ## Latest
 
-Progress on the endojs/endo-but-for-bots#1348 gauntlet: panel round 3 came back **must-fix**, and fix round 3 is now in flight against the feedback. A rolling-deploy canary probe against endolin-garden2-5bcdff64 landed clean at release `65f0c2e4`, closing out that deploy's stuck-canary watchdog condition.
-
-The maintainer inbox continues to carry a long backlog of M2/M3 milestone-gate questions (mainly authorization to run the gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close/supersede call on #1356), several doom-parked gauntlet/retro jobs awaiting promotion, and routine budget/watchdog noise — none of which changed in this window beyond the board transitions above.
+Two gauntlet panel rounds closed out: [kriscendobot/minion.town#120](https://github.com/kriscendobot/minion.town/pull/120) and [kriscendobot/minion.town#135](https://github.com/kriscendobot/minion.town/pull/135) both cleared panel round 5, and #135 moved straight into its fix-5 stage, now in flight. A canary probe on endolin-garden2-5bcdff64 came back clean post-deploy. The maintainer inbox is heavy this cycle: the foreman has repeatedly flagged milestone M2 as blocked on manual-gauntlet authorization for the draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim) and a close decision on the superseded #1356 (duplicated by upstream endojs/endo#3332), plus M3 is stalled pending a call on refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) versus resolving open questions on #1340. The endo/minion.town federation release gate remains blocked, waiting on maintainer answers on #1332 and a maintainer review of #1124 before it can proceed. Several gauntlet/job stages doom-parked after exhausting retries (PR #356 fix, PR #450 panel, minion.town PR #68 panel) and stay held in the plan queue for a promote decision. Budget/quota watchdogs show normal fluctuation across hosts with no action needed, and a quarterly completions rollup (9,490 jobs, June–September) was published to the ocap.site dashboard.
 
 ## Parked for maintainer feedback
 
@@ -795,6 +793,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 > M2 is blocked on the draft PRs: authorize running the gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349), and decide whether to close superseded duplicate #1356.
 
+- `msg-endojs-endo-but-for-bots-pr1348-gauntlet-fix-3-489d813f734b` — from gardener:endojs-endo-but-for-bots-pr1348-gauntlet-fix-3, reply_to `endojs-endo-but-for-bots-pr1348-gauntlet-fix-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1348-gauntlet-fix-3-489d813f734b.md)
+
+> [https://github.com/endojs/endo-but-for-bots/pull/1348](https://github.com/endojs/endo-but-for-bots/pull/1348) (explicit workspace-agent harness) needs your decision. The round-3 gauntlet panel's integrator seat blocks it: the PR adds new JSON-tool work (the @endo/agentry/workspace-agent subpath over JSON ToolRecords, plus a breaking inspect->inspectShell/inspectGitRemote rename in the composed workspace catalog), and [https://github.com/endojs/endo-but-for-bots/issues/731](https://github.com/endojs/endo-but-for-bots/issues/731) parks exactly that kind of work. No fixer can resolve this. Options: (a) lift the parking for this slice and record that on the parking issue and in designs/daemon-agent-tools.md; (b) route Phase 4 provisioning through code mode (code-mode-provisioning, the grants from [https://github.com/endojs/endo-but-for-bots/pull/965](https://github.com/endojs/endo-but-for-bots/pull/965)) and close 1348 as superseded; (c) keep 1348 draft until the Phase 4 lal/fae consumer exists. The PR stays draft. Fix round 3 applied the tractable should-fix items: the endow hook no longer sees the granted tools, there are docs and types fixes, and the ledger now carries a Draft-hold line.
+
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-12T03:35:10Z, latest 2026-09-28T08:11:20Z).
@@ -1230,7 +1232,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.8M | $733.88 _(notional, rate-card)_ | 63% of 143.0M (ok) |
+| Claude | 90.1M | $735.14 _(notional, rate-card)_ | 63% of 143.0M (ok) |
 | Codex | 8.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 81988294 tokens/day lower bound._
@@ -1242,21 +1244,20 @@ worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (0)
 (none)
 
-### doin (6)
-- [`kriscendobot-minion.town-pr135-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr135-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #135
+### doin (5)
+- [`kriscendobot-minion.town-pr135-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr135-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #135
 - [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1362
-- [`kriscendobot-minion.town-pr120-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #120
 - [`endojs-endo-but-for-bots-sync-llm-master-20260929-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-sync-llm-master-20260929-pr.md) — Open, shepherd, and merge the prepared upstream-master → llm sync PR on endoj...
 - [`activate-ironhorse-ratchet-autopilot-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/activate-ironhorse-ratchet-autopilot-20260929.md) — Finish activation of the authorized Ironhorse ratchet autopilot (continued)
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1348
 
-### tada (9536)
+### tada (9538)
+- [`kriscendobot-minion.town-pr120-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr120-gauntlet-panel-5.md) — Cost
+- [`kriscendobot-minion.town-pr135-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr135-gauntlet-panel-5.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-65f0c2e4414d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/canary-probe-endolin-garden2-5bcdff64-65f0c2e4414d.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-panel-3.md) — Panel round 3: endojs/endo-but-for-bots#1348 is **must-fix**
 - [`claude-on-minion-town-press-20260929-022040`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/claude-on-minion-town-press-20260929-022040.md) — Panel-head freshness
-- [`kriscendobot-minion.town-pr135-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/kriscendobot-minion.town-pr135-gauntlet-fix-4.md) — Cost
-- [`pty-lane-assay-rev5119818493-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/pty-lane-assay-rev5119818493-r1.md) — pty-lane self-validation — PR #81 — COMPLETION REPORT
-- … and 9531 more
+- … and 9533 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
