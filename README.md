@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-09-29T04:36:09Z_
+_As of 2026-09-29T04:36:59Z_
 
 ## Latest
 
@@ -8,7 +8,7 @@ Overnight activity was mostly maintenance churn rather than PR movement: the fix
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) — test(platform): stabilize cached-fs miss transcript ordering; align ReadableBlob changeset (waiting 3h)
+- [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) — test(platform): stabilize cached-fs miss transcript ordering; align ReadableBlob changeset (waiting 4h)
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 2d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 11d)
 - [endojs/endo#3367](https://github.com/endojs/endo/pull/3367) — fix(immutable-arraybuffer): Avoid introducing unrelated properties (waiting 12d)
@@ -345,6 +345,10 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 > dispatch: automatic
 > ---
 > Reconcile the M2 `hardened-url-shim` and `hardened-text-codecs-shim` design records in `endojs/endo-but-for-bots` on the `llm` branch against their upstream-landed successors, updating their statuses and evidence so milestone sequencing can advance.
+
+- `msg-endojs-endo-but-for-bots-pr1362-gauntlet-fix-2-f4b0292663c9` — from gardener:endojs-endo-but-for-bots-pr1362-gauntlet-fix-2, reply_to `endojs-endo-but-for-bots-pr1362-gauntlet-fix-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1362-gauntlet-fix-2-f4b0292663c9.md)
+
+> PR [https://github.com/endojs/endo-but-for-bots/pull/1362](https://github.com/endojs/endo-but-for-bots/pull/1362) (npm-registry-server): the panel-2 integrator flagged an architectural must-fix that a gauntlet fix round cannot resolve. The PR builds its own CAS and SQLite store, but goal 5 of the design ([https://github.com/endojs/endo-but-for-bots/pull/1361](https://github.com/endojs/endo-but-for-bots/pull/1361), itself an unlanded draft) asks it to reuse the @endo/exo-npm tree and ingestion machinery. The design allows a temporary adapter only when its handler is written against the tree interface, and this one is not. Decision needed: (a) rehome over @endo/exo-npm and the tree interface, (b) park the PR behind the design and the directory-tree adapter landing, or (c) accept the divergence and amend the design. Fix round 2 applied every other must-fix item plus the security should-fixes (head e7efe19990). The README now states the non-conformance honestly.
 
 - `20260928T172319Z-a6992a` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T172319Z-a6992a.md)
 
