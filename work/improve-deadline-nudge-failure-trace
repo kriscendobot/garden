@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-09-29T22:29:40Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-improve-deadline-nudge-failure-trace
