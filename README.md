@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T10:02:40Z_
+_As of 2026-09-29T10:06:06Z_
 
 ## Latest
 
-Quiet stretch on the board itself — the only completions since the last bulletin were the receipt-watcher startup-stragglers fix and the disposition of `build-daemon-docker-selfhost`, which was halted rather than built: it would have duplicated two already-open PRs ([endojs/endo-but-for-bots#694](https://github.com/endojs/endo-but-for-bots/pull/694) and #608), and kriskowal previously closed #134 saying Docker self-hosting was headed a different direction (toward @endo/gateway + @endo/mcp on AWS). That decision is still pending: mark the plan record Declined/Superseded and close those two PRs, or pick one to carry forward.
-
-The bulk of activity is maintainer-attention backlog rather than new work: the foreman has repeatedly flagged M2 as blocked on gauntlet authorization for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and a close decision on superseded duplicate #1356; M3 is blocked choosing between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering four open design questions on #1340. The IronHorse test262 ratchet (round 3) needs a floor-reconciliation call — 906 lost paths against the pre-change historical floor, with several hundred of those now believed to be false positives under the old classifier. A rolling-deploy canary on oros-studio failed and stayed drained after three automatic retries; separately the leader host itself is now 25 commits behind `origin/main2` with a stalled deploy, worth a look since singleton services (foreman, scheduler, watchers) won't honor anything newer than the deployed SHA while stale. The federation release gate for minion.town remains blocked pending authority-question answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332).
+Board activity was thin since the last bulletin — the only recorded transition was progress on the orchestrated follow-up for [endo-but-for-bots#1018](https://github.com/endojs/endo-but-for-bots/pull/1018), with a reply plan now queued for posting. The larger picture the maintainer should notice is a growing backlog of decisions waiting on them: milestone M2 is stalled on whether to run the gauntlet for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and whether to close the superseded #1356; M3 is stalled choosing between refreshing [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving the four open questions on #1340. Meanwhile the root deploy has stalled 25 commits behind on the leader host after a candidate was correctly rejected by a failing test gate, and a rolling-deploy canary on oros-studio failed repeatedly and was left drained pending investigation — both need attention since the leader won't honor newer directives until redeployed. In-flight work continues on PR #1362's gauntlet fix loop, #1343, #1097's base-pin weave, and an IronHorse panic-classification lint, while the IronHorse test262 ratchet effort is asking for a policy call on reconciling ~906 historical-floor discrepancies rather than silently relabeling them covered.
 
 ## Parked for maintainer feedback
 
@@ -118,13 +116,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #38 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T10:00:06Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 38 times; this is ONE
-> coalesced notice that updates in place, not 38 messages. Latest detail:
+> WATCHDOG notice — occurrence #39 (first seen 2026-09-29T05:44:56Z, latest 2026-09-29T10:05:08Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 39 times; this is ONE
+> coalesced notice that updates in place, not 39 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=16370s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=16281s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129930579 (age=16671s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357)#discussion_r4129939009 (age=16582s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -242,14 +240,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
 > root repo /home/kris/garden deploy has been STALLED for ~0d / 25 commits behind (leader commits-fuse 25): deployed sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca is 25 commit(s) behind origin/main2 (9bf25f4362f9638313fdd55875bd218b11557d47) and has not advanced. Deploys are deliberate/drained (deploy-garden.sh) — investigate why none has landed. This host is the LEADER: it runs every singleton producer (foreman, scheduler, watchers), so while it is stale it is NOT honoring any directive newer than its deployed sha — a PROJECT PAUSE among them. This is the shape that let a stale leader run ~60 IronHorse fuzz jobs a week after the 09-09 pause (designs/project-pause-enforcement.md). DEPLOY IT. (host=endolin-garden-ece02cb4)
-
-- `manual-gauntlet-handoff-build-daemon-docker-selfhost-endojs-endo-but-for-bots-pr694` — from gardener:build-daemon-docker-selfhost, reply_to `build-daemon-docker-selfhost` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/manual-gauntlet-handoff-build-daemon-docker-selfhost-endojs-endo-but-for-bots-pr694.md)
-
-> Manual gauntlet handoff for completed job `build-daemon-docker-selfhost`: [https://github.com/endojs/endo-but-for-bots/pull/694](https://github.com/endojs/endo-but-for-bots/pull/694) is a bot-authored OPEN NON-DRAFT PR with no staged or completed gauntlet.
->
-> The implementation job is complete and has been terminalized instead of sending the same work through another agent run. The garden did not re-draft the PR and did not stage a gauntlet.
->
-> Maintainer action: if this PR should enter review, issue `run the gauntlet` for [https://github.com/endojs/endo-but-for-bots/pull/694](https://github.com/endojs/endo-but-for-bots/pull/694). Otherwise no action is required.
 
 - `20260928T172814Z-aab24c` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T172814Z-aab24c.md)
 
@@ -452,10 +442,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 120.2M | $874.01 _(notional, rate-card)_ | 84% of 143.0M (backoff) |
+| Claude | 120.4M | $875.93 _(notional, rate-card)_ | 84% of 143.0M (backoff) |
 | Codex | 14.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 58652750 tokens/day lower bound._
+_Fleet token-unlock pace: 58688604 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.408336s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 0 open notice(s); checker healthy
