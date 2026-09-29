@@ -1,4 +1,5 @@
 ---
+child-improve-gh-api-primary-quota-singleflight-expanded-window-reap-count: 0
 order: serial
 children: improve-gh-api-primary-quota-singleflight-expanded-window
 on-child-failure: halt
