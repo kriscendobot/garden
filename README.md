@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-29T05:11:21Z_
+_As of 2026-09-29T05:18:48Z_
 
 ## Latest
 
-Milestone M2 and M3 dominate the maintainer queue: the foreman has repeatedly flagged that M2's remaining work sits entirely in green draft PRs [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text-codecs-shim XS smoke coverage) and [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) (superseded by upstream endo#3332 and recommended for closure), while M3's confinement-core work is stalled pending a decision on refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) versus first resolving four open design questions on #1340. Both milestones need explicit "run the gauntlet" authorization before any further fleet work can proceed. Separately, the ironhorse test262 ratchet round-3 sweep surfaced a genuine floor-reconciliation question — 906 historical covered paths no longer hold under the current stricter classifier — with a decision now parked at the linked issue comment, and the federation release gate remains fully blocked pending maintainer answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332)'s authority questions. On the infrastructure side, a rolling-deploy canary on oros-studio has been stuck for over an hour (21 coalesced watchdog notices), and the previous `main2` deploy candidate was rejected by the test gate on a failing `triager-pacing-test.sh` suite, so the deployed tree is unchanged pending a fix.
+The board stayed largely idle this cycle — the only transition was fix round 2 landing green on [endojs/endo-but-for-bots#1362](https://github.com/endojs/endo-but-for-bots/pull/1362), which now sits with CI passing. Meanwhile the maintainer inbox has piled up: several `foreman` notices flag milestone M2 as blocked on draft PRs [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (awaiting `run the gauntlet` authorization) and #1356 (recommended for closure as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)), and M3 is stalled on a choice between advancing #1015's confinement-core refresh or answering open design questions on #1340. The `oros-studio-garden-ce242c49` host has a rolling-deploy canary stuck for over two hours on an undeployed SHA, worth a look. The Ironhorse test262 ratchet round-3 sweep is also awaiting a maintainer policy call on reconciling ~906 lost historical-floor paths against a stricter classifier, and the endo/minion.town federation release gate remains blocked pending authority-question answers on [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332).
 
 ## Parked for maintainer feedback
 
@@ -1179,11 +1179,11 @@ _Showing top 10 of 28 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #21 (first seen 2026-09-29T03:14:02Z, latest 2026-09-29T04:14:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 21 times; this is ONE
-> coalesced notice that updates in place, not 21 messages. Latest detail:
+> WATCHDOG notice — occurrence #42 (first seen 2026-09-29T03:14:02Z, latest 2026-09-29T05:17:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 42 times; this is ONE
+> coalesced notice that updates in place, not 42 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 65f0c2e4414d 81 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 65f0c2e4414d 144 min ago
 > but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1199,7 +1199,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.7M | $795.56 _(notional, rate-card)_ | 71% of 143.0M (ok) |
+| Claude | 101.9M | $796.25 _(notional, rate-card)_ | 71% of 143.0M (ok) |
 | Codex | 11.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 55243839 tokens/day lower bound._
@@ -1211,17 +1211,16 @@ worst fetch p95 7.551630s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1362-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1362
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1015-refresh-for-preliminary-review.md) — ---
 
-### tada (9562)
+### tada (9563)
+- [`endojs-endo-but-for-bots-pr1362-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1362-gauntlet-fix-2.md) — Fix round 2 for endojs/endo-but-for-bots PR #1362: complete, CI green
 - [`endojs-endo-but-for-bots-pr1348-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1348-gauntlet — complete
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-undraft.md) — Cost
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1348-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/endojs-endo-but-for-bots-pr1348-gauntlet-fix-5.md) — Gauntlet fix round 5: endojs/endo-but-for-bots PR #1348
-- [`activate-ironhorse-ratchet-autopilot-20260929-r3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/29/activate-ironhorse-ratchet-autopilot-20260929-r3.md) — Cost
-- … and 9557 more
+- … and 9558 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
