@@ -3,3 +3,7 @@ gardener: 4
 worker_kind: monk
 claimed_at: 2026-09-29T00:25:50Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-kriscendobot-minion-town-pr86-git-minion-town-production-20260929
+pr_number: 136
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/136
+pr_head: deploy/git-minion-town-surface
