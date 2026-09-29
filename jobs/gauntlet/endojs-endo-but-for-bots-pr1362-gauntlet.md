@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1362
 build_job: build-npm-minion-town-dev-registry
 kind: feature
-stage: panel
+stage: fix
 iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1362-gauntlet-panel-2
+current_child: endojs-endo-but-for-bots-pr1362-gauntlet-fix-2
 state: running
 created_by: producer
 created_at: 2026-09-29T01:03:24Z
