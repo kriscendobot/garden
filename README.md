@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-29T13:52:04Z_
+_As of 2026-09-29T14:02:27Z_
 
 ## Latest
 
-The board stayed thin: `claude-on-minion-town-completion-press-20260929-135025` was posted as a fresh completion-check for the Claude-on-minion.town arc, and no other jobs moved through todo/doin/tada since the last bulletin. Behind the scenes, [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) advanced (its migrate-to-`stream()` follow-up job landed, a weave completed, though its orchestration report shows HALTED and is worth a look), a quarterly completions rollup covering ~9,490 jobs since June 24 published to ocap.site, and the rolling deploy stalled: `oros-studio-garden-ce242c49` failed canary validation three times on `18df481c04b5aca0fec1f93ebdf8a0393b69544f` and was left drained, while the deploy candidate `39d0c5ef0aca` was independently rejected by the test gate on a `triager-pacing-test.sh` failure — the root checkout is now 25 commits behind `origin/main2` and, as leader, isn't honoring anything newer, including a project pause. That's the most actionable item in the queue.
+No file-level board transitions landed since the last bulletin, so the fleet's output stayed flat; the substance is all in the maintainer inbox. Milestone M2 has been stuck all day on a single decision: the foreman is repeatedly flagging draft [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) as the one unblocked step, and separately asking to close #1356 as superseded by upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332). M3 is similarly waiting on a choice between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering four open questions on design #1340.
 
-Otherwise the maintainer inbox is dominated by repeat asks the foreman keeps re-raising: M2 wants a gauntlet decision on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (and a close/supersede call on #1356, now flagged as subsumed by [endojs/endo#3332](https://github.com/endojs/endo/pull/3332)), M3 is blocked choosing between refreshing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering #1340's open questions, and the minion.town federation release gate is still blocked on PR #1332's authority questions plus review on #1124. Two gardeners also flagged process gaps worth a look: a stale-local-base bug in `ensure-pr.sh`'s phase/evidence gate, and the round-3 IronHorse test262 ratchet surfacing 906 lost paths against the historical floor that need a policy call rather than reclassification.
+Operationally, the leader host has drifted 25 commits behind `origin/main2` with a deploy stalled at zero days — worth a look since it's holding back every singleton producer — and a deploy candidate (`39d0c5ef0ac`) was rejected for a failing triager-pacing test. A rolling-deploy canary on `oros-studio-garden-ce242c49` failed three retries and was left drained pending investigation, while a separate canary on `endolin-garden2` recovered on retry. The ironhorse test262 ratchet (round 3) needs a maintainer call on how to reconcile 906 historically-covered paths that no longer pass under the stricter current classifier. The minion.town federation release gate is still blocked on authority questions at [endojs/endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332) and review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124). On the lighter side, a quarterly completions rollup (9,490 jobs, June–September) published successfully, and PR [endojs/endo-but-for-bots#1097](https://github.com/endojs/endo-but-for-bots/pull/1097) had a weave/orchestration attempt that halted today.
 
 ## Parked for maintainer feedback
 
@@ -483,7 +483,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 128.8M | $915.58 _(notional, rate-card)_ | 90% of 143.0M (backoff) |
+| Claude | 129.0M | $917.70 _(notional, rate-card)_ | 90% of 143.0M (backoff) |
 | Codex | 14.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 64% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 61885248 tokens/day lower bound._
@@ -610,7 +610,7 @@ worst fetch p95 4.972640s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 kriscendobot-minion.town kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 1 monks
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 3 monks
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
