@@ -31,3 +31,13 @@ Parent job `endojs-endo-but-for-bots-pr1018-e1ff4501` ran on host oros-studio-ga
 
 <!-- garden-reply:5884163049 -->
 ----- END COMMENT BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-29T10:22:46Z
