@@ -1,2 +1,2 @@
-base: improve-ci-wait-head-change
+base: improve-actions-billing-ci-classification
 identity: mentor:scripts/jobs/gardening/ci-wait-merge.sh
