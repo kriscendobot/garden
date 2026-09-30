@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T02:02:59Z_
+_As of 2026-09-30T02:10:07Z_
 
 ## Latest
 
-The maintainer-decision gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) is finally moving: its clean stage completed and round 1 of panel review is now queued, following repeated foreman escalations urging authorization. Elsewhere the board mostly reflects steady in-flight work — a second fix round on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), a first fix round on [endojs/endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383), and a second fix round on the IronHorse panic host-call PR, alongside the Endo daemon idempotent-start build and a deploy-gate regression fix. The one flagged transition since the last bulletin is the "improve-deadline-nudge-failure-trace (expanded window)" job moving from post to claim. A large backlog of maintainer decisions remains parked (M2/M3 milestone gauntlet authorizations, the federation release gate, the IronHorse test262 floor-reconciliation question, and several watchdog/budget notices largely self-resolving), with the leader host `endolin-garden-ece02cb4` also flagged as 25 commits behind on deploy.
+The gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) advanced to its first panel round after passing clean, while [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) is on its second fix round and [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (the IronHorse panic host-call PR) is likewise back in a fix round. A separate gauntlet fix round completed for [endojs/endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383), whose two design open-questions (default no-autostart under a service manager, and the run-daemon signal-forwarding approach) still await a maintainer answer. Otherwise this tick is mostly routine fleet churn — budget-level rebalancing, a cleared journal-contention notice, and a completed sysop orchestration — with no new maintainer-facing decisions beyond the long list already parked, most pressingly the leader host at `endolin-garden-ece02cb4` sitting 25 commits behind on a stalled deploy while it still runs every singleton producer.
 
 ## Parked for maintainer feedback
 
@@ -481,10 +481,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 177.9M | $1166.95 _(notional, rate-card)_ | 124% of 143.0M (backoff) |
-| Codex | 15.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
+| Claude | 178.3M | $1168.30 _(notional, rate-card)_ | 125% of 143.0M (backoff) |
+| Codex | 15.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 66% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57543807 tokens/day lower bound._
+_Fleet token-unlock pace: 64524906 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.140894s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 1 open notice(s); checker healthy
@@ -496,20 +496,20 @@ worst fetch p95 5.140894s/45s (/home/kris/garden/.garden-state/design-pr-gauntle
 ### doin (8)
 - [`improve-deadline-nudge-failure-trace-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-failure-trace-expanded-window.md) — improve-deadline-nudge-failure-trace (expanded window)
 - [`endojs-endo-but-for-bots-pr1357-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1357
-- [`endojs-endo-but-for-bots-pr1383-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1383-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1383
+- [`claude-on-minion-town-completion-press-20260930-020508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260930-020508.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1379
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260930-015006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260930-015006.md) — Containment drift check for kriscendobot/minion.town gateway records
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
 - [`endo-daemon-idempotent-start-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-daemon-idempotent-start-build.md) — Endo daemon: idempotent start + early single-instance lock (phase 1)
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### tada (9812)
+### tada (9813)
+- [`endojs-endo-but-for-bots-pr1383-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1383-gauntlet-fix-1.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20260930-015006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/dependabotany-recheck-endo-but-for-bots-20260930-015006.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-7186edea9d60`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/canary-probe-endolin-garden2-5bcdff64-7186edea9d60.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1357-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1357-gauntlet-panel-2.md) — Completion report
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-clean.md) — Cost
-- [`improve-gauntlet-failed-stage-handoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/improve-gauntlet-failed-stage-handoff.md) — Completion report: improve-gauntlet-failed-stage-handoff
-- … and 9807 more
+- … and 9808 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
