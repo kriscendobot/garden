@@ -7,6 +7,10 @@ mkdir -p "$comments_dir"
 
 case "${1:-} ${2:-}" in
   "api --paginate")
+    if [ -e "${GAUNTLET_GH_FAIL_READS_FILE:-/nonexistent}" ]; then
+      printf 'gh: Not Found (HTTP 404)\n' >&2
+      exit 1
+    fi
     # gauntlet.sh asks gh's --jq to print only each top-level comment body. The
     # fixture stores exactly those bodies, so replaying the files is equivalent.
     find "$comments_dir" -maxdepth 1 -type f -name '*.md' -print0 2>/dev/null \

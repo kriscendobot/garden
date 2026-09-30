@@ -205,8 +205,9 @@ set_gauntlet_fields() {  # <base> key=val [key=val...]
 
 # --- terminal transitions (mirror finish_orch) ------------------------------
 # Write tada/<base> from a summary file and remove the record. Retries until it lands.
-finish_gauntlet() {  # <base> <summary-file>
-  local base="$1" summary="$2" attempt rc
+finish_gauntlet() {  # <base> <summary-file> [pending-receipt-file]
+  local base="$1" summary="$2" pending="${3:-}" pending_rel="" attempt rc
+  [ -z "$pending" ] || pending_rel="$(terminal_pending_rel "$pending")"
   for attempt in $(seq 1 100); do
     sync_clone "$DIR"
     if [ ! -e "$DIR/$JOBS_GAUNTLET/$base.md" ] && tada_exists "$DIR" "$base"; then
@@ -217,6 +218,11 @@ finish_gauntlet() {  # <base> <summary-file>
     mkdir -p "$DIR/$(dirname "$tada_rel")"
     cp "$summary" "$DIR/$tada_rel"
     git -C "$DIR" add "$tada_rel"
+    if [ -n "$pending_rel" ]; then
+      mkdir -p "$DIR/$GAUNTLET_TERMINAL_PENDING"
+      cp "$pending" "$DIR/$pending_rel"
+      git -C "$DIR" add "$pending_rel"
+    fi
     [ -e "$DIR/$JOBS_GAUNTLET/$base.md" ] && git -C "$DIR" rm -q "$JOBS_GAUNTLET/$base.md"
     rc=0; commit_and_push "$DIR" "gauntlet($base) finished → tada by $GARDEN" || rc=$?
     [ "$rc" -eq 0 ] && return 0
@@ -243,16 +249,16 @@ gauntlet_notify() {  # <subject> ; body on stdin
 # finish_gauntlet loses its journal CAS after the comment lands and the next tick
 # re-drives the same terminal transition. Both reads and the write use the fleet gh
 # path (the bot-identity wrapper in production; GARDEN_GH is the hermetic test seam).
-# Every failure is best-effort: terminalizing the journal record must not depend on
-# GitHub being readable or writable.
-gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted> <reason> <record-file>
-  local base="$1" terminal_state="$2" reason="$3" rec="$4"
-  local repo prnum iter marker comments meta head ci pending bad total
-  local panel_tada="" must_fix_count="" must_fix_part="" next body gh_bin
+# Terminalizing the journal record must not depend on GitHub being readable or
+# writable, so a failed read or write never blocks the finish. Instead it returns 1
+# (retryable) and gauntlet_terminal_receipt turns that into a pending-receipt record
+# committed WITH the finish; later ticks retry it (retry_terminal_pending). Returns 0
+# when the comment landed, was already present, or can never be posted.
+gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted> <reason> <repo> <pr-number> <iteration>
+  local base="$1" terminal_state="$2" reason="$3" repo="$4" prnum="$5" iter="$6"
+  local marker comments meta head ci pending bad total
+  local panel_tada="" must_fix_count="" must_fix_part="" next body gh_bin rc=0
 
-  repo="$(gauntlet_repo "$rec")"
-  prnum="$(gauntlet_pr_number "$rec")"
-  iter="$(gauntlet_iteration "$rec")"
   if [ -z "$repo" ] || [ -z "$prnum" ]; then
     log "WARN: gauntlet '$base': cannot post terminal PR status (missing repo/pr_number)"
     return 0
@@ -261,8 +267,8 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted> <reason> 
 
   marker="<!-- garden-gauntlet-terminal-status: base=$base state=$terminal_state -->"
   if ! comments="$(gh_api_retry --paginate "repos/$repo/issues/$prnum/comments" --jq '.[].body')"; then
-    log "WARN: gauntlet '$base': could not check for terminal PR status comment; skipping best-effort post to avoid a duplicate"
-    return 0
+    log "WARN: gauntlet '$base': could not check for terminal PR status comment; deferring the post to a later tick to avoid a duplicate"
+    return 1
   fi
   if grep -Fq -- "$marker" <<<"$comments"; then
     log "gauntlet '$base': terminal PR status already posted ($terminal_state)"
@@ -330,12 +336,112 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted> <reason> 
   } > "$body"
   gh_bin="${GARDEN_GH:-gh}"
   if ! "$gh_bin" pr comment "$prnum" -R "$repo" --body-file "$body" >/dev/null 2>&1; then
-    log "WARN: gauntlet '$base': terminal PR status comment failed (non-fatal; state=$terminal_state)"
+    log "WARN: gauntlet '$base': terminal PR status comment failed (non-fatal; state=$terminal_state; will retry)"
+    rc=1
   else
     log "gauntlet '$base': posted terminal PR status ($terminal_state)"
   fi
   rm -f "$body"
-  return 0
+  return "$rc"
+}
+
+# --- pending terminal receipts ----------------------------------------------
+# A terminal comment that could not be checked or written (a quota-cooled gh read
+# above all: the host-shared cooldown refuses the request outright) is persisted as
+# jobs/gauntlet-terminal-pending/<base>--<state>.md, committed in the SAME push as
+# the tada report so the finish and its owed receipt land atomically. The path is
+# deterministic, so a re-driven finish never duplicates it, and the retry re-reads
+# the PR comments first, so the hidden marker still deduplicates the post itself.
+GAUNTLET_TERMINAL_PENDING="jobs/gauntlet-terminal-pending"
+# An unpostable receipt (a deleted PR, a revoked token) must not retry forever.
+: "${GARDEN_GAUNTLET_TERMINAL_PENDING_MAX_AGE_SECS:=604800}"
+
+terminal_pending_rel() {  # <pending-file> -> journal-relative path
+  printf '%s/%s--%s.md\n' "$GAUNTLET_TERMINAL_PENDING" \
+    "$(plan_field "$1" base)" "$(plan_field "$1" terminal_state)"
+}
+
+# Try the terminal comment now; if it must be retried, print the path of a
+# pending-receipt file for the caller to hand to finish_gauntlet (else nothing).
+gauntlet_terminal_receipt() {  # <base> <state> <reason> <record-file>
+  local base="$1" terminal_state="$2" reason="$3" rec="$4" repo prnum iter pf
+  repo="$(gauntlet_repo "$rec")"
+  prnum="$(gauntlet_pr_number "$rec")"
+  iter="$(gauntlet_iteration "$rec")"
+  gauntlet_terminal_comment "$base" "$terminal_state" "$reason" "$repo" "$prnum" "$iter" && return 0
+  pf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-terminal-pending.XXXXXX")"
+  {
+    printf -- '---\n'
+    printf 'base: %s\n' "$base"
+    printf 'terminal_state: %s\n' "$terminal_state"
+    printf 'repo: %s\n' "$repo"
+    printf 'pr_number: %s\n' "$prnum"
+    printf 'iteration: %s\n' "$iter"
+    printf 'created_at: %s\n' "$(date -u +%FT%TZ)"
+    printf -- '---\n'
+    printf '%s\n' "$reason"
+  } > "$pf"
+  log "gauntlet '$base': terminal PR status ($terminal_state) owed; persisting a pending receipt for a later tick"
+  printf '%s\n' "$pf"
+}
+
+clear_terminal_pending() {  # <journal-relative-path> <why>
+  local rel="$1" why="$2" attempt rc
+  for attempt in $(seq 1 50); do
+    sync_clone "$DIR"
+    [ -e "$DIR/$rel" ] || return 0
+    git -C "$DIR" rm -q "$rel"
+    rc=0; commit_and_push "$DIR" "gauntlet terminal receipt ${rel##*/} $why by $GARDEN" || rc=$?
+    [ "$rc" -eq 0 ] && return 0
+    [ "$rc" -eq 2 ] && return 0
+    backoff "$attempt"
+  done
+  return 1
+}
+
+# Retry every owed terminal receipt. Skips the whole sweep while the host-shared
+# gh-api cooldown is live (the request would be refused unissued anyway).
+retry_terminal_pending() {
+  local j f rel base terminal_state repo prnum iter created created_s now reason
+  [ -d "$DIR/$GAUNTLET_TERMINAL_PENDING" ] || return 0
+  for j in $(list_jobs "$DIR" "$GAUNTLET_TERMINAL_PENDING"); do
+    case "$j" in *.md) ;; *) continue;; esac
+    rel="$GAUNTLET_TERMINAL_PENDING/$j"; f="$DIR/$rel"
+    [ -f "$f" ] || continue
+    if api_cooldown_active rest; then
+      log "gauntlet: gh-api cooldown live; deferring owed terminal PR status receipts"
+      return 0
+    fi
+    base="$(plan_field "$f" base)"
+    terminal_state="$(plan_field "$f" terminal_state)"
+    repo="$(plan_field "$f" repo)"
+    prnum="$(plan_field "$f" pr_number)"
+    iter="$(plan_field "$f" iteration)"
+    created="$(plan_field "$f" created_at)"
+    # A --resume-from-stage reopened this gauntlet: the terminal state it owed a
+    # receipt for no longer holds, so posting it now would mislead.
+    if [ -n "$base" ] && [ -e "$DIR/$JOBS_GAUNTLET/$base.md" ]; then
+      log "gauntlet '$base': dropping owed terminal receipt ($terminal_state); the gauntlet was resumed"
+      clear_terminal_pending "$rel" "superseded by resume" || true
+      continue
+    fi
+    created_s="$(date -u -d "$created" +%s 2>/dev/null || echo 0)"
+    now="$(date -u +%s)"
+    if [ $((now - created_s)) -gt "$GARDEN_GAUNTLET_TERMINAL_PENDING_MAX_AGE_SECS" ]; then
+      printf 'Gauntlet %s: gave up posting its terminal PR status (%s) to %s#%s after %ss of failed attempts (owed since %s).\n' \
+        "$base" "$terminal_state" "$repo" "$prnum" "$GARDEN_GAUNTLET_TERMINAL_PENDING_MAX_AGE_SECS" "$created" \
+        | gauntlet_notify "$base-terminal-receipt-expired"
+      clear_terminal_pending "$rel" "expired" || true
+      continue
+    fi
+    reason="$(awk 'n>=2 {print} /^---$/ && n<2 {n++}' "$f")"
+    if gauntlet_terminal_comment "$base" "$terminal_state" "$reason" "$repo" "$prnum" "$iter"; then
+      clear_terminal_pending "$rel" "delivered" \
+        || log "gauntlet '$base': terminal receipt delivered but its pending record could not be cleared; the marker dedupes the retry"
+    else
+      log "gauntlet '$base': terminal PR status ($terminal_state) still owed; retrying next tick"
+    fi
+  done
 }
 
 # --- panel-provider quota/admission pre-gate --------------------------------
@@ -438,7 +544,7 @@ finish_not_viable() {  # <base> <result> <viability-report>
 }
 
 halt_gauntlet() {  # <base> <reason>
-  local base="$1" reason="$2" sf rec key
+  local base="$1" reason="$2" sf rec key pending
   sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-halt.XXXXXX")"
   # Keep the machine-owned record metadata in the terminal report. Besides making
   # a halt independently auditable, this is the durable source from which the
@@ -465,11 +571,11 @@ halt_gauntlet() {  # <base> <reason>
     printf '# gauntlet %s — HALTED\n\n' "$base"
     printf '%s\n' "$reason"
   } > "$sf"
-  gauntlet_terminal_comment "$base" halted "$reason" "$rec"
-  finish_gauntlet "$base" "$sf" || log "gauntlet '$base': halt-finish failed; retrying next tick"
+  pending="$(gauntlet_terminal_receipt "$base" halted "$reason" "$rec")"
+  finish_gauntlet "$base" "$sf" "$pending" || log "gauntlet '$base': halt-finish failed; retrying next tick"
   printf 'Gauntlet %s HALTED: %s\n' "$base" "$reason" | gauntlet_notify "$base-halted"
   log "gauntlet '$base': HALTED — $reason"
-  rm -f "$sf"
+  rm -f "$sf" "$pending"
 }
 
 # The panel is intentionally subjective and stateless, so exhausting its review
@@ -478,7 +584,7 @@ halt_gauntlet() {  # <base> <reason>
 # that useful terminal outcome as a non-failure and hand the remaining judgement
 # to a human; downstream gates therefore see an ordinary completed tada report.
 finish_review_budget_reached() {  # <base> <reason>
-  local base="$1" reason="$2" sf rec
+  local base="$1" reason="$2" sf rec pending
   sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-review-budget.XXXXXX")"
   rec="$DIR/$JOBS_GAUNTLET/$base.md"
   {
@@ -486,13 +592,13 @@ finish_review_budget_reached() {  # <base> <reason>
     printf '# gauntlet %s — review budget reached\n\n' "$base"
     printf '%s\n' "$reason"
   } > "$sf"
-  gauntlet_terminal_comment "$base" review-budget-reached "$reason" "$rec"
-  finish_gauntlet "$base" "$sf" \
+  pending="$(gauntlet_terminal_receipt "$base" review-budget-reached "$reason" "$rec")"
+  finish_gauntlet "$base" "$sf" "$pending" \
     || log "gauntlet '$base': review-budget finish failed; retrying next tick"
   printf 'INFO: Gauntlet %s review budget reached: %s\n' "$base" "$reason" \
     | gauntlet_notify "$base-review-budget-reached"
   log "gauntlet '$base': review budget reached — $reason"
-  rm -f "$sf"
+  rm -f "$sf" "$pending"
 }
 
 # --- stage-job body composition ---------------------------------------------
@@ -981,6 +1087,10 @@ resume_stage() {  # <base> <rec-file> <stage> <iter> <child> <resumes> <max-resu
 # --- the tick ---------------------------------------------------------------
 [ -z "$resume_base" ] || activate_stage_resume \
   "$resume_base" "$resume_requested_stage" "$resume_requested_iteration"
+
+# Owed terminal receipts first: they are cheap, and each sits behind a cooldown that
+# may have expired since the tick that deferred it.
+retry_terminal_pending || log "WARN: gauntlet: terminal receipt retry sweep failed; retrying next tick"
 
 advanced=0
 for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do

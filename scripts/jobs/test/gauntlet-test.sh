@@ -21,7 +21,10 @@
 #                    re-posts the SAME panel round under the stage-retry budget;
 #                    a following real verdict then proceeds (rec 6, no gauntlet halt).
 #  12. PANELERROR EXHAUSTION — repeated `panel=panel-error` HALTS at max_stage_retries.
-#  13. COMMENT FAILURE — a failed terminal PR comment does not block the finish.
+#  13. COMMENT FAILURE — a failed terminal PR comment does not block the finish,
+#                    and a later tick delivers the owed receipt exactly once.
+#  14. READ FAILURE — an unreadable comment list (a quota-cooled read) persists a
+#                    pending receipt with the finish; retries post it once, clear it.
 #
 # Usage: gauntlet-test.sh
 
@@ -68,6 +71,7 @@ export GARDEN=testhost GARDEN_STATE="$TR/state"
 export GARDEN_GH="$HERE/gauntlet-gh-stub.sh"
 export GAUNTLET_GH_COMMENTS="$TR/pr-comments"
 export GAUNTLET_GH_FAIL_WRITES_FILE="$TR/fail-comment-writes"
+export GAUNTLET_GH_FAIL_READS_FILE="$TR/fail-comment-reads"
 mkdir -p "$GAUNTLET_GH_COMMENTS"
 # The driver's deterministic merge-base-pinning pre-gate makes a live `gh pr view`
 # on the first tick of each fresh record. This suite's fixture PRs do not exist on
@@ -572,6 +576,65 @@ rm -f "$GAUNTLET_GH_FAIL_WRITES_FILE"
 grep -q "WARN: gauntlet 'g14': terminal PR status comment failed" "$TR/tick.log" \
   && ok "failed terminal PR comment surfaced a WARN" \
   || bad "comment-failure: missing WARN in tick log"
+in_dir jobs/gauntlet-terminal-pending g14--halted \
+  && ok "failed terminal PR comment persisted a pending receipt with the finish" \
+  || bad "comment-failure: no pending receipt: [$(board jobs/gauntlet-terminal-pending)]"
+tick   # retry the owed receipt now that writes succeed
+{ [ "$(terminal_comment_count g14 halted)" = 1 ] \
+    && ! in_dir jobs/gauntlet-terminal-pending g14--halted; } \
+  && ok "a later tick delivered the owed receipt and cleared the pending record" \
+  || bad "comment-failure: retry count=$(terminal_comment_count g14 halted) pending=[$(board jobs/gauntlet-terminal-pending)]"
+tick
+[ "$(terminal_comment_count g14 halted)" = 1 ] \
+  && ok "a delivered receipt is not re-posted" \
+  || bad "comment-failure: receipt duplicated after delivery"
+
+# ============================================================================
+hr; echo "SUBTEST 14 — READ FAILURE: a quota-cooled comment read defers, then retries once"; hr
+post_gauntlet --max-stage-retries 0 g15 https://github.com/testowner/testrepo/pull/15
+tick   # post g15-clean
+fail_stage g15-clean
+touch "$GAUNTLET_GH_FAIL_READS_FILE"
+tick   # halt; the comment read fails → no post, pending receipt lands with the finish
+{ in_dir jobs/tada g15 && ! in_dir jobs/gauntlet g15 \
+    && in_dir jobs/gauntlet-terminal-pending g15--halted \
+    && [ "$(terminal_comment_count g15 halted)" = 0 ]; } \
+  && ok "unreadable comments deferred the receipt into a pending record committed with the finish" \
+  || bad "read-failure: tada=[$(board jobs/tada)] pending=[$(board jobs/gauntlet-terminal-pending)] count=$(terminal_comment_count g15 halted)"
+rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
+g15_pending="$(cat "$V/jobs/gauntlet-terminal-pending/g15--halted.md" 2>/dev/null || true)"
+{ printf '%s' "$g15_pending" | grep -qx 'repo: testowner/testrepo' \
+    && printf '%s' "$g15_pending" | grep -qx 'pr_number: 15'; } \
+  && ok "pending receipt carries the PR identity the retired record held" \
+  || bad "read-failure: pending receipt lacks PR identity: [$g15_pending]"
+tick   # reads still failing → still owed
+{ in_dir jobs/gauntlet-terminal-pending g15--halted \
+    && [ "$(terminal_comment_count g15 halted)" = 0 ]; } \
+  && ok "a retry while reads still fail keeps the receipt pending without posting" \
+  || bad "read-failure: retry under failing reads misbehaved"
+rm -f "$GAUNTLET_GH_FAIL_READS_FILE"
+tick   # cooldown over → posted once and cleared
+{ [ "$(terminal_comment_count g15 halted)" = 1 ] \
+    && ! in_dir jobs/gauntlet-terminal-pending g15--halted; } \
+  && ok "after the read recovers the receipt is posted once and its pending record cleared" \
+  || bad "read-failure: count=$(terminal_comment_count g15 halted) pending=[$(board jobs/gauntlet-terminal-pending)]"
+g15_comment="$(terminal_comment_body g15 halted)"
+printf '%s' "$g15_comment" | grep -Fq 'halt reason:' \
+  && ok "the retried receipt keeps the persisted halt reason" \
+  || bad "read-failure: retried receipt lost its reason: [$g15_comment]"
+# A pending receipt whose comment already landed (lost clear CAS) must not re-post.
+wt="$(mktemp -d "$TR/edit.XXXXXX")"
+git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+mkdir -p "$wt/jobs/gauntlet-terminal-pending"
+printf '%s\n' "$g15_pending" > "$wt/jobs/gauntlet-terminal-pending/g15--halted.md"
+git -C "$wt" add jobs/gauntlet-terminal-pending
+git -C "$wt" "${git_id[@]}" commit -q -m "fixture: re-owe g15 receipt after lost clear CAS"
+git -C "$wt" push -q origin "HEAD:$BRANCH"; rm -rf "$wt"
+tick
+{ [ "$(terminal_comment_count g15 halted)" = 1 ] \
+    && ! in_dir jobs/gauntlet-terminal-pending g15--halted; } \
+  && ok "marker dedup clears a re-owed receipt without a second post" \
+  || bad "read-failure: dedup count=$(terminal_comment_count g15 halted) pending=[$(board jobs/gauntlet-terminal-pending)]"
 
 # ============================================================================
 hr
