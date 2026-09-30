@@ -1,0 +1,53 @@
+<6>21:53:51 [monk/1] job 'build-accountant-arc-apportionment' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>21:53:51 [monk/1] job 'build-accountant-arc-apportionment' call ceiling: tier=mentor max-budget-usd=18.40 (scaled by fresh seven-day headroom when available)
+<6>21:53:51 [monk/1] job 'build-accountant-arc-apportionment' attaching minion.town MCP (stdio bridge)
+<6>22:29:01 [auto-gauntlet-handoff] auto-gauntlet: builder 'build-accountant-arc-apportionment' named no PR in its completion report; no handoff
+panel-head-freshness: not-applicable target=build-accountant-arc-apportionment reason=no-presented-pr
+<6>22:29:15 [assert-followup-posted] gate: BLOCK — 'build-accountant-arc-apportionment' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# build-accountant-arc-apportionment: completion report
+
+I built the core of `designs/accountant-arc-apportionment.md` § Build plan and pushed it to `kriscendobot/garden` main2 as commit `2fde4493798`. The `accountant-weekly` schedule is written down but **not armed**. The new test passes 37/37, and the existing tests I re-ran pass apart from two that already fail on the unmodified tree.
+
+## What was built
+
+- **Weekly arc budgets (`arc-spend.sh`).** Arcs can now have a weekly budget: spend is counted from a fixed `window_start` and rolls forward in whole weeks, so a late carry-forward never lets last week's spend hold this week's slice. Each weekly arc also carries a rank and a one-line summary. A slice can be zero, and a retired arc returns exit code 5. The old rolling budgets (Ironhorse) still work unchanged.
+- **The `arc:` job field.** A new helper in `common.sh` reads `arc:`, and falls back to the old `ratchet-arc:` when `arc:` is missing. The five readers the design names use it: the deferred-plan admission check, `usage-meter.sh`, `promote-plan.sh`, `gauntlet.sh` and `complete-job.sh`.
+- **Stamping and inheritance.**
+  - `post-plan.sh`, `post-job.sh`, `post-orchestration.sh` and `post-gauntlet.sh` all take `--arc`.
+  - Orchestration children inherit the orchestration's arc when promoted. The next serial child waits while that arc's slice is used up.
+  - Auto-staged gauntlets take the arc of the job that produced them.
+  - Once the reserve exists, work the foreman promotes without an arc is stamped `arc: unallocated` and gated on that reserve.
+- **Foreman.**
+  - Deferred plans are now ordered by arc rank first, then the existing leaf-first and priority/FIFO order.
+  - The digest includes an `arc_headroom:` block.
+  - The foreman's reply format gains an `ARC` line; `foreman-claude.sh` validates it and the foreman brief documents it. A step for an arc with no headroom is refused.
+  - When every slice is held, the foreman agent is not invoked at all.
+  - Before any apportionment exists, the foreman behaves exactly as before.
+- **`set-apportionment.sh`.** Writes `config/apportionment`, the per-arc budgets (with the remainder going to `unallocated`) and a regenerated `config/foreman-mandate` in one commit.
+  - Arcs dropped from the slate are marked retired; rolling budgets are left alone.
+  - Amounts can be plain numbers, `K`/`M`/`G`, or a percentage of the total.
+  - It refuses a slate that adds up to more than the total, and an `authorized_by` login that is not on `maintainers/allowlist`.
+  - It also has `--carry-forward` (no-op when already current) and `--dry-run`.
+- **`accountant-statement.sh`.** Produces the weekly statement without an LLM. For each arc: slice, spend, percent, remaining, held plans, completions and overshoot. It also lists rolling and retired arcs, pool status and the next reset, this host's foreman decision counts, the week's budget watchdog notices, and the held plans.
+- **Re-slice nudge (`accountant-reslice-nudge.sh`).** When every slice is held, it messages the maintainer once per held stretch and at most once a day. It only fires if the pools are below their high-water mark and the reset is within 72h.
+- **Docs.** New operator page `context/operations/accountant.md`, with the exact arming command for the schedule. I also added pointers in the accountant role, the job-board and orchestration skills, the operations README, and the design's Status line.
+- **Tests.**
+  - New `scripts/jobs/test/accountant-arc-apportionment-test.sh`: 37/37 pass.
+  - `ironhorse-press-budget-test.sh` was failing on origin because it depended on the calendar date (a usage row stamped with the real clock). I pinned that timestamp in the fixture; it now passes 11/11.
+
+## Regression runs
+
+These 15 pass: auto-gauntlet-handoff, campaign-spend, all six foreman tests, the gauntlet panel-quota, pin-gate and resume tests, orchestrate, post-job-template-role, both promote-plan tests, and reaper-gauntlet-handoff.
+
+Two fail, but they fail the same way on the unmodified tree:
+- `gauntlet-test.sh`: "tick 1: todo=[] stage=clean"
+- `foreman-edge-kick-test.sh`: subtest 3
+
+## Follow-ups
+
+- **Arm the schedule** once the maintainer approves. The command is in `context/operations/accountant.md` § The weekly schedule.
+- **Budget-request intake is not built.** That is `request-budget.sh`, `close-budget-request.sh`, auto-filing from `post-orchestration.sh` and the foreman, the statement's Demand section, and the nudge's blocked-request trigger. The job spec left it out, so it needs its own build job.
+- **Weekly-job wait.** The weekly accountant job waits on its inbox for a reply inside a headless session. The suggested 4h handler timeout bounds that wait; whether that is long enough is still open.
+- **Worth a look:** the two failing tests above, which are separate from this change.
