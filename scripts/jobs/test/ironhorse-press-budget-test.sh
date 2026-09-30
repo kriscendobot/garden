@@ -94,7 +94,11 @@ rm -rf "$VERIFY"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$VERI
 [ -f "$VERIFY/jobs/todo/$press.md" ] && ok "due, under-budget press promotes" \
   || bad "due press did not promote"
 
-# The rolling sum is immutable-ledger-derived and blocks at cap.
+# The rolling sum is immutable-ledger-derived and blocks at cap. The completion
+# row above was stamped with the wall clock; pin it before the fixture window so
+# the sum does not depend on the day the test runs.
+jq -c '.ts = "2026-09-29T12:00:00Z"' "$VERIFY/usage/$base.jsonl" > "$VERIFY/usage/$base.jsonl.tmp"
+mv "$VERIFY/usage/$base.jsonl.tmp" "$VERIFY/usage/$base.jsonl"
 printf '%s\n' '{"ts":"2026-09-29T18:30:00Z","arc":"ironhorse-test262-ratchet","source":"codex","input_tokens":110,"output_tokens":0,"cache_creation_tokens":0}' \
   >> "$VERIFY/usage/$base.jsonl"
 git -C "$VERIFY" add "usage/$base.jsonl"; git -C "$VERIFY" "${git_id[@]}" commit -qm usage-cap; git -C "$VERIFY" push -q origin "HEAD:$BRANCH"

@@ -80,10 +80,19 @@ milestone work. Do not conflate the two.
 
    ```
    JOB <deterministic-slug>
+   ROLE <role>
+   ARC <arc-name>
    <one or two sentences: the role of work, the repo (owner/name), the
    PR/design/branch, and the task>
    ENDJOB
    ```
+
+   `ARC` names the arc of the week's apportionment the step draws from. When the
+   digest carries `arc_headroom`, pick a step serving an arc marked `ok` (lower
+   rank first) and name it; omit `ARC` to charge the `unallocated` reserve. The
+   service refuses a step for an arc with no headroom, and does not invoke you
+   at all when every slice is held
+   ([accountant-arc-apportionment](../../designs/accountant-arc-apportionment.md)).
 
    Derive `<deterministic-slug>` from the step's identity (the design slug or PR
    number) so re-posting the same step is idempotent. Spell out name components;

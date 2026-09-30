@@ -65,6 +65,8 @@ Usage:
   --max-stage-retries N
                       give-up bound on retryable stage-job deaths (default 2).
   --by ROLE           created_by provenance (default $GARDEN_SENDER or producer).
+  --arc ARC           the producer's arc; every stage job inherits it (accounting
+                      only; designs/accountant-arc-apportionment.md).
 EOF
 }
 
@@ -74,6 +76,7 @@ max_iterations=6
 max_resumes=6
 max_stage_retries=2
 by="${GARDEN_SENDER:-producer}"
+arc=""
 while [ $# -gt 0 ]; do
   case "$1" in
     -h|--help)        usage; exit 0;;
@@ -88,6 +91,7 @@ while [ $# -gt 0 ]; do
     --max-stage-retries)   max_stage_retries="${2:?--max-stage-retries needs a number}"; shift 2;;
     --max-stage-retries=*) max_stage_retries="${1#--max-stage-retries=}"; shift;;
     --by)             by="${2:?--by needs a value}"; shift 2;;
+    --arc)            arc="${2:?--arc needs a value}"; shift 2;;
     --)               shift; break;;
     -*)               die "unknown option: '$1' (run --help for usage)";;
     *)                break;;
@@ -101,6 +105,7 @@ case "$base" in
   -*)        die "illegal gauntlet base: '$base' (names must not start with '-')";;
   */*|.*|'') die "illegal gauntlet base: '$base'";;
 esac
+case "$arc" in */*|.*|-*|*[[:space:]]*) die "illegal --arc: '$arc'";; esac
 case "$kind" in feature|probe) :;; *) die "illegal kind: '$kind' (feature|probe)";; esac
 case "$max_iterations" in
   ''|*[!0-9]*) die "illegal --max-iterations: '$max_iterations' (want a positive integer)";;
@@ -146,6 +151,7 @@ compose() {
   printf 'current_child: \n'
   printf 'state: pending\n'
   printf 'created_by: %s\n' "$by"
+  [ -n "$arc" ] && printf 'arc: %s\n' "$arc"
   printf 'created_at: %s\n' "$(date -u +%FT%TZ)"
   printf -- '---\n\n'
   printf '# gauntlet %s\n\n' "$base"

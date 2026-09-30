@@ -9,7 +9,7 @@ amended_by: designer (job design-accountant-budget-request-intake)
 
 | Created | 2026-09-30 |
 | Author | designer (job `design-accountant-role-budget-apportionment`); § Budget requests by designer (job `design-accountant-budget-request-intake`) |
-| Status | Proposed (role brief and `budget-request` skill landed; scripts are a build follow-up) |
+| Status | Core built (job `build-accountant-arc-apportionment`: schema-2 arcs, `arc:` stamping, rank and headroom in the foreman, `set-apportionment.sh`, `accountant-statement.sh`, re-slice nudge; operator page [context/operations/accountant.md](../context/operations/accountant.md)). The `accountant-weekly` schedule is not armed yet, pending maintainer approval. The § Budget requests intake scripts are not built yet. |
 | Layers on | [live-budget-admission](live-budget-admission.md), [subscription-budget-model](subscription-budget-model.md), [budgeted-campaign-dispatch](budgeted-campaign-dispatch.md), [recurring-budget-calibration](recurring-budget-calibration.md), [ironhorse-ratchet](../context/operations/ironhorse-ratchet.md) |
 
 > Maintainer directive (kriskowal, 2026-09-30, liaison session): *"carve an

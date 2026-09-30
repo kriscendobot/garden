@@ -24,6 +24,11 @@ base="${1:?job basename}"
 jobfile="${2:?job file}"
 report="${3:?completion report}"
 role="$(plan_role "$jobfile" 2>/dev/null || true)"
+# The producer's arc rides into the gauntlet record so every stage is charged
+# to it (designs/accountant-arc-apportionment.md § The arc).
+arc_args=()
+producer_arc="$(job_arc "$jobfile" 2>/dev/null || true)"
+[ -z "$producer_arc" ] || arc_args=(--arc "$producer_arc")
 
 pr_urls="$(extract_pr_refs_from_text "$report" || true)"
 pr_url="$(printf '%s\n' "$pr_urls" | head -1)"
@@ -91,7 +96,7 @@ fi
 
 if [ "$role" = builder ] || [ "$role" = web-builder ]; then
   gauntlet_base="$base-gauntlet"
-  "$HERE/post-gauntlet.sh" --build-job "$base" "$gauntlet_base" "$pr_url"
+  "$HERE/post-gauntlet.sh" --build-job "$base" "${arc_args[@]}" "$gauntlet_base" "$pr_url"
   log "auto-gauntlet: builder '$base' recorded '$gauntlet_base' for $pr_url"
   exit 0
 fi
@@ -110,5 +115,5 @@ gauntlet_base="${slug}-pr${pr_number}-gauntlet"
 
 # The PR-keyed base makes repeated producer completions converge on one record.
 # post-gauntlet.sh supplies the journal-side active/completed idempotence.
-"$HERE/post-gauntlet.sh" --build-job "$base" "$gauntlet_base" "$pr_url"
+"$HERE/post-gauntlet.sh" --build-job "$base" "${arc_args[@]}" "$gauntlet_base" "$pr_url"
 log "auto-gauntlet: '$base' recorded design gauntlet '$gauntlet_base' for $pr_url"

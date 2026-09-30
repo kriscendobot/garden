@@ -48,7 +48,7 @@ PRESS_NOW_EPOCH="${GARDEN_PRESS_NOW:-$(date -u +%s)}"
 stage_ironhorse_press_successor() {
   local jf="$DIR/$JOBS_DOIN/$base.md" arc config interval next stamp successor live d f
   [ -f "$jf" ] || return 0
-  arc="$(plan_field "$jf" ratchet-arc)"
+  arc="$(job_arc "$jf")"
   [ "$arc" = ironhorse-test262-ratchet ] || return 0
   if ! python3 "$HERE/ratchet/policy.py" active "$DIR" >/dev/null 2>&1; then
     log "Ironhorse arc is halted/paused/revoked/inactive; parking no press successor for '$base'"
@@ -57,7 +57,7 @@ stage_ironhorse_press_successor() {
   case "$PRESS_NOW_EPOCH" in ''|*[!0-9]*) log "invalid GARDEN_PRESS_NOW '$PRESS_NOW_EPOCH'"; return 1 ;; esac
   config="$DIR/config/arc-budgets/$arc"
   if ! interval="$(jq -er --arg arc "$arc" '
-      select(type=="object" and .schema==1 and .status=="active" and .arc==$arc)
+      select(type=="object" and (.schema==1 or .schema==2) and .status=="active" and .arc==$arc)
       | .press_interval_seconds
       | select(type=="number" and floor==. and .>0)
     ' "$config" 2>/dev/null)"; then
@@ -235,7 +235,7 @@ for attempt in $(seq 1 100); do
   # doin claim exists: a retry after a successful transition must re-stamp the
   # view but never duplicate a CostRecord.
   if [ -e "$DIR/$JOBS_DOIN/$base.md" ]; then
-    completion_arc="$(plan_field "$DIR/$JOBS_DOIN/$base.md" ratchet-arc)"
+    completion_arc="$(job_arc "$DIR/$JOBS_DOIN/$base.md")"
     if [ -n "${GARDEN_ENGAGEMENT_USAGE:-}" ] || [ "$completion_arc" = ironhorse-test262-ratchet ]; then
       if ! usage_ledger_stage_row "$DIR" "$base" "${GARDEN_JOB_DURATION_SECS:-0}" tada "${GARDEN_ENGAGEMENT_USAGE:-}"; then
         [ "$completion_arc" != ironhorse-test262-ratchet ] \

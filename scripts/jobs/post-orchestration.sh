@@ -54,6 +54,10 @@
 #                                for maintainer authorization become an orchestration
 #                                the moment authorization is given, with no window in
 #                                which the record exists over un-retagged children.
+#   --arc ARC                    the arc the campaign draws from. Children inherit it
+#                                at promotion; a serial child is promoted only while
+#                                the arc slice has headroom (and, with
+#                                --budget-tokens, the campaign cap too).
 #   --by ROLE                    provenance (default: $GARDEN_SENDER or "producer").
 #   --no-validate                skip the child-gate validation (use only when
 #                                children are posted concurrently). Incompatible
@@ -99,6 +103,7 @@ Usage:
   --adopt-go-ahead                   atomically adopt gate=go-ahead children into
                                     this orchestration (flip gate -> orchestrated
                                     and set orchestrated_by in the record commit).
+  --arc ARC                          arc the campaign draws from (children inherit).
   --by ROLE                          provenance (default $GARDEN_SENDER or producer).
   --no-validate                      skip child-gate validation (not with
                                     --adopt-go-ahead).
@@ -116,6 +121,7 @@ adopt_go_ahead=0
 body_src=""
 budget_tokens=""
 resume_from=""
+arc=""
 while [ $# -gt 0 ]; do
   case "$1" in
     -h|--help)          usage; exit 0;;
@@ -126,6 +132,7 @@ while [ $# -gt 0 ]; do
     --resume-from)     resume_from="${2:?--resume-from needs a terminal campaign base}"; shift 2;;
     --adopt-go-ahead)   adopt_go_ahead=1; shift;;
     --by)               by="${2:?--by needs a value}"; shift 2;;
+    --arc)              arc="${2:?--arc needs a value}"; shift 2;;
     --no-validate)      validate=0; shift;;
     --)                 shift; break;;   # end of options; positionals (and a trailing
                                            # `-- body-file`) are parsed below — consuming
@@ -151,6 +158,7 @@ if [ -n "$budget_tokens" ]; then
   [ -n "$budget_tokens" ] || die "--budget-tokens must be greater than zero"
   [ "$order" = serial ] || die "--budget-tokens is supported only with --serial"
 fi
+case "$arc" in */*|.*|-*|*[[:space:]]*) die "illegal --arc: '$arc'";; esac
 case "$resume_from" in */*|.*|-*) die "illegal --resume-from campaign: '$resume_from'";; esac
 
 # Collect the child basenames (everything up to a lone `--`, which starts the body).
@@ -202,6 +210,7 @@ compose() {
   printf 'state: pending\n'
   [ -n "$budget_tokens" ] && printf 'budget_tokens: %s\n' "$budget_tokens"
   [ -n "$resume_from" ] && printf 'resume_from: %s\n' "$resume_from"
+  [ -n "$arc" ] && printf 'arc: %s\n' "$arc"
   printf 'created_by: %s\n' "$by"
   printf 'created_at: %s\n' "$(date -u +%FT%TZ)"
   printf -- '---\n\n'

@@ -67,8 +67,12 @@ progress, and applies a failure policy rather than silently stalling.
    [job-board](../job-board/SKILL.md) § Basename shape.
 3. **Record the orchestration:**
    `post-orchestration.sh [--serial|--parallel] [--on-child-failure halt|continue]
-   [--budget-tokens N] [--resume-from terminal-campaign] [--adopt-go-ahead]
+   [--budget-tokens N] [--arc ARC] [--resume-from terminal-campaign] [--adopt-go-ahead]
    <orch-base> <child>...`. It validates each child, then writes the record.
+   `--arc` names the arc the campaign draws from: children inherit `arc:` when
+   they are promoted, and the next serial child waits while that arc's weekly
+   slice has no headroom. A `--budget-tokens` cap is a sub-budget inside the arc
+   ([accountant-arc-apportionment](../../designs/accountant-arc-apportionment.md)).
    Validation is not existence-only: each parked child must already be **this**
    orchestration's own — `gate: orchestrated` with `orchestrated_by: <orch-base>`
    (the step-2 flow) — or already past `plan/` (a restart-safe re-post). A child

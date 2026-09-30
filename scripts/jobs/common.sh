@@ -10037,6 +10037,71 @@ plan_rank() {
   esac
 }
 
+# job_arc <job-or-plan-file> — the arc a job belongs to. `arc:` wins; the older
+# `ratchet-arc:` is read as a legacy alias wherever `arc:` is absent
+# (designs/accountant-arc-apportionment.md § The arc).
+job_arc() {
+  local a
+  a="$(plan_field "$1" arc 2>/dev/null || true)"
+  [ -n "$a" ] || a="$(plan_field "$1" ratchet-arc 2>/dev/null || true)"
+  printf '%s\n' "$a"
+}
+
+# The reserve pseudo-arc: foreman-drawn work with no arc is charged here once an
+# apportionment has materialized config/arc-budgets/unallocated.
+GARDEN_ARC_RESERVE="unallocated"
+
+# arc_reserve_armed <dir> — rc 0 iff the weekly pie has a reserve slice on the
+# journal clone <dir>. Before the first set-apportionment.sh, unarced work stays
+# ungated exactly as it always was.
+arc_reserve_armed() {
+  [ -f "${1:?}/config/arc-budgets/$GARDEN_ARC_RESERVE" ]
+}
+
+# admission_arc <dir> <file> — the arc a foreman-drawn job is charged to: its
+# own arc, else the reserve when armed, else empty (ungated).
+admission_arc() {
+  local a
+  a="$(job_arc "$2")"
+  if [ -z "$a" ] && arc_reserve_armed "$1"; then a="$GARDEN_ARC_RESERVE"; fi
+  printf '%s\n' "$a"
+}
+
+# arc_rank <dir> <arc> — the slate rank of an arc (lower = drawn first). Arcs
+# without a schema-2 rank, and unarced work, sort after every ranked arc so the
+# pre-apportionment order is unchanged.
+arc_rank() {
+  local dir="${1:?}" arc="${2:-}" r=""
+  if [ -n "$arc" ] && [ -f "$dir/config/arc-budgets/$arc" ]; then
+    r="$(jq -r 'select(.schema == 2 and .status == "active") | .rank // empty' \
+      "$dir/config/arc-budgets/$arc" 2>/dev/null || true)"
+  fi
+  [[ "$r" =~ ^[0-9]+$ ]] && printf '%s\n' "$r" || printf '1000000\n'
+}
+
+# arc_headroom_lines <dir> [now-epoch] — one TSV line per ACTIVE schema-2 arc,
+# in rank order: rank, arc, token_cap, spend, remaining, status (ok | over |
+# untrusted), summary. The foreman digest and the accountant statement both read
+# this so they cannot disagree about which slices have headroom.
+arc_headroom_lines() {
+  local dir="${1:?}" now="${2:-${GARDEN_FOREMAN_NOW:-$(date -u +%s)}}" f arc snap rc
+  [ -d "$dir/config/arc-budgets" ] || return 0
+  for f in "$dir"/config/arc-budgets/*; do
+    [ -f "$f" ] || continue
+    jq -e '.schema == 2 and .status == "active"' "$f" >/dev/null 2>&1 || continue
+    arc="$(basename "$f")"
+    rc=0
+    snap="$("$(dirname "${BASH_SOURCE[0]}")/arc-spend.sh" --dir "$dir" --now-epoch "$now" "$arc" 2>/dev/null)" || rc=$?
+    if [ "$rc" -ne 0 ]; then
+      printf '%s\t%s\t%s\t-\t0\tuntrusted\t%s\n' "$(arc_rank "$dir" "$arc")" "$arc" \
+        "$(jq -r '.token_cap // 0' "$f" 2>/dev/null)" "$(jq -r '.summary // ""' "$f" 2>/dev/null)"
+      continue
+    fi
+    jq -r --arg rank "$(arc_rank "$dir" "$arc")" '[$rank, .arc, .token_cap, .spend_tokens,
+        .remaining_tokens, (if .over_budget then "over" else "ok" end), .summary] | @tsv' <<<"$snap"
+  done | sort -t"$(printf '\t')" -k1,1n -k2,2
+}
+
 # plan_deferred_status <dir> <plan-file> [now-epoch] — print `ready` or a
 # machine-readable reason why the foreman must leave this deferred plan parked.
 # A present-but-empty or unparseable not_before fails closed. Arc budgets are
@@ -10060,11 +10125,15 @@ plan_deferred_status() {
       return 1
     fi
   fi
-  arc="$(plan_field "$f" ratchet-arc)"
+  arc="$(admission_arc "$dir" "$f")"
   if [ -n "$arc" ]; then
     rc=0
     snapshot="$(GARDEN_ARC_BUDGET_NOW="$now" \
       "$(dirname "${BASH_SOURCE[0]}")/arc-spend.sh" --dir "$dir" --now-epoch "$now" "$arc" 2>/dev/null)" || rc=$?
+    if [ "$rc" -eq 5 ]; then
+      printf 'arc-retired:%s\n' "$arc"
+      return 1
+    fi
     if [ "$rc" -ne 0 ]; then
       printf 'arc-budget-untrusted:%s:rc=%s\n' "$arc" "$rc"
       return 1
@@ -10156,11 +10225,22 @@ plan_deferred_ranked_omega() {
   # Join the priority+FIFO-ordered deferred bases against the omega ranks, then a
   # STABLE numeric sort on the rank column floats leaves (R0) first without
   # disturbing that existing tie-break order.
-  plan_deferred_ranked "$dir" | awk -F'\t' -v ranks="$ranks" '
+  #
+  # Arc rank (the accountant's slate order) is the PRIMARY key above omega: among
+  # ready plans the foreman draws the highest-ranked arc first, then leaf-first,
+  # then priority+FIFO. Unarced plans and unranked arcs share one sentinel rank
+  # after every slate arc, so with no apportionment the order is unchanged.
+  local base arc
+  local -A arc_ranks=()
+  plan_deferred_ranked "$dir" | while IFS= read -r base; do
+    arc="$(admission_arc "$dir" "$dir/$JOBS_PLAN/$base.md")"
+    if [ -z "${arc_ranks[_$arc]+x}" ]; then arc_ranks[_$arc]="$(arc_rank "$dir" "$arc")"; fi
+    printf '%s\t%s\n' "${arc_ranks[_$arc]}" "$base"
+  done | awk -F'\t' -v ranks="$ranks" '
     BEGIN {
       n = split(ranks, lines, "\n")
       for (i = 1; i <= n; i++) if (split(lines[i], a, "\t") == 2) rank[a[2]] = a[1]
     }
-    { print (($1 in rank) ? rank[$1] : 0) "\t" $1 }
-  ' | sort -s -t"$(printf '\t')" -k1,1n
+    { print $1 "\t" (($2 in rank) ? rank[$2] : 0) "\t" $2 }
+  ' | sort -s -t"$(printf '\t')" -k1,1n -k2,2n | cut -f2,3
 }

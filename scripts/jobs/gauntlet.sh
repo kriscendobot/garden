@@ -563,7 +563,7 @@ halt_gauntlet() {  # <base> <reason> [halted|parked-ci-billing]
     printf -- '---\n'
     if [ -f "$rec" ]; then
       for key in pr repo pr_number build_job kind stage iteration max_iterations \
-        resumes max_resumes stage_retries max_stage_retries created_by created_at; do
+        resumes max_resumes stage_retries max_stage_retries created_by created_at arc; do
         printf '%s: %s\n' "$key" "$(plan_field "$rec" "$key")"
       done
     fi
@@ -644,6 +644,9 @@ compose_stage_body() {  # <base> <rec-file> <stage> <iter> <child>
   printf 'role: gardener\n'
   if [ "$(plan_field "$rec" created_by)" = ironhorse-test262-ratchet ]; then
     printf 'ratchet-arc: ironhorse-test262-ratchet\n'
+  elif [ -n "$(job_arc "$rec")" ]; then
+    # Stages inherit their producer's arc: charged to it, never gated by it.
+    printf 'arc: %s\n' "$(job_arc "$rec")"
   fi
   case "$stage" in
     clean|fix) printf 'handler-budget-role: shepherd\n' ;;
@@ -878,7 +881,7 @@ activate_stage_resume() {  # <base> <stage> [iteration]
     record="$DIR/$JOBS_GAUNTLET/$base.md"
     {
       printf -- '---\n'
-      for key in pr repo pr_number build_job kind max_iterations max_resumes max_stage_retries created_by created_at; do
+      for key in pr repo pr_number build_job kind max_iterations max_resumes max_stage_retries created_by created_at arc; do
         val="$(plan_field "$terminal" "$key")"
         printf '%s: %s\n' "$key" "$val"
       done

@@ -27,6 +27,9 @@ the liaison on **apportion** / **re-slice**) and wears this role.
 - [budget-request](../../skills/budget-request/SKILL.md) — the intake other
   roles use; you read `budget/requests/open/` and close what you decide.
 
+Commands, the slate format, and the unarmed weekly schedule are in
+[context/operations/accountant.md](../../context/operations/accountant.md).
+
 ## Operating norms
 
 - **You own the allocation layer, and only it.** You are the sole writer of

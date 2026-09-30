@@ -85,6 +85,7 @@ case "${1:-}" in -h|--help) usage; exit 0;; esac
 # identity; both are optional and may appear in either order before the base.
 identity="${GARDEN_JOB_IDENTITY:-}"
 role=""
+arc=""
 canary_provider=""
 canary_tier=""
 qwen_trial_slot=""
@@ -94,10 +95,11 @@ while [ $# -gt 0 ]; do
     --identity=*) identity="${1#--identity=}"; shift;;
     --role)       role="${2:?--role needs a value}"; shift 2;;
     --role=*)     role="${1#--role=}"; shift;;
+    --arc)        arc="${2:?--arc needs a value}"; shift 2;;
     --provider-canary) canary_provider="${2:?--provider-canary needs a provider}"; canary_tier="${3:?--provider-canary needs a tier}"; shift 3;;
     --qwen-mentor-trial) qwen_trial_slot="${2:?--qwen-mentor-trial needs a slot}"; shift 2;;
     --)           shift; break;;
-    -*)           die "unknown option: '$1' (usage: post-job.sh [--identity <key>] [--role <role>] <basename> [body-file])";;
+    -*)           die "unknown option: '$1' (usage: post-job.sh [--identity <key>] [--role <role>] [--arc <arc>] <basename> [body-file])";;
     *)            break;;
   esac
 done
@@ -237,6 +239,21 @@ if [ -n "$role" ]; then
     fi
   else
     BODY="$(printf -- '---\nrole: %s\n---\n\n%s' "$role" "$BODY")"
+  fi
+fi
+
+# --arc stamps arc membership the same way (the foreman stamps the arc it drew a
+# step from; designs/accountant-arc-apportionment.md § How the foreman draws).
+if [ -n "$arc" ]; then
+  case "$arc" in */*|.*|-*|*[[:space:]]*) die "illegal --arc: '$arc'";; esac
+  if [ "$(printf '%s\n' "$BODY" | head -1)" = "---" ]; then
+    if printf '%s\n' "$BODY" | sed -n '2,/^---$/p' | grep -q '^arc:[[:space:]]'; then
+      log "body already carries an arc: field; not overriding with --arc '$arc'"
+    else
+      BODY="$(printf '%s\n' "$BODY" | sed "1a arc: $arc")"
+    fi
+  else
+    BODY="$(printf -- '---\narc: %s\n---\n\n%s' "$arc" "$BODY")"
   fi
 fi
 

@@ -80,6 +80,7 @@ Then emit EXACTLY ONE block and nothing else around it:
 
 JOB <deterministic-slug>
 ROLE <designer|builder|weaver|shepherd|fixer|...>
+ARC <arc-name>
 <one or two sentences: the role of work (designer/build/weave/shepherd/fix), the
 repo (owner/name), the PR/design/branch, and the task>
 ENDJOB
@@ -88,6 +89,12 @@ The ROLE line names the role a gardener wears to do the work; it selects the
 work's default model (both a designer and a builder run on Opus). Use \`designer\`
 for a design-only step and \`builder\` for a mergeable-feature step. Omit the line
 only if no single role fits.
+
+The ARC line names the arc of the week's token apportionment the step draws
+from. When the digest carries \`arc_headroom\`, choose a step serving an arc
+marked \`ok\` (prefer lower rank numbers, which the maintainer ranked higher) and
+name it; omit the line to charge the \`unallocated\` reserve. A step for an arc
+with no headroom is refused. With no \`arc_headroom\` in the digest, omit the line.
 
 or, if the next step is genuinely blocked on a maintainer decision:
 
@@ -158,7 +165,7 @@ provider_order() {
 # out): a second opener/terminator, a missing body, a block that never terminates,
 # or any non-blank text trailing a complete block.
 validate_foreman_response() {
-  local f="${1:?response file}" line kind="" role_seen=0 body_seen=0 done_block=0 nonblank=0
+  local f="${1:?response file}" line kind="" role_seen=0 arc_seen=0 body_seen=0 done_block=0 nonblank=0
   local -a out=()
   while IFS= read -r line || [ -n "$line" ]; do
     if [ "$done_block" -eq 1 ]; then
@@ -185,6 +192,10 @@ validate_foreman_response() {
     if [ "$kind" = JOB ] && [[ "$line" =~ ^[[:space:]]*ROLE[[:space:]]+([a-z][a-z0-9-]*)[[:space:]]*$ ]]; then
       [ "$role_seen" -eq 0 ] && [ "$body_seen" -eq 0 ] || return 20
       role_seen=1; out+=("ROLE ${BASH_REMATCH[1]}"); continue
+    fi
+    if [ "$kind" = JOB ] && [[ "$line" =~ ^[[:space:]]*ARC[[:space:]]+([a-z0-9][a-z0-9-]*)[[:space:]]*$ ]]; then
+      [ "$arc_seen" -eq 0 ] && [ "$body_seen" -eq 0 ] || return 20
+      arc_seen=1; out+=("ARC ${BASH_REMATCH[1]}"); continue
     fi
     if [ "$kind" = JOB ] && [[ "$line" =~ ^[[:space:]]*ENDJOB[[:space:]]*$ ]]; then
       [ "$body_seen" -eq 1 ] || return 20

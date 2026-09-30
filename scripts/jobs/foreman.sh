@@ -386,6 +386,24 @@ fi
 # --- sustained below-target: pump the next milestone step --------------------
 last_step="$(cat "$LAST_STEP" 2>/dev/null || true)"
 
+# Per-arc headroom (designs/accountant-arc-apportionment.md § How the foreman
+# draws). Once an apportionment has armed the reserve, the agent may only
+# generate a step for an arc with headroom; with none anywhere (the reserve
+# included) the agent is not invoked at all, and the accountant's edge-latched
+# re-slice nudge gets a chance to fire.
+arc_headroom=""; arcs_open=""
+if arc_reserve_armed "$DIR"; then
+  arc_headroom="$(arc_headroom_lines "$DIR" "$NOW" 2>/dev/null || true)"
+  arcs_open="$(awk -F'\t' '$6 == "ok" && $5 > 0 { print $2 }' <<<"$arc_headroom")"
+  if [ -z "$arcs_open" ]; then
+    log "every arc slice (including the $GARDEN_ARC_RESERVE reserve) is held; not invoking the foreman agent"
+    GARDEN_RESLICE_NOW="$NOW" "$HERE/accountant-reslice-nudge.sh" --dir "$DIR" >/dev/null 2>&1 || true
+    decide arc-held "$skip_detail"
+    exit 0
+  fi
+  GARDEN_RESLICE_NOW="$NOW" "$HERE/accountant-reslice-nudge.sh" --dir "$DIR" --clear >/dev/null 2>&1 || true
+fi
+
 digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
 {
   printf 'project: %s\n'           "$GARDEN_FOREMAN_PROJECT"
@@ -396,6 +414,11 @@ digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
     sed 's/^/  /' "$DIR/config/foreman-mandate"
     # Keep the digest line-oriented even when the journal file lacks a final LF.
     [ -z "$(tail -c 1 "$DIR/config/foreman-mandate" 2>/dev/null)" ] || printf '\n'
+  fi
+  if [ -n "$arc_headroom" ]; then
+    printf 'arc_headroom: |\n'
+    printf '  # rank arc remaining/cap status: summary. Draw only from an arc marked ok.\n'
+    awk -F'\t' '{ printf "  %s %s %s/%s %s: %s\n", $1, $2, $5, $3, $6, $7 }' <<<"$arc_headroom"
   fi
 } > "$digest"
 
@@ -424,10 +447,11 @@ rm -f "$digest" "$herrf"
 # builder, …); it is threaded to post-job.sh as --role so the job carries a
 # `role:` field and inherits that role's default model (Opus for designer, Opus
 # for builder). It is consumed here, not folded into the body.
-btype=""; base=""; body=""; role=""
+btype=""; base=""; body=""; role=""; job_arc_line=""
 while IFS= read -r line; do
-  if   [[ "$line" =~ ^JOB[[:space:]]+(.+)$ ]]; then btype="JOB"; base="${BASH_REMATCH[1]}"; body=""; role=""
-  elif [ "$line" = "MAINTAINER" ];             then btype="MAINTAINER"; base=""; body=""; role=""
+  if   [[ "$line" =~ ^JOB[[:space:]]+(.+)$ ]]; then btype="JOB"; base="${BASH_REMATCH[1]}"; body=""; role=""; job_arc_line=""
+  elif [ "$line" = "MAINTAINER" ];             then btype="MAINTAINER"; base=""; body=""; role=""; job_arc_line=""
+  elif [ "$btype" = "JOB" ] && [[ "$line" =~ ^ARC[[:space:]]+(.+)$ ]]; then job_arc_line="$(printf '%s' "${BASH_REMATCH[1]}" | tr -d '[:space:]')"
   elif [ "$line" = "ENDJOB" ] || [ "$line" = "ENDMAINTAINER" ]; then break
   elif [ "$btype" = "JOB" ] && [[ "$line" =~ ^ROLE[[:space:]]+(.+)$ ]]; then role="$(printf '%s' "${BASH_REMATCH[1]}" | tr -d '[:space:]')"
   elif [ -n "$btype" ];                        then body+="$line"$'\n'
@@ -446,16 +470,19 @@ case "$btype" in
       note_once "repeat:$base" "foreman: next step '$base' recurred after the previous post drained without milestone progress. Holding the re-post pending review; it may be stuck."
       log "anti-flap: '$base' repeats last posted step; surfaced to maintainer, not re-posted"
       decide anti-flap "base=$base$skip_detail"
+    elif [ -n "$arcs_open" ] && ! grep -qxF "${job_arc_line:-$GARDEN_ARC_RESERVE}" <<<"$arcs_open"; then
+      log "refusing step '$base': arc '${job_arc_line:-$GARDEN_ARC_RESERVE}' has no headroom (open: $(paste -sd, <<<"$arcs_open"))"
+      decide arc-refused "base=$base arc=${job_arc_line:-$GARDEN_ARC_RESERVE}$skip_detail"
     else
-      if [ -n "$role" ]; then
-        printf '%s' "$body" | "$HERE/post-job.sh" --role "$role" "$base"
-      else
-        printf '%s' "$body" | "$HERE/post-job.sh" "$base"
-      fi
+      post_args=()
+      [ -n "$role" ] && post_args+=(--role "$role")
+      # Stamp the arc the step was drawn from; unarced steps charge the reserve.
+      [ -n "$arcs_open" ] && post_args+=(--arc "${job_arc_line:-$GARDEN_ARC_RESERVE}")
+      printf '%s' "$body" | "$HERE/post-job.sh" "${post_args[@]}" "$base"
       printf '%s\n' "$base" > "$LAST_STEP"
       : > "$NOTED"           # forward progress clears the maintainer-note dedupe
       log "pumped next milestone step '$base'"
-      decide pumped "base=$base${role:+ role=$role}$skip_detail"
+      decide pumped "base=$base${role:+ role=$role}${arcs_open:+ arc=${job_arc_line:-$GARDEN_ARC_RESERVE}}$skip_detail"
     fi
     ;;
   MAINTAINER)

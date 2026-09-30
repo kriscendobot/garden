@@ -20,6 +20,10 @@ schedule). The conversational first-run tour is the sibling tree,
 - **[cybernetics.md](cybernetics.md)** — budget admission, subscription metering,
   fleet allocation, controller restraint, decision records, and known gaps.
 
+- **[accountant.md](accountant.md)** — the weekly arc apportionment of the
+  foreman's budget: `set-apportionment.sh`, `accountant-statement.sh`, arc
+  stamping, and the unarmed `accountant-weekly` schedule.
+
 - **[ci-minion-town-runner.md](ci-minion-town-runner.md)** — the self-hosted
   ephemeral GitHub Actions runner at `ci.minion.town`: check, restart, rotate its
   credential, scale, fall back to hosted runners, tear down.

@@ -255,9 +255,12 @@ posted_at: <iso8601>
 ```
 
 - **Park** (`post-plan.sh [--go-ahead|--deferred|--awaiting-maintainer|--budget-hold]
-  [--question Q --asked-at URL] [--priority L] [--roadmap I]
+  [--question Q --asked-at URL] [--priority L] [--roadmap I] [--arc A]
   [--not-before ISO-UTC] [--by R] <base> [body]`): write
-  `jobs/plan/<base>.md`. Default gate `--deferred`. A deferred plan carrying
+  `jobs/plan/<base>.md`. Default gate `--deferred`. `--arc` stamps the arc of
+  the weekly apportionment the plan draws from; the foreman ranks deferred plans
+  by arc and holds a plan whose arc is exhausted
+  ([context/operations/accountant.md](../../context/operations/accountant.md)). A deferred plan carrying
   `not_before:` is invisible to foreman ranking until that instant; an
   unparseable value fails closed and is never promoted early.
   `--budget-hold` is a `go-ahead` subset carrying the machine fields that let

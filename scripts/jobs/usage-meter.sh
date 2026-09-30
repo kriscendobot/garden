@@ -1720,7 +1720,7 @@ usage_ledger_stage_row() {
     [ -z "$tada_path" ] || jf="$dir/$tada_path"
   fi
   role="$(plan_role "$jf" 2>/dev/null || true)"
-  arc="$(plan_field "$jf" ratchet-arc 2>/dev/null || true)"
+  arc="$(job_arc "$jf" 2>/dev/null || true)"
   provider="$(sed -n 's/^[[:space:]]*provider:[[:space:]]*//p' "$jf" 2>/dev/null | tail -1)"
   case "$elapsed" in ''|*[!0-9]*) elapsed=0 ;; esac
   if command -v jq >/dev/null 2>&1 && [ -n "$measurement" ] && jq -e . >/dev/null 2>&1 <<<"$measurement"; then

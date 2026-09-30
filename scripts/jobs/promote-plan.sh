@@ -261,6 +261,19 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   tier="$(plan_field "$src" tier)"
   model="$(plan_field "$src" model)"
   ratchet_arc="$(plan_field "$src" ratchet-arc)"
+  arc="$(plan_field "$src" arc)"
+  # Arc membership (designs/accountant-arc-apportionment.md § The arc): an
+  # orchestrated child inherits its orchestration record's `arc:`, and a
+  # foreman-drawn plan with no arc is charged to the armed reserve.
+  if [ -z "$arc$ratchet_arc" ] && [ "$gate" = orchestrated ]; then
+    orch_of="$(plan_field "$src" orchestrated_by)"
+    if [ -n "$orch_of" ] && [ -f "$DIR/$JOBS_ORCH/$orch_of.md" ]; then
+      arc="$(plan_field "$DIR/$JOBS_ORCH/$orch_of.md" arc)"
+    fi
+  fi
+  if [ -z "$arc$ratchet_arc" ] && [ "$foreman_promotion" = 1 ]; then
+    arc="$(admission_arc "$DIR" "$src")"
+  fi
   budget_role="$(plan_field "$src" handler-budget-role)"
   htimeout="$(plan_field "$src" handler-timeout)"
   token_budget="$(plan_field "$src" token-budget)"
@@ -293,11 +306,12 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   cleared="$(cycle_marker_summary "$src")"
   mkdir -p "$DIR/$JOBS_TODO"
   {
-    if [ -n "$role$tier$model$budget_role$htimeout$token_budget$budget_epoch$split_indivisible_reason" ]; then
+    if [ -n "$role$tier$model$arc$ratchet_arc$budget_role$htimeout$token_budget$budget_epoch$split_indivisible_reason" ]; then
       printf -- '---\n'
       [ -n "$role" ]     && printf 'role: %s\n' "$role"
       [ -n "$tier" ]     && printf 'tier: %s\n' "$tier"
       [ -n "$model" ]    && printf 'model: %s\n' "$model"
+      [ -n "$arc" ] && printf 'arc: %s\n' "$arc"
       [ -n "$ratchet_arc" ] && printf 'ratchet-arc: %s\n' "$ratchet_arc"
       [ -n "$budget_role" ] && printf 'handler-budget-role: %s\n' "$budget_role"
       [ -n "$htimeout" ] && printf 'handler-timeout: %s\n' "$htimeout"

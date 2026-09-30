@@ -776,7 +776,24 @@ advance_serial() {  # <base> <policy> <child>...
           log "orchestration '$base': NOT promoting child $((i+1))/$total '$c' — serial sibling '$sib' still in flight (todo/doin)"
           return 0
         fi
-        local budget snapshot reason_file spend
+        local budget snapshot reason_file spend orch_arc arc_snap arc_rc
+        # A campaign naming an arc is a sub-budget of that arc's slice: the next
+        # serial child waits (never terminates) while the slice has no headroom,
+        # and resumes at the next window or re-slice
+        # (designs/accountant-arc-apportionment.md § Composition with --budget-tokens).
+        orch_arc="$(plan_field "$DIR/$JOBS_ORCH/$base.md" arc)"
+        if [ -n "$orch_arc" ]; then
+          arc_rc=0
+          arc_snap="$("$HERE/arc-spend.sh" --dir "$DIR" "$orch_arc" 2>/dev/null)" || arc_rc=$?
+          if [ "$arc_rc" -ne 0 ]; then
+            log "orchestration '$base': holding child $((i+1))/$total '$c' — arc '$orch_arc' budget unreadable/retired (rc=$arc_rc)"
+            return 0
+          fi
+          if [ "$(jq -r '.over_budget' <<<"$arc_snap")" = true ]; then
+            log "orchestration '$base': holding child $((i+1))/$total '$c' — arc '$orch_arc' slice exhausted ($(jq -r '.spend_tokens' <<<"$arc_snap")/$(jq -r '.token_cap' <<<"$arc_snap"))"
+            return 0
+          fi
+        fi
         budget="$(orch_budget_tokens "$DIR/$JOBS_ORCH/$base.md")"
         if orch_has_budget "$DIR/$JOBS_ORCH/$base.md"; then
           reason_file="$(mktemp "${TMPDIR:-/tmp}/orch-budget-reason.XXXXXX")"

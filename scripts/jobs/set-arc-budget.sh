@@ -1,5 +1,7 @@
 #!/bin/bash
 # set-arc-budget.sh — install or replace one journal-backed rolling arc budget.
+# Weekly slices are written by set-apportionment.sh (the accountant); this
+# schema-1 writer remains for rolling press budgets such as Ironhorse.
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/common.sh"

@@ -56,6 +56,9 @@
 #   --not-before ISO-UTC     earliest instant the foreman may promote the plan.
 #   --priority LEVEL         urgent|high|normal|low (default normal). The
 #                            selection key the foreman uses for deferred jobs.
+#   --arc ARC                the arc this plan draws from (stamped `arc:`); the
+#                            foreman ranks and gates deferred plans by it
+#                            (designs/accountant-arc-apportionment.md).
 #   --roadmap ITEM           optional roadmap item / milestone this serves, so a
 #                            future roadmap-aware selector can rank by it.
 #   --role ROLE              the role a gardener WEARS to do the work (designer,
@@ -136,6 +139,7 @@ Usage:
                            in that order; completion stamps the parsed field.
   --priority LEVEL         urgent|high|normal|low (default normal).
   --roadmap ITEM           optional roadmap item this serves.
+  --arc ARC                the arc this plan draws from (stamped `arc:`).
   --role ROLE              the role a gardener wears to do the work; stamped as
                            `role:` and used to pick the per-role default model.
   --by ROLE                provenance (default: $GARDEN_SENDER or "producer").
@@ -155,6 +159,7 @@ budget_hold=false
 budget_resets_at=""
 not_before=""
 role=""
+arc=""
 by="${GARDEN_SENDER:-producer}"
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -174,6 +179,7 @@ while [ $# -gt 0 ]; do
     --priority)   priority="${2:?--priority needs a value}"; shift 2;;
     --roadmap)    roadmap="${2:?--roadmap needs a value}"; shift 2;;
     --role)       role="${2:?--role needs a value}"; shift 2;;
+    --arc)        arc="${2:?--arc needs a value}"; shift 2;;
     --by)         by="${2:?--by needs a value}"; shift 2;;
     --)           shift; break;;
     -*)           die "unknown option: '$1' (run --help for usage)";;
@@ -188,6 +194,7 @@ case "$base" in
   -*)        die "illegal basename: '$base' (names must not start with '-')";;
   */*|.*|'') die "illegal basename: '$base'";;
 esac
+case "$arc" in */*|.*|-*|*[[:space:]]*) die "illegal --arc: '$arc'";; esac
 case "$gate" in go-ahead|deferred|awaiting-maintainer|blocked|orchestrated) :;; *) die "illegal gate: '$gate'";; esac
 # A maintainer-decision hold must say what can clear it and where the maintainer
 # can answer. Keeping those as structured fields makes the bulletin actionable.
@@ -313,6 +320,7 @@ compose() {
   printf 'priority: %s\n' "$priority"
   [ -n "$roadmap" ] && printf 'roadmap: %s\n' "$roadmap"
   [ -n "$role" ] && printf 'role: %s\n' "$role"
+  [ -n "$arc" ] && printf 'arc: %s\n' "$arc"
   printf 'posted_by: %s\n' "$by"
   printf 'posted_at: %s\n' "$(date -u +%FT%TZ)"
   # Only when the park actually cleared something, so an ordinary post's frontmatter
