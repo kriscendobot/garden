@@ -32,6 +32,17 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = view ]; then
     */pull/209) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"fix: x","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
     # OPEN, non-draft builder artifact → auto-handoff does not mutate or stage.
     */pull/210) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"feat: ready","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
+    # DRAFT builder PR whose FIRST view hits a transient TLS handshake timeout
+    # (counted from the call log, which already holds this call) → a retry wins.
+    */pull/211)
+      if [ "$(grep -c "pull/211 " "${GARDEN_GH_CALL_LOG:?}")" -le 1 ]; then
+        echo 'Post "https://api.github.com/graphql": net/http: TLS handshake timeout' >&2; exit 1
+      fi
+      printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"feat: flaky","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
+    # every view times out → the retry budget is exhausted and the caller fails.
+    */pull/212) echo 'Post "https://api.github.com/graphql": net/http: TLS handshake timeout' >&2; exit 1 ;;
+    # a number that is an issue, not a PR → a definitive, non-retried answer.
+    */pull/213) echo 'GraphQL: Could not resolve to a PullRequest with the number of 213. (repository.pullRequest)' >&2; exit 1 ;;
     *) echo "unexpected pr view: $url" >&2; exit 64 ;;
   esac
   exit 0

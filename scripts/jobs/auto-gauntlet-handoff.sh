@@ -43,8 +43,12 @@ case "$gh_bin" in
   *) command -v "$gh_bin" >/dev/null 2>&1 || die "auto-gauntlet: gh is required to inspect $pr_url" ;;
 esac
 
+# gh_pr_view_retry absorbs a transient transport/API blip (a TLS handshake
+# timeout failed a producer completion on 2026-09-30) under bounded backoff, and
+# returns at once on a definitive failure, so a non-PR still no-ops immediately.
+# Its log lines carry gh's stderr, which is where the non-PR wording is found.
 err="$(mktemp "${TMPDIR:-/tmp}/garden-auto-gauntlet.XXXXXX")"
-if ! pr_json="$("$gh_bin" pr view "$pr_url" --json url,isDraft,state,title,body,author,files 2>"$err")"; then
+if ! pr_json="$(gh_pr_view_retry "$pr_url" --json url,isDraft,state,title,body,author,files 2>"$err")"; then
   if grep -qi 'Could not resolve to a PullRequest' "$err"; then
     rm -f "$err"
     log "auto-gauntlet: $pr_url is not a pull request; no handoff"
@@ -54,6 +58,7 @@ if ! pr_json="$("$gh_bin" pr view "$pr_url" --json url,isDraft,state,title,body,
   rm -f "$err"
   die "auto-gauntlet: gh could not inspect $pr_url"
 fi
+cat "$err" >&2 || true
 rm -f "$err"
 
 state="$(printf '%s' "$pr_json" | jq -r '.state // empty')"

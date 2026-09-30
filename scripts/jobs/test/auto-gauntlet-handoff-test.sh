@@ -77,4 +77,21 @@ run_hook build-x "$builder" 200
 [ "$(find "$GARDEN_PRODUCER_CLONE/jobs/gauntlet" -name 'build-x-gauntlet.md' | wc -l)" -eq 1 ] \
   || fail 'builder replay duplicated the record'
 
-echo 'PASS: completion-local auto handoff stages builder/design gauntlets, skips exceptions, never mutates PR state, and replays idempotently'
+echo '== a transient first gh read is retried, not a failed completion =='
+export GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=5 GARDEN_GH_API_ATTEMPTS=3
+run_hook build-flaky "$builder" 211 || fail 'transient first attempt failed the handoff'
+[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/build-flaky-gauntlet.md" ] \
+  || fail 'transient-retried builder gauntlet was not recorded'
+[ "$(grep -c 'pull/211 ' "$TR/gh-calls.log")" -eq 2 ] || fail 'transient read was not retried exactly once'
+
+echo '== a non-PR no-ops immediately, without retries =='
+run_hook build-issue "$builder" 213 || fail 'non-PR failed the handoff'
+[ "$(grep -c 'pull/213 ' "$TR/gh-calls.log")" -eq 1 ] || fail 'non-PR read was retried'
+[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/build-issue-gauntlet.md" ] || fail 'non-PR staged a gauntlet'
+
+echo '== a persistent transient fails only after the retry budget =='
+if run_hook build-down "$builder" 212 2>"$TR/down.err"; then fail 'exhausted transient reads succeeded'; fi
+[ "$(grep -c 'pull/212 ' "$TR/gh-calls.log")" -eq 3 ] || fail 'exhausted read did not spend exactly GARDEN_GH_API_ATTEMPTS'
+grep -q 'gh could not inspect' "$TR/down.err" || fail 'exhaustion did not fail loud'
+
+echo 'PASS: completion-local auto handoff stages builder/design gauntlets, skips exceptions, never mutates PR state, replays idempotently, and retries only transient gh reads'
