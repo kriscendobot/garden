@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-30T07:33:34Z_
+_As of 2026-09-30T07:35:37Z_
 
 ## Latest
 
-Two gauntlets advanced overnight: [endojs/endo-but-for-bots#1355](https://github.com/endojs/endo-but-for-bots/pull/1355) cleared its panel round and moved into a third fix round, and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (the SturdyRef layer-2 SES build) also cleared panel and is now in fix round 1. Meanwhile the layer-4 SturdyRef gauntlet on the same arc, targeting [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), halted after its clean stage failed and declined the gated outcome — that one needs a maintainer look rather than another retry.
+Board transitions weren't resolved this cycle, so the picture comes from the dashboard snapshot itself. Gauntlet work on the endo-but-for-bots sturdyref stack is progressing in stages — layer 1 (shim build), layer 3 (pass-style), and layer 5 (CapTP wire) are all active, but the layer-4 marshal gauntlet HALTED after its clean stage failed and declined, needing a maintainer look. The [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) pet-name-path-only gauntlet also HALTED at the clean stage. PR fix/panel rounds continue for [#1355](https://github.com/endojs/endo-but-for-bots/pull/1355), [#1379](https://github.com/endojs/endo-but-for-bots/pull/1379), [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380), [#1383](https://github.com/endojs/endo-but-for-bots/pull/1383), [#1388](https://github.com/endojs/endo-but-for-bots/pull/1388), [#1389](https://github.com/endojs/endo-but-for-bots/pull/1389), and [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), plus a fix round on [kriscendobot/minion.town#144](https://github.com/kriscendobot/minion.town/pull/144).
+
+The leader host (endolin-garden-ece02cb4) is stale on deploy — 25 commits behind `origin/main2` and, per the root-repo-guard watchdog, not honoring any newer directive while it stays in that state, including a fleet-wide deploy-blocking test regression fix (`fix-subscription-model-deploy-gate-regression`) that's already been parked twice after failed retries. A separate deploy candidate was rejected for a `triager-pacing-test.sh` failure. The Ironhorse test262 ratchet round-3 work needs a maintainer call on how to reconcile ~906 lost paths against the historical floor. The Endo six-month progress report is published, and the `garden-book` and minion.town containment-gateway orchestrations both completed cleanly. Host oros-studio-garden-ce242c49 remains offline and is being skipped by rolling deploys and worker leveling.
 
 ## Parked for maintainer feedback
 
@@ -552,10 +554,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 213.7M | $1390.90 _(notional, rate-card)_ | 83% of 256.0M (ok) |
-| Codex | 16.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 81% _(plan; codex-reported)_ |
+| Claude | 213.8M | $1391.16 _(notional, rate-card)_ | 84% of 256.0M (ok) |
+| Codex | 16.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 63533424 tokens/day lower bound._
+_Fleet token-unlock pace: 64610953 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.144510s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 2 open notice(s); checker healthy
