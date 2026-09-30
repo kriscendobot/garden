@@ -49,6 +49,7 @@ Coordinate with https://github.com/endojs/endo-but-for-bots/pull/1343 (endowment
 side); rebase over it if it lands first. A gauntlet (ebfb-petname-path-only-sweep-gauntlet)
 is also running against this PR; rebase before every push.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
