@@ -33,3 +33,13 @@ error capture around the shutdown path) and consider whether this specific
 suite should be excluded from the "whole monorepo" affected-set trigger for
 root-config-only changes, so an unrelated PR stops inheriting this flake's
 risk.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T20:09:07Z
