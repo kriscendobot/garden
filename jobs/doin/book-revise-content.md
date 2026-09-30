@@ -107,3 +107,13 @@ Update `build/README.md`'s own "Edition" line with the new date and URL
 it). Report the new URL plainly in your completion report and via
 `scripts/jobs/message-user.sh <this-job-base>` to the maintainer inbox,
 along with the title you picked.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T20:44:48Z
