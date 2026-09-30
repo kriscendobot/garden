@@ -1,11 +1,9 @@
 ---
-gate: blocked
-blocked_on: garden-book-orch
-priority: normal
 role: researcher
-posted_by: producer
-posted_at: 2026-09-30T03:45:58Z
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-30T07:21:05Z cleared=none -->
 
 ---
 role: researcher
