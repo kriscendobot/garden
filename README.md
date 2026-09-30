@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T19:51:29Z_
+_As of 2026-09-30T19:53:29Z_
 
 ## Latest
 
-The sturdyref-layer gauntlet stack continued grinding through review — layer 6 (captp-construct, [endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)) completed its clean panel round, layer 3 (pass-style, [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) moved past fix round 2, and the ironhorse panic-live-handle-reseat gauntlet advanced through panel round 5, while the petname-path-only sweep sits at fix round 3. Nothing here needs maintainer action beyond what's already parked; the board is otherwise quiet, with a fresh credit-watch reset job queued and no new completions of note.
+The sturdyref/layer stack dominates the board: [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path sweep) is three fix rounds deep in its gauntlet, while sibling layers #1391–#1398 are moving through parallel panel/fix/clean stages, and a separate job is re-pointing #1397/#1398 onto the restacked frozen bases. The ironhorse panic live-handle-reseat gauntlet on [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) has now reached fix round 5, and its sibling panic-host-call gauntlet reported back that review didn't converge within its 6-round budget — left for a human merge/review call. Two foreman items are waiting on a maintainer decision: whether to run the gauntlet on the CI-green draft #1349, and whether to advance #1015 or answer the open questions on design PR #1340. Spend stays light (Claude at 1% of quota); no new parked PRs since the last bulletin.
 
 ## Parked for maintainer feedback
 
@@ -140,7 +140,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.8M | $30.98 _(notional, rate-card)_ | 1% of 256.0M (ok) |
+| Claude | 3.0M | $32.98 _(notional, rate-card)_ | 1% of 256.0M (ok) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 130940300 tokens/day lower bound._
@@ -149,9 +149,10 @@ _Fleet token-unlock pace: 130940300 tokens/day lower bound._
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (17)
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
 - [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1393
+- [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1380
 - [`book-revise-content`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-revise-content.md) — Revise the garden book: a title, an inference-tiers reference, and a new libr...
 - [`fix-endo-but-for-bots-macos-daemon-teardown-flake`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endo-but-for-bots-macos-daemon-teardown-flake.md) — Flaky test (22.x, macos-15) CI leg: daemon teardown race unrelated to the PRs...
 - [`reset-credit-watch-20260930-195052`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/reset-credit-watch-20260930-195052.md) — ---
