@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T22:34:31Z_
+_As of 2026-09-30T22:36:03Z_
 
 ## Latest
 
-The SturdyRef layer stack continued grinding through gauntlets across layers 1–8 (layer 7's `ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet` HALTED at the clean stage after a declared failed/declined outcome, and layer 2's SES gauntlet also HALTED after fix round 4 — both need maintainer disposition), while the petname-path-only sweep advanced through panel round 5 on [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390). The IronHorse panic/live-handle-reseat gauntlet on [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) closed out fix round 5 with should-fix follow-ups (hasher/resume tests, empty-crank test, CAS round-trip proptest) still outstanding, and its sibling host-call gauntlet hit its review budget cap after six rounds, leaving that PR green but unconverged for a human call. The book-copyedit and accountant-arc-apportionment jobs cycled back to todo after a claim reversal. Separately, a stale-panel-head notice flags that [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) and [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) both moved past their last-reviewed commit and need a fresh panel or an explicit maintainer call before conducting, and the foreman flags M3 progress as blocked on choosing between advancing #1015 (after its #1348 prerequisite) or answering the four open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340).
+Progress on the SturdyRef gauntlet arcs continues in bursts: layer 7 (OCapN enliven) HALTED at its clean stage after a declared failed/declined outcome, while layer 2 (SES) HALTED separately at fix round 4. Layer 1 (shim/build) advanced to panel round 2, and the petname-path-only sweep kept grinding through fix/panel rounds on [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), with a round-4 fix escalating follow-ups (refusal tests, property tests, a summary comment, and a PR-body trim) for maintainer disposition. On [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) (SturdyRef layer 2 SES), all round-4 must-fixes have landed and CI is green except one flaky macOS daemon-teardown leg unrelated to the change — a rerun from a credentialed host should clear it. Separately, the Ironhorse panic/host-call gauntlet on the same repo hit its review budget after six fix/panel rounds with CI green, left for a human merge call, and a stale-panel-head notice flags that [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) and [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) both moved past their last-reviewed commit and need a fresh panel or an explicit maintainer call before merging. The foreman is blocked on an M3 milestone choice between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) once its #1348 prerequisite clears or answering four open questions on design PR #1340 to unblock its build.
 
 ## Parked for maintainer feedback
 
@@ -235,17 +235,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.8M | $241.73 _(notional, rate-card)_ | 11% of 256.0M (ok) |
+| Claude | 28.2M | $247.20 _(notional, rate-card)_ | 11% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 128696039 tokens/day lower bound._
+_Fleet token-unlock pace: 128886723 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (19)
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
+- [`ebfb-petname-path-only-sweep-4-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1390
 - [`build-accountant-arc-apportionment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-accountant-arc-apportionment.md) — Build: accountant arc apportionment (garden main2)
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`endojs-endo-but-for-bots-pr1357-conduct-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1357-conduct-20260930.md) — Conduct endojs/endo-but-for-bots PR #1357 (un-draft and merge)
