@@ -93,3 +93,13 @@ Do not redesign the underlying subscription-accounting/admission mechanics
 (`usage-meter.sh`, the pool/mapping config) — those stay as-is; this design
 is about who decides and communicates the allocation, and how it's sliced
 across prioritized work, not how spend is metered.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:26:06Z
