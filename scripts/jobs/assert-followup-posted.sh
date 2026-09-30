@@ -31,7 +31,8 @@
 #         sent, an explicit override, or one deterministically identifiable
 #         successor newly posted after this job's first claim); the section is
 #         purely INFORMATIONAL (a completed gauntlet stage's driver-owned
-#         transition, or a section that only surfaces an already-raised
+#         transition, a gauntlet stage's structured failed-stage disposition
+#         that the driver halts on, or a section that only surfaces an already-raised
 #         maintainer decision closed for the fleet); or the determination is
 #         inconclusive (journal clone unavailable, or its sync failed so the
 #         board state it would read is stale).
@@ -64,11 +65,16 @@
 #      complete-job.sh verify and record the same successor. Pre-existing and
 #      ambiguous candidates never pass.
 #
-# Two INFORMATIONAL carve-outs additionally pass without a checkable disposition,
-# because they name no owed successor work (both deterministic, deliberately
-# narrow, shared with the async sweep via common.sh):
+# Three INFORMATIONAL carve-outs additionally pass without a checkable
+# disposition, because they name no owed successor work (all deterministic and
+# deliberately narrow; the first and third are shared with the async sweep via
+# common.sh):
 #   - a completed gauntlet stage's driver-owned transition
-#     (gauntlet_driver_owns_followups); and
+#     (gauntlet_driver_owns_followups);
+#   - a gauntlet clean/fix child's structured failed-stage disposition, where the
+#     job metadata, the exact `<stage>=still-pending` marker, and the
+#     orchestration-failure marker all agree (gauntlet_failed_stage_driver_owned):
+#     the child settles failed and gauntlet.sh halts and notifies on it; and
 #   - a section that ONLY surfaces an already-raised maintainer decision presented
 #     as closed for the fleet (followups_only_surface_decision) — a status-report
 #     or decision-gated job whose sole "follow-up" is a decision already in front
@@ -89,7 +95,6 @@ source "$HERE/common.sh"
 export GARDEN_TAG="assert-followup-posted"
 
 base="${1:?base}"
-# shellcheck disable=SC2034 # Retained positional API: complete-job passes its job file.
 jobfile="${2:?job file}"
 report="${3:?completion report}"
 [ -f "$report" ] || exit 0
@@ -146,6 +151,16 @@ fi
 # that says only that as informational, while leaving any additional successor
 # work subject to the dispositions below.
 if gauntlet_driver_owns_followups "$report" "$section"; then
+  exit 0
+fi
+
+# A gauntlet clean/fix child that declared its stage failed (red CI) must settle
+# as failed so the driver halts the gauntlet and notifies the maintainer. Any
+# CI investigation it describes is the halt's to surface, not a successor the
+# child must post; blocking it left the gauntlet waiting on a child that could
+# never complete. Requires job metadata, stage marker, and failure marker to agree.
+if gauntlet_failed_stage_driver_owned "$base" "$jobfile" "$report"; then
+  log "gate: '$base' declared a failed gauntlet stage; the driver owns the halt and its notification, not blocking"
   exit 0
 fi
 

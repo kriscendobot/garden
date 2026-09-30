@@ -6603,6 +6603,54 @@ gauntlet_driver_owns_followups() {
   esac
 }
 
+# gauntlet_failed_stage_driver_owned <base> <job-file> <report-file> — 0 iff a
+# staged-gauntlet clean/fix child has declared the exact structured failed-stage
+# disposition, so its whole `## Follow-ups` section belongs to the driver's halt
+# path rather than to a successor the worker must post. The completed child
+# settles failed, gauntlet.sh's child_state reads it as failed, and halt_gauntlet
+# records the halt and notifies the maintainer. Posting a CI investigation from
+# the child would duplicate that halt.
+#
+# All three anchors must agree, or the normal posted-follow-up gate applies:
+#   1. job metadata: `gauntlet: <g>` plus `gauntlet_stage: clean|fix`, and <base>
+#      is that stage's driver-composed child name (`<g>-clean` or
+#      `<g>-fix-<gauntlet_iteration>`);
+#   2. stage marker: exactly one `gauntlet-stage-result` marker line in the
+#      report, and it is `<stage>=still-pending` for that same stage;
+#   3. failure marker: the report's final disposition is
+#      GARDEN_ORCHESTRATION_FAILURE_MARKER, or it carries the standalone
+#      `orchestration-failed: true` line the stage prompt asks for on red CI.
+#      Either way tada_failed, which gauntlet.sh's child_state reads, will see
+#      the settled child as failed, so the gate and the driver agree.
+# Grounding: a fix child whose CI went red emitted orchestration-failed and
+# `fix=still-pending` at 2026-09-30T01:12:21Z and was blocked here for want of a
+# posted CI-investigation successor, which kept the gauntlet from halting.
+gauntlet_failed_stage_driver_owned() {
+  local base="${1:-}" jobfile="${2:-}" report="${3:-}" gauntlet stage iter expected markers
+  [ -n "$base" ] && [ -f "$jobfile" ] && [ -f "$report" ] || return 1
+
+  gauntlet="$(plan_field "$jobfile" gauntlet)"
+  stage="$(plan_field "$jobfile" gauntlet_stage)"
+  [ -n "$gauntlet" ] || return 1
+  case "$stage" in
+    clean) expected="$gauntlet-clean" ;;
+    fix)
+      iter="$(plan_field "$jobfile" gauntlet_iteration)"
+      [[ "$iter" =~ ^[0-9]+$ ]] || return 1
+      expected="$gauntlet-fix-$iter" ;;
+    *) return 1 ;;
+  esac
+  [ "$base" = "$expected" ] || return 1
+
+  markers="$(grep -E '<!--[[:space:]]*gauntlet-stage-result:' "$report" || true)"
+  [ "$(printf '%s' "$markers" | grep -c . || true)" -eq 1 ] || return 1
+  printf '%s\n' "$markers" \
+    | grep -Eqx "[[:space:]]*<!--[[:space:]]*gauntlet-stage-result:[[:space:]]*$stage=still-pending[[:space:]]*-->[[:space:]]*" \
+    || return 1
+
+  report_has_orchestration_failure_marker "$report" || tada_failed "$report"
+}
+
 # followups_only_surface_decision <section-text> — 0 iff the ENTIRE follow-up
 # section only reports that the sole outstanding item is a MAINTAINER decision
 # that has ALREADY been surfaced (asked / raised / reported / made live to the

@@ -464,6 +464,72 @@ reset_clone
   || fail 'gate did not observe the deterministic pre-gate maintainer escalation'
 echo '   forwarder set reply_to + stable key, coalesced retry, and satisfied the gate'
 
+echo '== (f5) PASS: a failed gauntlet fix stage leaves its halt to the driver =='
+# Grounding: 2026-09-30T01:12:21Z, a fix child with red CI emitted
+# orchestration-failed + fix=still-pending and was blocked for want of a posted
+# CI investigation, so it could never settle failed and the gauntlet never halted.
+cat >"$TR/failed-fix-job.md" <<'EOF'
+---
+role: gardener
+gauntlet: example-failed-gauntlet
+gauntlet_stage: fix
+gauntlet_iteration: 2
+---
+One staged-gauntlet child.
+EOF
+cat >"$TR/r6f.md" <<'EOF'
+Pushed the panel fixes; CI went red on the unit leg.
+
+## Follow-ups
+- Investigate the red unit-test leg on the PR head before another fix round.
+
+<!-- gauntlet-stage-result: fix=still-pending -->
+
+<<<GARDEN-ORCHESTRATION-FAILED>>>
+EOF
+reset_clone
+"$GATE" example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f.md" \
+  || fail 'gate blocked a structured failed gauntlet stage whose halt the driver owns'
+echo '   gate passed the driver-owned failed-stage disposition'
+
+echo '== (f5a) PASS: the stage prompt form orchestration-failed: true also agrees =='
+{ printf 'orchestration-failed: true\n\n'; sed '/GARDEN-ORCHESTRATION-FAILED/d' "$TR/r6f.md"; } >"$TR/r6f-prose.md"
+reset_clone
+"$GATE" example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-prose.md" \
+  || fail 'gate blocked a failed stage declared with the stage prompt orchestration-failed line'
+echo '   gate passed the prompt-form failure declaration'
+
+echo '== (f5b) BLOCK: the failed-stage carve-out needs all three anchors to agree =='
+sed '/GARDEN-ORCHESTRATION-FAILED/d' "$TR/r6f.md" >"$TR/r6f-nofail.md"
+reset_clone
+if "$GATE" example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-nofail.md"; then
+  fail 'gate accepted a still-pending stage follow-up without the orchestration-failure marker'
+fi
+sed 's/fix=still-pending/fix=done/' "$TR/r6f.md" >"$TR/r6f-done.md"
+reset_clone
+if "$GATE" example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-done.md"; then
+  fail 'gate accepted a failed stage whose marker contradicts it (fix=done)'
+fi
+sed 's/fix=still-pending/clean=still-pending/' "$TR/r6f.md" >"$TR/r6f-stage.md"
+reset_clone
+if "$GATE" example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-stage.md"; then
+  fail 'gate accepted a failed stage whose marker names a different stage'
+fi
+sed '/gauntlet-stage-result/p' "$TR/r6f.md" >"$TR/r6f-twice.md"
+reset_clone
+if "$GATE" example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-twice.md"; then
+  fail 'gate accepted a failed stage with more than one stage marker'
+fi
+reset_clone
+if "$GATE" example-failed-gauntlet-fix-1 "$TR/failed-fix-job.md" "$TR/r6f.md"; then
+  fail 'gate accepted a failed stage whose base is not the job metadata child name'
+fi
+reset_clone
+if "$GATE" example-failed-gauntlet-fix-2 "$JOB" "$TR/r6f.md"; then
+  fail 'gate accepted a failed-stage report on a job with no gauntlet metadata'
+fi
+echo '   gate kept ordinary follow-ups gated when any anchor disagreed (rc 1)'
+
 echo '== (f3b) RETRY: terminal delivery failure is propagated, then succeeds on retry =='
 sed 's/example-gauntlet-fix-1-extra/example-gauntlet-fix-1-retry/g' "$TR/r6d.md" >"$TR/r6d-retry.md"
 if GARDEN_GAUNTLET_FOLLOWUP_MESSAGE_USER=/bin/false \
@@ -610,4 +676,4 @@ grep -q 'sync failed' "$TR/r9.err" \
   || { cat "$TR/r9.err" >&2; fail 'gate did not log a diagnostic for the failed sync'; }
 echo '   gate failed open with a diagnostic on a failed sync'
 
-echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; deterministic gauntlet panel/fix transitions pass; already-surfaced maintainer decisions closed for the fleet pass while owed/unsurfaced work still gates; completed clean/fix decisions are pre-forwarded with retry-safe routing and coalescing; a failed producer-clone sync fails open with a diagnostic'
+echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; deterministic gauntlet panel/fix transitions and structured failed stages pass; already-surfaced maintainer decisions closed for the fleet pass while owed/unsurfaced work still gates; completed clean/fix decisions are pre-forwarded with retry-safe routing and coalescing; a failed producer-clone sync fails open with a diagnostic'
