@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T01:59:34Z_
+_As of 2026-09-30T02:02:59Z_
 
 ## Latest
 
-The gauntlet for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) is now in motion — the clean stage completed and panel round 1 is queued up next. Elsewhere, the FIX loops for [endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) (round 2), [endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383) (round 1), and [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (round 2) remain in progress, and a containment drift check for the minion.town gateway just got claimed.
-
-The leader host is 25 commits behind and its deploy is stalled — flagged as a project-pause risk since it runs every singleton producer. A deploy candidate was separately rejected for a failing triager-pacing test. The Ironhorse test262 ratchet round-3 sweep is asking for a maintainer decision on reconciling ~906 lost paths against the historical floor rather than relabeling failures as covered, and the `endo-minion-town-federation-release-gate` stays blocked pending review of [endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124) and authority questions on [endo-but-for-bots#1332](https://github.com/endojs/endo-but-for-bots/pull/1332). Several M2/M3 milestone messages from the foreman are asking the maintainer to authorize gauntlets or close superseded drafts (notably #1349 and #1356). Claude spend is running hot at 124% of the weekly quota (backoff), with Codex at 69% of its plan allotment.
+The maintainer-decision gauntlet on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) is finally moving: its clean stage completed and round 1 of panel review is now queued, following repeated foreman escalations urging authorization. Elsewhere the board mostly reflects steady in-flight work — a second fix round on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), a first fix round on [endojs/endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383), and a second fix round on the IronHorse panic host-call PR, alongside the Endo daemon idempotent-start build and a deploy-gate regression fix. The one flagged transition since the last bulletin is the "improve-deadline-nudge-failure-trace (expanded window)" job moving from post to claim. A large backlog of maintainer decisions remains parked (M2/M3 milestone gauntlet authorizations, the federation release gate, the IronHorse test262 floor-reconciliation question, and several watchdog/budget notices largely self-resolving), with the leader host `endolin-garden-ece02cb4` also flagged as 25 commits behind on deploy.
 
 ## Parked for maintainer feedback
 
@@ -483,7 +481,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 177.8M | $1166.38 _(notional, rate-card)_ | 124% of 143.0M (backoff) |
+| Claude | 177.9M | $1166.95 _(notional, rate-card)_ | 124% of 143.0M (backoff) |
 | Codex | 15.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 69% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57543807 tokens/day lower bound._
@@ -492,11 +490,11 @@ _Fleet token-unlock pace: 57543807 tokens/day lower bound._
 worst fetch p95 5.140894s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`improve-deadline-nudge-failure-trace-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-deadline-nudge-failure-trace-expanded-window.md) — improve-deadline-nudge-failure-trace (expanded window)
+### todo (1)
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1349
 
-### doin (7)
+### doin (8)
+- [`improve-deadline-nudge-failure-trace-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-failure-trace-expanded-window.md) — improve-deadline-nudge-failure-trace (expanded window)
 - [`endojs-endo-but-for-bots-pr1357-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1357
 - [`endojs-endo-but-for-bots-pr1383-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1383-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1383
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1379
