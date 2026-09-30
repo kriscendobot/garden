@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-30T18:12:02Z_
+_As of 2026-09-30T18:15:00Z_
 
 ## Latest
 
-The sturdyref/CapTP layer stack is the day's main thrust: nine gauntlet stages are in flight across [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), plus a follow-up to rebase #1397/#1398 onto restacked frozen bases. A separate ironhorse panic-handling fix ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is on its fourth fix round, and the ironhorse panic-host-call gauntlet on [#695](https://github.com/endojs/endo-but-for-bots/pull/695) hit its review-budget ceiling after 6 rounds — CI green but left for a human merge call.
+The sturdyref/layer stack dominates activity: layers 1–7 (endo-but-for-bots [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)–[#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)–[#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) are mid-gauntlet across clean/panel/fix stages, plus a rebase-bases job to move #1397/#1398 onto the restacked frozen bases. The petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) is deep into repeated panel/fix rounds. The ironhorse panic-live-handle-reseat PR [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) is on fix round 4, and a sibling ironhorse panic-host-call gauntlet hit its review budget after 6 rounds without converging — left for a human merge decision.
 
-Two items need a maintainer decision: the round-3 IronHorse test262 ratchet found 906 lost paths against the historical floor and wants authorization to record an explicitly-reconciled current floor rather than relabel failures as covered; and a deploy-gate regression (stale `provider-cooldown-test.sh` fixture plus two related suites) has been split and re-parked after its retry also failed non-productively. Also worth a look: minion.town MCP is live on garden2 and awaiting a principal/scoping decision before wider rollout, and the published [Endo progress report](https://hllk2wmfocuoijaliiapckuth4f3qxqlvo5vjwzywazvawvrqaiq.ocap.site/) covers June–September shipped work across six themes. Operationally, Claude spend is at 98% of its weekly quota and the `claude-endolin1` budget pool is still uncalibrated, freezing monk allocation fleet-wide.
+Several items need a maintainer look: a fix-subscription-model-deploy-gate-regression job exhausted retries and is parked pending a promote decision; a fleet-wide claim freeze is in effect because the `claude-endolin1` budget pool cap is uncalibrated; the ironhorse test262 ratchet round-3 work is asking how to reconcile 906 lost historical paths against the floor; and the foreman flags two blocked milestone choices — advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) after [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) clears, or answering open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), plus authorizing the gauntlet on green draft [#1349](https://github.com/endojs/endo-but-for-bots/pull/1349). A full Endo progress report (2026-06-24 to 2026-09-30) was also published, covering 471 merged PRs and roadmap movement.
 
 ## Parked for maintainer feedback
 
@@ -204,11 +204,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-30T17:42:50Z, latest 2026-09-30T18:07:18Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T17:42:50Z, cleared 2026-09-30T18:12:27Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 52 of 734 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -380,13 +380,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 251.1M | $1573.79 _(notional, rate-card)_ | 98% of 256.0M (ok) |
+| Claude | 251.3M | $1574.27 _(notional, rate-card)_ | 98% of 256.0M (ok) |
 | Codex | 17.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 66581810 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 3 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (11)
