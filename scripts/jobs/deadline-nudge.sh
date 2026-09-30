@@ -341,6 +341,27 @@ stage_due_messages() {
   STAGED_NUDGES="$staged"
 }
 
+# push_rejected <class>: the push was refused for a reason a retry cannot fix.
+# Drop the local nudge commit and any inbox writes so the clone does not carry an
+# unpushable commit into the next tick (the next tick recomputes every still-due
+# warning from the synced tip), then raise ONE edge-latched repair alert: it
+# fires when the rejection begins or changes class, stays silent while the same
+# rejection persists, and clears on the next successful push.
+PUSH_REJECT_ALERT_KEY="deadline-nudge-push-rejected:$GARDEN"
+push_rejected() {
+  local class="$1" detail
+  detail="$(tick_trace_squash "${GARDEN_PUSH_STDERR:-}")"
+  log "ERROR: deadline-nudge push stage rejected ($class, not a lost race); discarding staged nudges without retry: ${detail:-no push diagnostic}"
+  clone_lock "$DIR"
+  git -C "$DIR" reset -q --hard "origin/$JOURNAL_BRANCH" 2>/dev/null || true
+  git -C "$DIR" clean -qfd inbox 2>/dev/null || true
+  clone_unlock "$DIR"
+  if alert_maintainer_edge "$PUSH_REJECT_ALERT_KEY" "$class" \
+      "deadline-nudge on $GARDEN cannot push to $JOURNAL_BRANCH: $class rejection (${detail:-no push diagnostic}). Deadline warnings are not being delivered; this needs repair (credentials, upstream, or a receive-side policy), not a retry."; then
+    log "deadline-nudge raised push-rejection repair alert ($class)"
+  fi
+}
+
 deadline_nudge_tick() {
   local now attempt rc stage_rc
   for value in "$GARDEN_DEADLINE_NUDGE_INTERVAL" "$GARDEN_DEADLINE_NUDGE_FRACTION" \
@@ -417,8 +438,22 @@ deadline_nudge_tick() {
     rc=0
     commit_and_push "$DIR" "deadline-nudge: queue $STAGED_NUDGES warning(s) from $GARDEN" || rc=$?
     case "$rc" in
-      0) log "queued $STAGED_NUDGES deadline nudge(s)"; return 0 ;;
+      0)
+        log "queued $STAGED_NUDGES deadline nudge(s)"
+        alert_maintainer_edge_clear "$PUSH_REJECT_ALERT_KEY" \
+          "deadline-nudge on $GARDEN pushed to $JOURNAL_BRANCH again; the push rejection has cleared." \
+          && log "deadline-nudge push rejection cleared"
+        return 0 ;;
       2) return 0 ;;
+    esac
+    # Only a lost CAS (or an unclassified, ambiguous failure) is worth another
+    # sync-and-retry. A definite or server-side rejection (auth drift, a gone
+    # upstream, a hook/policy wall) fails identically on every attempt, so
+    # retrying only repeats the same "exhausted" warning; give up at once.
+    case "${GARDEN_COMMIT_PUSH_CLASS:-}" in
+      definite-fail|server-reject)
+        push_rejected "$GARDEN_COMMIT_PUSH_CLASS"
+        return 0 ;;
     esac
     log "deadline-nudge push stage lost a race (attempt $attempt/$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS); recomputing claims"
     [ "$attempt" -ge "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS" ] || backoff "$attempt"

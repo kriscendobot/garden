@@ -427,6 +427,50 @@ else
   sed 's/^/    /' "$TEST_ROOT/pushfail.out" | tail -5
 fi
 
+reject_stub="$HERE/deadline-nudge-reject-push-stub.sh"
+reject_count="$TEST_ROOT/reject.count"
+reject_fp="$STATE/alerts/deadline-nudge-push-rejected_leader-one.fingerprint"
+add_claim_at_tip pushreject 300
+run_nudge pushreject-scan env GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS=3 \
+  GARDEN_NUDGE_REJECT_COUNT="$reject_count" GARDEN_PUSH_CMD="$reject_stub" \
+  > "$TEST_ROOT/pushreject.out" 2>&1
+reject_rc=$?
+reject_clone="$STATE/pushreject-scan/journal"
+if [ "$reject_rc" -eq 0 ] \
+  && [ "$(wc -l < "$reject_count")" -eq 1 ] \
+  && ! grep -q 'lost a race' "$TEST_ROOT/pushreject.out" \
+  && ! grep -q 'exhausted' "$TEST_ROOT/pushreject.out" \
+  && grep -q 'push stage rejected (server-reject, not a lost race)' "$TEST_ROOT/pushreject.out" \
+  && grep -q 'raised push-rejection repair alert (server-reject)' "$TEST_ROOT/pushreject.out" \
+  && [ "$(cat "$reject_fp" 2>/dev/null)" = server-reject ] \
+  && [ -z "$(nudge_paths pushreject)" ] \
+  && [ "$(git -C "$reject_clone" rev-parse HEAD)" = "$(git -C "$reject_clone" rev-parse "origin/$BRANCH")" ] \
+  && [ -z "$(git -C "$reject_clone" status --porcelain)" ]; then
+  ok 'a definite push rejection is not labelled a race, is not retried, discards staged state, and raises one alert'
+else
+  bad 'a definite push rejection was retried, mislabelled, left staged state, or raised no alert'
+  sed 's/^/    /' "$TEST_ROOT/pushreject.out" | tail -8
+fi
+run_nudge pushreject-scan env GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS=3 \
+  GARDEN_NUDGE_REJECT_COUNT="$reject_count" GARDEN_PUSH_CMD="$reject_stub" \
+  > "$TEST_ROOT/pushreject-again.out" 2>&1
+if [ "$(wc -l < "$reject_count")" -eq 2 ] \
+  && grep -q 'push stage rejected (server-reject' "$TEST_ROOT/pushreject-again.out" \
+  && ! grep -q 'raised push-rejection repair alert' "$TEST_ROOT/pushreject-again.out"; then
+  ok 'a persisting push rejection stays edge-latched (no second alert)'
+else
+  bad 'a persisting push rejection re-alerted or retried'
+  sed 's/^/    /' "$TEST_ROOT/pushreject-again.out" | tail -5
+fi
+run_nudge pushreject-scan > "$TEST_ROOT/pushreject-clear.out" 2>&1
+if [ -n "$(nudge_paths pushreject)" ] && [ ! -e "$reject_fp" ] \
+  && grep -q 'push rejection cleared' "$TEST_ROOT/pushreject-clear.out"; then
+  ok 'the next successful push delivers the warning and clears the latch'
+else
+  bad 'recovery did not deliver the warning or clear the rejection latch'
+  sed 's/^/    /' "$TEST_ROOT/pushreject-clear.out" | tail -5
+fi
+
 run_nudge invalid env GARDEN_DEADLINE_NUDGE_INTERVAL=oops > "$TEST_ROOT/invalid.out" 2>&1
 [ "$?" -eq 0 ] && grep -q 'disabling this tick' "$TEST_ROOT/invalid.out" && ok 'invalid timing knob disables one tick cleanly' || bad 'invalid timing knob did not fail open'
 set +e
