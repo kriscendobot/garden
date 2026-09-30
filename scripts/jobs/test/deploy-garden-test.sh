@@ -218,6 +218,49 @@ flakediag="$(find "$TR/state/deploy/candidate-gate-diagnostics" -type f -name 'a
 [ -n "$flakediag" ] && ok "attempt-1 flake diagnostic is preserved even though the deploy proceeded" || bad "attempt-1 diagnostic not preserved after a passing retry"
 
 # ============================================================================
+hr; echo "CANDIDATE GATE TIMEOUT ESCALATION — a suite timing out on attempt 1 is retried with a larger cap"; hr
+# The 2026-09-30T16:42:12Z incident: both suites hit the same 60s cap on BOTH
+# attempts (rc=124). A slow-but-correct suite now retries under the escalated
+# GARDEN_DEPLOY_TEST_SUITE_RETRY_TIMEOUT when that fits the total budget.
+setup_fixture
+SLOW_COUNTER="$TR/slow-counter"; rm -f "$SLOW_COUNTER"
+origin_commit scripts/jobs/test/deploy-gate-probe.sh '#!/bin/bash
+c="${DEPLOY_GATE_SLOW_COUNTER:?}"
+n=$(( $(cat "$c" 2>/dev/null || echo 0) + 1 )); printf "%s\n" "$n" > "$c"
+printf "SLOW_ATTEMPT_%s\n" "$n"; sleep 3; exit 0' "test: candidate suite slower than the base cap"
+target="$(origin_head)"
+run_deploy DEPLOY_GATE_SLOW_COUNTER="$SLOW_COUNTER" \
+  GARDEN_DEPLOY_TEST_SUITE_TIMEOUT=1 GARDEN_DEPLOY_TEST_SUITE_RETRY_TIMEOUT=8 GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT=20
+[ "$RC" -eq 0 ] && ok "deploy proceeds when the escalated retry lets a slow suite finish" || bad "exit $RC despite an escalated retry that should pass: $OUT"
+[ "$(root_head)" = "$target" ] && ok "root advanced after the escalated retry passed" || bad "root not advanced after an escalated retry"
+grep -q "escalating the per-suite cap from 1s to 8s" <<<"$OUT" && ok "the timeout escalation is logged" || bad "timeout escalation not logged: $OUT"
+grep -q "deploy-gate-probe.sh(rc=124" <<<"$OUT" && ok "attempt 1 is recorded as a timeout (rc=124)" || bad "attempt-1 timeout rc not recorded: $OUT"
+[ "$(cat "$SLOW_COUNTER" 2>/dev/null)" = 2 ] && ok "the slow suite ran exactly twice" || bad "slow suite did not run exactly twice: counter=$(cat "$SLOW_COUNTER" 2>/dev/null)"
+slowdiag="$(find "$TR/state/deploy/candidate-gate-diagnostics" -type f -name 'attempt1-*deploy-gate-probe.sh.log' -print -quit 2>/dev/null || true)"
+[ -n "$slowdiag" ] && grep -q SLOW_ATTEMPT_1 "$slowdiag" && ok "attempt-1 timeout diagnostic is retained" || bad "attempt-1 timeout diagnostic missing"
+draining && bad "drain still engaged after an escalated-retry deploy" || ok "drain lifted after an escalated-retry deploy"
+
+# ============================================================================
+hr; echo "CANDIDATE GATE TIMEOUT ESCALATION — refused when it would exceed the total budget"; hr
+setup_fixture
+SLOW_COUNTER="$TR/slow-counter"; rm -f "$SLOW_COUNTER"
+origin_commit scripts/jobs/test/deploy-gate-probe.sh '#!/bin/bash
+c="${DEPLOY_GATE_SLOW_COUNTER:?}"
+n=$(( $(cat "$c" 2>/dev/null || echo 0) + 1 )); printf "%s\n" "$n" > "$c"
+printf "SLOW_ATTEMPT_%s\n" "$n"; sleep 3; exit 0' "test: candidate suite slower than the base cap"
+before="$(root_head)"
+run_deploy DEPLOY_GATE_SLOW_COUNTER="$SLOW_COUNTER" \
+  GARDEN_DEPLOY_TEST_SUITE_TIMEOUT=1 GARDEN_DEPLOY_TEST_SUITE_RETRY_TIMEOUT=30 GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT=20
+[ "$RC" -ne 0 ] && ok "deploy rejects when the escalated retry cannot fit the total budget" || bad "exit 0 despite an over-budget escalation"
+[ "$(root_head)" = "$before" ] && ok "root NOT advanced on an over-budget escalation" || bad "root advanced despite an over-budget escalation"
+grep -q "timeout-escalation-over-total-budget(need=30s; total=20s)" <<<"$OUT" && ok "the budget refusal is named in the rejection" || bad "budget refusal not named: $OUT"
+grep -q "retrying ONLY those once in a fresh gate root" <<<"$OUT" && bad "an over-budget escalation was retried anyway" || ok "no retry is attempted when the escalation is over budget"
+[ "$(cat "$SLOW_COUNTER" 2>/dev/null)" = 1 ] && ok "the slow suite ran only once" || bad "slow suite ran more than once: counter=$(cat "$SLOW_COUNTER" 2>/dev/null)"
+find "$TR/state/deploy/candidate-gate-diagnostics" -type f -name 'attempt1-*deploy-gate-probe.sh.log' 2>/dev/null | grep -q . \
+  && ok "attempt-1 diagnostic retained on a refused escalation" || bad "attempt-1 diagnostic missing on a refused escalation"
+draining && bad "drain engaged despite a pre-drain escalation refusal" || ok "escalation refusal happened before the drain"
+
+# ============================================================================
 hr; echo "CANDIDATE GATE FLAKE RETRY — a non-suite failure (bash -n) is deterministic and is NEVER retried"; hr
 # A syntax error is not a host-side flake: it must reject on the first attempt with
 # no fresh-gate-root retry (the retry is reserved for suite executions).

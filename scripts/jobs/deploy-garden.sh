@@ -28,7 +28,12 @@
 #               those failed suites are retried ONCE in a FRESH gate root. If they
 #               all pass on the second attempt the candidate is accepted and the
 #               attempt-1 failure is treated as a transient host-side flake; if any
-#               fails again the candidate is rejected. Diagnostics from BOTH
+#               fails again the candidate is rejected. A suite that TIMED OUT
+#               on attempt 1 is retried with the larger
+#               GARDEN_DEPLOY_TEST_SUITE_RETRY_TIMEOUT cap, but only if the
+#               retried suites' summed allowances fit
+#               GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT; otherwise the retry is refused
+#               and the candidate rejected. Diagnostics from BOTH
 #               attempts are preserved (per-attempt filenames), so a real
 #               regression stays fully diagnosable and a one-off flake never blocks
 #               a deploy. Set GARDEN_DEPLOY_TEST_OVERRIDE=1 only for a deliberate
@@ -100,6 +105,10 @@ export GARDEN_TAG="deploy-garden"
 : "${GARDEN_DEPLOY_NO_BROADCAST:=0}"      # set 1 to skip the post-deploy reread broadcast (tests)
 : "${GARDEN_DEPLOY_TEST_OVERRIDE:=0}"     # set 1 only for a deliberate emergency bypass
 : "${GARDEN_DEPLOY_TEST_SUITE_TIMEOUT:=60}" # max seconds for one candidate test suite
+# Escalated per-suite allowance for the ONE retry of a suite that TIMED OUT on
+# attempt 1 (rc 124/137). A slow-but-correct suite on a loaded host gets a second
+# chance with more headroom; the whole retry must still fit the total budget below.
+: "${GARDEN_DEPLOY_TEST_SUITE_RETRY_TIMEOUT:=150}"
 : "${GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT:=300}" # max seconds for the whole candidate gate
 : "${GARDEN_DEPLOY_TEST_OUTPUT_BYTES:=16384}" # retained stdout+stderr tail per suite
 : "${GARDEN_DEPLOY_REPORT_TIMEOUT:=30}"      # max seconds per failure-report sink
@@ -369,20 +378,22 @@ unpack_candidate_gate_tree() { # <candidate-sha>
 # to the `failed` array and the bare failing-suite path to `failed_suites` (both
 # passed by name) for every suite that exits non-zero, times out, or is missing.
 # <attempt> labels persisted diagnostics so a retry never clobbers attempt 1's
-# capture. A `total-wall-clock` or `missing:` entry is appended to `failed` only —
+# capture. A suite killed by its timeout (rc 124, or 137 after --kill-after) is
+# also appended to the <timed-out-arr>; <limits-map> (an associative array, may be
+# empty) overrides GARDEN_DEPLOY_TEST_SUITE_TIMEOUT per suite for the retry. A `total-wall-clock` or `missing:` entry is appended to `failed` only —
 # NOT to `failed_suites` — so those deterministic, non-flaky outcomes make the run
 # retry-INELIGIBLE (see run_candidate_gate).
-execute_gate_suites() { # <candidate> <gate_root> <deadline> <attempt> <failed-arr> <failed-suites-arr> <suite>...
+execute_gate_suites() { # <candidate> <gate_root> <deadline> <attempt> <failed-arr> <failed-suites-arr> <timed-out-arr> <limits-map> <suite>...
   local candidate="$1" gate_root="$2" deadline="$3" attempt="$4"
-  local -n _failed="$5" _failed_suites="$6"
-  shift 6
+  local -n _failed="$5" _failed_suites="$6" _timed_out="$7" _limits="$8"
+  shift 8
   local suite now remaining limit capture rc diagnostic suite_number=0
   for suite in "$@"; do
     suite_number=$((suite_number + 1))
     now="$(date +%s)"
     if [ "$now" -ge "$deadline" ]; then _failed+=("total-wall-clock"); break; fi
     if [ ! -f "$gate_root/$suite" ]; then _failed+=("missing:$suite"); continue; fi
-    remaining=$(( deadline - now )); limit="$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT"
+    remaining=$(( deadline - now )); limit="${_limits[$suite]:-$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT}"
     [ "$remaining" -lt "$limit" ] && limit="$remaining"
     capture="$gate_root/.candidate-gate-output-$attempt-$suite_number"
     rc=0
@@ -396,18 +407,21 @@ execute_gate_suites() { # <candidate> <gate_root> <deadline> <attempt> <failed-a
         log "WARN: could not persist bounded candidate-suite diagnostic for $suite"
       fi
       _failed_suites+=("$suite")
+      case "$rc" in 124|137) _timed_out+=("$suite") ;; esac
     fi
   done
 }
 
 run_candidate_gate() { # <candidate-sha>
   local candidate="$1" gate_root path now deadline limit
-  local -a failed=() failed_suites=()
+  local -a failed=() failed_suites=() timed_out=()
+  # shellcheck disable=SC2034 # read through execute_gate_suites' nameref
+  local -A no_limits=()
   [ "$GARDEN_DEPLOY_TEST_OVERRIDE" = "1" ] && {
     log "WARN: GARDEN_DEPLOY_TEST_OVERRIDE=1 — bypassing candidate test gate for $candidate"
     return 0
   }
-  for limit in "$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT" "$GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT" "$GARDEN_DEPLOY_TEST_OUTPUT_BYTES"; do
+  for limit in "$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT" "$GARDEN_DEPLOY_TEST_SUITE_RETRY_TIMEOUT" "$GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT" "$GARDEN_DEPLOY_TEST_OUTPUT_BYTES"; do
     case "$limit" in
       ''|*[!0-9]*|0) log "FATAL: candidate gate timeouts and output bound must be positive integers"; return 1 ;;
     esac
@@ -421,7 +435,7 @@ run_candidate_gate() { # <candidate-sha>
     if ! bash -n "$gate_root/$path"; then failed+=("bash-n:$path"); fi
   done < <(git -C "$GARDEN_ROOT" ls-tree -r -z --name-only "$candidate" -- scripts | while IFS= read -r -d '' path; do case "$path" in *.sh) printf '%s\0' "$path";; esac; done)
   if [ "${#failed[@]}" -eq 0 ]; then
-    execute_gate_suites "$candidate" "$gate_root" "$deadline" 1 failed failed_suites $GARDEN_DEPLOY_TEST_SUITES
+    execute_gate_suites "$candidate" "$gate_root" "$deadline" 1 failed failed_suites timed_out no_limits $GARDEN_DEPLOY_TEST_SUITES
   fi
   cleanup_candidate_gate_root
 
@@ -436,15 +450,37 @@ run_candidate_gate() { # <candidate-sha>
   # is deterministic and is NEVER retried: those make failed longer than
   # failed_suites, so the equality below is false and we reject straight away.
   if [ "${#failed_suites[@]}" -gt 0 ] && [ "${#failed[@]}" -eq "${#failed_suites[@]}" ]; then
+    # TIMEOUT ESCALATION. A suite that hit its per-suite cap on attempt 1 is
+    # retried with GARDEN_DEPLOY_TEST_SUITE_RETRY_TIMEOUT (when that is larger)
+    # rather than the same cap that just killed it; other failed suites keep the
+    # base cap. The escalated retry is admitted only if the sum of the retried
+    # suites' allowances fits GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT; otherwise it is
+    # refused and the candidate rejected on its attempt-1 diagnostics.
+    local -A retry_limits=()
+    local suite escalated="$GARDEN_DEPLOY_TEST_SUITE_RETRY_TIMEOUT" retry_budget=0
+    [ "$escalated" -gt "$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT" ] || escalated="$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT"
+    for suite in "${timed_out[@]}"; do retry_limits[$suite]="$escalated"; done
+    for suite in "${failed_suites[@]}"; do
+      retry_budget=$(( retry_budget + ${retry_limits[$suite]:-$GARDEN_DEPLOY_TEST_SUITE_TIMEOUT} ))
+    done
+    if [ "${#timed_out[@]}" -gt 0 ] && [ "$retry_budget" -gt "$GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT" ]; then
+      log "ERROR: candidate test gate: ${#timed_out[@]} suite(s) timed out on attempt 1 for $candidate (${timed_out[*]}); an escalated retry needs ${retry_budget}s, over the ${GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT}s total budget — refusing the retry (attempt-1 diagnostics retained)"
+      failed+=("timeout-escalation-over-total-budget(need=${retry_budget}s; total=${GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT}s)")
+      log "ERROR: candidate test gate rejected $candidate; failing suites: ${failed[*]}"
+      report_candidate_gate_failure "$candidate" "${failed[@]}"
+      return 1
+    fi
+    [ "${#timed_out[@]}" -gt 0 ] && \
+      log "candidate test gate: escalating the per-suite cap from ${GARDEN_DEPLOY_TEST_SUITE_TIMEOUT}s to ${escalated}s for the retry of timed-out suite(s): ${timed_out[*]} (retry budget ${retry_budget}s of ${GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT}s)"
     log "candidate test gate: ${#failed_suites[@]} suite(s) failed on attempt 1 for $candidate (${failed[*]}); retrying ONLY those once in a fresh gate root to distinguish a one-off host-side flake from a real regression"
     local -a retry_failed=()
     # Populated through execute_gate_suites' nameref argument.
     # shellcheck disable=SC2034
-    local -a retry_failed_suites=()
+    local -a retry_failed_suites=() retry_timed_out=()
     if unpack_candidate_gate_tree "$candidate"; then
       gate_root="$candidate_gate_root"
       deadline=$(( $(date +%s) + GARDEN_DEPLOY_TEST_TOTAL_TIMEOUT ))
-      execute_gate_suites "$candidate" "$gate_root" "$deadline" 2 retry_failed retry_failed_suites "${failed_suites[@]}"
+      execute_gate_suites "$candidate" "$gate_root" "$deadline" 2 retry_failed retry_failed_suites retry_timed_out retry_limits "${failed_suites[@]}"
       cleanup_candidate_gate_root
       if [ "${#retry_failed[@]}" -eq 0 ]; then
         log "candidate test gate: all ${#failed_suites[@]} retried suite(s) passed on attempt 2 for $candidate; treating the attempt-1 failure(s) as a transient host-side flake (diagnostics from both attempts retained under $GARDEN_DEPLOY_GATE_DIAGNOSTICS_DIR/$candidate) — NOT blocking the deploy"
