@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T03:07:55Z_
+_As of 2026-09-30T03:24:24Z_
 
 ## Latest
 
-Endo-but-for-bots PR #1349 (hardened text codecs shim) picked up a second panel review round after fix round 1 landed both must-fix items with CI green; M2 completion still waits on the maintainer to authorize its gauntlet and to decide the fate of the duplicate #1356. A new weave job went onto the board for [endojs/endo-but-for-bots#990](https://github.com/endojs/endo-but-for-bots/pull/990) while its shepherd continues in parallel, and a fresh fix round opened for the IronHorse panic host-call gauntlet on [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379). On minion.town, [kriscendobot/minion.town#135](https://github.com/kriscendobot/minion.town/pull/135) cleared review and is now queued for conducting, though its presented head has since moved past what the panel reviewed and will need a fresh look before merge; [kriscendobot/minion.town#85](https://github.com/kriscendobot/minion.town/pull/85) (capability-based publish/upgrade authority) also cleared review and is in the fix queue. The scholar ingested a new library entry on from-scratch web text editors. Underneath, the fleet is showing real strain: Claude spend is at 130% of quota (backoff), the leader host at endolin-garden-ece02cb4 is 25 commits behind and stalled on deploy (holding back every singleton producer), a follower host (oros-studio-garden-ce242c49) has been offline for over an hour, and journal-contention checks are badly overrunning their budget — all worth a look before more work piles up.
+The gauntlet for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) advanced into a second fix round after its panel review, with the earlier panel-2 stage landing in tada; meanwhile the weave on [endojs/endo-but-for-bots#990](https://github.com/endojs/endo-but-for-bots/pull/990) completed and a shepherd directive for #990 is now in progress. A fix for kriscendobot/minion.town's ocap publish authority landed, and the scholar's ingest of the David Bushell web-text-editor writeup finished and is now indexed in the library. Review directives remain in flight for [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116), [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343), and kriscendobot/garden PR #75, alongside a containment-drift check on the minion.town gateway. New board entries request a maintainer decision on a design for minion.town guest-account coupons and flag kriscendobot/minion.town#135 as approved and ready to conduct. Several M2 status messages from the foreman remain queued awaiting the maintainer's authorization to run the gauntlet on #1349 and to close the superseded #1356.
 
 ## Parked for maintainer feedback
 
@@ -28,11 +28,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #21 (first seen 2026-09-29T21:17:11Z, latest 2026-09-30T02:11:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 21 times; this is ONE
-> coalesced notice that updates in place, not 21 messages. Latest detail:
+> WATCHDOG notice — occurrence #41 (first seen 2026-09-29T21:17:11Z, latest 2026-09-30T03:11:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 41 times; this is ONE
+> coalesced notice that updates in place, not 41 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1934s (offline threshold 1800s; sampled_at_epoch=1790732327).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 5535s (offline threshold 1800s; sampled_at_epoch=1790732327).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -174,13 +174,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-09-30T02:36:19Z, latest 2026-09-30T03:06:38Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> WATCHDOG notice — occurrence #10 (first seen 2026-09-30T02:36:19Z, latest 2026-09-30T03:21:21Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 10 times; this is ONE
+> coalesced notice that updates in place, not 10 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1386](https://github.com/endojs/endo-but-for-bots/pull/1386)#issuecomment-5902849928 (age=2343s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#discussion_r4140186381 (age=2940s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1386](https://github.com/endojs/endo-but-for-bots/pull/1386)#issuecomment-5902849928 (age=3244s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#discussion_r4140186381 (age=3841s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -596,47 +596,48 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 185.7M | $1213.85 _(notional, rate-card)_ | 130% of 143.0M (backoff) |
-| Codex | 16.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
+| Claude | 187.2M | $1221.81 _(notional, rate-card)_ | 131% of 143.0M (backoff) |
+| Codex | 16.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 61990963 tokens/day lower bound._
+_Fleet token-unlock pace: 61919922 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.140894s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (14)
-- [`endojs-endo-but-for-bots-pr990-weave-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr990-weave-20260930.md) — weave endojs/endo-but-for-bots PR #990 onto current llm
+### todo (17)
+- [`endo-daemon-idempotent-start-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-daemon-idempotent-start-open-pr.md) — Open the draft PR for endo-daemon-idempotent-start-build
+- [`improve-script-containment-gateway-record-check`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-script-containment-gateway-record-check.md) — ---
 - [`npm-minion-town-arc-supervisor-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/npm-minion-town-arc-supervisor-20260930.md) — Supervise the npm.minion.town dev-registry arc to a validated deploy (mentat)
+- [`claude-on-minion-town-completion-press-20260930-020508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20260930-020508.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`conduct-kriscendobot-minion-town-pr135-approved-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-kriscendobot-minion-town-pr135-approved-20260930.md) — Conduct kriscendobot/minion.town#135 (APPROVED by kriskowal)
 - [`design-minion-town-clip-lifecycle-capabilities`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-clip-lifecycle-capabilities.md) — Design: clip lifecycle authority as capabilities (kriscendobot/minion.town)
 - [`minion-town-clip-gutter-default-landing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clip-gutter-default-landing.md) — build: make the clip gutter the real minion.town landing (kriscendobot/minion...
-- [`kriscendobot-garden-pr75-review-6b5f570b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr75-review-6b5f570b.md) — Review directive on kriscendobot/garden PR #75
 - [`issue-kriscendobot-garden-117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-117.md) — Issue from dckc on kriscendobot/garden #117
+- [`endo-daemon-idempotent-start-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-daemon-idempotent-start-build.md) — Endo daemon: idempotent start + early single-instance lock (phase 1)
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1379
 - [`improve-comment-watcher-expected-classify-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-comment-watcher-expected-classify-status.md) — ---
 - [`kriscendobot-minion.town-pr91-0aac718f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr91-0aac718f.md) — attention directive on kriscendobot/minion.town PR #91
 - [`endojs-endo-but-for-bots-pr1357-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1357-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1357
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
+- [`design-minion-town-guest-coupons`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-guest-coupons.md) — Design: guest-account coupons carried by invitations (minion.town growth gove...
 - [`endojs-endo-but-for-bots-pr1343-review-0d84baf9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-review-0d84baf9.md) — Review directive on endojs/endo-but-for-bots PR #1343
 - [`endojs-endo-but-for-bots-pr1383-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1383-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1383
 
-### doin (7)
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1349
+### doin (5)
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1349
 - [`endojs-endo-but-for-bots-pr990-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr990-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #990
-- [`kriscendobot-minion.town-pr85-fix-ocap-publish-authority`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-fix-ocap-publish-authority.md) — Fix kriscendobot/minion.town PR #85: model publish/upgrade authority as a cap...
-- [`claude-on-minion-town-completion-press-20260930-020508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260930-020508.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260930-015006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260930-015006.md) — Containment drift check for kriscendobot/minion.town gateway records
 - [`endojs-endo-but-for-bots-pr1116-review-70b9d56c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1116-review-70b9d56c.md) — Review directive on endojs/endo-but-for-bots PR #1116
-- [`endo-daemon-idempotent-start-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-daemon-idempotent-start-build.md) — Endo daemon: idempotent start + early single-instance lock (phase 1)
+- [`kriscendobot-garden-pr75-review-6b5f570b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr75-review-6b5f570b.md) — Review directive on kriscendobot/garden PR #75
 
-### tada (9829)
+### tada (9832)
+- [`endojs-endo-but-for-bots-pr990-weave-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr990-weave-20260930.md) — Cost
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-2.md) — Cost
+- [`kriscendobot-minion.town-pr85-fix-ocap-publish-authority`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr85-fix-ocap-publish-authority.md) — Cost
 - [`scholar-ingest-dbushell-text-editor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/scholar-ingest-dbushell-text-editor.md) — Cost
 - [`kriscendobot-minion.town-pr135-review-e4d01640`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr135-review-e4d01640.md) — Panel-head freshness
-- [`kriscendobot-minion.town-pr85-review-9f17a419`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr85-review-9f17a419.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-fix-1.md) — Fix round 1 for PR #1349: both must-fix items are fixed, and CI is green
-- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-3.md) — Cost
-- … and 9824 more
+- … and 9827 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
