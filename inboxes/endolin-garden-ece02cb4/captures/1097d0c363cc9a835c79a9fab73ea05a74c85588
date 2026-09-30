@@ -1,0 +1,5 @@
+<6>09:08:36 [monk/3] job 'ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-1' call ceiling: tier=minion max-budget-usd=1.50 (scaled by fresh seven-day headroom when available)
+<6>09:08:36 [monk/3] minion-mcp: not attaching for 'ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-1': host endolin-garden-ece02cb4 not in config/minion-mcp hosts (endolin-garden2-5bcdff64)
+
+--- handler report (partial) ---
+I'll wait for the monitor to report back on CI completion.
