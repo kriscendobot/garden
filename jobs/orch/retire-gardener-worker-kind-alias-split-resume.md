@@ -1,4 +1,5 @@
 ---
+child-retire-gardener-worker-kind-alias-verify-docs-host: endolin-garden-ece02cb4
 child-retire-gardener-worker-kind-alias-verify-docs-reap-count: 0
 order: serial
 children: retire-gardener-worker-kind-alias-verify-docs
