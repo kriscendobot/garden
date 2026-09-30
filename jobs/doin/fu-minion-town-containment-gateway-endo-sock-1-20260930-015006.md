@@ -56,3 +56,13 @@ comes back clean afterward, and report the recurrence to the maintainer inbox.
 Report no-change QUIETLY. Report any reappearance, any unexpected active
 dckc-owned record, or any inability to complete the recursive scan to the
 maintainer inbox — an inability to scan is itself a finding, not a quiet pass.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T01:58:29Z
