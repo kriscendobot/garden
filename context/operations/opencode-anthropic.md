@@ -1,7 +1,8 @@
 ---
 created: 2026-09-01
-updated: 2026-09-01
+updated: 2026-09-30
 author: gardener
+status: Declined — see § Declined 2026-09-30
 ---
 
 # OpenCode Anthropic probe lane
@@ -68,3 +69,21 @@ normalization for a 401 refusal.
 The paid canary, real non-zero USD row, and a live mid-successful-run resume remain
 unverified until a metered Anthropic key is provisioned. This is an environment
 gap, not evidence that those paths pass.
+
+## Declined 2026-09-30
+
+kriskowal declined to provision an Anthropic API key for this lane (liaison
+session, 2026-09-30): "I decline to give the garden an Anthropic API key. That
+presumably strands an opencode exploration. I would like to explicitly archive
+that work." This is a deliberate stop, not an oversight — do not re-ask for the
+key and do not re-post the bounded-canary probe above.
+
+**What stays and what doesn't.** The `opencode-anthropic` worker kind itself
+(routing, eligibility, handler, reputation arm — commit `77b82f7f2d`) is
+already-landed code and is not being reverted; it costs nothing sitting idle
+at zero declared workers. What's archived is only the **live paid-canary
+verification** described above: the real non-zero USD row, the live
+mid-successful-run resume, and the un-refused-key path all remain permanently
+unverified by this decision, not by a gap that a future job should try to
+close. A future maintainer directive would be needed to reopen this, not a
+routine probe or muster follow-up.
