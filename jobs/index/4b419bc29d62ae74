@@ -1,2 +1,2 @@
-base: improve-gh-api-primary-quota-singleflight
+base: improve-journal-fallback-warn-dedup
 identity: mentor:scripts/jobs/common.sh
