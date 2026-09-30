@@ -1,2 +1,2 @@
-base: improve-handoff-sync-failopen
+base: improve-gauntlet-failed-stage-handoff
 identity: mentor:scripts/jobs/assert-followup-posted.sh
