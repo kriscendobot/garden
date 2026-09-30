@@ -1,0 +1,24 @@
+---
+gate: orchestrated
+orchestrated_by: endojs-endo-but-for-bots-pr1357-conduct-orch
+priority: normal
+posted_by: producer
+posted_at: 2026-09-30T20:43:58Z
+---
+
+---
+role: conductor
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
+---
+
+# Conduct endojs/endo-but-for-bots PR #1357 (un-draft and merge)
+
+Repo: endojs/endo-but-for-bots. PR: https://github.com/endojs/endo-but-for-bots/pull/1357
+Maintainer kriskowal APPROVED with "Please respond and conduct."
+(https://github.com/endojs/endo-but-for-bots/pull/1357#pullrequestreview-5371681004).
+The inline ask (answer to Open Question 1) was resolved by the preceding fixer child
+`endojs-endo-but-for-bots-pr1357-review-answer-oq1`. Confirm that push landed and
+CI is green/mergeable, then un-draft and merge per the conductor role (you own the
+merge method). Bot repo only.
