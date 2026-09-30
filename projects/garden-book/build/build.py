@@ -116,7 +116,7 @@ for c in chapters:
     sections.append(f'<section class="chapter" aria-labelledby="{cid}">\n{body_html}\n'
                     f'<p class="back"><a href="#toc">&uarr; Table of contents</a></p>\n</section>')
 
-nav = ['<nav class="sidebar" aria-label="Table of contents"><p class="nav-title"><a href="#top">The Garden</a></p><ol>']
+nav = ['<nav class="sidebar" aria-label="Table of contents"><p class="nav-title"><a href="#top">The Garden That Tends Code</a></p><ol>']
 toc_main = ['<ol class="toc">']
 for cid, title, subs in toc:
     nav.append(f'<li><a href="#{cid}">{html.escape(title)}</a></li>')
@@ -136,7 +136,7 @@ page = f"""<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Garden: a book about an agent fleet</title>
+<title>The Garden That Tends Code</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
