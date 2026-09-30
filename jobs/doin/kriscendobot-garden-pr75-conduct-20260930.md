@@ -13,3 +13,13 @@ kriskowal APPROVED it (https://github.com/kriscendobot/garden/pull/75#pullreques
 main2 (status marked captured in 15d64fc4e8c, mirrored to the PR head 8a7b842).
 Confirm mergeable (no CI checks are configured on this branch), un-draft, and merge.
 No build, no panel.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:45:19Z
