@@ -53,6 +53,11 @@
 #     skills/frozen-base-branch § Unfreeze before merge.
 #   * On RED terminal, including red on a newly rebased head: print the failing
 #     checks and exit 3 (the conductor stalls `ci red: needs shepherd`).
+#   * On RED whose every failed check is a GitHub Actions job the ACCOUNT refused
+#     to start ("recent account payments have failed or your spending limit needs
+#     to be increased", read from the check-run annotations): alert the maintainer
+#     once per owning account and exit 5, never 3. No push can fix it, so the
+#     caller parks instead of dispatching a shepherd or failing its stage.
 #   * On TIMEOUT while still pending, or when a concurrent push changes the live
 #     head after the rebase: exit 4 — CI is NOT a terminal state for the head this
 #     invocation prepared, so the caller MUST re-enqueue the merge job (leave it
@@ -65,12 +70,15 @@
 #      (CI can never run until the head is rebased)  → stall: needs shepherd
 #   4  timed out with CI still pending, OR live head changed after this job's
 #      rebase                                         → re-enqueue, still unmerged
+#   5  CI billing-blocked: every failed check is an Actions job the account's
+#      payment/spending limit kept from starting (maintainer alerted)
+#                                                     → park until billing is fixed
 #   1  hard error / merge or rebase blocked (`needs weave`) / not mergeable /
 #      frozen base shared by a sibling stack / reviewDecision=CHANGES_REQUESTED (maintainer
 #      alerted)                                      → stall, re-enqueue
 #
 # --no-merge makes it a pure block-until-CI-terminal probe (exit 0 = green,
-# 3 = red, 4 = timeout) for callers that drive the merge themselves.
+# 3 = red, 4 = timeout, 5 = billing-blocked) for callers that drive the merge themselves.
 # --dependabot-auto-merge is the botanist MERGE-NOW opt-in. It still enforces CI,
 # CHANGES_REQUESTED, unfreeze/shared-stack, branch-retention, and post-merge
 # verification; only the current-maintainer APPROVED signature is omitted after
@@ -288,6 +296,39 @@ print_failures() {
     | "  red: \(.name // .context // "?") = \($c)"' 2>/dev/null || true
 }
 
+# GitHub refuses to START every Actions job on an account whose payment failed or
+# whose spending limit is exhausted. Each job then fails within seconds, with no
+# runner, no steps, and no log, and the only evidence is a check-run annotation:
+# "The job was not started because recent account payments have failed or your
+# spending limit needs to be increased." No push can fix that red. Treating it as
+# ordinary CI red handed the diagnosis and the escalation to a gauntlet agent,
+# which then failed its own stage (kriscendobot/minion.town#144, 2026-09-30).
+#
+# Succeeds (0) only when EVERY failed rollup entry is an Actions check run whose
+# annotations carry the billing refusal. Anything else, including a failed
+# annotation read or a failed commit status that has no Actions job, returns 1,
+# so the caller keeps the ordinary red outcome. Prints the blocked check names.
+: "${GARDEN_ACTIONS_BILLING_PATTERN:=recent account payments have failed|spending limit needs to be increased}"
+actions_billing_blocked() {
+  local json entries name url job_repo job_id annotations names=""
+  json="$("$GH" pr view "$pr" -R "$repo" --json statusCheckRollup 2>/dev/null)" || return 1
+  entries="$(printf '%s' "$json" | jq -r '
+    .statusCheckRollup[]?
+    | ((.conclusion // .state // "") | ascii_upcase) as $c
+    | select($c=="FAILURE" or $c=="ERROR" or $c=="CANCELLED"
+             or $c=="TIMED_OUT" or $c=="ACTION_REQUIRED" or $c=="STARTUP_FAILURE")
+    | [(.name // .context // "?"), (.detailsUrl // .targetUrl // "")] | @tsv' 2>/dev/null)" || return 1
+  [ -n "$entries" ] || return 1
+  while IFS=$'\t' read -r name url; do
+    [[ "$url" =~ ^https://github\.com/([^/]+/[^/]+)/actions/runs/[0-9]+/job/([0-9]+) ]] || return 1
+    job_repo="${BASH_REMATCH[1]}"; job_id="${BASH_REMATCH[2]}"
+    annotations="$("$GH" api "repos/$job_repo/check-runs/$job_id/annotations" --jq '.[].message' 2>/dev/null)" || return 1
+    printf '%s' "$annotations" | grep -qiE -- "$GARDEN_ACTIONS_BILLING_PATTERN" || return 1
+    names="${names:+$names, }$name"
+  done <<<"$entries"
+  printf '%s\n' "$names"
+}
+
 # A persistent read failure must NOT loop past the deadline. Honor the same bound
 # the pending branch does, so a flapping gh/network can never spin unbounded.
 past_deadline() { [ $(( $(date +%s) - start )) -ge "$deadline_secs" ]; }
@@ -460,6 +501,14 @@ while :; do
 
   if [ "${pending:-0}" -eq 0 ]; then
     if [ "${failed:-0}" -gt 0 ]; then
+      if billing_checks="$(actions_billing_blocked)"; then
+        # One notice per owning account: every repo the account owns goes red
+        # together, and each PR's wait amends the same maintainer entry.
+        alert_maintainer "actions-billing-blocked-${repo%%/*}" \
+          "GitHub Actions is refusing to START jobs for the '${repo%%/*}' account: \"recent account payments have failed or your spending limit needs to be increased\". Latest: $repo#$pr (head ${observed_head:0:11}; checks: $billing_checks). This is an ACCOUNT BILLING block, not a code failure: no push can fix it, so I am not treating it as CI red. Fix Billing & plans for '${repo%%/*}', then rerun the failed runs (gh run rerun <id> --failed) and resume whatever parked on it (a gauntlet: scripts/jobs/gauntlet.sh --resume-from-stage <g> <clean|fix> [--iteration N])."
+        echo "rollup-terminal repo=$repo pr=$pr total=$total failed=$failed → CI BILLING-BLOCKED (GitHub Actions account payment/spending limit; jobs never started: $billing_checks) — maintainer alerted"
+        exit 5
+      fi
       echo "rollup-terminal repo=$repo pr=$pr total=$total failed=$failed → CI RED"
       print_failures
       exit 3

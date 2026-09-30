@@ -78,6 +78,31 @@ created_by: test
 created_at: 2026-09-17T00:00:00Z
 ---
 EOF
+# A fix stage whose CI wait exited 5 (GitHub Actions account billing refusal).
+cat >"$SEED/jobs/gauntlet/g-billing.md" <<'EOF'
+---
+pr: https://github.com/testowner/testrepo/pull/44
+repo: testowner/testrepo
+pr_number: 44
+build_job:
+kind: feature
+stage: fix
+iteration: 3
+max_iterations: 6
+resumes: 0
+max_resumes: 4
+stage_retries: 0
+max_stage_retries: 2
+current_child: g-billing-fix-3
+state: running
+created_by: test
+created_at: 2026-09-30T00:00:00Z
+---
+EOF
+cat >"$SEED/jobs/tada/g-billing-fix-3.md" <<'EOF'
+Fix pushed; ci-wait-merge.sh exited 5 (CI BILLING-BLOCKED).
+<!-- gauntlet-stage-result: fix=ci-billing-blocked -->
+EOF
 git -C "$SEED" add -A
 git -C "$SEED" "${git_id[@]}" commit -q -m seed
 git -C "$SEED" remote add origin "$BARE"
@@ -113,6 +138,22 @@ if [ -f "$generated_halt" ] \
 else
   bad "driver-generated halt did not retain resumable metadata"
 fi
+billing_park="$(find "$VERIFY/jobs/tada" -type f -name 'g-billing.md' -print -quit 2>/dev/null)"
+if [ -n "$billing_park" ] && [ ! -e "$VERIFY/jobs/gauntlet/g-billing.md" ] \
+  && grep -qx 'gauntlet-status: parked-ci-billing' "$billing_park" \
+  && grep -qx 'orchestration-status: halted-ci-billing' "$billing_park" \
+  && grep -q 'resume with: scripts/jobs/gauntlet.sh --resume-from-stage g-billing fix --iteration 3' "$billing_park" \
+  && ! ls "$VERIFY/jobs/todo" | grep -q '^g-billing'; then
+  ok "a ci-billing-blocked fix result parks the gauntlet resumably, with no retry or re-post"
+else
+  bad "ci-billing-blocked result did not park the gauntlet: $(cat "$billing_park" 2>/dev/null)"
+fi
+if grep -rqs 'PARKED-CI-BILLING' "$VERIFY/inbox/maintainer"; then
+  ok "the park is surfaced to the maintainer"
+else
+  bad "the billing park was not surfaced to the maintainer"
+fi
+
 if grep -qx 'stage: fix' "$record" \
   && grep -qx 'iteration: 2' "$record" \
   && grep -qx 'current_child: g-resume-fix-2' "$record" \
@@ -160,6 +201,17 @@ if "$JOBS/gauntlet.sh" --resume-from-stage g-complete clean >"$TR/nonhalt.log" 2
   bad "completed gauntlet was resumable"
 else
   ok "only a halted gauntlet is resumable"
+fi
+
+if "$JOBS/gauntlet.sh" --resume-from-stage g-billing fix --iteration 3 >"$TR/billing-resume.log" 2>&1; then
+  git -C "$VERIFY" pull -q
+  if [ -f "$VERIFY/jobs/gauntlet/g-billing.md" ] && [ -f "$VERIFY/jobs/todo/g-billing-fix-3.md" ]; then
+    ok "a billing-parked gauntlet resumes at the parked stage once billing is fixed"
+  else
+    bad "billing-parked resume did not re-open the record and re-post fix-3"
+  fi
+else
+  bad "billing-parked gauntlet refused to resume: $(cat "$TR/billing-resume.log")"
 fi
 
 echo

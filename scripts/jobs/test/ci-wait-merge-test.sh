@@ -49,6 +49,11 @@
 #   T27 one transient CONFLICTING read then green → still merges
 #   T28 authorized concurrent force-push after rebase → immediate explicit
 #      head-changed exit 4 / re-enqueue, no merge
+#   T29 every failed check is an Actions job refused for account billing → exit 5
+#      (billing-blocked), no merge, named in the terminal line
+#   T30 billing refusal on one job but an ordinary failure on another → exit 3
+#   T31 annotation read fails → ordinary red exit 3 (never guess billing)
+#   T32 failed commit status with no Actions job URL → ordinary red exit 3
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -79,6 +84,10 @@ cat > "$TR/gh" <<'STUB'
 # $STUBDIR/basemeta (default: a LIVE base → no unfreeze); `pr list` returns the
 # shared-base PR count/numbers; `pr edit --base` appends to $STUBDIR/edit.log.
 SEQ="$STUBDIR/seq"; i=$(cat "$STUBDIR/i" 2>/dev/null || echo 0)
+# Check-run annotations (the Actions billing classifier): $STUBDIR/ann_<job-id>
+# holds the messages; a missing file is a failed read.
+if [ "$1" = api ] && [[ "$2" =~ check-runs/([0-9]+)/annotations ]]; then
+  cat "$STUBDIR/ann_${BASH_REMATCH[1]}" 2>/dev/null || exit 1; exit 0; fi
 if [ "$1" = api ]; then cat "$STUBDIR/reviews" 2>/dev/null || printf '[{"state":"APPROVED","commit_id":"123abc123abc123abc123abc123abc123abc123a","user":{"login":"kriskowal"}}]'; exit 0; fi
 case "$1 $2" in
   "pr view")
@@ -92,6 +101,10 @@ case "$1 $2" in
     if printf ' %s' "$@" | grep -q -- '--json reviewDecision,headRefOid'; then
       cat "$STUBDIR/approvalmeta" 2>/dev/null || printf '{"reviewDecision":"APPROVED","headRefOid":"123abc123abc123abc123abc123abc123abc123a"}'; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json statusCheckRollup --jq'; then cat "$STUBDIR/failures" 2>/dev/null; exit 0; fi
+    # The billing classifier's bare rollup re-read: the last rollup served, unadvanced.
+    if printf ' %s' "$@" | grep -q -- '--json statusCheckRollup$'; then
+      line=$(sed -n "${i}p" "$SEQ"); [ -z "$line" ] && line=$(tail -n1 "$SEQ")
+      printf '%s' "$line" | base64 -d; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json state,baseRefName'; then
       cat "$STUBDIR/basemeta" 2>/dev/null || printf '{"state":"OPEN","baseRefName":"llm"}'; exit 0; fi
     if printf ' %s' "$@" | grep -q -- '--json headRefName'; then
@@ -141,7 +154,7 @@ CONFLICT_EMPTY="{\"state\":\"OPEN\",\"mergeable\":\"CONFLICTING\",\"headRefOid\"
 # Green CI but a maintainer requested changes: reviewDecision drives the gate.
 GREEN_CR="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"reviewDecision\":\"CHANGES_REQUESTED\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"SUCCESS\"}]}"
 
-reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/rebase.log" "$STUBDIR/rebase_head" "$STUBDIR/rebase_rc" "$STUBDIR/rebase_seq" "$STUBDIR/rebase_i" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta"; }
+reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR"/ann_* "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/rebase.log" "$STUBDIR/rebase_head" "$STUBDIR/rebase_rc" "$STUBDIR/rebase_seq" "$STUBDIR/rebase_i" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta"; }
 seq_add()   { b64 "$1" >> "$STUBDIR/seq"; printf '\n' >> "$STUBDIR/seq"; }
 chk()       { if [ "$1" = "$2" ]; then ok "$3 (rc=$1)"; else bad "$3 (got rc=$1 want $2)"; fi; }
 merged()    { if [ -f "$STUBDIR/merge.log" ]; then ok "$1 merge called"; else bad "$1 merge NOT called"; fi; }
@@ -354,6 +367,38 @@ if grep -q "ci-head-changed repo=o/r pr=178 post-rebase=${HEAD:0:11} live=${HEAD
 else
   bad "T28 missing explicit head-changed outcome: $(cat "$STUBDIR/output")"
 fi
+
+# The 2026-09-30 kriscendobot/minion.town#144 shape: every job failed ~2s after
+# starting, with no runner and no log; only the annotation names the cause.
+BILLING_MSG='The job was not started because recent account payments have failed or your spending limit needs to be increased. Please check the '"'"'Billing & plans'"'"' section of your settings'
+job() { printf '{"name":"%s","status":"COMPLETED","conclusion":"%s","detailsUrl":"https://github.com/o/r/actions/runs/36691445004/job/%s"}' "$1" "$2" "$3"; }
+BILLING_RED="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[$(job test FAILURE 101),$(job 'Claude harness (amd64)' FAILURE 102),$(job lint SUCCESS 103)]}"
+
+echo "T29 all failed jobs refused for account billing → exit 5, no merge"
+reset_seq; seq_add "$BILLING_RED"
+printf '%s\n' "$BILLING_MSG" > "$STUBDIR/ann_101"; printf '%s\n' "$BILLING_MSG" > "$STUBDIR/ann_102"
+run_capture o/r 144; chk "$rc" 5 T29; nomerge T29
+if grep -q "CI BILLING-BLOCKED .*test, Claude harness (amd64)" "$STUBDIR/output"; then
+  ok "T29 terminal line names the billing block and the refused checks"
+else
+  bad "T29 missing billing-blocked terminal line: $(cat "$STUBDIR/output")"
+fi
+run o/r 144 --no-merge; chk "$rc" 5 "T29 --no-merge probe"
+
+echo "T30 billing refusal on one job, ordinary failure on another → exit 3"
+reset_seq; seq_add "$BILLING_RED"
+printf '%s\n' "$BILLING_MSG" > "$STUBDIR/ann_101"; printf 'Process completed with exit code 1.\n' > "$STUBDIR/ann_102"
+run o/r 144; chk "$rc" 3 T30; nomerge T30
+
+echo "T31 annotation read fails → ordinary red exit 3"
+reset_seq; seq_add "$BILLING_RED"; printf '%s\n' "$BILLING_MSG" > "$STUBDIR/ann_101"
+run o/r 144; chk "$rc" 3 T31; nomerge T31
+
+echo "T32 failed commit status without an Actions job URL → ordinary red exit 3"
+reset_seq
+seq_add "{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[$(job test FAILURE 101),{\"context\":\"ext/ci\",\"state\":\"FAILURE\",\"targetUrl\":\"https://ci.example/1\"}]}"
+printf '%s\n' "$BILLING_MSG" > "$STUBDIR/ann_101"
+run o/r 144; chk "$rc" 3 T32; nomerge T32
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"

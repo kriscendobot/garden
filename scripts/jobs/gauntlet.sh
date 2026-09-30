@@ -7,7 +7,7 @@
 #   gauntlet.sh                                      (timer tick)
 #   gauntlet.sh --resume-from-stage <g> <stage> [--iteration N]
 #
-# The resume form turns a terminal halted report back into an active record, then
+# The resume form turns a terminal halted (or billing-parked) report back into an active record, then
 # atomically replaces any stale artifact for the requested stage with a fresh todo
 # job. This is the supported recovery path after the reason for a halt was fixed;
 # operators never need to hand-edit the journal.
@@ -43,10 +43,12 @@
 #     | viability | overtaken     | report deciding question + close-as-superseded  |
 #     | clean     | done          | panel-1                                         |
 #     | clean     | still-pending | re-post <g>-clean (bounded by max_resumes)      |
+#     | clean     | ci-billing-blocked | park (resumable; maintainer alerted)       |
 #     | panel-k   | pass          | undraft (feature) / done (probe never un-drafts)|
 #     | panel-k   | must-fix      | fix-k                                           |
 #     | fix-k     | done          | panel-(k+1); if k+1 > max_iterations → REVIEW   |
 #     | fix-k     | still-pending | re-post <g>-fix-k (bounded by max_resumes)      |
+#     | fix-k     | ci-billing-blocked | park (resumable; maintainer alerted)       |
 #     | undraft   | done          | done — write jobs/tada/<g>, remove the record   |
 #
 # A `done` child with NO parseable marker (or an unexpected marker value) is a
@@ -254,7 +256,7 @@ gauntlet_notify() {  # <subject> ; body on stdin
 # (retryable) and gauntlet_terminal_receipt turns that into a pending-receipt record
 # committed WITH the finish; later ticks retry it (retry_terminal_pending). Returns 0
 # when the comment landed, was already present, or can never be posted.
-gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted> <reason> <repo> <pr-number> <iteration>
+gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-billing> <reason> <repo> <pr-number> <iteration>
   local base="$1" terminal_state="$2" reason="$3" repo="$4" prnum="$5" iter="$6"
   local marker comments meta head ci pending bad total
   local panel_tada="" must_fix_count="" must_fix_part="" next body gh_bin rc=0
@@ -323,6 +325,8 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted> <reason> 
       next="awaiting maintainer merge/undraft or re-run decision";;
     halted)
       next="maintainer action required; halt reason: $reason";;
+    parked-ci-billing)
+      next="parked: GitHub Actions refused to start jobs (account payment/spending limit). Fix billing, rerun the failed runs, then resume the gauntlet";;
     *)
       log "WARN: gauntlet '$base': unknown terminal comment state '$terminal_state'"
       return 0;;
@@ -543,8 +547,8 @@ finish_not_viable() {  # <base> <result> <viability-report>
   rm -f "$sf"
 }
 
-halt_gauntlet() {  # <base> <reason>
-  local base="$1" reason="$2" sf rec key pending
+halt_gauntlet() {  # <base> <reason> [halted|parked-ci-billing]
+  local base="$1" reason="$2" status="${3:-halted}" sf rec key pending
   sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-halt.XXXXXX")"
   # Keep the machine-owned record metadata in the terminal report. Besides making
   # a halt independently auditable, this is the durable source from which the
@@ -561,21 +565,34 @@ halt_gauntlet() {  # <base> <reason>
       done
     fi
     printf 'current_child: %s\n' "$(gauntlet_current_child "$rec")"
-    printf 'state: halted\n'
-    # `orchestration-status: halted` makes tada_failed classify this as a failure:
-    # the shared marker both deterministic serial primitives honor.
-    printf 'orchestration-status: halted\n'
-    printf 'gauntlet-status: halted\n'
+    printf 'state: %s\n' "$status"
+    # An `orchestration-status: halted…` value makes tada_failed classify this as a
+    # failure: the shared marker both deterministic serial primitives honor. A
+    # billing park is not a success either, since the PR was never reviewed green.
+    printf 'orchestration-status: %s\n' "${status/#parked-/halted-}"
+    printf 'gauntlet-status: %s\n' "$status"
     printf 'halted_at: %s\n' "$(date -u +%FT%TZ)"
     printf -- '---\n'
-    printf '# gauntlet %s — HALTED\n\n' "$base"
+    printf '# gauntlet %s — %s\n\n' "$base" "${status^^}"
     printf '%s\n' "$reason"
   } > "$sf"
-  pending="$(gauntlet_terminal_receipt "$base" halted "$reason" "$rec")"
-  finish_gauntlet "$base" "$sf" "$pending" || log "gauntlet '$base': halt-finish failed; retrying next tick"
-  printf 'Gauntlet %s HALTED: %s\n' "$base" "$reason" | gauntlet_notify "$base-halted"
-  log "gauntlet '$base': HALTED — $reason"
+  pending="$(gauntlet_terminal_receipt "$base" "$status" "$reason" "$rec")"
+  finish_gauntlet "$base" "$sf" "$pending" || log "gauntlet '$base': $status finish failed; retrying next tick"
+  printf 'Gauntlet %s %s: %s\n' "$base" "${status^^}" "$reason" | gauntlet_notify "$base-$status"
+  log "gauntlet '$base': ${status^^} — $reason"
   rm -f "$sf" "$pending"
+}
+
+# A clean/fix stage whose CI wait exited 5: GitHub Actions refused to start any
+# job because the owning account's payment failed or its spending limit is spent.
+# ci-wait-merge.sh has already alerted the maintainer (one notice per account). No
+# stage retry or shepherd can clear it, so park the gauntlet as a resumable terminal
+# report rather than halting on an agent's orchestration-failed or re-posting.
+park_ci_billing() {  # <base> <stage> <iteration> <child>
+  local base="$1" stage="$2" iter="$3" child="$4" resume
+  resume="scripts/jobs/gauntlet.sh --resume-from-stage $base $stage"
+  [ "$stage" = fix ] && resume="$resume --iteration $iter"
+  halt_gauntlet "$base" "stage '$child' ($stage) found CI BILLING-BLOCKED: GitHub Actions refused to start the jobs because the account's payments failed or its spending limit needs to be increased. No code change can fix this. Fix Billing & plans on the owning account, rerun the failed runs on the PR head, then resume with: $resume" parked-ci-billing
 }
 
 # The panel is intentionally subjective and stateless, so exhausting its review
@@ -700,10 +717,15 @@ posting host's garden root.
    - rc 3 (RED): this stage FAILS. Begin your report with a line
      \`orchestration-failed: true\` and describe the failing checks; do NOT emit any
      clean=done marker (the driver halts the gauntlet and surfaces it).
+   - rc 5 (BILLING-BLOCKED): GitHub Actions refused to START the jobs because of the
+     account's payment/spending limit. The script already alerted the maintainer. Do
+     NOT rerun, push, or message anyone, and do NOT write \`orchestration-failed\`:
+     emit the ci-billing-blocked marker and the driver parks the gauntlet.
 
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
+  <!-- gauntlet-stage-result: clean=ci-billing-blocked -->  (ci-wait-merge rc 5)
 EOF
       ;;
     panel)
@@ -769,10 +791,14 @@ posting host's garden root.
    - rc 0 (GREEN): success.
    - rc 4 (still PENDING): report still-pending (driver re-posts this stage); no fix=done.
    - rc 3 (RED): begin your report with \`orchestration-failed: true\`; no fix=done.
+   - rc 5 (BILLING-BLOCKED): Actions refused to start the jobs (account payment/
+     spending limit); the maintainer is already alerted. Do NOT rerun, push more, or
+     write \`orchestration-failed\`: emit the ci-billing-blocked marker (the driver parks).
 
 END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
+  <!-- gauntlet-stage-result: fix=ci-billing-blocked -->  (ci-wait-merge rc 5)
 EOF
       ;;
     undraft)
@@ -826,8 +852,10 @@ activate_stage_resume() {  # <base> <stage> [iteration]
     terminal_path="$(tada_find "$DIR" "$base" || true)"
     [ -n "$terminal_path" ] || die "gauntlet '$base' has no terminal report to resume"
     terminal="$DIR/$terminal_path"
-    [ "$(plan_field "$terminal" gauntlet-status)" = halted ] \
-      || die "gauntlet '$base' is not halted and cannot be resumed"
+    case "$(plan_field "$terminal" gauntlet-status)" in
+      halted|parked-ci-billing) ;;
+      *) die "gauntlet '$base' is not halted or parked and cannot be resumed";;
+    esac
     # A safely resumable halt retains the original record facts. Refuse old lossy
     # summaries rather than guessing a repo, PR, kind, or retry bound.
     for key in pr repo pr_number kind max_iterations max_resumes max_stage_retries; do
@@ -1225,6 +1253,7 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
       case "$mresult" in
         done)          advance_stage "$base" "$f" panel 1 "$base-panel-1";;
         still-pending) resume_stage "$base" "$f" clean 0 "$child" "$resumes" "$maxres";;
+        ci-billing-blocked) park_ci_billing "$base" clean 0 "$child";;
         *)             halt_gauntlet "$base" "clean stage reported unexpected result '$mresult'";;
       esac;;
     panel)
@@ -1268,6 +1297,7 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
             advance_stage "$base" "$f" panel "$local_next" "$base-panel-$local_next"
           fi;;
         still-pending) resume_stage "$base" "$f" fix "$iter" "$child" "$resumes" "$maxres";;
+        ci-billing-blocked) park_ci_billing "$base" fix "$iter" "$child";;
         *)             halt_gauntlet "$base" "fix stage reported unexpected result '$mresult'";;
       esac;;
     undraft)
