@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:22:44Z_
+_As of 2026-09-30T21:23:48Z_
 
 ## Latest
 
-The sturdyref-stack gauntlet stalled: [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) (layer 2, SES) halted after fix round 4 was declared failed/declined, even though the round-4 must-fixes landed and CI is red on only one flaky macOS daemon-teardown leg — a rerun from a credentialed host would likely clear it. Elsewhere in the same stack, [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) is mid-panel and layers 5–8 (PRs #1393, #1394, #1396, #1397, #1398) continue moving through panel/fix/clean stages. The ironhorse panic-host-call gauntlet exhausted its 6-round review budget with CI green and is left parked for human merge/review. Stale panel coverage was flagged on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), whose head moved past its last-reviewed commit — no gauntlet was auto-staged. The accountant opened its weekly budget conversation, proposing to squeeze the off-mandate Endo backlog from 36% to ~12% in favor of minion.town capabilities (35%) and the sturdyref/petname work already in flight, and is waiting on maintainer calls about the cut, endor metering's share, and whether the current mandate still holds. The foreman also flagged M3 as blocked on a choice between advancing #1015 after its #1348 prerequisite clears or answering four open questions on design PR #1340. A garden-book revision republished with new chapters on the library and inference-tier reference.
+The SturdyRef 8-layer stack keeps moving — layers are working through clean/panel/fix in parallel — but layer 2 (SES) hit a real snag: the gauntlet HALTED after a fix round reported the gated outcome as declined, so that one needs a maintainer look. The petname-path-only sweep (endojs/endo-but-for-bots#1390) is deep into its own fix/panel cycles. The ironhorse panic host-call gauntlet ([endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) ran its full 6 review rounds without converging and was left for a human merge call, with CI green. Separately, a CI flake was isolated: the macOS daemon-teardown timing test (not the SturdyRef layer-2 SES change) is flaking on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391), and a rerun from a credentialed host should clear it before resuming panel review there.
+
+The accountant opened this week's budget conversation with three questions pending (cutting the off-mandate Endo backlog, whether to fund endor metering, and pacing endolin1's ~240M-token surplus), and a separate reset-credit recommendation is on the table: hold the claude-endolin2 credit, accelerate codex spend before its Oct 5 reset. The foreman is blocked on a maintainer choice for M3 (endojs/endo-but-for-bots#1015 vs. resolving open questions on design PR #1340). A rolling-deploy canary on oros-studio-garden-ce242c49 is reported stuck 20 minutes behind its released SHA, worth a look. The garden book was revised and republished with two new chapters (library/scholar, inference tiers).
 
 ## Parked for maintainer feedback
 
@@ -100,6 +102,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
 > [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=2215s; heartbeat=full-poll)
 
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ymax_e2e` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ymax_e2e.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-ymax-e2e: packs 1000 >= 1000; size=409611264B packs=1000 gc.log=0; automatic remedy=deferred-deadline.
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ocapn` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ocapn.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-ocapn: packs 1002 >= 1000; size=410059776B packs=1002 gc.log=0; automatic remedy=applied.
+
 - `ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted` — from gauntlet:ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted.md)
 
 > Gauntlet ebfb-sturdyref-layer2-ses-20260930-gauntlet HALTED: stage 'ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -172,19 +182,27 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
+- `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
+
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to c63c16cad579 20 min ago
+> but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
+
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 13.9M | $136.98 _(notional, rate-card)_ | 5% of 256.0M (ok) |
+| Claude | 14.1M | $137.42 _(notional, rate-card)_ | 5% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 187062056 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 4 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (21)
