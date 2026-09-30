@@ -24,3 +24,13 @@ deterministic/no-LLM, set `GARDEN_NO_LLM=1` so the footer stops expecting
 model attribution it can't have. Confirm which call site this actually is
 before fixing — 22 occurrences over a day on one host suggests one specific,
 frequently-hit path, not a scattered set.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T17:39:54Z
