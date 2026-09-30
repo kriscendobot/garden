@@ -1,6 +1,6 @@
 ---
 created: 2026-05-12
-updated: 2026-09-28
+updated: 2026-09-30
 author: gardener, liaison
 ---
 
@@ -151,6 +151,10 @@ When the work as a whole needs an acknowledgment, add **one top-level summary co
 Never route issue-scoped or PR-scoped feedback to the maintainer anywhere but the issue or pull request itself. If commenting on the repository is not yet authorized (per § External-repo etiquette), hold the reply in your completion report so the orchestrator posts it on the issue or pull request; the destination is still that thread, relocated and never skipped, never moved off the issue or pull request. The inter-agent message bus (a journal `message` entry to a peer role, a directed inbox note to another living agent) is a separate facility for agent-to-agent coordination and is unaffected by this rule; it is never a substitute for replying to the maintainer on the issue or pull request.
 
 **Pin advancements do not get a maintainer review request** (kriskowal, 2026-09-23, https://github.com/kriscendobot/minion.town/pull/112#issuecomment-5801839646). A PR whose only substance is advancing a dependency pin (for example minion.town's `PINNED_ENDO_COMMIT`) is verified mechanically: CI plus any gate the pin needs, such as a daemon-start check against migrated state. Then it goes to the conductor or the gauntlet. Do not put it on a press or tracker as a review ask.
+
+## Asking for budget
+
+When your effort needs foreman tokens beyond what it has (a large build, a campaign, a press, or a job parked on `--budget-hold`), file an advisory request per [budget-request](../skills/budget-request/SKILL.md) with `scripts/jobs/request-budget.sh`. Never write `config/arc-budgets/` or `config/foreman-mandate` yourself; the accountant does that from a maintainer-approved slate.
 
 ## Authority structure of upstream projects
 

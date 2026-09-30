@@ -2,13 +2,14 @@
 created: 2026-09-30
 updated: 2026-09-30
 author: designer (job design-accountant-role-budget-apportionment)
+amended_by: designer (job design-accountant-budget-request-intake)
 ---
 
 # The accountant: weekly arc apportionment of the foreman's token budget
 
 | Created | 2026-09-30 |
-| Author | designer (job `design-accountant-role-budget-apportionment`) |
-| Status | Proposed (role brief landed; scripts are a build follow-up) |
+| Author | designer (job `design-accountant-role-budget-apportionment`); § Budget requests by designer (job `design-accountant-budget-request-intake`) |
+| Status | Proposed (role brief and `budget-request` skill landed; scripts are a build follow-up) |
 | Layers on | [live-budget-admission](live-budget-admission.md), [subscription-budget-model](subscription-budget-model.md), [budgeted-campaign-dispatch](budgeted-campaign-dispatch.md), [recurring-budget-calibration](recurring-budget-calibration.md), [ironhorse-ratchet](../context/operations/ironhorse-ratchet.md) |
 
 > Maintainer directive (kriskowal, 2026-09-30, liaison session): *"carve an
@@ -195,6 +196,169 @@ Mid-week, the maintainer says **apportion** / **re-slice** to the liaison, which
 forwards the words to a live `accountant-weekly-*` inbox or posts
 `accountant-reslice-<YYYYMMDD>`.
 
+## Budget requests (intake)
+
+> Maintainer ask (kriskowal, 2026-09-30, liaison session): *"A number of efforts
+> are clamoring for a budget slice. I feel we need to find a way to nudge roles to
+> dispatch messages to an accountant inbox so the accountant can roll up what
+> needs tokens and present a proposed budget, informed by the current priorities
+> the foreman currently holds."*
+
+Without intake, the accountant proposes a slate from spend history and parked
+plans alone, and demand reaches it only when the maintainer relays it by hand.
+Intake gives every role one cheap way to say "this effort needs N tokens", and
+gives the weekly statement a demand column next to spend.
+
+### The queue: `budget/requests/` on the journal
+
+Requests live in a **durable journal queue**, not on the bus:
+
+```
+budget/requests/open/<effort>.md             one file per effort (the dedup key)
+budget/requests/closed/<week_start>/<effort>.md   decided, with its disposition
+```
+
+The two bus mechanisms were considered and rejected. The `role/accountant` topic
+keeps read cursors host-local and outside the journal, and it has no per-message
+state, so it cannot say which requests are still open or decided. A directed
+`inbox/accountant` exists only while one accountant job is live, and a send to an
+absent inbox is dead-lettered into a *new job*, which is the wrong outcome for a
+request that should wait for next Saturday. A journal tree is the pattern
+`budget/manual-checkpoints/` and `budget/reset-events/` already use. It survives
+every accountant job, and closing a request is a file move.
+
+### Request shape
+
+```markdown
+---
+schema: 1
+effort: minion-town-git-remote        # dedup key; lowercase slug
+arc: minion-town-capabilities         # existing arc, or empty for "propose a new arc"
+tokens: 15M                           # estimate for the window; may be empty only when source is not a role
+window: next                          # this | next (week, per the arc window anchor)
+serves: 1                             # foreman-mandate item number, or "none"
+urgency: blocked                      # blocked | soon | whenever
+if_unfunded: "git-remote build stays parked; #86 goes stale"
+link: https://github.com/kriscendobot/minion.town/pull/86
+source: role                          # role | orchestration | foreman
+requesters: [designer:design-minion-town-git-remote]
+first_requested_at: 2026-09-30T22:00:00Z
+requested_at: 2026-09-30T22:00:00Z
+request_count: 1
+status: open
+---
+One to three lines of justification.
+```
+
+Writing a request is one command, so the cost is the estimate and nothing else:
+
+```sh
+scripts/jobs/request-budget.sh --from <your-base> --effort <slug> --tokens 15M \
+  [--arc A] [--window this|next] [--serves N|none] [--urgency blocked|soon|whenever] \
+  [--if-unfunded TEXT] [--link URL] ["justification"]
+```
+
+It infers `requester_role` from the posted job's `role:` field, defaults `window`
+to `next`, `urgency` to `soon`, and `serves` to `none`, and lands the file with the
+producer-clone CAS loop (`commit_and_push`). It never writes into `config/`.
+
+**Dedup.** The effort slug is the identity. A repeat request for an open effort
+**amends** the file instead of adding one: the latest `tokens`, `window`,
+`urgency`, `if_unfunded`, and body win; `first_requested_at` stays;
+`request_count` increments; and the requester is appended to `requesters` if it
+is new. Two roles asking for the same effort therefore produce one line in the
+roll-up, not two. Different efforts in the same arc stay separate files and are
+summed under the arc.
+
+### Nudges: who files, and where the nudge lives
+
+Where the request can be filed by a script, the script files it. Prose nudges are
+only for cases that need an estimate from judgment.
+
+| Moment | Who files | Where it lives |
+| --- | --- | --- |
+| An orchestration recorded with `--budget-tokens N` | `post-orchestration.sh` files `effort: <orch-base>`, `tokens: N`, `source: orchestration`, arc from `--arc`. | Deterministic (build) |
+| The foreman finds an arc's ready plans held `arc-budget-over` | The foreman service files `effort: <arc>`, `urgency: blocked`, `source: foreman`, and `held_plans: K`, with no `tokens` (the accountant estimates from the ledger). It files once per arc per window. | Deterministic (build) |
+| A designer lands a design whose build needs more than one build job, an orchestration, or a press | The designer, with a whole-build estimate. | [designer](../roles/designer/AGENT.md) brief |
+| An orchestrator setting up a multi-part job with no `--budget-tokens` cap | The orchestrator, with an estimate for the whole campaign. | [orchestrator](../roles/orchestrator/AGENT.md) brief |
+| A producer wanting a press or campaign cap (formerly a hand `set-arc-budget.sh`) | The producer files the request. Only the accountant writes arc budgets. | [budget-request](../skills/budget-request/SKILL.md) |
+| Any job that parks itself on `--budget-hold`, or that knows its effort will outrun its arc | The role, when it can estimate the effort. A bare `--budget-hold` already appears in the statement's held-plan count without a request. | [COMMON](../roles/COMMON.md) § Asking for budget |
+
+The skill [`budget-request`](../skills/budget-request/SKILL.md) is the one playbook.
+`roles/COMMON.md` carries a two-line pointer, and only the designer and
+orchestrator briefs name the skill directly.
+
+### Roll-up in the weekly statement
+
+`accountant-statement.sh` gains a deterministic **Demand** section, read from
+`budget/requests/open/`:
+
+- **Group by arc.** Each arc row adds `requested` (the sum of `tokens` over its
+  open requests for the window), `requests` (count), `blocked` (count with
+  `urgency: blocked`), and `held_plans`. Requests with an empty `arc` are listed
+  under **new-arc candidates**, with their `serves:` item.
+- **Rank against the mandate.** Arcs are ordered by slate `rank`. The generated
+  `config/foreman-mandate` is the slate's prose, so this is the foreman's current
+  priority order. A new-arc candidate is placed by its `serves:` item. A request
+  whose `serves:` disagrees with its arc's rank is flagged, not silently re-ranked.
+- **Requested against available.** `available` is the proposed week `total`
+  times a **planning ceiling** (`config/apportionment` `planning_ceiling`, default
+  `0.90`), which leaves headroom for accounting-only overshoot. To that it adds
+  any **reset credit** the maintainer has recorded for the window in
+  `budget/reset-events/` (an early reset or a temporary quota boost). The line
+  reads `requested R / available A (ceiling 90%, +C reset credit)`.
+- **Estimate the unsized.** A `source: foreman` request with no `tokens` is
+  sized by the accountant from `arc-spend.sh` history (median spend per completed
+  plan in that arc, times `held_plans`). The statement shows the estimate as
+  such.
+
+The accountant's proposed slate then funds arcs in rank order up to `available`
+and names each request's proposed disposition. That judgment is the accountant's;
+the numbers above are the script's.
+
+### Disposition and roll-forward
+
+After the slate is applied (or carried forward with no reply), the accountant
+closes each request it decided with:
+
+```sh
+scripts/jobs/close-budget-request.sh <effort> funded|partial|deferred|declined|expired [note]
+```
+
+- `funded` / `partial` / `declined` move the file to
+  `budget/requests/closed/<week_start>/`, stamping `disposition`, `granted` (the
+  arc slice or campaign cap that covers it), `decided_by` (the accountant job),
+  and `authorized_by` (the maintainer login from the slate).
+- `deferred` keeps the file open and sets `window: this` for next week's
+  roll-up. An open request not renewed (no amend) for **three** weekly
+  statements is closed `expired`, so the queue cannot silt up.
+- **The disposition goes back to each requester.** For every entry in
+  `requesters` whose job is still live, the script sends an `inbox-send.sh`
+  message with `GARDEN_NO_DEADLETTER=1`. A completed requester does not get a
+  resurrected job. The closed file is the durable answer, and a later job for the
+  same effort reads it before re-filing.
+
+Mid-week, the accountant does not act on requests alone. The **re-slice nudge**
+(at most daily, edge-latched) gains a second trigger: an open `urgency: blocked`
+request whose arc has no headroom. The nudge names the request, and the
+maintainer decides whether to re-slice.
+
+### Guardrails
+
+- **A request is advisory input only.** It never writes `config/`, never
+  changes admission, and never grants tokens. Only a maintainer-authorized slate
+  applied through `set-apportionment.sh` grants budget. A funded request is
+  funded because the slate says so.
+- **No borrowing and no cancellation** (§ How the foreman draws): a `blocked`
+  request waits for a slate. It does not draw on another arc or on next week.
+- **Dedup by effort** (above). A requester re-filing to be louder only increments
+  `request_count`, and the statement shows that count as signal, not as extra
+  tokens.
+- **Injection hygiene.** Requests are written only by garden jobs and scripts
+  through journal push access, the same trust boundary as the bus. The accountant
+  treats the justification text as data to summarize for the maintainer, never as
+  instructions.
+
 ## What moves where
 
 | From | Responsibility | To |
@@ -210,6 +374,8 @@ forwards the words to a live `accountant-weekly-*` inbox or posts
 | Boundary | Mechanism | Policy | Durable state | Commit authority | Value crossing |
 | --- | --- | --- | --- | --- | --- |
 | maintainer → accountant | inbox message | maintainer | the reply message | maintainer (`authorized_by`) | a slate |
+| any role → accountant | `request-budget.sh` CAS (amend by effort) | requester estimates; advisory only | `budget/requests/open/<effort>.md` | requester's job (file only; no `config/`) | an estimate + justification |
+| accountant → requester | `close-budget-request.sh` + live-only `inbox-send.sh` | accountant applies the slate | `budget/requests/closed/<week>/` | accountant job | a disposition |
 | accountant → journal | `set-apportionment.sh` CAS | accountant applies maintainer's slate | `config/apportionment`, `arc-budgets/*`, `foreman-mandate` | accountant job | one atomic commit |
 | journal → foreman | `plan_deferred_status`, `arc-spend.sh` | rank + headroom | `usage/*.jsonl` (immutable) | foreman promotion CAS | ready / `arc-budget-over` |
 | foreman → admission | claim-time `usage-meter.sh` gate | pools/brakes | pools, leveling | claim CAS | admit / refuse |
@@ -226,6 +392,22 @@ readers; `post-plan.sh --arc`; orchestration `arc:` inheritance; rank ordering i
 the deferred selector; per-arc headroom in the foreman digest;
 `set-apportionment.sh`; `accountant-statement.sh`; the re-slice nudge; the
 `accountant-weekly` schedule; tests beside `ironhorse-press-budget-test.sh`.
+
+**Intake scope (added with § Budget requests).**
+- `request-budget.sh`, with the amend-by-effort dedup.
+- `close-budget-request.sh`, with live-only disposition delivery and expiry.
+- `post-orchestration.sh` auto-filing on `--budget-tokens` (and an `--arc` flag
+  if orchestration `arc:` inheritance does not already add one).
+- The foreman service filing one `urgency: blocked` request per held arc per
+  window.
+- The statement's Demand section, `planning_ceiling`, and the reset-credit read.
+- The re-slice nudge's blocked-request trigger.
+- Tests: dedup/amend, close/expire, no dead-letter on a completed requester, and
+  the Demand arithmetic.
+
+Intake does not depend on the rest of the build and could land first, because
+requests can accumulate before the first slate. The weekly job consumes them once
+`accountant-statement.sh` exists.
 
 Considered and rejected: a deterministic-only accountant (proposing a slate needs
 judgment over roadmap and board state; the numbers stay deterministic). A

@@ -10,6 +10,9 @@ to completion — so a follow-up is never forgotten.
   children → record orchestration → deterministic-watch pattern (the whole job).
 - [job-board](../../skills/job-board/SKILL.md) — the plan/promote/claim primitives
   the orchestration is built on.
+- [budget-request](../../skills/budget-request/SKILL.md) — an orchestration
+  recorded with `--budget-tokens` files its request automatically; without a
+  cap, file a whole-campaign estimate yourself.
 
 ## Operating norms
 
