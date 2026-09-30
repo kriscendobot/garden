@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T01:43:04Z_
+_As of 2026-09-30T01:49:10Z_
 
 ## Latest
 
-Two gauntlet stages advanced — [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) moved into a fresh CLEAN stage and [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) picked up a second PANEL round — while gauntlet fix rounds continue for #1379 (queued) and #1383 (in progress), and the subscription-based-budget-model deploy-gate regression fix remains in flight. Otherwise this is a quiet tick: no new completions besides a small gauntlet-handoff-handling improvement, and the long list of open maintainer items (M2/M3 milestone gauntlet authorizations, the federation release gate, the IronHorse test262 floor-reconciliation question, and the stalled leader-host deploy 25 commits behind) still awaits attention.
+PR #1349's gauntlet advanced a step overnight — the clean stage completed and panel round 2 finished on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), with panel round 1 now queued for #1349 itself. Meanwhile fix-loop work continues on two other gauntlets in flight: [endojs/endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383) (fix round 1) and [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (fix round 2, the ironhorse panic host-call PR). The `retire-gardener-worker-kind-alias-split` orchestration halted after its env-fallback child stalled for 42 minutes on a garden2 host, leaving its verify-docs step parked pending investigation. Two open decisions worth the maintainer's attention: M2 remains blocked on whether to authorize the gauntlet for #1349 and to close the superseded [endojs/endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356) in favor of upstream [endojs/endo#3332](https://github.com/endojs/endo/pull/3332); and the leader host's deployed checkout is now 25 commits behind `main2` and stalled, which per the watchdog means singleton producers (foreman, scheduler, watchers) aren't honoring anything newer than that stale commit.
 
 ## Parked for maintainer feedback
 
@@ -481,7 +481,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 177.2M | $1163.98 _(notional, rate-card)_ | 124% of 143.0M (backoff) |
+| Claude | 177.4M | $1164.76 _(notional, rate-card)_ | 124% of 143.0M (backoff) |
 | Codex | 15.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 126634937 tokens/day lower bound._
@@ -492,24 +492,23 @@ worst fetch p95 5.140894s/45s (/home/kris/garden/.garden-state/design-pr-gauntle
 ## Board
 ### todo (3)
 - [`improve-deadline-nudge-failure-trace-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-deadline-nudge-failure-trace-expanded-window.md) — improve-deadline-nudge-failure-trace (expanded window)
-- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1379
 - [`canary-probe-endolin-garden2-5bcdff64-7186edea9d60`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-7186edea9d60.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 7186edea9d60
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1349
 
-### doin (6)
-- [`endojs-endo-but-for-bots-pr1357-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1357
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1349
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1383-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1383-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1383
+- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1379
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
 - [`endo-daemon-idempotent-start-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-daemon-idempotent-start-build.md) — Endo daemon: idempotent start + early single-instance lock (phase 1)
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### tada (9808)
+### tada (9810)
+- [`endojs-endo-but-for-bots-pr1357-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1357-gauntlet-panel-2.md) — Completion report
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-clean.md) — Cost
 - [`improve-gauntlet-failed-stage-handoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/improve-gauntlet-failed-stage-handoff.md) — Completion report: improve-gauntlet-failed-stage-handoff
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1371-live-model-turn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1371-live-model-turn.md) — Completion report: endojs-endo-but-for-bots-pr1371-live-model-turn
-- [`endojs-endo-but-for-bots-pr1349-gauntlet-restart-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1349-gauntlet-restart-20260930.md) — Cost
-- [`kriscendobot-minion.town-pr120-75934ef0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr120-75934ef0-retro.md) — Cost
-- … and 9803 more
+- … and 9805 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
