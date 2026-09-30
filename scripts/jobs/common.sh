@@ -4792,12 +4792,14 @@ cursor_io_unlock() {
 # updating this clone. clone_lock protects the entire clone critical section,
 # so any such lockfile found while it is held cannot belong to a live fleet git
 # operation. Keep the set deliberately narrow: only git's standard top-level
-# locks plus ref locks are recoverable here.
+# locks plus ref locks are recoverable here. gc.log.lock is included because the
+# fleet pins gc.autoDetach=false (above), so no detached gc outlives its parent:
+# a gc.log.lock found under clone_lock is a killed maintenance run's leftover.
 _sweep_stale_git_locks() {
   local dir="$1" gitdir="$1/.git" lock removed=0
   [ -d "$gitdir" ] || return 0
 
-  for lock in index.lock HEAD.lock config.lock packed-refs.lock ORIG_HEAD.lock; do
+  for lock in index.lock HEAD.lock config.lock packed-refs.lock ORIG_HEAD.lock gc.log.lock; do
     if [ -e "$gitdir/$lock" ]; then
       rm -f -- "$gitdir/$lock"
       removed=1
@@ -7859,10 +7861,22 @@ sync_clone() {
         ( ensure_clone "$dir" )
       fi
       if journal_fetch "$dir" 0; then rc=0; else rc=$?; fi
-      if [ "$rc" -ne 0 ] && _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR"; then
+      # Classify the re-fetch exactly like the fetch sites above: a timeout kill
+      # (124) or its SIGKILL escalation (137), an offline signature, or the
+      # retry-exhausted ambiguous outage is a clean skip. Falling through to the
+      # reset after a killed fetch only trips over the lockfile the kill left
+      # behind and dies with a misleading "cannot lock ref" FATAL.
+      if [ "$rc" -ne 0 ] \
+         && { [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] \
+              || _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR" \
+              || journal_bounded_fetch_is_ambiguous_outage "$rc" "$GARDEN_FETCH_STDERR"; }; then
         log "offline on reset; skipping tick (rc=$GARDEN_OFFLINE_RC)"
         exit "$GARDEN_OFFLINE_RC"
       fi
+      # clone_lock is still held, so any git lockfile now present was left by a
+      # git child this invocation killed (a timed-out fetch, or the failed first
+      # reset). The entry sweep above ran before those children existed.
+      _sweep_stale_git_locks "$dir"
       reset_stderr=""
       if ! reset_stderr="$(git -C "$dir" reset -q --hard "origin/$JOURNAL_BRANCH" 2>&1 1>/dev/null)"; then
         die "hard reset of $dir to origin/$JOURNAL_BRANCH failed after retry${reset_stderr:+: $reset_stderr}"
