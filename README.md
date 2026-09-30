@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T20:55:38Z_
+_As of 2026-09-30T20:58:23Z_
 
 ## Latest
 
-The board stayed busy overnight on the endojs/endo-but-for-bots sturdyref-layer stack — layers 1–8 (PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) are all mid-gauntlet, along with the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), now on its fourth fix/panel round. Otherwise mostly routine churn: a credit-watch job picked up a claim, and the 10 PRs parked for review are unchanged from last bulletin, led by [#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) (ironhorse computron-parity chore, waiting 3 days) and [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) (SES lockdown intrinsics report fix, waiting 13 days). Worth a maintainer look in the inbox: oros-studio-garden-ce242c49 is reporting offline and will be skipped by rolling deploys until its heartbeat recovers, and [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357)'s panel coverage has gone stale against a new head, so it needs an explicit "run the gauntlet" or a maintainer call before it can proceed.
+The sturdyref layer stack dominates the board: layers 1–8 (PRs #774, #1390–#1398) are churning through panel/fix rounds in parallel, with #1390's petname-path-only sweep now on its fourth fix round and #1397/#1398 queued for a base-rebase once the stack restacks onto frozen bases. [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) (ironhorse panic live-handle reseat) is on fix round 5, and a separate ironhorse panic PR hit its gauntlet review budget after 6 rounds without converging — left improved but needing a human merge call. The garden book was revised and republished with new chapters on the library and inference tiers. Two items need a maintainer decision to unblock: [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357)'s panel coverage is stale against its current head and needs an explicit re-review request, and the M3 milestone is blocked on choosing between advancing #1015 (after its #1348 prerequisite clears) or answering [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340)'s open questions. Host `oros-studio-garden-ce242c49` dropped offline (heartbeat stale) and will be skipped by the rolling deploy until it's restored.
 
 ## Parked for maintainer feedback
 
@@ -69,7 +69,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 31 of 745 clone(s) on consecutive ticks.
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T20:43:07Z, cleared 2026-09-30T20:57:54Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `msg-build-minion-town-mcp-garden2-workers-76b942035c1f` — from gardener:build-minion-town-mcp-garden2-workers, reply_to `build-minion-town-mcp-garden2-workers` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-mcp-garden2-workers-76b942035c1f.md)
 
@@ -103,13 +107,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.4M | $125.33 _(notional, rate-card)_ | 5% of 256.0M (ok) |
+| Claude | 12.4M | $128.10 _(notional, rate-card)_ | 5% of 256.0M (ok) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 181028137 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (18)
