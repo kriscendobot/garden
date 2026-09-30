@@ -4,6 +4,6 @@
 # Columns, tab-separated:
 # subscription_id	provider	ceiling_kind	ceiling	calibrated_from	calibrated_at
 claude-endolin1	anthropic	weekly-tokens	256000000	manual-checkpoints-20260930-true-cap-256-267M	2026-09-30
-claude-endolin2	anthropic	weekly-tokens	121000000	manual-checkpoint-82pct-20260930T1725-maintainer	2026-09-30
+claude-endolin2	anthropic	weekly-tokens	121000000	placeholder	2026-09-30
 claude-oros	anthropic	weekly-tokens	73000000	manual-single-point-fresh-pair	2026-09-17T02:06:49Z
 codex-endolin	openai	percent	100	codex-cli-rate-limit	2026-09-28
