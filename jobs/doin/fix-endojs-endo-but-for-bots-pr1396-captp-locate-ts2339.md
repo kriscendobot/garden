@@ -27,3 +27,13 @@ type their locators), run the repo-root `tsc -p tsconfig.json` and
 safe-push-pr-head.sh. Then restack the layers above it so they carry the fix:
 #1397 (`build/sturdyref-ocapn-enliven`) and #1398 (`build/sturdyref-daemon-formula`),
 moving each PR's frozen base as needed. Confirm #1398's lint job goes green.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T10:55:11Z
