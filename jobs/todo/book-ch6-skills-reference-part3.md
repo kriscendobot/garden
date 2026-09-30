@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: book-ch6-skills-reference-part2
-priority: normal
-posted_by: producer
-posted_at: 2026-09-30T04:32:47Z
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-09-30T04:46:08Z cleared=none -->
 
 ---
 handler-timeout: 7200
