@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T20:50:35Z_
+_As of 2026-09-30T20:52:47Z_
 
 ## Latest
 
-The sturdyref-layer sequence continues its heavy gauntlet churn: layers 1–7 (PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) and the petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) are all mid-panel/fix, alongside a fresh clean stage for [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398). The Ironhorse panic PR ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) exhausted its review budget after six fix rounds and is left CI-green for a human merge call. Panel coverage on [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) went stale (head moved past the reviewed commit), so it's parked awaiting an explicit re-review request. The garden book was revised and republished with new chapters on the library and inference tiers. Two decisions are waiting on the maintainer: the minion.town MCP principal/scoping question, and the M3 choice between advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) after its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite or answering [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340)'s open questions. Separately, host `oros-studio-garden-ce242c49` is offline and will be skipped by rolling deploys until its heartbeat recovers.
+The sturdyref layer stack continued grinding through gauntlets: layers 1–7 are mid-panel/fix on [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), with layer 8 ([#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) just entering CLEAN; a companion job is queued to rebase #1397/#1398 onto restacked frozen bases. The petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) is on its fourth panel/fix cycle. A panel-head freshness check flagged that the review of [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) is stale against its current head — no gauntlet staged, awaiting a maintainer call. The Ironhorse panic-host-call PR ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) hit its 6-round review budget without converging and is left for human review. The garden book was republished with two new chapters (library/scholar and inference-tier reference). A new review directive landed for [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and copy-edit and PR #695 viability jobs are queued.
 
 ## Parked for maintainer feedback
 
@@ -103,7 +103,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.1M | $120.67 _(notional, rate-card)_ | 5% of 256.0M (ok) |
+| Claude | 12.3M | $124.00 _(notional, rate-card)_ | 5% of 256.0M (ok) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 181028137 tokens/day lower bound._
@@ -112,8 +112,10 @@ _Fleet token-unlock pace: 181028137 tokens/day lower bound._
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (17)
+### todo (19)
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
+- [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`endojs-endo-but-for-bots-pr1340-review-85c8bc95`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-review-85c8bc95.md) — Review directive on endojs/endo-but-for-bots PR #1340
 - [`improve-journal-fallback-warn-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-journal-fallback-warn-dedup.md) — ---
 - [`ebfb-petname-path-only-sweep-3-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-3-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1390
 - [`reset-credit-watch-20260930-195052`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/reset-credit-watch-20260930-195052.md) — ---
@@ -192,6 +194,7 @@ worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`kriscendobot-minion.town-pr135-review-e4d01640-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr135-review-e4d01640-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #135 (primary: kriscendobot-mini...
 - [`endojs-endo-but-for-bots-pr695-5e067785-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr695-5e067785-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #695 (primary: endojs-endo-but-f...
 - [`endojs-endo-but-for-bots-pr1357-review-a8630960-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1357-review-a8630960-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1357 (primary: endojs-endo-but-...
+- [`endojs-endo-but-for-bots-pr1340-review-85c8bc95-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1340-review-85c8bc95-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1340 (primary: endojs-endo-but-...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
