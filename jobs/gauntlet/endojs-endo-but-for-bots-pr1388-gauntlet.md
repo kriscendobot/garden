@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1388
 build_job: design-ebfb-ocapn-cloudflare-netlayer
 kind: feature
-stage: panel
+stage: fix
 iteration: 6
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-stage_retries: 2
+stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1388-gauntlet-panel-6
+current_child: endojs-endo-but-for-bots-pr1388-gauntlet-fix-6
 state: running
 created_by: producer
 created_at: 2026-09-30T04:46:18Z
