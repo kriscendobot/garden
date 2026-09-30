@@ -69,3 +69,13 @@ appended to, not overwritten) naming exactly which roles remain. Do not
 silently truncate — a thin one-line entry for a role you didn't have budget
 to cover properly is worse than an honest "remaining: X, Y, Z" note plus a
 follow-on job.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T03:52:50Z
