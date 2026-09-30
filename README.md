@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T15:54:32Z_
+_As of 2026-09-30T16:05:23Z_
 
 ## Latest
 
-The sturdyref layering arc completed its full 10-stage serial run, but every one of its layer1–layer8 clean/fix gates halted on a declared failed/declined outcome — the mechanism ran to completion without landing anything usable, so the arc needs a maintainer look. Two IronHorse test262 round-3 messages ask the same question: with 906 lost paths against the pre-change floor (443 engine-limit aborts, 397 shared-positive-test-failures, 66 other), may the draft record an explicitly reconciled floor of 36,599 covered rather than forcing a literal zero-loss match against stale historical dispositions? Fleet health otherwise looks routine — budget-level and journal-contention watchdog churn, a stuck rolling-deploy canary on oros-studio, and Claude spend at 96% of the weekly cap — alongside two publications: the Endo progress report (June–September, 471 merged PRs, IronHorse test262 up to 37,285/51,976) and the full 8-chapter garden book, both at their ocap.site links in the messages above.
+Overnight the sturdyref layering arc completed its full 10-stage serial orchestration, but six of those gauntlets — layers 1, 3, 4, 5, 6, and 7 plus the daemon-formula stage — halted at their clean or fix stages because the stage explicitly declared a failed/declined outcome, so those layers need a maintainer look rather than a retry. Deploys are stalled on two hosts: the leader (endolin-garden-ece02cb4) is 25 commits behind origin/main2 and, since it runs every singleton producer, is not honoring anything newer than its deployed sha; oros-studio-garden-ce242c49's canary has been stuck ~81 minutes on an undeployed release. Fleet claiming on endolin-garden-ece02cb4 is fail-closed because the `claude-endolin1` budget pool has an uncalibrated placeholder cap — no job will claim there until `set-budget-pool.sh` gets a real number — and Claude spend overall sits at 96% of the weekly cap. The ironhorse test262 ratchet round-3 and the subscription-model deploy-gate regression fix both remain parked awaiting maintainer decisions on how to reconcile historical floors versus current classifier behavior. On the lighter side, the full garden book (8 chapters) and an Endo progress report covering 471 merged PRs since June are both published. Among the parked PRs, [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) remain the longest-waiting review items.
 
 ## Parked for maintainer feedback
 
@@ -695,10 +695,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 244.9M | $1541.08 _(notional, rate-card)_ | 96% of 256.0M (ok) |
-| Codex | 17.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Claude | 245.0M | $1541.36 _(notional, rate-card)_ | 96% of 256.0M (ok) |
+| Codex | 17.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 65160723 tokens/day lower bound._
+_Fleet token-unlock pace: 65223731 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.957588s/45s (unknown); 3 open notice(s); checker healthy
