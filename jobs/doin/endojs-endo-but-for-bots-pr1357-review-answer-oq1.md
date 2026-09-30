@@ -38,3 +38,13 @@ Task:
 3. Reply in-thread to comment 4149077338 naming the commit SHA and what changed
    (gh api repos/endojs/endo-but-for-bots/pulls/1357/comments/4149077338/replies -f body=...).
 Do not un-draft or merge; the conductor child in this orchestration does that.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T22:16:44Z
