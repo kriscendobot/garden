@@ -39,3 +39,13 @@ Maintainer ask (kriskowal, liaison session 2026-09-30): "A number of efforts are
 - An updated build job body, or a note on the parked build job, so the build includes intake.
 
 If the design has open questions for the maintainer, present it as a review PR per the garden's open-questions carve-out; otherwise land it direct to `main2`. The accountant's live budgeting conversation (`accountant-budget-conversation-20260930`) may send you the maintainer's views on your inbox; incorporate them.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T21:10:20Z
