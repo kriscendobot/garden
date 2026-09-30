@@ -13,8 +13,8 @@ stage: clean
 iteration: 0
 resumes: 0
 stage_retries: 0
-current_child: 
-state: resume-pending
+current_child: ebfb-petname-path-only-gauntlet-clean
+state: running
 resumed_at: 2026-09-30T17:27:00Z
 resumed_from_stage: clean
 ---
