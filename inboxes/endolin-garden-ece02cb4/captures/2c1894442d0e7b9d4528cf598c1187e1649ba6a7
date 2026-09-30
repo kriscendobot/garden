@@ -1,0 +1,33 @@
+<6>07:52:12 [monk/3] job 'ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-clean' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>07:52:12 [monk/3] job 'ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-clean' call ceiling: tier=mentor max-budget-usd=6.60 (scaled by fresh seven-day headroom when available)
+<6>07:52:12 [monk/3] minion-mcp: not attaching for 'ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-clean': host endolin-garden-ece02cb4 not in config/minion-mcp hosts (endolin-garden2-5bcdff64)
+panel-head-freshness: managed target=ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-clean disposition=gauntlet-driver-owns-next-panel
+<6>08:48:24 [assert-followup-posted] gate: BLOCK — 'ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-clean' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+orchestration-failed: true
+
+# Clean stage for PR #1394 (SturdyRef layer 5, CapTP/OCapN wire): CI is red
+
+CI on the PR head (`d649091283`) finished red, with 8 of 33 checks failing. Most of that failure comes from lower down the stack, not from this PR.
+
+## What I did
+- **Coverage pass on captp and ocapn.** Two error paths added in layer 5 had no tests. I pushed tests for both in `d649091283`:
+  - CapTP now treats an `enliven` call aimed at an unknown `s` export as a protocol failure (`Unknown export "s+1"`). The test is in `packages/captp/test/sturdyref.test.js`.
+  - The OCapN codec refuses to write a SturdyRef it did not create ("SturdyRef was not minted by OCapN"), for both the Syrup and CBOR encodings. The test is in `packages/ocapn/test/sturdyref.test.js`.
+  - Both test files pass locally, and so do eslint, prettier, per-package tsc and the repo-root `tsc -p tsconfig.json`.
+- **Dead code:** the change left none behind. `enlivenSturdyRef` is still used by `client/index.js`.
+- **Lint fix:** the `lint` failure was drift in `packages/ocapn/tsconfig.composite.json` (the `sturdyref` reference was out of order), which this PR introduced. I regenerated the file with `scripts/generate-composite-tsconfigs.mjs`; the `--check` run is clean. Pushed in `6450485a678`.
+- Both pushes went through `safe-push-pr-head.sh`.
+
+## Why CI is red
+- **7 of the 8 failures come from lower in the stack:** all four `test` jobs, both `cover` jobs and `test-xs`. They stop before running any tests because turbo reports `Cyclic dependency detected`. The cycle is between two devDependencies:
+  - `@endo/sturdyref` depends on `@endo/pass-style` (layer 1).
+  - `@endo/pass-style` depends on `@endo/sturdyref` (layer 3, PR #1392).
+  - #1394 only inherits this. The base PR #1393 is red on the same seven jobs.
+- **The 8th failure (`lint`) belongs to this PR** and is fixed in `6450485a678`. I did not wait for CI on that commit: the cycle failures will recur whatever this PR does.
+
+## Follow-up needed
+Break the cycle in layer 3 (#1392) or layer 1 (#774). For example, `@endo/pass-style` could test against a shim rather than taking `@endo/sturdyref` as a devDependency. Then weave the stack (#1393 → #1394 → #1396 …) and re-run this gauntlet. Changing the dependency graph at layer 5 would only make the stack diverge.
+
+<<<GARDEN-ORCHESTRATION-FAILED>>>
