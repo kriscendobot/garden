@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Absorbed, not promoted: the maintainer's 2026-09-30 layer-1 framing (endojs/endo-but-for-bots#695 directive) is a distinct SturdyRef global constructed with an enliven handler; child ebfb-sturdyref-layer1-shim-design-20260930 of orchestration ebfb-sturdyref-layering-20260930 reconciles this HandledPromise-enliven-trap vision in its design PR.
+withdrawn_by: ebfb-sturdyref-layering-supervisor-20260930
+withdrawn_at: 2026-09-30T04:37:35Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 role: designer
