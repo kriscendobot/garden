@@ -38,3 +38,13 @@ Code retirement landed in `02513cd130f`; this child closes out verification + do
 Land directly on `main2`. Orchestrated failure contract: if you finish but the gate
 check fails (legacy units/markers live on a host), end your report with
 `<<<GARDEN-ORCHESTRATION-FAILED>>>` then `<<<GARDEN-JOB-COMPLETE>>>`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T22:43:37Z
