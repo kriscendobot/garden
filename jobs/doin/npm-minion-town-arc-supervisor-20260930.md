@@ -22,6 +22,7 @@ Deploy discipline: see the memories on minion.town deploys (EADDRINUSE orphan re
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
