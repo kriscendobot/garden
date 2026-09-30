@@ -32,3 +32,13 @@ bare pet-name acceptance across the whole Exo surface. Keep this PR's value side
 compatible with that direction (prefer arrays of path components).
 
 Run packages/daemon tests + lint:types + test:types before pushing.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T05:14:53Z
