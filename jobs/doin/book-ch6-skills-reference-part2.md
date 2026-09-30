@@ -13,3 +13,13 @@ Cover exactly these 33 skills (suggested sections: planning and design intake; t
 pr-dependency-graph, pr-dependency-topo-sort, design-dependency-walk, design-to-pr-pipeline, gap-revealing-build, ownership-map, sibling-family-sweep, build-vs-buy, adversarial-tests, saboteur-adversarial-review, coverage-driven-testing, regression-evidence, review-retrospective, review-queue-poll, ci-failure-classification-loop, context-library, library-lookup, journalism, self-improvement, liaison-reports, mermaid-validation, em-dash-style, no-latin-shorthand, no-comment-banners, relative-paths, rename-discipline, typist-friendly-code-points, changeset-discipline, american-english-normalization, botese-normalization, gricean-maxims, foreign-content-preclassification, fully-qualified-github-urls.
 
 The remaining 34 skills belong to the parked job book-ch6-skills-reference-part3, which is blocked on this job and promotes automatically when it completes; do not cover them.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:39:32Z
