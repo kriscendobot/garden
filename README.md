@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-30T20:11:36Z_
+_As of 2026-09-30T20:13:32Z_
 
 ## Latest
 
-The gauntlet on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (sturdyref layer 2, SES) landed its fix round 4 with a panel-head freshness write-up and moved to completed. Otherwise the board churned mostly on housekeeping: the macOS daemon-teardown-flake job was claimed off `todo`, and the large sturdyref PR stack (#1390, #1392–#1398) continues working through panel/fix rounds in parallel.
+A large coordinated stack is mid-gauntlet on endo-but-for-bots: the "sturdyref" layer series — [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) — is working through panel/fix/clean stages in parallel, with the petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) now on its third fix round. Separately, the ironhorse panic live-handle-reseat gauntlet ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is on fix round 5, while a sibling ironhorse panic-host-call gauntlet exhausted its 6-round review budget without converging and now awaits a human merge call.
+
+Three items need a maintainer decision: the foreman is blocked on M3 pending a choice between advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite clears or answering the four open questions on design [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340); M2 needs explicit authorization to "run the gauntlet #1349" on the CI-green draft [#1349](https://github.com/endojs/endo-but-for-bots/pull/1349); and the minion.town MCP rollout is paused on a principal/Cognito-client decision plus a call on per-role tool-context cost before it widens past garden2. Spend remains light — Claude at 2% of the weekly quota, Codex at 38% of its plan — though several budget-level watchdog notices show worker counts oscillating on the endolin hosts as targets adjust.
 
 ## Parked for maintainer feedback
 
@@ -146,19 +148,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
+- `watchdog-journal-lock-contention-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden__garden_state_leader_journal.md)
+
+> Journal lock contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/leader/journal: p95=49.979249s, giveups=0, steals=0 (max 3/window), wait floor=60s.
+
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.1M | $40.50 _(notional, rate-card)_ | 2% of 256.0M (ok) |
+| Claude | 4.2M | $41.08 _(notional, rate-card)_ | 2% of 256.0M (ok) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 142685157 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (15)
