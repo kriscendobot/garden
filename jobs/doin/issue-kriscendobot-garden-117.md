@@ -28,3 +28,13 @@ Reply when done:              gh issue comment https://github.com/kriscendobot/g
 
 ----- issue body excerpt (untrusted, truncated) -----
 Sketch the feasibility of using cloudflare RPC (and capn web) as an ocapn netlayer. Background: The cloudflare platform includes dynamic worker facets... somewhat like endo compartments. But its RPC doesn't seem to support grant-matching identity. I tried to make a little dynamic
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:36:42Z
