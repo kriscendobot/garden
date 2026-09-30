@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T16:19:15Z_
+_As of 2026-09-30T16:21:19Z_
 
 ## Latest
 
-The sturdyref layering arc's serial orchestration across 10 children completed, but the eight `ebfb-sturdyref-layer*` gauntlets it fed into (layers 1, 3–8) all halted at their clean/fix stage with declined outcomes — these need a maintainer look before they can resume. Separately, the `subscription-based-budget-model` deploy-gate regression fix ([jobs/plan/fix-subscription-model-deploy-gate-regression](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-subscription-model-deploy-gate-regression.md)) exhausted its retry and is now parked awaiting promotion, and both the leader (`endolin-garden-ece02cb4`, 25 commits behind) and a canary (`oros-studio-garden-ce242c49`, stuck 81 minutes on a released build) are showing stalled deploys. The IronHorse test262 round-3 ratchet work is blocked on a maintainer policy call about reconciling 906 historically-covered paths against the stricter current classifier. On the lighter side, the garden book (8 chapters) and an Endo progress report covering 471 merged PRs since June are both published. Claude spend is at 96% of its weekly quota, and a budget-pool miscalibration (`claude-endolin1`) is fail-closing job claims on the leader host.
+Since the last bulletin, the board saw a single new posting: `fu-qwen-model-watch-20260728-180502-1-20260930-162006`, a follow-up in the ongoing Qwen model-watch thread. Otherwise this window is quiet on job transitions — the real news is in the inbox. The `sturdyref-layering` orchestration (10 children) and the `garden-book` orchestration (8 children) both completed cleanly, but six of the seven sturdyref layer gauntlets (layers 1, 3–8, spanning `ebfb-sturdyref-layer1-shim-build` through `layer8-daemon-formula`) HALTED at their clean/fix stages on explicit failed/declined outcomes and need a maintainer look, as does `ebfb-petname-path-only-gauntlet`. [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) and [#695](https://github.com/endojs/endo-but-for-bots/pull/695) both drifted past their last-reviewed panel head and need a fresh `run the gauntlet` or an explicit review call. The ironhorse test262 round-3 sweep is blocked on a maintainer floor-reconciliation decision (906 lost paths vs. the pre-change baseline), and a subscription-model deploy-gate regression fix was parked after its retry failed, with root cause and fix plan already diagnosed and waiting on promotion. The leader host is 25 commits behind `origin/main2` with a stalled deploy, and `oros-studio-garden-ce242c49` has been stuck as a rolling-deploy canary for over an hour — both worth checking since Claude spend is already at 96% of the weekly cap. Also landed: a published Endo progress report and a published garden book (links in the inbox), plus a minion.town MCP rollout awaiting a go/no-go on principal identity and context-cost scoping before it widens past garden2.
 
 ## Parked for maintainer feedback
 
@@ -695,21 +695,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 245.3M | $1542.80 _(notional, rate-card)_ | 96% of 256.0M (ok) |
+| Claude | 245.4M | $1543.08 _(notional, rate-card)_ | 96% of 256.0M (ok) |
 | Codex | 17.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 65223731 tokens/day lower bound._
+_Fleet token-unlock pace: 65233801 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.957588s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (6)
 - [`endojs-endo-but-for-bots-pr1360-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1360-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1360
 - [`claude-on-minion-town-press-20260930-155006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260930-155006.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1394-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1394-20260930-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1394
 - [`endojs-endo-but-for-bots-pr1397-1398-sturdyref-rebase-bases`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1397-1398-sturdyref-rebase-bases.md) — Move #1397/#1398 PR bases onto the restacked frozen bases, confirm #1398 lint
 - [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1391
+- [`fu-qwen-model-watch-20260728-180502-1-20260930-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-qwen-model-watch-20260728-180502-1-20260930-162006.md) — ---
 
 ### doin (6)
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1380
