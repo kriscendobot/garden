@@ -66,3 +66,13 @@ to `journal/projects/garden-book/ch7-procedures-workflows.md` as Markdown.
 Name real script paths (`scripts/jobs/gardening/garden-pr.sh`,
 `scripts/jobs/gardening/panel.sh`, `scripts/jobs/post-orchestration.sh`,
 `scripts/ferry.sh`) rather than describing mechanisms abstractly.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:23:17Z
