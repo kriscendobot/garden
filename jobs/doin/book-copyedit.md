@@ -46,6 +46,7 @@ and republish per `build/README.md`, update its Edition line (keep prior
 editions listed as history), and report the new URL in your completion
 report and via `scripts/jobs/message-user.sh <this-job-base>`.
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
