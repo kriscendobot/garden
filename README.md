@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-30T18:04:04Z_
+_As of 2026-09-30T18:06:18Z_
 
 ## Latest
 
-The sturdyref layer stack kept moving through the gauntlet: layer 3 (pass-style, [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) cleared panel round 2 and is now in fix round 2, layer 4 (marshal, [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) cleared its clean stage and entered panel, and layers 1, 5, 6, and 7 ([#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) are queued or claimed for their clean stage. The petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) closed out panel round 3 and fix round 2 and is now on fix round 1 of a fresh pass. Separately, the comment-provenance instrumentation-gap fix on endolin-garden-ece02cb4 landed.
+The sturdyref layer stack dominates activity: layers 1, 4, 5, 6, and 7 are through CLEAN and into panel review, layer 3 ([endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) and layer 2 ([endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)) are deep in fix rounds (2 and 4 respectively), and a separate job is queued to move #1397/#1398's bases onto the restacked frozen bases. The petname-path-only gauntlet ([endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) continues cycling through parallel fix/panel rounds across several sweeps. The ironhorse panic-host-call gauntlet closed out its review budget after 6 fix/panel rounds with CI green but no convergence — it's parked for a human merge decision — while the live-handle-reseat variant ([endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is now on its 4th fix round.
 
-Several items need maintainer attention: the `fix-subscription-model-deploy-gate-regression` job exhausted its retry and is parked pending promotion (deploys have been gate-blocked on this since 2026-09-20); the ironhorse test262 round-3 sweep found 906 lost paths against the historical floor and needs a policy decision on how to reconcile it; and the `claude-endolin1` budget pool remains uncalibrated, fail-closing claims on endolin-garden-ece02cb4 (3412 occurrences) and freezing monk allocation fleet-wide. Claude spend is at 98% of its weekly quota. The Endo progress report (2026-06-24 to 2026-09-30) is also published for review.
+Worth a look: the fleet's Claude spend is at 98% of its weekly quota, and the `claude-endolin1` budget pool is still running on an uncalibrated placeholder cap, which is fail-closing claims on the endolin-garden-ece02cb4 host and freezing monk allocation fleet-wide — a calibrated cap needs to be set. Two split-eligible jobs (a deploy-gate regression fix and a gardener-worker-kind alias retirement) exhausted their retries and are parked awaiting promotion. The endo progress report for Q3 (2026-06-24 to 2026-09-30) has been published, covering roadmap movement, six shipped themes, and test262 coverage growth from 4,740 to 37,285 of 51,976 cases.
 
 ## Parked for maintainer feedback
 
@@ -380,10 +380,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 250.9M | $1572.83 _(notional, rate-card)_ | 98% of 256.0M (ok) |
+| Claude | 251.0M | $1573.07 _(notional, rate-card)_ | 98% of 256.0M (ok) |
 | Codex | 17.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 66792049 tokens/day lower bound._
+_Fleet token-unlock pace: 66581810 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 2 open notice(s); checker healthy
