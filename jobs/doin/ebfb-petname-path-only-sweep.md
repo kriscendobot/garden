@@ -45,6 +45,8 @@ call sites elsewhere. Remaining work:
 Coordinate with #1343 (endowment value side); rebase over it if it lands first.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
