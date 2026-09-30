@@ -70,12 +70,10 @@ export GIT_CEILING_DIRECTORIES="$GARDEN_ROOT${GIT_CEILING_DIRECTORIES:+:$GIT_CEI
 # Per-instance journal clone lives under the KIND's state namespace, so a cleric-1
 # and a monk-1 never share a working tree. Exported as GARDEN_WORKER_CLONE — the
 # kind-neutral name claim-job.sh / complete-job.sh read — so those primitives operate
-# on THIS worker's clone without a signature change (the env is the seam). The legacy
-# GARDEN_GARDENER_CLONE is still honored when the new variable is unset, and is kept
-# exported to the same value so any child/handler that still reads the old name sees
-# the identical clone (design anthropic-worker-kind-monk.md § Shared spine and handlers).
-export GARDEN_WORKER_CLONE="${GARDEN_WORKER_CLONE:-${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/$STATE_NS/$id/journal}}"
-export GARDEN_GARDENER_CLONE="$GARDEN_WORKER_CLONE"
+# on THIS worker's clone without a signature change (the env is the seam). It is the
+# only name: the legacy gardener-kind alias is retired (design
+# anthropic-worker-kind-monk.md § Shared spine and handlers).
+export GARDEN_WORKER_CLONE="${GARDEN_WORKER_CLONE:-$GARDEN_STATE/$STATE_NS/$id/journal}"
 CLONE="$GARDEN_WORKER_CLONE"
 
 : "${GARDEN_IDLE_SLEEP:=5}"
@@ -549,7 +547,7 @@ while :; do
 
   log "working '$base'"
   # Bound EVERY handler's runtime here at the single call site, not inside each
-  # handler, so the cap covers gardener-claude.sh's unbounded `claude -p`, the
+  # handler, so the cap covers monk-claude.sh's unbounded `claude -p`, the
   # gardening state machine, and any future handler uniformly. A wedged/runaway
   # handler (network hang, infinite tool loop) would otherwise run forever,
   # pinning one of the ~100 scarce gardener instances and its $BUSY_MARKER — which
@@ -1283,7 +1281,7 @@ while :; do
     # A `claude -p` handler that dies on an API overload / rate-limit / 5xx / bare
     # connection drop produces NOTHING worth a human: either an empty capture
     # (nothing on stdout/stderr and an empty $report — the bare empty-output-nonzero
-    # signature of gardener-claude.sh being killed mid-call) or a capture whose only
+    # signature of monk-claude.sh being killed mid-call) or a capture whose only
     # content is one of the transient signatures below. That is a self-resolving
     # blip, not a deterministic job defect — the reaper already requeues the job
     # after GARDEN_CLAIM_TTL. Escalating it as a kind:error to the gardener inbox

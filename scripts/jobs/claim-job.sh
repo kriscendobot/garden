@@ -183,9 +183,8 @@ job_eligible_for_kind() {
   fi
 }
 
-# The per-instance clone seam: the kind-neutral GARDEN_WORKER_CLONE, honoring the
-# legacy GARDEN_GARDENER_CLONE when unset (the spine exports both to one value).
-DIR="${GARDEN_WORKER_CLONE:-${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/monks/$id/journal}}"
+# The per-instance clone seam: the kind-neutral GARDEN_WORKER_CLONE the spine exports.
+DIR="${GARDEN_WORKER_CLONE:-$GARDEN_STATE/monks/$id/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 

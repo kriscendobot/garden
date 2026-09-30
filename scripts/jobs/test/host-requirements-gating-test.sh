@@ -22,7 +22,7 @@ printf '# ordinary job\n' > "$SEED/jobs/todo/plain.md"
 git -C "$SEED" add -A; git -C "$SEED" -c user.name=t -c user.email=t@l commit -qm seed
 git -C "$SEED" remote add origin "$BARE"; git -C "$SEED" push -q -u origin "$BRANCH"
 VERIFY="$TR/verify"; printf '#!/bin/sh\n[ "${AWS_OK:-0}" = 1 ]\n' > "$VERIFY"; chmod +x "$VERIFY"
-claim() { env GARDEN=host-a GARDEN_STATE="$TR/state-$1" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_GARDENER_CLONE="$TR/clone-$1" GARDEN_AWS_VERIFY="$VERIFY" AWS_OK="$2" "$JOBS/claim-job.sh" 1; }
+claim() { env GARDEN=host-a GARDEN_STATE="$TR/state-$1" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_WORKER_CLONE="$TR/clone-$1" GARDEN_AWS_VERIFY="$VERIFY" AWS_OK="$2" "$JOBS/claim-job.sh" 1; }
 
 got="$(claim unavailable 0 2>/dev/null || true)"
 [ "$got" = plain ] && ok "host without AWS skips requires: aws and claims unheadered plain job" || bad "without AWS claimed '$got' (wanted plain)"
@@ -50,7 +50,7 @@ n=$(cat "$AWS_PROBE_COUNT" 2>/dev/null || echo 0); n=$((n + 1)); echo "$n" > "$A
 EOF
 chmod +x "$LAPSE"
 env GARDEN=host-b GARDEN_STATE="$TR/post-state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
-  GARDEN_WORKER_KIND=monk GARDEN_GARDENER_CLONE="$TR/post-clone" \
+  GARDEN_WORKER_KIND=monk GARDEN_WORKER_CLONE="$TR/post-clone" \
   GARDEN_AWS_VERIFY="$LAPSE" AWS_PROBE_COUNT="$TR/probes" GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=0 \
   GARDEN_JOB_HANDLER="$HERE/stub-handler.sh" "$JOBS/gardener.sh" 1 >"$TR/post.log" 2>&1 || true
 rm -rf "$V"; git clone -q --branch "$BRANCH" "$BARE" "$V"

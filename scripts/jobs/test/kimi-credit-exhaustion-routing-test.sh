@@ -46,10 +46,10 @@ rm -rf "$peek"
 # A minion tier is eligible to the cleric even if a stale concrete compatibility
 # field disagrees: the durable tier wins claim eligibility.
 env GARDEN=testhost GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH="$branch" \
-  GARDEN_GARDENER_CLONE="$TR/state/cleric/journal" GARDEN_WORKER_KIND=cleric \
+  GARDEN_WORKER_CLONE="$TR/state/cleric/journal" GARDEN_WORKER_KIND=cleric \
   "$JOBS/claim-job.sh" 7 > "$TR/claimed"
 env GARDEN=testhost GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$bare" JOURNAL_BRANCH="$branch" \
-  GARDEN_GARDENER_CLONE="$TR/state/cleric/journal" GARDEN_WORKER_KIND=cleric \
+  GARDEN_WORKER_CLONE="$TR/state/cleric/journal" GARDEN_WORKER_KIND=cleric \
   "$JOBS/claim-job.sh" 7 > "$TR/reclaimed"
 [ "$(cat "$TR/reclaimed")" = live-kimi ] && ok "requeued Kimi work is claimable by a non-Kimi cleric" || bad "cleric did not claim requeued work"
 

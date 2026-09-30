@@ -20,7 +20,7 @@
 # and corrupted each other.
 #
 # The fix is to key the project worktree by the gardener's UNIQUE JOB BASE (the
-# same key gardener-claude.sh uses for the garden worktree), never by repo+branch
+# same key monk-claude.sh uses for the garden worktree), never by repo+branch
 # or a PR number. Two concurrent jobs on the same repo/branch have distinct bases
 # and therefore distinct working trees; the git push to the shared head branch is
 # where they legitimately race (CAS at the remote), but the working trees can
@@ -32,7 +32,7 @@
 # The path is DETERMINISTIC in (base, repo, branch): a reaper requeue re-runs the
 # SAME base, so the resumed gardener re-derives the SAME path and re-enters its
 # in-flight checkout instead of starting from a clean tree and losing uncommitted
-# work — exactly as gardener-claude.sh's per-base garden worktree does. An
+# work — exactly as monk-claude.sh's per-base garden worktree does. An
 # existing, validly-registered worktree is therefore REUSED as-is; only a missing
 # or stale/broken directory is (re)created off the branch tip.
 #

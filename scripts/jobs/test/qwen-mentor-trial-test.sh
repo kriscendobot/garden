@@ -64,7 +64,7 @@ else
 fi
 rm -rf "$POST/verify"
 worker_env=("${post_env[@]}" GARDEN_WORKER_KIND=hermit \
-  GARDEN_WORKER_CLONE="$POST/worker/journal" GARDEN_GARDENER_CLONE="$POST/worker/journal")
+  GARDEN_WORKER_CLONE="$POST/worker/journal")
 claimed="$(env "${worker_env[@]}" "$JOBS/claim-job.sh" 1 2>/dev/null || true)"
 printf 'completed canary\n' > "$POST/report.md"
 if [ "$claimed" = canary-two ] && env "${worker_env[@]}" GARDEN_JOB_DURATION_SECS=1 \

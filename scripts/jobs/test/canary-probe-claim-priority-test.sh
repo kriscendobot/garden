@@ -21,7 +21,7 @@ probe host-a > "$SEED/jobs/todo/m-canary-probe-host-a.md"
 probe host-b > "$SEED/jobs/todo/n-canary-probe-host-b.md"
 git -C "$SEED" add -A; git -C "$SEED" -c user.name=t -c user.email=t@l commit -qm seed
 git -C "$SEED" remote add origin "$BARE"; git -C "$SEED" push -q -u origin "$BRANCH"
-claim() { env -u GARDEN_WORKER_CLONE -u GARDEN_JOB_BASE -u GARDEN_COMPLETION_SENTINEL GARDEN="$1" GARDEN_STATE="$TR/state-$1-$2" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_GARDENER_CLONE="$TR/clone-$1-$2" "$JOBS/claim-job.sh" "$2"; }
+claim() { env -u GARDEN_JOB_BASE -u GARDEN_COMPLETION_SENTINEL GARDEN="$1" GARDEN_STATE="$TR/state-$1-$2" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_WORKER_CLONE="$TR/clone-$1-$2" "$JOBS/claim-job.sh" "$2"; }
 requeue() {
   local V="$TR/v"; rm -rf "$V"; git clone -q --branch "$BRANCH" "$BARE" "$V"
   git -C "$V" mv "jobs/doin/$1.md" "jobs/todo/$1.md"; rm -f "$V/work/$1"

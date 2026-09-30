@@ -1,5 +1,5 @@
 #!/bin/bash
-# gardener-claude-tier-serving-test.sh — the Claude handler's tier-serving policy.
+# monk-claude-tier-serving-test.sh — the Claude handler's tier-serving policy.
 #
 # WHY THIS EXISTS. Two invariants meet in handlers/monk-claude.sh and had drifted
 # apart from claim-job.sh's job_eligible_for_kind, which let an anthropic gardener
@@ -75,8 +75,7 @@ mkjob "$TMP/auto-myrmidon.md" 'tier: myrmidon' 'dispatch: automatic'
   && ok "myrmidon job serves at myrmidon" || bad "myrmidon job perturbed"
 
 hr; echo "MENTAT — still an authorization boundary, not a price point"; hr
-# The Anthropic handler implementation lives in monk-claude.sh (gardener-claude.sh is
-# now the warning-free forwarding wrapper onto it; gardener->monk rename).
+# The Anthropic handler implementation lives in monk-claude.sh.
 H="$JOBS/handlers/monk-claude.sh"
 grep -q 'requested_tier" = mentat \] && \[ .*dispatch.*!= manual' "$H" \
   && ok "handler retains the mentat manual-dispatch boundary" \

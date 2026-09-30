@@ -478,7 +478,7 @@ chmod +x "$TR/bin/offline-fetch"
 
 GLOG="$TR/gardener.log"; grc=0
 timeout 6 env \
-  GARDEN_GARDENER_CLONE="$GCLONE" \
+  GARDEN_WORKER_CLONE="$GCLONE" \
   JOURNAL_REMOTE="$GBARE" \
   GARDEN_FETCH_CMD="$TR/bin/offline-fetch" \
   GARDEN_FETCH_RETRIES=1 \

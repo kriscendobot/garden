@@ -245,7 +245,7 @@ CSEED="$CBARE-seed"; printf '# claim me\n' > "$CSEED/jobs/todo/claim-me.md"
 git -C "$CSEED" add jobs/todo/claim-me.md; git -C "$CSEED" "${git_id[@]}" commit -qm todo; git -C "$CSEED" push -q
 set +e
 COUT="$(env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/claim-state" JOURNAL_REMOTE="$CBARE" \
-  GARDEN_WORKER_CLONE="$TR/claim-state/worker/journal" GARDEN_GARDENER_CLONE="$TR/claim-state/worker/journal" \
+  GARDEN_WORKER_CLONE="$TR/claim-state/worker/journal" \
   GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_WORKER_KIND=monk \
   "$JOBS/claim-job.sh" 1 2>&1)"
 crc=$?
@@ -264,7 +264,7 @@ git -C "$RSEED" "${git_id[@]}" commit -qm refuse; git -C "$RSEED" push -q
 RALERT="$TR/claim-refuse-alerts.log"; : > "$RALERT"
 set +e
 ROUT="$(env GARDEN_TEST=1 GARDEN=testhost GARDEN_STATE="$TR/claim-refuse-state" JOURNAL_REMOTE="$RBARE" \
-  GARDEN_WORKER_CLONE="$TR/claim-refuse-state/worker/journal" GARDEN_GARDENER_CLONE="$TR/claim-refuse-state/worker/journal" \
+  GARDEN_WORKER_CLONE="$TR/claim-refuse-state/worker/journal" \
   GARDEN_USAGE_NOW="$NOW" GARDEN_CCUSAGE_LOGDIR="$LOGS" GARDEN_WORKER_KIND=monk \
   GARDEN_ALERT_CMD="$HERE/budget-alert-record-stub.sh" GARDEN_ALERT_RECORD="$RALERT" \
   "$JOBS/claim-job.sh" 1 2>&1)"

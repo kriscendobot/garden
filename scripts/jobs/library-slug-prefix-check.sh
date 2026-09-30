@@ -86,7 +86,7 @@ Options:
                            FAIL to a WARN (exit 0). The deliberate-new-cluster
                            override; use it only after confirming the new prefix
                            names a genuinely distinct thematic cluster.
-  --library <dir>          library root. Default: $GARDEN_GARDENER_CLONE/library,
+  --library <dir>          library root. Default: $GARDEN_WORKER_CLONE/library,
                            else $GARDEN_ROOT/journal/library, else ./library.
   --quiet                  print only divergences/suspects, not per-host OK lines.
   -h, --help               this help.
@@ -125,8 +125,8 @@ done
 
 # --- locate the library root (same resolution order as library-link-check.sh) -
 if [ -z "$LIBRARY" ]; then
-  if [ -n "${GARDEN_GARDENER_CLONE:-}" ] && [ -d "${GARDEN_GARDENER_CLONE}/library" ]; then
-    LIBRARY="${GARDEN_GARDENER_CLONE}/library"
+  if [ -n "${GARDEN_WORKER_CLONE:-}" ] && [ -d "${GARDEN_WORKER_CLONE}/library" ]; then
+    LIBRARY="${GARDEN_WORKER_CLONE}/library"
   elif [ -n "${GARDEN_ROOT:-}" ] && [ -d "${GARDEN_ROOT}/journal/library" ]; then
     LIBRARY="${GARDEN_ROOT}/journal/library"
   elif [ -d "./library" ]; then

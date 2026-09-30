@@ -8,7 +8,7 @@ base="${1:?usage: usage-append.sh <base> <elapsed-s> <requeue|fail> [measurement
 elapsed="${2:?}" outcome="${3:?}" measurement="${4:-${GARDEN_ENGAGEMENT_USAGE:-}}"
 case "$base" in -*|*/*|.*|'') exit 2;; esac
 case "$outcome" in requeue|fail) ;; *) exit 2;; esac
-dir="${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/monks/${GARDEN_GARDENER_ID:-0}/journal}"
+dir="${GARDEN_WORKER_CLONE:-$GARDEN_STATE/monks/${GARDEN_GARDENER_ID:-0}/journal}"
 ensure_clone "$dir"
 for attempt in $(seq 1 8); do
   sync_clone "$dir"

@@ -74,7 +74,7 @@ Scope (exactly one required):
                            (paths relative to --library, or absolute).
 
 Options:
-  --library <dir>          library root. Default: $GARDEN_GARDENER_CLONE/library,
+  --library <dir>          library root. Default: $GARDEN_WORKER_CLONE/library,
                            else $GARDEN_ROOT/journal/library, else ./library.
   --wikilinks              also resolve [[concept]] wikilinks to concepts/<slug>.md.
   --no-require-tracked     accept an on-disk but git-untracked target. Default is
@@ -120,8 +120,8 @@ done
 
 # --- locate the library root -------------------------------------------------
 if [ -z "$LIBRARY" ]; then
-  if [ -n "${GARDEN_GARDENER_CLONE:-}" ] && [ -d "${GARDEN_GARDENER_CLONE}/library" ]; then
-    LIBRARY="${GARDEN_GARDENER_CLONE}/library"
+  if [ -n "${GARDEN_WORKER_CLONE:-}" ] && [ -d "${GARDEN_WORKER_CLONE}/library" ]; then
+    LIBRARY="${GARDEN_WORKER_CLONE}/library"
   elif [ -n "${GARDEN_ROOT:-}" ] && [ -d "${GARDEN_ROOT}/journal/library" ]; then
     LIBRARY="${GARDEN_ROOT}/journal/library"
   elif [ -d "./library" ]; then

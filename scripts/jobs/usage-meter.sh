@@ -131,7 +131,7 @@ subscription_reset_file() {
   if [ -n "$dir" ] && [ -r "$dir/budget/reset-events/$subscription.jsonl" ]; then
     printf '%s\n' "$dir/budget/reset-events/$subscription.jsonl"; return 0
   fi
-  for file in "${GARDEN_WORKER_CLONE:-}" "${GARDEN_GARDENER_CLONE:-}" \
+  for file in "${GARDEN_WORKER_CLONE:-}" \
               "${GARDEN_PRODUCER_CLONE:-}" "$GARDEN_STATE"/*/journal; do
     [ -n "$file" ] && [ -r "$file/budget/reset-events/$subscription.jsonl" ] || continue
     printf '%s\n' "$file/budget/reset-events/$subscription.jsonl"; return 0
@@ -504,7 +504,7 @@ budget_pool_file() {
     [ -r "$dir/config/budget-pools" ] && printf '%s\n' "$dir/config/budget-pools"
     return
   fi
-  for f in "${GARDEN_WORKER_CLONE:-}" "${GARDEN_GARDENER_CLONE:-}" \
+  for f in "${GARDEN_WORKER_CLONE:-}" \
            "${GARDEN_PRODUCER_CLONE:-}" "$GARDEN_STATE"/*/journal; do
     [ -n "$f" ] && [ -r "$f/config/budget-pools" ] || continue
     printf '%s\n' "$f/config/budget-pools"; return
@@ -524,7 +524,7 @@ resolve_token_backoff_fraction() {
     file="$dir/config/token-backoff-fraction"
   else
     local f
-    for f in "${GARDEN_WORKER_CLONE:-}" "${GARDEN_GARDENER_CLONE:-}" \
+    for f in "${GARDEN_WORKER_CLONE:-}" \
              "${GARDEN_PRODUCER_CLONE:-}" "$GARDEN_STATE"/*/journal; do
       if [ -z "$f" ] || [ ! -e "$f/config/token-backoff-fraction" ]; then continue; fi
       file="$f/config/token-backoff-fraction"; break

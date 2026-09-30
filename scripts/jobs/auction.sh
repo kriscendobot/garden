@@ -120,7 +120,7 @@ auction_bid_dollars() {
 }
 
 # auction_write_bid <dir> <base> — ensure THIS worker (GARDEN_WORKER_KIND / the id
-# in $GARDEN_GARDENER_CLONE's caller) has a committed bid for <base>. Idempotent: a
+# in $GARDEN_WORKER_CLONE's caller) has a committed bid for <base>. Idempotent: a
 # no-op when this bidder's file already exists on the board. Writes its own
 # per-bidder file and pushes; a lost push race is the caller's ordinary retry.
 # Requires: KIND and ID passed via env AUCTION_KIND / AUCTION_ID (claim-job sets them).

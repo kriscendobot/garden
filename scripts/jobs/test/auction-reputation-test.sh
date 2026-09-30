@@ -643,7 +643,7 @@ BARE="$(seed_board "$TR" quota-route "role: fixer
 market: bid
 bid_window: 120
 posted_at: 2001-09-09T01:46:40Z")"
-export GARDEN_GARDENER_CLONE="$TR/s/monks/1/journal"
+export GARDEN_WORKER_CLONE="$TR/s/monks/1/journal"
 env GARDEN=endolin-garden-ece02cb4 GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
     GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=1000000010 \
     "$JOBS/claim-job.sh" 1 > "$TR/claim.log" 2>&1 && qrc=0 || qrc=$?
@@ -656,7 +656,7 @@ ROUTE_JOB="$TR/route.md"; printf '%s\n' '---' 'market: bid' '---' > "$ROUTE_JOB"
   && ok "ps23 retains bid selection while it has Claude capacity" || bad "ps23 unexpectedly bypassed auction"
 [ "$(GARDEN=endolin-garden-ece02cb4 GARDEN_QUOTA_ROUTING=auction auction_market_mode "$ROUTE_JOB")" = bid ] \
   && ok "GARDEN_QUOTA_ROUTING=auction explicitly rolls endolin back to bidding" || bad "quota-route rollback override ignored"
-unset GARDEN_GARDENER_CLONE
+unset GARDEN_WORKER_CLONE
 rm -rf "$TR"
 
 # A single-bidder market:bid job: window OPEN -> the worker bids and does not claim;
@@ -669,7 +669,7 @@ market: bid
 bid_window: 120
 posted_at: $ISO")"
 # Phase A: window open (now = START+10). Drive claim-job directly for one worker.
-export GARDEN_GARDENER_CLONE="$TR/s/monks/1/journal"
+export GARDEN_WORKER_CLONE="$TR/s/monks/1/journal"
 env GARDEN=oh GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
     GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$((START+10)) \
     "$JOBS/claim-job.sh" 1 > "$TR/a.log" 2>&1 && arc=0 || arc=$?
@@ -686,7 +686,7 @@ V="$TR/vb"; verify_clone "$BARE" "$V"
   && ok "closed window: the lone bidder claimed (todo->doin) — degenerates to a single claim" \
   || bad "closed-window single-bidder claim wrong (rc=$brc doin=$([ -f "$V/jobs/doin/onebid.md" ] && echo y||echo n))"
 grep -q 'awarded_bid: gardener-oh-1' "$V/jobs/doin/onebid.md" && ok "claim stamped awarded_bid: gardener-oh-1" || bad "awarded_bid not stamped"
-unset GARDEN_GARDENER_CLONE
+unset GARDEN_WORKER_CLONE
 rm -rf "$TR"
 
 # ============================================================================
@@ -699,12 +699,12 @@ bid_window: 120
 posted_at: $ISO")"
 # Three bidders bid during the open window (distinct ids -> distinct bidders).
 for i in 1 2 3; do
-  export GARDEN_GARDENER_CLONE="$TR/s/monks/$i/journal"
+  export GARDEN_WORKER_CLONE="$TR/s/monks/$i/journal"
   env GARDEN=ah GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
       GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$((START+5)) \
       "$JOBS/claim-job.sh" "$i" > "$TR/bid$i.log" 2>&1 || true
 done
-unset GARDEN_GARDENER_CLONE
+unset GARDEN_WORKER_CLONE
 V="$TR/vbids"; verify_clone "$BARE" "$V"
 nbids="$(ls -1 "$V/jobs/bids/bigjob" 2>/dev/null | grep -vc .gitkeep || true)"
 [ "$nbids" -eq 3 ] && ok "3 distinct bids committed in the open window" || bad "expected 3 bids, got $nbids"
@@ -714,7 +714,7 @@ ok "deterministic award rank-1 = $expect1 (pure function of the journal)"
 # Closed window, rank-1-only stage (now = close + 1). Run all three CONCURRENTLY;
 # only rank 1 is eligible, and the push CAS admits exactly one claim.
 for i in 1 2 3; do
-  ( export GARDEN_GARDENER_CLONE="$TR/s/monks/$i/journal"
+  ( export GARDEN_WORKER_CLONE="$TR/s/monks/$i/journal"
     env GARDEN=ah GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
         GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$((START+121)) \
         "$JOBS/claim-job.sh" "$i" > "$TR/claim$i.log" 2>&1 || true ) &
@@ -737,16 +737,16 @@ market: bid
 bid_window: 60
 posted_at: $ISO")"
 for i in 1 2 3; do
-  export GARDEN_GARDENER_CLONE="$TR/s/monks/$i/journal"
+  export GARDEN_WORKER_CLONE="$TR/s/monks/$i/journal"
   env GARDEN=yh GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
       GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$((START+5)) \
       "$JOBS/claim-job.sh" "$i" > /dev/null 2>&1 || true
 done
-unset GARDEN_GARDENER_CLONE
+unset GARDEN_WORKER_CLONE
 # now = close + 3*grace + 5 = START+60 + 90 + 5 -> anyone stage (all eligible)
 NOW=$((START+60+3*GARDEN_AUCTION_GRACE+5))
 for i in 1 2 3; do
-  ( export GARDEN_GARDENER_CLONE="$TR/s/monks/$i/journal"
+  ( export GARDEN_WORKER_CLONE="$TR/s/monks/$i/journal"
     env GARDEN=yh GARDEN_STATE="$TR/s" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH=journal2 \
         GARDEN_WORKER_KIND=monk GARDEN_AUCTION_NOW=$NOW \
         "$JOBS/claim-job.sh" "$i" > "$TR/c$i.log" 2>&1 || true ) &

@@ -74,7 +74,7 @@ suspected.
    and any orphaned worktree are cleared, and — crucially — the **same basename** is
    preserved, so the fresh gardener that re-claims derives the same deterministic
    Claude session id and `--resume`s the interrupted transcript in the same
-   worktree (see `handlers/gardener-claude.sh` § session continuity). A gardener
+   worktree (see `handlers/monk-claude.sh` § session continuity). A gardener
    that exited cleanly at the wall may have left a `reap-now` hint so its claim is
    requeued before the TTL elapses.
    ```sh

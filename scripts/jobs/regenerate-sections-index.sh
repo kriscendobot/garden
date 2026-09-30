@@ -105,7 +105,7 @@ ANCHOR_LOG='## Historical ingest log (preserved for chronological context)'
 locate_library() {
   local lib="$1"
   if [ -z "$lib" ]; then
-    if   [ -n "${GARDEN_GARDENER_CLONE:-}" ] && [ -d "${GARDEN_GARDENER_CLONE}/library" ]; then lib="${GARDEN_GARDENER_CLONE}/library"
+    if   [ -n "${GARDEN_WORKER_CLONE:-}" ] && [ -d "${GARDEN_WORKER_CLONE}/library" ]; then lib="${GARDEN_WORKER_CLONE}/library"
     elif [ -n "${GARDEN_ROOT:-}" ] && [ -d "${GARDEN_ROOT}/journal/library" ];            then lib="${GARDEN_ROOT}/journal/library"
     elif [ -d "./library" ];                                                              then lib="./library"
     else echo "regenerate-sections-index: cannot locate the library; pass --library <dir>" >&2; exit 2

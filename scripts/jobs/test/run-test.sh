@@ -68,10 +68,10 @@ hr()   { echo "----------------------------------------------------------------"
 # --- hermetic environment baseline (the fleet-load isolation) ----------------
 # run-test.sh is frequently invoked BY a live gardener (a `run-…` board job),
 # whose process EXPORTS the fleet's own GARDEN_*/JOURNAL_*/SELF_HEAL_* — e.g.
-# GARDEN_GARDENER_CLONE=…/.garden-state/monks/18/journal, GARDEN_STATE, and
+# GARDEN_WORKER_CLONE=…/.garden-state/monks/18/journal, GARDEN_STATE, and
 # GARDEN_ROOT=/home/kris (whose journal/ origin is the LIVE shared journal2).
 # Those ambient values leak THROUGH a subtest's per-case `env`/`export` overrides
-# into the scripts under test: claim-job/gardener honor GARDEN_GARDENER_CLONE, and
+# into the scripts under test: claim-job/gardener honor GARDEN_WORKER_CLONE, and
 # ensure_clone/capture_blob derive the remote from GARDEN_ROOT/journal whenever a
 # subtest leaves JOURNAL_REMOTE unset. The result is that the busy ~100-gardener
 # fleet's live clone, state, and journal pushes are spliced underneath the test —

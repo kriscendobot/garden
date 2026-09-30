@@ -3870,7 +3870,7 @@ cleanup_terminal_project_worktrees() {
 #
 # THE HAZARD (reaper-requeue-kills-or-waits-for-live-handler, 2026-07-05; the
 # endo-but-for-bots #58 corruption class). A requeue re-runs the SAME base, and the
-# per-job worktree path is DETERMINISTIC from the base (gardener-claude.sh § per-job
+# per-job worktree path is DETERMINISTIC from the base (monk-claude.sh § per-job
 # worktree), so a re-claim on this host re-enters the identical worktree. The
 # requeue can fire — a gardener reap-now hint (the exit-0-unsatisfying / transient
 # branches stamp one) or the claim TTL — while a PRIOR incarnation's `claude -p`, or
@@ -8632,7 +8632,7 @@ _model_tier_inventory_file() {
 _openrouter_promos_file() {
   if [ -n "${GARDEN_OPENROUTER_PROMOS_FILE:-}" ]; then printf '%s\n' "$GARDEN_OPENROUTER_PROMOS_FILE"; return 0; fi
   local d f
-  for d in "${GARDEN_GARDENER_CLONE:-}" "${GARDEN_WORKER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
+  for d in "${GARDEN_WORKER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
            "${GARDEN_LEADER_CLONE:-}" "$GARDEN_ROOT/journal"; do
     [ -n "$d" ] || continue
     f="$d/$GARDEN_OPENROUTER_PROMOS_PATH"
@@ -9048,7 +9048,7 @@ tier_model_for_provider() {
 
 # The sole automatic mentat exception reads an already-synchronized claim clone.
 ratchet_watcher_job() {
-  local job="$1" journal="${2:-${GARDEN_GARDENER_CLONE:-}}"
+  local job="$1" journal="${2:-${GARDEN_WORKER_CLONE:-}}"
   [ -n "$journal" ] || return 1
   python3 "$(dirname "${BASH_SOURCE[0]}")/ratchet/policy.py" job "$journal" "$job" >/dev/null 2>&1
 }
@@ -9090,7 +9090,7 @@ _model_routing_table() {
   # 2. a per-instance journal override, read from any already-synced clone's working
   #    tree (no new clone/fetch — whichever the current caller kept fresh).
   local d f
-  for d in "${GARDEN_GARDENER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
+  for d in "${GARDEN_WORKER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
            "${GARDEN_LEADER_CLONE:-}" "$GARDEN_ROOT/journal"; do
     [ -n "$d" ] || continue
     f="$d/$GARDEN_MODEL_ROUTING_PATH"
@@ -9158,7 +9158,7 @@ model_routing_default() {
 
 # --- model selection (the canonical role->model policy) ----------------------
 # The garden resolves the Claude model for a unit of work in two places that MUST
-# agree: the scripted-fleet path (gardener-claude.sh, keyed on a job's `model:` /
+# agree: the scripted-fleet path (monk-claude.sh, keyed on a job's `model:` /
 # `role:` frontmatter) and the Agent-dispatch path (the liaison/steward passing a
 # `model` tier per the dispatch contract). The two functions below are the
 # EXECUTABLE single source of truth for the fleet path; skills/model-selection/
@@ -9352,7 +9352,7 @@ role_default_model() {
 # worker kind (KIND=monk, provider anthropic). This is the ROLE analogue of
 # the tier/provider backend-fit filter in claim-job.sh (§1.3) and of the
 # claim/handler-agreement invariant the tier-serving test asserts
-# (gardener-claude-tier-serving-test.sh): a worker must never WIN a claim its handler
+# (monk-claude-tier-serving-test.sh): a worker must never WIN a claim its handler
 # cannot then HONOR.
 #
 # The `gardener` role is the self-directed agentic loop — the gauntlet's per-stage
@@ -9670,7 +9670,7 @@ kimi_fallback_enabled() {
   if [ -n "${GARDEN_KIMI_FALLBACK_ENABLED:-}" ]; then
     v="$GARDEN_KIMI_FALLBACK_ENABLED"
   else
-    for d in "${1:-}" "${GARDEN_GARDENER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
+    for d in "${1:-}" "${GARDEN_WORKER_CLONE:-}" "${GARDEN_PRODUCER_CLONE:-}" \
              "${GARDEN_LEADER_CLONE:-}" "${GARDEN_REAPER_CLONE:-}" "$GARDEN_ROOT/journal"; do
       [ -n "$d" ] || continue
       f="$d/$GARDEN_KIMI_FALLBACK_PATH"

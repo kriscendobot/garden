@@ -34,9 +34,8 @@ export GARDEN_TAG="done/$id"
 case "$base" in -*|*/*|.*|'') die "illegal basename: '$base'";; esac
 case "$handed_off" in -*|*/*|.*|*' '*) die "illegal handoff successor: '$handed_off'";; esac
 
-# The per-instance clone seam: the kind-neutral GARDEN_WORKER_CLONE, honoring the
-# legacy GARDEN_GARDENER_CLONE when unset (the spine exports both to one value).
-DIR="${GARDEN_WORKER_CLONE:-${GARDEN_GARDENER_CLONE:-$GARDEN_STATE/monks/$id/journal}}"
+# The per-instance clone seam: the kind-neutral GARDEN_WORKER_CLONE the spine exports.
+DIR="${GARDEN_WORKER_CLONE:-$GARDEN_STATE/monks/$id/journal}"
 ensure_clone "$DIR"
 
 # An Ironhorse engagement self-schedules the next press in the SAME CAS as its

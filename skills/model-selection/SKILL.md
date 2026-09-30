@@ -114,7 +114,7 @@ CLAIM a `tier: mentor` job (Anthropic does have a model at mentor). Claim said
 yes, handler said no, and a host with `gardeners: N>0` would claim/die/requeue
 across the whole board in a hot loop. That is why both endolin hosts sat at
 `gardeners: 0`. The two are now consistent, and
-`scripts/jobs/test/gardener-claude-tier-serving-test.sh` asserts the agreement per tier.
+`scripts/jobs/test/monk-claude-tier-serving-test.sh` asserts the agreement per tier.
 
 ### Scoped Ironhorse watcher exception
 
