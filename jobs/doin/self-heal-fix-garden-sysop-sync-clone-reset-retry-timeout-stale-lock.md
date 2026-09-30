@@ -12,3 +12,13 @@ Two gaps:
 Optional: consider adding `gc.log.lock` to the sweep list, or deleting it on the `gc.log` corrupt path. This clone has a leftover `gc.log.lock` from 2026-09-29.
 
 Add a test under `scripts/jobs/test/`, modeled on `receipt-watcher-test.sh`'s second-reset case. It should cover: first reset fails, the re-fetch returns 124 or 137, and the result is an offline exit rather than a FATAL. A second case: a leftover `HEAD.lock` appears between the re-fetch and the retry reset, and the retry reset succeeds.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T21:41:22Z
