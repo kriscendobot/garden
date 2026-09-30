@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T19:53:29Z_
+_As of 2026-09-30T19:56:25Z_
 
 ## Latest
 
-The sturdyref/layer stack dominates the board: [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path sweep) is three fix rounds deep in its gauntlet, while sibling layers #1391–#1398 are moving through parallel panel/fix/clean stages, and a separate job is re-pointing #1397/#1398 onto the restacked frozen bases. The ironhorse panic live-handle-reseat gauntlet on [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) has now reached fix round 5, and its sibling panic-host-call gauntlet reported back that review didn't converge within its 6-round budget — left for a human merge/review call. Two foreman items are waiting on a maintainer decision: whether to run the gauntlet on the CI-green draft #1349, and whether to advance #1015 or answer the open questions on design PR #1340. Spend stays light (Claude at 1% of quota); no new parked PRs since the last bulletin.
+The SturdyRef layer stack dominates board activity: gauntlets are running across nearly all eight layers simultaneously (layer1 shim-build, layer2 SES fix round 4, layer3 pass-style fix round 2, layer4 marshal panel round 1, layer5 CapTP wire panel round 1, layer6 CapTP construct clean, layer7 ocapn-enliven clean, layer8 daemon-formula clean), with a follow-on job queued to move [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) onto restacked frozen bases. The petname-path-only sweep continues its fix-round ladder toward [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), and a new plan-queue entry now tracks that PR as the blocking artifact for the platform-fs petname-path-only follow-up. Separately, the ironhorse panic live-handle-reseat gauntlet on [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) has reached fix round 5, and the panic host-call gauntlet on that same PR line hit its review budget after six panel/fix rounds without converging — it's pushed as far as automation can take it and now needs a human merge/review call. Several messages await attention: the foreman is blocked on a choice between advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving four open questions on design PR #1340, and a separate foreman note flags the CI-green draft [#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) awaiting a gauntlet-authorization decision.
 
 ## Parked for maintainer feedback
 
@@ -140,7 +140,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 3.0M | $32.98 _(notional, rate-card)_ | 1% of 256.0M (ok) |
+| Claude | 3.3M | $35.42 _(notional, rate-card)_ | 1% of 256.0M (ok) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 130940300 tokens/day lower bound._
@@ -230,6 +230,7 @@ worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`endojs-endo-but-for-bots-pr695-5e067785-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr695-5e067785-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #695 (primary: endojs-endo-but-f...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
+- [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
 - [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ironhorse-press-first-engagement-20260929.md) — awaiting `ironhorse-test262-press-20260929-173306` · Verify the first live Ironhorse foreman-press engagement (successor of activa...
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
