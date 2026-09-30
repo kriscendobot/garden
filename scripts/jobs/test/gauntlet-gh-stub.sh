@@ -32,6 +32,9 @@ case "${1:-} ${2:-}" in
     [ -n "$body" ] || exit 2
     next="$(find "$comments_dir" -maxdepth 1 -type f -name '*.md' 2>/dev/null | wc -l)"
     cp "$body" "$comments_dir/comment-$next.md"
+    # Record whether the post was declared machine-authored (comment-provenance.sh
+    # § AUTOMATIC) so the test can pin that it never trips the provenance-gap alert.
+    printf '%s\n' "${GARDEN_NO_LLM:-unset}" > "$comments_dir/comment-$next.nollm"
     ;;
   *)
     printf 'gauntlet-gh-stub: unexpected invocation: %s\n' "$*" >&2

@@ -339,7 +339,10 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-
       "$terminal_state" "$iter" "$head" "$ci" "$must_fix_part" "$next"
   } > "$body"
   gh_bin="${GARDEN_GH:-gh}"
-  if ! "$gh_bin" pr comment "$prnum" -R "$repo" --body-file "$body" >/dev/null 2>&1; then
+  # Machine-authored (no LLM in this process): GARDEN_NO_LLM renders the footer as
+  # `model automatic` instead of tripping the comment-provenance gap alert on every
+  # post and every quota-cooled retry (comment-provenance.sh § AUTOMATIC).
+  if ! GARDEN_NO_LLM=1 "$gh_bin" pr comment "$prnum" -R "$repo" --body-file "$body" >/dev/null 2>&1; then
     log "WARN: gauntlet '$base': terminal PR status comment failed (non-fatal; state=$terminal_state; will retry)"
     rc=1
   else

@@ -116,6 +116,12 @@ terminal_comment_body() {  # terminal_comment_body <base> <state>
     "$GAUNTLET_GH_COMMENTS" 2>/dev/null | head -1)"
   [ -n "$hit" ] && cat "$hit"
 }
+terminal_comment_nollm() {  # terminal_comment_nollm <base> <state> → GARDEN_NO_LLM seen by gh
+  local hit
+  hit="$(grep -rlF -- "<!-- garden-gauntlet-terminal-status: base=$1 state=$2 -->" \
+    "$GAUNTLET_GH_COMMENTS" 2>/dev/null | head -1)"
+  [ -n "$hit" ] && cat "${hit%.md}.nollm" 2>/dev/null
+}
 todo_body() { rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"; cat "$V/jobs/todo/$1.md" 2>/dev/null; }
 # handler_timeout <todo-base> → the handler-timeout header value, or empty if none.
 handler_timeout() { todo_body "$1" | sed -n 's/^handler-timeout:[[:space:]]*//p' | head -1; }
@@ -347,6 +353,9 @@ g3_comment="$(terminal_comment_body g3 review-budget-reached)"
     && printf '%s' "$g3_comment" | grep -Fq 'awaiting maintainer merge/undraft or re-run decision'; } \
   && ok "review-budget terminal status posted once with the visible loop-status floor" \
   || bad "nonconverge: wrong/missing terminal PR comment: [$g3_comment]"
+[ "$(terminal_comment_nollm g3 review-budget-reached)" = 1 ] \
+  && ok "terminal status posts as machine-authored (GARDEN_NO_LLM=1), not a provenance gap" \
+  || bad "nonconverge: terminal PR comment posted without GARDEN_NO_LLM=1 (provenance-gap alert)"
 restore_gauntlet_record g3
 tick   # same terminal transition re-driven after a simulated lost finish CAS
 [ "$(terminal_comment_count g3 review-budget-reached)" = 1 ] \
