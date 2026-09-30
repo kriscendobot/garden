@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7229 (530 parent indexes + 6699 children).
+Total section files: 7234 (530 parent indexes + 6704 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -9809,6 +9809,14 @@ Total section files: 7229 (530 parent indexes + 6699 children).
 
 - [web--csswg-css-anchor-position-1--position-try-order-and-descriptors](web--csswg-css-anchor-position-1--position-try-order-and-descriptors.md)
 - [web--csswg-css-anchor-position-1--try-tactic-flip-semantics](web--csswg-css-anchor-position-1--try-tactic-flip-semantics.md)
+
+### web--dbushell-text-editor
+
+- [web--dbushell-text-editor--canvas](web--dbushell-text-editor--canvas.md)
+- [web--dbushell-text-editor--content-editable](web--dbushell-text-editor--content-editable.md)
+- [web--dbushell-text-editor--overview](web--dbushell-text-editor--overview.md)
+- [web--dbushell-text-editor--textarea](web--dbushell-text-editor--textarea.md)
+- [web--dbushell-text-editor--utf-16-and-grapheme-clusters](web--dbushell-text-editor--utf-16-and-grapheme-clusters.md)
 
 ### web--esbuild-api
 
