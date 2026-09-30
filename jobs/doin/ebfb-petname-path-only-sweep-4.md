@@ -50,6 +50,8 @@ side); rebase over it if it lands first. A gauntlet (ebfb-petname-path-only-swee
 is also running against this PR; rebase before every push.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
