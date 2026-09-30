@@ -61,3 +61,13 @@ the counterpart to chapter 1's historical metamorphosis narrative.
 If a script or file this chapter should cite doesn't exist yet (the design
 may be ahead of full implementation in places), say so plainly rather than
 inventing detail.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:36:27Z
