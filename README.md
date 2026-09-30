@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T19:35:53Z_
+_As of 2026-09-30T19:45:14Z_
 
 ## Latest
 
-Board activity since the last bulletin was light: the `ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-panel-1` job (panel round 1 against [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)) was claimed and moved into `doin`, and the parked `book-revise-content` job was promoted back onto the board alongside an updated `garden-book-revision-orch` orchestration record.
-
-The larger sturdyref/petname gauntlet stack continues churning through panel and fix rounds across PRs #1390–#1398, with #1380's panel now at round 5. One gauntlet stalled: `ebfb-sturdyref-layer2-ses-20260930-gauntlet` halted after its fix round 4 explicitly declined, and a stale-panel-head notice flags [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) as needing fresh review since its presented head has moved past what was last panel-reviewed. Several maintainer decisions remain open, notably the ironhorse test262 ratchet round-3 floor-reconciliation question and the M3 milestone choice between [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (blocked on #1348) and answering open questions on design PR #1340. Two split jobs (subscription-model deploy-gate regression fix, and the gardener-worker-kind alias-env-fallback cleanup) exhausted retries and are parked awaiting promotion. Claude spend is at 100% of its weekly quota, and the `claude-endolin1` budget pool remains uncalibrated, freezing monk allocation fleet-wide until a calibrated cap is set.
+The sturdyref stack continued grinding through gauntlets: layers 6 ([endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)) and 2 ([endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)) cleared fix/panel rounds, while layers 7 ([#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) and 8 ([#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) reached the clean stage and layers 4, 5, and the petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) advanced further panel/fix rounds; a job to move #1397/#1398's bases onto the restacked frozen bases is queued. A new fix job opened for the macOS daemon-teardown CI flake, and the ironhorse panic-live-handle-reseat gauntlet ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is now in its fifth panel round. Claude spend sits at 100% of weekly quota (backoff engaged), and two foreman notices are awaiting decisions: authorizing the gauntlet on CI-green draft [#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), and choosing between advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the open questions on design [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340).
 
 ## Parked for maintainer feedback
 
@@ -14,10 +12,10 @@ The larger sturdyref/petname gauntlet stack continues churning through panel and
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 12d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 18d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 27d)
-- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 28d)
-- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 28d)
+- [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 29d)
+- [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 29d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 30d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 28d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 29d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 28d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 32d)
 
@@ -28,171 +26,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 ## Messages to the maintainer
 
-- `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
-
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-30T17:38:07Z, cleared 2026-09-30T17:56:10Z).
-> It was observed 6 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
-
-- `msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6.md)
-
-> Decision needed for round 3: the completed current-llm sweep has 906 lost paths against the historical floor BEFORE my changes: 443 engine-limit aborts, 397 shared-positive-test-failure, 66 other. Several hundred historical covered cases were false positives under the old classifier; I will not mark them covered or weaken the current classifier. May the draft record an explicitly reconciled current-llm floor (36,599 covered) and defend zero loss against that, retaining all 906 historical dispositions for follow-up? Otherwise this round's literal superseding-floor acceptance cannot be honestly met in one constants-descriptor crank. The proposed fix already has 5 red-before/green-after dual-run tests and repairs Math/Number/TypedArray numeric constant attributes; full Rust gates and an after sweep are next.
-
-- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_issue_inbox_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_issue_inbox_verify.md)
-
-> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_issue_inbox_verify` has CLEARED (first seen 2026-09-30T17:22:15Z, cleared 2026-09-30T18:47:20Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_issue_inbox_verify` cleared on endolin-garden-ece02cb4.
-
-- `doomed-fix-subscription-model-deploy-gate-regression-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-subscription-model-deploy-gate-regression-requeue-exhausted.md)
-
-> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
-> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
-> The work is preserved at jobs/plan/fix-subscription-model-deploy-gate-regression; it stays HELD until a human promotes it
-> (promote-plan.sh fix-subscription-model-deploy-gate-regression) or removes it, so nothing is lost.
-> Original job base: fix-subscription-model-deploy-gate-regression
->
-> --- original job body ---
-> ---
-> role: fixer
-> tier: mentor
-> token-budget: 100000
-> ---
-> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-29T23:09:05Z cleared=none -->
->
-> ---
-> role: fixer
-> tier: mentor
-> token-budget: 100000
-> ---
-> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-29T14:34:21Z cleared=none -->
->
-> ---
-> role: fixer
-> tier: mentor
-> fallback-tier: minion
-> dispatch: automatic
-> ---
-> # Fix deploy-gate regression from subscription-based-budget-model
->
-> This is blocking deploys FLEET-WIDE. garden2's deploy attempt on 2026-09-20
-> (candidate `6c7e49cab6`) and the leader's deploy attempt just now on
-> 2026-09-21 (candidate `7070fc7e9c`) both rejected on the SAME three suites:
-> `signal-kill-classifier-test.sh`, `retry-narrowing-test.sh`,
-> `provider-cooldown-test.sh`. This has been silently stalling the fleet's
-> deploy pipeline for at least two days.
->
-> ## Strong lead: this is fallout from `subscription-based-budget-model`
->
-> `provider-cooldown-test.sh` subtest 9 fails with:
->
-> ```
-> unrecognized inference source unknown:anthropic:envelopehost:gardener;
-> treat it as depleted and ask the maintainer for a token count and target
-> spend date before enabling it
-> ```
->
-> That is the EXACT "ask before an unknown token source" refusal gate added
-> by `subscription-based-budget-model` (job tada report:
-> `jobs/tada/2026/09/20/subscription-based-budget-model.md` if still flat, or
-> search sharded — grep for "real code gates refusing unknown token sources").
-> That gate is correctly firing — the test's own fixture uses a placeholder
-> pool name (`envelopehost`) that was never one of the four real registered
-> subscriptions (`claude-endolin1`, `claude-endolin2`, `claude-oros`,
-> `codex-endolin`) and was never updated when the gate landed. **The gate's
-> behavior is not the bug — the stale test fixture is.**
->
-> The other two failing suites (`signal-kill-classifier-test.sh`,
-> `retry-narrowing-test.sh`) both exercise `doin`/claim/retry/reap mechanics —
-> plausibly hitting the SAME new admission-gate code path from a different
-> angle, since that job's own report says it added gates in `claim-job.sh`
-> and "provider handlers" too, not just the budget layer. Trace this
-> precisely rather than assuming; don't just patch the one confirmed case and
-> hope the other two are unrelated coincidences on the same day.
->
-> ## Full diagnostic logs (already captured, don't re-run to reproduce first — read these)
->
-> - `.garden-state/deploy/candidate-gate-diagnostics/7070fc7e9c786255915e5f93cdc10455ec785d5b/02-scripts_jobs_test_signal-kill-classifier-test.sh.log`
-> - `.garden-state/deploy/candidate-gate-diagnostics/7070fc7e9c786255915e5f93cdc10455ec785d5b/04-scripts_jobs_test_retry-narrowing-test.sh.log`
-> - `.garden-state/deploy/candidate-gate-diagnostics/7070fc7e9c786255915e5f93cdc10455ec785d5b/09-scripts_jobs_test_provider-cooldown-test.sh.log`
->
-> (host-local on `endolin-garden-ece02cb4`, this host; if claimed elsewhere,
-> re-run the three suites locally against `main2` tip to reproduce — they
-> should fail identically, this is not a flake, it's failed reproducibly
-> across two different candidates two days apart.)
->
-> signal-kill-classifier-test.sh specifics worth noting: "handler sentinel
-> empty/absent", "job not left in doin (doin=n tada=n)", "no reap-now hint on
-> the doin claim", "doom-cycle counter NOT stamped on the requeued hinted
-> job" — 5/17 subtests fail. retry-narrowing-test.sh: "plain retry was
-> claimable before not-before", `awk: cannot open "jobs/doin/plain.md"`,
-> "retry policy decision ledger rows are missing or malformed" — 4/16
-> subtests fail.
->
-> ## Fix
->
-> For the confirmed case: update `provider-cooldown-test.sh`'s fixture to use
-> a real subscription id (or a test-harness-recognized synthetic-but-allowed
-> marker, if one exists/should exist for hermetic tests specifically — check
-> whether the new admission gate has or needs a test-mode escape hatch
-> distinct from silently exempting real unknown-source traffic, which must
-> stay refused). Do NOT weaken the actual refusal gate's production behavior
-> to make the test pass — the gate protecting against silently-enabled
-> unknown token sources is exactly what the maintainer asked for; fix the
-> test's stale fixture, not the gate.
->
-> For the other two suites: trace to the actual root cause (likely the same
-> admission-gate change reached through `claim-job.sh`, per the above) and
-> fix precisely — again, fix test fixtures/harness setup that predates the
-> new gate, don't weaken the gate itself, unless you find a GENUINE bug in
-> the gate's own logic (not just a stale fixture), in which case fix that
-> and say so explicitly in your report.
->
-> ## Verify and report
->
-> Full local test suite green, not just these three. Confirm which of the
-> two "unconfirmed" suites actually share the root cause with the confirmed
-> one, and which (if any) turn out to be unrelated — say so plainly either
-> way, don't just assume. This unblocks deploys on EVERY host once it lands
-> and rolls out — say that explicitly in your completion report so its
-> priority is clear to whoever reads it next.
-
-- `stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-1ff1c08e` — from gardener:claude-on-minion-town-press-20260930-185007, reply_to `claude-on-minion-town-press-20260930-185007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-1ff1c08e.md)
-
-> COALESCED message — occurrence #2 (first seen 2026-09-30T17:40:13Z, latest 2026-09-30T19:19:57Z).
-> The SAME message (episode key `stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-1ff1c08e`) has now been sent 2 times; this is
-> ONE entry that updates in place, not 2 messages. Latest detail:
->
-> Stale panel coverage for completed job `claude-on-minion-town-press-20260930-185007`: [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357) moved from panel-reviewed head `50917af1a439419d6ccc5b91ceb11acb0c5bff59` to presented head `1ff1c08e71ecec6717004bb2c7060c360163c1e8`.
->
-> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
->
-> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
-
 - `20260929T131950Z-276daa` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T131950Z-276daa.md)
 
 > proxy answered a gating question (tentative — review and override):
 > - gardener: activate-ironhorse-ratchet-autopilot-20260929-r4
 > - question (msgid msg-activate-ironhorse-ratchet-autopilot-20260929-r4-8e94bede58af.md)
 > - tentative answer: Proxy/tentative (maintainer may revise): diagnosis and fix look right — go ahead and let the roll proceed on 25123fdae03, no need to wait for me on that part. Deferring the arc-budget press seed until after the leader deploys is the right call given no cap reply yet on [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51). On oros-studio-garden-ce242c49: I can't act on a genuinely offline host from here, so leave it flagged for the maintainer's own follow-up — don't block the roll on it (correct that it should keep skipping that host). Continue as planned.
-
-- `watchdog-budget-pool-refuse-claude-endolin1` — from watchdog:claim/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-pool-refuse-claude-endolin1.md)
-
-> WATCHDOG notice — occurrence #4603 (first seen 2026-09-30T11:07:45Z, latest 2026-09-30T19:08:31Z).
-> The SAME condition (`budget-pool-refuse-claude-endolin1`) has now been observed 4603 times; this is ONE
-> coalesced notice that updates in place, not 4603 messages. Latest detail:
->
-> claim gate is FAIL-CLOSED on endolin-garden-ece02cb4: budget pool claude-endolin1 cap is UNCALIBRATED (provenance placeholder); promote a calibrated cap to admit: set-budget-pool.sh claude-endolin1 <weekly-token-cap> <calibrated-from>. No job will be claimed on this host until a calibrated cap is set.
-
-- `msg-research-endo-progress-report-ocap-site-20260930-d0a41eec57ad` — from gardener:research-endo-progress-report-ocap-site-20260930, reply_to `research-endo-progress-report-ocap-site-20260930` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-research-endo-progress-report-ocap-site-20260930-d0a41eec57ad.md)
-
-> Endo progress report (2026-06-24 to 2026-09-30) is published: https://hllk2wmfocuoijaliiapckuth4f3qxqlvo5vjwzywazvawvrqaiq.ocap.site/
->
-> It covers product capability, not garden throughput: 471 merged ebfb PRs (412 code, 59 design-only); how the llm roadmap moved (M3 is still the first incomplete milestone, 40 rows changed status, 38 new designs); what shipped in six themes (agent substrate: mounts/git/tools/code mode; daemon OCapN-Noise and iroh; guest invite/accept, MCP and @endo/claude; endor npm-via-CAS; IronHorse, with test262 going from 4,740 to 37,285 of 51,976; chat/UX); and callouts. Note: only 6 of the 471 merges targeted master (the last on 07-13). In practice implementations land on llm under the package-availability rule, so the report separates shipped from proposed by PR content, not by base branch.
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
@@ -203,10 +42,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
 > [https://github.com/endojs/endo-but-for-bots/pull/1386](https://github.com/endojs/endo-but-for-bots/pull/1386)#issuecomment-5913442822 (age=17783s; heartbeat=full-poll)
 
-- `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
-
-> subscription claude-endolin2 changed zone ok -> backoff at spend=104614664/121000000.
-
 - `20260929T162945Z-aef3a3` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T162945Z-aef3a3.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -214,17 +49,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - question (msgid msg-activate-ironhorse-ratchet-autopilot-20260929-r4-6c7e0f95aff8.md)
 > - tentative answer: Proxy/tentative: Thanks for the update — no gating decision needed here, this reads as a status report. The plan sounds right: let r4 end now so the leader's single monk frees up for deploy-garden.sh, and let the one-time schedule (activate-ironhorse-ratchet-autopilot-20260929-r5, firing 17:15Z) pick up verifying the deployed gates, seeding the first press, and reporting on [kriscendobot/garden#51](https://github.com/kriscendobot/garden/issues/51). Good call building in the self-reschedule if the leader still hasn't deployed by then rather than blocking. Retiring the legacy ironhorse-ratchet schedule in favor of this one is fine to proceed with. No action needed from me — proceed as planned; the maintainer can revise if they see this differently.
 
-- `ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted` — from gauntlet:ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted.md)
+- `watchdog-unclaimable-host-requirements-book-revise-content` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-book-revise-content.md)
 
-> Gauntlet ebfb-sturdyref-layer2-ses-20260930-gauntlet HALTED: stage 'ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
-
-- `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
-
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T17:42:50Z, cleared 2026-09-30T19:17:57Z).
-> It was observed 5 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Host-requirements gate: job 'book-revise-content' has remained unclaimed for 901s with requires: host=endolin-garden2-5bcdff64. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -268,16 +95,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
 
-- `watchdog-self-heal-garden-mentor` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-mentor.md)
-
-> WATCHDOG notice — occurrence #6 (first seen 2026-09-25T20:50:35Z, latest 2026-09-26T00:50:38Z).
-> The SAME condition (`self-heal-garden-mentor`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
->
-> self-heal: garden-mentor exited rc=1 with no scoped fix. Capture: a60755470134df0e33803cdb0450d853923e87b8 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p a60755470134df0e33803cdb0450d853923e87b8). Diagnosis: This is the entire log — every configured provider was exhausted at the moment mentor ticked: `openai` (codex-endolin subscription at high water), `local` (no ollama unit running on either :11435 or :11434), and `anthropic` (Claude quota at high-water mark). This is a transient/environmental resource-exhaustion condition, not a code defect — the "FATAL" is the correct, deliberate behavior: it leaves markers so the next tick retries once quota/capacity frees up. There's nothing to fix in code; the fleet is simply between providers at this moment (consistent with prior known quota-throttle episodes).
->
-> No JOB block — this is transient provider exhaustion (all three configured inference providers were simultaneously unavailable), not a code defect. Mentor's own fallback logic already han
-
 - `20260929T083913Z-b50775` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260929T083913Z-b50775.md)
 
 > proxy answered a gating question (tentative — review and override):
@@ -289,14 +106,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Land the mechanism now with promotion disabled as you planned; seed the first engagement only after this window/budget pair is in place, then watch actual spend for a cycle or two before flipping promotion on.
 
-- `msg-ironhorse-test262-ratchet-round3-20260928-a4a854a44c5f` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-a4a854a44c5f.md)
-
-> The round-3 branch-point sweep at llm 47f6965d88 is nearly complete. Current runner semantics explicitly demote positive tests where both engines abort; the September 4 floor included those as covered. Already 397 historical covered paths are now shared-positive-test-failure, independently of engine regressions. The current runner also exposes thousands of failures formerly called wrong-throw skips. I am fixing actual floor regressions first (Object.getOwnPropertyDescriptor misses lazy intrinsic accessors), preserving the stricter classifier. A literal zero-lost comparison to the historical floor may require an explicitly documented policy reconciliation; I will report exact lost paths and reasons rather than relabeling failures as covered.
-
-- `watchdog-budget-level-monk-preflight` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-preflight.md)
-
-> fleet monk allocation frozen: claude-endolin1 uncalibrated provenance 'placeholder'. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.
-
 - `20260928T174815Z-192b50` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260928T174815Z-192b50.md)
 
 > M2’s next unblocked step is advancing the CI-green draft `endojs/endo-but-for-bots#1349` for `hardened-text-codecs-shim`. Decide whether to authorize `run the gauntlet #1349`; the manual gauntlet trigger is required before fleet work can proceed.
@@ -305,102 +114,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
-- `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-30T17:08:04Z, latest 2026-09-30T19:08:14Z).
-> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
-
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
-
-- `watchdog-budget-zone-oros-studio-garden-ce242c49-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-oros-studio-garden-ce242c49-ok.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-30T09:10:16Z, latest 2026-09-30T19:28:58Z).
-> The SAME condition (`budget-zone-oros-studio-garden-ce242c49-ok`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> subscription claude-oros changed zone backoff -> ok at spend=4412733/73000000.
-
-- `doomed-retire-gardener-worker-kind-alias-env-fallback-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-retire-gardener-worker-kind-alias-env-fallback-requeue-exhausted.md)
-
-> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
-> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
-> The work is preserved at jobs/plan/retire-gardener-worker-kind-alias-env-fallback; it stays HELD until a human promotes it
-> (promote-plan.sh retire-gardener-worker-kind-alias-env-fallback) or removes it, so nothing is lost.
-> Original job base: retire-gardener-worker-kind-alias-env-fallback
->
-> --- original job body ---
-> ---
-> tier: mentor
-> token-budget: 100000
-> ---
-> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-29T20:19:07Z cleared=none -->
->
-> ---
-> tier: mentor
-> fallback-tier: minion
-> token-budget: 100000
-> dispatch: automatic
-> ---
-> Child 1/2 of orchestration `retire-gardener-worker-kind-alias-split` (split of
-> `retire-gardener-worker-kind-alias` after a 2400s deadline overrun).
->
-> Context: the bulk of the legacy `gardener` worker-kind retirement already landed on
-> `main2` in commit `02513cd130f` ("refactor(jobs): retire gardener worker kind":
-> common.sh registry/decoder, handlers/gardener-claude.sh + set-gardeners.sh +
-> migrate-host-to-monk.sh deleted, reputation-reduce dual projection dropped,
-> install-units RETIRED_UNITS prunes `garden-gardener@.service`, compat/cutover tests
-> removed). `journal/hosts/*` no longer carry a `gardeners:` line. DO NOT redo that work.
->
-> Scope of THIS child: remove the residual legacy env alias `GARDEN_GARDENER_CLONE`
-> and stale `gardener-claude.sh` references, keeping `GARDEN_WORKER_CLONE` only.
->
-> - Fallback readers: `claim-job.sh:~188`, `complete-job.sh:~39`, `gardener.sh:~74-78`
->   (stop exporting `GARDEN_GARDENER_CLONE`), `usage-meter.sh` (~130/503/523),
->   `usage-append.sh:11` (reads ONLY the legacy var — switch it to
->   `GARDEN_WORKER_CLONE`, and check `GARDEN_GARDENER_ID` vs the spine's id var).
-> - Library scripts that read ONLY the legacy var (switch to `GARDEN_WORKER_CLONE`, or
->   the break is silent): `regenerate-topics-counts.sh`, `regenerate-sections-index.sh`,
->   `library-slug-prefix-check.sh`, `library-link-check.sh` (help text too); comment in
->   `auction.sh:~123`.
-> - Stale comments naming `gardener-claude.sh` → `monk-claude.sh`: `common.sh`
->   (~3840, ~8867, ~9061), `gardener.sh` (~532, ~1241), `ensure-project-worktree.sh`
->   (~23, ~35), `handlers/cleric-codex.sh` (~202).
-> - Tests under `scripts/jobs/test/` that set `GARDEN_GARDENER_CLONE` (grep; e.g.
->   run-test.sh, model-routing, qwen-mentor-trial, fetch-timeout, flat-provider-censor,
->   gardener-claude-tier-serving, host-requirements-gating, live-budget-admission,
->   deadline-nudge, gardener-worktree, auction-reputation, kimi-*, canary-probe-claim-
->   priority): retarget to `GARDEN_WORKER_CLONE`. Optionally rename
->   `gardener-claude-tier-serving-test.sh` → `monk-claude-...` if its name refers to the
->   deleted handler.
-> - Final `grep -rn GARDEN_GARDENER_CLONE scripts` must be empty (except a deliberate
->   regression assertion, if you add one).
->
-> Run the regression sweep (scaler/deploy/reaper/handler/health/worker-spine/
-> auction-reputation suites plus every test you touched) and report which needed
-> updating vs already passed. Land directly on `main2`.
->
-> Orchestrated failure contract: if you finish but cannot achieve the outcome, end your
-> report with `<<<GARDEN-ORCHESTRATION-FAILED>>>` then `<<<GARDEN-JOB-COMPLETE>>>`.
-
-- `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
-
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-30T14:41:02Z, cleared 2026-09-30T17:38:12Z).
-> It was observed 54 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> canary oros-studio-garden-ce242c49 is no longer stuck (release 64dde114ce6ab3fd8a4a336900fdcafdf5a5ae07, deployed e036bb8e0650b66a4ae00dc1516c4c8df39901ca).
 
 
 ## Spend & quota
@@ -408,7 +124,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 255.1M | $1591.68 _(notional, rate-card)_ | 100% of 256.0M (ok) |
+| Claude | 256.6M | $1609.38 _(notional, rate-card)_ | 100% of 256.0M (backoff) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 66645803 tokens/day lower bound._
@@ -417,14 +133,12 @@ _Fleet token-unlock pace: 66645803 tokens/day lower bound._
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (17)
+### todo (16)
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
 - [`ebfb-petname-path-only-sweep-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
-- [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1380
 - [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1393
 - [`book-revise-content`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-revise-content.md) — Revise the garden book: a title, an inference-tiers reference, and a new libr...
-- [`build-ci-minion-town-actions-runner`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ci-minion-town-actions-runner.md) — ---
-- [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/retire-gardener-worker-kind-alias-env-fallback.md) — ---
+- [`fix-endo-but-for-bots-macos-daemon-teardown-flake`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-endo-but-for-bots-macos-daemon-teardown-flake.md) — Flaky test (22.x, macos-15) CI leg: daemon teardown race unrelated to the PRs...
 - [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4-prwrite`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4-prwrite.md) — PR write handoff for #1391 (gauntlet fix round 4)
 - [`ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1394
 - [`ebfb-petname-path-only-sweep-4-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1390
@@ -432,22 +146,26 @@ worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1392
 - [`ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1396
 - [`endojs-endo-but-for-bots-pr695-gauntlet-20260930-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr695-gauntlet-20260930-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #695
+- [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1391
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1397
 - [`endojs-endo-but-for-bots-pr1394-20260930-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1394-20260930-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1394
 - [`fu-qwen-model-watch-20260728-180502-1-20260930-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-qwen-model-watch-20260728-180502-1-20260930-162006.md) — ---
 
-### doin (3)
+### doin (6)
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #774
 - [`ebfb-petname-path-only-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1390
+- [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1380
+- [`build-ci-minion-town-actions-runner`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ci-minion-town-actions-runner.md) — ---
+- [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
 - [`ebfb-petname-path-only-sweep-3-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-sweep-3-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1390
 
-### tada (10098)
+### tada (10096)
 - [`claude-on-minion-town-press-20260930-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/claude-on-minion-town-press-20260930-185007.md) — Panel-head freshness
-- [`ebfb-sturdyref-layer2-ses-20260930-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/ebfb-sturdyref-layer2-ses-20260930-gauntlet.md) — gauntlet ebfb-sturdyref-layer2-ses-20260930-gauntlet — HALTED
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-4.md) — Cost
-- [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4.md) — Cost
 - [`ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-clean.md) — Cost
-- … and 10093 more
+- [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-2.md) — Gauntlet fix round 2: endojs/endo-but-for-bots PR #1392
+- [`ebfb-petname-path-only-sweep-4-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/ebfb-petname-path-only-sweep-4-gauntlet-fix-1.md) — Cost
+- … and 10091 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
