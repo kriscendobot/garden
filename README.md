@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:25:39Z_
+_As of 2026-09-30T21:26:30Z_
 
 ## Latest
 
-The only board movement since the last bulletin was a single claim: the SturdyRef layer-5 CapTP-wire gauntlet panel round 1 on [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) moved from todo into doin.
-
-Otherwise the picture is steady-state churn across the SturdyRef eight-layer stack (layers 1–8, PRs #774 and #1390–#1398) and the parallel petname-path-only sweep (#1390), both still working through fix/panel rounds, plus a halted gauntlet on layer 2 SES ([endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) whose round-4 fixes are in but CI is flaking red on one unrelated macOS daemon-teardown leg — a credentialed rerun should clear it. The accountant opened this week's budget conversation with three questions pending (trimming the off-mandate Endo backlog, whether to fund endor metering, and pacing claude-endolin1's ~240M-token surplus), and a reset-credit recommendation is in: hold the claude-endolin2 credit, but accelerate codex-endolin by Thursday if its credit is to be used this cycle. A rolling-deploy canary on oros-studio-garden-ce242c49 is reported stuck (released but not yet showing the new SHA) and worth a look, alongside the foreman's standing ask to pick a path forward on [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015)/[#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) for M3.
+The SturdyRef 8-layer stack on endo-but-for-bots continues working through panel/fix/clean gauntlet stages across most layers, but layer 2 (SES, [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) halted after its round-4 fix job declined to proceed — the fixes themselves are landed and CI is green except one flaky macOS daemon-teardown leg the bot's PAT can't retrigger, so it's parked for a maintainer-side Actions rerun. Separately, an Ironhorse panic/host-call gauntlet exhausted its six-round review budget with CI green and is left for a human merge call, and panel coverage on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) went stale after the head moved post-review, so it needs a fresh look rather than an auto-staged gauntlet. The accountant opened this week's budget conversation (capacity tight until Saturday's reset, with three allocation questions pending), and the reset-credit watch separately recommends holding the claude-endolin2 credit while only spending a codex credit if cleric capacity is added first. The minion.town MCP wiring is live on endolin-garden2 and awaits two maintainer calls — a dedicated principal/credential scope versus today's shared production guest, and how much tool context to expose to lighter-weight roles — before it widens further. The garden book was also republished with new chapters on the library and the inference-tier reference.
 
 ## Parked for maintainer feedback
 
@@ -102,14 +100,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
 > [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=2215s; heartbeat=full-poll)
 
-- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ymax_e2e` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ymax_e2e.md)
-
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-ymax-e2e: packs 1000 >= 1000; size=409611264B packs=1000 gc.log=0; automatic remedy=deferred-deadline.
-
-- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ocapn` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ocapn.md)
-
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-ocapn: packs 1002 >= 1000; size=410059776B packs=1002 gc.log=0; automatic remedy=applied.
-
 - `ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted` — from gauntlet:ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted.md)
 
 > Gauntlet ebfb-sturdyref-layer2-ses-20260930-gauntlet HALTED: stage 'ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -196,7 +186,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 14.1M | $137.78 _(notional, rate-card)_ | 6% of 256.0M (ok) |
+| Claude | 14.2M | $138.14 _(notional, rate-card)_ | 6% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 187062056 tokens/day lower bound._
