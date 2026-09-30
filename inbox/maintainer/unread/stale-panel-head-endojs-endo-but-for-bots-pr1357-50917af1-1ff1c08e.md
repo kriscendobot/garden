@@ -1,17 +1,17 @@
 from_host: endolin-garden2-5bcdff64
-from: gardener:claude-on-minion-town-press-20260930-125006
-reply_to: claude-on-minion-town-press-20260930-125006
+from: gardener:claude-on-minion-town-completion-press-20260930-142007
+reply_to: claude-on-minion-town-completion-press-20260930-142007
 msg_key: stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-1ff1c08e
-notice_count: 2
+notice_count: 3
 first_seen: 2026-09-30T09:37:24Z
-last_seen: 2026-09-30T13:03:54Z
-sent_at: 2026-09-30T13:03:54Z
+last_seen: 2026-09-30T14:29:04Z
+sent_at: 2026-09-30T14:29:04Z
 ---
-COALESCED message — occurrence #2 (first seen 2026-09-30T09:37:24Z, latest 2026-09-30T13:03:54Z).
-The SAME message (episode key `stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-1ff1c08e`) has now been sent 2 times; this is
-ONE entry that updates in place, not 2 messages. Latest detail:
+COALESCED message — occurrence #3 (first seen 2026-09-30T09:37:24Z, latest 2026-09-30T14:29:04Z).
+The SAME message (episode key `stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-1ff1c08e`) has now been sent 3 times; this is
+ONE entry that updates in place, not 3 messages. Latest detail:
 
-Stale panel coverage for completed job `claude-on-minion-town-press-20260930-125006`: https://github.com/endojs/endo-but-for-bots/pull/1357 moved from panel-reviewed head `50917af1a439419d6ccc5b91ceb11acb0c5bff59` to presented head `1ff1c08e71ecec6717004bb2c7060c360163c1e8`.
+Stale panel coverage for completed job `claude-on-minion-town-completion-press-20260930-142007`: https://github.com/endojs/endo-but-for-bots/pull/1357 moved from panel-reviewed head `50917af1a439419d6ccc5b91ceb11acb0c5bff59` to presented head `1ff1c08e71ecec6717004bb2c7060c360163c1e8`.
 
 Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 
