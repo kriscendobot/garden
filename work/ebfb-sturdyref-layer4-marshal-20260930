@@ -3,3 +3,7 @@ gardener: 2
 worker_kind: monk
 claimed_at: 2026-09-30T06:59:26Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-sturdyref-layer4-marshal-20260930
+pr_number: 1393
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1393
+pr_head: build/sturdyref-marshal-representation
