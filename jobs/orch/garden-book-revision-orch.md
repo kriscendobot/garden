@@ -2,7 +2,7 @@
 order: serial
 children: book-revise-content book-copyedit book-design-pass
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-30T19:23:09Z
 ---
