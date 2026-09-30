@@ -28,7 +28,11 @@ Web frontend CSS and HTML techniques for building and styling the garden's web s
 | [The <selectedcontent> element: clone semantics, inertness, and styling](../sections/web--mdn-selectedcontent--element-semantics-and-cloning.md) | The <selectedcontent> element that displays the selected option inside the closed select button: cloneNode() clone semantics, inertness, independent styling. |
 | [::picker(select): targeting the picker, popover behavior, and default anchor styles](../sections/web--mdn-picker-select-pseudo-element--targeting-and-defaults.md) | What ::picker(select) targets, the base-select precondition, and the browser default picker position / position-try-fallback styles. |
 | [Streaming edit-preview stream](../sections/cloudflare-os--packages-workshop-shared-src-code-change--two-stage-ingestion-validation.md) | The start/delta/clear/reset edit-preview event protocol, and why finished previews outlive their streaming until a durable row resolves them. |
+| [Canvas: rendering the editor on a <canvas> element](../sections/web--dbushell-text-editor--canvas.md) | A canvas-rendered editor gives full control but nothing for free (selection, undo, paste, scrolling) and is entirely inaccessible; abandoned. |
+| [Content editable: a contenteditable="plaintext-only" editing surface](../sections/web--dbushell-text-editor--content-editable.md) | `contenteditable="plaintext-only"` gives native selection, undo, and accessibility; disable spellcheck for latency; unpredictable large-document slowdown. |
+| [Textarea: a <textarea> editor with a separate syntax-highlight layer](../sections/web--dbushell-text-editor--textarea.md) | `<textarea>` is fastest on long text but needs an overlay layer for highlighting; OpaqueRange, EditContext, Tree-sitter, inverse-sticky virtualization. |
 
 ## See also
 
 - chat-ui — the garden's web-based Familiar Chat UI; web-frontend collects the CSS technique material that product work reuses.
+- web-text-editors — building or embedding a text/code editor in a web page (Monaco, `<canvas>`, `contenteditable`, `<textarea>` substrates); its CSS-facing sections (`::highlight`, `::selection`, `caret-color`) also file here.
