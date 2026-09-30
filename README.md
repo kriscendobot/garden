@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-30T17:17:16Z_
+_As of 2026-09-30T17:21:03Z_
 
 ## Latest
 
-The sturdyref layering push continued in fits and starts: the 10-child [ebfb-sturdyref-layering-20260930](https://github.com/kriscendobot/garden/pull/1) orchestration reached completion, but layers 1, 3, 4, 5, 6, and 7 (shim-build, pass-style, marshal, captp-wire, captp-construct, ocapn-enliven) each halted their gauntlet at the clean or fix stage on a declared failed/declined outcome, leaving that work for a human look. The petname-path-only gauntlet also halted at clean, though a parallel sweep on the same line (fix round 3) completed and round 2 is now in doin. The garden's own progress report and book both finished publishing today — an Endo capability report covering the last three months (471 merged PRs, IronHorse test262 coverage up from 4,740 to 37,285 of 51,976 cases) and an 8-chapter garden book, both live as ocap.site clips.
+The sturdyref layering push dominates the day: the 10-child [ebfb-sturdyref-layering-20260930](https://github.com/kriscendobot/garden) orchestration completed, but six of its per-layer gauntlets (layer1 shim-build, layer3 pass-style, layer4 marshal, layer5 captp-wire, layer6 captp-construct, layer7 ocapn-enliven, layer8 daemon-formula) halted at their clean/fix stage on a declared failed/declined outcome and need a maintainer look. Meanwhile PR #1390 (petname-path-only) and #1391/#1389/#1394/#1380 gauntlets are mid-cycle through further panel/fix rounds, and PR #695 and PR #1357 both have stale panel coverage awaiting an explicit "run the gauntlet" call before further review.
 
-Operationally, the deploy pipeline is stuck: the leader (`endolin-garden-ece02cb4`) is 25 commits behind `origin/main2` and, as the leader, is blocking every singleton producer from honoring anything newer — worth a direct look. A subscription-budget regression job (`fix-subscription-model-deploy-gate-regression`) got reaped after its retry also failed and is parked awaiting promotion. Claude spend is at 97% of the weekly quota, which is throttling monk capacity fleet-wide. The IronHorse test262 ratchet round 3 is also blocked on a maintainer call: whether to accept a reconciled floor of 36,599 covered paths against 906 historical losses, rather than mask them.
+On infrastructure, the leader (endolin-garden-ece02cb4) is 25 commits behind `main2` and has been deploy-stalled for about a day — since it runs every singleton producer, this is worth a look, alongside a stuck rolling-deploy canary on oros-studio-garden-ce242c49. A reaper also parked two indivisible jobs after exhausted retries: a deploy-gate regression fix (traced to a stale `provider-cooldown-test.sh` fixture predating the subscription-budget-model gate) and a `GARDEN_GARDENER_CLONE` alias-retirement cleanup — both held in `jobs/plan/` pending promotion. Claude spend is at 97% of its weekly cap. On the brighter side, the Endo six-month progress report and the full 8-chapter garden book both published, and IronHorse's test262 round-3 floor-reconciliation question is still open for a maintainer decision.
 
 ## Parked for maintainer feedback
 
@@ -244,12 +244,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #38 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T17:12:28Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 38 times; this is ONE
-> coalesced notice that updates in place, not 38 messages. Latest detail:
+> WATCHDOG notice — occurrence #39 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T17:17:50Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 39 times; this is ONE
+> coalesced notice that updates in place, not 39 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1386](https://github.com/endojs/endo-but-for-bots/pull/1386)#issuecomment-5913442822 (age=9376s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1386](https://github.com/endojs/endo-but-for-bots/pull/1386)#issuecomment-5913442822 (age=9676s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -716,10 +716,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 248.2M | $1554.14 _(notional, rate-card)_ | 97% of 256.0M (ok) |
-| Codex | 17.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
+| Claude | 248.3M | $1554.79 _(notional, rate-card)_ | 97% of 256.0M (ok) |
+| Codex | 17.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 65311203 tokens/day lower bound._
+_Fleet token-unlock pace: 65308732 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.041716s/45s (/home/kris/garden/.garden-state/follow-up/journal); 1 open notice(s); checker healthy
