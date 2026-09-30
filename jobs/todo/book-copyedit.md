@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: garden-book-revision-orch
-priority: normal
-posted_by: producer
-posted_at: 2026-09-30T19:22:32Z
+role: researcher
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-30T20:52:07Z cleared=none -->
 
 ---
 role: researcher
