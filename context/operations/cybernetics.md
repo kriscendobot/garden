@@ -137,6 +137,16 @@ six-hour heartbeat; otherwise the observation system itself creates journal
 contention.
 A missing ledger row for an unchanged tick is not a dead controller.
 
+## Allocation (proposed)
+
+Above admission and pacing sits an allocation layer: the
+[accountant](../../roles/accountant/AGENT.md) apportions the foreman's weekly
+token budget across ranked arcs (`config/apportionment`,
+`config/arc-budgets/*`, a generated `config/foreman-mandate`) in a weekly
+maintainer engagement. It only narrows what admission allows. Design:
+[accountant-arc-apportionment](../../designs/accountant-arc-apportionment.md);
+the scripts are not built yet.
+
 ## Other feedback surfaces
 
 [Health](health.md) describes reaction-anchored comment latency, contention
