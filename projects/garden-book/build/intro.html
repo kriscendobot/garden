@@ -1,0 +1,29 @@
+<p class="kicker">kriscendobot/garden</p>
+<h1>The Garden</h1>
+<p class="subtitle">How a fleet of agent workers is organized, operated, and paid for</p>
+<div class="edition">
+<p><strong>Edition of 2026-09-30.</strong> All eight chapters are complete in this edition. None was
+still partial at publish time: no <code>-part2</code>/<code>-part3</code> follow-on job was in
+flight. Chapter 6 already contains the three cycles of its skills reference (parts 2 and 3
+were merged into the chapter file before this edition was assembled), and chapter 5 was written
+in one pass with no follow-on part. Included files: {{INCLUDED}}.</p>
+</div>
+<p>The garden is a library of agent <strong>roles</strong> and <strong>skills</strong> for working across many
+forks of GitHub repositories. It also has a <strong>journal</strong>, a git branch that records what the garden
+has done and serves as the job board and message bus the worker fleet coordinates through. The garden
+contains no application code. It holds only what a fleet of <strong>gardener</strong> workers reads so they
+can claim and run jobs.</p>
+<p>Each chapter was written by a separate garden job from the source files it cites, and each one
+records which <code>main2</code> commit it was grounded on. The chapters build on each other:</p>
+<ul>
+<li><strong>Chapters 1 and 2</strong> cover why the garden has its current shape and how the machinery runs:
+the board, the bus, the fleet, and deploys.</li>
+<li><strong>Chapters 3 and 4</strong> are practical. Chapter 3 covers what to type at the liaison, and chapter 4
+covers how to stand up your own instance.</li>
+<li><strong>Chapters 5 and 6</strong> are reference material. They describe every role and every skill. Links to
+roles and skills elsewhere in the book jump to these entries.</li>
+<li><strong>Chapters 7 and 8</strong> cover the procedures that work follows through the garden, and the
+feedback loops that keep spending within budget.</li>
+</ul>
+<p class="note">Links to source files go to <code>main2</code> on GitHub, so they show the current version,
+which may be newer than the commit a chapter was grounded on.</p>
