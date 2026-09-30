@@ -66,3 +66,13 @@ Acceptance: deferred | worker-side evidence only (suspend/resume re-seat, broken
 
 
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T23:41:54Z
