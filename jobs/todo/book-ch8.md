@@ -70,13 +70,5 @@ to `journal/projects/garden-book/ch8-cybernetics-budgeting.md` as Markdown.
    in-progress work, accurately reflecting whatever state you find, not as
    already-shipped.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-30T03:48:50Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-30T04:13:06Z -->
