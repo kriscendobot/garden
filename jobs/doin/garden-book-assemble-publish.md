@@ -51,3 +51,13 @@ reader knows a fuller edition may follow.
    report and via `scripts/jobs/message-user.sh <this-job-base>` to the
    maintainer inbox, naming which chapters (and parts) were included and
    which were still partial/pending at publish time.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T09:41:01Z
