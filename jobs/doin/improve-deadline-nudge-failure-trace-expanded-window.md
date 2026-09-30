@@ -27,3 +27,13 @@ Notes for the implementer:
 - Record the current stage name explicitly (clone / journal-sync / staging / push) as each stage begins, so a failure that fires no ERR still names its stage.
 - Add/extend a test under `scripts/jobs/test/` that forces a stage failure and asserts the WARN carries the stage and command. Keep it hermetic; this prior attempt overran its 2400s window, so budget test runs carefully.
 - Commit with explicit pathspecs and push to `main2` via the rebase CAS loop under `garden_repo_lock`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T02:00:24Z
