@@ -1,2 +1,2 @@
-base: improve-deadline-nudge-failure-trace
+base: improve-deadline-nudge-push-classification
 identity: mentor:scripts/jobs/deadline-nudge.sh
