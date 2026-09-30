@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-30T20:13:32Z_
+_As of 2026-09-30T20:17:38Z_
 
 ## Latest
 
-A large coordinated stack is mid-gauntlet on endo-but-for-bots: the "sturdyref" layer series — [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) — is working through panel/fix/clean stages in parallel, with the petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) now on its third fix round. Separately, the ironhorse panic live-handle-reseat gauntlet ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is on fix round 5, while a sibling ironhorse panic-host-call gauntlet exhausted its 6-round review budget without converging and now awaits a human merge call.
+The sturdyref layer stack dominates the board: seven `endojs/endo-but-for-bots` PRs (#774, #1390–#1398) are moving through the gauntlet in parallel, with layer2/SES on fix round 4, the petname-path-only sweep (#1390) on fix round 3, and layers 6/7/8 already clean. A separate PR (#1397/#1398) needs its base rebased onto the restacked frozen bases before it can proceed.
 
-Three items need a maintainer decision: the foreman is blocked on M3 pending a choice between advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite clears or answering the four open questions on design [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340); M2 needs explicit authorization to "run the gauntlet #1349" on the CI-green draft [#1349](https://github.com/endojs/endo-but-for-bots/pull/1349); and the minion.town MCP rollout is paused on a principal/Cognito-client decision plus a call on per-role tool-context cost before it widens past garden2. Spend remains light — Claude at 2% of the weekly quota, Codex at 38% of its plan — though several budget-level watchdog notices show worker counts oscillating on the endolin hosts as targets adjust.
+Elsewhere, the ironhorse live-handle-reseat gauntlet (#1380) hit its review budget after 6 fix/panel rounds — CI is green but it needs a human merge/review call, same as the earlier ironhorse panic-host-call PR. Two shepherded PRs are also parked awaiting a maintainer decision: `run the gauntlet #1349` for hardened-text-codecs-shim, and the choice between advancing [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the open questions on design [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340).
+
+Budget is healthy (Claude 2%, Codex 38% of quota) but the endolin-garden2 monk pool is being throttled down (3→2 workers) as its subscription window nears its spend cap before the 2026-10-03 reset. The minion.town MCP rollout is paused on your principal/credential decision before it widens past the garden2 canary, and the ocap.site launch is blocked solely on your DNSSEC go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -70,6 +72,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-3.md)
 
 > budget-level changed oros-studio-garden-ce242c49 monk workers 2 -> 3 (target 3): subscription claude-oros spend=6041208 cap=73000000 pace-bias=0 window-start=2026-09-30T06:59Z(calendar) deadline=2026-10-07T06:59Z(calendar) ceiling=3 target=3
+
+- `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
+
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 19 of 740 clone(s) on consecutive ticks.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -158,13 +164,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 4.2M | $41.08 _(notional, rate-card)_ | 2% of 256.0M (ok) |
+| Claude | 4.3M | $44.73 _(notional, rate-card)_ | 2% of 256.0M (ok) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 142685157 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (15)
