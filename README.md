@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-30T06:21:48Z_
+_As of 2026-09-30T06:26:46Z_
 
 ## Latest
 
-The sturdyref layering work advanced: layer 1 (pre-lockdown install shim build) completed its viability check and handed off into layer 2 (SES build), which is now underway and staged into the gauntlet's CLEAN stage, with a follow-on `ebfb-sturdyref-layer1-prelockdown-install` job queued behind it. Several gauntlets progressed a round: [endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) cleared panel round 6 and moved to fix round 6, [endo-but-for-bots#1355](https://github.com/endojs/endo-but-for-bots/pull/1355) cleared panel round 2 and moved to fix round 2, [endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383) is back in panel round 5 after a fix, [endo-but-for-bots#1388](https://github.com/endojs/endo-but-for-bots/pull/1388) landed a fix and moved to panel round 2, and the minion.town clip gutter PR ([kriscendobot/minion.town#143](https://github.com/kriscendobot/minion.town/pull/143)) cleared panel round 2 and is on fix round 2. The pet-name-path-only sweep on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) is being finished alongside its gauntlet's CLEAN stage.
+Layering work on the SturdyRef proposal continued: [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (Layer 2, SES) reached its viability gate, Layer 3's pass-style-recognition work is now queued, and its Layer 1 (pre-lockdown install) build is also posted. Gauntlet grinding continues across several open PRs, with panel rounds advancing on [endojs/endo-but-for-bots#1388](https://github.com/endojs/endo-but-for-bots/pull/1388) and fix rounds proceeding on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), [#1389](https://github.com/endojs/endo-but-for-bots/pull/1389), [#1379](https://github.com/endojs/endo-but-for-bots/pull/1379), and [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380).
 
-Several items need the maintainer's attention: the leader host is 25 commits behind on deploy and, being the singleton producer, isn't honoring recent directives; a fixer job diagnosing the subscription-budget-model deploy-gate regression exhausted its retries and is parked awaiting promotion; the IronHorse test262 round-3 sweep needs a decision on reconciling 906 lost historical-floor paths against the stricter current classifier; and the published Endo progress report (2026-06-24 to 2026-09-30) covers six themes of shipped work, including IronHorse test262 coverage growing from 4,740 to 37,285 of 51,976 cases.
+Two split-eligible jobs exhausted their retries and parked for maintainer attention: a deploy-gate regression traced to a stale test fixture from the subscription-based budget model (blocking fleet-wide deploys), and the residual `GARDEN_GARDENER_CLONE` alias cleanup. Separately, the leader host is 25 commits behind on its own deploy and `oros-studio-garden-ce242c49` remains offline (heartbeat stale ~4.5h), both flagged by watchdogs. The Ironhorse test262 ratchet round 3 needs a maintainer call on reconciling ~906 historical-floor discrepancies, and a foreman milestone note asks for a decision between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or resolving open questions on design PR #1340. A full Endo progress report (2026-06-24 to 2026-09-30) has also been published, covering roadmap movement and shipped work across six themes.
 
 ## Parked for maintainer feedback
 
@@ -529,7 +529,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 201.2M | $1308.55 _(notional, rate-card)_ | 79% of 256.0M (ok) |
+| Claude | 201.4M | $1309.98 _(notional, rate-card)_ | 79% of 256.0M (ok) |
 | Codex | 16.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 63533087 tokens/day lower bound._
@@ -541,9 +541,9 @@ worst fetch p95 3.810412s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### todo (11)
 - [`minion-town-clip-gutter-default-landing-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clip-gutter-default-landing-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #143
 - [`endojs-endo-but-for-bots-pr1383-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1383-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1383
-- [`endojs-endo-but-for-bots-pr1388-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1388-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1388
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #774
 - [`ebfb-sturdyref-layer1-prelockdown-install`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer1-prelockdown-install.md) — ---
+- [`ebfb-sturdyref-layer3-pass-style-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930.md) — Layer 3 — pass-style recognition
 - [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer2-ses-20260930-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1391
 - [`kriscendobot-minion.town-pr144-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr144-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #144
 - [`improve-gardener-handler-wall-bound`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-gardener-handler-wall-bound.md) — ---
@@ -551,11 +551,12 @@ worst fetch p95 3.810412s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`endojs-endo-but-for-bots-pr1355-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1355-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1355
 - [`book-ch1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-ch1.md) — Garden book, chapter 1: Philosophy, history, and metamorphosis
 
-### doin (9)
+### doin (10)
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1349
 - [`ebfb-petname-path-only-sweep`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-sweep.md) — Finish the pet-name-path-only sweep on endojs/endo-but-for-bots#1390
 - [`ebfb-pr1343-endowments-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-pr1343-endowments-fix.md) — Fix endojs/endo-but-for-bots PR #1343 per kriskowal CHANGES_REQUESTED review
 - [`endojs-endo-but-for-bots-pr1389-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1389-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1389
+- [`endojs-endo-but-for-bots-pr1388-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1388-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1388
 - [`ebfb-petname-path-only-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1390
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1380
 - [`design-minion-town-clip-lifecycle-capabilities`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-minion-town-clip-lifecycle-capabilities.md) — Design: clip lifecycle authority as capabilities (kriscendobot/minion.town)
