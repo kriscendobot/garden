@@ -43,3 +43,13 @@ call sites elsewhere. Remaining work:
    update the PR body's status section, then post the pr-completion summary comment.
 
 Coordinate with #1343 (endowment value side); rebase over it if it lands first.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T06:03:26Z
