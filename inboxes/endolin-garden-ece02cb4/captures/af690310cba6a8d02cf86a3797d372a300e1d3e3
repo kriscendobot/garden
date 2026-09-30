@@ -1,0 +1,45 @@
+<6>10:09:34 [monk/1] job 'kriscendobot-minion.town-pr142-gauntlet-fix-1' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>10:09:34 [monk/1] job 'kriscendobot-minion.town-pr142-gauntlet-fix-1' call ceiling: tier=mentor max-budget-usd=6.20 (scaled by fresh seven-day headroom when available)
+<6>10:09:34 [monk/1] minion-mcp: not attaching for 'kriscendobot-minion.town-pr142-gauntlet-fix-1': host endolin-garden-ece02cb4 not in config/minion-mcp hosts (endolin-garden2-5bcdff64)
+panel-head-freshness: managed target=kriscendobot-minion.town-pr142-gauntlet-fix-1 disposition=gauntlet-driver-owns-next-panel
+<6>10:13:21 [assert-followup-posted] gate: BLOCK — 'kriscendobot-minion.town-pr142-gauntlet-fix-1' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+Your round-1 fixes are pushed to PR #142, but CI came back red. None of the jobs actually ran: GitHub refused to start them because the kriscendobot account's Actions billing is blocked.
+
+## What I changed
+I read the panel-1 verdict (review posted 2026-09-30T09:37Z) and applied it to `designs/clip-lifecycle-capabilities.md` in an isolated checkout. That file is the design's only file. The fix went out as one commit, `a0df506`, pushed with `safe-push-pr-head.sh`; the PR head moved from `0e2ccb8` to `a0df506`.
+
+**Must-fix items:**
+- **critic 1 (restart safety):** a new § 7.1 says how controllers, caretakers (revocable wrappers) and revokers are stored. They are daemon formulas made by `makeUnconfined` of a new `clip-controller-caplet.ts`, with fixed settings stored in the formula. Revocation and unpublish are written as permanent `revoked-*` and `dead-*` records in the site registry store, so they survive a daemon restart. It also gives a fallback in case the daemon can't keep a parent reference alive.
+- **skeptic 1 (identity still asked):**
+  - § 4 now has a table of every remaining read of the owner/account field, and each one is for billing, not permission.
+  - Upgrade bytes are now charged to the clip's account instead of the caller's identity.
+  - An upgrade from an over-quota account fails with `account over quota` before anything changes.
+- **skeptic 2 (orphaned clips):** the design now says a guest that deletes its last name for a controller has given that authority up. It offers two ways back:
+  - calling `register` again on the clip directory returns the existing controller;
+  - the operator can reissue a controller.
+- **copyeditor / pedant:** every Unicode `…` is now ASCII `...`.
+
+**Should-fix items I also took:**
+- A stable registration id, kept separate from the content hash that changes on each upgrade.
+- The "dead" state as a permanent record.
+- One source of truth for `account`.
+- Consistent internal names (`repoint` / `remove`).
+- The fact that recipients already have `adopt`, `send` and `inbox` over MCP (they are in `BASELINE_CAPABILITIES`).
+- The failure message when a controller lacks a right.
+- A fixed `describe()` / `attenuate` return shape.
+- Migration edge cases: a dry run first, owners with no live guest, and old swiss-number strings held by third parties.
+- A short glossary of terms.
+- A clearer § 2.1 rationale and stated defaults for open questions 3 and 4.
+- Seven new tests.
+
+## CI (terminal: RED, rc 3)
+`ci-wait-merge.sh` reported all three checks failed: `test`, `Claude harness (amd64)` and `Claude harness (arm64)`. Run 36700922175 shows each job "was not started because recent account payments have failed or your spending limit needs to be increased." The previous head, `0e2ccb8`, passed CI, and this commit changes only the design doc.
+
+## Follow-ups
+- Someone needs to fix Actions billing (payment method or spending limit) on the kriscendobot account. After that, re-run CI on `a0df506`; nothing in the PR needs changing.
+- The panel-2 stage should run once CI is green.
+- The draft PR is left as is, with no un-draft.
+
+<<<GARDEN-ORCHESTRATION-FAILED>>>
