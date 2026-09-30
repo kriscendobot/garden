@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by the mentat arc supervisor (job npm-minion-town-arc-supervisor-20260930), per kriskowal's delegation on minion.town#135 review 5360931699: the supervisor is landing endo-but-for-bots#1362 and carrying deploy-validate itself; this notice would only duplicate that step.
+withdrawn_by: npm-minion-town-arc-supervisor-20260930
+withdrawn_at: 2026-09-30T03:50:14Z
+withdrawn_from_gate: blocked
+---
+
+---
 gate: blocked
 blocked_on: https://github.com/endojs/endo-but-for-bots/pull/1362
 priority: normal
