@@ -1,7 +1,3 @@
-cadence: weekly-at-Mon-09:00-America/Los_Angeles
-last_dispatched: 2026-09-28T16:00:00Z
-job_basename_prefix: reset-credit-watch
----
 ---
 tier: mentor
 fallback-tier: minion
