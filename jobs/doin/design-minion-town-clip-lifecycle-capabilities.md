@@ -41,3 +41,13 @@ The rest of the clip lifecycle still asks who the caller is. Design (land in
    whether the pinned `owner` should shrink to an accounting tag.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T08:21:09Z
