@@ -134,8 +134,8 @@ class Screening(unittest.TestCase):
         self.git('commit', '-qm', 'fixture')
 
     def publish(self):
-        self.git('pull', '-q', '--rebase', 'origin', 'journal2')
         self.commit()
+        self.git('pull', '-q', '--rebase', 'origin', 'journal2')
         self.git('push', '-q', 'origin', 'journal2')
 
     def sync(self):
