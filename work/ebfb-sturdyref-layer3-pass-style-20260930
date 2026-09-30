@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 3
-worker_kind: monk
-claimed_at: 2026-09-30T06:31:33Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-ebfb-sturdyref-layer3-pass-style-20260930
-pr_number: 1392
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1392
-pr_head: build/sturdyref-pass-style-recognition
