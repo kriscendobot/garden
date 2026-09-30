@@ -1,4 +1,5 @@
 ---
+child-retire-gardener-clone-alias-verify-handler-spine-host: endolin-garden2-5bcdff64
 order: parallel
 children: retire-gardener-clone-alias-verify-deploy-reaper retire-gardener-clone-alias-verify-handler-spine
 on-child-failure: continue
