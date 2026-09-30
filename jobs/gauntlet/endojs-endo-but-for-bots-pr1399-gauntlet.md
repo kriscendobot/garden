@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1399
 build_job: ebfb-sturdyref-layer9-agent-api-20260930
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1399-gauntlet-viability
+current_child: endojs-endo-but-for-bots-pr1399-gauntlet-clean
 state: running
 created_by: producer
 created_at: 2026-09-30T08:39:27Z
