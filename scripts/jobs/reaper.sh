@@ -147,7 +147,11 @@ export GARDEN_TAG="reaper"
 # GARDEN_HANDLER_TIMEOUT`, so a handler cannot outlive GARDEN_HANDLER_TIMEOUT +
 # GARDEN_HANDLER_KILL_AFTER; the gardener's INVARIANT
 # (GARDEN_HANDLER_TIMEOUT + GARDEN_HANDLER_KILL_AFTER < GARDEN_CLAIM_TTL) is what
-# lets the reaper treat a claim past GARDEN_CLAIM_TTL as dead. But that invariant is
+# lets the reaper treat a claim past GARDEN_CLAIM_TTL as dead. The gardener's
+# independent wall watchdog (common.sh handler_wall_watchdog) enforces the same wall
+# even if `timeout` fails, SIGKILLing the handler group a few seconds
+# (GARDEN_HANDLER_WATCHDOG_KILL_LAG) after --kill-after is due — inside
+# GARDEN_REAP_SAFETY_SLACK below. But that invariant is
 # CONFIG-FRAGILE: nothing stops GARDEN_CLAIM_TTL being set BELOW the handler wall
 # (the reaper and the gardener read the knob independently, in separate processes).
 # When it is, the reaper requeues a claim whose handler is STILL RUNNING — a fresh

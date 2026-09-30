@@ -122,6 +122,26 @@ fi
 # empties, so a clean tree that respects SIGTERM costs ~0s and only a wedged tree
 # pays the full grace before the unconditional SIGKILL.
 : "${GARDEN_HANDLER_REAP_GRACE:=5}"
+# Independent wall watchdog (common.sh handler_wall_watchdog). `timeout` alone once
+# let a handler run 3702s against a 2400s budget (2026-09-30T05:36:39Z), so a
+# background watchdog SIGTERMs the handler's WHOLE process group at
+# budget + GARDEN_HANDLER_WATCHDOG_GRACE and SIGKILLs it at
+# budget + GARDEN_HANDLER_KILL_AFTER + GARDEN_HANDLER_WATCHDOG_KILL_LAG. The lag lets
+# `timeout`'s own --kill-after escalation (rc=137) win when it works, so the watchdog
+# KILL fires only when `timeout` has genuinely failed. The worker's worst-case
+# lifetime is budget + GARDEN_HANDLER_KILL_AFTER + lag (+ ≤1s of polling), which the
+# reaper's GARDEN_REAP_SAFETY_SLACK (30s) already covers in its reap_age_threshold
+# floor, so the claim-TTL INVARIANT above holds. The grace must be below
+# GARDEN_HANDLER_KILL_AFTER so the group TERM precedes the KILL, and the lag must
+# stay well under GARDEN_REAP_SAFETY_SLACK.
+: "${GARDEN_HANDLER_WATCHDOG_GRACE:=10}"
+: "${GARDEN_HANDLER_WATCHDOG_KILL_LAG:=2}"
+if ! [[ "$GARDEN_HANDLER_WATCHDOG_GRACE" =~ ^[0-9]+$ ]] || [ "$GARDEN_HANDLER_WATCHDOG_GRACE" -ge "$GARDEN_HANDLER_KILL_AFTER" ]; then
+  GARDEN_HANDLER_WATCHDOG_GRACE=$(( GARDEN_HANDLER_KILL_AFTER / 2 ))
+fi
+if ! [[ "$GARDEN_HANDLER_WATCHDOG_KILL_LAG" =~ ^[0-9]+$ ]] || [ "$GARDEN_HANDLER_WATCHDOG_KILL_LAG" -gt 10 ]; then
+  GARDEN_HANDLER_WATCHDOG_KILL_LAG=2
+fi
 # A restarted worker can inherit detached descendants from its prior incarnation
 # in the systemd service cgroup. Process-group reaping cannot reach a descendant
 # that called setsid/setpgid, and KillMode=mixed intentionally preserves the
@@ -644,6 +664,16 @@ while :; do
     "${handler_cmd[@]}" "$base" "$jobfile" "$report" >"$capture" 2>&1 &
   handler_pgid=$!
   set +m
+  # INDEPENDENT WALL WATCHDOG. Launched with job control OFF so it stays in THIS
+  # gardener's group, never the handler's (a group kill must not take down its own
+  # enforcer). It bounds the handler group even if `timeout` itself fails to, and it
+  # is cancelled below on every handler exit.
+  watchdog_marker="$(mktemp "${TMPDIR:-/tmp}/garden-watchdog-$base.XXXXXX")"
+  ( handler_wall_watchdog "$handler_pgid" \
+      $(( handler_budget + GARDEN_HANDLER_WATCHDOG_GRACE )) \
+      $(( handler_budget + GARDEN_HANDLER_KILL_AFTER + GARDEN_HANDLER_WATCHDOG_KILL_LAG )) \
+      "$watchdog_marker" ) >/dev/null 2>&1 &
+  watchdog_pid=$!
   # Wait for the handler, RESUMING across any trapped-signal interruption. A
   # deploy-drain SIGTERM to THIS gardener (self-heal-run.sh signals only the worker
   # process, never the in-flight handler) fires the TERM trap above and interrupts
@@ -659,6 +689,21 @@ while :; do
     wait "$handler_pgid"; hrc=$?
     kill -0 "$handler_pgid" 2>/dev/null || break
   done
+  # Cancel the watchdog on every exit path. It holds no resources beyond a ≤1s
+  # `sleep`; SIGKILL is safe because it only ever signals the handler group, which
+  # the unconditional reap below sweeps regardless.
+  kill -KILL "$watchdog_pid" 2>/dev/null || true
+  wait "$watchdog_pid" 2>/dev/null || true
+  # Only the watchdog's KILL proves `timeout` failed (its --kill-after was due
+  # first); a group TERM alone leaves timeout's own rc (124, or 137 after its
+  # escalation) authoritative.
+  if grep -q '^KILL ' "$watchdog_marker" 2>/dev/null; then
+    log "handler wall watchdog fired for '$base' ($(tr '\n' ' ' < "$watchdog_marker")); timeout did not bound the handler, recording rc=124 (was rc=$hrc)"
+    hrc=124
+  elif [ -s "$watchdog_marker" ]; then
+    log "handler wall watchdog TERMed the process group of '$base' past its budget; timeout returned rc=$hrc"
+  fi
+  rm -f "$watchdog_marker"
   set -e
 
   # REAP the handler's process group UNCONDITIONALLY, for every outcome. On an
