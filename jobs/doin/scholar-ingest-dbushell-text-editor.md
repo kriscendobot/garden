@@ -38,3 +38,13 @@ So beyond the ordinary section/source write-up:
 
 Normal scholar bounds apply: this is a library write, no project worktree,
 no upstream side-effects.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T02:57:43Z
