@@ -55,6 +55,7 @@ to `journal/projects/garden-book/ch3-using-the-garden.md` as Markdown.
 Write for the actual user of this system: someone sitting at a terminal
 talking to the liaison, who wants to know what to type and what it does.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
