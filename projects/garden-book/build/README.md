@@ -14,4 +14,10 @@ own directory. It prefixes heading ids per chapter, rewrites relative
 role/skill links to the in-book chapter 5/6 entries, and sends other repo paths
 to `main2` on GitHub.
 
-Edition 2026-09-30: https://qxx6onyv2lkrchlytrmh2dos4xndfz5erojrkwfplor65h2ipgrq.ocap.site/
+Edition 2026-09-30 (revised, job `book-revise-content`; title *The Garden That Tends Code*,
+chapters 9 and 10 added; the title is set in `intro.html` and in `build.py`'s `<title>` and nav):
+https://dajt26qwtcxayo7bbm5sfokdhosqznrmwm7uahtuyxofbggo5nza.ocap.site/
+
+Prior editions:
+
+- 2026-09-30 (first edition, 8 chapters): https://qxx6onyv2lkrchlytrmh2dos4xndfz5erojrkwfplor65h2ipgrq.ocap.site/
