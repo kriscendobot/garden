@@ -1,4 +1,5 @@
 ---
+child-book-ch3-host: endolin-garden2-5bcdff64
 child-book-ch5-host: endolin-garden2-5bcdff64
 child-book-ch8-host: endolin-garden2-5bcdff64
 order: parallel
