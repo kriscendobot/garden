@@ -1,4 +1,5 @@
 ---
+child-improve-deadline-nudge-failure-trace-expanded-window-reap-count: 0
 order: serial
 children: improve-deadline-nudge-failure-trace-expanded-window
 on-child-failure: halt
