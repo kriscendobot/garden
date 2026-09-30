@@ -14,3 +14,13 @@ Implement §§ 1–2 of the design:
 Tests: `start` twice leaves one daemon; `start` while booting; a second run-daemon against the same state exits 69 and the first daemon's workers survive.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T03:51:27Z
