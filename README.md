@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T01:03:30Z_
+_As of 2026-09-30T01:08:02Z_
 
 ## Latest
 
-Quota pressure dominates the picture right now: Claude spend sits at 122% of the claude-endolin1 cap (backoff), and the leader host (endolin-garden-ece02cb4) is running 25 commits stale on a stalled deliberate deploy — while stale it's not honoring any directive newer than its deployed sha, and a candidate commit (39d0c5ef0aca) was already rejected by the test gate on a `triager-pacing-test.sh` failure, so that needs a look before the next deploy attempt. Milestone M2 remains stuck on manual gauntlet authorization for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened-text codecs smoke check) and a decision on closing #1356 as superseded by upstream [endo#3332](https://github.com/endojs/endo/pull/3332); M3's confined-agent work is similarly blocked pending a call on #1015/#1348 or answering the four open questions on design PR #1340. The IronHorse test262 ratchet (round 3) needs a floor-reconciliation decision — hundreds of historical "covered" paths are now correctly reclassified as failures under a stricter (and more honest) classifier, and the gardener is asking whether to record an explicitly reconciled floor rather than relabel anything. Elsewhere, a serial orchestration (`retire-gardener-worker-kind-alias-split`) halted on a child timeout, and the minion.town MCP rollout is proven live on garden2 but paused pending a decision on a dedicated principal/guest (rather than reusing production's `minion-mcp-test-cc`) and on context-cost scoping for jurors.
+The only board movement since the last bulletin was the completion of the minion.town PR #120 retrospective job, closing out that review cycle with no other claims or new posts registered in this window.
 
 ## Parked for maintainer feedback
 
@@ -481,10 +481,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.9M | $1157.36 _(notional, rate-card)_ | 122% of 143.0M (backoff) |
+| Claude | 175.0M | $1157.88 _(notional, rate-card)_ | 122% of 143.0M (backoff) |
 | Codex | 15.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 61867877 tokens/day lower bound._
+_Fleet token-unlock pace: 57614451 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
@@ -497,20 +497,19 @@ worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`endo-daemon-idempotent-start-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-daemon-idempotent-start-build.md) — Endo daemon: idempotent start + early single-instance lock (phase 1)
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1357-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1357
 - [`endojs-endo-but-for-bots-pr1371-live-model-turn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1371-live-model-turn.md) — Real model turn for endojs/endo-but-for-bots#1371's confined launcher
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1379
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
-- [`kriscendobot-minion.town-pr120-75934ef0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-75934ef0-retro.md) — Retrospective on kriscendobot/minion.town PR #120 (primary: kriscendobot-mini...
 
-### tada (9803)
+### tada (9804)
+- [`kriscendobot-minion.town-pr120-75934ef0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr120-75934ef0-retro.md) — Cost
 - [`claude-on-minion-town-press-20260930-003506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/claude-on-minion-town-press-20260930-003506.md) — Cost
 - [`kriscendobot-minion.town-pr130-review-ba8a9163-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr130-review-ba8a9163-retro.md) — Retrospective on minion.town #130 review 5358829715: dismissed as not a revie...
 - [`kriscendobot-minion.town-pr139-review-de54e8bb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr139-review-de54e8bb-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1383-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1383-gauntlet-panel-1.md) — Completion report
-- [`kriscendobot-minion.town-pr120-review-f4e33453-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr120-review-f4e33453-retro.md) — Cost
-- … and 9798 more
+- … and 9799 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
