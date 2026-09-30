@@ -44,3 +44,13 @@ issue_spine: issue-kriscendobot-garden-117
 issue_url: https://github.com/kriscendobot/garden/issues/117
 submitter: dckc
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:39:06Z
