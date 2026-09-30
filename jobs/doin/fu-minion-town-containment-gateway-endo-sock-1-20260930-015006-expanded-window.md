@@ -36,3 +36,13 @@ store, and rescans.
 
 Do NOT check or re-arm the systemd containment drop-in: the powers plane is
 authorized OPEN under kriscendobot/minion.town issue #58.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:44:34Z
