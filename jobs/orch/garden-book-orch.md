@@ -1,4 +1,5 @@
 ---
+child-book-ch1-host: endolin-garden2-5bcdff64
 child-book-ch4-host: endolin-garden-ece02cb4
 child-book-ch7-host: endolin-garden2-5bcdff64
 child-book-ch6-host: endolin-garden-ece02cb4
