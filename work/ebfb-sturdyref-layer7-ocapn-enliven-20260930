@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 4
-worker_kind: monk
-claimed_at: 2026-09-30T07:52:24Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-sturdyref-layer7-ocapn-enliven-20260930
-pr_number: 1397
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1397
-pr_head: build/sturdyref-ocapn-enliven
