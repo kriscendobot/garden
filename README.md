@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T23:36:50Z_
+_As of 2026-09-30T23:40:59Z_
 
 ## Latest
 
-The SturdyRef layer stack continues to churn: layer 1's shim build ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)) moved into fix round 2, while layers 2 and 7 both had gauntlets halt on declared failures/declines needing maintainer disposition. The petname-path-only sweep on [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) ground through several fix rounds and surfaced a should-fix punch list (refusal/property tests, a summary comment, PR-body trim) awaiting disposition. The Ironhorse panic host-call PR hit its 6-round review budget with CI green but no convergence, and the panic live-handle-reseat PR's round 5 fix left its own should-fix list (hasher/crank/CAS tests) open. Several PRs ([#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) advanced past their last panel-reviewed head and need fresh review before further gauntlet action. Fleet health was otherwise routine — a brief oros-studio host offline blip and a rolling-deploy canary stall both self-recovered, and quota is comfortable (Claude 13%, Codex 38% of budget).
+The only board movement since the last bulletin was a new fix-round handoff job for [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380), trimming the PR body as part of its ongoing gauntlet fix loop. Otherwise the fleet stayed busy across the SturdyRef layer stack (layers 1–8, PRs #774 and #1390–#1398) and several other gauntlets in panel/fix rounds, while a batch of watchdog notices cleared cleanly (journal contention, canary-stuck, worker-derotate, budget-zone backoff) with no maintainer action needed. Two gauntlets did halt and need attention: the SturdyRef layer-2 SES stage (fix round 4 declined) and the layer-7 OCapN-enliven stage (clean declined). The garden book was also republished with two new chapters (library/context-economy and an inference-tiers reference).
 
 ## Parked for maintainer feedback
 
@@ -300,7 +300,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 34.5M | $285.10 _(notional, rate-card)_ | 13% of 256.0M (ok) |
+| Claude | 35.2M | $291.23 _(notional, rate-card)_ | 14% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 132308262 tokens/day lower bound._
@@ -309,10 +309,11 @@ _Fleet token-unlock pace: 132308262 tokens/day lower bound._
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (17)
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
 - [`build-accountant-arc-apportionment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-accountant-arc-apportionment.md) — Build: accountant arc apportionment (garden main2)
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`endojs-endo-but-for-bots-pr1380-body-trim-fix6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1380-body-trim-fix6.md) — Update the PR body of endojs/endo-but-for-bots#1380 (gauntlet fix-6 handoff)
 - [`ebfb-petname-path-only-sweep-3-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-3-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1394
 - [`endojs-endo-but-for-bots-pr1402-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1402-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1402
