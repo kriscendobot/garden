@@ -35,3 +35,13 @@ Do this:
    kernel `bwrap` sandbox, a guest-scoped daemon bootstrap) go in the PR comment as
    named follow-ups, not in this job.
 4. Post one concise evidence comment on #1371 and report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T00:43:50Z
