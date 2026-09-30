@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-09-30T08:35:11Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-ebfb-sturdyref-layer9-agent-api-20260930
+pr_number: 1399
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1399
+pr_head: design/sturdyref-agent-api
