@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1391
 build_job: ebfb-sturdyref-layer2-ses-20260930
 kind: feature
-stage: panel
+stage: fix
 iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: ebfb-sturdyref-layer2-ses-20260930-gauntlet-panel-2
+current_child: ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-2
 state: running
 created_by: producer
 created_at: 2026-09-30T06:19:17Z
