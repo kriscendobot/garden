@@ -346,13 +346,42 @@ run_nudge exit-fault-scan env "BASH_FUNC_git%%=$exit_fault_git" > "$TEST_ROOT/ex
 exit_fault_rc=$?
 if [ "$exit_fault_rc" -eq 0 ] \
   && [ -z "$(nudge_paths exit-fault)" ] \
-  && grep -qE 'tick exited rc=7 during `exit 7` at git@[^ ]* < stage_due_messages@deadline-nudge\.sh:[0-9]+ < deadline_nudge_tick@deadline-nudge\.sh:[0-9]+ < main@deadline-nudge\.sh:[0-9]+;' "$TEST_ROOT/exit-fault.out" \
+  && grep -qE 'tick exited rc=7 in stage staging \(attempt 1/5\) during `exit 7` at git@[^ ]* < stage_due_messages@deadline-nudge\.sh:[0-9]+ < deadline_nudge_tick@deadline-nudge\.sh:[0-9]+ < main@deadline-nudge\.sh:[0-9]+;' "$TEST_ROOT/exit-fault.out" \
   && grep -q 'recent failed commands (oldest first): ' "$TEST_ROOT/exit-fault.out" \
-  && grep -q 'failed locally (rc=7)' "$TEST_ROOT/exit-fault.out"; then
-  ok 'a helper exit inside the tick names the exiting command, its stack, and recent failures, and fails open'
+  && grep -qE 'WARN: deadline nudge tick failed locally \(rc=7; stage=staging \(attempt 1/5\); command=`exit 7` at git@[^ ]* < stage_due_messages@' "$TEST_ROOT/exit-fault.out" \
+  && grep -q "fault record $STATE/deadline-nudge/tick-fault)" "$TEST_ROOT/exit-fault.out"; then
+  ok 'a helper exit inside the tick names its stage, command, stack, and recent failures in the WARN, and fails open'
 else
   bad "tick exit was opaque or escaped fail-open (rc=$exit_fault_rc)"
   sed 's/^/    /' "$TEST_ROOT/exit-fault.out" | tail -5
+fi
+
+# A fatal signal bypasses every trap, so the WARN can only lean on the stage the
+# tick recorded as it began, and must say that the traps were bypassed.
+kill_fault_git='() { if [ "${3:-}" = add ] && [[ "${4:-}" == inbox/* ]]; then kill -KILL "$BASHPID"; fi; command git "$@"; }'
+add_claim_at_tip kill-fault 300
+run_nudge kill-fault-scan env "BASH_FUNC_git%%=$kill_fault_git" > "$TEST_ROOT/kill-fault.out" 2>&1
+kill_fault_rc=$?
+if [ "$kill_fault_rc" -eq 0 ] \
+  && [ -z "$(nudge_paths kill-fault)" ] \
+  && grep -q 'WARN: deadline nudge tick failed locally (rc=137; stage=staging (attempt 1/5); no fault record — failure bypassed the traps (rc=137 suggests signal 9)' "$TEST_ROOT/kill-fault.out"; then
+  ok 'a trap-bypassing kill still names the stage it interrupted, and fails open'
+else
+  bad "trap-bypassing kill left an opaque WARN (rc=$kill_fault_rc)"
+  sed 's/^/    /' "$TEST_ROOT/kill-fault.out" | tail -5
+fi
+
+# A catchable signal is recorded by name alongside the interrupted command.
+term_fault_git='() { if [ "${3:-}" = add ] && [[ "${4:-}" == inbox/* ]]; then kill -TERM "$BASHPID"; fi; command git "$@"; }'
+add_claim_at_tip term-fault 300
+run_nudge term-fault-scan env "BASH_FUNC_git%%=$term_fault_git" > "$TEST_ROOT/term-fault.out" 2>&1
+term_fault_rc=$?
+if [ "$term_fault_rc" -eq 0 ] \
+  && grep -qE 'WARN: deadline nudge tick failed locally \(rc=143; stage=staging \(attempt 1/5\); signal=TERM; command=' "$TEST_ROOT/term-fault.out"; then
+  ok 'a caught TERM names the signal, stage, and command in the WARN'
+else
+  bad "TERM left an opaque WARN (rc=$term_fault_rc)"
+  sed 's/^/    /' "$TEST_ROOT/term-fault.out" | tail -5
 fi
 
 race_stub="$HERE/deadline-nudge-race-push-stub.sh"
@@ -388,10 +417,15 @@ fi
 add_claim_at_tip pushfail 300
 run_nudge pushfail-scan env GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS=1 \
   GARDEN_PUSH_CMD=/bin/false > "$TEST_ROOT/pushfail.out" 2>&1
-[ -z "$(nudge_paths pushfail)" ] && grep -q 'failed locally' "$TEST_ROOT/pushfail.out" \
-  && grep -q 'tick exited rc=1 during' "$TEST_ROOT/pushfail.out" \
-  && ok 'exhausted push retry fails open without changing the board' \
-  || bad 'push exhaustion changed the board or escaped fail-open handling'
+if [ -z "$(nudge_paths pushfail)" ] \
+  && grep -q 'failed locally' "$TEST_ROOT/pushfail.out" \
+  && grep -q 'tick exited rc=1 in stage push (attempt 1/1) during' "$TEST_ROOT/pushfail.out" \
+  && grep -qE 'failed locally \(rc=1; stage=push \(attempt 1/1\); detail=push stage exhausted after 1 attempt\(s\) \(last commit_and_push rc=[0-9]+\); command=`' "$TEST_ROOT/pushfail.out"; then
+  ok 'exhausted push retry names its stage and detail in the WARN, and fails open without changing the board'
+else
+  bad 'push exhaustion changed the board, was opaque, or escaped fail-open handling'
+  sed 's/^/    /' "$TEST_ROOT/pushfail.out" | tail -5
+fi
 
 run_nudge invalid env GARDEN_DEADLINE_NUDGE_INTERVAL=oops > "$TEST_ROOT/invalid.out" 2>&1
 [ "$?" -eq 0 ] && grep -q 'disabling this tick' "$TEST_ROOT/invalid.out" && ok 'invalid timing knob disables one tick cleanly' || bad 'invalid timing knob did not fail open'

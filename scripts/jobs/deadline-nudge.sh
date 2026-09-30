@@ -20,6 +20,10 @@ export GARDEN_TAG="deadline-nudge"
 : "${GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS:=3}"
 
 DIR="${GARDEN_DEADLINE_NUDGE_CLONE:-$GARDEN_STATE/deadline-nudge/journal}"
+# Host-local, reconstructible record of the current tick's stage and, on a
+# failing exit, its command and breadcrumbs. The tick subshell writes it; the
+# parent reads it into the final WARN (see tick_stage / tick_fault_summary).
+FAULT="${GARDEN_DEADLINE_NUDGE_FAULT:-$GARDEN_STATE/deadline-nudge/tick-fault}"
 
 positive_integer() { [[ "${1:-}" =~ ^[1-9][0-9]*$ ]]; }
 
@@ -347,6 +351,7 @@ deadline_nudge_tick() {
       return 0
     fi
   done
+  tick_stage init
   now="${GARDEN_DEADLINE_NUDGE_NOW:-$(date -u +%s)}"
   if ! [[ "$now" =~ ^[0-9]+$ ]]; then
     log "invalid deadline-nudge clock '$now'; disabling this tick"
@@ -363,6 +368,7 @@ deadline_nudge_tick() {
 
   # Clone stage. prepare_clone runs its own bounded retry and logs the
   # stage-specific outcome; a failure here means no usable clone, so defer.
+  tick_stage clone
   if ! prepare_clone; then
     return 0
   fi
@@ -370,6 +376,7 @@ deadline_nudge_tick() {
   for attempt in $(seq 1 "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS"); do
     # Journal-sync stage. sync_journal reacquires the clone lock on success and
     # logs its own stage-specific failure; defer the tick when it cannot sync.
+    tick_stage journal-sync "attempt $attempt/$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS"
     if ! sync_journal; then
       return 0
     fi
@@ -384,6 +391,7 @@ deadline_nudge_tick() {
     # suspend it). Capture that status explicitly so a transient staging fault
     # fails the tick open instead of silently under-staging or surfacing only an
     # opaque top-level rc.
+    tick_stage staging "attempt $attempt/$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS"
     STAGED_NUDGES=0
     stage_rc=0
     stage_due_messages "$now" || stage_rc=$?
@@ -405,6 +413,7 @@ deadline_nudge_tick() {
       return 0
     fi
     # Push stage. commit_and_push releases the clone lock on every path.
+    tick_stage push "attempt $attempt/$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS"
     rc=0
     commit_and_push "$DIR" "deadline-nudge: queue $STAGED_NUDGES warning(s) from $GARDEN" || rc=$?
     case "$rc" in
@@ -415,6 +424,7 @@ deadline_nudge_tick() {
     [ "$attempt" -ge "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS" ] || backoff "$attempt"
   done
   log "ERROR: deadline-nudge push stage exhausted after $GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS attempt(s); deferring to next timer tick"
+  tick_fault_detail "push stage exhausted after $GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS attempt(s) (last commit_and_push rc=$rc)"
   return 1
 }
 
@@ -462,12 +472,57 @@ tick_err_trail() {
   printf '%s' "${out:-none recorded}"
 }
 
+# The fault record. Each stage overwrites it with its name as it begins, so a
+# failure that fires no trap (SIGKILL, an OOM kill) still leaves the stage; an
+# explicit-status failure appends a detail line before its `return 1`; the EXIT
+# trap appends rc, command, and breadcrumbs on a non-zero exit. Every write is
+# best-effort: diagnostics must never fail the tick.
+tick_stage() {
+  TICK_STAGE="$1${2:+ ($2)}"
+  { mkdir -p "${FAULT%/*}" && printf 'stage: %s\n' "$TICK_STAGE" > "$FAULT"; } 2>/dev/null || true
+}
+
+tick_fault_detail() {
+  printf 'detail: %s\n' "$(tick_trace_squash "$1")" >> "$FAULT" 2>/dev/null || true
+}
+
+tick_on_signal() {
+  printf 'signal: %s\n' "$1" >> "$FAULT" 2>/dev/null || true
+  exit "$2"
+}
+
 tick_on_exit() {
-  local rc="$1" cmd="$2"
+  local rc="$1" cmd="$2" command
   if [ "$rc" -ne 0 ]; then
-    log "ERROR: deadline-nudge tick exited rc=$rc during \`$(tick_trace_squash "$cmd")\` at $(tick_trace_stack); recent failed commands (oldest first): $(tick_err_trail)"
+    command="\`$(tick_trace_squash "$cmd")\` at $(tick_trace_stack)"
+    log "ERROR: deadline-nudge tick exited rc=$rc in stage ${TICK_STAGE:-unknown} during $command; recent failed commands (oldest first): $(tick_err_trail)"
+    printf 'rc: %s\ncommand: %s\ntrail: %s\n' "$rc" "$command" "$(tick_err_trail)" >> "$FAULT" 2>/dev/null || true
   fi
   clone_unlock "$DIR"
+}
+
+# tick_fault_summary <rc>: one line for the parent's WARN, built from the fault
+# record the subshell left behind. No `command:` means the subshell died before
+# its EXIT trap ran (a fatal signal), so say so and infer what the rc can tell.
+tick_fault_summary() {
+  local rc="$1" stage="" detail="" signal="" command="" trail="" out
+  if [ -r "$FAULT" ]; then
+    stage="$(sed -n 's/^stage: //p' "$FAULT" | tail -1)"
+    detail="$(sed -n 's/^detail: //p' "$FAULT" | tail -1)"
+    signal="$(sed -n 's/^signal: //p' "$FAULT" | tail -1)"
+    command="$(sed -n 's/^command: //p' "$FAULT" | tail -1)"
+    trail="$(sed -n 's/^trail: //p' "$FAULT" | tail -1)"
+  fi
+  out="stage=${stage:-unknown}"
+  [ -z "$signal" ] || out+="; signal=$signal"
+  [ -z "$detail" ] || out+="; detail=$detail"
+  if [ -n "$command" ]; then
+    out+="; command=$command; recent failed commands: ${trail:-none recorded}"
+  else
+    out+="; no fault record — failure bypassed the traps"
+    [ "$rc" -le 128 ] || out+=" (rc=$rc suggests signal $((rc - 128)))"
+  fi
+  printf '%s' "$out"
 }
 
 # Courtesy delivery fails open. Clone, fetch, parse, commit, and exhausted-push
@@ -482,16 +537,21 @@ tick_on_exit() {
 # plain command with errexit off on both sides instead, which keeps the tick's
 # effective semantics (no errexit inside, as before) while letting ERR fire.
 TICK_ERR_TRAIL=()
+TICK_STAGE=""
+rm -f "$FAULT" 2>/dev/null || true
 set +e
 (
   set -E
   trap 'tick_on_err "$?" "$BASH_COMMAND"' ERR
   trap 'tick_on_exit "$?" "$BASH_COMMAND"' EXIT
+  trap 'tick_on_signal TERM 143' TERM
+  trap 'tick_on_signal INT 130' INT
+  trap 'tick_on_signal HUP 129' HUP
   deadline_nudge_tick
 )
 tick_rc=$?
 set -e
 if [ "$tick_rc" -ne 0 ]; then
-  log "WARN: deadline nudge tick failed locally (rc=$tick_rc); next timer tick will retry"
+  log "WARN: deadline nudge tick failed locally (rc=$tick_rc; $(tick_fault_summary "$tick_rc"); fault record $FAULT); next timer tick will retry"
 fi
 exit 0
