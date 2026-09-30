@@ -28,3 +28,13 @@ and skip any that is already there (idempotency). Then, for each item, run:
 
 Then post one top-level PR comment (gh pr comment 1116 -R endojs/endo-but-for-bots):
 "@kriskowal Addressed review 5360612317 in f7b82cba0, reconciled against what has landed since (#1305, #1306, #1310) and against in-flight #1277 and #399. The new *Implementation status* section records each place where the landed code differs from the design. Two questions: (1) #1310 throws errors, but section 1 asks for a returned `{ status }` record (now including `revoked`) because a thrown tag does not survive CapTP. Keep the returned record as remaining work, or accept the thrown errors? (2) Should #1277 drop its per-invitation `hostPins` lifecycle, now that the pin is removed?"
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T05:10:54Z
