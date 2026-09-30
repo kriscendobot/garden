@@ -1,0 +1,43 @@
+<6>08:24:27 [monk/2] job 'endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-5' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>08:24:28 [monk/2] job 'endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-5' call ceiling: tier=mentor max-budget-usd=3.40 (scaled by fresh seven-day headroom when available)
+<6>08:24:28 [monk/2] minion-mcp: not attaching for 'endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-5': host endolin-garden-ece02cb4 not in config/minion-mcp hosts (endolin-garden2-5bcdff64)
+Post "https://api.github.com/graphql": net/http: TLS handshake timeout
+<3>09:29:18 [auto-gauntlet-handoff] FATAL: auto-gauntlet: gh could not inspect https://github.com/endojs/endo-but-for-bots/pull/1379
+
+--- handler report (partial) ---
+Fix round 5 for PR #1379 is pushed, but CI had not finished by the 3600s deadline. `ci-wait-merge.sh` returned rc=4 with 5 of 34 checks still pending and none failed. So this stage ends as still-pending, not done.
+
+**What I did**
+- Pushed commit `4cffd6fea4` to `endojs/endo-but-for-bots` branch `llm-ironhorse-panic-host-call` with `safe-push-pr-head.sh`, moving it forward from `588cd8f0bf`.
+- The full `slot-machine-transcript` test suite passes locally (host 28, protocol 16, embargo 8, cas 7, crash_matrix 1), and `cargo clippy --tests` is clean.
+
+**Panel items fixed**
+- **assessor:** a `Transactional` call refused on the reply bound no longer records an escaped handle, because its write never ran. New test covers it.
+- **saboteur / engine-realist / wire-watcher (same bug):** when a barrier's reply goes past the bound, the crank now stages a `Staged::RefusedBarrier` marker.
+  - The marker keeps the barrier's ordinal reserved, so a later call can't collide on the `host_call_by_crank` unique index.
+  - `commit_crank` refuses while the marker is present, so the crank must be aborted. `recovery_gate` then reports `EscapedBarrier`, as barriers are meant to.
+  - New test covers it.
+- **locksmith:** a `TransactionalWrite` now runs under an SQLite authorizer.
+  - It is denied the transcript's own tables, transaction control, attach/detach and pragmas.
+  - The statement cache is flushed around the write, so it can't reuse a statement prepared before the authorizer was installed.
+  - This needed the `hooks` feature added to `rusqlite` in `Cargo.toml`. New test covers it.
+- **breaker:** the host-module doc now says the event log is authoritative only until compaction; after that the handle table is.
+- **stylist:** abbreviated names are spelled out:
+  - `ack_flushes` → `acknowledgment_flushes`, and the related `acks` names.
+  - `CasError` → `ContentAddressedStoreError`.
+  - `cas` variables and fields → `blob_store`, and fault labels `cas:*` → `blob-store:*`.
+  - `wm` → `watermark`, `sock` → `socket`.
+
+  The module file `cas.rs` keeps its name.
+- **prover:** a new test checks that a blob temporary left by a crash uses the `.transcript-blob.` prefix, not xsnap's `.snapshot.` one.
+- **integrator:** the PR body now says the Q3, Q6 and Q7 answers rest on the unreviewed, bot-authored #1370 and must be confirmed before merge. The acceptance line carries the same condition.
+- Posted a summary comment mapping each item to its seat: https://github.com/endojs/endo-but-for-bots/pull/1379#issuecomment-5907298044
+
+**Not addressed**
+- engine-realist's should-fix: the bound check still rescans every staged call, rather than keeping running totals like the outbound check does.
+- The PR body is still about 1,800 words, over the 300-word guide.
+- I couldn't build `xsnap` locally: its build script needs the Moddable submodule. The only transcript function it calls is unchanged by this commit.
+
+**CI:** still pending were `test (22.x, macos-15)`, `test-ironhorse`, `test-ironhorse-oracle`, `build-xsnap` and `fuzz-ironhorse`. The driver re-posts this stage to keep waiting.
+
+<!-- gauntlet-stage-result: fix=still-pending -->
