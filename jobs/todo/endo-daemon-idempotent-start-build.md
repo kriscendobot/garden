@@ -13,16 +13,4 @@ Implement §§ 1–2 of the design:
 2. In packages/daemon/src/manager-node.js `main()`, claim a single-instance lock keyed on the ephemeral state dir (reuse the socket-lock.js primitives) BEFORE `initializePersistence()`, `killStaleWorkers()`, and `updateRecordedPid()`. The loser exits with a distinct code (69, EX_UNAVAILABLE) and a clear message, and does not touch workers or the DB. Write endo.pid right after the claim. Drop the kill-previous-pid behavior of `updateRecordedPid`.
 Tests: `start` twice leaves one daemon; `start` while booting; a second run-daemon against the same state exits 69 and the first daemon's workers survive.
 
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-29T23:53:04Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-30T01:23:02Z
+<!-- garden-reaped: 0 -->
