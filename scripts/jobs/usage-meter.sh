@@ -1024,22 +1024,42 @@ meter_journal_provider_usd() {
   ' "${files[@]}" 2>/dev/null
 }
 
+# subscription_ledger_hosts <subscription> [journal-dir] — JSON array of the
+# hosts whose Anthropic workers (monk, legacy gardener, or '*') the mapping
+# assigns to this subscription. Prints nothing when the mapping is absent
+# (pre-migration journal: the ledger is read unfiltered).
+subscription_ledger_hosts() {
+  local subscription="$1" dir="${2:-}" mapping
+  mapping="$dir/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
+  [ -r "$mapping" ] || return 0
+  awk -v subscription="$subscription" '
+    /^[[:space:]]*#/ || /^[[:space:]]*$/ { next }
+    $1 == subscription && ($3 == "monk" || $3 == "gardener" || $3 == "*") { host[$2]=1 }
+    END { printf "["; sep=""; for (h in host) { gsub(/["\\]/, "", h); printf "%s\"%s\"", sep, h; sep="," } print "]" }
+  ' "$mapping"
+}
+
 # subscription_used_percent <subscription> [journal-dir] — freshest percentage
 # observation in the current reset window. Live host contributions all describe
 # the same shared account; the freshest wins (they are not summed).
 subscription_used_percent() {
-  local subscription="$1" dir="${2:-}" cutoff file best_epoch=-1 best="" epoch value ledger
+  local subscription="$1" dir="${2:-}" cutoff file best_epoch=-1 best="" epoch value ledger hosts
   cutoff="$(subscription_window_start_epoch "$subscription" "$dir" 2>/dev/null || echo 0)"
   # PRIMARY: Claude Code's per-call seven-day utilization from rate_limit_event.
   # The ledger is immutable and shared across hosts; newest valid observation wins.
   # Utilization is a 0..1 ratio, while this helper's historical contract is 0..100.
-  if [ -d "$dir/usage" ] && command -v jq >/dev/null 2>&1; then
+  # Rows carry only their host, so only hosts the mapping assigns to THIS
+  # subscription count: distinct accounts must never read each other's figure.
+  hosts="$(subscription_ledger_hosts "$subscription" "$dir" 2>/dev/null || true)"
+  [ -n "$hosts" ] || hosts=null
+  if [ "$hosts" != "[]" ] && [ -d "$dir/usage" ] && command -v jq >/dev/null 2>&1; then
     ledger="$(find "$dir/usage" -maxdepth 1 -type f -name '*.jsonl' -print0 2>/dev/null \
-      | xargs -0 -r jq -sr --argjson cutoff "$cutoff" '
+      | xargs -0 -r jq -sr --argjson cutoff "$cutoff" --argjson hosts "$hosts" '
           map(select(.provider == "anthropic" and (.rate_limit.seven_day.utilization|type)=="number")
+              | select($hosts == null or (.host as $h | any($hosts[]; . == $h)))
               | . + {sample_epoch:((.rate_limit.sampled_at//.ts//"")|fromdateiso8601? // -1)})
           | map(select(.sample_epoch >= $cutoff)) | sort_by(.sample_epoch) | last // {}
-          | [(.sample_epoch//-1),((.rate_limit.seven_day.utilization//-1)*100)] | @tsv' 2>/dev/null || true)"
+          | [(.sample_epoch//-1),((.rate_limit.seven_day.utilization//-1)*10000|round/100)] | @tsv' 2>/dev/null || true)"
     if [ -n "$ledger" ]; then
       IFS=$'\t' read -r epoch value <<<"$ledger"
       if [[ "$epoch" =~ ^[0-9]+$ ]] && [[ "$value" =~ ^[0-9]+([.][0-9]+)?$ ]]; then

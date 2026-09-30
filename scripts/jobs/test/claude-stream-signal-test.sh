@@ -52,7 +52,7 @@ printf '%s\n' 'anthropic:test anthropic weekly-tokens 73000000 measured' > "$TR/
 printf '%s\n' 'anthropic:test signal-host monk' > "$TR/journal/config/subscription-mapping"
 printf '%s\n' '{"cadence":"calendar","schedule_weekday":2,"schedule_time":"00:00","timezone":"UTC","reset_at":"2026-09-22T00:00:00Z"}' > "$TR/journal/budget/reset-events/anthropic:test.jsonl"
 jq -cn --arg ts "$(date -u +%FT%TZ)" --argjson rate "$(jq -c '.rate_limit' "$TR/measurement.json")" \
-  '{ts:$ts,provider:"anthropic",rate_limit:$rate}' > "$TR/journal/usage/probe.jsonl"
+  '{ts:$ts,host:"signal-host",provider:"anthropic",rate_limit:$rate}' > "$TR/journal/usage/probe.jsonl"
 GARDEN_USAGE_NOW="$(date -u +%s)"; export GARDEN_USAGE_NOW
 [ "$(subscription_used_percent anthropic:test "$TR/journal")" = 40 ] && ok "true seven-day utilization is primary budget sensor" || bad "true utilization sensor"
 [ "$(meter_quota_status anthropic:test "$TR/journal")" = ok ] && ok "pool admission consumes real utilization" || bad "pool admission real utilization"
