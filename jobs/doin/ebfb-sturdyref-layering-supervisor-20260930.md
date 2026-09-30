@@ -55,3 +55,13 @@ Supervisor duties:
 - When layer 8 lands, post a follow-up to revisit #695 (and #871) against the
   new substrate, as the directive's layer 9.
 - Reply on #695 with the stack plan once the orchestration is recorded.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:31:45Z
