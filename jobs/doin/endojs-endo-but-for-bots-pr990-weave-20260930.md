@@ -18,3 +18,13 @@ current `llm` rust.yml no longer exists, where zizmor is green. Weave means: sna
 llm's current tip to a new frozen `llm-<sha7>`, rebase the head onto it, resolve
 conflicts, push the head with --force-with-lease, and move the PR's base. Then confirm
 that zizmor and the rest of CI are green on the new head.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T03:13:01Z
