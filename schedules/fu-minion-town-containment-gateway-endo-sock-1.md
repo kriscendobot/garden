@@ -1,6 +1,7 @@
 cadence: daily
 last_dispatched: 2026-09-30T01:50:06Z
 job_basename_prefix: fu-minion-town-containment-gateway-endo-sock-1
+preflight: containment-gateway-record-check.sh
 ---
 ---
 role: gardener
@@ -8,55 +9,38 @@ tier: mentor
 fallback-tier: minion
 dispatch: automatic
 ---
-# Containment drift check for kriscendobot/minion.town gateway records
+# Containment drift check for kriscendobot/minion.town gateway records — FINDINGS ONLY
 
-RETUNED 2026-09-02 (maintainer decision, muster). Two defects in the previous
-version are corrected here; read both before changing this check again.
+This tick exists only because the deterministic preflight
+`scripts/jobs/containment-gateway-record-check.sh` did NOT come back clean. Its
+report is prepended above this body. Routine no-change checks never dispatch
+(the preflight exits 2 and the scheduler just advances the clock).
 
-## What to verify
+The preflight already did the recursive scan of
+`/var/lib/endo-gateway/store/vhosts/` on `i-0380cd68b90020fad` (SSM, us-west-1),
+whitespace-tolerant matching of the three de-registered records (`f1d754fc…`,
+`fe0a8e60…`, `09201a316203…`), the dckc-owned baseline comparison, and — for a
+de-registered record found active under its own filename — the remediation
+(move back to `store/vhosts-revoked-20260812/`) plus a proving rescan. Do NOT
+redo that scan by hand; rerun the script instead:
+`scripts/jobs/containment-gateway-record-check.sh --no-remediate --verbose`
+(exit 2 = clean now).
 
-The two records de-registered by `minion-town-containment-gateway-endo-sock`
-(`f1d754fc…`, `fe0a8e60…`), plus the third de-registered on 2026-08-31
-(`09201a316203e9d99e3c906b12c9466d8f0ae8dc8baf8db484c918d6698f657f`), must
-remain ABSENT from the live active store, and no OTHER unexpected active
-dckc-owned record may be present.
+## What to do
 
-**SCAN RECURSIVELY.** The live vhost store is
-`/var/lib/endo-gateway/store/vhosts/` — a SUBDIRECTORY. The previous version of
-this check used a ROOT-ONLY glob and therefore could not see active records at
-all. On 2026-08-30 and 2026-08-31 it reported "no change" on two consecutive
-daily ticks while an exposed dckc-owned record (`09201a3162…`, powers value
-exposed, public bootstrap returning HTTP 404) sat active in that subdirectory.
-It was found only because a separate job scanned recursively. A root-only scan
-here manufactures false confidence; it is worse than no check.
-
-Use a whitespace-tolerant match, as the 2026-08-25 check did — that is how the
-third record was distinguished in the first place.
+1. Relay the prepended report to the maintainer inbox
+   (`scripts/jobs/message-user.sh`): any reappearance/remediation, any
+   unexpected active dckc-owned record, any content reference, or any scan
+   failure. An inability to scan is itself a finding, never a quiet pass.
+2. For a SCAN FAILURE, diagnose briefly (AWS creds, SSM agent, instance state)
+   and rerun the script once; report both results.
+3. For a failed remediation move, or a finding the script does not auto-fix,
+   report it and leave the fix to the maintainer's direction.
+4. If the maintainer accepts a new dckc-owned record, add its id to
+   `DCKC_BASELINE` in the script (main2) rather than re-reporting it daily.
 
 ## What NOT to verify
 
-Do **NOT** assert that the systemd containment drop-in is in place. The previous
-version did, and that assertion now INVERTS: the maintainer deliberately opened
-the weblet powers plane on 2026-08-27 under `kriscendobot/minion.town` issue #58.
-The drop-in is renamed `…disabled-issue58`, the powers plane is ENABLED in the
-live process (`GATEWAY_ENDO_SOCK` present; boot log "powers plane : ENABLED"),
-and that state correctly survives restarts. Containment being OPEN is the
-authorized state, not drift. Do not alarm on it and do not re-arm it.
-
-## Why the record check still matters
-
-A CD gateway redeploy leaves configuration intact but CAN restore the
-de-registered records. That risk is unchanged by the containment opening — which
-is precisely why this half of the check is retained while the other half is not.
-
-## On a reappearance
-
-Re-run the de-registration exactly as recorded in the originating job's report
-(move the record to the revoked store), prove the recursive active-store scan
-comes back clean afterward, and report the recurrence to the maintainer inbox.
-
-## Reporting
-
-Report no-change QUIETLY. Report any reappearance, any unexpected active
-dckc-owned record, or any inability to complete the recursive scan to the
-maintainer inbox — an inability to scan is itself a finding, not a quiet pass.
+Do NOT assert or re-arm the systemd containment drop-in. The weblet powers plane
+is deliberately OPEN under `kriscendobot/minion.town` issue #58; that is the
+authorized state, not drift.
