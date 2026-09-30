@@ -2,7 +2,7 @@
 order: serial
 children: ebfb-sturdyref-layer1-shim-design-20260930 ebfb-sturdyref-layer1-shim-build-20260930 ebfb-sturdyref-layer2-ses-20260930 ebfb-sturdyref-layer3-pass-style-20260930 ebfb-sturdyref-layer4-marshal-20260930 ebfb-sturdyref-layer5-captp-wire-20260930 ebfb-sturdyref-layer6-captp-construct-20260930 ebfb-sturdyref-layer7-ocapn-enliven-20260930 ebfb-sturdyref-layer8-daemon-formula-20260930 ebfb-sturdyref-layer9-agent-api-20260930
 on-child-failure: halt
-state: pending
+state: running
 created_by: ebfb-sturdyref-layering-supervisor-20260930
 created_at: 2026-09-30T04:43:18Z
 ---
