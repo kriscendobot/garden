@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T20:31:46Z_
+_As of 2026-09-30T20:33:04Z_
 
 ## Latest
 
-The sturdyref layer stack kept moving: [endojs/endo-but-for-bots#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) (layer8 daemon formula) and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (layer7 ocapn enliven) both entered the gauntlet's CLEAN stage, layer1's panel round completed, and panel/fix rounds continued across layers 2 through 6 (#1391–#1396) plus the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390). A separate job to move the #1397/#1398 bases onto the restacked frozen bases is queued. The ironhorse panic-host-call PR ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is now on fix round 5, and its sibling panic-live-handle-reseat PR hit the gauntlet's review-budget ceiling after 6 panel/fix rounds without converging — CI is green, so it's parked for a human merge/review call. Several maintainer decisions remain outstanding: the minion.town MCP rollout awaits a go-ahead on principal/scoping before widening past the garden2 canary, and the M3 confined-agent track is blocked on a choice between advancing endo-but-for-bots#1015 or answering the open questions on design PR #1340.
+The sturdyref layer-1 shim-build gauntlet advanced from panel to its first fix round on [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), while the rest of the sturdyref stack and petname-path sweep continue working through their panel/fix cycles unattended. Maintainer attention is still needed on a few fronts: the minion.town MCP rollout awaits a decision on principal/scoping before it widens past endolin-garden2, M3's next step is blocked on a choice between endo-but-for-bots#1015 and answering design PR #1340's open questions, and a long-running comment-ack-blind watchdog on [endo-but-for-bots#1386](https://github.com/endojs/endo-but-for-bots/pull/1386) has now recurred 53 times.
 
 ## Parked for maintainer feedback
 
@@ -67,7 +67,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 7.3M | $72.14 _(notional, rate-card)_ | 3% of 256.0M (ok) |
+| Claude | 8.3M | $80.38 _(notional, rate-card)_ | 3% of 256.0M (ok) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148863353 tokens/day lower bound._
@@ -76,9 +76,10 @@ _Fleet token-unlock pace: 148863353 tokens/day lower bound._
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (17)
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
 - [`canary-probe-endolin-garden2-5bcdff64-c63c16cad579`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-c63c16cad579.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ c63c16cad579
+- [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #774
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1380
 - [`book-revise-content`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-revise-content.md) — Revise the garden book: a title, an inference-tiers reference, and a new libr...
 - [`improve-journal-fallback-warn-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-journal-fallback-warn-dedup.md) — ---
