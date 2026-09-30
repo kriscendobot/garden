@@ -24,3 +24,13 @@ dispatch: automatic
 - Land direct to main2.
 
 **Why urgent:** the fleet is spending both endolin Claude subscriptions up to the maintainer's 90% policy (`config/token-backoff-fraction` 0.90). claude-endolin1 is under-read (78 vs 80), so the gate would let it overshoot. The liaison runs a meter-based backstop, but the gate must be right.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T07:10:03Z
