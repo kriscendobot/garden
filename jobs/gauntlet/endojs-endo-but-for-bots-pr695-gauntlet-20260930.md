@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-pr695-gauntlet-20260930-viability
+state: running
 created_by: producer
 created_at: 2026-09-30T17:28:06Z
 ---
