@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:21:35Z_
+_As of 2026-09-30T21:22:44Z_
 
 ## Latest
 
-The sturdyref stack (endojs/endo-but-for-bots#774, #1391–#1398) continues to grind through its eight layers, but layer 2 ([endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) halted after four fix rounds — CI is green except for a single flaky macOS daemon-teardown leg unrelated to the SES change, and the oros-studio bot PAT can't rerun Actions, so it's waiting on a credentialed rerun. The Ironhorse panic/host-call gauntlet also closed out its review budget after six rounds without full convergence and is parked for a human merge call. Elsewhere, the accountant opened its weekly budget conversation with three questions for the maintainer (trimming the off-mandate Endo backlog, whether to fund endor metering, and pacing endolin1's ~240M-token surplus), and a separate reset-credit watch recommends holding the claude-endolin2 credit and only spending a codex credit if the fleet accelerates first. The garden book was revised and republished with new chapters on the library and inference tiers. Foreman flagged that M3's next step is blocked on a maintainer choice between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering open questions on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and minion.town MCP rollout needs a principal/scoping decision before widening past endolin-garden2. Two journal-clone-size watchdogs and a stuck comment-ack condition on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) remain open, alongside a stale-panel notice on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) whose head moved past its last review.
+The sturdyref-stack gauntlet stalled: [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) (layer 2, SES) halted after fix round 4 was declared failed/declined, even though the round-4 must-fixes landed and CI is red on only one flaky macOS daemon-teardown leg — a rerun from a credentialed host would likely clear it. Elsewhere in the same stack, [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) is mid-panel and layers 5–8 (PRs #1393, #1394, #1396, #1397, #1398) continue moving through panel/fix/clean stages. The ironhorse panic-host-call gauntlet exhausted its 6-round review budget with CI green and is left parked for human merge/review. Stale panel coverage was flagged on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), whose head moved past its last-reviewed commit — no gauntlet was auto-staged. The accountant opened its weekly budget conversation, proposing to squeeze the off-mandate Endo backlog from 36% to ~12% in favor of minion.town capabilities (35%) and the sturdyref/petname work already in flight, and is waiting on maintainer calls about the cut, endor metering's share, and whether the current mandate still holds. The foreman also flagged M3 as blocked on a choice between advancing #1015 after its #1348 prerequisite clears or answering four open questions on design PR #1340. A garden-book revision republished with new chapters on the library and inference-tier reference.
 
 ## Parked for maintainer feedback
 
@@ -93,12 +93,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #57 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T21:17:47Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 57 times; this is ONE
-> coalesced notice that updates in place, not 57 messages. Latest detail:
+> WATCHDOG notice — occurrence #58 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T21:22:18Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 58 times; this is ONE
+> coalesced notice that updates in place, not 58 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=1915s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=2215s; heartbeat=full-poll)
 
 - `ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted` — from gauntlet:ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted.md)
 
@@ -178,13 +178,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 13.9M | $136.76 _(notional, rate-card)_ | 5% of 256.0M (ok) |
+| Claude | 13.9M | $136.98 _(notional, rate-card)_ | 5% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 187062056 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (21)
