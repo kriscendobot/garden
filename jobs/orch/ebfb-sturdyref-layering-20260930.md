@@ -1,4 +1,5 @@
 ---
+child-ebfb-sturdyref-layer8-daemon-formula-20260930-host: endolin-garden-ece02cb4
 child-ebfb-sturdyref-layer8-daemon-formula-20260930-reap-count: 0
 child-ebfb-sturdyref-layer7-ocapn-enliven-20260930-host: endolin-garden2-5bcdff64
 child-ebfb-sturdyref-layer7-ocapn-enliven-20260930-reap-count: 0
