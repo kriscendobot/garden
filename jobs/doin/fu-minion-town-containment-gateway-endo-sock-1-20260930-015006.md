@@ -57,6 +57,8 @@ Report no-change QUIETLY. Report any reappearance, any unexpected active
 dckc-owned record, or any inability to complete the recursive scan to the
 maintainer inbox — an inability to scan is itself a finding, not a quiet pass.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
