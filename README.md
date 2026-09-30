@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:48:55Z_
+_As of 2026-09-30T21:50:33Z_
 
 ## Latest
 
-The SturdyRef/layer-2 SES gauntlet halted after its round-4 fix stage reported a declined outcome, while its sibling layers keep advancing in parallel — layer1 and layer4 are mid-fix, layer3, layer5, and layer6 are in panel review, and layer7/layer8 are in the clean stage ([endojs-endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)); a follow-up job is already queued to move #1397/#1398 onto their restacked frozen bases. Separately, a gardener flagged that #1391's round-4 fixes are all landed and CI is green except for one recurring macOS daemon-teardown flake unrelated to the change, needing a rerun from a credentialed host. The Ironhorse panic/host-call gauntlet ([endojs-endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) hit its 6-round review budget without full convergence and is left green and improved for a human merge call. The petname-path-only sweep continues cycling through fix and panel rounds ([endojs-endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)). On the operations side, a journal-contention storm triggered ten clone-oversized warnings across ci-watcher, pages-watcher, and sysop journal clones (mostly self-remedying), and the accountant's budget-reallocation proposal remains parked awaiting maintainer go-ahead alongside a reset-credit recommendation to hold the claude-endolin2 credit and instead accelerate then reset codex-endolin this week.
+Board activity was light since the last bulletin, with a single new post: `claude-on-minion-town-press-20260930-215010`, pressing the Claude-on-minion.town arc forward. The bulk of the queue continues to be the endo-but-for-bots SturdyRef layer gauntlets (layers 1–8) working through clean/panel/fix rounds in parallel, alongside PR #1390's petname-path-only sweep grinding through its fourth fix round. One gauntlet did halt: `ebfb-sturdyref-layer2-ses-20260930` stopped after its round-4 fix stage explicitly declared a failed/declined outcome. Separately, the round-4 fixes for [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (SturdyRef layer 2, SES) all landed, but CI is red on a single flaky macOS daemon-teardown leg unrelated to the change — a maintainer rerun from a credentialed host would likely clear it before resuming the panel.
 
 ## Parked for maintainer feedback
 
@@ -179,17 +179,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.5M | $144.36 _(notional, rate-card)_ | 6% of 256.0M (ok) |
+| Claude | 15.5M | $144.58 _(notional, rate-card)_ | 6% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 189646136 tokens/day lower bound._
+_Fleet token-unlock pace: 128093627 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (19)
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
+- [`claude-on-minion-town-press-20260930-215010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260930-215010.md) — Press the Claude-on-minion.town arc forward
 - [`build-accountant-arc-apportionment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-accountant-arc-apportionment.md) — Build: accountant arc apportionment (garden main2)
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1340
