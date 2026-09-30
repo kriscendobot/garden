@@ -12,7 +12,7 @@ created_at: 2026-09-30T07:41:49Z
 stage: panel
 iteration: 1
 resumes: 0
-stage_retries: 0
+stage_retries: 1
 current_child: ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-panel-1
 state: running
 resumed_at: 2026-09-30T17:25:57Z
