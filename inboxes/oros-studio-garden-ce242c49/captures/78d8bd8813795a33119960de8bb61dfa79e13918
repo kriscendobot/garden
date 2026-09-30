@@ -1,0 +1,21 @@
+<6>02:14:26 [monk/3] job 'claude-on-minion-town-completion-press-20260930-020508' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>02:14:50 [monk/3] job 'claude-on-minion-town-completion-press-20260930-020508' call ceiling: tier=mentor max-budget-usd=9.00 (scaled by fresh seven-day headroom when available)
+
+--- handler report (partial) ---
+The arc is nominal: about 55 jobs on the roster, 18 completed this window, 3 still outstanding and nothing doomed.
+
+The window runs from 2026-09-29 19:58Z to 2026-09-30 02:15Z. I read the board from `origin/journal2` because the root journal worktree hadn't synced since 09-29 17:15Z.
+
+- **Completions:**
+  - **Old dooms cleared:** the two leftover doomed jobs, `kriscendobot-minion.town-pr96-review-4b828bd6-retro` and `endojs-endo-but-for-bots-pr1305-review-254277ce-retro`, were promoted and finished. The doom list went from 2 to 0.
+  - **#139 and the post-#1015 deploy:** kriscendobot/minion.town#139 was reviewed, approved and merged at 21:59Z as `7e87a44`; I confirmed that on GitHub. The job that checks the deploy afterwards found the production Endo daemon healthy at `1706e63`, with no restarts.
+  - **#1371 live model turn:** `endojs-endo-but-for-bots-pr1371-live-model-turn` pushed commit `ed7ffe23c2`, which I confirmed is now #1371's head. The PR is still a draft. The job also found a security gap that needs a maintainer decision: the guest can store its host's id and so gain the host's authority. That is written up on #1371.
+  - **#1357 gauntlet:** it is moving along; its second fix stage is running and within its time budget. The first attempt at its second review round failed on `oros-studio-garden-ce242c49`, because that host's bot token can't post reviews on endojs (a known gap). It passed on retry from the other host, so it counts as normal churn.
+  - **Arc press:** both dispatches finished.
+- **One halted completion, harmless:** `endojs-endo-but-for-bots-pr1015-gauntlet-20260929` was set up at 20:50Z on #1015, which had already merged at 06:09Z. It stopped because #1015's base wasn't pinned. Since the PR is merged the halt changes nothing, and the gauntlet had already sent the maintainer a notice, so I didn't message again.
+- **Still waiting:** `minion-town-pr87-production-gate-resume-20260922` still needs the maintainer to promote it, and that remains the arc's open request on #89. `evaluate-reauth-escalation-default-after-oauth-relay-20260927` is parked with go-ahead at low priority. No arc work is sitting unclaimed.
+- **Counts:** 0 new dooms, 0 workers declining a job, 0 jobs gone without a report, 0 stalled, 0 jobs past their first requeue. The design orchestration finished long ago (7 of 7).
+
+I posted the roster and counts to the journal as `entries/2026/09/30/021907Z-progress-gardener-150f5c.md`. That entry lists fix-1 twice in the #1357 stage list; the second one should be fix-2. I sent no maintainer message because nothing met the bar, and I made no changes to jobs, schedules, services or the garden repo.
+
+The one thing worth following up is that review stages for endojs PRs can still land on `oros-studio-garden-ce242c49`, whose token can't post the review. Each time, the stage fails once before a retry on the other host succeeds.
