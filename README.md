@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T23:31:30Z_
+_As of 2026-09-30T23:32:31Z_
 
 ## Latest
 
-The SturdyRef layer stack is the main thread of motion: layer 2 (SES) landed its round-4 must-fixes but is stuck on a single flaky macOS daemon-teardown test leg, layer 3 (pass-style) moved into a third panel round, layer 4 (marshal) was claimed for its second panel round, and layers 5/6 ([endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) and [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)) opened their first panel rounds — while layer 1 ([#774](https://github.com/endojs/endo-but-for-bots/pull/774)) needed a second fix round and layer 7's clean stage was declined, halting that gauntlet for maintainer disposition. The petname-path-only sweep on [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) kept grinding through parallel fix rounds (2, 3, and 5) and flagged follow-ups — refusal/property tests and a trim of its PR body — for maintainer review. The IronHorse panic-handle-reseat gauntlet on [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) reached a sixth fix round with several should-fix items (hasher/crank/CAS tests) still outstanding, and the sibling panic-host-call PR hit its review-round budget with CI green but no convergence, left for human merge. Several stale-panel notices need attention on [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) and [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), and a worker-kind-alias retirement orchestration completed with one failed child. The accountant's budget/mandate conversation and a reset-credit recommendation (hold claude-endolin2, accelerate then reset codex-endolin) are both parked awaiting maintainer sign-off, and the foreman flagged milestone M3 as blocked on a choice between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering open questions on design PR #1340.
+The board shows heavy gauntlet activity across the SturdyRef stack (layers 1–8, [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) and the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), but two of those gauntlets halted rather than progressing: layer 7 (sturdyref-layer7-ocapn-enliven) failed clean and layer 2 (SES, [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) failed a fix round — both need a maintainer look. On the SES PR, CI is red on only one flaky macOS daemon-teardown leg that a credentialed rerun would likely clear before resuming panel. The ironhorse panic-live-handle-reseat gauntlet ([endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) surfaced should-fix follow-ups (missing hasher/crank/CAS tests) after fix round 5, and the ironhorse panic-host-call gauntlet hit its review-budget ceiling after 6 rounds with CI green — ready for a human merge call. Two panel-head-staleness notices flagged that [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) and [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) moved past their last-reviewed commits and need an explicit "run the gauntlet" or review decision. Separately, an orchestration retiring the gardener worker-kind alias completed with one child (a clone-alias verify/deploy reaper) stalled and failing, and the accountant's budget-mandate conversation and reset-credit timing (hold claude-endolin2, accelerate-then-reset codex-endolin by Thursday) are both parked awaiting a decision.
 
 ## Parked for maintainer feedback
 
@@ -263,11 +263,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-30T21:23:02Z, cleared 2026-09-30T21:29:13Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-30T21:23:02Z, latest 2026-09-30T23:32:03Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> canary oros-studio-garden-ce242c49 is no longer stuck (release c63c16cad579f313f26afa1cb752c67cc97f5b6e, deployed e036bb8e0650b66a4ae00dc1516c4c8df39901ca).
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to d259a24e6f9a 21 min ago
+> but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 - `stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-3a9c6be6` — from gardener:endojs-endo-but-for-bots-pr1357-conduct-20260930, reply_to `endojs-endo-but-for-bots-pr1357-conduct-20260930` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-3a9c6be6.md)
 
@@ -287,7 +291,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 32.9M | $270.18 _(notional, rate-card)_ | 13% of 256.0M (ok) |
+| Claude | 33.2M | $273.58 _(notional, rate-card)_ | 13% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 132213900 tokens/day lower bound._
