@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-30T18:06:18Z_
+_As of 2026-09-30T18:09:41Z_
 
 ## Latest
 
-The sturdyref layer stack dominates activity: layers 1, 4, 5, 6, and 7 are through CLEAN and into panel review, layer 3 ([endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) and layer 2 ([endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)) are deep in fix rounds (2 and 4 respectively), and a separate job is queued to move #1397/#1398's bases onto the restacked frozen bases. The petname-path-only gauntlet ([endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) continues cycling through parallel fix/panel rounds across several sweeps. The ironhorse panic-host-call gauntlet closed out its review budget after 6 fix/panel rounds with CI green but no convergence — it's parked for a human merge decision — while the live-handle-reseat variant ([endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is now on its 4th fix round.
+The sturdyref layering push dominates the board: eight parallel layer PRs (shim-build/#774, SES/#1391, pass-style/#1392, marshal/#1393, captp-wire/#1394, captp-construct/#1396, ocapn-enliven/#1397, daemon-formula/#1398) are mid-gauntlet, several already at fix round 4, alongside a separate petname-path-only sweep (#1390) grinding through repeated panel/fix rounds. A base-rebase job is queued to move #1397/#1398 onto the restacked frozen bases once ready.
 
-Worth a look: the fleet's Claude spend is at 98% of its weekly quota, and the `claude-endolin1` budget pool is still running on an uncalibrated placeholder cap, which is fail-closing claims on the endolin-garden-ece02cb4 host and freezing monk allocation fleet-wide — a calibrated cap needs to be set. Two split-eligible jobs (a deploy-gate regression fix and a gardener-worker-kind alias retirement) exhausted their retries and are parked awaiting promotion. The endo progress report for Q3 (2026-06-24 to 2026-09-30) has been published, covering roadmap movement, six shipped themes, and test262 coverage growth from 4,740 to 37,285 of 51,976 cases.
+Elsewhere, the ironhorse-panic-live-handle-reseat PR (#1380) is on fix round 4 of a gauntlet that's already burned its review budget once on a related ironhorse-panic PR, and the test262 ratchet round-3 work is stalled awaiting a maintainer call on how to reconcile ~906 lost historical-floor paths against a stricter classifier. Two fixer jobs (subscription-model deploy-gate regression, gardener-worker-kind alias cleanup) were parked by the reaper after exhausting retries and need manual promotion. Claude spend is at 98% of its weekly quota, and the claude-endolin1 budget pool is still running on an uncalibrated placeholder cap, fail-closing claims fleet-wide until a real cap is set.
 
 ## Parked for maintainer feedback
 
@@ -174,9 +174,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-pool-refuse-claude-endolin1` — from watchdog:claim/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-pool-refuse-claude-endolin1.md)
 
-> WATCHDOG notice — occurrence #3412 (first seen 2026-09-30T11:07:45Z, latest 2026-09-30T17:08:24Z).
-> The SAME condition (`budget-pool-refuse-claude-endolin1`) has now been observed 3412 times; this is ONE
-> coalesced notice that updates in place, not 3412 messages. Latest detail:
+> WATCHDOG notice — occurrence #4012 (first seen 2026-09-30T11:07:45Z, latest 2026-09-30T18:08:25Z).
+> The SAME condition (`budget-pool-refuse-claude-endolin1`) has now been observed 4012 times; this is ONE
+> coalesced notice that updates in place, not 4012 messages. Latest detail:
 >
 > claim gate is FAIL-CLOSED on endolin-garden-ece02cb4: budget pool claude-endolin1 cap is UNCALIBRATED (provenance placeholder); promote a calibrated cap to admit: set-budget-pool.sh claude-endolin1 <weekly-token-cap> <calibrated-from>. No job will be claimed on this host until a calibrated cap is set.
 
@@ -204,11 +204,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T17:42:50Z, cleared 2026-09-30T17:57:44Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-30T17:42:50Z, latest 2026-09-30T18:07:18Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 52 of 734 clone(s) on consecutive ticks.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -300,6 +300,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
 > - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
 
+- `watchdog-budget-zone-oros-studio-garden-ce242c49-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-oros-studio-garden-ce242c49-backoff.md)
+
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-30T08:55:21Z, latest 2026-09-30T18:02:17Z).
+> The SAME condition (`budget-zone-oros-studio-garden-ce242c49-backoff`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> subscription claude-oros changed zone ok -> backoff at spend=4436818/73000000.
+
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -380,13 +388,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 251.0M | $1573.07 _(notional, rate-card)_ | 98% of 256.0M (ok) |
+| Claude | 251.1M | $1573.55 _(notional, rate-card)_ | 98% of 256.0M (ok) |
 | Codex | 17.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 66581810 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 2 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (11)
