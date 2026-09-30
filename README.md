@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T00:11:43Z_
+_As of 2026-09-30T00:15:09Z_
 
 ## Latest
 
-The most concrete movement is on [endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357): its gauntlet cleared the clean and panel-review stages and is now into round 1 of the fix loop. The `improve-deadline-nudge-failure-trace` job completed and a follow-up with an expanded window was immediately reposted to todo. The parallel `retire-gardener-worker-kind-alias-split` orchestration remains halted — its `env-fallback` child stalled in flight for over 40 minutes on `endolin-garden2-5bcdff64` and needs a look before the remaining `verify-docs` child can proceed.
-
-Otherwise the inbox is dominated by routine budget/watchdog churn (workers scaling up/down with quota, journal contention clearing on its own) and a long backlog of foreman nudges asking for a maintainer decision on M2's stalled draft PRs (gauntlet authorization for [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), closing superseded [endo-but-for-bots#1356](https://github.com/endojs/endo-but-for-bots/pull/1356)) and M3's confinement-core path ([endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) vs. design PR #1340). The leader host `endolin-garden-ece02cb4` is flagged as 25 commits behind and stalled on deploy, which is worth checking since it also runs the singleton producers.
+Board activity was minimal since the last bulletin: the only transition is the retrospective on [kriscendobot/minion.town#120](https://github.com/kriscendobot/minion.town/pull/120) getting claimed off todo into doin. The bulk of what's new is backlog — a large stack of unread maintainer messages, most notably several M2 milestone blockers awaiting a decision on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (gauntlet authorization) and the superseded #1356, plus the M3 path blocked between [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and the open questions on #1340. The federation release gate remains blocked pending review of #1124, and the leader host (endolin-garden-ece02cb4) is flagged as 25 commits behind on a stalled deploy, worth a look since it runs the fleet's singleton producers.
 
 ## Parked for maintainer feedback
 
@@ -471,7 +469,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.8M | $1140.86 _(notional, rate-card)_ | 120% of 143.0M (backoff) |
+| Claude | 171.9M | $1141.37 _(notional, rate-card)_ | 120% of 143.0M (backoff) |
 | Codex | 15.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 67% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57198280 tokens/day lower bound._
@@ -480,19 +478,19 @@ _Fleet token-unlock pace: 57198280 tokens/day lower bound._
 worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (5)
+### todo (4)
 - [`improve-deadline-nudge-failure-trace-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-deadline-nudge-failure-trace-expanded-window.md) — improve-deadline-nudge-failure-trace (expanded window)
 - [`build-minion-town-pr-screening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-minion-town-pr-screening.md) — Build: proxy screening + delegated merge for kriscendobot/minion.town PRs
 - [`endo-daemon-idempotent-start-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endo-daemon-idempotent-start-build.md) — Endo daemon: idempotent start + early single-instance lock (phase 1)
-- [`kriscendobot-minion.town-pr120-75934ef0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr120-75934ef0-retro.md) — Retrospective on kriscendobot/minion.town PR #120 (primary: kriscendobot-mini...
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### doin (6)
+### doin (7)
 - [`endojs-endo-but-for-bots-pr1102-faed8ca7-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1102-faed8ca7-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1102 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1383-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1383-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1383
 - [`endojs-endo-but-for-bots-pr1357-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1357
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1379
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
+- [`kriscendobot-minion.town-pr120-75934ef0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-75934ef0-retro.md) — Retrospective on kriscendobot/minion.town PR #120 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr120-review-f4e33453-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr120-review-f4e33453-retro.md) — Retrospective on kriscendobot/minion.town PR #120 (primary: kriscendobot-mini...
 
 ### tada (9795)
