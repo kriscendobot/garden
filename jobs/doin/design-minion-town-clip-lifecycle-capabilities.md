@@ -39,3 +39,13 @@ The rest of the clip lifecycle still asks who the caller is. Design (land in
 6. Publishing *new* clips: confirm the `sites` register facet introduced to each
    guest (root-host-socket.ts, owner pinned at grant) is already the capability, and
    whether the pinned `owner` should shrink to an accounting tag.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T03:59:42Z
