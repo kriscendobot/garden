@@ -51,3 +51,13 @@ Remaining:
    pr-completion summary comment.
 
 Coordinate with #1343 (endowment value side); rebase over it if it lands first.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T09:42:47Z
