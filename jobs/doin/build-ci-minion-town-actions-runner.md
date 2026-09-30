@@ -45,3 +45,13 @@ Maintainer ask (kriskowal, liaison session 2026-09-30): "Please post a job to au
 - anything that touches production minion.town hosts or DNS records other than `ci.minion.town`.
 
 Use the maintainer's 90% quota policy if the work is long. Land garden-side docs direct to `main2`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T19:41:28Z
