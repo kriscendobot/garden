@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T20:27:16Z_
+_As of 2026-09-30T20:27:53Z_
 
 ## Latest
 
-The sturdyref-layer gauntlet stack kept grinding through panel rounds: layer1 (shim-build, [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)) advanced from claim into its panel round, while the petname-path-only sweep on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) closed out fix rounds 1 and 3 and pushed forward into panel rounds 2 and 4. Otherwise activity was mostly fleet housekeeping — budget-level rebalances across the endolin and oros hosts, a rejected deploy candidate on a failing triager-pacing test, and a stale-panel-head notice on [endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) awaiting an explicit re-review call. Two items still need a maintainer decision: whether to run the gauntlet on the CI-green draft [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), and how to unblock M3 between [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and the open questions on design PR #1340.
+The sturdyref layer stack continues grinding through gauntlet rounds across eight parallel PRs — [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) — with #1397 and #1398 now clean and a follow-up job queued to rebase both onto restacked frozen bases. The ironhorse panic/live-handle-reseat PR ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is on fix round 5, while a sibling ironhorse gauntlet on the panic-host-call PR exhausted its 6-round review budget with CI green and is left for a human merge call. A stale-panel notice flags that [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) moved heads after its panel review and needs an explicit maintainer gauntlet request or review decision before any further automated work. Two foreman prompts remain open: whether to advance [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) after its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite clears or resolve the four open questions on design [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and whether to authorize `run the gauntlet #1349` for the green draft `hardened-text-codecs-shim`. Budget watchdogs show routine monk-count rebalancing across hosts and a cleared journal-contention spike; nothing there needs attention.
 
 ## Parked for maintainer feedback
 
@@ -83,7 +83,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 19 of 740 clone(s) on consecutive ticks.
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T20:17:17Z, cleared 2026-09-30T20:27:28Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -176,13 +180,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 5.8M | $55.16 _(notional, rate-card)_ | 2% of 256.0M (ok) |
+| Claude | 6.0M | $57.23 _(notional, rate-card)_ | 2% of 256.0M (ok) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148863353 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (17)
