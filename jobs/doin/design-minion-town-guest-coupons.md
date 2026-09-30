@@ -25,3 +25,13 @@ Design the coupon formula, the pool, the air-drop, expiry and return, how an inv
 The newcomer-provisioning path is described in designs/guest-native-invitations.md § 2 *Onboarding a newcomer*.
 Say which parts need daemon support (for example, an invitation that carries an extra formula identifier) and which are minion.town-only.
 Open the design as a DRAFT PR through ensure-pr.sh.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:58:44Z
