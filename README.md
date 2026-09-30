@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T02:49:55Z_
+_As of 2026-09-30T02:54:32Z_
 
 ## Latest
 
-Two gauntlet PRs kept advancing: [endojs/endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383) and [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) each cleared another fix/panel round, and #1349's fix round is now in flight. New review directives landed on the board for [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) (unified guest-endowments), [kriscendobot/minion.town#90](https://github.com/kriscendobot/minion.town/pull/90) (completed), [kriscendobot/minion.town#85](https://github.com/kriscendobot/minion.town/pull/85), and [kriscendobot/garden#75](https://github.com/kriscendobot/garden/pull/75), alongside a shepherd request on [endojs/endo-but-for-bots#990](https://github.com/endojs/endo-but-for-bots/pull/990) and a new issue (kriscendobot/garden#117).
-
-The maintainer inbox is heavy with milestone-gating asks from the foreman (M2 authorization for #1349/#1356, M3's confinement-core choice on #1015/#1340) and quota/budget watchdog churn (Claude at 128% of the weekly cap, in backoff). Root-repo-guard flags the leader (endolin-garden-ece02cb4) as 25 commits stale on a deliberate/drained deploy that also just rejected a candidate on a failing `triager-pacing-test.sh` — worth a look since it's holding back every singleton producer. oros-studio-garden-ce242c49 remains offline and de-rotated from the worker pool.
+Gauntlet activity dominated the last cycle: [endojs/endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383) cleared panel round 3 and a fix round, PR #1357 completed a fix round, and the ironhorse panic/host-call PR completed a fix round while its sibling panic/live-handle-reseat gauntlet remained doom-parked after an unretried clean-stage failure. PR #990 was claimed for shepherding, and #1116 is now in review. Two new items landed on the board: a minion.town PR #135 review directive and a comment-watcher classify-status improvement job. The maintainer inbox is heavy with unresolved milestone-gate questions (M2 gauntlet authorization for #1349/#1356, M3's confinement-core choice on #1015/#1340) plus a stalled leader deploy 25 commits behind main2 that is worth a look since it's holding back every singleton producer.
 
 ## Parked for maintainer feedback
 
@@ -168,13 +166,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #3 (first seen 2026-09-30T02:36:19Z, latest 2026-09-30T02:46:24Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 3 times; this is ONE
-> coalesced notice that updates in place, not 3 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-30T02:36:19Z, latest 2026-09-30T02:51:42Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1386](https://github.com/endojs/endo-but-for-bots/pull/1386)#issuecomment-5902849928 (age=1143s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#discussion_r4140186381 (age=1740s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1386](https://github.com/endojs/endo-but-for-bots/pull/1386)#issuecomment-5902849928 (age=1443s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#discussion_r4140186381 (age=2040s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -275,11 +273,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-29T21:30:46Z, cleared 2026-09-30T02:41:53Z).
-> It was observed 8 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #9 (first seen 2026-09-29T21:30:46Z, latest 2026-09-30T02:51:37Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 629 of 629 clone(s) on consecutive ticks.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-4.md)
 
@@ -586,22 +584,23 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 182.7M | $1193.23 _(notional, rate-card)_ | 128% of 143.0M (backoff) |
+| Claude | 183.9M | $1204.20 _(notional, rate-card)_ | 129% of 143.0M (backoff) |
 | Codex | 16.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 64756498 tokens/day lower bound._
+_Fleet token-unlock pace: 64812027 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.140894s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 0 open notice(s); checker healthy
+worst fetch p95 5.140894s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`scholar-ingest-dbushell-text-editor`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/scholar-ingest-dbushell-text-editor.md) — Ingest an external source on building a text editor on the web
-- [`endojs-endo-but-for-bots-pr990-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr990-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #990
 - [`kriscendobot-minion.town-pr85-review-9f17a419`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-review-9f17a419.md) — Review directive on kriscendobot/minion.town PR #85
+- [`kriscendobot-minion.town-pr135-review-e4d01640`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr135-review-e4d01640.md) — Review directive on kriscendobot/minion.town PR #135
 - [`minion-town-clip-gutter-default-landing`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-clip-gutter-default-landing.md) — build: make the clip gutter the real minion.town landing (kriscendobot/minion...
 - [`kriscendobot-garden-pr75-review-6b5f570b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr75-review-6b5f570b.md) — Review directive on kriscendobot/garden PR #75
 - [`issue-kriscendobot-garden-117`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/issue-kriscendobot-garden-117.md) — Issue from dckc on kriscendobot/garden #117
+- [`improve-comment-watcher-expected-classify-status`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-comment-watcher-expected-classify-status.md) — ---
 - [`kriscendobot-minion.town-pr91-0aac718f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr91-0aac718f.md) — attention directive on kriscendobot/minion.town PR #91
 - [`endojs-endo-but-for-bots-pr1357-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1357-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1357
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
@@ -609,20 +608,20 @@ worst fetch p95 5.140894s/45s (/home/kris/garden/.garden-state/design-pr-gauntle
 
 ### doin (7)
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1349
-- [`endojs-endo-but-for-bots-pr1383-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1383-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1383
+- [`endojs-endo-but-for-bots-pr990-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr990-shepherd.md) — shepherd directive on endojs/endo-but-for-bots PR #990
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1379
 - [`claude-on-minion-town-completion-press-20260930-020508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20260930-020508.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`fu-minion-town-containment-gateway-endo-sock-1-20260930-015006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-containment-gateway-endo-sock-1-20260930-015006.md) — Containment drift check for kriscendobot/minion.town gateway records
 - [`endojs-endo-but-for-bots-pr1116-review-70b9d56c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1116-review-70b9d56c.md) — Review directive on endojs/endo-but-for-bots PR #1116
 - [`endo-daemon-idempotent-start-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-daemon-idempotent-start-build.md) — Endo daemon: idempotent start + early single-instance lock (phase 1)
 
-### tada (9823)
+### tada (9824)
+- [`endojs-endo-but-for-bots-pr1383-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1383-gauntlet-panel-3.md) — Cost
 - [`kriscendobot-minion.town-pr90-d6a72a2f`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr90-d6a72a2f.md) — Cost
 - [`endojs-endo-but-for-bots-pr1383-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1383-gauntlet-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1357-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1357-gauntlet-fix-3.md) — Cost
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-fix-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr1357-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1357-gauntlet-panel-3.md) — Cost
-- … and 9818 more
+- … and 9819 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -667,6 +666,7 @@ worst fetch p95 5.140894s/45s (/home/kris/garden/.garden-state/design-pr-gauntle
 - [`kriscendobot-garden-pr75-review-6b5f570b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr75-review-6b5f570b-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #75 (primary: kriscendobot-garden-pr7...
 - [`kriscendobot-minion.town-pr85-review-9f17a419-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr85-review-9f17a419-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #85 (primary: kriscendobot-minio...
 - [`kriscendobot-minion.town-pr90-d6a72a2f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr90-d6a72a2f-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #90 (primary: kriscendobot-minio...
+- [`kriscendobot-minion.town-pr135-review-e4d01640-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr135-review-e4d01640-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #135 (primary: kriscendobot-mini...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
