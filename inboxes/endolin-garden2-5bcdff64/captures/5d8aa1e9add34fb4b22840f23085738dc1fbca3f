@@ -1,0 +1,26 @@
+<6>03:49:03 [monk/1] job 'book-ch8' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>03:49:03 [monk/1] job 'book-ch8' call ceiling: tier=mentor max-budget-usd=8.60 (scaled by fresh seven-day headroom when available)
+<6>03:49:03 [monk/1] job 'book-ch8' attaching minion.town MCP (stdio bridge)
+panel-head-freshness: not-applicable target=book-ch8 reason=no-presented-pr
+<6>03:52:27 [assert-followup-posted] gate: BLOCK — 'book-ch8' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# book-ch8 — completion report
+
+Chapter 8, "Cybernetics and budgeting", is written and on `origin/journal2`. It is about 4,900 words at `projects/garden-book/ch8-cybernetics-budgeting.md`, commit `f3b69c27bda`. I landed it with `land-journal-edit.sh` and confirmed it by reading the file back from the remote branch. No code or `main2` changes.
+
+## What the chapter covers
+It follows the job's seven points and ends with an operator quick-reference table:
+
+1. **Why "cybernetics":** budget is treated as a set of feedback loops (claim admission, foreman pacing, worker leveling, per-job and per-campaign budgets). The design rules are tied to real incidents: the $1,090 unmetered-key burn, the uncalibrated 5M placeholder cap, and a blind sensor once reading as zero spend.
+2. **Subscription accounting:** the live `config/budget-pools` and `config/subscription-mapping` contents, the meter, calibration checkpoints, and the four admission verdicts. The chapter explains why a configured pool that is unmetered or uncalibrated refuses claims, while an unreadable meter lets them through. It also covers the per-call USD cap for each tier.
+3. **Worker-count leveling and derotation:** how the leveler splits the monk ceiling across hosts, how the cleric count follows demand, and how gently counts move. Derotation uses the live oros marker (heartbeat stale 3377 s, prior caps 4/0, derotated 2026-09-30T02:35Z) as its example, plus its ownership rules. The chapter also covers the sysop op vocabulary with the attestation needed for destructive ops, and the leader-only rule for the controllers.
+4. **The foreman:** how it paces work, the history of its active target (0, then 2, then 10) and why 10 is the right number, and how the brake, drain, and target differ.
+5. **Per-job budgets:** the handler-timeout table, the override header, and the ~14339 s cap tied to the claim TTL. It also covers the per-role token budgets (250k for heavy roles, 100k otherwise), what happens to a job that runs over, and tier floors and mentat gating.
+6. **Per-orchestration budgets:** `--budget-tokens` — checked only before each serial promotion, stops cleanly at exhaustion with the remainder parked and in-flight work untouched, and resumes as a new campaign.
+7. **The accountant:** described accurately as in progress. The design job `design-accountant-role-budget-apportionment` is still in `jobs/todo/`, and nothing has landed in `designs/` or `roles/`. I checked `origin/main2` just before landing. The chapter restates the design job's requirements only, not conclusions.
+
+## Follow-ups
+- **Stale docs:** `context/operations/cybernetics.md` and the 2026-09-27 status sections of both cybernetics designs still say the foreman's shipped active target is 2. The unit ships 10, raised on 2026-09-27. The chapter notes this and treats the unit file as correct.
+- **Stale script comments:** `foreman.sh`'s header comments say the default is 3, but its code falls back to 5.
+- **Revise later:** section 8.7 should be updated once the accountant design lands.
