@@ -78,3 +78,13 @@ Verification: `packages/ses` `ava test/sturdyref-*.test.js test/global-locked-un
 
 No maintainer standing-orders asks on this PR.
 ----- END SUMMARY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T20:07:40Z
