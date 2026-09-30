@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1360
 build_job: kriscendobot-minion.town-pr142-gauntlet-fix-1
 kind: feature
-stage: fix
-iteration: 2
+stage: panel
+iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1360-gauntlet-fix-2
+current_child: endojs-endo-but-for-bots-pr1360-gauntlet-panel-3
 state: running
 created_by: producer
 created_at: 2026-09-30T10:36:23Z
