@@ -1,13 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:gardener-scaler
-sent_at: 2026-09-28T06:45:37Z
+sent_at: 2026-09-30T09:31:38Z
 watchdog_key: budget-zone-endolin-garden-ece02cb4-ok
-notice_count: 2
+notice_count: 3
 first_seen: 2026-08-27T01:30:12Z
-last_seen: 2026-09-28T06:45:37Z
+last_seen: 2026-09-30T09:31:38Z
 ---
-WATCHDOG notice — occurrence #2 (first seen 2026-08-27T01:30:12Z, latest 2026-09-28T06:45:37Z).
-The SAME condition (`budget-zone-endolin-garden-ece02cb4-ok`) has now been observed 2 times; this is ONE
-coalesced notice that updates in place, not 2 messages. Latest detail:
+WATCHDOG notice — occurrence #3 (first seen 2026-08-27T01:30:12Z, latest 2026-09-30T09:31:38Z).
+The SAME condition (`budget-zone-endolin-garden-ece02cb4-ok`) has now been observed 3 times; this is ONE
+coalesced notice that updates in place, not 3 messages. Latest detail:
 
-subscription codex-endolin changed zone backoff -> ok at spend=48768757 of cap=100.
+subscription claude-endolin1 changed zone backoff -> ok at spend=224025454/256000000.
