@@ -101,6 +101,7 @@ jobs:
           bash scripts/openshell-pilot/test.sh
           bash tests/checks/run.sh
           bash scripts/jobs/test/repo-locks-test.sh
+          bash scripts/jobs/test/fallback-warn-dedup-test.sh
           bash scripts/jobs/test/journal-entry-project-test.sh
           bash scripts/jobs/test/quota-calibration-test.sh
           bash scripts/jobs/test/gh-credential-guard-test.sh

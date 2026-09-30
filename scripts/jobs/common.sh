@@ -762,7 +762,7 @@ unset _garden_path_dir
 # drops them all — including `die "FATAL: …"` — leaving an outage triage blind to
 # the script-level cause (the 18:46 fleet outage tail had 0 `[gardener-scaler]`/
 # `[install]`/`[deploy-sync]` lines, only systemd's generic "exit-code"). The
-# prefix is keyed off the message text: `<3>` (err) for FATAL, `<4>` (warning)
+# prefix is keyed off the message text: `<3>` (err) for FATAL/ERROR, `<4>` (warning)
 # for a line beginning WARN, `<6>` (info) otherwise. systemd's SyslogLevelPrefix
 # honors `<N>` by default for Type=exec/simple units. The prefix is STRIPPED when
 # stderr is a TTY (`[ -t 2 ]`) so interactive runs stay clean; it only appears
@@ -771,7 +771,7 @@ log() {
   local prefix=""
   if [ ! -t 2 ]; then
     case "$*" in
-      FATAL*) prefix='<3>' ;;
+      FATAL*|ERROR*) prefix='<3>' ;;
       WARN*)  prefix='<4>' ;;
       *)      prefix='<6>' ;;
     esac
@@ -4286,6 +4286,73 @@ _journal_remote_from_state_clones() {
   return 1
 }
 
+# --- fallback-warning episodes: warn once per episode, not once per tick ------
+#
+# journal_remote's cached-remote fallbacks and leader_host's leader-cache fallback
+# SUCCEED (the caller continues on the fallback value), yet every tick that took
+# them logged a WARN, so one transient outage printed a WARN from every garden-*
+# unit on every tick (seven in 85s on 2026-09-30, plus repeated leader-cache WARNs)
+# with nothing new to say after the first. A per-source host-local EPISODE marker
+# ($GARDEN_FALLBACK_WARN_DIR/<source>/) now gates the log: the first fallback of an
+# episode warns, later ones are only counted, and the episode closes (one info line
+# with the suppressed count) when the direct source works again: a direct origin
+# read for journal_remote, a successful leader fetch for leader_host. An episode
+# that outlives GARDEN_FALLBACK_ESCALATE_AFTER seconds escalates ONCE to an ERROR
+# line (journald err), since a fallback that never recovers is a real fault, not a
+# blip. Only the logging changes: fallback, cache, and re-heal behavior are intact.
+# The marker is a directory so `mkdir` is the atomic first-writer test across the
+# many units sharing a host.
+: "${GARDEN_FALLBACK_WARN_DIR:=$GARDEN_STATE/fallback-warn}"
+: "${GARDEN_FALLBACK_ESCALATE_AFTER:=900}"
+
+# fallback_warn <source> <message> — log WARN <message> only when it opens a new
+# episode for <source>; otherwise count it, escalating once after the bound.
+fallback_warn() {
+  local d="$GARDEN_FALLBACK_WARN_DIR/$1" msg="$2" now first last n
+  now="$(date +%s 2>/dev/null || echo 0)"
+  if ! mkdir -p "$GARDEN_FALLBACK_WARN_DIR" 2>/dev/null; then
+    log "WARN: $msg"; return 0
+  fi
+  # A marker whose last fallback is older than the escalation bound is a leftover
+  # from an episode that ended without passing a clearing path; start afresh
+  # rather than suppress the new episode's WARN (or escalate it at once).
+  last="$(stat -c %Y "$d/count" 2>/dev/null || stat -c %Y "$d/first" 2>/dev/null || echo "$now")"
+  if [ -d "$d" ] && [ $(( now - last )) -ge "$GARDEN_FALLBACK_ESCALATE_AFTER" ]; then
+    rm -rf "$d" 2>/dev/null || true
+  fi
+  if mkdir "$d" 2>/dev/null; then
+    printf '%s\n' "$now" > "$d/first" 2>/dev/null || true
+    log "WARN: $msg (repeats suppressed until the direct source recovers)"
+    return 0
+  fi
+  printf '.' >> "$d/count" 2>/dev/null || true
+  [ -e "$d/escalated" ] && return 0
+  first="$(cat "$d/first" 2>/dev/null)"
+  [[ "$first" =~ ^[0-9]+$ ]] || return 0
+  [ $(( now - first )) -ge "$GARDEN_FALLBACK_ESCALATE_AFTER" ] || return 0
+  mkdir "$d/escalated" 2>/dev/null || return 0
+  n="$(stat -c %s "$d/count" 2>/dev/null || echo 0)"
+  log "ERROR: $msg; fallback persistent for $(( now - first ))s ($n suppressed repeat(s)), the direct source has not recovered"
+}
+
+# fallback_warn_clear <source>... — close any open episode for each <source>,
+# logging one recovery line. The rename makes exactly one concurrent clearer log.
+fallback_warn_clear() {
+  local src d tomb first n now
+  for src in "$@"; do
+    d="$GARDEN_FALLBACK_WARN_DIR/$src"
+    [ -d "$d" ] || continue
+    tomb="$d.clear.$$"
+    mv "$d" "$tomb" 2>/dev/null || continue
+    now="$(date +%s 2>/dev/null || echo 0)"
+    first="$(cat "$tomb/first" 2>/dev/null)"
+    [[ "$first" =~ ^[0-9]+$ ]] || first="$now"
+    n="$(stat -c %s "$tomb/count" 2>/dev/null || echo 0)"
+    log "recovered: $src fallback episode closed after $(( now - first ))s ($n suppressed repeat(s))"
+    rm -rf "$tomb" 2>/dev/null || true
+  done
+}
+
 journal_remote() {
   if [ -n "$JOURNAL_REMOTE" ]; then printf '%s\n' "$JOURNAL_REMOTE"; return; fi
   local jw="$GARDEN_ROOT/journal"
@@ -4324,6 +4391,7 @@ journal_remote() {
       poisoned=1
       log "REFUSED: journal worktree $jw origin is '$url', a foreign github repo (NOT $GARDEN_PRODUCTION_JOURNAL_REPO) — the root checkout's remote.origin.url appears rewritten to a project/fork repo; refusing to propagate it (would make fresh doer clones clone the wrong repo). Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin $GARDEN_PRODUCTION_JOURNAL_URL"
     else
+      fallback_warn_clear journal-remote-cache journal-remote-root journal-remote-clones
       _cache_journal_remote "$url"
       printf '%s\n' "$url"; return
     fi
@@ -4334,7 +4402,7 @@ journal_remote() {
   # config lock held by the worktree-keeper, or a deploy window. A per-tick die()
   # here FATAL-storms EVERY garden-* unit off its systemd Restart even though the
   # origin is intact seconds later — the 2026-07-03 11:06-11:11Z outage. So instead
-  # of dying we fall back and log a SINGLE WARN. Fallback order:
+  # of dying we fall back and log ONE WARN per episode (fallback_warn). Fallback order:
   #   (1) the per-host cache of the last good resolution (survives a reset/deploy);
   #   (2) the shared root checkout's origin — journal2 and main2 live in the SAME
   #       repo/remote, so the root shares the same origin URL;
@@ -4347,7 +4415,7 @@ journal_remote() {
       poisoned=1
       log "REFUSED: cached journal remote at $JOURNAL_REMOTE_CACHE is '$url', a foreign github repo (NOT $GARDEN_PRODUCTION_JOURNAL_REPO) — a poisoned root origin was previously cached; refusing. Clear it with: rm -f \"$JOURNAL_REMOTE_CACHE\""
     else
-      log "WARN: journal worktree $jw yielded no origin; using cached journal remote $url (transient — config lock / worktree repair / deploy window)"
+      fallback_warn journal-remote-cache "journal worktree $jw yielded no origin; using cached journal remote $url (transient — config lock / worktree repair / deploy window)"
       _reheal_journal_worktree_origin "$url" "$jw"
       _reheal_root_origin "$url"
       printf '%s\n' "$url"; return
@@ -4358,7 +4426,7 @@ journal_remote() {
       poisoned=1
       log "REFUSED: $GARDEN_ROOT origin is '$url', a foreign github repo (NOT $GARDEN_PRODUCTION_JOURNAL_REPO) — the root checkout's origin appears rewritten to a project/fork repo; refusing to propagate it as the journal remote. Restore with: git -C \"$GARDEN_ROOT\" remote set-url origin $GARDEN_PRODUCTION_JOURNAL_URL"
     else
-      log "WARN: journal worktree $jw yielded no origin; falling back to $GARDEN_ROOT origin $url"
+      fallback_warn journal-remote-root "journal worktree $jw yielded no origin; falling back to $GARDEN_ROOT origin $url"
       _cache_journal_remote "$url"
       _reheal_journal_worktree_origin "$url" "$jw"
       printf '%s\n' "$url"; return
@@ -4369,7 +4437,7 @@ journal_remote() {
       poisoned=1
       log "REFUSED: per-instance clone origin under $GARDEN_STATE is '$url', a foreign github repo (NOT $GARDEN_PRODUCTION_JOURNAL_REPO) — refusing."
     else
-      log "WARN: journal worktree $jw yielded no origin; falling back to a per-instance clone origin under $GARDEN_STATE ($url)"
+      fallback_warn journal-remote-clones "journal worktree $jw yielded no origin; falling back to a per-instance clone origin under $GARDEN_STATE ($url)"
       _cache_journal_remote "$url"
       _reheal_journal_worktree_origin "$url" "$jw"
       _reheal_root_origin "$url"
@@ -4887,12 +4955,13 @@ leader_host() {
   # the subshell's fds, and the fallback-to-cache path below still runs.
   ( ensure_clone "$dir" ) >/dev/null 2>&1 || true
   if ! _journal_git_fetch "$dir" 0 >/dev/null 2>&1; then
-    log "WARN: leader fetch failed; using last-known leader cache (not fresh)"
+    fallback_warn leader-fetch "leader fetch failed; using last-known leader cache (not fresh)"
     val="$(git -C "$dir" show "origin/$JOURNAL_BRANCH:$GARDEN_LEADER_MARKER_PATH" 2>/dev/null | head -1 | tr -d '[:space:]')"
     if [ -n "$val" ]; then printf '%s\n' "$val";
     else head -1 "$cache" 2>/dev/null | tr -d '[:space:]'; fi
     return 0
   fi
+  fallback_warn_clear leader-fetch
   val="$(git -C "$dir" show "origin/$JOURNAL_BRANCH:$GARDEN_LEADER_MARKER_PATH" 2>/dev/null | head -1 | tr -d '[:space:]')"
   if [ -n "$val" ]; then
     mkdir -p "$(dirname "$cache")" 2>/dev/null || true
