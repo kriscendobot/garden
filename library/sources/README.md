@@ -1172,3 +1172,9 @@ because the specs are repository READMEs.
 | [fakecloud SigV4 verification and IAM enforcement reference](web--fakecloud-reference-security.md) | https://fakecloud.dev/docs/reference/security/ | 2 | current (living vendor docs; retrieved 2026-09-28, content SHA-256 `beadb5c0`; opt-in SigV4 verification incl. presigned query auth, `test*` root bypass, `--iam` modes, enforced services, condition operators and keys) |
 | [fakecloud introspection endpoints reference](web--fakecloud-reference-introspection.md) | https://fakecloud.dev/docs/reference/introspection/ | 1 | current (living vendor docs; retrieved 2026-09-28, content SHA-256 `f5197dd2`; authoritative `/_fakecloud/*` route list (86 routes / 28 areas); no global reset route (SDK uses `POST /_reset`)) |
 | [fakecloud known limitations reference](web--fakecloud-reference-limitations.md) | https://fakecloud.dev/docs/reference/limitations/ | 1 | current (living vendor docs; retrieved 2026-09-28, content SHA-256 `8be8778e`; recorded-only SNS email/SMS, no Session Manager data plane, inert Logs anomalies, Docker-socket dependence, SigV4/IAM off by default) |
+
+## Web text editors
+
+| Source | URL | Sections | Status |
+|--------|-----|----------|--------|
+| [David Bushell — "Fine, I'll build my own text editor!"](web--dbushell-text-editor.md) | https://dbushell.com/2026/09/01/text-editor/ | 5 | current (blog post, 2026-09-01; retrieved 2026-09-30, content SHA-256 `3ab555a0`; hands-on comparison of `<canvas>` / `contenteditable="plaintext-only"` / `<textarea>` editor substrates against Monaco, plus highlighting and UTF-16 pitfalls) |
