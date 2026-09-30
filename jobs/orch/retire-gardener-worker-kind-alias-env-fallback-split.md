@@ -1,4 +1,5 @@
 ---
+child-retire-gardener-clone-alias-verify-deploy-reaper-failure-notified: true
 child-retire-gardener-clone-alias-verify-deploy-reaper-host: endolin-garden-ece02cb4
 child-retire-gardener-clone-alias-verify-handler-spine-host: endolin-garden2-5bcdff64
 order: parallel
