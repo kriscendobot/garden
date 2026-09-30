@@ -99,6 +99,10 @@ fi
 : "${GARDEN_BUDGET_SNAPSHOT_SECS:=900}"
 : "${GARDEN_BUDGET_SNAPSHOT_MAX_AGE:=1800}"
 : "${GARDEN_BUDGET_PUBLISH_ATTEMPTS:=3}"
+# Width of the host-keyed publication stagger inside each snapshot bucket. Empty
+# derives it from the cadence and max-age (see budget_snapshot_stagger_secs); 0
+# disables staggering (every host publishes on the bucket boundary).
+: "${GARDEN_BUDGET_SNAPSHOT_STAGGER_SECS:=}"
 : "${GARDEN_RATE_ALPHA:=0.25}"
 : "${GARDEN_SUBSCRIPTION_MAPPING_PATH:=config/subscription-mapping}"
 
@@ -744,6 +748,51 @@ meter_remote_snapshot_total() {
   printf '%s\n' "$s"
 }
 
+# budget_snapshot_stagger_secs <snapshot-secs> <max-age> — the stagger window W.
+# Every host used to publish on the first scaler tick of a new bucket, so the
+# whole fleet raced one journal CAS at the same instant and exhausted its bounded
+# retries (13:31:43, 13:46:13). W defaults to a third of the cadence, clamped to
+# half the max-age headroom (max_age - snapshot_secs) so an on-schedule sample
+# plus one late tick and a retry still lands well inside the reader's max-age.
+budget_snapshot_stagger_secs() {
+  local secs="$1" max_age="$2" w="${GARDEN_BUDGET_SNAPSHOT_STAGGER_SECS:-}" limit
+  [[ "$max_age" =~ ^[1-9][0-9]{0,17}$ ]] || max_age=1800
+  limit=0; [ "$max_age" -le "$secs" ] || limit=$(((max_age - secs) / 2))
+  [ "$limit" -lt "$secs" ] || limit=$((secs - 1))
+  [[ "$w" =~ ^[0-9]{1,18}$ ]] || w=$((secs / 3))
+  [ "$w" -le "$limit" ] || w="$limit"
+  printf '%s\n' "$w"
+}
+
+# budget_snapshot_offset <host> <snapshot-secs> <max-age> — this host's
+# deterministic publication offset in [0, W) within each bucket. Keyed on the
+# host identity alone, so a host's pools publish together and the offset is the
+# same every bucket (consecutive samples stay one cadence apart).
+budget_snapshot_offset() {
+  local host="$1" w sum
+  w="$(budget_snapshot_stagger_secs "$2" "$3")"
+  [ "$w" -gt 0 ] || { printf '0\n'; return 0; }
+  sum="$(printf '%s' "$host" | cksum | cut -d' ' -f1)"
+  printf '%s\n' $((sum % w))
+}
+
+# budget_snapshot_due <snapshot-file> <now> <snapshot-secs> — whether this host
+# should publish a new-bucket sample now. Due once the bucket phase reaches the
+# host's offset; also due at once when there is no prior sample, or when the
+# prior sample is already older than cadence + W (a missed or failed bucket must
+# not wait out another stagger), which bounds the gap regardless of the offset.
+budget_snapshot_due() {
+  local file="$1" now="$2" secs="$3" max_age="$GARDEN_BUDGET_SNAPSHOT_MAX_AGE" w offset at
+  [[ "$max_age" =~ ^[1-9][0-9]{0,17}$ ]] || max_age=1800
+  w="$(budget_snapshot_stagger_secs "$secs" "$max_age")"
+  [ "$w" -gt 0 ] || return 0
+  at="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
+  [[ "$at" =~ ^[0-9]{1,18}$ ]] || return 0
+  [ $((now - at)) -lt $((secs + w)) ] || return 0
+  offset="$(budget_snapshot_offset "$GARDEN" "$secs" "$max_age")"
+  [ $((now % secs)) -ge "$offset" ]
+}
+
 # _budget_publish_record_failure <context-file> <pool> <commit-rc> — preserve the
 # failed push's identity across the retry subshell. The globals serve the first
 # in-process attempt; the file carries the same tuple out of later subshells.
@@ -770,6 +819,7 @@ _budget_publish_legacy_local_pool_once() {
   spend="$(meter_window_total anchor)" || return 0
   now="$(meter_now)"; bucket=$((now / GARDEN_BUDGET_SNAPSHOT_SECS)); file="$dir/budget/live/$GARDEN"
   [ "$(sed -n 's/^sample_bucket:[[:space:]]*//p' "$file" 2>/dev/null | head -1)" != "$bucket" ] || return 0
+  budget_snapshot_due "$file" "$now" "$GARDEN_BUDGET_SNAPSHOT_SECS" || return 0
   status="$(meter_verdict "$spend" "$cap")"; mkdir -p "$(dirname "$file")"
   printf 'pool: %s\nhost: %s\nwindow_start_epoch: %s\nspend: %s\ncap: %s\nstatus: %s\nsampled_at_epoch: %s\nsampled_at: %s\nsample_bucket: %s\n' \
     "$pool" "$GARDEN" "$cutoff" "$spend" "$cap" "$status" "$now" "$(date -u -d "@$now" +%FT%TZ)" "$bucket" > "$file.tmp.$$"
@@ -816,6 +866,7 @@ _budget_publish_local_pool_once() {
   file="$dir/budget/live/$pool/$GARDEN"
   old_bucket="$(sed -n 's/^sample_bucket:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
   [ "$old_bucket" != "$bucket" ] || continue
+  budget_snapshot_due "$file" "$now" "$snapshot_secs" || continue
   old_status="$(sed -n 's/^status:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
   if [ -n "${used_percent:-}" ]; then status="$(meter_verdict "$used_percent" 100)"; else status="$(meter_verdict "$spend" "$cap")"; fi
   # A percent pool's cap is a percentage ceiling and its gate reads used_percent,

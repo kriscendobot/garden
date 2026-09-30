@@ -62,7 +62,7 @@ printf 'subscription: sub-two\nsampled_at_epoch: %s\nused_percent: 78\nused_perc
 GARDEN=host-one
 commit_and_push() { return 0; }; alert_maintainer() { :; }
 git -C "$D" init -q 2>/dev/null
-GARDEN_BUDGET_SNAPSHOT_SECS=60 _budget_publish_local_pool_once "$D" >/dev/null 2>&1 || true
+GARDEN_BUDGET_SNAPSHOT_SECS=60 GARDEN_BUDGET_SNAPSHOT_STAGGER_SECS=0 _budget_publish_local_pool_once "$D" >/dev/null 2>&1 || true
 grep -qx 'used_percent: 80' "$D/budget/live/sub-one/host-one" && grep -qx 'used_percent_source: derived' "$D/budget/live/sub-one/host-one" \
   && ok "meter publishes the ledger value tagged derived" || bad "meter live file: $(cat "$D/budget/live/sub-one/host-one")"
 [ "$(subscription_used_percent sub-one "$D")" = 80 ] && ok "republished snapshot stays at the ledger value" || bad "fixed point lost"
