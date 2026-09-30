@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T22:37:37Z_
+_As of 2026-09-30T22:40:23Z_
 
 ## Latest
 
-A gardener picked up the `design-mount-root-attenuation-controller` job, moving it into progress — the design for filesystem mount attenuation with a root-controller facet is now being drafted.
+The SturdyRef layer-7 (OCapN enliven) gauntlet halted after its clean stage failed and was deliberately not retried, joining layer-2 (SES), which halted earlier at fix round 4 — both need maintainer disposition rather than another automated pass. Elsewhere on the SturdyRef stack, layers 1, 3, 4, 5, and 6 are mid-gauntlet (panel and fix rounds in progress) and layer 8 has a fresh CI-clean stage queued for [endojs/endo-but-for-bots#1398](https://github.com/endojs/endo-but-for-bots/pull/1398). The petname-path-only sweep continues its fix/panel cycling on [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), and round-4 fixes for the Ironhorse panic live-handle-reseat work on [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) surfaced follow-ups (missing hasher/CAS/SQLite tests) still awaiting disposition. A stale-panel-coverage notice flags [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), whose head moved past its last-reviewed commit and needs an explicit "run the gauntlet" or a maintainer call before it proceeds. Two review-budget-exhausted PRs are left for human judgment: the Ironhorse panic host-call PR passed CI after six fix rounds without subjective convergence, and PR #1391's SES round-4 work is fully landed but blocked only by an apparent CI flake on one macOS leg. Host oros-studio-garden-ce242c49 remains offline and has been derotated out of worker capacity and the rolling deploy; journal contention and a comment-watcher self-test failure on kriscendobot/vattr97 both cleared. The accountant's budget conversation and a Route53 DNSSEC decision for ocap.site remain parked awaiting maintainer input, alongside reset-credit-timing guidance for the coming week.
 
 ## Parked for maintainer feedback
 
@@ -127,6 +127,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
+
+> comment-provenance INSTRUMENTATION GAP on host endolin-garden-ece02cb4: a fleet `gh` comment was posted by an LLM-driven caller, but NEITHER GARDEN_JOB_MODEL NOR GARDEN_WORKER_KIND resolved — so the footer named only the host and garden commit (no model/harness/provider). This is the PR #1125 defect. The comment STILL posted (fail-open); nothing is broken. FIX: find the code path posting the comment and export the job facts (GARDEN_JOB_MODEL + GARDEN_WORKER_KIND) before its `gh` call, OR set GARDEN_NO_LLM=1 if it is a deterministic (no-LLM) post.
+
 - `msg-build-minion-town-mcp-garden2-workers-76b942035c1f` — from gardener:build-minion-town-mcp-garden2-workers, reply_to `build-minion-town-mcp-garden2-workers` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-mcp-garden2-workers-76b942035c1f.md)
 
 > minion.town MCP standing order: machinery landed on main2 (1f0cc8400b5), and it is proven live on endolin-garden2 for claude -p and codex exec. Two decisions are yours before I widen it past garden2:
@@ -235,7 +239,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.8M | $252.89 _(notional, rate-card)_ | 11% of 256.0M (ok) |
+| Claude | 29.5M | $257.90 _(notional, rate-card)_ | 12% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128886723 tokens/day lower bound._
