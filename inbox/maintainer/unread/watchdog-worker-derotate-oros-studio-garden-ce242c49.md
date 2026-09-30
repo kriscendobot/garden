@@ -1,10 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:worker-derotate
-sent_at: 2026-09-30T22:20:16Z
+sent_at: 2026-09-30T23:05:14Z
 watchdog_key: worker-derotate-oros-studio-garden-ce242c49
 notice_count: 1
 first_seen: 2026-09-30T22:20:16Z
-last_seen: 2026-09-30T22:20:16Z
+last_seen: 2026-09-30T23:05:14Z
+recovered: true
 ---
-Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 2737s (offline threshold 1800s; sampled_at_epoch=1790804072).
-worker-derotate zeroed its config/worker-leveling caps (were 4 0 monk cleric) so budget-level stops reserving fleet slots for it; the exact prior caps are recorded in journal worker-derotate/oros-studio-garden-ce242c49. When its budget/live heartbeat is fresh again the caps are restored automatically and this notice closes. To keep it out regardless, set its row by hand (any value other than 0 0 relinquishes the marker; delete the marker to keep 0 0). (leader=endolin-garden-ece02cb4)
+RECOVERED — the watchdog condition `worker-derotate-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-30T22:20:16Z, cleared 2026-09-30T23:05:14Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (64s old; sampled_at_epoch=1790809440)); it is PRESENT again and its config/worker-leveling caps are restored to 4 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
