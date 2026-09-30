@@ -19,3 +19,13 @@ Carry it:
 3. The arc is done only when https://npm.minion.town is live AND a real npm client (the stock `npm` CLI, fresh cache, no garden tooling) has run `npm install` for published dev-tagged packages, including one with a transitive dependency, and they resolved and installed. Record the transcript evidence.
 4. Report the result to the maintainer (message-user.sh) with the evidence and links. Update minion.town deploy notes where the runbook drifted.
 Deploy discipline: see the memories on minion.town deploys (EADDRINUSE orphan recovery, pin-bump verification over SSM, and CD www reverting unmerged changes). Use targeted CD dispatches.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T03:42:15Z
