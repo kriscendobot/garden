@@ -1,4 +1,5 @@
 ---
+child-book-revise-content-reap-count: 0
 order: serial
 children: book-revise-content book-copyedit book-design-pass
 on-child-failure: halt
