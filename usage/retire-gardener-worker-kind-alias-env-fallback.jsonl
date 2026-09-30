@@ -1,1 +1,2 @@
 {"source":"none","ts":"2026-09-29T21:03:54Z","base":"retire-gardener-worker-kind-alias-env-fallback","host":"endolin-garden2-5bcdff64","outcome":"requeue","elapsed_s":2475,"provider":"anthropic"}
+{"source":"none","ts":"2026-09-30T20:22:16Z","base":"retire-gardener-worker-kind-alias-env-fallback","host":"endolin-garden-ece02cb4","outcome":"requeue","elapsed_s":2401,"provider":"anthropic"}
