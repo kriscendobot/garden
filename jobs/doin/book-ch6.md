@@ -69,3 +69,13 @@ which skills remain uncovered, so a chain of follow-ups completes the
 chapter rather than one cycle silently skimming everything. Each follow-on
 appends to the same output file; state clearly at the top of your
 contribution which skills you covered this cycle.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:26:10Z
