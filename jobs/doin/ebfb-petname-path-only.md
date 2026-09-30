@@ -30,3 +30,13 @@ components).
 
 Coordinate with PR #1343 (endowments value side is being moved to the pet-name
 path shape there); do not duplicate that change — rebase over it if it lands first.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T05:16:40Z
