@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T20:58:23Z_
+_As of 2026-09-30T21:01:01Z_
 
 ## Latest
 
-The sturdyref layer stack dominates the board: layers 1–8 (PRs #774, #1390–#1398) are churning through panel/fix rounds in parallel, with #1390's petname-path-only sweep now on its fourth fix round and #1397/#1398 queued for a base-rebase once the stack restacks onto frozen bases. [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) (ironhorse panic live-handle reseat) is on fix round 5, and a separate ironhorse panic PR hit its gauntlet review budget after 6 rounds without converging — left improved but needing a human merge call. The garden book was revised and republished with new chapters on the library and inference tiers. Two items need a maintainer decision to unblock: [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357)'s panel coverage is stale against its current head and needs an explicit re-review request, and the M3 milestone is blocked on choosing between advancing #1015 (after its #1348 prerequisite clears) or answering [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340)'s open questions. Host `oros-studio-garden-ce242c49` dropped offline (heartbeat stale) and will be skipped by the rolling deploy until it's restored.
+The SturdyRef layer stack dominates activity: layers 1–8 (endojs-endo-but-for-bots PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) are moving through gauntlet fix/panel/clean rounds in parallel, alongside the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (now on fix round 4). A separate job is restacking #1397/#1398 onto the new frozen bases. On #1391, the round-4 must-fixes have landed and all checks pass except a flaky macOS daemon-teardown leg unrelated to the change — a rerun is needed from a credentialed host, and a matching flake is being chased in its own job. The Ironhorse panic/host-call PR ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380), fix round 5) hit its review budget after 6 rounds without converging and is parked for a human decision, while a related Ironhorse panic PR separately reached the same "left improved, needs human review" state. #1357's panel review is stale against a newer head and awaits an explicit "run the gauntlet" or a maintainer call on the old coverage. Two decisions remain outstanding from the maintainer: the minion.town MCP principal/scoping question and M3's choice between #1015 (pending #1348) or answering #1340's open questions. Housekeeping: the garden book was republished with two new chapters, and several prior watchdog alerts (comment-ack, journal contention, host offline) all cleared on their own.
 
 ## Parked for maintainer feedback
 
@@ -28,12 +28,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1862s (offline threshold 1800s; sampled_at_epoch=1790799364).
-> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
-> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
-> no release token, deploy budget, failed-canary count, or halt. Restore the host and
-> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
-> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-30T20:47:15Z, cleared 2026-09-30T20:59:05Z).
+> It was observed 4 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `msg-book-revise-content-a727eb9546d8` — from gardener:book-revise-content, reply_to `book-revise-content` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-book-revise-content-a727eb9546d8.md)
 
@@ -89,6 +88,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > M3’s next confined-agent step is blocked on your choice between advancing `endojs/endo-but-for-bots#1015` after its `#1348` prerequisite clears, or answering the four open questions on design PR `#1340` to enable its build.
 
+- `msg-ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4-b1f64f3f865a` — from gardener:ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4, reply_to `ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4-b1f64f3f865a.md)
+
+> [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) (SturdyRef layer 2, SES): the round-4 must-fixes (changeset major, accessor-safe descriptor read, PR-body trim, completion summary) are all landed on the head. CI is red on ONE leg only — test (22.x, macos-15) — and it's a different @endo/daemon teardown timing test each run:
+> - run 36758282366 (head 2a14a08e3f): endo.test.js unhandled 'Termination requested' rejection
+> - run 36771953238 (head faefd8e514, empty retrigger commit): daemon-teardown › an orphaned daemon shuts itself down
+> All 32 other checks pass (including macOS 24.x and every Linux leg). Looks like a flake unrelated to the SES change. The oros-studio bot PAT can't rerun Actions (403), so a rerun from a credentialed host would likely clear it: gh run rerun 36771953238 --failed -R endojs/endo-but-for-bots, then resume the gauntlet (panel-5).
+
 - `20260901T210951Z-6f6a42` — from gardener:probe-opencode-anthropic, reply_to `probe-opencode-anthropic` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260901T210951Z-6f6a42.md)
 
 > The opencode-anthropic probe is blocked from its paid canary on this host: opencode 1.18.25 is not installed and neither ANTHROPIC_API_KEY nor stored opencode credentials are present. I can implement and verify the refused-key and killed-run paths locally, but real non-censored Anthropic USD cost requires a credential. Please provision an Anthropic API key into the worker environment if available; otherwise I will report that criterion as an observed gap.
@@ -107,7 +113,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.4M | $128.10 _(notional, rate-card)_ | 5% of 256.0M (ok) |
+| Claude | 12.6M | $129.95 _(notional, rate-card)_ | 5% of 256.0M (ok) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 181028137 tokens/day lower bound._
