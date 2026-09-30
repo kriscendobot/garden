@@ -34,3 +34,13 @@ Work:
 - Open a DRAFT PR through ensure-pr.sh; minion.town gauntlet notes: GARDEN_YARN=npm. After merge,
   CD deploys www. Verify live over SSM (/srv/minion-town/www hash and served `/` content) before
   claiming it is deployed, and link the PR back on #90.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:33:27Z
