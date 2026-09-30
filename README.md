@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:55:02Z_
+_As of 2026-09-30T21:56:49Z_
 
 ## Latest
 
-One gauntlet fix round advanced overnight: fix round 1 for [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) (ironhorse panic live-handle reseat) completed and moved into panel round 6, while the ironhorse-panic-host-call PR's own gauntlet hit its review budget after six rounds — CI green but subjective convergence stalled, so it's parked for a human merge call. Otherwise the board is quiet: the board transitions since the last bulletin were limited to that single fix-round completion and its follow-on panel claim.
+The SturdyRef layer-1 shim-build gauntlet for [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) advanced another round, moving from fix round 1 into panel round 2 — one piece of the broader eight-layer SturdyRef stack (layers 1–8, PRs #774 and #1390–#1398) still working through parallel gauntlet stages. A backlog of maintainer-facing items remains outstanding: stale panel coverage on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) needs an explicit "run the gauntlet" or review call, CI on the round-4 SES SturdyRef work (issue [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) is red on a single flaky macOS daemon-teardown leg unrelated to the change, and M3's confined-agent track is blocked on a choice between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) or answering open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340). Journal clone-guard contention is elevated (a 10-clone storm across ci-watcher and pages-watcher state) but self-remediating, and the accountant's budget-pacing proposal remains parked awaiting a maintainer go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -196,7 +196,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.5M | $135.57 _(notional, rate-card)_ | 6% of 256.0M (ok) |
+| Claude | 16.3M | $141.52 _(notional, rate-card)_ | 6% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128093627 tokens/day lower bound._
@@ -205,8 +205,9 @@ _Fleet token-unlock pace: 128093627 tokens/day lower bound._
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (17)
+### todo (18)
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
+- [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #774
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1340
 - [`ebfb-petname-path-only-sweep-3-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-3-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1390
