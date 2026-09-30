@@ -2,7 +2,7 @@
 
 | Created | 2026-08-27 |
 | Author  | gardener   |
-| Status  | Accepted — open questions resolved on PR #75 (kriskowal, 2026-09-04). Implemented and subagent-tested 2026-09-05 (§ Build feedback); PR #75 stays open in the interim per the maintainer directive. |
+| Status  | Accepted — open questions resolved on PR #75 (kriskowal, 2026-09-04). Built — implemented and subagent-tested 2026-09-05 (§ Build feedback). Captured: kriskowal approved PR #75 (2026-09-30), no further build needed. |
 
 ## Origin
 
@@ -286,7 +286,7 @@ ships. Each is a structural invariant of the design, not a hope:
    § tiers): the expensive discernment already happened upstream, and the cheap
    tier only types the vetted replacements.
 
-## Build plan (open questions resolved; ready once the strengthened design is signed off)
+## Build plan (executed; see § Build feedback)
 
 A single builder job (or a small orchestration) carves, in order:
 
@@ -456,7 +456,7 @@ pre-pass and the americanizer's loop oracle; `seat-gate-orthographer.sh` is the 
 gate that wraps it. This is why the americanizer loop terminates on a *deterministic
 grep* and not on the LLM gate.
 
-**Open (unchanged, PR #75 stays open):** the `divergences.tsv` seed is a curated
+**Ongoing (design captured, PR #75 approved 2026-09-30):** the `divergences.tsv` seed is a curated
 starter set, deliberately conservative; the maintainer-reviewed curation process (add
 literal rows via `[proposed-rule]` findings) is how it grows. No convergence or
 integration blocker remains.
