@@ -68,7 +68,15 @@ Per tick:
    (`GARDEN_FORKWATCH_LIVENESS_INTERVAL`, default `14400`) rather than once per
    one-minute tick. A 404 joins the existing durable tombstone path, removing
    both arming records; an inconclusive check writes no stamp and never
-   tombstones, so it is retried on the next tick. The stamps are intentionally
+   tombstones, so it is retried later. Because an inconclusive probe is nearly
+   always one shared GitHub condition, the first one in a tick normalizes its
+   failure class (`rate-limit`, `auth`, `server`, `network`, `unclassified`),
+   stops every further probe that tick, opens a host-local bounded cooldown
+   keyed by that class (`GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS`, default
+   `300`, cap `3600`) during which later ticks skip probing silently, and emits
+   one coalesced WARN listing the deferred forks. A plain 403/451 is
+   repo-specific, so it is keyed per slug and defers only that fork. A halted
+   tick never retires an armed fork. The stamps are intentionally
    untracked local state: they prevent API and journal-CAS churn across the
    clone shelf while bounding dead-upstream recovery to four hours plus one
    tick. A live missing membership CAS-lands the arming record(s) in one commit

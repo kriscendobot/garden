@@ -203,23 +203,104 @@ slug_owner_lc() { printf '%s' "${1%%-*}" | tr '[:upper:]' '[:lower:]'; }
 #
 # upstream_exists <owner> <name> — exit 0 exists, 1 upstream 404s (dead fork),
 # 2 the check itself was inconclusive (network/auth/rate-limit) so the caller
-# treats it as "unknown" and neither arms nor tombstones this tick. Overridable
-# via GARDEN_FORKWATCH_UPSTREAM_CHECK (a command run as `<cmd> <owner> <name>`
-# whose exit status is used verbatim) so the test harness can drive it with no
-# GitHub.
+# treats it as "unknown" and neither arms nor tombstones this tick. On rc 2 it sets
+# UPSTREAM_FAIL_CLASS (normalized, see probe_fail_class) and UPSTREAM_FAIL_DETAIL
+# (the first line of the output) and logs NOTHING: the caller coalesces the
+# warning through the inconclusive cooldown below. Overridable via
+# GARDEN_FORKWATCH_UPSTREAM_CHECK (a command run as `<cmd> <owner> <name>` whose
+# exit status is used verbatim and whose output is classified the same way) so
+# the test harness can drive it with no GitHub.
 upstream_exists() {
-  local owner="$1" name="$2" out
+  local owner="$1" name="$2" out rc
+  UPSTREAM_FAIL_CLASS=""; UPSTREAM_FAIL_DETAIL=""
   if [ -n "${GARDEN_FORKWATCH_UPSTREAM_CHECK:-}" ]; then
-    "$GARDEN_FORKWATCH_UPSTREAM_CHECK" "$owner" "$name"
-    return
-  fi
-  if out="$(gh api "repos/$owner/$name" --jq .id 2>&1)"; then
+    if out="$("$GARDEN_FORKWATCH_UPSTREAM_CHECK" "$owner" "$name" 2>&1)"; then rc=0; else rc=$?; fi
+    [ "$rc" -eq 2 ] || return "$rc"
+  elif out="$(gh api "repos/$owner/$name" --jq .id 2>&1)"; then
     return 0
+  else
+    case "$out" in
+      *"Not Found"*|*"HTTP 404"*|*'"status":"404"'*) return 1 ;;
+    esac
   fi
-  case "$out" in
-    *"Not Found"*|*"HTTP 404"*|*'"status":"404"'*) return 1 ;;
-    *) log "WARN: upstream check for $owner/$name inconclusive: $out"; return 2 ;;
+  UPSTREAM_FAIL_CLASS="$(probe_fail_class "$out")"
+  UPSTREAM_FAIL_DETAIL="$(printf '%s' "$out" | tr -s '[:space:]' ' ' | cut -c1-200)"
+  return 2
+}
+
+# --- inconclusive-probe cooldown (one condition → one warning, not one per fork) --
+# An inconclusive probe is almost always ONE shared GitHub condition (a rate limit,
+# an auth lapse, a 5xx, a network outage), not N per-fork facts. Probing every
+# armed fork anyway re-hits the same wall and, since repo-watcher runs this every
+# minute, logged two WARNs per fork per tick across the whole fleet (observed
+# 2026-09-30 11:21:53-11:40:03). So the first inconclusive probe of a tick
+# normalizes its failure CLASS and, for a host-wide class, stops every further
+# probe for the rest of the tick and records a host-local, bounded cooldown window
+# keyed by that class; later ticks skip probing silently until it expires. One
+# coalesced WARN is emitted only by the tick that opens a window. Deferral stays
+# fail-open: a skipped fork is neither armed nor tombstoned nor retired, exactly
+# as a single inconclusive probe always was.
+#
+# A repository-specific refusal (a plain 403/451 with no rate-limit wording) says
+# nothing about the other forks, so its class is keyed per slug
+# (repo-denied@<slug>) and defers only that fork. The slug that opened the last
+# host-wide window is probed LAST on the next attempt, so one oddly failing fork
+# cannot starve the rest of the fleet window after window.
+#
+# GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS: window length (default 300, capped
+# at 3600). 0 keeps the halt-for-this-tick coalescing but records no window.
+: "${GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS:=300}"
+case "$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS" in
+  ''|*[!0-9]*)
+    log "WARN: GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS must be a non-negative number of seconds; using 300"
+    GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=300
+    ;;
+esac
+[ "$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS" -le 3600 ] || GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=3600
+PROBE_COOLDOWN_DIR="$GARDEN_STATE/fork-watch/inconclusive-cooldown"
+
+probe_fail_class() {  # probe_fail_class <output> → a normalized class key
+  local lc
+  lc="$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')"
+  case "$lc" in
+    *"rate limit"*|*"rate-limit"*|*"ratelimit"*|*"abuse detection"*|*"quota"*) echo rate-limit ;;
+    *"http 401"*|*"bad credentials"*|*"gh auth login"*|*"authentication"*|*"token"*) echo auth ;;
+    *"http 403"*|*"http 451"*) echo repo-denied ;;
+    *"http 5"[0-9][0-9]*|*"server error"*|*"bad gateway"*|*"service unavailable"*|*"gateway time"*) echo server ;;
+    *"could not resolve"*|*"timeout"*|*"timed out"*|*"connection"*|*"tls"*|*"eof"*|*"network"*|*"no such host"*) echo network ;;
+    *) echo unclassified ;;
   esac
+}
+
+probe_cooldown_live() {  # probe_cooldown_live <key> — rc 0 = a live window; expired markers removed
+  local m="$PROBE_COOLDOWN_DIR/$1" expiry
+  [ -f "$m" ] || return 1
+  expiry="$(sed -n '1p' "$m" 2>/dev/null || true)"
+  case "$expiry" in ''|*[!0-9]*) expiry=0 ;; esac
+  [ "$expiry" -gt "$(date +%s)" ] && return 0
+  rm -f "$m"
+  return 1
+}
+
+global_cooldown_live() {  # rc 0 = some HOST-WIDE class window is live
+  local m
+  [ -d "$PROBE_COOLDOWN_DIR" ] || return 1
+  for m in "$PROBE_COOLDOWN_DIR"/*; do
+    [ -f "$m" ] || continue
+    case "${m##*/}" in repo-denied@*|last-tripper) continue ;; esac
+    probe_cooldown_live "${m##*/}" && return 0
+  done
+  return 1
+}
+
+open_probe_cooldown() {  # open_probe_cooldown <key> <slug> <detail>; rc 0 = window opened (or tick-only)
+  local m="$PROBE_COOLDOWN_DIR/$1" tmp
+  [ "$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS" -gt 0 ] || return 0
+  probe_cooldown_live "$1" && return 1    # a live window is never extended
+  mkdir -p "$PROBE_COOLDOWN_DIR"
+  tmp="$m.$$.tmp"
+  printf '%s\n%s\n%s\n' "$(( $(date +%s) + GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS ))" "$2" "$3" > "$tmp"
+  mv -f "$tmp" "$m"
 }
 
 liveness_probe_due() {  # liveness_probe_due <slug>
@@ -260,8 +341,43 @@ declare -a NEW=()
 declare -a DEAD=()
 declare -a ARMED_DEAD=()   # the subset of DEAD that is currently armed (retirements)
 ARMED_PROBED=0             # armed forks actually probed this tick (breaker denominator)
+declare -a DEFERRED=()     # forks left unprobed/undecided by an inconclusive condition
+declare -a WARNED=()       # "class: detail" of each cooldown THIS tick opened
+HALTED=""                  # a host-wide inconclusive class stopped probing this tick
+PREEXISTING_WINDOW=""
+global_cooldown_live && PREEXISTING_WINDOW=1
+
+# note_inconclusive <slug> — route an rc-2 probe through the class cooldown.
+note_inconclusive() {
+  local key="$UPSTREAM_FAIL_CLASS"
+  DEFERRED+=("$1")
+  if [ "$key" = repo-denied ]; then
+    key="repo-denied@$1"
+  else
+    HALTED="$key"
+    mkdir -p "$PROBE_COOLDOWN_DIR"
+    printf '%s\n' "$1" > "$PROBE_COOLDOWN_DIR/last-tripper"
+  fi
+  open_probe_cooldown "$key" "$1" "$UPSTREAM_FAIL_DETAIL" \
+    && WARNED+=("$key (first seen on $1: ${UPSTREAM_FAIL_DETAIL:-no output})")
+  return 0
+}
+
 shopt -s nullglob
+declare -a BARES=()
+last_tripper="$(cat "$PROBE_COOLDOWN_DIR/last-tripper" 2>/dev/null || true)"
+tripper_bare=""
 for bare in "$GARDEN_WORKTREES"/*.git; do
+  if [ -n "$last_tripper" ] && [ "$(basename "$bare" .git)" = "$last_tripper" ]; then
+    tripper_bare="$bare"
+  else
+    BARES+=("$bare")
+  fi
+done
+shopt -u nullglob
+[ -n "$tripper_bare" ] && BARES+=("$tripper_bare")
+
+for bare in ${BARES[@]+"${BARES[@]}"}; do
   slug="$(basename "$bare" .git)"
   case "$slug" in *-*) ;; *) continue ;; esac          # no owner/name split → not a fork shelf entry
   owner_listed "$(slug_owner_lc "$slug")" || continue  # own forks ONLY
@@ -271,6 +387,12 @@ for bare in "$GARDEN_WORKTREES"/*.git; do
   if tip_has "repos/$slug" && tip_has "comment-repos/$slug"; then
     armed=1
     liveness_probe_due "$slug" || continue
+  fi
+  # A live inconclusive-class window (host-wide, or this fork's own refusal)
+  # defers the probe entirely: fail-open, no arm, no tombstone, no WARN.
+  if [ -n "$HALTED" ] || [ -n "$PREEXISTING_WINDOW" ] || probe_cooldown_live "repo-denied@$slug"; then
+    DEFERRED+=("$slug")
+    continue
   fi
   # Confirm the upstream before arming, and periodically after full arming: a
   # leftover clone of a DELETED/renamed fork would otherwise arm (or continue to
@@ -287,7 +409,10 @@ for bare in "$GARDEN_WORKTREES"/*.git; do
       # Confirm re-check: retiring a LIVE watch set on a single fluke 404 is the
       # expensive mistake, so demand a second definitive 404 before believing it.
       if upstream_exists "$owner" "$name"; then cr=0; else cr=$?; fi
-      if [ "$cr" -ne 1 ]; then
+      if [ "$cr" -eq 2 ]; then
+        note_inconclusive "$slug"
+        continue
+      elif [ "$cr" -ne 1 ]; then
         log "WARN: $slug upstream ($owner/$name) 404 NOT confirmed on re-check (rc=$cr) — leaving its armed watch set intact this tick"
         continue
       fi
@@ -297,8 +422,7 @@ for bare in "$GARDEN_WORKTREES"/*.git; do
     DEAD+=("$slug")
     continue
   elif [ "$ur" -eq 2 ]; then
-    if [ -n "$armed" ]; then action="liveness recheck"; else action="arm"; fi
-    log "WARN: $slug upstream check inconclusive — deferring $action to a later tick"
+    note_inconclusive "$slug"
     continue
   fi
   if [ -n "$armed" ]; then
@@ -307,7 +431,32 @@ for bare in "$GARDEN_WORKTREES"/*.git; do
     NEW+=("$slug")
   fi
 done
-shopt -u nullglob
+
+if [ "${#WARNED[@]}" -gt 0 ]; then
+  if [ "$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS" -gt 0 ]; then
+    window="pausing those probes for ${GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS}s"
+  else
+    window="stopped probing for this tick"
+  fi
+  log "WARN: upstream checks inconclusive [$(IFS=';'; printf '%s' "${WARNED[*]}")] — $window; deferring ${#DEFERRED[@]} fork(s) (neither armed, tombstoned, nor retired): ${DEFERRED[*]}"
+fi
+
+# A tick whose probing was cut short by a host-wide inconclusive condition never
+# RETIRES an armed fork: that condition may be the same read-side failure the
+# mass-404 breaker below guards against, seen only partially. Retirement waits
+# for a clean tick (declining to arm and tombstoning unarmed clones are cheap and
+# keep their single-probe bar).
+if [ -n "$HALTED" ] && [ "${#ARMED_DEAD[@]}" -gt 0 ]; then
+  log "WARN: deferring retirement of ${ARMED_DEAD[*]} — this tick's probes halted on an inconclusive '$HALTED' condition"
+  declare -a KEPT=()
+  for slug in "${DEAD[@]}"; do
+    suppressed=""
+    for a in "${ARMED_DEAD[@]}"; do [ "$a" = "$slug" ] && suppressed=1 && break; done
+    [ -n "$suppressed" ] || KEPT+=("$slug")
+  done
+  DEAD=(${KEPT[@]+"${KEPT[@]}"})
+  ARMED_DEAD=()
+fi
 
 # --- 1a. mass-404 breaker: never retire EVERY armed fork in one tick ----------
 # Two or more armed forks reading 404 while NONE reads live is a read-side

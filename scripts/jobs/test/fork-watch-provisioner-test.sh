@@ -25,6 +25,9 @@
 #   K. END TO END through repo-watcher.sh: retiring an armed fork STOPS AND
 #      DISABLES all four per-repo unit families in the same tick (a tombstone
 #      that only silenced the journal record would leave the units flapping)
+#   L. one shared inconclusive condition → ONE probe, ONE coalesced WARN, and a
+#      host-local cooldown that silently defers later ticks; a repo-specific 403
+#      defers only that fork; a halted tick never retires an armed fork
 #
 # Usage: fork-watch-provisioner-test.sh
 set -euo pipefail
@@ -89,6 +92,7 @@ git clone -q --bare "$srcrepo" "$GHBASE/kriscendobot/minion.town.git"
 # GARDEN_FORKWATCH_UPSTREAM_CHECK here.
 DEADLIST="$TR/dead-upstreams"; : > "$DEADLIST"
 UNKNOWNLIST="$TR/unknown-upstreams"; : > "$UNKNOWNLIST"
+DENIEDLIST="$TR/denied-upstreams"; : > "$DENIEDLIST"
 # a FLAKYLIST upstream 404s on its FIRST probe of a run and reads live after —
 # the one-off 404 the armed-path confirm re-check exists to absorb.
 FLAKYLIST="$TR/flaky-upstreams"; : > "$FLAKYLIST"
@@ -99,7 +103,14 @@ cat > "$CHECK" <<'EOS'
 #!/bin/bash
 # args: <owner> <name>
 [ -n "${PROBELOG:-}" ] && printf '%s/%s\n' "$1" "$2" >> "$PROBELOG"
-[ -f "$UNKNOWNLIST" ] && grep -qxF "$1/$2" "$UNKNOWNLIST" && exit 2
+if [ -f "$UNKNOWNLIST" ] && grep -qxF "$1/$2" "$UNKNOWNLIST"; then
+  [ -n "${UNKNOWNMSG:-}" ] && printf '%s\n' "$UNKNOWNMSG" >&2
+  exit 2
+fi
+if [ -f "${DENIEDLIST:-}" ] && grep -qxF "$1/$2" "$DENIEDLIST"; then
+  echo "gh: Repository access blocked (HTTP 403)" >&2
+  exit 2
+fi
 [ -f "$DEADLIST" ] && grep -qxF "$1/$2" "$DEADLIST" && exit 1
 if [ -f "${FLAKYLIST:-}" ] && grep -qxF "$1/$2" "$FLAKYLIST"; then
   seen="$FLAKYSEEN/$1-$2"
@@ -118,6 +129,8 @@ run_prov() {  # run_prov [materialize] [logfile]
       UNKNOWNLIST="$UNKNOWNLIST" PROBELOG="$PROBELOG" \
       FLAKYLIST="$FLAKYLIST" FLAKYSEEN="$FLAKYSEEN" \
       GARDEN_FORKWATCH_LIVENESS_INTERVAL="${GARDEN_FORKWATCH_LIVENESS_INTERVAL:-0}" \
+      GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS="${GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS:-0}" \
+      UNKNOWNMSG="${UNKNOWNMSG:-}" DENIEDLIST="$DENIEDLIST" \
       GARDEN_NO_MAINTAINER_ALERT=1 \
       "$JOBS/fork-watch-provisioner.sh" >/dev/null 2>"${2:-/dev/null}"
 }
@@ -336,6 +349,7 @@ run_rw() {  # run_rw — one repo-watcher tick (provisioner + reconcile), log to
       UNKNOWNLIST="$UNKNOWNLIST" PROBELOG="$PROBELOG" \
       FLAKYLIST="$FLAKYLIST" FLAKYSEEN="$FLAKYSEEN" \
       GARDEN_FORKWATCH_LIVENESS_INTERVAL=0 GARDEN_NO_MAINTAINER_ALERT=1 \
+      GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=0 DENIEDLIST="$DENIEDLIST" \
       XDG_CONFIG_HOME="$RWXDG" GARDEN_UNIT_CTL="$HERE/mock-systemctl.sh" \
       GARDEN_MOCK_STATE="$MOCKSTATE" GARDEN_MOCK_LOG="$MOCKLOG" \
       GARDEN_INSTALL_UNITS=/bin/true \
@@ -379,6 +393,65 @@ done
 [ "$still" -eq 1 ] \
   && ok "the live own fork's four units survive the same tick" \
   || bad "a live own fork lost units during another fork's retirement"
+
+# ============================================================================
+hr; echo "L — inconclusive probes coalesce behind a class-keyed cooldown"; hr
+# Live armed forks at this point: flaky, inconclusive. Add a third so "one probe
+# instead of N" is visible.
+git init -q --bare "$WTS/kriscendobot-zeta.git"
+: > "$DEADLIST"; : > "$UNKNOWNLIST"; : > "$FLAKYLIST"; : > "$DENIEDLIST"
+run_prov
+[ -n "$(jtip repos/kriscendobot-zeta)" ] && ok "L fixture: zeta armed" || bad "L fixture: zeta not armed"
+COOLDIR="$TR/state/fork-watch/inconclusive-cooldown"
+rm -rf "$COOLDIR"
+printf '%s\n' kriscendobot/flaky kriscendobot/inconclusive kriscendobot/zeta > "$UNKNOWNLIST"
+LLOG="$TR/l.log"; : > "$PROBELOG"; n_l="$(jcommits)"
+UNKNOWNMSG="HTTP 502: Bad Gateway" GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=300 run_prov 0 "$LLOG"
+[ "$(wc -l < "$PROBELOG")" = 1 ] \
+  && ok "a shared inconclusive condition stops further probes this tick" || bad "probe count $(wc -l < "$PROBELOG") (want 1)"
+[ "$(grep -c 'WARN' "$LLOG")" = 1 ] && grep -q "server (first seen" "$LLOG" \
+  && ok "exactly one coalesced WARN naming the normalized class" || bad "warnings not coalesced: $(cat "$LLOG")"
+grep -q "deferring 3 fork(s)" "$LLOG" \
+  && ok "the coalesced WARN lists every deferred fork" || bad "coalesced WARN missing deferral count: $(cat "$LLOG")"
+[ -f "$COOLDIR/server" ] && ok "host-local cooldown recorded under the class key" || bad "no server-class cooldown marker"
+[ "$(jcommits)" = "$n_l" ] && ok "inconclusive deferral lands no journal mutation" || bad "deferral mutated the journal"
+
+: > "$PROBELOG"; : > "$LLOG"
+UNKNOWNMSG="HTTP 502: Bad Gateway" GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=300 run_prov 0 "$LLOG"
+[ ! -s "$PROBELOG" ] && ok "a live window skips every probe on the next tick" || bad "probed inside a live window"
+grep -q WARN "$LLOG" && bad "a live window re-warned: $(cat "$LLOG")" || ok "a live window stays silent"
+[ -n "$(jtip repos/kriscendobot-zeta)" ] && [ -n "$(jtip comment-repos/kriscendobot-flaky)" ] \
+  && ok "deferral is fail-open (armed forks keep their records)" || bad "deferral dropped an arming record"
+
+# The window is bounded: once it expires, probing resumes.
+printf '0\nexpired\n' > "$COOLDIR/server"
+: > "$UNKNOWNLIST"; : > "$PROBELOG"
+GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=300 run_prov
+[ "$(wc -l < "$PROBELOG")" = 3 ] && ok "an expired window resumes probing every fork" || bad "post-expiry probe count $(wc -l < "$PROBELOG")"
+[ ! -e "$COOLDIR/server" ] && ok "the expired marker is removed" || bad "expired marker lingered"
+
+# A repo-specific 403 is keyed per slug: only that fork is deferred.
+echo kriscendobot/inconclusive > "$DENIEDLIST"; : > "$PROBELOG"; : > "$LLOG"
+GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=300 run_prov 0 "$LLOG"
+[ "$(wc -l < "$PROBELOG")" = 3 ] && ok "a repo-specific refusal does not halt the other probes" || bad "repo-denied probe count $(wc -l < "$PROBELOG")"
+[ -f "$COOLDIR/repo-denied@kriscendobot-inconclusive" ] && ok "repo-denied cooldown keyed per slug" || bad "no per-slug repo-denied marker"
+: > "$PROBELOG"
+GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=300 run_prov
+grep -qxF kriscendobot/inconclusive "$PROBELOG" && bad "denied fork re-probed inside its window" || ok "denied fork deferred inside its window"
+[ "$(wc -l < "$PROBELOG")" = 2 ] && ok "the other forks keep probing" || bad "other forks not probed ($(wc -l < "$PROBELOG"))"
+: > "$DENIEDLIST"; rm -rf "$COOLDIR"
+
+# A tick halted by a host-wide inconclusive class never retires an armed fork,
+# even one whose 404 was confirmed before the halt (flaky sorts before zeta).
+echo kriscendobot/flaky > "$DEADLIST"; echo kriscendobot/zeta > "$UNKNOWNLIST"
+: > "$LLOG"; n_l5="$(jcommits)"
+UNKNOWNMSG="API rate limit exceeded" GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=0 run_prov 0 "$LLOG"
+[ -z "$(jtip watch-optout/kriscendobot-flaky)" ] && [ "$(jcommits)" = "$n_l5" ] \
+  && ok "a halted tick defers retirement of a confirmed-404 armed fork" || bad "halted tick retired an armed fork"
+grep -q "rate-limit (first seen" "$LLOG" && grep -q "stopped probing for this tick" "$LLOG" \
+  && ok "cooldown 0 still coalesces for the tick without recording a window" || bad "tick-only coalescing wrong: $(cat "$LLOG")"
+[ ! -e "$COOLDIR/rate-limit" ] && ok "cooldown 0 records no window" || bad "cooldown 0 recorded a window"
+: > "$DEADLIST"; : > "$UNKNOWNLIST"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
