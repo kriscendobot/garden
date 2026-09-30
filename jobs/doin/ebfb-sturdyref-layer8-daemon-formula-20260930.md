@@ -61,3 +61,13 @@ resolve), message the maintainer, report the blocker, and end your report with
 the exact two lines
 <<<GARDEN-ORCHESTRATION-FAILED>>> then <<<GARDEN-JOB-COMPLETE>>> so the serial
 chain halts cleanly instead of building on sand.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T08:25:46Z
