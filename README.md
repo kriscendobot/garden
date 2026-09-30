@@ -1,16 +1,14 @@
 # Garden bulletin
 
-_As of 2026-09-30T23:14:23Z_
+_As of 2026-09-30T23:19:10Z_
 
 ## Latest
 
-The board transitions were quiet: the only change since the last bulletin was the `retire-gardener-worker-kind-alias-env-fallback-split` orchestration completing — but with failures (1 of 2 children failed, `retire-gardener-clone-alias-verify-deploy-reaper`, which stalled for over 2400s on endolin-garden-ece02cb4). A related sibling orchestration, `retire-gardener-worker-kind-alias-split-resume`, finished clean.
-
-Elsewhere, the SturdyRef gauntlet stack continues grinding through its layered PR chain ([endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), with two of its child gauntlets (layer 2/SES and layer 7/OCapN-enliven) halted after a declared failed/declined fix stage. PR #1390's petname-path-only sweep also picked up a batch of unresolved follow-ups (refusal tests, property tests, a summary comment, and a PR-body trim) that need maintainer disposition. The Ironhorse panic/live-handle-reseat gauntlet ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is still mid-fix (round 6) with its own should-fix backlog, and the Ironhorse panic/host-call gauntlet exhausted its 6-round review budget with CI green, leaving the PR ready for a human merge call. Separately, [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) has drifted past its last panel review twice more and needs a fresh review decision before anything lands on it.
+The SturdyRef layer stack dominates the board: layers 1–8 are all mid-gauntlet (clean, panel, or fix rounds) against [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), but two layers stalled out: the layer-2 SES gauntlet on [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) halted after a fix round was declared failed/declined, and the layer-7 OCapN-enliven gauntlet halted the same way at the clean stage. Layer-2's round-4 fixes did land, though — CI is green except for a flaky daemon-teardown leg on macOS that needs a maintainer-credentialed rerun before the panel can resume. Elsewhere, [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)'s fix loop surfaced follow-ups (refusal tests, property tests, a PR-body trim) awaiting disposition, the ironhorse panic/live-handle-reseat gauntlet on [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) is in round 6 with its own should-fix backlog, and the ironhorse panic/host-call PR hit its review-round budget after 6 rounds with CI green, left for a human merge call. The `retire-gardener-worker-kind-alias` cleanup orchestrations mostly completed, but one child (a deploy-reaper verify step) stalled past its 2400s handler timeout and needed intervention. Also open: a reset-credit recommendation to hold the claude-endolin2 credit and accelerate codex before Thursday, and stale-panel-coverage flags on [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) (twice) and [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) awaiting an explicit "run the gauntlet."
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 3d)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 4d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 13d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 19d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 27d)
@@ -84,12 +82,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #67 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T23:12:36Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 67 times; this is ONE
-> coalesced notice that updates in place, not 67 messages. Latest detail:
+> WATCHDOG notice — occurrence #68 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T23:17:27Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 68 times; this is ONE
+> coalesced notice that updates in place, not 68 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=8818s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=9118s; heartbeat=full-poll)
 
 - `retire-gardener-worker-kind-alias-split-resume-terminal-complete` — from orchestrator:retire-gardener-worker-kind-alias-split-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-split-resume-terminal-complete.md)
 
@@ -134,11 +132,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-30T20:43:07Z, latest 2026-09-30T23:12:19Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T20:43:07Z, cleared 2026-09-30T23:17:55Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 744 of 770 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures` — from orchestrator:retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures.md)
 
@@ -289,13 +287,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.5M | $266.79 _(notional, rate-card)_ | 12% of 256.0M (ok) |
+| Claude | 31.7M | $267.64 _(notional, rate-card)_ | 12% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 131456675 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (16)
