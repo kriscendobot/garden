@@ -2,7 +2,7 @@
 order: parallel
 children: book-ch1 book-ch2 book-ch3 book-ch4 book-ch5 book-ch6 book-ch7 book-ch8
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-09-30T03:45:47Z
 ---
