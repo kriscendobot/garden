@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 144
 build_job: design-minion-town-guest-coupons
 kind: feature
-stage: fix
-iteration: 1
+stage: panel
+iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr144-gauntlet-fix-1
+current_child: kriscendobot-minion.town-pr144-gauntlet-panel-2
 state: running
 created_by: producer
 created_at: 2026-09-30T05:50:18Z
