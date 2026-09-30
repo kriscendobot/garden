@@ -1,0 +1,5 @@
+host: endolin-garden-ece02cb4
+gardener: 4
+worker_kind: monk
+claimed_at: 2026-09-30T22:11:42Z
+worktree_dir: /home/kris/garden/scratch/gardener-wt-fu-ebfb-petname-path-only-sweep-gauntlet-fix-4-1
