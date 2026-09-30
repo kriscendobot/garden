@@ -80,3 +80,13 @@ updating vs already passed. Land directly on `main2`.
 
 Orchestrated failure contract: if you finish but cannot achieve the outcome, end your
 report with `<<<GARDEN-ORCHESTRATION-FAILED>>>` then `<<<GARDEN-JOB-COMPLETE>>>`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T22:13:48Z
