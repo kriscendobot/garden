@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:50:33Z_
+_As of 2026-09-30T21:52:43Z_
 
 ## Latest
 
-Board activity was light since the last bulletin, with a single new post: `claude-on-minion-town-press-20260930-215010`, pressing the Claude-on-minion.town arc forward. The bulk of the queue continues to be the endo-but-for-bots SturdyRef layer gauntlets (layers 1–8) working through clean/panel/fix rounds in parallel, alongside PR #1390's petname-path-only sweep grinding through its fourth fix round. One gauntlet did halt: `ebfb-sturdyref-layer2-ses-20260930` stopped after its round-4 fix stage explicitly declared a failed/declined outcome. Separately, the round-4 fixes for [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (SturdyRef layer 2, SES) all landed, but CI is red on a single flaky macOS daemon-teardown leg unrelated to the change — a maintainer rerun from a credentialed host would likely clear it before resuming the panel.
+Gauntlet fix round 5 landed on [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) (the Ironhorse panic live-handle-reseat work), but the completion flagged several should-fix items left undone — no hasher test across suspend/resume past the size limit, no crank test for a no-outbound-frames case, no CAS-store round-trip proptest, and no statement context in the SQLite params-parse error — so that disposition is waiting on you. Separately, the Claude-on-minion.town press job was just claimed and is underway; no other job-board movement since the last bulletin.
 
 ## Parked for maintainer feedback
 
@@ -127,6 +127,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Inventory reconciled: no change since your 19:45Z entry. No actuation taken.
 
+- `gauntlet-followups-endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5` — from gardener:endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5, reply_to `endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/gauntlet-followups-endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5.md)
+
+> Gauntlet stage "endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5" ("endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet", stage "fix") completed and reported additional follow-ups that require maintainer disposition. The deterministic gauntlet driver owns only the next-panel transition; this escalation was forwarded before the child completed.
+>
+> ## Follow-ups
+>
+> - **Should-fix items not done:**
+>   - no hasher test across suspend and resume past the size limit;
+>   - no test for a crank that stages no outbound frames;
+>   - no `proptest` round-trip test for the CAS store;
+>   - no statement context in the SQLite params-parse error.
+> - **Local build setup:** to build, I initialized the `c/moddable` submodule in the project checkout.
+
 - `endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
@@ -179,7 +192,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.5M | $144.58 _(notional, rate-card)_ | 6% of 256.0M (ok) |
+| Claude | 15.5M | $136.68 _(notional, rate-card)_ | 6% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 128093627 tokens/day lower bound._
@@ -188,9 +201,8 @@ _Fleet token-unlock pace: 128093627 tokens/day lower bound._
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (19)
+### todo (18)
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
-- [`claude-on-minion-town-press-20260930-215010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260930-215010.md) — Press the Claude-on-minion.town arc forward
 - [`build-accountant-arc-apportionment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-accountant-arc-apportionment.md) — Build: accountant arc apportionment (garden main2)
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1340
@@ -210,21 +222,21 @@ worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`fu-qwen-model-watch-20260728-180502-1-20260930-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-qwen-model-watch-20260728-180502-1-20260930-162006.md) — ---
 
 ### doin (7)
+- [`claude-on-minion-town-press-20260930-215010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20260930-215010.md) — Press the Claude-on-minion.town arc forward
 - [`self-heal-fix-garden-sysop-sync-clone-reset-retry-timeout-stale-lock`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-sysop-sync-clone-reset-retry-timeout-stale-lock.md) — ---
 - [`ebfb-petname-path-only-sweep-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-sweep-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #774
-- [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1380
 - [`fix-endo-but-for-bots-macos-daemon-teardown-flake`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-macos-daemon-teardown-flake.md) — Flaky test (22.x, macos-15) CI leg: daemon teardown race unrelated to the PRs...
 - [`ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1394
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1397
 
-### tada (10118)
+### tada (10119)
+- [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5.md) — Gauntlet fix round 5: endojs/endo-but-for-bots PR #1380
 - [`improve-journal-fallback-warn-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/improve-journal-fallback-warn-dedup.md) — Cost
 - [`accountant-budget-conversation-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/accountant-budget-conversation-20260930.md) — Cost
 - [`reset-credit-watch-20260930-195052`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/reset-credit-watch-20260930-195052.md) — Cost
 - [`design-accountant-budget-request-intake`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/design-accountant-budget-request-intake.md) — Cost
-- [`endojs-endo-but-for-bots-pr1340-review-85c8bc95`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1340-review-85c8bc95.md) — Cost
-- … and 10113 more
+- … and 10114 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
