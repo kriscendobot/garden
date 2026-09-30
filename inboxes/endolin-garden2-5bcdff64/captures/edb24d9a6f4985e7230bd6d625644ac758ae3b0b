@@ -1,0 +1,38 @@
+<6>04:02:41 [monk/1] job 'book-ch3' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>04:02:41 [monk/1] job 'book-ch3' call ceiling: tier=mentor max-budget-usd=8.60 (scaled by fresh seven-day headroom when available)
+<6>04:02:41 [monk/1] job 'book-ch3' attaching minion.town MCP (stdio bridge)
+panel-head-freshness: not-applicable target=book-ch3 reason=no-presented-pr
+<6>04:08:14 [assert-followup-posted] gate: BLOCK — 'book-ch3' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# book-ch3 completion report
+
+Chapter 3 is written. It is on `origin/journal2` at `journal/projects/garden-book/ch3-using-the-garden.md`, about 6,000 words. I landed it with `land-journal-edit.sh`, which returned rc=0, and confirmed the file on the fetched `origin/journal2`.
+
+**What the chapter covers** (checked against `main2` `2a5c1991779`)
+- **3.1 Who you are talking to:**
+  - The session preflight: the container check first, then the check for an instance that has never been set up.
+  - The liaison as a relay that posts jobs and does not do the work. It explains why asks are idempotent, why the board survives `/clear`, and the trap where a recurring verb on the same PR gets silently swallowed (fixed with a date suffix).
+  - The narrow things the liaison handles in-session, how the inbox reply and archive loop works, and that only the leader host watches the inbox.
+- **3.2 Vocabulary**, grouped by what you want to do:
+  - getting oriented (`help`, `help <topic>`, and the rule that the liaison asks before acting)
+  - starting up (the six stand-up steps, including lifting the drain and confirming workers are actually running)
+  - getting work done: every verb, with the job it posts and what follows. This includes the automatic review chain after a build, probes, the search check that runs before americanize and deslop, where "pin the merge base" came from as another name for weave, `handler-timeout:`, the mentat tier, and the separate way the ferry is run
+  - managing the queue, including orchestration jobs, with this book as the example
+  - fleet operations: drain, lift, halt, restore, scaling, sysop host ops, the foreman brake, leader designation and handoff, deploy
+  - negation and teaching
+- **3.3 Muster:** why it exists (81 unread messages on 2026-08-16), the TypeSafe pilot that now runs by default (since 2026-09-28; it only suggests groupings and never blocks), and the compact, classify and dispose passes.
+- **3.4 Plan queue:** a table of the gates (deferred, go-ahead, awaiting-maintainer, blocked, orchestrated), the park, annotate and promote commands, and the rule that "go ahead" is the only thing that starts a job waiting on your approval.
+- **3.5 Worked examples:**
+  - "build #1234", step by step from the typed words to the board, the claim, the isolated worktree, the draft PR, completion, and the automatic review chain.
+  - "run the gauntlet #56": the review record, the `gauntlet.sh` driver's per-stage transitions, halts, and how to resume.
+- **3.6 Quick reference** table.
+
+Links are full GitHub URLs to `main2`, so they work wherever the book ends up. Every linked repo path exists. There are no em-dashes, arrows or Latin shorthand.
+
+**Corrections I made while checking**
+- I first wrote that rebase and refresh post generic fixer jobs. `comment-watcher.sh` actually marks a rebase job `role: weaver` and gives refresh no role, so I fixed the table.
+- I reworded the shepherd row to match its role file: it fixes the PR's own failures itself, documents and re-runs flakes, and never deletes or skips a failing test.
+
+## Follow-ups
+- **CLAUDE.md is out of date on one point.** § Orchestrator vocabulary says the negation patterns (*don't X*, *never X*), the compound idioms (*wrap up #N*, *retcon and ferry #N*) and the phrases *encode this* / *carve a role for X* all "live on" `roles/liaison/AGENT.md`. The liaison file has no such sections. The chapter says so openly and builds its negation and teaching section from the README and `context/control-surface-gallery.md`. Either add a short vocabulary section for these to the liaison file, or change CLAUDE.md to point at the gallery. I did not make either change.
