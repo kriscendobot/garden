@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: ebfb-sturdyref-layering-20260930
-priority: normal
 role: builder
-posted_by: ebfb-sturdyref-layering-supervisor-20260930
-posted_at: 2026-09-30T04:41:29Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-30T07:43:14Z cleared=none -->
 
 ---
 tier: mentor
