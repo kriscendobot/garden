@@ -104,3 +104,13 @@ priority is clear to whoever reads it next.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-29T23:53:04Z -->
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T01:30:14Z
