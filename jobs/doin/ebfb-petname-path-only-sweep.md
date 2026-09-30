@@ -45,3 +45,13 @@ call sites elsewhere. Remaining work:
 Coordinate with #1343 (endowment value side); rebase over it if it lands first.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T09:37:39Z
