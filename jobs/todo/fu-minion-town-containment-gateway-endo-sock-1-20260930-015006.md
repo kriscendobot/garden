@@ -1,4 +1,28 @@
 ---
+role: orchestrator
+split_eligible: true
+split_reason: deadline-overrun
+split_source_role: gardener
+split_source_handler_timeout: 2400
+split_orchestration: fu-minion-town-containment-gateway-endo-sock-1-20260930-015006-split
+reposted_by: reaper:endolin-garden-ece02cb4
+reposted_at: 2026-09-30T03:43:05Z
+---
+
+# Deliberate overrun decomposition for `fu-minion-town-containment-gateway-endo-sock-1-20260930-015006`
+
+This ordinary job hit its applied 2400s handler wall once without productive progress. That one deterministic overrun is sufficient cause to split; do **not** continue implementing the original work in this claim.
+
+Read `roles/orchestrator/AGENT.md` and `skills/orchestration/SKILL.md`. Your first and only substantive act is to decide whether the original work genuinely decomposes, then use the existing journal primitives:
+
+- **Divisible:** create at least two self-contained child jobs, park every child with `post-plan.sh --orchestrated --orchestrated-by fu-minion-town-containment-gateway-endo-sock-1-20260930-015006-split`, then record `fu-minion-town-containment-gateway-endo-sock-1-20260930-015006-split` with `post-orchestration.sh`.
+- **Indivisible:** record a concrete `split-indivisible-reason:` in both the child body and orchestration description, choose a `handler-timeout:` strictly greater than 2400 and no greater than 14339, record that value as `split-indivisible-handler-timeout:` in the orchestration description, park exactly one child (normally `fu-minion-town-containment-gateway-endo-sock-1-20260930-015006-expanded-window`) under `fu-minion-town-containment-gateway-endo-sock-1-20260930-015006-split`, then record the single-child orchestration. A generic "too large" assertion is not a reason.
+- In either case, finish only after the parked child set and orchestration record exist durably. Declare the exact handoff `<<<GARDEN-JOB-HANDED-OFF: fu-minion-town-containment-gateway-endo-sock-1-20260930-015006-split>>>` immediately before the completion signal so completion verifies the successor.
+- Do not apply this split protocol to any gauntlet stage; gauntlet retries belong exclusively to its driver.
+
+## Original job specification
+
+---
 role: gardener
 tier: mentor
 fallback-tier: minion
@@ -56,15 +80,3 @@ comes back clean afterward, and report the recurrence to the maintainer inbox.
 Report no-change QUIETLY. Report any reappearance, any unexpected active
 dckc-owned record, or any inability to complete the recursive scan to the
 maintainer inbox — an inability to scan is itself a finding, not a quiet pass.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 4
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-30T01:58:29Z
