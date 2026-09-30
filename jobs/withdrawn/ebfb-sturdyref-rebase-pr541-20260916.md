@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: Superseded by the 2026-09-30 SturdyRef layering rebuild (kriskowal directive on endojs/endo-but-for-bots#695, orchestration ebfb-sturdyref-layering-20260930): the 20260916 rebase campaign halted at #737 on the llm-shipped ocapn-sturdyref design collision, and the old-design stack is being re-authored bottom-up per layer instead of rebased forward.
+withdrawn_by: ebfb-sturdyref-layering-supervisor-20260930
+withdrawn_at: 2026-09-30T04:36:22Z
+withdrawn_from_gate: orchestrated
+---
+
+---
 gate: orchestrated
 orchestrated_by: ebfb-sturdyref-stack-rebase-20260916
 priority: normal
