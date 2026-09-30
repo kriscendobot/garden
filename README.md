@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T22:49:34Z_
+_As of 2026-09-30T22:50:37Z_
 
 ## Latest
 
-The SturdyRef-over-CapTP stack continues to churn through its eight-layer gauntlet, with layers 1–8 all mid-review (panel rounds and fix rounds active across [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) — but layer 2 ([#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) and layer 7 gauntlets both halted after a declared-unsatisfied gated outcome, and layer 2 separately reports all must-fixes landed with a lone CI flake (a daemon-teardown timing test) that needs a credentialed rerun to clear. The conductor run on [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) also halted mid-orchestration, and its panel coverage has now drifted stale twice as new commits landed. The Ironhorse panic/host-call gauntlet ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) exhausted its 6-round review budget with CI green but no convergence, left for a human merge call, while a sibling gauntlet on the petname-path sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) is still iterating fix rounds and flagged a handful of should-fix test-coverage gaps. On the ops side, the accountant's budget conversation and a design PR's DNSSEC follow-up are both parked awaiting maintainer sign-off, the foreman is blocked on a choice between advancing [#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) or answering open questions on [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and the garden book has a new edition live with two added chapters.
+The SturdyRef layer stack dominates activity: layer 4's marshal PR ([endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) and layer 5's CapTP wire PR ([#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) are back in panel rounds, layer 3's pass-style PR ([#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) and layer 6's CapTP-construct PR ([#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)) are starting their first panel pass, and layer 8's daemon-formula PR ([#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) is queued to clean up — but two siblings in the same stack halted: layer 2 SES ([#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) stopped after a declared-failed fix round despite CI being green apart from one flaky macOS daemon-teardown leg (a credentialed rerun should clear it), and layer 7 OCapN-enliven halted at the clean stage on an explicit fail/decline. The petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) is deep into repeated fix rounds (round 5 in flight, rounds 2/3 also queued) and flagged should-fix follow-ups — corner-prober/fast-checker/scribe coverage and a PR-body trim — for maintainer disposition. The Ironhorse panic/live-handle-reseat gauntlet ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is on fix round 6 with its own should-fix gaps noted, while the sibling Ironhorse panic/host-call PR exhausted its 6-round review budget CI-green and awaits human merge review. The #1357 conductor orchestration halted after its merge attempt stalled and the panel coverage went stale against a moved head, same as #1390's fix-4 job — both need a fresh maintainer review call. Foreman flags a real fork in direction: advance [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its #1348 prerequisite clears, or answer the four open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340). Also queued for a decision: the accountant's budget-conversation proposal (parked, needs "go ahead"), and the minion.town MCP principal/context-cost questions before widening past garden2.
 
 ## Parked for maintainer feedback
 
@@ -214,6 +214,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Inventory reconciled: no change since your 19:45Z entry. No actuation taken.
 
+- `watchdog-budget-level-monk-preflight` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-preflight.md)
+
+> fleet monk allocation frozen: claude-endolin2 uncalibrated provenance 'placeholder'. No monk count may rise; only a calibrated host already over its own high-water mark may step down toward the floor.
+
 - `gauntlet-followups-endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5` — from gardener:endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5, reply_to `endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/gauntlet-followups-endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5.md)
 
 > Gauntlet stage "endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5" ("endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet", stage "fix") completed and reported additional follow-ups that require maintainer disposition. The deterministic gauntlet driver owns only the next-panel transition; this escalation was forwarded before the child completed.
@@ -277,10 +281,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 30.1M | $259.69 _(notional, rate-card)_ | 12% of 256.0M (ok) |
+| Claude | 30.2M | $260.22 _(notional, rate-card)_ | 12% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 128886723 tokens/day lower bound._
+_Fleet token-unlock pace: 130001797 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
