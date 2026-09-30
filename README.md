@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-30T23:09:43Z_
+_As of 2026-09-30T23:14:23Z_
 
 ## Latest
 
-The SturdyRef layer-2 (SES) and layer-7 (OCapN enliven) gauntlets both halted overnight on declared failed/declined outcomes and need a maintainer look, while the wider sturdyref stack keeps grinding forward: layer 4 ([endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) is into panel round 2, layer 5 ([#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) and layer 6 ([#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)) are starting panel round 1, layer 3 ([#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) is on panel round 3, and layer 8 ([#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) is queued for a clean pass. Petname-path-only work on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) is deep in its fix loop (three parallel fix rounds in flight) and surfaced a batch of should-fix follow-ups — refusal/property tests and PR-body trimming — for disposition; its panel coverage on the latest head is stale and needs an explicit review call. The ironhorse panic-handle-reseat gauntlet on [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) is on fix round 6 with more should-fix items reported (hasher/CAS/crank tests), and the related ironhorse panic-host-call PR hit its review-round budget with CI green but no convergence, left for a human merge call. Also open: a reset-credit recommendation to hold the claude-endolin2 credit and accelerate codex spend before Thursday, a stale-panel-head notice on [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), and the M3 milestone still blocked on choosing between advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the four open questions on [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340).
+The board transitions were quiet: the only change since the last bulletin was the `retire-gardener-worker-kind-alias-env-fallback-split` orchestration completing — but with failures (1 of 2 children failed, `retire-gardener-clone-alias-verify-deploy-reaper`, which stalled for over 2400s on endolin-garden-ece02cb4). A related sibling orchestration, `retire-gardener-worker-kind-alias-split-resume`, finished clean.
+
+Elsewhere, the SturdyRef gauntlet stack continues grinding through its layered PR chain ([endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), with two of its child gauntlets (layer 2/SES and layer 7/OCapN-enliven) halted after a declared failed/declined fix stage. PR #1390's petname-path-only sweep also picked up a batch of unresolved follow-ups (refusal tests, property tests, a summary comment, and a PR-body trim) that need maintainer disposition. The Ironhorse panic/live-handle-reseat gauntlet ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is still mid-fix (round 6) with its own should-fix backlog, and the Ironhorse panic/host-call gauntlet exhausted its 6-round review budget with CI green, leaving the PR ready for a human merge call. Separately, [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) has drifted past its last panel review twice more and needs a fresh review decision before anything lands on it.
 
 ## Parked for maintainer feedback
 
@@ -82,12 +84,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #66 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T23:07:28Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 66 times; this is ONE
-> coalesced notice that updates in place, not 66 messages. Latest detail:
+> WATCHDOG notice — occurrence #67 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T23:12:36Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 67 times; this is ONE
+> coalesced notice that updates in place, not 67 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=8518s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=8818s; heartbeat=full-poll)
 
 - `retire-gardener-worker-kind-alias-split-resume-terminal-complete` — from orchestrator:retire-gardener-worker-kind-alias-split-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-split-resume-terminal-complete.md)
 
@@ -132,11 +134,24 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T20:43:07Z, cleared 2026-09-30T22:02:53Z).
-> It was observed 4 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-30T20:43:07Z, latest 2026-09-30T23:12:19Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 744 of 770 clone(s) on consecutive ticks.
+
+- `retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures` — from orchestrator:retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: retire-gardener-worker-kind-alias-env-fallback-split
+> orchestration-status: complete-with-failures
+> order: parallel
+> children-total: 2
+> children-failed: 1
+> failed-children: retire-gardener-clone-alias-verify-deploy-reaper
+> recovered-children: 
+>
+> Orchestration retire-gardener-worker-kind-alias-env-fallback-split complete WITH FAILURES (parallel): 1/2 failed: retire-gardener-clone-alias-verify-deploy-reaper
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -219,6 +234,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden-ece02cb4.
 
+- `retire-gardener-worker-kind-alias-env-fallback-split-child-retire-gardener-clone-alias-verify-deploy-reaper-failed` — from orchestrator:retire-gardener-worker-kind-alias-env-fallback-split-child-retire-gardener-clone-alias-verify-deploy-reaper-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-env-fallback-split-child-retire-gardener-clone-alias-verify-deploy-reaper-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: retire-gardener-worker-kind-alias-env-fallback-split
+> orchestration-status: running
+> child: retire-gardener-clone-alias-verify-deploy-reaper
+> failure-kind: handler-timeout
+> order: parallel
+> on-child-failure: continue
+> detail: stalled in flight for 2412s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1)
+>
+> Orchestration retire-gardener-worker-kind-alias-env-fallback-split observed child retire-gardener-clone-alias-verify-deploy-reaper: stalled in flight for 2412s on host endolin-garden-ece02cb4 (handler-timeout=2400s, multiplier=1).
+
 - `watchdog-budget-zone-oros-studio-garden-ce242c49-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-oros-studio-garden-ce242c49-backoff.md)
 
 > subscription claude-oros changed zone ok -> backoff at spend=6052865/73000000.
@@ -261,13 +289,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.2M | $265.61 _(notional, rate-card)_ | 12% of 256.0M (ok) |
+| Claude | 31.5M | $266.79 _(notional, rate-card)_ | 12% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 131456675 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (16)
@@ -296,13 +324,13 @@ worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`design-mount-root-attenuation-controller`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-mount-root-attenuation-controller.md) — Design: filesystem mount attenuation with a root-controller facet
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1380
 
-### tada (10144)
+### tada (10145)
+- [`retire-gardener-worker-kind-alias-env-fallback-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/retire-gardener-worker-kind-alias-env-fallback-split.md) — orchestration retire-gardener-worker-kind-alias-env-fallback-split — complete
 - [`retire-gardener-clone-alias-verify-handler-spine`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/retire-gardener-clone-alias-verify-handler-spine.md) — Completion report: retire-gardener-clone-alias-verify-handler-spine
 - [`retire-gardener-worker-kind-alias-split-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/retire-gardener-worker-kind-alias-split-resume.md) — orchestration retire-gardener-worker-kind-alias-split-resume — complete
 - [`retire-gardener-worker-kind-alias-verify-docs`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/retire-gardener-worker-kind-alias-verify-docs.md) — Completion report: retire-gardener-worker-kind-alias-verify-docs
 - [`endojs-endo-but-for-bots-pr1357-conduct-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1357-conduct-orch.md) — orchestration endojs-endo-but-for-bots-pr1357-conduct-orch — HALTED
-- [`endojs-endo-but-for-bots-pr1357-conduct-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1357-conduct-20260930.md) — Report: conductor on endojs/endo-but-for-bots#1357. Not merged: stalled with ...
-- … and 10139 more
+- … and 10140 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
