@@ -23,13 +23,5 @@ config/apportionment + arc-budgets + generated foreman-mandate, with
 the accountant-weekly schedule (do not arm until the maintainer approves).
 Tests beside scripts/jobs/test/ironhorse-press-budget-test.sh.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-30T21:53:37Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-09-30T22:43:03Z -->
