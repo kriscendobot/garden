@@ -320,6 +320,7 @@ CW_MERGEABLE="$MERGED" CW_LOG="$LOG_SD" run_watcher "$TR/state-sd" "$BARE_SD" "$
 board_has "$BARE_SD" "$SLUG-pr9-rebase" && bad "stale directive on a merged PR minted a job" || ok "no job minted for a directive on an already-merged PR"
 [ ! -s "$RLOG_SD" ] && ok "no reactji on the dropped stale directive" || bad "reactji posted: $(cat "$RLOG_SD")"
 grep -qi 'already merged/closed' "$LOG_SD" && ok "the stale-directive drop is LOGGED with its reason" || bad "drop reason not logged ($(cat "$LOG_SD"))"
+grep -q 'FATAL:' "$LOG_SD" && bad "the mergeable probe's rc 2 tripped the ERR trap FATAL ($(grep 'FATAL:' "$LOG_SD"))" || ok "the mergeable probe's rc 2 did not log a spurious FATAL"
 [ "$(cursor_seen "$TR/state-sd" "$BARE_SD")" = 2026-06-24T10:30:00Z ] && ok "cursor slid past the dropped stale directive" || bad "cursor did not slide ($(cursor_seen "$TR/state-sd" "$BARE_SD"))"
 
 # ============================================================================
@@ -518,6 +519,7 @@ printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
 run_directive "$TR/state-g" "$BARE_G" "$FIX_G" "$RLOG_G" "$GLOG"
 [ "$(todo_count "$BARE_G")" -eq 1 ] && ok "trusted ambiguous comment minted a deterministic attention job (never an LLM skip/drop)" || bad "trusted ambiguous comment did not post a job (todo=$(todo_count "$BARE_G"))"
 grep -q 'attention on #503' "$GLOG" && ok "the posted job is an 'attention' (triage) job on #503 — deterministic, no LLM" || bad "no posted-attention log line ($(cat "$GLOG"))"
+grep -q 'FATAL:' "$GLOG" && bad "classify's documented rc 2 (ambiguous) tripped the ERR trap FATAL ($(grep 'FATAL:' "$GLOG"))" || ok "classify's rc 2 (ambiguous) did not log a spurious FATAL"
 grep -qx "issue-comment 666 eyes" "$RLOG_G" && ok "the comment got its 👀 receipt" || bad "no reactji on the comment ($(cat "$RLOG_G"))"
 [ "$(cursor_seen "$TR/state-g" "$BARE_G")" = 2026-06-24T15:00:00Z ] && ok "cursor advanced past the actioned comment" || bad "cursor did not advance"
 
@@ -548,6 +550,7 @@ run_directive "$TR/state-gh" "$BARE_GH" "$FIX_GH" "$RLOG_GH" "$GHLOG"
 [ "$(todo_count "$BARE_GH")" -eq 0 ] && ok "untrusted non-directive dropped (no job)" || bad "untrusted comment posted a job"
 [ ! -s "$RLOG_GH" ] && ok "no reactji for an untrusted sender" || bad "reactji posted for untrusted: $(cat "$RLOG_GH")"
 grep -q 'DROP:' "$GHLOG" && grep -q 'verb-gate:not-actionable' "$GHLOG" && ok "the untrusted drop is LOGGED with its reason (not silent)" || bad "untrusted drop not logged ($(cat "$GHLOG"))"
+grep -q 'FATAL:' "$GHLOG" && bad "classify's documented rc 1 (not actionable) tripped the ERR trap FATAL ($(grep 'FATAL:' "$GHLOG"))" || ok "classify's rc 1 (not actionable) did not log a spurious FATAL"
 
 # ============================================================================
 # AUTH1/AUTH2 — GitHub may briefly return HTTP 401 while its OAuth/installation

@@ -2064,7 +2064,10 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
       rm -f "$bf"; slide "$created"; continue
     fi
   else
-    set +e; classify "$bf" "$surface" "$author"; rc=$?; set -e
+    # Capture rc inside an `if` so the documented non-zero outcomes (1 = none,
+    # 2 = ambiguous) do not trip the ERR trap's FATAL log; `set +e` alone silences
+    # errexit but not ERR. Any other rc still falls through to the checks below.
+    if classify "$bf" "$surface" "$author"; then rc=0; else rc=$?; fi
     if [ "$rc" -eq 1 ]; then
       # Not actionable. NEVER slide past it silently: log WHICH gate dropped it plus
       # the comment id/url (the dropped-#405 lesson). rc 1 is reached only for an
@@ -2153,7 +2156,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
       mrc=3
       log "approval/conduct on #$pr: GraphQL quota latch live — mergeable probe skipped; minting the conductor (it re-verifies CI + approval)"
     else
-      set +e; "$GARDEN_PR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; mrc=$?; set -e
+      if "$GARDEN_PR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; then mrc=0; else mrc=$?; fi
     fi
     case "$mrc" in
       0) : ;;                                    # ready → conductor
@@ -2181,7 +2184,7 @@ while IFS=$'\t' read -r created surface cid pr author url body review_id; do
       # Under a live GraphQL latch the (GraphQL) probe is doomed; skip it and proceed
       # as for any unreadable probe — only a PROVEN merged/closed PR is dropped.
       if [ "$pr" != 0 ] && ! api_cooldown_active graphql; then
-        set +e; "$GARDEN_PR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; drc=$?; set -e
+        if "$GARDEN_PR_MERGEABLE" "$repo" "$pr" >/dev/null 2>&1; then drc=0; else drc=$?; fi
         if [ "$drc" -eq 2 ]; then
           log "$VERB directive on #$pr but it is already merged/closed — dropping stale directive (no live job)"
           rm -f "$bf"; slide "$created"; continue
