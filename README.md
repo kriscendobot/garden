@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:14:44Z_
+_As of 2026-09-30T21:20:47Z_
 
 ## Latest
 
-Quiet tick: the accountant budget-conversation job moved from claimed to completed (the design-accountant-budget-request-intake report landed), while the rest of the board holds steady — 21 items in todo, 6 in doin (including ongoing SturdyRef-stack panel/fix rounds for [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#774](https://github.com/endojs/endo-but-for-bots/pull/774), and [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)). Nothing new needs a maintainer decision beyond what's already parked; the standing items to notice are the halted [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) gauntlet (CI red on one flaky macOS daemon-teardown leg, needs a rerun from a credentialed host) and the still-open choice between advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340)'s open questions.
+The board transitions since the last snapshot were minimal: the reset-credit watch for the week of 2026-09-26 to 10-03 completed, recommending a hold on the claude-endolin2 credit and a conditional codex-endolin acceleration-then-reset by Thursday. Otherwise the fleet remains heavily loaded — 21 jobs in todo and 5 in doin, dominated by the SturdyRef 8-layer gauntlet stack on [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) and the petname-path-only sweep on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), alongside the ironhorse panic/host-call gauntlet on [endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) (round 6 left unconverged for human review) and a macOS daemon-teardown flake still being chased. The sturdyref layer-2 SES gauntlet halted after its fix round failed and was declined, and a CI flake on that same stack (a daemon-teardown timing test) needs a maintainer rerun from a credentialed host since the bot PAT can't retrigger Actions. The accountant opened its weekly budget conversation, proposing to redirect spend toward minion.town capabilities and the sturdyref/petname work while squeezing the off-mandate Endo PR backlog, and is awaiting maintainer decisions on that slate plus two open maintainer-decision items (endo CLI autostart design on [endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383) and the ironhorse test262 ratchet floor). Several journal-clone-oversized watchdog notices are open (deferred remedy) but not yet acted on.
 
 ## Parked for maintainer feedback
 
@@ -50,9 +50,42 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
-- `watchdog-unclaimable-host-requirements-book-copyedit` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-book-copyedit.md)
+- `msg-accountant-budget-conversation-20260930-4b156353d3b7` — from gardener:accountant-budget-conversation-20260930, reply_to `accountant-budget-conversation-20260930` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-budget-conversation-20260930-4b156353d3b7.md)
 
-> Host-requirements gate: job 'book-copyedit' has remained unclaimed for 900s with requires: host=endolin-garden2-5bcdff64. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+> **Accountant: opening budget conversation (week ending Sat 2026-10-03 03:00Z)**
+>
+> **Capacity (from your 09-30 checkpoints; ceiling = 90%)**
+> - claude-endolin1: 0% after your 19:40Z reset. Cap ~267M meter-tok, so ~240M usable before Sat 03:00Z (~55h). That is where nearly all of this week's budget is. Last week this pool burned ~93% in ~4.5 days, so filling 90% in 2.3 days needs the fleet running flat out.
+> - claude-endolin2: 86%, ~5M left before 90%. Effectively closed until Sat. 1 credit (expires 10-22): **I propose holding it for mid-week next week.**
+> - codex-endolin: 68% at 17:25Z, cap ~25.6M, ~5.6M left before its ~10-05 reset. 2 credits (expire 10-22, 10-29).
+> - claude-oros: offline and derotated, counted as zero.
+>
+> **Who's asking for tokens (ledger since Sat 03:00Z: 85M notional, no cache reads, shares only)**
+> | Arc | Spend | Share | Outstanding demand |
+> |---|---|---|---|
+> | Endo PR backlog (gauntlets/conducts on `endojs/endo-but-for-bots` 1357, 1362, 1298, 1394, 695, 1389, 1349 …; 8 parked 2026-08 weaves) | 30.3M | 36% | ~10 todo, ~15 plan |
+> | minion.town caps (Claude-on-MT press ×2 every 3h, `kriscendobot/minion.town` PRs 86, 119, 120, 135, federation orch) | 21.5M | 25% | federation orch (5 serial children; deploy/acceptance are high), 2 presses |
+> | ironhorse (panic reseat/host-call, ratchet, test262 press, ocap audit) | 12.3M | 14% | 1 doin; round-3 floor + iterator parity are waiting on you |
+> | garden upkeep (self-heal, pr81, digests) | 10.6M | 12% | ~8 go-ahead plans |
+> | ebfb sturdyref 8-layer stack | 4.8M | 6% | 8 layers in gauntlet right now, the largest live queue |
+> | ebfb petname-path-only sweep | 2.8M | 3% | 3 gauntlet jobs in todo |
+> | book, budget/accountant | 2.8M | 3% | book orch; accountant build waits on go-ahead |
+> | **endor metering** | **~0** | **0%** | only `endor-same-process-worker-benchmark` (go-ahead) |
+>
+> **Proposed slate (share of the foreman's discretionary budget until Sat)**
+> 1. **minion.town capabilities, 35%**. mandate priority 1. Keep both presses and git-remote PR `kriscendobot/minion.town#86` moving, and let the federation orchestration reach deploy/acceptance.
+> 2. **sturdyref stack + petname sweep, 20%**. They are already in flight. Finishing a stack costs less than parking it, and sturdyref feeds the federation/guest-locator work.
+> 3. **ironhorse, 15%**. mandate priority 3. Two items are blocked on your decisions, so this slice may go unspent.
+> 4. **endor metering, 10%**. mandate priority 2, and it got nothing this week. I propose promoting the worker benchmark as the explorative probe, capped at this slice.
+> 5. **Endo PR backlog (off-mandate), 12%**. It was the biggest spender. I propose gating the 2026-08 weaves off and finishing only the gauntlets already staged.
+> 6. **garden upkeep, 8%**. Self-heal and ops are not optional.
+>
+> **Questions**
+> 1. **Cut:** OK to squeeze the off-mandate Endo backlog from 36% to ~12%, and to leave the eight 2026-08 weaves (endo-but-for-bots 395–420) parked this week, or retire them?
+> 2. **Rank up:** endor metering got nothing. Should it get a real 10% slice via the benchmark, or stay dormant until minion.town caps land? And does sturdyref count as mandate priority 1 work (sliced with minion.town) or as backlog?
+> 3. **Mandate and pace:** does the 09-26 mandate still hold as-is? endolin1 has ~240M to spend in ~55h. Should I recommend raising worker capacity to use it, or let the unspent part lapse?
+>
+> Budget-request intake (design job `design-accountant-budget-request-intake`): I'll pass any view you have on it to that job, e.g. whether roles should file a request for any job above X tokens, or only for campaigns/presses.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify.md)
 
@@ -60,12 +93,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #56 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T21:12:51Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 56 times; this is ONE
-> coalesced notice that updates in place, not 56 messages. Latest detail:
+> WATCHDOG notice — occurrence #57 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T21:17:47Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 57 times; this is ONE
+> coalesced notice that updates in place, not 57 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=1615s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=1915s; heartbeat=full-poll)
 
 - `ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted` — from gauntlet:ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-layer2-ses-20260930-gauntlet-halted.md)
 
@@ -81,11 +114,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-30T20:43:07Z, latest 2026-09-30T21:12:51Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T20:43:07Z, cleared 2026-09-30T21:18:08Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 703 of 748 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-finbot: packs 1001 >= 1000; size=409692160B packs=1001 gc.log=0; automatic remedy=deferred-deadline.
 
 - `msg-build-minion-town-mcp-garden2-workers-76b942035c1f` — from gardener:build-minion-town-mcp-garden2-workers, reply_to `build-minion-town-mcp-garden2-workers` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-mcp-garden2-workers-76b942035c1f.md)
 
@@ -111,6 +148,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
 > Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: packs 1007 >= 1000; size=266704896B packs=1007 gc.log=0; automatic remedy=deferred-deadline.
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_vattr97` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_vattr97.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-vattr97: packs 1004 >= 1000; size=409847808B packs=1004 gc.log=0; automatic remedy=deferred-deadline.
 
 - `msg-reset-credit-watch-20260930-195052-d223f008fbcb` — from gardener:reset-credit-watch-20260930-195052, reply_to `reset-credit-watch-20260930-195052` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20260930-195052-d223f008fbcb.md)
 
@@ -139,19 +180,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo_but_for_bots` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo_but_for_bots.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-endo-but-for-bots: packs 1003 >= 1000; size=408891392B packs=1003 gc.log=0; automatic remedy=applied.
+
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 13.4M | $133.45 _(notional, rate-card)_ | 5% of 256.0M (ok) |
+| Claude | 13.8M | $136.54 _(notional, rate-card)_ | 5% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 184432588 tokens/day lower bound._
+_Fleet token-unlock pace: 187062056 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 3 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (21)
@@ -177,21 +222,20 @@ worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`ebfb-petname-path-only-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1390
 - [`fu-qwen-model-watch-20260728-180502-1-20260930-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-qwen-model-watch-20260728-180502-1-20260930-162006.md) — ---
 
-### doin (6)
+### doin (5)
 - [`accountant-budget-conversation-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/accountant-budget-conversation-20260930.md) — ---
 - [`ebfb-petname-path-only-sweep-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-sweep-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #774
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1380
 - [`fix-endo-but-for-bots-macos-daemon-teardown-flake`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-endo-but-for-bots-macos-daemon-teardown-flake.md) — Flaky test (22.x, macos-15) CI leg: daemon teardown race unrelated to the PRs...
-- [`reset-credit-watch-20260930-195052`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/reset-credit-watch-20260930-195052.md) — ---
 
-### tada (10115)
+### tada (10116)
+- [`reset-credit-watch-20260930-195052`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/reset-credit-watch-20260930-195052.md) — Cost
 - [`design-accountant-budget-request-intake`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/design-accountant-budget-request-intake.md) — Cost
 - [`endojs-endo-but-for-bots-pr1340-review-85c8bc95`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1340-review-85c8bc95.md) — Cost
 - [`build-ci-minion-town-actions-runner`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/build-ci-minion-town-actions-runner.md) — Cost
 - [`ebfb-sturdyref-layer2-ses-20260930-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/ebfb-sturdyref-layer2-ses-20260930-gauntlet.md) — gauntlet ebfb-sturdyref-layer2-ses-20260930-gauntlet — HALTED
-- [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4.md) — Gauntlet fix round 4: endojs/endo-but-for-bots PR #1391. CI is still red on o...
-- … and 10110 more
+- … and 10111 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
