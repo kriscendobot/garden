@@ -3,3 +3,7 @@ gardener: 4
 worker_kind: monk
 claimed_at: 2026-09-30T20:09:07Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-fix-endo-but-for-bots-macos-daemon-teardown-flake
+pr_number: 1401
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1401
+pr_head: fix/daemon-teardown-flakes
