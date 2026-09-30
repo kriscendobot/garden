@@ -56,3 +56,13 @@ to `journal/projects/garden-book/ch2-architecture-operation.md` as Markdown
 Write precisely — this chapter is read by someone who needs to actually
 understand the mechanics, not get a vibe for them. Name real script paths and
 real file locations.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:21:23Z
