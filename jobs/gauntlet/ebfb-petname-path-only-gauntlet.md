@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1390
 build_job: ebfb-petname-path-only
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: ebfb-petname-path-only-gauntlet-viability
+current_child: ebfb-petname-path-only-gauntlet-clean
 state: running
 created_by: producer
 created_at: 2026-09-30T05:44:11Z
