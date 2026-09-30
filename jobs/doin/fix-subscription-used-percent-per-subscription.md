@@ -15,3 +15,13 @@ In `subscription_used_percent` (`scripts/jobs/usage-meter.sh` ~L1030), the prima
 - Keep the fallbacks (budget/live used_percent, manual checkpoints).
 - Add a regression test with two subscriptions on two hosts reporting different utilizations.
 - Land direct to main2.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:22:43Z
