@@ -67,3 +67,13 @@ Follow-up in dc9f9a251:
 Local: `daemon-lifecycle-idempotency.test.js` (5/5), `socket-lifecycle.test.js`, and `daemon-teardown.test.js` pass. eslint reports no errors on the changed files, and `tsc` passes for `@endo/daemon`.
 
 ----- END COMMENT -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T05:45:35Z
