@@ -1,10 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: fu-minion-town-containment-gateway-endo-sock-1-20260930-015006-split
-priority: normal
-posted_by: orchestrator
-posted_at: 2026-09-30T04:31:32Z
+role: gardener
+tier: mentor
+handler-timeout: 3600
+split-indivisible-reason: 'single atomic scan-remediate-rescan of one live SSM-reached store (/var/lib/endo-gateway/store/vhosts); remediation must be proven by a rescan in the same run, so no part stands alone; the overrun came from hand-scanning, now scripted by scripts/jobs/containment-gateway-record-check.sh (main2 2a5c1991779)'
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-30T04:34:04Z cleared=none -->
 
 ---
 role: gardener
