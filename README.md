@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T15:06:35Z_
+_As of 2026-09-30T15:09:33Z_
 
 ## Latest
 
-The sturdyref layering push on [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) hit trouble: the orchestrated 10-layer sequence completed end to end, but layers 1, 3, 4, 5, 6, and 7 (shim-build, pass-style, marshal, captp-wire, captp-construct, ocapn-enliven) each halted at the gauntlet's clean/fix stage on an explicit failed/declined outcome, so all six sit unmerged awaiting a maintainer look. Layer 2 (ses) is still working through its panel/fix rounds. Elsewhere, PR [endojs/endo-but-for-bots#1355](https://github.com/endojs/endo-but-for-bots/pull/1355) is queued for un-draft and PRs [#1397/#1398](https://github.com/endojs/endo-but-for-bots/pull/1397) are pending a rebase onto restacked frozen bases; PR [#695](https://github.com/endojs/endo-but-for-bots/pull/695) and the minion-town completion press both flagged stale panel coverage needing a fresh review decision. Separately, the root repo on this leader host is 25 commits behind and has stalled deploying, and the `oros-studio-garden` canary is stuck mid-rollout — both worth a look since a stale leader risks running work against outdated code.
+The sturdyref layering arc's 10-child serial orchestration ([endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and neighbors) completed, but six of its per-layer gauntlets (layers 1, 3, 4, 5, 6, 7, 8, plus [ebfb-petname-path-only](https://github.com/endojs/endo-but-for-bots/pull/1390)) halted at their clean/fix stages on explicit failed/declined outcomes and need a maintainer look before retrying. [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [#1360](https://github.com/endojs/endo-but-for-bots/pull/1360) are mid-panel (round 4), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) is in a fix round, and [#1355](https://github.com/endojs/endo-but-for-bots/pull/1355) is queued for un-draft. Two published artifacts landed: a full Endo progress report (2026-06-24 to 2026-09-30, 471 merged PRs) and the complete 8-chapter garden book. Two decisions await you: the round-3 IronHorse test262 ratchet wants sign-off on reconciling the historical floor against 906 newly-lost paths (many reclassified as false positives), and the minion.town MCP rollout needs a principal/scoping call before it widens past garden2. Operationally, the leader host is 25 commits behind on a stalled deploy while a canary on oros-studio-garden-ce242c49 is stuck mid-rollout, and the claude-endolin1 budget pool remains uncalibrated, freezing monk scaling fleet-wide.
 
 ## Parked for maintainer feedback
 
@@ -216,9 +216,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-pool-refuse-claude-endolin1` — from watchdog:claim/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-pool-refuse-claude-endolin1.md)
 
-> WATCHDOG notice — occurrence #1606 (first seen 2026-09-30T11:07:45Z, latest 2026-09-30T14:08:06Z).
-> The SAME condition (`budget-pool-refuse-claude-endolin1`) has now been observed 1606 times; this is ONE
-> coalesced notice that updates in place, not 1606 messages. Latest detail:
+> WATCHDOG notice — occurrence #2195 (first seen 2026-09-30T11:07:45Z, latest 2026-09-30T15:08:09Z).
+> The SAME condition (`budget-pool-refuse-claude-endolin1`) has now been observed 2195 times; this is ONE
+> coalesced notice that updates in place, not 2195 messages. Latest detail:
 >
 > claim gate is FAIL-CLOSED on endolin-garden-ece02cb4: budget pool claude-endolin1 cap is UNCALIBRATED (provenance placeholder); promote a calibrated cap to admit: set-budget-pool.sh claude-endolin1 <weekly-token-cap> <calibrated-from>. No job will be claimed on this host until a calibrated cap is set.
 
@@ -242,12 +242,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #24 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T15:02:45Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 24 times; this is ONE
-> coalesced notice that updates in place, not 24 messages. Latest detail:
+> WATCHDOG notice — occurrence #25 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T15:07:40Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 25 times; this is ONE
+> coalesced notice that updates in place, not 25 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1386](https://github.com/endojs/endo-but-for-bots/pull/1386)#issuecomment-5913442822 (age=1568s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1386](https://github.com/endojs/endo-but-for-bots/pull/1386)#issuecomment-5913442822 (age=1869s; heartbeat=full-poll)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -355,11 +355,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T04:16:26Z, cleared 2026-09-30T14:58:01Z).
-> It was observed 17 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #18 (first seen 2026-09-30T04:16:26Z, latest 2026-09-30T15:07:02Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 18 times; this is ONE
+> coalesced notice that updates in place, not 18 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 734 of 734 clone(s) on consecutive ticks.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-4.md)
 
@@ -687,13 +687,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 243.0M | $1533.53 _(notional, rate-card)_ | 95% of 256.0M (ok) |
+| Claude | 243.1M | $1534.10 _(notional, rate-card)_ | 95% of 256.0M (ok) |
 | Codex | 17.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 65224967 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.957588s/45s (unknown); 2 open notice(s); checker healthy
+worst fetch p95 4.957588s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (3)
