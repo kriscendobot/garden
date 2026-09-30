@@ -51,3 +51,13 @@ yourself.
 
 Write for a reader who has never seen this system before but is technically
 sophisticated — explain garden-specific vocabulary the first time it's used.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T07:14:23Z
