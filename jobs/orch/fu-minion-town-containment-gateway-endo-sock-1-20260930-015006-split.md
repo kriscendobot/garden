@@ -1,4 +1,5 @@
 ---
+child-fu-minion-town-containment-gateway-endo-sock-1-20260930-015006-expanded-window-reap-count: 0
 order: serial
 children: fu-minion-town-containment-gateway-endo-sock-1-20260930-015006-expanded-window
 on-child-failure: halt
