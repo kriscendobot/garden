@@ -35,3 +35,13 @@ Standing policies to honor:
 6. **Record the agreed outcome** as a note at `journal2:projects/garden/budget-slate-<YYYYMMDD>.md`, via `land-journal-edit.sh`: the agreed slate, the reasons, and any mandate change the maintainer wants. That note becomes the input the build will apply once it lands. Also carry the maintainer's views on the **budget-request intake** mechanism (a separate design job, `design-accountant-budget-request-intake`) to that job's inbox.
 
 Handler budget: this is a conversation, so use `post-plan.sh --budget-hold` / `--go-ahead` handoffs rather than running out the clock if the maintainer is slow to reply.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T21:14:09Z
