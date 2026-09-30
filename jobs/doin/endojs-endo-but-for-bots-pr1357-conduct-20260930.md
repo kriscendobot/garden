@@ -20,3 +20,13 @@ The inline ask (answer to Open Question 1) was resolved by the preceding fixer c
 `endojs-endo-but-for-bots-pr1357-review-answer-oq1`. Confirm that push landed and
 CI is green/mergeable, then un-draft and merge per the conductor role (you own the
 merge method). Bot repo only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T22:41:52Z
