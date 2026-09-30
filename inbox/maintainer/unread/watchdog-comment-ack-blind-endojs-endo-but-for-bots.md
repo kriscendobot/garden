@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:comment-latency-watch
-sent_at: 2026-09-30T19:32:34Z
+sent_at: 2026-09-30T20:38:33Z
 watchdog_key: comment-ack-blind-endojs-endo-but-for-bots
 notice_count: 53
 first_seen: 2026-09-30T04:37:42Z
-last_seen: 2026-09-30T19:32:34Z
+last_seen: 2026-09-30T20:38:33Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #53 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T19:32:34Z).
-The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 53 times; this is ONE
-coalesced notice that updates in place, not 53 messages. Latest detail:
+RECOVERED — the watchdog condition `comment-ack-blind-endojs-endo-but-for-bots` has CLEARED (first seen 2026-09-30T04:37:42Z, cleared 2026-09-30T20:38:33Z).
+It was observed 53 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-https://github.com/endojs/endo-but-for-bots/pull/1386#issuecomment-5913442822 (age=17783s; heartbeat=full-poll)
+Comment acknowledgment condition cleared.
