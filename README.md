@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:20:47Z_
+_As of 2026-09-30T21:21:35Z_
 
 ## Latest
 
-The board transitions since the last snapshot were minimal: the reset-credit watch for the week of 2026-09-26 to 10-03 completed, recommending a hold on the claude-endolin2 credit and a conditional codex-endolin acceleration-then-reset by Thursday. Otherwise the fleet remains heavily loaded — 21 jobs in todo and 5 in doin, dominated by the SturdyRef 8-layer gauntlet stack on [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) and the petname-path-only sweep on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), alongside the ironhorse panic/host-call gauntlet on [endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) (round 6 left unconverged for human review) and a macOS daemon-teardown flake still being chased. The sturdyref layer-2 SES gauntlet halted after its fix round failed and was declined, and a CI flake on that same stack (a daemon-teardown timing test) needs a maintainer rerun from a credentialed host since the bot PAT can't retrigger Actions. The accountant opened its weekly budget conversation, proposing to redirect spend toward minion.town capabilities and the sturdyref/petname work while squeezing the off-mandate Endo PR backlog, and is awaiting maintainer decisions on that slate plus two open maintainer-decision items (endo CLI autostart design on [endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383) and the ironhorse test262 ratchet floor). Several journal-clone-oversized watchdog notices are open (deferred remedy) but not yet acted on.
+The sturdyref stack (endojs/endo-but-for-bots#774, #1391–#1398) continues to grind through its eight layers, but layer 2 ([endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) halted after four fix rounds — CI is green except for a single flaky macOS daemon-teardown leg unrelated to the SES change, and the oros-studio bot PAT can't rerun Actions, so it's waiting on a credentialed rerun. The Ironhorse panic/host-call gauntlet also closed out its review budget after six rounds without full convergence and is parked for a human merge call. Elsewhere, the accountant opened its weekly budget conversation with three questions for the maintainer (trimming the off-mandate Endo backlog, whether to fund endor metering, and pacing endolin1's ~240M-token surplus), and a separate reset-credit watch recommends holding the claude-endolin2 credit and only spending a codex credit if the fleet accelerates first. The garden book was revised and republished with new chapters on the library and inference tiers. Foreman flagged that M3's next step is blocked on a maintainer choice between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering open questions on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and minion.town MCP rollout needs a principal/scoping decision before widening past endolin-garden2. Two journal-clone-size watchdogs and a stuck comment-ack condition on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) remain open, alongside a stale-panel notice on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) whose head moved past its last review.
 
 ## Parked for maintainer feedback
 
@@ -120,10 +120,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
-- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot.md)
-
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-finbot: packs 1001 >= 1000; size=409692160B packs=1001 gc.log=0; automatic remedy=deferred-deadline.
-
 - `msg-build-minion-town-mcp-garden2-workers-76b942035c1f` — from gardener:build-minion-town-mcp-garden2-workers, reply_to `build-minion-town-mcp-garden2-workers` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-mcp-garden2-workers-76b942035c1f.md)
 
 > minion.town MCP standing order: machinery landed on main2 (1f0cc8400b5), and it is proven live on endolin-garden2 for claude -p and codex exec. Two decisions are yours before I widen it past garden2:
@@ -148,10 +144,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
 > Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: packs 1007 >= 1000; size=266704896B packs=1007 gc.log=0; automatic remedy=deferred-deadline.
-
-- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_vattr97` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_vattr97.md)
-
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-vattr97: packs 1004 >= 1000; size=409847808B packs=1004 gc.log=0; automatic remedy=deferred-deadline.
 
 - `msg-reset-credit-watch-20260930-195052-d223f008fbcb` — from gardener:reset-credit-watch-20260930-195052, reply_to `reset-credit-watch-20260930-195052` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20260930-195052-d223f008fbcb.md)
 
@@ -180,17 +172,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
-- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo_but_for_bots` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo_but_for_bots.md)
-
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-endo-but-for-bots: packs 1003 >= 1000; size=408891392B packs=1003 gc.log=0; automatic remedy=applied.
-
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 13.8M | $136.54 _(notional, rate-card)_ | 5% of 256.0M (ok) |
+| Claude | 13.9M | $136.76 _(notional, rate-card)_ | 5% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 187062056 tokens/day lower bound._
