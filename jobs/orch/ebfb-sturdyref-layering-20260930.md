@@ -1,4 +1,5 @@
 ---
+child-ebfb-sturdyref-layer6-captp-construct-20260930-reap-count: 0
 child-ebfb-sturdyref-layer5-captp-wire-20260930-host: endolin-garden2-5bcdff64
 child-ebfb-sturdyref-layer5-captp-wire-20260930-reap-count: 0
 child-ebfb-sturdyref-layer4-marshal-20260930-host: endolin-garden2-5bcdff64
