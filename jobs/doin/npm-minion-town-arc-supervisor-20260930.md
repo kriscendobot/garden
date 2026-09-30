@@ -20,6 +20,7 @@ Carry it:
 4. Report the result to the maintainer (message-user.sh) with the evidence and links. Update minion.town deploy notes where the runbook drifted.
 Deploy discipline: see the memories on minion.town deploys (EADDRINUSE orphan recovery, pin-bump verification over SSM, and CD www reverting unmerged changes). Use targeted CD dispatches.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden-ece02cb4
