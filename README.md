@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:42:08Z_
+_As of 2026-09-30T21:44:01Z_
 
 ## Latest
 
-Board activity since the last bulletin was minimal: one journal-fallback warn-dedup improvement completed, and the sysop sync clone-lock retry job was claimed and is in progress. The larger picture is dominated by open items awaiting maintainer input — most notably the SturdyRef layer-2 SES gauntlet, which halted after its round-4 fix stage was gated as failed/declined, and the [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) design, which the foreman flags as blocking M3's next confined-agent step pending answers to its four open questions (the alternative being to advance [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its #1348 prerequisite clears). Several repeated infrastructure notices also warrant a glance: a journal-contention storm hit six clone paths at once (ci-watcher, pages-watcher, sysop) with packs exceeding the 1000 threshold, and the comment-ack-blind condition on endojs/endo-but-for-bots has now recurred 60 times since yesterday without resolving. On staffing, the accountant's budget-conversation proposal is parked awaiting a reply or "go ahead," and a reset-credit recommendation suggests holding the claude-endolin2 credit for next week while accelerating codex spend before its Thursday decision point.
+The SturdyRef/CapTP layer stack continues to grind through the gauntlet: layers 1 (shim build), 5 (CapTP wire), 6 (CapTP construct), and 7 (OCapN enliven) are mid-panel or mid-fix, while layer 8's daemon formula sits clean and layer 4's marshal work is queued for its first fix round — but layer 2 (SES) halted after its fix-4 round explicitly declined, so that gauntlet needs a maintainer look. Separately, [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) has all round-4 must-fixes landed and 32 of 33 CI legs green; the one red leg is a flaky macOS daemon-teardown timing test unrelated to the change, and a rerun from a credentialed host should clear it. The petname-path-only sweep (PR #1390) is well into its panel/fix cycle (rounds 2–4 all queued or in flight), and the Ironhorse panic-host-call PR exhausted its 6-round review budget with CI green — left for a human merge call rather than converging further.
+
+On the ops side, journal contention flared twice (an oversized-clone guard and a contention-watch overrun, both on endolin-garden-ece02cb4) alongside a brief canary-stuck and host-offline blip on oros-studio, all since recovered; the accountant's budget conversation got no reply and is parked awaiting a "go ahead"; and the reset-credit watch recommends holding the claude-endolin2 credit for next week while accelerating codex spend before its Monday reset. The minion.town MCP rollout is proven on garden2 and awaits two maintainer decisions (a dedicated principal/guest vs. reusing production, and how much tool context lower-tier roles should carry) before widening further.
 
 ## Parked for maintainer feedback
 
@@ -81,11 +83,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T20:43:07Z, cleared 2026-09-30T21:18:08Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-30T20:43:07Z, latest 2026-09-30T21:42:42Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 39 of 750 clone(s) on consecutive ticks.
 
 - `msg-build-minion-town-mcp-garden2-workers-76b942035c1f` — from gardener:build-minion-town-mcp-garden2-workers, reply_to `build-minion-town-mcp-garden2-workers` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-mcp-garden2-workers-76b942035c1f.md)
 
@@ -133,13 +135,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
-> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-endo: packs 1000 >= 1000; size=409749504B packs=1000 gc.log=0; automatic remedy=deferred-deadline.
-> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-vattr97: packs 1010 >= 1000; size=410876928B packs=1010 gc.log=0; automatic remedy=deferred-deadline.
-> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-oros-ckm-data-readiness: packs 1001 >= 1000; size=409463808B packs=1001 gc.log=0; automatic remedy=deferred-deadline.
-> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/pages-watcher/verify: packs 1013 >= 1000; size=391076864B packs=1013 gc.log=0; automatic remedy=deferred-deadline.
-> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: packs 1030 >= 1000; size=268472320B packs=1030 gc.log=0; automatic remedy=deferred-deadline.
-> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-ymax-e2e: packs 1003 >= 1000; size=409834496B packs=1003 gc.log=0; automatic remedy=deferred-deadline.
+> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-09-30T21:27:55Z, cleared 2026-09-30T21:42:36Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-zone-oros-studio-garden-ce242c49-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-oros-studio-garden-ce242c49-backoff.md)
 
@@ -171,7 +171,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 15.2M | $142.43 _(notional, rate-card)_ | 6% of 256.0M (ok) |
+| Claude | 15.4M | $143.56 _(notional, rate-card)_ | 6% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 189646136 tokens/day lower bound._
