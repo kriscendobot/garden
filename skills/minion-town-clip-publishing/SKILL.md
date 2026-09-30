@@ -75,6 +75,20 @@ clip's normal public URL — a visitor to a clip needs no login at all.
     HTTP 200 with body `test` and ETag = `sha256("test")`. Smoke clip cleaned
     up with `unpublish`.
 
+- **Publish a large clip from a script, not inline.** A clip of a few tens of
+  KB is tens of thousands of base64 characters, which is expensive to emit as a
+  tool-call argument. Instead, drive the same stdio bridge the harness uses:
+  `source scripts/jobs/minion-mcp-lib.sh`, merge `minion_mcp_env_json` into the
+  environment, spawn `python3 scripts/jobs/minion-mcp-bridge.py`, and write
+  newline-delimited JSON-RPC to it: `initialize`, then
+  `notifications/initialized`, then `tools/call` `publish` with
+  `{"powers":"sites","content":[{path,contentType,bytes}...]}`, where the bytes
+  come from `base64 -w0` files. After publishing, `curl` the URL and `cmp` it
+  against the local file. Used for the 2026-09-30 Endo progress report (two files,
+  about 23 KB; `serving: true` on the first try).
+- Despite the "inline CSS" some job specs ask for, the CSP is `style-src
+  'self'`: ship a sibling `styles.css` and link it.
+
 ## `evaluate` gotchas
 
 - The tool description reads as literal-value binding ("for `2 + 2`, pass
