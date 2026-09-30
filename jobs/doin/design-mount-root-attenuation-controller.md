@@ -21,3 +21,13 @@ visible roots. Relate it to designs/daemon-mount.md,
 designs/daemon-mount-capabilities.md, the existing `makeRevocableMount` /
 `EndoMountControl` caretaker pattern, and agent-confined-application-makers
 (the symlinked-store case it would unlock). Open a design PR on llm.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T22:37:05Z
