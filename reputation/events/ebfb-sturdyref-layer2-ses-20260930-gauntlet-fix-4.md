@@ -2,22 +2,22 @@
 base: ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4
 kind: monk
 provider: anthropic
-model: claude-opus-5-5
+model: claude-default
 thoughtfulness: medium
 work_class: gardener:m
 target: main2
 accepted: true
-agentic_dollars: 1.700395
+agentic_dollars: 3.116331
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.329889
+estimated_dollars: 0.208173
 attempts: 1
-duration_secs: 4781
+duration_secs: 3017
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: oros-studio-garden-ce242c49/monk-1
-recorded_at: 2026-09-30T19:05:55Z
+recorded_by: oros-studio-garden-ce242c49/monk-2
+recorded_at: 2026-09-30T21:04:39Z
 ---
-reputation event for ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4: arm anthropic/claude-opus-5-5/medium work_class gardener:m target main2 accepted true
+reputation event for ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4: arm anthropic/claude-default/medium work_class gardener:m target main2 accepted true
