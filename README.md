@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:08:46Z_
+_As of 2026-09-30T21:09:42Z_
 
 ## Latest
 
-The SturdyRef layer-2 SES gauntlet ([endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) halted after its round-4 fix round declined the gate; CI is red on a single, unrelated macOS daemon-teardown flake, and a rerun from a credentialed host is the likely unblock. The minion.town CI Actions-runner build ([kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145)) completed and its gauntlet is now staged and running through viability. The IronHorse panic/host-call PR ([endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) exhausted its 6-round review budget with CI green and is left for a human merge call. Elsewhere on the SturdyRef stack, layers 1, 4, 5, and 6 (PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)) are mid-gauntlet across fix and panel rounds, and layers 7–8 ([#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) are queued to clean. The maintainer inbox still needs attention: PR #1357's panel coverage has gone stale against a new head, design PR #1340 has open questions blocking the M3 confined-agent step, and the weekly reset-credit watch recommends holding the claude-endolin2 credit while accelerating codex spend before Thursday.
+Little moved since the last bulletin beyond routine board churn: the SturdyRef layer stack continues its gauntlet march across several draft PRs (layers 1–8, [endojs-endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), #1393, #1394, #1396–#1398, #774), with layer 2 ([#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)) halted after a fix round while CI remains red on one flaky macOS daemon-teardown leg, tracked separately as `fix-endo-but-for-bots-macos-daemon-teardown-flake`. The petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) is mid-panel across parallel rounds. A new design job, `design-mount-root-attenuation-controller`, was posted for filesystem mount attenuation via a root-controller facet. Several items await maintainer input: the reset-credit watch flags a decision point by Thursday on spending a codex credit, the M3 milestone is blocked on a choice between advancing [#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) or resolving four open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and the minion.town MCP rollout needs a go-ahead on principal/credential scoping before widening past its current single-host pilot.
 
 ## Parked for maintainer feedback
 
@@ -141,7 +141,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 13.0M | $129.14 _(notional, rate-card)_ | 5% of 256.0M (ok) |
+| Claude | 13.1M | $130.14 _(notional, rate-card)_ | 5% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 184432588 tokens/day lower bound._
@@ -150,7 +150,7 @@ _Fleet token-unlock pace: 184432588 tokens/day lower bound._
 worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (20)
+### todo (21)
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`accountant-budget-conversation-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-budget-conversation-20260930.md) — ---
@@ -167,6 +167,7 @@ worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1392
 - [`ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1396
 - [`endojs-endo-but-for-bots-pr695-gauntlet-20260930-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr695-gauntlet-20260930-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #695
+- [`design-mount-root-attenuation-controller`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-mount-root-attenuation-controller.md) — Design: filesystem mount attenuation with a root-controller facet
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1397
 - [`endojs-endo-but-for-bots-pr1394-20260930-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1394-20260930-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1394
 - [`ebfb-petname-path-only-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1390
