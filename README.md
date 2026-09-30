@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:26:30Z_
+_As of 2026-09-30T21:28:24Z_
 
 ## Latest
 
-The SturdyRef 8-layer stack on endo-but-for-bots continues working through panel/fix/clean gauntlet stages across most layers, but layer 2 (SES, [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) halted after its round-4 fix job declined to proceed — the fixes themselves are landed and CI is green except one flaky macOS daemon-teardown leg the bot's PAT can't retrigger, so it's parked for a maintainer-side Actions rerun. Separately, an Ironhorse panic/host-call gauntlet exhausted its six-round review budget with CI green and is left for a human merge call, and panel coverage on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) went stale after the head moved post-review, so it needs a fresh look rather than an auto-staged gauntlet. The accountant opened this week's budget conversation (capacity tight until Saturday's reset, with three allocation questions pending), and the reset-credit watch separately recommends holding the claude-endolin2 credit while only spending a codex credit if cleric capacity is added first. The minion.town MCP wiring is live on endolin-garden2 and awaits two maintainer calls — a dedicated principal/credential scope versus today's shared production guest, and how much tool context to expose to lighter-weight roles — before it widens further. The garden book was also republished with new chapters on the library and the inference-tier reference.
+The SturdyRef 8-layer stack (endojs/endo-but-for-bots#1391–1398) continues advancing through the gauntlet, but layer 2 (SES) halted after its fourth fix round was explicitly declined, and layer 1's shim-build fix round 1 is still in progress alongside layers 3–8 spread across panel and fix stages. The petname-path-only sweep ([endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) is deep into its own fix/panel cycle. Separately, [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)'s Ironhorse panic live-handle-reseat gauntlet hit its review budget after six panel/fix rounds without converging — CI is green, so it's left for a human merge call — and a macOS daemon-teardown flake is being chased as a likely cross-PR infrastructure issue rather than a PR defect. On the review-tracking side, [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) has moved to a new head since its last panel pass, so its earlier review no longer covers the current commits and needs a fresh look before anything proceeds. Several housekeeping notices also came in: two journal-clone-size warnings (deferred remedy) and a contention storm across six clone paths, a stuck rolling-deploy canary on oros-studio that briefly went offline then recovered, and the weekly accountant budget conversation and reset-credit recommendations are open awaiting your input, alongside four other items already queued for a maintainer decision.
 
 ## Parked for maintainer feedback
 
@@ -164,6 +164,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
+- `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
+
+> Journal contention storm on endolin-garden-ece02cb4: 6 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-endo: packs 1000 >= 1000; size=409749504B packs=1000 gc.log=0; automatic remedy=deferred-deadline.
+> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-vattr97: packs 1010 >= 1000; size=410876928B packs=1010 gc.log=0; automatic remedy=deferred-deadline.
+> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-oros-ckm-data-readiness: packs 1001 >= 1000; size=409463808B packs=1001 gc.log=0; automatic remedy=deferred-deadline.
+> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/pages-watcher/verify: packs 1013 >= 1000; size=391076864B packs=1013 gc.log=0; automatic remedy=deferred-deadline.
+> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: packs 1030 >= 1000; size=268472320B packs=1030 gc.log=0; automatic remedy=deferred-deadline.
+> - Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-ymax-e2e: packs 1003 >= 1000; size=409834496B packs=1003 gc.log=0; automatic remedy=deferred-deadline.
+
 - `watchdog-budget-zone-oros-studio-garden-ce242c49-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-oros-studio-garden-ce242c49-backoff.md)
 
 > subscription claude-oros changed zone ok -> backoff at spend=6052865/73000000.
@@ -186,13 +196,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 14.2M | $138.14 _(notional, rate-card)_ | 6% of 256.0M (ok) |
+| Claude | 14.2M | $138.54 _(notional, rate-card)_ | 6% of 256.0M (ok) |
 | Codex | 17.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 187062056 tokens/day lower bound._
+_Fleet token-unlock pace: 186443012 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 6 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (20)
