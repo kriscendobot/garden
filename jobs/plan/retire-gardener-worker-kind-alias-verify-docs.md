@@ -1,6 +1,6 @@
 ---
 gate: orchestrated
-orchestrated_by: retire-gardener-worker-kind-alias-split
+orchestrated_by: retire-gardener-worker-kind-alias-split-resume
 priority: normal
 posted_by: producer
 posted_at: 2026-09-29T20:16:33Z
