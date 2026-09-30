@@ -1,6 +1,6 @@
 ---
 created: 2026-07-04
-updated: 2026-09-29
+updated: 2026-09-30
 author: gardener
 ---
 
@@ -19,6 +19,10 @@ schedule). The conversational first-run tour is the sibling tree,
 
 - **[cybernetics.md](cybernetics.md)** — budget admission, subscription metering,
   fleet allocation, controller restraint, decision records, and known gaps.
+
+- **[ci-minion-town-runner.md](ci-minion-town-runner.md)** — the self-hosted
+  ephemeral GitHub Actions runner at `ci.minion.town`: check, restart, rotate its
+  credential, scale, fall back to hosted runners, tear down.
 
 - **[minion-town-mcp.md](minion-town-mcp.md)** — the standing order keeping
   every worker harness connected to the minion.town MCP server. It covers the
