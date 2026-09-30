@@ -26,6 +26,7 @@ The newcomer-provisioning path is described in designs/guest-native-invitations.
 Say which parts need daemon support (for example, an invitation that carries an extra formula identifier) and which are minion.town-only.
 Open the design as a DRAFT PR through ensure-pr.sh.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
