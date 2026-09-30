@@ -2,7 +2,7 @@
 order: serial
 children: fu-minion-town-containment-gateway-endo-sock-1-20260930-015006-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-09-30T04:31:50Z
 ---
