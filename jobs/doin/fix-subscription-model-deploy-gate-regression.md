@@ -104,6 +104,7 @@ priority is clear to whoever reads it next.
 
 <!-- garden-reaped: 0 -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
