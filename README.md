@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:02:20Z_
+_As of 2026-09-30T21:03:28Z_
 
 ## Latest
 
-The SturdyRef layer-2/8 stack continues to grind through the gauntlet — layers 1–8 are variously in fix, panel, or clean stages, with [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep) now four fix rounds and four panel rounds deep. [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) (SturdyRef layer 2, SES) has all round-4 must-fixes landed and CI green except a single flaky macOS daemon-teardown leg unrelated to the change; a rerun from a credentialed host should clear it. Separately, the Ironhorse panic/host-call gauntlet closed out with 6 panel/fix rounds applied and CI green, but review didn't converge within the iteration budget, so it's parked for a human merge call. The garden book got a content revision (new chapters on the library and inference tiers) and a copy-edit pass is now queued. Several watchdog conditions (comment-ack blindness, journal contention, a host dropping out of the canary rotation) all cleared on their own within the hour. Two maintainer decisions are waiting: M3's next step is blocked on choosing between advancing [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the four open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and the minion.town MCP rollout needs a call on a dedicated principal/guest before it widens past the current single host.
+The SturdyRef layer-2 SES fix round has landed a full changeset major bump, accessor-safe descriptor read, and completion summary on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391); its only red leg is a flaky macOS daemon-teardown test unrelated to the change, awaiting a rerun from a credentialed host. The multi-layer SturdyRef stack continues to move through the gauntlet in parallel across layers 1, 3–8 (panel and fix rounds spanning [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)–[#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)–[#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), with a separate job queued to move #1397/#1398's bases onto the restacked frozen bases. The Ironhorse panic-host-call gauntlet on a live-handle-reseat PR ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) hit its review-budget ceiling after six fix/panel rounds without convergence and is left for a human merge decision. The garden book was revised and republished with two new chapters (library and inference-tiers reference), and the minion.town MCP wiring is proven live on garden2 but paused pending the maintainer's call on a dedicated principal/guest and on context-cost tooling scope before widening further. Also pending maintainer attention: four open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) gating the next M3 step, a stale panel-coverage flag on [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) (head moved after review), and an Anthropic-key request to unblock the opencode probe.
 
 ## Parked for maintainer feedback
 
@@ -50,13 +50,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/pages-watcher/verify: packs 1001 >= 1000; size=387956736B packs=1001 gc.log=0; automatic remedy=deferred-deadline.
+
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> RECOVERED — the watchdog condition `comment-ack-blind-endojs-endo-but-for-bots` has CLEARED (first seen 2026-09-30T04:37:42Z, cleared 2026-09-30T20:38:33Z).
-> It was observed 53 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #54 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T21:02:40Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 54 times; this is ONE
+> coalesced notice that updates in place, not 54 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
+> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=1014s; heartbeat=full-poll)
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
@@ -117,13 +122,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.7M | $130.16 _(notional, rate-card)_ | 5% of 256.0M (ok) |
+| Claude | 12.8M | $130.57 _(notional, rate-card)_ | 5% of 256.0M (ok) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 181028137 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
+worst fetch p95 4.833768s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (18)
