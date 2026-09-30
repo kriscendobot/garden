@@ -1,15 +1,51 @@
 ---
 created: 2026-07-15
-updated: 2026-07-28
+updated: 2026-09-30
 author: designer
 ---
 
 # Design: reserve gardener and rename the Anthropic worker kind to monk
 
-| Status | Accepted — stages 0 & 1 implemented |
+| Status | Implemented — stages 0–2 complete; legacy `gardener` worker kind retired (`02513cd130f`, `70b6d1e3d42`) |
 | Job | `design-anthropic-worker-kind-monk` |
 
-## Implementation status (2026-08-16)
+## Implementation status (2026-09-30)
+
+**Retirement complete.** Every host has cut over to the `monk` pool, and the
+legacy `gardener` worker kind is gone as an operational surface:
+
+- `02513cd130f` (*retire gardener worker kind*) removed the `gardener` registry
+  row, so `worker_kinds` enumerates only `monk` for Anthropic;
+  `anthropic_active_kind`, `handlers/gardener-claude.sh`, `set-gardeners.sh`, and
+  `migrate-host-to-monk.sh` are deleted; the `gardeners:` host count is no longer
+  read or written; and `install-units.sh` lists `garden-gardener@.service` in
+  `RETIRED_UNITS`, so every deploy's unit reconcile disables and removes it.
+- `70b6d1e3d42` (*retire the GARDEN_GARDENER_CLONE env alias*) left
+  `GARDEN_WORKER_CLONE` as the only per-instance clone variable.
+- **Historical v1 records still read.** `canonical_worker_kind`
+  (`scripts/jobs/common.sh`) still decodes `worker_kind: gardener` with no schema
+  (or schema 1) to `monk`, so old claims, events, and bids in the journal keep
+  attributing to the Anthropic arm. `gardener` with an explicit v2 schema is
+  rejected. It is a read-side spelling only, never a declarable kind, count key,
+  unit, or state namespace.
+- **Reputation.** `reputation-reduce.sh` canonicalizes each event's kind the same
+  way and writes one projection under `reputation/arms/monk/…`. The stage-0 dual
+  write to `reputation/arms/gardener/…` is gone. That tree stays in `journal2` as
+  a frozen snapshot, last written 2026-09-27; nothing reads it (the auction
+  looks up the canonical kind's arm), and it can be deleted whenever convenient.
+- **Host state.** `state-clone-keeper.sh` treats `gardeners/` as a retired kind
+  that is never unit-live, so any journal clones left under
+  `$GARDEN_STATE/gardeners/<id>/` are reclaimed by its idle/process/lock guards.
+  The small `<id>.garden` identity files there are inert; no script reads
+  `$GARDEN_STATE/gardeners/` any more.
+- **Fleet verification (2026-09-30).** `journal/hosts/*` carry no `gardeners:`
+  line. The follower `endolin-garden2-5bcdff64` publishes deployed sha
+  `c63c16cad57`, which contains `02513cd130f`. Its deploy ran the
+  `install-units.sh` reconcile that prunes `garden-gardener@.service`, its unit
+  health reports 0 failures, and its sysop applies `set-workers monk=N` against
+  the monk pool.
+
+### Stages 0–1 (2026-08-16, historical)
 
 The **compatibility release (stage 0)** and the **per-host cutover path (stage 1)**
 have landed on `main2`, changing no runtime behavior until a host is deliberately
@@ -35,7 +71,7 @@ cut over:
   extended `worker-spine-kinds-test.sh` (a monk claims + completes an Anthropic job
   through the shared spine).
 
-**Not yet done** (later, separately-sequenced work): stage 2 writer-default flip
+**Not yet done at the time** (since completed; see above): stage 2 writer-default flip
 (claims/bids/events emit `monk` + `worker_kind_schema: 2`); wiring
 `canonical_worker_kind` into the remaining readers' *display* (bulletin breaks out
 `monks`, proxy/metrics/auction labels) — correctness holds today because stage-0

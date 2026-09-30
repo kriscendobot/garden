@@ -42,7 +42,7 @@ No arguments. Reads and writes existing fleet state:
 - `jobs/doin/` — stale/orphaned claims (requeued by the reaper to `jobs/todo/`).
 - `inbox/dead/` — dead letters (forwarded to jobs by deadmail).
 - `inbox/maintainer/unread/` — DOOM messages to ack + redispatch.
-- the `garden-gardener@*` units — the worker pool to reactivate.
+- the worker units (`garden-monk@*`, `garden-cleric@*`, …) — the pool to reactivate.
 
 Env knobs honored by the underlying tools: `GARDEN_CLAIM_TTL` (claim staleness
 threshold), `GARDEN_REAP_DOOM_THRESHOLD` (requeue cycles before doom).
@@ -61,9 +61,9 @@ suspected.
    ```
    The `garden-gardener-scaler` reconciles the pool to this host's target count
    (`journal/hosts/<GARDEN>`); if it is not running, force the count with
-   `scripts/jobs/set-gardeners.sh <N> <GARDEN>` then
-   `scripts/jobs/install-units.sh scale <N>`. Confirm
-   `systemctl --user list-units 'garden-gardener@*.service'` shows the pool
+   `scripts/jobs/set-workers.sh monk <N>` (or `cleric <N>`) on this host, then
+   `systemctl --user start garden-gardener-scaler.service`. Confirm
+   `systemctl --user list-units 'garden-monk@*.service' 'garden-cleric@*.service'` shows the pool
    `running` and polling ("no jobs in todo" is healthy idle), not crash-looping on a
    FATAL. A gardener that still errors on every tick after login points at a real
    fault (e.g. a broken journal worktree) — diagnose that first; restore assumes the

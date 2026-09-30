@@ -3,7 +3,7 @@
 #
 # Usage:
 #   install-units.sh install                  render+install all unit files, daemon-reload
-#   install-units.sh scale [<kind>] <N>       run N workers of <kind> (default gardener; enable @1..@N, disable the rest)
+#   install-units.sh scale [<kind>] <N>       run N workers of <kind> (default monk; enable @1..@N, disable the rest)
 #   install-units.sh reconcile-identity       restart any running worker (any kind) whose GARDEN identity drifted
 #   install-units.sh enable-services          enable+start every intended garden timer/service
 #   install-units.sh enable-services --verify report any intended unit not currently enabled (drift check)
@@ -310,7 +310,7 @@ reconcile_ollama_unit() {
 scale() {
   # scale [<kind>] <N> — reconcile the <kind> worker pool to N instances. The kind
   # is OPTIONAL and defaults to monk, so `scale <N>` selects the canonical
-  # caller and test that predates the cleric) is unchanged. The unit-instance prefix
+  # Anthropic pool. The unit-instance prefix
   # and the busy-marker namespace are derived from the worker-kind registry, so this
   # ONE function scales every kind with no duplicated enable/disable logic.
   # A leading arg that names a KNOWN worker kind (worker_kinds registry) is the kind;

@@ -114,7 +114,10 @@ esac
 : "${GARDEN_STATE_CLONE_MIN_IDLE:=21600}"
 : "${GARDEN_STATE_CLONE_MAX_SWEEP:=200}"
 # Closed list. inbox is keyed by job base; the rest by systemd instance id.
-: "${GARDEN_STATE_CLONE_KINDS:=inbox monitors clerics monks}"
+# gardeners is the RETIRED worker kind (02513cd130f): no garden-gardener@ unit can
+# be live any more, so its leftover clones are reclaimed by the universal guards
+# alone rather than orphaned forever on hosts that ran the legacy pool.
+: "${GARDEN_STATE_CLONE_KINDS:=inbox monitors clerics monks gardeners}"
 
 # Inode-pressure knobs (audit rec 5). Below the free-inode threshold the keeper
 # tightens to these. The measurement mirrors root-repo-guard invariant D; the
@@ -191,6 +194,7 @@ kind_is_live() {  # kind_is_live <kind> <id>
     inbox)    is_live_doer "$id" ;;
     clerics)   unit_is_active "garden-cleric@${id}.service" ;;
     monks)     unit_is_active "garden-monk@${id}.service" ;;
+    gardeners) return 1 ;;   # retired kind: never unit-live (see GARDEN_STATE_CLONE_KINDS)
     monitors)
       # <role>-<n> maps to garden-<role>@<n>.service. A name that does not match
       # that shape (scholar-* cursors, liaison-<GARDEN>, and the historical
