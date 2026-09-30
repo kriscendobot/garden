@@ -33,3 +33,13 @@ Do:
    capability here and post a designer job for the broader lifecycle, naming it in a PR reply.
 5. Reply to the review on the PR (pr-review-thread-replies skill) summarizing the change; run local
    verification before pushing; let the gauntlet re-run.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T03:00:02Z
