@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T00:50:20Z_
+_As of 2026-09-30T00:57:38Z_
 
 ## Latest
 
-The board saw modest activity: a minion.town press cost-report job finished, a live-model-turn job for [endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371)'s confined launcher moved into progress, and the halted PR #1349 gauntlet was requeued for a restart today. Otherwise the dashboard is dominated by a long backlog of unread maintainer notices — several milestone-M2/M3 blockers awaiting a go/no-go on draft PRs (notably #1349, #1356, #1015/#1340), the federation release gate still blocked on #1124 review, and the IronHorse test262 round-3 floor-reconciliation question — none of which advanced this cycle since they're all waiting on maintainer decisions rather than fleet work.
+The board itself was quiet — no job posts, claims, or completions resolved since the last bulletin — but the leader host is now 25 commits behind `origin/main2` and stalled, so every singleton producer (foreman, scheduler, watchers) is running stale code and not honoring anything newer, including a rejected deploy candidate (`39d0c5ef0aca` failed `triager-pacing-test.sh`). A second host, oros-studio-garden-ce242c49, is separately offline and being skipped by the rolling deploy. Milestone M2 remains stuck on manual gauntlet authorization for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and a close/supersede decision on #1356; M3 is blocked on choosing between refreshing #1015 or answering #1340's open questions. The minion.town federation release gate is still held on authority answers for #1332 and review of #1124. Elsewhere, the quarterly completions rollup (9,490 jobs, June 24–Sept 29) published to ocap.site, and Claude spend is now at 122% of its weekly cap (backoff).
 
 ## Parked for maintainer feedback
 
@@ -28,11 +28,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-29T21:17:11Z, cleared 2026-09-30T00:23:02Z).
-> It was observed 18 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #19 (first seen 2026-09-29T21:17:11Z, latest 2026-09-30T00:53:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 19 times; this is ONE
+> coalesced notice that updates in place, not 19 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1941s (offline threshold 1800s; sampled_at_epoch=1790727641).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
 
 - `msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6` — from gardener:ironhorse-test262-ratchet-round3-20260928, reply_to `ironhorse-test262-ratchet-round3-20260928` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ironhorse-test262-ratchet-round3-20260928-0d0c921abeb6.md)
 
@@ -481,10 +486,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.5M | $1154.15 _(notional, rate-card)_ | 122% of 143.0M (backoff) |
+| Claude | 174.8M | $1156.96 _(notional, rate-card)_ | 122% of 143.0M (backoff) |
 | Codex | 15.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 57480881 tokens/day lower bound._
+_Fleet token-unlock pace: 61867877 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
