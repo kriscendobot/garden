@@ -1,4 +1,28 @@
 ---
+role: orchestrator
+split_eligible: true
+split_reason: deadline-overrun
+split_source_role: ordinary
+split_source_handler_timeout: 2400
+split_orchestration: retire-gardener-worker-kind-alias-env-fallback-split
+reposted_by: reaper:endolin-garden-ece02cb4
+reposted_at: 2026-09-30T20:23:10Z
+---
+
+# Deliberate overrun decomposition for `retire-gardener-worker-kind-alias-env-fallback`
+
+This ordinary job hit its applied 2400s handler wall once without productive progress. That one deterministic overrun is sufficient cause to split; do **not** continue implementing the original work in this claim.
+
+Read `roles/orchestrator/AGENT.md` and `skills/orchestration/SKILL.md`. Your first and only substantive act is to decide whether the original work genuinely decomposes, then use the existing journal primitives:
+
+- **Divisible:** create at least two self-contained child jobs, park every child with `post-plan.sh --orchestrated --orchestrated-by retire-gardener-worker-kind-alias-env-fallback-split`, then record `retire-gardener-worker-kind-alias-env-fallback-split` with `post-orchestration.sh`.
+- **Indivisible:** record a concrete `split-indivisible-reason:` in both the child body and orchestration description, choose a `handler-timeout:` strictly greater than 2400 and no greater than 14339, record that value as `split-indivisible-handler-timeout:` in the orchestration description, park exactly one child (normally `retire-gardener-worker-kind-alias-env-fallback-expanded-window`) under `retire-gardener-worker-kind-alias-env-fallback-split`, then record the single-child orchestration. A generic "too large" assertion is not a reason.
+- In either case, finish only after the parked child set and orchestration record exist durably. Declare the exact handoff `<<<GARDEN-JOB-HANDED-OFF: retire-gardener-worker-kind-alias-env-fallback-split>>>` immediately before the completion signal so completion verifies the successor.
+- Do not apply this split protocol to any gauntlet stage; gauntlet retries belong exclusively to its driver.
+
+## Original job specification
+
+---
 tier: mentor
 token-budget: 100000
 ---
@@ -56,18 +80,3 @@ updating vs already passed. Land directly on `main2`.
 
 Orchestrated failure contract: if you finish but cannot achieve the outcome, end your
 report with `<<<GARDEN-ORCHESTRATION-FAILED>>>` then `<<<GARDEN-JOB-COMPLETE>>>`.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-09-30T18:53:04Z -->
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-30T19:41:47Z
