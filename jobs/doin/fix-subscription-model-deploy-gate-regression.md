@@ -106,6 +106,7 @@ priority is clear to whoever reads it next.
 <!-- garden-plain-retry-not-before: 2026-09-29T23:53:04Z -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
