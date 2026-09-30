@@ -846,6 +846,9 @@ _budget_publish_local_pool_once() {
     printf 'sampled_at: %s\n' "$(date -u -d "@$now" +%FT%TZ)"
     printf 'sample_bucket: %s\n' "$bucket"
     [ -z "${used_percent:-}" ] || printf 'used_percent: %s\n' "$used_percent"
+    # An anthropic used_percent is read back out of the ledger, not observed
+    # here; mark it so subscription_used_percent never re-reads its own echo.
+    [ -z "${used_percent:-}" ] || [ "$provider" != anthropic ] || printf 'used_percent_source: derived\n'
   } > "$file.tmp.$$"
   # Write-then-rename: a reader in meter_remote_snapshot_total must never see a
   # truncated snapshot (a half-written spend line would read as a smaller number).
@@ -1043,7 +1046,7 @@ subscription_ledger_hosts() {
 # observation in the current reset window. Live host contributions all describe
 # the same shared account; the freshest wins (they are not summed).
 subscription_used_percent() {
-  local subscription="$1" dir="${2:-}" cutoff file best_epoch=-1 best="" epoch value ledger hosts
+  local subscription="$1" dir="${2:-}" cutoff file best_epoch=-1 best="" epoch value ledger hosts row live_provider
   cutoff="$(subscription_window_start_epoch "$subscription" "$dir" 2>/dev/null || echo 0)"
   # PRIMARY: Claude Code's per-call seven-day utilization from rate_limit_event.
   # The ledger is immutable and shared across hosts; newest valid observation wins.
@@ -1067,9 +1070,20 @@ subscription_used_percent() {
       fi
     fi
   fi
-  if [ -d "$dir/budget/live/$subscription" ]; then
+  # SECONDARY: a live snapshot's used_percent, only where it is an independent
+  # observation (codex's own rate-limit percent). An anthropic pool's live
+  # used_percent is this helper's own output republished by the meter with a
+  # fresh sampled_at_epoch, so it always outranked the ledger it echoed and a
+  # stale figure recomputed itself forever (2026-09-30: both endolin accounts
+  # stuck at 78 while their ledgers read 80 and 64). Such echoes are skipped:
+  # untagged files by pool provider (pre-fix snapshots), tagged ones by marker.
+  live_provider=""
+  row="$(budget_pool_row "$subscription" "$dir" 2>/dev/null || true)"
+  [ -z "$row" ] || IFS=$'\t' read -r _ live_provider _ <<<"$row"
+  if [ "$live_provider" != anthropic ] && [ -d "$dir/budget/live/$subscription" ]; then
     for file in "$dir/budget/live/$subscription"/*; do
       [ -r "$file" ] || continue
+      ! grep -qx 'used_percent_source: derived' "$file" || continue
       epoch="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$file" | head -1)"
       value="$(sed -n 's/^used_percent:[[:space:]]*//p' "$file" | head -1)"
       [[ "$epoch" =~ ^[0-9]+$ ]] && [[ "$value" =~ ^[0-9]+([.][0-9]+)?$ ]] || continue

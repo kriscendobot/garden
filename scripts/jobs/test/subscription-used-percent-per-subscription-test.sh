@@ -41,15 +41,40 @@ subscription_used_percent sub-idle "$D" >/dev/null 2>&1 && bad "sub-idle borrowe
 subscription_used_percent codex-x "$D" >/dev/null 2>&1 && bad "cleric-only subscription read anthropic ledger" \
   || ok "cleric-only subscription ignores the anthropic ledger"
 
-# Fallbacks survive: a fresher live snapshot for sub-one still wins.
-mkdir -p "$D/budget/live/sub-one"
-printf 'sampled_at_epoch: %s\nused_percent: 80\n' "$(date -u -d 2026-09-30T03:58:00Z +%s)" > "$D/budget/live/sub-one/host-one"
-[ "$(subscription_used_percent sub-one "$D")" = 80 ] && ok "fresher live used_percent still overrides" || bad "live fallback lost"
-[ "$(subscription_used_percent sub-two "$D")" = 57 ] && ok "sub-one's live snapshot does not leak into sub-two" || bad "live leak"
+# Feedback loop (2026-09-30): the meter republished this helper's own output as
+# live used_percent with a fresh sampled_at_epoch, so a contaminated 78 outranked
+# the newer per-host ledger forever. Stale-figure live files, newer than every
+# ledger row, both untagged (pre-fix) and tagged derived: each subscription must
+# still read its own ledger value.
+{ row 2026-09-30T03:56:00Z host-one 0.80; row 2026-09-30T03:57:00Z host-two 0.64; } > "$D/usage/b.jsonl"
+mkdir -p "$D/budget/live/sub-one" "$D/budget/live/sub-two"
+live_at="$(date -u -d 2026-09-30T03:59:00Z +%s)"
+printf 'subscription: sub-one\nsampled_at_epoch: %s\nused_percent: 78\n' "$live_at" > "$D/budget/live/sub-one/host-one"
+printf 'subscription: sub-two\nsampled_at_epoch: %s\nused_percent: 78\nused_percent_source: derived\n' "$live_at" \
+  > "$D/budget/live/sub-two/host-two"
+[ "$(subscription_used_percent sub-one "$D")" = 80 ] && ok "stale untagged live echo does not outrank sub-one's ledger (80)" \
+  || bad "sub-one read $(subscription_used_percent sub-one "$D" || echo none), want 80"
+[ "$(subscription_used_percent sub-two "$D")" = 64 ] && ok "stale derived live echo does not outrank sub-two's ledger (64)" \
+  || bad "sub-two read $(subscription_used_percent sub-two "$D" || echo none), want 64"
+
+# The meter's own write tags an anthropic used_percent as derived, and a fixed
+# point holds: re-publishing and re-reading keeps the ledger value.
+GARDEN=host-one
+commit_and_push() { return 0; }; alert_maintainer() { :; }
+git -C "$D" init -q 2>/dev/null
+GARDEN_BUDGET_SNAPSHOT_SECS=60 _budget_publish_local_pool_once "$D" >/dev/null 2>&1 || true
+grep -qx 'used_percent: 80' "$D/budget/live/sub-one/host-one" && grep -qx 'used_percent_source: derived' "$D/budget/live/sub-one/host-one" \
+  && ok "meter publishes the ledger value tagged derived" || bad "meter live file: $(cat "$D/budget/live/sub-one/host-one")"
+[ "$(subscription_used_percent sub-one "$D")" = 80 ] && ok "republished snapshot stays at the ledger value" || bad "fixed point lost"
+
+# Independently observed live percents (codex rate limits) still count.
+mkdir -p "$D/budget/live/codex-x"
+printf 'sampled_at_epoch: %s\nused_percent: 42\n' "$live_at" > "$D/budget/live/codex-x/host-one"
+[ "$(subscription_used_percent codex-x "$D")" = 42 ] && ok "percent pool's observed live used_percent still read" || bad "codex live lost"
 
 # Pre-migration journal (no mapping): the ledger is read unfiltered, as before.
 rm "$D/config/subscription-mapping"
-[ "$(subscription_used_percent sub-two "$D")" = 57 ] && ok "no mapping: newest ledger row (legacy)" || bad "legacy unfiltered read"
+[ "$(subscription_used_percent sub-two "$D")" = 64 ] && ok "no mapping: newest ledger row (legacy)" || bad "legacy unfiltered read"
 
 echo "subscription-used-percent-per-subscription-test: $P passed, $F failed"
 [ "$F" -eq 0 ]
