@@ -49,15 +49,4 @@ Coordinate with https://github.com/endojs/endo-but-for-bots/pull/1343 (endowment
 side); rebase over it if it lands first. A gauntlet (ebfb-petname-path-only-sweep-gauntlet)
 is also running against this PR; rebase before every push.
 
-<!-- garden-productive-cycle -->
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-30T10:43:18Z
+<!-- garden-reaped: 0 -->
