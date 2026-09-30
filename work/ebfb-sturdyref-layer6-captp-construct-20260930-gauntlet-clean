@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 4
+worker_kind: monk
+claimed_at: 2026-09-30T17:51:05Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-clean
