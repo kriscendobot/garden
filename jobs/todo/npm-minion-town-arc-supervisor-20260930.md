@@ -21,15 +21,3 @@ Carry it:
 Deploy discipline: see the memories on minion.town deploys (EADDRINUSE orphan recovery, pin-bump verification over SSM, and CD www reverting unmerged changes). Use targeted CD dispatches.
 
 <!-- garden-reaped: 0 -->
-
-<!-- garden-productive-cycle -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-09-30T04:36:00Z
