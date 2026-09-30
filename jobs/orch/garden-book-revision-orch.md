@@ -1,4 +1,5 @@
 ---
+child-book-copyedit-reap-count: 0
 child-book-revise-content-host: endolin-garden2-5bcdff64
 child-book-revise-content-reap-count: 0
 order: serial
