@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-09-30T18:09:41Z_
+_As of 2026-09-30T18:12:02Z_
 
 ## Latest
 
-The sturdyref layering push dominates the board: eight parallel layer PRs (shim-build/#774, SES/#1391, pass-style/#1392, marshal/#1393, captp-wire/#1394, captp-construct/#1396, ocapn-enliven/#1397, daemon-formula/#1398) are mid-gauntlet, several already at fix round 4, alongside a separate petname-path-only sweep (#1390) grinding through repeated panel/fix rounds. A base-rebase job is queued to move #1397/#1398 onto the restacked frozen bases once ready.
+The sturdyref/CapTP layer stack is the day's main thrust: nine gauntlet stages are in flight across [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), plus a follow-up to rebase #1397/#1398 onto restacked frozen bases. A separate ironhorse panic-handling fix ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) is on its fourth fix round, and the ironhorse panic-host-call gauntlet on [#695](https://github.com/endojs/endo-but-for-bots/pull/695) hit its review-budget ceiling after 6 rounds — CI green but left for a human merge call.
 
-Elsewhere, the ironhorse-panic-live-handle-reseat PR (#1380) is on fix round 4 of a gauntlet that's already burned its review budget once on a related ironhorse-panic PR, and the test262 ratchet round-3 work is stalled awaiting a maintainer call on how to reconcile ~906 lost historical-floor paths against a stricter classifier. Two fixer jobs (subscription-model deploy-gate regression, gardener-worker-kind alias cleanup) were parked by the reaper after exhausting retries and need manual promotion. Claude spend is at 98% of its weekly quota, and the claude-endolin1 budget pool is still running on an uncalibrated placeholder cap, fail-closing claims fleet-wide until a real cap is set.
+Two items need a maintainer decision: the round-3 IronHorse test262 ratchet found 906 lost paths against the historical floor and wants authorization to record an explicitly-reconciled current floor rather than relabel failures as covered; and a deploy-gate regression (stale `provider-cooldown-test.sh` fixture plus two related suites) has been split and re-parked after its retry also failed non-productively. Also worth a look: minion.town MCP is live on garden2 and awaiting a principal/scoping decision before wider rollout, and the published [Endo progress report](https://hllk2wmfocuoijaliiapckuth4f3qxqlvo5vjwzywazvawvrqaiq.ocap.site/) covers June–September shipped work across six themes. Operationally, Claude spend is at 98% of its weekly quota and the `claude-endolin1` budget pool is still uncalibrated, freezing monk allocation fleet-wide.
 
 ## Parked for maintainer feedback
 
@@ -300,14 +300,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
 > - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
 
-- `watchdog-budget-zone-oros-studio-garden-ce242c49-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-oros-studio-garden-ce242c49-backoff.md)
-
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-30T08:55:21Z, latest 2026-09-30T18:02:17Z).
-> The SAME condition (`budget-zone-oros-studio-garden-ce242c49-backoff`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
->
-> subscription claude-oros changed zone ok -> backoff at spend=4436818/73000000.
-
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -388,7 +380,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 251.1M | $1573.55 _(notional, rate-card)_ | 98% of 256.0M (ok) |
+| Claude | 251.1M | $1573.79 _(notional, rate-card)_ | 98% of 256.0M (ok) |
 | Codex | 17.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 66581810 tokens/day lower bound._
