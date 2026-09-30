@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T01:24:18Z_
+_As of 2026-09-30T01:27:13Z_
 
 ## Latest
 
-Board activity was minimal since the last snapshot: `endo-daemon-idempotent-start-build` moved from todo into doin (daemon idempotent-start + single-instance lock, phase 1), and a new `improve-gauntlet-failed-stage-handoff` job landed on todo. The larger picture is unchanged and maintainer-bottlenecked — M2 remains stalled on the gauntlet decision for [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) (hardened TextEncoder/TextDecoder XS smoke check) and the close-as-superseded call on #1356, while M3's confined-agent path waits on either advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the four open questions on #1340. The federation release gate stays blocked pending review of [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/pull/1124) and the authority questions on #1332. On infrastructure, the leader host (`endolin-garden-ece02cb4`) is now 25 commits behind `origin/main2` and flagged as stalled — worth a look since a stale leader has previously let paused work keep running — and a deploy candidate was rejected earlier for a failing triager-pacing test. Several transient watchdog conditions (journal contention, canary hiccups, host heartbeat loss on oros-studio) have already self-recovered.
+One gauntlet stage completed: the panel-review pass on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) finished (round 2). Otherwise the board is quiet — 6 jobs on `todo`, 4 in flight (a live model-turn check on [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371)'s confined launcher, fix-round-1 on [endojs/endo-but-for-bots#1383](https://github.com/endojs/endo-but-for-bots/pull/1383), the gardener-worker-kind-alias retirement split, and phase-1 work on idempotent Endo daemon startup) — with the large backlog of maintainer decisions (M2/M3 milestone gauntlet authorizations, the federation release gate, the IronHorse test262 floor-reconciliation question) still unresolved from prior bulletins.
 
 ## Parked for maintainer feedback
 
@@ -481,13 +481,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 175.7M | $1160.68 _(notional, rate-card)_ | 123% of 143.0M (backoff) |
+| Claude | 175.8M | $1160.94 _(notional, rate-card)_ | 123% of 143.0M (backoff) |
 | Codex | 15.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 65% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 57625489 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journal); 1 open notice(s); checker healthy
+worst fetch p95 5.140894s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (6)
@@ -498,20 +498,19 @@ worst fetch p95 7.646911s/45s (/home/kris/garden/.garden-state/transcripts/journ
 - [`canary-probe-endolin-garden2-5bcdff64-7186edea9d60`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/canary-probe-endolin-garden2-5bcdff64-7186edea9d60.md) — rolling-deploy canary probe for endolin-garden2-5bcdff64 @ 7186edea9d60
 - [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
-### doin (5)
-- [`endojs-endo-but-for-bots-pr1357-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1357
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1371-live-model-turn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1371-live-model-turn.md) — Real model turn for endojs/endo-but-for-bots#1371's confined launcher
 - [`endojs-endo-but-for-bots-pr1383-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1383-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1383
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
 - [`endo-daemon-idempotent-start-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-daemon-idempotent-start-build.md) — Endo daemon: idempotent start + early single-instance lock (phase 1)
 
-### tada (9805)
+### tada (9806)
+- [`endojs-endo-but-for-bots-pr1357-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1357-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-restart-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/endojs-endo-but-for-bots-pr1349-gauntlet-restart-20260930.md) — Cost
 - [`kriscendobot-minion.town-pr120-75934ef0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr120-75934ef0-retro.md) — Cost
 - [`claude-on-minion-town-press-20260930-003506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/claude-on-minion-town-press-20260930-003506.md) — Cost
 - [`kriscendobot-minion.town-pr130-review-ba8a9163-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr130-review-ba8a9163-retro.md) — Retrospective on minion.town #130 review 5358829715: dismissed as not a revie...
-- [`kriscendobot-minion.town-pr139-review-de54e8bb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/09/30/kriscendobot-minion.town-pr139-review-de54e8bb-retro.md) — Cost
-- … and 9800 more
+- … and 9801 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
