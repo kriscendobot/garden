@@ -54,3 +54,13 @@ to `journal/projects/garden-book/ch3-using-the-garden.md` as Markdown.
 
 Write for the actual user of this system: someone sitting at a terminal
 talking to the liaison, who wants to know what to type and what it does.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T04:02:28Z
