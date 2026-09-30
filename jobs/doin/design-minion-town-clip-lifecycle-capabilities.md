@@ -40,6 +40,7 @@ The rest of the clip lifecycle still asks who the caller is. Design (land in
    guest (root-host-socket.ts, owner pinned at grant) is already the capability, and
    whether the pinned `owner` should shrink to an accounting tag.
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
