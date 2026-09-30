@@ -1,2 +1,2 @@
-base: improve-budget-snapshot-outage-recovery
+base: improve-budget-snapshot-cas-contention
 identity: mentor:scripts/jobs/usage-meter.sh
