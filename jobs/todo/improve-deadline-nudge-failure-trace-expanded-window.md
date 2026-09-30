@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: improve-deadline-nudge-failure-trace-split
-priority: normal
-posted_by: producer
-posted_at: 2026-09-30T00:08:31Z
+tier: mentor
+handler-timeout: 4800
+split-indivisible-reason: 'one coupled mechanism in one ~60-line region of scripts/jobs/deadline-nudge.sh: the tick subshell''s ERR/EXIT traps and the explicit-status stage paths of deadline_nudge_tick must write one local fault record that the parent''s WARN at the end of the script reads; a writer-only or reader-only child is unverifiable alone and both would edit the same lines, so the overrun was reproduce-and-test cost, not breadth'
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-30T00:10:06Z cleared=none -->
 
 ---
 tier: mentor
