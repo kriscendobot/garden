@@ -16,6 +16,7 @@ Tests: `start` twice leaves one daemon; `start` while booting; a second run-daem
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-29T23:53:04Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
