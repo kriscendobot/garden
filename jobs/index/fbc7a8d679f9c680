@@ -1,2 +1,2 @@
-base: improve-fork-watch-provisioner-armed-recheck
+base: improve-fork-watch-inconclusive-backoff
 identity: mentor:scripts/jobs/fork-watch-provisioner.sh
