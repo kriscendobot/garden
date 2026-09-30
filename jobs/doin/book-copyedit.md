@@ -45,3 +45,13 @@ Edit the chapter files in `journal/projects/garden-book/` in place. Rebuild
 and republish per `build/README.md`, update its Edition line (keep prior
 editions listed as history), and report the new URL in your completion
 report and via `scripts/jobs/message-user.sh <this-job-base>`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-09-30T22:20:33Z
