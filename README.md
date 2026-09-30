@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T21:01:01Z_
+_As of 2026-09-30T21:02:20Z_
 
 ## Latest
 
-The SturdyRef layer stack dominates activity: layers 1–8 (endojs-endo-but-for-bots PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) are moving through gauntlet fix/panel/clean rounds in parallel, alongside the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (now on fix round 4). A separate job is restacking #1397/#1398 onto the new frozen bases. On #1391, the round-4 must-fixes have landed and all checks pass except a flaky macOS daemon-teardown leg unrelated to the change — a rerun is needed from a credentialed host, and a matching flake is being chased in its own job. The Ironhorse panic/host-call PR ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380), fix round 5) hit its review budget after 6 rounds without converging and is parked for a human decision, while a related Ironhorse panic PR separately reached the same "left improved, needs human review" state. #1357's panel review is stale against a newer head and awaits an explicit "run the gauntlet" or a maintainer call on the old coverage. Two decisions remain outstanding from the maintainer: the minion.town MCP principal/scoping question and M3's choice between #1015 (pending #1348) or answering #1340's open questions. Housekeeping: the garden book was republished with two new chapters, and several prior watchdog alerts (comment-ack, journal contention, host offline) all cleared on their own.
+The SturdyRef layer-2/8 stack continues to grind through the gauntlet — layers 1–8 are variously in fix, panel, or clean stages, with [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep) now four fix rounds and four panel rounds deep. [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) (SturdyRef layer 2, SES) has all round-4 must-fixes landed and CI green except a single flaky macOS daemon-teardown leg unrelated to the change; a rerun from a credentialed host should clear it. Separately, the Ironhorse panic/host-call gauntlet closed out with 6 panel/fix rounds applied and CI green, but review didn't converge within the iteration budget, so it's parked for a human merge call. The garden book got a content revision (new chapters on the library and inference tiers) and a copy-edit pass is now queued. Several watchdog conditions (comment-ack blindness, journal contention, a host dropping out of the canary rotation) all cleared on their own within the hour. Two maintainer decisions are waiting: M3's next step is blocked on choosing between advancing [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the four open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and the minion.town MCP rollout needs a call on a dedicated principal/guest before it widens past the current single host.
 
 ## Parked for maintainer feedback
 
@@ -103,6 +103,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
+- `watchdog-budget-zone-oros-studio-garden-ce242c49-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-oros-studio-garden-ce242c49-backoff.md)
+
+> subscription claude-oros changed zone ok -> backoff at spend=6052865/73000000.
+
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -113,7 +117,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 12.6M | $129.95 _(notional, rate-card)_ | 5% of 256.0M (ok) |
+| Claude | 12.7M | $130.16 _(notional, rate-card)_ | 5% of 256.0M (ok) |
 | Codex | 17.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 181028137 tokens/day lower bound._
