@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-09-30T16:11:36Z_
+_As of 2026-09-30T16:19:15Z_
 
 ## Latest
 
-Progress on [endojs/endo-but-for-bots#1360](https://github.com/endojs/endo-but-for-bots/pull/1360) continues with its fourth panel round re-posted to the board, and the sturdyref layering arc's SES layer ([endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)) moved into a fourth fix round. Six of the ten sturdyref-layering gauntlets (layers 1, 3, 4, 5, 6, and 7/8) halted on failed/declined clean or fix stages and need maintainer attention, while the parallel petname-path-only gauntlet also halted the same way. Elsewhere, the ironhorse-panic-live-handle-reseat gauntlet for [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) is on its fourth fix round, and a separate ironhorse-panic-host-call gauntlet hit its review budget after six rounds without convergence, left for a human merge decision. The garden book and its orchestration finished publishing all 8 chapters, and an Endo progress report covering 2026-06-24 to 2026-09-30 was also published. Two deploy-related conditions are worth flagging: the leader (`endolin-garden-ece02cb4`) is 25 commits behind on its own deploy, and the `oros-studio-garden-ce242c49` canary has been stuck mid-rollout for over an hour — both need a look since singleton services on a stale leader won't honor newer directives.
+The sturdyref layering arc's serial orchestration across 10 children completed, but the eight `ebfb-sturdyref-layer*` gauntlets it fed into (layers 1, 3–8) all halted at their clean/fix stage with declined outcomes — these need a maintainer look before they can resume. Separately, the `subscription-based-budget-model` deploy-gate regression fix ([jobs/plan/fix-subscription-model-deploy-gate-regression](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-subscription-model-deploy-gate-regression.md)) exhausted its retry and is now parked awaiting promotion, and both the leader (`endolin-garden-ece02cb4`, 25 commits behind) and a canary (`oros-studio-garden-ce242c49`, stuck 81 minutes on a released build) are showing stalled deploys. The IronHorse test262 round-3 ratchet work is blocked on a maintainer policy call about reconciling 906 historically-covered paths against the stricter current classifier. On the lighter side, the garden book (8 chapters) and an Endo progress report covering 471 merged PRs since June are both published. Claude spend is at 96% of its weekly quota, and a budget-pool miscalibration (`claude-endolin1`) is fail-closing job claims on the leader host.
 
 ## Parked for maintainer feedback
 
@@ -695,7 +695,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 245.2M | $1542.22 _(notional, rate-card)_ | 96% of 256.0M (ok) |
+| Claude | 245.3M | $1542.80 _(notional, rate-card)_ | 96% of 256.0M (ok) |
 | Codex | 17.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 65223731 tokens/day lower bound._
@@ -704,17 +704,17 @@ _Fleet token-unlock pace: 65223731 tokens/day lower bound._
 worst fetch p95 4.957588s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (6)
+### todo (5)
 - [`endojs-endo-but-for-bots-pr1360-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1360-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1360
 - [`claude-on-minion-town-press-20260930-155006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20260930-155006.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1394-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1394-20260930-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1394
-- [`endojs-endo-but-for-bots-pr1343-review-0d84baf9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-review-0d84baf9-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1343 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1397-1398-sturdyref-rebase-bases`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1397-1398-sturdyref-rebase-bases.md) — Move #1397/#1398 PR bases onto the restacked frozen bases, confirm #1398 lint
 - [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1391
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1380
 - [`retire-gardener-worker-kind-alias-env-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-worker-kind-alias-env-fallback.md) — ---
+- [`endojs-endo-but-for-bots-pr1343-review-0d84baf9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-review-0d84baf9-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1343 (primary: endojs-endo-but-...
 - [`ebfb-petname-path-only-sweep-4-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-sweep-4-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-petname-path-only-sweep-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-sweep-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-petname-path-only-sweep-3-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-sweep-3-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1390
