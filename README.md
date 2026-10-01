@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T02:58:48Z_
+_As of 2026-10-01T03:01:41Z_
 
 ## Latest
 
-SturdyRef layer work continued through the night: layer 3 (pass-style, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) advanced to fix round 3, layer 4 (marshal, [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) reported back from fix round 2, layer 5 (CapTP wire, [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) picked up panel round 2, and a weave was claimed to rebase [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) onto current llm. Meanwhile layers 2 and 8 (SES, [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391); daemon formula) both halted their gauntlets on gated fix/clean failures and need a maintainer look, and the petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) hit its 6-round review budget without converging — all three are sitting ready for a human merge/review call. A minion.town CI fix landed clean on PR #145, and the fleet is comfortably within quota (23% Claude, 38% Codex plan).
+Minion.town PR #145's gauntlet advanced another panel/fix round — fix round 2 landed CI-green and a third panel pass is now queued ([kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145)). Meanwhile the SturdyRef layer-3 (pass-style) gauntlet fix round 3 completed and the layer-4 (marshal) fix round 2 took its place in doin, part of the broader multi-layer SturdyRef push still churning through layers 1, 2, 4, 5, 6, and 8 in parallel. Several gauntlets remain halted awaiting maintainer disposition — the Ironhorse panic live-handle-reseat fix, the SturdyRef layer-2 (SES) fix, and the petname-path-only sweep (which hit its 6-round review budget and needs a human merge call) — alongside a cluster of stale-panel-head notices on PR #1357 and #1390 that need an explicit "run the gauntlet" before further review. On infrastructure, host oros-studio-garden-ce242c49 has been offline for over an hour and a half, holding the leader's rolling deploy with no canary available, and a journal-contention watchdog flagged (then cleared) several oversized-clone episodes overnight.
 
 ## Parked for maintainer feedback
 
@@ -375,7 +375,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 59.3M | $458.17 _(notional, rate-card)_ | 23% of 256.0M (ok) |
+| Claude | 60.2M | $465.55 _(notional, rate-card)_ | 23% of 256.0M (ok) |
 | Codex | 17.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 134121767 tokens/day lower bound._
@@ -384,7 +384,7 @@ _Fleet token-unlock pace: 134121767 tokens/day lower bound._
 worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`ebfb-petname-path-only-sweep-3-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-3-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1390
@@ -393,20 +393,21 @@ worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`ebfb-petname-path-only-sweep-4-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-774-pr-body-refresh-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-774-pr-body-refresh-20261001.md) — Update the PR #774 description (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-pr1402-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1402-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1402
+- [`build-ci-minion-town-actions-runner-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ci-minion-town-actions-runner-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #145
 - [`ebfb-petname-path-only-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1390
 - [`fu-qwen-model-watch-20260728-180502-1-20260930-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-qwen-model-watch-20260728-180502-1-20260930-162006.md) — ---
 
 ### doin (6)
 - [`endojs-endo-but-for-bots-pr1357-weave-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1357-weave-20261001.md) — Weave endojs/endo-but-for-bots#1357 onto current llm
-- [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1392
 - [`ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1394
+- [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1393
 - [`ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1396
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #774
 - [`endojs-endo-but-for-bots-pr1394-20260930-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1394-20260930-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1394
 
 ### tada (10182)
+- [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-3.md) — Completion report
 - [`build-ci-minion-town-actions-runner-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/build-ci-minion-town-actions-runner-gauntlet-fix-2.md) — Gauntlet fix round 2: kriscendobot/minion.town PR #145 (CI green)
-- [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-2.md) — Completion report — PR #1393 fix round 2
 - [`claude-on-minion-town-completion-press-20261001-023505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/claude-on-minion-town-completion-press-20261001-023505.md) — Cost
 - [`improve-scheduler-tempfail-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/improve-scheduler-tempfail-preflight.md) — Cost
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Completion report
