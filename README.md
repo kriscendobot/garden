@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T07:35:05Z_
+_As of 2026-10-01T07:40:06Z_
 
 ## Latest
 
-The Ironhorse computron-parity teardown ([endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282)) and the lockdown intrinsics fix for the WHATWG URL family ([endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281)) remain parked for review, alongside a long tail of older design and docs PRs.
+The gauntlet machinery kept grinding through the sturdyref/petname sweep stack: PR #1390's gauntlet halted and is working through fix rounds, PR #1401's first fix round landed clean with CI green, and layers across #1391–#1398 are mid fix/panel. Two gauntlets hit their review budget without converging and are left for human judgment — [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)-adjacent petname-path sweep and the ironhorse panic-host-call PR — while a third, the sturdyref layer1 shim build on [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), doom-parked after an unexplained fix failure and needs a look before retrying.
 
-The sturdyref gauntlet stack ([endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) hit its review budget after 6 fix/panel rounds and is left for a human merge call, while several sibling sturdyref-layer PRs (#1391–#1398) are mid-gauntlet across panel/fix/undraft/clean stages. The rolling deploy is halted on a repeated canary failure at oros-studio-garden-ce242c49 (target c5416eb373bc) after three automatic retries, and a separate canary on the same host is stuck 81 minutes behind on deployed SHA — both need operator attention. Outstanding maintainer decisions include the M3 confined-agent path (blocked on PR #1348/#1015 sequencing or design PR #1340's open questions), the minion.town MCP widening-past-garden2 proposal (principal/scoping and context-cost questions), and the qwen3.7→3.8 model-watch reassessment. A `gh` API rate-limit hit also left one PR-feedback preflight (on [endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371)) failing open, meaning its review-feedback evidence gathering may have skipped the peer-resolution recheck.
+Operationally, rolling deploy to c5416eb373bc is stuck: the oros-studio canary failed validation three times and was left drained rather than rolled back, so the leader hasn't advanced and needs a decision on that host. A GitHub API rate limit also blocked evidence-gathering for [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) feedback, which is now also queued for finalize/merge. Several journal-contention and host-heartbeat alerts cleared on their own. Outstanding maintainer decisions worth a look: the minion.town MCP widening-past-garden2 proposal (principal/scope and context-cost tradeoffs), the qwen3.8 model-watch follow-up, and the parked accountant budget conversation.
 
 ## Parked for maintainer feedback
 
@@ -59,6 +59,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-accountant-budget-conversation-20260930-5c94e3563d64` — from gardener:accountant-budget-conversation-20260930, reply_to `accountant-budget-conversation-20260930` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-budget-conversation-20260930-5c94e3563d64.md)
 
 > Accountant: I got no reply within ~20 min, so the budget conversation is parked as the go-ahead plan `accountant-budget-conversation-20260930-resume`, which carries the full proposal. When you are ready, reply to the opening message or say "go ahead" on that plan, and the accountant will pick the conversation up. Nothing has been applied. Until then, the 2026-09-26 mandate and the current foreman behavior stand.
+
+- `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
+
+> Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=955s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=952s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=945s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -130,6 +137,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > M3’s next confined-agent step is blocked on your choice between advancing `endojs/endo-but-for-bots#1015` after its `#1348` prerequisite clears, or answering the four open questions on design PR `#1340` to enable its build.
 
+- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1371-93f63e4b90f0` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1371-93f63e4b90f0.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1371](https://github.com/endojs/endo-but-for-bots/pull/1371) ([endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371)) is in the mergeable queue with NO gauntlet review staged (head 93f63e4b90f03a964bd55e031c52d767e87f4910). Producer jobs normally stage their gauntlet at completion, but the periodic audit never mass-stages historical PRs. If you want this PR reviewed, reply with 'run the gauntlet #1371'; otherwise no action is needed. This audit never re-drafts or stages anything.
+
 - `ebfb-petname-path-only-sweep-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet ebfb-petname-path-only-sweep-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
@@ -185,10 +196,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.5M | $704.48 _(notional, rate-card)_ | 36% of 256.0M (ok) |
+| Claude | 91.8M | $707.00 _(notional, rate-card)_ | 36% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 136340120 tokens/day lower bound._
+_Fleet token-unlock pace: 136474912 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 1 open notice(s); checker healthy
