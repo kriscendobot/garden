@@ -26,3 +26,13 @@ On https://github.com/endojs/endo-but-for-bots/pull/1406 edit the body
    "refusal when any of `--tools`, `--setting-sources`, `--permission-mode`, or `--permission-prompts` is missing, altered, or repeated (including a trailing `--tools Bash`),".
 
 If the sentences are already gone/changed, it is a no-op; report done.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T14:46:40Z
