@@ -1,5 +1,5 @@
 ---
-gate: go-ahead
+gate: deferred
 priority: normal
 gauntlet: ebfb-sturdyref-layer1-shim-build-20260930-gauntlet
 role: gardener

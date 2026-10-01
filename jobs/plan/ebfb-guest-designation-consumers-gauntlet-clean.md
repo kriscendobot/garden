@@ -1,5 +1,5 @@
 ---
-gate: go-ahead
+gate: deferred
 priority: normal
 gauntlet: ebfb-guest-designation-consumers-gauntlet
 role: gardener
