@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T08:38:44Z_
+_As of 2026-10-01T08:49:55Z_
 
 ## Latest
 
-Endo-but-for-bots#1371 (@endo/claude PINNED_CLI_VERSION bump) merged via the conductor. The guest-identifier/locator removal sweep continues advancing on PR #1404, now in its cleanup gauntlet stage with the consumer-migration fix in progress, while the related #1390 petname-path-only sweep is still cycling through panel/fix rounds. A rolling deploy of c5416eb373bc is stuck on the oros-studio canary, which has failed repeated re-validation and was left drained pending a maintainer decision — it's holding back the rest of the fleet's rollout. Several other sturdyref-layer PRs (#1391–#1398) remain mid-gauntlet, and the PR #1340 design still awaits maintainer input on its open questions before building can proceed.
+Four new @endo/claude confinement jobs hit the board (bwrap sandbox slice, pinned-CLI-version bump, guest-scoped daemon bootstrap, and broker catalog pruning), while gauntlet traffic stayed heavy across the sturdyref-layer stack and petname-path-only sweeps on endo-but-for-bots, with [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) merging via the conductor. Two gauntlets exhausted their review budget without converging and are parked for a human look: the petname-path-only sweep and the ironhorse panic/host-call PR, both left green but unmerged. A rolling deploy to oros-studio-garden-ce242c49 has stalled — three canary retries failed and the host now sits drained, needing a maintainer decision to retry or hold. Also outstanding: the minion.town MCP principal/scope decision, the M3 confined-agent fork (advance #1015 vs. answer #1340's open questions), and DNSSEC publication for ocap.site still waiting on registrar access.
 
 ## Parked for maintainer feedback
 
@@ -60,10 +60,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T08:48:01Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=955s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=952s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=945s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=5077s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=5159s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=5156s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=5149s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -91,8 +96,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T04:12:22Z, cleared 2026-10-01T07:43:07Z).
-> It was observed 6 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T04:12:22Z, cleared 2026-10-01T08:48:56Z).
+> It was observed 7 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
@@ -190,7 +195,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.3M | $719.16 _(notional, rate-card)_ | 36% of 256.0M (ok) |
+| Claude | 93.9M | $726.56 _(notional, rate-card)_ | 37% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136960318 tokens/day lower bound._
@@ -199,10 +204,14 @@ _Fleet token-unlock pace: 136960318 tokens/day lower bound._
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (22)
+### todo (26)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
 - [`claude-on-minion-town-completion-press-20261001-083506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261001-083506.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`build-endo-claude-pinned-cli-bump`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-pinned-cli-bump.md) — Build: bump @endo/claude PINNED_CLI_VERSION to the deployed claude CLI
+- [`build-endo-guest-scoped-daemon-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-guest-scoped-daemon-bootstrap.md) — Build: guest-scoped daemon bootstrap for the confined-turn harness
+- [`build-endo-claude-sandbox-bwrap-slice`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-sandbox-bwrap-slice.md) — Build: kernel bwrap sandbox slice around claudePath (@endo/claude-sandbox)
+- [`build-endo-claude-broker-catalog-pruning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-broker-catalog-pruning.md) — Build: prune the confined tool catalog at the guest broker
 - [`endojs-endo-but-for-bots-pr1401-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1401-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1401
 - [`ebfb-guest-designation-consumers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-guest-designation-consumers.md) — Migrate in-repo guest consumers off guest identifiers/locators
 - [`conduct-endojs-endo-but-for-bots-pr1402-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-endojs-endo-but-for-bots-pr1402-20261001.md) — Merge endojs/endo-but-for-bots PR #1402
@@ -295,10 +304,6 @@ worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/j
 - [`endo-minion-town-federation-release-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-minion-town-federation-release-gate.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1124` · Gate: reviewed and deployable federation release
 - [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ironhorse-press-first-engagement-20260929.md) — awaiting `ironhorse-test262-press-20260929-173306` · Verify the first live Ironhorse foreman-press engagement (successor of activa...
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
-- [`build-endo-claude-pinned-cli-bump`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-claude-pinned-cli-bump.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1371` · Build: bump @endo/claude PINNED_CLI_VERSION to the deployed claude CLI
-- [`build-endo-guest-scoped-daemon-bootstrap`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-guest-scoped-daemon-bootstrap.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1371` · Build: guest-scoped daemon bootstrap for the confined-turn harness
-- [`build-endo-claude-sandbox-bwrap-slice`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-claude-sandbox-bwrap-slice.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1371` · Build: kernel bwrap sandbox slice around claudePath (@endo/claude-sandbox)
-- [`build-endo-claude-broker-catalog-pruning`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-claude-broker-catalog-pruning.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1371` · Build: prune the confined tool catalog at the guest broker
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
