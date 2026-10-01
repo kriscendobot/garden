@@ -9,11 +9,11 @@ max_resumes: 6
 max_stage_retries: 2
 created_by: producer
 created_at: 2026-09-30T06:19:17Z
-stage: fix
-iteration: 4
+stage: panel
+iteration: 5
 resumes: 0
 stage_retries: 0
-current_child: ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4
+current_child: ebfb-sturdyref-layer2-ses-20260930-gauntlet-panel-5
 state: running
 resumed_at: 2026-10-01T03:32:01Z
 resumed_from_stage: fix
