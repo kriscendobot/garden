@@ -286,3 +286,13 @@ Self-improvement: the abbreviation check should also cover identifiers inside `@
 
 <sub><!--garden-provenance-->model <code>claude-opus-5-5</code> · harness <code>claude</code> · provider <code>anthropic</code> · host <code>oros-studio-garden-ce242c49</code> · garden <a href="https://github.com/kriscendobot/garden/commit/697976e718f354af3b121874c52a6cdbc8d6c87c"><code>697976e7</code></a></sub>
 ----- END REVIEW -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T22:58:25Z
