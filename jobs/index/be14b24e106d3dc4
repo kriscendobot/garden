@@ -1,0 +1,2 @@
+base: improve-triager-test-git-shim-resolution
+identity: mentor:scripts/jobs/test/triager-test.sh
