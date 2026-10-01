@@ -30,3 +30,13 @@ Open a DRAFT PR (via ensure-pr.sh) with unit tests for the guards, limit
 enforcement, classification, and both enrichers. Phase 2 (Claude core + CLI/SDK
 backends) is the next child of this orchestration and stacks on this PR.
 Arc: https://github.com/kriscendobot/garden/issues/89 item 4.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T04:33:42Z
