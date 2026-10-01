@@ -1,4 +1,5 @@
 ---
+child-build-endo-inference-seam-1357-reap-count: 0
 order: serial
 children: build-endo-inference-seam-1357 build-endo-claude-backends-1357
 on-child-failure: halt
