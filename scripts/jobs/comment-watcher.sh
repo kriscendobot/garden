@@ -374,30 +374,35 @@ source_path_healthy() {  # source_path_healthy <repo>
   # outcome KillMode=mixed was written to avoid (observed 09:40:35 during a GitHub
   # outage, when the old 30s+10s=40s budget overran the 20s stop). 10s+5s=15s < 20s
   # keeps a 5s margin while still bounding a hung probe well inside a normal tick.
+  #
+  # Only a SUCCESSFUL gh call's stdout counts. On an HTTP error (a 403 rate limit, a
+  # 5xx, the Issues-off 404) `gh api` exits non-zero but still prints the error
+  # body — a `{"message": …}` object — to STDOUT. Accepting that as a fixture made
+  # it look like "a comment exists", fed `{…}` to `jq '.[0].id'` (which errors on an
+  # object), and so a rate-limit blip read as BLIND (kriscendobot/vattr97,
+  # 2026-09-30 21:37). It also defeated the 404 fall-through to surface 2, since the
+  # error object already matched. Gating each print on gh's exit status fixes both.
   local probe='
     repo="$1"
-    r="$(gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true)"
-    case "$r" in *"{"*) printf "%s" "$r"; exit 0;; esac
-    gh api "repos/$repo/pulls/comments?per_page=1&sort=created&direction=desc" 2>/dev/null || true
+    r="$(gh api "repos/$repo/issues/comments?per_page=1&sort=created&direction=desc" 2>/dev/null)" \
+      && case "$r" in *"{"*) printf "%s" "$r"; exit 0;; esac
+    r="$(gh api "repos/$repo/pulls/comments?per_page=1&sort=created&direction=desc" 2>/dev/null)" \
+      && printf "%s" "$r"
+    exit 0
   '
   if command -v timeout >/dev/null 2>&1; then
     raw="$(timeout --signal=TERM --kill-after=5s 10s bash -c "$probe" _ "$repo" 2>/dev/null || true)"
   else
     raw="$(bash -c "$probe" _ "$repo" 2>/dev/null || true)"
   fi
-  # KNOWN LIMITATION — Issues-disabled forks: this probe fetches the repo-wide
-  # /issues/comments aggregate, which 404s permanently on a repo with has_issues=false
-  # (a fork's default; see comment-source-gh.sh's ISSUES-DISABLED degrade). There, the
-  # 404 yields empty raw → return 0 (inconclusive), so the jq-blindness self-test is
-  # a no-op on those repos. This is benign: jq-blindness is a HOST-WIDE condition (jq
-  # absent/broken on the box), so any co-watched Issues-ENABLED repo on the same host
-  # still exercises the pipe and trips the self-test. Left pointed at the aggregate
-  # (rather than a per-PR endpoint) deliberately: the per-PR shape would need a PR
-  # number this fixed-cost single-fixture probe does not have, and would return empty
-  # on a PR with no comments — weakening the probe on every repo to cover a gap that
-  # another repo already covers.
+  # An Issues-off fork with no inline review comments either yields `[]` here →
+  # inconclusive. That gap is benign: jq-blindness is a HOST-WIDE condition, so any
+  # co-watched repo with a comment on the same host still trips the self-test.
   [ -n "$raw" ] || return 0                              # gh returned nothing → transient, inconclusive
   case "$raw" in *'{'*) ;; *) return 0;; esac            # gh returned no comment object → inconclusive
+  # Belt and braces: a success body here is always a JSON ARRAY. A bare object is an
+  # API error envelope, never a comment list → inconclusive, not BLIND.
+  case "${raw#"${raw%%[![:space:]]*}"}" in '['*) ;; *) return 0;; esac
   # gh demonstrably returned a comment; the source pipes it through EXTERNAL jq.
   command -v jq >/dev/null 2>&1 || return 1              # jq absent (the outage cause) → BLIND
   id="$(printf '%s' "$raw" | jq -r '.[0].id // empty' 2>/dev/null || true)"

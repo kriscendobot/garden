@@ -737,6 +737,59 @@ done
 [ ! -s "$ALERTLOG_J" ] && ok "no anomaly for a quiet repo regardless of streak length (people sleep)" || bad "false inactivity anomaly on a healthy quiet source: $(cat "$ALERTLOG_J")"
 
 # ============================================================================
+# JP — the REAL self-test probe (source_path_healthy, no GARDEN_COMMENT_SELFTEST
+# stub) against a gh stub on PATH. `gh api` prints an HTTP error's JSON body to
+# STDOUT while exiting non-zero; the probe used to accept that `{"message":…}` as a
+# fetched comment, so a rate-limit 403 read as BLIND (kriscendobot/vattr97,
+# 2026-09-30) and an Issues-off 404 never fell through to pulls/comments.
+hr; echo "JP — real self-test probe: gh error bodies are inconclusive, 404 falls through"; hr
+if ! command -v jq >/dev/null 2>&1; then
+  echo "  SKIP: no jq on host"
+else
+  run_probe() {  # run_probe <tag> <issues-mode> <pulls-mode>  (mode: ok|empty|ratelimit|404)
+    local d="$TR/gh-probe-$1"; mkdir -p "$d"
+    cat > "$d/gh" <<EOF
+#!/bin/bash
+emit() {
+  case "\$1" in
+    ok)        printf '[{"id":4242,"body":"x"}]\n'; exit 0;;
+    empty)     printf '[]\n'; exit 0;;
+    ratelimit) printf '{\n\t"message": "API rate limit exceeded for user ID 1.",\n\t"status": "403"\n}\n'
+               echo "gh: API rate limit exceeded (HTTP 403)" >&2; exit 1;;
+    404)       printf '{"message":"Not Found","status":"404"}\n'; echo "gh: Not Found (HTTP 404)" >&2; exit 1;;
+  esac
+}
+case "\$*" in
+  *"/issues/comments"*) emit $2;;
+  *"/pulls/comments"*)  emit $3;;
+esac
+printf '[]\n'; exit 0
+EOF
+    chmod +x "$d/gh"
+    local bare="$TR/probe-$1.git"; seed_bare "$bare"
+    local alog="$TR/alert-probe-$1.log"; : > "$alog"
+    local acap="$TR/alert-cap-probe-$1.sh"
+    printf '#!/bin/bash\nprintf "%%s\\t%%s\\n" "$1" "$2" >> %q\n' "$alog" > "$acap"; chmod +x "$acap"
+    PATH="$d:$PATH" run_silent "$TR/state-probe-$1" "$bare" "" "$acap"
+    [ -s "$alog" ] && echo blind || echo quiet
+  }
+  [ "$(run_probe rl ratelimit ratelimit)" = quiet ] \
+    && ok "rate-limit 403 error bodies are inconclusive, not BLIND" \
+    || bad "a rate-limit 403 error body paged blindness (vattr97 regression)"
+  [ "$(run_probe ok ok empty)" = quiet ] && ok "a real issue comment passes the self-test" \
+    || bad "healthy issues/comments fixture paged blindness"
+  [ "$(run_probe ff 404 ok)" = quiet ] && ok "Issues-off 404 falls through to pulls/comments and passes" \
+    || bad "Issues-off 404 error body paged blindness instead of falling through"
+  [ "$(run_probe nn 404 404)" = quiet ] && ok "both surfaces erroring is inconclusive" \
+    || bad "two error bodies paged blindness"
+  # jq broken (exits non-zero, prints nothing) against a REAL comment → still BLIND.
+  JQB="$TR/jq-broken"; mkdir -p "$JQB"; printf '#!/bin/bash\nexit 5\n' > "$JQB/jq"; chmod +x "$JQB/jq"
+  [ "$(PATH="$JQB:$PATH" run_probe jqb ok empty)" = blind ] \
+    && ok "a broken jq against a real comment still trips the self-test" \
+    || bad "broken jq no longer detected as BLIND"
+fi
+
+# ============================================================================
 # K/L/M — VERB-AS-SUBJECT-MATTER gate on the FIXED verb table. A bare verb word
 # (rebase/retcon/refresh/shepherd) appearing as a PR's topic or as a future/
 # conditional intention ("a subsequent rebase ... will", "no action needed") must
