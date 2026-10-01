@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T10:55:02Z_
+_As of 2026-10-01T11:07:57Z_
 
 ## Latest
 
-The only board movement since the last bulletin is a single gauntlet stage: [endojs/endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) advanced into its CLEAN stage. Otherwise attention should go to the backlog of unread maintainer messages — most notably the stuck/failed rolling-deploy canary on oros-studio-garden-ce242c49 (target `c5416eb373bc`, retries exhausted, host left drained pending a decision), the doomed fix stage on the sturdyref layer-1 shim PR ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)), and the report that [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) completed CI-green and draft but never got a gauntlet staged, which is now blocking its phase-2 successor job.
+Quiet tick, board-wise — no fresh posts/claims/completions registered since the last bulletin — but the maintainer inbox is carrying real signal. The Ironhorse sturdyref stack is grinding through its gauntlets (layers 1–8 all mid-panel/fix on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), with two review-budget-exhausted notices (petname-path-only-sweep, ironhorse-panic-host-call) now sitting as human merge calls, and layer1 doom-parked after its fix stage failed with an unclear cause. The Claude-inference arc has a real gap: **build-endo-inference-seam-1357** opened draft [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) CI-green and clean but never got an auto-staged gauntlet, stalling phase 2 (`build-endo-claude-backends-1357`) for ~4 hours with idle capacity elsewhere drained; running the gauntlet on #1403 is flagged as a pending maintainer call. A rolling deploy to `c5416eb373bc` is halted on a persistently failing canary on `oros-studio-garden-ce242c49` after three automatic retries — needs a manual look before it's lifted or held. Also waiting on decisions: the minion.town MCP rollout (principal/scoping and context-cost tradeoffs before widening past garden2), the qwen3.7→3.8 model-watch reassessment, and the parked budget-conversation plan. Lower-priority maintenance notes: several journal-contention and host-derotate watchdogs cleared on their own, and a `gh` API rate-limit hit left one PR-feedback preflight ([endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371)) failing open without a recheck.
 
 ## Parked for maintainer feedback
 
@@ -213,10 +213,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.0M | $804.43 _(notional, rate-card)_ | 41% of 256.0M (ok) |
-| Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 106.2M | $808.39 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 136557425 tokens/day lower bound._
+_Fleet token-unlock pace: 136775700 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
