@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 3
-worker_kind: monk
-claimed_at: 2026-10-01T09:16:58Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-build-endo-guest-scoped-daemon-bootstrap
-pr_number: 1407
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1407
-pr_head: bot/build/guest-scoped-daemon-bootstrap
