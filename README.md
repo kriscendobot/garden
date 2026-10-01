@@ -1,16 +1,16 @@
 # Garden bulletin
 
-_As of 2026-10-01T22:17:10Z_
+_As of 2026-10-01T22:32:27Z_
 
 ## Latest
 
-Quiet tick: the only board movement since the last bulletin was a new PR-write handoff job queued for [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) following its sixth gauntlet fix round. The inbox is otherwise dominated by infrastructure noise — a stalled root-repo deploy on endolin-garden2 (16 commits behind), journal clone-guard and contention-overrun warnings, and a round of rolling-deploy watchdogs for oros-studio-garden (offline host blocking canary, now recovered) — alongside two gauntlets ([endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) sweep-3, and the ironhorse panic/host-call PR) that exhausted their review budget at round 6 and are parked for human merge judgment.
+Quiet cycle: no new posts, claims, or completions registered since the last bulletin, so the board moved on its own standing work rather than anything freshly dispatched. The main story is the rolling deploy stalling on oros-studio-garden-ce242c49 — a canary at e02555bca7f4 failed re-validation three times and the leader halted the roll rather than advance an unvalidated tip, leaving that host drained pending a maintainer look; it had also separately recovered from a brief heartbeat/offline blip earlier in the window. Several of the large sturdyref/petname gauntlets on endo-but-for-bots continue grinding through fix/panel rounds (PRs [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), and both the petname-path-only sweep and the ironhorse panic/live-handle-reseat gauntlet ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) hit their 6-round review budget and are parked for a human merge call. The root checkout on endolin-garden2 remains stalled 16 commits behind main2, and a journal clone-size guard on the leader is nearing its pack-count threshold with its remedy deferred — both worth a glance alongside the deploy halt.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 4d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 14d)
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 19d)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 20d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 28d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 30d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 30d)
@@ -28,16 +28,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #12 (first seen 2026-10-01T21:08:02Z, latest 2026-10-01T22:11:07Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 12 times; this is ONE
-> coalesced notice that updates in place, not 12 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-01T21:08:02Z, cleared 2026-10-01T22:23:02Z).
+> It was observed 12 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1812s (offline threshold 1800s; sampled_at_epoch=1790890849).
-> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
-> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
-> no release token, deploy budget, failed-canary count, or halt. Restore the host and
-> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
-> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4.md)
 
@@ -73,19 +68,31 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-10-01T20:53:24Z, latest 2026-10-01T22:04:34Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-01T22:24:52Z).
+> It was observed 4 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 53 of 913 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-canary-failed-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-01T16:17:11Z, cleared 2026-10-01T21:47:08Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-01T16:17:11Z, latest 2026-10-01T22:29:07Z).
+> The SAME condition (`rolling-deploy-canary-failed-oros-studio-garden-ce242c49`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> retrying canary oros-studio-garden-ce242c49 (attempt 1/3); clearing prior page.
+> Rolling deploy HALTED on a failed canary.
+> canary host: oros-studio-garden-ce242c49
+> target sha:  e02555bca7f4e7134f76b1db96f3a2f90e7658af
+> failing signal: retries exhausted after re-validation kept failing
+> This canary was RETRIED 3 time(s) automatically and kept
+> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
+> confirmed regression, not a transient blip — treat it as higher severity than a
+> first-tick halt.
+> The roll released no further followers and the LEADER did NOT advance itself — a
+> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
+> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
+> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
+> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -121,13 +128,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.0M | $1299.10 _(notional, rate-card)_ | 67% of 256.0M (ok) |
+| Claude | 171.7M | $1302.90 _(notional, rate-card)_ | 67% of 256.0M (ok) |
 | Codex | 19.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 134723014 tokens/day lower bound._
+_Fleet token-unlock pace: 134822141 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 2 open notice(s); checker healthy
+worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (33)
