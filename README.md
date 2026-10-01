@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T09:37:40Z_
+_As of 2026-10-01T09:44:10Z_
 
 ## Latest
 
-PR #1371 ([endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371)) merged via the conductor, and #1390's petname-path sweep continues grinding through its gauntlet (fix round 4, panel round 4 queued) alongside a cluster of sibling sturdyref-layer PRs (#1391–#1398) each mid-panel or mid-fix. The Claude-inference-backends build's first phase landed as draft [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) — CI-green and clean but stuck with no gauntlet staged, which is blocking phase 2 (`build-endo-claude-backends-1357`) from starting; a maintainer call on whether to run the gauntlet manually is pending. Two gauntlets exhausted their review budget without converging (the petname-path-only-sweep PR and the IronHorse panic-host-call PR) and are parked for human merge review, while the sturdyref-layer1-shim build on #774 hit a doom-parked fix stage and halted outright. On infrastructure, a rolling deploy to oros-studio-garden-ce242c49 is stuck on a failed canary after three automatic retries and needs a decision (lift drain and retry, or hold); separately the deploy's canary host has been reporting stale for over three hours. Outstanding maintainer decisions also remain open on the M3 milestone (endo #1015 vs. design PR #1340), the minion.town MCP rollout (principal/scoping and context-cost), and the qwen3.8 model-watch follow-up.
+Billing-blocked Actions runs and a cooled-gh-read retry fix landed on the gauntlet/shepherd machinery this cycle, alongside a usage-meter fix that stops live quota readings from leaking back into the claim gate and a bounded-backoff retry for transient `gh pr view` failures in auto-gauntlet handoff. On the PR front, the sturdyref layer stack continues grinding through panel/fix rounds across [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), while [#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) merged and [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402) is queued for conduct. The notable gap flagged by the arc press: **[endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403)** (the new `@endo/inference` phase-1 build) is CI-green and draft but never got a gauntlet staged — likely the probe exemption misfiring — and is now blocking phase 2 (`build-endo-claude-backends-1357`), unclaimed for ~4h with the fleet otherwise saturated; running the gauntlet on it manually is the suggested unblock. Separately, a rolling-deploy canary on oros-studio-garden-ce242c49 has failed validation three times and is halted (drained, awaiting a maintainer decision on sha c5416eb373), and the accountant's parked budget conversation and the minion.town MCP principal/rollout decision are still waiting on a reply.
 
 ## Parked for maintainer feedback
 
@@ -70,15 +70,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #11 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T09:33:16Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 11 times; this is ONE
-> coalesced notice that updates in place, not 11 messages. Latest detail:
+> WATCHDOG notice — occurrence #13 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T09:43:05Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 13 times; this is ONE
+> coalesced notice that updates in place, not 13 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=7779s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=7861s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=7858s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=7851s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=8379s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=8461s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=8458s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=8451s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -106,11 +106,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T04:12:22Z, cleared 2026-10-01T09:18:51Z).
-> It was observed 9 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #10 (first seen 2026-10-01T04:12:22Z, latest 2026-10-01T09:43:10Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 10 times; this is ONE
+> coalesced notice that updates in place, not 10 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 842 of 842 clone(s) on consecutive ticks.
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -205,13 +205,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.7M | $738.11 _(notional, rate-card)_ | 37% of 256.0M (ok) |
+| Claude | 96.0M | $739.85 _(notional, rate-card)_ | 38% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 137595269 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
+worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (26)
