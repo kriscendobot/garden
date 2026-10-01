@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T02:34:27Z_
+_As of 2026-10-01T02:36:55Z_
 
 ## Latest
 
-The SturdyRef cross-layer sweep continued to dominate activity, with gauntlet fix/panel rounds still churning across layers 1 through 8 ([endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)); two of those gauntlets halted on a failed gated stage (layer 2 SES, layer 8 daemon-formula) and two others (petname-path-only-sweep, ironhorse panic-host-call) hit their 6-round review budget without converging, leaving them parked for a human merge call. The petname-path-only sweep is still being worked in parallel threads against [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), with fresh panel/fix rounds queued and a follow-up list (missing refusal/strict-stub tests, property tests, a summary comment, PR-body trim) awaiting disposition. Elsewhere, the retire-gardener-worker-kind-alias cleanup orchestration completed with one child failure (the clone-alias verify/deploy/reaper job stalled and was parked for a human promote), and the garden book was republished with two new chapters. Operationally, host `oros-studio-garden-ce242c49` has been offline for a while, derotating its worker caps and blocking the leader's rolling deploy for lack of a canary — worth checking if that host is expected to be down.
+The board shows little real motion since the last snapshot — the only new transition is the post of `claude-on-minion-town-completion-press-20261001-023505`, a press checking whether the Claude-on-minion.town arc's jobs are running to completion. The SturdyRef OCapN layer stack continues grinding through its gauntlets in parallel across eight slices (layers 1–8, PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)–[#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), with layer 2 (SES) and layer 7 (panic/live-handle-reseat) both halting on fix-round failures that need a maintainer look, and layer 2 separately flagged as blocked only by a flaky macOS CI leg rather than the SES change itself. The petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) exhausted its 6-round review budget without converging and is parked for a human merge call, alongside a batch of should-fix follow-ups (refusal tests, property tests, a PR-body trim) still needing disposition. Operationally, the `retire-gardener-worker-kind-alias-env-fallback` orchestration finished with one of two children failing (the clone-alias verify/deploy-reaper job stalled and was parked), the garden book got a republish with two new chapters, and a cluster of journal-contention and rolling-deploy watchdogs cleared on their own — the oros-studio host remains offline and excluded from canarying.
 
 ## Parked for maintainer feedback
 
@@ -28,11 +28,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #21 (first seen 2026-09-30T20:47:15Z, latest 2026-10-01T01:32:12Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 21 times; this is ONE
-> coalesced notice that updates in place, not 21 messages. Latest detail:
+> WATCHDOG notice — occurrence #42 (first seen 2026-09-30T20:47:15Z, latest 2026-10-01T02:35:01Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 42 times; this is ONE
+> coalesced notice that updates in place, not 42 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1816s (offline threshold 1800s; sampled_at_epoch=1790816511).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 5590s (offline threshold 1800s; sampled_at_epoch=1790816511).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -376,22 +376,23 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.1M | $449.72 _(notional, rate-card)_ | 22% of 256.0M (ok) |
+| Claude | 57.3M | $450.54 _(notional, rate-card)_ | 22% of 256.0M (ok) |
 | Codex | 17.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 135917384 tokens/day lower bound._
+_Fleet token-unlock pace: 135984333 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (14)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
 - [`improve-scheduler-tempfail-preflight`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-scheduler-tempfail-preflight.md) — ---
 - [`build-ci-minion-town-actions-runner-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ci-minion-town-actions-runner-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #145
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`endojs-endo-but-for-bots-pr1357-weave-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1357-weave-20261001.md) — Weave endojs/endo-but-for-bots#1357 onto current llm
+- [`claude-on-minion-town-completion-press-20261001-023505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261001-023505.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`ebfb-petname-path-only-sweep-3-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-3-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1390
 - [`dependabotany-recheck-endo-but-for-bots-20261001-015023`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20261001-015023.md) — ---
 - [`ebfb-petname-path-only-sweep-4-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1390
