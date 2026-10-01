@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T06:05:18Z_
+_As of 2026-10-01T06:11:52Z_
 
 ## Latest
 
-A guest-designation cleanup landed: [`ebfb-guest-no-identifiers-locators`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/ebfb-guest-no-identifiers-locators.md) completed, and a follow-on job now tracks migrating the remaining in-repo guest consumers off identifiers/locators. Gauntlet activity continued in parallel on the sturdyref layer-6 CaptP construction PR (fix round 3 claimed) and on [endojs/endo-but-for-bots#1402](https://github.com/endojs/endo-but-for-bots/pull/1402) (panel round 1 claimed), both still in progress.
+Board activity continues apace across the Endo sturdyref-layer gauntlet stack and the petname-path-only sweep, both grinding through successive FIX/PANEL rounds in `doin`/`todo`, while two gauntlets hit their review budget without converging: [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep, 6 rounds, CI green) and the ironhorse panic-host-call PR (same pattern) are both left for a human merge call. A third gauntlet, on [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (sturdyref layer1 shim), halted outright after an unexplained fix-stage failure and was doom-parked rather than blindly retried. Two decisions are waiting on the maintainer: the M3 confined-agent step (advance [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) once its #1348 prerequisite clears, or answer the four open questions on design PR [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340)), and the minion.town MCP rollout, which is proven on one host but parked pending a principal/credentials decision and a context-cost call before it widens past that host. Infrastructure is otherwise stable — several watchdog conditions (rolling-deploy host-offline, canary-stuck, worker-derotate) self-recovered, though journal clone-size and contention-watch-overrun notices persist, and GitHub's rate limit briefly starved a preflight check on [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371).
 
 ## Parked for maintainer feedback
 
@@ -64,11 +64,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T04:12:22Z, cleared 2026-10-01T05:18:18Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-01T04:12:22Z, latest 2026-10-01T06:07:34Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 832 of 832 clone(s) on consecutive ticks.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -143,13 +143,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.2M | $691.17 _(notional, rate-card)_ | 34% of 256.0M (ok) |
+| Claude | 88.6M | $693.06 _(notional, rate-card)_ | 35% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135859306 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
+worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (19)
