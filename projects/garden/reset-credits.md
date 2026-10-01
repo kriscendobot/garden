@@ -13,7 +13,7 @@ Standing policy (kriskowal 2026-09-30): spend a subscription to **90%**, never 1
 | codex-endolin ("endolin-codex1") | **2** | 2026-10-22 and 2026-10-29 | 68% at 2026-09-30T17:25Z; resets naturally about 2026-10-05T16:4xZ. |
 | claude-oros | unknown | | Host offline and derotated since 2026-09-28. |
 
-Natural weekly boundaries: the Claude endolin subscriptions reset **Friday 20:00 America/Los_Angeles** (Sat 03:00Z). codex-endolin resets on a rolling 7 days from its last reset.
+Natural weekly boundaries: the Claude endolin subscriptions reset **Friday 20:00 America/Los_Angeles** (Sat 03:00Z). codex-endolin resets on a rolling 7 days from its last reset. claude-oros ("claude-oros-studio1") resets **Tuesday 04:00 America/Denver** (corrected 2026-10-01 per the oros operator).
 
 ## Use log
 
