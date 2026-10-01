@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T19:40:25Z_
+_As of 2026-10-01T19:41:58Z_
 
 ## Latest
 
-Quiet tick: one gauntlet closed out and a press job restarted. The [ebfb-sturdyref-layer2-ses-20260930 PR#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) gauntlet halted after its fix round 5 doom-parked (requeue-exhausted, failure cause unclear), moving that stage to the plan queue for maintainer disposition — it joins several other sturdyref-layer gauntlets (layers 1, 5, 6, 8) and the petname-path and guest-designation-consumers gauntlets already halted or stalled awaiting review-budget or failure decisions. Separately, a fresh `claude-on-minion-town-press-20261001-193506` job was posted to todo, continuing the standing arc that flagged [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) as a builder completion that never got its gauntlet staged (likely the probe-exemption grep firing on an unrelated "probe" mention) — that PR is CI-green and still draft with no review path, and it's blocking the serial second phase of the inference-backends build, which has been stuck unclaimed for hours while the fleet's workers stay saturated or drained.
+Fleet activity has been dominated by the sturdyref/CapTP layer-build stack and the petname-path-only sweep, with mixed results: several sturdyref gauntlets (layers 1, 2, 5, 6) halted on requeue-exhausted or unexpected undraft states, while [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) ground through 6 review rounds each without converging and now sit ready for a human merge call. The Claude-on-minion.town inference arc stalled too — phase 1 opened [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) CI-green and draft but never got a gauntlet staged (cause unclear, possibly a probe-exemption misfire), which is blocking phase 2's `build-endo-claude-backends-1357` from claiming a worker; that phase 2 job also timed out in flight on oros, halting its orchestration. The rolling deploy to `697976e718f3` likewise hit a canary that failed three retries on oros-studio-garden-ce242c49 and is now parked drained pending a decision. On the housekeeping side, a budget-level step trimmed the leader's monk workers from 3 to 2 against the claude-endolin1 cap (64% spent), and a string of journal-clone-contention and comment-ack watchdogs self-cleared. Worth a maintainer look: whether to run the gauntlet on #1403 directly, and the still-open design questions on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) and the M3 confined-agent fork blocking on #1015/#1348 vs #1340.
 
 ## Parked for maintainer feedback
 
@@ -28,11 +28,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #81 (first seen 2026-10-01T01:32:11Z, latest 2026-10-01T18:38:05Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 81 times; this is ONE
-> coalesced notice that updates in place, not 81 messages. Latest detail:
+> WATCHDOG notice — occurrence #102 (first seen 2026-10-01T01:32:11Z, latest 2026-10-01T19:41:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 102 times; this is ONE
+> coalesced notice that updates in place, not 102 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1852s (offline threshold 1800s; sampled_at_epoch=1790878032).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 5630s (offline threshold 1800s; sampled_at_epoch=1790878032).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -313,7 +313,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 163.0M | $1234.30 _(notional, rate-card)_ | 64% of 256.0M (ok) |
+| Claude | 163.0M | $1234.54 _(notional, rate-card)_ | 64% of 256.0M (ok) |
 | Codex | 18.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135536414 tokens/day lower bound._
