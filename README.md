@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T14:11:33Z_
+_As of 2026-10-01T14:14:41Z_
 
 ## Latest
 
-The board stayed narrow through this window — the only transition was `build-endo-claude-pinned-cli-bump-gauntlet-fix-1` claimed off `todo`, continuing fix work on [endojs/endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406). The gauntlet pipeline otherwise shows heavy ongoing churn across the sturdyref-layer stack ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) and [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380), [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402), [#1404](https://github.com/endojs/endo-but-for-bots/pull/1404), [#1408](https://github.com/endojs/endo-but-for-bots/pull/1408), [#1409](https://github.com/endojs/endo-but-for-bots/pull/1409), and [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340).
-
-Two things most need a maintainer look: the rolling deploy is halted on a confirmed, retried-and-still-failing canary on host oros-studio-garden-ce242c49 (target sha c810e1e6c4), and a completion-press gardener flagged that draft [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) (`@endo/inference`, phase 1 of the Claude inference-backends design) is CI-green and clean but never got an auto-gauntlet staged — likely the probe-exemption path misfiring — leaving phase 2 (`build-endo-claude-backends-1357`) stalled in `doin` for ~4h with no idle workers to pick it up. Several other gauntlets also parked for human merge/review decisions after hitting their round budget: [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (petname-path sweep) and the ironhorse panic-host-call PR.
+A notable gauntlet gap surfaced: [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) (phase 1 of the Claude inference-backends build, `@endo/inference`) completed CI-green and clean but never got an auto-staged gauntlet — likely a probe-exemption false match — leaving it stuck draft with no review path and blocking phase 2's claim since ~05:25Z; the maintainer's go-ahead to run the gauntlet manually is pending. Deploy also hit trouble: the rolling deploy halted on a persistent, retried-and-failing canary on oros-studio-garden-ce242c49 at target `c810e1e6`, and separately stalled for hours with no healthy canary available at all (both now need a maintainer look), while a related host-offline condition on the same box has recurred dozens of times. Two gauntlets reached their review-round budget without converging — [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep) and the ironhorse panic/host-call PR — both left improved but needing a human merge call; two others halted outright on failed/unclear stages (`build-endo-guest-scoped-daemon-bootstrap` and the sturdyref layer-1 shim build on PR #774). Elsewhere, the minion.town MCP rollout is proven on garden2 and awaiting the maintainer's decision on a dedicated principal/scope before widening past that host, and the qwen model watch flags that upstream skipped straight to qwen3.8, prompting a choice on whether to reassess, retarget the watch, or retire it. A flurry of journal-contention and comment-ack watchdog notices from earlier today have all since cleared.
 
 ## Parked for maintainer feedback
 
@@ -125,11 +123,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #16 (first seen 2026-10-01T04:12:22Z, latest 2026-10-01T14:03:31Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 16 times; this is ONE
-> coalesced notice that updates in place, not 16 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T04:12:22Z, cleared 2026-10-01T14:13:55Z).
+> It was observed 16 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 821 of 873 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -236,13 +234,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 125.0M | $948.62 _(notional, rate-card)_ | 49% of 256.0M (ok) |
+| Claude | 125.1M | $948.86 _(notional, rate-card)_ | 49% of 256.0M (ok) |
 | Codex | 18.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135948039 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.646222s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.646222s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (19)
