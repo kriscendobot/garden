@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T00:34:14Z_
+_As of 2026-10-01T00:39:52Z_
 
 ## Latest
 
-The SturdyRef layer stack dominated the night's gauntlet traffic: layer 2 (SES) stalled on CI flake in `@endo/daemon` teardown tests unrelated to the change, layer 7 (OCapN enliven) and the IronHorse panic/live-handle-reseat gauntlet both halted on failed/declined fix rounds, while layers 1, 4, and 5 continue grinding through fix rounds and layers 3 and 6 sit in fresh panel rounds. The petname-path-only sweep ([endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) landed its round-4 must-fixes but surfaced a batch of should-fix follow-ups (refusal tests, property tests, a scribe summary, PR-body trim) awaiting disposition, and a parallel split of the gardener-clone-alias verification work finished with one child timing out after 2412s and parking back in the plan queue for a human promote.
-
-Two decisions are waiting on the foreman's M3 milestone: whether to advance [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its #1348 prerequisite clears, or answer the four open questions blocking [endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340). The IronHorse host-call PR hit its 6-round review budget with CI green and is left for a human merge call, and the accountant's budget-rebalancing proposal remains parked awaiting a go-ahead. Everything else was routine churn — several recovered watchdog conditions (rolling-deploy canary, worker-derotate, journal contention) and a handful of stale-panel-head notices on PRs #1357 and #1390 whose heads moved past their last review.
+The SturdyRef gauntlet stack dominated the night's activity: layer 1 (shim-build, [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)), layer 4 (marshal, [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)), and layer 5 (CapTP wire, [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) are mid fix-round, while layer 2 (SES, [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) and layer 7 (OCapN enliven) both halted their gauntlets — layer 2 on a flaky macOS daemon-teardown CI leg that a credentialed rerun should clear, layer 7 on a failed clean stage. The ironhorse panic/live-handle-reseat gauntlet also halted after its fix round failed, and the petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) landed its round-4 fixes but surfaced follow-up test/doc gaps needing disposition. Separately, three PR heads moved past their last panel review and need a fresh look or an explicit "run the gauntlet": [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) (twice), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), and [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) is also flagged by the foreman as blocking milestone M3 pending four open design questions. On infrastructure, the garden absorbed a wave of transient host/deploy noise (oros-studio heartbeat blip, comment-watcher cooldowns, journal contention) that has since recovered, and a parked gardener job (clone-alias verify/deploy) was doomed after a stalled retry and needs a maintainer promote-or-drop decision.
 
 ## Parked for maintainer feedback
 
@@ -30,11 +28,32 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-30T20:47:15Z, cleared 2026-10-01T00:05:06Z).
-> It was observed 19 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #20 (first seen 2026-09-30T20:47:15Z, latest 2026-10-01T00:35:10Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 20 times; this is ONE
+> coalesced notice that updates in place, not 20 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1969s (offline threshold 1800s; sampled_at_epoch=1790812933).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
+
+- `watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4.md)
+
+> WATCHDOG notice — occurrence #10 (first seen 2026-09-30T23:36:06Z, latest 2026-10-01T00:38:02Z).
+> The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 10 times; this is ONE
+> coalesced notice that updates in place, not 10 messages. Latest detail:
+>
+> Rolling deploy is HOLDING the leader: every configured follower is OFFLINE or
+> operator-drained, so there is no canary to validate 2916e65ffb94. The leader will
+> not advance unvalidated. Restore any offline host until budget/live heartbeats resume,
+> or lift an operator drain. An archived host additionally needs a separate operator
+> unarchive; this roll never reverses archival. (leader=endolin-garden-ece02cb4, offline=1)
+
+- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1357-3a9c6be6030f` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1357-3a9c6be6030f.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357) ([endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/issues/1357)) is in the mergeable queue with NO gauntlet review staged (head 3a9c6be6030fad904d5e559efc1cc3627c1e9197). Producer jobs normally stage their gauntlet at completion, but the periodic audit never mass-stages historical PRs. If you want this PR reviewed, reply with 'run the gauntlet #1357'; otherwise no action is needed. This audit never re-drafts or stages anything.
 
 - `msg-book-revise-content-a727eb9546d8` — from gardener:book-revise-content, reply_to `book-revise-content` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-book-revise-content-a727eb9546d8.md)
 
@@ -115,12 +134,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #71 (first seen 2026-09-30T04:37:42Z, latest 2026-09-30T23:32:56Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 71 times; this is ONE
-> coalesced notice that updates in place, not 71 messages. Latest detail:
+> WATCHDOG notice — occurrence #72 (first seen 2026-09-30T04:37:42Z, latest 2026-10-01T00:37:52Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 72 times; this is ONE
+> coalesced notice that updates in place, not 72 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=10021s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=13922s; heartbeat=full-poll)
 
 - `retire-gardener-worker-kind-alias-split-resume-terminal-complete` — from orchestrator:retire-gardener-worker-kind-alias-split-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-split-resume-terminal-complete.md)
 
@@ -157,11 +176,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-09-30T20:38:38Z, cleared 2026-09-30T20:42:55Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-30T20:38:38Z, latest 2026-10-01T00:37:57Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 4 source(s); they post no acknowledgments while it holds.
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3678s (since 2026-09-30T23:36:33Z)
+> - kriscendobot/proposal-compartments: watcher ticking but cooldown for 3671s (since 2026-09-30T23:36:40Z)
+> - kriscendobot/endo: watcher ticking but cooldown for 3615s (since 2026-09-30T23:37:36Z)
+> - kriscendobot/minion.town: watcher ticking but cooldown for 3652s (since 2026-09-30T23:36:59Z)
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
@@ -300,15 +323,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-30T21:23:02Z, latest 2026-10-01T00:29:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-30T21:23:02Z, cleared 2026-10-01T00:35:18Z).
+> It was observed 4 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to d259a24e6f9a 20 min ago
-> but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
-> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
-> keeps it from advancing. The leader does not advance past an undeployed canary.
-> (leader=endolin-garden-ece02cb4)
+> canary oros-studio-garden-ce242c49 is no longer stuck (release d259a24e6f9a0a6b568d02cd515f8291e8916414, deployed e036bb8e0650b66a4ae00dc1516c4c8df39901ca).
 
 - `stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-3a9c6be6` — from gardener:endojs-endo-but-for-bots-pr1357-conduct-20260930, reply_to `endojs-endo-but-for-bots-pr1357-conduct-20260930` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-3a9c6be6.md)
 
@@ -328,10 +347,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.4M | $335.08 _(notional, rate-card)_ | 16% of 256.0M (ok) |
+| Claude | 41.8M | $336.72 _(notional, rate-card)_ | 16% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 133025157 tokens/day lower bound._
+_Fleet token-unlock pace: 134625392 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 0 open notice(s); checker healthy
