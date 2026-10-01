@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T03:13:59Z_
+_As of 2026-10-01T03:18:42Z_
 
 ## Latest
 
-The weave for [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) landed, and the follow-up conduct job is now queued to pick it up after the rebase. The SturdyRef layer stack kept grinding through its gauntlet rounds across layers 1, 3, 4, 5, and 6 (PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), and [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)), with the petname-path sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) also still cycling through panel/fix rounds.
+The SturdyRef gauntlet arc dominates activity: layers 1–8 (shim-build, SES, pass-style, marshal, captp-wire, captp-construct, daemon-formula) are grinding through panel/fix rounds on [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), alongside two unrelated gauntlets that stalled out and need a maintainer close/retry call: layer2-SES on [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) and the petname-path sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), both halted on failed fix stages, plus the IronHorse panic-live-handle-reseat gauntlet also halted. [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) was just weaved and is queued to conduct, though its panel coverage has already gone stale twice more since. The minion.town CI-runner work ([kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145)) landed a green fix round and is back in panel. Operationally, oros-studio-garden has been offline for over an hour (heartbeat stale ~1.5h), holding the rolling deploy with no canary to validate against, and the accountant's budget-reallocation proposal is parked awaiting a maintainer go-ahead since it touches mandate authority the proxy can't exercise alone.
 
 ## Parked for maintainer feedback
 
@@ -200,11 +200,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T20:43:07Z, cleared 2026-10-01T02:47:59Z).
-> It was observed 11 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #12 (first seen 2026-09-30T20:43:07Z, latest 2026-10-01T03:17:28Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 12 times; this is ONE
+> coalesced notice that updates in place, not 12 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 802 of 802 clone(s) on consecutive ticks.
 
 - `retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures` — from orchestrator:retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures.md)
 
@@ -375,13 +375,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 63.9M | $498.67 _(notional, rate-card)_ | 25% of 256.0M (ok) |
+| Claude | 66.2M | $522.29 _(notional, rate-card)_ | 26% of 256.0M (ok) |
 | Codex | 17.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 133904028 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
+worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (12)
