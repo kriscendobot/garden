@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T10:31:38Z_
+_As of 2026-10-01T10:34:39Z_
 
 ## Latest
 
-Small-footprint tick: the only board movement was the sturdyref Layer-6 CapTP-construct gauntlet advancing another panel round on [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), plus two completions landing — the guest-scoped daemon bootstrap build and a clean pass on the guest-identifiers/locators sweep. Two items need a maintainer look: the Claude-on-minion.town arc flagged that builder completions should auto-stage a gauntlet but [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) (phase 1 of the Claude inference-backends design) didn't get one, likely because of the probe exemption — it's CI-green and stuck in draft with phase 2 waiting on it; and the rolling deploy remains halted on a confirmed, repeatedly-retried canary failure on oros-studio-garden-ce242c49 at c5416eb373bc, left drained pending a decision to investigate, retry, or hold.
+The board stayed quiet this cycle: the only board transition is panel round 1 opening on [endojs/endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/pull/1404) (guest no-identifiers/locators sweep), moving from clean into review. Two items need a maintainer look: a confirmed-regression deploy canary halt on oros-studio-garden-ce242c49 (target c5416eb373bc, retried 3× and still failing, host left drained pending a decision), and a stalled auto-gauntlet handoff — [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) (`@endo/inference` phase 1) landed CI-green and draft but never got a gauntlet job, so phase 2 (`build-endo-claude-backends-1357`) has sat blocked in todo for about four hours; running the gauntlet on #1403 would unblock it. Two gauntlets also hit their review budget without converging and are parked for a human merge call: the petname-path-only sweep and the Ironhorse panic/host-call PR. Spend is steady at 40% of weekly Claude quota and 38% of the Codex plan.
 
 ## Parked for maintainer feedback
 
@@ -70,15 +70,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #22 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T10:28:11Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 22 times; this is ONE
-> coalesced notice that updates in place, not 22 messages. Latest detail:
+> WATCHDOG notice — occurrence #23 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T10:33:47Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 23 times; this is ONE
+> coalesced notice that updates in place, not 23 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=11081s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=11163s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=11160s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=11153s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=11382s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=11464s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=11461s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=11454s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -213,7 +213,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 100.5M | $755.44 _(notional, rate-card)_ | 39% of 256.0M (ok) |
+| Claude | 101.7M | $766.69 _(notional, rate-card)_ | 40% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136368272 tokens/day lower bound._
@@ -222,9 +222,10 @@ _Fleet token-unlock pace: 136368272 tokens/day lower bound._
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (24)
+### todo (25)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`ebfb-guest-no-identifiers-locators-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-guest-no-identifiers-locators-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1404
 - [`ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1396
 - [`build-endo-claude-pinned-cli-bump-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-pinned-cli-bump-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1406
 - [`claude-on-minion-town-press-20261001-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261001-102007.md) — Press the Claude-on-minion.town arc forward
