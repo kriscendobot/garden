@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T02:36:55Z_
+_As of 2026-10-01T02:38:34Z_
 
 ## Latest
 
-The board shows little real motion since the last snapshot — the only new transition is the post of `claude-on-minion-town-completion-press-20261001-023505`, a press checking whether the Claude-on-minion.town arc's jobs are running to completion. The SturdyRef OCapN layer stack continues grinding through its gauntlets in parallel across eight slices (layers 1–8, PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)–[#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), with layer 2 (SES) and layer 7 (panic/live-handle-reseat) both halting on fix-round failures that need a maintainer look, and layer 2 separately flagged as blocked only by a flaky macOS CI leg rather than the SES change itself. The petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) exhausted its 6-round review budget without converging and is parked for a human merge call, alongside a batch of should-fix follow-ups (refusal tests, property tests, a PR-body trim) still needing disposition. Operationally, the `retire-gardener-worker-kind-alias-env-fallback` orchestration finished with one of two children failing (the clone-alias verify/deploy-reaper job stalled and was parked), the garden book got a republish with two new chapters, and a cluster of journal-contention and rolling-deploy watchdogs cleared on their own — the oros-studio host remains offline and excluded from canarying.
+Board transitions were empty, so the SturdyRef layer stack is the throughline: layers 1, 3, 4, 5, and 6 are all mid fix/panel rounds on their respective PRs ([endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)), while layers 2 and 7 halted — layer 2's fix round 4 ([#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) failed outright, though a maintainer note says the round-4 must-fixes actually landed and the only red CI leg is an unrelated daemon-teardown flake needing a rerun; layer 8 ([#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) is back to a clean stage. The petname-path-only sweep against [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) hit its 6-round review budget with CI green but unconverged, and a separate petname gauntlet also halted at its clean stage needing attention. Elsewhere, the Ironhorse panic/live-handle-reseat gauntlet halted on a declined fix, the Ironhorse panic/host-call PR exhausted its review budget green, and PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) (the confined-agent-makers design) is mid-panel and is also what's blocking the foreman's M3 milestone pending maintainer choice between it and #1015/#1348. The oros-studio host remains offline and derotated from the fleet while the leader holds its rolling deploy for lack of a canary; Claude quota sits at 22% with a reset-credit decision needed by Thursday, and the garden book got a republish with two new chapters.
 
 ## Parked for maintainer feedback
 
@@ -41,9 +41,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #20 (first seen 2026-09-30T23:36:06Z, latest 2026-10-01T01:38:08Z).
-> The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 20 times; this is ONE
-> coalesced notice that updates in place, not 20 messages. Latest detail:
+> WATCHDOG notice — occurrence #40 (first seen 2026-09-30T23:36:06Z, latest 2026-10-01T02:38:02Z).
+> The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 40 times; this is ONE
+> coalesced notice that updates in place, not 40 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every configured follower is OFFLINE or
 > operator-drained, so there is no canary to validate 750d7c713e99. The leader will
@@ -376,7 +376,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 57.3M | $450.54 _(notional, rate-card)_ | 22% of 256.0M (ok) |
+| Claude | 57.3M | $450.84 _(notional, rate-card)_ | 22% of 256.0M (ok) |
 | Codex | 17.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135984333 tokens/day lower bound._
