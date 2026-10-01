@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T05:32:16Z_
+_As of 2026-10-01T05:36:53Z_
 
 ## Latest
 
-Multiple sturdyref-layer gauntlets (layers 1–8 on endojs/endo-but-for-bots PRs [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) and the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) are grinding through fix rounds in parallel, with #1394's gauntlet now HALTED and layer-1's fix job parked pending maintainer input after a doom-parked, unexplained stage failure. Elsewhere, gauntlets for [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), [#1371](https://github.com/endojs/endo-but-for-bots/pull/1371), [#1401](https://github.com/endojs/endo-but-for-bots/pull/1401), [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402), and kriscendobot/minion.town [#140](https://github.com/kriscendobot/minion.town/pull/140) and [#145](https://github.com/kriscendobot/minion.town/pull/145) are moving along their panel/fix/conduct stages. On the fleet side, a rolling deploy to c5416eb373bc is stuck waiting on the oros-studio-garden canary, and the accountant's budget conversation, the qwen3.8 model-watch decision, the minion.town MCP principal/scope question, and the ocap.site DNSSEC sign-off are all still waiting on you.
+Several sturdyref-layer gauntlets (layers 1–8, posted 2026-09-30) are churning through fix/panel rounds across PRs [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), with layer 5 ([#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) already queued for undraft — but one sibling gauntlet in that same series, [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (layer1 shim build), halted after a fix stage was doom-parked on an unclassified failure and needs a maintainer look. The petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) is still cycling fix rounds (now round 4+) after its review budget was reached without convergence, as is the ironhorse panic/live-handle-reseat gauntlet on [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) (round 6, same budget-reached outcome). Elsewhere, PR #1402 is moving through its own gauntlet (panel + review stages in flight) and #1371 is up for a conduct/finalize pass. On infrastructure, a rolling deploy to c5416eb373bc is stuck waiting on an unresponsive canary host (oros-studio-garden), and several other transient watchdog conditions (journal clone size, worker derotation) have already self-cleared.
 
 ## Parked for maintainer feedback
 
@@ -132,10 +132,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.5M | $660.99 _(notional, rate-card)_ | 33% of 256.0M (ok) |
-| Codex | 18.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 84.6M | $661.30 _(notional, rate-card)_ | 33% of 256.0M (ok) |
+| Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 136488373 tokens/day lower bound._
+_Fleet token-unlock pace: 137072220 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
