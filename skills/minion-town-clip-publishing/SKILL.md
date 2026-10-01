@@ -41,8 +41,16 @@ clip's normal public URL — a visitor to a clip needs no login at all.
 
 ## `publish` gotchas
 
-- `powers` must name a pet name in your guest holding a sites capability; in
-  practice pass `"sites"` (the literal name a guest is provisioned with).
+- **Caution (2026-10-01): the `powers: "sites"` advice below is stale and
+  unsafe.** Since the clip ocap synthesis, `powers` names the capability that
+  becomes the **public CapTP bootstrap every visitor of the clip receives**
+  (read the live `publish` tool description). Passing `sites` exposes your own
+  sites power, and `@agent` exposes full guest authority. For a static clip,
+  pass a deliberately inert pet name (for example an empty `writeText` value)
+  until the verified recipe lands in minion.town's served guide
+  (`designs/mcp-resources-getting-started.md` § 3.1 on kriscendobot/minion.town).
+- ~~`powers` must name a pet name in your guest holding a sites capability; in
+  practice pass `"sites"` (the literal name a guest is provisioned with).~~
 - **`Invalid pet name "@main"` on publish — diagnosed and FIXED, deployed
   2026-09-01.** Symptom: a `publish` call failed unconditionally with
   `Invalid pet name "@main"`, regardless of the `powers` value or the
