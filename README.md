@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T03:07:56Z_
+_As of 2026-10-01T03:10:04Z_
 
 ## Latest
 
-Gauntlet work continued across the SturdyRef OCapN arc: layer 5 (CapTP wire) completed a panel round, while layers 1 (shim build), 4 (marshal), and 6 (CapTP construct) are mid-fix and layer 3 (pass style) and layer 8 (daemon formula) queue up panel rounds next. The petname-path-only sweep on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) is still cycling panel/fix rounds, and the minion.town Actions-runner build ([kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145)) landed a green CI after its latest fix round. Three other gauntlets halted and need maintainer disposition: the IronHorse panic/live-handle-reseat gauntlet, and two SturdyRef layers (layer 2 SES and layer 7 enliven) — all stopped after a stage explicitly reported a failed/declined outcome. Separately, PR [endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) has moved past its last-reviewed head twice more and needs a fresh panel pass or an explicit maintainer call before anything further lands on it.
+Overnight work stayed deep in the SturdyRef gauntlet stack on endo-but-for-bots, with layers 1 through 8 cycling through panel/fix rounds in parallel; two gauntlets halted and need a maintainer look — [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (layer 2, SES) stalled on a flaky macOS daemon-teardown CI leg that a credentialed rerun should clear, while the layer-7 OCapN-enliven gauntlet failed at the clean stage. The petname-path-only sweep ([endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) hit its 6-round review budget without converging and is parked for human merge judgment, with follow-up test/doc gaps (corner-prober, fast-checker, scribe) still outstanding; the ironhorse panic/live-handle-reseat gauntlet also exhausted its budget in the same state. Fleet health is otherwise quiet — the long-running journal-contention and comment-ack-blind watchdogs all cleared, oros-studio remains offline and derotated from scheduling, and spend sits comfortably at 24% Claude / 38% Codex quota. Also waiting on you: the DNSSEC DS-record publication for ocap.site, the minion.town MCP principal/scope decision, and the M3 fork choice between PR #1015 and answering design PR #1340's open questions.
 
 ## Parked for maintainer feedback
 
@@ -375,7 +375,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.5M | $476.30 _(notional, rate-card)_ | 24% of 256.0M (ok) |
+| Claude | 62.3M | $483.55 _(notional, rate-card)_ | 24% of 256.0M (ok) |
 | Codex | 17.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 133904028 tokens/day lower bound._
@@ -384,8 +384,9 @@ _Fleet token-unlock pace: 133904028 tokens/day lower bound._
 worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (12)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
+- [`ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1394
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1392
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1398
