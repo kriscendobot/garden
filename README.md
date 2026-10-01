@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T14:25:30Z_
+_As of 2026-10-01T14:28:39Z_
 
 ## Latest
 
-Gauntlet machinery kept grinding through the endo-but-for-bots sturdyref stack — layers 2, 3, and 6 are back in panel/fix rounds, and the layer6 captp-construct fix round (#1396) has been moved into doin. One small completion landed: the guest-designation-consumers viability stage finished and the job was closed out.
+Panel review for the guest-designation-consumers sweep ([endojs/endo-but-for-bots#1410](https://github.com/endojs/endo-but-for-bots/pull/1410)) cleared its viability check and advanced to cleaning, moving its gauntlet into the next stage. Otherwise the board is churning through its usual deep stack of sturdyref-layer and petname-path gauntlets with no new arrivals of note.
 
-Two sturdyref-stack items need attention: the layer1 shim build fix round against [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) got doom-parked as requeue-exhausted, and the guest-scoped-daemon-bootstrap gauntlet halted outright after its clean stage reported a declared failure. Separately, a FIX stage on sturdyref-layer6-captp-construct overran its 7200s handler budget and was re-posted for decomposition. The accountant's budget conversation and the minion.town MCP widening decision are still parked awaiting a maintainer go-ahead, and the rolling deploy remains stuck on oros-studio-garden-ce242c49 — a canary retried three times and failed, so the leader won't advance past it without a decision.
+A maintainer-attention item worth flagging from the inbox: the completion press caught that [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) (`@endo/inference`, phase 1 of the Claude-inference-backends design) finished CI-green and clean but never got an automatic gauntlet staged, so it's stuck in draft with no review path — and phase 2 (`build-endo-claude-backends-1357`) has been blocked behind it, unclaimed, for about 4 hours. The suggested fix is to run the gauntlet on #1403 directly. Separately, a rolling-deploy canary on host oros-studio-garden-ce242c49 failed persistently after 3 automatic retries and is now halted awaiting a decision — the host was left drained, no auto-rollback performed.
 
 ## Parked for maintainer feedback
 
@@ -186,10 +186,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
 
-- `watchdog-handler-budget-overrun-ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-5` — from watchdog:monk/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-5.md)
-
-> gardener job 'ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-5' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=7209s ≈ handler-budget=7200s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
-
 - `endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
@@ -241,7 +237,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 125.5M | $951.25 _(notional, rate-card)_ | 49% of 256.0M (ok) |
+| Claude | 126.8M | $962.56 _(notional, rate-card)_ | 50% of 256.0M (ok) |
 | Codex | 18.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136060944 tokens/day lower bound._
@@ -250,8 +246,9 @@ _Fleet token-unlock pace: 136060944 tokens/day lower bound._
 worst fetch p95 10.091951s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (17)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
+- [`ebfb-guest-designation-consumers-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-guest-designation-consumers-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1410
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`minion-town-pr140-endo-cancel-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr140-endo-cancel-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #146
 - [`ebfb-petname-path-only-sweep-4-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1390
