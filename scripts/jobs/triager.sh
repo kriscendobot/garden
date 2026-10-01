@@ -752,6 +752,7 @@ else
   fetch_target=(--all)
 fi
 fetch_attempt=1
+fetch_refspec_repaired=0
 fetch_err="$(mktemp)"
 while :; do
   if triager_run_reaped "$GARDEN_FETCH_TIMEOUT" "$GARDEN_FETCH_KILL_AFTER" \
@@ -762,6 +763,24 @@ while :; do
   fi
   GARDEN_FETCH_STDERR="$(cat "$fetch_err" 2>/dev/null || true)"
   [ "$rc" -eq 0 ] && break
+
+  # A bare clone whose origin carries no fetch refspec (or only `HEAD`) falls back
+  # to fetching the remote's HEAD, and fails deterministically with "couldn't find
+  # remote ref HEAD" once that HEAD dangles (kriscendobot-garden-book,
+  # 2026-10-01T20:14:20Z). It is local misconfiguration, not an upstream fault:
+  # restore the WORKTREES.md refspec and retry once. A clone that already carries
+  # the refspec is left alone and classified like any other failure below.
+  if [ "$fetch_refspec_repaired" -eq 0 ] && [ "${fetch_target[0]}" = origin ] \
+     && grep -q "couldn't find remote ref HEAD" <<<"$GARDEN_FETCH_STDERR" \
+     && ! git --git-dir="$BARE" config --get-all remote.origin.fetch 2>/dev/null \
+          | grep -qxF '+refs/heads/*:refs/remotes/origin/*'; then
+    fetch_refspec_repaired=1
+    if git --git-dir="$BARE" config --replace-all remote.origin.fetch \
+         '+refs/heads/*:refs/remotes/origin/*'; then
+      log "repaired missing origin fetch refspec on $BARE (fetch said: couldn't find remote ref HEAD); retrying fetch once"
+      continue
+    fi
+  fi
 
   # Missing-repository diagnostics need an API confirmation, not blind retries.
   # Authentication rejections and transport failures do get bounded full-jitter

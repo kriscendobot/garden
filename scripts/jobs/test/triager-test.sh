@@ -833,6 +833,45 @@ grep -q "verdict=transient-repository-exists" "$MOUT" && ok "API success routes 
 ! grep -qi "upstream gone/unreachable" "$MOUT" && ok "API-vetoed fetch is not logged as upstream gone" || bad "API-vetoed fetch logged a gone claim (out: $(cat "$MOUT"))"
 
 # ============================================================================
+hr; echo "M9 — origin missing its fetch refspec ('couldn't find remote ref HEAD'): repair + retry once"; hr
+# kriscendobot-garden-book, 2026-10-01T20:14:20Z: a bare clone whose origin had no
+# +refs/heads/*:refs/remotes/origin/* refspec fell back to fetching the remote's
+# HEAD, which dangled, so every fetch died "fatal: couldn't find remote ref HEAD"
+# and paged the maintainer as an unclassified failure. The triager now restores the
+# refspec, retries the fetch once, and triages normally with no maintainer notice.
+DANGLE_SRC="$TR/src-dangling-head"
+rm -rf "$DANGLE_SRC"; git clone -q "$SRC" "$DANGLE_SRC"
+git -C "$DANGLE_SRC" symbolic-ref HEAD refs/heads/no-such-branch   # remote HEAD dangles
+rm -rf "$REPOS/$SLUG.git"; git init -q --bare "$REPOS/$SLUG.git"
+git -C "$REPOS/$SLUG.git" remote add origin "$DANGLE_SRC"
+git -C "$REPOS/$SLUG.git" config --unset-all remote.origin.fetch    # the broken shape
+set +e; git --git-dir="$REPOS/$SLUG.git" fetch -q origin --prune 2>"$TR/dangle-pre.err"; set -e
+grep -q "couldn't find remote ref HEAD" "$TR/dangle-pre.err" \
+  && ok "fixture reproduces 'couldn't find remote ref HEAD'" || bad "fixture did not reproduce the failure ($(cat "$TR/dangle-pre.err"))"
+rm -rf "$TR/state-refspec"; STATE="$TR/state-refspec"; rm -rf "$BARE"; seed_journal
+: > "$CALLS"; : > "$ALERTS"; MOUT="$TR/triager-refspec.out"; : > "$MOUT"
+set +e
+env GARDEN=testhost GARDEN_STATE="$STATE" \
+    JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$REPOS" GARDEN_WATCH_REF="$REF" \
+    GARDEN_FETCH_TIMEOUT=5 GARDEN_TRIAGE_FETCH_ATTEMPTS=3 GARDEN_BACKOFF_CAP_MS=5 \
+    GARDEN_ALERT_CMD="$ALERT_STUB" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_RC=0 CALL_LOG="$CALLS" \
+    GARDEN_TRIAGE_FAIL_THRESHOLD=5 \
+    "$JOBS/triager.sh" "$SLUG" >>"$MOUT" 2>&1
+rc=$?; set -e
+[ "$rc" -eq 0 ] && ok "refspec-repair tick exits 0" || bad "tick exit = $rc (out: $(cat "$MOUT"))"
+[ "$(git -C "$REPOS/$SLUG.git" config --get-all remote.origin.fetch)" = '+refs/heads/*:refs/remotes/origin/*' ] \
+  && ok "origin fetch refspec restored to the WORKTREES.md shape" \
+  || bad "refspec = '$(git -C "$REPOS/$SLUG.git" config --get-all remote.origin.fetch)'"
+[ "$(git -C "$REPOS/$SLUG.git" rev-parse --verify -q "refs/remotes/origin/$REF")" = "$(git -C "$SRC" rev-parse "$REF")" ] \
+  && ok "the retried fetch populated refs/remotes/origin/$REF" || bad "origin/$REF not fetched after the repair"
+grep -q "repaired missing origin fetch refspec" "$MOUT" && ok "the repair is logged" || bad "repair log missing (out: $(cat "$MOUT"))"
+! grep -q "WARN: fetch failed for $SLUG" "$MOUT" && ok "no unclassified fetch-failure WARN" || bad "still WARNed (out: $(cat "$MOUT"))"
+! grep -q "triager-fetch-failed" "$ALERTS" && ok "no maintainer fetch-failure notice" || bad "maintainer was paged ($(cat "$ALERTS"))"
+[ "$(calls)" -eq 1 ] && ok "handler triaged the fetched ref" || bad "handler calls = $(calls) (want 1)"
+seed_watched_bare   # restore the well-formed bare for later sections
+
 hr; echo "N — TERM/INT-killed fetch (rc 143/130): clean signal exit, NOT a fetch failure"; hr
 # A systemd stop (KillMode default SIGTERM) or a Ctrl-C can kill the steady-state
 # `git fetch`, leaving rc=143 (128+SIGTERM) or rc=130 (128+SIGINT). That is an
