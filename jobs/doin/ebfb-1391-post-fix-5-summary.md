@@ -34,3 +34,13 @@ Not addressed:
 - **integrator #4** (garden-internal `Refs:` in the PR body): comment-only. This host's token cannot edit the PR, so it is left for the un-draft step.
 - **coverage-auditor** c8 gate: this is a pre-pass data gap (no `coverage-final.json` at dispatch), not a code finding.
 ----- END COMMENT -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T17:11:20Z
