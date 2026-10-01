@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T06:49:06Z_
+_As of 2026-10-01T06:51:41Z_
 
 ## Latest
 
-Progress was incremental: a single gauntlet fix round completed clean on [endojs/endo-but-for-bots#1401](https://github.com/endojs/endo-but-for-bots/pull/1401) (CI green), immediately advancing that PR into a second panel round, while [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) picked up a new fix-round claim. The larger picture is a backlog, not a blocker: the board still carries over a dozen parked PRs awaiting kriskowal's direct review (notably [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281), each waiting well over a week), several gauntlets that hit their review-budget ceiling without converging (including the petname-path-only sweep and the ironhorse panic-host-call PR), and a rolling-deploy canary on oros-studio-garden-ce242c49 that's stuck and failed validation repeatedly against c5416eb373bc, needing a maintainer look before the fleet tip can advance further.
+The sturdyref/CapTP shim stack keeps grinding through the gauntlet, with fix and panel rounds active across [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep), #1391–#1393 (SES/pass-style/marshal), #1394/#1396 (CapTP wire/construct), and #1397/#1398 (ocapn-enliven/daemon-formula); the original layer-1 shim, [#774](https://github.com/endojs/endo-but-for-bots/pull/774), had its fix round 2 doom-parked after a requeue-exhausted failure and wants a look. [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402) and [#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) are both in the finalize/merge step. The petname-path-only sweep and a separate Ironhorse panic-host-call fix both exhausted their 6-round review budget without the panel converging — both are sitting ready for a human merge/review call rather than further automatic rounds. Operationally, the rolling deploy to c5416eb373bc is HALTED on oros-studio-garden-ce242c49: the canary has failed re-validation three times running and needs a decision (lift the drain and retry, or hold the tip) instead of another automatic retry. Also waiting in the inbox: two minion.town MCP rollout decisions (dedicated principal/guest identity, and per-role tool-context cost), a qwen3.8 model-watch call, and confirmation to turn on Route53 DNSSEC signing for ocap.site.
 
 ## Parked for maintainer feedback
 
@@ -171,10 +171,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.8M | $695.81 _(notional, rate-card)_ | 35% of 256.0M (ok) |
+| Claude | 89.9M | $696.21 _(notional, rate-card)_ | 35% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 136260333 tokens/day lower bound._
+_Fleet token-unlock pace: 136429239 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.325957s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
