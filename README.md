@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T06:21:45Z_
+_As of 2026-10-01T06:27:59Z_
 
 ## Latest
 
-The sturdyref CapTP stack continues to dominate the board — eight parallel gauntlets spanning [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (layer 1), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) — are grinding through fix/panel rounds, with layer 5 ([#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) reaching undraft while layer 1's fix stage ([#774](https://github.com/endojs/endo-but-for-bots/pull/774)) doom-parked after a failed retry and now needs a human look. The petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) is still cycling fix rounds across three parallel sub-jobs; its gauntlet and the Ironhorse panic-host-call gauntlet both exhausted the 6-round review budget and are left parked for manual merge review. Separately, a rolling-deploy canary on oros-studio-garden-ce242c49 has been stuck over 20 minutes behind the leader's released commit, and the maintainer inbox has several decisions waiting: whether to widen the minion.town MCP rollout past garden2, open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and the still-pending ocap.site DNSSEC DS-record publication at the registrar.
+No board transitions resolved since the last bulletin, so the fleet is churning through in-flight gauntlets rather than opening new ground. The sturdyref layer stack on `endo-but-for-bots` continues working through fix rounds (layers 2–8, PRs [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), alongside the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and ongoing conduct work on [#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) and [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402). Two gauntlets exhausted their review budget without converging — the petname-path-only sweep and the ironhorse panic-host-call PR — and are left for human merge/review. A rolling deploy to `c5416eb373bc` is stuck: the canary on oros-studio-garden-ce242c49 failed validation three times and is now drained pending the maintainer's call on whether to retry or hold the tip, and a separate follower is offline with no canary available at all. Several open decisions await the maintainer: the minion.town MCP principal/scope and context-cost questions, M3's choice between advancing [#1015](https://github.com/endojs/endo-but-for-bots) behind its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite or answering design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340)'s open questions, and the ocap.site DNSSEC publication step, which still needs a registrar-side DS record.
 
 ## Parked for maintainer feedback
 
@@ -69,6 +69,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
+
+> Rolling deploy HALTED on a failed canary.
+> canary host: oros-studio-garden-ce242c49
+> target sha:  c5416eb373bc4a90cf18dd2563c24044e1ae52a5
+> failing signal: retries exhausted after re-validation kept failing
+> This canary was RETRIED 3 time(s) automatically and kept
+> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
+> confirmed regression, not a transient blip — treat it as higher severity than a
+> first-tick halt.
+> The roll released no further followers and the LEADER did NOT advance itself — a
+> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
+> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
+> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
+> on oros-studio-garden-ce242c49, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden-ece02cb4)
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -147,7 +163,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.8M | $694.21 _(notional, rate-card)_ | 35% of 256.0M (ok) |
+| Claude | 89.0M | $695.06 _(notional, rate-card)_ | 35% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135967355 tokens/day lower bound._
