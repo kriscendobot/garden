@@ -54,6 +54,9 @@
 #   T30 billing refusal on one job but an ordinary failure on another → exit 3
 #   T31 annotation read fails → ordinary red exit 3 (never guess billing)
 #   T32 failed commit status with no Actions job URL → ordinary red exit 3
+#   T33 stale CANCELLED run superseded by a green rerun of the same check → merge
+#   T34 stale green run superseded by a red rerun of the same check → exit 3
+#   T35 stale red run superseded by a still-queued rerun → keeps waiting (exit 4)
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -399,6 +402,23 @@ reset_seq
 seq_add "{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"statusCheckRollup\":[$(job test FAILURE 101),{\"context\":\"ext/ci\",\"state\":\"FAILURE\",\"targetUrl\":\"https://ci.example/1\"}]}"
 printf '%s\n' "$BILLING_MSG" > "$STUBDIR/ann_101"
 run o/r 144; chk "$rc" 3 T32; nomerge T32
+
+# A rerun leaves the superseded run in the rollup under the same check name.
+run_at() { printf '{"__typename":"CheckRun","name":"%s","workflowName":"CI","status":"%s","conclusion":%s,"startedAt":"%s","detailsUrl":"https://github.com/o/r/actions/runs/1/job/%s"}' "$1" "$2" "$3" "$4" "$5"; }
+rerun_rollup() { printf '{"state":"OPEN","mergeable":"MERGEABLE","headRefOid":"%s","statusCheckRollup":[%s,%s,%s]}' "$HEAD" "$1" "$(run_at lint COMPLETED '"SUCCESS"' 2026-09-30T01:00:00Z 201)" "$2"; }
+
+echo "T33 stale CANCELLED run + green rerun of the same check → merge"
+reset_seq; seq_add "$(rerun_rollup "$(run_at test COMPLETED '"CANCELLED"' 2026-09-30T01:00:00Z 202)" "$(run_at test COMPLETED '"SUCCESS"' 2026-09-30T02:00:00Z 203)")"
+printf 'MERGED|false' > "$STUBDIR/verify"
+run o/r 178; chk "$rc" 0 T33; merged T33
+
+echo "T34 stale green run + red rerun of the same check → exit 3"
+reset_seq; seq_add "$(rerun_rollup "$(run_at test COMPLETED '"FAILURE"' 2026-09-30T02:00:00Z 205)" "$(run_at test COMPLETED '"SUCCESS"' 2026-09-30T01:00:00Z 204)")"
+run o/r 178; chk "$rc" 3 T34; nomerge T34
+
+echo "T35 stale red run + still-queued rerun → keeps waiting, no merge"
+reset_seq; seq_add "$(rerun_rollup "$(run_at test COMPLETED '"FAILURE"' 2026-09-30T01:00:00Z 206)" "$(run_at test QUEUED null 0001-01-01T00:00:00Z 207)")"
+GARDEN_CI_DEADLINE_SECS=1 run o/r 178; chk "$rc" 4 T35; nomerge T35
 
 rm -rf "$TR"
 echo "----------------------------------------------------------------"

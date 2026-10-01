@@ -237,6 +237,32 @@ poll_secs="${GARDEN_CI_POLL_SECS:-60}"
 poll_max="${GARDEN_CI_POLL_MAX_SECS:-60}"
 start="$(date +%s)"
 
+# A rerun or a superseding push leaves the earlier check run in the rollup next
+# to the new one, so a commit whose latest runs are all green can still carry a
+# stale CANCELLED/FAILURE entry under the same name. Every CI verdict below reads
+# only the LATEST entry per check identity (workflow+name for a check run,
+# context for a commit status), kept in rollup order. A run still pending sorts as
+# the latest (a queued rerun reports a zero startedAt), then startedAt,
+# completedAt, and the Actions job id break ties. The ratchet shape check in
+# read_rollup still validates every entry.
+# shellcheck disable=SC2016  # jq program — the $vars are jq's, not the shell's.
+LATEST_CHECKS_JQ='
+  def latest_checks:
+    [ .statusCheckRollup[]? ] | to_entries
+    | group_by(.value
+        | if (.__typename == "StatusContext") or (.name == null and .context != null)
+          then ["status", (.context // "")]
+          else ["check", (.workflowName // ""), (.name // "")] end)
+    | map(sort_by(
+            .value as $v
+            | (($v.status // $v.state // "") | ascii_upcase) as $s
+            | [ (if ($s=="QUEUED" or $s=="IN_PROGRESS" or $s=="PENDING" or $s=="WAITING") then 1 else 0 end),
+                ($v.startedAt // ""), ($v.completedAt // ""),
+                ((($v.detailsUrl // $v.targetUrl // "") | capture("/job/(?<id>[0-9]+)").id) // "0" | tonumber) ])
+          | last)
+    | sort_by(.key) | .[].value;
+'
+
 # One rollup read. Echoes
 # "<state>|<pending>|<failed>|<total>|<reviewDecision>|<headRefOid>|<mergeable>"
 # on stdout, or returns non-zero (never a fabricated green) when the read itself
@@ -266,18 +292,18 @@ read_rollup() {
     ' >/dev/null || { log "ratchet CI rollup unreadable"; return 1; }
   fi
   state="$(printf '%s' "$json" | jq -r '.state // ""')"
-  failed="$(printf '%s' "$json" | jq -r '
-    [ .statusCheckRollup[]?
+  failed="$(printf '%s' "$json" | jq -r "$LATEST_CHECKS_JQ"'
+    [ latest_checks
       | ((.conclusion // .state // "") | ascii_upcase) as $c
       | select($c=="FAILURE" or $c=="ERROR" or $c=="CANCELLED"
                or $c=="TIMED_OUT" or $c=="ACTION_REQUIRED" or $c=="STARTUP_FAILURE") ]
     | length')"
-  pending="$(printf '%s' "$json" | jq -r '
-    [ .statusCheckRollup[]?
+  pending="$(printf '%s' "$json" | jq -r "$LATEST_CHECKS_JQ"'
+    [ latest_checks
       | ((.status // .state // "") | ascii_upcase) as $s
       | select($s=="QUEUED" or $s=="IN_PROGRESS" or $s=="PENDING" or $s=="WAITING") ]
     | length')"
-  total="$(printf '%s' "$json" | jq -r '[ .statusCheckRollup[]? ] | length')"
+  total="$(printf '%s' "$json" | jq -r "$LATEST_CHECKS_JQ"'[ latest_checks ] | length')"
   review="$(printf '%s' "$json" | jq -r '.reviewDecision // ""')"
   head_oid="$(printf '%s' "$json" | jq -r '.headRefOid // ""')"
   # MERGEABLE / CONFLICTING / UNKNOWN. Only CONFLICTING is a computed answer we
@@ -288,8 +314,8 @@ read_rollup() {
 
 print_failures() {
   # shellcheck disable=SC2016  # jq program — $c is jq's, not the shell's.
-  "$GH" pr view "$pr" -R "$repo" --json statusCheckRollup --jq '
-    .statusCheckRollup[]?
+  "$GH" pr view "$pr" -R "$repo" --json statusCheckRollup --jq "$LATEST_CHECKS_JQ"'
+    latest_checks
     | ((.conclusion // .state // "") | ascii_upcase) as $c
     | select($c=="FAILURE" or $c=="ERROR" or $c=="CANCELLED"
              or $c=="TIMED_OUT" or $c=="ACTION_REQUIRED" or $c=="STARTUP_FAILURE")
@@ -312,8 +338,8 @@ print_failures() {
 actions_billing_blocked() {
   local json entries name url job_repo job_id annotations names=""
   json="$("$GH" pr view "$pr" -R "$repo" --json statusCheckRollup 2>/dev/null)" || return 1
-  entries="$(printf '%s' "$json" | jq -r '
-    .statusCheckRollup[]?
+  entries="$(printf '%s' "$json" | jq -r "$LATEST_CHECKS_JQ"'
+    latest_checks
     | ((.conclusion // .state // "") | ascii_upcase) as $c
     | select($c=="FAILURE" or $c=="ERROR" or $c=="CANCELLED"
              or $c=="TIMED_OUT" or $c=="ACTION_REQUIRED" or $c=="STARTUP_FAILURE")
