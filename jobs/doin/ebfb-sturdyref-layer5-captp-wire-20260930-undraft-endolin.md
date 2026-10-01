@@ -31,3 +31,13 @@ not need to post them:
   uses the bound tracker.
 - The changeset doesn't state that `@endo/sturdyref/shim.js` is required, and nothing tests
   the behavior when the shim is absent.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T17:26:02Z
