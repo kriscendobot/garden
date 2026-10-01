@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T00:52:08Z_
+_As of 2026-10-01T00:53:34Z_
 
 ## Latest
 
-Several SturdyRef-layer gauntlets are mid-flight on endojs/endo-but-for-bots, with panel/fix rounds progressing on layers 1–8 (PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), but two of these halted and need attention: the layer-7 OCapN-enliven gauntlet failed at the clean stage, and the layer-2 SES gauntlet failed at fix round 4 — a gardener separately reports [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)'s round-4 must-fixes are actually landed and CI is red only on a flaky macOS daemon-teardown test, suggesting a rerun could clear it. The ironhorse panic-live-handle-reseat gauntlet also halted after its fix round 6 was declared failed/declined. Separately, three PRs ([#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) twice, [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) moved heads after their panel review, so each needs an explicit "run the gauntlet" or a maintainer call before further review. The accountant's budget-conversation proposal is now parked awaiting a "go ahead," the minion.town MCP rollout is paused on two maintainer decisions (principal/scoping and context-cost tooling), and the foreman flags that M3 progress is blocked on choosing between advancing [#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) (behind [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348)) or answering [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340)'s open questions. Host oros-studio-garden-ce242c49 remains offline, holding the rolling deploy with no canary available.
+The SturdyRef layer stack (layers 1–8) is pushing through its gauntlets in parallel: layer 1's shim build and layers 2–6 are mid fix/panel cycles, while layer 8's daemon formula work just reached a clean-stage todo. Two of those stalled out and got halted for maintainer attention — [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)'s SES layer and the sturdyref-layer7 OCapN-enliven attempt both failed a gated round and need a look; #1391 specifically has all CI green except one flaky macOS daemon-teardown leg, worth a manual rerun. The petname-path-only sweep continues grinding through its sixth fix/panel round on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), each pass flagging stale-panel-head notices as the head keeps moving; its last round also surfaced a batch of follow-ups (refusal tests, property tests, a PR-body trim) still needing disposition. The long-running Ironhorse panic-live-handle-reseat gauntlet on #1380 also halted on a declined fix round. Elsewhere, the garden book got a two-chapter update (library/scholar chapter and an inference-tiers reference) republished to a new ocap.site build, and the fleet's own infrastructure saw a round of self-healing: several journal-contention and rolling-deploy-canary watchdog conditions cleared on their own, while oros-studio-garden-ce242c49 remains offline and is being skipped by rolling deploy and worker leveling alike. On the budget side, claude-endolin2 is approaching a hold-for-credit decision window and codex-endolin needs accelerated spend to make a reset credit worthwhile before Thursday.
 
 ## Parked for maintainer feedback
 
@@ -134,12 +134,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #74 (first seen 2026-09-30T04:37:42Z, latest 2026-10-01T00:47:58Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 74 times; this is ONE
-> coalesced notice that updates in place, not 74 messages. Latest detail:
+> WATCHDOG notice — occurrence #75 (first seen 2026-09-30T04:37:42Z, latest 2026-10-01T00:53:06Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 75 times; this is ONE
+> coalesced notice that updates in place, not 75 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=14523s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=14823s; heartbeat=full-poll)
 
 - `retire-gardener-worker-kind-alias-split-resume-terminal-complete` — from orchestrator:retire-gardener-worker-kind-alias-split-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-split-resume-terminal-complete.md)
 
@@ -348,7 +348,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.3M | $348.01 _(notional, rate-card)_ | 17% of 256.0M (ok) |
+| Claude | 43.3M | $348.31 _(notional, rate-card)_ | 17% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135594257 tokens/day lower bound._
