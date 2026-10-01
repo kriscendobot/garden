@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T10:09:49Z_
+_As of 2026-10-01T10:16:05Z_
 
 ## Latest
 
-The most urgent item is a halted rolling deploy: the canary at oros-studio-garden-ce242c49 failed validation of target c5416eb373bc three automatic retries running, so the leader stopped and left the canary drained pending a maintainer decision — roll back the tip or investigate and lift the drain. Separately, the completion press caught a gap in the automated gauntlet handoff: the builder for `@endo/inference` finished and opened [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403), but no gauntlet got staged, so it's sitting CI-green and draft with no review path — and its phase-2 follow-on has been unclaimed in todo for roughly four hours as a result; running the gaunttlet by hand on #1403 would unblock it. Two long gauntlets hit their six-round review-budget ceiling and were left improved-but-unmerged for a human call: [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep) and the Ironhorse panic/host-call PR; a third, [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (sturdyref layer1 shim), had its fix stage doom-parked after an unexplained failure. Still pending a maintainer call: foreman milestone M3's choice between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) or answering the open questions on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and the minion.town MCP rollout's principal/scope and context-cost decisions. On infrastructure, ocap.site's Route53 zone signing is now enabled, but the DS record still needs publishing at the registrar before DNSSEC takes effect.
+Several `ebfb-sturdyref` layer gauntlets (layers 1–8, the SturdyRef pass-style stack) are mid-flight across panel/fix rounds, with layer1 ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)) doom-parked after a fix round failed with an unproven-transient classification. The guest-identifiers/locators sweep is progressing in parallel: [#1404](https://github.com/endojs/endo-but-for-bots/pull/1404) is at CLEAN and a follow-on job to migrate remaining in-repo guest consumers is queued. The accountant's quota conversation and PR #140 review on kriscendobot/minion.town are both waiting on maintainer input, and the completion press flagged that builder PR [#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) (phase 1 of the Claude inference-backends design) never got an automatic gauntlet staged — its phase-2 successor has been stuck unclaimed in todo for ~4 hours as a result, and the suggested fix is to run the gauntlet on it by hand.
+
+On infrastructure, a rolling deploy to oros-studio-garden-ce242c49 has HALTED on a confirmed, repeatedly-failing canary (3 retries exhausted) and needs a manual decision — investigate the target, lift the drain, or hold the tip. Separately, GitHub API rate-limiting caused a PR-feedback preflight to fail open on [#1371](https://github.com/endojs/endo-but-for-bots/pull/1371), meaning any real reviewer feedback there may have been processed without the usual peer-resolution recheck. Two long-parked gauntlets ([ebfb-petname-path-only-sweep](https://github.com/endojs/endo-but-for-bots/pull/1390) and the [Ironhorse panic-host-call PR](https://github.com/endojs/endo-but-for-bots/pull/1380)) hit their 6-round review budget without converging and are left for human merge/review judgment. On the lighter side, several transient watchdog conditions (journal clone-size, canary host offline, worker derotation) self-cleared overnight with no action needed.
 
 ## Parked for maintainer feedback
 
@@ -70,15 +72,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #18 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T10:08:21Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 18 times; this is ONE
-> coalesced notice that updates in place, not 18 messages. Latest detail:
+> WATCHDOG notice — occurrence #19 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T10:13:25Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 19 times; this is ONE
+> coalesced notice that updates in place, not 19 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=9881s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=9963s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=9960s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=9953s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=10181s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=10263s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=10260s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=10253s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -209,7 +211,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 98.1M | $743.15 _(notional, rate-card)_ | 38% of 256.0M (ok) |
+| Claude | 99.2M | $753.02 _(notional, rate-card)_ | 39% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135708877 tokens/day lower bound._
