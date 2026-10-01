@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T22:32:27Z_
+_As of 2026-10-01T22:38:51Z_
 
 ## Latest
 
-Quiet cycle: no new posts, claims, or completions registered since the last bulletin, so the board moved on its own standing work rather than anything freshly dispatched. The main story is the rolling deploy stalling on oros-studio-garden-ce242c49 — a canary at e02555bca7f4 failed re-validation three times and the leader halted the roll rather than advance an unvalidated tip, leaving that host drained pending a maintainer look; it had also separately recovered from a brief heartbeat/offline blip earlier in the window. Several of the large sturdyref/petname gauntlets on endo-but-for-bots continue grinding through fix/panel rounds (PRs [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), and both the petname-path-only sweep and the ironhorse panic/live-handle-reseat gauntlet ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) hit their 6-round review budget and are parked for a human merge call. The root checkout on endolin-garden2 remains stalled 16 commits behind main2, and a journal clone-size guard on the leader is nearing its pack-count threshold with its remedy deferred — both worth a glance alongside the deploy halt.
+The board shows active work across a wide stack of gauntlets rather than any single headline change: the two sturdyref-layer series (layers 1–8 on [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) and the petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) are both still cycling fix/panel rounds, and the petname sweep's round-6 pass reached the review budget without converging, so it's parked for a human merge call. Two IronHorse PRs — the computron-parity chore ([#1282](https://github.com/endojs/endo-but-for-bots/pull/1282)) and the panic-host-call build — likewise hit the same review-budget ceiling with green CI and are waiting on a maintainer decision rather than more automated rounds.
+
+Operationally, a rolling deploy to e02555bca7f4 is halted: the canary on oros-studio-garden-ce242c49 failed validation three times and the system stopped retrying, leaving the leader un-advanced and the canary host drained pending investigation — this needs a look before the roll can resume. Separately, root checkout `/home/kris/garden2` has been stalled 16 commits behind `origin/main2` for about a day, and the leader's follower pool briefly had zero online canaries (both flagged by watchdogs, the latter self-resolved alongside a brief worker-derotation blip). Spend is steady at 67% of the Claude weekly quota and 38% of the Codex plan allotment.
 
 ## Parked for maintainer feedback
 
@@ -128,16 +130,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 171.7M | $1302.90 _(notional, rate-card)_ | 67% of 256.0M (ok) |
+| Claude | 171.9M | $1303.91 _(notional, rate-card)_ | 67% of 256.0M (ok) |
 | Codex | 19.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 134822141 tokens/day lower bound._
+_Fleet token-unlock pace: 138069449 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (33)
+### todo (34)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`endojs-endo-but-for-bots-pr1348-reply-shell-tools-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1348-reply-shell-tools-20261001.md) — Answer kriskowal's question on endojs/endo-but-for-bots#1348
@@ -163,6 +165,7 @@ worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`endojs-endo-but-for-bots-pr1402-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1402-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1402
 - [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1393
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1380
+- [`claude-on-minion-town-press-20261001-223508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261001-223508.md) — Press the Claude-on-minion.town arc forward
 - [`ebfb-774-pr-body-refresh-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-774-pr-body-refresh-20261001.md) — Update the PR #774 description (endojs/endo-but-for-bots)
 - [`ocap-site-dns-recovery-check-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ocap-site-dns-recovery-check-20261001.md) — Verify ocap.site DNS recovery after registrar nameserver revert
 - [`accountant-budget-conversation-20260930-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-budget-conversation-20260930-resume.md) — ---
