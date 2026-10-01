@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T20:55:31Z_
+_As of 2026-10-01T20:58:07Z_
 
 ## Latest
 
-No board transitions landed since the last bulletin, so the queue is holding steady: 36 jobs in todo, 3 actively claimed, and a very long tail of completed gauntlet work. Three gauntlets hit their review budget without converging after six panel/fix rounds and are parked for a human call — [endo-but-for-bots #1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep) and the ironhorse panic-host-call PR both need a maintainer merge/review decision, alongside a journal-contention checker on endolin-garden-ece02cb4 that's been deferring all 909 of its clones per tick. The qwen model watch reports upstream skipped 3.7 and shipped 3.8 instead — worth a decision on whether to retarget the watch or drop it since the local-qwen lane is already retired. Otherwise, the parked-for-review list is unchanged at the top, led by [endo-but-for-bots #1282](https://github.com/endojs/endo-but-for-bots/pull/1282) (ironhorse computron-parity) and [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) (SES lockdown intrinsics for WHATWG URL).
+Board churn stayed light this cycle — only one new post, reviving the local hermit (on-box Ollama) lane upgraded to qwen3.8. The fix/panel gauntlets on the stacked petname and sturdyref PR trains continue to grind through rounds (sweep-4 and sturdyref-layer6/layer8 among them), with two more — [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and the ironhorse panic live-handle-reseat PR [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) — joining prior review-budget-reached cases as improved-but-unconverged, left for human merge/review. Three new maintainer messages also landed: the journal contention checker is overrunning its budget on endolin-garden-ece02cb4 (deferring all 909 clones per tick), a monk-capacity watchdog tripped again on oros-studio-garden-ce242c49 (3→2 workers under subscription pacing), and the petname-path-only-sweep gauntlet hit its review budget on another PR. Nothing here needs immediate action beyond awareness; the parked-PR queue (topped by the ironhorse computron-parity PR [#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and the SES/URL intrinsics fix [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281)) is unchanged.
 
 ## Parked for maintainer feedback
 
@@ -46,23 +46,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
-- `msg-fu-qwen-model-watch-20260728-180502-1-20260930-162006-c2728cdbeb52` — from gardener:fu-qwen-model-watch-20260728-180502-1-20260930-162006, reply_to `fu-qwen-model-watch-20260728-180502-1-20260930-162006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fu-qwen-model-watch-20260728-180502-1-20260930-162006-c2728cdbeb52.md)
-
-> qwen model watch (weekly schedule `fu-qwen-model-watch-20260728-180502-1`), probe 2026-10-01:
->
-> - `ollama.com/library/qwen3.7` → still **404**: the literal trigger did not fire.
-> - Upstream seems to have **skipped 3.7**: `ollama.com/library/qwen3.8` → **200**, updated ~6 days ago (tags `27b`, `27b-mlx`, `latest`; "substantial gains across coding, … long-horizon agentic tasks"). So a 3.7 probe may never flip.
-> - Context: the local-qwen hermit lane was retired 2026-09-13 (`retire-local-qwen-hermit-lane`), so "reassess the local lane" now means "is qwen3.8 reason enough to revive it (or to trial `qwen3.8:cloud` on the friar/ollama-cloud arm, which is currently `qwen3.5:cloud`)?"
->
-> Decisions for you: (a) post a reassessment job for qwen3.8, (b) point the watch at qwen3.9, or (c) drop the schedule (`set-schedule.sh`) since the lane is retired. I have not changed the schedule.
-
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 167.7M | $1283.72 _(notional, rate-card)_ | 65% of 256.0M (ok) |
+| Claude | 167.8M | $1285.24 _(notional, rate-card)_ | 66% of 256.0M (ok) |
 | Codex | 19.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 139361339 tokens/day lower bound._
@@ -71,7 +61,8 @@ _Fleet token-unlock pace: 139361339 tokens/day lower bound._
 worst fetch p95 4.820594s/45s (unknown); 2 open notice(s); checker healthy
 
 ## Board
-### todo (36)
+### todo (37)
+- [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`endojs-endo-but-for-bots-pr1348-review-3fce8521`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1348-review-3fce8521.md) — Review directive on endojs/endo-but-for-bots PR #1348
 - [`build-endo-claude-sandbox-bwrap-slice-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-sandbox-bwrap-slice-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1408
 - [`garden-book-migration-verify-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-book-migration-verify-build.md) — ---
