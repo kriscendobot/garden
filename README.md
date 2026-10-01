@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T06:58:57Z_
+_As of 2026-10-01T07:01:09Z_
 
 ## Latest
 
-The quiet period since the last snapshot saw one board transition: the `ebfb-guest-no-identifiers-locators` gauntlet's viability-cost job completed. The gauntlet pipeline otherwise stays busy — four jobs in flight (sturdyref layers 6 and conduct on [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371), PR #1390 fix round 1, and PR #1402 panel round 1) with twenty more queued, spanning the sturdyref layer stack (#1390–#1398) and PR #1401/#1402 review rounds.
-
-Several maintainer-facing items are worth flagging: the rolling deploy to `c5416eb373bc` is stuck — oros-studio's canary failed validation three times and was left drained pending a decision, and endolin-garden has no canary available at all since its only follower is offline. Separately, two journal clone-guard warnings (fork-watch and repo-watcher journals both over 1000 packs) are sitting in deferred-remedy state. On the PR side, the minion.town MCP rollout awaits a go/no-go on widening past the garden2 pilot, and the `pr-feedback-preflight` watcher hit a GitHub rate limit while gathering evidence on [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371), so that recheck failed open.
+The sturdyref-layer gauntlet stack kept grinding through its fix/panel rounds overnight (layers 1–8, PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774) through #1398), alongside continued fix/panel cycles on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1401](https://github.com/endojs/endo-but-for-bots/pull/1401), and [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402); the guest-no-identifiers-locators work landed its completion report and moved into gauntlet cleanup. Two gauntlets exhausted their review budget still green but unconverged (the petname-path-only sweep and the ironhorse panic-host-call PR) and now need a human merge call, and a third — the sturdyref layer-1 shim build on #774 — halted outright after an unrecoverable fix-round failure. Operationally the bigger story is a rolling deploy to `c5416eb373bc` stuck on host oros-studio-garden-ce242c49: the canary failed validation three retries running and was left drained pending investigation, and a separate stuck-canary notice shows it still reporting an old deployed SHA 21 minutes after release — both need attention before the leader can advance. Also worth a look: the accountant's parked budget-conversation plan, the foreman's M3 milestone blocked on a choice between [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340)'s open questions, and the minion.town MCP principal/scope decision awaiting sign-off.
 
 ## Parked for maintainer feedback
 
@@ -177,7 +175,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.2M | $697.47 _(notional, rate-card)_ | 35% of 256.0M (ok) |
+| Claude | 90.3M | $698.11 _(notional, rate-card)_ | 35% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136429239 tokens/day lower bound._
@@ -186,10 +184,11 @@ _Fleet token-unlock pace: 136429239 tokens/day lower bound._
 worst fetch p95 4.325957s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (20)
+### todo (21)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
 - [`ebfb-petname-path-only-sweep-4-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`ebfb-guest-no-identifiers-locators-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-guest-no-identifiers-locators-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1404
 - [`endojs-endo-but-for-bots-pr1401-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1401-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1401
 - [`ebfb-guest-designation-consumers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-guest-designation-consumers.md) — Migrate in-repo guest consumers off guest identifiers/locators
 - [`conduct-endojs-endo-but-for-bots-pr1402-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-endojs-endo-but-for-bots-pr1402-20261001.md) — Merge endojs/endo-but-for-bots PR #1402
