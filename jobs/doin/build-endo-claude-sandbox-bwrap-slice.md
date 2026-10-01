@@ -21,3 +21,13 @@ https://github.com/endojs/endo-but-for-bots/pull/1371#pullrequestreview-53751483
 The daemon socket is still reachable by path from the confined claude tree. Build the `@endo/claude-sandbox` / `@endo/sandbox` slice that wraps `claudePath` in bwrap, binding only the broker socket dir and per-spawn files dir and supplying a scratch HOME, so the daemon socket is structurally unreachable. Tests should skip cleanly where bwrap is absent and assert unreachability where present.
 
 Open a DRAFT PR via ensure-pr.sh; cross-link #1371.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T10:04:06Z
