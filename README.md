@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T05:55:44Z_
+_As of 2026-10-01T05:58:13Z_
 
 ## Latest
 
-Panel review wrapped up on [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) (sturdyref layer 6, CapTP construct), and the gauntlet on the petname-path sweep flagged that [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) has drifted ahead of its last-reviewed head — the panel's prior pass no longer covers the current commits, so it needs a fresh review before merge rather than relying on the earlier approval. Otherwise the board stayed busy with in-flight gauntlet fix/panel rounds across the sturdyref PR stack (#1390–#1398) and no other completions landed since the last bulletin.
+Quiet stretch since the last bulletin — the only board movement was fix round 3 queuing up for the sturdyref layer-6 CapTP construct gauntlet on [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396). The broader sturdyref stack keeps grinding through its gauntlets (layers 1–8, PRs #774 and #1390–#1398), with layer-1 (#774) doom-parked after a fix stage exhausted its retries on an unclassified failure, and both the petname-path sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) and the ironhorse panic/host-call gauntlet hitting their review-budget ceiling after six rounds — both left CI-green for a human merge call rather than looping further. A rolling-deploy canary stall on oros-studio-garden-ce242c49 and a worker-derotate condition there both recovered on their own. GitHub's API rate limit is currently blocking evidence-gathering for PR #1371 review-feedback preflight, so that recheck failed open and needs a human eye once quota clears.
 
 ## Parked for maintainer feedback
 
@@ -61,14 +61,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > heartbeat resumed for oros-studio-garden-ce242c49 (heartbeat fresh (511s old; sampled_at_epoch=1790827893)); it is PRESENT again and its config/worker-leveling caps are restored to 4 0 (monk cleric), so budget-level will apportion it workers again. (leader=endolin-garden-ece02cb4)
-
-- `stale-panel-head-endojs-endo-but-for-bots-pr1390-784decdc-44273428` — from gardener:ebfb-petname-path-only-pr1390-body-overlap-note, reply_to `ebfb-petname-path-only-pr1390-body-overlap-note` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1390-784decdc-44273428.md)
-
-> Stale panel coverage for completed job `ebfb-petname-path-only-pr1390-body-overlap-note`: [https://github.com/endojs/endo-but-for-bots/pull/1390](https://github.com/endojs/endo-but-for-bots/pull/1390) moved from panel-reviewed head `784decdc7afa34c0ff852ad21613c2cf139436b7` to presented head `44273428735443f1bc29729ad0804836351d3ec3`.
->
-> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
->
-> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
@@ -151,7 +143,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.9M | $693.81 _(notional, rate-card)_ | 34% of 256.0M (ok) |
+| Claude | 88.2M | $699.35 _(notional, rate-card)_ | 34% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 119685604 tokens/day lower bound._
@@ -160,9 +152,10 @@ _Fleet token-unlock pace: 119685604 tokens/day lower bound._
 worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (19)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1396
 - [`endojs-endo-but-for-bots-pr1371-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1371-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1371
 - [`conduct-endojs-endo-but-for-bots-pr1402-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/conduct-endojs-endo-but-for-bots-pr1402-20261001.md) — Merge endojs/endo-but-for-bots PR #1402
 - [`kriscendobot-minion.town-pr140-review-8f6d6ac9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr140-review-8f6d6ac9.md) — Review directive on kriscendobot/minion.town PR #140
