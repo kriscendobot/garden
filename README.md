@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T00:39:52Z_
+_As of 2026-10-01T00:41:42Z_
 
 ## Latest
 
-The SturdyRef gauntlet stack dominated the night's activity: layer 1 (shim-build, [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)), layer 4 (marshal, [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)), and layer 5 (CapTP wire, [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) are mid fix-round, while layer 2 (SES, [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) and layer 7 (OCapN enliven) both halted their gauntlets — layer 2 on a flaky macOS daemon-teardown CI leg that a credentialed rerun should clear, layer 7 on a failed clean stage. The ironhorse panic/live-handle-reseat gauntlet also halted after its fix round failed, and the petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) landed its round-4 fixes but surfaced follow-up test/doc gaps needing disposition. Separately, three PR heads moved past their last panel review and need a fresh look or an explicit "run the gauntlet": [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) (twice), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), and [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) is also flagged by the foreman as blocking milestone M3 pending four open design questions. On infrastructure, the garden absorbed a wave of transient host/deploy noise (oros-studio heartbeat blip, comment-watcher cooldowns, journal contention) that has since recovered, and a parked gardener job (clone-alias verify/deploy) was doomed after a stalled retry and needs a maintainer promote-or-drop decision.
+The SturdyRef CapTP stack dominates: layers 1-8 are all mid-gauntlet (fix or panel rounds in progress on [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), but layer 2 ([#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) and layer 7 halted on a declined clean/fix stage and need a maintainer look. The petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) is grinding through repeated panel/fix rounds and has also piled up should-fix follow-ups (hasher/crank/CAS-store tests, SQLite error context) awaiting disposition. Separately, the Ironhorse panic-live-handle-reseat gauntlet halted after a fix round was explicitly declined, and both the SES ([#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) and sturdyref-layer7 gauntlets are stuck the same way. Fleet health is otherwise routine: a brief oros-studio host offline blip and a stuck canary both recovered, journal contention spikes cleared, and Claude spend sits at a comfortable 16% of quota with Codex plan usage at 38%.
 
 ## Parked for maintainer feedback
 
@@ -50,10 +50,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > not advance unvalidated. Restore any offline host until budget/live heartbeats resume,
 > or lift an operator drain. An archived host additionally needs a separate operator
 > unarchive; this roll never reverses archival. (leader=endolin-garden-ece02cb4, offline=1)
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1357-3a9c6be6030f` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1357-3a9c6be6030f.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1357](https://github.com/endojs/endo-but-for-bots/pull/1357) ([endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/issues/1357)) is in the mergeable queue with NO gauntlet review staged (head 3a9c6be6030fad904d5e559efc1cc3627c1e9197). Producer jobs normally stage their gauntlet at completion, but the periodic audit never mass-stages historical PRs. If you want this PR reviewed, reply with 'run the gauntlet #1357'; otherwise no action is needed. This audit never re-drafts or stages anything.
 
 - `msg-book-revise-content-a727eb9546d8` — from gardener:book-revise-content, reply_to `book-revise-content` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-book-revise-content-a727eb9546d8.md)
 
@@ -347,7 +343,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.8M | $336.72 _(notional, rate-card)_ | 16% of 256.0M (ok) |
+| Claude | 41.8M | $337.22 _(notional, rate-card)_ | 16% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 134625392 tokens/day lower bound._
