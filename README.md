@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T05:01:51Z_
+_As of 2026-10-01T05:04:21Z_
 
 ## Latest
 
-Two new review directives landed on the board for [endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) (a live-turn/OAuth-token PR), each paired with a parked retrospective, alongside the usual heavy churn through the gauntlet pipeline — multiple PRs (#1390, #1391, #1392, #1393, #1394, #1396, #1397, #1398, #1340, #1402, plus minion.town #145) cycling through fix/panel/clean/undraft stages. Two gauntlets exhausted their review budget without convergence and are left for human merge/review: [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (petname-path sweep) and the ironhorse panic-host-call PR, while a separate sturdyref-layer1 fix round on #774 doom-parked after a failure the system couldn't classify as transient. The parked-for-maintainer-feedback queue is unchanged at the top, still led by [endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281), both waiting over a week.
+Board activity since the last bulletin was minimal: only one new posting, a finalize/merge directive for [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371), queued behind that PR's still-open review directive. The larger picture is a heavily loaded gauntlet lane — multiple sturdyref-layer PRs (#1391–#1398) and the petname-path-only sweep (#1390) cycling through panel/fix rounds in `doin`/`todo` — alongside several stalled items worth a look: the petname-path-only-sweep gauntlet on #1390 hit its review budget without converging and needs a human merge call, and the sturdyref layer-1 shim build (#774) was doom-parked after a fix-stage failure the system couldn't classify as transient. Rolling deploy remains held at the leader for lack of an online canary follower, and quota/spend both sit comfortably within range (Claude 32%, Codex 38%).
 
 ## Parked for maintainer feedback
 
@@ -60,11 +60,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T04:12:22Z, cleared 2026-10-01T04:48:24Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-10-01T04:12:22Z, latest 2026-10-01T05:02:56Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 821 of 821 clone(s) on consecutive ticks.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -120,20 +120,21 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 81.4M | $653.17 _(notional, rate-card)_ | 32% of 256.0M (ok) |
+| Claude | 81.6M | $653.79 _(notional, rate-card)_ | 32% of 256.0M (ok) |
 | Codex | 18.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 134904267 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 0 open notice(s); checker healthy
+worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (18)
+### todo (19)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`endojs-endo-but-for-bots-pr1371-review-cd454ee3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1371-review-cd454ee3.md) — Review directive on endojs/endo-but-for-bots PR #1371
 - [`endojs-endo-but-for-bots-pr1390-gauntlet-20261001-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1390-gauntlet-20261001-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1390
+- [`endojs-endo-but-for-bots-pr1371-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1371-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1371
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1392
 - [`endojs-endo-but-for-bots-pr1371-3ab5ee33`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1371-3ab5ee33.md) — attention directive on endojs/endo-but-for-bots PR #1371
 - [`kriscendobot-minion.town-pr140-review-8f6d6ac9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr140-review-8f6d6ac9.md) — Review directive on kriscendobot/minion.town PR #140
