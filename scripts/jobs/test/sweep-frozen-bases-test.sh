@@ -34,7 +34,7 @@ TR="$(mktemp -d "$HOME/.garden-sweep-test.XXXXXX")"
 trap '[ "$FAIL" -eq 0 ] && rm -rf "$TR"' EXIT
 
 # The fake gh. State in $S: refs/<name> (sha), prs.json (the PR table),
-# events.json (the swept PR's issue events), race/<ref> (a PR number that
+# events.json (the swept PR's BaseRefChangedEvent GraphQL response), race/<ref> (a PR number that
 # appears on <ref> just before the delete and is auto-closed BY the delete),
 # fail-post (make ref creation fail). Every mutating call is appended to calls.
 cat >"$TR/gh" <<'STUB'
@@ -48,7 +48,7 @@ while [ "$#" -gt 0 ]; do
     --jq) jqf="$2"; shift 2 ;;
     --paginate) paginate=1; shift ;;
     --slurp) slurp=1; shift ;;
-    -f) fields+=("$2"); shift 2 ;;
+    -f|-F) fields+=("$2"); shift 2 ;;
     *) path="$1"; shift ;;
   esac
 done
@@ -59,7 +59,7 @@ q() { printf '%s' "$path" | sed -n "s/.*[?&]$1=\([^&]*\).*/\1/p"; }
 case "$method $path" in
   "GET repos/"*/pulls/[0-9]*)
     n="${path##*/}"; emit "$(jq -c --argjson n "$n" '.[] | select(.number==$n) | {number, state, base:{ref:.base}}' "$S/prs.json")" ;;
-  "GET repos/"*/issues/*/events)
+  "GET graphql")  # BaseRefChangedEvent timeline query
     emit "$(cat "$S/events.json")" ;;
   "GET repos/"*/git/ref/heads/*)
     r="${path#*git/ref/heads/}"; [ -f "$S/refs/$r" ] || { echo '{"message":"Not Found"}' >&2; exit 1; }
@@ -95,7 +95,7 @@ fresh() {  # fresh <name> — new state dir; swept PR #10 closed on main-aaaaaaa
   printf 'bbbbbbb1' >"$S/refs/main-bbbbbbb"
   printf 'ffffff01' >"$S/refs/main"
   echo '[{"number":10,"base":"main-aaaaaaa","head":"feat10","state":"closed","merged_at":"2026-09-23T00:00:00Z","closed_at":"2026-09-23T00:00:00Z"}]' >"$S/prs.json"
-  echo '[{"event":"base_ref_changed","base_ref":"main-bbbbbbb"},{"event":"base_ref_changed","base_ref":"main"},{"event":"labeled"}]' >"$S/events.json"
+  echo '{"data":{"repository":{"pullRequest":{"timelineItems":{"nodes":[{"previousRefName":"main-bbbbbbb","currentRefName":"main"}]}}}}}' >"$S/events.json"
 }
 addpr() { jq --argjson n "$1" --arg b "$2" --arg h "${3:-x$1}" '. + [{number:$n, base:$b, head:$h, state:"open", merged_at:null, closed_at:null}]' "$S/prs.json" >"$S/p" && mv "$S/p" "$S/prs.json"; }
 run() { out="$(bash "$SWEEP" "$@" 2>&1)"; rc=$?; }

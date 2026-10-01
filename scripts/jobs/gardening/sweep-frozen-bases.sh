@@ -33,7 +33,7 @@
 # Usage:
 #   sweep-frozen-bases.sh [--dry-run] <owner/repo> <pr-number>
 #
-# Candidates: every ref named by the PR's `base_ref_changed` events plus its
+# Candidates: every ref named by the PR's BaseRefChangedEvent timeline items plus its
 # current base ref, deduplicated. The swept PR itself is never counted as a user.
 #
 # Exit codes:
@@ -75,8 +75,16 @@ api() { "$GH" api "$@" 2>/dev/null; }
 
 # --- candidates ----------------------------------------------------------------
 cur="$(api "repos/$repo/pulls/$pr" --jq '.base.ref')" || { log "cannot read $repo#$pr — INCONCLUSIVE, nothing deleted"; exit 4; }
-hist="$(api --paginate "repos/$repo/issues/$pr/events" \
-          --jq '.[] | select(.event == "base_ref_changed") | (.base_ref, .previous_ref, .current_ref) // empty')" \
+# The REST issue-events feed omits the ref names on `base_ref_changed`, so an
+# unfrozen PR (base retargeted snapshot → trunk before merge) would never see its
+# old snapshot as a candidate (endo-but-for-bots#1402 left `llm-825c598bc`
+# behind). GraphQL's BaseRefChangedEvent carries previousRefName/currentRefName.
+hist="$(api graphql -f owner="${repo%%/*}" -f name="${repo#*/}" -F pr="$pr" -f query='
+  query($owner: String!, $name: String!, $pr: Int!) {
+    repository(owner: $owner, name: $name) { pullRequest(number: $pr) {
+      timelineItems(first: 100, itemTypes: [BASE_REF_CHANGED_EVENT]) {
+        nodes { ... on BaseRefChangedEvent { previousRefName currentRefName } } } } } }' \
+          --jq '.data.repository.pullRequest.timelineItems.nodes[] | (.previousRefName, .currentRefName) // empty')" \
   || { log "cannot read $repo#$pr base_ref_changed history — INCONCLUSIVE, nothing deleted"; exit 4; }
 
 mapfile -t candidates < <(printf '%s\n%s\n' "$cur" "$hist" | sed '/^$/d;/^null$/d' | sort -u)
