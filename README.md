@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T20:52:19Z_
+_As of 2026-10-01T20:55:31Z_
 
 ## Latest
 
-PR #1340 (confined-application-makers design) got a round of review activity today — a new review directive went out and the resulting build job for implementing the design is now parked, blocked on the conduct step finishing first. A reply is also queued to answer kriskowal's question on [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) about shell tools, alongside a fresh review directive on that same PR. Separately, a press job went out to check whether the Claude-on-minion.town arc's jobs are completing as expected. Two gauntlets hit their review-round budget without converging and are parked for a human call: the petname-path-only sweep and the ironhorse panic/host-call PR, both after 6 panel/fix rounds with clean CI. Also flagged: a qwen model watch found that qwen3.7 never shipped (upstream jumped to qwen3.8) and is waiting on a decision about reassessing or retiring that watch, and a budget watchdog is still reporting oros-studio-garden's monk pool throttled from 3→2 workers under the claude-oros subscription pace cap.
+No board transitions landed since the last bulletin, so the queue is holding steady: 36 jobs in todo, 3 actively claimed, and a very long tail of completed gauntlet work. Three gauntlets hit their review budget without converging after six panel/fix rounds and are parked for a human call — [endo-but-for-bots #1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep) and the ironhorse panic-host-call PR both need a maintainer merge/review decision, alongside a journal-contention checker on endolin-garden-ece02cb4 that's been deferring all 909 of its clones per tick. The qwen model watch reports upstream skipped 3.7 and shipped 3.8 instead — worth a decision on whether to retarget the watch or drop it since the local-qwen lane is already retired. Otherwise, the parked-for-review list is unchanged at the top, led by [endo-but-for-bots #1282](https://github.com/endojs/endo-but-for-bots/pull/1282) (ironhorse computron-parity) and [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) (SES lockdown intrinsics for WHATWG URL).
 
 ## Parked for maintainer feedback
 
@@ -15,7 +15,7 @@ PR #1340 (confined-application-makers design) got a round of review activity tod
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 30d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 30d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 30d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 29d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 30d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 31d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 33d)
 
@@ -25,6 +25,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (delegation not armed)
 
 ## Messages to the maintainer
+
+- `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
+
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 909 of 909 clone(s) on consecutive ticks.
 
 - `ebfb-petname-path-only-sweep-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-gauntlet-review-budget-reached.md)
 
@@ -58,13 +62,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 167.5M | $1282.31 _(notional, rate-card)_ | 65% of 256.0M (ok) |
+| Claude | 167.7M | $1283.72 _(notional, rate-card)_ | 65% of 256.0M (ok) |
 | Codex | 19.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 139361339 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.820594s/45s (unknown); 1 open notice(s); checker healthy
+worst fetch p95 4.820594s/45s (unknown); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (36)
