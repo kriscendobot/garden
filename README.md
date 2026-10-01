@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T03:42:54Z_
+_As of 2026-10-01T03:46:24Z_
 
 ## Latest
 
-The sturdyref layer-stack gauntlets continued grinding through fix/panel rounds on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), with #1397's weave completing and #1398 starting its first fix round. The petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) exhausted its panel budget without converging and is now parked for a human review decision, and the ironhorse panic live-handle-reseat work on [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) hit the same review-budget ceiling. Two more gauntlets stood up overnight for [#1401](https://github.com/endojs/endo-but-for-bots/pull/1401) and [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402). Separately, a comment-watcher fix for `kriscendobot/vattr97` is in progress, and the rolling deploy remains held at the leader with no follower online to serve as canary — worth checking if that's expected.
+The headline mover is the eight-layer sturdyref stack (endojs/endo-but-for-bots#774, [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)–[#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), still churning through panel/fix rounds; layer 7 ([#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), ocapn-enliven) had its merge base woven today. Two gauntlets exhausted their 6-round review budget without converging and are parked for a human call: the petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) and the ironhorse panic host-call PR — both are CI-green and improved, just not resolved by the automated panel. A watchdog notice (occurrence #15) reports the rolling deploy stuck on the leader host because every follower is offline or drained, so there's no canary to validate the pending commit — it needs a host restored or a drain lifted before it can advance; a second, lower-stakes watchdog flags a recurring (2x) comment-provenance instrumentation gap that's cosmetic, not breaking anything. Separately, the minion.town MCP rollout is technically ready to widen beyond garden2 but is waiting on you for two calls: whether job traffic should get its own dedicated guest/principal instead of riding the production test-cc guest, and whether juror/myrmidon roles should carry the ~3k-token tool list at all. The foreman also flags M3 as blocked on choosing between letting [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) proceed once its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite clears, or answering the open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340).
 
 ## Parked for maintainer feedback
 
@@ -82,13 +82,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.8M | $591.11 _(notional, rate-card)_ | 29% of 256.0M (ok) |
+| Claude | 74.0M | $591.89 _(notional, rate-card)_ | 29% of 256.0M (ok) |
 | Codex | 18.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136321947 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
+worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (16)
