@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-10-01T21:25:25Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-build-endo-claude-backends-1357-open-pr-gauntlet-clean
