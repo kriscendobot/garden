@@ -1,0 +1,5 @@
+host: oros-studio-garden-ce242c49
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-10-01T00:56:10Z
+worktree_dir: /Users/dom/garden/scratch/gardener-wt-improve-isolate-uncalibrated-monk-pool
