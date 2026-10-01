@@ -13,3 +13,13 @@ Repo: endojs/endo-but-for-bots @ `llm`. Context: PR https://github.com/endojs/en
 2. **Channel messages (purist, wire-watcher).** `EndoChannelMember.listMessages`/`followMessages` return raw `ids: FormulaIdentifier[]`, and `post` accepts ids. Decide whether a guest member should get a redacted member facet, mirroring `guest-redaction.js`.
 
 Deliver a design document (designs/ on `llm`) with a recommendation for each, and open questions for the maintainer.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T23:20:41Z
