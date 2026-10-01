@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T00:31:41Z_
+_As of 2026-10-01T00:34:14Z_
 
 ## Latest
 
-The SturdyRef layer stack dominates activity: layer 2 (SES, [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) landed its round-4 must-fixes, but CI flakes on a single macOS daemon-teardown leg unrelated to the change — a credentialed rerun should clear it. Layers 1, 3–6, and 8 are mid-gauntlet (fix/panel rounds), while layer 7's gauntlet halted on a failed clean stage, same as the ironhorse panic-live-handle-reseat gauntlet (fix round 6 explicitly declined). The petname-path-only sweep ([endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) is through several fix/panel rounds but keeps raising follow-ups (corner-prober refusal tests, property tests, a scribe summary, PR-body trim) still needing disposition, and its panel coverage has gone stale against newer heads — a maintainer review call is needed before continuing. The ironhorse panic-host-call PR hit its 6-round review budget with CI green and is ready for a human merge decision. Elsewhere, the garden book was republished with new chapters on the library and inference tiers, and a stuck rolling-deploy canary on oros-studio-garden is worth a look if it doesn't clear on its own.
+The SturdyRef layer stack dominated the night's gauntlet traffic: layer 2 (SES) stalled on CI flake in `@endo/daemon` teardown tests unrelated to the change, layer 7 (OCapN enliven) and the IronHorse panic/live-handle-reseat gauntlet both halted on failed/declined fix rounds, while layers 1, 4, and 5 continue grinding through fix rounds and layers 3 and 6 sit in fresh panel rounds. The petname-path-only sweep ([endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) landed its round-4 must-fixes but surfaced a batch of should-fix follow-ups (refusal tests, property tests, a scribe summary, PR-body trim) awaiting disposition, and a parallel split of the gardener-clone-alias verification work finished with one child timing out after 2412s and parking back in the plan queue for a human promote.
+
+Two decisions are waiting on the foreman's M3 milestone: whether to advance [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its #1348 prerequisite clears, or answer the four open questions blocking [endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340). The IronHorse host-call PR hit its 6-round review budget with CI green and is left for a human merge call, and the accountant's budget-rebalancing proposal remains parked awaiting a go-ahead. Everything else was routine churn — several recovered watchdog conditions (rolling-deploy canary, worker-derotate, journal contention) and a handful of stale-panel-head notices on PRs #1357 and #1390 whose heads moved past their last review.
 
 ## Parked for maintainer feedback
 
@@ -75,6 +77,33 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - **fast-checker:** property tests for `namePathFrom` and `toPetNamePath`.
 > - **scribe:** a summary comment covering commits `ab42d2de95` and `09350117e6`.
 > - **PR-body probe:** trim the body from 343 words to under 300.
+
+- `doomed-retire-gardener-clone-alias-verify-deploy-reaper-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-retire-gardener-clone-alias-verify-deploy-reaper-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/retire-gardener-clone-alias-verify-deploy-reaper; it stays HELD until a human promotes it
+> (promote-plan.sh retire-gardener-clone-alias-verify-deploy-reaper) or removes it, so nothing is lost.
+> Original job base: retire-gardener-clone-alias-verify-deploy-reaper
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> token-budget: 60000
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-30T22:16:07Z cleared=none -->
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> token-budget: 60000
+> dispatch: automatic
+> ---
+> Context: parent `retire-gardener-worker-kind-alias-env-fallback` LANDED its full diff on main2 as 70b6d1e3d42 ("refactor(jobs): retire the GARDEN_GARDENER_CLONE env alias"); `grep -rn GARDEN_GARDENER_CLONE scripts` is empty. DO NOT redo it. Remaining work is regression verification only.
+>
+> Method: run each suite with a SCRUBBED env (`env -i HOME=$HOME PATH=$PATH TMPDIR=$TMPDIR GARDEN_TEST=1 bash scripts/jobs/test/<t>-test.sh`), because a live worker exports GARDEN_WORKER_CLONE etc. that leak into direct runs. Compare against the pre-change tree 70b6d1e3d42^ (extract with `git archive -o $TMPDIR/b.tar 70b6d1e3d42^ scripts && tar -xf $TMPDIR/b.tar -C $TMPDIR/base`) and diff the FAIL lines. Already verified identical-to-baseline (pre-existing failures, NOT regressions): host-requirements-gating, kimi-credit-exhaustion-routing, auction-reputation, live-budget-admission, model-routing. Already passing: canary-probe-claim-priority, qwen-mentor-trial, monk-claude-tier-serving, scaler-desired-count, library-link-check, library-slug-prefix-check, regenerate-sections-index, regenerate-topics-counts. Any NEW failure attributable to 70b6d1e3d42: fix it and land on main2. Report which suites needed updating vs already passed.
+>
+> Suites for THIS child: deploy-garden, reaper-requeue-cap, reaper-live-handler-guard, reaper-doom-park, deadline-nudge (~10 min), fetch-timeout (>15 min; use a long timeout, foreground).
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_pages_watcher_verify.md)
 
@@ -299,13 +328,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.3M | $334.51 _(notional, rate-card)_ | 16% of 256.0M (ok) |
+| Claude | 41.4M | $335.08 _(notional, rate-card)_ | 16% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 133956738 tokens/day lower bound._
+_Fleet token-unlock pace: 133025157 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.787168s/45s (unknown); 0 open notice(s); checker healthy
+worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (16)
@@ -326,11 +355,10 @@ worst fetch p95 4.787168s/45s (unknown); 0 open notice(s); checker healthy
 - [`ebfb-petname-path-only-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1390
 - [`fu-qwen-model-watch-20260728-180502-1-20260930-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-qwen-model-watch-20260728-180502-1-20260930-162006.md) — ---
 
-### doin (6)
+### doin (5)
 - [`ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1394
 - [`build-accountant-arc-apportionment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-accountant-arc-apportionment.md) — Build: accountant arc apportionment (garden main2)
 - [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1393
-- [`retire-gardener-clone-alias-verify-deploy-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper.md) — ---
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #774
 - [`endojs-endo-but-for-bots-pr1397-1398-sturdyref-rebase-bases`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1397-1398-sturdyref-rebase-bases.md) — Move #1397/#1398 PR bases onto the restacked frozen bases, confirm #1398 lint
 
@@ -363,6 +391,7 @@ worst fetch p95 4.787168s/45s (unknown); 0 open notice(s); checker healthy
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`retire-gardener-clone-alias-verify-deploy-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/retire-gardener-clone-alias-verify-deploy-reaper.md) — _normal_ · ---
 - [`evaluate-reauth-escalation-default-after-oauth-relay-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay-20260927.md) — _low_ · Evaluate default reauth escalation once the browser OAuth relay lands
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper.md) — _normal_ · Build: SES import attributes — Phase 3 (compartment-mapper plumbing)
