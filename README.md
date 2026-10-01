@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T22:01:56Z_
+_As of 2026-10-01T22:10:28Z_
 
 ## Latest
 
-PR #1340's confined-application-makers gauntlet kept grinding through review rounds (panel round 3, a body refresh, and a conduct job queued) while the `build-endo-claude-sandbox-bwrap-slice` gauntlet ([endojs/endo-but-for-bots#1408](https://github.com/endojs/endo-but-for-bots/pull/1408)) closed out fix round 2 and moved on to panel round 3. The garden-book migration's verify-build job completed. Several stalled gauntlets are now parked for a human call: [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) hit its review budget after six rounds with CI green but no convergence, and the IronHorse panic-host-call PR likewise exhausted its review budget — both need a maintainer merge/review decision. Infrastructure-side, two watchdog conditions (a stalled rolling-deploy canary and a worker-derotate dip on oros-studio) self-recovered, but a root-repo deploy on endolin-garden2 remains stalled 16 commits behind main2 and a journal-clone-size guard on endolin-garden is still flagged, both worth a look.
+Two gauntlets exhausted their review-budget without converging and are parked for a human call: [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname path-only sweep, 6 panel/fix rounds, CI green) and an Ironhorse panic/host-call PR, also left CI-green after 6 rounds. Deploy health needs a look — the rolling-deploy canary on oros-studio-garden-ce242c49 is reported STUCK (released 20 minutes ago, still not reporting the new SHA), while the root checkout on endolin-garden2 has stalled 16 commits behind `origin/main2`; three other rolling-deploy/worker-derotate watchdog conditions on oros-studio cleared on their own in the same window. Journal housekeeping continues to lag in the background: the leader's journal clone guard flagged an oversized pack set (deferred remedy) and the contention watcher is now on its fourth coalesced overrun notice, deferring dozens of clones per tick. Claude spend sits at 67% of the weekly quota with Codex at 38% of its plan allotment.
 
 ## Parked for maintainer feedback
 
@@ -56,11 +56,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-01T21:54:18Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-01T20:53:24Z, latest 2026-10-01T22:04:34Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 53 of 913 clone(s) on consecutive ticks.
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -80,15 +80,23 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-2.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-25T03:50:17Z, latest 2026-10-01T20:35:24Z).
-> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-2`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-25T03:50:17Z, latest 2026-10-01T22:05:17Z).
+> The SAME condition (`budget-level-monk-oros-studio-garden-ce242c49-2`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> budget-level changed oros-studio-garden-ce242c49 monk workers 3 -> 2 (target 2): subscription claude-oros spend=21086706 cap=73000000 pace-bias=0.074711 window-start=2026-09-29T10:00Z(calendar) deadline=2026-10-06T10:00Z(calendar) ceiling=3 target=2
+> budget-level changed oros-studio-garden-ce242c49 monk workers 1 -> 2 (target 2): subscription claude-oros spend=21178588 cap=73000000 pace-bias=0.085227 window-start=2026-09-29T10:00Z(calendar) deadline=2026-10-06T10:00Z(calendar) ceiling=3 target=2
 
 - `endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
+
+- `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
+
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to e02555bca7f4 20 min ago
+> but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 
 ## Spend & quota
@@ -96,13 +104,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 170.4M | $1295.91 _(notional, rate-card)_ | 67% of 256.0M (ok) |
-| Codex | 19.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 170.7M | $1297.39 _(notional, rate-card)_ | 67% of 256.0M (ok) |
+| Codex | 19.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 138545682 tokens/day lower bound._
+_Fleet token-unlock pace: 137858178 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (32)
