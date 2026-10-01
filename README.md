@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T14:04:31Z_
+_As of 2026-10-01T14:06:47Z_
 
 ## Latest
 
-Panel round 2 on [endojs/endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/issues/1404) (guest no-identifiers/locators) came back must-fix and is now in fix round 2. The minion.town endo-cancel PR landed its review pass and moved into pre-spend viability for its next gauntlet stage. Otherwise board churn was light — gauntlets are grinding through fix/panel rounds across the sturdyref layer stack (#1390–#1398), #1340, and #1402 — with nothing new surfacing for review.
-
-The maintainer inbox is the heavier item this tick: a rolling deploy is HALTED on a confirmed, retried-and-still-failing canary at oros-studio-garden-ce242c49 (target sha c810e1e6), needing a manual decision; the leader also can't find any canary at all since every follower is offline or drained. Separately, an arc report flags that builder completion for [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) (`@endo/inference` phase 1) skipped its automatic gauntlet — the PR is CI-green and draft with no review path, and it's blocking phase 2 (`build-endo-claude-backends-1357`), which has sat unclaimed in todo for ~4 hours. Also pending: the minion.town MCP widening-past-garden2 decision (principal/scoping + context-cost questions), the M3 choice between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) or answering [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/issues/1340)'s open questions, the ocap.site DNSSEC KSK/DS-record step, and the qwen3.8 model-watch follow-up.
+The gauntlet pipeline for the endojs/endo-but-for-bots sturdyref layer stack (PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)–[#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) is grinding through panel/fix rounds in parallel, alongside the Claude-backends build stack ([#1403](https://github.com/endojs/endo-but-for-bots/issues/1403), [#1406](https://github.com/endojs/endo-but-for-bots/pull/1406), [#1408](https://github.com/endojs/endo-but-for-bots/pull/1408), [#1409](https://github.com/endojs/endo-but-for-bots/pull/1409)). Two gauntlets hit their 6-round review budget without converging and are left for human review: [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (petname-path sweep) and the ironhorse panic-host-call PR. Two others halted outright — the guest-scoped daemon bootstrap build (declined at the clean stage) and the sturdyref layer1 shim fix (doom-parked, unknown failure class) — both need a maintainer look. A completion press flagged that [#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) (`@endo/inference`, phase 1 of the Claude inference-backends design) went CI-green and draft but never got a gauntlet staged automatically, likely a probe-exemption misfire; phase 2 (`build-endo-claude-backends-1357`) has been blocked on it in todo for ~4 hours since the available workers are tied up elsewhere. A rolling deploy to oros-studio-garden-ce242c49 failed its canary three times on sha `c810e1e6`, halted (host left drained, no auto-rollback), and needs an investigate-or-hold decision; separately, that same host's heartbeat has been stale for most of the day, which is also why the leader has no canary to validate its own pending deploy. The accountant's budget conversation and the minion.town MCP principal/scope questions remain parked awaiting a reply, and the M3 confined-agent milestone is blocked on a choice between advancing [#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) after [#1348](https://github.com/endojs/endo-but-for-bots/issues/1348) clears or resolving the four open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340).
 
 ## Parked for maintainer feedback
 
@@ -236,10 +234,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 124.9M | $947.78 _(notional, rate-card)_ | 49% of 256.0M (ok) |
-| Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 124.9M | $948.09 _(notional, rate-card)_ | 49% of 256.0M (ok) |
+| Codex | 18.5M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 135461416 tokens/day lower bound._
+_Fleet token-unlock pace: 135948039 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.646222s/45s (/home/kris/garden/.garden-state/design-pr-gauntlet-audit/journal); 1 open notice(s); checker healthy
