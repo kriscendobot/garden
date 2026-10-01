@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: endojs-endo-but-for-bots-pr1357-weave-conduct-orch-20261001
-priority: normal
-posted_by: producer
-posted_at: 2026-10-01T01:56:07Z
+role: weaver
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-01T01:58:03Z cleared=none -->
 
 ---
 role: weaver
