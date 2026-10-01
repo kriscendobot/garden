@@ -21,3 +21,13 @@ specifically (rule out a repo-specific cause — a renamed/deleted comment the
 self-test still references, a permissions change, a rate-limit state — before
 assuming it's the same fleet-wide jq-outage class as 2026-06-24). Fix
 whatever's actually broken and confirm the self-test passes afterward.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T03:41:28Z
