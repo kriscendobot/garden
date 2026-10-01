@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T03:27:45Z_
+_As of 2026-10-01T03:28:45Z_
 
 ## Latest
 
-The SturdyRef layer stack continued moving through the panel/fix loop: layer 4 (marshal, [endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) finished a fix round and re-entered panel, while layer 3 (pass-style, [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) cleared panel round 4 and queued another fix round, and layer 5 (CAPTP wire, [endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) is mid-fix. The petname-path-only sweep on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) exhausted its 6-round review budget without full convergence and is left for a human merge/review call, with follow-up asks (tests, a refusal case, a shorter PR body) flagged separately. [endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357)'s weave/conduct orchestration completed and the PR merged, though its panel coverage is now stale against two newer heads pending a maintainer review call.
+The SturdyRef layer stack dominates activity: layers 1, 4, 5, 6, and 8 are mid-gauntlet (fix/panel rounds) on [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), while layer 2 ([#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) and layer 7 ([#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) via the petname-path sweep) halted their gauntlets after a failed clean/fix stage and need a maintainer look. The petname-path-only sweep itself reached its 6-round review budget on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), landing a changeset, accessor-safe descriptor read, and completion summary but leaving should-fix items (refusal tests, property tests for `namePathFrom`/`toPetNamePath`, a PR-body trim) for a human call. Separately, [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) merged via its weave/conduct orchestration, and the ironhorse panic-live-handle-reseat gauntlet also halted on a declined fix stage.
 
-Several items need maintainer attention: a rolling-deploy host (oros-studio) has been offline for over an hour, holding back canary validation; two gauntlets halted outright (SturdyRef layer 2/SES on [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) and the petname-path-only-sweep clean stage) and need disposition; and the foreman flagged a milestone M3 choice between advancing #1015 (pending #1348) or answering open questions on design PR #1340.
+Several watchdogs flagged fleet health: host oros-studio-garden-ce242c49 is offline and has lost its canary/worker-leveling role in the rolling deploy, the leader is holding deploy with no canary available, and a stale-panel-head condition recurred twice on #1357 from repeated minion.town presses. The budget/accountant conversation from 2026-09-30 is parked awaiting a maintainer go-ahead, and the reset-credit watch recommends holding the claude-endolin2 credit while accelerating codex-endolin toward a Friday reset deadline. The garden book was republished with new chapters on the library and inference tiers.
 
 ## Parked for maintainer feedback
 
@@ -202,11 +202,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #12 (first seen 2026-09-30T20:43:07Z, latest 2026-10-01T03:17:28Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 12 times; this is ONE
-> coalesced notice that updates in place, not 12 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T20:43:07Z, cleared 2026-10-01T03:28:09Z).
+> It was observed 12 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 802 of 802 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures` — from orchestrator:retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures.md)
 
@@ -377,13 +377,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 68.9M | $542.88 _(notional, rate-card)_ | 27% of 256.0M (ok) |
+| Claude | 69.8M | $548.63 _(notional, rate-card)_ | 27% of 256.0M (ok) |
 | Codex | 17.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135872259 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
+worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (10)
