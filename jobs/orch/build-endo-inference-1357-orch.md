@@ -1,4 +1,5 @@
 ---
+child-build-endo-claude-backends-1357-host: oros-studio-garden-ce242c49
 child-build-endo-claude-backends-1357-reap-count: 0
 child-build-endo-inference-seam-1357-host: endolin-garden-ece02cb4
 child-build-endo-inference-seam-1357-reap-count: 0
