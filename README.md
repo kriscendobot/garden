@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T00:13:35Z_
+_As of 2026-10-01T00:15:55Z_
 
 ## Latest
 
-The petname-path-only sweep for [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) ground through two more fix/panel cycles, with round-4 and round-2 fix reports now landed and the round-5 reviewer escalation (refusal tests, strict stub, property tests, a commit summary, and a PR-body trim) still awaiting a maintainer call. A fresh gauntlet-clean job posted for [endojs/endo-but-for-bots#1402](https://github.com/endojs/endo-but-for-bots/pull/1402), and the accountant's arc-apportionment build moved from queued to in progress. Otherwise the board is dominated by the ongoing SturdyRef layer stack (layers 1–8, PRs #774 and #1392–#1398) still cycling through panel and fix rounds, two of which (layer 2 on #1391 and layer 7 on #1393/#1394) have halted awaiting maintainer disposition.
+The board's SturdyRef review stack kept grinding: layers 1, 3, 4, 5, and 8 are all mid-panel or mid-fix, while layers 2 and 7 (clean) both halted after a declared fail/decline and need a maintainer look rather than another retry. [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path sweep) is six fix/panel rounds deep with a fresh batch of should-fix follow-ups (refusal and property tests, a PR-body trim) still open. The Ironhorse panic/host-call PR hit its 6-round review budget with CI green and is left for a human merge call, and a sibling Ironhorse PR has its own round-6 fix still running with should-fix gaps noted (missing hasher/CAS tests). A new PANEL round 1 was just posted for [endojs/endo-but-for-bots#1402](https://github.com/endojs/endo-but-for-bots/pull/1402). Two stale-panel-head alerts flag [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) and #1390 as needing a fresh review decision since their heads moved past the last panel pass. Elsewhere, the garden book got a republish with new chapters, the minion.town MCP rollout is paused on two maintainer calls (principal/scoping and context-cost), and the weekly budget note recommends holding the claude-endolin2 credit and only spending a codex credit if cleric throughput picks up first.
 
 ## Parked for maintainer feedback
 
@@ -291,7 +291,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.0M | $305.79 _(notional, rate-card)_ | 15% of 256.0M (ok) |
+| Claude | 38.9M | $314.83 _(notional, rate-card)_ | 15% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136209237 tokens/day lower bound._
@@ -300,7 +300,7 @@ _Fleet token-unlock pace: 136209237 tokens/day lower bound._
 worst fetch p95 4.787168s/45s (unknown); 1 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (17)
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1398
 - [`build-ci-minion-town-actions-runner-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ci-minion-town-actions-runner-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #145
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
@@ -314,6 +314,7 @@ worst fetch p95 4.787168s/45s (unknown); 1 open notice(s); checker healthy
 - [`ebfb-petname-path-only-sweep-3-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-3-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-petname-path-only-sweep-4-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-774-pr-body-refresh-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-774-pr-body-refresh-20261001.md) — Update the PR #774 description (endojs/endo-but-for-bots)
+- [`endojs-endo-but-for-bots-pr1402-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1402-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1402
 - [`endojs-endo-but-for-bots-pr1394-20260930-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1394-20260930-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1394
 - [`ebfb-petname-path-only-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1390
 - [`fu-qwen-model-watch-20260728-180502-1-20260930-162006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-qwen-model-watch-20260728-180502-1-20260930-162006.md) — ---
