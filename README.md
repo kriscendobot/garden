@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T12:41:38Z_
+_As of 2026-10-01T12:43:37Z_
 
 ## Latest
 
-The only board movement since the last bulletin is the sturdyref-layer5 CapTP wire gauntlet claiming its UNDRAFT stage on [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) — one step in the broader 8-layer sturdyref gauntlet stack now spread across PRs #1390–#1398, most of which are mid panel/fix rounds. Two gauntlets hit their 6-round review budget without converging and are parked for a human call: the petname-path-only sweep and the Ironhorse panic/host-call PR. A sturdyref layer (#774, shim-build) is doom-parked after a fix stage failed with an unclassified error. Separately, the Claude-on-minion.town press flagged that phase 1 of the inference-backends build, [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403), landed CI-green and draft but never got an auto-staged gauntlet — likely the probe-exemption heuristic misfiring — and its phase-2 successor has been stuck unclaimed in todo for hours; running the gauntlet on #1403 would unblock it. Also worth a look: PR #1401 has no gauntlet staged, and the M3 roadmap step is blocked on a maintainer call between advancing #1015 or answering #1340's open questions.
+Two sturdyref-stack gauntlets closed out their panel/fix budgets without converging: [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (layer1 shim) halted after a fix round was doom-parked with an unproven-transient failure, and a separate PR finished 6 panel/fix rounds CI-green but still needs a human merge call, as does the IronHorse panic/host-call PR after the same budget exhaustion — all three are left improved, draft, and awaiting direct review. The `claude-on-minion-town-completion-press` arc flagged a real gap: builder completion of [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) (`@endo/inference`, phase 1) skipped its automatic gauntlet — CI-green and clean but stuck in draft with no review path, likely the probe exemption misfiring — which is also blocking phase 2 (`build-endo-claude-backends-1357`) from claiming a worker. Elsewhere the fleet is largely healthy: most of the journal-contention and rolling-deploy watchdog pages recovered on their own, though oros-studio-garden-ce242c49's canary has been stuck 129 occurrences/6+ hours on an undeployed SHA, and a comment-ack-blind anomaly on [endojs/endo-but-for-bots#1395](https://github.com/endojs/endo-but-for-bots/pull/1395) has persisted since 07:38Z. Several items await a maintainer decision: the minion.town MCP principal/scoping question, the qwen3.8 model-watch follow-up, the M3 confined-agent choice between [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) and design PR #1340, and the ocap.site DNSSEC DS-record publication at the registrar.
 
 ## Parked for maintainer feedback
 
@@ -173,10 +173,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > gh: API rate limit exceeded for user ID 279080640. If you reach out to GitHub Support for help, please include the request ID C6DA:2C55B:8EB6D7:A0CAFD:6ABDF255 and timestamp 2026-10-01 05:40:37 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (HTTP 403)
 > gh: API rate limit exceeded for user ID 279080640. If you reach out to GitHub Support for help, please include the request ID C6E4:249C8F:970F55:A92E30:6ABDF255 and timestamp 2026-10-01 05:40:37 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (HTTP 403)
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1401-5c5f2d301fca` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1401-5c5f2d301fca.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1401](https://github.com/endojs/endo-but-for-bots/pull/1401) ([endojs/endo-but-for-bots#1401](https://github.com/endojs/endo-but-for-bots/issues/1401)) is in the mergeable queue with NO gauntlet review staged (head 5c5f2d301fcaf9f05a5486df2aac0d707709f211). Producer jobs normally stage their gauntlet at completion, but the periodic audit never mass-stages historical PRs. If you want this PR reviewed, reply with 'run the gauntlet #1401'; otherwise no action is needed. This audit never re-drafts or stages anything.
-
 - `20260810T233049Z-59e2c4` — from gardener:fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1, reply_to `fu-minion-town-design-ocap-site-weblet-isolation-ed888d3-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20260810T233049Z-59e2c4.md)
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
@@ -213,7 +209,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.2M | $887.65 _(notional, rate-card)_ | 45% of 256.0M (ok) |
+| Claude | 116.3M | $888.12 _(notional, rate-card)_ | 45% of 256.0M (ok) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135936811 tokens/day lower bound._
