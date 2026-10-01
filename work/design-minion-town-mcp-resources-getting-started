@@ -3,3 +3,7 @@ gardener: 3
 worker_kind: monk
 claimed_at: 2026-10-01T21:04:48Z
 worktree_dir: /Users/dom/garden/scratch/gardener-wt-design-minion-town-mcp-resources-getting-started
+pr_number: 147
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/147
+pr_head: design/mcp-resources-getting-started
