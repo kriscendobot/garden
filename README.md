@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-01T06:51:41Z_
+_As of 2026-10-01T06:54:45Z_
 
 ## Latest
 
-The sturdyref/CapTP shim stack keeps grinding through the gauntlet, with fix and panel rounds active across [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep), #1391–#1393 (SES/pass-style/marshal), #1394/#1396 (CapTP wire/construct), and #1397/#1398 (ocapn-enliven/daemon-formula); the original layer-1 shim, [#774](https://github.com/endojs/endo-but-for-bots/pull/774), had its fix round 2 doom-parked after a requeue-exhausted failure and wants a look. [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402) and [#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) are both in the finalize/merge step. The petname-path-only sweep and a separate Ironhorse panic-host-call fix both exhausted their 6-round review budget without the panel converging — both are sitting ready for a human merge/review call rather than further automatic rounds. Operationally, the rolling deploy to c5416eb373bc is HALTED on oros-studio-garden-ce242c49: the canary has failed re-validation three times running and needs a decision (lift the drain and retry, or hold the tip) instead of another automatic retry. Also waiting in the inbox: two minion.town MCP rollout decisions (dedicated principal/guest identity, and per-role tool-context cost), a qwen3.8 model-watch call, and confirmation to turn on Route53 DNSSEC signing for ocap.site.
+The gauntlet machinery is grinding through a dense slate of sturdyref-layer PRs on endojs/endo-but-for-bots (#1390–#1398), mostly in fix/panel/clean/undraft rounds, with layer5 ([#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) reaching UNDRAFT and layer7 ([#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) reaching CLEAN. Two review budgets were exhausted without convergence — the petname-path-only sweep and the ironhorse panic/host-call PR — leaving both improved but parked for a human merge call, and a separate petname-path-only-sweep build ([endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) was halted in fix round 2 on an unclassified failure rather than retried blind.
+
+The rolling deploy to c5416eb373bc is stuck: the oros-studio canary failed validation three times and was left drained pending investigation, and separately the endolin leader has no canary available at all since its only follower is offline — so no deploy progress is expected until a host is restored. A `gh` API rate limit also broke evidence-gathering for PR #1371 feedback, failing open rather than silently.
+
+Outstanding maintainer decisions: the M3 confined-agent path is blocked on choosing between advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (after its #1348 prerequisite) or answering four open questions on design [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340); the minion.town MCP rollout needs a principal/scoping decision before widening past garden2; and the ocap.site DNSSEC signing still needs a registrar-side DS record published.
 
 ## Parked for maintainer feedback
 
@@ -45,6 +49,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > not advance unvalidated. Restore any offline host until budget/live heartbeats resume,
 > or lift an operator drain. An archived host additionally needs a separate operator
 > unarchive; this roll never reverses archival. (leader=endolin-garden-ece02cb4, offline=1)
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_fork_watch_journal.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/fork-watch/journal: packs 1002 >= 1000; size=293404672B packs=1002 gc.log=0; automatic remedy=deferred-deadline.
 
 - `msg-accountant-budget-conversation-20260930-5c94e3563d64` — from gardener:accountant-budget-conversation-20260930, reply_to `accountant-budget-conversation-20260930` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-budget-conversation-20260930-5c94e3563d64.md)
 
@@ -171,13 +179,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.9M | $696.21 _(notional, rate-card)_ | 35% of 256.0M (ok) |
+| Claude | 90.0M | $696.81 _(notional, rate-card)_ | 35% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136429239 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.325957s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.325957s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (20)
