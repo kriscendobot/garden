@@ -556,9 +556,15 @@ for name in $(list_jobs "$DIR" schedules); do
     #   0     work present     → post the job + stamp last_dispatched (normal path)
     #   2     no work          → stamp last_dispatched only (advance the clock,
     #                            post nothing), and log the gate
-    #   other treat as 0       → fail open, so a broken/erroring gate (incl. an
-    #                            EX_TEMPFAIL offline tick) never silently starves
-    #                            the schedule.
+    #   75    deferred         → EX_TEMPFAIL: the gate cannot decide right now (the
+    #                            shared gh-api cooldown latch is live, the network
+    #                            is down). Post nothing and do NOT stamp, so the
+    #                            schedule stays due and re-runs its gate on the
+    #                            next tick, after the cooldown expires. Failing open
+    #                            here dispatched a botanist per tick for the whole
+    #                            cooldown window (2026-10-01).
+    #   other treat as 0       → fail open, so a broken/erroring gate never
+    #                            silently starves the schedule.
     # A gate that is NOT FOUND / not executable also fails open (work-present), but
     # is DISTINGUISHED from a gate that runs and errors: a missing gate persists
     # every cadence and silently burns an expensive dispatch, so on the FIRST tick
@@ -591,6 +597,10 @@ for name in $(list_jobs "$DIR" schedules); do
         # WARN ONCE per breakage (not every tick) and escalate ONCE on the first
         # tick. Idempotent across CAS retries and cadences via its marker.
         note_missing_preflight "$name" "$preflight" "$pf"
+      fi
+      if [ "$pf_rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
+        log "preflight deferred for $name (rc=$pf_rc, EX_TEMPFAIL): staying due, posted nothing"
+        break
       fi
       if [ "$pf_rc" -eq 2 ]; then
         # No work: advance the clock so the cadence keeps marching, post nothing.

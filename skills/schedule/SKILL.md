@@ -62,8 +62,11 @@ The optional `preflight:` field names a script (resolved relative to
 the cadence has elapsed, to decide whether there is any work BEFORE dispatching a
 do-nothing agent. Exit `0` = work present → post the job and stamp
 `last_dispatched`; exit `2` = no work → stamp `last_dispatched` only (advance the
-clock, post nothing) and log `preflight gated: no work`; any other exit is treated
-as work-present (fail open) so a broken gate never starves a schedule. Each gate
+clock, post nothing) and log `preflight gated: no work`; exit `75` (EX_TEMPFAIL)
+= deferred → post nothing and do NOT stamp, so the schedule stays due and the gate
+re-runs next tick (a gate that cannot decide because the shared gh-api cooldown is
+live must not dispatch into it); any other exit is treated as work-present (fail
+open) so a broken gate never starves a schedule. Each gate
 run is wall-clock bounded by `GARDEN_SCHEDULER_PREFLIGHT_TIMEOUT` (default 120s,
 SIGKILL `GARDEN_SCHEDULER_PREFLIGHT_KILL_AFTER` seconds later); an expired gate is
 logged by schedule name, its context is discarded, and it fails open like any other

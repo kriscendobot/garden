@@ -54,6 +54,9 @@ chmod +x "$SRCSTUB"
 # A source that fails structurally (a broken enumeration, NOT "no open PRs").
 FAILSTUB="$TR/pr-source-fail.sh"
 printf '#!/bin/bash\necho "boom: 404" >&2\nexit 22\n' > "$FAILSTUB"; chmod +x "$FAILSTUB"
+# A source refused by the shared gh-api cooldown latch (gh_api_retry's EX_TEMPFAIL).
+COOLSTUB="$TR/pr-source-cooldown.sh"
+printf '#!/bin/bash\necho "gh-api cooldown active" >&2\nexit 75\n' > "$COOLSTUB"; chmod +x "$COOLSTUB"
 
 # Declaration-compatibility oracle stub. Fixture rows carry the PR number before
 # the real oracle's six-field result so one fixture can model several open PRs.
@@ -277,6 +280,14 @@ add_entry 2026/08/06/000002Z-b "$(drained_body)"    # (B) satisfied, so (A) is d
 run_pre "" "$FAILSTUB"
 [ "$RC" -eq 0 ] && ok "source failure → fail open (exit 0)" || bad "exit $RC (want 0); OUT=$OUT"
 grep -qi 'failing open' <<<"$OUT" && ok "logged the fail-open" || bad "no fail-open log; OUT=$OUT"
+
+# ============================================================================
+hr; echo "DEFER — open-PR source in gh-api cooldown (EX_TEMPFAIL): exit 75"; hr
+reset_bare
+add_entry 2026/08/06/000002Z-b "$(drained_body)"
+run_pre "" "$COOLSTUB"
+[ "$RC" -eq 75 ] && ok "cooldown → deferred (exit 75), not fail-open dispatch" || bad "exit $RC (want 75); OUT=$OUT"
+grep -qi 'deferring' <<<"$OUT" && ok "logged the deferral" || bad "no deferral log; OUT=$OUT"
 
 # ============================================================================
 hr; echo "NO LEDGER — no entries at all, no repo derivable: fail open exit 0"; hr

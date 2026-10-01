@@ -9,6 +9,7 @@
 # The scheduler runs this when the cadence has elapsed and acts on the exit code:
 #   exit 0 = work present → dispatch the scholar cycle + advance the clock
 #   exit 2 = no work      → advance the clock only, dispatch nothing
+# exit 75 (EX_TEMPFAIL, e.g. an offline journal) defers: the schedule stays due.
 # (any other exit is treated by the scheduler as work-present — fail open).
 #
 # This moves the scholar's idle/active decision off the dispatched LLM agent and

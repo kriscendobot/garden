@@ -14,6 +14,8 @@
 # has elapsed and acts on the exit code (skills/schedule/SKILL.md):
 #   exit 0 = work present → dispatch the botanist ledger sweep + advance the clock
 #   exit 2 = no work      → advance the clock only, dispatch nothing
+#   exit 75 = deferred    → the open-PR source hit the gh-api cooldown; the
+#                           scheduler leaves the schedule due and retries later
 # ANY other exit is treated by the scheduler as work-present (fail open), so a
 # broken gate never starves the backstop.
 #
@@ -212,6 +214,14 @@ if command -v timeout >/dev/null 2>&1; then
     "$GARDEN_DEPB_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
 else
   "$GARDEN_DEPB_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
+fi
+if [ "$src_rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
+  # EX_TEMPFAIL from gh_api_retry: the shared gh-api cooldown latch is live. Not a
+  # verdict either way — defer, so the scheduler leaves the schedule due and re-runs
+  # this gate after the cooldown instead of dispatching a botanist into it.
+  sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
+  log "open-PR source deferred for $repo (rc=$src_rc, gh-api cooldown/transient) — deferring (EX_TEMPFAIL)"
+  exit "$src_rc"
 fi
 if [ "$src_rc" -ne 0 ]; then
   sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
