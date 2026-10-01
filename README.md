@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T08:49:55Z_
+_As of 2026-10-01T08:51:45Z_
 
 ## Latest
 
-Four new @endo/claude confinement jobs hit the board (bwrap sandbox slice, pinned-CLI-version bump, guest-scoped daemon bootstrap, and broker catalog pruning), while gauntlet traffic stayed heavy across the sturdyref-layer stack and petname-path-only sweeps on endo-but-for-bots, with [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) merging via the conductor. Two gauntlets exhausted their review budget without converging and are parked for a human look: the petname-path-only sweep and the ironhorse panic/host-call PR, both left green but unmerged. A rolling deploy to oros-studio-garden-ce242c49 has stalled — three canary retries failed and the host now sits drained, needing a maintainer decision to retry or hold. Also outstanding: the minion.town MCP principal/scope decision, the M3 confined-agent fork (advance #1015 vs. answer #1340's open questions), and DNSSEC publication for ocap.site still waiting on registrar access.
+PR [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) merged. The rolling deploy to c5416eb373bc is halted on a persistent canary failure on oros-studio-garden-ce242c49 — three automatic retries failed, so the leader has not advanced and the canary sits drained pending investigation. Three gauntlets hit their review ceiling without converging and now need a human merge/review call: the petname-path-only sweep on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), the sturdyref layer-1 shim build on [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (its fix stage also doom-parked on an unexplained failure), and a separate Ironhorse panic/host-call build. Several decisions are queued for the maintainer: M3's confined-agent work is blocked on choosing between advancing [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite clears, or answering open questions on design [endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340); the minion.town MCP rollout awaits a principal/scope call before widening past garden2; and the qwen model watch reports qwen3.7 never shipped (3.8 did instead) and needs redirecting or retiring.
 
 ## Parked for maintainer feedback
 
@@ -195,10 +195,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.9M | $726.56 _(notional, rate-card)_ | 37% of 256.0M (ok) |
+| Claude | 93.9M | $726.97 _(notional, rate-card)_ | 37% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 136960318 tokens/day lower bound._
+_Fleet token-unlock pace: 137078838 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
