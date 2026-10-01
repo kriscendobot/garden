@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T07:40:06Z_
+_As of 2026-10-01T07:44:10Z_
 
 ## Latest
 
-The gauntlet machinery kept grinding through the sturdyref/petname sweep stack: PR #1390's gauntlet halted and is working through fix rounds, PR #1401's first fix round landed clean with CI green, and layers across #1391–#1398 are mid fix/panel. Two gauntlets hit their review budget without converging and are left for human judgment — [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)-adjacent petname-path sweep and the ironhorse panic-host-call PR — while a third, the sturdyref layer1 shim build on [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), doom-parked after an unexplained fix failure and needs a look before retrying.
-
-Operationally, rolling deploy to c5416eb373bc is stuck: the oros-studio canary failed validation three times and was left drained rather than rolled back, so the leader hasn't advanced and needs a decision on that host. A GitHub API rate limit also blocked evidence-gathering for [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) feedback, which is now also queued for finalize/merge. Several journal-contention and host-heartbeat alerts cleared on their own. Outstanding maintainer decisions worth a look: the minion.town MCP widening-past-garden2 proposal (principal/scope and context-cost tradeoffs), the qwen3.8 model-watch follow-up, and the parked accountant budget conversation.
+Quiet stretch on the board itself — no job-level transitions landed between bulletins — so the inbox is where the real signal is. The rolling deploy to `c5416eb373bc` is stuck on `oros-studio-garden-ce242c49`: a canary that first failed three automatic retries and is now also reporting as undeployed 80+ minutes after release, holding the leader back from advancing; this needs a maintainer look rather than another auto-retry. The PR #1390 gauntlet (petname-path-only sweep) halted after a fix-round doom-park with an unknown failure classification, and the Ironhorse panic and sturdyref-shim gauntlets both exhausted their review budgets after six rounds with CI green — [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and the broader sturdyref/petname stack remain parked for a human merge call. Several decisions are waiting on kriskowal specifically: the M3 fork between [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and design PR #1340's open questions, the minion.town MCP principal/scope and context-cost questions, the parked accountant budget conversation, the qwen3.8 model-watch follow-up, and the ocap.site DNSSEC KSK/DS-record step. A `gh` primary-rate-limit exhaustion also caused one PR-feedback preflight to fail open on [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371), so any review activity there in the last window should be double-checked for completeness. Several other watchdog conditions (journal contention, worker derotation, host-offline canary) cleared on their own and need no action.
 
 ## Parked for maintainer feedback
 
@@ -93,11 +91,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-10-01T04:12:22Z, latest 2026-10-01T07:33:19Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T04:12:22Z, cleared 2026-10-01T07:43:07Z).
+> It was observed 6 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 835 of 835 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -136,10 +134,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
 > M3’s next confined-agent step is blocked on your choice between advancing `endojs/endo-but-for-bots#1015` after its `#1348` prerequisite clears, or answering the four open questions on design PR `#1340` to enable its build.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1371-93f63e4b90f0` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1371-93f63e4b90f0.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1371](https://github.com/endojs/endo-but-for-bots/pull/1371) ([endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371)) is in the mergeable queue with NO gauntlet review staged (head 93f63e4b90f03a964bd55e031c52d767e87f4910). Producer jobs normally stage their gauntlet at completion, but the periodic audit never mass-stages historical PRs. If you want this PR reviewed, reply with 'run the gauntlet #1371'; otherwise no action is needed. This audit never re-drafts or stages anything.
 
 - `ebfb-petname-path-only-sweep-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-gauntlet-review-budget-reached.md)
 
@@ -196,13 +190,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 91.8M | $707.00 _(notional, rate-card)_ | 36% of 256.0M (ok) |
+| Claude | 92.0M | $708.01 _(notional, rate-card)_ | 36% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136474912 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 1 open notice(s); checker healthy
+worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (23)
