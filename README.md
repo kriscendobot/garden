@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T10:52:11Z_
+_As of 2026-10-01T10:55:02Z_
 
 ## Latest
 
-Gauntlet machinery kept grinding through the endo-but-for-bots sturdyref stack: PR #1404 (guest no-identifiers/locators) cleared its panel round and moved into fix round 1, while PR #1396 (layer 6, CaptP construct) advanced to fix round 4 and PR #1401 picked up a second panel round before landing in the undraft queue. A noteworthy gap surfaced on the completion press for [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) (`@endo/inference`, phase 1 of the Claude-inference-backends design): it's CI-green and draft, but no gauntlet job was ever staged for it, so phase 2 (`build-endo-claude-backends-1357`) has been stuck unclaimed in todo for roughly four hours — worth running the gauntlet on #1403 by hand. The rolling deploy to `c5416eb373bc` remains halted on a persistently failing canary at oros-studio-garden-ce242c49 (three auto-retries exhausted, host left drained) and needs a maintainer decision to investigate, lift the drain, or hold the tip. Also pending: the foreman flags a choice between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its #1348 prerequisite clears, or answering the four open questions on design PR [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340); and two gauntlets hit their review-round budget without converging — [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (petname path-only sweep) and the Ironhorse panic-host-call PR — both left improved but awaiting a human merge call.
+The only board movement since the last bulletin is a single gauntlet stage: [endojs/endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) advanced into its CLEAN stage. Otherwise attention should go to the backlog of unread maintainer messages — most notably the stuck/failed rolling-deploy canary on oros-studio-garden-ce242c49 (target `c5416eb373bc`, retries exhausted, host left drained pending a decision), the doomed fix stage on the sturdyref layer-1 shim PR ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)), and the report that [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) completed CI-green and draft but never got a gauntlet staged, which is now blocking its phase-2 successor job.
 
 ## Parked for maintainer feedback
 
@@ -213,7 +213,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 105.8M | $802.02 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Claude | 106.0M | $804.43 _(notional, rate-card)_ | 41% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136557425 tokens/day lower bound._
@@ -222,9 +222,10 @@ _Fleet token-unlock pace: 136557425 tokens/day lower bound._
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (24)
+### todo (25)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`build-endo-claude-broker-catalog-pruning-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-broker-catalog-pruning-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1409
 - [`endojs-endo-but-for-bots-pr1401-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1401-gauntlet-undraft.md) — Gauntlet stage: UNDRAFT — endojs/endo-but-for-bots PR #1401
 - [`build-endo-claude-pinned-cli-bump-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-pinned-cli-bump-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1406
 - [`claude-on-minion-town-press-20261001-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261001-102007.md) — Press the Claude-on-minion.town arc forward
