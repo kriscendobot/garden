@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T13:20:35Z_
+_As of 2026-10-01T13:25:16Z_
 
 ## Latest
 
-Gauntlet machinery kept moving a wide stack of endo-but-for-bots PRs through panel/fix/clean rounds overnight, with [#1408](https://github.com/endojs/endo-but-for-bots/pull/1408) clean and [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) fixed to green CI, [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) at undraft, and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) and [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402) progressing toward clean/conduct. Two gauntlets exhausted their review budget without convergence and are parked for a human merge call: [#774](https://github.com/endojs/endo-but-for-bots/pull/774) (sturdyref layer-1 shim) and the ironhorse panic/host-call PR. One stalled hard — the sturdyref layer-1 fix doom-parked after a requeue-exhausted failure of unknown cause — and needs a look.
+Several gauntlets closed out clean overnight: [endojs/endo-but-for-bots#1408](https://github.com/endojs/endo-but-for-bots/pull/1408) (bwrap sandbox slice) and the guest-scoped daemon bootstrap PR, [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407), both finished CLEAN with green CI, and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (sturdyref layer 2, SES) wrapped fix round 4 green as well. Two review loops hit the panel budget without converging and are parked for a human call: the petname-path sweep PR and the Ironhorse panic/host-call PR, both left improved with green CI but needing a merge decision rather than another auto-round.
 
-The rolling deploy to `c5416eb373bc` is stuck on canary host oros-studio-garden-ce242c49: it failed validation three times and was drained pending a decision (retry or hold the tip), and separately that same host has been reporting undeployed for over six hours per the stuck-canary watchdog. The claude-on-minion-town completion press flagged a process gap: builder completion of [#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) (`@endo/inference`, CI-green and draft) never auto-staged a gauntlet, likely due to a probe-exemption misfire, and its phase-2 successor has been blocked waiting roughly four hours as a result — running the gauntlet on #1403 is the suggested unblock. Outstanding maintainer decisions remain open on the M3 roadmap step (endo#1015 vs. design PR #1340's open questions), the minion.town MCP rollout (principal/scoping and context-cost questions), and the budget conversation parked since 2026-09-30.
+The bigger story is upstream friction: GitHub's API rate limit is biting the fleet (a preflight evidence-gather failed open on [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371), and comment-ack tracking has gone blind on [endojs/endo-but-for-bots#1395](https://github.com/endojs/endo-but-for-bots/pull/1395) for ~5 hours), and the rolling deploy to c810e1e6c420 is stuck — the oros-studio canary has failed validation twice and sat un-advanced for nearly an hour, holding the leader back. Separately, phase 1 of the Claude-inference-backends build landed a clean draft, [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403), but its gauntlet never auto-staged (likely a probe-exemption misfire), so phase 2 has been blocked waiting on it for about 4 hours; the journalist's write-up recommends manually running the gauntlet on #1403. The accountant's budget proposal and the minion.town MCP principal/scope questions are still parked awaiting a reply, and the garden continues building its roadmap backlog across the sturdyref-layer and petname-path PR stacks.
 
 ## Parked for maintainer feedback
 
@@ -203,11 +203,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #129 (first seen 2026-10-01T05:20:02Z, latest 2026-10-01T12:23:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 129 times; this is ONE
-> coalesced notice that updates in place, not 129 messages. Latest detail:
+> WATCHDOG notice — occurrence #142 (first seen 2026-10-01T05:20:02Z, latest 2026-10-01T13:23:06Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 142 times; this is ONE
+> coalesced notice that updates in place, not 142 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to c5416eb373bc 387 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to c810e1e6c420 57 min ago
 > but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -223,7 +223,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.9M | $896.77 _(notional, rate-card)_ | 46% of 256.0M (ok) |
+| Claude | 118.1M | $897.37 _(notional, rate-card)_ | 46% of 256.0M (ok) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136436550 tokens/day lower bound._
