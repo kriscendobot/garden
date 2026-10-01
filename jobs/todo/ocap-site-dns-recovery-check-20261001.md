@@ -1,8 +1,8 @@
-once: 2026-10-01T20:59:43Z
-job_basename_prefix: ocap-site-dns-recovery-check-20261001
----
 ---
 role: gardener
+tier: mentor
+fallback-tier: minion
+dispatch: automatic
 ---
 
 # Verify ocap.site DNS recovery after registrar nameserver revert
