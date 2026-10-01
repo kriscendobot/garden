@@ -1,17 +1,17 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:rolling-deploy
-sent_at: 2026-10-01T15:02:04Z
+sent_at: 2026-10-01T16:05:07Z
 watchdog_key: rolling-deploy-no-canary-endolin-garden-ece02cb4
-notice_count: 50
+notice_count: 56
 first_seen: 2026-09-30T23:36:06Z
-last_seen: 2026-10-01T15:02:04Z
+last_seen: 2026-10-01T16:05:07Z
 ---
-WATCHDOG notice — occurrence #50 (first seen 2026-09-30T23:36:06Z, latest 2026-10-01T15:02:04Z).
-The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 50 times; this is ONE
-coalesced notice that updates in place, not 50 messages. Latest detail:
+WATCHDOG notice — occurrence #56 (first seen 2026-09-30T23:36:06Z, latest 2026-10-01T16:05:07Z).
+The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 56 times; this is ONE
+coalesced notice that updates in place, not 56 messages. Latest detail:
 
 Rolling deploy is HOLDING the leader: every configured follower is OFFLINE or
-operator-drained, so there is no canary to validate 41533558aa4c. The leader will
+operator-drained, so there is no canary to validate 697976e718f3. The leader will
 not advance unvalidated. Restore any offline host until budget/live heartbeats resume,
 or lift an operator drain. An archived host additionally needs a separate operator
 unarchive; this roll never reverses archival. (leader=endolin-garden-ece02cb4, offline=1)
