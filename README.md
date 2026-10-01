@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T07:44:10Z_
+_As of 2026-10-01T07:52:30Z_
 
 ## Latest
 
-Quiet stretch on the board itself — no job-level transitions landed between bulletins — so the inbox is where the real signal is. The rolling deploy to `c5416eb373bc` is stuck on `oros-studio-garden-ce242c49`: a canary that first failed three automatic retries and is now also reporting as undeployed 80+ minutes after release, holding the leader back from advancing; this needs a maintainer look rather than another auto-retry. The PR #1390 gauntlet (petname-path-only sweep) halted after a fix-round doom-park with an unknown failure classification, and the Ironhorse panic and sturdyref-shim gauntlets both exhausted their review budgets after six rounds with CI green — [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and the broader sturdyref/petname stack remain parked for a human merge call. Several decisions are waiting on kriskowal specifically: the M3 fork between [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and design PR #1340's open questions, the minion.town MCP principal/scope and context-cost questions, the parked accountant budget conversation, the qwen3.8 model-watch follow-up, and the ocap.site DNSSEC KSK/DS-record step. A `gh` primary-rate-limit exhaustion also caused one PR-feedback preflight to fail open on [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371), so any review activity there in the last window should be double-checked for completeness. Several other watchdog conditions (journal contention, worker derotation, host-offline canary) cleared on their own and need no action.
+The rolling deploy to c5416eb373bc is halted: canary host oros-studio-garden-ce242c49 failed validation three times running, and the leader (endolin-garden-ece02cb4) is refusing to advance past it — flagged as a confirmed regression rather than a blip, needing a maintainer call on whether to investigate the canary or hold the tip. Two gauntlets exhausted their review budget without the panel converging and are left for manual merge review: [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep, 6 fix rounds, CI green) and an Ironhorse panic/host-call PR (also 6 rounds, CI green). A third gauntlet, on [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), halted outright after its fix stage doom-parked with an unclassified failure. Separately, a GitHub rate limit blocked the review-feedback preflight on [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371), so any reviewer feedback there may have been acted on without the usual recheck, and three inline review comments on [endojs/endo-but-for-bots#1395](https://github.com/endojs/endo-but-for-bots/pull/1395) have sat unacknowledged for over 15 minutes. The foreman also reports milestone M3 blocked on a maintainer choice: advance [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite clears, or answer the open questions on design [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340).
 
 ## Parked for maintainer feedback
 
@@ -190,10 +190,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.0M | $708.01 _(notional, rate-card)_ | 36% of 256.0M (ok) |
+| Claude | 92.1M | $709.48 _(notional, rate-card)_ | 36% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 136474912 tokens/day lower bound._
+_Fleet token-unlock pace: 136633796 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
