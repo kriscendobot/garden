@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: build-endo-inference-1357-orch
-priority: normal
-posted_by: producer
-posted_at: 2026-10-01T04:20:59Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-01T05:25:15Z cleared=none -->
 
 ---
 role: builder
