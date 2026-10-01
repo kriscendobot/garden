@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1408
 build_job: build-endo-claude-sandbox-bwrap-slice
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: build-endo-claude-sandbox-bwrap-slice-gauntlet-viability
+current_child: build-endo-claude-sandbox-bwrap-slice-gauntlet-clean
 state: running
 created_by: producer
 created_at: 2026-10-01T11:45:16Z
