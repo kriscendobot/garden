@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T18:40:33Z_
+_As of 2026-10-01T18:46:56Z_
 
 ## Latest
 
-Gauntlet machinery moved several endo-but-for-bots PRs forward — [#1403](https://github.com/endojs/endo-but-for-bots/pull/1403), #1390, #1391, #1392, #1393, #1396, #1397, #1398, #1404, #1407, and #1410 all progressed through panel/fix/clean stages — but two stalled on genuine review disagreement rather than mechanical failure: [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep) and the IronHorse panic host-call PR each hit the 6-round review budget without converging, so both are sitting ready for a human merge call. Two gauntlets halted outright and need attention: layer5 CAPTP wire work on PR #1391/#1396 returned an unexpected "handed-off" result from the undraft stage, and layer1 shim build on [#774](https://github.com/endojs/endo-but-for-bots/pull/774) doom-parked after a fix round failed in a way the system can't classify as transient.
-
-Separately, the Claude-backends inference build (`build-endo-claude-backends-1357`) stalled for two hours and halted its orchestration — phase 1 opened a clean, CI-green draft at [#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) but never got an automatic gauntlet (cause unclear, possibly a probe-exemption misfire), so it's sat unreviewed since early morning while phase 2 waited on it. On infrastructure: a rolling-deploy canary on oros-studio-garden-ce242c49 failed three straight retries and is now parked in a drained, held state awaiting a decision, and that same host also went heartbeat-offline for an extended stretch (now recovered). The accountant's budget conversation and the minion.town MCP widening decision (principal/scoping questions) both remain parked awaiting your go-ahead, alongside the usual pile of design PRs — [#1282](https://github.com/endojs/endo-but-for-bots/pull/1282), [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281), and others — waiting on review.
+Since the last bulletin, a draft PR opened for the stalled phase 2 of the Claude inference-backends build: [`build-endo-claude-backends-1357-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-backends-1357-open-pr.md) was posted to open the draft PR for `build-endo-claude-backends-1357`, picking that build back up after it stalled in flight for two hours on oros-studio-garden and halted the `build-endo-inference-1357-orch` orchestration. The board otherwise continues heavy gauntlet churn across the sturdyref/CapTP layer stack (PRs #1390–#1410) and the Ironhorse panic-handling PR #1380, several of which are nearing or past their review-round budget and will need a maintainer merge/review call. Operationally, a rolling-deploy canary on oros-studio-garden-ce242c49 failed three retries and is now halted awaiting investigation, and that same host went briefly offline before its heartbeat and worker leveling recovered.
 
 ## Parked for maintainer feedback
 
@@ -157,11 +155,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #22 (first seen 2026-10-01T04:12:22Z, latest 2026-10-01T18:34:12Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 22 times; this is ONE
-> coalesced notice that updates in place, not 22 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T04:12:22Z, cleared 2026-10-01T18:43:52Z).
+> It was observed 22 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 89 of 900 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -306,18 +304,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 156.0M | $1181.57 _(notional, rate-card)_ | 61% of 256.0M (ok) |
+| Claude | 157.4M | $1195.96 _(notional, rate-card)_ | 61% of 256.0M (ok) |
 | Codex | 18.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136750285 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 10.091951s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
+worst fetch p95 10.091951s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (17)
 - [`endojs-endo-but-for-bots-pr1403-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1403-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1403
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`build-endo-claude-backends-1357-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-backends-1357-open-pr.md) — Open the draft PR for build-endo-claude-backends-1357 (phase 2 of endo-claude...
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1392
 - [`ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1396
 - [`ebfb-1391-post-panel-5-verdict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-1391-post-panel-5-verdict.md) — Post the round-5 panel verdict on PR #1391 (endojs/endo-but-for-bots)
