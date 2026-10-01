@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T09:04:22Z_
+_As of 2026-10-01T09:06:46Z_
 
 ## Latest
 
-Endo-but-for-bots [#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) merged. The bigger item for you: the rolling deploy to c5416eb373bc is **halted** on oros-studio-garden-ce242c49 after a canary failure that persisted through 3 automatic retries — the leader won't advance past it and auto-rollback isn't performed by design, so it needs your look before lifting the drain or holding the tip. On the review side, two gauntlets ran out their review budget without the subjective pass converging and are parked CI-green for a human merge call: the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and an Ironhorse panic/host-call PR; separately, the sturdyref-layer1-shim gauntlet on [#774](https://github.com/endojs/endo-but-for-bots/pull/774) is halted and doom-parked after a fix round failed with an unclassified error. The foreman flags milestone M3 as blocked on your call between advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite clears, or answering the four open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340). Also waiting on you: widening the minion.town MCP rollout past the current single host (dedicated principal/Cognito client, plus per-role context-token cost), and the parked accountant budget conversation. Spend sits at 37% of the Claude token quota and 38% of the Codex plan since the last reset.
+endojs/endo-but-for-bots#1371 merged, closing out the live-turn/OAuth findings arc. Several sturdyref-layer PRs (#1390–#1398) continue cycling through panel/fix rounds, and #1402 is queued for its own gauntlet while already slated for conduct. Two gauntlets hit their review-budget ceiling without converging and are left for a human call: the petname-path-only sweep PR and the Ironhorse panic/host-call PR, both after six fix/panel rounds with CI green. A third, the sturdyref layer-1 shim build ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)), HALTED outright after a fix stage doom-parked on an unclassified failure.
+
+Operationally, a rolling deploy to c5416eb373bc is stuck: canary host oros-studio-garden-ce242c49 failed validation three times and was left drained pending investigation, while a second follower report shows no canary available at all, holding the leader back. Also open: a PR-feedback preflight failed closed on a GitHub rate limit for [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371), and the accountant's budget conversation from 2026-09-30 is parked awaiting a maintainer go-ahead. Several outstanding decisions remain queued, including the minion.town MCP principal/scope rollout and the qwen3.8 model-watch follow-up.
 
 ## Parked for maintainer feedback
 
@@ -195,10 +197,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.3M | $721.72 _(notional, rate-card)_ | 37% of 256.0M (ok) |
+| Claude | 94.4M | $723.36 _(notional, rate-card)_ | 37% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 137078838 tokens/day lower bound._
+_Fleet token-unlock pace: 137229722 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
