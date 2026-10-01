@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T07:09:53Z_
+_As of 2026-10-01T07:25:28Z_
 
 ## Latest
 
-The board kept grinding on the sturdyref/petname gauntlet stack: PR #1390 ([endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) finished a fix round and its gauntlet record closed out to `tada`, while fresh fix rounds opened on both PR #1390 and the CapTP-construct PR #1396 ([endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)), and the guest-identifier cleanup on PR #1404 ([endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/pull/1404)) moved into its clean stage. A panel round for PR #1402 ([endo-but-for-bots#1402](https://github.com/endojs/endo-but-for-bots/pull/1402)) also got requeued back to todo.
+Several sturdyref-layer gauntlets continued grinding through fix/panel rounds (layers 1–8, [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), alongside the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and the ironhorse panic-handling PRs ([#1380](https://github.com/endojs/endo-but-for-bots/pull/1380), plus a review-budget-reached gauntlet on another ironhorse panic PR). Two gauntlets hit their 6-round review budget without converging and are left for human merge/review decisions: the petname-path-only sweep and the ironhorse panic-host-call PR; a third, the sturdyref-layer1-shim build on #774, HALTED outright after a fix stage doom-parked with an unclassified failure. [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402) and [#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) are in conduct (merge) flow.
 
-On the attention side, the rolling deploy to `c5416eb373bc` is stuck: the oros-studio canary failed validation three times and is now parked DRAINED awaiting a maintainer call (investigate and lift the drain, or hold the tip), and a separate canary-stuck notice shows it still reporting an old `deployed_sha`. There's also a fresh GitHub API rate-limit/404 failure blocking PR-feedback evidence gathering on [endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371), and two gauntlets (the petname-path-only sweep and the sturdyref layer1-shim build on PR #774 — [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)) hit review-budget/doom-park limits and are waiting for human merge review. Everything else — the watchdog journal-contention and host-offline notices — cleared on its own.
+Operationally, a rolling deploy to c5416eb373bc is stuck: canary host oros-studio-garden-ce242c49 failed validation 3 times and was halted (left drained, no auto-rollback) pending your call, while endolin-garden-ece02cb4 separately has no canary available since its only follower is offline. Also waiting on you: the minion.town MCP widening-past-garden2 decision, the M3 milestone choice between #1015 and design PR #1340's open questions, and the ocap.site DNSSEC KSK/DS-record step. A GitHub API rate-limit 403 caused one preflight check to fail open on #1371 — worth a glance since real review feedback may have been processed without its recheck.
 
 ## Parked for maintainer feedback
 
@@ -86,8 +86,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T04:12:22Z, cleared 2026-10-01T06:18:05Z).
-> It was observed 4 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T04:12:22Z, cleared 2026-10-01T07:23:42Z).
+> It was observed 5 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
@@ -165,11 +165,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-10-01T05:20:02Z, latest 2026-10-01T06:17:03Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> WATCHDOG notice — occurrence #27 (first seen 2026-10-01T05:20:02Z, latest 2026-10-01T07:17:03Z).
+> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 27 times; this is ONE
+> coalesced notice that updates in place, not 27 messages. Latest detail:
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to c5416eb373bc 21 min ago
+> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to c5416eb373bc 81 min ago
 > but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -185,10 +185,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.9M | $701.05 _(notional, rate-card)_ | 36% of 256.0M (ok) |
+| Claude | 91.4M | $703.47 _(notional, rate-card)_ | 36% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 136157737 tokens/day lower bound._
+_Fleet token-unlock pace: 136340120 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
