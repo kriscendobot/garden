@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T03:46:24Z_
+_As of 2026-10-01T03:51:34Z_
 
 ## Latest
 
-The headline mover is the eight-layer sturdyref stack (endojs/endo-but-for-bots#774, [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)–[#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), still churning through panel/fix rounds; layer 7 ([#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), ocapn-enliven) had its merge base woven today. Two gauntlets exhausted their 6-round review budget without converging and are parked for a human call: the petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) and the ironhorse panic host-call PR — both are CI-green and improved, just not resolved by the automated panel. A watchdog notice (occurrence #15) reports the rolling deploy stuck on the leader host because every follower is offline or drained, so there's no canary to validate the pending commit — it needs a host restored or a drain lifted before it can advance; a second, lower-stakes watchdog flags a recurring (2x) comment-provenance instrumentation gap that's cosmetic, not breaking anything. Separately, the minion.town MCP rollout is technically ready to widen beyond garden2 but is waiting on you for two calls: whether job traffic should get its own dedicated guest/principal instead of riding the production test-cc guest, and whether juror/myrmidon roles should carry the ~3k-token tool list at all. The foreman also flags M3 as blocked on choosing between letting [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) proceed once its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite clears, or answering the open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340).
+The sturdyref layer stack keeps grinding through fix/panel rounds across its eight-PR chain ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)–[#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), with several still in `doin`. Two gauntlets exhausted their six-round review budget without the subjective review converging: the petname-path-only sweep ([endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) and an ironhorse panic-handling PR ([endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380)) — both pushed with green CI but now waiting on a human merge/review call rather than further automated fix rounds. Separately, the rolling deploy to `d628cd134563` has been holding on the leader for 15 occurrences of the same notice because no follower is online to serve as canary; restoring an offline host or lifting an operator drain would unstick it. A handful of items need a maintainer decision to move forward: how far to widen the minion.town MCP rollout past garden2 (principal/scope and context-cost tradeoffs), whether M3's next confined-agent step proceeds via [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its prerequisite clears or instead resolves the open questions on design PR #1340, the parked accountant budget conversation awaiting a go-ahead, and the ocap.site DNSSEC KSK/signing step that's a prerequisite to publishing the DS record at the registrar.
 
 ## Parked for maintainer feedback
 
@@ -82,10 +82,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.0M | $591.89 _(notional, rate-card)_ | 29% of 256.0M (ok) |
+| Claude | 74.0M | $592.18 _(notional, rate-card)_ | 29% of 256.0M (ok) |
 | Codex | 18.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 136321947 tokens/day lower bound._
+_Fleet token-unlock pace: 137192750 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
