@@ -25,3 +25,13 @@ Tests beside scripts/jobs/test/ironhorse-press-budget-test.sh.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-09-30T22:43:03Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T00:10:16Z
