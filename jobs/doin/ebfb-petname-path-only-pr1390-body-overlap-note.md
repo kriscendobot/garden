@@ -27,3 +27,13 @@ insert this section verbatim (skip if a "### Relationship to other work" heading
 Then `gh pr edit 1390 -R endojs/endo-but-for-bots --body-file <file>`. Keep the
 `<!-- garden-job: ebfb-petname-path-only -->` marker intact. Do not touch the code or
 the branch. Report the edit and finish.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T05:53:57Z
