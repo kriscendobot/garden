@@ -10,3 +10,13 @@ Please:
 - Spot-check the generated provenance links (and build/README.md) actually resolve to this repo rather than any stale journal2/journal/projects/garden-book path.
 - Skim chapters/*.md for obvious migration damage (truncation, broken relative links/images) — the commit claims they were carried over unchanged, so this is a sanity check, not a rewrite.
 - If anything is broken, fix it directly in this repo; if everything checks out, no PR is needed — just report findings.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T21:54:08Z
