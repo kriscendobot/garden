@@ -155,8 +155,11 @@ unset GARDEN_CONTENTION_TICK_BUDGET GARDEN_CONTENTION_RESERVE GARDEN_CONTENTION_
 reset_case
 CLONE="$STATE/slowcount/journal"; mkdir -p "$CLONE"; git -C "$CLONE" init -q
 slug="${CLONE//[!A-Za-z0-9]/_}"
+# Skip an inherited fleet git wrapper: a shim that execs it would recurse.
+# hash -r: once git is hashed, `type -aP` lists only the hashed (wrapper) path.
+REAL_GIT="$(hash -r; type -aP git | grep -v '/scripts/jobs/bin/git$' | head -n 1)"
 SHIM="$TR/shim"; mkdir -p "$SHIM"
-printf '#!/bin/bash\ncase " $* " in *" count-objects "*) sleep 10;; esac\nexec %q "$@"\n' "$(command -v git)" > "$SHIM/git"
+printf '#!/bin/bash\ncase " $* " in *" count-objects "*) sleep 10;; esac\nexec %q "$@"\n' "$REAL_GIT" > "$SHIM/git"
 chmod +x "$SHIM/git"
 PATH="$SHIM:$PATH" GARDEN_CONTENTION_TICK_BUDGET=2 GARDEN_CONTENTION_RESERVE=0 run_watch 100
 grep -qx "$slug" "$WATCH_STATE/deferred" || { echo 'FAIL: slow clone accounting was not deferred'; exit 1; }
@@ -192,7 +195,7 @@ run_watch 100; run_watch 400
 # shimmed so the fixture needs no real packs.
 countshim() { # packs size-pack-KiB
   mkdir -p "$TR/cshim"
-  printf '#!/bin/bash\ncase " $* " in *" count-objects "*) printf "count: 0\\nsize: 0\\nin-pack: 1\\npacks: %s\\nsize-pack: %s\\nprune-packable: 0\\ngarbage: 0\\nsize-garbage: 0\\n"; exit 0;; esac\nexec %q "$@"\n' "$1" "$2" "$(command -v git)" > "$TR/cshim/git"
+  printf '#!/bin/bash\ncase " $* " in *" count-objects "*) printf "count: 0\\nsize: 0\\nin-pack: 1\\npacks: %s\\nsize-pack: %s\\nprune-packable: 0\\ngarbage: 0\\nsize-garbage: 0\\n"; exit 0;; esac\nexec %q "$@"\n' "$1" "$2" "$REAL_GIT" > "$TR/cshim/git"
   chmod +x "$TR/cshim/git"
 }
 run_remedy() { # now

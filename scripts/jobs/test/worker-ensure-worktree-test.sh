@@ -47,7 +47,8 @@ bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 trap 'rm -rf "$TR"' EXIT
 
 # Skip an inherited fleet git wrapper: a fake git that execs it would recurse.
-REAL_GIT="$(type -aP git | grep -v '/scripts/jobs/bin/git$' | head -n 1)"
+# hash -r: once git is hashed, `type -aP` lists only the hashed (wrapper) path.
+REAL_GIT="$(hash -r; type -aP git | grep -v '/scripts/jobs/bin/git$' | head -n 1)"
 
 # --- a throwaway garden root with an origin/main2 tracking ref ----------------
 ORIGIN="$TR/origin.git"

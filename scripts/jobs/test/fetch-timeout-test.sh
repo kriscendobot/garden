@@ -37,7 +37,8 @@ export GARDEN_STATE="$TR/state" GARDEN_CONTENTION_DIR="$TR/state/journal-content
 # A fake `git` that hangs for 30s on any `fetch` subcommand and execs the real
 # git for everything else. The timeout wrapper must kill it long before 30s.
 # Skip an inherited fleet git wrapper: a fake git that execs it would recurse.
-REAL_GIT="$(type -aP git | grep -v '/scripts/jobs/bin/git$' | head -n 1)"
+# hash -r: once git is hashed, `type -aP` lists only the hashed (wrapper) path.
+REAL_GIT="$(hash -r; type -aP git | grep -v '/scripts/jobs/bin/git$' | head -n 1)"
 cat > "$TR/bin/git" <<EOF
 #!/bin/bash
 for a in "\$@"; do [ "\$a" = fetch ] && { sleep 30; exit 0; }; done

@@ -233,7 +233,9 @@ hr; echo "F — doomed multi-line new_sha trips the ^[0-9a-f]{40}$ guard (dies l
 rm -rf "$TR/state5"; STATE="$TR/state5"
 rm -rf "$BARE"; seed_journal
 seed_watched_bare   # restore the well-formed fetch-tracking bare (E left a plain clone)
-REAL_GIT="$(command -v git)"
+# Skip an inherited fleet git wrapper: a shim that execs it would recurse.
+# hash -r: once git is hashed, `type -aP` lists only the hashed (wrapper) path.
+REAL_GIT="$(hash -r; type -aP git | grep -v '/scripts/jobs/bin/git$' | head -n 1)"
 SHIMDIR="$TR/shimbin"; mkdir -p "$SHIMDIR"
 cat > "$SHIMDIR/git" <<EOF
 #!/bin/bash
