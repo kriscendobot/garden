@@ -11,7 +11,7 @@ created_by: producer
 created_at: 2026-09-30T07:49:45Z
 stage: fix
 iteration: 3
-resumes: 0
+resumes: 1
 stage_retries: 0
 current_child: ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-3
 state: running
