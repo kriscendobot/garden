@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: build-endo-claude-backends-1357-open-pr-gauntlet-viability
+state: running
 created_by: producer
 created_at: 2026-10-01T18:53:38Z
 ---
