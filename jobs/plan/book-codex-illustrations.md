@@ -1,6 +1,6 @@
 ---
 gate: blocked
-blocked_on: book-title-audience-pass
+blocked_on: garden-book-revision-orch
 priority: normal
 posted_by: producer
 posted_at: 2026-10-01T20:09:17Z
@@ -18,18 +18,25 @@ dispatch: automatic
 
 This job is deliberately dispatched to the Codex/OpenAI harness specifically
 (the maintainer asked for a Codex job here, separate from the Claude job that
-will integrate your output). You produce standalone art assets only — do not
-edit the book's chapters, `build.py`, or `styles.css`; a separate follow-up
-job does the integration.
+will integrate your output). You produce standalone art assets and open a
+draft PR with them — do not edit the book's chapters, `build.py`, or
+`styles.css` beyond adding your new asset files; a separate follow-up job
+does the integration into those.
+
+**Repo update (2026-10-01): the book now lives at
+[kriscendobot/garden-book](https://github.com/kriscendobot/garden-book)**,
+not in the journal. Read `journal/projects/garden-book/README.md` for the
+project's rules of engagement before starting. Work in a normal project
+worktree of that repo.
 
 ## Brief
 
 Produce a rich set of illustrations and background art for the garden book
 (a published HTML book about an AI-agent fleet that tends software across
 many repos, organized around a "garden"/"metamorphosis" metaphor — see
-`journal/projects/garden-book/ch1-philosophy-history-metamorphosis.md` for
-the framing if you want the flavor, though you don't need to read the whole
-book to do this job).
+`chapters/ch1-philosophy-history-metamorphosis.md` in the repo for the
+framing if you want the flavor, though you don't need to read the whole book
+to do this job).
 
 **Style, firm requirements:**
 - **Seamless with the surrounding page background and coloring** — these
@@ -60,19 +67,17 @@ for the exact CSP if you want the full detail. This is squarely a code-
 authoring task (hand-written SVG/CSS), not image generation in the
 DALL-E sense — play to that strength.
 
-## Output
+## Output: a draft PR, not a build
 
-Save your work under `journal/projects/garden-book/art/` as a set of
-self-contained files (one `.svg` or `.css`-snippet file per distinct piece —
-a title-page background, a few chapter-divider motifs, a repeating texture
-for body backgrounds, a couple of figurative pieces). Write a short
-`journal/projects/garden-book/art/MANIFEST.md` describing each file: what it
-is, the suggested use (title page / chapter divider / background texture /
-standalone figure), and its exact color values (so the integration pass can
-keep things consistent if it needs to adjust anything). Land these files on
-`journal2` the same way other scholar/book content lands (a normal
-journal commit, no project worktree needed — this is pure asset authoring,
-not a code change to any project repo).
+Add your files under `art/` in the repo (one `.svg` or `.css`-snippet file
+per distinct piece — a title-page background, a few chapter-divider motifs,
+a repeating texture for body backgrounds, a couple of figurative pieces),
+plus a short `art/MANIFEST.md` describing each file: what it is, the
+suggested use (title page / chapter divider / background texture /
+standalone figure), and its exact color values (so the integration job can
+keep things consistent if it needs to adjust anything). Commit on a branch
+and open a draft PR against `main` (one PR per job, via `ensure-pr.sh`).
 
 Do not attempt to build or publish the book yourself — that's the
-follow-up job's work, once it reads your manifest.
+follow-up job's work, once your PR merges and it reads your manifest.
+Report the PR URL plainly in your completion report.

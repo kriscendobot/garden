@@ -8,8 +8,6 @@ posted_at: 2026-10-01T20:03:46Z
 
 ---
 role: researcher
-requires: host=endolin-garden2-5bcdff64
-handler-timeout: 7200
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
@@ -17,11 +15,15 @@ dispatch: automatic
 
 # Garden book: a sharper title, and a pass for the actual audience
 
-By the time this runs, `journal/projects/garden-book/` holds the full
-10-chapter book after content, copyedit, and design passes (orchestration
-`garden-book-revision-orch`). Read `build/README.md` for the build/publish
-mechanics; this is another revision on top of that, not a rebuild from
-scratch.
+**Repo update (2026-10-01): the book now lives at
+[kriscendobot/garden-book](https://github.com/kriscendobot/garden-book)**,
+not in the journal. Read `journal/projects/garden-book/README.md` for the
+project's rules of engagement (PR-reviewed, like any garden-maintained
+project) before starting. Work in a normal project worktree of that repo;
+chapters live at `chapters/ch<N>-<slug>.md`, build tooling at `build/` (see
+`build/README.md` in the repo for the current edition's URL and the
+build/publish steps — do not run them yourself in this job; see the note at
+the end on why).
 
 ## 1. A better title
 
@@ -30,8 +32,10 @@ evocative or pithy enough. Try again. The maintainer suggested **"Better
 Code and Gardens"** (playing on "Better Homes and Gardens") as one option —
 use it if it's genuinely the best fit, but don't feel bound to it if you
 find something sharper; the brief is evocative and pithy, not "use this
-exact phrase." Update `build/intro.html`'s title page (and anywhere else
-the title is set, e.g. a `<title>` tag) accordingly.
+exact phrase." The title is set in three places — `build/intro.html`'s title
+page, and `build.py`'s `<title>` tag and sidebar nav — update all three
+together (called out in `build/README.md`'s edition history for exactly
+this reason).
 
 ## 2. Write for the actual audience, not the maintainer
 
@@ -68,9 +72,11 @@ narrate maintainer-specific weekly engagements) — but read all 10, since the
 tone drifted during independent parallel authorship and may show up
 anywhere.
 
-## 3. Rebuild and republish
+## 3. Open a draft PR and stop there
 
-Follow `build/README.md`. Update its Edition line (keep prior editions
-listed as history, per the existing convention in that file). Report the new
-title and the new URL in your completion report and via
-`scripts/jobs/message-user.sh <this-job-base>`.
+Commit your changes on a branch and open a draft PR against `main` on
+`kriscendobot/garden-book` (one PR per job, via `ensure-pr.sh`). That's the
+end of this job's scope — do not build or publish. Publishing only makes
+sense against the merged `main`, and merge timing (and coordinating it with
+the separate illustrations work in flight) is the final integration job's
+concern, not yours. Report the PR URL plainly in your completion report.
