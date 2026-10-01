@@ -28,3 +28,13 @@ OUT of scope: they need live credentials and maintainer-gated deployment.
 
 Open a DRAFT PR (via ensure-pr.sh) with unit tests that need no live credential.
 Arc: https://github.com/kriscendobot/garden/issues/89 item 4.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T12:49:02Z
