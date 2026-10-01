@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T10:37:17Z_
+_As of 2026-10-01T10:40:25Z_
 
 ## Latest
 
-Board movement was thin this cycle: the only tracked transition was `build-endo-claude-broker-catalog-pruning` landing a completion report, while `ebfb-guest-no-identifiers-locators-gauntlet-panel-1` (gauntlet panel round 1 on [endojs/endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/pull/1404)) moved from todo into doin. The bigger story is in the maintainer inbox: a rolling deploy to c5416eb373bc is stuck on a failed canary on oros-studio-garden-ce242c49 after three automatic retries and needs a human call (lift the drain and retrigger, or hold the tip), and a second canary report shows that same host still 264 minutes behind on the deployed SHA. Separately, the completion press flagged that [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) (the `@endo/inference` phase-1 draft, CI-green and clean) never got an auto-staged gauntlet, stalling its phase-2 successor `build-endo-claude-backends-1357` in todo for about four hours with no idle capacity to pick it up — running the gauntlet on #1403 is the suggested unblock. Also pending: the minion.town MCP rollout needs a decision on a dedicated principal/guest before widening past garden2, and the qwen model watch is asking whether to reassess for the newly-released qwen3.8 now that qwen3.7 never shipped.
+The board stayed quiet since the last tick: the one visible change is `build-endo-claude-broker-catalog-pruning` completing and its gauntlet entering pre-spend viability review.
+
+Maintainer attention is better spent on what's piling up in the inbox. Rolling deploy is halted on a confirmed, repeatedly-failing canary on oros-studio-garden-ce242c49 at c5416eb373bc — three auto-retries exhausted, host left drained pending a decision. A gauntlet gap also needs a call: [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) (`@endo/inference`, phase 1) finished CI-green and draft but never got an auto-staged gauntlet, which is in turn blocking phase 2 (`build-endo-claude-backends-1357`), unclaimed for ~4 hours. Two more decisions are parked: the minion.town MCP rollout awaits a go/no-go on a dedicated principal and tool-context cost, and the qwen model watch needs direction now that upstream skipped straight to qwen3.8. Several gauntlets also hit their review-budget ceiling and are parked for human merge/review: [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (sturdyref layer1) and the ironhorse panic/host-call PR, plus one gauntlet halted outright after a doomed fix stage on the sturdyref layer1 build.
 
 ## Parked for maintainer feedback
 
@@ -70,15 +72,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #23 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T10:33:47Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 23 times; this is ONE
-> coalesced notice that updates in place, not 23 messages. Latest detail:
+> WATCHDOG notice — occurrence #24 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T10:38:28Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 24 times; this is ONE
+> coalesced notice that updates in place, not 24 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=11382s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=11464s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=11461s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=11454s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=11682s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=11764s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=11761s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=11754s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -213,7 +215,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.5M | $769.35 _(notional, rate-card)_ | 40% of 256.0M (ok) |
+| Claude | 103.5M | $780.45 _(notional, rate-card)_ | 40% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135253353 tokens/day lower bound._
@@ -222,9 +224,10 @@ _Fleet token-unlock pace: 135253353 tokens/day lower bound._
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (24)
+### todo (25)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`build-endo-claude-broker-catalog-pruning-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-broker-catalog-pruning-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1409
 - [`ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1396
 - [`build-endo-claude-pinned-cli-bump-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-pinned-cli-bump-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1406
 - [`claude-on-minion-town-press-20261001-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261001-102007.md) — Press the Claude-on-minion.town arc forward
