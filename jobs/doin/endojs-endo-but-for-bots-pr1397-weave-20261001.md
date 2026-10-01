@@ -11,3 +11,13 @@ clean stage (CI can't even start). Update the frozen base and rebase per
 `skills/frozen-base-branch/SKILL.md`, resolving conflicts, then re-post/
 resume the gauntlet (`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet`,
 stage `clean`) once CI can run.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T03:34:44Z
