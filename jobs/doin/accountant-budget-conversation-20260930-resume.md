@@ -58,3 +58,13 @@ Method used for the spend table: the sum over `journal/usage/*.jsonl` of input+o
 3. **Mandate and pace:** does the 09-26 mandate still hold as-is? endolin1 has ~240M to spend in ~55h. Should I recommend raising worker capacity to use it, or let the unspent part lapse?
 
 Budget-request intake (design job `design-accountant-budget-request-intake`): I'll pass any view you have on it to that job, e.g. whether roles should file a request for any job above X tokens, or only for campaigns/presses.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T23:46:43Z
