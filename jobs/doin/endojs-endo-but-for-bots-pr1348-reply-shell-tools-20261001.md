@@ -20,3 +20,13 @@ boundary — whatever the PR's real implementation does, not a generic
 description). Cite actual file/line references from the PR's diff. This is
 a real technical question that needs a real, specific answer, not a
 reformulation of the PR description.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T22:41:02Z
