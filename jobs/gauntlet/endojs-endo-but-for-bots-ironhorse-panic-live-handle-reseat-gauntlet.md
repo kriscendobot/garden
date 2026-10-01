@@ -13,8 +13,8 @@ stage: fix
 iteration: 6
 resumes: 0
 stage_retries: 0
-current_child: 
-state: resume-pending
+current_child: endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-6
+state: running
 resumed_at: 2026-10-01T03:38:18Z
 resumed_from_stage: fix
 ---
