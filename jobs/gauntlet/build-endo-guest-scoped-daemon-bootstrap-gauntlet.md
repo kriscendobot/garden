@@ -13,8 +13,8 @@ stage: clean
 iteration: 0
 resumes: 0
 stage_retries: 0
-current_child: 
-state: resume-pending
+current_child: build-endo-guest-scoped-daemon-bootstrap-gauntlet-clean
+state: running
 resumed_at: 2026-10-01T19:53:38Z
 resumed_from_stage: clean
 ---
