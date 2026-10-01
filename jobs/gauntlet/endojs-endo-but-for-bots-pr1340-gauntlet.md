@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1340
 build_job: endojs-endo-but-for-bots-pr1340-review-85c8bc95
 kind: feature
-stage: panel
+stage: fix
 iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1340-gauntlet-panel-3
+current_child: endojs-endo-but-for-bots-pr1340-gauntlet-fix-3
 state: running
 created_by: producer
 created_at: 2026-09-30T21:09:59Z
