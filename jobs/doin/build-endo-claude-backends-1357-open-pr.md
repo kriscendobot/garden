@@ -103,3 +103,13 @@ Regression evidence: I broke the source in 12 ways, one at a time, and at least 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
 ----- PR BODY END -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T18:51:16Z
