@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T01:29:40Z_
+_As of 2026-10-01T01:35:15Z_
 
 ## Latest
 
-The SturdyRef layer stack kept grinding through its gauntlets: layer 2 (SES) and layer 8 (daemon formula) both completed clean/fix/panel rounds, while layers 1, 3, 4, 5, and 6 are mid-panel or mid-fix across [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), and [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396); layer 2's gauntlet halted on a fix failure and needs attention. Separately, the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) is deep into its panel/fix cycle (round 6 fix in flight) with a cluster of should-fix follow-ups (tests, a PR-body trim) parked for disposition, and the ironhorse panic-reseat and host-call gauntlets both ran into trouble — one halted on a declined fix, the other exhausted its review budget at round 6 and needs a human merge call. A retire-gardener-clone-alias verification job stalled and was parked after exhaustion. On the ops side: the rolling deploy is holding at the leader because the oros-studio canary is stuck mid-release, journal contention noise mostly self-cleared, and the budget outlook (reset-credit watch) recommends holding the claude-endolin2 credit for next week while accelerating codex spend first. The garden book got a republish with two new chapters (library/context-economy, inference-tiers reference).
+The sturdyref/layer gauntlet series continues to grind through panel/fix rounds across endo-but-for-bots PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), but three legs halted on failed clean/fix stages — layer2 SES ([#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)), layer7 Ironhorse panic-handle-reseat, and the layer7 sturdyref-enliven job — and need a maintainer look. [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) is otherwise CI-green pending a manual Actions rerun to clear a macOS daemon-teardown flake. The petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) completed its sixth fix round with follow-ups (refusal tests, property tests, a PR-body trim) awaiting disposition, and [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) and [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) both moved heads without fresh panel coverage, so review is required before any further gauntlet action. Separately, the Ironhorse host-call PR hit its review budget after six rounds and is ready for a human merge call; the accountant's budget-reallocation proposal and the oros-studio host's brief offline/online blip have both self-resolved or are parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -28,11 +28,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-30T20:47:15Z, cleared 2026-10-01T01:02:02Z).
-> It was observed 20 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #21 (first seen 2026-09-30T20:47:15Z, latest 2026-10-01T01:32:12Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 21 times; this is ONE
+> coalesced notice that updates in place, not 21 messages. Latest detail:
 >
-> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1816s (offline threshold 1800s; sampled_at_epoch=1790816511).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
 
 - `watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4.md)
 
@@ -56,7 +61,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_maintainer_approval_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_maintainer_approval_verify.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/maintainer-approval/verify: packs 1019 >= 1000; size=283751424B packs=1019 gc.log=0; automatic remedy=applied.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_maintainer_approval_verify` has CLEARED (first seen 2026-10-01T01:28:05Z, cleared 2026-10-01T01:32:36Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_maintainer_approval_verify` cleared on endolin-garden-ece02cb4.
 
 - `endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-halted.md)
 
@@ -330,15 +339,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-09-30T21:23:02Z, latest 2026-10-01T01:26:04Z).
-> The SAME condition (`rolling-deploy-canary-stuck-oros-studio-garden-ce242c49`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-09-30T21:23:02Z, cleared 2026-10-01T01:32:16Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Rolling-deploy canary oros-studio-garden-ce242c49 is STUCK: it was released to 2916e65ffb94 21 min ago
-> but still reports deployed_sha e036bb8e0650b66a4ae00dc1516c4c8df39901ca. Check garden-self-deploy on oros-studio-garden-ce242c49
-> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
-> keeps it from advancing. The leader does not advance past an undeployed canary.
-> (leader=endolin-garden-ece02cb4)
+> canary oros-studio-garden-ce242c49 is no longer stuck (release 2916e65ffb94dab419bae7eb7749236a63efb61b, deployed e036bb8e0650b66a4ae00dc1516c4c8df39901ca).
 
 - `stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-3a9c6be6` — from gardener:endojs-endo-but-for-bots-pr1357-conduct-20260930, reply_to `endojs-endo-but-for-bots-pr1357-conduct-20260930` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-3a9c6be6.md)
 
@@ -358,13 +363,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 49.5M | $400.27 _(notional, rate-card)_ | 19% of 256.0M (ok) |
+| Claude | 49.9M | $403.94 _(notional, rate-card)_ | 20% of 256.0M (ok) |
 | Codex | 17.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 134068979 tokens/day lower bound._
+_Fleet token-unlock pace: 133170243 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
+worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (13)
