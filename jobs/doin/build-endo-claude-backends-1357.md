@@ -30,6 +30,8 @@ Open a DRAFT PR (via ensure-pr.sh) with unit tests that need no live credential.
 Arc: https://github.com/kriscendobot/garden/issues/89 item 4.
 
 <!-- garden-productive-cycle -->
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
