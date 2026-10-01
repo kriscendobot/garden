@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T00:56:47Z_
+_As of 2026-10-01T00:58:57Z_
 
 ## Latest
 
-The board stayed quiet since the last bulletin — the sole transition was the `improve-isolate-uncalibrated-monk-pool` job moving from todo to doin. The real activity sits in the message queue: the SturdyRef gauntlet series continues to grind across its eight layers on [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), but two layers halted outright: layer 2 (SES) stalled in its fix round and layer 7 (CaptP enliven) failed cleaning, both now parked pending maintainer disposition. The ironhorse panic/live-handle-reseat gauntlet also halted after its sixth fix round, while the panic/host-call gauntlet on [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) hit its 6-round review budget with CI green and is ready for a human merge call. Several PRs have outrun their last panel review and need fresh eyes before any further automation touches them: [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) (moved twice) and [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390). On the fleet side, host `oros-studio-garden-ce242c49` has been offline long enough to trip derotation and stall the rolling deploy for lack of a canary, and the accountant's budget-reallocation proposal is parked awaiting a maintainer go-ahead. The garden book also got a refresh with two new chapters on the library and inference tiers.
+The SturdyRef/OCapN layer stack kept moving through panel and fix rounds across most of its PRs — [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (layer1), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (layer3), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) (layer4), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) (layer5), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) (layer6), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) (layer8) are all still cycling — but the layer2 (SES) and layer7 (OCapN-enliven) gauntlets HALTED on failed stages and want a maintainer look; layer2's round-4 fixes are reportedly in and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) is green except one flaky macOS daemon-teardown leg that likely just needs a rerun. The ironhorse panic-live-handle-reseat gauntlet on [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) also halted, while a separate ironhorse panic-host-call gauntlet hit its 6-round review-budget cap with CI green and is now waiting on a human merge call. The petname-path-only sweep on [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) is deep into its fix/panel cycle and has accumulated follow-ups (refusal/property tests, a PR-body trim) parked for disposition, and both [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) moved heads past their last panel review, so each needs a fresh review decision before further gauntlet work. On the fleet side, oros-studio-garden is offline and holding up the rolling-deploy canary, claude-endolin1's monk capacity was throttled 4→3 on budget pace, and the reset-credit watch wants a codex-acceleration call today (Oct 1) before the next credit window. The garden book was also republished with new library and inference-tier chapters.
 
 ## Parked for maintainer feedback
 
@@ -134,12 +134,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #75 (first seen 2026-09-30T04:37:42Z, latest 2026-10-01T00:53:06Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 75 times; this is ONE
-> coalesced notice that updates in place, not 75 messages. Latest detail:
+> WATCHDOG notice — occurrence #76 (first seen 2026-09-30T04:37:42Z, latest 2026-10-01T00:57:45Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 76 times; this is ONE
+> coalesced notice that updates in place, not 76 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=14823s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=15124s; heartbeat=full-poll)
 
 - `retire-gardener-worker-kind-alias-split-resume-terminal-complete` — from orchestrator:retire-gardener-worker-kind-alias-split-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-split-resume-terminal-complete.md)
 
@@ -348,7 +348,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 43.4M | $348.56 _(notional, rate-card)_ | 17% of 256.0M (ok) |
+| Claude | 43.5M | $350.12 _(notional, rate-card)_ | 17% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135594257 tokens/day lower bound._
