@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T05:04:21Z_
+_As of 2026-10-01T05:05:57Z_
 
 ## Latest
 
-Board activity since the last bulletin was minimal: only one new posting, a finalize/merge directive for [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371), queued behind that PR's still-open review directive. The larger picture is a heavily loaded gauntlet lane — multiple sturdyref-layer PRs (#1391–#1398) and the petname-path-only sweep (#1390) cycling through panel/fix rounds in `doin`/`todo` — alongside several stalled items worth a look: the petname-path-only-sweep gauntlet on #1390 hit its review budget without converging and needs a human merge call, and the sturdyref layer-1 shim build (#774) was doom-parked after a fix-stage failure the system couldn't classify as transient. Rolling deploy remains held at the leader for lack of an online canary follower, and quota/spend both sit comfortably within range (Claude 32%, Codex 38%).
+Little board motion since the last bulletin: a single new job landed, `kriscendobot-minion.town-pr140-conduct`, posted to finalize (curate and merge) [kriscendobot/minion.town#140](https://github.com/kriscendobot/minion.town/pull/140). Gauntlet traffic continues across several endo-but-for-bots sturdyref-layer PRs (#1390–#1398) and #1380/#1394, but none of those moved board state in this window. Two gauntlets flagged for maintainer attention: the sturdyref layer-1 shim build on [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) halted after a fix-round failure that couldn't be classified as transient, and the petname-path-only sweep on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) hit its review budget after 6 rounds and is parked for human merge judgment. A rolling-deploy hold also persists on the leader (no canary available while a follower was offline), though the offline host has since recovered.
 
 ## Parked for maintainer feedback
 
@@ -120,18 +120,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 81.6M | $653.79 _(notional, rate-card)_ | 32% of 256.0M (ok) |
+| Claude | 81.6M | $654.00 _(notional, rate-card)_ | 32% of 256.0M (ok) |
 | Codex | 18.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 134904267 tokens/day lower bound._
+_Fleet token-unlock pace: 136081465 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (19)
+### todo (20)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`kriscendobot-minion.town-pr140-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr140-conduct.md) — Finalize (curate -> merge) kriscendobot/minion.town PR #140
 - [`endojs-endo-but-for-bots-pr1371-review-cd454ee3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1371-review-cd454ee3.md) — Review directive on endojs/endo-but-for-bots PR #1371
 - [`endojs-endo-but-for-bots-pr1390-gauntlet-20261001-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1390-gauntlet-20261001-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1390
 - [`endojs-endo-but-for-bots-pr1371-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1371-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1371
