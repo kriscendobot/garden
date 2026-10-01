@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T12:28:58Z_
+_As of 2026-10-01T12:34:41Z_
 
 ## Latest
 
-Board movement was light this cycle: the gauntlet for [endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406) advanced a panel round and is now queued for fix round 1. Separately, a maintainer notice flagged that completion builder **build-endo-inference-seam-1357** opened draft [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) without the usual auto-staged gauntlet — likely the probe exemption misfiring — leaving it CI-green and un-reviewed while phase 2 (`build-endo-claude-backends-1357`) sits unclaimed in todo waiting on it. Also notable: the foreman is blocked on a maintainer choice between advancing [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) after its #1348 prerequisite or answering the open questions on design PR [endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340); the rolling-deploy canary on oros-studio-garden has been stuck for over 6 hours; and several gauntlets (sturdyref layer-1 fix, petname-path-only-sweep, ironhorse panic/live-handle-reseat) hit their review budget or doom-parked, leaving PRs improved but awaiting human merge decisions.
+One build job moved forward: `build-endo-guest-scoped-daemon-bootstrap-gauntlet-viability`, the pre-spend viability check for the guest-scoped daemon bootstrap PR, was claimed off the board. Otherwise the board is dominated by the long-running sturdyref gauntlet stack (layers 1–8) and the inference-seam/claude-backends build chain grinding through panel/fix rounds, with no new completions since the last bulletin.
 
 ## Parked for maintainer feedback
 
@@ -70,15 +70,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #33 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T12:28:10Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 33 times; this is ONE
-> coalesced notice that updates in place, not 33 messages. Latest detail:
+> WATCHDOG notice — occurrence #34 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T12:33:06Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 34 times; this is ONE
+> coalesced notice that updates in place, not 34 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=18285s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=18367s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=18364s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=18357s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=18586s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=18668s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=18665s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=18658s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -205,7 +205,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 115.8M | $884.79 _(notional, rate-card)_ | 45% of 256.0M (ok) |
+| Claude | 115.9M | $886.25 _(notional, rate-card)_ | 45% of 256.0M (ok) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135761644 tokens/day lower bound._
@@ -214,7 +214,7 @@ _Fleet token-unlock pace: 135761644 tokens/day lower bound._
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (22)
+### todo (21)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`build-endo-claude-broker-catalog-pruning-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-broker-catalog-pruning-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1409
@@ -236,12 +236,12 @@ worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/j
 - [`build-ci-minion-town-actions-runner-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ci-minion-town-actions-runner-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #145
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1397
 - [`ebfb-petname-path-only-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1390
-- [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-guest-scoped-daemon-bootstrap-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1407
 
-### doin (3)
+### doin (4)
 - [`ebfb-guest-no-identifiers-locators-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-no-identifiers-locators-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1404
 - [`build-endo-claude-sandbox-bwrap-slice-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-sandbox-bwrap-slice-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1408
 - [`ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1396
+- [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-guest-scoped-daemon-bootstrap-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1407
 
 ### tada (10247)
 - [`build-endo-claude-pinned-cli-bump-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/build-endo-claude-pinned-cli-bump-gauntlet-panel-1.md) — Cost
