@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T20:58:07Z_
+_As of 2026-10-01T20:59:18Z_
 
 ## Latest
 
-Board churn stayed light this cycle — only one new post, reviving the local hermit (on-box Ollama) lane upgraded to qwen3.8. The fix/panel gauntlets on the stacked petname and sturdyref PR trains continue to grind through rounds (sweep-4 and sturdyref-layer6/layer8 among them), with two more — [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and the ironhorse panic live-handle-reseat PR [#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) — joining prior review-budget-reached cases as improved-but-unconverged, left for human merge/review. Three new maintainer messages also landed: the journal contention checker is overrunning its budget on endolin-garden-ece02cb4 (deferring all 909 clones per tick), a monk-capacity watchdog tripped again on oros-studio-garden-ce242c49 (3→2 workers under subscription pacing), and the petname-path-only-sweep gauntlet hit its review budget on another PR. Nothing here needs immediate action beyond awareness; the parked-PR queue (topped by the ironhorse computron-parity PR [#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and the SES/URL intrinsics fix [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281)) is unchanged.
+The board shows heavy gauntlet throughput across the sturdyref layer stack and the petname-path sweep on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (now at FIX round 6, sweep 4), with layer gauntlets for [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) all mid-cycle, plus the layer-8 daemon-formula gauntlet landing HALTED. The confined-application-makers design on [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) is moving toward conduct after a body refresh, and the Ironhorse panic-host-call PR exhausted its review budget after six panel/fix rounds with CI green — left for a human merge call. Two watchdog notices remain open: a journal-contention checker unable to finish its tick on endolin-garden-ece02cb4 (909 deferred clones), and a budget-driven worker drawdown (3→2 monks) on oros-studio-garden.
 
 ## Parked for maintainer feedback
 
@@ -30,10 +30,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 909 of 909 clone(s) on consecutive ticks.
 
-- `ebfb-petname-path-only-sweep-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet ebfb-petname-path-only-sweep-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
-
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-2.md)
 
 > WATCHDOG notice — occurrence #2 (first seen 2026-09-25T03:50:17Z, latest 2026-10-01T20:35:24Z).
@@ -52,7 +48,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 167.8M | $1285.24 _(notional, rate-card)_ | 66% of 256.0M (ok) |
+| Claude | 167.8M | $1285.92 _(notional, rate-card)_ | 66% of 256.0M (ok) |
 | Codex | 19.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 139361339 tokens/day lower bound._
