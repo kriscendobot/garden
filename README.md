@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T08:23:15Z_
+_As of 2026-10-01T08:36:54Z_
 
 ## Latest
 
-The sturdyref layer-by-layer sweep on endo-but-for-bots continued moving through its stack, with layers 6 and 7 ([#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) in fix/clean stages and layer 5 ([#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) reaching undraft, though layer 1 ([#774](https://github.com/endojs/endo-but-for-bots/pull/774)) doom-parked after its fix round failed and needs a maintainer look. The petname-path sweep is similarly mid-gauntlet across several PRs ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)), with one of its earlier gauntlets halted after exhausting its review budget — left improved but awaiting a human merge decision, same as the ironhorse panic-host-call PR. Elsewhere, rolling deploy is stuck on canary host oros-studio-garden-ce242c49: a prior canary failure was left drained pending a decision, and even after that it's now sitting 141 minutes without picking up the released build, holding the leader back. Also open: the accountant's parked budget conversation, the minion.town MCP principal/scope decision, and the qwen3.8 model-watch follow-up all still await a maintainer reply.
+The board stayed in steady gauntlet motion overnight with no new maintainer-facing output: three stages are in flight — a CLEAN pass and a FIX round 3 on the sturdyref layer stack ([endojs/endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/pull/1404) and [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)) — alongside a conduct job finalizing [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371). The only board change since the last bulletin is a new press job checking whether the Claude-on-minion.town arc's jobs are running to completion. Otherwise this is a quiet-infrastructure window: several journal-contention and host-heartbeat watchdog conditions cleared on their own, but the rolling deploy of `c5416eb373bc` to canary host oros-studio-garden-ce242c49 remains stuck/failed after repeated retries and needs a maintainer look, and two gauntlets (petname-path-only-sweep, sturdyref-layer1-shim-build) hit their review-budget/doom-park limits awaiting a human merge or unblock decision.
 
 ## Parked for maintainer feedback
 
@@ -190,17 +190,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.1M | $718.64 _(notional, rate-card)_ | 36% of 256.0M (ok) |
+| Claude | 93.3M | $720.06 _(notional, rate-card)_ | 36% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 136806407 tokens/day lower bound._
+_Fleet token-unlock pace: 136960318 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (22)
+### todo (23)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
+- [`claude-on-minion-town-completion-press-20261001-083506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261001-083506.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`ebfb-1404-guest-consumers-identifiers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-1404-guest-consumers-identifiers.md) — Fix non-test consumers of the removed guest identifier/locator methods — endo...
 - [`endojs-endo-but-for-bots-pr1401-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1401-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1401
