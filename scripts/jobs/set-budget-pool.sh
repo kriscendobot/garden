@@ -7,9 +7,10 @@
 # claim gate act on. Design: designs/manual-quota-calibration.md.
 #
 # It writes the provenance columns (calibrated_from, calibrated_at) that
-# budget-level.sh's budget_level_uncalibrated predicate reads: a provenance of
-# placeholder/uncalibrated/seed/tbd/todo/none/'-'/'' makes budget-level LEVEL NOTHING
-# (config-absent for worker leveling). Since credit-controls-fail-closed-pools the
+# budget-level.sh's `uncalibrated` predicate reads: a provenance of
+# placeholder/uncalibrated/seed/tbd/todo/none/'-'/'' makes budget-level exclude that
+# pool from monk apportionment and hold its host non-increasable (with one
+# edge-latched calibration alert) while calibrated pools keep leveling. Since credit-controls-fail-closed-pools the
 # CLAIM gate (pool_admits/pool_admission_refusal) consults BOTH kind and provenance and
 # FAILS CLOSED on an untrustworthy pool: an `unmetered` pool (no ceiling) or an
 # uncalibrated cap now REFUSES every claim rather than admitting at full authority.

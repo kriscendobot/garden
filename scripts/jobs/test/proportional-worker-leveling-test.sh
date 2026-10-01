@@ -63,8 +63,10 @@ tac "$SEED/config/budget-pools" >"$TR/reversed";mv "$TR/reversed" "$SEED/config/
 env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/state" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_USAGE_NOW="$(date -u +%s)" GARDEN_BUDGET_LEVEL_UP_CONFIRM=1 GARDEN_BUDGET_LEVEL_STEP=10 GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" "$JOBS/budget-level.sh" >/dev/null 2>&1
 grep -q '^large op=set-workers kind=monk count=4$' "$ACT"&&grep -q '^small op=set-workers kind=monk count=2$' "$ACT"&&ok "pool row order does not change apportionment"||bad "row order changed allocation"
 
-# One bad provenance row freezes every proportional share. The calibrated host at
-# its own high-water mark retains only the reviewed denominator-free down carve-out.
+# One placeholder provenance row is isolated to its own pool: the uncalibrated
+# host is excluded from apportionment and never gains monks, the calibrated host
+# keeps leveling (here it is exhausted, so it steps down to the floor), and the
+# calibration freeze is a per-pool edge alert rather than a fleet-wide freeze.
 git -C "$SEED" pull -q --rebase
 sed -i 's/small\tweekly-tokens\t64000000\tusage-panel/small\tweekly-tokens\t64000000\tuncalibrated/' "$SEED/config/budget-pools"
 printf 'monks: 3\nclerics: 0\n' >"$SEED/hosts/large";printf 'monks: 3\nclerics: 0\n' >"$SEED/hosts/small"
@@ -72,7 +74,18 @@ printf '{"host":"large","provider":"anthropic","ts":"%s","input_tokens":14300000
 git -C "$SEED" add config/budget-pools hosts usage;git -C "$SEED" -c user.name=test -c user.email=test@example.invalid commit -qm provenance;git -C "$SEED" push -q
 : >"$ACT";rm -rf "$TR/state/budget-level"
 env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/state" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_USAGE_NOW="$(date -u +%s)" GARDEN_BUDGET_LEVEL_DOWN_CONFIRM=1 GARDEN_BUDGET_LEVEL_STEP=10 GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" "$JOBS/budget-level.sh" >"$TR/frozen.out" 2>&1
-if grep -q '^large op=set-workers kind=monk count=1$' "$ACT"&&! grep -q '^small op=set-workers kind=monk' "$ACT"&&grep -q 'fleet monk allocation frozen' "$TR/frozen.out";then ok "fleet provenance gate freezes shares but permits exhaustion-floor down-only motion";else bad "provenance freeze: act=$(tr '\n' ';'<"$ACT") log=$(tr '\n' ';'<"$TR/frozen.out")";fi
+if grep -q '^large op=set-workers kind=monk count=1$' "$ACT"&&! grep -q '^small op=set-workers kind=monk' "$ACT"&&grep -q 'monk allocation frozen for pool anthropic:small on host small: uncalibrated provenance' "$TR/frozen.out"&&! grep -q 'fleet monk allocation frozen' "$TR/frozen.out";then ok "an uncalibrated pool is excluded without freezing calibrated pools";else bad "provenance isolation: act=$(tr '\n' ';'<"$ACT") log=$(tr '\n' ';'<"$TR/frozen.out")";fi
+
+# With slack, the calibrated host rises into the envelope less the monks already
+# running on the uncalibrated host (6-3=3), the uncalibrated host stays put, and a
+# second tick does not repeat the calibration alert.
+git -C "$SEED" pull -q --rebase
+printf 'monks: 1\nclerics: 0\n' >"$SEED/hosts/large"
+printf '{"host":"large","provider":"anthropic","ts":"%s","input_tokens":1,"output_tokens":0,"cache_creation_tokens":0}\n' "$now" >"$SEED/usage/large.jsonl"
+git -C "$SEED" add hosts usage;git -C "$SEED" -c user.name=test -c user.email=test@example.invalid commit -qm provenance-slack;git -C "$SEED" push -q
+: >"$ACT"
+env GARDEN_TEST=1 GARDEN=leader GARDEN_LEADER=leader JOURNAL_REMOTE="$BARE" GARDEN_STATE="$TR/state" GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_USAGE_NOW="$(date -u +%s)" GARDEN_BUDGET_LEVEL_UP_CONFIRM=1 GARDEN_BUDGET_LEVEL_STEP=10 GARDEN_BUDGET_LEVEL_SEND_HOST_OP="$TR/send" "$JOBS/budget-level.sh" >"$TR/uncal-slack.out" 2>&1
+if grep -q '^large op=set-workers kind=monk count=3$' "$ACT"&&! grep -q '^small op=set-workers kind=monk' "$ACT"&&! grep -q 'uncalibrated provenance' "$TR/uncal-slack.out"&&! grep -q 'fleet monk allocation frozen' "$TR/uncal-slack.out";then ok "calibrated hosts level within the envelope net of uncalibrated monks; calibration alert is deduplicated";else bad "uncalibrated slack: act=$(tr '\n' ';'<"$ACT") log=$(tr '\n' ';'<"$TR/uncal-slack.out")";fi
 
 # A missing physical cap belongs to one host, not to the fleet-wide allocation
 # denominator. The remaining valid host receives the portion of the envelope

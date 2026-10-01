@@ -172,11 +172,20 @@ esac;done <<<"$snapshot"
 schema_bad="$bad"
 mf="${GARDEN_MONK_FLEET_CEILING:-$mf}"; cf="${GARDEN_CLERIC_FLEET_CEILING:-$cf}"
 
-mv=1; n=${#pools[@]}; mn=0; sum=0; excluded_monk_pools=0; effective_mf="$mf"
+mv=1; n=${#pools[@]}; mn=0; sum=0; excluded_monk_pools=0; effective_mf="$mf"; declare -A uncal_hosts=() elig_hosts=()
 if [ -n "$schema_bad" ];then mv=0;bad="$schema_bad";fi
 [[ "$mf" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="invalid monk fleet ceiling '$mf'"; }; [ "$n" -gt 0 ]||{ mv=0;bad="no enabled Anthropic weekly pools"; }
 for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";c="${pcaps[i]}";p="${pprov[i]}"; monk_pool_eligible[i]=0
- [[ "$c" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} invalid cap '$c'";continue;}; uncalibrated "$p"&&{ mv=0;bad="${pools[i]} uncalibrated provenance '${p:-none}'";}
+ [[ "$c" =~ ^[1-9][0-9]*$ ]]||{ mv=0;bad="${pools[i]} invalid cap '$c'";continue;}
+ # A placeholder provenance disclaims only its own pool's cap. Exclude that pool
+ # from the denominator and hold its host non-increasable, edge-alerting once per
+ # pool/host until it is calibrated, while calibrated pools continue leveling.
+ if uncalibrated "$p";then
+  excluded_monk_pools=$((excluded_monk_pools+1));uncal_hosts["$h"]=1
+  report_freeze "budget-level-monk-calibration-$pool-$h" "$pool uncalibrated provenance '${p:-none}'" "monk allocation frozen for pool $pool on host $h: uncalibrated provenance '${p:-none}' (calibrate it with set-budget-pool.sh); this pool is excluded and host $h may not gain monks while other calibrated hosts continue leveling."
+  continue
+ fi
+ report_unfreeze "budget-level-monk-calibration-$pool-$h" "budget-level: pool $pool on host $h is calibrated again; it rejoins monk allocation."
  # A pool which lacks a local physical cap cannot safely receive a target, but it
  # need not invalidate the denominator for every other physically-backed pool.
  # Keep its freeze edge-latched to this pool/host and leave the host untouched.
@@ -188,15 +197,26 @@ for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";c="${pcaps[i]}";p="${p
   report_freeze "budget-level-monk-cap-$pool-$h" "$pool missing/invalid monk physical cap" "monk allocation frozen for pool $pool on host $h: missing/invalid monk physical cap; this pool is excluded while other configured hosts continue leveling."
   continue
  fi
- monk_pool_eligible[i]=1; mn=$((mn+1)); sum=$((sum+mcap[$h]))
+ monk_pool_eligible[i]=1; mn=$((mn+1)); sum=$((sum+mcap[$h])); elig_hosts["$h"]=1
  report_unfreeze "budget-level-monk-cap-$pool-$h" "budget-level: monk allocation recovered for pool $pool on host $h; its physical monk cap is configured again."
 done
 if [[ "$mf" =~ ^[1-9][0-9]*$ ]];then
- [ "$mn" -gt 0 ]||{ mv=0;bad="no physically-backed Anthropic weekly pools"; }
+ [ "$mn" -gt 0 ]||{ mv=0;bad="no calibrated, physically-backed Anthropic weekly pools"; }
  [ "$mf" -ge $((mn*GARDEN_BUDGET_LEVEL_MIN)) ]||{ mv=0;bad="monk fleet ceiling below aggregate floor";}
  if [ "$sum" -lt "$mf" ];then
   if [ "$excluded_monk_pools" -gt 0 ];then effective_mf="$sum"
   else mv=0;bad="monk fleet ceiling exceeds physical capacity";fi
+ fi
+fi
+# Monks already running on an excluded uncalibrated host still count against the
+# fleet ceiling; reserve them so the calibrated share cannot overshoot it, but never
+# below the calibrated pools' aggregate floor (that would re-freeze the fleet).
+if [ "$mv" -eq 1 ];then
+ reserved=0
+ for h in "${!uncal_hosts[@]}";do [[ "${elig_hosts[$h]+set}" ]]&&continue;x="$(read_desired_count "$DIR/hosts/$h" monks 2>/dev/null||echo 0)";reserved=$((reserved+x));done
+ if [ "$reserved" -gt 0 ];then
+  x=$((mf-reserved));[ "$x" -ge $((mn*GARDEN_BUDGET_LEVEL_MIN)) ]||x=$((mn*GARDEN_BUDGET_LEVEL_MIN))
+  [ "$x" -ge "$effective_mf" ]||{ log "budget-level: reserving $reserved monk(s) on uncalibrated host(s); calibrated envelope $effective_mf -> $x";effective_mf="$x";}
  fi
 fi
 if [ "$mv" -eq 1 ];then
@@ -271,6 +291,7 @@ for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";cap="${pcaps[i]}";prov
  fi
  [[ "$spend" =~ ^[0-9]+$ ]]||{ pool_failure "$pool" "$h" validate-spend 1;continue;};hf="$DIR/hosts/$h";if [ -n "$GARDEN_BUDGET_LEVEL_KIND" ];then kind="$GARDEN_BUDGET_LEVEL_KIND";else kind=monk;fi;key="$(worker_kind_field "$kind" count_key 2>/dev/null||echo monks)";cur="$(read_desired_count "$hf" "$key" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-host-workers "$?";continue;}
  if [ "$mv" -ne 1 ];then uncalibrated "$prov"&&continue;awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" 'BEGIN{exit !(t>=q*f)}'||continue;target="$GARDEN_BUDGET_LEVEL_MIN";else hi="${mceil[$h]}";target="$(awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{m=q*f;if(m<=0||t>=m)n=lo;else n=lo+int((1-t/m)*(hi-lo)+.5);if(n<lo)n=lo;if(n>hi)n=hi;print n}')";bias="$(subscription_pacing_bias "$pool" "$spend" "$cap" "$DIR")";pacing="$(subscription_pacing_summary "$pool" "$DIR")";case "$pacing" in *'(planned)'*|*'['*)log "budget-level pacing $pool: $pacing";;esac;pace_target="$(awk -v b="$bias" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{print lo+int(b*(hi-lo)+.5)}')";[ "$pace_target" -le "$target" ]||target="$pace_target";fi
+ if [[ "${uncal_hosts[$h]+set}" ]]&&[ "$target" -gt "$cur" ];then log "budget-level: $h holds an uncalibrated pool; monk target $target clamped to current $cur (non-increasable)";target="$cur";fi
  apply_target "$pool" "$h" "$kind" "$cur" "$target" "subscription $pool spend=$spend cap=$cap pace-bias=${bias:-0} ${pacing:-deadline=unknown} ceiling=${mceil[$h]:-frozen} target=$target" "$spend" "$cap" "$prov" weekly-token-spend
 done
 

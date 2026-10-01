@@ -157,6 +157,19 @@ current count even while that host burns past its own high-water mark — a
 regression from today's per-row isolation, and not hypothetical: the garden2
 pool sat uncalibrated for roughly a day across 2026-09-04/05.
 
+**Amendment (2026-10-01, job `improve-isolate-uncalibrated-monk-pool`).**
+The whole-fleet freeze on an uncalibrated row proved too blunt in practice:
+one placeholder provenance froze every calibrated host fleet-wide
+(2026-09-30T22:50:14Z). An uncalibrated pool is now handled like a pool with
+a missing physical cap: it is excluded from the denominator, its host is held
+**non-increasable** (never actuated if it has no calibrated pool, and clamped
+to its current count if it also carries one), and its calibration need is a
+per-pool/host edge-latched maintainer alert that clears once when the pool is
+calibrated. Monks already running on an excluded uncalibrated host are
+reserved out of the fleet ceiling (never below the calibrated pools'
+aggregate floor), so the calibrated share cannot overshoot the fleet
+envelope. An invalid (non-positive) budget cap still freezes the fleet.
+
 After ceilings are valid, a missing or invalid spend reading remains isolated
 to that host and leaves its count unchanged, matching the current fail-open
 sensor posture. It must never be reinterpreted as zero spend.
