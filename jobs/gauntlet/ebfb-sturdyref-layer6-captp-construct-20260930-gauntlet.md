@@ -12,7 +12,7 @@ created_at: 2026-09-30T07:49:45Z
 stage: fix
 iteration: 6
 resumes: 0
-stage_retries: 0
+stage_retries: 1
 current_child: ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-6
 state: running
 resumed_at: 2026-09-30T17:26:21Z
