@@ -95,3 +95,13 @@ already parked separately (`context/operations/minion-town-mcp.md` §
 Open decisions — the shared `minion-mcp-test-cc` principal question the
 maintainer already addressed by leaving as-is for now). This design is
 scoped to discoverability for a connected agent, not access control.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T21:04:48Z
