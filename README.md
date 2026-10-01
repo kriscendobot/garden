@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T20:01:58Z_
+_As of 2026-10-01T20:04:59Z_
 
 ## Latest
 
-PR #1403 picked up its first gauntlet fix round, and #1340's second fix round closed out and reported to tada. Otherwise the board stayed dense with in-flight gauntlet stages across the sturdyref layer stack (PRs #774, #1390–#1398) and other open PRs (#1340, #1349, #1357, #1380, #1389, #1391–1394, #1402, #1404, #1406–#1409, #1412), plus several maintainer-facing items awaiting attention: the minion.town MCP widening decision, the M3 choice between [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), a qwen model-watch update, and two gauntlets ([ebfb-petname-path-only-sweep](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-gauntlet-review-budget-reached.md) and the Ironhorse panic-host-call PR) that hit their review-round budget and are parked for human merge/review.
+Board activity was light since the last bulletin: PR #1340's gauntlet moved into panel round 3, and a new plan-queue entry (`book-title-audience-pass`) was parked awaiting the garden book's revision orchestration. Several gauntlets remain stalled at their review budget without converging — [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (the petname-path sweep) and the ironhorse panic-host-call PR both completed six fix/panel rounds with CI green but need a human merge call. Also worth a look: the minion.town MCP rollout is proven on endolin-garden2 and awaiting two decisions (dedicated principal/credentials, and context-cost scoping for jurors) before widening past that host, and the qwen model-watch probe found that 3.7 never shipped — upstream jumped straight to qwen3.8 — so the watch needs to be repointed or retired.
 
 ## Parked for maintainer feedback
 
@@ -76,7 +76,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 164.8M | $1248.31 _(notional, rate-card)_ | 64% of 256.0M (ok) |
+| Claude | 165.0M | $1251.05 _(notional, rate-card)_ | 64% of 256.0M (ok) |
 | Codex | 18.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135635627 tokens/day lower bound._
@@ -85,12 +85,13 @@ _Fleet token-unlock pace: 135635627 tokens/day lower bound._
 worst fetch p95 10.091951s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (24)
+### todo (25)
 - [`build-endo-claude-sandbox-bwrap-slice-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-sandbox-bwrap-slice-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1408
 - [`design-minion-town-mcp-resources-getting-started`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-mcp-resources-getting-started.md) — Design: expose MCP Resources on minion.town's MCP server, and a getting-start...
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`build-endo-claude-backends-1357-open-pr-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-backends-1357-open-pr-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1412
 - [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-guest-scoped-daemon-bootstrap-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1407
+- [`endojs-endo-but-for-bots-pr1340-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1340
 - [`endojs-endo-but-for-bots-pr1277-review-7a7abb72`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1277-review-7a7abb72.md) — Review directive on endojs/endo-but-for-bots PR #1277
 - [`claude-on-minion-town-press-20261001-193506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261001-193506.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1116-f1ab5121`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1116-f1ab5121.md) — attention directive on endojs/endo-but-for-bots PR #1116
@@ -195,6 +196,7 @@ worst fetch p95 10.091951s/45s (/home/kris/garden/.garden-state/state-clone-keep
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
+- [`book-title-audience-pass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-title-audience-pass.md) — awaiting `garden-book-revision-orch` · Garden book: a sharper title, and a pass for the actual audience
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
 
 ## Watch set
