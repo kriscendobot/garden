@@ -13,8 +13,8 @@ stage: fix
 iteration: 4
 resumes: 0
 stage_retries: 0
-current_child: 
-state: resume-pending
+current_child: ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-4
+state: running
 resumed_at: 2026-10-01T03:32:01Z
 resumed_from_stage: fix
 ---
