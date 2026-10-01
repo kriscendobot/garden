@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T00:41:42Z_
+_As of 2026-10-01T00:43:06Z_
 
 ## Latest
 
-The SturdyRef CapTP stack dominates: layers 1-8 are all mid-gauntlet (fix or panel rounds in progress on [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), but layer 2 ([#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) and layer 7 halted on a declined clean/fix stage and need a maintainer look. The petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) is grinding through repeated panel/fix rounds and has also piled up should-fix follow-ups (hasher/crank/CAS-store tests, SQLite error context) awaiting disposition. Separately, the Ironhorse panic-live-handle-reseat gauntlet halted after a fix round was explicitly declined, and both the SES ([#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) and sturdyref-layer7 gauntlets are stuck the same way. Fleet health is otherwise routine: a brief oros-studio host offline blip and a stuck canary both recovered, journal contention spikes cleared, and Claude spend sits at a comfortable 16% of quota with Codex plan usage at 38%.
+The SturdyRef Layer 2 (SES) and Layer 8 (daemon formula) gauntlets both halted on failed stages, while Layer 1's shim-build and Layer 4's marshal fix rounds continue in `doin`; separately the petname-path-only sweep landed round 4 of its fix/panel cycle on [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and flagged corner-prober, fast-checker, scribe, and PR-body follow-ups for disposition. The ironhorse panic live-handle-reseat gauntlet also halted after a declined fix round. Two orchestration runs tied off: the gardener-clone-alias retire effort completed with one stalled/failed child (`retire-gardener-clone-alias-verify-deploy-reaper`, parked back to plan for a human promote), while the alias-split-resume orchestration finished clean. The foreman flags a real choice needed on M3: advance [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/issues/1015) once its #1348 prerequisite clears, or answer the four open questions on [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) design to unblock its build. On infrastructure, oros-studio briefly dropped offline and derotated workers (now recovered), which stalled the rolling deploy's canary for a few hours; comment watchers are also stuck in a shared cooldown latch across four repos. The accountant's budget-mandate conversation and a reset-credit recommendation (hold claude-endolin2, accelerate codex-endolin before resetting) remain parked awaiting a reply.
 
 ## Parked for maintainer feedback
 
@@ -184,11 +184,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T20:43:07Z, cleared 2026-10-01T00:17:22Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #8 (first seen 2026-09-30T20:43:07Z, latest 2026-10-01T00:42:33Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 736 of 781 clone(s) on consecutive ticks.
 
 - `retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures` — from orchestrator:retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures.md)
 
@@ -343,13 +343,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 41.8M | $337.22 _(notional, rate-card)_ | 16% of 256.0M (ok) |
+| Claude | 41.9M | $337.51 _(notional, rate-card)_ | 16% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 134625392 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 0 open notice(s); checker healthy
+worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (16)
