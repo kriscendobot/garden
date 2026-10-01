@@ -1,2 +1,2 @@
-base: improve-dependabot-process-reap
+base: improve-dependabot-primary-quota
 identity: mentor:scripts/jobs/dependabot-watcher.sh
