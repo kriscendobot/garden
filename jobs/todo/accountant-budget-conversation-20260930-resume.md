@@ -1,10 +1,8 @@
 ---
-gate: go-ahead
-priority: normal
 role: accountant
-posted_by: accountant
-posted_at: 2026-09-30T21:35:40Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=go-ahead priority=normal at=2026-10-01T20:22:33Z cleared=none -->
 
 ---
 role: accountant
