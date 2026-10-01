@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T06:27:59Z_
+_As of 2026-10-01T06:35:30Z_
 
 ## Latest
 
-No board transitions resolved since the last bulletin, so the fleet is churning through in-flight gauntlets rather than opening new ground. The sturdyref layer stack on `endo-but-for-bots` continues working through fix rounds (layers 2–8, PRs [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), alongside the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and ongoing conduct work on [#1371](https://github.com/endojs/endo-but-for-bots/pull/1371) and [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402). Two gauntlets exhausted their review budget without converging — the petname-path-only sweep and the ironhorse panic-host-call PR — and are left for human merge/review. A rolling deploy to `c5416eb373bc` is stuck: the canary on oros-studio-garden-ce242c49 failed validation three times and is now drained pending the maintainer's call on whether to retry or hold the tip, and a separate follower is offline with no canary available at all. Several open decisions await the maintainer: the minion.town MCP principal/scope and context-cost questions, M3's choice between advancing [#1015](https://github.com/endojs/endo-but-for-bots) behind its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite or answering design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340)'s open questions, and the ocap.site DNSSEC publication step, which still needs a registrar-side DS record.
+The sturdyref/CapTP layer stack dominates activity: layers 1–8 (PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)–[#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) are churning through panel/fix rounds, with layer 5 ([#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) now at the undraft stage and layer 1 ([#774](https://github.com/endojs/endo-but-for-bots/pull/774)) parked after a fix round was doom-parked (requeue-exhausted, unknown failure class — needs a human look). The petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) is also mid-gauntlet across several parallel fix stages. Two gauntlets hit their review budget without converging and are ready for manual merge/review: the petname-path-only sweep PR and the Ironhorse panic-host-call PR. A rolling deploy to `c5416eb3` is stuck on canary host oros-studio-garden: it failed validation three times and was halted (drained, awaiting your decision), while a separate canary report shows it still lagging 21 minutes behind the released SHA — worth checking `garden-self-deploy` there. Decisions are still open on the minion-town MCP widening proposal, the M3 milestone's [#1015](https://github.com/endojs/endo-but-for-bots/issues/1015)/[#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) fork, the qwen3.8 model-watch follow-up, and the ocap.site DNSSEC DS-record publication at the registrar.
 
 ## Parked for maintainer feedback
 
@@ -163,17 +163,18 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.0M | $695.06 _(notional, rate-card)_ | 35% of 256.0M (ok) |
+| Claude | 89.2M | $696.11 _(notional, rate-card)_ | 35% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 135967355 tokens/day lower bound._
+_Fleet token-unlock pace: 136260333 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.325957s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (19)
+### todo (20)
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1340
+- [`ebfb-petname-path-only-sweep-4-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`endojs-endo-but-for-bots-pr1371-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1371-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1371
 - [`ebfb-guest-designation-consumers`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-guest-designation-consumers.md) — Migrate in-repo guest consumers off guest identifiers/locators
@@ -193,8 +194,7 @@ worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1397
 - [`ebfb-petname-path-only-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1390
 
-### doin (6)
-- [`ebfb-petname-path-only-sweep-4-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-sweep-4-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
+### doin (5)
 - [`ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1396
 - [`endojs-endo-but-for-bots-pr1390-gauntlet-20261001-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1390-gauntlet-20261001-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1392
