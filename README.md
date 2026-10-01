@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T04:38:03Z_
+_As of 2026-10-01T04:40:57Z_
 
 ## Latest
 
-The sturdyref CapTP-construct layer gauntlet ([endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)) advanced through another panel/fix round and moved on to a captp-wire layer undraft stage, continuing the serial sturdyref-layer stack build-out. Elsewhere the board is mostly steady-state: a dozen-plus gauntlets are mid-flight across the sturdyref layers, PR #1390's petname-path-only sweep, PR #1394, and the ironhorse panic-handling PR #1380, alongside the new @endo/inference-seam build. Two gauntlets hit their review budget without converging and are left for human merge/review — the petname-path-only sweep ([endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) and the ironhorse panic-host-call PR — and a third, the sturdyref-layer1-shim build ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)), halted outright after a fix stage failed with an unclassified error and was doom-parked rather than blindly retried. The oros-studio and journal-contention watchdog conditions that fired earlier have since recovered. Outstanding maintainer decisions remain open on PR #1340 and #1015 sequencing, the minion.town MCP rollout's principal/scope and context-cost questions, and the ocap.site DNSSEC publication step.
+No file-level board transitions resolved since the last bulletin, so throughput is steady rather than eventful: the sturdyref layer stack (endo-but-for-bots [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), [#1401](https://github.com/endojs/endo-but-for-bots/pull/1401)) and [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)'s petname-path sweeps continue grinding through panel/fix rounds in parallel with [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) and [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402). Two gauntlets need a maintainer merge/review call after hitting their review-budget ceiling with CI green: the petname-path-only sweep and the Ironhorse panic/host-call PR. One gauntlet halted outright — [#774](https://github.com/endojs/endo-but-for-bots/pull/774)'s sturdyref layer-1 shim build doom-parked after an unclassified fix-stage failure and needs a human look rather than a blind retry. A brief rolling-deploy stall (no canary host available) and a worker-derotation on oros-studio both self-recovered. Outstanding maintainer decisions worth a look: the minion.town MCP principal/scope question, the M3 milestone choice between [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and the ocap.site DNSSEC DS-record publication still waiting on registrar action.
 
 ## Parked for maintainer feedback
 
@@ -100,6 +100,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The ocap.site implementation, DNS records, certificates, deployment, and live/browser validation are complete. One owner-gated design prerequisite remains: Route53 reports the ocap.site zone as NOT_SIGNING and public DNS has no DS record. The approved design requires DNSSEC before publication. Please confirm whether you want the fleet to create the Route53 KSK/signing configuration; publishing the resulting DS record at the registrar still requires your registrar authority. I have not improvised that owner-side change.
 
+- `msg-fu-qwen-model-watch-20260728-180502-1-20260930-162006-c2728cdbeb52` — from gardener:fu-qwen-model-watch-20260728-180502-1-20260930-162006, reply_to `fu-qwen-model-watch-20260728-180502-1-20260930-162006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fu-qwen-model-watch-20260728-180502-1-20260930-162006-c2728cdbeb52.md)
+
+> qwen model watch (weekly schedule `fu-qwen-model-watch-20260728-180502-1`), probe 2026-10-01:
+>
+> - `ollama.com/library/qwen3.7` → still **404**: the literal trigger did not fire.
+> - Upstream seems to have **skipped 3.7**: `ollama.com/library/qwen3.8` → **200**, updated ~6 days ago (tags `27b`, `27b-mlx`, `latest`; "substantial gains across coding, … long-horizon agentic tasks"). So a 3.7 probe may never flip.
+> - Context: the local-qwen hermit lane was retired 2026-09-13 (`retire-local-qwen-hermit-lane`), so "reassess the local lane" now means "is qwen3.8 reason enough to revive it (or to trial `qwen3.8:cloud` on the friar/ollama-cloud arm, which is currently `qwen3.5:cloud`)?"
+>
+> Decisions for you: (a) post a reassessment job for qwen3.8, (b) point the watch at qwen3.9, or (c) drop the schedule (`set-schedule.sh`) since the lane is retired. I have not changed the schedule.
+
 - `ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-halted` — from gauntlet:ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-halted.md)
 
 > Gauntlet ebfb-sturdyref-layer1-shim-build-20260930-gauntlet HALTED: stage 'ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2' (fix) failed 1 times and was doom-parked with doom_signature=requeue-exhausted. It was NOT retried because the record does not prove the underlying handler failure was transient (failure_classification=unknown); repeating an unknown failure would waste the stage budget.
@@ -110,7 +120,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 80.2M | $640.70 _(notional, rate-card)_ | 31% of 256.0M (ok) |
+| Claude | 80.3M | $642.24 _(notional, rate-card)_ | 31% of 256.0M (ok) |
 | Codex | 18.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136322824 tokens/day lower bound._
