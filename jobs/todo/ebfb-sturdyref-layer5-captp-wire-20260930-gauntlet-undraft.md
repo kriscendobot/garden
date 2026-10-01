@@ -23,14 +23,4 @@ You are the FINAL stage of a staged gauntlet (ebfb-sturdyref-layer5-captp-wire-2
 END your completion report with EXACTLY this marker line (last line):
   <!-- gauntlet-stage-result: undraft=done -->
 
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-01T12:40:52Z
+<!-- garden-reaped: 0 -->
