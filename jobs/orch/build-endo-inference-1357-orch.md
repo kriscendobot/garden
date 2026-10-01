@@ -2,7 +2,7 @@
 order: serial
 children: build-endo-inference-seam-1357 build-endo-claude-backends-1357
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-01T04:21:13Z
 ---
