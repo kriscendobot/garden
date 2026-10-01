@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 145
 build_job: build-ci-minion-town-actions-runner
 kind: feature
-stage: panel
+stage: fix
 iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: build-ci-minion-town-actions-runner-gauntlet-panel-2
+current_child: build-ci-minion-town-actions-runner-gauntlet-fix-2
 state: running
 created_by: producer
 created_at: 2026-09-30T21:06:52Z
