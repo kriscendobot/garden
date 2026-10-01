@@ -1,0 +1,47 @@
+<6>20:01:09 [monk/2] job 'endojs-endo-but-for-bots-pr1403-gauntlet-fix-1' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>20:01:09 [monk/2] job 'endojs-endo-but-for-bots-pr1403-gauntlet-fix-1' call ceiling: tier=mentor max-budget-usd=7.80 (scaled by fresh seven-day headroom when available)
+<6>20:01:10 [monk/2] job 'endojs-endo-but-for-bots-pr1403-gauntlet-fix-1' attaching minion.town MCP (stdio bridge)
+<6>21:34:23 [auto-gauntlet-handoff] auto-gauntlet: 'endojs-endo-but-for-bots-pr1403-gauntlet-fix-1' (role gardener) did not produce a design-only PR; no automatic handoff
+panel-head-freshness: managed target=endojs-endo-but-for-bots-pr1403-gauntlet-fix-1 disposition=gauntlet-driver-owns-next-panel
+<6>21:34:30 [assert-followup-posted] gate: BLOCK — 'endojs-endo-but-for-bots-pr1403-gauntlet-fix-1' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+orchestration-failed: true
+
+# Fix round 1 for endojs/endo-but-for-bots#1403: fixes pushed, but CI is red on one macOS leg
+
+I applied the panel's must-fix items, but CI ended red. The two failing tests are in packages this PR doesn't touch, and they look like macOS flakes. The PR head is now `c35fcc4f59`.
+
+## What I changed
+Three follow-up commits on top of `66a1be9b22`, pushed with `safe-push-pr-head.sh`:
+- **`ec25b8b11c` (assessor, saboteur #2, breaker):** `classify` now does both hardening and matching of the response inside one try/catch. A hostile response, such as a Proxy whose `ownKeys` throws, now classifies as `undefined` instead of throwing. If the refill reader (`retryAfterMs`) throws, the matched row's result is returned without a refill time, the same as when the reader returns a nonsensical value. Both cases have new tests.
+  - I kept the broad catch that saboteur #1 flagged, on purpose. The contract is that anything unrecognized classifies as `undefined`, and a narrower catch would let a hostile response throw through `infer`. A code comment now explains this.
+- **`32e06a91df` (breaker must-fix, saboteur #3):** `makeUsageRecorder` checks the wrapped backend's result with `mustMatch(harden(result), InferResultShape, …)` before reading any field. A new test covers an unguarded backend that returns `{type:'ok'}` with no `text`.
+- **`c35fcc4f59` (prover, breaker should-fix):**
+  - Removed the dead `if (stopped) return` guard in `stop()`.
+  - `countOutputBytes` now rejects a count that is NaN, negative or not a whole number. New test added.
+- **PR body (pruner, coverage-auditor):**
+  - Removed the "so none of this matters" hedge.
+  - Cut Documentation Considerations and Compatibility Considerations to one sentence each.
+  - Updated the test count to 48.
+  - Added a sentence explaining why `test:xs` is `exit 0`: 42 other packages do the same, and this code has no platform-specific branch.
+- **orthographer:** left `SECURITY.md` unchanged because it is the shared canonical file.
+- I posted a reply comment on the PR listing how each panel item was handled: https://github.com/endojs/endo-but-for-bots/pull/1403#issuecomment-5939537576
+
+Locally, all 48 inference tests pass and package `tsc` is clean. Eslint shows warnings but no errors. The repo-wide `tsc` reports nothing in inference.
+
+## CI
+`ci-wait-merge.sh` returned rc 3 (red). 31 of 33 checks passed; both macOS legs failed:
+- **`test (22.x, macos-15)`:** `hosted-agent › provider-http › HTTP deadline releases late readers…` hit its test timeout.
+- **`test (24.x, macos-15)`:** `daemon › daemon-teardown › an orphaned daemon shuts itself down…` failed.
+
+Neither package depends on `@endo/inference`, and both legs passed on the previous head `66a1be9b22`. I reran the failed jobs once:
+- 24.x passed.
+- 22.x failed again, this time on the same `daemon-teardown` test that failed on 24.x before.
+
+The run is `actions/runs/36918843472`. Another rerun takes about 35 minutes and would go past this job's time limit, so I stopped here.
+
+## Follow-ups
+- Re-run the 22.x macOS leg, or treat it as a known flake. The `daemon-teardown` orphaned-daemon test failed on one macOS leg in each of the two attempts, and it may need its own flake fix.
+
+<<<GARDEN-ORCHESTRATION-FAILED>>>
