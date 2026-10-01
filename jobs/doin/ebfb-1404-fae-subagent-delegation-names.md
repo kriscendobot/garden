@@ -31,3 +31,13 @@ left Fae's **subagent delegation** locator-keyed, so it throws in a real guest:
   longer needs them. `test/subagent.test.js` likewise.
 
 Push to the PR head with `scripts/jobs/gardening/safe-push-pr-head.sh`; keep CI green.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T09:22:49Z
