@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T10:04:46Z_
+_As of 2026-10-01T10:07:47Z_
 
 ## Latest
 
-Two migrate-off-identifiers slices landed for the guest substrate: [endojs/endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/pull/1404) picked up a completed fae-subagent delegation-names pass and a guest-consumers identifiers sweep (both now in CLEAN for the gauntlet), while the sturdyref PR stack continues its parallel panel/fix grind — layer 6 ([endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)) just cleared fix round 3 and is back in panel round 4.
-
-The rolling deploy to c5416eb373bc remains stuck: oros-studio-garden-ce242c49's canary has failed re-validation three times and is left drained pending a maintainer decision, and endolin's own canary slot has had no healthy follower to validate against for hours. Separately, the completion press flagged that [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) (phase 1 of the Claude inference-backends design) finished CI-green and draft but never got an automatic gauntlet, stalling its phase-2 successor (`build-endo-claude-backends-1357`) for ~4 hours with no idle workers to pick it up regardless. Also open for a maintainer call: the minion.town MCP principal/scoping questions, the M3 choice between #1015 and #1340, and the qwen3.7→3.8 model-watch disposition.
+The gauntlet machinery kept grinding on the endo-but-for-bots sturdyref stack, with layer PRs [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) moving through panel/fix rounds, while [#774](https://github.com/endojs/endo-but-for-bots/pull/774) got doom-parked after a fix stage exhausted its requeue budget with an unclear failure cause. Two gauntlets (petname-path-only-sweep and the ironhorse panic/host-call PR) hit their review budget ceiling after 6 rounds and now sit ready for human merge/review. The rolling deploy to `c5416eb373bc` is stuck: oros-studio-garden-ce242c49 failed canary validation three times and was left drained pending investigation, so the leader hasn't advanced. Separately, the arc press flagged that builder completion [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) (phase 1 of the Claude inference-backends design) never got its automatic gauntlet staged — likely the probe-exemption path misfiring — leaving it CI-green and review-ready but unclaimed, and blocking its phase-2 successor job.
 
 ## Parked for maintainer feedback
 
@@ -211,10 +209,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.8M | $731.07 _(notional, rate-card)_ | 38% of 256.0M (ok) |
+| Claude | 97.6M | $738.55 _(notional, rate-card)_ | 38% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 137747462 tokens/day lower bound._
+_Fleet token-unlock pace: 135708877 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 1 open notice(s); checker healthy
