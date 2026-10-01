@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T05:28:05Z_
+_As of 2026-10-01T05:32:16Z_
 
 ## Latest
 
-Review wrapped on [endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371), the Claude live-turn PR that several new guest/daemon builds are now waiting on — the fleet parked four follow-on jobs (guest-scoped daemon bootstrap, the kernel bwrap sandbox slice, confined-tool-catalog pruning, and the `PINNED_CLI_VERSION` bump) to pick up as soon as it lands. The [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) gauntlet closed out HALTED after its subjective review didn't converge within the round budget, leaving that PR for a human merge call, and its panel round 2 was parked back to the plan queue rather than retried. Gauntlet fix rounds kept moving on the petname-path-only stack ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)), and a fresh fix round was posted for [#1401](https://github.com/endojs/endo-but-for-bots/pull/1401). Separately, the Claude inference-backends build advanced: its inference-seam phase landed, and phase 2 (core plus two backends) moved from the plan queue into the active board.
+Multiple sturdyref-layer gauntlets (layers 1–8 on endojs/endo-but-for-bots PRs [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) and the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) are grinding through fix rounds in parallel, with #1394's gauntlet now HALTED and layer-1's fix job parked pending maintainer input after a doom-parked, unexplained stage failure. Elsewhere, gauntlets for [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), [#1371](https://github.com/endojs/endo-but-for-bots/pull/1371), [#1401](https://github.com/endojs/endo-but-for-bots/pull/1401), [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402), and kriscendobot/minion.town [#140](https://github.com/kriscendobot/minion.town/pull/140) and [#145](https://github.com/kriscendobot/minion.town/pull/145) are moving along their panel/fix/conduct stages. On the fleet side, a rolling deploy to c5416eb373bc is stuck waiting on the oros-studio-garden canary, and the accountant's budget conversation, the qwen3.8 model-watch decision, the minion.town MCP principal/scope question, and the ocap.site DNSSEC sign-off are all still waiting on you.
 
 ## Parked for maintainer feedback
 
@@ -78,10 +78,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > comment-provenance INSTRUMENTATION GAP on host endolin-garden-ece02cb4: a fleet `gh` comment was posted by an LLM-driven caller, but NEITHER GARDEN_JOB_MODEL NOR GARDEN_WORKER_KIND resolved — so the footer named only the host and garden commit (no model/harness/provider). This is the PR #1125 defect. The comment STILL posted (fail-open); nothing is broken. FIX: find the code path posting the comment and export the job facts (GARDEN_JOB_MODEL + GARDEN_WORKER_KIND) before its `gh` call, OR set GARDEN_NO_LLM=1 if it is a deterministic (no-LLM) post.
 
-- `watchdog-unclaimable-host-requirements-ebfb-petname-path-only-pr1390-body-overlap-note` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-ebfb-petname-path-only-pr1390-body-overlap-note.md)
-
-> Host-requirements gate: job 'ebfb-petname-path-only-pr1390-body-overlap-note' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `msg-build-minion-town-mcp-garden2-workers-76b942035c1f` — from gardener:build-minion-town-mcp-garden2-workers, reply_to `build-minion-town-mcp-garden2-workers` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-mcp-garden2-workers-76b942035c1f.md)
 
 > minion.town MCP standing order: machinery landed on main2 (1f0cc8400b5), and it is proven live on endolin-garden2 for claude -p and codex exec. Two decisions are yours before I widen it past garden2:
@@ -136,7 +132,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.4M | $660.65 _(notional, rate-card)_ | 33% of 256.0M (ok) |
+| Claude | 84.5M | $660.99 _(notional, rate-card)_ | 33% of 256.0M (ok) |
 | Codex | 18.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 136488373 tokens/day lower bound._
