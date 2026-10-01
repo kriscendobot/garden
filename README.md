@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T21:07:04Z_
+_As of 2026-10-01T21:20:26Z_
 
 ## Latest
 
-Review directive endojs-endo-but-for-bots-pr1348-review-3fce8521 completed, bringing kriskowal's question on [endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) to a close; a sibling reply-shell-tools job is queued to apply the answer. The petname-path-only sweep-3 gauntlet on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) closed out after a sixth fix round with CI green, but review didn't converge within budget, so it's parked for a human merge call. A new todo job landed to verify ocap.site's DNS recovery once the registrar nameserver revert propagates.
+The board stayed quiet this cycle — the only recorded transition is a touch to the in-flight sturdyref layer-6 CaptP construction gauntlet fix round 6 for [endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396). Several gauntlets hit their review-budget ceiling without converging and now sit ready for human judgment: the petname-path-only sweep-3 PR, the IronHorse panic/host-call PR, and the sturdyref layer-8 daemon-formula gauntlet (which halted outright). Maintainer attention is also needed on an offline host (`oros-studio-garden-ce242c49`, heartbeat stale ~31 min, excluded from the rolling deploy) and a journal clone nearing its pack-count guard threshold on the leader. Spend is steady at 66% of the Claude weekly quota and 38% of the Codex plan allotment.
 
 ## Parked for maintainer feedback
 
@@ -26,14 +26,27 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 ## Messages to the maintainer
 
+- `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
+
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 1856s (offline threshold 1800s; sampled_at_epoch=1790887026).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
+
 - `ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet ebfb-petname-path-only-sweep-3-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/leader/journal: packs 1011 >= 1000; size=250150912B packs=1011 gc.log=0; automatic remedy=deferred-deadline.
+
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-01T21:04:02Z).
-> It was observed 1 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-01T21:18:57Z).
+> It was observed 2 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
@@ -56,10 +69,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.2M | $1284.83 _(notional, rate-card)_ | 66% of 256.0M (ok) |
+| Claude | 168.8M | $1287.65 _(notional, rate-card)_ | 66% of 256.0M (ok) |
 | Codex | 19.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 138232743 tokens/day lower bound._
+_Fleet token-unlock pace: 135249788 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 1 open notice(s); checker healthy
