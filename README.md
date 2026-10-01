@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T16:40:14Z_
+_As of 2026-10-01T16:55:03Z_
 
 ## Latest
 
-Two gauntlets wrapped up on PR #1394 ([endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) — the undraft stage handed off and a follow-up todo job picked up getting it un-drafted — while PR #146 ([kriscendobot/minion.town#146](https://github.com/kriscendobot/minion.town/pull/146)) moved into panel round 2 after its first fix round landed. New work queued includes a PR #1398 body refresh ([endojs/endo-but-for-bots#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) and another push on the Claude-on-minion.town arc.
-
-The sturdyref CapTP stack otherwise stayed busy but mostly blocked: layer5 ([#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) halted on an unexpected undraft result (now recovering via the handoff job above), layer1's PR #774 ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)) is doom-parked after an unclassified fix failure, and several other layers (#1390 "petname-path-only," #1392, #1393, #1396, #1398) are mid-panel/fix cycling. Separately, the two-phase Claude-inference build stalled: phase 1 shipped a draft PR ([endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403)) that never got a gauntlet (likely a probe-exemption misfire) and now has no review path, and phase 2 timed out after 2 hours, halting the orchestration — both need a maintainer look. A rolling-deploy canary on oros-studio-garden-ce242c49 is also stuck, repeatedly failing re-validation and left drained pending a decision.
+Several gauntlets kept grinding through sturdyref/CapTP layers on [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) (fix round 6), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) (fix round 3), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (fix round 5), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (fix round 5), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) (fix round 1), while [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)'s gauntlet halted on an unexpected "handed-off" result from its undraft stage and needs a manual un-draft. The petname/path-only sweep stalled too — [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) is mid-review at panel round 4/5 across duplicate gauntlet threads, and a sibling PR's review hit the 6-round budget without converging, so it's parked for human merge/review. The inference-backends build hit a real snag: phase 1 opened [#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) CI-green but somehow never got a gauntlet staged, leaving phase 2 (`build-endo-claude-backends-1357`) stuck unclaimed for hours and now timed out at 7210s — the orchestration halted and flagged it for a decision on whether to run the gauntlet on #1403 directly. Rolling deploy is also stuck: the oros-studio canary has failed validation 3 times on target `697976e718f3` and is now drained pending a maintainer call, separate from a second report that the same canary is simply stuck mid-apply. Elsewhere, the guest-scoped daemon bootstrap build's gauntlet halted on a declined clean stage, and the Ironhorse panic/host-call PR similarly exhausted its review budget and awaits a human merge decision. On the lighter side, several watchdog conditions (journal contention, comment-ack blindness, oros heartbeat/derotation) self-recovered, and the minion.town MCP wiring landed on main2 with two rollout decisions (principal/scoping, and context-cost tooling for jurors) awaiting maintainer sign-off before widening past garden2.
 
 ## Parked for maintainer feedback
 
@@ -281,10 +279,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 140.8M | $1055.57 _(notional, rate-card)_ | 55% of 256.0M (ok) |
+| Claude | 141.1M | $1056.91 _(notional, rate-card)_ | 55% of 256.0M (ok) |
 | Codex | 18.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 135849483 tokens/day lower bound._
+_Fleet token-unlock pace: 137760874 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.091951s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 2 open notice(s); checker healthy
