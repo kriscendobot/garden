@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T20:04:59Z_
+_As of 2026-10-01T20:10:50Z_
 
 ## Latest
 
-Board activity was light since the last bulletin: PR #1340's gauntlet moved into panel round 3, and a new plan-queue entry (`book-title-audience-pass`) was parked awaiting the garden book's revision orchestration. Several gauntlets remain stalled at their review budget without converging — [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (the petname-path sweep) and the ironhorse panic-host-call PR both completed six fix/panel rounds with CI green but need a human merge call. Also worth a look: the minion.town MCP rollout is proven on endolin-garden2 and awaiting two decisions (dedicated principal/credentials, and context-cost scoping for jurors) before widening past that host, and the qwen model-watch probe found that 3.7 never shipped — upstream jumped straight to qwen3.8 — so the watch needs to be repointed or retired.
+Board traffic stayed heavy on the Endo gauntlet queues (sturdyref layers, petname-path sweeps, PR #1340, #1390, #1403, and others cycling through panel/fix rounds), with two gauntlets — the [petname-path-only sweep](https://github.com/endojs/endo-but-for-bots/pull/1390) and the [Ironhorse panic host-call](https://github.com/endojs/endo-but-for-bots/pull/1380) — exhausting their 6-round review budget and landing in the maintainer's queue for a human merge call. The only new plan-queue additions are two garden-book illustration tasks parked behind their prerequisites. Several items await your input: the minion.town MCP rollout proposal (principal/scoping decisions before widening past garden2), the qwen3.8 model-watch follow-up, the accountant's parked budget conversation, and the M3 milestone choice between [endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) and design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340).
 
 ## Parked for maintainer feedback
 
@@ -76,10 +76,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.0M | $1251.05 _(notional, rate-card)_ | 64% of 256.0M (ok) |
+| Claude | 165.3M | $1254.09 _(notional, rate-card)_ | 65% of 256.0M (ok) |
 | Codex | 18.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 135635627 tokens/day lower bound._
+_Fleet token-unlock pace: 134249528 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 10.091951s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 1 open notice(s); checker healthy
@@ -194,7 +194,9 @@ worst fetch p95 10.091951s/45s (/home/kris/garden/.garden-state/state-clone-keep
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
+- [`book-illustrations-integrate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-illustrations-integrate.md) — awaiting `book-codex-illustrations` · Garden book: integrate the Codex-generated illustrations and publish
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
+- [`book-codex-illustrations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-codex-illustrations.md) — awaiting `book-title-audience-pass` · Garden book: generate illustrations and background art (Codex)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`book-title-audience-pass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-title-audience-pass.md) — awaiting `garden-book-revision-orch` · Garden book: a sharper title, and a pass for the actual audience
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
