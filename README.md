@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T06:20:16Z_
+_As of 2026-10-01T06:21:45Z_
 
 ## Latest
 
-The sturdyref layer stack continues grinding through its gauntlets — layers 1–8 (PRs #1391–#1398, plus #774 for layer 1) are all mid fix/panel rounds, none completed this cycle. The petname-path-only sweep ([endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) is also still cycling fixes, and a companion sweep job hit its review budget without converging after six rounds, left for a human merge call. [endojs/endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/pull/1404) (guest no-identifiers/locators) completed its viability stage and reported in tada. Two PRs are queued for merge: [endojs/endo-but-for-bots#1402](https://github.com/endojs/endo-but-for-bots/pull/1402) and #1371.
-
-Several infrastructure issues need attention: a rolling-deploy canary on oros-studio-garden-ce242c49 has been stuck for over 20 minutes on an old SHA, and the endolin leader has no canary available (all followers offline/drained) so it can't advance past `c5416eb373bc`. GitHub API rate-limiting also caused a PR-feedback preflight to fail open on [endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371), meaning review evidence there may be incomplete. Five items await your decision: the minion.town MCP widening (principal/scope and context-cost questions), the qwen3.8 model-watch reassessment, the M3 confined-agent path (PR #1015 vs. design PR #1340's open questions), the accountant's budget-conversation proposal parked for go-ahead, and the ocap.site DNSSEC KSK setup pending your registrar action.
+The sturdyref CapTP stack continues to dominate the board — eight parallel gauntlets spanning [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) (layer 1), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), and [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) — are grinding through fix/panel rounds, with layer 5 ([#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) reaching undraft while layer 1's fix stage ([#774](https://github.com/endojs/endo-but-for-bots/pull/774)) doom-parked after a failed retry and now needs a human look. The petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) is still cycling fix rounds across three parallel sub-jobs; its gauntlet and the Ironhorse panic-host-call gauntlet both exhausted the 6-round review budget and are left parked for manual merge review. Separately, a rolling-deploy canary on oros-studio-garden-ce242c49 has been stuck over 20 minutes behind the leader's released commit, and the maintainer inbox has several decisions waiting: whether to widen the minion.town MCP rollout past garden2, open questions on design PR [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and the still-pending ocap.site DNSSEC DS-record publication at the registrar.
 
 ## Parked for maintainer feedback
 
@@ -149,10 +147,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.7M | $693.99 _(notional, rate-card)_ | 35% of 256.0M (ok) |
+| Claude | 88.8M | $694.21 _(notional, rate-card)_ | 35% of 256.0M (ok) |
 | Codex | 18.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 134866981 tokens/day lower bound._
+_Fleet token-unlock pace: 135967355 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
