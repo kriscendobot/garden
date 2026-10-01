@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T08:18:59Z_
+_As of 2026-10-01T08:23:15Z_
 
 ## Latest
 
-The sturdyref layer gauntlets continued grinding forward: layer 6's CAPTP-construct fix round was claimed, layer 4's panel pushed to its final sweep, and petname-path-only-sweep-4's fix round 3 landed, with round 4 now queued. A new PR landed on the board for review, [endojs/endo-but-for-bots#1402](https://github.com/endojs/endo-but-for-bots/pull/1402), with its panel and conduct stages already queued.
-
-Rolling deploy remains stuck: the oros canary has been sitting on the old SHA for over two hours despite release, and a prior canary attempt failed three automated retries and needs a maintainer look before the leader will advance past `c5416eb373bc`. Several other watchdog notices (journal contention, worker derotation) cleared on their own. Two gauntlets exhausted their review budget without converging — the petname-path-only-sweep PR and the ironhorse panic-host-call PR — and are parked for manual merge review, alongside a third, the sturdyref layer1 shim build, which halted outright on an unexplained fix failure. Several standing decisions are still awaiting a reply: the minion.town MCP principal/scope rollout, the qwen model-watch follow-up, and the M3 confined-agent choice between [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots) and design PR #1340.
+The sturdyref layer-by-layer sweep on endo-but-for-bots continued moving through its stack, with layers 6 and 7 ([#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) in fix/clean stages and layer 5 ([#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) reaching undraft, though layer 1 ([#774](https://github.com/endojs/endo-but-for-bots/pull/774)) doom-parked after its fix round failed and needs a maintainer look. The petname-path sweep is similarly mid-gauntlet across several PRs ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)), with one of its earlier gauntlets halted after exhausting its review budget — left improved but awaiting a human merge decision, same as the ironhorse panic-host-call PR. Elsewhere, rolling deploy is stuck on canary host oros-studio-garden-ce242c49: a prior canary failure was left drained pending a decision, and even after that it's now sitting 141 minutes without picking up the released build, holding the leader back. Also open: the accountant's parked budget conversation, the minion.town MCP principal/scope decision, and the qwen3.8 model-watch follow-up all still await a maintainer reply.
 
 ## Parked for maintainer feedback
 
@@ -192,10 +190,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.9M | $716.85 _(notional, rate-card)_ | 36% of 256.0M (ok) |
+| Claude | 93.1M | $718.64 _(notional, rate-card)_ | 36% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 135991422 tokens/day lower bound._
+_Fleet token-unlock pace: 136806407 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 0 open notice(s); checker healthy
