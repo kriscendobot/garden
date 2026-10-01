@@ -12,7 +12,7 @@ created_at: 2026-09-30T06:19:17Z
 stage: panel
 iteration: 5
 resumes: 0
-stage_retries: 0
+stage_retries: 1
 current_child: ebfb-sturdyref-layer2-ses-20260930-gauntlet-panel-5
 state: running
 resumed_at: 2026-10-01T03:32:01Z
