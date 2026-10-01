@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-01T09:52:08Z_
+_As of 2026-10-01T09:56:14Z_
 
 ## Latest
 
-Endo-but-for-bots#1371 (unified endowments) merged and its gauntlet ran clean. The sturdyref layer-stack build (layers 1–8, PRs [#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)–[#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) is mid-gauntlet across many parallel panel/fix rounds; two of those hit their review budget without converging ([#774](https://github.com/endojs/endo-but-for-bots/pull/774) via the sturdyref-layer1 gauntlet, and the petname-path-only sweep covering [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) and are parked for a human merge call, and the sturdyref-layer1-shim-build fix round doom-parked after a requeue failure of unknown cause. The inference-backends build opened draft [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) (phase 1, `@endo/inference`) but never got an automatic gauntlet — likely mis-tripping the probe exemption — leaving phase 2 (`build-endo-claude-backends-1357`) stalled in todo for hours; the suggested action is to run the gauntlet on #1403 manually. Infra-wise, the rolling deploy to `c5416eb373bc` is halted on a persistent failed canary at oros-studio-garden (drained pending your decision), the journal-contention checker is overrunning its budget fleet-wide, and a `gh` rate-limit/404 made the PR-feedback preflight fail open on [endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/issues/1371)'s review comments. Spend is at 38% of weekly quota on both Claude and Codex.
+Endo #1371 merged ([endojs/endo-but-for-bots#1371](https://github.com/endojs/endo-but-for-bots/pull/1371)), and #1402 is now moving through conduct/panel stages toward its own merge. The big sturdyref layer stack (PRs #1390–#1398) is grinding through parallel panel/fix rounds, but one sibling in that family stalled: the layer-1 shim build on [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774) had its fix stage doom-parked after an unexplained failure and is sitting for a human look, and the petname-path-only sweep on [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) plus a separate Ironhorse panic/host-call gauntlet both exhausted their 6-round review budget — both are CI-green and improved but need a manual merge/review call.
+
+Rolling deploy is in trouble on oros-studio-garden-ce242c49: the canary for c5416eb3 failed validation three automatic retries in a row and the roll has halted, leaving that host drained pending your decision (a separate long-running "stuck canary" notice on the same host looks like the same underlying issue). Separately, the completion-press watch flagged a process gap: the phase-1 `@endo/inference` build landed cleanly as draft [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) but never got an auto-staged gauntlet — suspected cause is the probe exemption misfiring — and its phase-2 successor has been stuck unclaimed in todo for ~4 hours as a result; running the gauntlet on #1403 by hand would unblock it.
+
+Several items are waiting purely on you: the minion.town MCP rollout needs a decision on a dedicated garden principal vs. riding the production guest, and on tool-list context cost; the M3 milestone is blocked on choosing between advancing #1015 (after its #1348 prerequisite) or answering four open questions on design [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340); the ocap.site DNSSEC DS record still needs registrar-side publishing; and the qwen model watch and the accountant's budget conversation are both parked awaiting your go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -70,15 +74,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #14 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T09:47:54Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 14 times; this is ONE
-> coalesced notice that updates in place, not 14 messages. Latest detail:
+> WATCHDOG notice — occurrence #15 (first seen 2026-10-01T07:38:08Z, latest 2026-10-01T09:53:29Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 15 times; this is ONE
+> coalesced notice that updates in place, not 15 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=8680s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=8762s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=8759s; heartbeat=full-poll)
-> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=8752s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#issuecomment-5926700683 (age=8980s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814239 (age=9062s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152814657 (age=9059s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1395](https://github.com/endojs/endo-but-for-bots/pull/1395)#discussion_r4152815530 (age=9052s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
@@ -106,11 +110,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-10-01T04:12:22Z, latest 2026-10-01T09:43:10Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T04:12:22Z, cleared 2026-10-01T09:53:48Z).
+> It was observed 10 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 842 of 842 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -153,6 +157,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `ebfb-petname-path-only-sweep-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet ebfb-petname-path-only-sweep-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: packs 1010 >= 1000; size=248397824B packs=1010 gc.log=0; automatic remedy=deferred-deadline.
 
 - `endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-review-budget-reached.md)
 
@@ -205,7 +213,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 96.3M | $741.20 _(notional, rate-card)_ | 38% of 256.0M (ok) |
+| Claude | 96.4M | $742.05 _(notional, rate-card)_ | 38% of 256.0M (ok) |
 | Codex | 18.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 137747462 tokens/day lower bound._
