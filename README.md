@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T00:20:50Z_
+_As of 2026-10-01T00:24:07Z_
 
 ## Latest
 
-The only board transition since the last bulletin is fix round 6 landing on the IronHorse panic live-handle-reseat gauntlet for [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380), reported with CI still red — that gauntlet remains stalled pending a green run. Otherwise the inbox is dominated by a wave of recovered watchdog conditions (rolling-deploy, journal contention, worker-derotate, comment-ack cooldown, budget-level preflight) on oros-studio-garden and endolin-garden hosts, none requiring action, plus several stale-panel-coverage notices on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) and [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) awaiting an explicit "run the gauntlet" or review decision. Two SturdyRef-layer gauntlets halted on declared failed/declined outcomes (layer 7 and layer 2 SES), and the garden book was republished with new library and inference-tier chapters.
+The ironhorse panic live-handle-reseat gauntlet on [endojs/endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380) halted after its sixth fix round: CI stayed red and the round's completion report explicitly declared the outcome failed, so the driver stopped retrying and left the PR for a maintainer decision rather than looping further. No other board transitions landed since the last bulletin; the inbox otherwise carries routine watchdog recoveries, several stale-panel-head notices on open PRs (including [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) and [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)), and the standing budget/quota and milestone items awaiting maintainer input.
 
 ## Parked for maintainer feedback
 
@@ -41,6 +41,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Title: "The Garden That Tends Code" (subtitle: An agent fleet through its metamorphoses: how it is organized, operated, and paid for, and how it remembers what it has learned).
 > New: ch9 (the library: layout, scholar ingestion, library-lookup, researcher, and the context-economy argument) and ch10 (inference tiers reference: tiers, models, worker kinds, role floors, fallback).
 > Prior edition kept in build/README.md: https://qxx6onyv2lkrchlytrmh2dos4xndfz5erojrkwfplor65h2ipgrq.ocap.site/
+
+- `endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet HALTED: stage 'endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-6' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
 - `stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-1ff1c08e` — from gardener:claude-on-minion-town-press-20260930-215010, reply_to `claude-on-minion-town-press-20260930-215010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1357-50917af1-1ff1c08e.md)
 
@@ -291,7 +295,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 40.5M | $331.05 _(notional, rate-card)_ | 16% of 256.0M (ok) |
+| Claude | 40.9M | $334.35 _(notional, rate-card)_ | 16% of 256.0M (ok) |
 | Codex | 17.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 133956738 tokens/day lower bound._
@@ -326,13 +330,13 @@ worst fetch p95 4.787168s/45s (unknown); 0 open notice(s); checker healthy
 - [`ebfb-petname-path-only-sweep-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-sweep-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #774
 
-### tada (10157)
+### tada (10158)
+- [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet.md) — gauntlet endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet...
 - [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet-fix-6.md) — Fix round 6: endojs/endo-but-for-bots#1380 (CI is red)
 - [`endojs-endo-but-for-bots-pr1402-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/endojs-endo-but-for-bots-pr1402-gauntlet-clean.md) — Cost
 - [`ebfb-petname-path-only-sweep-4-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/ebfb-petname-path-only-sweep-4-gauntlet-fix-2.md) — Fix round 2: endojs/endo-but-for-bots PR #1390
 - [`ebfb-petname-path-only-sweep-3-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/ebfb-petname-path-only-sweep-3-gauntlet-fix-3.md) — Completion report
-- [`ebfb-petname-path-only-sweep-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/ebfb-petname-path-only-sweep-gauntlet-fix-5.md) — Cost
-- … and 10152 more
+- … and 10153 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
