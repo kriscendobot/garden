@@ -71,3 +71,13 @@ There is no persisted state. Refs are in-memory and do not survive a restart.
 
 
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T18:28:42Z
