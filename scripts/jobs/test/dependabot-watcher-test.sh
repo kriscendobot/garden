@@ -36,6 +36,9 @@
 #   N. an empty peer-dependency range intersection → cheap incompatible close job
 #   O. a target Node engine excluding the project floor → cheap incompatible job
 #   P. no compatibility proof → fall open to the full review
+#   Q. a primary REST-quota source refusal arms the host-wide gh-api latch for the
+#      full primary-quota window (not the 300s transient default), and a later tick
+#      inside that window skips before polling the source
 #
 # Usage: dependabot-watcher-test.sh
 set -euo pipefail
@@ -481,6 +484,66 @@ grep -qx HELD "$VLOCK_LOG" && ! grep -qx FREE "$VLOCK_LOG" \
 flock -n "$TR/state-s/dependabot-watcher/verify.lock" true \
   && ok "the VERIFY clone lock is released after the run" \
   || bad "VERIFY clone lock still held after exit"
+
+# ============================================================================
+hr; echo "Q — a primary REST-quota source refusal arms the host-wide latch for the quota window"; hr
+# 2026-10-01T12:41:50Z: the REST pulls-list source was refused for GitHub's PRIMARY
+# hourly quota, which also matches the transient set, so the watcher opened only the
+# 300s default window. It must classify primary quota FIRST (as ci-watcher.sh does)
+# and request api_primary_quota_secs on the host-wide marker.
+Q_SRC="$TR/quota-source.sh"
+cat > "$Q_SRC" <<'EOF'
+#!/bin/bash
+echo 'gh api repos/endojs/endo-but-for-bots/pulls?state=open&per_page=100 failed (definitive, rc=1); not retrying: gh: API rate limit exceeded for user ID 279080640. (HTTP 403)' >&2
+exit 1
+EOF
+chmod +x "$Q_SRC"
+ROOT_Q="$TR/root-quota"; mkdir -p "$ROOT_Q"
+BARE_Q="$TR/q.git"; seed_bare "$BARE_Q"
+q_before="$(date +%s)"
+set +e
+env GARDEN_ROOT="$ROOT_Q" GARDEN_STATE="$TR/state-quota" GARDEN_API_COOLDOWN_SECS=300 \
+    GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+    JOURNAL_REMOTE="$BARE_Q" JOURNAL_BRANCH="$BRANCH" GARDEN_BOT_LOGIN=kriscendobot \
+    GARDEN_DEP_PR_SOURCE="$Q_SRC" GARDEN_DEP_POST="$JOBS/post-job.sh" \
+    GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/dependabot-watcher.sh" "$SLUG" >/dev/null 2>"$TR/quota.err"
+q_rc=$?
+set -e
+[ "$q_rc" -eq 0 ] && ok "primary-quota source refusal exits 0 — no crash-loop" || bad "primary-quota source refusal exited $q_rc"
+grep -qi 'primary REST quota exhaustion' "$TR/quota.err" \
+  && ok "logs the primary-quota WARN, not the generic transient blip" || bad "no primary-quota WARN ($(cat "$TR/quota.err"))"
+Q_MARKER="$ROOT_Q/.garden-state/gh-api-cooldown/marker"
+q_expiry="$(sed -n '1p' "$Q_MARKER" 2>/dev/null || echo 0)"
+case "$q_expiry" in ''|*[!0-9]*) q_expiry=0 ;; esac
+[ "$q_expiry" -ge $((q_before + 3600)) ] \
+  && ok "host-wide marker armed for the full primary-quota window ($((q_expiry - q_before))s), not the 300s default" \
+  || bad "host-wide marker expiry $q_expiry is not a full quota window past $q_before"
+grep -q "dependabot:$SLUG:source" "$Q_MARKER" 2>/dev/null \
+  && ok "the latch names the dependabot source as its owner" || bad "latch tag missing ($(cat "$Q_MARKER" 2>/dev/null))"
+[ "$(todo_count "$BARE_Q")" -eq 0 ] && ok "no job posted on a quota-refused enumeration" || bad "posted a job despite the refusal"
+
+# A later tick 600s into the window — past the 300s default — must not re-poll.
+printf '%s\n%s\n' "$((q_expiry - 600))" "dependabot:$SLUG:source" > "$Q_MARKER"
+Q_CNT="$TR/quota.count"; printf '0\n' > "$Q_CNT"
+Q_COUNT_SRC="$TR/quota-counting-source.sh"
+cat > "$Q_COUNT_SRC" <<EOF
+#!/bin/bash
+n=\$(( \$(cat "$Q_CNT" 2>/dev/null || echo 0) + 1 )); printf '%s\n' "\$n" > "$Q_CNT"
+exit 1
+EOF
+chmod +x "$Q_COUNT_SRC"
+set +e
+env GARDEN_ROOT="$ROOT_Q" GARDEN_STATE="$TR/state-quota-later" GARDEN_API_COOLDOWN_SECS=300 \
+    JOURNAL_REMOTE="$BARE_Q" JOURNAL_BRANCH="$BRANCH" GARDEN_BOT_LOGIN=kriscendobot \
+    GARDEN_DEP_PR_SOURCE="$Q_COUNT_SRC" GARDEN_DEP_POST="$JOBS/post-job.sh" \
+    GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/dependabot-watcher.sh" "$SLUG" >/dev/null 2>"$TR/quota-later.err"
+ql_rc=$?
+set -e
+[ "$ql_rc" -eq 0 ] && [ "$(cat "$Q_CNT")" -eq 0 ] \
+  && ok "a tick 600s into the quota window skips before polling the doomed source" \
+  || bad "later tick polled the source ($(cat "$Q_CNT") calls, rc $ql_rc) inside the quota window"
 
 # ============================================================================
 hr
