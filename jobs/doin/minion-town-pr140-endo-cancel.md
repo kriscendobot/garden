@@ -36,3 +36,13 @@ Task:
   cancellation); run the existing tests.
 - Open a draft PR via ensure-pr.sh; link the review thread above in the body; reply
   on that inline thread with the follow-up PR link once opened.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T13:55:36Z
