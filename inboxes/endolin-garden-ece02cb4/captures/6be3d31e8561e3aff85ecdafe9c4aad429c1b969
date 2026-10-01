@@ -1,0 +1,37 @@
+<6>00:27:26 [monk/2] resuming session fe776b6a-3546-53ae-937e-e16afbd08588 for requeued job 'retire-gardener-clone-alias-verify-deploy-reaper' in worktree /home/kris/garden/scratch/gardener-wt-retire-gardener-clone-alias-verify-deploy-reaper
+<6>00:27:26 [monk/2] job 'retire-gardener-clone-alias-verify-deploy-reaper' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>00:27:26 [monk/2] job 'retire-gardener-clone-alias-verify-deploy-reaper' call ceiling: tier=mentor max-budget-usd=16.80 (scaled by fresh seven-day headroom when available)
+<6>00:27:26 [monk/2] job 'retire-gardener-clone-alias-verify-deploy-reaper' attaching minion.town MCP (stdio bridge)
+panel-head-freshness: not-applicable target=retire-gardener-clone-alias-verify-deploy-reaper reason=no-presented-pr
+<6>00:27:48 [assert-followup-posted] gate: BLOCK — 'retire-gardener-clone-alias-verify-deploy-reaper' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# Verification of 70b6d1e3d42 against the deploy-garden, reaper, deadline-nudge and fetch-timeout suites
+
+70b6d1e3d42 caused no new failures in any of my six suites, so none of them needed updating for it. On resume I found the earlier session had already finished everything. Its one commit, 2916e65ffb9, is on origin/main2 and the worktree is clean, so this attempt changed nothing.
+
+Each suite ran with a scrubbed env, comparing HEAD against the pre-change tree 70b6d1e3d42^:
+
+| Suite | HEAD | Pre-change tree | Result |
+|---|---|---|---|
+| reaper-requeue-cap | passes | passes | passes |
+| reaper-live-handler-guard | passes | passes | passes |
+| reaper-doom-park | passes | passes | passes |
+| deadline-nudge | passes | not rerun cleanly | passes on HEAD, so no regression to look for |
+| deploy-garden | 5 FAIL, rc=1 | the same 5 FAIL lines | failed the same way before 70b6d1e3d42, not a regression |
+| fetch-timeout | 28 passed, 0 failed | 28 passed, 0 failed | passes |
+
+The five deploy-garden failures are "deferral record", "stale sweep not logged", "active gardener not honored", "live gardener did not govern" and "stale marker not swept in mixed case". Four of them print the line "candidate gate unpack directory is exec-capable".
+
+## Fix landed: 2916e65ffb9
+Running the job's own method (`env -i … PATH=$PATH`) caused a runaway process loop on this host.
+- **Cause:** the live `scripts/jobs/bin` stayed on PATH. `fetch-timeout-test.sh` captures git with `REAL_GIT="$(command -v git)"`, which then finds the fleet git wrapper. The test's fake git calls the wrapper, the wrapper picks the fake git as the real one, and the two call each other forever. This happened in both trees.
+- **Impact:** about 14k processes; `ps` and `pgrep` hung.
+- **Recovery:** I replaced the fake git with `exit 1` in five `~/.garden-fetch-test.*` dirs. Two were mine and are deleted. Three were older identical ones, probably left by sibling verify jobs: `6b1k3m`, `OBNwbh` and `QXnpak`. They are still there with the neutralized git.
+- **The fix:** `fetch-timeout-test.sh` and `worker-ensure-worktree-test.sh` now find git with `type -aP` and skip `*/scripts/jobs/bin/git`, the same rule the wrapper uses. With the wrapper on PATH, fetch-timeout gives 28 passed, 0 failed and worker-ensure-worktree gives 6 passed, 0 failed, with no runaway.
+- **How the suites were then run:** one at a time, with `scripts/jobs/bin` removed from PATH. Running HEAD and the pre-change tree at the same time made them collide, because the tests use fixed paths under `$HOME`.
+
+## Follow-ups
+- `triager-test.sh` and `run-test.sh` capture git with `$(command -v git)` the same way and can loop the same way; they are still unfixed. In this env triager-test already fails section F without any change and then times out. run-test is too large to check here.
+- Sibling verify jobs using `env -i` with `PATH=$PATH` should remove `scripts/jobs/bin` from PATH until those two tests are fixed.
+- The deploy-garden failures above were already there before this change and need fixing separately.

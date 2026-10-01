@@ -4505,3 +4505,14 @@ Inspect via `git -C journal cat-file -p af690310cba6a8d02cf86a3797d372a300e1d3e3
 
 Inspect via `git -C journal cat-file -p 57500d6e4ca4e5d71a7bbd3355c8379540bcf904` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/57500d6e4ca4e5d71a7bbd3355c8379540bcf904`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-10-01T00:27:58Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: 6be3d31e8561e3aff85ecdafe9c4aad429c1b969
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'retire-gardener-clone-alias-verify-deploy-reaper' handler exited rc=1
+- Capture: inboxes/endolin-garden-ece02cb4/captures/6be3d31e8561e3aff85ecdafe9c4aad429c1b969
+
+Inspect via `git -C journal cat-file -p 6be3d31e8561e3aff85ecdafe9c4aad429c1b969` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/6be3d31e8561e3aff85ecdafe9c4aad429c1b969`) -- both work off-host after a plain `journal2` fetch.
