@@ -28,3 +28,13 @@ Then watch #1398's CI (poll the Actions runs API if statusCheckRollup is unreada
 and confirm the lint job (root `tsc -p tsconfig.json --noEmit`, workspace
 lint:types, build API docs) goes green. If it fails, fix on the lowest affected
 layer and restack upward.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T00:28:12Z
