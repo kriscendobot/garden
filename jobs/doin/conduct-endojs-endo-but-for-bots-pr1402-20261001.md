@@ -15,3 +15,13 @@ endojs-endo-but-for-bots-pr1402-review-141e965e), with a reply on each thread.
 CI is green and the PR is MERGEABLE. Un-draft it, then merge (the conductor
 picks the merge method). Its base is the frozen `llm-825c598bc`, so follow the
 conductor's frozen-base procedure.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T11:49:51Z
