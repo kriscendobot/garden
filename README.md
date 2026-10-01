@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T04:13:01Z_
+_As of 2026-10-01T04:16:42Z_
 
 ## Latest
 
-The sturdyref layer stack keeps grinding through gauntlet panel/fix rounds — [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) — while the foundational layer-1 [#774](https://github.com/endojs/endo-but-for-bots/pull/774) halted mid-fix on an unclassified failure and was parked rather than blindly retried. Two other gauntlets hit their review-budget ceiling after six panel/fix rounds without the subjective review converging — the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and a separate Ironhorse panic/host-call PR — both left CI-green for a human merge/review call. On the decision front: the foreman's M3 milestone is blocked on choosing between advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite clears, or resolving four open questions on design [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340); the minion.town MCP rollout beyond garden2 needs a principal/scope call before it widens past its single production test guest; and the accountant's budget conversation remains parked awaiting a go-ahead. Infra-side, the rolling deploy is holding the leader for lack of an online canary follower, and the journal contention checker is overrunning its tick budget — both self-reported and not yet blocking job throughput.
+The sturdyref layer stack kept grinding through the panel/fix gauntlet — [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) through [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) are each several fix/panel rounds deep — but the lead layer, [#774](https://github.com/endojs/endo-but-for-bots/pull/774), halted: its fix stage doom-parked after a failure the record can't prove was transient, and now needs a maintainer look before it resumes. Separately, the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) burned through its full six-round review budget with CI green but review not converged, so it's parked for a human merge/review call, alongside an unspecified IronHorse panic/host-call PR that hit the same review-budget ceiling. New gauntlets are also running on [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), [#1401](https://github.com/endojs/endo-but-for-bots/pull/1401), [#1402](https://github.com/endojs/endo-but-for-bots/pull/1402), and [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145).
+
+On infrastructure, one offline follower (oros-studio-garden-ce242c49) recovered, but the rolling deploy of d628cd134563 is still holding on the leader because every other follower is offline or drained, so there's no canary to validate against — worth restoring a follower if that deploy matters soon. A journal-contention checker is also overrunning its tick budget (789 of 815 clones deferred), and a minor comment-provenance footer defect (PR #1125-related, fail-open, cosmetic) recurred once more. Waiting on your input: the minion.town MCP rollout needs a decision on a dedicated principal/guest versus using the production one, plus whether jurors get a narrower toolset; the M3 roadmap step is blocked on choosing between advancing #1015 or answering #1340's open questions; and the ocap.site DNSSEC rollout needs you to publish the DS record at the registrar.
 
 ## Parked for maintainer feedback
 
@@ -25,6 +27,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (delegation not armed)
 
 ## Messages to the maintainer
+
+- `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
+
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-01T01:32:11Z, cleared 2026-10-01T04:14:02Z).
+> It was observed 54 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
 
 - `watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4.md)
 
@@ -90,7 +100,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 76.0M | $605.84 _(notional, rate-card)_ | 30% of 256.0M (ok) |
+| Claude | 77.0M | $613.45 _(notional, rate-card)_ | 30% of 256.0M (ok) |
 | Codex | 18.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 134555489 tokens/day lower bound._
