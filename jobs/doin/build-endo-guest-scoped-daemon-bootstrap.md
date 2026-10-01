@@ -21,3 +21,13 @@ https://github.com/endojs/endo-but-for-bots/pull/1371#pullrequestreview-53751483
 The broker resolves the guest through the root host's `lookupById`, so the harness holds a host-level connection. Provide a daemon-issued bootstrap already scoped to one guest (e.g. ocapn offset-0 gateway over the UDS) and switch `runConfinedTurn`/`startGuestBroker` to it without changing the broker's contract. Design-first if the shape is unclear (designs/endo-guest-stdio-mcp.md).
 
 Open a DRAFT PR via ensure-pr.sh; cross-link #1371.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T09:16:58Z
