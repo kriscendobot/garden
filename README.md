@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T01:06:48Z_
+_As of 2026-10-01T01:11:01Z_
 
 ## Latest
 
-Two SturdyRef gauntlet stages for [endojs/endo-but-for-bots#1397 and #1398](https://github.com/endojs/endo-but-for-bots) were rebased onto the new #1396 tip, with bases moved and #1398's lint cleaned up. The minion.town CI Actions-runner gauntlet also completed cleanly. Several other SturdyRef-layer gauntlets (layer 2, layer 6, layer 7, layer 8) are mid-flight or halted on fix/panel stages and will need a look if they stall again, and the ironhorse panic-live-handle-reseat gauntlet remains halted after a declared fix failure.
+One PR panel claim completed this cycle: [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145) cleared its gauntlet panel round and moved to clean, alongside an improve-triager test-fix landing. Otherwise the board is dominated by in-flight SturdyRef-arc gauntlets (layers 1–8 on [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) still working through fix/panel rounds, with three halted on failed clean/fix stages needing a maintainer look. Two decisions are waiting on you directly: the M3 milestone fork between advancing [endojs/endo-but-for-bots#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) (after its #1348 prerequisite clears) or answering the four open questions on [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), and the minion.town MCP widening-past-garden2 proposal (dedicated principal + context-cost tooling scope). Also flagged: stale panel coverage on [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) and [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) after their heads moved post-review, a CI flake blocking [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)'s SES layer-2 gauntlet, and a parallel orchestration (retire-gardener-worker-kind-alias-env-fallback-split) that completed with one child failure now parked for promotion.
 
 ## Parked for maintainer feedback
 
@@ -129,12 +129,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #77 (first seen 2026-09-30T04:37:42Z, latest 2026-10-01T01:02:54Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 77 times; this is ONE
-> coalesced notice that updates in place, not 77 messages. Latest detail:
+> WATCHDOG notice — occurrence #78 (first seen 2026-09-30T04:37:42Z, latest 2026-10-01T01:08:16Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 78 times; this is ONE
+> coalesced notice that updates in place, not 78 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=15424s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1340](https://github.com/endojs/endo-but-for-bots/pull/1340)#discussion_r4149165593 (age=15724s; heartbeat=full-poll)
 
 - `retire-gardener-worker-kind-alias-split-resume-terminal-complete` — from orchestrator:retire-gardener-worker-kind-alias-split-resume-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-split-resume-terminal-complete.md)
 
@@ -179,11 +179,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-09-30T20:43:07Z, cleared 2026-10-01T00:47:48Z).
-> It was observed 8 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #9 (first seen 2026-09-30T20:43:07Z, latest 2026-10-01T01:07:35Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 54 of 784 clone(s) on consecutive ticks.
 
 - `retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures` — from orchestrator:retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/retire-gardener-worker-kind-alias-env-fallback-split-terminal-complete-with-failures.md)
 
@@ -342,13 +342,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 44.0M | $353.99 _(notional, rate-card)_ | 17% of 256.0M (ok) |
+| Claude | 44.6M | $359.19 _(notional, rate-card)_ | 17% of 256.0M (ok) |
 | Codex | 17.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 137003835 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
+worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (14)
@@ -371,17 +371,17 @@ worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer5-captp-wire-20260930-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1394
 - [`ebfb-petname-path-only-sweep-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-sweep-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1393
-- [`improve-triager-test-git-shim-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-triager-test-git-shim-resolution.md) — ---
+- [`build-ci-minion-town-actions-runner-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ci-minion-town-actions-runner-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #145
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #774
 - [`improve-isolate-uncalibrated-monk-pool`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-isolate-uncalibrated-monk-pool.md) — ---
 
-### tada (10162)
+### tada (10163)
+- [`improve-triager-test-git-shim-resolution`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/improve-triager-test-git-shim-resolution.md) — Cost
 - [`build-ci-minion-town-actions-runner-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/build-ci-minion-town-actions-runner-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1397-1398-sturdyref-rebase-bases`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/endojs-endo-but-for-bots-pr1397-1398-sturdyref-rebase-bases.md) — Report: #1397/#1398 restacked onto the new #1396 tip, bases moved, #1398 lint...
 - [`build-accountant-arc-apportionment`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/build-accountant-arc-apportionment.md) — Cost
 - [`ebfb-petname-path-only-sweep-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/ebfb-petname-path-only-sweep-gauntlet-panel-6.md) — Cost
-- [`endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/01/endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet.md) — gauntlet endojs-endo-but-for-bots-ironhorse-panic-live-handle-reseat-gauntlet...
-- … and 10157 more
+- … and 10158 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
