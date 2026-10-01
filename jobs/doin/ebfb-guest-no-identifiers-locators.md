@@ -17,3 +17,13 @@ Scope:
 - Tests: assert the guest no longer exposes these methods, and that the #1371 escalation (guest storing a prompt-borne host id) is impossible.
 - Breakage ledger: enumerate in the PR body every in-repo caller/test/design that relied on guest identifiers or locators, and for each say how it is recovered (sturdy refs — see the in-flight `ebfb-sturdyref-layer*` stack — pet-name paths per #1390, or host-mediated) or left as a named follow-up. Do NOT silently keep a guest escape hatch. Note the in-flight Minion Town guest-locator federation campaign (orchestration `endo-minion-town-guest-locator-federation`, design PR #1332) as a known affected consumer; flag the conflict in the PR body rather than resolving it unilaterally.
 - Changeset per affected published package.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T05:45:57Z
