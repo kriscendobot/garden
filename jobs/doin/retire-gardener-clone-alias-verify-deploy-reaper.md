@@ -18,3 +18,13 @@ Suites for THIS child: deploy-garden, reaper-requeue-cap, reaper-live-handler-gu
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-01T00:03:02Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-01T00:27:21Z
