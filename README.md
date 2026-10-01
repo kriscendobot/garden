@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-01T13:03:53Z_
+_As of 2026-10-01T13:07:14Z_
 
 ## Latest
 
-Several gauntlets kept moving: [endojs/endo-but-for-bots#1408](https://github.com/endojs/endo-but-for-bots/pull/1408) cleaned CI-green on the rerun with no code changes needed and is now into another panel round, while [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) landed its fourth fix round green and has moved on to a fifth panel round. [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) and [endojs/endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) both got claimed for clean/fix work. A new `improve-dependabot-primary-quota` job was posted to todo.
+Three gauntlets reached CI-green cleanly today: [endojs/endo-but-for-bots#1408](https://github.com/endojs/endo-but-for-bots/pull/1408) (Claude sandbox bwrap slice), and the sturdyref sweep continues advancing in parallel across layers 1–8 ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)), with layer 5 ([#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) now at UNDRAFT. Two review budgets hit their cap without converging and want human eyes: the petname path-only sweep PR and the Ironhorse panic/host-call PR, both left CI-green after 6 panel/fix rounds. A sturdyref layer-1 fix round doom-parked after an unclassified failure, and the `#1340` gauntlet is also stalled on a fix round, with the foreman flagging that `#1340`'s design has four open questions blocking its build.
 
-Worth flagging: the arc-completion press caught that [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/issues/1403) (phase 1 of the Claude inference-backends design) went CI-green and clean but never got an auto-staged gauntlet, likely due to a probe-exemption false match — it's sitting un-reviewed and blocking phase 2's build job, which has been queued unclaimed for ~4 hours while the leader's monks stay saturated and two other hosts are drained. Also unresolved: a rolling-deploy canary on oros-studio-garden-ce242c49 is stuck/failed after 3 retries and needs a manual look, and the accountant's parked budget-conversation proposal and the minion.town MCP principal/scope decisions are both still awaiting a maintainer reply.
+The notable gap: builder completion for [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) (phase 1 of the Claude inference-backends design) never auto-staged a gauntlet, so it's sat CI-green and draft with no review path for hours, also blocking phase 2's build in `doin`. Also open: a rolling-deploy canary on oros-studio-garden has failed validation 2 times and halted automatically pending investigation, and a separate canary there has been stuck mid-deploy for over 6 hours.
 
 ## Parked for maintainer feedback
 
@@ -223,10 +223,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.4M | $894.01 _(notional, rate-card)_ | 46% of 256.0M (ok) |
+| Claude | 117.5M | $894.97 _(notional, rate-card)_ | 46% of 256.0M (ok) |
 | Codex | 18.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 135348727 tokens/day lower bound._
+_Fleet token-unlock pace: 136281060 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.107547s/45s (/home/kris/garden/.garden-state/monitors/monk-1/journal); 1 open notice(s); checker healthy
