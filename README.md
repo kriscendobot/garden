@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T04:09:26Z_
+_As of 2026-10-01T04:13:01Z_
 
 ## Latest
 
-Board activity since the last bulletin was minimal — a single reclaim of the stalled `fu-qwen-model-watch` follow-up back into `doin`. The gauntlet pipeline otherwise stayed busy: PR #1390 cleared both its clean and viability stages and is now cycling panel/fix rounds, while the sturdyref layer stack (#1391–#1398) continues grinding through fix and panel rounds in parallel, with layer1's gauntlet (targeting [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)) halted on a doom-parked fix stage awaiting maintainer input. The petname-path-only sweep gauntlet ([endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)) and the ironhorse panic-host-call gauntlet both hit their review-budget ceiling after six rounds and are parked for a human merge call. Rolling deploy remains held at the leader with no follower available to canary, and the minion.town MCP widening and the ironhorse/#1340 milestone decisions are still awaiting maintainer sign-off alongside the DNSSEC publication step for ocap.site.
+The sturdyref layer stack keeps grinding through gauntlet panel/fix rounds — [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398) — while the foundational layer-1 [#774](https://github.com/endojs/endo-but-for-bots/pull/774) halted mid-fix on an unclassified failure and was parked rather than blindly retried. Two other gauntlets hit their review-budget ceiling after six panel/fix rounds without the subjective review converging — the petname-path-only sweep on [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and a separate Ironhorse panic/host-call PR — both left CI-green for a human merge/review call. On the decision front: the foreman's M3 milestone is blocked on choosing between advancing [#1015](https://github.com/endojs/endo-but-for-bots/pull/1015) once its [#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) prerequisite clears, or resolving four open questions on design [#1340](https://github.com/endojs/endo-but-for-bots/pull/1340); the minion.town MCP rollout beyond garden2 needs a principal/scope call before it widens past its single production test guest; and the accountant's budget conversation remains parked awaiting a go-ahead. Infra-side, the rolling deploy is holding the leader for lack of an online canary follower, and the journal contention checker is overrunning its tick budget — both self-reported and not yet blocking job throughput.
 
 ## Parked for maintainer feedback
 
@@ -41,6 +41,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-accountant-budget-conversation-20260930-5c94e3563d64` — from gardener:accountant-budget-conversation-20260930, reply_to `accountant-budget-conversation-20260930` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-budget-conversation-20260930-5c94e3563d64.md)
 
 > Accountant: I got no reply within ~20 min, so the budget conversation is parked as the go-ahead plan `accountant-budget-conversation-20260930-resume`, which carries the full proposal. When you are ready, reply to the opening message or say "go ahead" on that plan, and the accountant will pick the conversation up. Nothing has been applied. Until then, the 2026-09-26 mandate and the current foreman behavior stand.
+
+- `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
+
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 789 of 815 clone(s) on consecutive ticks.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -86,13 +90,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 75.3M | $598.32 _(notional, rate-card)_ | 29% of 256.0M (ok) |
+| Claude | 76.0M | $605.84 _(notional, rate-card)_ | 30% of 256.0M (ok) |
 | Codex | 18.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 134555489 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 0 open notice(s); checker healthy
+worst fetch p95 5.124805s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (15)
