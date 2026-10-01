@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T02:22:15Z_
+_As of 2026-10-01T02:34:27Z_
 
 ## Latest
 
-The board transitions since the last bulletin are minimal — only one new post, `improve-scheduler-tempfail-preflight`, which proposes preflight handling for transient scheduler failures. The gauntlet machinery stayed busy across the SturdyRef OCapN stack: layer3 (pass-style) and layer4 (marshal) are mid fix-rounds, layer1 (shim-build, [endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774)) and layer6 (CapTP construct, [endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)) are starting fresh fix rounds, and layer5 (CapTP wire, [endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394)) has both a fix round and a panel round in flight. Two sibling gauntlets halted and need maintainer disposition: layer2 (SES, [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) after a fix-round failure despite CI going green on all but one flaky macOS leg, and layer7 (OCapN enliven) after a declared failed/declined fix outcome. The petname-path-only sweep on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) hit its 6-round review budget without converging and is left for a human merge decision, with outstanding follow-ups (refusal tests, property tests, a PR-body trim) still needing disposition. Separately, two PRs — [endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) and [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) — have moved heads since their last panel coverage and are flagged stale, awaiting an explicit "run the gauntlet" or a maintainer call. On infrastructure, the fleet is juggling an offline follower host (oros-studio) blocking rolling-deploy canaries, a budget-level throttle easing endolin's monk count, and several now-cleared journal-contention blips.
+The SturdyRef cross-layer sweep continued to dominate activity, with gauntlet fix/panel rounds still churning across layers 1 through 8 ([endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)); two of those gauntlets halted on a failed gated stage (layer 2 SES, layer 8 daemon-formula) and two others (petname-path-only-sweep, ironhorse panic-host-call) hit their 6-round review budget without converging, leaving them parked for a human merge call. The petname-path-only sweep is still being worked in parallel threads against [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), with fresh panel/fix rounds queued and a follow-up list (missing refusal/strict-stub tests, property tests, a summary comment, PR-body trim) awaiting disposition. Elsewhere, the retire-gardener-worker-kind-alias cleanup orchestration completed with one child failure (the clone-alias verify/deploy/reaper job stalled and was parked for a human promote), and the garden book was republished with two new chapters. Operationally, host `oros-studio-garden-ce242c49` has been offline for a while, derotating its worker caps and blocking the leader's rolling deploy for lack of a canary — worth checking if that host is expected to be down.
 
 ## Parked for maintainer feedback
 
@@ -222,6 +222,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-30T22:38:06Z, latest 2026-10-01T02:32:05Z).
+> The SAME condition (`comment-provenance-gap-endolin-garden-ece02cb4`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
 > comment-provenance INSTRUMENTATION GAP on host endolin-garden-ece02cb4: a fleet `gh` comment was posted by an LLM-driven caller, but NEITHER GARDEN_JOB_MODEL NOR GARDEN_WORKER_KIND resolved — so the footer named only the host and garden commit (no model/harness/provider). This is the PR #1125 defect. The comment STILL posted (fail-open); nothing is broken. FIX: find the code path posting the comment and export the job facts (GARDEN_JOB_MODEL + GARDEN_WORKER_KIND) before its `gh` call, OR set GARDEN_NO_LLM=1 if it is a deterministic (no-LLM) post.
 
 - `msg-build-minion-town-mcp-garden2-workers-76b942035c1f` — from gardener:build-minion-town-mcp-garden2-workers, reply_to `build-minion-town-mcp-garden2-workers` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-minion-town-mcp-garden2-workers-76b942035c1f.md)
@@ -372,7 +376,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 56.9M | $448.65 _(notional, rate-card)_ | 22% of 256.0M (ok) |
+| Claude | 57.1M | $449.72 _(notional, rate-card)_ | 22% of 256.0M (ok) |
 | Codex | 17.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 135917384 tokens/day lower bound._
