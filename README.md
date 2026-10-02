@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T12:55:49Z_
+_As of 2026-10-02T12:58:35Z_
 
 ## Latest
 
-Several review-budget-exhausted PRs are now sitting ready for a human call: [endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414) and the ironhorse panic-reseat and panic-host-call-open-pr PRs each ran six panel/fix rounds with green CI but didn't converge subjectively, same for a broker-catalog-pruning build. Three gauntlets halted outright on a declined fix stage — the petname-path-only-sweep-3 PR, and the sturdyref layer3-pass-style and layer6-captp-construct PRs (#1392 territory) — plus a minion.town Actions-runner build (PR #145) whose clean stage failed. Two stale-panel-coverage notices need a review decision since the PRs moved past what was last reviewed: [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116).
-
-On infrastructure, host oros-studio-garden-ce242c49 has been offline for ~8 hours (heartbeat stale, sysop unresponsive, checkups piling up unclaimed) and needs someone at the physical machine; the leader is holding rolling deploy with no canary as a result, and endolin-garden2's deploy has stalled 16 commits behind main2 for about a day. Claude spend is at 93% of the weekly quota window. On the bright side, ocap.site's DNS/TLS recovery was confirmed clean after the earlier nameserver scare.
+Three gauntlets reached their review budget and are left green but unconverged for a human call: [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414), the ironhorse panic-live-handle-reseat and panic-host-call PRs, and the broker catalog-pruning build — plus the long-running [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) petname-path-only sweep, now on fix round 3 of a fourth sweep. Two gauntlets instead halted outright on a declined fix: the sturdyref layer3 pass-style work on [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) and the layer6 CapTP-construct slice, alongside a stale-panel notice on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (head moved since its last panel) and another on [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116). Fleet health is the bigger story: both Claude subscriptions are deep in backoff (endolin1 at 93% of quota, workers cut to 1; oros throttling between 2-3), oros-studio-garden-ce242c49 has been unreachable for hours with its sysop stuck and three health checkups sitting unclaimed, and the leader's rolling deploy is holding with no canary available as a result — a human is needed at the oros machine to confirm it's actually up.
 
 ## Parked for maintainer feedback
 
@@ -43,9 +41,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #141 (first seen 2026-09-30T23:36:06Z, latest 2026-10-02T11:53:08Z).
-> The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 141 times; this is ONE
-> coalesced notice that updates in place, not 141 messages. Latest detail:
+> WATCHDOG notice — occurrence #162 (first seen 2026-09-30T23:36:06Z, latest 2026-10-02T12:56:02Z).
+> The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 162 times; this is ONE
+> coalesced notice that updates in place, not 162 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every configured follower is OFFLINE or
 > operator-drained, so there is no canary to validate 2e8aedf5363a. The leader will
@@ -308,7 +306,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 237.7M | $1733.99 _(notional, rate-card)_ | 93% of 256.0M (ok) |
+| Claude | 237.8M | $1734.61 _(notional, rate-card)_ | 93% of 256.0M (ok) |
 | Codex | 20.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148375255 tokens/day lower bound._
