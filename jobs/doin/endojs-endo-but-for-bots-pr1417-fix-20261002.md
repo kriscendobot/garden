@@ -31,3 +31,13 @@ Push the fix, confirm CI is green (`ci-wait-merge.sh`), and this PR's gauntlet
 automatically — it's part of a 5-phase serial orchestration
 (`build-confined-application-makers-orch-20261002`) that halts on any child
 failure, so clearing this unblocks the rest of the stack.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T17:57:38Z
