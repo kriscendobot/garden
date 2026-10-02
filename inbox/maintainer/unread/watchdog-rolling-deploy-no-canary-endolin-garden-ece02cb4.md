@@ -1,14 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:rolling-deploy
-sent_at: 2026-10-02T10:53:06Z
+sent_at: 2026-10-02T11:53:08Z
 watchdog_key: rolling-deploy-no-canary-endolin-garden-ece02cb4
-notice_count: 121
+notice_count: 141
 first_seen: 2026-09-30T23:36:06Z
-last_seen: 2026-10-02T10:53:06Z
+last_seen: 2026-10-02T11:53:08Z
 ---
-WATCHDOG notice — occurrence #121 (first seen 2026-09-30T23:36:06Z, latest 2026-10-02T10:53:06Z).
-The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 121 times; this is ONE
-coalesced notice that updates in place, not 121 messages. Latest detail:
+WATCHDOG notice — occurrence #141 (first seen 2026-09-30T23:36:06Z, latest 2026-10-02T11:53:08Z).
+The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 141 times; this is ONE
+coalesced notice that updates in place, not 141 messages. Latest detail:
 
 Rolling deploy is HOLDING the leader: every configured follower is OFFLINE or
 operator-drained, so there is no canary to validate 2e8aedf5363a. The leader will
