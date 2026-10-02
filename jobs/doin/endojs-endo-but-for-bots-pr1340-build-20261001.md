@@ -30,3 +30,13 @@ archive/bundle/tree-read-powers mechanics the design spells out in detail.
 Implement exactly what the design landed, not a reinterpretation of the
 summary above — read the full design doc in the repo, it has more detail
 than fits here.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T16:36:55Z
