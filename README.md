@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T07:01:47Z_
+_As of 2026-10-02T07:07:25Z_
 
 ## Latest
 
-Several gauntlets ran out their review budget overnight on green CI and now sit ready for a human merge call: [endo-but-for-bots#1125 split-stack](https://github.com/endojs/endo-but-for-bots/pull/1125)'s sibling work via the broker-catalog-pruning and ironhorse panic-reseat/host-call gauntlets, plus [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path sweep). Two fixer gauntlets halted outright on a declined fix and need a maintainer look: [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref layer-3 pass-style) and [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (sturdyref layer-6 CapTP construct), alongside a bwrap-sandbox build gauntlet that also stalled on a failed fix stage.
-
-Two PRs drifted past their last panel review and need fresh eyes before anything further runs: [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116). Fleet health is otherwise routine churn — a few hosts flapping offline/online (oros-studio, with budget and worker-derotation following along), rolling-deploy holds for lack of a canary, and the ocap.site DNS recovery confirmed clean. The accountant's budget-overrun conversation is still parked awaiting your authorization, and the proxy flagged a mandate-ranking question as beyond its own authority for the same reason.
+One gauntlet fix round completed for [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414) and a new daily progress-summary job was queued; otherwise the board is steady at one active claim with a long backlog of panel/fix rounds (including the big sturdyref and petname-path series) still parked for processing. The maintainer inbox remains the main item worth attention: several gauntlets have hit their review-budget ceiling or halted outright and are waiting on a human merge/review call, most notably [endojs/endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/pull/1125)'s ironhorse-panic slices, the broker-catalog-pruning build, and the halted petname-path-only-sweep-3 and sturdyref layer3/layer6 fix rounds — plus two stale-panel-coverage notices on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) where the head moved past the last reviewed commit.
 
 ## Parked for maintainer feedback
 
@@ -272,16 +270,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 219.1M | $1620.98 _(notional, rate-card)_ | 86% of 256.0M (ok) |
-| Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 219.1M | $1620.09 _(notional, rate-card)_ | 86% of 256.0M (ok) |
+| Codex | 19.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148037348 tokens/day lower bound._
+_Fleet token-unlock pace: 148092439 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (32)
+### todo (33)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
@@ -306,6 +304,7 @@ worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`endojs-endo-but-for-bots-pr1402-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1402-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1402
 - [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1393
 - [`ebfb-774-pr-body-refresh-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-774-pr-body-refresh-20261001.md) — Update the PR #774 description (endojs/endo-but-for-bots)
+- [`daily-progress-summary-20261002-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261002-070505.md) — Daily midnight Pacific progress summary
 - [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1407
 - [`endojs-endo-but-for-bots-pr1348-8333ce11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1348-8333ce11.md) — attention directive on endojs/endo-but-for-bots PR #1348
 - [`accountant-budget-conversation-20260930-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-budget-conversation-20260930-resume.md) — Deliberate overrun decomposition for accountant-budget-conversation-20260930-...
@@ -315,17 +314,16 @@ worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6-pr-write`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6-pr-write.md) — PR-write handoff for endojs/endo-but-for-bots#1392 (gauntlet fix round 6)
 - [`ebfb-petname-path-only-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1412
-- [`endojs-endo-but-for-bots-pr1414-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1414-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1414
 
-### tada (10391)
+### tada (10392)
+- [`endojs-endo-but-for-bots-pr1414-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1414-gauntlet-fix-1.md) — Gauntlet FIX round 1: endojs/endo-but-for-bots#1414
 - [`oros-health-watch-20261002-053541`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/oros-health-watch-20261002-053541.md) — Cost
 - [`endojs-endo-but-for-bots-pr1414-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1414-gauntlet-panel-1.md) — Cost
 - [`ebfb-1391-post-panel-5-verdict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/ebfb-1391-post-panel-5-verdict.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1412-gauntlet-panel-1.md) — Cost
-- [`build-endo-claude-broker-catalog-pruning-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/build-endo-claude-broker-catalog-pruning-gauntlet.md) — gauntlet build-endo-claude-broker-catalog-pruning-gauntlet — review budget re...
-- … and 10386 more
+- … and 10387 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
