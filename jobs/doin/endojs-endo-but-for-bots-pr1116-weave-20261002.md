@@ -19,3 +19,13 @@ Rebase the head onto current live `llm`, resolving the `designs/README.md`
 keep the net design content otherwise unchanged. Force-push with lease. Once
 CI is green on the woven head, post a fresh conductor job to merge (the
 maintainer approval remains effective unless dismissed).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T00:24:18Z
