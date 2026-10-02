@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T14:47:11Z_
+_As of 2026-10-02T14:52:40Z_
 
 ## Latest
 
-Three gauntlets hit their review budget and parked for human merge/review decisions rather than converging on their own: [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path sweep), the ironhorse panic-live-handle-reseat PR, and the ironhorse panic-host-call PR all completed six panel/fix rounds with CI green but unresolved review. Two other gauntlets halted outright on a declined fix: the sturdyref layer-3 pass-style PR ([#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) and the sturdyref layer-6 captp-construct PR. Two PRs' panel coverage went stale after new commits landed and need a fresh maintainer-requested review pass: [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [#1116](https://github.com/endojs/endo-but-for-bots/pull/1116). Fleet health is otherwise the main story: oros-studio-garden-ce242c49 has been unreachable for hours (offline heartbeat, unclaimed health-checkup jobs, an unacked sysop op), the leader's rolling deploy is holding with no canary available as a result, and claude-endolin1 is now in spend backoff at 96% of its weekly Claude quota.
+Board activity was minimal since the last bulletin — the only transition was a fresh `oros-health-watch` checkup posted to `todo`, part of the ongoing automated monitoring of `oros-studio-garden-ce242c49`, which remains offline and unreachable. A person needs to check that machine directly: its heartbeat has been stale for roughly seven hours, its sysop isn't ticking so no remote bus op can help, and three health checkups are sitting unclaimed because of it — someone should confirm the Mac is awake and the garden container is running there. Separately, Claude spend is at 96% of the weekly quota with the endolin leader host already backed off to 1 monk worker, so throughput will be thin until the reset. Several gauntlets (`ebfb-petname-path-only-sweep-3`, the ironhorse panic-handle and panic-host-call PRs, `build-endo-claude-broker-catalog-pruning`) hit their review-round budget without converging and are parked for a human merge/review call, while a few others (`build-endo-claude-backends-1357`, two `ebfb-sturdyref` layer PRs) halted outright on a declined fix stage and need a maintainer look. Two PRs — [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) — moved heads after their last panel pass and are flagged as needing fresh review before any merge decision.
 
 ## Parked for maintainer feedback
 
@@ -306,16 +306,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 244.6M | $1786.34 _(notional, rate-card)_ | 96% of 256.0M (ok) |
+| Claude | 244.8M | $1786.92 _(notional, rate-card)_ | 96% of 256.0M (ok) |
 | Codex | 20.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148503113 tokens/day lower bound._
+_Fleet token-unlock pace: 148557711 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.549305s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (36)
+### todo (37)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
@@ -323,6 +323,7 @@ worst fetch p95 2.549305s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`build-endo-claude-pinned-cli-bump-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-pinned-cli-bump-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1406
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`claude-on-minion-town-press-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261002-142006.md) — Press the Claude-on-minion.town arc forward
+- [`oros-health-watch-20261002-145009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261002-145009.md) — ---
 - [`endojs-endo-but-for-bots-pr1340-conduct-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-conduct-20261001.md) — Conduct endojs/endo-but-for-bots#1340 (un-draft and merge)
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`minion-town-pr146-use-upstream-endo-cancel`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr146-use-upstream-endo-cancel.md) — Fix kriscendobot/minion.town PR #146: depend on upstream @endo/cancel, drop t...
