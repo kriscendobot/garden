@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T17:35:10Z_
+_As of 2026-10-02T17:37:21Z_
 
 ## Latest
 
-Board movement since the last bulletin was minimal: `build-confined-application-makers-p2-20261002` reopened in `todo` after its prior claim, and a new `claude-on-minion-town-press-20261002-172007` job was posted to push the Claude-on-minion.town arc forward.
-
-Otherwise the inbox is dominated by routine fleet noise — mostly RECOVERED journal-contention clears, a cleared comment-ack-blind condition, and the usual budget-level/worker-derotate chatter — with a few items actually worth a look: oros-studio-garden-ce242c49 remains unreachable (sysop dead since ~05:45Z, several health-checkup jobs stuck unclaimed in `todo`, needs a person at the machine), endolin-garden2's root-repo deploy has stalled ~16 commits behind `main2` for about a day, and Claude spend is now at 100% of the weekly quota. Several gauntlets hit their review-budget ceiling awaiting a merge/review call, including [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep) and the two ironhorse-panic PRs; a few others halted outright pending a maintainer decision to close or regenerate, and two PRs ([#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) and [#1116](https://github.com/endojs/endo-but-for-bots/pull/1116)) have stale panel coverage after moving heads, so they need a fresh review before any gauntlet continues.
+Quota pressure dominated the window: the leader's Claude subscription sits at 100% of its 256M-token weekly allotment, with monk capacity throttled down to 1 as spend chases the cap, and a handful of gauntlets hit their 6-round review budget without converging — [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname path-only sweep), the ironhorse panic-reseat and host-call-open-pr PRs, and a broker catalog-pruning PR — all left green and improved but parked for a human merge call. A couple of gauntlets also halted outright on declared fix failures and need a maintainer look rather than a retry: the guest-no-identifiers-locators work, the sturdyref layer-3 and layer-6 builds, and the claude-sandbox bwrap-slice PR. Several stale-panel-coverage notices flagged PRs whose heads moved past their last reviewed commit — [endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340), [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), and [#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) — each needs either an explicit "run the gauntlet" or a manual review decision. Separately, the oros-studio host has been unreachable for roughly 11 hours (heartbeat stale, sysop not ticking, health-checkup jobs piling up unclaimed), and the leader's own `garden2` root checkout has stalled 16 commits behind main2 for about a day; both need a person at the machine. On the brighter side, DNS for ocap.site recovered cleanly after the earlier nameserver scare, and the board itself is calm — no new journal-contention problems, just routine churn across the usual gauntlet queue.
 
 ## Parked for maintainer feedback
 
@@ -345,10 +343,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 255.2M | $1843.17 _(notional, rate-card)_ | 100% of 256.0M (ok) |
+| Claude | 255.2M | $1843.47 _(notional, rate-card)_ | 100% of 256.0M (ok) |
 | Codex | 20.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148443394 tokens/day lower bound._
+_Fleet token-unlock pace: 148503076 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 0 open notice(s); checker healthy
