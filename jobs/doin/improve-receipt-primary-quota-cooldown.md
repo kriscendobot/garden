@@ -11,6 +11,7 @@ Detect primary quota before the generic transient path, request `api_primary_quo
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-02T21:13:03Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
