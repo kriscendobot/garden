@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T05:56:15Z_
+_As of 2026-10-02T06:02:31Z_
 
 ## Latest
 
-Panel round 6 completed on [endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) (broker catalog pruning) and fix round 6 is now queued, so that gauntlet grinds on. The review on [minion.town#146](https://github.com/kriscendobot/minion.town/pull/146) (use upstream @endo/cancel) closed out, with a follow-up fix job now posted to drop the temporary shim it was reviewing against. Otherwise mostly churn: one job-board index entry added, no new completions beyond the two above. The maintainer inbox is heavy with routine watchdog noise (rolling-deploy canary/host-offline on oros-studio-garden, several journal-contention RECOVERED notices) that's mostly self-clearing, plus the ocap.site DNS recovery check confirming the zone is back to AWS nameservers and serving correctly — nothing there needs action beyond what's already logged in memory.
+Several gauntlets ran their full six panel/fix rounds without converging and were left for human review: [endo-but-for-bots#1125 split-stack](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-3.md) sweep-3 work, the IronHorse panic-live-handle-reseat and panic-host-call open-PR gauntlets, and a few others logged above budget. Three gauntlets halted outright after a fix round was explicitly declined — `build-endo-claude-sandbox-bwrap-slice`, `ebfb-sturdyref-layer3-pass-style` (round 6), and `ebfb-sturdyref-layer6-captp-construct` (round 6) — and will need a maintainer look rather than another retry. Separately, [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) moved past its last panel-reviewed head (`7f2207af` → `e70a9604`), so its prior review no longer covers the current diff and a fresh panel pass is needed before any merge decision. The `ocap.site` DNS rollback was confirmed recovered (correct Route53 nameservers, site serving again, zone unsigned as expected). Infrastructure-wise, host `oros-studio-garden-ce242c49` has gone heartbeat-stale for over 30 minutes, holding the rolling deploy with no canary available, and the root checkout on `endolin-garden2` is stalled 16 commits behind `origin/main2` — both worth a look if deploys seem stuck.
 
 ## Parked for maintainer feedback
 
@@ -69,12 +69,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #22 (first seen 2026-10-02T02:04:19Z, latest 2026-10-02T05:54:38Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 22 times; this is ONE
-> coalesced notice that updates in place, not 22 messages. Latest detail:
+> WATCHDOG notice — occurrence #23 (first seen 2026-10-02T02:04:19Z, latest 2026-10-02T05:59:34Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 23 times; this is ONE
+> coalesced notice that updates in place, not 23 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#issuecomment-5944024654 (age=14969s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#issuecomment-5944024654 (age=15269s; heartbeat=full-poll)
 
 - `ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached.md)
 
@@ -231,7 +231,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 211.5M | $1558.34 _(notional, rate-card)_ | 83% of 256.0M (ok) |
+| Claude | 212.7M | $1572.45 _(notional, rate-card)_ | 83% of 256.0M (ok) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148028696 tokens/day lower bound._
