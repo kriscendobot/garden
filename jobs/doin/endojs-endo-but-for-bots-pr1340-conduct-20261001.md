@@ -23,3 +23,13 @@ panel does not block the merge.
 
 The "build" half is the parked job `endojs-endo-but-for-bots-pr1340-build-20261001`
 (blocked_on this job), which unblocks once this one reaches `tada/`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T16:30:09Z
