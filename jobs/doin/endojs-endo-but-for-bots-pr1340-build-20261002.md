@@ -38,3 +38,13 @@ summary above — read the full design doc in the repo, it has more detail
 than fits here.
 
 **Successor note (2026-10-02):** predecessor `endojs-endo-but-for-bots-pr1340-build-20261001` was promoted while design PR #1340 was still OPEN/unmerged (conduct job not yet in tada/) and with too small a session budget for the implementation; it handed off to this job, gated on the conductor. Start only after #1340 has merged into llm; read the merged design from llm.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T16:50:42Z
