@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-01T23:55:06Z_
+_As of 2026-10-02T00:01:41Z_
 
 ## Latest
 
-The main motion since the last bulletin was the gauntlet on [endo-but-for-bots#1412](https://github.com/endojs/endo-but-for-bots/pull/1412) (build-endo-claude-backends-1357-open-pr-gauntlet), which halted at the clean stage because CI is still red on an unrelated leg. Two jobs also moved into progress: the accountant's resumed budget-conversation review, and fix round 6 on the ironhorse panic live-handle-reseat gauntlet for [endo-but-for-bots#1380](https://github.com/endojs/endo-but-for-bots/pull/1380). A fresh review directive landed for [endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348), needing attention.
-
-Otherwise the inbox is mostly fleet noise worth a glance rather than action: the leader is still waiting on an offline follower (oros-studio-garden-ce242c49) to resume as a canary, two journal clones have crossed the 1000-pack warning threshold with remediation deferred, and the root checkout on endolin-garden2 is 16 commits behind and stalled. Three gauntlets (ebfb-petname-path-only-sweep-3, ebfb-sturdyref-layer3-pass-style, ebfb-sturdyref-layer6-captp-construct, and the ironhorse-panic-host-call PR) have also hit their review-budget/halt limits and are parked for a human merge or close decision.
+Two new gauntlet-finalization jobs were posted to carry endojs/endo-but-for-bots PRs through to merge once reviewed: [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) and [endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) both have conduct jobs queued alongside their standing review directives. Otherwise the board is churning through its usual heavy gauntlet backlog (panel/fix rounds across #1340, #1390, #1391, #1397, #1403, #1407, #1409, and others), with a few gauntlets halting on real blockers worth a look: the [endo-but-for-bots#1412](https://github.com/endojs/endo-but-for-bots/pull/1412) build stayed red on an unrelated CI leg, and both sturdyref-layer stacks (layers 3 and 6) halted after repeated fix failures and need a human call. The fleet itself is showing some strain — oros-studio-garden-ce242c49 has been flapping offline/online (stalling canary rollout and worker leveling), and the leader's root-repo deploy on endolin-garden2 is stuck 16 commits behind with no explanation yet.
 
 ## Parked for maintainer feedback
 
@@ -14,11 +12,11 @@ Otherwise the inbox is mostly fleet noise worth a glance rather than action: the
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 14d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 20d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 28d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 30d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 30d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 30d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 31d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 30d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 30d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 33d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
@@ -144,7 +142,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 180.4M | $1358.49 _(notional, rate-card)_ | 70% of 256.0M (ok) |
+| Claude | 180.7M | $1360.25 _(notional, rate-card)_ | 71% of 256.0M (ok) |
 | Codex | 19.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 134999202 tokens/day lower bound._
@@ -153,10 +151,12 @@ _Fleet token-unlock pace: 134999202 tokens/day lower bound._
 worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (27)
+### todo (29)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`endojs-endo-but-for-bots-pr1343-review-5933a851`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-review-5933a851.md) — Review directive on endojs/endo-but-for-bots PR #1343
+- [`endojs-endo-but-for-bots-pr1343-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1343-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1343
+- [`endojs-endo-but-for-bots-pr1116-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1116-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1116
 - [`endojs-endo-but-for-bots-pr1116-review-d33d67ff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1116-review-d33d67ff.md) — Review directive on endojs/endo-but-for-bots PR #1116
 - [`fix-oros-heartbeat-canary-drain-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-oros-heartbeat-canary-drain-20261001.md) — ---
 - [`ebfb-petname-path-only-sweep-4-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1390
