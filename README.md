@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T09:11:48Z_
+_As of 2026-10-02T09:14:31Z_
 
 ## Latest
 
-Round 3 of the panel landed on [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414), which is now mid fix round 3. Separately, the Claude-on-minion.town completion press reported in: [#1408](https://github.com/endojs/endo-but-for-bots/pull/1408) is halted after fix round 5 pushed both required panel changes, but CI shows red only on known flakes (the `@endo/cli` exit-leak test and a cancelled Codeberg clone for `test-ocapn-guile-interop`) — it needs a manual rerun of those checks and a gauntlet re-stage; [#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) is green at its head and sitting at its review budget after six panel/fix rounds, ready for a human merge call. The fleet is thin right now — oros has been offline since ~05:46Z, garden2 is operator-drained, and endolin dropped to a single monk — so the arc backlog (nine claimable jobs, one panel stage waiting ~16h) is capacity-starved rather than stalled; raising worker capacity is a maintainer call.
+Several gauntlets hit the 6-round review-budget ceiling without converging and now sit improved-but-unmerged for a human call: [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (ebfb-petname-path-only), the ironhorse panic-handling PRs tracked as [#1379](https://github.com/endojs/endo-but-for-bots/pull/1379)-family work, and the Claude broker-catalog-pruning build. Three other gauntlets halted outright on a declined fix stage and need a maintainer disposition rather than another retry: [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref layer 3) and the sturdyref layer-6 CapTP-construct PR, plus a stalled clean stage on the Claude backends-1357 build. Two PRs also carry stale panel coverage after their heads moved post-review — [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) — so their existing panel verdicts no longer cover the current commits; a fresh review is warranted before any merge decision.
+
+Elsewhere, ocap.site's DNS has fully recovered (nameservers and A record both resolving correctly via Route53 again), and the root checkout on host endolin-garden2 has been stalled 16 commits behind main2 for about a day and warrants a look. Claude token spend is at 88% of its weekly quota with about a day left in the window, so pacing is tight going into reset.
 
 ## Parked for maintainer feedback
 
@@ -107,16 +109,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` cleared on endolin-garden-ece02cb4.
-
-- `msg-claude-on-minion-town-completion-press-20261002-090507-ca054ab2deaf` — from gardener:claude-on-minion-town-completion-press-20261002-090507, reply_to `claude-on-minion-town-completion-press-20261002-090507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261002-090507-ca054ab2deaf.md)
-
-> Claude-on-minion.town arc completion press (09:10Z tick, [https://github.com/kriscendobot/garden/issues/89](https://github.com/kriscendobot/garden/issues/89)):
->
-> 1. build-endo-claude-sandbox-bwrap-slice-gauntlet ([https://github.com/endojs/endo-but-for-bots/pull/1408](https://github.com/endojs/endo-but-for-bots/pull/1408)) HALTED at 04:20Z. Its fix-5 stage pushed both must-fix panel items (head d266f8a841), but CI is red only on known flakes: test (24.x, macos-15) @endo/cli exit-leak and a cancelled test-ocapn-guile-interop (Codeberg clone). The bot cannot rerun Actions jobs and no restage job exists, so the PR sits until someone reruns those two checks and re-stages the gauntlet.
-> 2. build-endo-claude-broker-catalog-pruning-gauntlet ([https://github.com/endojs/endo-but-for-bots/pull/1409](https://github.com/endojs/endo-but-for-bots/pull/1409)) hit its review budget after 6 panel/fix rounds. CI is green at fe43422333, still draft: a human merge/review call.
-> 3. Carried: [https://github.com/endojs/endo-but-for-bots/pull/1407](https://github.com/endojs/endo-but-for-bots/pull/1407) still has two concurrent gauntlets (fix-2 and panel-1) on one head; ebfb-guest-designation-consumers-gauntlet-clean ([https://github.com/endojs/endo-but-for-bots/pull/1410](https://github.com/endojs/endo-but-for-bots/pull/1410)) is still doom-parked awaiting your promotion.
->
-> Context: the arc backlog (9 claimable jobs; the [https://github.com/endojs/endo-but-for-bots/pull/1406](https://github.com/endojs/endo-but-for-bots/pull/1406) panel-3 stage waiting ~16h; two arc-press dispatches unclaimed) is capacity-starved, not idle. oros has been offline since ~05:46Z (oros-health-watch already messaged you), garden2 is operator-drained, and endolin was leveled to 1 monk at 06:20Z, so the whole fleet is one worker. Whether to raise capacity is your call.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal.md)
 
@@ -291,7 +283,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 226.2M | $1662.67 _(notional, rate-card)_ | 88% of 256.0M (ok) |
+| Claude | 226.3M | $1663.19 _(notional, rate-card)_ | 88% of 256.0M (ok) |
 | Codex | 19.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 145160718 tokens/day lower bound._
