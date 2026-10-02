@@ -17,3 +17,13 @@ file is byte-identical to the approved head; designs/README.md carries the same
 index row, roadmap-table row, and totals note, re-based on llm's Cloudflare-pass
 totals (records 243 → 244). CI is green on 1fa38f6da0. PR base stays `llm`.
 Merge per the conductor brief (approval remains effective unless dismissed).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T00:51:48Z
