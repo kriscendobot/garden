@@ -571,6 +571,20 @@ sd_signal "$F1" "$TARGET"; : > "$DEPLOY_LOG"
 run_self_deploy "$F1" GARDEN_LEADER="" GARDEN_SELF_DEPLOY_ANCESTOR_CMD=/bin/false GARDEN_SELF_DEPLOY_STATE="$TR/sd-state-ahead"
 grep -q deploy-invoked "$DEPLOY_LOG" && bad "follower raced ahead of the last-known-good sha" || ok "leaderless follower HOLDS when target is ahead of last-known-good"
 
+# (d2) LEADERLESS + ROLL-INDUCED drain, target AHEAD of last-known-good → HOLDS and
+# KEEPS the drain. Lifting it and then holding returned a canary the conductor had
+# drained for failing validation to claiming work (oros, 2026-10-01 17:18Z).
+mkdir -p "$TR/sd-state-hold-rolldrain/deploy"
+printf 'Upgrade ready\n\navailable: %s\n' "$TARGET" > "$TR/sd-state-hold-rolldrain/deploy/upgrade-ready"
+printf 'draining\nset_by: %s\nsource: rolling-deploy\nreason: rolling-deploy: canary FAILED validation\n' "$LEADER" > "$TR/sd-state-hold-rolldrain/draining"
+: > "$DEPLOY_LOG"
+run_self_deploy "$F1" GARDEN_LEADER="" GARDEN_SELF_DEPLOY_ANCESTOR_CMD=/bin/false \
+  GARDEN_STATE="$TR/sd-state-hold-rolldrain" \
+  GARDEN_UPGRADE_READY_MARKER="$TR/sd-state-hold-rolldrain/deploy/upgrade-ready" || true
+if ! grep -q deploy-invoked "$DEPLOY_LOG" && [ -e "$TR/sd-state-hold-rolldrain/draining" ]; then
+  ok "leaderless follower that HOLDS keeps the roll-induced drain (no lift without a deploy)"
+else bad "leaderless follower lifted the roll-induced drain (or deployed) while holding ahead of last-known-good"; fi
+
 # (e) OPERATOR-DRAINED DECLINE: released but drained → publishes operator-drained, no deploy.
 push_change "deploy/roll/$F1" "$TARGET" "release F1 for drain-decline test"
 sd_signal "$F1" "$TARGET"; : > "$DEPLOY_LOG"

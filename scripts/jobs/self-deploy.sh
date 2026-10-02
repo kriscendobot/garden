@@ -208,22 +208,6 @@ if [ "$leaderless" -ne 1 ]; then
   exit 0
 fi
 
-if fleet_draining; then
-  if drain_is_roll_induced || drain_is_deploy_quiesce; then
-    # A roll-induced (or roll quiesce-for-deploy) drain with NO live conductor to lift it would strand this host
-    # forever (the very deadlock this daemon exists to prevent). Since it is provably
-    # the roll's own drain — never an operator's — the leaderless backstop clears it
-    # and proceeds under the headless canary gate below. An OPERATOR drain still holds.
-    "$HERE/drain-fleet.sh" off >/dev/null 2>&1 \
-      && log "leaderless fallback: cleared a stale ROLL-INDUCED drain (no live conductor to retry it) and proceeding under the headless gate" \
-      || log "WARN: leaderless fallback could not clear the stale roll-induced drain; holding"
-    fleet_draining && exit 0
-  else
-    log "leaderless fallback eligible but this host is operator-drained; holding (never self-deploy out from under an operator)"
-    exit 0
-  fi
-fi
-
 # Headless canary: never advance AHEAD of the last-known-good leader-validated sha.
 lkg="$(rdsha "$DIR/$GARDEN_DEPLOY_LEADER_SHA_PATH")"
 if [ -z "$lkg" ]; then
@@ -244,6 +228,26 @@ if [ $(( now - last )) -lt "$GARDEN_SELF_DEPLOY_RETRY_BACKOFF" ]; then
   log "leaderless headless deploy backing off ($(( now - last ))s < ${GARDEN_SELF_DEPLOY_RETRY_BACKOFF}s since last attempt)"
   exit 0
 fi
+if fleet_draining; then
+  if drain_is_roll_induced || drain_is_deploy_quiesce; then
+    # A roll-induced (or roll quiesce-for-deploy) drain with NO live conductor to lift it would strand this host
+    # forever (the very deadlock this daemon exists to prevent). Since it is provably
+    # the roll's own drain — never an operator's — the leaderless backstop clears it
+    # and proceeds with the headless deploy. An OPERATOR drain still holds. This runs
+    # only once the canary gate and backoff above have passed: lifting the drain and
+    # then HOLDING (target ahead of last-known-good) just returned a canary the
+    # conductor had drained for failing validation to claiming work (oros,
+    # 2026-10-01 17:18Z).
+    "$HERE/drain-fleet.sh" off >/dev/null 2>&1 \
+      && log "leaderless fallback: cleared a stale ROLL-INDUCED drain (no live conductor to retry it) and proceeding under the headless gate" \
+      || log "WARN: leaderless fallback could not clear the stale roll-induced drain; holding"
+    fleet_draining && exit 0
+  else
+    log "leaderless fallback eligible but this host is operator-drained; holding (never self-deploy out from under an operator)"
+    exit 0
+  fi
+fi
+
 printf '%s\n' "$now" > "$bo_file"
 do_deploy "leaderless-headless" "$target"
 exit 0
