@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T12:20:16Z_
+_As of 2026-10-02T12:22:12Z_
 
 ## Latest
 
-Little board motion this cycle: a single fix round landed and closed out on [endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414), whose gauntlet then reached its review budget (6 panel/fix rounds applied, CI green) and now awaits a human merge/review call. One gauntlet job (`ebfb-guest-no-identifiers-locators-gauntlet-fix-4`, PR #1404) moved from todo into doin and is in progress. Otherwise the maintainer inbox is dominated by routine watchdog chatter (journal contention clears, budget-level rebalancing, a recovered DNS check for ocap.site) and several other gauntlets similarly parked at their review-budget ceiling awaiting review.
+Quiet cycle on the board itself — no fresh posts, claims, or completions registered since the last bulletin — but the message queue shows the fleet grinding through several multi-round gauntlets that hit their review budget without converging, leaving PRs improved but awaiting a human merge call: [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414), the ironhorse panic-live-handle-reseat and panic-host-call-open-pr builds, and the Claude broker-catalog-pruning build all landed 6 panel/fix rounds with green CI but no subjective sign-off. Several other gauntlets outright halted on a declined fix stage and need a maintainer disposition: the ebfb-sturdyref layer3 and layer6 CapTP-construct lines, and the `build-endo-claude-backends-1357` and `build-endo-claude-sandbox-bwrap-slice` jobs. Two PRs also drifted past their last panel review — [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) — so their existing panel coverage no longer matches the current head and a fresh review is needed before merge.
+
+Infrastructure-wise, oros-studio-garden-ce242c49 has been offline for several hours (stale heartbeat, unclaimed health-checkup jobs, sysop not ticking), which is holding the leader's rolling deploy hostage for lack of a canary; this needs someone to check the physical machine. The Claude subscription for endolin-garden-ece02cb4 is also deep into its quota (93%, now in backoff with workers cut to 1), while most other watchdog conditions (journal contention, comment-ack blindness, canary flakiness) self-cleared during the window. The ocap.site DNS situation flagged earlier has also recovered cleanly, serving correctly through Route53 nameservers again.
 
 ## Parked for maintainer feedback
 
@@ -306,10 +308,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 237.1M | $1730.66 _(notional, rate-card)_ | 93% of 256.0M (ok) |
+| Claude | 237.1M | $1730.91 _(notional, rate-card)_ | 93% of 256.0M (ok) |
 | Codex | 20.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148240480 tokens/day lower bound._
+_Fleet token-unlock pace: 148293763 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 6.032334s/45s (/home/kris/garden/.garden-state/monks/2/journal); 0 open notice(s); checker healthy
