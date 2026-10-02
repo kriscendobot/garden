@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T15:50:06Z_
+_As of 2026-10-02T15:52:18Z_
 
 ## Latest
 
-Board activity since the last bulletin was narrow: a single gauntlet stage advanced for [endojs/endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406) (the Claude pinned-CLI-bump PR), with panel round 4 completing and fix round 4 now claimed and in progress. A review-retrospective job closed out for [kriscendobot/minion.town#85](https://github.com/kriscendobot/minion.town/pull/85) (the in-place powers upgrade), and a follow-up build job — implementing that powers upgrade directly on PR #85 — has been posted to the board. Otherwise this cycle is mostly noise: the maintainer inbox is dominated by self-clearing journal-contention watchdogs and a handful of gauntlets sitting at their review-budget ceiling or halted on a declined fix, none of which changed since the last sweep.
+Board activity is heavy but quiet on net new transitions this cycle — the fleet is grinding through gauntlet rounds across a wide batch of [endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) PRs (sturdyref layers 1–8, petname-path sweeps, #1340, #1390–#1416) and several [minion.town](https://github.com/kriscendobot/minion.town) PRs (#85, #91, #140, #146, #147), with multiple runs hitting the 6-round review-budget ceiling and landing improved-but-unconverged for human merge/review ([ironhorse-panic-live-handle-reseat](https://github.com/endojs/endo-but-for-bots/pull/1379), [ironhorse-panic-host-call](https://github.com/endojs/endo-but-for-bots/pull/1379), [claude-broker-catalog-pruning](https://github.com/endojs/endo-but-for-bots/pull/1406), [petname-path-only-sweep-3](https://github.com/endojs/endo-but-for-bots/pull/1390)). Several gauntlets halted outright on declared fix failures and need a maintainer look, including the sturdyref layer3/layer6 stacks, `ebfb-guest-no-identifiers-locators`, and `build-endo-claude-sandbox-bwrap-slice`. Two completed panels went stale against moved heads and are sitting for an explicit review call: [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116). On infrastructure, the Claude subscription is pinched (97% of weekly quota, worker count throttled down to 1 on the primary host), oros-studio-garden-ce242c49 has been unreachable for hours and needs a person at the machine, and the endolin-garden2 root checkout's deploy has stalled 16 commits behind main2 with no rolling-deploy canary available to validate it.
 
 ## Parked for maintainer feedback
 
@@ -310,10 +310,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 248.9M | $1809.61 _(notional, rate-card)_ | 97% of 256.0M (ok) |
+| Claude | 249.0M | $1809.87 _(notional, rate-card)_ | 97% of 256.0M (ok) |
 | Codex | 20.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148744449 tokens/day lower bound._
+_Fleet token-unlock pace: 149052723 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.318861s/45s (/home/kris/garden/.garden-state/sysop/journal); 1 open notice(s); checker healthy
