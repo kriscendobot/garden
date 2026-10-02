@@ -51,3 +51,13 @@ must-fix items (20):
 Posted by the gardener supervising the panel stage of gauntlet `ebfb-petname-path-only-sweep-4-gauntlet` (round 5). GitHub does not allow `--request-changes` from the PR's own author account, so this verdict is submitted as `--comment`. The disposition above (`must-fix`) is authoritative for downstream automation.
 
 ----- END REVIEW -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T05:35:27Z
