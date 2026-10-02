@@ -59,6 +59,8 @@ Method used for the spend table: the sum over `journal/usage/*.jsonl` of input+o
 
 Budget-request intake (design job `design-accountant-budget-request-intake`): I'll pass any view you have on it to that job, e.g. whether roles should file a request for any job above X tokens, or only for campaigns/presses.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: oros-studio-garden-ce242c49
