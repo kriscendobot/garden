@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T18:02:11Z_
+_As of 2026-10-02T18:10:33Z_
 
 ## Latest
 
-Fix work continues on [endojs/endo-but-for-bots#1417](https://github.com/endojs/endo-but-for-bots/pull/1417), now claimed into a fix round for its red lint/typecheck legs, while the panel on the [minion.town PR #146](https://github.com/kriscendobot/minion.town/pull/146) cancel-endo gauntlet wrapped round 3 and moved straight into a third fix round. The maintainer inbox is otherwise dominated by standing operational noise worth a glance rather than individual action: several gauntlets remain halted pending a human call (sturdyref layers 3/6, petname-path sweep 3, the confined-application-makers and claude-sandbox-bwrap builds), oros-studio-garden-ce242c49 is still unreachable after roughly 13 hours and needs someone at the physical machine, the endolin-garden2 root deploy has stalled 16 commits behind for about a day, and two `kriscendobot` comment-watchers (test262, vattr97) are reporting themselves possibly blind. Several review-budget-exhausted PRs are sitting green and ready for a merge/review decision, including the Ironhorse panic-handle-reseat and panic-host-call PRs and the claude-broker-catalog-pruning build.
+Several long-running gauntlets hit their 6-round review budget without converging and now sit improved but unmerged, awaiting a human call: [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path sweep), the [ironhorse panic live-handle-reseat](https://github.com/endojs/endo-but-for-bots/pull/1379) and [ironhorse panic host-call](https://github.com/endojs/endo-but-for-bots/pull/1379) lines, and the endo-claude broker-catalog-pruning build. A handful of others halted outright on a declined fix or failed clean stage and need maintainer disposition rather than another retry — the sturdyref layer3/layer6 chain, the guest-no-identifiers-locators work, and the confined-application-makers and endo-claude-sandbox-bwrap builds. Separately, PR [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) moved to a new head after its last panel pass, so its review coverage is stale and it needs a fresh panel round before any merge decision.
+
+Operationally, the fleet is stretched: Claude spend is at 101% of its weekly quota (backoff engaged), the `oros-studio-garden-ce242c49` host has been offline for over 12 hours and is holding up rolling-deploy canaries fleet-wide, and two comment-watchers (`kriscendobot-test262`, `kriscendobot-vattr97`) are reporting themselves blind and need a jq/gh check. The `endolin-garden2` root checkout is also stuck 16 commits behind `main2` with no deploy landing for about a day.
 
 ## Parked for maintainer feedback
 
@@ -57,7 +59,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_fork_watch_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_fork_watch_journal.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/fork-watch/journal: packs 1001 >= 1000; size=270393344B packs=1001 gc.log=0; automatic remedy=deferred-deadline.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_fork_watch_journal` has CLEARED (first seen 2026-10-02T17:41:09Z, cleared 2026-10-02T18:05:30Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_fork_watch_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden2-5bcdff64.md)
 
@@ -98,7 +104,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 10 of 1022 clone(s) on consecutive ticks.
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-02T17:51:26Z, cleared 2026-10-02T18:06:15Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -171,13 +181,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 257.9M | $1864.39 _(notional, rate-card)_ | 101% of 256.0M (backoff) |
-| Codex | 20.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 71% _(plan; codex-reported)_ |
+| Claude | 258.2M | $1865.74 _(notional, rate-card)_ | 101% of 256.0M (backoff) |
+| Codex | 20.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148663747 tokens/day lower bound._
+_Fleet token-unlock pace: 148814932 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 4 open notice(s); checker healthy
+worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (34)
