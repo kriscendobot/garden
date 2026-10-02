@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T20:50:13Z_
+_As of 2026-10-02T20:52:17Z_
 
 ## Latest
 
-Several gauntlets hit their review budget without converging and are parked for a human merge/review call: [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)-adjacent sturdyref work, the IronHorse panic-handling pairs (live-handle-reseat and host-call), and the Claude-broker catalog-pruning build — all applied 6 panel/fix rounds with CI green but no consensus. Several others HALTED outright on a failed/declined fix or clean stage and need a maintainer look rather than another retry: the sturdyref layer3 (pass-style) and layer6 (captp-construct) PRs, petname-path-only sweep 4, the guest-no-identifiers/locators work, the Claude sandbox bwrap slice, and the Claude backends #1357 build; a five-part confined-application-makers build orchestration also halted after its second phase came back doomed, leaving phases 3–5 parked. [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) moved to a new head after its last panel pass and needs re-review before any further gauntlet action.
+Several gauntlets reached their review-budget ceiling (six panel/fix rounds applied, CI green, no convergence) and now sit ready for a human merge call: [endo-but-for-bots#1097-area sturdyref work](https://github.com/endojs/endo-but-for-bots), the IronHorse panic-handling PRs (live-handle-reseat and host-call), and the Claude broker-catalog-pruning PR. Several other gauntlets halted outright on a declined fix stage and need a maintainer look rather than a retry: the petname-path-only sweep-4 and sturdyref layer3/layer6 PRs, the Claude sandbox bwrap-slice build, and the guest-no-identifiers/locators work. The `build-confined-application-makers` orchestration halted after its phase-2 child came back doomed, leaving phases 3–5 parked. Separately, PR [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) moved past its last panel review (new head `0088203`), so it needs re-review before any merge decision.
 
-On infrastructure: both the leader (endolin-garden-ece02cb4, 25 commits behind) and endolin-garden2 (16 commits behind) have stalled deploys that need to land — the leader note flags this as the mechanism that let stale directives run unattended in the past. Claude spend is at 103% of quota (backoff engaged); oros-studio-garden-ce242c49 has been unreachable for over half a day and needs hands-on attention (Docker Desktop/Mac sleep/VM). Two comment-watchers (kriscendobot-test262, kriscendobot-vattr97) are reporting likely-blind self-test failures, and a comment-provenance instrumentation gap is recurring on the leader host.
+On infrastructure: both the leader (`endolin-garden-ece02cb4`, 25 commits behind) and `endolin-garden2` (16 commits behind) have stalled deploys — the leader stall is more serious since it's holding back every singleton producer. `oros-studio-garden-ce242c49` has been offline ~15 hours and needs someone at the machine (Docker Desktop/Mac sleep/VM), which is also blocking rolling-deploy canaries fleet-wide. Claude spend is at 103% of its weekly quota window (backoff engaged).
 
 ## Parked for maintainer feedback
 
@@ -215,10 +215,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 263.8M | $1899.24 _(notional, rate-card)_ | 103% of 256.0M (backoff) |
+| Claude | 263.9M | $1899.48 _(notional, rate-card)_ | 103% of 256.0M (backoff) |
 | Codex | 20.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148834077 tokens/day lower bound._
+_Fleet token-unlock pace: 148854820 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
