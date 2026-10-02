@@ -341,8 +341,19 @@ SRC="$(mktemp)"; ERRF="$(mktemp)"; trap 'rm -f "$SRC" "$ERRF"; write_mention_hea
 # stderr so an absent jq/gh or an auth error is diagnosable, and a transient network
 # blip DEGRADES to a skipped tick instead of a die → systemd restart storm
 # (is_transient_net_error, shared with the comment/ci watchers via common.sh).
+# A live host-shared gh-api cooldown (e.g. a primary-quota latch) refuses every source
+# request NOT ISSUED: skip the tick quietly rather than invoke the source at all. The
+# source re-checks per request and exits GARDEN_MENTION_SOURCE_COOLDOWN_RC when a latch
+# lands mid-tick; that, too, is a quiet `cooldown` skip (the latch owner already WARNed).
+: "${GARDEN_MENTION_SOURCE_COOLDOWN_RC:=73}"
+export GARDEN_MENTION_SOURCE_COOLDOWN_RC
+api_cooldown_active rest && { mention_heartbeat_outcome=cooldown; exit 0; }
 src_rc=0
 "$GARDEN_MENTION_SOURCE" "${last_seen:-}" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
+if [ "$src_rc" -eq "$GARDEN_MENTION_SOURCE_COOLDOWN_RC" ]; then
+  mention_heartbeat_outcome=cooldown
+  exit 0
+fi
 if [ "$src_rc" -ne 0 ]; then
   sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   if is_transient_net_error "$ERRF"; then

@@ -15,6 +15,9 @@
 #      reaches the post handler; the cursor still slides past it
 #   D. re-polling an already-actioned mention → idempotent (no dup job/reactji)
 #   E. a post that did NOT land on origin/journal2 → cursor does NOT advance
+#   QC. a gh-api cooldown (primary-quota latch) live at tick start, or landing
+#       mid-source, stops the REAL mention-source-gh.sh at once: no further gh
+#       requests, no NOT ISSUED warning storm, heartbeat `cooldown`, clean exit
 #   PK. a mention whose base is PARKED in plan/ annotates the parked job (keyed on
 #       the directive identity) instead of freezing the cursor on a phantom lost push
 #
@@ -361,6 +364,66 @@ fi
 [ -z "$(cursor_seen "$TR/state-cx" "$BARE_CX")" ] \
   && ok "cursor left unchanged after exhausted retries" \
   || bad "cursor advanced despite every write failing"
+
+# ============================================================================
+hr; echo "QC — gh-api cooldown stops the real source: no requests, no warning storm"; hr
+# Drives the REAL handlers/mention-source-gh.sh with a counting gh stub (GARDEN_GH).
+# Regression: 2026-10-02T04:39:22 a primary-quota latch made every per-row lookup
+# log `NOT ISSUED` while the source swallowed the refusals and looked successful.
+GHSTUB="$TR/gh-stub.sh"
+cat > "$GHSTUB" <<'EOF'
+#!/bin/bash
+# Call 1 (notifications) lists three mentions; any later call hits the primary quota.
+echo "$*" >> "${MW_GH_CALLS:?}"
+n=$(grep -c . "$MW_GH_CALLS")
+if [ "$n" -eq 1 ]; then
+  for i in 1 2 3; do
+    printf '{"reason":"mention","repository":{"full_name":"o/r"},"subject":{"type":"Issue","latest_comment_url":"https://api.github.com/repos/o/r/issues/comments/%s","url":"https://api.github.com/repos/o/r/issues/%s"}}\n' "$i" "$i"
+  done | jq -s .
+  exit 0
+fi
+echo "gh: API rate limit exceeded for user ID 1. (HTTP 403)" >&2
+exit 1
+EOF
+chmod +x "$GHSTUB"
+run_qc() {  # run_qc <state> <bare> <calls> <out>
+  env GARDEN_STATE="$1" JOURNAL_REMOTE="$2" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_TRUSTED_ALLOWLIST="$ALLOW" MW_GH_CALLS="$3" \
+      GARDEN_GH="$GHSTUB" GARDEN_API_COOLDOWN_DIR="$1/gh-api-cooldown" \
+      GARDEN_API_COOLDOWN_SECS=300 GARDEN_GH_API_ATTEMPTS=1 \
+      MW_REACTJI_LOG=/dev/null GARDEN_MENTION_TRUST="$TRUSTSTUB" \
+      GARDEN_MENTION_REACTJI="$REACTSTUB" \
+      "$JOBS/mention-watcher.sh" >"$4" 2>&1
+}
+qc_outcome() { sed -n 's/^outcome: *//p' "$1/mention-watcher/heartbeat/github-wide" 2>/dev/null | head -1; }
+
+# QC1: the latch is already live when the tick starts → zero requests.
+BARE_QC="$TR/qc.git"; seed_bare "$BARE_QC"
+ST_QC1="$TR/state-qc1"; CALLS_QC1="$TR/calls-qc1"; : > "$CALLS_QC1"; OUT_QC1="$TR/out-qc1"
+( export GARDEN_API_COOLDOWN_DIR="$ST_QC1/gh-api-cooldown" GARDEN_API_COOLDOWN_SECS=300
+  # shellcheck source=../common.sh
+  source "$JOBS/common.sh"; start_api_cooldown "gh-api:test:primary-quota" 3600 )
+if run_qc "$ST_QC1" "$BARE_QC" "$CALLS_QC1" "$OUT_QC1"; then ok "QC1 tick exits cleanly under a live latch"
+else bad "QC1 tick failed under a live latch"; fi
+[ "$(grep -c . "$CALLS_QC1")" -eq 0 ] && ok "QC1 no gh request issued" \
+  || bad "QC1 gh requests issued under a live latch ($(grep -c . "$CALLS_QC1"))"
+[ "$(qc_outcome "$ST_QC1")" = cooldown ] && ok "QC1 heartbeat marked cooldown" \
+  || bad "QC1 heartbeat outcome '$(qc_outcome "$ST_QC1")', want cooldown"
+grep -qE 'NOT ISSUED|WARN|FATAL' "$OUT_QC1" && bad "QC1 warned: $(grep -E 'NOT ISSUED|WARN|FATAL' "$OUT_QC1" | head -3)" \
+  || ok "QC1 skipped quietly (no warning)"
+
+# QC2: the quota trips on the FIRST per-row lookup → the source stops there.
+ST_QC2="$TR/state-qc2"; CALLS_QC2="$TR/calls-qc2"; : > "$CALLS_QC2"; OUT_QC2="$TR/out-qc2"
+if run_qc "$ST_QC2" "$BARE_QC" "$CALLS_QC2" "$OUT_QC2"; then ok "QC2 tick exits cleanly when the quota trips mid-source"
+else bad "QC2 tick failed when the quota trips mid-source"; fi
+[ "$(grep -c . "$CALLS_QC2")" -eq 2 ] && ok "QC2 no request after the quota refusal (2 calls)" \
+  || bad "QC2 gh call count $(grep -c . "$CALLS_QC2"), want 2 (notifications + one lookup)"
+[ "$(grep -c 'NOT ISSUED' "$OUT_QC2")" -eq 0 ] && ok "QC2 no NOT ISSUED warning storm" \
+  || bad "QC2 NOT ISSUED warnings: $(grep -c 'NOT ISSUED' "$OUT_QC2")"
+[ "$(qc_outcome "$ST_QC2")" = cooldown ] && ok "QC2 heartbeat marked cooldown" \
+  || bad "QC2 heartbeat outcome '$(qc_outcome "$ST_QC2")', want cooldown"
+grep -q 'mention source failed' "$OUT_QC2" && bad "QC2 died as a source failure" \
+  || ok "QC2 not reported as a source failure"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
