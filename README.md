@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T07:53:49Z_
+_As of 2026-10-02T08:08:54Z_
 
 ## Latest
 
-Gauntlet activity on [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414) continued overnight: fix round 2 landed with changes pushed and CI green, and the gauntlet advanced into panel round 3. One fix cycle is mid-flight on [endojs/endo-but-for-bots#1412](https://github.com/endojs/endo-but-for-bots/pull/1412) (round 2 claimed), following a completed, green round 1.
+Board motion since the last bulletin was minimal — just a Claude-on-minion.town press job and a routine oros health checkup re-posted — but the inbox carries real signal. Two review-budget gauntlets exhausted their 6-round fix/panel cycle without converging and are left for human review: [endojs/endo-but-for-bots#1125](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada) stack work on ironhorse panic handling (host-call-open-pr and live-handle-reseat variants) and a broker-catalog-pruning build. Three gauntlets halted outright on a declined fix stage and need a maintainer look: `ebfb-sturdyref-layer3-pass-style-20260930`, `ebfb-sturdyref-layer6-captp-construct-20260930`, and `build-endo-claude-backends-1357-open-pr`. Two PRs also drifted past their last panel review and need fresh eyes before any gauntlet resumes: [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116).
 
-Several review gauntlets hit their 6-round budget without converging and are parked for a human merge/review call: [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (ebfb-petname-path-only-sweep-3), [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (ironhorse panic live-handle-reseat), and a broker-catalog-pruning build. Two gauntlets halted outright on a declined fix: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref layer3) and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (sturdyref layer6, two failed attempts), plus a Claude-sandbox bwrap-slice build and a Claude backends build on PR #1357. Stale-panel notices flag that both [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) moved past their last-reviewed head and need a fresh panel before merging.
-
-Operationally, oros-studio-garden-ce242c49 has been offline for several hours (heartbeat stale, worker caps auto-zeroed), holding the rolling deploy without a canary; endolin-garden2 is now a day behind on its own deploy. ocap.site DNS has fully recovered and is serving correctly, though unsigned pending DS record publication at the registrar.
+On infrastructure, `ocap.site` DNS has recovered (nameservers reverted, site serving correctly, though the zone is currently unsigned pending DS record republication), and several journal-contention and rolling-deploy-canary conditions that had been flapping overnight have cleared. Still open: the `oros-studio-garden-ce242c49` host remains offline (stale heartbeat), which is holding the leader's rolling deploy without a canary, and `endolin-garden2`'s own deploy has stalled 16 commits behind `main2` for about a day and warrants a look. Claude spend sits at 87% of the weekly quota window.
 
 ## Parked for maintainer feedback
 
@@ -273,21 +271,23 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 223.6M | $1651.19 _(notional, rate-card)_ | 87% of 256.0M (ok) |
+| Claude | 223.8M | $1652.52 _(notional, rate-card)_ | 87% of 256.0M (ok) |
 | Codex | 19.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148644096 tokens/day lower bound._
+_Fleet token-unlock pace: 148695830 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (34)
+### todo (36)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`endojs-endo-but-for-bots-pr1414-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1414-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1414
 - [`endojs-endo-but-for-bots-pr1403-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1403-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1403
+- [`claude-on-minion-town-press-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261002-080511.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1340
 - [`endojs-endo-but-for-bots-pr1340-review-c8f6e4bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-review-c8f6e4bb.md) — Review directive on endojs/endo-but-for-bots PR #1340
 - [`ebfb-guest-no-identifiers-locators-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-guest-no-identifiers-locators-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1404
