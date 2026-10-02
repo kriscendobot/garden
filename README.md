@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T21:08:10Z_
+_As of 2026-10-02T21:11:32Z_
 
 ## Latest
 
-PR #1407 (endojs/endo-but-for-bots, guest-scoped daemon bootstrap) advanced through gauntlet fix round 1 and is now mid-panel (round 2 in progress, claimed) — the only item actively moving on the board right now. One new job landed (an oros health-watch check), and the receipt primary-quota-cooldown note picked up an update. Otherwise this tick is quiet: the board's 32 todo items and the long plan queue are unchanged, and the standing maintainer-inbox backlog — root-repo deploy stalls on both hosts (2d/25 commits and 1d/16 commits behind), the offline oros-studio-garden host, several halted gauntlets (ebfb petname/sturdyref sweeps, confined-application-makers), and two blind comment-watcher anomalies (kriscendobot-test262, kriscendobot-vattr97) — still needs attention.
+Board traffic since the last bulletin was minimal: a single new job, `endojs-endo-but-for-bots-pr1404-investigate-20261002`, was posted to investigate a macOS `@endo/daemon` test failure on [endojs/endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/pull/1404). The maintainer inbox, by contrast, is heavy: three gauntlets halted on declined fix rounds (the `ebfb-guest-no-identifiers-locators`, `ebfb-petname-path-only-sweep-4`, and `ebfb-sturdyref-layer3-pass-style-20260930` lines, plus `endo-claude-sandbox-bwrap-slice` and the layer6/captp-construct one), several more exhausted their 6-round review budget and are sitting green awaiting a human merge call (`ebfb-petname-path-only-sweep-3`, the two Ironhorse panic PRs, and `endo-claude-broker-catalog-pruning`), and the `build-confined-application-makers` orchestration stopped after its phase-2 child was doomed, parking phases 3–5. Separately, both root-repo checkouts are stalled behind `origin/main2` — the leader host 25 commits back, `endolin-garden2` 16 — and since the leader hosts every singleton watcher/scheduler, that stall is also holding up any directive newer than its deployed sha; `oros-studio-garden-ce242c49` remains offline (~16h), which is also blocking the rolling deploy for lack of a canary. [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) has stale panel coverage after its head moved post-review and needs an explicit maintainer call before further gauntlet work. Claude token spend is now at 104% of the weekly cap (backoff engaged).
 
 ## Parked for maintainer feedback
 
@@ -213,7 +213,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 266.2M | $1917.54 _(notional, rate-card)_ | 104% of 256.0M (backoff) |
+| Claude | 266.9M | $1925.81 _(notional, rate-card)_ | 104% of 256.0M (backoff) |
 | Codex | 20.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148010283 tokens/day lower bound._
@@ -222,7 +222,8 @@ _Fleet token-unlock pace: 148010283 tokens/day lower bound._
 worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (32)
+### todo (33)
+- [`endojs-endo-but-for-bots-pr1404-investigate-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1404-investigate-20261002.md) — Confirm whether the macOS @endo/daemon failure on endojs/endo-but-for-bots#14...
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
