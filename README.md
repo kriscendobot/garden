@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T13:47:05Z_
+_As of 2026-10-02T13:52:18Z_
 
 ## Latest
 
-One gauntlet is actively in flight — panel round 5 on [endojs/endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/pull/1404) — while a thick backlog of panel/fix/conduct stages sits queued across #1340, #1390, #1391, #1392, #1393, #1394, #1397, #1398, #1402, #1403, #1406, #1407, #1412, and #1416, plus minion.town PRs #91, #145, #146, and #147. Several gauntlets hit their 6-round review-budget ceiling and were left green-CI but unconverged for a human merge call (ironhorse panic live-handle-reseat, ironhorse panic host-call, the broker-catalog-pruning build), and three more halted outright on a declined fix stage (the bwrap-slice build, sturdyref layer3, and sturdyref layer6 captp-construct) — all need a maintainer look rather than another retry. Two stale-panel-coverage notices also need attention: [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) both moved heads since their last panel pass, so no gauntlet was auto-staged pending an explicit re-review request.
+Several review-budget-exhausted gauntlets landed overnight needing human merge decisions: [endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414) completed its gauntlet with CI green, alongside the ironhorse panic-handling PRs (host-call and live-handle-reseat variants) and the Claude broker catalog-pruning build — all six fix/panel rounds applied but subjective review never converged, so they're sitting ready for review rather than auto-merged. Two gauntlets also halted on a declined fix: [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref layer 3, pass-style) and the ironhorse host-call-open-pr build, both needing a maintainer look before retrying. Two PRs under active review drifted their head past the last panel pass — [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) — so their stale coverage needs an explicit re-review call rather than a silent assumption of currency.
 
-Infrastructure-wise, oros-studio-garden-ce242c49 has been unreachable for nearly 8 hours (stale heartbeat, unacked sysop ops, unclaimed health checkups) and needs a person at the machine, Claude spend on endolin-garden-ece02cb4 is at 94% of its weekly cap and has throttled to 1 monk, and the journal-contention checker is still overrunning its tick budget (993 deferred clones, 28th occurrence) alongside a comment-provenance instrumentation gap worth a small fix. The ocap.site DNS recovery is confirmed healthy after the earlier disruption.
+Infrastructure-wise, oros-studio-garden-ce242c49 has been unreachable for roughly 7 hours (heartbeat stale, sysop not ticking, health checkups piling up unclaimed) and needs someone at the physical machine to check Docker/the container; the rolling deploy is consequently holding the leader with no canary available. Claude spend is at 94% of the weekly quota with capacity already throttled down to one monk on the leader host. ocap.site's DNS and site-serving have recovered cleanly post-nameserver-revert, though the DS record still awaits publication at the registrar.
 
 ## Parked for maintainer feedback
 
@@ -308,10 +308,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 239.5M | $1746.60 _(notional, rate-card)_ | 94% of 256.0M (ok) |
+| Claude | 240.7M | $1760.58 _(notional, rate-card)_ | 94% of 256.0M (ok) |
 | Codex | 20.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148433198 tokens/day lower bound._
+_Fleet token-unlock pace: 148584215 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.761494s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-finbot); 1 open notice(s); checker healthy
