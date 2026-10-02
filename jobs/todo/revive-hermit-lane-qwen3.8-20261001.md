@@ -1,7 +1,8 @@
 ---
 role: gardener
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
@@ -93,13 +94,6 @@ validation job (cite the real script names/flags, e.g.
 doc you landed) — don't make the liaison re-derive them.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=24 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-02T21:22:34Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-02T21:53:03Z -->
