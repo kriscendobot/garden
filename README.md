@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T10:07:30Z_
+_As of 2026-10-02T10:22:11Z_
 
 ## Latest
 
-Board motion was dominated by gauntlet cost-tracking churn rather than new job-board transitions (none resolved since the last bulletin), with the active work concentrated in review-budget exhaustion across several PRs: [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) (ironhorse computron-parity) and the ironhorse panic-reseat and panic-host-call PRs each hit their 6-round panel/fix ceiling and are left green but unconverged for human merge review, alongside a broker catalog-pruning build and the petname-path-only sweep-3 PR, all flagged the same way. Three gauntlets halted outright on declined fix rounds — the bwrap sandbox slice build, the sturdyref layer3 pass-style PR, and the sturdyref layer6 CapTP construct PR — and need a maintainer disposition rather than another retry. Two PRs also carry stale-panel-head notices where the reviewed commit has drifted from the current head and no gauntlet has been staged: [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116). Separately, ocap.site's DNS was confirmed fully recovered (correct Route53 nameservers, site resolving and redirecting to minion.town), and fleet health shows a mix of recovered journal-contention blips, an offline host (oros-studio) holding up rolling-deploy canaries, and a root-repo deploy on endolin-garden2 stalled 16 commits behind main2 that merits a look.
+Several gauntlets ran to their review budget ceiling without converging — [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (ironhorse panic host-call), the ironhorse panic live-handle-reseat PR, the broker catalog-pruning PR, and the petname-path-only sweep — each left in an improved, CI-green state but awaiting a human merge call after 6 panel/fix rounds. Two others halted outright on a declared fix failure: the sturdyref layer3-pass-style and layer6-captp-construct PRs, plus a Claude sandbox bwrap-slice build whose clean stage failed. Separately, two completed PRs ([endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116)) picked up new commits after their panel review, so the stale coverage means a review decision is needed before either can be conducted further. On the ops side, ocap.site's DNS fully recovered (NS and A records back to Route53/Caddy, serving normally), while the oros-studio host remains offline and is holding up the rolling deploy with no canary available, and the journal's contention checker is still overrunning its tick budget on a growing backlog of oversized clones.
 
 ## Parked for maintainer feedback
 
@@ -289,10 +289,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 230.3M | $1690.14 _(notional, rate-card)_ | 90% of 256.0M (ok) |
+| Claude | 230.4M | $1690.45 _(notional, rate-card)_ | 90% of 256.0M (ok) |
 | Codex | 19.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148480111 tokens/day lower bound._
+_Fleet token-unlock pace: 148504632 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.153908s/45s (/home/kris/garden/.garden-state/maintainer/journal); 3 open notice(s); checker healthy
