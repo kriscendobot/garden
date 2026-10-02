@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T12:58:35Z_
+_As of 2026-10-02T13:05:24Z_
 
 ## Latest
 
-Three gauntlets reached their review budget and are left green but unconverged for a human call: [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414), the ironhorse panic-live-handle-reseat and panic-host-call PRs, and the broker catalog-pruning build — plus the long-running [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) petname-path-only sweep, now on fix round 3 of a fourth sweep. Two gauntlets instead halted outright on a declined fix: the sturdyref layer3 pass-style work on [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) and the layer6 CapTP-construct slice, alongside a stale-panel notice on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (head moved since its last panel) and another on [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116). Fleet health is the bigger story: both Claude subscriptions are deep in backoff (endolin1 at 93% of quota, workers cut to 1; oros throttling between 2-3), oros-studio-garden-ce242c49 has been unreachable for hours with its sysop stuck and three health checkups sitting unclaimed, and the leader's rolling deploy is holding with no canary available as a result — a human is needed at the oros machine to confirm it's actually up.
+Six gauntlets burned through their full six panel/fix rounds without the subjective review converging and are now parked for a human merge call, including [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414), the petname-path-only sweep PR [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), and two ironhorse panic-handling PRs ([#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) and a sibling live-handle-reseat PR). Several other gauntlets failed outright and halted rather than retrying: a Claude sandbox bwrap-slice build, a broker-catalog-pruning build, the backends build on [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), and two sturdyref-layer PRs ([#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) and a CapTP-construction layer-6 PR) — all need a maintainer look before any further automation touches them. Panel coverage also went stale on [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) after later pushes moved past the reviewed head; neither re-triggered review automatically.
+
+On the infrastructure side, oros-studio-garden-ce242c49 has been unreachable for hours (stale heartbeat, sysop not ticking, three health checkups sitting unclaimed) and likely needs someone at the machine; the resulting lack of a canary is holding the leader's rolling deploy, and the garden2 root checkout is separately stalled 16 commits behind main2. Claude spend is at 93% of the weekly quota window, which has already triggered a backoff. On the brighter side, ocap.site's DNS was confirmed recovered (nameservers reverted, HTTPS serving normally again) and a long run of transient journal-contention watchdog pages cleared on their own.
 
 ## Parked for maintainer feedback
 
@@ -306,10 +308,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 237.8M | $1734.61 _(notional, rate-card)_ | 93% of 256.0M (ok) |
+| Claude | 237.9M | $1735.18 _(notional, rate-card)_ | 93% of 256.0M (ok) |
 | Codex | 20.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148375255 tokens/day lower bound._
+_Fleet token-unlock pace: 148415173 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.761494s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-finbot); 0 open notice(s); checker healthy
