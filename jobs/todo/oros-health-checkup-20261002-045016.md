@@ -1,8 +1,7 @@
-cadence: 3h
-last_dispatched: 2026-10-02T04:50:16Z
-job_basename_prefix: oros-health-checkup
+---
 handler-timeout: 3600
 ---
+
 ---
 role: fixer
 requires: host=oros-studio-garden-ce242c49
