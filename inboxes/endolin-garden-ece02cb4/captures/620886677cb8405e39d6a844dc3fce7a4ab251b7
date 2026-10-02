@@ -1,0 +1,50 @@
+<6>23:11:44 [monk/2] job 'build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-1' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>23:11:44 [monk/2] job 'build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-1' call ceiling: tier=mentor max-budget-usd=6.60 (scaled by fresh seven-day headroom when available)
+<6>23:11:44 [monk/2] job 'build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-1' attaching minion.town MCP (stdio bridge)
+<6>00:16:40 [auto-gauntlet-handoff] auto-gauntlet: 'build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-1' (role gardener) did not produce a design-only PR; no automatic handoff
+panel-head-freshness: managed target=build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-1 disposition=gauntlet-driver-owns-next-panel
+<6>00:16:46 [assert-followup-posted] gate: BLOCK — 'build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-1' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+orchestration-failed: true
+
+# Fix round 1 for endojs/endo-but-for-bots#1407: fixes pushed, CI red on the macOS 24.x leg
+
+Both must-fix items from the panel are fixed and pushed to `bot/build/guest-scoped-daemon-bootstrap` in commit `063af9bdb6`. The CI wait returned rc 3 (red) on one leg, `test (24.x, macos-15)`. The two runs of that leg failed in two different tests, neither of which this PR touches.
+
+## What I changed
+1. **Abbreviated identifiers (must-fix, stylist):** the new `sockPath` / `guestSockPath` identifiers are now `socketPath` / `guestSocketPath`. The changes cover:
+   - `serve-guest-path.js` and its test
+   - `agent-mcp-stdio/src/server.js`: `openClient` and `connectToGuestBootstrap({ socketPath })`
+   - `confined-turn.js`, `bin/endo-claude-turn.js` and the `confined-turn` test
+   - both READMEs and the changeset
+   
+   The power that `makeNodeGuestPathIssuer` takes is now `daemonSocketPath`, and both callers (`manager-node.js`, `bus-manager-node.js`) pass `daemonSocketPath: sockPath`. I left the existing `sockPath` names that predate this PR alone, such as the daemon config field.
+2. **Untested default connection (must-fix, coverage):** `runConfinedTurn`'s default `connect` is now an exported helper, `makeGuestConnect({ formulaId, guestSocketPath, issue?, connectTo? })`. Three new tests cover it:
+   - With no guest socket, it issues one over the root `ENDO_SOCK` before connecting to the issued path.
+   - When a guest socket is given, it issues nothing.
+   - A turn using the real default fails before spawning anything when the root socket is unreachable. The error names the root socket and leaves no files behind.
+3. **Daemon restart note (should-fix, migrator):** the changeset now says that a daemon started before this release must be restarted before `endo-claude-turn` can issue a guest socket.
+
+All changes are in one review-feedback commit, so no intermediate commit is broken. I did not apply the other should-fix items (sharing the socket-path-length constant, narrowing the `GuestPathIssuer` type).
+
+## Local checks
+- **Passed:**
+  - `packages/claude` `confined-turn` tests: 10 passed
+  - `packages/agent-mcp-stdio`: all 58 passed
+  - daemon `serve-guest-path` tests: 6 passed
+  - `tsc` for the claude and agent-mcp-stdio packages: clean
+  - Prettier on the changed files: clean
+  - eslint: no errors, only existing warning classes
+- **Not run locally:** the daemon `guest-bootstrap-path` integration test. Locally the daemon won't start because better-sqlite3 was built for a different Node version. CI is what covers it.
+
+## CI
+- **First run, rc 3:** only `test (24.x, macos-15)` failed, in `packages/daemon/test/http-content-plane.test.js` with an unhandled rejection: `Cannot assign to read only property 'message' of object 'ClientDestroyedError'`. The other 32 checks passed.
+- **Rerun of the failed job, still red:** this time `http-content-plane` passed and `packages/sandbox/test/lifecycle.test.js` failed instead ("1 test remaining", then SIGINT). This PR doesn't touch the sandbox package.
+- **Base branch:** the macOS (and sometimes 22.x ubuntu) test legs fail often on recent `llm` CI runs, including on this PR's own base commit `d4124e6e40` (run 36837442037: 24.x macOS, 22.x macOS and 22.x ubuntu all failed). This looks like base-branch flakiness rather than something this fix caused, but by the stage's rule the result is red.
+
+## Follow-ups
+- The next round needs a green macOS 24.x leg. Rerun the leg, or fix the base branch's flaky macOS tests (`http-content-plane` teardown, `sandbox` lifecycle timeout) separately.
+- Optional should-fix items still open: share the socket-path-length constant between `serve-guest-path.js` and `manager-node-powers.js`, and narrow the `guest` parameter type of `GuestPathIssuer.issue` in `types.d.ts`.
+
+<<<GARDEN-ORCHESTRATION-FAILED>>>
