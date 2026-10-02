@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-02T22:22:24Z_
+_As of 2026-10-02T22:37:52Z_
 
 ## Latest
 
@@ -12,7 +12,7 @@ Operationally, both garden hosts are running stale deployments — the leader is
 
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 5d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 15d)
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 20d)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 21d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 29d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 31d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 31d)
@@ -144,11 +144,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-02T17:51:26Z, cleared 2026-10-02T22:15:31Z).
-> It was observed 8 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #9 (first seen 2026-10-02T17:51:26Z, latest 2026-10-02T22:30:35Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 964 of 1053 clone(s) on consecutive ticks.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -215,6 +215,110 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-proposal-compartments: packs 1000 >= 1000; size=603786240B packs=1000 gc.log=0; automatic remedy=deferred-deadline.
 
+- `doomed-revive-hermit-lane-qwen3.8-20261001-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-revive-hermit-lane-qwen3.8-20261001-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/revive-hermit-lane-qwen3.8-20261001; it stays HELD until a human promotes it
+> (promote-plan.sh revive-hermit-lane-qwen3.8-20261001) or removes it, so nothing is lost.
+> Original job base: revive-hermit-lane-qwen3.8-20261001
+>
+> --- original job body ---
+> ---
+> role: gardener
+> tier: minion
+> model-burned: mentor
+> fallback-tier: 
+> dispatch: automatic
+> ---
+>
+> # Revive the local `hermit` (on-box Ollama) lane, upgraded to qwen3.8
+>
+> Maintainer directive (kriskowal, liaison session 2026-10-01): "let's try to
+> upgrade and validate that the ollama gardeners can do work." This is the
+> standing `qwen-model-watch` schedule's reassessment trigger finally firing on
+> a real upstream release: `ollama.com/library/qwen3.7` never shipped (still
+> 404), but `ollama.com/library/qwen3.8` is live (published ~2026-09-25, tags
+> `27b`/`27b-mlx`/`latest`, "substantial gains across coding, … long-horizon
+> agentic tasks"). See the standing watch's last notice,
+> `journal/inbox/maintainer/read/msg-fu-qwen-model-watch-20260728-180502-1-20260930-162006-c2728cdbeb52.md`
+> (now archived from unread).
+>
+> ## Background — why the lane is currently inert
+>
+> The `hermit` worker kind (a codex/claude harness against an on-box Ollama
+> `/v1` endpoint, provider `local`) was pinned to **inert-at-zero** on
+> 2026-09-13 by `retire-local-qwen-hermit-lane` (landed `93b5a5a573` on
+> `main2`) — **not because qwen3.6 failed its bounded mentor-tier trial**, but
+> as an operational pause (see that job's `jobs/tada/2026/09/13/` report and
+> `designs/qwen3.6-mentor-tier-trial.md`). The kind was deliberately **kept
+> registered** (not removed) specifically so it could be un-retired later
+> without spine churn. Read both of those before touching anything.
+>
+> ## Task
+>
+> **1. Revert the inert-at-zero clamp, scoped to the code the retirement job
+> itself changed** (diff against `93b5a5a573` to find every site precisely —
+> do not guess from this summary):
+>    - `install-units.sh` `scale()`: remove the hard clamp-to-0 for `hermit`.
+>    - `set-hermits.sh`: remove the nonzero-count refusal.
+>    - `common.sh` `worker_kind_field hermit` case: remove the RETIRED
+>      annotation (or update it to reflect the revived state — your call on
+>      wording).
+>    - `skills/model-selection/SKILL.md`: remove/update the "RETIRED
+>      (2026-09-13)" language for the local Qwen/hermit lane.
+>    - Docs retirement banners added in `starting.md`,
+>      `local-inference-amd/README.md`, `qwen-mentor-trial.md` — remove or
+>      update each to reflect the revived, upgraded lane.
+>
+> **2. Upgrade the pinned model from `qwen3.6` to `qwen3.8` everywhere it's
+> referenced** (the inventory row, probe/pull defaults, docs) — **do not just
+> flip the string**: confirm the exact tag to pin (`qwen3.8` default tag vs.
+> `27b`) and look up its real `pull_bytes` against the live
+> `ollama.com/library/qwen3.8` page or an actual `ollama pull`/`ollama show`
+> probe — `model-tier-inventory.tsv` requires a **reviewed, non-blank** size
+> before the sysop `local-model` op will pull it closed-by-default
+> (`scripts/jobs/model-tier-inventory.tsv` header comment explains the
+> contract). Update the `local	qwen3.6	minion	23938333577` row to the new
+> model/size. Leave the tier at `minion` — this is an upgrade of the existing
+> reviewed row, not a promotion; promotion still requires the evidence bar in
+> `designs/qwen3.6-mentor-tier-trial.md`.
+>
+> **3. Decide what to do with the existing bounded-trial design
+> (`designs/qwen3.6-mentor-tier-trial.md`, marked on-hold).** Don't silently
+> repurpose it for 3.8. Either: (a) land a new, separately-dated
+> `designs/qwen3.8-mentor-tier-trial.md` that is explicitly the SAME bounded
+> mechanics re-armed for the new model (fresh slot/attempt counters — the old
+> trial's consumed slots/demerits do not carry over to a different model), and
+> mark the 3.6 doc superseded/closed; or (b) if you judge the 3.6 trial never
+> actually reached its stop condition and its remaining slots are still valid
+> evidence-gathering capacity for the *lane* generally, say so explicitly and
+> justify re-using it unmodified. Make a real decision and record it — this
+> repo's own convention (CLAUDE.md § Conventions) is direct-to-`main2`, no PR,
+> for garden-library changes like this.
+>
+> **4. Run the test suites the original retirement job touched** (find them by
+> grepping for `hermit`/`qwen` across the test tree and by diffing
+> `93b5a5a573`'s test-file changes) and confirm all green after your revert +
+> repin. `bash -n` every script you edit.
+>
+> ## Explicitly NOT in scope for this job (liaison will handle, in-session)
+>
+> Do **not** pull the model, arm a nonzero hermit count, or admit any real
+> trial/canary job yourself — those are host-level, human-watched operations
+> (the model pull is tens of GiB via the attested sysop `local-model` op; the
+> maintainer wants to watch capacity get armed and the first real job get
+> claimed, not have it happen unattended inside your job). Your job is done
+> once the code is reverted/upgraded, tests are green, and it's pushed to
+> `main2`. In your completion report, state plainly: (a) the exact model
+> tag + reviewed pull_bytes you landed, (b) which of the two trial-doc options
+> above you chose and why, and (c) the exact follow-up commands the liaison
+> should run post-deploy to pull the model, arm one hermit, and admit a first
+> validation job (cite the real script names/flags, e.g.
+> `send-host-op.sh <host> op=local-model authorized_by=kriskowal`,
+> `set-workers.sh hermit 1`, and the trial-admission form from whichever trial
+> doc you landed) — don't make the liaison re-derive them.
+
 - `build-endo-claude-broker-catalog-pruning-gauntlet-review-budget-reached` — from gauntlet:build-endo-claude-broker-catalog-pruning-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-endo-claude-broker-catalog-pruning-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet build-endo-claude-broker-catalog-pruning-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
@@ -242,27 +346,24 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 270.2M | $1942.39 _(notional, rate-card)_ | 106% of 256.0M (backoff) |
+| Claude | 271.0M | $1946.10 _(notional, rate-card)_ | 106% of 256.0M (backoff) |
 | Codex | 20.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148343942 tokens/day lower bound._
+_Fleet token-unlock pace: 148450751 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
+worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (29)
+### todo (26)
 - [`endojs-endo-but-for-bots-pr1404-investigate-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1404-investigate-20261002.md) — Confirm whether the macOS @endo/daemon failure on endojs/endo-but-for-bots#14...
-- [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
-- [`endojs-endo-but-for-bots-pr1416-conduct-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1416-conduct-20261002.md) — Conduct (merge) endojs/endo-but-for-bots PR #1416
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
+- [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
-- [`endojs-endo-but-for-bots-pr1416-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1416-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1416
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1340
-- [`build-ci-minion-town-actions-runner-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ci-minion-town-actions-runner-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #145
 - [`claude-on-minion-town-completion-press-20261002-212012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261002-212012.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`build-endo-claude-pinned-cli-bump-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-pinned-cli-bump-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1406
 - [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1393
@@ -283,22 +384,24 @@ worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`ebfb-petname-path-only-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 
 ### doin (1)
-- [`endojs-endo-but-for-bots-pr1407-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1407-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1407
+- [`build-ci-minion-town-actions-runner-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ci-minion-town-actions-runner-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #145
 
-### tada (10475)
+### tada (10478)
+- [`endojs-endo-but-for-bots-pr1416-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1416-gauntlet-fix-1.md) — Cost
+- [`endojs-endo-but-for-bots-pr1407-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1407-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1407-gauntlet — HALTED
+- [`endojs-endo-but-for-bots-pr1407-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1407-gauntlet-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1416-gauntlet-panel-1.md) — Cost
 - [`minion-town-pr140-endo-cancel-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/minion-town-pr140-endo-cancel-gauntlet.md) — gauntlet minion-town-pr140-endo-cancel-gauntlet — review budget reached
-- [`endojs-endo-but-for-bots-pr1412-rerun-restage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1412-rerun-restage.md) — Cost
-- [`endojs-endo-but-for-bots-pr1402-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1402-conduct.md) — Cost
-- [`minion-town-pr140-endo-cancel-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/minion-town-pr140-endo-cancel-gauntlet-fix-6.md) — Cost
-- … and 10470 more
+- … and 10473 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
 - [`garden-fix-mystic-canary-runtime-20260724`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/garden-fix-mystic-canary-runtime-20260724.md) — _low_ · ---
+- [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/revive-hermit-lane-qwen3.8-20261001.md) — _normal_ · Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`endo-retention-set-disclosure-hold`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endo-retention-set-disclosure-hold.md) — _normal_ · ---
 - [`build-exo-google-sheets`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-google-sheets.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`make-panel-stage-survive-supervisor-session-exit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/make-panel-stage-survive-supervisor-session-exit.md) — _normal_ · Make panel execution survive supervising agent-session exit
+- [`endojs-endo-but-for-bots-pr1416-conduct-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-conduct-20261002.md) — _normal_ · Conduct (merge) endojs/endo-but-for-bots PR #1416
 - [`endor-same-process-worker-benchmark`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endor-same-process-worker-benchmark.md) — _normal_ · Benchmark an endor daemon and worker in one process
 - [`ebfb-llm-lint-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-llm-lint-warnings.md) — _normal_ · ---
 - [`open-signup-gate-flip-minion-town`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/open-signup-gate-flip-minion-town.md) — _normal_ · Build: open-signup gate flip for minion.town (Phase B — THE consequential cha...
