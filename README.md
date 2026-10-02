@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T10:58:47Z_
+_As of 2026-10-02T11:02:43Z_
 
 ## Latest
 
-Gauntlet traffic continued on [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414), which advanced through a fourth fix round (CI green) and into a fifth panel round, and on [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) (the `@endo/inference` seam), which cleared a second fix round and a third panel round. Three other gauntlets hit their review-budget ceiling after six panel/fix rounds without converging and are left for a human call: [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path sweep), the ironhorse panic/host-call PR, and the Claude broker-catalog-pruning build. A handful of other gauntlets halted outright on a declined fix stage and need a maintainer decision to close or retry, and two PRs (#1391 and #1116) have drifted past their last-reviewed head with no gauntlet staged, so their panel coverage is stale pending an explicit re-review request.
+Board activity was minimal: the only transition since the last bulletin was a new FIX round 3 posted for the panel/fix loop on [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403), still cycling through review. Several other gauntlets reached their review-budget ceiling after six rounds and now sit CI-green but unconverged, awaiting a human merge call — including the Ironhorse panic-reseat and host-call PRs, the Claude broker-catalog-pruning PR, and the petname-path-only sweep-3 line of work — while three more gauntlets (two sturdyref layers and a backends-1357 build) halted outright on a declined fix round and need maintainer disposition. Separately, two completed jobs turned up stale panel coverage against PR heads that moved after review ([endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116)), so neither was auto-staged for re-review. On infrastructure, ocap.site's DNS has recovered cleanly to the Route53 nameservers with the site serving again, Claude spend is at 92% of its weekly quota prompting a monk throttle on the main host, and the oros-studio follower remains offline, holding up canary-based rolling deploys fleet-wide.
 
 ## Parked for maintainer feedback
 
@@ -107,6 +107,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Comment acknowledgment condition cleared.
+
+- `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
+
+> subscription claude-endolin1 changed zone ok -> backoff at spend=234299739/256000000.
 
 - `ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached.md)
 
@@ -293,7 +297,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 233.9M | $1712.73 _(notional, rate-card)_ | 91% of 256.0M (ok) |
+| Claude | 234.4M | $1716.39 _(notional, rate-card)_ | 92% of 256.0M (ok) |
 | Codex | 19.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 147878831 tokens/day lower bound._
@@ -302,7 +306,7 @@ _Fleet token-unlock pace: 147878831 tokens/day lower bound._
 worst fetch p95 2.974774s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (36)
+### todo (37)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
@@ -322,6 +326,7 @@ worst fetch p95 2.974774s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`build-ci-minion-town-actions-runner-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ci-minion-town-actions-runner-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #145
 - [`endojs-endo-but-for-bots-pr1407-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1407-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1407
 - [`ebfb-petname-path-only-sweep-4-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1390
+- [`endojs-endo-but-for-bots-pr1403-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1403-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1403
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1416-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1416
 - [`endojs-endo-but-for-bots-pr1416-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1416-conduct.md) — Conduct (un-draft -> merge) endojs/endo-but-for-bots PR #1416
 - [`endojs-endo-but-for-bots-pr1412-rerun-restage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-rerun-restage.md) — Rerun #1412's flaked macOS leg and re-stage its gauntlet
