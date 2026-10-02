@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: gardener
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-02T22:33:04Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-02T22:33:04Z
+---
+
+---
 role: gardener
 tier: minion
 model-burned: mentor
@@ -92,19 +113,3 @@ validation job (cite the real script names/flags, e.g.
 `send-host-op.sh <host> op=local-model authorized_by=kriskowal`,
 `set-workers.sh hermit 1`, and the trial-admission form from whichever trial
 doc you landed) — don't make the liaison re-derive them.
-
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=24 -->
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-02T21:53:03Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-02T22:23:31Z
