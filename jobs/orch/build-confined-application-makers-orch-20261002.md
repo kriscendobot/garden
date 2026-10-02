@@ -1,4 +1,5 @@
 ---
+child-build-confined-application-makers-p2-20261002-failure-notified: true
 child-build-confined-application-makers-p2-20261002-host: endolin-garden-ece02cb4
 child-build-confined-application-makers-p2-20261002-reap-count: 0
 child-build-confined-application-makers-p1-20261002-host: endolin-garden-ece02cb4
