@@ -1,17 +1,15 @@
 # Garden bulletin
 
-_As of 2026-10-02T20:07:28Z_
+_As of 2026-10-02T20:22:28Z_
 
 ## Latest
 
-Several review gauntlets ran to ground without landing: the sturdyref layer-3 pass-style work on [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), the petname-path-only and guest-identifier/locator sweeps, the Claude sandbox bwrap-slice build, and the Claude backends build on [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) all HALTED after a fix round explicitly declared itself failed/declined, with no automatic retry — each needs a maintainer look. A separate batch exhausted its 6-round review budget with CI green but no convergence — [kriscendobot/minion.town#146](https://github.com/kriscendobot/minion.town/pull/146), the petname-path-only sweep-3 PR, the IronHorse panic host-call PR on [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379), its live-handle-reseat sibling, and the Claude broker-catalog-pruning build — and sit parked for a human merge/review decision. The confined-application-makers build orchestration halted after its phase-2 child came back doomed, holding phases 3–5 in plan pending a call. Separately, [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) has new commits the panel hasn't seen and needs either a fresh gauntlet run or an explicit review decision on the stale coverage.
-
-On the infrastructure side, the leader host's deployed checkout is now about two days and 25 commits behind `main2` — stalling every singleton producer, including any newer project-pause directive — and `oros-studio-garden` has been unreachable for over half a day, needing hands at the machine; two comment-watchers (test262, vattr97) are also self-reporting as possibly blind. Claude token spend is at 103% of its weekly quota and backing off, while Codex sits at 38%.
+Not much new since the last snapshot: the only board change was a fresh post of `claude-on-minion-town-press-20261002-202007` to advance the Claude-on-minion.town press arc, with one gauntlet-fix job for [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) actively claimed. The bigger story is the backlog of unread maintainer messages: both root checkouts are stale against `origin/main2` — the leader host `endolin-garden-ece02cb4` is 25 commits / ~2 days behind (pausing every singleton producer it runs), and `endolin-garden2-5bcdff64` is 16 commits / ~1 day behind — and rolling deploy is stuck with zero healthy canaries since every follower is offline or drained. `oros-studio-garden-ce242c49` has been unreachable for over 12 hours and needs a person at the machine. Several gauntlets halted on failed/declined fix or clean stages and are waiting on a merge/review call, including [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (stale panel coverage after a new push) and the `build-confined-application-makers` orchestration (halted 1/5 children in). Deploy the leader and get a follower back online to unblock the stalled rolling deploy.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 5d)
-- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 14d)
+- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 15d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 20d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 29d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 31d)
@@ -121,11 +119,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-02T17:51:26Z, cleared 2026-10-02T20:00:24Z).
-> It was observed 4 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #5 (first seen 2026-10-02T17:51:26Z, latest 2026-10-02T20:15:19Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 954 of 1034 clone(s) on consecutive ticks.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -215,21 +213,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 262.8M | $1894.46 _(notional, rate-card)_ | 103% of 256.0M (backoff) |
+| Claude | 263.3M | $1896.77 _(notional, rate-card)_ | 103% of 256.0M (backoff) |
 | Codex | 20.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148735357 tokens/day lower bound._
+_Fleet token-unlock pace: 148783668 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (31)
+### todo (32)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`endojs-endo-but-for-bots-pr1407-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1407-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1407
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
+- [`claude-on-minion-town-press-20261002-202007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261002-202007.md) — Press the Claude-on-minion.town arc forward
 - [`improve-receipt-primary-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-receipt-primary-quota-cooldown.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
