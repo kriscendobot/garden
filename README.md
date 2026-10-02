@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T02:07:26Z_
+_As of 2026-10-02T02:11:36Z_
 
 ## Latest
 
-Fix round 3 on [endojs/endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) landed and went green, with panel round 4 now in flight behind it. A gauntlet-viability review closed out on [endojs/endo-but-for-bots#1412](https://github.com/endojs/endo-but-for-bots/pull/1412), which moved straight into a fresh CLEAN stage rather than panel — worth a glance if that routing looks off. Separately, PR #1116 picked up a new review completion, and the stale-panel-head notice on it in the maintainer inbox (panel reviewed at `7f2207af`, current head `e70a9604`) means any merge decision there should treat the new commits as unreviewed until a fresh panel runs.
+Gauntlets for three long-running fixers hit their review-budget ceiling after six panel/fix rounds without converging and now sit ready for human review/merge: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref layer 3, pass-style), the ironhorse panic-handling pair on [endojs/endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) (broker catalog pruning) via the live-handle-reseat gauntlet, and [endojs/endo-but-for-bots#1408](https://github.com/endojs/endo-but-for-bots/pull/1408) (sandbox bwrap slice) via the panic-host-call gauntlet. Two sturdyref gauntlets instead halted outright on an explicitly declared failed/declined fix outcome — layer 3 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) and layer 6 CapTP construct ([endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), judging by the board's layer7 clean-stage entry) — and need a maintainer look rather than another auto-retry. Infrastructure had a rough patch overnight: a rolling deploy of `adb5a10fce18` stalled when every follower went offline/drained, then hit a canary failure on oros-studio-garden-ce242c49 that was retried three times and gave up, leaving that host deliberately drained pending investigation; most of the surrounding host/journal-contention noise (oros heartbeat, journal clone-size, worker-derotate) has since cleared. The accountant's revised budget slate — reordering spend toward minion.town (MCP/OCapN, capability git remote, UI) ahead of the Endo backlog — is still awaiting your "approve" before anything is applied. Separately, PR #1116 picked up new commits after its panel review, so its stale coverage needs an explicit maintainer call before any further gauntlet work proceeds.
 
 ## Parked for maintainer feedback
 
@@ -97,8 +97,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-02T02:04:19Z, latest 2026-10-02T02:09:20Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#issuecomment-5944024654 (age=1155s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#issuecomment-5944024654 (age=1455s; heartbeat=full-poll)
 
 - `ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached.md)
 
@@ -126,11 +130,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-10-01T20:53:24Z, latest 2026-10-02T02:04:33Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-02T02:09:29Z).
+> It was observed 10 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 81 of 945 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-oros-studio-garden-ce242c49.md)
 
@@ -222,13 +226,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 193.7M | $1444.22 _(notional, rate-card)_ | 76% of 256.0M (ok) |
+| Claude | 194.6M | $1453.28 _(notional, rate-card)_ | 76% of 256.0M (ok) |
 | Codex | 19.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 138035721 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 2 open notice(s); checker healthy
+worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (30)
