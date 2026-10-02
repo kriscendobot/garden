@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T02:49:25Z_
+_As of 2026-10-02T02:52:15Z_
 
 ## Latest
 
-Gauntlet machinery kept grinding on the petname/path-only sweep and the broker-catalog-pruning build: panel round 3 for [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) completed and fix round 3 is now queued, while panel round 4 for [endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) completed and fix round 4 is queued behind it. A dependabot recheck on endo-but-for-bots also landed with no action needed. Otherwise this was a quiet tick — no new PRs opened or merged, and the maintainer inbox still holds the larger items needing attention: the accountant's revised budget slate awaiting approval, several halted sturdyref-layer gauntlets, and the stale-panel-coverage flag on [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116).
+Little board movement since the last bulletin — only a new press job was posted to check whether the Claude-on-minion.town arc's jobs are actually running to completion, with no claims or completions in between. Several endo-but-for-bots gauntlets hit their review-budget ceiling after six panel/fix rounds without converging (ironhorse panic-live-handle-reseat, ironhorse panic-host-call, and the petname-path-only-sweep-3 PR) and are now left for a human merge/review call, while two sturdyref-layer gauntlets (layer3-pass-style and layer6-captp-construct) and the Claude-backends PR #1357 build halted outright on declared fix/clean failures. PR [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) needs attention too: its panel coverage is now stale against a newer head, and per policy no gauntlet was staged — it needs an explicit "run the gauntlet" or a maintainer call made with the stale coverage in mind. The accountant's revised budget slate (re-ranking minion.town MCP/OCapN work to the top, Endo backlog down to a 2% sliver) is still awaiting your "approve" or edits. Infrastructure-wise, most watchdog conditions from the past few hours (rolling-deploy canary stalls on oros-studio, journal clone-oversized warnings, worker-derotate) have self-recovered, but the root checkout on `endolin-garden2` remains stalled 16 commits behind `main2` with no deploy landing, and the comment-watcher for `kriscendobot/test262` is reporting itself likely blind.
 
 ## Parked for maintainer feedback
 
@@ -222,18 +222,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 197.3M | $1468.46 _(notional, rate-card)_ | 77% of 256.0M (ok) |
+| Claude | 198.0M | $1475.03 _(notional, rate-card)_ | 77% of 256.0M (ok) |
 | Codex | 19.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 138715055 tokens/day lower bound._
+_Fleet token-unlock pace: 138799714 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.283963s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (28)
+### todo (29)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`claude-on-minion-town-completion-press-20261002-025006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261002-025006.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`build-endo-claude-broker-catalog-pruning-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-broker-catalog-pruning-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1409
 - [`kriscendobot-minion.town-pr146-review-64a01f1e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr146-review-64a01f1e.md) — Review directive on kriscendobot/minion.town PR #146
 - [`ebfb-1391-post-panel-5-verdict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-1391-post-panel-5-verdict.md) — Post the round-5 panel verdict on PR #1391 (endojs/endo-but-for-bots)
