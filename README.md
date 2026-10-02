@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T16:17:33Z_
+_As of 2026-10-02T16:26:47Z_
 
 ## Latest
 
-The board stayed quiet since the last snapshot: a single gauntlet step moved for [endojs/endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406) (panel round 5 completed, fix round 5 now in progress), plus a routine oros health-watch check and panel-freshness note for [endojs/endo-but-for-bots#1416](https://github.com/endojs/endo-but-for-bots/pull/1416). Nothing else transitioned, so the maintainer's attention is still best spent on the growing backlog of unread messages — most notably the still-unresolved oros-studio-garden-ce242c49 host outage (sysop dead since ~05:45Z, three health-checkup jobs stuck unclaimed) and the leader's rolling deploy holding indefinitely with no canary available because of it.
+The board shows no resolvable job-to-PR transitions since the last bulletin, but several gauntlets reported in with mixed outcomes. [endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/pull/1125)-era panel/fix loops for the broker catalog pruning, the Ironhorse panic-handle-reseat, and Ironhorse panic-host-call work all exhausted their six-round review budget with CI green but no convergence, so each is parked for a human merge call. Three other gauntlets halted outright on declined fix rounds — the guest no-identifiers/locators work, the Claude sandbox bwrap slice build, and the sturdyref layer3 pass-style and layer6 CapTP-construct PRs — and need maintainer attention before any retry. Two PR heads moved past their last panel review without a fresh pass: [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) both need an explicit "run the gauntlet" or a manual review decision before landing. Separately, oros-studio-garden-ce242c49 has been unreachable since early this morning (heartbeat stale ~11h, sysop not ticking since 05:45Z) and needs someone at the machine to check Docker/the VM; Claude spend is at 99% of its weekly quota, which is throttling worker capacity fleet-wide.
 
 ## Parked for maintainer feedback
 
@@ -176,11 +176,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-02T16:15:33Z).
-> It was observed 35 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #36 (first seen 2026-10-01T20:53:24Z, latest 2026-10-02T16:25:26Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 36 times; this is ONE
+> coalesced notice that updates in place, not 36 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 89 of 1006 clone(s) on consecutive ticks.
 
 - `msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6` — from gardener:ocap-site-dns-recovery-check-20261001, reply_to `ocap-site-dns-recovery-check-20261001` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6.md)
 
@@ -323,13 +323,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 252.1M | $1830.67 _(notional, rate-card)_ | 98% of 256.0M (ok) |
+| Claude | 252.5M | $1832.37 _(notional, rate-card)_ | 99% of 256.0M (ok) |
 | Codex | 20.2M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148487076 tokens/day lower bound._
+_Fleet token-unlock pace: 148474053 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.666249s/45s (/home/kris/garden/.garden-state/scheduler/journal); 1 open notice(s); checker healthy
+worst fetch p95 3.666249s/45s (/home/kris/garden/.garden-state/scheduler/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (36)
