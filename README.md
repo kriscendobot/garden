@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T19:10:55Z_
+_As of 2026-10-02T19:22:50Z_
 
 ## Latest
 
-Gauntlet activity ticked forward on a few fronts: [minion.town#146](https://github.com/kriscendobot/minion.town/pull/146) advanced through fix round 4 into panel round 4 (now panel round 5), [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) cleared its panel and sits at fix round 1, and [minion.town#145](https://github.com/kriscendobot/minion.town/pull/145)'s CI-runner build moved past fix round 3 into panel round 4.
+The leader host (endolin-garden-ece02cb4) has gone roughly two days and 25 commits without a deploy, so every singleton producer — foreman, scheduler, watchers — is still running stale code; this is the condition that has previously let paused work keep running unattended. Separately, oros-studio-garden-ce242c49 has been unreachable for most of a day and looks like it needs a person at the actual machine (Docker Desktop / sleep / VM), not another automated nudge.
 
-Otherwise this is mostly a holding pattern: both root checkouts (`endolin-garden-ece02cb4`, 25 commits behind, and `endolin-garden2-5bcdff64`, 16 behind) are stalled undeployed, the leader has no canary since every follower is offline or drained, and `oros-studio-garden-ce242c49` remains unreachable (~13h+ stale heartbeat, needs a human at the machine). Several gauntlets halted on declined fix/clean stages and a handful more hit their review-budget ceiling with CI green but no convergence — all parked for a merge/review call, alongside the usual pile of parked PRs topped by [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281).
+On the PR side, several gauntlets hit their 6-round review-budget ceiling with green CI and are now parked for a human merge call: [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname path-only sweep), [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) and [endojs/endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) (IronHorse panic-handling), plus an IronHorse live-handle-reseat PR and a Claude broker-catalog-pruning PR whose numbers didn't resolve from the board. Several other gauntlets halted outright on a declined fix/clean stage instead of retrying — [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref pass-style), #1357's clean stage, the sturdyref CapTP-construct layer, a guest-no-identifiers PR, and the Claude sandbox bwrap slice — each wants a maintainer look. The confined-application-makers build orchestration also halted serially after its phase-2 child came back doomed, leaving phases 3–5 parked. And [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) picked up new commits after its last panel pass, so its review coverage is stale and it's waiting on an explicit "run the gauntlet" or a direct review decision. Also worth a glance: the comment-watchers for kriscendobot/test262 and kriscendobot/vattr97 both failed self-test and may be silently blind.
 
 ## Parked for maintainer feedback
 
@@ -16,10 +16,10 @@ Otherwise this is mostly a holding pattern: both root checkouts (`endolin-garden
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 29d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 30d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 30d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 32d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 30d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 30d)
-- [endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/pull/281) — feat(rust-endo): ephemeral GC roots for suspended-worker snapshots (waiting 36d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 32d)
+- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 34d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Screened by proxy (minion.town)
@@ -211,10 +211,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 261.5M | $1888.13 _(notional, rate-card)_ | 102% of 256.0M (backoff) |
+| Claude | 261.8M | $1889.46 _(notional, rate-card)_ | 102% of 256.0M (backoff) |
 | Codex | 20.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148560241 tokens/day lower bound._
+_Fleet token-unlock pace: 148614606 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
