@@ -25,3 +25,13 @@ Maintainer ask (kriskowal, liaison session 2026-10-01): check in on oros-studio,
 - Do **not** lift or alter drains yourself, and do not change worker leveling or derotation markers. Once the heartbeat resumes, the derotation self-restores.
 
 **Report:** the root cause for each symptom; what you fixed; what still needs the maintainer, or a person at the oros machine, to act; and whether oros is now fit to serve as a deploy canary again. The leader has been held at `878c5d52` since 2026-09-30, because endolin-garden2 is operator-drained (claude2 at its 90% policy stop) and oros keeps failing as the canary.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T00:57:56Z
