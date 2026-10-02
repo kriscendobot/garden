@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T08:08:54Z_
+_As of 2026-10-02T08:25:54Z_
 
 ## Latest
 
-Board motion since the last bulletin was minimal — just a Claude-on-minion.town press job and a routine oros health checkup re-posted — but the inbox carries real signal. Two review-budget gauntlets exhausted their 6-round fix/panel cycle without converging and are left for human review: [endojs/endo-but-for-bots#1125](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada) stack work on ironhorse panic handling (host-call-open-pr and live-handle-reseat variants) and a broker-catalog-pruning build. Three gauntlets halted outright on a declined fix stage and need a maintainer look: `ebfb-sturdyref-layer3-pass-style-20260930`, `ebfb-sturdyref-layer6-captp-construct-20260930`, and `build-endo-claude-backends-1357-open-pr`. Two PRs also drifted past their last panel review and need fresh eyes before any gauntlet resumes: [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116).
+Several gauntlets hit their review-budget ceiling overnight without converging: [endojs/endo-but-for-bots#1125 stack pieces](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-3.md) aside, the affected PRs — the ironhorse panic live-handle-reseat and host-call-open-pr branches, the broker catalog-pruning build, and the petname-path-only sweep 3 — all completed 6 panel/fix rounds with green CI and are left parked for a human merge call rather than auto-landed. Three other gauntlets (sturdyref layer3 pass-style, layer6 captp-construct, and build-endo-claude-backends-1357) HALTED outright on a declared failed/declined fix outcome and need a maintainer look before any retry.
 
-On infrastructure, `ocap.site` DNS has recovered (nameservers reverted, site serving correctly, though the zone is currently unsigned pending DS record republication), and several journal-contention and rolling-deploy-canary conditions that had been flapping overnight have cleared. Still open: the `oros-studio-garden-ce242c49` host remains offline (stale heartbeat), which is holding the leader's rolling deploy without a canary, and `endolin-garden2`'s own deploy has stalled 16 commits behind `main2` for about a day and warrants a look. Claude spend sits at 87% of the weekly quota window.
+Two PRs have drifted since their last panel pass and need fresh review before anything further happens: [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) both moved heads after their panel coverage, so no gauntlet was staged pending an explicit "run the gauntlet" call. Infra-wise, ocap.site's DNS fully recovered (NS and A records back on Route53/Caddy, serving normally), while the fleet is juggling an offline oros-studio host blocking rolling-deploy canaries, a stalled root-repo deploy 16 commits behind on endolin-garden2, and a recurring journal-contention overrun on the leader host — none of which need action beyond what's already in flight, but worth a glance if the backlog keeps growing.
 
 ## Parked for maintainer feedback
 
@@ -271,10 +271,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 223.8M | $1652.52 _(notional, rate-card)_ | 87% of 256.0M (ok) |
+| Claude | 224.1M | $1654.36 _(notional, rate-card)_ | 88% of 256.0M (ok) |
 | Codex | 19.8M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148695830 tokens/day lower bound._
+_Fleet token-unlock pace: 148720540 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 1 open notice(s); checker healthy
