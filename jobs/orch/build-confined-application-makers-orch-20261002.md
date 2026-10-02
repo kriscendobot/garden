@@ -1,4 +1,5 @@
 ---
+child-build-confined-application-makers-p1-20261002-reap-count: 0
 order: serial
 children: build-confined-application-makers-p1-20261002 build-confined-application-makers-p2-20261002 build-confined-application-makers-p3-20261002 build-confined-application-makers-p4-20261002 build-confined-application-makers-p5-20261002
 on-child-failure: halt
