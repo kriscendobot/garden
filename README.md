@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T13:05:24Z_
+_As of 2026-10-02T13:20:23Z_
 
 ## Latest
 
-Six gauntlets burned through their full six panel/fix rounds without the subjective review converging and are now parked for a human merge call, including [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414), the petname-path-only sweep PR [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), and two ironhorse panic-handling PRs ([#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) and a sibling live-handle-reseat PR). Several other gauntlets failed outright and halted rather than retrying: a Claude sandbox bwrap-slice build, a broker-catalog-pruning build, the backends build on [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357), and two sturdyref-layer PRs ([#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) and a CapTP-construction layer-6 PR) — all need a maintainer look before any further automation touches them. Panel coverage also went stale on [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) after later pushes moved past the reviewed head; neither re-triggered review automatically.
+Board throughput continues apace (one gauntlet in flight, 36 queued), but nothing newly landed or claimed since the last bulletin — the only movement is in completions already folded into the tada backlog. Several gauntlets hit their review-budget ceiling and are parked for human merge/review decisions: [endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414), [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (ironhorse panic host-call), and a broker-catalog-pruning build, alongside two outright halts — the bwrap sandbox-slice build and endo-but-for-bots#1392 (sturdyref layer-3 pass-style) — where fix rounds declined rather than converging. Two completed jobs now carry stale panel coverage because their PRs moved heads after review: [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) both need an explicit maintainer call before any further automated review.
 
-On the infrastructure side, oros-studio-garden-ce242c49 has been unreachable for hours (stale heartbeat, sysop not ticking, three health checkups sitting unclaimed) and likely needs someone at the machine; the resulting lack of a canary is holding the leader's rolling deploy, and the garden2 root checkout is separately stalled 16 commits behind main2. Claude spend is at 93% of the weekly quota window, which has already triggered a backoff. On the brighter side, ocap.site's DNS was confirmed recovered (nameservers reverted, HTTPS serving normally again) and a long run of transient journal-contention watchdog pages cleared on their own.
+On the infrastructure side, oros-studio-garden-ce242c49 has been offline for most of the day (heartbeat stale since ~05:08Z), knocking it out of worker leveling and canary rotation and leaving the leader's rolling deploy holding with no canary to validate; a health-watch job flagged it needs a person at the machine to check Docker/the container. Quota is tight on the Claude side (93% of weekly cap, already in backoff on endolin-garden-ece02cb4), while ocap.site's DNS recovery (nameservers reverted, site serving again) and a journal-contention backlog both cleared cleanly overnight.
 
 ## Parked for maintainer feedback
 
@@ -308,10 +308,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 237.9M | $1735.18 _(notional, rate-card)_ | 93% of 256.0M (ok) |
+| Claude | 238.0M | $1735.87 _(notional, rate-card)_ | 93% of 256.0M (ok) |
 | Codex | 20.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148415173 tokens/day lower bound._
+_Fleet token-unlock pace: 148424892 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 2.761494s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-finbot); 0 open notice(s); checker healthy
