@@ -39,3 +39,13 @@ record's TTL (3600s) means propagation should complete by roughly
    has NOT recovered by the time this runs, say so plainly and do not
    speculate further without re-checking — it may just need more
    propagation time at other resolvers even once Google's cache clears.
+
+---
+claim:
+  host: oros-studio-garden-ce242c49
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T05:06:53Z
