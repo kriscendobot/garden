@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T02:30:17Z_
+_As of 2026-10-02T02:37:19Z_
 
 ## Latest
 
-Two gauntlets completed fix rounds and pushed clean, CI-green changes overnight: [endo-but-for-bots#1408](https://github.com/endojs/endo-but-for-bots/pull/1408) (sandbox bwrap slice) advanced to its 4th fix round, and a host heartbeat/canary-drain fix for the oros host landed as well. The petname-path-only sweep's panel round 3 cycled through and reposted as round 5 on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), while [endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) (broker catalog pruning) is mid-panel on round 4. On the infra side, the earlier canary-stuck and host-offline conditions on oros-studio-garden-ce242c49 have cleared and that host rejoined rotation, but the rolling deploy toward `adb5a10fce18` remains halted on a persistent canary failure there needing a maintainer decision, and the accountant's revised budget slate (re-ranking minion.town work to the top) is still awaiting an "approve" from kriskowal.
+Board activity since the last bulletin was minimal: the only transition was the editorial-pass job on [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) moving from queued to claimed. Worth noting outside the board itself: #1116 also surfaced a stale-panel-coverage flag — its presented head has moved past the last panel-reviewed commit, so it needs a fresh review pass before any gauntlet stage runs again. Several other gauntlets (ironhorse panic-handling PRs, the petname-path sweep, and the Claude backends #1357 build) hit their review-round budgets or failed cleanly and are now parked awaiting a human merge/review call, and the accountant's revised budget slate is still waiting on explicit approval.
 
 ## Parked for maintainer feedback
 
@@ -97,12 +97,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #6 (first seen 2026-10-02T02:04:19Z, latest 2026-10-02T02:29:13Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 6 times; this is ONE
-> coalesced notice that updates in place, not 6 messages. Latest detail:
+> WATCHDOG notice — occurrence #7 (first seen 2026-10-02T02:04:19Z, latest 2026-10-02T02:34:31Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 7 times; this is ONE
+> coalesced notice that updates in place, not 7 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#issuecomment-5944024654 (age=2656s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#issuecomment-5944024654 (age=2957s; heartbeat=full-poll)
 
 - `ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached.md)
 
@@ -234,16 +234,16 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 195.8M | $1459.49 _(notional, rate-card)_ | 76% of 256.0M (ok) |
+| Claude | 196.0M | $1460.54 _(notional, rate-card)_ | 77% of 256.0M (ok) |
 | Codex | 19.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 135620437 tokens/day lower bound._
+_Fleet token-unlock pace: 138715055 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.283963s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (31)
+### todo (30)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`ebfb-petname-path-only-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1390
 - [`dependabotany-recheck-endo-but-for-bots-20261002-020528`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20261002-020528.md) — ---
@@ -255,7 +255,6 @@ worst fetch p95 4.283963s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`endojs-endo-but-for-bots-pr1414-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1414-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1414
 - [`endojs-endo-but-for-bots-pr1403-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1403-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1403
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1340
-- [`endojs-endo-but-for-bots-pr1116-editorial-pass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1116-editorial-pass.md) — ---
 - [`endojs-endo-but-for-bots-pr1340-review-c8f6e4bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-review-c8f6e4bb.md) — Review directive on endojs/endo-but-for-bots PR #1340
 - [`ebfb-guest-no-identifiers-locators-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-guest-no-identifiers-locators-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1404
 - [`endojs-endo-but-for-bots-pr1340-body-refresh-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-body-refresh-20261001.md) — Apply refreshed PR body to endojs/endo-but-for-bots#1340
@@ -276,9 +275,10 @@ worst fetch p95 4.283963s/45s (/home/kris/garden/.garden-state/regenerate-sectio
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1397
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6-pr-write`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6-pr-write.md) — PR-write handoff for endojs/endo-but-for-bots#1392 (gauntlet fix round 6)
 
-### doin (2)
+### doin (3)
 - [`build-endo-claude-broker-catalog-pruning-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-broker-catalog-pruning-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1409
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1412
+- [`endojs-endo-but-for-bots-pr1116-editorial-pass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1116-editorial-pass.md) — ---
 
 ### tada (10362)
 - [`fix-oros-heartbeat-canary-drain-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/fix-oros-heartbeat-canary-drain-20261001.md) — Completion report: fix-oros-heartbeat-canary-drain-20261001
