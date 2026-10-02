@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T02:11:36Z_
+_As of 2026-10-02T02:30:17Z_
 
 ## Latest
 
-Gauntlets for three long-running fixers hit their review-budget ceiling after six panel/fix rounds without converging and now sit ready for human review/merge: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref layer 3, pass-style), the ironhorse panic-handling pair on [endojs/endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) (broker catalog pruning) via the live-handle-reseat gauntlet, and [endojs/endo-but-for-bots#1408](https://github.com/endojs/endo-but-for-bots/pull/1408) (sandbox bwrap slice) via the panic-host-call gauntlet. Two sturdyref gauntlets instead halted outright on an explicitly declared failed/declined fix outcome — layer 3 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) and layer 6 CapTP construct ([endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), judging by the board's layer7 clean-stage entry) — and need a maintainer look rather than another auto-retry. Infrastructure had a rough patch overnight: a rolling deploy of `adb5a10fce18` stalled when every follower went offline/drained, then hit a canary failure on oros-studio-garden-ce242c49 that was retried three times and gave up, leaving that host deliberately drained pending investigation; most of the surrounding host/journal-contention noise (oros heartbeat, journal clone-size, worker-derotate) has since cleared. The accountant's revised budget slate — reordering spend toward minion.town (MCP/OCapN, capability git remote, UI) ahead of the Endo backlog — is still awaiting your "approve" before anything is applied. Separately, PR #1116 picked up new commits after its panel review, so its stale coverage needs an explicit maintainer call before any further gauntlet work proceeds.
+Two gauntlets completed fix rounds and pushed clean, CI-green changes overnight: [endo-but-for-bots#1408](https://github.com/endojs/endo-but-for-bots/pull/1408) (sandbox bwrap slice) advanced to its 4th fix round, and a host heartbeat/canary-drain fix for the oros host landed as well. The petname-path-only sweep's panel round 3 cycled through and reposted as round 5 on [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), while [endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) (broker catalog pruning) is mid-panel on round 4. On the infra side, the earlier canary-stuck and host-offline conditions on oros-studio-garden-ce242c49 have cleared and that host rejoined rotation, but the rolling deploy toward `adb5a10fce18` remains halted on a persistent canary failure there needing a maintainer decision, and the accountant's revised budget slate (re-ranking minion.town work to the top) is still awaiting an "approve" from kriskowal.
 
 ## Parked for maintainer feedback
 
@@ -28,8 +28,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-01T21:08:02Z, cleared 2026-10-02T01:53:01Z).
-> It was observed 16 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `rolling-deploy-host-offline-oros-studio-garden-ce242c49` has CLEARED (first seen 2026-10-01T21:08:02Z, cleared 2026-10-02T02:29:02Z).
+> It was observed 17 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > heartbeat resumed for oros-studio-garden-ce242c49; it is PRESENT again and will automatically rejoin the canary rotation while its hosts/oros-studio-garden-ce242c49 record remains active. Archived records are not unarchived automatically.
@@ -97,12 +97,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-02T02:04:19Z, latest 2026-10-02T02:09:20Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #6 (first seen 2026-10-02T02:04:19Z, latest 2026-10-02T02:29:13Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#issuecomment-5944024654 (age=1455s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#issuecomment-5944024654 (age=2656s; heartbeat=full-poll)
 
 - `ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached.md)
 
@@ -115,6 +115,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_repo_watcher_journal.md)
+
+> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/repo-watcher/journal: packs 1012 >= 1000; size=270647296B packs=1012 gc.log=0; automatic remedy=deferred-deadline.
 
 - `watchdog-worker-derotate-oros-studio-garden-ce242c49` — from watchdog:worker-derotate, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-derotate-oros-studio-garden-ce242c49.md)
 
@@ -130,8 +134,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-02T02:09:29Z).
-> It was observed 10 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-02T02:25:11Z).
+> It was observed 11 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
@@ -170,7 +174,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: packs 1022 >= 1000; size=250616832B packs=1022 gc.log=0; automatic remedy=deferred-deadline.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-10-01T23:09:20Z, cleared 2026-10-02T02:24:25Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-monk-oros-studio-garden-ce242c49-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-oros-studio-garden-ce242c49-2.md)
 
@@ -226,20 +234,21 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 194.6M | $1453.28 _(notional, rate-card)_ | 76% of 256.0M (ok) |
+| Claude | 195.8M | $1459.49 _(notional, rate-card)_ | 76% of 256.0M (ok) |
 | Codex | 19.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 138035721 tokens/day lower bound._
+_Fleet token-unlock pace: 135620437 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.283963s/45s (/home/kris/garden/.garden-state/regenerate-sections-index/journal); 1 open notice(s); checker healthy
 
 ## Board
-### todo (30)
+### todo (31)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
+- [`ebfb-petname-path-only-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1390
 - [`dependabotany-recheck-endo-but-for-bots-20261002-020528`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/dependabotany-recheck-endo-but-for-bots-20261002-020528.md) — ---
+- [`build-endo-claude-sandbox-bwrap-slice-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-sandbox-bwrap-slice-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1408
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
-- [`endojs-endo-but-for-bots-pr1412-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1412
 - [`kriscendobot-minion.town-pr146-review-64a01f1e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr146-review-64a01f1e.md) — Review directive on kriscendobot/minion.town PR #146
 - [`ebfb-petname-path-only-sweep-4-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1390
 - [`ebfb-1391-post-panel-5-verdict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-1391-post-panel-5-verdict.md) — Post the round-5 panel verdict on PR #1391 (endojs/endo-but-for-bots)
@@ -267,19 +276,17 @@ worst fetch p95 4.755192s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1397
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6-pr-write`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6-pr-write.md) — PR-write handoff for endojs/endo-but-for-bots#1392 (gauntlet fix round 6)
 
-### doin (4)
-- [`ebfb-petname-path-only-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1390
+### doin (2)
 - [`build-endo-claude-broker-catalog-pruning-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-broker-catalog-pruning-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1409
-- [`build-endo-claude-sandbox-bwrap-slice-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-sandbox-bwrap-slice-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1408
-- [`fix-oros-heartbeat-canary-drain-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-oros-heartbeat-canary-drain-20261001.md) — ---
+- [`endojs-endo-but-for-bots-pr1412-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1412
 
-### tada (10360)
+### tada (10362)
+- [`fix-oros-heartbeat-canary-drain-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/fix-oros-heartbeat-canary-drain-20261001.md) — Completion report: fix-oros-heartbeat-canary-drain-20261001
+- [`build-endo-claude-sandbox-bwrap-slice-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/build-endo-claude-sandbox-bwrap-slice-gauntlet-fix-4.md) — Fix round 4 report: endojs/endo-but-for-bots PR #1408
 - [`endojs-endo-but-for-bots-pr1116-review-d33d67ff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1116-review-d33d67ff.md) — Completion report: endojs-endo-but-for-bots-pr1116-review-d33d67ff
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1412-gauntlet-viability.md) — Cost
 - [`build-endo-claude-broker-catalog-pruning-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/build-endo-claude-broker-catalog-pruning-gauntlet-fix-3.md) — Fix round 3 for endojs/endo-but-for-bots#1409: pushed, CI green
-- [`claude-on-minion-town-press-20261002-013508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/claude-on-minion-town-press-20261002-013508.md) — Cost
-- [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/build-endo-guest-scoped-daemon-bootstrap-gauntlet-panel-2.md) — Cost
-- … and 10355 more
+- … and 10357 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
