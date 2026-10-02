@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T11:56:51Z_
+_As of 2026-10-02T12:02:29Z_
 
 ## Latest
 
-Board activity was minimal this cycle: fix round 6 on [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414) moved from doin into tada while round 6's own stage completion was recorded, so the gauntlet is still cycling fix/panel rounds on that PR without resolution yet. No new jobs posted or claimed otherwise.
-
-The inbox is heavy with routine watchdog noise (mostly RECOVERED journal-contention blips and budget-level rebalancing), but two items are worth a maintainer's attention: oros-studio-garden-ce242c49 has been unreachable for ~7 hours with its sysop not ticking and three health checkups stuck unclaimed — this needs a person at the physical machine — and the root checkout on endolin-garden2-5bcdff64 has been stalled 16 commits behind main2 for about a day with no deploy landing. Separately, three gauntlets ([endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)-adjacent petname-path work, the ironhorse panic-live-handle-reseat PR, and the Claude broker-catalog-pruning PR) exhausted their 6-round review budget without converging and are parked for human merge/review decisions, alongside two hard gauntlet halts on sturdyref layer-3 and layer-6 PRs where fix stages explicitly declined.
+Spend sits at 92% of the Claude weekly quota, and the leader's monk count has already been throttled down to 1 as a result — expect slower turnaround on new claims until the reset. The `endojs-endo-but-for-bots-pr1414-gauntlet-fix-6` job is the one thing actively in flight. Several gauntlets landed round 6 with CI green but didn't converge on review within budget, leaving [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)-adjacent work (petname-path-only sweep 3), the ironhorse panic live-handle-reseat and host-call-open-pr PRs, and the broker-catalog-pruning build parked for a human merge call. Two gauntlets halted outright on a declined fix and need a look: `ebfb-sturdyref-layer3-pass-style-20260930` ([endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)) and `ebfb-sturdyref-layer6-captp-construct-20260930`, plus `build-endo-claude-backends-1357-open-pr` and `build-endo-claude-sandbox-bwrap-slice`. Stale-panel-coverage flags also came in for [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) — each moved head after its last panel pass, so a fresh review is needed before either merges. Infrastructure-wise, oros-studio-garden-ce242c49 has been offline for several hours (heartbeat stale, sysop not ticking, three health checkups sitting unclaimed) and needs a person at the machine; the root checkout on endolin-garden2 is also stalled 16 commits behind on deploy. Two comment-watcher self-tests (kriscendobot/test262, kriscendobot/vattr97) are flagging as possibly blind and worth a jq/gh check.
 
 ## Parked for maintainer feedback
 
@@ -170,11 +168,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #26 (first seen 2026-10-01T20:53:24Z, latest 2026-10-02T11:55:18Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 26 times; this is ONE
-> coalesced notice that updates in place, not 26 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-02T12:00:23Z).
+> It was observed 26 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 54 of 989 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6` — from gardener:ocap-site-dns-recovery-check-20261001, reply_to `ocap-site-dns-recovery-check-20261001` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6.md)
 
@@ -308,13 +306,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 236.4M | $1727.65 _(notional, rate-card)_ | 92% of 256.0M (ok) |
+| Claude | 236.5M | $1728.66 _(notional, rate-card)_ | 92% of 256.0M (ok) |
 | Codex | 20.0M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148179851 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 2.761494s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-finbot); 1 open notice(s); checker healthy
+worst fetch p95 2.761494s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-finbot); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (37)
