@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T22:19:44Z_
+_As of 2026-10-02T22:22:24Z_
 
 ## Latest
 
-The most pressing item is operational, not editorial: the leader host (endolin-garden-ece02cb4) hasn't deployed in ~2 days and is now 25 commits behind `main2`, so every singleton producer — foreman, scheduler, watchers — is running stale code; the garden2 host is similarly stuck, 16 commits behind. Compounding it, the only configured follower, oros-studio-garden-ce242c49, has been unreachable for roughly 16 hours (stale heartbeat, sysop not ticking, needs someone at the physical machine), which also leaves rolling deploy with no canary to validate against. On the review side, a few PRs are parked for a merge/review call after their gauntlets hit the 6-round review budget without full convergence — [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (ironhorse panic host-call) and the petname-path-only line of work on [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) — both left green and improved but awaiting a human decision. Several other gauntlets halted outright on a declined fix stage, including the sturdyref layer-3 pass-style work on [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), and the build-confined-application-makers orchestration stopped after its phase-2 child was doomed, leaving three later phases parked. Separately, [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) needs a fresh review pass since its head moved past the last panel's coverage. Claude token spend is over its weekly cap (106%, in backoff) while Codex sits at 38% of its plan allotment.
+Several Endo gauntlets hit trouble and need a look: [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref layer-3 pass-style) and the CapTP-construct layer-6 PR both halted after a declined fix round, as did the petname-path-only sweep-4 and sandbox-bwrap-slice builds and [endo-but-for-bots#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) (Claude backends), which failed at the clean stage. The confined-application-makers orchestration also halted serially after its phase-2 child was doomed, with phases 3–5 parked behind it. On the other side, three gauntlets ran out their full 6-round review budget without converging and are sitting improved-but-unmerged for a human call, including [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (Ironhorse panic host-call) and the Ironhorse panic live-handle-reseat PR. Separately, [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) moved to a new head after its last panel review, so its coverage is stale and it needs an explicit re-review decision rather than an automatic resume.
+
+Operationally, both garden hosts are running stale deployments — the leader is 25 commits (~2 days) behind `origin/main2`, meaning it isn't honoring any directive newer than that, including a project pause, until redeployed — and the oros-studio host has been unreachable for about 16 hours, apparently needing someone at the machine (Docker Desktop/sleep/VM). Two small-repo comment watchers (test262, vattr97) also failed their self-test and may be silently blind. Claude token spend is over its weekly quota (106%, in backoff) while Codex sits at 38%.
 
 ## Parked for maintainer feedback
 
@@ -240,10 +242,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 270.1M | $1942.06 _(notional, rate-card)_ | 106% of 256.0M (backoff) |
+| Claude | 270.2M | $1942.39 _(notional, rate-card)_ | 106% of 256.0M (backoff) |
 | Codex | 20.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148304168 tokens/day lower bound._
+_Fleet token-unlock pace: 148343942 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
