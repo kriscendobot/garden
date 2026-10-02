@@ -23,3 +23,13 @@ and confirmed CI green (6 pass, 22 skipped) on 2026-10-02.
 Un-draft if still draft, then merge. Do NOT name a merge method; the conductor
 owns that (roles/conductor/AGENT.md). If you judge the cross-PR authorization
 insufficient, ask the maintainer via message-user.sh rather than merging.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T21:29:31Z
