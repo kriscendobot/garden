@@ -22,3 +22,13 @@ prior head. The oros-studio host's token cannot rerun Actions jobs, hence this p
 3. Re-stage the gauntlet under a fresh base (the halted one is in tada):
    `scripts/jobs/post-gauntlet.sh --build-job build-endo-claude-backends-1357-open-pr endojs-endo-but-for-bots-pr1412-gauntlet https://github.com/endojs/endo-but-for-bots/pull/1412`
    Skip if a gauntlet for #1412 is already running in `jobs/gauntlet/`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T21:41:03Z
