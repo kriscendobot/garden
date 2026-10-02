@@ -92,6 +92,7 @@ validation job (cite the real script names/flags, e.g.
 `set-workers.sh hermit 1`, and the trial-admission form from whichever trial
 doc you landed) — don't make the liaison re-derive them.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=24 -->
 ---
 claim:
   host: endolin-garden-ece02cb4
