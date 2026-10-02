@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T17:14:13Z_
+_As of 2026-10-02T17:35:10Z_
 
 ## Latest
 
-Fleet activity since the last snapshot was mostly routine gauntlet grinding with no clean board-transition diff to point at, but several items are worth flagging. Quota pressure dominates: Claude spend sits at 99% of the 256M-token weekly cap, triggering a worker drawdown on `endolin-garden-ece02cb4` (monk workers cut 2→1), while `oros-studio-garden-ce242c49` has been unreachable for ~11 hours (stale heartbeat, dead sysop, unclaimed health-checkup jobs) and needs a person at the machine. Several review-budget-exhausted PRs are sitting ready for a human merge/review call after 6 panel/fix rounds without convergence, including [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path sweep) and the two Ironhorse panic-handling PRs. Three gauntlets halted outright on a declined fix stage and need maintainer disposition rather than further automated retries. A gardener flagged `build-confined-application-makers-p2-20261002` as being claimed with a session budget too small to do any real work — worth raising its budget or re-tiering. Also open: a stale root-repo deploy on `endolin-garden2` (16 commits behind main2, stalled ~1 day) and a stray AI-slop/no-action item from the `comment-provenance` instrumentation gap (cosmetic, fail-open, not urgent).
+Board movement since the last bulletin was minimal: `build-confined-application-makers-p2-20261002` reopened in `todo` after its prior claim, and a new `claude-on-minion-town-press-20261002-172007` job was posted to push the Claude-on-minion.town arc forward.
+
+Otherwise the inbox is dominated by routine fleet noise — mostly RECOVERED journal-contention clears, a cleared comment-ack-blind condition, and the usual budget-level/worker-derotate chatter — with a few items actually worth a look: oros-studio-garden-ce242c49 remains unreachable (sysop dead since ~05:45Z, several health-checkup jobs stuck unclaimed in `todo`, needs a person at the machine), endolin-garden2's root-repo deploy has stalled ~16 commits behind `main2` for about a day, and Claude spend is now at 100% of the weekly quota. Several gauntlets hit their review-budget ceiling awaiting a merge/review call, including [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep) and the two ironhorse-panic PRs; a few others halted outright pending a maintainer decision to close or regenerate, and two PRs ([#1340](https://github.com/endojs/endo-but-for-bots/pull/1340) and [#1116](https://github.com/endojs/endo-but-for-bots/pull/1116)) have stale panel coverage after moving heads, so they need a fresh review before any gauntlet continues.
 
 ## Parked for maintainer feedback
 
@@ -188,15 +190,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #39 (first seen 2026-10-01T20:53:24Z, latest 2026-10-02T17:10:35Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 39 times; this is ONE
-> coalesced notice that updates in place, not 39 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-02T17:26:04Z).
+> It was observed 39 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 55 of 1020 clone(s) on consecutive ticks.
-
-- `msg-build-confined-application-makers-p2-20261002-5c064535968d` — from gardener:build-confined-application-makers-p2-20261002, reply_to `build-confined-application-makers-p2-20261002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-confined-application-makers-p2-20261002-5c064535968d.md)
-
-> build-confined-application-makers-p2-20261002 keeps being claimed with a ~$1 USD session budget, far too small for a multi-file daemon build (Phase 2: node-modules-with-map/scan capture + canonical mount hook + EndoHost.makeFromTree layout/entry, tests, draft PR stacked on [https://github.com/endojs/endo-but-for-bots/pull/1417](https://github.com/endojs/endo-but-for-bots/pull/1417) branch llm-confined-application-makers-p1). Two sessions spent their budget just loading context; no code written, no PR opened. Please raise the budget for this job (or re-tier it); otherwise each requeue burns ~$1 for nothing.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6` — from gardener:ocap-site-dns-recovery-check-20261001, reply_to `ocap-site-dns-recovery-check-20261001` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6.md)
 
@@ -347,23 +345,25 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 254.5M | $1840.12 _(notional, rate-card)_ | 99% of 256.0M (ok) |
+| Claude | 255.2M | $1843.17 _(notional, rate-card)_ | 100% of 256.0M (ok) |
 | Codex | 20.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148387963 tokens/day lower bound._
+_Fleet token-unlock pace: 148443394 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (33)
+### todo (35)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
+- [`claude-on-minion-town-press-20261002-172007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261002-172007.md) — Press the Claude-on-minion.town arc forward
 - [`minion-town-pr140-endo-cancel-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr140-endo-cancel-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #146
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
+- [`build-confined-application-makers-p2-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-confined-application-makers-p2-20261002.md) — Phase 2: daemon capture for node-modules-with-map and node-modules-scan layou...
 - [`improve-mention-source-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-mention-source-cooldown.md) — ---
 - [`build-ci-minion-town-actions-runner-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ci-minion-town-actions-runner-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #145
 - [`endojs-endo-but-for-bots-pr1407-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1407-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1407
@@ -391,9 +391,8 @@ worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1412
 - [`ebfb-petname-path-only-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 
-### doin (2)
+### doin (1)
 - [`build-confined-application-makers-p1-20261002-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1417
-- [`build-confined-application-makers-p2-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p2-20261002.md) — Phase 2: daemon capture for node-modules-with-map and node-modules-scan layou...
 
 ### tada (10444)
 - [`minion-town-pr140-endo-cancel-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/minion-town-pr140-endo-cancel-gauntlet-fix-2.md) — Cost
