@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: build-confined-application-makers-orch-20261002
-priority: normal
-posted_by: producer
-posted_at: 2026-10-02T16:52:10Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-02T17:04:05Z cleared=none -->
 
 ---
 role: builder
