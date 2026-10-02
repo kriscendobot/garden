@@ -94,3 +94,13 @@ The c8 coverage report is missing from the pre-pass data (expected at `coverage/
 
 <sub>Panel run record `a2457a2ac5c6` (single-round, gauntlet `ebfb-sturdyref-layer2-ses-20260930-gauntlet` stage panel-5).</sub>
 ----- END REVIEW -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T06:28:24Z
