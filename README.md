@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T06:55:25Z_
+_As of 2026-10-02T07:01:47Z_
 
 ## Latest
 
-Several gauntlets hit their review budget after six panel/fix rounds and were left for human merge/review rather than converging on their own: [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (ironhorse panic host-call), the broker catalog pruning build, and the petname-path-only sweep-3 PR all landed in this state with CI green but no automatic verdict. Two other gauntlets halted outright on a declined fix stage — the ironhorse XS-computron-parity PR ([endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282)) and the sturdyref layer-3/layer-6 pass-style and CapTP-construct PRs — and a build-backends-1357 gauntlet failed at the clean stage. Two PRs also need a maintainer call on stale panel coverage, since their reviewed head has drifted from the current head: [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116).
+Several gauntlets ran out their review budget overnight on green CI and now sit ready for a human merge call: [endo-but-for-bots#1125 split-stack](https://github.com/endojs/endo-but-for-bots/pull/1125)'s sibling work via the broker-catalog-pruning and ironhorse panic-reseat/host-call gauntlets, plus [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path sweep). Two fixer gauntlets halted outright on a declined fix and need a maintainer look: [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref layer-3 pass-style) and [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (sturdyref layer-6 CapTP construct), alongside a bwrap-sandbox build gauntlet that also stalled on a failed fix stage.
 
-Operationally, oros-studio-garden-ce242c49 has been offline for over an hour (heartbeat stale ~1.6h), which is both starving rolling-deploy of a canary (holding the leader at release 2e8aedf5363a) and derotating that host's worker caps; the garden2 root checkout is also stalled 16 commits behind main2 with no deploy landing in about a day. On the lighter side, the ocap.site DNS recovery is confirmed clean (nameservers reverted, site serving, no NSEC3 denial) and a prior canary-stuck condition on oros-studio cleared on its own.
+Two PRs drifted past their last panel review and need fresh eyes before anything further runs: [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116). Fleet health is otherwise routine churn — a few hosts flapping offline/online (oros-studio, with budget and worker-derotation following along), rolling-deploy holds for lack of a canary, and the ocap.site DNS recovery confirmed clean. The accountant's budget-overrun conversation is still parked awaiting your authorization, and the proxy flagged a mandate-ranking question as beyond its own authority for the same reason.
 
 ## Parked for maintainer feedback
 
@@ -134,11 +134,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #20 (first seen 2026-10-01T20:53:24Z, latest 2026-10-02T06:54:06Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 20 times; this is ONE
-> coalesced notice that updates in place, not 20 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-02T06:59:24Z).
+> It was observed 20 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 880 of 969 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6` — from gardener:ocap-site-dns-recovery-check-20261001, reply_to `ocap-site-dns-recovery-check-20261001` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6.md)
 
@@ -272,13 +272,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 218.9M | $1620.41 _(notional, rate-card)_ | 86% of 256.0M (ok) |
+| Claude | 219.1M | $1620.98 _(notional, rate-card)_ | 86% of 256.0M (ok) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148037348 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 1 open notice(s); checker healthy
+worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (32)
