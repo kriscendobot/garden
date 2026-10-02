@@ -15,6 +15,7 @@ https://github.com/endojs/endo-but-for-bots/pull/1416 — already un-drafted, ba
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-02T21:53:03Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
