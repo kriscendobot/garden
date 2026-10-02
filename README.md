@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T06:46:35Z_
+_As of 2026-10-02T06:52:52Z_
 
 ## Latest
 
-Gauntlet work ticked forward on a few fronts: fix round 1 for [endo-but-for-bots#1412](https://github.com/endojs/endo-but-for-bots/pull/1412) moved from claimed to in-progress, and a panel round for [endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414) completed and reported cost, clearing the way for its fix stage to be requeued. Separately, a panel-head freshness check landed noting the earlier panel review on PR #1391 no longer covers its current head. The maintainer inbox remains heavy with routine watchdog chatter (rolling-deploy canary/offline-host notices, journal-contention recoveries, budget-level throttling) and several stale-panel and gauntlet-halted notices awaiting review decisions, none of which need action from this update alone.
+Quiet cycle on the board itself: fix round 1 for [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414) claimed into doin, and the oros health-watch completed its pass, but the more notable signal is in the maintainer inbox. The leader derotated host oros-studio-garden-ce242c49 after its heartbeat went stale and it now looks unreachable, leaving rolling deploy with no canary to validate against; the health-watch report suggests someone needs to check on that machine directly (Docker Desktop / sleep / VM). Stale-panel-coverage notices also flagged two PRs whose heads moved past their last review — [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) — both need an explicit "run the gauntlet" or a manual review call before merging. Separately, ocap.site's DNS has recovered (Route53 nameservers restored, site serving correctly, zone unsigned pending a DS record republish), and several gauntlets (petname-path sweep-3, ironhorse panic live-handle-reseat, ironhorse panic host-call, broker-catalog-pruning) hit their review-budget ceiling after 6 rounds and are parked for human merge decisions.
 
 ## Parked for maintainer feedback
 
@@ -138,6 +138,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
+- `msg-oros-health-watch-20261002-053541-059a969f8e14` — from gardener:oros-health-watch-20261002-053541, reply_to `oros-health-watch-20261002-053541` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261002-053541-059a969f8e14.md)
+
+> oros-health-watch 06:50Z: oros-studio-garden-ce242c49 looks UNREACHABLE and needs a person at the machine (Docker Desktop / Mac asleep / VM).
+> - Its last journal activity was at 05:46:50Z (tada pr146-review). Its last sysop ack was at 05:39Z, more than an hour ago.
+> - The heartbeat was last sampled at 05:08Z. The leader derotated it (heartbeat-offline) at 06:05Z.
+> - This cycle's oros-health-checkup-20261002-045016 is still unclaimed in todo, about 2h after it was posted.
+> - I sent a benign op=reset-failed (msgid 20261002T062213Z-e32ec4) at 06:22Z. It had no ack after 27 min; earlier ops acked in 4–17 min.
+> - fleet/health (03:13Z): roll deferred (long-job), deployed e036bb8e vs main2 2e8aedf5.
+> I sent no attested ops: they can't land if the sysop isn't ticking.
+
 - `msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6` — from gardener:ocap-site-dns-recovery-check-20261001, reply_to `ocap-site-dns-recovery-check-20261001` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6.md)
 
 > ocap.site DNS recovery check (2026-10-02T05:14:32Z): RECOVERED.
@@ -270,20 +280,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 218.7M | $1618.55 _(notional, rate-card)_ | 85% of 256.0M (ok) |
+| Claude | 218.8M | $1619.63 _(notional, rate-card)_ | 85% of 256.0M (ok) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 147894987 tokens/day lower bound._
+_Fleet token-unlock pace: 148037348 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (33)
+### todo (32)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
-- [`endojs-endo-but-for-bots-pr1414-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1414-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1414
 - [`endojs-endo-but-for-bots-pr1403-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1403-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1403
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1340
 - [`endojs-endo-but-for-bots-pr1340-review-c8f6e4bb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-review-c8f6e4bb.md) — Review directive on endojs/endo-but-for-bots PR #1340
@@ -316,15 +325,15 @@ worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1412
-- [`oros-health-watch-20261002-053541`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261002-053541.md) — ---
+- [`endojs-endo-but-for-bots-pr1414-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1414-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1414
 
-### tada (10390)
+### tada (10391)
+- [`oros-health-watch-20261002-053541`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/oros-health-watch-20261002-053541.md) — Cost
 - [`endojs-endo-but-for-bots-pr1414-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1414-gauntlet-panel-1.md) — Cost
 - [`ebfb-1391-post-panel-5-verdict`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/ebfb-1391-post-panel-5-verdict.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1412-gauntlet-panel-1.md) — Cost
 - [`build-endo-claude-broker-catalog-pruning-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/build-endo-claude-broker-catalog-pruning-gauntlet.md) — gauntlet build-endo-claude-broker-catalog-pruning-gauntlet — review budget re...
-- [`build-endo-claude-broker-catalog-pruning-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/build-endo-claude-broker-catalog-pruning-gauntlet-fix-6.md) — Fix round 6 for PR #1409: all four must-fix items applied, CI green
-- … and 10385 more
+- … and 10386 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
