@@ -1,0 +1,2 @@
+base: improve-mention-source-cooldown
+identity: mentor:scripts/jobs/handlers/mention-source-gh.sh
