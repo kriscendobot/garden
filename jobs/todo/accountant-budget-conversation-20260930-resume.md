@@ -1,4 +1,28 @@
 ---
+role: orchestrator
+split_eligible: true
+split_reason: deadline-overrun
+split_source_role: accountant
+split_source_handler_timeout: 2400
+split_orchestration: accountant-budget-conversation-20260930-resume-split
+reposted_by: reaper:endolin-garden-ece02cb4
+reposted_at: 2026-10-02T00:53:08Z
+---
+
+# Deliberate overrun decomposition for `accountant-budget-conversation-20260930-resume`
+
+This ordinary job hit its applied 2400s handler wall once without productive progress. That one deterministic overrun is sufficient cause to split; do **not** continue implementing the original work in this claim.
+
+Read `roles/orchestrator/AGENT.md` and `skills/orchestration/SKILL.md`. Your first and only substantive act is to decide whether the original work genuinely decomposes, then use the existing journal primitives:
+
+- **Divisible:** create at least two self-contained child jobs, park every child with `post-plan.sh --orchestrated --orchestrated-by accountant-budget-conversation-20260930-resume-split`, then record `accountant-budget-conversation-20260930-resume-split` with `post-orchestration.sh`.
+- **Indivisible:** record a concrete `split-indivisible-reason:` in both the child body and orchestration description, choose a `handler-timeout:` strictly greater than 2400 and no greater than 14339, record that value as `split-indivisible-handler-timeout:` in the orchestration description, park exactly one child (normally `accountant-budget-conversation-20260930-resume-expanded-window`) under `accountant-budget-conversation-20260930-resume-split`, then record the single-child orchestration. A generic "too large" assertion is not a reason.
+- In either case, finish only after the parked child set and orchestration record exist durably. Declare the exact handoff `<<<GARDEN-JOB-HANDED-OFF: accountant-budget-conversation-20260930-resume-split>>>` immediately before the completion signal so completion verifies the successor.
+- Do not apply this split protocol to any gauntlet stage; gauntlet retries belong exclusively to its driver.
+
+## Original job specification
+
+---
 role: accountant
 tier: mentor
 ---
@@ -58,15 +82,3 @@ Method used for the spend table: the sum over `journal/usage/*.jsonl` of input+o
 3. **Mandate and pace:** does the 09-26 mandate still hold as-is? endolin1 has ~240M to spend in ~55h. Should I recommend raising worker capacity to use it, or let the unspent part lapse?
 
 Budget-request intake (design job `design-accountant-budget-request-intake`): I'll pass any view you have on it to that job, e.g. whether roles should file a request for any job above X tokens, or only for campaigns/presses.
-
-<!-- garden-deadline-overrun: 1 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: oros-studio-garden-ce242c49
-  gardener: 3
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-01T23:46:43Z
