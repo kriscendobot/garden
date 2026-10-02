@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T05:19:40Z_
+_As of 2026-10-02T05:23:48Z_
 
 ## Latest
 
-Quiet tick: the only board motion was routine gauntlet churn — [kriscendobot/minion.town#91](https://github.com/kriscendobot/minion.town/pull/91) moved into conduct (claimed), the ocap.site DNS recovery check started, and [endojs/endo-but-for-bots#1412](https://github.com/endojs/endo-but-for-bots/pull/1412)'s clean stage got re-queued after a bounce back to todo. Otherwise the maintainer inbox is mostly self-clearing watchdog noise (rolling-deploy canary/offline blips, journal-contention overruns, a budget-level nudge) that recovered on its own; worth a look are the still-open gauntlet halts on endo-but-for-bots #1392 ([layer3 pass-style](https://github.com/endojs/endo-but-for-bots/pull/1392)) and #1398-adjacent layer6/#1397 stacks, plus the stale-panel-coverage flag on [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116), where the head moved past what panel last reviewed and needs an explicit maintainer call before any further gauntlet.
+Board activity since the last bulletin was light: [kriscendobot/minion.town#91](https://github.com/kriscendobot/minion.town/pull/91) finished its conduct job and landed in tada, while the fix round for [endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) (broker catalog pruning) moved into doin. The messages pile is mostly watchdog noise that's self-clearing (rolling-deploy canary, journal-clone-oversized, worker-derotate), but two things stand out for attention: `endolin-garden2` has been stalled 16 commits behind `main2` for about a day with no deploy landing, and gauntlets for [endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (bwrap sandbox), [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref layer 3), and [endo-but-for-bots#1397-area work](https://github.com/endojs/endo-but-for-bots/pull/1397) (sturdyref layer 6) are halted on failed fix rounds awaiting a maintainer call. [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) also needs a fresh panel pass since its head moved past the last reviewed commit.
 
 ## Parked for maintainer feedback
 
@@ -201,20 +201,19 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 207.2M | $1527.37 _(notional, rate-card)_ | 81% of 256.0M (ok) |
+| Claude | 207.4M | $1528.61 _(notional, rate-card)_ | 81% of 256.0M (ok) |
 | Codex | 19.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 147521538 tokens/day lower bound._
+_Fleet token-unlock pace: 150919642 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 0 open notice(s); checker healthy
 
 ## Board
-### todo (35)
+### todo (34)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
-- [`build-endo-claude-broker-catalog-pruning-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-broker-catalog-pruning-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1409
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1412
 - [`ebfb-petname-path-only-sweep-4-gauntlet-panel-5-pr-write`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-sweep-4-gauntlet-panel-5-pr-write.md) — PR-write handoff for endojs/endo-but-for-bots#1390 (gauntlet panel round 5)
 - [`kriscendobot-minion.town-pr146-review-64a01f1e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr146-review-64a01f1e.md) — Review directive on kriscendobot/minion.town PR #146
@@ -248,18 +247,18 @@ worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`ebfb-petname-path-only-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 
 ### doin (4)
-- [`conduct-kriscendobot-minion.town-pr91`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/conduct-kriscendobot-minion.town-pr91.md) — Conduct kriscendobot/minion.town PR #91
+- [`build-endo-claude-broker-catalog-pruning-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-broker-catalog-pruning-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1409
 - [`ebfb-petname-path-only-sweep-4-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-sweep-4-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1390
 - [`ocap-site-dns-recovery-check-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ocap-site-dns-recovery-check-20261001.md) — Verify ocap.site DNS recovery after registrar nameserver revert
 - [`build-ci-minion-town-actions-runner-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ci-minion-town-actions-runner-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #145
 
-### tada (10375)
+### tada (10376)
+- [`conduct-kriscendobot-minion.town-pr91`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/conduct-kriscendobot-minion.town-pr91.md) — Cost
 - [`build-endo-claude-broker-catalog-pruning-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/build-endo-claude-broker-catalog-pruning-gauntlet-panel-5.md) — Cost
 - [`ebfb-petname-path-only-sweep-4-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/ebfb-petname-path-only-sweep-4-gauntlet-panel-5.md) — Panel round 5 for endojs/endo-but-for-bots#1390: must-fix
 - [`kriscendobot-minion.town-pr91-review-857b06ab`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/kriscendobot-minion.town-pr91-review-857b06ab.md) — Cost
 - [`endojs-endo-but-for-bots-pr1116-editorial-pass-open-pr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1116-editorial-pass-open-pr.md) — Cost
-- [`build-endo-claude-sandbox-bwrap-slice-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/build-endo-claude-sandbox-bwrap-slice-gauntlet.md) — gauntlet build-endo-claude-sandbox-bwrap-slice-gauntlet — HALTED
-- … and 10370 more
+- … and 10371 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
