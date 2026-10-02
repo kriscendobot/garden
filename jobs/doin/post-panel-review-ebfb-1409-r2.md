@@ -610,3 +610,13 @@ Verdict: approve — no findings requiring action. (Full seat prose elided to fi
 
 <sub><!--garden-provenance-->model <code>claude-opus-5-5</code> · harness <code>claude</code> · provider <code>anthropic</code> · host <code>oros-studio-garden-ce242c49</code></sub>
 ----- END REVIEW -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T00:17:56Z
