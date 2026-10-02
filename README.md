@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T15:22:31Z_
+_As of 2026-10-02T15:37:41Z_
 
 ## Latest
 
-Gauntlet activity was thin since the last bulletin: the lone notable transition was the `ebfb-guest-no-identifiers-locators` gauntlet on [endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/pull/1404), which halted after fix round 5 — fixes pushed but CI still red on one test, and the completed report declared the outcome failed/declined so it was not retried. One job claimed (`build-endo-claude-pinned-cli-bump` fix round 3, [endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406)) and one new job posted (a press to check whether the Claude-on-minion.town arc's jobs are running to completion).
-
-Several other gauntlets hit their review budget without converging and are sitting ready for human merge/review decisions: the petname-path-only sweep-3 PR, the Ironhorse panic live-handle-reseat and host-call PRs, and the Claude broker catalog-pruning PR. Meanwhile capacity is tight — Claude spend is at 96% of the weekly quota with monk workers throttled down to 1 on the leader host — and `oros-studio-garden-ce242c49` has been unreachable for hours, needing a human at the machine to check Docker/the VM. Three other gauntlets (sturdyref layer3, layer6, and a Claude sandbox bwrap slice) are also halted on declared fix failures and await a maintainer look.
+Quiet tick: the only board movement since the last bulletin was [endojs/endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406)'s gauntlet advancing from fix round 3 into panel round 4, plus the Claude-on-minion.town completion-press job finishing. Nothing new landed or stalled; the long list of unread maintainer-inbox items (gauntlet halts on #1404, #1392, #1397; several review-budget-reached notices on #1379, #1406's siblings, and the broker-catalog-pruning job; the stale-panel-head warnings on #1391 and #1116; and the ongoing oros-studio host-offline/no-canary watchdog chatter) all predate this tick and still await triage.
 
 ## Parked for maintainer feedback
 
@@ -174,11 +172,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-02T15:19:59Z).
-> It was observed 32 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #33 (first seen 2026-10-01T20:53:24Z, latest 2026-10-02T15:35:06Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 33 times; this is ONE
+> coalesced notice that updates in place, not 33 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 37 of 998 clone(s) on consecutive ticks.
 
 - `msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6` — from gardener:ocap-site-dns-recovery-check-20261001, reply_to `ocap-site-dns-recovery-check-20261001` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ocap-site-dns-recovery-check-20261001-c50d85b94af6.md)
 
@@ -312,22 +310,21 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 246.1M | $1790.88 _(notional, rate-card)_ | 96% of 256.0M (ok) |
+| Claude | 247.4M | $1799.47 _(notional, rate-card)_ | 97% of 256.0M (ok) |
 | Codex | 20.1M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148702806 tokens/day lower bound._
+_Fleet token-unlock pace: 148744449 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.905720s/45s (unknown); 1 open notice(s); checker healthy
+worst fetch p95 3.863788s/45s (unknown); 2 open notice(s); checker healthy
 
 ## Board
-### todo (37)
+### todo (36)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
-- [`claude-on-minion-town-completion-press-20261002-152011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261002-152011.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`claude-on-minion-town-press-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261002-142006.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-watch-20261002-145009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261002-145009.md) — ---
 - [`endojs-endo-but-for-bots-pr1340-conduct-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-conduct-20261001.md) — Conduct endojs/endo-but-for-bots#1340 (un-draft and merge)
@@ -361,15 +358,15 @@ worst fetch p95 3.905720s/45s (unknown); 1 open notice(s); checker healthy
 - [`ebfb-petname-path-only-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 
 ### doin (1)
-- [`build-endo-claude-pinned-cli-bump-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-pinned-cli-bump-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1406
+- [`build-endo-claude-pinned-cli-bump-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-pinned-cli-bump-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1406
 
-### tada (10422)
+### tada (10424)
+- [`claude-on-minion-town-completion-press-20261002-152011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/claude-on-minion-town-completion-press-20261002-152011.md) — Cost
+- [`build-endo-claude-pinned-cli-bump-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/build-endo-claude-pinned-cli-bump-gauntlet-fix-3.md) — Cost
 - [`ebfb-guest-no-identifiers-locators-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/ebfb-guest-no-identifiers-locators-gauntlet.md) — gauntlet ebfb-guest-no-identifiers-locators-gauntlet — HALTED
 - [`ebfb-guest-no-identifiers-locators-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/ebfb-guest-no-identifiers-locators-gauntlet-fix-5.md) — Fix round 5 on endojs/endo-but-for-bots#1404: fixes pushed, CI red on one tes...
 - [`build-endo-claude-pinned-cli-bump-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/build-endo-claude-pinned-cli-bump-gauntlet-panel-3.md) — Cost
-- [`endojs-endo-but-for-bots-pr1340-body-refresh-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1340-body-refresh-20261001.md) — Panel-head freshness
-- [`ebfb-guest-no-identifiers-locators-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/ebfb-guest-no-identifiers-locators-gauntlet-panel-5.md) — Cost
-- … and 10417 more
+- … and 10419 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
