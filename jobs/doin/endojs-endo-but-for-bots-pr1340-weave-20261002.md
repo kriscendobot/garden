@@ -19,3 +19,13 @@ snapshot needed unless you prefer to pin one — if you do, the successor conduc
 will unfreeze it), resolve the designs/README.md roadmap conflict keeping both sides'
 entries, lease-push. Do not merge — the successor job
 `endojs-endo-but-for-bots-pr1340-conduct-20261002` (blocked on this one) merges.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T16:31:58Z
