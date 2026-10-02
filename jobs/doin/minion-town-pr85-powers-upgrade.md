@@ -16,3 +16,13 @@ Otherwise:
 2. Drop the "powers plane off" rejection in `assertUpgradable`/`writeDirectory` and update module header R2.
 3. Add tests: unit coverage for the powers rewrite through publish.ts, a rejection test for a content-only attenuation, and extend the ENDO_CHECKOUT integration test so the live `back` changes after upgrade.
 4. Run CI-equivalent checks locally (typecheck, lint, npm test), then push and update the PR body's Scope/residuals.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T16:33:32Z
