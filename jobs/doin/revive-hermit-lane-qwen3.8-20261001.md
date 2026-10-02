@@ -91,3 +91,13 @@ validation job (cite the real script names/flags, e.g.
 `send-host-op.sh <host> op=local-model authorized_by=kriskowal`,
 `set-workers.sh hermit 1`, and the trial-admission form from whichever trial
 doc you landed) — don't make the liaison re-derive them.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T21:22:34Z
