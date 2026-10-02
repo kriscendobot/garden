@@ -1,2 +1,2 @@
-base: improve-receipt-watcher-startup-stragglers
+base: improve-receipt-primary-quota-cooldown
 identity: mentor:scripts/jobs/receipt-watcher.sh
