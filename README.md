@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T18:34:44Z_
+_As of 2026-10-02T18:38:45Z_
 
 ## Latest
 
-Fix round 3 of the minion.town cancel gauntlet ([kriscendobot/minion.town#146](https://github.com/kriscendobot/minion.town/pull/146)) completed and the job is already back out for panel review, while PR #1417's fix round landed on [endojs/endo-but-for-bots#1417](https://github.com/endojs/endo-but-for-bots/pull/1417). Otherwise the board is dominated by backlog: 33 jobs sit in todo (several gauntlet fix/panel rounds for #1390, #1393, #1397, #1403, #1407, #1412, #1416 among them) against a single active doer, so throughput is thin. Several gauntlets have stalled out and need maintainer attention — six separate HALTED notices (including #774's and #1392's sturdyref layers) and three review-budget-reached notices (ironhorse panic-handle/host-call work and the broker-catalog-pruning build) are sitting unread, alongside a stale-panel-coverage flag on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) whose head moved past its last-reviewed commit.
+Board traffic since the last bulletin was quiet — no new posts, claims, or completions resolved in this window, so the day's activity is best read from the open messages and the board snapshot itself. The maintainer inbox carries several gauntlets that ran to their review-budget ceiling without converging — [endojs/endo-but-for-bots#1125](https://github.com/endojs/endo-but-for-bots/pull/1125)-family work on the ironhorse panic live-handle-reseat and host-call PRs, the endo-claude broker-catalog-pruning build, and the petname-path-only sweep-3 PR — each landed six panel/fix rounds with CI green and is now parked for a human merge call rather than further automation. Several others halted outright on a declined fix stage: the guest-no-identifiers-locators gauntlet, the sturdyref layer3/layer6 gauntlets, the confined-application-makers P1 build, and the endo-claude backends-1357 build all need a maintainer look before any retry. [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) has stale panel coverage — its head moved past the last panel review, so it's queued for review rather than auto-staged. Fleet-health notes worth flagging: `oros-studio-garden-ce242c49` remains offline (~12.8h stale heartbeat, unclaimed checkups), which is also stalling rolling-deploy canaries fleet-wide, and the `endolin-garden2` root checkout is 16 commits behind `origin/main2` with no deploy landing in about a day — both look like they need a person's attention rather than more automation.
 
 ## Parked for maintainer feedback
 
@@ -122,11 +122,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-01T23:09:20Z, latest 2026-10-02T17:41:15Z).
-> The SAME condition (`journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` has CLEARED (first seen 2026-10-01T23:09:20Z, cleared 2026-10-02T18:35:34Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: packs 1001 >= 1000; size=245878784B packs=1001 gc.log=0; automatic remedy=deferred-deadline.
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
 
 - `stale-panel-head-endojs-endo-but-for-bots-pr1391-faefd8e5-00882036` — from gardener:ebfb-1391-post-panel-5-verdict, reply_to `ebfb-1391-post-panel-5-verdict` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1391-faefd8e5-00882036.md)
 
@@ -179,13 +179,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 258.5M | $1867.16 _(notional, rate-card)_ | 101% of 256.0M (backoff) |
+| Claude | 258.6M | $1867.69 _(notional, rate-card)_ | 101% of 256.0M (backoff) |
 | Codex | 20.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148862009 tokens/day lower bound._
+_Fleet token-unlock pace: 148876006 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
+worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (33)
