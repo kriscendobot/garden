@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T06:32:11Z_
+_As of 2026-10-02T06:35:18Z_
 
 ## Latest
 
-PR #1409 (broker catalog pruning) wrapped up its gauntlet overnight — six panel/fix rounds applied, CI green on the final fix, left for a human merge call since subjective review didn't converge in budget ([endojs/endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409)). Panel-head freshness checks flagged two PRs whose heads moved since their last review and need an explicit maintainer call before any further gauntlet: [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [#1116](https://github.com/endojs/endo-but-for-bots/pull/1116). Two more gauntlets also hit their review-round budget without convergence and are sitting ready for review: the Ironhorse panic live-handle-reseat and host-call-open-pr PRs. Routine gauntlet stages continue churning on #1412, #1390, #1391, #1393, #1397, #1398, #1340, #1407, and several minion.town PRs (#91, #145, #146, #147). Fleet health is otherwise quiet — the earlier journal-clone-oversized and rolling-deploy-canary conditions on oros-studio-garden-ce242c49 have all recovered — though oros-studio-garden-ce242c49 itself remains heartbeat-stale (offline ~1h) and is holding the leader's rolling deploy for lack of a canary, and the endolin-garden2 root checkout is now a day stale at 16 commits behind main2 with no deploy landing.
+Several gauntlets hit their review-budget ceiling after 6 panel/fix rounds with changes pushed and CI green, left for human merge/review decisions rather than converging further: [endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) (broker catalog pruning), the ironhorse panic-handle-reseat and panic-host-call PRs, and the petname-path-only sweep-3 PR. Two other gauntlets instead halted on a hard failure needing maintainer attention — the sturdyref layer-3 pass-style PR and the layer-6 CaptP-construct PR both failed their fix stage and were not retried, and a separate build (`endo-claude-sandbox-bwrap-slice`) also halted on a declined fix. Two stale-panel-coverage notices flag that [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) have each moved past their last-reviewed head and need an explicit re-run or review decision before merging. Infrastructure-wise, the oros-studio follower host is currently offline (holding the leader's rolling deploy with no canary available) and its budget/worker levels are self-correcting via watchdog as a result, while `ocap.site` DNS has fully recovered (NS and A records back on Route53, site serving normally, zone unsigned as expected). No PR workflow moved otherwise — the board transition list was empty this cycle.
 
 ## Parked for maintainer feedback
 
@@ -78,12 +78,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-endojs-endo-but-for-bots` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-endojs-endo-but-for-bots.md)
 
-> WATCHDOG notice — occurrence #29 (first seen 2026-10-02T02:04:19Z, latest 2026-10-02T06:29:06Z).
-> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 29 times; this is ONE
-> coalesced notice that updates in place, not 29 messages. Latest detail:
+> WATCHDOG notice — occurrence #30 (first seen 2026-10-02T02:04:19Z, latest 2026-10-02T06:34:07Z).
+> The SAME condition (`comment-ack-blind-endojs-endo-but-for-bots`) has now been observed 30 times; this is ONE
+> coalesced notice that updates in place, not 30 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
-> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#issuecomment-5944024654 (age=17071s; heartbeat=full-poll)
+> [https://github.com/endojs/endo-but-for-bots/pull/1116](https://github.com/endojs/endo-but-for-bots/pull/1116)#issuecomment-5944024654 (age=17372s; heartbeat=full-poll)
 
 - `ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-sweep-3-gauntlet-review-budget-reached.md)
 
@@ -266,10 +266,10 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 218.0M | $1612.54 _(notional, rate-card)_ | 85% of 256.0M (ok) |
+| Claude | 218.1M | $1614.45 _(notional, rate-card)_ | 85% of 256.0M (ok) |
 | Codex | 19.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 148534667 tokens/day lower bound._
+_Fleet token-unlock pace: 147894987 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 3.430219s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 0 open notice(s); checker healthy
