@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-02T22:07:39Z_
+_As of 2026-10-02T22:10:23Z_
 
 ## Latest
 
-The leader host (endolin-garden-ece02cb4) is stale — 25 commits behind, ~2 days without a deploy — which matters because it runs every singleton producer (foreman, scheduler, watchers), so anything newer than its deployed sha isn't being honored right now; the companion host endolin-garden2 is similarly stuck 16 commits behind for about a day. Several gauntlets halted on failed/declined fix stages and need maintainer attention: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref layer3), the layer6 CapTP-construct PR, the petname-path-only sweep-4 PR, and the Claude-sandbox bwrap-slice build, plus a `build-confined-application-makers` orchestration that halted after its phase-2 child was doomed (1 of 5 phases done, phases 3–5 parked). A handful of gauntlets instead hit their review-budget ceiling after 6 rounds with CI green and are sitting ready for a human merge call — including the IronHorse panic-handling PRs ([live-handle-reseat](https://github.com/endojs/endo-but-for-bots/pull/1379) and host-call-open-pr), the Claude broker catalog-pruning PR, and the petname-path-only sweep-3 PR. Separately, [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) moved to a new head after its last panel pass, so it needs a fresh review before anything lands, and oros-studio-garden-ce242c49 has gone fully unreachable for ~16 hours (heartbeat and sysop both stalled), which looks like it needs someone at the physical machine.
+Review flow is the dominant signal: several gauntlets have hit their subjective review-budget ceiling after six panel/fix rounds and are left green and improved for a human merge call — [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)-series sibling PRs, the minion.town cancel PR, and two Ironhorse panic-handling PRs among them — while several other gauntlets (petname-path sweep, sturdyref layers 3/6, guest-no-identifiers, bwrap-slice, backends-1357) HALTED outright on a failed/declined fix or clean stage and need a maintainer look rather than another retry. Separately, PR [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) moved past its last-reviewed head and needs an explicit "run the gauntlet" or a manual review before anything stages.
+
+Operationally, both the leader (endolin-garden-ece02cb4, 25 commits behind, ~2d stale — pausing all its singleton producers) and endolin-garden2 (16 commits behind, ~1d stale) have deploys stalled and need `deploy-garden.sh` run; oros-studio-garden-ce242c49 has gone fully unreachable for ~16h (heartbeat, sysop, and health checks all dark) and looks like it needs a person at the physical machine. Claude spend is over its weekly cap (105% of 256M, backoff engaged), and an orchestrated 5-phase confined-application-makers build halted after phase 2 was judged doomed, parking phases 3–5 for a decision.
 
 ## Parked for maintainer feedback
 
@@ -240,13 +242,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 269.9M | $1940.99 _(notional, rate-card)_ | 105% of 256.0M (backoff) |
+| Claude | 269.9M | $1941.24 _(notional, rate-card)_ | 105% of 256.0M (backoff) |
 | Codex | 20.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148304168 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 7 open notice(s); checker healthy
+worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (29)
