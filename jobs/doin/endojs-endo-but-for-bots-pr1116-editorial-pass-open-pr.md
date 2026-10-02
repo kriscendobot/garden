@@ -59,3 +59,13 @@ Docs-only (no changeset). `designs/guest-native-invitations.md` goes from about 
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ----- END PR BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T04:04:54Z
