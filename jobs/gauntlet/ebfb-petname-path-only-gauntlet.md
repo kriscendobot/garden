@@ -12,7 +12,7 @@ created_at: 2026-09-30T05:44:11Z
 stage: panel
 iteration: 3
 resumes: 0
-stage_retries: 0
+stage_retries: 1
 current_child: ebfb-petname-path-only-gauntlet-panel-3
 state: running
 resumed_at: 2026-09-30T17:27:00Z
