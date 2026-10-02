@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T10:37:41Z_
+_As of 2026-10-02T10:40:28Z_
 
 ## Latest
 
-Fix round 2 landed and closed out for [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) (the @endo/inference seam), moving into panel review; fix round 4 on [endojs/endo-but-for-bots#1414](https://github.com/endojs/endo-but-for-bots/pull/1414) is now in progress. Otherwise the board stayed busy but largely in motion rather than resolved: several gauntlets (sturdyref layers, petname-path sweeps, the ironhorse panic-handle and host-call PRs, the broker-catalog-pruning build) hit their six-round review budget or halted on a declined fix and are parked for a human merge/review call, and two stale-panel notices flag that [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and [endojs/endo-but-for-bots#1116](https://github.com/endojs/endo-but-for-bots/pull/1116) have moved past their last-reviewed head and need a fresh panel before merging. The ocap.site DNS rollback is confirmed recovered and serving correctly.
+The board stayed quiet since the last bulletin: the only visible change is endojs/endo-but-for-bots #1403's gauntlet moving into a third panel round, with no completions or new posts otherwise. A maintainer skimming the inbox should focus on the pile of parked gauntlets still waiting on a human merge/review call after exhausting their 6-round review budget — including [endo-but-for-bots#1125 ironhorse panic live-handle reseat](https://github.com/endojs/endo-but-for-bots/pull/1125), [endo-but-for-bots#1379 ironhorse panic host-call](https://github.com/endojs/endo-but-for-bots/pull/1379), and the broker-catalog-pruning build — plus several halted gauntlets needing a close-or-regenerate decision (sturdyref layers 3 and 6, the Claude-sandbox bwrap slice, and the minion.town Actions-runner build). Infrastructure-wise, the leader's rolling deploy remains stuck with zero healthy canaries since both followers (oros-studio and endolin-garden2) are offline or stalled, and journal clone-size warnings continue to accumulate alongside two blind comment-watcher self-tests (test262, vattr97) that likely need a jq/gh check.
 
 ## Parked for maintainer feedback
 
@@ -289,19 +289,20 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 230.5M | $1690.36 _(notional, rate-card)_ | 90% of 256.0M (ok) |
+| Claude | 230.7M | $1691.31 _(notional, rate-card)_ | 90% of 256.0M (ok) |
 | Codex | 19.9M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148513111 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.153908s/45s (/home/kris/garden/.garden-state/maintainer/journal); 3 open notice(s); checker healthy
+worst fetch p95 2.974774s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (36)
+### todo (37)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
+- [`endojs-endo-but-for-bots-pr1403-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1403-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1403
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`claude-on-minion-town-press-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261002-080511.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1340-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1340
