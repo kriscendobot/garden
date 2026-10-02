@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T22:10:23Z_
+_As of 2026-10-02T22:19:44Z_
 
 ## Latest
 
-Review flow is the dominant signal: several gauntlets have hit their subjective review-budget ceiling after six panel/fix rounds and are left green and improved for a human merge call — [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)-series sibling PRs, the minion.town cancel PR, and two Ironhorse panic-handling PRs among them — while several other gauntlets (petname-path sweep, sturdyref layers 3/6, guest-no-identifiers, bwrap-slice, backends-1357) HALTED outright on a failed/declined fix or clean stage and need a maintainer look rather than another retry. Separately, PR [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) moved past its last-reviewed head and needs an explicit "run the gauntlet" or a manual review before anything stages.
-
-Operationally, both the leader (endolin-garden-ece02cb4, 25 commits behind, ~2d stale — pausing all its singleton producers) and endolin-garden2 (16 commits behind, ~1d stale) have deploys stalled and need `deploy-garden.sh` run; oros-studio-garden-ce242c49 has gone fully unreachable for ~16h (heartbeat, sysop, and health checks all dark) and looks like it needs a person at the physical machine. Claude spend is over its weekly cap (105% of 256M, backoff engaged), and an orchestrated 5-phase confined-application-makers build halted after phase 2 was judged doomed, parking phases 3–5 for a decision.
+The most pressing item is operational, not editorial: the leader host (endolin-garden-ece02cb4) hasn't deployed in ~2 days and is now 25 commits behind `main2`, so every singleton producer — foreman, scheduler, watchers — is running stale code; the garden2 host is similarly stuck, 16 commits behind. Compounding it, the only configured follower, oros-studio-garden-ce242c49, has been unreachable for roughly 16 hours (stale heartbeat, sysop not ticking, needs someone at the physical machine), which also leaves rolling deploy with no canary to validate against. On the review side, a few PRs are parked for a merge/review call after their gauntlets hit the 6-round review budget without full convergence — [endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) (ironhorse panic host-call) and the petname-path-only line of work on [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) — both left green and improved but awaiting a human decision. Several other gauntlets halted outright on a declined fix stage, including the sturdyref layer-3 pass-style work on [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), and the build-confined-application-makers orchestration stopped after its phase-2 child was doomed, leaving three later phases parked. Separately, [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) needs a fresh review pass since its head moved past the last panel's coverage. Claude token spend is over its weekly cap (106%, in backoff) while Codex sits at 38% of its plan allotment.
 
 ## Parked for maintainer feedback
 
@@ -144,11 +142,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #8 (first seen 2026-10-02T17:51:26Z, latest 2026-10-02T21:55:34Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 8 times; this is ONE
-> coalesced notice that updates in place, not 8 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-02T17:51:26Z, cleared 2026-10-02T22:15:31Z).
+> It was observed 8 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 79 of 1050 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -242,13 +240,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 269.9M | $1941.24 _(notional, rate-card)_ | 105% of 256.0M (backoff) |
+| Claude | 270.1M | $1942.06 _(notional, rate-card)_ | 106% of 256.0M (backoff) |
 | Codex | 20.4M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148304168 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 6 open notice(s); checker healthy
+worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (29)
