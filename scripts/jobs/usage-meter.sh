@@ -99,6 +99,9 @@ fi
 : "${GARDEN_BUDGET_SNAPSHOT_SECS:=900}"
 : "${GARDEN_BUDGET_SNAPSHOT_MAX_AGE:=1800}"
 : "${GARDEN_BUDGET_PUBLISH_ATTEMPTS:=3}"
+# A session-log measurement slower than this (seconds) re-syncs the journal clone
+# before the first snapshot push; see budget_publish_local_pool.
+: "${GARDEN_BUDGET_PUBLISH_RESYNC_SECS:=5}"
 # Width of the host-keyed publication stagger inside each snapshot bucket. Empty
 # derives it from the cadence and max-age (see budget_snapshot_stagger_secs); 0
 # disables staggering (every host publishes on the bucket boundary).
@@ -808,8 +811,9 @@ _budget_publish_record_failure() {
 
 # _budget_publish_local_pool_once <synced-journal-clone> [failure-context-file] — build and CAS-publish
 # one snapshot attempt from the clone's current journal tip. A retry must call
-# this again after sync_clone: pool configuration, the anchored meter reading,
-# zone, and cadence bucket may all have changed while the first push raced.
+# this again after sync_clone: pool configuration, zone, and cadence bucket may
+# all have changed while the first push raced. The meter reading is reused from
+# the tick's memo unless the window start moved.
 _budget_publish_legacy_local_pool_once() {
   local dir="$1" context_file="${2:-}" pool="anthropic:$GARDEN" row provider kind cap cutoff spend now bucket file status rc
   row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)" || return 0
@@ -836,7 +840,11 @@ _budget_publish_local_pool_once() {
   local cutoff spend now bucket file old_bucket old_status status rc snapshot_secs label
   root="$(dirname "$(budget_pool_file "$dir")")"; root="$(dirname "$root")"
   mapping="$root/$GARDEN_SUBSCRIPTION_MAPPING_PATH"
-  [ -r "$mapping" ] || { _budget_publish_legacy_local_pool_once "$dir" "$context_file"; return; }
+  if [ ! -r "$mapping" ]; then
+    # The legacy single-pool path measures inline; let the publish pass run it.
+    if [ -n "${_BUDGET_MEASURE_ONLY:-}" ]; then _BUDGET_MEASURE_DUE=1; return 0; fi
+    _budget_publish_legacy_local_pool_once "$dir" "$context_file"; return
+  fi
   while IFS=$'\t ' read -r pool mapped_host worker_kind _; do
     case "$pool" in ''|'#'*) continue;; esac
     [ "$mapped_host" = "$GARDEN" ] || continue
@@ -845,21 +853,9 @@ _budget_publish_local_pool_once() {
     case "$worker_kind" in monk|cleric) ;; *) continue ;; esac
     row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)" || continue
     IFS=$'\t' read -r _ provider kind cap _ <<<"$row"
-    used_percent=""
-    case "$provider:$kind" in
-      anthropic:weekly-tokens)
-        cutoff="$(subscription_window_start_epoch "$pool" "$dir")" || continue
-        spend="$(meter_subscription_window_total "$pool" "$dir")" || continue
-        used_percent="$(subscription_used_percent "$pool" "$dir" 2>/dev/null || true)"
-        ;;
-      openai:percent)
-        cutoff="$(subscription_window_start_epoch "$pool" "$dir")" || continue
-        local scan used_percent
-        scan="$(_qp_codex_scan "$GARDEN_CODEX_LOGDIR" "$cutoff" 2>/dev/null)" || continue
-        read -r spend _ used_percent _ <<<"$scan"
-        ;;
-      *) continue;;
-    esac
+    # Cheap due-check BEFORE the session-log scan: the scan costs tens of seconds
+    # on a busy host, and the scaler ticks every minute while a snapshot is due
+    # only once per cadence bucket.
   now="$(meter_now)"; [[ "$now" =~ ^[0-9]+$ ]] || return 0
   snapshot_secs="$GARDEN_BUDGET_SNAPSHOT_SECS"; [[ "$snapshot_secs" =~ ^[1-9][0-9]*$ ]] || snapshot_secs=900
   bucket=$((now / snapshot_secs))
@@ -867,6 +863,30 @@ _budget_publish_local_pool_once() {
   old_bucket="$(sed -n 's/^sample_bucket:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
   [ "$old_bucket" != "$bucket" ] || continue
   budget_snapshot_due "$file" "$now" "$snapshot_secs" || continue
+    used_percent=""
+    case "$provider:$kind" in
+      anthropic:weekly-tokens|openai:percent)
+        cutoff="$(subscription_window_start_epoch "$pool" "$dir")" || continue
+        ;;
+      *) continue;;
+    esac
+    _budget_measure_memo_get "$pool" "$cutoff" spend used_percent || {
+      case "$provider:$kind" in
+        anthropic:weekly-tokens)
+          spend="$(meter_subscription_window_total "$pool" "$dir")" || continue
+          used_percent="$(subscription_used_percent "$pool" "$dir" 2>/dev/null || true)"
+          ;;
+        openai:percent)
+          local scan
+          scan="$(_qp_codex_scan "$GARDEN_CODEX_LOGDIR" "$cutoff" 2>/dev/null)" || continue
+          read -r spend _ used_percent _ <<<"$scan"
+          ;;
+      esac
+      _budget_measure_memo_put "$pool" "$cutoff" "$spend" "${used_percent:-}"
+    }
+    # Measure-only pass (budget_publish_local_pool): warm the memo, then let the
+    # caller re-sync so the push CAS window spans only write+commit+push.
+    if [ -n "${_BUDGET_MEASURE_ONLY:-}" ]; then _BUDGET_MEASURE_DUE=1; continue; fi
   old_status="$(sed -n 's/^status:[[:space:]]*//p' "$file" 2>/dev/null | head -1)"
   if [ -n "${used_percent:-}" ]; then status="$(meter_verdict "$used_percent" 100)"; else status="$(meter_verdict "$spend" "$cap")"; fi
   # A percent pool's cap is a percentage ceiling and its gate reads used_percent,
@@ -924,7 +944,7 @@ _budget_publish_local_pool_once() {
 # cross-host bridge the leader needs for fleet admission/leveling; at most one
 # journal commit per host per snapshot bucket. A lost journal CAS is retried
 # boundedly in the same scaler tick: re-sync, rebuild from the winning journal
-# tip, then try publication again. Exhaustion merely leaves the remote verdict
+# tip with the memoized reading, then try publication again. Exhaustion merely leaves the remote verdict
 # unknown (fail-open); worker reconciliation still proceeds.
 budget_publish_local_pool() {
   local dir="$1" attempts="$GARDEN_BUDGET_PUBLISH_ATTEMPTS" attempt rc context_file
@@ -935,11 +955,31 @@ budget_publish_local_pool() {
   context_file="$(mktemp "${TMPDIR:-/tmp}/garden-budget-publish-failure.XXXXXX")" \
     || context_file=""
 
-  if _budget_publish_local_pool_once "$dir" "$context_file"; then rc=0; else rc=$?; fi
-  if [ "$rc" -eq 0 ]; then rm -f "$context_file"; return 0; fi
+  # Measure first, publish second. The session-log scan takes tens of seconds on
+  # a busy host; scanning between the sync and the push left a window in which
+  # the fleet's journal tip always moved, so every attempt lost the CAS (oros,
+  # 2026-10-01 18:20-20:08Z: 21 consecutive ticks, no heartbeat, derotation).
+  # The measure pass also returns at once when no pool is due this tick. A
+  # measurement slower than GARDEN_BUDGET_PUBLISH_RESYNC_SECS re-syncs before the
+  # first push, since the tip it was taken against is already stale.
+  local measured_at=$SECONDS resync="$GARDEN_BUDGET_PUBLISH_RESYNC_SECS"
+  [[ "$resync" =~ ^[0-9]+$ ]] || resync=5
+  # Locals, seen by the callees through dynamic scope: the memo lives for exactly
+  # this call (and its retry subshells), never across scaler ticks.
+  local _BUDGET_MEASURE_MEMO="" _BUDGET_MEASURE_MEMO_ON=1 _BUDGET_MEASURE_DUE=""
+  _BUDGET_MEASURE_ONLY=1 _budget_publish_local_pool_once "$dir" "" || true
+  if [ -z "$_BUDGET_MEASURE_DUE" ]; then rm -f "$context_file"; return 0; fi
 
-  for attempt in $(seq 2 "$attempts"); do
-    backoff "$((attempt - 1))"
+  if [ $((SECONDS - measured_at)) -lt "$resync" ]; then
+    if _budget_publish_local_pool_once "$dir" "$context_file"; then rc=0; else rc=$?; fi
+    if [ "$rc" -eq 0 ]; then rm -f "$context_file"; return 0; fi
+    attempt=2
+  else
+    attempt=1
+  fi
+
+  for attempt in $(seq "$attempt" "$attempts"); do
+    [ "$attempt" -eq 1 ] || backoff "$((attempt - 1))"
     # sync_clone exits with EX_TEMPFAIL for an offline journal. Contain that exit
     # so snapshot publication remains fail-open and the scaler reaches its normal
     # warning latch plus worker reconciliation path.
@@ -953,6 +993,26 @@ budget_publish_local_pool() {
       _BUDGET_PUBLISH_FAILURE_CLASS < "$context_file"
   fi
   rm -f "$context_file"
+  return 1
+}
+
+# _budget_measure_memo_put <pool> <cutoff> <spend> <used-percent> /
+# _budget_measure_memo_get <pool> <cutoff> <spend-var> <pct-var> — one tick's
+# session-log readings, keyed by pool and window start, so a CAS retry re-syncs
+# and re-publishes without re-scanning. Retry subshells inherit the memo.
+_budget_measure_memo_put() {
+  [ -n "${_BUDGET_MEASURE_MEMO_ON:-}" ] || return 0
+  _BUDGET_MEASURE_MEMO+="$1"$'\t'"$2"$'\t'"$3"$'\t'"$4"$'\n'
+}
+
+_budget_measure_memo_get() {
+  local p c s u
+  [ -n "${_BUDGET_MEASURE_MEMO_ON:-}" ] || return 1
+  while IFS=$'\t' read -r p c s u; do
+    [ "$p" = "$1" ] && [ "$c" = "$2" ] && [ -n "$s" ] || continue
+    printf -v "$3" '%s' "$s"; printf -v "$4" '%s' "$u"
+    return 0
+  done <<<"${_BUDGET_MEASURE_MEMO:-}"
   return 1
 }
 
