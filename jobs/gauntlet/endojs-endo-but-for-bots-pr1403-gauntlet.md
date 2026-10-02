@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1403
 build_job: 
 kind: feature
-stage: panel
+stage: fix
 iteration: 2
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-stage_retries: 2
+stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1403-gauntlet-panel-2
+current_child: endojs-endo-but-for-bots-pr1403-gauntlet-fix-2
 state: running
 created_by: gardener
 created_at: 2026-10-01T17:10:24Z
