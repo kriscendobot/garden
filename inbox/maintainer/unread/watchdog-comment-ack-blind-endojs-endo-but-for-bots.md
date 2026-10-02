@@ -1,0 +1,10 @@
+from_host: endolin-garden-ece02cb4
+from: watchdog:comment-latency-watch
+sent_at: 2026-10-02T02:04:19Z
+watchdog_key: comment-ack-blind-endojs-endo-but-for-bots
+notice_count: 1
+first_seen: 2026-10-02T02:04:19Z
+last_seen: 2026-10-02T02:04:19Z
+---
+Comment acknowledgment blind anomaly for endojs/endo-but-for-bots:
+https://github.com/endojs/endo-but-for-bots/pull/1116#issuecomment-5944024654 (age=1155s; heartbeat=full-poll)
