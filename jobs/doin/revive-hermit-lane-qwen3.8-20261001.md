@@ -93,6 +93,7 @@ validation job (cite the real script names/flags, e.g.
 doc you landed) — don't make the liaison re-derive them.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=24 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
