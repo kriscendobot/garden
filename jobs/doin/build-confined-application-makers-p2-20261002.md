@@ -19,3 +19,13 @@ Repo endojs/endo-but-for-bots, base llm. Implement exactly the landed design htt
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-02T17:33:03Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T18:39:23Z
