@@ -4,14 +4,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1409
 build_job: build-endo-claude-broker-catalog-pruning
 kind: feature
-stage: fix
-iteration: 5
+stage: panel
+iteration: 6
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: build-endo-claude-broker-catalog-pruning-gauntlet-fix-5
+current_child: build-endo-claude-broker-catalog-pruning-gauntlet-panel-6
 state: running
 created_by: producer
 created_at: 2026-10-01T10:35:12Z
