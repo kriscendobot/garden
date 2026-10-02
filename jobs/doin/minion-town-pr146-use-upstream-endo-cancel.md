@@ -51,3 +51,13 @@ Steps:
 Note: gauntlet `minion-town-pr140-endo-cancel-gauntlet` has a fix-2 stage
 queued for panel nits on the vendored file; those become moot once it is
 deleted.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-02T16:53:29Z
