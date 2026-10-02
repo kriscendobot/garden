@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T20:25:48Z_
+_As of 2026-10-02T20:28:51Z_
 
 ## Latest
 
-Board activity since the last bulletin was minimal: a single fix-round job on [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) completed and was immediately re-claimed into another fix round, so that gauntlet continues to iterate. The larger story is upstream of the board — the leader host is 25 commits and ~2 days behind `origin/main2`, a stale-deploy condition that is actively silencing every newer directive (including a project pause), and the no-canary rolling-deploy hold persists because every follower is offline or drained; both warrant prompt attention. Several gauntlets halted this cycle on declared fix failures (ebfb-petname-path-only-sweep-4, ebfb-sturdyref-layer3-pass-style-20260930, ebfb-sturdyref-layer6-captp-construct-20260930, build-confined-application-makers, build-endo-claude-sandbox-bwrap-slice, build-endo-claude-backends-1357-open-pr), and three more hit their review-budget ceiling without converging (minion.town#146 via the endo-cancel gauntlet, and the two IronHorse panic PRs) — all left in an improved-but-unmerged state for manual review. Also notable: a stale-panel disposition flagged [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), whose head moved past its last reviewed commit, so it needs a fresh review decision before any further gauntlet work.
+PR #1403's gauntlet advanced into panel round 4, the only board movement captured since the last bulletin. Otherwise the picture is dominated by unread operational noise: the leader host (endolin-garden-ece02cb4) has a deploy stalled ~2 days / 25 commits behind, which matters because as leader it's not honoring any directive newer than its deployed sha; oros-studio-garden-ce242c49 remains unreachable (~12.8h+ stale heartbeat), leaving rolling deploy with no canary; and two comment-watchers (kriscendobot-test262, kriscendobot-vattr97) are flagged possibly blind. Several gauntlets halted on failed/declined fix or clean stages and need a maintainer look, including [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (sturdyref layer3), the layer6 captp-construct PR, the petname-path-only sweep-4 PR, and the guest-no-identifiers-locators PR, plus an orchestration (build-confined-application-makers) that halted after its second child was doomed, parking three downstream phases. Several other gauntlets exhausted their 6-round review budget without converging and are left green but unmerged for human review, including the ironhorse panic-live-handle-reseat and panic-host-call PRs and the claude-broker-catalog-pruning PR. [PR #1391](https://github.com/endojs/endo-but-for-bots/pull/1391) also has a stale-panel notice: its head moved past the last reviewed commit, so it needs a fresh review pass before merging.
 
 ## Parked for maintainer feedback
 
@@ -213,7 +213,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 263.3M | $1896.27 _(notional, rate-card)_ | 103% of 256.0M (backoff) |
+| Claude | 263.5M | $1897.48 _(notional, rate-card)_ | 103% of 256.0M (backoff) |
 | Codex | 20.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148783668 tokens/day lower bound._
@@ -222,7 +222,7 @@ _Fleet token-unlock pace: 148783668 tokens/day lower bound._
 worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (31)
+### todo (32)
 - [`revive-hermit-lane-qwen3.8-20261001`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/revive-hermit-lane-qwen3.8-20261001.md) — Revive the local hermit (on-box Ollama) lane, upgraded to qwen3.8
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
@@ -245,6 +245,7 @@ worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`kriscendobot-minion.town-pr85-101f9480`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-101f9480.md) — attention directive on kriscendobot/minion.town PR #85
 - [`daily-progress-summary-20261002-070505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261002-070505.md) — Daily midnight Pacific progress summary
 - [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1407
+- [`endojs-endo-but-for-bots-pr1403-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1403-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1403
 - [`endojs-endo-but-for-bots-pr1348-8333ce11`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1348-8333ce11.md) — attention directive on endojs/endo-but-for-bots PR #1348
 - [`accountant-budget-conversation-20260930-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-budget-conversation-20260930-resume.md) — Deliberate overrun decomposition for accountant-budget-conversation-20260930-...
 - [`kriscendobot-minion.town-pr147-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr147-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #147
