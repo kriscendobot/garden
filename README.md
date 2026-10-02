@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-02T17:08:18Z_
+_As of 2026-10-02T17:14:13Z_
 
 ## Latest
 
-Endo PR #1340 (ironhorse computron-parity, [endojs/endo-but-for-bots#1340](https://github.com/endojs/endo-but-for-bots/pull/1340)) got rebuilt and re-conducted, but its panel coverage is now stale against the new head, so it needs a fresh review before merge. The confined-application-makers build picked up its Phase 1 clean/viability work and spun off an orchestration plus three parked follow-on phases (P3–P5) for the rest of the daemon work; Phase 2 itself is still stuck claiming with a session budget too small to make progress, per the gardener's note. On minion.town, PR #91 turned out already merged (no-op conduct), #85 shepherded, and #146 landed in favor of the upstream endo-cancel approach, folding its gauntlet into #140's, which is now on panel round 3. Otherwise, mostly routine noise: a wall of journal-contention watchdogs cleared on their own, oros-studio-garden-ce242c49 remains unreachable and needs hands-on attention (Docker/VM likely asleep), and Claude spend is essentially at its weekly cap (99%).
+Fleet activity since the last snapshot was mostly routine gauntlet grinding with no clean board-transition diff to point at, but several items are worth flagging. Quota pressure dominates: Claude spend sits at 99% of the 256M-token weekly cap, triggering a worker drawdown on `endolin-garden-ece02cb4` (monk workers cut 2→1), while `oros-studio-garden-ce242c49` has been unreachable for ~11 hours (stale heartbeat, dead sysop, unclaimed health-checkup jobs) and needs a person at the machine. Several review-budget-exhausted PRs are sitting ready for a human merge/review call after 6 panel/fix rounds without convergence, including [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path sweep) and the two Ironhorse panic-handling PRs. Three gauntlets halted outright on a declined fix stage and need maintainer disposition rather than further automated retries. A gardener flagged `build-confined-application-makers-p2-20261002` as being claimed with a session budget too small to do any real work — worth raising its budget or re-tiering. Also open: a stale root-repo deploy on `endolin-garden2` (16 commits behind main2, stalled ~1 day) and a stray AI-slop/no-action item from the `comment-provenance` instrumentation gap (cosmetic, fail-open, not urgent).
 
 ## Parked for maintainer feedback
 
@@ -188,11 +188,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-01T20:53:24Z, cleared 2026-10-02T17:00:58Z).
-> It was observed 38 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #39 (first seen 2026-10-01T20:53:24Z, latest 2026-10-02T17:10:35Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 39 times; this is ONE
+> coalesced notice that updates in place, not 39 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 55 of 1020 clone(s) on consecutive ticks.
 
 - `msg-build-confined-application-makers-p2-20261002-5c064535968d` — from gardener:build-confined-application-makers-p2-20261002, reply_to `build-confined-application-makers-p2-20261002` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-build-confined-application-makers-p2-20261002-5c064535968d.md)
 
@@ -347,13 +347,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 254.4M | $1839.85 _(notional, rate-card)_ | 99% of 256.0M (ok) |
+| Claude | 254.5M | $1840.12 _(notional, rate-card)_ | 99% of 256.0M (ok) |
 | Codex | 20.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 148387963 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 0 open notice(s); checker healthy
+worst fetch p95 4.251747s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (33)
