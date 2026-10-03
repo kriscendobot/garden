@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: ebfb-red-ci-gauntlets-20261003
-priority: normal
-posted_by: producer
-posted_at: 2026-10-03T03:42:26Z
+role: fixer
+tier: mentor
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-03T03:43:34Z cleared=none -->
 
 ---
 role: fixer
