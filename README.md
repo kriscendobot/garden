@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T00:56:55Z_
+_As of 2026-10-03T01:07:49Z_
 
 ## Latest
 
@@ -379,14 +379,13 @@ _Fleet token-unlock pace: 148452947 tokens/day lower bound._
 worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (24)
+### todo (23)
 - [`endojs-endo-but-for-bots-pr1404-investigate-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1404-investigate-20261002.md) — Confirm whether the macOS @endo/daemon failure on endojs/endo-but-for-bots#14...
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
-- [`claude-on-minion-town-completion-press-20261002-212012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261002-212012.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`build-endo-claude-pinned-cli-bump-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-pinned-cli-bump-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1406
 - [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1393
 - [`oros-health-watch-20261002-085005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261002-085005.md) — ---
@@ -405,12 +404,13 @@ worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1412
 - [`ebfb-petname-path-only-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 
-### doin (5)
+### doin (6)
 - [`oros-health-watch-20261003-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261003-000506.md) — ---
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
 - [`claude-on-minion-town-press-20261002-232008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261002-232008.md) — Press the Claude-on-minion.town arc forward
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1340-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1340
 - [`build-ci-minion-town-actions-runner-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ci-minion-town-actions-runner-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #145
+- [`claude-on-minion-town-completion-press-20261002-212012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261002-212012.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 
 ### tada (10478)
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/02/endojs-endo-but-for-bots-pr1416-gauntlet-fix-1.md) — Cost
