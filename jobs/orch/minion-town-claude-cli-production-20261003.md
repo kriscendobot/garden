@@ -1,4 +1,5 @@
 ---
+child-minion-town-claude-cli-provider-conduct-20261003-host: endolin-garden-ece02cb4
 child-minion-town-claude-cli-provider-conduct-20261003-reap-count: 0
 child-build-minion-town-claude-cli-provider-20261003-host: endolin-garden-ece02cb4
 child-build-minion-town-claude-cli-provider-20261003-reap-count: 0
