@@ -27,3 +27,13 @@ cause if it is in the garden or the PR, then resume the gauntlet at the stage wh
 stopped (not from round 1) so it runs to un-draft or its review budget. If a resume
 mechanism is missing for a finished record, re-post just that stage with the same
 iteration count and say how. For minion.town use GARDEN_YARN=npm. Report per-PR outcome.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T05:26:25Z
