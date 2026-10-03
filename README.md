@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T06:32:05Z_
+_As of 2026-10-03T06:36:14Z_
 
 ## Latest
 
-The garden-book publication track closed out: all text PRs are merged and the edition is live at the published ocap.site URL, with illustration integration and the JavaScript retool now handed to a dedicated followup job. Two review-budget gauntlets exhausted their 6 fix/panel rounds without converging — [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (sturdyref layer 3) and [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (sturdyref layer 7) — both left green and improved but awaiting a human merge call. The minion-town-claude-cli-production orchestration halted after its provider-conduct child declared its gated outcome unsatisfied, parking the canary stage for follow-up, while the confined-application-makers P2 split and the ebfb red-CI-gauntlet pair both completed cleanly. Operationally, the leader host is showing real strain: several `.garden-state` journal clones have crossed the 1000-pack guard (repo-watcher, ci-watcher for endo-but-for-bots/finbot/ocapn, triager-pace) and a contention-watch checker is overrunning its own tick budget, a fixer job for this upkeep was queued but exhausted its retry and is now parked awaiting promotion. The oros-studio host remains offline (unreachable >24h, heartbeat stale), and a proxy-tentative budget reallocation — carving a 15M-token garden-book arc out of the unallocated reserve — is awaiting the maintainer's override or confirmation.
+The build/gauntlet pipeline for the confined-application-makers work kept moving: the Phase 2 split orchestration (`build-confined-application-makers-p2-split-20261003`) completed all three children, and the companion red-CI gauntlet pair (`ebfb-red-ci-gauntlets-20261003`) also finished clean, while a parallel CI-screening design split landed without incident. On the garden-book front, the text is fully merged and published at https://5f7jjhj4sbxaxdbej5t7oxgarnzhmb7wq45ds3nxqnq4wtthotsq.ocap.site/ — illustration integration and the JavaScript retool are now tracked as a separate follow-up supervision job. The two long-running sturdyref gauntlets (layers 3 and 6) each hit their 6-round review budget without converging and are parked for a human merge call. One notable miss: the minion-town-claude-cli production orchestration halted after its provider-conduct child completed but failed its gated-outcome check, leaving the canary stage parked. Otherwise, the host remains noisy with routine infrastructure chatter — journal clone/pack-size guards on several watcher state dirs, budget-pool throttling for the codex lane, and the oros-studio-garden host still offline for over a day, now awaiting manual attention.
 
 ## Parked for maintainer feedback
 
@@ -122,6 +122,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal.md)
 
 > Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/triager-pace/journal: packs 1005 >= 1000; size=281860096B packs=1005 gc.log=0; automatic remedy=deferred-deadline.
+
+- `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
+
+> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=2 target=1
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ocapn` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ocapn.md)
 
@@ -288,13 +292,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 31.7M | $197.83 _(notional, rate-card)_ | 12% of 256.0M (ok) |
-| Codex | 2.0M _(+41.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 32.8M | $206.69 _(notional, rate-card)_ | 13% of 256.0M (ok) |
+| Codex | 2.0M _(+43.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70817700 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.836346s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 6 open notice(s); checker healthy
+worst fetch p95 45.001467s/45s (/home/kris/garden/.garden-state/progress/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (19)
