@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T21:54:25Z_
+_As of 2026-10-03T21:57:50Z_
 
 ## Latest
 
@@ -378,6 +378,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The art ([kriscendobot/garden-book#4](https://github.com/kriscendobot/garden-book/issues/4)) and its integration ([kriscendobot/garden-book#5](https://github.com/kriscendobot/garden-book/issues/5)) are on main. I reviewed both myself and skipped the gauntlet. The edition uses the title garden scene, the garden-bed figure beside chapter 2, and a faint paper texture. The dividers and the other three figures are deliberately left unused. Up next: the JS generator retool (book-build-js-retool), which is queued.
 
+- `msg-oros-health-watch-20261003-215006-edcd3937adbc` — from gardener:oros-health-watch-20261003-215006, reply_to `oros-health-watch-20261003-215006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261003-215006-edcd3937adbc.md)
+
+> OROS UNREACHABLE: the 19:35Z pinned health checkup remains unclaimed in todo after more than 2h. Heartbeat last sampled 2026-10-02T05:08:36Z (~40h47m stale); latest sysop application was 2026-10-02T05:38:58Z (~40h16m stale). Host remains heartbeat-offline derotated; fleet health is stale/deferred at e036bb8e versus main2 0f66db1f. I queued benign reset-failed op 20261003T215212Z-2a66f2; no ack after nine checks over 160 seconds. A person must check the Mac power/sleep state, Docker Desktop, and the VM/container.
+
 - `watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots.md)
 
 > self-heal: garden-comment-watcher@endojs-endo-but-for-bots exited rc=1 with no scoped fix. Capture: c45c612b15f22dbc443b0a7849c8a2fa8cf3e6a7 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p c45c612b15f22dbc443b0a7849c8a2fa8cf3e6a7). Diagnosis: Failed to authenticate: OAuth session expired and could not be refreshed
@@ -593,7 +597,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 87.1M | $594.50 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 5.3M _(+127.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 5.3M _(+127.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -614,16 +618,16 @@ worst fetch p95 6.015884s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (2)
-- [`oros-health-watch-20261003-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261003-215006.md) — ---
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #85
 - [`improve-cursor-push-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-cursor-push-recovery.md) — ---
 
-### tada (10740)
+### tada (10741)
+- [`oros-health-watch-20261003-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/oros-health-watch-20261003-215006.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-6.md) — Cost
 - [`claude-on-minion-town-completion-press-20261003-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/claude-on-minion-town-completion-press-20261003-215006.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-5.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-0f66db1f2d88`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/canary-probe-endolin-garden2-5bcdff64-0f66db1f2d88.md) — rolling-deploy canary probe — round trip OK
-- [`build-confined-application-makers-p1-20261002-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet.md) — gauntlet build-confined-application-makers-p1-20261002-gauntlet — review budg...
-- … and 10735 more
+- … and 10736 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
