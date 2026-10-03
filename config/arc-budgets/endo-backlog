@@ -4,9 +4,9 @@
   "arc": "endo-backlog",
   "rank": 7,
   "summary": "Off-mandate endo-but-for-bots backlog sliver: already-staged gauntlets only; the 2026-08 weaves stay parked",
-  "token_cap": 10000000,
+  "token_cap": 9500000,
   "window": "week",
   "window_start": "2026-10-03T03:00:00Z",
   "set_by": "accountant-budget-slate-20261001-apply",
-  "set_at": "2026-10-03T03:37:22Z"
+  "set_at": "2026-10-03T03:38:34Z"
 }
