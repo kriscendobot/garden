@@ -9,11 +9,11 @@ max_resumes: 6
 max_stage_retries: 2
 created_by: producer
 created_at: 2026-09-30T21:06:52Z
-stage: fix
-iteration: 5
+stage: panel
+iteration: 6
 resumes: 0
 stage_retries: 0
-current_child: build-ci-minion-town-actions-runner-gauntlet-fix-5
+current_child: build-ci-minion-town-actions-runner-gauntlet-panel-6
 state: running
 resumed_at: 2026-10-03T05:30:55Z
 resumed_from_stage: panel
