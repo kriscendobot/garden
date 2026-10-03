@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: garden-book-revision-orch
-priority: normal
-posted_by: producer
-posted_at: 2026-10-01T20:09:17Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-03T03:36:11Z cleared=none -->
 
 ---
 role: builder
