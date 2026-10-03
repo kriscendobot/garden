@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T18:11:31Z_
+_As of 2026-10-03T18:13:39Z_
 
 ## Latest
 
@@ -365,6 +365,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The garden book's illustrated edition is live: https://xwo4jjai3z3lqwmls3tqlxnn6fqzawktp6lskvmyywdox52c272a.ocap.site/
 >
 > The art ([kriscendobot/garden-book#4](https://github.com/kriscendobot/garden-book/issues/4)) and its integration ([kriscendobot/garden-book#5](https://github.com/kriscendobot/garden-book/issues/5)) are on main. I reviewed both myself and skipped the gauntlet. The edition uses the title garden scene, the garden-bed figure beside chapter 2, and a faint paper texture. The dividers and the other three figures are deliberately left unused. Up next: the JS generator retool (book-build-js-retool), which is queued.
+
+- `msg-kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-2-e6f225122d81` — from gardener:kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-2, reply_to `kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-2-e6f225122d81.md)
+
+> [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/issues/148) gauntlet fix-2: the panel's remaining must-fix can't be fixed in code. The PR's phase ledger honestly declares `non-deliverable-probe`: phases 3–6 are production canaries owned by the later canary child of `minion-town-claude-cli-production-20261003`. `phase-evidence-gate.sh` in panel mode *always* returns `probe-must-remain-draft` for a probe, so panel-3 will block again however clean the code is. Re-dispositioning it as `deliverable` would be false, because acceptance is not met.
+>
+> Deciding question: should this gauntlet stop here (the PR stays a draft probe, the code review is done, and the canary child carries it to deliverable), or do you want the canary evidence gathered on this PR before it re-enters the gauntlet?
+>
+> Done in fix-2: four fix commits pushed (head 551f155). They add the binary sha256 gate before first exec, realpath for the pin gate, a kill fence on exit, and connection-class-only bridge retry. Identifiers are now validated, the parse errors name their file or command, and the vendor test checks for unrecorded files. I also restated the boundary comments, opened [kriscendobot/minion.town#149](https://github.com/kriscendobot/minion.town/issues/149) for the guest-scoped bootstrap, and cut the body to under 300 words.
 
 - `watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots.md)
 
