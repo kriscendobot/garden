@@ -1,11 +1,8 @@
 host: endolin-garden2-5bcdff64
-deployed_sha: 13a68691c90d98dfe1b12f5d80ddfa602d286e5d
-roll_status: deferred
+deployed_sha: 6bd54f002cfd87686369e21d747ba7b7404f30c2
+roll_status: deployed
 unit_failures: 0
 unit_total: 285
 first_bad_unit: -
 advisory_failures: 0
-at: 2026-10-03T15:07:09Z
-deferred_reason: long-job monk 2 3418s
-deferred_target: 6bd54f002cfd87686369e21d747ba7b7404f30c2
-deferred_at_epoch: 1791039960
+at: 2026-10-03T15:10:16Z
