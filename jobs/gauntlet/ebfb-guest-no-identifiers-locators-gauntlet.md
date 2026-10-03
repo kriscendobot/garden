@@ -11,7 +11,7 @@ created_by: producer
 created_at: 2026-10-01T06:01:51Z
 stage: fix
 iteration: 5
-resumes: 0
+resumes: 1
 stage_retries: 0
 current_child: ebfb-guest-no-identifiers-locators-gauntlet-fix-5
 state: running
