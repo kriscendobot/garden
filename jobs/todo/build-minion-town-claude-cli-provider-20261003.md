@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-claude-cli-production-20261003
-priority: high
 role: builder
-posted_by: minion-town-pr87-production-gate-resume-20260922
-posted_at: 2026-10-03T04:22:59Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-10-03T04:25:06Z cleared=none -->
 
 ---
 role: builder
