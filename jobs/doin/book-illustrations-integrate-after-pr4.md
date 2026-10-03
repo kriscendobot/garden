@@ -92,3 +92,13 @@ https://github.com/kriscendobot/garden-book/pull/4 was still **OPEN (draft)**,
 its gauntlet in flight, so this job was re-parked blocked on #4. When promoted,
 re-run the three-step check above anyway (#4 may have been *closed* rather than
 merged — in that case message the maintainer and stop, per step 3).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T06:16:59Z
