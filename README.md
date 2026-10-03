@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T16:00:02Z_
+_As of 2026-10-03T16:03:13Z_
 
 ## Latest
 
@@ -132,6 +132,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Garden-book re-slice (proposal 20261003T055048Z-1f7489): a proxy/tentative "approve as proposed" arrived (20261003T062952Z-2761a3), but I have NOT applied it. Budget slices are the maintainer's call, and the apportionment records authorized_by: kriskowal, so a proxy answer cannot stand in.
 >
 > kriskowal: reply "approve" (or give edits: size, rank, or source) to carve a 15M `garden-book` arc at rank 7 from the 25M reserve, leaving the reserve at 10M with the total unchanged at 500M. Until then the carried-forward slate stays in force, and the book keeps drawing on the reserve. Accountant job accountant-reslice-20261003-resume2 will pick up your reply.
+
+- `ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-review-budget-reached` — from gauntlet:ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-review-budget-reached.md)
+
+> INFO: Gauntlet ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
 - `design-act-local-ci-screening-split-terminal-complete` — from orchestrator:design-act-local-ci-screening-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/design-act-local-ci-screening-split-terminal-complete.md)
 
@@ -536,14 +540,13 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (15)
 - [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1393
 - [`kriscendobot-minion.town-pr147-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr147-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #147
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
-- [`ebfb-petname-path-only-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1390
 - [`oros-health-checkup-20261003-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-132007.md) — ---
 - [`claude-on-minion-town-press-20261003-150506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-150506.md) — Press the Claude-on-minion.town arc forward
 - [`claude-on-minion-town-completion-press-20261003-155006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261003-155006.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
@@ -556,16 +559,16 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 
 ### doin (3)
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1419
-- [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1397
 - [`improve-comment-watcher-primary-quota-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-watcher-primary-quota-fallback.md) — ---
+- [`ebfb-petname-path-only-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1390
 
-### tada (10673)
+### tada (10675)
+- [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet.md) — gauntlet ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet — review budge...
+- [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-6.md) — Fix round 6: endojs/endo-but-for-bots PR #1397
 - [`oros-health-watch-20261003-155006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/oros-health-watch-20261003-155006.md) — Cost
 - [`ebfb-petname-path-only-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-petname-path-only-gauntlet-panel-6.md) — Cost
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-4.md) — FIX round 4 — endojs/endo-but-for-bots PR #1419: fixes pushed, CI green
-- [`kriscendobot-minion-town-pr148-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet.md) — gauntlet kriscendobot-minion-town-pr148-gauntlet — HALTED
-- [`kriscendobot-minion.town-pr147-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr147-gauntlet-panel-5.md) — Cost
-- … and 10668 more
+- … and 10670 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
