@@ -164,8 +164,12 @@ PY
 }
 
 # minion_mcp_codex_args [worktree] — fill MINION_MCP_CODEX_ARGS with `-c` overrides
-# that declare the bridge as a codex stdio MCP server (values are TOML), and set
-# MINION_MCP_CODEX_NAME to the server name used. If the codex user config
+# that declare the bridge as a codex stdio MCP server, and set MINION_MCP_CODEX_NAME
+# to the server name used. The server is ONE complete inline-table override, never
+# per-key dotted ones. That alone does not shield it from a persisted entry: codex
+# (verified 0.156.0) deep-merges even a table-valued `-c mcp_servers.<name>={...}`,
+# or a whole `-c mcp_servers={...}`, into the persisted table, so a persisted `url`
+# still fails load with "url is not supported for stdio". Hence the rename below. If the codex user config
 # ($CODEX_HOME/config.toml) or the worktree's project config already declares
 # minion-town, that entry is disabled with `enabled=false` (a key valid for both
 # url and stdio servers, so the merge stays loadable) and the bridge is declared
@@ -188,15 +192,8 @@ minion_mcp_codex_args() {
     MINION_MCP_SKIP_REASON="codex config persists mcp_servers.$MINION_MCP_SERVER_NAME; disabled it and attached the bridge as $name"
   fi
   MINION_MCP_CODEX_NAME="$name"
-  p="mcp_servers.$name"
   env_toml="$(minion_mcp_env_json | jq -r 'to_entries | map("\(.key)=\(.value | tojson)") | "{" + join(",") + "}"')"
-  MINION_MCP_CODEX_ARGS+=(
-    -c "$p.command=\"python3\""
-    -c "$p.args=[$(jq -cn --arg b "$MINION_MCP_BRIDGE" '$b')]"
-    -c "$p.env=$env_toml"
-    -c "$p.startup_timeout_sec=60"
-    -c "$p.tool_timeout_sec=600"
-  )
+  MINION_MCP_CODEX_ARGS+=(-c "mcp_servers.$name={command=\"python3\",args=[$(jq -cn --arg b "$MINION_MCP_BRIDGE" '$b')],env=$env_toml,startup_timeout_sec=60,tool_timeout_sec=600}")
 }
 
 # minion_mcp_kimi_write <kimi-home> <on|off> — Kimi Code reads MCP servers only from

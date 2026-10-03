@@ -109,14 +109,15 @@ cfg="$(lib 'minion_mcp_claude_config')"
 check "claude config is a stdio server running the bridge" bash -c 'jq -e ".mcpServers[\"minion-town\"] | .type == \"stdio\" and .command == \"python3\" and (.args[0] | endswith(\"minion-mcp-bridge.py\"))" <<<"$0" >/dev/null' "$cfg"
 check "claude config carries no token or secret" bash -c '! grep -q "eyJ\|client_secret\|\"sec\"" <<<"$0"' "$cfg"
 codex="$(lib 'minion_mcp_codex_args; printf "%s\n" "${MINION_MCP_CODEX_ARGS[@]}"')"
-check "codex args declare command, args and env for minion-town" bash -c 'grep -q "^mcp_servers.minion-town.command=\"python3\"$" <<<"$0" && grep -q "^mcp_servers.minion-town.args=\[\".*minion-mcp-bridge.py\"\]$" <<<"$0" && grep -q "^mcp_servers.minion-town.env={.*GARDEN_STATE=" <<<"$0"' "$codex"
+check "codex args are one complete server table for minion-town" bash -c '[ "$(grep -c "^mcp_servers\." <<<"$0")" = 1 ] && grep -q "^mcp_servers.minion-town={command=\"python3\",args=\[\".*minion-mcp-bridge.py\"\],env={.*GARDEN_STATE=.*},startup_timeout_sec=60,tool_timeout_sec=600}$" <<<"$0"' "$codex"
+check "codex server table parses as TOML with exactly the stdio keys" bash -c 'python3 -c "import sys,tomllib; t=tomllib.loads(sys.argv[1])[\"mcp_servers\"][\"minion-town\"]; sys.exit(0 if sorted(t)==[\"args\",\"command\",\"env\",\"startup_timeout_sec\",\"tool_timeout_sec\"] and t[\"args\"][0].endswith(\"minion-mcp-bridge.py\") else 1)" "$(grep "^mcp_servers\." <<<"$0")"' "$codex"
 CH="$CODEX_HOME"; mkdir -p "$CH"
 codex_named() { CODEX_HOME="$CH" lib 'minion_mcp_codex_args '"${1:-}"' && echo "NAME=$MINION_MCP_CODEX_NAME" || echo "SKIP=$MINION_MCP_SKIP_REASON"; printf "%s\n" "${MINION_MCP_CODEX_ARGS[@]}"'; }
 check "codex: no persisted entry keeps the minion-town name" grep -qx 'NAME=minion-town' <<<"$(codex_named)"
 printf '[mcp_servers.minion-town]\nurl = "https://minion.town/mcp"\n\n[mcp_servers.minion-town.oauth]\nclient_id = "x"\n' > "$CH/config.toml"
 codex="$(codex_named)"
 check "codex: a persisted url entry is disabled, never merged into" bash -c 'grep -qx "mcp_servers.minion-town.enabled=false" <<<"$0" && ! grep -q "^mcp_servers.minion-town.command" <<<"$0"' "$codex"
-check "codex: the bridge is attached under minion-town-garden" bash -c 'grep -qx "NAME=minion-town-garden" <<<"$0" && grep -q "^mcp_servers.minion-town-garden.command=\"python3\"$" <<<"$0"' "$codex"
+check "codex: the bridge is attached under minion-town-garden" bash -c 'grep -qx "NAME=minion-town-garden" <<<"$0" && grep -q "^mcp_servers.minion-town-garden={command=\"python3\"," <<<"$0"' "$codex"
 printf '[mcp_servers]\n"minion-town" = { url = "https://minion.town/mcp" }\n' > "$CH/config.toml"
 check "codex: an inline-table spelling is detected too" grep -qx 'NAME=minion-town-garden' <<<"$(codex_named)"
 printf '[mcp_servers.minion-town]\nurl = "u"\n[mcp_servers.minion-town-garden]\nurl = "u"\n' > "$CH/config.toml"
@@ -124,9 +125,20 @@ check "codex: both names persisted fails open (no args)" bash -c 'grep -q "^SKIP
 rm -f "$CH/config.toml"; mkdir -p "$T/wt/.codex"; printf 'mcp_servers.minion-town.url = "u"\n' > "$T/wt/.codex/config.toml"
 check "codex: a worktree project config entry is detected" grep -qx 'NAME=minion-town-garden' <<<"$(codex_named "$T/wt")"
 if command -v codex >/dev/null 2>&1; then
+  for persisted in 'url:[mcp_servers.minion-town]\nurl = "https://minion.town/mcp"\n' \
+                   'url+bearer+headers:[mcp_servers.minion-town]\nurl = "https://minion.town/mcp"\nbearer_token_env_var = "MT_TOKEN"\nhttp_headers = { X-A = "b" }\n' \
+                   'inline url table:[mcp_servers]\n"minion-town" = { url = "https://minion.town/mcp" }\n'; do
+    printf '%b' "${persisted#*:}" > "$CH/config.toml"
+    mapfile -t cargs < <(CODEX_HOME="$CH" lib 'minion_mcp_codex_args; printf "%s\n" "${MINION_MCP_CODEX_ARGS[@]}"')
+    check "codex: the real CLI loads with a persisted ${persisted%%:*} entry" bash -c 'CODEX_HOME="$0" codex "$@" mcp list 2>/dev/null | grep -q "^minion-town-garden  *python3 .*minion-mcp-bridge.py"' "$CH" "${cargs[@]}"
+  done
+  # Why the rename exists: codex deep-merges even a complete table override, so
+  # replacing the persisted entry in place is not possible. If a codex upgrade
+  # makes this load, the rename can be retired.
   printf '[mcp_servers.minion-town]\nurl = "https://minion.town/mcp"\n' > "$CH/config.toml"
-  mapfile -t cargs < <(CODEX_HOME="$CH" lib 'minion_mcp_codex_args; printf "%s\n" "${MINION_MCP_CODEX_ARGS[@]}"')
-  check "codex: the real CLI loads the config with a persisted url entry" bash -c 'CODEX_HOME="$0" codex "$@" mcp list >/dev/null 2>&1' "$CH" "${cargs[@]}"
+  if CODEX_HOME="$CH" codex -c 'mcp_servers.minion-town={command="python3",args=["x"]}' mcp list >/dev/null 2>&1; then
+    echo "  NOTE: codex now replaces a table-valued -c override; the minion-town-garden rename is no longer required"
+  fi
 fi
 lib "minion_mcp_kimi_write '$T' on" >/dev/null
 check "kimi mcp.json is written 0600 with the bridge" bash -c '[ "$(stat -c %a "$0/mcp.json")" = 600 ] && jq -e ".mcpServers[\"minion-town\"].args[0] | endswith(\"minion-mcp-bridge.py\")" "$0/mcp.json" >/dev/null' "$T"
