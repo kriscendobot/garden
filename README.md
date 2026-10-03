@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T06:01:56Z_
+_As of 2026-10-03T06:02:40Z_
 
 ## Latest
 
-Six panel/fix rounds closed out on [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)'s sturdyref layer-3 slice (ebfb-sturdyref-layer3-pass-style), and the "act local CI screening" design work moved from research to doc-writing and got orchestrated as a split. Otherwise the board is churning normally across the sturdyref/guest-designation gauntlet stack, the garden-book illustration/build pipeline, and minion.town PR #145/#147/#85, with nothing new needing attention beyond the standing watchdog noise (clone-size guards, a stale oros-studio host, uncalibrated codex-endolin budget pool) and the accountant's pending proposal to carve out a 15M-token garden-book budget arc awaiting approval.
+One gauntlet closed out since the last bulletin: [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)'s sibling, the sturdyref layer-3 pass-style PR, hit its 6-round review budget with fix round 6 green and pushed, left for a human merge/review call rather than converging further on its own. Several other sturdyref-stack gauntlets (layers 4, 6, 7, 8) and the broader PR backlog (#1403, #1404, #1406, #1408, #1412, plus the minion.town #145/#147/#85 chains) are still mid-round. The accountant is holding on a reply before carving out a 15M-token `garden-book` budget arc, and the garden-book supervisor reports the book's text is fully merged and published. Worth a look: the sender-gated preflight failed open on a rate-limited GitHub fetch for a minion.town PR, and several journal-state repos (triager-pace, ci-watcher clone caches) are sitting at or above the 1000-pack guard awaiting deferred gc.
 
 ## Parked for maintainer feedback
 
@@ -170,6 +170,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > deadline-nudge on endolin-garden-ece02cb4 pushed to journal2 again; the push rejection has cleared.
 
+- `ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-review-budget-reached` — from gauntlet:ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-review-budget-reached.md)
+
+> INFO: Gauntlet ebfb-sturdyref-layer3-pass-style-20260930-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
+
 - `doomed-garden-upkeep-watchers-provenance-20261003-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-garden-upkeep-watchers-provenance-20261003-requeue-exhausted.md)
 
 > SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
@@ -244,8 +248,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 28.6M | $190.82 _(notional, rate-card)_ | 11% of 256.0M (ok) |
-| Codex | 1.4M _(+25.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 28.7M | $191.27 _(notional, rate-card)_ | 11% of 256.0M (ok) |
+| Codex | 1.4M _(+26.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70817700 tokens/day lower bound._
 
@@ -287,13 +291,13 @@ worst fetch p95 4.171776s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`book-codex-illustrations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-codex-illustrations.md) — Garden book: generate illustrations and background art (Codex)
 - [`build-ci-minion-town-actions-runner-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-ci-minion-town-actions-runner-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #145
 
-### tada (10546)
+### tada (10547)
+- [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet.md) — gauntlet ebfb-sturdyref-layer3-pass-style-20260930-gauntlet — review budget r...
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6.md) — Cost
 - [`design-act-local-ci-screening-research`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/design-act-local-ci-screening-research.md) — Completion report: design-act-local-ci-screening-research
 - [`build-confined-application-makers-p2-mount-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p2-mount-20261003.md) — Cost
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-1.md) — Cost
-- [`kriscendobot-minion.town-pr146-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr146-conduct.md) — Cost
-- … and 10541 more
+- … and 10542 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
