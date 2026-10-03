@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T19:06:37Z_
+_As of 2026-10-03T19:14:22Z_
 
 ## Latest
 
@@ -316,11 +316,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet build-endo-claude-pinned-cli-bump-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
-- `watchdog-worker-agent-bin-monk-endolin-garden-ece02cb4` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-agent-bin-monk-endolin-garden-ece02cb4.md)
+- `watchdog-worker-agent-bin-monk-endolin-garden-ece02cb4` — from watchdog:monk/3, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-worker-agent-bin-monk-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-10-03T12:39:42Z, latest 2026-10-03T18:17:32Z).
-> The SAME condition (`worker-agent-bin-monk-endolin-garden-ece02cb4`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> WATCHDOG notice — occurrence #8 (first seen 2026-10-03T12:39:42Z, latest 2026-10-03T19:12:52Z).
+> The SAME condition (`worker-agent-bin-monk-endolin-garden-ece02cb4`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
 > monk workers on endolin-garden-ece02cb4 cannot AUTHENTICATE their agent CLI (claude is installed but its credential is REJECTED: "Failed to authenticate: OAuth session expired and could not be refreshed"; every claim dies in seconds on authentication. To fix: run `claude` then /login (or `claude auth login`) as the garden user on endolin-garden-ece02cb4 — the pool un-parks by itself when the credential file changes (a restart with a new API key in the env works too)) — the pool has SELF-DISQUALIFIED and is claiming nothing.
 >
@@ -589,29 +589,29 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (9)
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261003-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-163507.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
-- [`build-confined-application-makers-p1-20261002-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-confined-application-makers-p1-20261002-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1417
 - [`oros-health-checkup-20261003-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-132007.md) — ---
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (2)
+### doin (3)
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #85
 - [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #148
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #85
+- [`build-confined-application-makers-p1-20261002-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1417
 
-### tada (10711)
+### tada (10712)
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-1.md) — Cost
 - [`build-confined-application-makers-p1-20261002-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-fix-4.md) — Gauntlet fix round 4: endojs/endo-but-for-bots PR #1417
 - [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-3.md) — Cost
 - [`oros-health-watch-20261003-185006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/oros-health-watch-20261003-185006.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-clean.md) — Cost
-- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-3.md) — Panel round 3: kriscendobot/minion.town PR #148, result must-fix
-- … and 10706 more
+- … and 10707 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
