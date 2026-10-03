@@ -79,3 +79,13 @@ and open a draft PR against `main` (one PR per job, via `ensure-pr.sh`).
 Do not attempt to build or publish the book yourself — that's the
 follow-up job's work, once your PR merges and it reads your manifest.
 Report the PR URL plainly in your completion report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T05:06:58Z
