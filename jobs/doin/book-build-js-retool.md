@@ -93,3 +93,13 @@ rewrite. Concretely:
 Open a draft PR against `main` on `kriscendobot/garden-book` (one PR per
 job). Report the equivalence-check results and any deliberate output
 differences in your completion report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T07:06:32Z
