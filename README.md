@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T16:10:33Z_
+_As of 2026-10-03T16:11:35Z_
 
 ## Latest
 
@@ -585,19 +585,18 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-gauntlet-20261003-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #85
 - [`claude-on-minion-town-press-20261003-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-053508.md) — Press the Claude-on-minion.town arc forward
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr147-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr147-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #147
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1419
 - [`ebfb-petname-path-only-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1390
-- [`accountant-weekly-20261003-160506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/accountant-weekly-20261003-160506.md) — Weekly arc apportionment
 
-### tada (10677)
+### tada (10678)
+- [`accountant-weekly-20261003-160506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/accountant-weekly-20261003-160506.md) — Cost
 - [`improve-comment-watcher-primary-quota-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-comment-watcher-primary-quota-fallback.md) — Cost
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-panel-5.md) — Cost
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet.md) — gauntlet ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet — review budge...
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-6.md) — Fix round 6: endojs/endo-but-for-bots PR #1397
-- [`oros-health-watch-20261003-155006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/oros-health-watch-20261003-155006.md) — Cost
-- … and 10672 more
+- … and 10673 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
