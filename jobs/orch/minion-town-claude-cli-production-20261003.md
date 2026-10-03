@@ -1,4 +1,5 @@
 ---
+child-build-minion-town-claude-cli-provider-20261003-reap-count: 0
 order: serial
 children: build-minion-town-claude-cli-provider-20261003 minion-town-claude-cli-provider-conduct-20261003 minion-town-claude-cli-production-canary-20261003
 on-child-failure: halt
