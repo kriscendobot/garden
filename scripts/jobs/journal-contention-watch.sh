@@ -51,6 +51,9 @@ GARDEN_CONTENTION_SLUG_PREFIX="${GARDEN_CONTENTION_SLUG_PREFIX-$(contention_clon
 : "${GARDEN_CONTENTION_TICK_BUDGET:=210}"
 : "${GARDEN_CONTENTION_RESERVE:=20}"
 : "${GARDEN_CONTENTION_REMEDY_MIN:=120}"
+# Inspection is optional read-side work: never queue behind a producer long
+# enough to consume the tick. A busy clone stays deferred until the next tick.
+: "${GARDEN_CONTENTION_INSPECTION_LOCK_WAIT:=2}"
 : "${GARDEN_CONTENTION_TEST_SLUG_COST:=0}" # test hook: fake seconds charged per analyzed clone
 
 mkdir -p "$GARDEN_CONTENTION_STATE"/{stats,confirm,alerts,remedy,remedy-await}
@@ -147,10 +150,11 @@ remedy_clone() { # clone slug reason; prints applied|backoff|disabled|deferred|o
   fi
 }
 
-# Returns 3 when the clone must be deferred to the next tick (deadline reached
-# before its object accounting finished); nothing is recorded for it then.
+# Returns 3 when the clone must be deferred to the next tick (its repository is
+# busy or the deadline arrived before object accounting finished); nothing is
+# recorded for it then.
 analyze_clone() {
-  local slug="$1" clone metrics budget fetch_stats lock_stats push_stats
+  local slug="$1" clone metrics budget fetch_stats lock_stats push_stats resolve_rc=0
   local fn fp50 fp95 fmed fmad fold fnew fmax ffirst flast
   local ln lp50 lp95 lmed lmad lold lnew
   local pn pp50 pp95 pmed pmad pold pnew pmax _
@@ -170,7 +174,10 @@ analyze_clone() {
   cas="$(jc_ring_count "$(ring push-class "$slug")" cas)"
   server="$(jc_ring_count "$(ring push-class "$slug")" server-reject)"
   definite="$(jc_ring_count "$(ring push-class "$slug")" definite-fail)"
-  clone=""; if jc_resolve_clone "$slug"; then clone="$JC_FOUND_CLONE"; fi
+  clone=""; jc_resolve_clone "$slug" || resolve_rc=$?
+  if [ "$resolve_rc" -eq 0 ]; then clone="$JC_FOUND_CLONE"
+  elif [ "$resolve_rc" -eq "$GARDEN_OFFLINE_RC" ]; then return 3
+  fi
   if [ -n "$clone" ]; then
     budget="$(tick_remaining)"; [ "$budget" -gt 0 ] || return 3
     metrics="$(JC_METRICS_TIMEOUT="$budget" jc_clone_metrics "$clone")" || return 3
@@ -261,6 +268,9 @@ done
 
 # Clones deferred by the previous tick run first, so a slow tail is not starved.
 deferred_file="$GARDEN_CONTENTION_STATE/deferred"
+# Build in this shell so each repository gets at most one bounded inspection-lock
+# attempt per tick; jc_all_slugs otherwise runs in mapfile's process substitution.
+jc_build_clone_index
 mapfile -t all_slugs < <(jc_all_slugs | LC_ALL=C sort -u | while IFS= read -r s; do
   if [ -z "$GARDEN_CONTENTION_SLUG_PREFIX" ] || [ "${s#"$GARDEN_CONTENTION_SLUG_PREFIX"}" != "$s" ]; then
     printf '%s\n' "$s"

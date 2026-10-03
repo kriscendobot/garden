@@ -65,8 +65,15 @@ jc_clone_gitdir() {
   else return 1; fi
 }
 
-jc_clone_metrics() { # bytes packs gc-log(0/1)
+jc_inspection_lock() { # repo
+  local wait="${GARDEN_CONTENTION_INSPECTION_LOCK_WAIT:-${GARDEN_REPO_LOCK_WAIT:-10}}"
+  GARDEN_REPO_LOCK_WAIT="$wait" garden_repo_lock "$1" shared
+}
+
+jc_clone_metrics() ( # bytes packs gc-log(0/1)
   local clone="$1" gitdir bytes packs gc=0 objects size size_pack size_garbage
+  jc_inspection_lock "$clone" || return
+  trap 'garden_repo_unlock "$clone"' EXIT
   gitdir="$(jc_clone_gitdir "$clone")" || { printf '0\t0\t0\n'; return 0; }
   # count-objects reads Git's object accounting without walking the checked-out
   # journal tree. A recursive du of a 105G clone is itself a multi-minute outage;
@@ -83,16 +90,16 @@ jc_clone_metrics() { # bytes packs gc-log(0/1)
   packs="$(printf '%s\n' "$objects" | sed -n 's/^packs: //p')"; packs="${packs:-0}"
   [ -e "$gitdir/gc.log" ] && gc=1
   printf '%s\t%s\t%s\n' "$bytes" "$packs" "$gc"
-}
+)
 
 # Map recorder slugs back to per-instance clones once per checker/probe process.
 # The hot recorder intentionally stores no path metadata; the reader pays one
 # bounded discovery walk, not one walk per ring (which becomes quadratic).
-declare -A JC_CLONE_BY_SLUG 2>/dev/null || true
+declare -A JC_CLONE_BY_SLUG JC_BUSY_CLONE_BY_SLUG 2>/dev/null || true
 JC_CLONE_INDEX_READY=0
 JC_FOUND_CLONE=""
 jc_build_clone_index() {
-  local path slug remote
+  local path slug remote lock_rc
   [ "$JC_CLONE_INDEX_READY" -eq 0 ] || return 0
   JC_CLONE_INDEX_READY=1
   [ -d "$GARDEN_STATE" ] || return 0
@@ -100,19 +107,31 @@ jc_build_clone_index() {
     path="${path%/.git}"
     # A remedy's renamed-aside clone awaiting background deletion is not a live clone.
     case "$path" in *.contention-old.*) continue ;; esac
-    remote="$(git -C "$path" config --get remote.origin.url 2>/dev/null || true)"
+    slug="$(contention_clone_slug "$path")"
+    lock_rc=0
+    jc_inspection_lock "$path" || lock_rc=$?
+    if [ "$lock_rc" -ne 0 ]; then
+      # A producer owns the repository. Preserve the path so a matching ring is
+      # deferred rather than misread as a vanished/healthy clone.
+      [ "$lock_rc" -eq 124 ] && JC_BUSY_CLONE_BY_SLUG["$slug"]="$path"
+      continue
+    fi
+    remote="$(_garden_real_git -C "$path" config --get remote.origin.url 2>/dev/null || true)"
+    garden_repo_unlock "$path"
     # Only the garden journal's per-service clones are actuator targets. State
     # can also contain project repos (for example ironhorse-fuzz/project); two
     # remediators must never rename those. Tests use isolated fixture repos.
     if [ "${GARDEN_TEST:-0}" != 1 ] && ! is_production_journal_remote "$remote"; then continue; fi
-    slug="$(contention_clone_slug "$path")"
     JC_CLONE_BY_SLUG["$slug"]="$path"
   done < <(find "$GARDEN_STATE" -maxdepth 8 -type d -name .git -prune 2>/dev/null)
 }
 jc_resolve_clone() {
   jc_build_clone_index
   JC_FOUND_CLONE="${JC_CLONE_BY_SLUG[$1]:-}"
-  [ -n "$JC_FOUND_CLONE" ]
+  [ -n "$JC_FOUND_CLONE" ] && return 0
+  JC_FOUND_CLONE="${JC_BUSY_CLONE_BY_SLUG[$1]:-}"
+  [ -z "$JC_FOUND_CLONE" ] || return "$GARDEN_OFFLINE_RC"
+  return 1
 }
 jc_find_clone() { # compatibility/output wrapper
   jc_resolve_clone "$1" || return 1

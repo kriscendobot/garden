@@ -29,6 +29,7 @@ sample() { mkdir -p "$RINGS/$1"; printf '%s %s\n' "$2" "$3" >> "$RINGS/$1/$4"; }
 run_watch() {
   env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE="$WATCH_STATE" \
     GARDEN_CONTENTION_RING="${GARDEN_CONTENTION_RING:-512}" \
+    GARDEN_CONTENTION_INSPECTION_LOCK_WAIT="${GARDEN_CONTENTION_INSPECTION_LOCK_WAIT:-2}" \
     GARDEN_CONTENTION_NOTICE="$NOTICE" JC_NOTICES="$NOTICES" GARDEN_CONTENTION_NOW_EPOCH="$1" \
     GARDEN_JOURNAL_OUTAGE_DIR="$STATE/outage" GARDEN_JOURNAL_OUTAGE_MARKER="$STATE/outage/active" \
     GARDEN_CONTENTION_REMEDY=0 "$JOBS/journal-contention-watch.sh"
@@ -164,6 +165,27 @@ chmod +x "$SHIM/git"
 PATH="$SHIM:$PATH" GARDEN_CONTENTION_TICK_BUDGET=2 GARDEN_CONTENTION_RESERVE=0 run_watch 100
 grep -qx "$slug" "$WATCH_STATE/deferred" || { echo 'FAIL: slow clone accounting was not deferred'; exit 1; }
 [ ! -e "$WATCH_STATE/stats/$slug" ] || { echo 'FAIL: slow clone recorded partial stats'; exit 1; }
+
+# A producer's exclusive repository lock is routine contention: inspection gets
+# one short shared-lock attempt, defers the clone, and still records a heartbeat.
+reset_case
+CLONE="$STATE/busy/journal"; mkdir -p "$CLONE"; git -C "$CLONE" init -q
+slug="${CLONE//[!A-Za-z0-9]/_}"
+sample lock-giveup 99 1 "$slug"
+HELD="$TR/repo-lock-held"
+GARDEN_STATE="$STATE" bash -c \
+  '. "$1/common.sh"; garden_repo_lock "$2" exclusive; touch "$3"; sleep 10' \
+  _ "$JOBS" "$CLONE" "$HELD" & holder=$!
+for n in $(seq 1 100); do [ -e "$HELD" ] && break; sleep 0.01; done
+[ -e "$HELD" ] || { echo 'FAIL: producer repository lock was not acquired'; kill "$holder" 2>/dev/null || true; exit 1; }
+start=$SECONDS
+GARDEN_CONTENTION_INSPECTION_LOCK_WAIT=0.1 run_watch 100
+elapsed=$(( SECONDS - start ))
+kill "$holder" 2>/dev/null || true; wait "$holder" 2>/dev/null || true
+[ "$elapsed" -lt 3 ] || { echo "FAIL: busy clone inspection took ${elapsed}s"; exit 1; }
+grep -qx "$slug" "$WATCH_STATE/deferred" || { echo 'FAIL: busy clone was not deferred'; exit 1; }
+grep -q '^outcome: partial-poll$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: busy clone lost heartbeat'; exit 1; }
+[ ! -e "$WATCH_STATE/stats/$slug" ] || { echo 'FAIL: busy clone recorded partial stats'; exit 1; }
 
 # Too little budget left for a rebuild defers the remedy without a backoff stamp.
 reset_case
