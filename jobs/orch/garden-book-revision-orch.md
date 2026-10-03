@@ -1,4 +1,5 @@
 ---
+child-book-design-pass-host: endolin-garden2-5bcdff64
 child-book-design-pass-reap-count: 0
 child-book-copyedit-host: endolin-garden2-5bcdff64
 child-book-copyedit-reap-count: 0
