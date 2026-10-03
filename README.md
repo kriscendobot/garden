@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T02:26:50Z_
+_As of 2026-10-03T02:40:53Z_
 
 ## Latest
 
@@ -384,11 +384,11 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 148454722 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 1 open notice(s); checker healthy
+worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 0 open notice(s); checker healthy
 
 ## Board
 ### todo (22)
-- [`endojs-endo-but-for-bots-pr1404-investigate-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1404-investigate-20261002.md) — Confirm whether the macOS @endo/daemon failure on endojs/endo-but-for-bots#14...
+- [`claude-on-minion-town-press-20261003-023507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-023507.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`book-copyedit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-copyedit.md) — Copy-edit pass on the garden book
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
@@ -411,7 +411,8 @@ worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1412
 - [`ebfb-petname-path-only-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 
-### doin (8)
+### doin (9)
+- [`endojs-endo-but-for-bots-pr1404-investigate-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1404-investigate-20261002.md) — Confirm whether the macOS @endo/daemon failure on endojs/endo-but-for-bots#14...
 - [`oros-health-watch-20261003-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261003-000506.md) — ---
 - [`endojs-endo-but-for-bots-pr1416-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1416-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1416
 - [`claude-on-minion-town-press-20261002-232008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261002-232008.md) — Press the Claude-on-minion.town arc forward
