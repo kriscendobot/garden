@@ -301,11 +301,17 @@ fi
 # shared stdio bridge inline via `-c`, like the provider block above, so nothing is
 # persisted to ~/.codex/config.toml. The bridge fetches its bearer per request, which
 # `bearer_token_env_var` (read once at startup) cannot do across a 3600s token.
-# Fail-open: one log line and the job runs without it.
+# Fail-open: one log line and the job runs without it. A minion-town entry already
+# persisted in the codex config is disabled and the bridge renamed, never merged
+# into (a merged url+command table fails codex's config load and kills the job).
 if minion_mcp_prepare "$base" "$jobfile"; then
-  minion_mcp_codex_args
-  codex_args+=("${MINION_MCP_CODEX_ARGS[@]}")
-  log "job '$base' attaching minion.town MCP (stdio bridge)"
+  if minion_mcp_codex_args "$worktree"; then
+    codex_args+=("${MINION_MCP_CODEX_ARGS[@]}")
+    [ -n "$MINION_MCP_SKIP_REASON" ] && log "WARN minion-mcp: $MINION_MCP_SKIP_REASON"
+    log "job '$base' attaching minion.town MCP (stdio bridge as $MINION_MCP_CODEX_NAME)"
+  else
+    log "WARN minion-mcp: not attaching for '$base': $MINION_MCP_SKIP_REASON"
+  fi
 fi
 
 set +e

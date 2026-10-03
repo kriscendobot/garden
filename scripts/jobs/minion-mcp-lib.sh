@@ -133,13 +133,64 @@ minion_mcp_claude_config() {
      '{mcpServers:{($name):{type:"stdio", command:"python3", args:[$bridge], env:$env}}}'
 }
 
-# minion_mcp_codex_args — fill MINION_MCP_CODEX_ARGS with `-c` overrides that
-# declare the bridge as a codex stdio MCP server (values are TOML).
-# shellcheck disable=SC2034  # MINION_MCP_CODEX_ARGS is read by the sourcing handler
+# minion_mcp_codex_persisted <name> <file>... — 0 if any codex config.toml given
+# already declares mcp_servers.<name> (in any TOML spelling). codex MERGES `-c`
+# overrides into a persisted table rather than replacing it, so a persisted
+# `url = ...` entry (e.g. from an interactive `codex mcp add --url`) plus our inline
+# `command = ...` is a config-load error that kills codex before the job starts
+# (2026-10-03: every cleric job died in ~10s). An unparseable file falls back to a
+# grep; a missing file declares nothing.
+minion_mcp_codex_persisted() {
+  local name="$1" f; shift
+  for f in "$@"; do
+    [ -f "$f" ] || continue
+    python3 - "$name" "$f" 2>/dev/null <<'PY' && return 0
+import sys
+name, path = sys.argv[1], sys.argv[2]
+try:
+    import tomllib
+    with open(path, "rb") as fh:
+        doc = tomllib.load(fh)
+except Exception:
+    import re
+    text = open(path, encoding="utf-8", errors="replace").read()
+    pat = r'(^|\n)\s*(\[\s*)?mcp_servers\s*\.\s*["\']?' + re.escape(name) + r'["\']?\s*[.=\]]'
+    sys.exit(0 if re.search(pat, text) else 1)
+servers = doc.get("mcp_servers")
+sys.exit(0 if isinstance(servers, dict) and name in servers else 1)
+PY
+  done
+  return 1
+}
+
+# minion_mcp_codex_args [worktree] — fill MINION_MCP_CODEX_ARGS with `-c` overrides
+# that declare the bridge as a codex stdio MCP server (values are TOML), and set
+# MINION_MCP_CODEX_NAME to the server name used. If the codex user config
+# ($CODEX_HOME/config.toml) or the worktree's project config already declares
+# minion-town, that entry is disabled with `enabled=false` (a key valid for both
+# url and stdio servers, so the merge stays loadable) and the bridge is declared
+# under minion-town-garden instead. Returns 1 (fail open: launch without the
+# server) only if the alternate name is persisted too.
+# shellcheck disable=SC2034  # MINION_MCP_CODEX_ARGS/_NAME are read by the sourcing handler
 minion_mcp_codex_args() {
-  local p="mcp_servers.$MINION_MCP_SERVER_NAME" env_toml
+  local worktree="${1:-}" name="$MINION_MCP_SERVER_NAME" p env_toml
+  local files=("${CODEX_HOME:-$HOME/.codex}/config.toml")
+  [ -n "$worktree" ] && files+=("$worktree/.codex/config.toml")
+  MINION_MCP_CODEX_ARGS=()
+  if minion_mcp_codex_persisted "$name" "${files[@]}"; then
+    MINION_MCP_CODEX_ARGS+=(-c "mcp_servers.$name.enabled=false")
+    name="$name-garden"
+    if minion_mcp_codex_persisted "$name" "${files[@]}"; then
+      MINION_MCP_SKIP_REASON="codex config already declares mcp_servers.$MINION_MCP_SERVER_NAME and mcp_servers.$name"
+      MINION_MCP_CODEX_ARGS=()
+      return 1
+    fi
+    MINION_MCP_SKIP_REASON="codex config persists mcp_servers.$MINION_MCP_SERVER_NAME; disabled it and attached the bridge as $name"
+  fi
+  MINION_MCP_CODEX_NAME="$name"
+  p="mcp_servers.$name"
   env_toml="$(minion_mcp_env_json | jq -r 'to_entries | map("\(.key)=\(.value | tojson)") | "{" + join(",") + "}"')"
-  MINION_MCP_CODEX_ARGS=(
+  MINION_MCP_CODEX_ARGS+=(
     -c "$p.command=\"python3\""
     -c "$p.args=[$(jq -cn --arg b "$MINION_MCP_BRIDGE" '$b')]"
     -c "$p.env=$env_toml"
