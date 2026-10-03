@@ -1,0 +1,20 @@
+<6>09:23:55 [monk/3] requeued job 'claude-on-minion-town-press-20261003-085006' has no local transcript on endolin-garden-ece02cb4; prior session and worktree were lost — starting FRESH session 1a5efe74-07da-5486-9638-3012106f2cc1 with lost-state framing
+<6>09:23:55 [monk/3] job 'claude-on-minion-town-press-20261003-085006' resolved tier 'minion' -> claude --model claude-opus-4-8
+<6>09:23:55 [monk/3] job 'claude-on-minion-town-press-20261003-085006' call ceiling: tier=minion max-budget-usd=8.00 (scaled by fresh seven-day headroom when available)
+<6>09:23:55 [monk/3] job 'claude-on-minion-town-press-20261003-085006' attaching minion.town MCP (stdio bridge)
+<6>09:25:17 [auto-gauntlet-handoff] auto-gauntlet: 'claude-on-minion-town-press-20261003-085006' (role gardener) did not produce a design-only PR; no automatic handoff
+
+--- handler report (partial) ---
+State is fully re-derived. The prior attempt of this job (dispatched 08:50:06Z) completed its substantive work before being reaped: it updated the issue #89 body/checklist (updatedAt `2026-10-03T08:59:05Z`) and posted a fresh press comment at the same timestamp. Nothing has changed since.
+
+**Verification (this re-run):**
+- **Issue #89 body** already reflects current reality: `#146` merged to `main` 05:53Z; `#148`/`#137` awaiting maintainer approval; gauntlets in flight.
+- **`minion.town#148`** (Claude CLI provider wiring) — still OPEN/draft, no review, last updated 04:46Z (before the comment).
+- **`minion.town#137`** (CD orphan reap) — still OPEN/draft, no review, last touched 09-29.
+- **`minion.town#146`** — MERGED/APPROVED; already captured in the 08:59Z body and comment.
+- **Board:** `minion-town-pr87-production-gate-resume-20260922` is no longer parked (it ran and handed off to orchestration `minion-town-claude-cli-production-20261003`, which halted awaiting approval of #148/#137; its production canary child stays parked). No newly-unblocked work to post.
+- **No issue comment after 08:59:05Z; no new maintainer activity on #148 or #137.**
+
+**Action taken:** none required. The two review asks (approve/conduct `#148` and `#137`) were already posted at 08:59:05Z and remain unanswered; this is the maintainer-decision stop condition. Posting a duplicate comment or duplicate jobs would only train the maintainer to ignore the issue. Per comment discipline, I posted nothing.
+
+No change since 2026-10-03T08:59:05Z; still waiting on maintainer approval of kriscendobot/minion.town#148 (Claude CLI `mintInferExo` provider) and #137 (CD orphan reap), which together unblock the production canary that items 2, 4, and 5 need.
