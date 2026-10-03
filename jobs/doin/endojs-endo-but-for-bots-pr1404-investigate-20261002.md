@@ -29,3 +29,13 @@ Report back with: the actual failing test name, the actual error from the log, a
 a clear real-regression-vs-flake verdict backed by evidence — not a guess.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T03:16:47Z
