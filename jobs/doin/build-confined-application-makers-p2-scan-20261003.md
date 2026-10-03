@@ -38,3 +38,13 @@ shared Phase-2 branch. Report the branch head SHA, changed paths, and commands
 actually run with results. If the design or predecessor state makes this boundary
 impossible, report the evidence and emit the orchestrated-failure signal rather
 than expanding scope.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T05:32:11Z
