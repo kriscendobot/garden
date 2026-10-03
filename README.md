@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-03T03:42:11Z_
+_As of 2026-10-03T03:45:56Z_
 
 ## Latest
 
-Several gauntlet stages completed cleanly for [endo-but-for-bots#1412](https://github.com/endojs/endo-but-for-bots/pull/1412) (panel round 3, now into fix round 3) and the guest-scoped-daemon-bootstrap build (fix round 2 done, panel round 3 in progress), while [kriscendobot/minion.town#147](https://github.com/kriscendobot/minion.town/pull/147) cleared panel round 1 and moved into fix round 1. The accountant's budget-slate apply for the week of 2026-10-03 landed, re-slicing the 500M foreman total across the minion.town OCapN/git-remote/UI arcs plus endo-ocapn-background, moonshots, garden-upkeep, and endo-backlog, with the leftover 5% parked as an unallocated reserve rather than held against any one arc. The garden book's design pass published (draft [kriscendobot/garden-book#2](https://github.com/kriscendobot/garden-book/issues/2)) and a title/audience revision pass is now underway.
+The leader host (endolin-garden-ece02cb4) is now about two days and 25 commits behind `origin/main2` — deploys are stalled, so no directive newer than that commit is being honored fleet-wide, and the Mac Studio host (oros-studio-garden) has been unreachable for roughly 22 hours with its heartbeat, sysop, and scheduled checkups all stuck; both need a maintainer's hands.
 
-Two things worth a maintainer look: the `endolin-garden-ece02cb4` leader is stalled 25 commits behind `main2`, which per its own watchdog means it's holding up any newer directive including a possible project pause, and `oros-studio-garden-ce242c49` has been unreachable for ~22 hours with its sysop not ticking — both need a human at the respective machines. Several gauntlets also halted on failed/doomed fix or panel rounds (PRs [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398), [#1406](https://github.com/endojs/endo-but-for-bots/pull/1406), and [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145)) and sit waiting for review or a close decision.
+On endo-but-for-bots, a cluster of gauntlets surfaced for review: [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1406](https://github.com/endojs/endo-but-for-bots/pull/1406), and [#1357](https://github.com/endojs/endo-but-for-bots/pull/1357) halted on failed fix/panel stages and need a decision, while [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) and [#1379](https://github.com/endojs/endo-but-for-bots/pull/1379) ran out their six-round review budget and sit improved-but-unconverged for a manual merge call; [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) also needs a fresh look since its panel review is now stale against a newer push. On the minion.town side, [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145) (CI Actions runner) halted in panel as well.
+
+Elsewhere, the garden-book design pass published a themed site and draft [kriscendobot/garden-book#2](https://github.com/kriscendobot/garden-book/issues/2), and the accountant applied this week's budget slate across the minion.town and endo arcs.
 
 ## Parked for maintainer feedback
 
@@ -459,7 +461,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 5.1M | $23.24 _(notional, rate-card)_ | 2% of 256.0M (ok) |
+| Claude | 5.8M | $31.02 _(notional, rate-card)_ | 2% of 256.0M (ok) |
 | Codex | 20.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70382942 tokens/day lower bound._
@@ -468,12 +470,15 @@ _Fleet token-unlock pace: 70382942 tokens/day lower bound._
 worst fetch p95 4.005660s/45s (unknown); 1 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (14)
 - [`claude-on-minion-town-press-20261003-023507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-023507.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
+- [`accountant-budget-intake-relay-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-budget-intake-relay-20261003.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
+- [`ebfb-daemon-test-flakes-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-daemon-test-flakes-20261003.md) — Fix the flaky @endo/daemon test suite on endojs/endo-but-for-bots (llm)
 - [`kriscendobot-minion.town-pr147-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr147-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #147
+- [`ebfb-red-ci-gauntlets-resume-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-red-ci-gauntlets-resume-20261003.md) — Resume the six gauntlets halted on red CI (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1379
 - [`book-codex-illustrations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-codex-illustrations.md) — Garden book: generate illustrations and background art (Codex)
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
