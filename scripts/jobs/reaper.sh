@@ -1282,6 +1282,11 @@ for attempt in $(seq 1 "$GARDEN_REAP_PUSH_ATTEMPTS"); do
             printf 'failure_classification: deterministic\n'
           elif [ "$sig" = requeue-exhausted ] && [ "$last_cycle_transient" -eq 1 ]; then
             printf 'failure_classification: transient\n'
+          elif [ "$sig" = requeue-exhausted ] && [ "$quota_recovery" -eq 1 ]; then
+            # A provider quota back-off that reached its reset is environmental, the
+            # same evidence doom_transient accepts; record it so gauntlet.sh retries
+            # the stage instead of halting on `unknown`.
+            printf 'failure_classification: transient\n'
           elif [ "$sig" = policy-refusal ] || [ "$sig" = deadline-overrun ] \
             || [ "$sig" = elapsed-constancy ]; then
             printf 'failure_classification: deterministic\n'

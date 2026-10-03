@@ -20,6 +20,9 @@
 #                 IMMEDIATELY, never deferred (the supervisor would not retry it either).
 #   5. NON-GAUNTLET — a transient doom that is NOT a gauntlet stage is surfaced
 #                 IMMEDIATELY (the deferral is gauntlet-only).
+#   6. QUOTA-RECOVERY — a gauntlet stage whose only evidence is a provider quota
+#                 back-off that reached its reset (no reap-now) is classified
+#                 transient and DEFERRED, not parked `unknown` + surfaced.
 #
 # Usage: reaper-gauntlet-handoff-test.sh
 
@@ -69,8 +72,9 @@ count_unread() { resync; ls -1 "$V/inbox/maintainer/unread" 2>/dev/null | grep -
 
 # Place a STALE claim in doin/<base>.md (claimed_at long past the TTL). Optional
 # frontmatter `gauntlet: <g>` marks it a gauntlet stage; an optional reap-now body
-# marker makes its final doom cycle transient-classified.
-# place_stale <base> [gauntlet-base] [reap-now] [prior-plain-exits]
+# marker makes its final doom cycle transient-classified; `quota-backoff` instead
+# stamps a provider quota back-off marker whose reset has already passed.
+# place_stale <base> [gauntlet-base] [reap-now|quota-backoff] [prior-plain-exits]
 place_stale() {
   local base="$1" gbase="${2:-}" reap_now="${3:-}" prior="${4:-0}" wt; wt="$(mktemp -d "$TR/edit.XXXXXX")"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
@@ -85,6 +89,8 @@ place_stale() {
     printf '# %s\n\nthe original work body for %s\n\n' "$base" "$base"
     [ "$prior" -gt 0 ] && printf '<!-- garden-reaped: %s -->\n' "$prior"
     [ "$reap_now" = reap-now ] && printf '<!-- garden-reap-now -->\n'
+    [ "$reap_now" = quota-backoff ] \
+      && printf '<!-- garden-provider-quota-backoff: type=weekly reset-at=2020-01-01T00:00:00Z -->\n'
     printf -- '---\nclaim:\n  host: testhost\n  gardener: 7\n  claimed_at: 2020-01-01T00:00:00Z\n'
   } > "$wt/jobs/doin/$base.md"
   printf 'worktree_dir: %s\n' "$TR/nonexistent-wt-$base" > "$wt/work/$base"
@@ -205,6 +211,28 @@ pspool="$HANDOFF_SPOOL/doomed-plainjob-requeue-exhausted.md"
 [ "$plain_ok" -eq 1 ] \
   && ok "non-gauntlet transient doom: surfaced IMMEDIATELY (deferral is gauntlet-only)" \
   || bad "non-gauntlet: spool=[$(ls "$HANDOFF_SPOOL" 2>/dev/null)] unread=[$(ls "$V/inbox/maintainer/unread" 2>/dev/null)]"
+
+# ============================================================================
+hr; echo "SUBTEST 6 — QUOTA-RECOVERY: a quota-reset gauntlet stage is classified transient + deferred"; hr
+place_stale quotagauntlet-panel-1 quotagauntlet quota-backoff
+run_reaper
+resync
+
+quota_ok=1
+qplan="$V/jobs/plan/quotagauntlet-panel-1.md"
+[ -f "$qplan" ] || { quota_ok=0; echo "    plan entry missing (reap did not park it)"; }
+if [ -f "$qplan" ]; then
+  grep -q '^doom_signature: requeue-exhausted$' "$qplan" || { quota_ok=0; echo "    wrong signature"; }
+  grep -q '^failure_classification: transient$' "$qplan" \
+    || { quota_ok=0; echo "    not classified transient: $(grep '^failure_classification:' "$qplan")"; }
+fi
+[ -f "$HANDOFF_SPOOL/doomed-quotagauntlet-panel-1-requeue-exhausted.md" ] \
+  || { quota_ok=0; echo "    quota-recovery gauntlet doom was not deferred/spooled"; }
+[ -f "$V/inbox/maintainer/unread/doomed-quotagauntlet-panel-1-requeue-exhausted.md" ] \
+  && { quota_ok=0; echo "    quota-recovery gauntlet doom notice surfaced immediately"; }
+[ "$quota_ok" -eq 1 ] \
+  && ok "quota-recovery gauntlet stage: classified transient, notice DEFERRED for gauntlet retry" \
+  || bad "quota-recovery: plan=[$(ls "$V/jobs/plan" 2>/dev/null)] spool=[$(ls "$HANDOFF_SPOOL" 2>/dev/null)]"
 
 # ============================================================================
 hr
