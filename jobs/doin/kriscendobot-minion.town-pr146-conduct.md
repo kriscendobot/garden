@@ -24,3 +24,13 @@ conductor owns that (roles/conductor/AGENT.md). Re-verify OPEN + mergeable +
 green + effective approval first; if it has regressed, dispatch the
 shepherd/fixer instead. Idempotent: do nothing if it is already merged or
 closed. Bot repo only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T05:46:40Z
