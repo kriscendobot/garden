@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: producer
 created_at: 2026-10-03T06:20:06Z
 arc: 
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 resumes: 0
 stage_retries: 0
-current_child: build-confined-application-makers-p2-makefromtree-20261003-gauntlet-clean
+current_child: build-confined-application-makers-p2-makefromtree-20261003-gauntlet-panel-1
 state: running
 resumed_at: 2026-10-03T07:58:51Z
 resumed_from_stage: clean
