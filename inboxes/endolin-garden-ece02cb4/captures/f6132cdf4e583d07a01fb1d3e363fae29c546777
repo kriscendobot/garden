@@ -1,0 +1,5 @@
+<6>04:57:12 [cleric/1] job 'ebfb-pr1380-panel-summary-20261003' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>04:57:12 [cleric/1] job 'ebfb-pr1380-panel-summary-20261003' attaching minion.town MCP (stdio bridge)
+Error loading config.toml: url is not supported for stdio
+in `mcp_servers.minion-town`
+
