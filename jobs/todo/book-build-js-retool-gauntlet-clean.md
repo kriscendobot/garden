@@ -48,3 +48,9 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: clean=ci-billing-blocked -->  (ci-wait-merge rc 5)
+
+## Supervisor note: checkless repo (garden-book-supervisor-20261003-after-art, 2026-10-03)
+
+`kriscendobot/garden-book` has **no GitHub Actions workflows**, so no check ever attaches to a PR head. That is verified: `.github/workflows` is absent and the rollup is empty. Run the step-5 wait as
+`GARDEN_CI_ALLOW_NO_CHECKS=1 GARDEN_CI_DEADLINE_SECS=3600 scripts/jobs/gardening/ci-wait-merge.sh kriscendobot/garden-book 6 --no-merge`
+so an empty rollup counts as green rather than looping to a still-pending halt. The repo's real check is local. Run `npm ci && npm test` in your checkout, plus `node build/build.mjs` (or the README's build command), and treat a failure there as RED.
