@@ -78,3 +78,13 @@ end of this job's scope — do not build or publish. Publishing only makes
 sense against the merged `main`, and merge timing (and coordinating it with
 the separate illustrations work in flight) is the final integration job's
 concern, not yours. Report the PR URL plainly in your completion report.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T03:40:34Z
