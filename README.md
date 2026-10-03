@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T01:10:37Z_
+_As of 2026-10-03T01:13:46Z_
 
 ## Latest
 
@@ -47,9 +47,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #382 (first seen 2026-09-30T23:36:06Z, latest 2026-10-03T00:11:02Z).
-> The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 382 times; this is ONE
-> coalesced notice that updates in place, not 382 messages. Latest detail:
+> WATCHDOG notice — occurrence #402 (first seen 2026-09-30T23:36:06Z, latest 2026-10-03T01:11:02Z).
+> The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 402 times; this is ONE
+> coalesced notice that updates in place, not 402 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every configured follower is OFFLINE or
 > operator-drained, so there is no canary to validate c2a524676504. The leader will
