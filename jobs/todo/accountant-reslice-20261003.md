@@ -1,7 +1,8 @@
 ---
 role: accountant
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Re-slice: propose a garden-book arc sliver (week of 2026-10-03T03:00Z)
@@ -27,13 +28,5 @@ from: the reserve, the endo-backlog sliver, or a proportional trim) and how book
 get tagged to it. Send the proposal to the maintainer and wait for the reply; apply
 only what they approve, with authorized_by, and confirm the resulting table.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T04:54:20Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-03T05:13:09Z -->

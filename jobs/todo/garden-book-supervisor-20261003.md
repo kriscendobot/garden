@@ -1,8 +1,9 @@
 ---
 role: orchestrator
 handler-timeout: 10800
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Supervise the garden book to completion (kriscendobot/garden-book)
@@ -43,13 +44,5 @@ One claim cannot span the whole chain. Before this job ends, if work remains, po
 dated successor supervisor job (same body, updated state, e.g. `blocked_on` the
 next child you are waiting for) so supervision continues until the book is done.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T04:52:51Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-03T05:13:09Z -->

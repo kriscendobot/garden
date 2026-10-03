@@ -1,7 +1,8 @@
 ---
 role: orchestrator
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Split build-confined-application-makers-p2 into claim-sized orchestrated children
@@ -23,13 +24,5 @@ Park each with post-plan.sh --orchestrated --orchestrated-by build-confined-appl
 then post-orchestration.sh --serial. Retire the halted orchestration so it does not
 re-fire. Report the child bases.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T04:57:45Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-03T05:13:09Z -->

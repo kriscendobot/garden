@@ -2,8 +2,9 @@
 role: fixer
 requires: host=endolin-garden-ece02cb4
 handler-timeout: 7200
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Garden upkeep on the leader: blind comment watchers, provenance gap, bloated repo-watcher clone
@@ -20,13 +21,5 @@ Maintainer (kriskowal, muster 2026-10-03) approved this disposition.
    accumulate packs if that is the root cause.
 Land fixes directly on main2 per garden convention. Report what you changed.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T05:01:54Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-03T05:13:09Z -->

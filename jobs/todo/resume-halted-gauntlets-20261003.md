@@ -1,8 +1,9 @@
 ---
 role: shepherd
 handler-timeout: 10800
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Resume three gauntlets halted by an unknown stage-job death
@@ -19,13 +20,5 @@ stopped (not from round 1) so it runs to un-draft or its review budget. If a res
 mechanism is missing for a finished record, re-post just that stage with the same
 iteration count and say how. For minion.town use GARDEN_YARN=npm. Report per-PR outcome.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T04:58:37Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-03T05:13:09Z -->
