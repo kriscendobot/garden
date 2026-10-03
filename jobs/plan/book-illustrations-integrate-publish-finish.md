@@ -1,6 +1,6 @@
 ---
 gate: blocked
-blocked_on: kriscendobot-garden-book-pr5-gauntlet
+blocked_on: https://github.com/kriscendobot/garden-book/pull/5
 priority: high
 role: conductor
 posted_by: gardener
