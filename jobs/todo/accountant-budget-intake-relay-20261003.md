@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: accountant-budget-conversation-20260930-resume-split
-priority: normal
 role: accountant
-posted_by: orchestrator
-posted_at: 2026-10-03T03:28:29Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-03T03:43:04Z cleared=none -->
 
 ---
 role: accountant
