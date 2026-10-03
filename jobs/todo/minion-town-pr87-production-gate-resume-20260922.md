@@ -1,12 +1,9 @@
 ---
-gate: awaiting-maintainer
-maintainer_question: 'PR #87 production-reality gate: which backend is the production provider (CLI/Agent-SDK; re-run failed SDK track first?), proceed before endo#1015 lands or gate on it, and what counts as production evidence + are credentials provided?'
-asked_at: https://github.com/kriscendobot/minion.town/pull/87#issuecomment-5770203120
-priority: high
 role: fixer
-posted_by: producer
-posted_at: 2026-09-22T02:06:51Z
+tier: mentor
+handler-budget-role: review
 ---
+<!-- garden-promoted-from-plan: gate=awaiting-maintainer priority=high maintainer=true at=2026-10-03T04:17:35Z cleared=none -->
 
 ---
 role: fixer
