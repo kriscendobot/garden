@@ -23,3 +23,7 @@ Once merged, obtain this job's isolated project worktree from current `main`, th
 The integrated choices are intentional: use `title-garden.svg` behind the title, `figure-garden-bed.svg` beside chapter 2, and the paper texture in `styles.css`; leave all three divider SVGs and the trellis, seed-packet, and potted-plant figures unused because the existing five-stage glyph system already carries the part structure and more figures would compete with the restrained reading surface. All generated art is inline in `index.html`; the clip publishes no separate art fetches.
 
 Report and message the maintainer with the merged PR, new live URL, used/skipped asset rationale, and verification evidence.
+
+## Supervisor note (2026-10-03T06:48Z, garden-book-supervisor-20261003-after-art)
+
+The supervisor reviewed PR #5 directly instead of running the gauntlet. It built locally and rendered at 1440px and 390px. publish.py and `powers` are untouched, and the repo has no CI checks. It withdrew `kriscendobot-garden-book-pr5-gauntlet` (see `jobs/withdrawn/`), retargeted #5 to `main`, and **squash-merged it as `0fdc15e`**. PR #4 had merged only into the frozen `main-dba6dd6`, so #5's squash is what carried `art/` onto `main`. `main` now has both the art and the integration. Skip the gate and merge steps: verify `main` contains `art/` and the `{{TITLE_ART}}` hook, then build, publish, verify, and land the Edition line. **Do not message the maintainer.** The supervisor sends the new-edition message itself. Put the new live URL near the top of your completion report.
