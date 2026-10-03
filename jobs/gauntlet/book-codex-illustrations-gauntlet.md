@@ -4,14 +4,14 @@ repo: kriscendobot/garden-book
 pr_number: 4
 build_job: book-codex-illustrations
 kind: feature
-stage: viability
+stage: clean
 iteration: 0
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: book-codex-illustrations-gauntlet-viability
+current_child: book-codex-illustrations-gauntlet-clean
 state: running
 created_by: producer
 created_at: 2026-10-03T06:05:11Z
