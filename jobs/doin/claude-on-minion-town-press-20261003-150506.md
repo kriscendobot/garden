@@ -76,6 +76,7 @@ Scope: `kriscendobot/minion.town`, `endojs/endo-but-for-bots`, and `kriscendobot
 issue 89. No upstream `agoric/agoric-sdk` interaction. No identity switch, no ferry.
 
 <!-- garden-transient-elapsed: kind=signature through=0 values=2 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
