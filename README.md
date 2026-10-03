@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T17:59:58Z_
+_As of 2026-10-03T18:01:40Z_
 
 ## Latest
 
@@ -450,10 +450,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >    gc it (or re-clone it) safely while the repo-watcher is idle, and fix whatever lets it
 >    accumulate packs if that is the root cause.
 > Land fixes directly on main2 per garden convention. Report what you changed.
-
-- `kriscendobot-minion.town-pr147-gauntlet-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr147-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr147-gauntlet-review-budget-reached.md)
-
-> INFO: Gauntlet kriscendobot-minion.town-pr147-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
 - `20261003T065951Z-31100f` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261003T065951Z-31100f.md)
 
