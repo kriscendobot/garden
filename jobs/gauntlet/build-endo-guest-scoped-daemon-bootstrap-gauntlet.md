@@ -9,11 +9,11 @@ max_resumes: 6
 max_stage_retries: 2
 created_by: producer
 created_at: 2026-10-01T10:28:51Z
-stage: fix
-iteration: 5
+stage: panel
+iteration: 6
 resumes: 0
 stage_retries: 0
-current_child: build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-5
+current_child: build-endo-guest-scoped-daemon-bootstrap-gauntlet-panel-6
 state: running
 resumed_at: 2026-10-01T19:53:38Z
 resumed_from_stage: clean
