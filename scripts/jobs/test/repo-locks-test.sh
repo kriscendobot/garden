@@ -149,6 +149,56 @@ git -C "$TR/linked" update-ref refs/heads/unblocked HEAD
 (garden_repo_lock "$TR/repo" exclusive; GARDEN_REPO_LOCK_WAIT=0.1 git -C "$TR/linked" rev-parse HEAD >/dev/null) || fail 'nested lock deadlocked'
 echo 'PASS: shared reads, exclusive timeout, independent repos, release and reentrancy'
 
+# A live repository-lock holder is ordinary fleet contention for clone users.
+# Both acquisition sites must translate only rc=124 to EX_TEMPFAIL; any other
+# repository-lock failure remains fatal.
+rm -f "$TR/held"
+(
+  garden_repo_lock "$TR/repo" exclusive
+  touch "$TR/held"
+  sleep 2
+) & holder=$!
+for n in {1..100}; do [ -f "$TR/held" ] && break; sleep 0.01; done
+rc=0
+( GARDEN_REPO_LOCK_WAIT=0.1 clone_lock "$TR/linked" ) 2>"$TR/clone-lock-timeout" || rc=$?
+[ "$rc" = "$GARDEN_OFFLINE_RC" ] || fail "clone_lock repository timeout rc=$rc"
+grep -q 'repository lock for .* busy; skipping tick' "$TR/clone-lock-timeout" \
+  || fail 'clone_lock repository timeout missing skip diagnostic'
+! grep -q 'FATAL: repository lock unavailable' "$TR/clone-lock-timeout" \
+  || fail 'clone_lock repository timeout escalated to fatal'
+wait "$holder"
+
+rc=0
+(
+  clone_lock() { :; }
+  clone_unlock() { :; }
+  garden_repo_lock() { return 124; }
+  ensure_clone "$TR/repo"
+) 2>"$TR/ensure-lock-timeout" || rc=$?
+[ "$rc" = "$GARDEN_OFFLINE_RC" ] || fail "ensure_clone repository timeout rc=$rc"
+grep -q 'repository lock for .* busy; skipping tick' "$TR/ensure-lock-timeout" \
+  || fail 'ensure_clone repository timeout missing skip diagnostic'
+! grep -q 'FATAL: repository lock unavailable' "$TR/ensure-lock-timeout" \
+  || fail 'ensure_clone repository timeout escalated to fatal'
+
+for site in clone_lock ensure_clone; do
+  rc=0
+  (
+    garden_repo_lock() { return 23; }
+    if [ "$site" = ensure_clone ]; then
+      clone_lock() { :; }
+      clone_unlock() { :; }
+      ensure_clone "$TR/repo"
+    else
+      clone_lock "$TR/linked"
+    fi
+  ) 2>"$TR/$site-repo-error" || rc=$?
+  [ "$rc" = 1 ] || fail "$site genuine repository error rc=$rc"
+  grep -q 'FATAL: repository lock unavailable' "$TR/$site-repo-error" \
+    || fail "$site genuine repository error was not fatal"
+done
+echo 'PASS: clone_lock and ensure_clone treat only repository-lock timeout as transient'
+
 # An authorized maintenance request must report a refused operation, not
 # 'applied', when its guard cannot acquire the repository.
 rm "$TR/held"

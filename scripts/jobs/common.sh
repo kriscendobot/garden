@@ -4593,7 +4593,7 @@ _clone_lock_envkey() {
 #     re-flock (that would deadlock).
 #   * otherwise: open a sibling lock file (outside the working tree) and flock it.
 clone_lock() {
-  local dir="$1" key lf fd n=1 steals=0
+  local dir="$1" key lf fd n=1 steals=0 repo_lock_rc
   # SOFT mode (GARDEN_CLONE_LOCK_SOFT=1): one short bounded attempt, no 3×60s ladder,
   # and a fail-open WARN+exit instead of the FATAL give-up (§ GARDEN_LOCK_SOFT_WAIT).
   # The give-up EXITS (like die) rather than returning, so ensure_clone/sync_clone —
@@ -4635,7 +4635,17 @@ clone_lock() {
       _CLONE_LOCK_FD["$dir"]="$fd"
       export "$key=held"
       if [ -e "$dir/.git" ]; then
-        garden_repo_lock "$dir" exclusive || { clone_unlock "$dir"; die "repository lock unavailable for $dir"; }
+        if garden_repo_lock "$dir" exclusive; then
+          :
+        else
+          repo_lock_rc=$?
+          clone_unlock "$dir"
+          if [ "$repo_lock_rc" -eq 124 ]; then
+            log "repository lock for $dir busy; skipping tick (rc=$GARDEN_OFFLINE_RC)"
+            exit "$GARDEN_OFFLINE_RC"
+          fi
+          die "repository lock unavailable for $dir"
+        fi
       fi
       _contention_stamp_us
       contention_record "$dir" lock-wait "$(( _CONTENTION_US - _lock_t0 ))"
@@ -4876,7 +4886,7 @@ reclone_clone() {
 }
 
 ensure_clone() {
-  local dir="$1" remote; remote="$(journal_remote)"
+  local dir="$1" remote repo_lock_rc; remote="$(journal_remote)"
   clone_lock "$dir"
   if [ ! -d "$dir/.git" ]; then
     # A destination that exists but lacks .git is a POISONED PARTIAL CLONE: a
@@ -4896,7 +4906,17 @@ ensure_clone() {
     log "WARN: $dir has a corrupt clone; self-healing by re-cloning"
     reclone_clone "$dir" "$remote"
   fi
-  garden_repo_lock "$dir" exclusive || die "repository lock unavailable for $dir"
+  if garden_repo_lock "$dir" exclusive; then
+    :
+  else
+    repo_lock_rc=$?
+    clone_unlock "$dir"
+    if [ "$repo_lock_rc" -eq 124 ]; then
+      log "repository lock for $dir busy; skipping tick (rc=$GARDEN_OFFLINE_RC)"
+      exit "$GARDEN_OFFLINE_RC"
+    fi
+    die "repository lock unavailable for $dir"
+  fi
   _sweep_stale_git_locks "$dir"
   git -C "$dir" config user.name  "$(bot_name)"
   git -C "$dir" config user.email "$(bot_email)"
