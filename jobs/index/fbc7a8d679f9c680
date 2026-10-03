@@ -1,2 +1,2 @@
-base: improve-fork-watch-rate-limit-cooldown
+base: improve-fork-watch-silent-probe-backoff
 identity: mentor:scripts/jobs/fork-watch-provisioner.sh
