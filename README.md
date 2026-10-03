@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T03:08:26Z_
+_As of 2026-10-03T03:11:53Z_
 
 ## Latest
 
-The headline item is [kriscendobot/minion.town#85](https://github.com/kriscendobot/minion.town/issues/85): its gauntlet halted because the PR targets a floating base rather than a pinned snapshot, so a weave job to pin the merge base is now in progress, with a retcon and a gauntlet re-run already queued behind it once the weave lands. Two other gauntlets closed out as halted rather than converged — [endojs/endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406) (panel round 6 doom-parked, outcome unclear) and [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) (fix round 3 doom-parked) — both need a maintainer look rather than further automated retry. Meanwhile routine work ticked forward: the garden-book copyedit pass, a fix round on [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407), and a panel round on [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) were all picked up by workers. Underlying fleet health still needs eyes: the leader host remains ~2 days/25 commits behind on deploy, and oros-studio-garden-ce242c49 has been unreachable for roughly 22 hours and needs someone at the machine.
+Board transitions this cycle came back empty, so there's nothing new to report by claim/completion — the queue is otherwise dominated by stalled infrastructure: both root checkouts are behind their deploys (the leader 25 commits / ~2d stale, `endolin-garden2` 16 commits / ~1d), which means no directive newer than those shas is being honored fleet-wide, and the `oros-studio-garden-ce242c49` host remains unreachable (~22h, all checkups unclaimed) pending someone physically at that machine. Several gauntlets ran to their review-budget ceiling without converging and are parked for a human call: [endojs/endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406) (pinned-CLI bump), the two IronHorse panic PRs (handle-reseat and host-call), and [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145)'s broker-catalog-pruning sibling. A clutch of other gauntlets halted outright on failed/declined fix or clean stages across the sturdyref layers ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) and the petname-path-only sweep ([#1390](https://github.com/endojs/endo-but-for-bots/pull/1390)), each needing maintainer triage rather than another retry. Separately, [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) moved to a new head after its last panel, so its review coverage is stale and needs an explicit re-run request; the `build-confined-application-makers` orchestration halted after its phase-2 child was doomed, leaving three later phases parked; and the local hermit (Ollama/qwen3.8) revival job is done and awaiting go-ahead to promote.
 
 ## Parked for maintainer feedback
 
@@ -45,19 +45,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-no-canary-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #422 (first seen 2026-09-30T23:36:06Z, latest 2026-10-03T02:11:02Z).
-> The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 422 times; this is ONE
-> coalesced notice that updates in place, not 422 messages. Latest detail:
+> WATCHDOG notice — occurrence #442 (first seen 2026-09-30T23:36:06Z, latest 2026-10-03T03:11:02Z).
+> The SAME condition (`rolling-deploy-no-canary-endolin-garden-ece02cb4`) has now been observed 442 times; this is ONE
+> coalesced notice that updates in place, not 442 messages. Latest detail:
 >
 > Rolling deploy is HOLDING the leader: every configured follower is OFFLINE or
 > operator-drained, so there is no canary to validate c2a524676504. The leader will
 > not advance unvalidated. Restore any offline host until budget/live heartbeats resume,
 > or lift an operator drain. An archived host additionally needs a separate operator
 > unarchive; this roll never reverses archival. (leader=endolin-garden-ece02cb4, offline=1)
-
-- `kriscendobot-minion.town-pr85-gauntlet-halted` — from gauntlet:kriscendobot-minion.town-pr85-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr85-gauntlet-halted.md)
-
-> Gauntlet kriscendobot-minion.town-pr85-gauntlet HALTED: PR [kriscendobot/minion.town#85](https://github.com/kriscendobot/minion.town/issues/85) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #85') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
 
 - `doomed-improve-receipt-primary-quota-cooldown-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-receipt-primary-quota-cooldown-requeue-exhausted.md)
 
@@ -404,7 +400,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 817.3k | $4.17 _(notional, rate-card)_ | 0% of 256.0M (ok) |
+| Claude | 1.0M | $5.08 _(notional, rate-card)_ | 0% of 256.0M (ok) |
 | Codex | 20.6M _(fleet aggregate)_ | n/a _(ChatGPT plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70817700 tokens/day lower bound._
