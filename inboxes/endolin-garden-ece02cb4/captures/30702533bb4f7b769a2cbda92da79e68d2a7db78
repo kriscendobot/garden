@@ -1,0 +1,6 @@
+<6>05:15:24 [cleric/1] requeued job 'garden-upkeep-watchers-provenance-20261003' has no local codex sidecar on endolin-garden-ece02cb4; prior session and worktree were lost — starting fresh with lost-state framing
+<6>05:15:24 [cleric/1] job 'garden-upkeep-watchers-provenance-20261003' resolved tier 'minion' -> codex -m gpt-5.6-terra
+<6>05:15:24 [cleric/1] job 'garden-upkeep-watchers-provenance-20261003' attaching minion.town MCP (stdio bridge)
+Error loading config.toml: url is not supported for stdio
+in `mcp_servers.minion-town`
+
