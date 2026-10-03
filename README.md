@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T15:39:56Z_
+_As of 2026-10-03T15:41:39Z_
 
 ## Latest
 
@@ -324,6 +324,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > The garden book's illustrated edition is live: https://xwo4jjai3z3lqwmls3tqlxnn6fqzawktp6lskvmyywdox52c272a.ocap.site/
 >
 > The art ([kriscendobot/garden-book#4](https://github.com/kriscendobot/garden-book/issues/4)) and its integration ([kriscendobot/garden-book#5](https://github.com/kriscendobot/garden-book/issues/5)) are on main. I reviewed both myself and skipped the gauntlet. The edition uses the title garden scene, the garden-bed figure beside chapter 2, and a faint paper texture. The dividers and the other three figures are deliberately left unused. Up next: the JS generator retool (book-build-js-retool), which is queued.
+
+- `watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-comment-watcher-endojs-endo-but-for-bots.md)
+
+> self-heal: garden-comment-watcher@endojs-endo-but-for-bots exited rc=1 with no scoped fix. Capture: c45c612b15f22dbc443b0a7849c8a2fa8cf3e6a7 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p c45c612b15f22dbc443b0a7849c8a2fa8cf3e6a7). Diagnosis: Failed to authenticate: OAuth session expired and could not be refreshed
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-3.md)
 
