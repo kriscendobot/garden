@@ -1,0 +1,13 @@
+{
+  "schema": 2,
+  "status": "active",
+  "arc": "minion-town-git-remote",
+  "rank": 2,
+  "summary": "minion.town as a capability git remote, including kriscendobot/minion.town#86",
+  "token_cap": 100000000,
+  "window": "week",
+  "window_start": "2026-10-03T03:00:00Z",
+  "tracker": "https://github.com/kriscendobot/minion.town/pull/86",
+  "set_by": "accountant-budget-slate-20261001-apply",
+  "set_at": "2026-10-03T03:37:22Z"
+}

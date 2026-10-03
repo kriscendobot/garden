@@ -1,0 +1,12 @@
+{
+  "schema": 2,
+  "status": "active",
+  "arc": "moonshots",
+  "rank": 5,
+  "summary": "Trailing moonshots: endor (metering, explorative), ironhorse, thixotrope, slot machine; enough to keep each moving",
+  "token_cap": 40000000,
+  "window": "week",
+  "window_start": "2026-10-03T03:00:00Z",
+  "set_by": "accountant-budget-slate-20261001-apply",
+  "set_at": "2026-10-03T03:37:22Z"
+}
