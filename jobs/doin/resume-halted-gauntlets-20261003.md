@@ -23,6 +23,7 @@ iteration count and say how. For minion.town use GARDEN_YARN=npm. Report per-PR 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-03T05:13:09Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
