@@ -7,17 +7,17 @@ thoughtfulness: medium
 work_class: gardener:l
 target: main2
 accepted: true
-agentic_dollars: 1.124748
+agentic_dollars: 1.808331
 human_dollars: 0
 aggregate_dollars: censored
 cost_source: wallclock
-estimated_dollars: 0.054786
+estimated_dollars: 0.149592
 attempts: 1
-duration_secs: 794
+duration_secs: 2168
 awarded_bid: 
 bidders: 0
 source: live
-recorded_by: oros-studio-garden-ce242c49/monk-2
-recorded_at: 2026-09-30T22:27:37Z
+recorded_by: endolin-garden2-5bcdff64/monk-3
+recorded_at: 2026-10-03T04:05:09Z
 ---
 reputation event for ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean: arm anthropic/claude-default/medium work_class gardener:l target main2 accepted true
