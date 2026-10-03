@@ -1,6 +1,6 @@
 ---
 gate: blocked
-blocked_on: book-illustrations-integrate
+blocked_on: book-illustrations-integrate-after-pr4
 priority: normal
 posted_by: producer
 posted_at: 2026-10-01T20:24:13Z
