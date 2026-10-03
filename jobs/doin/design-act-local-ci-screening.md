@@ -93,6 +93,8 @@ judgment call (per `roles/designer/AGENT.md` operating norms — this repo's own
 convention is direct-to-`main2` unless open questions require a review PR).
 Do not implement in this job; a build job follows once the design lands.
 
+<!-- garden-deadline-overrun: 1 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
