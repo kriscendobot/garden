@@ -18,6 +18,7 @@ or taste/noise, with one line of reasoning, and a bottom-line recommendation (me
 as is / merge after a named small fix / needs redesign). Do not push to the PR and
 do not stage another gauntlet.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
