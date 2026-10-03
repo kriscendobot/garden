@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T22:22:30Z_
+_As of 2026-10-03T22:24:07Z_
 
 ## Latest
 
@@ -605,9 +605,10 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 8.153445s/45s (/home/kris/garden/.garden-state/inbox/kriscendobot-minion.town-pr85-gauntlet-20261003-clean/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (10)
+### todo (11)
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
+- [`kriscendobot-minion.town-pr85-retcon-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-retcon-20261003.md) — retcon kriscendobot/minion.town PR #85
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261003-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-163507.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
@@ -617,8 +618,7 @@ worst fetch p95 8.153445s/45s (/home/kris/garden/.garden-state/inbox/kriscendobo
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (2)
-- [`kriscendobot-minion.town-pr85-retcon-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-retcon-20261003.md) — retcon kriscendobot/minion.town PR #85
+### doin (1)
 - [`improve-recognize-gauntlet-budget-notice`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-recognize-gauntlet-budget-notice.md) — ---
 
 ### tada (10744)
