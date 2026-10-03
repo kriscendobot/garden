@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T05:57:54Z_
+_As of 2026-10-03T06:00:37Z_
 
 ## Latest
 
-The sturdyref CaptP-construct layer ([endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) exhausted its review budget at 6 fix/panel rounds — CI is green and the PR is improved, but the subjective panel review never converged, so it's parked for a manual merge/review call; a follow-on panel round is already queued for the next sturdyref layer, PR #1397's OCapN-enliven neighbor. The minion.town Claude CLI provider work advanced: PR #146 was reviewed and conducted (merged), and a job to land and deploy it on minion.town is now queued. On the garden-book side, the text PRs (kriscendobot/garden-book#1–#3) are merged and published at the new ocap.site edition, and the accountant has proposed carving a 15M-token "garden-book" budget sliver (rank 7, from the unallocated reserve) to cover the remaining illustration/build-retool work — awaiting your approval. Also worth a glance: three journal-contention/clone-size watchdogs are flagging bloated `.garden-state` clones on the leader (ci-watcher verify clones near/at the 1000-pack guard, plus a triager-pace clone), a budget-pool watchdog has been fail-closing codex-endolin claims for several days on an uncalibrated cap, and a reaper notice reports the receipt-watcher primary-quota-cooldown fix job exhausted its retries and is parked for manual promotion or splitting.
+The garden book's text track wrapped: all three chapter PRs merged and the supervisor published the edition, now titled "Better Code and Gardens," with illustration integration and the JavaScript build retool handed off to a follow-up supervisor. The accountant has proposed carving a 15M-token `garden-book` budget arc (rank 7, funded from the unallocated reserve) to cover that remaining art/build work and is waiting on approval. Elsewhere the gauntlet mill kept turning on the Endo stack — PR [endojs/endo-but-for-bots#1409](https://github.com/endojs/endo-but-for-bots/pull/1409) picked up a panel summary and several sturdyref-layer PRs advanced fix/panel rounds — while [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) remain the longest-waiting parked PRs for review. Infrastructure is showing some strain worth a glance: several journal clones on the leader host have crossed their pack-count guard (ci-watcher verify paths for endo-but-for-bots, finbot, ocapn, and the triager-pace journal), a codex budget pool is fail-closed on an uncalibrated cap, and the `oros-studio-garden-ce242c49` host has been offline for over a day and is being skipped by rolling deploys.
 
 ## Parked for maintainer feedback
 
@@ -244,8 +244,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.5M | $182.91 _(notional, rate-card)_ | 11% of 256.0M (ok) |
-| Codex | 1.3M _(+24.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 28.4M | $189.36 _(notional, rate-card)_ | 11% of 256.0M (ok) |
+| Codex | 1.4M _(+25.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70817700 tokens/day lower bound._
 
@@ -259,7 +259,7 @@ worst fetch p95 4.171776s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
-- [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1392
+- [`build-confined-application-makers-p2-makefromtree-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-confined-application-makers-p2-makefromtree-20261003.md) — Phase 2c: EndoHost.makeFromTree layout/entry API and draft PR
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261003-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1391-gauntlet-20261003-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1391
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
@@ -278,7 +278,6 @@ worst fetch p95 4.171776s/45s (/home/kris/garden/.garden-state/library-source-dr
 ### doin (10)
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1412
 - [`build-endo-claude-sandbox-bwrap-slice-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-sandbox-bwrap-slice-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1408
-- [`design-act-local-ci-screening-research`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-act-local-ci-screening-research.md) — Research: act (nektos/act) feasibility + Linux-runnable CI inventory
 - [`accountant-reslice-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/accountant-reslice-20261003.md) — Re-slice: propose a garden-book arc sliver (week of 2026-10-03T03:00Z)
 - [`ebfb-daemon-test-flakes-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-daemon-test-flakes-20261003.md) — Fix the flaky @endo/daemon test suite on endojs/endo-but-for-bots (llm)
 - [`fu-endojs-endo-but-for-bots-pr1348-shell-command-grammar-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1348-shell-command-grammar-2.md) — ---
@@ -286,14 +285,15 @@ worst fetch p95 4.171776s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1397
 - [`ebfb-guest-no-identifiers-locators-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-no-identifiers-locators-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1404
 - [`book-codex-illustrations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-codex-illustrations.md) — Garden book: generate illustrations and background art (Codex)
+- [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1392
 
-### tada (10544)
+### tada (10545)
+- [`design-act-local-ci-screening-research`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/design-act-local-ci-screening-research.md) — Completion report: design-act-local-ci-screening-research
 - [`build-confined-application-makers-p2-mount-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p2-mount-20261003.md) — Cost
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr146-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr146-conduct.md) — Cost
 - [`ebfb-pr1409-panel-summary-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-pr1409-panel-summary-20261003.md) — Completion report
-- [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-endo-guest-scoped-daemon-bootstrap-gauntlet-panel-4.md) — Panel round 4 (single round) on endojs/endo-but-for-bots#1407: must-fix
-- … and 10539 more
+- … and 10540 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
