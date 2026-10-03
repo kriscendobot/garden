@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T22:43:10Z_
+_As of 2026-10-03T22:44:53Z_
 
 ## Latest
 
@@ -437,6 +437,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64.md)
+
+> Rolling-deploy canary endolin-garden2-5bcdff64 is STUCK: it was released to d8c3e4ba9ade 21 min ago
+> but still reports deployed_sha 0f66db1f2d884c46a173a8889291366abd92b8fe. Check garden-self-deploy on endolin-garden2-5bcdff64
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden-ece02cb4)
 
 - `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
 
