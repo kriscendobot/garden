@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T16:14:03Z_
+_As of 2026-10-03T16:18:36Z_
 
 ## Latest
 
@@ -294,11 +294,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #26 (first seen 2026-10-03T05:02:31Z, latest 2026-10-03T16:04:11Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 26 times; this is ONE
-> coalesced notice that updates in place, not 26 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-03T05:02:31Z, cleared 2026-10-03T16:14:52Z).
+> It was observed 26 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 889 of 889 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
 
 - `msg-accountant-reslice-20261003-resume2-035809b21719` — from gardener:accountant-reslice-20261003-resume2, reply_to `accountant-reslice-20261003-resume2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-reslice-20261003-resume2-035809b21719.md)
 
@@ -447,53 +447,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >    accumulate packs if that is the root cause.
 > Land fixes directly on main2 per garden convention. Report what you changed.
 
-- `doomed-kriscendobot-minion-town-pr148-gauntlet-viability-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-kriscendobot-minion-town-pr148-gauntlet-viability-requeue-exhausted.md)
-
-> GAUNTLET stage PARKED in jobs/plan/ after its first non-productive failure on endolin-garden-ece02cb4.
-> The reaper spent no generic retry and applied no ordinary split; gauntlet kriscendobot-minion-town-pr148-gauntlet exclusively owns retry through max_stage_retries.
-> The work is preserved at jobs/plan/kriscendobot-minion-town-pr148-gauntlet-viability; it stays HELD until a human promotes it
-> (promote-plan.sh kriscendobot-minion-town-pr148-gauntlet-viability) or removes it, so nothing is lost.
-> Original job base: kriscendobot-minion-town-pr148-gauntlet-viability
->
-> --- original job body ---
-> ---
-> role: gardener
-> gauntlet: kriscendobot-minion-town-pr148-gauntlet
-> gauntlet_stage: viability
-> gauntlet_iteration: 0
-> pr: [https://github.com/kriscendobot/minion.town/pull/148](https://github.com/kriscendobot/minion.town/pull/148)
-> ---
->
-> # Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #148
->
-> You are the viability gate for staged gauntlet (kriscendobot-minion-town-pr148-gauntlet). Spend no clean, panel,
-> fix, CI-wait, or un-draft budget. Decide whether the gauntlet may begin, report the
-> evidence, then STOP.
->
-> 1. Read current PR facts with
->    `gh pr view https://github.com/kriscendobot/minion.town/pull/148 --json state,mergedAt,isDraft,title,body,baseRefName,headRefName,headRefOid,baseRefOid,url`.
->    A merged PR reports `viability=merged`; any other non-OPEN PR reports
->    `viability=closed`. Neither enters the gauntlet loop.
-> 2. For an open, unmerged PR, inspect its description, discussion and reviews, linked
->    issue/design context, current base code, and relevant newer base history. Ask one
->    concrete yes/no question whose answer decides both of these claims: the PR has not
->    been superseded, and the need or assumption that motivated it still holds.
-> 3. Report `viability=proceed` only when current evidence supports both claims. If a
->    newer implementation/design displaced it, or its motivating premise no longer
->    holds, report `viability=overtaken`. Do not enter the expensive loop merely
->    because the PR remains open.
-> 4. Include concise `Deciding question:` and `Evidence:` lines in every report.
->    For `overtaken`, also include this exact line so the maintainer gets an explicit
->    disposition rather than a silent refusal:
->
->    Option: close as superseded
->
-> END your completion report with EXACTLY ONE of these marker lines (last line):
->   <!-- gauntlet-stage-result: viability=proceed -->
->   <!-- gauntlet-stage-result: viability=closed -->
->   <!-- gauntlet-stage-result: viability=merged -->
->   <!-- gauntlet-stage-result: viability=overtaken -->
-
 - `20261003T065951Z-31100f` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261003T065951Z-31100f.md)
 
 > awaiting maintainer — beyond proxy authority: gardener accountant-reslice-20261003-resume2, msgid msg-accountant-reslice-20261003-resume2-192d988f6e62.md — Budget-slice apportionment is explicitly maintainer-authority: it carves reserve funds and records `authorized_by: kriskowal`, which a proxy answer cannot satisfy even tentatively.
@@ -508,11 +461,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-03T05:14:59Z, cleared 2026-10-03T15:59:12Z).
-> It was observed 17 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #18 (first seen 2026-10-03T05:14:59Z, latest 2026-10-03T16:14:44Z).
+> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 18 times; this is ONE
+> coalesced notice that updates in place, not 18 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
+> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-3.md)
 
@@ -623,27 +583,27 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`oros-health-checkup-20261003-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-132007.md) — ---
-- [`claude-on-minion-town-press-20261003-150506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-150506.md) — Press the Claude-on-minion.town arc forward
 - [`claude-on-minion-town-completion-press-20261003-155006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261003-155006.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`build-confined-application-makers-p1-20261002-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-confined-application-makers-p1-20261002-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1417
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
+- [`kriscendobot-minion.town-pr147-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr147-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #147
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-gauntlet-20261003-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #85
 - [`claude-on-minion-town-press-20261003-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-053508.md) — Press the Claude-on-minion.town arc forward
 
 ### doin (3)
-- [`kriscendobot-minion.town-pr147-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr147-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #147
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1419
 - [`ebfb-petname-path-only-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1390
+- [`claude-on-minion-town-press-20261003-150506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261003-150506.md) — Press the Claude-on-minion.town arc forward
 
-### tada (10678)
+### tada (10679)
+- [`kriscendobot-minion.town-pr147-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr147-gauntlet-fix-5.md) — Cost
 - [`accountant-weekly-20261003-160506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/accountant-weekly-20261003-160506.md) — Cost
 - [`improve-comment-watcher-primary-quota-fallback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-comment-watcher-primary-quota-fallback.md) — Cost
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-panel-5.md) — Cost
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet.md) — gauntlet ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet — review budge...
-- [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-6.md) — Fix round 6: endojs/endo-but-for-bots PR #1397
-- … and 10673 more
+- … and 10674 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
