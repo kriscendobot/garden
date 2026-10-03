@@ -43,15 +43,4 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: fix=ci-billing-blocked -->  (ci-wait-merge rc 5)
 
-<!-- garden-productive-cycle -->
-<!-- garden-transient-elapsed: kind=signature through=0 values=4455 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-03T11:21:14Z
+<!-- garden-reaped: 0 -->
