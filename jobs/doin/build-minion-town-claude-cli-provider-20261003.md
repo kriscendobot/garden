@@ -63,3 +63,13 @@ inference through `@endo/claude`:
 
 The PR body must state plainly what is verified locally and that production evidence is
 the later canary child's job. Successful completion stages the gauntlet automatically.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T04:26:12Z
