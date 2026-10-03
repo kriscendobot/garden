@@ -1,0 +1,5 @@
+<6>04:53:44 [cleric/1] job 'kriscendobot-garden-book-pr3-review-dcb68a02' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>04:53:44 [cleric/1] job 'kriscendobot-garden-book-pr3-review-dcb68a02' attaching minion.town MCP (stdio bridge)
+Error loading config.toml: url is not supported for stdio
+in `mcp_servers.minion-town`
+
