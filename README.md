@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T04:18:50Z_
+_As of 2026-10-03T04:21:23Z_
 
 ## Latest
 
-The garden book's design pass is published: a Tufte-style sidenote layout grouping the ten chapters into five parts (Roots, Planting, Catalog, Tending, Almanac), each with its own line-drawn growth-stage motif, a paper/soil/leaf palette, and a `publish.py` fix so the site no longer hands visitors the full "sites" capability. It's draft PR [kriscendobot/garden-book#2](https://github.com/kriscendobot/garden-book/issues/2), stacked on the copy-edit PR [kriscendobot/garden-book#1](https://github.com/kriscendobot/garden-book/issues/1).
-
-Elsewhere, board activity was dominated by gauntlet churn: several PRs on `endojs/endo-but-for-bots` — the sturdyref layers 3/4/6, petname-path-only sweep 4, the guest-no-identifiers-locators work, and the Claude-sandbox bwrap slice — halted after fix or panel rounds failed or doom-parked, while three others (`ironhorse-panic-live-handle-reseat`, `ironhorse-panic-host-call-open-pr`, `claude-broker-catalog-pruning`) hit their 6-round review budget and are sitting green-CI but unconverged, ready for a human merge call. [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) also needs a fresh look — its head moved past the last panel review. The `confined-application-makers` orchestration halted after its second of five children doomed. Separately, the `oros-studio` host has been unreachable for about a day and needs someone at the machine, and both root checkouts (leader and garden2) are stalled multiple commits behind `main2` on deploy.
+Panel round 4 completed for [endojs/endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390) (petname-path-only sweep), and that PR's fix round 3 also landed. Otherwise the board is quiet — the only board transition since the last bulletin was that same panel job moving to tada, with no other claims or completions to report.
 
 ## Parked for maintainer feedback
 
@@ -476,7 +474,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 10.4M | $65.89 _(notional, rate-card)_ | 4% of 256.0M (ok) |
+| Claude | 10.7M | $67.60 _(notional, rate-card)_ | 4% of 256.0M (ok) |
 | Codex | 66.5k _(+324.1k cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70817700 tokens/day lower bound._
@@ -485,12 +483,11 @@ _Fleet token-unlock pace: 70817700 tokens/day lower bound._
 worst fetch p95 4.005660s/45s (unknown); 1 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (12)
 - [`claude-on-minion-town-press-20261003-023507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-023507.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
-- [`minion-town-pr87-production-gate-resume-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-pr87-production-gate-resume-20260922.md) — Resume the production-reality gate for kriscendobot/minion.town PR #87
 - [`book-codex-illustrations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-codex-illustrations.md) — Garden book: generate illustrations and background art (Codex)
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
@@ -503,20 +500,20 @@ worst fetch p95 4.005660s/45s (unknown); 1 open notice(s); checker healthy
 ### doin (8)
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1412
 - [`endojs-endo-but-for-bots-pr1403-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1403-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1403
-- [`ebfb-petname-path-only-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1390
 - [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1407
 - [`ebfb-daemon-test-flakes-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-daemon-test-flakes-20261003.md) — Fix the flaky @endo/daemon test suite on endojs/endo-but-for-bots (llm)
+- [`minion-town-pr87-production-gate-resume-20260922`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr87-production-gate-resume-20260922.md) — Resume the production-reality gate for kriscendobot/minion.town PR #87
 - [`endojs-endo-but-for-bots-pr1348-shell-command-grammar`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-shell-command-grammar.md) — ---
 - [`ebfb-red-ci-gauntlets-resume-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-red-ci-gauntlets-resume-20261003.md) — Resume the six gauntlets halted on red CI (endojs/endo-but-for-bots)
 - [`build-confined-application-makers-p1-20261002-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1417
 
-### tada (10521)
+### tada (10522)
+- [`ebfb-petname-path-only-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-petname-path-only-gauntlet-panel-4.md) — Cost
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6-pr-write`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6-pr-write.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-panel-1.md) — Cost
 - [`ebfb-petname-path-only-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-petname-path-only-gauntlet-fix-3.md) — Fix round 3: endojs/endo-but-for-bots PR #1390 (gauntlet ebfb-petname-path-on...
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean.md) — Cost
-- [`deadmail-20261003T035005Z-3d044a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/deadmail-20261003T035005Z-3d044a.md) — Cost
-- … and 10516 more
+- … and 10517 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
