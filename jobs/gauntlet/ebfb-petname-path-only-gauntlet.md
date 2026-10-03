@@ -9,11 +9,11 @@ max_resumes: 6
 max_stage_retries: 2
 created_by: producer
 created_at: 2026-09-30T05:44:11Z
-stage: fix
-iteration: 5
+stage: panel
+iteration: 6
 resumes: 0
 stage_retries: 0
-current_child: ebfb-petname-path-only-gauntlet-fix-5
+current_child: ebfb-petname-path-only-gauntlet-panel-6
 state: running
 resumed_at: 2026-09-30T17:27:00Z
 resumed_from_stage: clean
