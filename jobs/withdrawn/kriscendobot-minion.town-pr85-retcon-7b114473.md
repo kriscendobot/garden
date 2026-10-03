@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: its blocker gauntlet kriscendobot-minion.town-pr85-gauntlet HALTED at once (floating base main), and a halted gauntlet lands in tada, which would promote this retcon early. Replaced by the chain weave -> gauntlet -> retcon: kriscendobot-minion.town-pr85-weave-20261003 -> kriscendobot-minion.town-pr85-gauntlet-rerun-20261003 -> kriscendobot-minion.town-pr85-retcon-20261003
+withdrawn_by: gardener
+withdrawn_at: 2026-10-03T03:06:13Z
+withdrawn_from_gate: blocked
+---
+
+---
 gate: blocked
 blocked_on: kriscendobot-minion.town-pr85-gauntlet
 priority: normal
