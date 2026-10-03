@@ -4,8 +4,8 @@ window_start_epoch: 1790797250
 spend: 270980774
 cap: 256000000
 status: backoff
-sampled_at_epoch: 1790985653
-sampled_at: 2026-10-03T00:00:53Z
-sample_bucket: 1989984
+sampled_at_epoch: 1790986533
+sampled_at: 2026-10-03T00:15:33Z
+sample_bucket: 1989985
 used_percent: 99
 used_percent_source: derived
