@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-minion.town-pr85-gauntlet-20261003
-priority: normal
 role: retcon
-posted_by: gardener
-posted_at: 2026-10-03T03:06:58Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-03T22:11:03Z cleared=none -->
 
 ---
 tier: mentor
