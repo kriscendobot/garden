@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T22:55:22Z_
+_As of 2026-10-03T22:59:00Z_
 
 ## Latest
 
@@ -227,10 +227,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20261003T065941Z-848d3d` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261003T065941Z-848d3d.md)
 
 > awaiting maintainer — beyond proxy authority: gardener accountant-reslice-20261003-resume2, msgid msg-accountant-reslice-20261003-resume2-035809b21719.md — Budget/resource allocation authorization (committing a 15M-unit garden-book slice) is an authority grant reserved to the maintainer, not a progress/direction question a proxy may answer.
-
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261003-223509` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261003-223509.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261003-223509' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-garden-book-supervisor-20261003-retool-c91bf4739d25` — from gardener:garden-book-supervisor-20261003-retool, reply_to `garden-book-supervisor-20261003-retool` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-book-supervisor-20261003-retool-c91bf4739d25.md)
 
