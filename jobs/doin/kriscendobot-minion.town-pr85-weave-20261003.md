@@ -23,3 +23,13 @@ This weave is step 1 of a three-step chain:
 1. This weave.
 2. `kriscendobot-minion.town-pr85-gauntlet-rerun-20261003`, which records the gauntlet.
 3. `kriscendobot-minion.town-pr85-retcon-20261003`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T03:07:40Z
