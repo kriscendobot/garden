@@ -9,11 +9,11 @@ max_resumes: 6
 max_stage_retries: 2
 created_by: producer
 created_at: 2026-10-02T17:01:21Z
-stage: fix
-iteration: 3
+stage: panel
+iteration: 4
 resumes: 0
 stage_retries: 0
-current_child: build-confined-application-makers-p1-20261002-gauntlet-fix-3
+current_child: build-confined-application-makers-p1-20261002-gauntlet-panel-4
 state: running
 resumed_at: 2026-10-03T04:01:53Z
 resumed_from_stage: clean
