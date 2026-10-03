@@ -69,3 +69,13 @@ Maintainer decision (kriskowal, liaison session 2026-10-03), answering the gate'
 (a) **Backend: Claude CLI (Track A)** — kriscendobot/minion.town#105 is the production provider to integrate, not the Agent SDK track. Do not re-run the failed SDK track for a comparison; proceed directly with CLI.
 (b) endo#1015 (@endo/claude confinement core) merged 2026-09-29 — this part of the gate is cleared, no longer a blocker.
 (c) **Evidence bar: deployed AWS host + real guest subscription.** A local authorized run is not sufficient; evidence must come from the deployed minion.town exercising the real setup-token credential path end to end.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T04:20:41Z
