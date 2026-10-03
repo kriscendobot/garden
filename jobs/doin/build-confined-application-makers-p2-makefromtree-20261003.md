@@ -40,3 +40,13 @@ Report the pushed head SHA, PR URL/number, base and head branches, changed paths
 and every verification command/result. If a prerequisite or design conflict blocks
 the gated PR outcome, preserve the committed branch, report evidence, and emit
 the orchestrated-failure signal.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T06:05:49Z
