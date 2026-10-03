@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-03T09:14:23Z_
+_As of 2026-10-03T09:17:12Z_
 
 ## Latest
 
-The Ironhorse panic-host-call PR gauntlet landed a fix round and reached tada, with its gauntlet machinery now recycled into fresh fix/panel rounds for [endo-but-for-bots#1419](https://github.com/endojs/endo-but-for-bots/pull/1419) and [#1406](https://github.com/endojs/endo-but-for-bots/pull/1406); panel round 4 is also now queued for the sturdyref ocapn-enliven PR, [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397).
+The garden book's text and illustrated editions both shipped to publication today: the illustrated edition is live at https://xwo4jjai3z3lqwmls3tqlxnn6fqzawktp6lskvmyywdox52c272a.ocap.site/, with art ([kriscendobot/garden-book#4](https://github.com/kriscendobot/garden-book/issues/4)) and its integration ([kriscendobot/garden-book#5](https://github.com/kriscendobot/garden-book/issues/5)) merged after the supervisor self-reviewed and skipped the gauntlet — proxy flagged that skip as beyond its authority, so it's worth a maintainer glance. The JS generator retool is now in the fix loop (round 3 on kriscendobot/garden-book PR #6). Separately, the garden-book budget re-slice (carving a 15M-token arc from the 25M reserve) is stalled on a direct maintainer decision: a proxy "tentative approve" came in but the accountant correctly declined to treat it as authorization, so it's awaiting your explicit "approve" or edits.
 
-The garden book's text and illustrated editions are both complete and published (the illustrated edition now live at a new ocap.site URL), with JS-generator retooling queued next — but two budget questions (a 15M-token garden-book reserve carve and an Ironhorse computron-benchmark pause-lift) and three CLI/daemon design open-questions on [#1383](https://github.com/endojs/endo-but-for-bots/pull/1383) are still sitting unanswered despite proxy having correctly declined to rule on the budget one twice. Elsewhere, the minion.town Claude-CLI production push halted serial after its provider-conduct stage declared its gated outcome unsatisfied, and host `oros-studio-garden-ce242c49` has been offline over a day with its health checkup unclaimed. Routine self-heal continues in the background (a dirty root-tree edit was auto-preserved and restored, journal clone/contention guards are flagging several oversized caches) with nothing else needing attention right now.
+On the PR front, several gauntlets wrapped at their review-round ceiling without converging and are parked for human merge calls: [endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406) (Claude pinned-CLI bump), [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (sturdyref layer3 pass-style), and [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (sturdyref layer6 captp-construct). Two gauntlets instead halted on a declared failure: [endo-but-for-bots#1419](https://github.com/endojs/endo-but-for-bots/pull/1419) (confined-application-makers P2 makeFromTree) and the ironhorse panic-host-call PR. The minion.town Claude-CLI production push also halted mid-orchestration after its provider-conduct stage declared its gated outcome unsatisfied, with the canary stage parked behind it.
+
+Infrastructure-wise, oros-studio-garden-ce242c49 has been offline for over a day (heartbeat stale ~28h) and needs a human to check the machine; the root-repo guard caught and auto-repaired a stray tracked edit on `main2`; and journal contention/clone-bloat warnings are piling up across several watcher state directories, alongside a fixer job already queued to address comment-watcher blindness and a bloated repo-watcher journal.
 
 ## Parked for maintainer feedback
 
@@ -219,6 +221,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > comment-provenance INSTRUMENTATION GAP on host endolin-garden-ece02cb4: a fleet `gh` comment was posted by an LLM-driven caller, but NEITHER GARDEN_JOB_MODEL NOR GARDEN_WORKER_KIND resolved — so the footer named only the host and garden commit (no model/harness/provider). This is the PR #1125 defect. The comment STILL posted (fail-open); nothing is broken. FIX: find the code path posting the comment and export the job facts (GARDEN_JOB_MODEL + GARDEN_WORKER_KIND) before its `gh` call, OR set GARDEN_NO_LLM=1 if it is a deterministic (no-LLM) post.
 
+- `endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted` — from gauntlet:endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002 HALTED: stage 'endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+
 - `msg-oros-health-watch-20261003-060510-ed115514b143` — from gardener:oros-health-watch-20261003-060510, reply_to `oros-health-watch-20261003-060510` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261003-060510-ed115514b143.md)
 
 > oros-studio-garden-ce242c49 is unreachable: its budget heartbeat stopped at 2026-10-02T05:08:36Z and its last sysop record was 2026-10-02T05:38:58Z, over 24 hours ago. The 2026-10-03T04:05:08Z pinned health checkup remains unclaimed. I queued reset-failed (20261003T060835Z-c46fec) and restore (20261003T060846Z-c94b33); neither can run until the machine returns. A person needs to check the Mac/VM, Docker Desktop, and sleep state.
@@ -252,12 +258,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #12 (first seen 2026-10-03T06:41:50Z, latest 2026-10-03T07:36:05Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 12 times; this is ONE
-> coalesced notice that updates in place, not 12 messages. Latest detail:
+> WATCHDOG notice — occurrence #13 (first seen 2026-10-03T06:41:50Z, latest 2026-10-03T09:14:59Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 13 times; this is ONE
+> coalesced notice that updates in place, not 13 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/146](https://github.com/kriscendobot/minion.town/pull/146)#discussion_r4171862063 (age=7245s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/146](https://github.com/kriscendobot/minion.town/pull/146)#discussion_r4171862063 (age=12960s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
@@ -387,8 +393,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 61.1M | $398.61 _(notional, rate-card)_ | 24% of 256.0M (ok) |
-| Codex | 2.9M _(+73.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 62.0M | $406.89 _(notional, rate-card)_ | 24% of 256.0M (ok) |
+| Codex | 2.9M _(+74.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -396,13 +402,14 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 45.001467s/45s (/home/kris/garden/.garden-state/progress/journal); 5 open notice(s); journal-contention-checker-stale
 
 ## Board
-### todo (17)
+### todo (18)
 - [`claude-on-minion-town-press-20261003-023507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-023507.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`claude-on-minion-town-press-20261003-085006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-085006.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
+- [`book-build-js-retool-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-build-js-retool-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/garden-book PR #6
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1397
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1419
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
