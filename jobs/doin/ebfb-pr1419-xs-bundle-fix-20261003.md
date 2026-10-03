@@ -27,3 +27,13 @@ with `yarn workspace @endo/thixotrope run build:xs-bundles && yarn bundle:xs` pl
 daemon tests touched by the PR, push with safe-push-pr-head.sh, drive CI green, then
 resume the halted gauntlet at its clean stage (`scripts/jobs/gauntlet.sh --resume-from-stage`),
 not from round 1. Report the outcome.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T07:46:19Z
