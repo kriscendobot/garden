@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-03T11:34:51Z_
+_As of 2026-10-03T11:41:25Z_
 
 ## Latest
 
-Fix round 6 for [endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/pull/1404) (guest no-identifiers/locators) completed clean with CI green, and the gauntlet closed out after exhausting its 6-round review budget — it's parked for a human merge/review call alongside several other PRs hitting the same budget ceiling: [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (sturdyref layer7 ocapn-enliven), [endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) (sturdyref layer4 marshal), and [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (sturdyref layer3 pass-style). Two gauntlets instead halted on a hard failure needing attention: [endo-but-for-bots#1419](https://github.com/endojs/endo-but-for-bots/pull/1419) (confined-application-makers p2 makeFromTree) and the ironhorse panic-host-call PR. The garden-book arc published two more editions — illustrated and a JS-retool build — both merged straight to main with the gauntlet skipped by self-review, and a 15M-token garden-book budget slice is still waiting on kriskowal's direct approval (a proxy's tentative yes doesn't count for budget authority). Elsewhere, oros-studio-garden-ce242c49 has been heartbeat-offline for over a day and needs a person at the machine, and several journal-contention and quota-pressure watchdogs cleared on their own overnight.
+Several review gauntlets ground to a halt on their review budget, leaving six-round-reviewed PRs parked for a human merge call: [endo-but-for-bots#1404](https://github.com/endojs/endo-but-for-bots/pull/1404) (guest no-identifiers locators), the Claude sandbox bwrap slice and Claude pinned-CLI-bump builds, and sturdyref layers 3 and 6. Two gauntlets instead halted outright on a declared failure and need maintainer attention: the confined-application-makers P2 makeFromTree build and the Ironhorse panic-host-call PR.
+
+The garden-book project wrapped: text, illustrations, and a JavaScript retool all merged and published, with the latest edition at https://g2d5d5z6x25qmf43fhv5tm4zmv4ozbxgk5gtke3mkrydrojehaea.ocap.site/; a 15M-token budget slice for the arc is still awaiting your direct "approve," since a proxy tentative answer can't substitute for maintainer budget authority. Separately, the minion-town-claude-cli-production orchestration halted after its provider-conduct child declared its gated outcome unsatisfied, with one child left parked.
+
+Operationally, oros-studio-garden-ce242c49 has been heartbeat-offline for over a day and needs a person at the machine to check Docker Desktop/sleep/VM state; the root-repo guard caught and auto-repaired a stray tracked edit to `roles/jurors/curator/AGENT.md`; and several journal-contention and comment-watcher conditions fired and self-cleared. A garden-upkeep job addressing blind comment watchers and repo-watcher pack bloat exhausted its retries and is parked for promotion.
 
 ## Parked for maintainer feedback
 
@@ -322,20 +326,27 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal.md)
 
-> Journal fetch anomaly on endolin-garden-ece02cb4 for _home_kris_garden__garden_state_bulletin_journal: p95=2.075014s max=40.076545s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-10-03T09:59:02Z, cleared 2026-10-03T11:38:58Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #26 (first seen 2026-10-03T06:41:50Z, latest 2026-10-03T11:32:20Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 26 times; this is ONE
-> coalesced notice that updates in place, not 26 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-ack-blind-kriscendobot-minion.town` has CLEARED (first seen 2026-10-03T06:41:50Z, cleared 2026-10-03T11:37:26Z).
+> It was observed 26 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/146](https://github.com/kriscendobot/minion.town/pull/146)#discussion_r4171862063 (age=21406s; heartbeat=full-poll)
+> Comment acknowledgment condition cleared.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
 > Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/sysop/journal: packs 1078 >= 1000; size=288477184B packs=1078 gc.log=0; automatic remedy=deferred-deadline.
+
+- `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
+
+> ANOMALY: comment-watcher/kriscendobot-ocapn self-test FAILED on kriscendobot/ocapn — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden-ece02cb4 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
 
 - `doomed-garden-upkeep-watchers-provenance-20261003-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-garden-upkeep-watchers-provenance-20261003-requeue-exhausted.md)
 
@@ -477,13 +488,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 84.9M | $580.33 _(notional, rate-card)_ | 33% of 256.0M (ok) |
+| Claude | 85.4M | $583.01 _(notional, rate-card)_ | 33% of 256.0M (ok) |
 | Codex | 3.3M _(+84.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 45.001467s/45s (/home/kris/garden/.garden-state/progress/journal); 8 open notice(s); checker healthy
+worst fetch p95 45.001467s/45s (/home/kris/garden/.garden-state/progress/journal); 7 open notice(s); checker healthy
 
 ## Board
 ### todo (14)
