@@ -50,3 +50,13 @@ attaches to a PR head. Run the CI wait with
 `GARDEN_CI_ALLOW_NO_CHECKS=1` prepended so an empty rollup counts as green.
 Treat local `npm ci && npm test` plus
 `node build/build.mjs chapters out` as the real gate.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T09:21:09Z
