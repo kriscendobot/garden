@@ -21,3 +21,13 @@ context/operations/accountant.md):
    no reply, complete with the carried-forward slate in force.
 
 Standing maintainer direction (kriskowal, 2026-10-02): "keep distributing tokens to this ranking as capacity becomes available each reset, not just as a one-time apportionment." The ranking is the slate approved 2026-10-02 (`projects/garden/budget-slate-20261001.md`), with separate arcs for the three minion.town slices. Apply the 90% ceiling, and account for reset credits (`projects/garden/reset-credits.md`). If `set-apportionment.sh` is missing on your host (deploy pending), do not hand-write config. Report the gap and park a successor.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T16:05:43Z
