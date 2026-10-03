@@ -1,8 +1,7 @@
-cadence: 3h
-last_dispatched: 2026-10-03T12:35:12Z
-job_basename_prefix: oros-health-watch
+---
 handler-timeout: 3600
 ---
+
 ---
 role: fixer
 requires: host=endolin-garden-ece02cb4
