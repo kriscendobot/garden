@@ -72,3 +72,13 @@ were offered as alternatives.
    {"arc": "endo-backlog", "tokens": "9500000", "summary": "Off-mandate endo-but-for-bots backlog sliver: already-staged gauntlets only; the 2026-08 weaves stay parked"}
  ]}
 ```
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T06:10:53Z
