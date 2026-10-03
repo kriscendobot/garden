@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-03T10:27:50Z_
+_As of 2026-10-03T10:31:17Z_
 
 ## Latest
 
-Several gauntlets closed out their panel/fix cycles today, with most hitting the 6-round review budget without full convergence and now waiting on a human merge/review call: [endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406) (Claude pinned-CLI bump), [endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) (sturdyref layer 4 marshal, now into fix round 4), and the guest-scoped daemon bootstrap PR [endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) moved from fix round 5 to panel round 6. The garden-book project wrapped up: text, illustrations, and a JavaScript retool all merged and published, with the latest edition live at the retool's ocap.site link reported by the supervisor.
+Several gauntlets ground against their 6-round review budget without converging and now sit parked for a human call: [endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406) (Claude CLI pin bump), [endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) (guest-scoped daemon bootstrap), and the sturdyref layer-6 CapTP-construct PR, plus [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145) (Actions runner build) still mid-fix. Two gauntlets halted outright on a declared failed/declined outcome rather than retrying blind: the confined-application-makers P2 makeFromTree build and the Ironhorse panic-host-call PR. The Claude-CLI-on-minion.town production orchestration also halted serially after its provider-conduct child reported its gated outcome unsatisfied, leaving a canary stage parked.
 
-Two items need maintainer attention: the garden-book budget re-slice (carving a 15M-token arc at rank 7 from the 25M reserve) is stuck awaiting an explicit "approve" from kriskowal, since a proxy tentatively blessed it but cannot authorize budget moves; and the `minion-town-claude-cli-production-20261003` orchestration halted after its provider-conduct child declared its gated outcome unsatisfied, leaving a canary child parked. Separately, host `oros-studio-garden-ce242c49` has been unreachable for over 24 hours (heartbeat stale since 2026-10-02T05:08Z) and needs a physical check (Docker Desktop, Mac sleep, VM state) — queued reset/restore requests can't take effect until someone looks at the machine.
+The garden-book arc published two more editions — an illustrated edition and, following the JavaScript retool ([kriscendobot/garden-book#6](https://github.com/kriscendobot/garden-book/issues/6)), a final build with all 21 tests passing — but a 15M-token budget re-slice for that arc is stuck waiting on your direct approval; proxy twice correctly declined to authorize it on your behalf. Also waiting on you: a receipt-watcher primary-quota-cooldown fix and a batch of comment-watcher/provenance-gap garden-upkeep fixes both got parked after their sole retry failed non-productively. Operationally, oros-studio-garden-ce242c49 has been heartbeat-offline for over a day (queued reset/restore can't run until it's back — worth a physical check), and the leader host is showing sustained journal contention (several oversized-pack guards, lock waits near 100s) that's deferring cleanup rather than failing outright.
 
 ## Parked for maintainer feedback
 
@@ -169,7 +169,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal.md)
 
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/gardener-scaler/journal: p95=2.054983s max=40.083650s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-10-03T10:05:05Z, cleared 2026-10-03T10:28:38Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
@@ -225,11 +229,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-03T05:02:31Z, cleared 2026-10-03T10:19:27Z).
-> It was observed 12 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #13 (first seen 2026-10-03T05:02:31Z, latest 2026-10-03T10:29:40Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 13 times; this is ONE
+> coalesced notice that updates in place, not 13 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 20 of 1159 clone(s) on consecutive ticks.
 
 - `msg-accountant-reslice-20261003-resume2-035809b21719` — from gardener:accountant-reslice-20261003-resume2, reply_to `accountant-reslice-20261003-resume2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-reslice-20261003-resume2-035809b21719.md)
 
@@ -447,7 +451,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 73.3M | $491.41 _(notional, rate-card)_ | 29% of 256.0M (ok) |
+| Claude | 74.2M | $499.06 _(notional, rate-card)_ | 29% of 256.0M (ok) |
 | Codex | 3.3M _(+84.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
