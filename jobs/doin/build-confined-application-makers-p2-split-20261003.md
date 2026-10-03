@@ -22,3 +22,13 @@ Decompose into serial children, each with full self-contained bodies:
 Park each with post-plan.sh --orchestrated --orchestrated-by build-confined-application-makers-p2-split-20261003,
 then post-orchestration.sh --serial. Retire the halted orchestration so it does not
 re-fire. Report the child bases.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T04:57:45Z
