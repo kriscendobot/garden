@@ -5,7 +5,7 @@ spend: 284577
 spend_unit: tokens
 cap_percent: 100
 status: ok
-sampled_at_epoch: 1791061415
-sampled_at: 2026-10-03T21:03:35Z
-sample_bucket: 1990068
+sampled_at_epoch: 1791062323
+sampled_at: 2026-10-03T21:18:43Z
+sample_bucket: 1990069
 used_percent: 16.0
