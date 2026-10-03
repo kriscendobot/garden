@@ -58,3 +58,13 @@ marked proxy/tentative), or one that explicitly confirms the proxy answer.
    {"arc": "endo-backlog", "tokens": "9500000", "summary": "Off-mandate endo-but-for-bots backlog sliver: already-staged gauntlets only; the 2026-08 weaves stay parked"}
  ]}
 ```
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T06:41:32Z
