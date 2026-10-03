@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T07:38:02Z_
+_As of 2026-10-03T07:40:45Z_
 
 ## Latest
 
-The gauntlet machinery is grinding steadily through the queue: six panel/fix rounds each hit the review-budget ceiling with CI green and were left for human merge/review — [endo-but-for-bots#1125 stack](https://github.com/endojs/endo-but-for-bots/pull/1125)'s sturdyref layer PRs (#1393, #1397, #1407, #1419) continue through their fix/clean stages, and the `build-confined-application-makers` p2 split finished cleanly (3/3 children). The garden-book project crossed a milestone: all current text PRs merged and the plain edition published, now followed by an illustrated edition (art + integration merged, gauntlet skipped) at a second URL — but the follow-on 15M-token budget re-slice for the book is stuck waiting on kriskowal's direct approval, since neither proxy's tentative nod nor the maintainer's earlier informal reply satisfies the `authorized_by:` requirement.
-
-Two orchestrations need attention: `minion-town-claude-cli-production-20261003` halted after its provider-conduct child completed but declared its gated outcome unsatisfied, leaving `minion-town-claude-cli-production-canary-20261003` parked. Host `oros-studio-garden-ce242c49` has been unreachable for over 24 hours (heartbeat and sysop both stale since 2026-10-02) and needs a human to check the physical machine. Housekeeping notes: a stray tracked edit in the root repo (`roles/jurors/curator/AGENT.md`) was auto-repaired and backed up, and `endo-but-for-bots#1348` has no gauntlet staged despite being mergeable — reply "run the gauntlet #1348" if review is wanted.
+The gauntlet pipeline continues to grind through the Endo and minion.town queues — several PRs ([endo-but-for-bots#1125 stack](https://github.com/endojs/endo-but-for-bots/pull/1304), the sturdyref layers [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1404](https://github.com/endojs/endo-but-for-bots/pull/1404), [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), [#1412](https://github.com/endojs/endo-but-for-bots/pull/1412), [#1403](https://github.com/endojs/endo-but-for-bots/pull/1403)) are mid fix/panel rounds, and three — [#1282](https://github.com/endojs/endo-but-for-bots/pull/1282)-adjacent sibling gauntlets ([build-endo-claude-sandbox-bwrap-slice](https://github.com/endojs/endo-but-for-bots/pull/1282), [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) — hit the 6-round review budget and are parked for a human merge call. The garden book moved forward on two fronts: the illustrated edition is live (text + art PRs merged on kriscendobot/garden-book, published at the ocap.site link in the inbox), while a 15M-token budget re-slice for the book arc is stuck a second time — the accountant escalated it directly, correctly refusing a proxy's tentative approval since apportionment needs kriskowal's own sign-off. Operationally, the leader host is showing real strain: a storm of 12 simultaneous journal-clone-oversized warnings (ci-watcher/triager/sysop state repos all past 1000 packs) and a stray tracked edit in the root repo that the root-repo-guard caught and auto-preserved to a backup branch. Also worth a look: oros-studio-garden-ce242c49 has been offline over 24 hours with no heartbeat, and the minion.town Claude-CLI production orchestration halted after its provider-conduct child reported its gated outcome unsatisfied.
 
 ## Parked for maintainer feedback
 
@@ -170,10 +168,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > evidence gathering failed: could not fetch pull [kriscendobot/minion.town#146](https://github.com/kriscendobot/minion.town/issues/146)
 > --- captured stderr ---
 > gh: API rate limit exceeded for user ID 279080640. If you reach out to GitHub Support for help, please include the request ID AEF8:305E37:42A151:4A4E27:6AC09649 and timestamp 2026-10-03 05:44:42 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (HTTP 403)
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1348-1bc08c7c79b8` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1348-1bc08c7c79b8.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1348](https://github.com/endojs/endo-but-for-bots/pull/1348) ([endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/issues/1348)) is in the mergeable queue with NO gauntlet review staged (head 1bc08c7c79b83c09f0182a1e21d344052e81a26e). Producer jobs normally stage their gauntlet at completion, but the periodic audit never mass-stages historical PRs. If you want this PR reviewed, reply with 'run the gauntlet #1348'; otherwise no action is needed. This audit never re-drafts or stages anything.
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
@@ -380,8 +374,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.3M | $231.93 _(notional, rate-card)_ | 15% of 256.0M (ok) |
-| Codex | 2.4M _(+59.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 38.4M | $233.32 _(notional, rate-card)_ | 15% of 256.0M (ok) |
+| Codex | 2.4M _(+59.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
