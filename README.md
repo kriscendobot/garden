@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T19:25:50Z_
+_As of 2026-10-03T19:33:09Z_
 
 ## Latest
 
@@ -42,11 +42,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #287 (first seen 2026-10-02T05:41:06Z, latest 2026-10-03T18:29:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 287 times; this is ONE
-> coalesced notice that updates in place, not 287 messages. Latest detail:
+> WATCHDOG notice — occurrence #307 (first seen 2026-10-02T05:41:06Z, latest 2026-10-03T19:29:14Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 307 times; this is ONE
+> coalesced notice that updates in place, not 307 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 134426s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 138033s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -231,16 +231,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
 > Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/leader/journal: packs 1024 >= 1000; size=320389120B packs=1024 gc.log=0; automatic remedy=applied.
-
-- `msg-kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1-e6934c5e499a` — from gardener:kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1, reply_to `kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1-e6934c5e499a.md)
-
-> Security finding, live on minion.town and older than [https://github.com/kriscendobot/minion.town/pull/85](https://github.com/kriscendobot/minion.town/pull/85) (surfaced by that PR's panel, breaker and wire-watcher seats):
->
-> A clip's hash is base32 of its @sites directory's daemon formula number. The node suffix can be read from any guest's own @self. On the pinned daemon (endo-but-for-bots 1706e632), a guest's storeIdentifier and lookupById accept any formula id. So any guest that knows a clip URL can, through its own evaluate, reach that clip's directory. From there it can read the publisher's `back` power and rebind it, without any upgrade capability. The powers plane reads `back` live for every session, so a rebind takes effect on the next visitor. Served content is not affected, because only the app writes the fs vhost record.
->
-> The PR does not cause this and cannot close it: moving the back write into an operator-held authority leaves the directory just as reachable. I documented it as residual R3 in daemon-site-registry.ts and in the PR body, and I corrected the claim that "authority is the capability".
->
-> Real fixes need your call: (a) a clip id that does not designate the directory (the fresh-id/nonce-locator direction of [https://github.com/kriscendobot/minion.town/pull/88](https://github.com/kriscendobot/minion.town/pull/88)), or (b) the daemon gating guest storeIdentifier/lookupById on ids the guest was not given. I have not posted a job for either.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal.md)
 
@@ -604,23 +594,24 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261003-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-163507.md) — ---
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #85
+- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #148
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`oros-health-checkup-20261003-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-132007.md) — ---
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #148
+### doin (2)
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #85
+- [`build-confined-application-makers-p1-20261002-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1417
 
-### tada (10713)
+### tada (10715)
+- [`canary-probe-endolin-garden2-5bcdff64-3db86d595762`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/canary-probe-endolin-garden2-5bcdff64-3db86d595762.md) — rolling-deploy canary probe — round trip OK
+- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-4.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-1.md) — Cost
 - [`build-confined-application-makers-p1-20261002-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-fix-4.md) — Gauntlet fix round 4: endojs/endo-but-for-bots PR #1417
-- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-3.md) — Cost
-- [`oros-health-watch-20261003-185006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/oros-health-watch-20261003-185006.md) — Cost
-- … and 10708 more
+- … and 10710 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -642,7 +633,6 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`build-readableblob-range-attenuation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-readableblob-range-attenuation.md) — _normal_ · EMPTY JOB — held, needs re-specification
 - [`ironhorse-iterator-scenario-parity-maintainer-decision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-iterator-scenario-parity-maintainer-decision.md) — _high_ · resolve the remaining acceptance scope for IronHorse iterator scenario parity
 - [`migrate-endo-but-for-bots-master-to-pnpm`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/migrate-endo-but-for-bots-master-to-pnpm.md) — _normal_ · ---
-- [`build-confined-application-makers-p1-20261002-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-application-makers-p1-20261002-gauntlet-panel-5.md) — _normal_ · Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1417
 - [`endojs-endo-but-for-bots-pr909-fix-ts-make-daemon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr909-fix-ts-make-daemon.md) — _normal_ · Fix: endo make / endo archive TypeScript support is broken (endojs/endo-but-f...
 - [`endojs-endo-but-for-bots-pr1348-review-4984e562`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1348-review-4984e562.md) — _normal_ · Review directive on endojs/endo-but-for-bots PR #1348
 - [`build-usage-scrape-ingest`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-usage-scrape-ingest.md) — _normal_ · ---
