@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T07:12:21Z_
+_As of 2026-10-03T07:16:53Z_
 
 ## Latest
 
-The garden book's text edition is fully merged and published, and a separate illustrated edition followed shortly after — the book now has a title scene, a chapter-2 garden-bed figure, and a faint paper texture, with the remaining three figures and dividers deliberately held back. That supervisor skipped the gauntlet after self-review and has moved on to retooling the book's JS generator (`book-build-js-retool`), now in progress. Several PRs advanced through gauntlet rounds overnight, notably [endo-but-for-bots#1412](https://github.com/endojs/endo-but-for-bots/pull/1412) (panel round 5) and [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (clean stage), while [endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and [endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) remain the longest-parked reviews awaiting kriskowal's attention.
-
-A garden-book budget re-slice (carving a 15M-token arc from the 25M reserve) is stalled waiting on kriskowal's direct approval — a proxy tentative answer arrived but was correctly declined since budget authorization isn't delegable. The `minion-town-claude-cli-production-20261003` orchestration halted after its provider-conduct child declared its gated outcome unsatisfied (1 of 3 children done). Also worth a look: oros-studio-garden-ce242c49 has been offline for over 24 hours (heartbeat stale, health checkup unclaimed), and the root-repo guard had to repair a stray tracked edit on `roles/jurors/curator/AGENT.md` that slipped into the garden root.
+The gauntlet for [endojs/endo-but-for-bots#1412](https://github.com/endojs/endo-but-for-bots/pull/1412) advanced another round, now queued for fix round 5 after panel feedback. Otherwise the board's steady-state churn continues across the sturdyref layers, confined-application-makers slices, and minion.town PR #145/#147, alongside the garden-book supervision (text merged and published, illustrated edition also live, with the JS generator retool queued next) and the stalled minion-town-claude-cli-production orchestration awaiting a gated-outcome fix.
 
 ## Parked for maintainer feedback
 
@@ -232,12 +230,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-10-03T06:41:50Z, latest 2026-10-03T07:11:17Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> WATCHDOG notice — occurrence #8 (first seen 2026-10-03T06:41:50Z, latest 2026-10-03T07:16:21Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/146](https://github.com/kriscendobot/minion.town/pull/146)#discussion_r4171862063 (age=5744s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/146](https://github.com/kriscendobot/minion.town/pull/146)#discussion_r4171862063 (age=6044s; heartbeat=full-poll)
 
 - `doomed-garden-upkeep-watchers-provenance-20261003-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-garden-upkeep-watchers-provenance-20261003-requeue-exhausted.md)
 
@@ -352,8 +350,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 36.5M | $226.58 _(notional, rate-card)_ | 14% of 256.0M (ok) |
-| Codex | 2.2M _(+48.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 36.8M | $227.74 _(notional, rate-card)_ | 14% of 256.0M (ok) |
+| Codex | 2.2M _(+49.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -361,7 +359,7 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 45.001467s/45s (/home/kris/garden/.garden-state/progress/journal); 6 open notice(s); checker healthy
 
 ## Board
-### todo (21)
+### todo (22)
 - [`claude-on-minion-town-press-20261003-023507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-023507.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
@@ -372,6 +370,7 @@ worst fetch p95 45.001467s/45s (/home/kris/garden/.garden-state/progress/journal
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`build-ci-minion-town-actions-runner-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ci-minion-town-actions-runner-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #145
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
+- [`endojs-endo-but-for-bots-pr1412-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1412
 - [`daily-progress-summary-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261003-070602.md) — Daily midnight Pacific progress summary
 - [`build-endo-claude-pinned-cli-bump-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-pinned-cli-bump-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1406
 - [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1393
