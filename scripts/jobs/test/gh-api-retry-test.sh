@@ -361,22 +361,36 @@ clear_latches; : > "$GH_STUB_CALLS"
 run_concurrent 6 sf
 n=$(wc -l < "$GH_STUB_CALLS")
 refused=$(cat "$TR"/sf.err.* | grep -c 'NOT ISSUED: host-shared gh-api cooldown live' || true)
+owner_warns=$(cat "$TR"/sf.err.* | grep -c 'RATE LIMITED by GitHub primary quota' || true)
 rc75=$(cat "$TR"/sf.rc.* | grep -c '^rc=75$' || true)
 nonzero=$(cat "$TR"/sf.rc.* | grep -vc '^rc=0$' || true)
 [ "$n" -eq 1 ] && ok "6 concurrent callers: exactly one gh request" \
   || bad "6 concurrent callers made $n gh requests (want 1)"
-{ [ "$refused" -eq 5 ] && [ "$rc75" -eq 5 ] && [ "$nonzero" -eq 6 ]; } \
-  && ok "the other 5 were refused at admission (distinct log line, rc 75), none succeeded" \
-  || bad "admission refusals wrong (refused=$refused rc75=$rc75 nonzero=$nonzero)"
+{ [ "$refused" -eq 0 ] && [ "$owner_warns" -eq 1 ] && [ "$rc75" -eq 5 ] && [ "$nonzero" -eq 6 ]; } \
+  && ok "the latch owner warned once; the other 5 stayed quiet with rc 75" \
+  || bad "admission refusals wrong (owner-warns=$owner_warns refused-warns=$refused rc75=$rc75 nonzero=$nonzero)"
 grep -q 'primary-quota' "$GARDEN_API_COOLDOWN_DIR/marker" 2>/dev/null \
   && ok "the primary-quota latch is recorded in the host-wide marker" \
   || bad "no primary-quota latch after the concurrent refusal"
 # A refusal behind a primary-quota latch names it so callers classify it as primary.
 if is_gh_primary_rate_limit_text "$(cat "$TR"/sf.err.*)" && _gh_api_stderr_is_transient "$(cat "$TR"/sf.err.*)"; then
-  ok "admission refusal text classifies as primary-quota (and transient) for callers"
+  ok "the episode's single warning classifies as primary-quota (and transient)"
 else
-  bad "admission refusal text is not classifiable by callers"
+  bad "the episode warning is not classifiable"
 fi
+
+# (a2) If another helper opened the latch without emitting a gh-api warning, the
+# first of N concurrent suppressed callers claims that warning; all callers retain
+# the transient nonzero status and none reaches gh.
+clear_latches; : > "$GH_STUB_CALLS"
+start_api_cooldown "external:primary-quota" 600
+run_concurrent 6 suppressed
+n=$(wc -l < "$GH_STUB_CALLS")
+refused=$(cat "$TR"/suppressed.err.* | grep -c 'NOT ISSUED: host-shared gh-api cooldown live' || true)
+rc75=$(cat "$TR"/suppressed.rc.* | grep -c '^rc=75$' || true)
+{ [ "$n" -eq 0 ] && [ "$refused" -eq 1 ] && [ "$rc75" -eq 6 ]; } \
+  && ok "6 concurrent suppressed callers: one warning, zero requests, all rc 75" \
+  || bad "concurrent suppression not coalesced (calls=$n warnings=$refused rc75=$rc75)"
 
 # (b) a live latch refuses even a would-succeed call, and a GraphQL latch does not
 #     silence a REST call (separate buckets), while a REST latch refuses GraphQL.

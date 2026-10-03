@@ -1030,7 +1030,8 @@ api_cooldown_active() {  # api_cooldown_active [all|rest|graphql]; rc 0 = a live
 # _api_cooldown_live_locked <marker>... — the lock-free core of api_cooldown_active.
 # The CALLER must already hold the cooldown flock (never re-take it here: a second
 # open of marker.lock would block on the caller's own lock). rc 0 = some marker is
-# live, and its "<seconds-left> <tag>" is printed; expired markers are removed.
+# live, and its tab-separated "<seconds-left>\t<tag>\t<marker>" is printed; expired
+# markers and their per-latch warning-emission markers are removed.
 _api_cooldown_live_locked() {
   local now expiry m live=1 tag
   now="$(date +%s 2>/dev/null || echo 0)"
@@ -1041,14 +1042,29 @@ _api_cooldown_live_locked() {
     if [ "$expiry" -gt "$now" ]; then
       if [ "$live" -ne 0 ]; then
         tag="$(sed -n '2p' "$m" 2>/dev/null || true)"
-        printf '%s %s\n' "$((expiry - now))" "${tag:-<untagged>}"
+        printf '%s\t%s\t%s\n' "$((expiry - now))" "${tag:-<untagged>}" "$m"
       fi
       live=0
     else
-      rm -f "$m"
+      rm -f "$m" "$m.warned"
     fi
   done
   return "$live"
+}
+
+# _api_cooldown_claim_warning_locked <marker> — atomically claim the one warning
+# emitted for the marker's CURRENT latch. The warning marker records the latch
+# expiry, rather than merely existing, so a stale file can never silence a new
+# episode. The caller holds marker.lock. rc 0 = emit; rc 1 = stay quiet.
+_api_cooldown_claim_warning_locked() {
+  local marker="$1" warned="$1.warned" expiry claimed tmp
+  expiry="$(sed -n '1p' "$marker" 2>/dev/null || true)"
+  case "$expiry" in ''|*[!0-9]*) return 1;; esac
+  claimed="$(sed -n '1p' "$warned" 2>/dev/null || true)"
+  [ "$claimed" != "$expiry" ] || return 1
+  tmp="$warned.$$.$RANDOM"
+  printf '%s\n' "$expiry" > "$tmp"
+  mv -f "$tmp" "$warned"
 }
 
 # start_api_cooldown [tag] [requested-secs] [all|graphql] — rc 0 = THIS tick recorded the window
@@ -1100,6 +1116,9 @@ _api_cooldown_record_locked() {
     printf '%s\n%s <- %s\n' "$expiry" "$tag" "$old_tag" > "$tmp"
   else
     printf '%s\n%s\n' "$((now + secs))" "$tag" > "$tmp"
+    # A fresh latch is a fresh warning episode even if an old emission marker
+    # survived an interrupted cleanup.
+    rm -f "$marker.warned"
   fi
   mv -f "$tmp" "$marker"
 }
@@ -5621,15 +5640,17 @@ _gh_api_stderr_is_transient() {
 # calls back into common.sh) passes through instead of deadlocking on its parent's
 # lock. GARDEN_API_COOLDOWN_SECS=0 disables the cooldown and this admission with it.
 # The latch is tagged `gh-api:<label>:primary-quota`; the watcher that reports the
-# outage adopts it (see _api_cooldown_record_locked) and owns its one WARN.
+# outage adopts it (see _api_cooldown_record_locked). A per-latch `.warned`
+# marker makes the request that opened the latch own the WARN; for latches opened
+# elsewhere, the first suppressed caller owns it. Every later refusal is quiet.
 : "${GARDEN_GH_API_ADMISSION_WAIT_SECS:=60}"
 
 # _gh_api_admit <rest|graphql> <label> — admit one gh_api_retry attempt. rc 0 =
 # admitted, with the held lock fd in _GH_API_ADMIT_FD ("" when admitted without the
 # lock after the bounded wait); rc 1 = refused because a live latch covers the call
-# (the WARN below is logged and no request may be made).
+# (no request may be made; only the first unannounced refusal logs the WARN).
 _gh_api_admit() {
-  local need="$1" label="$2" fd wait st markers=("$GARDEN_API_COOLDOWN_MARKER")
+  local need="$1" label="$2" fd wait st remaining tag marker rest emit=1 markers=("$GARDEN_API_COOLDOWN_MARKER")
   _GH_API_ADMIT_FD=""
   [ "$need" = graphql ] && markers+=("$GARDEN_API_COOLDOWN_GRAPHQL_MARKER")
   wait="$GARDEN_GH_API_ADMISSION_WAIT_SECS"
@@ -5643,14 +5664,21 @@ _gh_api_admit() {
     return 0
   fi
   if st="$(_api_cooldown_live_locked "${markers[@]}")"; then
+    remaining="${st%%$'\t'*}"
+    rest="${st#*$'\t'}"
+    tag="${rest%%$'\t'*}"
+    marker="${rest#*$'\t'}"
+    _api_cooldown_claim_warning_locked "$marker" || emit=0
     exec {fd}>&-
     # "rate limit" keeps the line in the transient class for callers that classify
     # this stderr; a latch recorded for the primary quota is named as such so they
     # stop querying the rest of the tick, as they would on the refusal itself.
-    case "$st" in
-      *primary-quota*) st="$st; latched GitHub primary quota: API rate limit already exceeded for user" ;;
+    case "$tag" in
+      *primary-quota*) tag="$tag; latched GitHub primary quota: API rate limit already exceeded for user" ;;
     esac
-    log "WARN: gh api $label NOT ISSUED: host-shared gh-api cooldown live (rate limit latch; ${st%% *}s left, tag ${st#* }); skipping without a request"
+    if [ "$emit" -eq 1 ]; then
+      log "WARN: gh api $label NOT ISSUED: host-shared gh-api cooldown live (rate limit latch; ${remaining}s left, tag $tag); skipping without a request"
+    fi
     return 1
   fi
   _GH_API_ADMIT_FD="$fd"
@@ -5661,7 +5689,7 @@ _gh_api_admit() {
 # rc with empty stdout on a definitive error (no retry) or after the transient
 # retries are exhausted. See the block comment above for the full contract.
 gh_api_retry() {
-  local attempt=1 out rc errf stderr label gh_bin a need=rest latch=all admit=0 lockfd pq
+  local attempt=1 out rc errf stderr label gh_bin a need=rest latch=all admit=0 lockfd pq emit=1 marker
   # The gh binary is "${GARDEN_GH:-gh}" — the same test seam gh_pr_view_retry and
   # ci-wait-merge.sh use to inject a stub, so a handler's GraphQL/REST read can be
   # exercised hermetically (e.g. mirror-closer-test.sh's large-PR 422 case) without
@@ -5706,10 +5734,16 @@ gh_api_retry() {
     # so no caller queued behind this one issues another doomed request.
     if [ "$rc" -ne 0 ] && is_gh_primary_rate_limit_text "$stderr"; then
       pq="$(api_primary_quota_secs)"
+      marker="$(_api_cooldown_marker_for "$latch")"
       if [ -n "$lockfd" ]; then
-        _api_cooldown_record_locked "$(_api_cooldown_marker_for "$latch")" "$pq" "gh-api:$label:primary-quota" || true
+        _api_cooldown_record_locked "$marker" "$pq" "gh-api:$label:primary-quota" || true
+        _api_cooldown_claim_warning_locked "$marker" || emit=0
       elif [ "$admit" -eq 1 ]; then
         start_api_cooldown "gh-api:$label:primary-quota" "$pq" "$latch" || true
+        (
+          flock 9
+          _api_cooldown_claim_warning_locked "$marker"
+        ) 9>"$GARDEN_API_COOLDOWN_LOCK" || emit=0
       fi
     fi
     if [ -n "$lockfd" ]; then exec {lockfd}>&-; fi
@@ -5719,7 +5753,9 @@ gh_api_retry() {
       return 0
     fi
     if is_gh_primary_rate_limit_text "$stderr"; then
-      log "WARN: gh api $label RATE LIMITED by GitHub primary quota (rc=$rc); not retrying: ${stderr:-<no stderr>}"
+      if [ "$emit" -eq 1 ]; then
+        log "WARN: gh api $label RATE LIMITED by GitHub primary quota (rc=$rc); not retrying: ${stderr:-<no stderr>}"
+      fi
       rm -f "$errf"
       return "$rc"
     fi
