@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T08:50:42Z_
+_As of 2026-10-03T08:53:10Z_
 
 ## Latest
 
-The garden book cleared its biggest milestone yet: all text PRs (including [kriscendobot/garden-book#6](https://github.com/kriscendobot/garden-book/pull/6)) are merged, and both a text-only edition and — after a self-reviewed, gauntlet-skipped pass on the art PRs — an illustrated edition are now published and linked from main; the JS-generator retool is queued up next. Separately, the maintainer-authority budget question is still open: a proxy twice offered a tentative "approve" on the proposed 15M-token `garden-book` arc carve-out, and the accountant correctly declined to act on it both times, so the 15M/10M-reserve split still needs kriskowal's own "approve" (or edits).
-
-Several gauntlets have stalled out at their review-budget ceiling and are parked for a human merge call: [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403), two sturdyref-layer PRs (pass-style and captp-construct, both from the 2026-09-30 sturdyref arc), and the Claude-sandbox bwrap-slice build — all CI-green after six fix/panel rounds but not converged. One gauntlet needs more than a glance: `build-confined-application-makers-p2-makefromtree-20261003` HALTED outright because its clean stage declared the gated outcome failed. The minion.town Claude-CLI production orchestration also halted mid-run (1 of 3 children done) after the provider-conduct step declared its outcome unsatisfied, leaving the canary stage parked.
-
-On infra, host `oros-studio-garden-ce242c49` has been unreachable for over a day (heartbeat stale since 2026-10-02T05:08Z) and needs someone to physically check the machine — queued reset/restore jobs can't run until it's back. Everything else (budget-level rebalancing, journal-contention guards, container-hardening pending) is routine fleet noise.
+The garden-book arc produced an illustrated edition, now live at an ocap.site URL, with the art and integration landed directly to main on [kriscendobot/garden-book#4](https://github.com/kriscendobot/garden-book/issues/4) and [kriscendobot/garden-book#5](https://github.com/kriscendobot/garden-book/issues/5) — the supervisor self-reviewed and skipped the gauntlet for these, a process call the proxy flagged as beyond its authority. A JS generator retool for the book is now mid-gauntlet (PR #6). On endo-but-for-bots, several gauntlets ground through their full review budget without converging — [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403), the sturdyref layer3 and layer6 PRs ([#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), and others) — leaving them improved but parked for a human merge call; relatedly, [endo-but-for-bots#1412](https://github.com/endojs/endo-but-for-bots/pull/1412) is stacked on the still-unmerged draft #1403 and needs a decision on whether to hold it in draft past its gauntlet's un-draft stage. Elsewhere, the garden-book budget re-slice (15M tokens from the reserve) is still awaiting kriskowal's direct approval — a proxy's tentative yes was explicitly not applied — and the oros-studio host remains offline for over a day, blocking its queued health recovery.
 
 ## Parked for maintainer feedback
 
@@ -136,6 +132,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_triager_pace_journal.md)
 
 > Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/triager-pace/journal: packs 1005 >= 1000; size=281860096B packs=1005 gc.log=0; automatic remedy=deferred-deadline.
+
+- `msg-endojs-endo-but-for-bots-pr1412-gauntlet-fix-5-598fee6fecc9` — from gardener:endojs-endo-but-for-bots-pr1412-gauntlet-fix-5, reply_to `endojs-endo-but-for-bots-pr1412-gauntlet-fix-5` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1412-gauntlet-fix-5-598fee6fecc9.md)
+
+> [https://github.com/endojs/endo-but-for-bots/pull/1412](https://github.com/endojs/endo-but-for-bots/pull/1412) (phase 2 Claude backends) is stacked on the unmerged draft [https://github.com/endojs/endo-but-for-bots/pull/1403](https://github.com/endojs/endo-but-for-bots/pull/1403). The round-5 integrator seat asks that 1412 stay in draft until 1403 lands and a weave reduces the stack. The staged gauntlet has no draft-hold gate, so its undraft stage would un-draft 1412 after the panel passes. Do you want to stop the gauntlet before undraft (or re-draft afterwards)? I noted the hold in the PR body.
 
 - `build-endo-claude-sandbox-bwrap-slice-gauntlet-review-budget-reached` — from gauntlet:build-endo-claude-sandbox-bwrap-slice-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-endo-claude-sandbox-bwrap-slice-gauntlet-review-budget-reached.md)
 
@@ -382,8 +382,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 53.7M | $343.20 _(notional, rate-card)_ | 21% of 256.0M (ok) |
-| Codex | 2.8M _(+68.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 55.1M | $354.65 _(notional, rate-card)_ | 22% of 256.0M (ok) |
+| Codex | 2.9M _(+69.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
