@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 2
-worker_kind: cleric
-claimed_at: 2026-10-03T07:06:32Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-book-build-js-retool
-pr_number: 6
-pr_repo: kriscendobot/garden-book
-pr_url: https://github.com/kriscendobot/garden-book/pull/6
-pr_head: feat/portable-javascript-build
