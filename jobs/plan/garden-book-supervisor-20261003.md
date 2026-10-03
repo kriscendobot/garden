@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: orchestrator
+tier: minion
+handler-timeout: 10800
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-03T05:23:09Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-03T05:23:09Z
+---
+
+---
 role: orchestrator
 handler-timeout: 10800
 tier: minion
@@ -43,17 +65,3 @@ config changes.
 One claim cannot span the whole chain. Before this job ends, if work remains, post a
 dated successor supervisor job (same body, updated state, e.g. `blocked_on` the
 next child you are waiting for) so supervision continues until the book is done.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-03T05:13:09Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T05:14:12Z

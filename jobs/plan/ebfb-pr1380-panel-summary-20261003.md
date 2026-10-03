@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: researcher
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-03T05:23:10Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-03T05:23:10Z
+---
+
+---
 role: researcher
 tier: minion
 model-burned: mentor
@@ -18,17 +39,3 @@ still open after round 6, each classed as must-fix-before-merge, follow-up-worth
 or taste/noise, with one line of reasoning, and a bottom-line recommendation (merge
 as is / merge after a named small fix / needs redesign). Do not push to the PR and
 do not stage another gauntlet.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-03T05:13:09Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T05:15:22Z

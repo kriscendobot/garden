@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: orchestrator
+tier: minion
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-03T05:23:09Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-03T05:23:09Z
+---
+
+---
 role: orchestrator
 tier: minion
 model-burned: mentor
@@ -23,17 +44,3 @@ Decompose into serial children, each with full self-contained bodies:
 Park each with post-plan.sh --orchestrated --orchestrated-by build-confined-application-makers-p2-split-20261003,
 then post-orchestration.sh --serial. Retire the halted orchestration so it does not
 re-fire. Report the child bases.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-03T05:13:09Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T05:16:05Z

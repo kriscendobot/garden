@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+role: shepherd
+tier: minion
+handler-timeout: 10800
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-03T05:23:09Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-03T05:23:09Z
+---
+
+---
 role: shepherd
 handler-timeout: 10800
 tier: minion
@@ -19,17 +41,3 @@ cause if it is in the garden or the PR, then resume the gauntlet at the stage wh
 stopped (not from round 1) so it runs to un-draft or its review budget. If a resume
 mechanism is missing for a finished record, re-post just that stage with the same
 iteration count and say how. For minion.town use GARDEN_YARN=npm. Report per-PR outcome.
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-03T05:13:09Z -->
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T05:14:18Z
