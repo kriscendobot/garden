@@ -17,3 +17,13 @@ still open after round 6, each classed as must-fix-before-merge, follow-up-worth
 or taste/noise, with one line of reasoning, and a bottom-line recommendation (merge
 as is / merge after a named small fix / needs redesign). Do not push to the PR and
 do not stage another gauntlet.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T04:56:04Z
