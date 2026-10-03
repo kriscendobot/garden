@@ -1,0 +1,5 @@
+<6>04:55:22 [cleric/1] job 'endojs-endo-but-for-bots-pr1348-review-4984e562' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>04:55:22 [cleric/1] job 'endojs-endo-but-for-bots-pr1348-review-4984e562' attaching minion.town MCP (stdio bridge)
+Error loading config.toml: url is not supported for stdio
+in `mcp_servers.minion-town`
+
