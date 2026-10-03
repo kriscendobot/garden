@@ -74,7 +74,10 @@ Per tick:
    stops every further probe that tick, opens a host-local bounded cooldown
    keyed by that class (`GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS`, default
    `300`, cap `3600`) during which later ticks skip probing silently, and emits
-   one coalesced WARN listing the deferred forks. A plain 403/451 is
+   one coalesced WARN listing the deferred forks. The diagnostic retains the
+   probe exit status even when the probe emits no output. Consecutive silent
+   probes exponentially increase the cooldown from the configured base to the
+   3600-second cap; the next successful probe resets that escalation. A plain 403/451 is
    repo-specific, so it is keyed per slug and defers only that fork. A halted
    tick never retires an armed fork. The stamps are intentionally
    untracked local state: they prevent API and journal-CAS churn across the

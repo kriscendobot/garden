@@ -205,7 +205,8 @@ slug_owner_lc() { printf '%s' "${1%%-*}" | tr '[:upper:]' '[:lower:]'; }
 # 2 the check itself was inconclusive (network/auth/rate-limit) so the caller
 # treats it as "unknown" and neither arms nor tombstones this tick. On rc 2 it sets
 # UPSTREAM_FAIL_CLASS (normalized, see probe_fail_class) and UPSTREAM_FAIL_DETAIL
-# (the first line of the output) and logs NOTHING: the caller coalesces the
+# (the exit status plus bounded normalized output, or an explicit no-output
+# marker) and logs NOTHING: the caller coalesces the
 # warning through the inconclusive cooldown below. Overridable via
 # GARDEN_FORKWATCH_UPSTREAM_CHECK (a command run as `<cmd> <owner> <name>` whose
 # exit status is used verbatim and whose output is classified the same way) so
@@ -214,20 +215,27 @@ slug_owner_lc() { printf '%s' "${1%%-*}" | tr '[:upper:]' '[:lower:]'; }
 # under the host-shared GitHub API cooldown lock and latches primary-quota
 # refusals before another poller can issue a doomed request.
 upstream_exists() {
-  local owner="$1" name="$2" out rc
-  UPSTREAM_FAIL_CLASS=""; UPSTREAM_FAIL_DETAIL=""
+  local owner="$1" name="$2" out rc detail
+  UPSTREAM_FAIL_CLASS=""; UPSTREAM_FAIL_DETAIL=""; UPSTREAM_FAIL_SILENT=""
   if [ -n "${GARDEN_FORKWATCH_UPSTREAM_CHECK:-}" ]; then
     if out="$("$GARDEN_FORKWATCH_UPSTREAM_CHECK" "$owner" "$name" 2>&1)"; then rc=0; else rc=$?; fi
     [ "$rc" -eq 2 ] || return "$rc"
   elif out="$(gh_api_retry "repos/$owner/$name" --jq .id 2>&1)"; then
     return 0
   else
+    rc=$?
     case "$out" in
       *"Not Found"*|*"HTTP 404"*|*'"status":"404"'*) return 1 ;;
     esac
   fi
   UPSTREAM_FAIL_CLASS="$(probe_fail_class "$out")"
-  UPSTREAM_FAIL_DETAIL="$(printf '%s' "$out" | tr -s '[:space:]' ' ' | cut -c1-200)"
+  detail="$(printf '%s' "$out" | tr -s '[:space:]' ' ' | cut -c1-180)"
+  if [ -n "$detail" ]; then
+    UPSTREAM_FAIL_DETAIL="rc=$rc: $detail"
+  else
+    UPSTREAM_FAIL_DETAIL="rc=$rc (no output)"
+    UPSTREAM_FAIL_SILENT=1
+  fi
   return 2
 }
 
@@ -250,8 +258,11 @@ upstream_exists() {
 # host-wide window is probed LAST on the next attempt, so one oddly failing fork
 # cannot starve the rest of the fleet window after window.
 #
-# GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS: window length (default 300, capped
-# at 3600). 0 keeps the halt-for-this-tick coalescing but records no window.
+# GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS: base window length (default 300,
+# capped at 3600). A silent inconclusive probe doubles the window after each
+# consecutive retry, up to the same 3600-second bound; any successful probe
+# resets that backoff. 0 keeps the halt-for-this-tick coalescing but records no
+# window or escalation state.
 : "${GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS:=300}"
 case "$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS" in
   ''|*[!0-9]*)
@@ -261,6 +272,7 @@ case "$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS" in
 esac
 [ "$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS" -le 3600 ] || GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=3600
 PROBE_COOLDOWN_DIR="$GARDEN_STATE/fork-watch/inconclusive-cooldown"
+SILENT_BACKOFF_FILE="$PROBE_COOLDOWN_DIR/silent-failures"
 
 probe_fail_class() {  # probe_fail_class <output> → a normalized class key
   local lc
@@ -290,20 +302,47 @@ global_cooldown_live() {  # rc 0 = some HOST-WIDE class window is live
   [ -d "$PROBE_COOLDOWN_DIR" ] || return 1
   for m in "$PROBE_COOLDOWN_DIR"/*; do
     [ -f "$m" ] || continue
-    case "${m##*/}" in repo-denied@*|last-tripper) continue ;; esac
+    case "${m##*/}" in repo-denied@*|last-tripper|silent-failures) continue ;; esac
     probe_cooldown_live "${m##*/}" && return 0
   done
   return 1
 }
 
-open_probe_cooldown() {  # open_probe_cooldown <key> <slug> <detail>; rc 0 = window opened (or tick-only)
-  local m="$PROBE_COOLDOWN_DIR/$1" tmp
-  [ "$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS" -gt 0 ] || return 0
+open_probe_cooldown() {  # open_probe_cooldown <key> <slug> <detail> [secs]; rc 0 = window opened (or tick-only)
+  local m="$PROBE_COOLDOWN_DIR/$1" tmp secs="${4:-$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS}"
+  OPENED_COOLDOWN_SECS="$secs"
+  [ "$secs" -gt 0 ] || return 0
   probe_cooldown_live "$1" && return 1    # a live window is never extended
   mkdir -p "$PROBE_COOLDOWN_DIR"
   tmp="$m.$$.tmp"
-  printf '%s\n%s\n%s\n' "$(( $(date +%s) + GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS ))" "$2" "$3" > "$tmp"
+  printf '%s\n%s\n%s\n%s\n' "$(( $(date +%s) + secs ))" "$2" "$3" "$secs" > "$tmp"
   mv -f "$tmp" "$m"
+}
+
+next_silent_probe_cooldown() {  # print the next bounded exponential window
+  local level=0 remaining duration="$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS"
+  [ "$duration" -gt 0 ] || { printf '0\n'; return 0; }
+  if [ -f "$SILENT_BACKOFF_FILE" ]; then
+    level="$(sed -n '1p' "$SILENT_BACKOFF_FILE" 2>/dev/null || true)"
+    case "$level" in ''|*[!0-9]*) level=0 ;; esac
+  fi
+  # The cap is reached in at most five steps with the default base. Limit a
+  # corrupt/hand-edited level too, so arithmetic and loop time stay bounded.
+  [ "$level" -le 31 ] || level=31
+  remaining="$level"
+  while [ "$remaining" -gt 0 ] && [ "$duration" -lt 3600 ]; do
+    duration=$((duration * 2))
+    [ "$duration" -le 3600 ] || duration=3600
+    remaining=$((remaining - 1))
+  done
+  mkdir -p "$PROBE_COOLDOWN_DIR"
+  printf '%s\n' "$((level + 1))" > "$SILENT_BACKOFF_FILE"
+  printf '%s\n' "$duration"
+}
+
+reset_silent_probe_backoff() {
+  [ -e "$SILENT_BACKOFF_FILE" ] || return 0
+  rm -f "$SILENT_BACKOFF_FILE"
 }
 
 liveness_probe_due() {  # liveness_probe_due <slug>
@@ -352,7 +391,7 @@ global_cooldown_live && PREEXISTING_WINDOW=1
 
 # note_inconclusive <slug> — route an rc-2 probe through the class cooldown.
 note_inconclusive() {
-  local key="$UPSTREAM_FAIL_CLASS"
+  local key="$UPSTREAM_FAIL_CLASS" window="$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS"
   DEFERRED+=("$1")
   if [ "$key" = repo-denied ]; then
     key="repo-denied@$1"
@@ -361,8 +400,9 @@ note_inconclusive() {
     mkdir -p "$PROBE_COOLDOWN_DIR"
     printf '%s\n' "$1" > "$PROBE_COOLDOWN_DIR/last-tripper"
   fi
-  open_probe_cooldown "$key" "$1" "$UPSTREAM_FAIL_DETAIL" \
-    && WARNED+=("$key (first seen on $1: ${UPSTREAM_FAIL_DETAIL:-no output})")
+  [ -z "$UPSTREAM_FAIL_SILENT" ] || window="$(next_silent_probe_cooldown)"
+  open_probe_cooldown "$key" "$1" "$UPSTREAM_FAIL_DETAIL" "$window" \
+    && WARNED+=("$key (first seen on $1: $UPSTREAM_FAIL_DETAIL; cooldown ${OPENED_COOLDOWN_SECS}s)")
   return 0
 }
 
@@ -406,12 +446,14 @@ for bare in ${BARES[@]+"${BARES[@]}"}; do
   # returns non-zero in bare-command position is a `set -e` exit at the call
   # itself, which would kill the tick before we could classify 404 vs unknown.
   if upstream_exists "$owner" "$name"; then ur=0; else ur=$?; fi
+  [ "$ur" -ne 0 ] || reset_silent_probe_backoff
   [ -n "$armed" ] && ARMED_PROBED=$((ARMED_PROBED + 1))
   if [ "$ur" -eq 1 ]; then
     if [ -n "$armed" ]; then
       # Confirm re-check: retiring a LIVE watch set on a single fluke 404 is the
       # expensive mistake, so demand a second definitive 404 before believing it.
       if upstream_exists "$owner" "$name"; then cr=0; else cr=$?; fi
+      [ "$cr" -ne 0 ] || reset_silent_probe_backoff
       if [ "$cr" -eq 2 ]; then
         note_inconclusive "$slug"
         continue
@@ -437,7 +479,7 @@ done
 
 if [ "${#WARNED[@]}" -gt 0 ]; then
   if [ "$GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS" -gt 0 ]; then
-    window="pausing those probes for ${GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS}s"
+    window="opening bounded cooldown(s)"
   else
     window="stopped probing for this tick"
   fi

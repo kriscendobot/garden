@@ -30,6 +30,8 @@
 #      defers only that fork; a halted tick never retires an armed fork
 #   M. the production upstream probe routes through gh_api_retry, so a primary
 #      quota 429 arms the host-shared cooldown and suppresses a sibling poller
+#   N. silent rc=2 probes retain their status and use a bounded escalating
+#      cooldown that resets after a successful probe
 #
 # Usage: fork-watch-provisioner-test.sh
 set -euo pipefail
@@ -507,6 +509,53 @@ set -e
 [ "$sibling_rc" -eq 75 ] && [ "$(wc -l < "$APICALLS")" -eq 1 ] \
   && ok "shared 429 cooldown suppresses a sibling GitHub poller without a request" \
   || bad "sibling poller escaped cooldown (rc=$sibling_rc calls=$(wc -l < "$APICALLS"))"
+
+# ============================================================================
+hr; echo "N — silent rc=2 probes escalate their cooldown and success resets it"; hr
+rm -rf "$TR/state/fork-watch/inconclusive-cooldown"
+printf '%s\n' kriscendobot/flaky kriscendobot/inconclusive kriscendobot/zeta > "$UNKNOWNLIST"
+UNKNOWNMSG=""; : > "$PROBELOG"
+NLOG="$TR/n.log"
+GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=10 run_prov 0 "$NLOG"
+[ "$(sed -n '4p' "$COOLDIR/unclassified")" = 10 ] \
+  && ok "first silent rc=2 probe opens the base cooldown" || bad "first silent cooldown was not 10s"
+grep -q 'rc=2 (no output)' "$NLOG" \
+  && ok "silent probe diagnostic preserves rc=2" || bad "silent diagnostic dropped rc=2: $(cat "$NLOG")"
+[ "$(cat "$COOLDIR/silent-failures")" = 1 ] \
+  && ok "first silent probe records escalation level 1" || bad "first silent escalation level wrong"
+
+# Expire only the window; the consecutive-failure level must survive to drive
+# the next duration.
+printf '0\nexpired\nrc=2 (no output)\n10\n' > "$COOLDIR/unclassified"
+: > "$PROBELOG"; : > "$NLOG"
+GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=10 run_prov 0 "$NLOG"
+[ "$(sed -n '4p' "$COOLDIR/unclassified")" = 20 ] \
+  && ok "second consecutive silent probe doubles the cooldown" || bad "second silent cooldown was not 20s"
+[ "$(cat "$COOLDIR/silent-failures")" = 2 ] \
+  && ok "second silent probe advances escalation level" || bad "second silent escalation level wrong"
+
+# Force a high stored level and prove the computed window remains capped.
+printf '31\n' > "$COOLDIR/silent-failures"
+printf '0\nexpired\nrc=2 (no output)\n20\n' > "$COOLDIR/unclassified"
+: > "$PROBELOG"
+GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=10 run_prov
+[ "$(sed -n '4p' "$COOLDIR/unclassified")" = 3600 ] \
+  && ok "silent cooldown escalation is capped at 3600s" || bad "silent cooldown exceeded/missed its cap"
+
+# A clean probe removes the escalation state; the next silent failure starts
+# again from the configured base instead of continuing at the cap.
+printf '0\nexpired\nrc=2 (no output)\n3600\n' > "$COOLDIR/unclassified"
+: > "$UNKNOWNLIST"; : > "$PROBELOG"
+GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=10 run_prov
+[ ! -e "$COOLDIR/silent-failures" ] \
+  && ok "a successful probe resets silent cooldown escalation" || bad "success left silent escalation state behind"
+printf '%s\n' kriscendobot/flaky kriscendobot/inconclusive kriscendobot/zeta > "$UNKNOWNLIST"
+: > "$PROBELOG"
+GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=10 run_prov
+[ "$(sed -n '4p' "$COOLDIR/unclassified")" = 10 ] \
+  && ok "silent cooldown restarts at the base after success" || bad "post-success silent cooldown did not reset"
+[ -n "$(jtip repos/kriscendobot-zeta)" ] && [ -z "$(jtip watch-optout/kriscendobot-zeta)" ] \
+  && ok "silent inconclusive probes remain fail-open" || bad "silent probe armed/tombstoned/retired a fork"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
