@@ -1,8 +1,7 @@
-cadence: weekly-at-Sat-09:00-America/Los_Angeles
-last_dispatched: 2026-10-03T16:00:00Z
-job_basename_prefix: accountant-weekly
+---
 handler-timeout: 14000
 ---
+
 ---
 role: accountant
 tier: mentor
