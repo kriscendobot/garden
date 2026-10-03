@@ -31,3 +31,13 @@ Successor to `garden-book-supervisor-20261003-after-art`. Scope: `kriscendobot/g
 3. Republish from the JS generator on current `main`. Follow the merged `build/README.md`; it is the JS build/publish commands now, with publish going through `scripts/jobs/minion-mcp-lib.sh` `minion_mcp_prepare` / `minion_mcp_env_json`. Verify the live `index.html`/`styles.css` with `curl` against local `out/`. Record the new Edition line in `build/README.md` on `main`, keeping prior editions as history. A routine direct commit is fine; `cff5b57` set that precedent.
 4. Send the maintainer ONE concise message (`scripts/jobs/message-user.sh <your-base>`) saying the retool and the book are complete, with the new edition URL.
 5. If work remains when your session must end, post another dated successor with the current, verified state.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T08:31:27Z
