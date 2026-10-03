@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-03T07:36:55Z_
+_As of 2026-10-03T07:38:02Z_
 
 ## Latest
 
-The garden book's text edition is merged and published (https://5f7jjhj4sbxaxdbej5t7oxgarnzhmb7wq45ds3nxqnq4wtthotsq.ocap.site/), and the illustrated edition followed shortly after — art and integration landed on main with the gauntlet skipped by the supervisor's own review, now live at https://xwo4jjai3z3lqwmls3tqlxnn6fqzawktp6lskvmyywdox52c272a.ocap.site/; the JS generator retool is queued next. Two accountant jobs are stalled waiting on kriskowal specifically: a 15M-token garden-book budget slice needs the maintainer's own "approve" (a proxy tentative answer arrived but was correctly not applied, since budget authorization can't be delegated), and a proxy likewise declined to bless skipping the panel-review gauntlet on a merge. A serial orchestration (minion-town-claude-cli-production-20261003) halted after its first child declared its gated outcome unsatisfied, leaving a canary job parked pending review. Host oros-studio-garden-ce242c49 remains offline (heartbeat stale ~26h) and excluded from rolling deploys until someone checks the machine. Several gauntlets hit their 6-round review budget without converging — [endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) (sturdyref layer 4), the Claude sandbox bwrap slice, and [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (OCapN enliven) — and are ready for human merge calls. A root-repo guard caught and auto-repaired a stray tracked edit in `roles/jurors/curator/AGENT.md` before it could wedge the rolling deploy. A batch of journal clone-size guards fired across most CI-watcher repos (packs over the 1000 threshold); remedy is deferred-deadline, and a related upkeep job (watcher provenance gap + repo-watcher gc) was parked after its retry also failed, awaiting a human split or disposition call.
+The gauntlet machinery is grinding steadily through the queue: six panel/fix rounds each hit the review-budget ceiling with CI green and were left for human merge/review — [endo-but-for-bots#1125 stack](https://github.com/endojs/endo-but-for-bots/pull/1125)'s sturdyref layer PRs (#1393, #1397, #1407, #1419) continue through their fix/clean stages, and the `build-confined-application-makers` p2 split finished cleanly (3/3 children). The garden-book project crossed a milestone: all current text PRs merged and the plain edition published, now followed by an illustrated edition (art + integration merged, gauntlet skipped) at a second URL — but the follow-on 15M-token budget re-slice for the book is stuck waiting on kriskowal's direct approval, since neither proxy's tentative nod nor the maintainer's earlier informal reply satisfies the `authorized_by:` requirement.
+
+Two orchestrations need attention: `minion-town-claude-cli-production-20261003` halted after its provider-conduct child completed but declared its gated outcome unsatisfied, leaving `minion-town-claude-cli-production-canary-20261003` parked. Host `oros-studio-garden-ce242c49` has been unreachable for over 24 hours (heartbeat and sysop both stale since 2026-10-02) and needs a human to check the physical machine. Housekeeping notes: a stray tracked edit in the root repo (`roles/jurors/curator/AGENT.md`) was auto-repaired and backed up, and `endo-but-for-bots#1348` has no gauntlet staged despite being mergeable — reply "run the gauntlet #1348" if review is wanted.
 
 ## Parked for maintainer feedback
 
@@ -168,6 +170,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > evidence gathering failed: could not fetch pull [kriscendobot/minion.town#146](https://github.com/kriscendobot/minion.town/issues/146)
 > --- captured stderr ---
 > gh: API rate limit exceeded for user ID 279080640. If you reach out to GitHub Support for help, please include the request ID AEF8:305E37:42A151:4A4E27:6AC09649 and timestamp 2026-10-03 05:44:42 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (HTTP 403)
+
+- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1348-1bc08c7c79b8` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1348-1bc08c7c79b8.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1348](https://github.com/endojs/endo-but-for-bots/pull/1348) ([endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/issues/1348)) is in the mergeable queue with NO gauntlet review staged (head 1bc08c7c79b83c09f0182a1e21d344052e81a26e). Producer jobs normally stage their gauntlet at completion, but the periodic audit never mass-stages historical PRs. If you want this PR reviewed, reply with 'run the gauntlet #1348'; otherwise no action is needed. This audit never re-drafts or stages anything.
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
@@ -374,7 +380,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.2M | $231.54 _(notional, rate-card)_ | 15% of 256.0M (ok) |
+| Claude | 38.3M | $231.93 _(notional, rate-card)_ | 15% of 256.0M (ok) |
 | Codex | 2.4M _(+59.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
