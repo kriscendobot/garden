@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T22:44:53Z_
+_As of 2026-10-03T22:48:28Z_
 
 ## Latest
 
@@ -298,18 +298,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-03T06:41:59Z, latest 2026-10-03T22:42:17Z).
-> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-10-03T06:41:59Z, cleared 2026-10-03T22:46:57Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 7 source(s); they post no acknowledgments while it holds.
-> - kriscendobot/test262: watcher ticking but cooldown for 3653s (since 2026-10-03T21:41:24Z)
-> - kriscendobot/finbot: watcher ticking but cooldown for 3634s (since 2026-10-03T21:41:43Z)
-> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 3609s (since 2026-10-03T21:42:08Z)
-> - endojs/endo-but-for-bots: watcher ticking but cooldown for 3690s (since 2026-10-03T21:40:47Z)
-> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3643s (since 2026-10-03T21:41:34Z)
-> - kriscendobot/garden: watcher ticking but cooldown for 3611s (since 2026-10-03T21:42:06Z)
-> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3690s (since 2026-10-03T21:40:47Z)
+> Comment acknowledgment condition cleared.
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
@@ -440,11 +433,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden2-5bcdff64.md)
 
-> Rolling-deploy canary endolin-garden2-5bcdff64 is STUCK: it was released to d8c3e4ba9ade 21 min ago
-> but still reports deployed_sha 0f66db1f2d884c46a173a8889291366abd92b8fe. Check garden-self-deploy on endolin-garden2-5bcdff64
-> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
-> keeps it from advancing. The leader does not advance past an undeployed canary.
-> (leader=endolin-garden-ece02cb4)
+> RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-endolin-garden2-5bcdff64` has CLEARED (first seen 2026-10-03T22:44:02Z, cleared 2026-10-03T22:47:09Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> canary endolin-garden2-5bcdff64 is no longer stuck (release d8c3e4ba9ade2c876a2cffb6ee3a7923beeb11b9, deployed d8c3e4ba9ade2c876a2cffb6ee3a7923beeb11b9).
 
 - `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
 
