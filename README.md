@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-03T08:49:18Z_
+_As of 2026-10-03T08:50:42Z_
 
 ## Latest
 
-Fix round 6 for [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403) landed with CI green, but the gauntlet's subjective review didn't converge within its 6-round budget — same outcome hit three other PRs this cycle: [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282), [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (the sturdyref layer3/layer6/layer7 PRs are #1390, #1393/no wait — layer3 is [#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), layer6 is tracked separately, layer7 is #1397), all left improved-but-draft for a human merge call. The garden-book arc published its illustrated edition (https://xwo4jjai3z3lqwmls3tqlxnn6fqzawktp6lskvmyywdox52c272a.ocap.site/) after the supervisor self-reviewed and skipped the panel gauntlet for [kriscendobot/garden-book#4](https://github.com/kriscendobot/garden-book/issues/4) and [#5](https://github.com/kriscendobot/garden-book/issues/5) — flagged by proxy as a merge-authority decision outside its remit, awaiting your review. Also pending your direct word: the garden-book budget re-slice (15M from the 25M reserve), a proxy-tentative approval on the same question that the accountant is holding rather than acting on, and an orchestrated minion.town Claude-CLI production rollout that halted after its provider-conduct child declared its gated outcome unsatisfied (1 of 3 children done, canary stage parked). Operationally: oros-studio-garden-ce242c49 has been offline over 24 hours and needs hands-on attention (Mac/Docker/sleep state); the root checkout had a stray tracked edit that was auto-preserved and the tree restored; and journal contention/clone-size watchdogs are firing repeatedly on the leader host but self-clearing without data loss.
+The garden book cleared its biggest milestone yet: all text PRs (including [kriscendobot/garden-book#6](https://github.com/kriscendobot/garden-book/pull/6)) are merged, and both a text-only edition and — after a self-reviewed, gauntlet-skipped pass on the art PRs — an illustrated edition are now published and linked from main; the JS-generator retool is queued up next. Separately, the maintainer-authority budget question is still open: a proxy twice offered a tentative "approve" on the proposed 15M-token `garden-book` arc carve-out, and the accountant correctly declined to act on it both times, so the 15M/10M-reserve split still needs kriskowal's own "approve" (or edits).
+
+Several gauntlets have stalled out at their review-budget ceiling and are parked for a human merge call: [endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403), two sturdyref-layer PRs (pass-style and captp-construct, both from the 2026-09-30 sturdyref arc), and the Claude-sandbox bwrap-slice build — all CI-green after six fix/panel rounds but not converged. One gauntlet needs more than a glance: `build-confined-application-makers-p2-makefromtree-20261003` HALTED outright because its clean stage declared the gated outcome failed. The minion.town Claude-CLI production orchestration also halted mid-run (1 of 3 children done) after the provider-conduct step declared its outcome unsatisfied, leaving the canary stage parked.
+
+On infra, host `oros-studio-garden-ce242c49` has been unreachable for over a day (heartbeat stale since 2026-10-02T05:08Z) and needs someone to physically check the machine — queued reset/restore jobs can't run until it's back. Everything else (budget-level rebalancing, journal-contention guards, container-hardening pending) is routine fleet noise.
 
 ## Parked for maintainer feedback
 
@@ -378,19 +382,20 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 52.8M | $336.51 _(notional, rate-card)_ | 21% of 256.0M (ok) |
-| Codex | 2.8M _(+68.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Claude | 53.7M | $343.20 _(notional, rate-card)_ | 21% of 256.0M (ok) |
+| Codex | 2.8M _(+68.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 45.001467s/45s (/home/kris/garden/.garden-state/progress/journal); 5 open notice(s); checker healthy
+worst fetch p95 45.001467s/45s (/home/kris/garden/.garden-state/progress/journal); 5 open notice(s); journal-contention-checker-stale
 
 ## Board
-### todo (16)
+### todo (17)
 - [`claude-on-minion-town-press-20261003-023507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-023507.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
+- [`claude-on-minion-town-press-20261003-085006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-085006.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
