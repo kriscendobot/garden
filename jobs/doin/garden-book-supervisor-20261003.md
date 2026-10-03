@@ -43,6 +43,7 @@ One claim cannot span the whole chain. Before this job ends, if work remains, po
 dated successor supervisor job (same body, updated state, e.g. `blocked_on` the
 next child you are waiting for) so supervision continues until the book is done.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
