@@ -1,4 +1,5 @@
 ---
+child-design-act-local-ci-screening-research-reap-count: 0
 order: serial
 children: design-act-local-ci-screening-research design-act-local-ci-screening-doc
 on-child-failure: halt
