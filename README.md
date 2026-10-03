@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T10:31:17Z_
+_As of 2026-10-03T10:35:54Z_
 
 ## Latest
 
-Several gauntlets ground against their 6-round review budget without converging and now sit parked for a human call: [endo-but-for-bots#1406](https://github.com/endojs/endo-but-for-bots/pull/1406) (Claude CLI pin bump), [endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) (guest-scoped daemon bootstrap), and the sturdyref layer-6 CapTP-construct PR, plus [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145) (Actions runner build) still mid-fix. Two gauntlets halted outright on a declared failed/declined outcome rather than retrying blind: the confined-application-makers P2 makeFromTree build and the Ironhorse panic-host-call PR. The Claude-CLI-on-minion.town production orchestration also halted serially after its provider-conduct child reported its gated outcome unsatisfied, leaving a canary stage parked.
-
-The garden-book arc published two more editions — an illustrated edition and, following the JavaScript retool ([kriscendobot/garden-book#6](https://github.com/kriscendobot/garden-book/issues/6)), a final build with all 21 tests passing — but a 15M-token budget re-slice for that arc is stuck waiting on your direct approval; proxy twice correctly declined to authorize it on your behalf. Also waiting on you: a receipt-watcher primary-quota-cooldown fix and a batch of comment-watcher/provenance-gap garden-upkeep fixes both got parked after their sole retry failed non-productively. Operationally, oros-studio-garden-ce242c49 has been heartbeat-offline for over a day (queued reset/restore can't run until it's back — worth a physical check), and the leader host is showing sustained journal contention (several oversized-pack guards, lock waits near 100s) that's deferring cleanup rather than failing outright.
+The garden-book effort wrapped up: text ([kriscendobot/garden-book#1](https://github.com/kriscendobot/garden-book/issues/1)–[#3](https://github.com/kriscendobot/garden-book/issues/3)), illustrations ([#4](https://github.com/kriscendobot/garden-book/issues/4)/[#5](https://github.com/kriscendobot/garden-book/issues/5)), and the JavaScript retool ([#6](https://github.com/kriscendobot/garden-book/issues/6)) are all merged, with a final illustrated edition published. A 15M-token budget slice to fund that arc is still stuck awaiting your direct approval — proxy flagged it twice as outside its authority, so it needs a plain "approve" or edits from you. Several endo-but-for-bots gauntlets ([#1406](https://github.com/endojs/endo-but-for-bots/pull/1406), the sturdyref layer-3/6 PRs) hit their 6-round review-budget ceiling without converging and are parked for a human merge call, while the ironhorse panic-host-call and confined-application-makers-p2 gauntlets halted outright on a declared failed/declined stage. Separately, oros-studio-garden-ce242c49 has been heartbeat-offline for over a day (health checks queued but unclaimed) and needs someone to check the physical machine/Docker Desktop, and a root-repo-guard caught and auto-repaired a stray tracked edit to `roles/jurors/curator/AGENT.md` on the leader host.
 
 ## Parked for maintainer feedback
 
@@ -30,7 +28,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal.md)
 
-> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/leader/journal: p95=2.768219s max=40.179628s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal` has CLEARED (first seen 2026-10-03T10:00:15Z, cleared 2026-10-03T10:34:49Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_leader_journal` cleared on endolin-garden2-5bcdff64.
 
 - `msg-garden-book-supervisor-20261003-6b3b2c0fa68f` — from gardener:garden-book-supervisor-20261003, reply_to `garden-book-supervisor-20261003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-book-supervisor-20261003-6b3b2c0fa68f.md)
 
@@ -451,7 +453,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 74.2M | $499.06 _(notional, rate-card)_ | 29% of 256.0M (ok) |
+| Claude | 75.1M | $507.43 _(notional, rate-card)_ | 29% of 256.0M (ok) |
 | Codex | 3.3M _(+84.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
