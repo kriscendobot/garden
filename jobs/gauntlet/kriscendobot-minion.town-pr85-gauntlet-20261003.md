@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 85
 build_job: 
 kind: feature
-stage: fix
-iteration: 4
+stage: panel
+iteration: 5
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: kriscendobot-minion.town-pr85-gauntlet-20261003-fix-4
+current_child: kriscendobot-minion.town-pr85-gauntlet-20261003-panel-5
 state: running
 created_by: gardener
 created_at: 2026-10-03T03:24:44Z
