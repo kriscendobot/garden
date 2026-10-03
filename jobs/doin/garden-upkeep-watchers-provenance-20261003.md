@@ -20,6 +20,7 @@ Maintainer (kriskowal, muster 2026-10-03) approved this disposition.
    accumulate packs if that is the root cause.
 Land fixes directly on main2 per garden convention. Report what you changed.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
