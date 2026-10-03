@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T18:01:40Z_
+_As of 2026-10-03T18:06:28Z_
 
 ## Latest
 
@@ -581,13 +581,14 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (12)
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
+- [`claude-on-minion-town-press-20261003-180508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-180508.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261003-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-163507.md) — ---
+- [`build-confined-application-makers-p1-20261002-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-confined-application-makers-p1-20261002-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1417
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
-- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #148
 - [`oros-health-checkup-20261003-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-132007.md) — ---
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
@@ -595,16 +596,16 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-gauntlet-20261003-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #85
 
 ### doin (2)
-- [`build-confined-application-makers-p1-20261002-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1417
+- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #148
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1419
 
-### tada (10700)
+### tada (10701)
+- [`build-confined-application-makers-p1-20261002-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-panel-4.md) — Cost
 - [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-2.md) — Cost
 - [`kriscendobot-minion.town-pr147-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr147-gauntlet.md) — gauntlet kriscendobot-minion.town-pr147-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr147-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr147-gauntlet-fix-6.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-0dda6234be6b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/canary-probe-endolin-garden2-5bcdff64-0dda6234be6b.md) — rolling-deploy canary probe — round trip OK
-- [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer4-marshal-20260930-gauntlet.md) — gauntlet ebfb-sturdyref-layer4-marshal-20260930-gauntlet — review budget reached
-- … and 10695 more
+- … and 10696 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
