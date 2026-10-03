@@ -1,0 +1,2 @@
+base: improve-minion-mcp-stdio-config-replace
+identity: mentor:scripts/jobs/minion-mcp-lib.sh
