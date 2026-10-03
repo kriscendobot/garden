@@ -37,3 +37,13 @@ paper over with blanket retries or skips; a targeted wait-for-condition is fine.
 Open a DRAFT PR against a frozen `llm-<sha7>` base with the fixes and evidence
 (repeat-run counts). Report the PR URL. A separate sibling job is resuming the six
 gauntlets, so do not push to those PR branches.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T03:50:36Z
