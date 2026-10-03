@@ -19,3 +19,13 @@ Maintainer (kriskowal, muster 2026-10-03) approved this disposition.
    gc it (or re-clone it) safely while the repo-watcher is idle, and fix whatever lets it
    accumulate packs if that is the root cause.
 Land fixes directly on main2 per garden convention. Report what you changed.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T05:01:54Z
