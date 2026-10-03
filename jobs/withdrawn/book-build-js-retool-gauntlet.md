@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: supervisor reviewed round-3 findings and the fix-3 head 9fbd5aa; all remaining correctness and powers/publish-security findings are resolved, local npm tests and the real book build pass, and the maintainer explicitly prefers skipping further low-value gauntlet rounds on this checkless book repo
+withdrawn_by: orchestrator:garden-book-supervisor-20261003-retool
+withdrawn_at: 2026-10-03T09:27:00Z
+withdrawn_from: jobs/gauntlet
+---
+
+---
 pr: https://github.com/kriscendobot/garden-book/pull/6
 repo: kriscendobot/garden-book
 pr_number: 6
