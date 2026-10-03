@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T21:36:37Z_
+_As of 2026-10-03T21:43:07Z_
 
 ## Latest
 
@@ -610,15 +610,15 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #85
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #85
 
-### tada (10737)
+### tada (10738)
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-5.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-0f66db1f2d88`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/canary-probe-endolin-garden2-5bcdff64-0f66db1f2d88.md) — rolling-deploy canary probe — round trip OK
 - [`build-confined-application-makers-p1-20261002-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet.md) — gauntlet build-confined-application-makers-p1-20261002-gauntlet — review budg...
 - [`claude-on-minion-town-press-20261003-212006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/claude-on-minion-town-press-20261003-212006.md) — Panel-head freshness
 - [`build-confined-application-makers-p1-20261002-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-fix-6.md) — Fix round 6 for endojs/endo-but-for-bots#1417: all 4 must-fix items done, CI ...
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-5.md) — Panel round 5 for kriscendobot/minion.town PR #85: must-fix
-- … and 10732 more
+- … and 10733 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
