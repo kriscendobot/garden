@@ -33,3 +33,13 @@ Standing maintainer request (kriskowal, 2026-10-02).
 5. **Report:** one line of verdict (OK / intervened / unreachable), the ops sent and their acks, and what still needs a person. Message the maintainer inbox (`message-user.sh`) **only** when you intervened with an attested op or oros is unreachable. Otherwise stay quiet.
 
 Do not change worker leveling, derotation markers, budget pools or schedules. Do not post duplicate oros jobs; the checkup schedule handles recurrence.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T18:50:46Z
