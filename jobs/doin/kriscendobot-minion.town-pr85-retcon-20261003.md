@@ -20,3 +20,13 @@ The maintainer asked to "expand scope to both sides of upgrade, run a gauntlet, 
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-03T22:33:14Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T22:33:34Z
