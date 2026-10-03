@@ -35,3 +35,13 @@ unconfined path. Run the focused tests and relevant package checks. Commit and
 push the shared Phase-2 branch. Report the head SHA, changed paths, and executed
 verification. On an unmet prerequisite or a design conflict, preserve the branch,
 report evidence, and use the orchestrated-failure signal.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T05:53:26Z
