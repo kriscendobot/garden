@@ -1,0 +1,5 @@
+<6>05:08:36 [cleric/2] job 'minion-town-claude-cli-provider-conduct-20261003' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>05:08:36 [cleric/2] job 'minion-town-claude-cli-provider-conduct-20261003' attaching minion.town MCP (stdio bridge)
+Error loading config.toml: url is not supported for stdio
+in `mcp_servers.minion-town`
+
