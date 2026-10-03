@@ -21,3 +21,13 @@ dispatch: automatic
 2. Record the outcome at `journal2:projects/garden/budget-slate-20261001.md` via `land-journal-edit.sh`. Include the slate, the reasons (the maintainer's ranking, and spend running near the inverse of it), the mandate change, the separate-arcs decision, the standing per-reset directive, and the policies (spend to 90% and never 100%; use reset credits mid-week before they expire; hold the endolin2 credit that expires 10-22 for mid-week).
 3. Send the maintainer a one-paragraph confirmation of what was applied with `message-user.sh <your-base>`, without waiting for a reply.
 4. If set-apportionment.sh cannot express "carry forward each reset", say so in the record and in your report, and post a named follow-up job for it. Do not fake it.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T03:35:53Z
