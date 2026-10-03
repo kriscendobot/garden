@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T23:15:46Z_
+_As of 2026-10-03T23:35:00Z_
 
 ## Latest
 
@@ -10,7 +10,7 @@ Several gauntlets are stalled at their review budget and waiting on a human merg
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 6d)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 7d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 16d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 22d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 30d)
@@ -610,7 +610,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 8.153445s/45s (/home/kris/garden/.garden-state/inbox/kriscendobot-minion.town-pr85-gauntlet-20261003-clean/journal); 2 open notice(s); checker healthy
+worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keeper/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (11)
