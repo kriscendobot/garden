@@ -4802,3 +4802,14 @@ Inspect via `git -C journal cat-file -p 2ac3e77439766b2844f696d0b84ba26bc4792c57
 
 Inspect via `git -C journal cat-file -p 80bd8edf1fd87ebcfdaaeb8ce076d8df89fa6546` (or read
 `journal/inboxes/endolin-garden-ece02cb4/captures/80bd8edf1fd87ebcfdaaeb8ce076d8df89fa6546`) -- both work off-host after a plain `journal2` fetch.
+
+## lane 0 -- handler-nonzero failure at 2026-10-03T05:17:06Z
+
+- PR: (none)
+- State: handler-nonzero
+- Transcript SHA: c22a51ef33d6246fc5380bead2ae71b89d68869b
+- Context: gardener-2 on endolin-garden-ece02cb4: job 'improve-receipt-primary-quota-cooldown' handler exited rc=1
+- Capture: inboxes/endolin-garden-ece02cb4/captures/c22a51ef33d6246fc5380bead2ae71b89d68869b
+
+Inspect via `git -C journal cat-file -p c22a51ef33d6246fc5380bead2ae71b89d68869b` (or read
+`journal/inboxes/endolin-garden-ece02cb4/captures/c22a51ef33d6246fc5380bead2ae71b89d68869b`) -- both work off-host after a plain `journal2` fetch.

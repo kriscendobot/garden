@@ -1,0 +1,6 @@
+<6>05:16:43 [cleric/2] requeued job 'improve-receipt-primary-quota-cooldown' has no local codex sidecar on endolin-garden-ece02cb4; prior session and worktree were lost — starting fresh with lost-state framing
+<6>05:16:43 [cleric/2] job 'improve-receipt-primary-quota-cooldown' resolved tier 'minion' -> codex -m gpt-5.6-terra
+<6>05:16:43 [cleric/2] job 'improve-receipt-primary-quota-cooldown' attaching minion.town MCP (stdio bridge)
+Error loading config.toml: url is not supported for stdio
+in `mcp_servers.minion-town`
+
