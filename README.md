@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T22:05:51Z_
+_As of 2026-10-03T22:08:55Z_
 
 ## Latest
 
@@ -407,6 +407,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration minion-town-claude-cli-production-20261003 observed child minion-town-claude-cli-provider-conduct-20261003: completed but declared its gated outcome unsatisfied.
 
+- `kriscendobot-minion.town-pr85-gauntlet-20261003-review-budget-reached` — from gauntlet:kriscendobot-minion.town-pr85-gauntlet-20261003-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion.town-pr85-gauntlet-20261003-review-budget-reached.md)
+
+> INFO: Gauntlet kriscendobot-minion.town-pr85-gauntlet-20261003 review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-10-03T09:59:02Z, cleared 2026-10-03T11:38:58Z).
@@ -620,13 +624,13 @@ worst fetch p95 8.153445s/45s (/home/kris/garden/.garden-state/inbox/kriscendobo
 ### doin (0)
 (none)
 
-### tada (10743)
+### tada (10744)
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003.md) — gauntlet kriscendobot-minion.town-pr85-gauntlet-20261003 — review budget reached
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-6.md) — Cost
 - [`improve-cursor-push-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-cursor-push-recovery.md) — Cost
 - [`oros-health-watch-20261003-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/oros-health-watch-20261003-215006.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-6.md) — Cost
-- [`claude-on-minion-town-completion-press-20261003-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/claude-on-minion-town-completion-press-20261003-215006.md) — Cost
-- … and 10738 more
+- … and 10739 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
