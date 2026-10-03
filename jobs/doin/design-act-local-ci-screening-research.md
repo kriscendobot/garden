@@ -67,3 +67,13 @@ a one-paragraph bottom line (feasible in-container / feasible only on host /
 infeasible — and what would unblock it). Mark it clearly as research input for
 `designs/act-local-ci-screening.md`. If a question cannot be answered, say so
 and why rather than guessing.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T05:49:15Z
