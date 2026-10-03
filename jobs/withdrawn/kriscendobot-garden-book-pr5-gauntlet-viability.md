@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: supervisor garden-book-supervisor-20261003-after-art reviewed integration PR #5 directly (build + desktop/phone render); brief says default no gauntlet and kriscendobot/garden-book has no CI checks (clean stage would loop to a halt)
+withdrawn_by: orchestrator
+withdrawn_at: 2026-10-03T06:46:33Z
+withdrawn_from: jobs/todo
+---
+
+---
 role: gardener
 gauntlet: kriscendobot-garden-book-pr5-gauntlet
 gauntlet_stage: viability
