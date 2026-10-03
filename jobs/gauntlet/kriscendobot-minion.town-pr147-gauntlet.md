@@ -9,7 +9,7 @@ iteration: 3
 max_iterations: 6
 resumes: 0
 max_resumes: 6
-stage_retries: 0
+stage_retries: 1
 max_stage_retries: 2
 current_child: kriscendobot-minion.town-pr147-gauntlet-fix-3
 state: running
