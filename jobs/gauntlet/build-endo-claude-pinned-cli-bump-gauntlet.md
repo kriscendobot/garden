@@ -9,11 +9,11 @@ max_resumes: 6
 max_stage_retries: 2
 created_by: producer
 created_at: 2026-10-01T09:16:38Z
-stage: panel
+stage: fix
 iteration: 6
 resumes: 0
 stage_retries: 0
-current_child: build-endo-claude-pinned-cli-bump-gauntlet-panel-6
+current_child: build-endo-claude-pinned-cli-bump-gauntlet-fix-6
 state: running
 resumed_at: 2026-10-03T05:31:16Z
 resumed_from_stage: panel
