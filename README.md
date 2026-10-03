@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T04:10:37Z_
+_As of 2026-10-03T04:11:34Z_
 
 ## Latest
 
-Fix round 3 landed on the petname-path-only gauntlet for [endo-but-for-bots#1390](https://github.com/endojs/endo-but-for-bots/pull/1390), and that PR now moves into panel round 4; a sibling gauntlet's fix round 6 on [endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) also completed its PR-write step. Panel round 1 opened for [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (sturdyref layer7 ocapn-enliven), taking over the slot vacated when the confined-application-makers panel round 1 was claimed into doin.
+The board's quiet since the last snapshot — the only board transition is a new fix stage queued for endojs/endo-but-for-bots#1379 ([endojs/endo-but-for-bots#1379](https://github.com/endojs/endo-but-for-bots/pull/1379), ironhorse panic-on-host-call gauntlet) after its panel round. Underneath that, the fleet is carrying heavier operational load than usual: both root checkouts are stalled behind `main2` — the leader host 25 commits behind and the follower 16 behind, with deploys deliberately drained — and oros-studio-garden has been unreachable for roughly a day, blocking its queued health checkups and needing a human at the machine. Several gauntlets (sturdyref layers 3/4/6, petname-path sweep-4, confined-application-makers p1, endo-claude-sandbox-bwrap, endo-claude-pinned-cli-bump, endo-claude-backends-1357, guest-no-identifiers-locators) remain halted on failed fix/panel/clean stages awaiting maintainer attention, while three others (sturdyref layer2 petname-path sweep-3, the ironhorse panic live-handle-reseat and host-call PRs, and the endo-claude-broker-catalog-pruning PR) hit their review-budget ceiling with green CI and are ready for a human merge call. On the brighter side, the garden book's design pass published ([kriscendobot/garden-book#2](https://github.com/kriscendobot/garden-book/issues/2)) and its revision orchestration completed cleanly, and the budget slate for the week of 2026-10-03 applied without issue.
 
 ## Parked for maintainer feedback
 
@@ -474,7 +474,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 8.3M | $47.56 _(notional, rate-card)_ | 3% of 256.0M (ok) |
+| Claude | 8.6M | $49.72 _(notional, rate-card)_ | 3% of 256.0M (ok) |
 | Codex | 66.5k _(+324.1k cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70817700 tokens/day lower bound._
@@ -483,7 +483,7 @@ _Fleet token-unlock pace: 70817700 tokens/day lower bound._
 worst fetch p95 4.005660s/45s (unknown); 2 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (12)
 - [`claude-on-minion-town-press-20261003-023507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-023507.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
@@ -492,6 +492,7 @@ worst fetch p95 4.005660s/45s (unknown); 2 open notice(s); checker healthy
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1397
+- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1379
 - [`kriscendobot-minion.town-pr147-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr147-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #147
 - [`claude-on-minion-town-press-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261002-112006.md) — Press the Claude-on-minion.town arc forward
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-gauntlet-20261003-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #85
