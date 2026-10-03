@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T20:36:15Z_
+_As of 2026-10-03T20:39:13Z_
 
 ## Latest
 
@@ -594,12 +594,12 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 
 ## Board
 ### todo (11)
+- [`build-confined-application-makers-p1-20261002-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-confined-application-makers-p1-20261002-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1417
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261003-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-163507.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #85
 - [`oros-health-checkup-20261003-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-193507.md) — ---
 - [`oros-health-checkup-20261003-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-132007.md) — ---
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
@@ -607,16 +607,16 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (2)
-- [`build-confined-application-makers-p1-20261002-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1417
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #85
 - [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #148
 
-### tada (10726)
+### tada (10727)
+- [`build-confined-application-makers-p1-20261002-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-panel-6.md) — Cost
 - [`improve-fork-watch-silent-probe-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-fork-watch-silent-probe-backoff.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-3.md) — Cost
 - [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-5.md) — Cost
 - [`build-confined-application-makers-p1-20261002-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-fix-5.md) — Fix round 5 for endojs/endo-but-for-bots#1417: fixes pushed, CI green
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-3.md) — Cost
-- … and 10721 more
+- … and 10722 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
