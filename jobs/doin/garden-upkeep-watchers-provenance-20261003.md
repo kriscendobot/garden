@@ -23,3 +23,13 @@ Land fixes directly on main2 per garden convention. Report what you changed.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-03T05:13:09Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T05:15:16Z
