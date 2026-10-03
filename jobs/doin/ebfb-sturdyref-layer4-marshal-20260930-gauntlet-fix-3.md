@@ -43,6 +43,7 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: fix=ci-billing-blocked -->  (ci-wait-merge rc 5)
 
+<!-- garden-provider-quota-backoff: type=usage reset-at=2026-10-03T03:00:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
