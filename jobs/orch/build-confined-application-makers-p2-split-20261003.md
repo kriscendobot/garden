@@ -1,4 +1,5 @@
 ---
+child-build-confined-application-makers-p2-scan-20261003-reap-count: 0
 order: serial
 children: build-confined-application-makers-p2-scan-20261003 build-confined-application-makers-p2-mount-20261003 build-confined-application-makers-p2-makefromtree-20261003
 on-child-failure: halt
