@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-03T11:05:13Z_
+_As of 2026-10-03T11:08:19Z_
 
 ## Latest
 
-Garden-book finished its full production run and is live: the text volume (kriscendobot/garden-book#1–#3), the illustrated edition (#4–#5), and the JavaScript retool (#6) are all merged, with the final published edition at https://g2d5d5z6x25qmf43fhv5tm4zmv4ozbxgk5gtke3mkrydrojehaea.ocap.site/. The supervisor self-reviewed and skipped the panel gauntlet for the art/JS stages, and the only loose end is the 15M-token garden-book budget slice: the accountant has twice declined to apply a proxy's tentative "approve as proposed," so it still needs your direct "approve" (or edits).
+Several gauntlets ground down to their review-budget ceiling overnight without converging: [endo-but-for-bots#1419](https://github.com/endojs/endo-but-for-bots/pull/1419) (bwrap sandbox slice), the Claude pinned-CLI bump PR, and the sturdyref layer-6 CapTP construct PR each completed 6 panel/fix rounds with CI green and now sit parked for a human merge call. Two PRs were found superseded by upstream drift and halted rather than pushed further: the IronHorse panic-host-call PR failed its fix stage outright, and `build-confined-application-makers-p2-makefromtree-20261003` halted at the clean stage on a declared failed/declined outcome. The minion.town Claude-CLI production orchestration also halted after its provider-conduct child declared its gated outcome unsatisfied (1 of 3 children done); the canary stage is parked pending that decision.
 
-Elsewhere, the minion-town-claude-cli-production-20261003 orchestration halted after its provider-conduct child completed but declared its gated outcome unsatisfied — 1 of 3 stages done, the rest parked. The confined-application-makers Phase 2 split orchestration completed all three slices, but the makefromtree slice ([endojs/endo-but-for-bots#1419](https://github.com/endojs/endo-but-for-bots/pull/1419)) then failed its clean stage outright and is not being retried. A handful of long-running review gauntlets (the Claude sandbox-bwrap and pinned-CLI-bump builds, plus two sturdyref-layer PRs) hit their 6-round review cap with CI green and are parked for a human merge call. Separately, oros-studio-garden-ce242c49 remains heartbeat-offline for over a day with reset/restore requests unacknowledged — it needs a person at the machine to check Docker Desktop and sleep/power state.
+On the garden-book front, the illustrated edition and the JavaScript retool both shipped and were self-reviewed without a gauntlet ([garden-book#4](https://github.com/kriscendobot/garden-book/issues/4), [#5](https://github.com/kriscendobot/garden-book/issues/5), [#6](https://github.com/kriscendobot/garden-book/issues/6)), with the latest published edition at https://g2d5d5z6x25qmf43fhv5tm4zmv4ozbxgk5gtke3mkrydrojehaea.ocap.site/ — but a proxy flagged that skipping the panel-review gauntlet to merge straight to main is a process-authority call reserved to you, and a 15M-token garden-book budget slice still awaits your direct "approve" (a tentative proxy answer was explicitly not applied). Separately, oros-studio-garden-ce242c49 has been heartbeat-offline for over 24 hours with queued reset-failed/restore requests unacknowledged — worth a physical check of the Mac/Docker/VM — and the journal is showing a cluster of contention and oversized-clone warnings (several already self-recovered) alongside two reaper-doomed jobs (`improve-receipt-primary-quota-cooldown`, `garden-upkeep-watchers-provenance-20261003`) parked for your go-ahead to promote or split.
 
 ## Parked for maintainer feedback
 
@@ -316,12 +316,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #20 (first seen 2026-10-03T06:41:50Z, latest 2026-10-03T11:01:44Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 20 times; this is ONE
-> coalesced notice that updates in place, not 20 messages. Latest detail:
+> WATCHDOG notice — occurrence #21 (first seen 2026-10-03T06:41:50Z, latest 2026-10-03T11:07:36Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 21 times; this is ONE
+> coalesced notice that updates in place, not 21 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/146](https://github.com/kriscendobot/minion.town/pull/146)#discussion_r4171862063 (age=19605s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/146](https://github.com/kriscendobot/minion.town/pull/146)#discussion_r4171862063 (age=19904s; heartbeat=full-poll)
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_sysop_journal.md)
 
@@ -467,7 +467,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 81.4M | $556.08 _(notional, rate-card)_ | 32% of 256.0M (ok) |
+| Claude | 81.5M | $556.40 _(notional, rate-card)_ | 32% of 256.0M (ok) |
 | Codex | 3.3M _(+84.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
