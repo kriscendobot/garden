@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: supervisor garden-book-supervisor-20261003-after-art is publishing the illustrated edition itself (fleet saturated, job unclaimed); maintainer allowed supervisor or this job to publish
+withdrawn_by: orchestrator
+withdrawn_at: 2026-10-03T07:06:13Z
+withdrawn_from: jobs/todo
+---
+
+---
 role: conductor
 tier: mentor
 ---
