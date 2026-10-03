@@ -37,3 +37,13 @@ failures unrelated to the PR's diff. For each PR:
 A sibling job (ebfb-daemon-test-flakes-20261003) is fixing the flakes at the root; if
 a PR stays red after reruns, note which signature, and leave it for that fix rather
 than burning more CI. Report per-PR outcome.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T03:59:38Z
