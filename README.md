@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T22:36:38Z_
+_As of 2026-10-03T22:43:10Z_
 
 ## Latest
 
@@ -298,11 +298,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
 
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-10-03T06:41:59Z, cleared 2026-10-03T06:45:59Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-03T06:41:59Z, latest 2026-10-03T22:42:17Z).
+> The SAME condition (`comment-watcher-stuck-cooldown-host`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Comment acknowledgment condition cleared.
+> Comment watchers on endolin-garden-ece02cb4 are ticking but have been held in a shared cooldown/outage latch longer than 1200s on 7 source(s); they post no acknowledgments while it holds.
+> - kriscendobot/test262: watcher ticking but cooldown for 3653s (since 2026-10-03T21:41:24Z)
+> - kriscendobot/finbot: watcher ticking but cooldown for 3634s (since 2026-10-03T21:41:43Z)
+> - kriscendobot/oros-ckm-data-readiness: watcher ticking but cooldown for 3609s (since 2026-10-03T21:42:08Z)
+> - endojs/endo-but-for-bots: watcher ticking but cooldown for 3690s (since 2026-10-03T21:40:47Z)
+> - kriscendobot/ymax-stdio-mcp: watcher ticking but cooldown for 3643s (since 2026-10-03T21:41:34Z)
+> - kriscendobot/garden: watcher ticking but cooldown for 3611s (since 2026-10-03T21:42:06Z)
+> - kriscendobot/endo-but-for-bots: watcher ticking but cooldown for 3690s (since 2026-10-03T21:40:47Z)
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
