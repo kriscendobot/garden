@@ -23,6 +23,7 @@ Park each with post-plan.sh --orchestrated --orchestrated-by build-confined-appl
 then post-orchestration.sh --serial. Retire the halted orchestration so it does not
 re-fire. Report the child bases.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
