@@ -85,3 +85,13 @@ None.
 
 
 ----- END BODY -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T03:02:30Z
