@@ -12,7 +12,7 @@ created_at: 2026-10-02T17:01:21Z
 stage: panel
 iteration: 3
 resumes: 0
-stage_retries: 0
+stage_retries: 1
 current_child: build-confined-application-makers-p1-20261002-gauntlet-panel-3
 state: running
 resumed_at: 2026-10-03T04:01:53Z
