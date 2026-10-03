@@ -28,3 +28,13 @@ Guards (the reconciler already enforced these; re-verify before merging):
 PR: https://github.com/kriscendobot/garden-book/pull/1
 Head: kriscendobot/garden-book (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T05:05:25Z
