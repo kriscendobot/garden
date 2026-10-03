@@ -1,11 +1,8 @@
 ---
-gate: blocked
-blocked_on: https://github.com/kriscendobot/garden-book/pull/5
-priority: high
 role: conductor
-posted_by: gardener
-posted_at: 2026-10-03T06:39:59Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=high at=2026-10-03T06:51:03Z cleared=none -->
 
 ---
 tier: mentor
