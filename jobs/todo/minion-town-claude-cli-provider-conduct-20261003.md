@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-claude-cli-production-20261003
-priority: high
 role: conductor
-posted_by: minion-town-pr87-production-gate-resume-20260922
-posted_at: 2026-10-03T04:23:12Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-10-03T04:52:26Z cleared=none -->
 
 ---
 role: conductor
