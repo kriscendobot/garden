@@ -74,3 +74,13 @@ predecessor PRs instead of one.
    editions listed as history). Report the new URL, which illustrations you
    used and where, and which you left out, in your completion report and
    via `scripts/jobs/message-user.sh <this-job-base>`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T06:08:56Z
