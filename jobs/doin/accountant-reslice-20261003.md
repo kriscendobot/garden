@@ -27,6 +27,7 @@ from: the reserve, the endo-backlog sliver, or a proportional trim) and how book
 get tagged to it. Send the proposal to the maintainer and wait for the reply; apply
 only what they approve, with authorized_by, and confirm the resulting table.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
