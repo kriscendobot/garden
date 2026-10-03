@@ -6,4 +6,4 @@
 claude-endolin1	anthropic	weekly-tokens	256000000	manual-checkpoints-20260930-true-cap-256-267M	2026-09-30
 claude-endolin2	anthropic	weekly-tokens	121000000	manual-checkpoint-86pct-20260930T1942-maintainer	2026-09-30
 claude-oros	anthropic	weekly-tokens	180000000	manual-utilization-13pct-at-24.7M-20261002-maintainer-rebalance	2026-10-02
-codex-endolin	openai	percent	100	placeholder	2026-10-03
+codex-endolin	openai	percent	100	codex-cli-rate-limit	2026-10-03
