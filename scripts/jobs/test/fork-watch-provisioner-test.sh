@@ -28,6 +28,8 @@
 #   L. one shared inconclusive condition → ONE probe, ONE coalesced WARN, and a
 #      host-local cooldown that silently defers later ticks; a repo-specific 403
 #      defers only that fork; a halted tick never retires an armed fork
+#   M. the production upstream probe routes through gh_api_retry, so a primary
+#      quota 429 arms the host-shared cooldown and suppresses a sibling poller
 #
 # Usage: fork-watch-provisioner-test.sh
 set -euo pipefail
@@ -452,6 +454,59 @@ grep -q "rate-limit (first seen" "$LLOG" && grep -q "stopped probing for this ti
   && ok "cooldown 0 still coalesces for the tick without recording a window" || bad "tick-only coalescing wrong: $(cat "$LLOG")"
 [ ! -e "$COOLDIR/rate-limit" ] && ok "cooldown 0 records no window" || bad "cooldown 0 recorded a window"
 : > "$DEADLIST"; : > "$UNKNOWNLIST"
+
+# ============================================================================
+hr; echo "M — upstream 429 arms the shared API cooldown for sibling pollers"; hr
+# Do not use the upstream-check seam here: this is specifically a regression for
+# the production probe having bypassed gh_api_retry with a bare `gh api`. Model a
+# primary-quota response that also carries HTTP 429, then ask a sibling poller's
+# gh_api_retry call to read another endpoint. The shared admission latch must
+# refuse that second call before the gh stub is invoked.
+git init -q --bare "$WTS/kriscendobot-rate-limited.git"
+APICALLS="$TR/api-calls"; : > "$APICALLS"
+GH429="$TR/gh-429.sh"
+cat > "$GH429" <<'EOS'
+#!/bin/bash
+printf '%s\n' "$*" >> "$GH_STUB_CALLS"
+echo 'gh: API rate limit exceeded for user ID 279080640 (HTTP 429)' >&2
+exit 1
+EOS
+chmod +x "$GH429"
+rm -rf "$TR/state/gh-api-cooldown" "$TR/state/fork-watch/inconclusive-cooldown"
+set +e
+env GARDEN_STATE="$TR/state" JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_WORKTREES="$WTS" GARDEN_REPOS="$TR/repos" \
+    GARDEN_FORKWATCH_MATERIALIZE=0 GARDEN_FORKWATCH_LIVENESS_INTERVAL=0 \
+    GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=300 \
+    GARDEN_GH="$GH429" GH_STUB_CALLS="$APICALLS" GARDEN_GH_API_ATTEMPTS=4 \
+    GARDEN_API_COOLDOWN_DIR="$TR/state/gh-api-cooldown" \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/fork-watch-provisioner.sh" >/dev/null 2>"$TR/m.log"
+mrc=$?
+set -e
+[ "$mrc" -eq 0 ] && ok "429 probe stays fail-open for the provisioner tick" \
+  || bad "429 probe failed the provisioner tick (rc=$mrc; $(cat "$TR/m.log"))"
+[ "$(wc -l < "$APICALLS")" -eq 1 ] \
+  && ok "primary-quota 429 stops the provisioner's remaining probes after one request" \
+  || bad "429 path made $(wc -l < "$APICALLS") requests (want 1)"
+[ -s "$TR/state/gh-api-cooldown/marker" ] \
+  && grep -q 'primary-quota' "$TR/state/gh-api-cooldown/marker" \
+  && ok "upstream probe armed the host-shared GitHub API cooldown" \
+  || bad "upstream probe did not arm a primary-quota cooldown marker"
+[ -z "$(jtip repos/kriscendobot-rate-limited)" ] \
+  && [ -z "$(jtip watch-optout/kriscendobot-rate-limited)" ] \
+  && ok "inconclusive 429 neither arms nor tombstones the candidate" \
+  || bad "inconclusive 429 mutated candidate watch membership"
+set +e
+env GARDEN_STATE="$TR/state" GARDEN_API_COOLDOWN_DIR="$TR/state/gh-api-cooldown" \
+    GARDEN_GH="$GH429" GH_STUB_CALLS="$APICALLS" \
+    bash -c 'source "$1"; gh_api_retry "repos/sibling/poller" >/dev/null' \
+    _ "$JOBS/common.sh" 2>"$TR/m-sibling.log"
+sibling_rc=$?
+set -e
+[ "$sibling_rc" -eq 75 ] && [ "$(wc -l < "$APICALLS")" -eq 1 ] \
+  && ok "shared 429 cooldown suppresses a sibling GitHub poller without a request" \
+  || bad "sibling poller escaped cooldown (rc=$sibling_rc calls=$(wc -l < "$APICALLS"))"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

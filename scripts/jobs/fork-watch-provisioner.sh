@@ -209,14 +209,17 @@ slug_owner_lc() { printf '%s' "${1%%-*}" | tr '[:upper:]' '[:lower:]'; }
 # warning through the inconclusive cooldown below. Overridable via
 # GARDEN_FORKWATCH_UPSTREAM_CHECK (a command run as `<cmd> <owner> <name>` whose
 # exit status is used verbatim and whose output is classified the same way) so
-# the test harness can drive it with no GitHub.
+# the test harness can drive it with no GitHub. The production probe goes through
+# gh_api_retry: besides absorbing a transient blip, that helper admits the request
+# under the host-shared GitHub API cooldown lock and latches primary-quota
+# refusals before another poller can issue a doomed request.
 upstream_exists() {
   local owner="$1" name="$2" out rc
   UPSTREAM_FAIL_CLASS=""; UPSTREAM_FAIL_DETAIL=""
   if [ -n "${GARDEN_FORKWATCH_UPSTREAM_CHECK:-}" ]; then
     if out="$("$GARDEN_FORKWATCH_UPSTREAM_CHECK" "$owner" "$name" 2>&1)"; then rc=0; else rc=$?; fi
     [ "$rc" -eq 2 ] || return "$rc"
-  elif out="$(gh api "repos/$owner/$name" --jq .id 2>&1)"; then
+  elif out="$(gh_api_retry "repos/$owner/$name" --jq .id 2>&1)"; then
     return 0
   else
     case "$out" in
