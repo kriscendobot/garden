@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: book-codex-illustrations
-priority: normal
-posted_by: producer
-posted_at: 2026-10-01T20:09:47Z
+role: web-designer
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-03T06:06:20Z cleared=none -->
 
 ---
 role: web-designer
