@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T17:15:54Z_
+_As of 2026-10-03T17:21:05Z_
 
 ## Latest
 
@@ -339,6 +339,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `build-confined-application-makers-p2-makefromtree-20261003-gauntlet-halted` — from gauntlet:build-confined-application-makers-p2-makefromtree-20261003-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-halted.md)
 
 > Gauntlet build-confined-application-makers-p2-makefromtree-20261003-gauntlet HALTED: stage 'build-confined-application-makers-p2-makefromtree-20261003-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+
+- `msg-kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-1-1c7d058b278c` — from gardener:kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-1, reply_to `kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-1-1c7d058b278c.md)
+
+> [https://github.com/kriscendobot/minion.town/pull/148](https://github.com/kriscendobot/minion.town/pull/148) (gauntlet restage-20261003): fix round 1 pushed (head e924e92). FYI: the PR's ledger declares Disposition: non-deliverable-probe, and the phase-evidence gate emits probe-must-remain-draft unconditionally in panel mode, so panel-2 will block again regardless of fixes. The integrator recommends taking the PR out of the gauntlet until the canary child of minion-town-claude-cli-production-20261003 records Phase 3-6 evidence. Also, the locksmith's must-fix (the MCP command bootstraps the root host via ENDO_SOCK) conflicts with your review direction; I kept your shape and documented the trade-off. Decide whether to park the gauntlet or accept it.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
