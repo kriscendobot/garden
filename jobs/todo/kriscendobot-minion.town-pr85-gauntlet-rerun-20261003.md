@@ -1,10 +1,7 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-minion.town-pr85-weave-20261003
-priority: normal
-posted_by: gardener
-posted_at: 2026-10-03T03:06:46Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-03T03:16:13Z cleared=none -->
 
 ---
 tier: mentor
