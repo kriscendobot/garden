@@ -2,7 +2,7 @@
 order: serial
 children: accountant-budget-slate-20261001-apply accountant-budget-intake-relay-20261003
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-03T03:28:42Z
 ---
