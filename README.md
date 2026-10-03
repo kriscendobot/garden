@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T13:49:31Z_
+_As of 2026-10-03T13:52:06Z_
 
 ## Latest
 
@@ -311,10 +311,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002 HALTED: stage 'endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
-- `msg-fix-minion-town-pr148-claude-daemon-client-5400780741-e27a05411239` — from gardener:fix-minion-town-pr148-claude-daemon-client-5400780741, reply_to `fix-minion-town-pr148-claude-daemon-client-5400780741` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-fix-minion-town-pr148-claude-daemon-client-5400780741-e27a05411239.md)
-
-> [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/issues/148) review fixes are pushed and all new-head CI checks are green. I recorded staged gauntlet `kriscendobot-minion-town-pr148-gauntlet`; its viability child is now claimed. Every local Anthropic monk is currently self-disqualified with "agent CLI credential rejected (re-login required)", so local gardener/panel capacity is unavailable; the durable gauntlet owns the remaining viability -> clean -> panel/fix -> undraft sequence.
-
 - `msg-oros-health-watch-20261003-060510-ed115514b143` — from gardener:oros-health-watch-20261003-060510, reply_to `oros-health-watch-20261003-060510` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261003-060510-ed115514b143.md)
 
 > oros-studio-garden-ce242c49 is unreachable: its budget heartbeat stopped at 2026-10-02T05:08:36Z and its last sysop record was 2026-10-02T05:38:58Z, over 24 hours ago. The 2026-10-03T04:05:08Z pinned health checkup remains unclaimed. I queued reset-failed (20261003T060835Z-c46fec) and restore (20261003T060846Z-c94b33); neither can run until the machine returns. A person needs to check the Mac/VM, Docker Desktop, and sleep state.
@@ -520,7 +516,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 87.1M | $594.50 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 4.1M _(+110.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
+| Codex | 4.2M _(+110.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -546,8 +542,9 @@ worst fetch p95 8.181591s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-gauntlet-20261003-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #85
 - [`claude-on-minion-town-press-20261003-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-053508.md) — Press the Claude-on-minion.town arc forward
 
-### doin (3)
+### doin (4)
 - [`build-confined-application-makers-p1-20261002-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1417
+- [`improve-coalesce-gh-api-cooldown-warnings`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-coalesce-gh-api-cooldown-warnings.md) — ---
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1419
 - [`ebfb-petname-path-only-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1390
 
