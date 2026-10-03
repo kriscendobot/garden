@@ -11,7 +11,7 @@ created_by: producer
 created_at: 2026-10-01T10:28:51Z
 stage: fix
 iteration: 3
-resumes: 0
+resumes: 1
 stage_retries: 0
 current_child: build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-3
 state: running
