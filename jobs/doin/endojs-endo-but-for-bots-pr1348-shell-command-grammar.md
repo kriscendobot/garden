@@ -16,3 +16,13 @@ Expected work:
 - Keep the PR's existing explicit-grant harness work intact. Commit as follow-up commits on the PR head, push, and post a summary comment on the PR replying to the directive (reference comment 5942897069). The PR stays draft (see its Draft-hold ledger line); restage the gauntlet if your completion machinery does so.
 
 Maintainer explicitly asked for a mentat-tier fixer for this one. Routed by attention job endojs-endo-but-for-bots-pr1348-8333ce11.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T03:23:01Z
