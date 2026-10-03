@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 3
-worker_kind: monk
-claimed_at: 2026-10-03T08:41:29Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-ci-minion-town-actions-runner-gauntlet-fix-5
