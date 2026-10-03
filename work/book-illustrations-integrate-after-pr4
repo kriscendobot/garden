@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-10-03T06:16:59Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-book-illustrations-integrate-after-pr4
+pr_number: 5
+pr_repo: kriscendobot/garden-book
+pr_url: https://github.com/kriscendobot/garden-book/pull/5
+pr_head: book-illustrations-integrate-after-pr4
