@@ -56,6 +56,9 @@
 #      host-wide API cooldown and stops the PR sweep before any later rollup read.
 #   T. the stale-shepherd re-validation sweep does the same, leaving every queued
 #      shepherd untouched and stopping before the next re-validation read.
+#   Source-race. A source that loses the race with a sibling's REST primary-quota
+#      latch and returns only rc 75 exits cleanly, discards partial output, and
+#      skips the tick.
 #
 # Usage: ci-watcher-test.sh
 set -euo pipefail
@@ -386,6 +389,47 @@ set -e
 [ "$ql_rc" -eq 0 ] && [ "$(cat "$Q_CNT")" -eq 0 ] \
   && ok "a tick 600s into the quota window skips before polling the doomed source" \
   || bad "later tick polled the source ($(cat "$Q_CNT") calls, rc $ql_rc) inside the quota window"
+
+# A concurrent tick can pass the opening cooldown gate just before another watcher
+# latches REST primary quota. Its source then receives only the shared admission
+# refusal (rc 75, no quota signature). That is collateral damage from the already
+# identified outage, so it must discard even a partial enumeration and exit cleanly
+# before the repo probe, PR processing, or stale-shepherd sweep.
+hr; echo "QUOTA-COLLATERAL - concurrent source rc 75 skips under the newly-live REST latch"; hr
+BARE_U="$TR/u.git"; seed_bare "$BARE_U"
+ROOT_U="$TR/root-u"; STATE_U="$TR/state-u"; mkdir -p "$ROOT_U"
+COLLATERAL_SRC="$TR/collateral-source.sh"
+cat > "$COLLATERAL_SRC" <<'EOF'
+#!/bin/bash
+printf '%s\t%s\t%s\t%s\n' \
+  120 kriscendobot endojs/endo-but-for-bots 2099-01-01T00:00:00Z
+mkdir -p "$GARDEN_API_COOLDOWN_DIR"
+printf '%s\n%s\n' "$(( $(date +%s) + 3600 ))" \
+  'comment:endojs-endo-but-for-bots:primary-quota' \
+  > "$GARDEN_API_COOLDOWN_DIR/marker"
+exit 75
+EOF
+chmod +x "$COLLATERAL_SRC"
+set +e
+env GARDEN_ROOT="$ROOT_U" GARDEN_STATE="$STATE_U" \
+    GARDEN_API_COOLDOWN_DIR="$ROOT_U/.garden-state/gh-api-cooldown" \
+    GARDEN_API_COOLDOWN_SECS=300 JOURNAL_REMOTE="$BARE_U" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_BOT_LOGIN=kriscendobot GARDEN_CI_PR_SOURCE="$COLLATERAL_SRC" \
+    GARDEN_CI_ROLLUP="$ROLLUPSTUB" CI_ROLLUP_MAP='120=0' GARDEN_CI_POST="$JOBS/post-job.sh" \
+    GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/ci-watcher.sh" "$SLUG" >/dev/null 2>"$TR/collateral.err"
+collateral_rc=$?
+set -e
+[ "$collateral_rc" -eq 0 ] \
+  && ok "collateral source rc 75 exits 0 under the live REST primary-quota latch" \
+  || bad "collateral source rc 75 exited $collateral_rc (want 0)"
+grep -q 'collateral quota failure; source discarded, skipping tick' "$TR/collateral.err" \
+  && ! grep -q 'FATAL:' "$TR/collateral.err" \
+  && ok "collateral failure is logged without reaching FATAL" \
+  || bad "collateral failure did not degrade cleanly ($(cat "$TR/collateral.err"))"
+[ "$(todo_count "$BARE_U")" -eq 0 ] \
+  && ok "partial source output is discarded without posting or advancing watcher state" \
+  || bad "collateral source output posted a shepherd despite the incomplete enumeration"
 
 # ============================================================================
 hr; echo "A — bot PR + completed-red CI → exactly one shepherd job"; hr

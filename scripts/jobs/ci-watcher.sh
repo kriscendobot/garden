@@ -461,6 +461,18 @@ repo_is_definitively_gone() {
   return 1
 }
 
+# A source failure the classifiers below cannot attribute is still the REST
+# primary-quota outage when a sibling latched it after this tick passed the
+# api_cooldown_active check above. The losing source may report only an admission
+# refusal (rc 75 with no quota text) or a truncated page. Discard SRC and stop
+# before the repo probe or stale-shepherd sweep: the latch owner already warned,
+# and no state derived from an incomplete PR enumeration is safe to advance.
+quota_degrade_if_latched() {
+  api_primary_quota_cooldown_active rest || return 0
+  log "ci PR source failed (rc=$src_rc) under the live host-shared primary-quota cooldown: collateral quota failure; source discarded, skipping tick"
+  exit 0
+}
+
 if [ "$src_rc" -ne 0 ]; then
   sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
   # A transient connectivity failure (GitHub outage, DNS blip, TLS/read timeout)
@@ -498,6 +510,7 @@ if [ "$src_rc" -ne 0 ]; then
     fi
     exit 0
   fi
+  quota_degrade_if_latched
   if repo_is_definitively_gone; then
     log "REPO GONE: $repo returns a definitive repo-level error (${REPO_GONE_REASON:-<no stderr>}) — the repo does not exist or is no longer readable. Deactivating this watch gracefully (exit 0) instead of failing the tick forever."
     alert_maintainer "ci-watch-repo-gone-${slug//[^A-Za-z0-9._-]/_}" \
