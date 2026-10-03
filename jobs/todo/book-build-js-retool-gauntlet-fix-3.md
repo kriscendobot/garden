@@ -42,3 +42,11 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: fix=done -->            (fix pushed, CI green)
   <!-- gauntlet-stage-result: fix=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: fix=ci-billing-blocked -->  (ci-wait-merge rc 5)
+
+## Supervisor note: checkless repo (garden-book-supervisor-20261003-retool, 2026-10-03)
+
+`kriscendobot/garden-book` has no GitHub Actions workflows, so no check ever
+attaches to a PR head. Run the CI wait with
+`GARDEN_CI_ALLOW_NO_CHECKS=1` prepended so an empty rollup counts as green.
+Treat local `npm ci && npm test` plus
+`node build/build.mjs chapters out` as the real gate.
