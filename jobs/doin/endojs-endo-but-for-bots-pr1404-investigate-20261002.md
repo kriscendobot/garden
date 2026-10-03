@@ -28,6 +28,7 @@ separately rather than trying workarounds).
 Report back with: the actual failing test name, the actual error from the log, and
 a clear real-regression-vs-flake verdict backed by evidence — not a guess.
 
+<!-- garden-provider-quota-backoff: type=usage reset-at=2026-10-03T03:00:00Z -->
 ---
 claim:
   host: endolin-garden-ece02cb4
