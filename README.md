@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T19:37:35Z_
+_As of 2026-10-03T19:40:59Z_
 
 ## Latest
 
@@ -183,6 +183,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > a maintainer step: context/operations/harden-container.md. The garden-container-hardening
 > unit stays clean meanwhile (exit 3), so it does not fail rolling-deploy canaries. After the
 > first all-pass run, any failure is treated as a regression and fails the unit.
+
+- `watchdog-self-heal-garden-ci-watcher-kriscendobot-minion-town` — from watchdog:self-heal-claude, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-self-heal-garden-ci-watcher-kriscendobot-minion-town.md)
+
+> self-heal: garden-ci-watcher@kriscendobot-minion.town exited rc=1 with no scoped fix. Capture: f27836451585cf2c1d2ea0261ce84e38fcbe8bd9 (git -C /home/kris/garden/.garden-state/self-heal/journal cat-file -p f27836451585cf2c1d2ea0261ce84e38fcbe8bd9). Diagnosis: Failed to authenticate: OAuth session expired and could not be refreshed
 
 - `watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_reaper_journal.md)
 
@@ -477,18 +481,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> WATCHDOG notice — occurrence #27 (first seen 2026-10-03T05:14:59Z, latest 2026-10-03T19:35:06Z).
-> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 27 times; this is ONE
-> coalesced notice that updates in place, not 27 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-03T05:14:59Z, cleared 2026-10-03T19:39:34Z).
+> It was observed 27 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
+> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-3.md)
 
@@ -596,12 +593,11 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (10)
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261003-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-163507.md) — ---
-- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #148
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`oros-health-checkup-20261003-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-193507.md) — ---
 - [`oros-health-checkup-20261003-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-132007.md) — ---
@@ -610,16 +606,16 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (2)
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #85
-- [`build-confined-application-makers-p1-20261002-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1417
+- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #148
+- [`build-confined-application-makers-p1-20261002-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1417
 
-### tada (10715)
+### tada (10717)
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-2.md) — Cost
+- [`build-confined-application-makers-p1-20261002-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-panel-5.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-3db86d595762`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/canary-probe-endolin-garden2-5bcdff64-3db86d595762.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-4.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1.md) — Cost
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-1.md) — Cost
-- [`build-confined-application-makers-p1-20261002-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-fix-4.md) — Gauntlet fix round 4: endojs/endo-but-for-bots PR #1417
-- … and 10710 more
+- … and 10712 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
