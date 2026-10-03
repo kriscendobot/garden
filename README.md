@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T20:39:13Z_
+_As of 2026-10-03T20:49:16Z_
 
 ## Latest
 
@@ -593,8 +593,7 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-check/journal); 3 open notice(s); checker healthy
 
 ## Board
-### todo (11)
-- [`build-confined-application-makers-p1-20261002-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-confined-application-makers-p1-20261002-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1417
+### todo (10)
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
@@ -607,16 +606,16 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (2)
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #85
-- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #148
+- [`build-confined-application-makers-p1-20261002-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1417
+- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #148
 
-### tada (10727)
+### tada (10729)
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-4.md) — Cost
+- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-6.md) — Panel round 6: kriscendobot/minion.town PR #148, verdict must-fix
 - [`build-confined-application-makers-p1-20261002-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-panel-6.md) — Cost
 - [`improve-fork-watch-silent-probe-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-fork-watch-silent-probe-backoff.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-3.md) — Cost
-- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-5.md) — Cost
-- [`build-confined-application-makers-p1-20261002-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-fix-5.md) — Fix round 5 for endojs/endo-but-for-bots#1417: fixes pushed, CI green
-- … and 10722 more
+- … and 10724 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
