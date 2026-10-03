@@ -2331,6 +2331,98 @@ run_cd kriscendobot-garden "$CD_LOG3"
   && ok "the first detector after expiry emitted one fresh warning" || bad "post-expiry warning output ($(cat "$CD_LOG3"))"
 
 # ----------------------------------------------------------------------------
+# CQ — concurrent watchers: a primary-quota refusal must not fatal its siblings.
+# Three watchers on different slugs pass their api_cooldown_active check together
+# (a barrier inside each source), then ONE source hits the real primary-quota
+# refusal and latches the host-shared cooldown; the other two then fail with
+# collateral stderr no classifier recognizes (jq choking on a refused page). Before
+# the fix those two died FATAL with rc 1, which restarts their systemd units
+# (2026-10-03 15:40:06). Every watcher must exit 0 with its cursor frozen; the same
+# collateral failure with NO latch still dies loud.
+hr; echo "CQ — collateral source failures under a live primary-quota latch never fatal sibling watchers"; hr
+BARE_CQ="$TR/cq.git"; seed_bare "$BARE_CQ"
+CQ_BAR="$TR/cq-barrier"; mkdir -p "$CQ_BAR"
+CQ_COOL="$TR/cq-gh-api-cooldown"
+CQ_SOURCE="$TR/cq-source.sh"
+cat > "$CQ_SOURCE" <<'EOF'
+#!/bin/bash
+# $1 = owner/name. Each source checks in at the barrier and waits for all CQ_N, so
+# every watcher is past its head cooldown check; then the OWNER reports the
+# primary-quota refusal and the siblings fail only once its latch exists.
+repo="$1"; me="${repo//\//-}"
+: > "$CQ_BAR/$me"
+for _ in $(seq 1 400); do
+  [ "$(ls "$CQ_BAR" | wc -l)" -ge "$CQ_N" ] && break; sleep 0.05
+done
+printf '%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
+  2026-10-03T15:40:00Z pr-comment 404001 678 kriskowal \
+  "https://github.com/$repo/pull/678#issuecomment-404001" 'Please rebase.'
+if [ "$repo" = "$CQ_OWNER" ]; then
+  echo '<4>15:40:06 [comment-source] WARN: gh api repos/x/y/issues/comments RATE LIMITED by GitHub primary quota (rc=1); not retrying: gh: API rate limit exceeded for user ID 279080640 (HTTP 403)' >&2
+  exit 75
+fi
+for _ in $(seq 1 400); do
+  grep -q primary-quota "$CQ_COOL/marker" 2>/dev/null && break; sleep 0.05
+done
+echo 'jq: error (at <stdin>:0): Cannot iterate over null (null)' >&2
+exit 5
+EOF
+chmod +x "$CQ_SOURCE"
+CQ_SLUGS="endojs-endo-but-for-bots kriscendobot-garden kriscendobot-minion.town"
+run_cq() {  # run_cq <slug> <owner-repo> <n> — per-slug state, SHARED cooldown dir
+  env GARDEN_STATE="$TR/state-cq-$1" GARDEN_API_COOLDOWN_DIR="$CQ_COOL" \
+      GARDEN_API_COOLDOWN_SECS=300 GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+      JOURNAL_REMOTE="$BARE_CQ" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$CQ_SOURCE" \
+      CQ_BAR="$CQ_BAR" CQ_COOL="$CQ_COOL" CQ_OWNER="$2" CQ_N="$3" \
+      GARDEN_NO_MAINTAINER_ALERT=1 \
+      "$JOBS/comment-watcher.sh" "$1" >/dev/null 2>"$TR/cq-$1.err"
+}
+cq_cursor() {  # cq_cursor <slug>
+  env GARDEN_STATE="$TR/state-cq-$1" JOURNAL_REMOTE="$BARE_CQ" JOURNAL_BRANCH="$BRANCH" \
+    "$JOBS/cursor-get.sh" "comments/$1" | sed -n 's/^last_seen:[[:space:]]*//p' | head -1
+}
+declare -A CQ_PID CQ_RC
+for s in $CQ_SLUGS; do
+  run_cq "$s" endojs/endo-but-for-bots 3 & CQ_PID[$s]=$!
+done
+for s in $CQ_SLUGS; do
+  set +e; wait "${CQ_PID[$s]}"; CQ_RC[$s]=$?; set -e
+done
+for s in $CQ_SLUGS; do
+  [ "${CQ_RC[$s]}" -eq 0 ] \
+    && ok "concurrent watcher $s exited 0 (no unit restart)" \
+    || bad "concurrent watcher $s exited ${CQ_RC[$s]} ($(cat "$TR/cq-$s.err"))"
+  grep -q 'FATAL:' "$TR/cq-$s.err" \
+    && bad "concurrent watcher $s emitted FATAL" \
+    || ok "concurrent watcher $s did not emit FATAL"
+  [ -z "$(cq_cursor "$s")" ] \
+    && ok "concurrent watcher $s froze its cursor" \
+    || bad "concurrent watcher $s advanced its cursor ($(cq_cursor "$s"))"
+done
+grep -q primary-quota "$CQ_COOL/marker" 2>/dev/null \
+  && ok "the owner latched the host-shared primary-quota cooldown" \
+  || bad "no primary-quota latch recorded ($(cat "$CQ_COOL/marker" 2>/dev/null))"
+[ "$(cat "$TR"/cq-*.err | grep -c 'primary quota exhaustion')" -eq 1 ] \
+  && ok "exactly one watcher owns the primary-quota warning" \
+  || bad "primary-quota warning count wrong ($(cat "$TR"/cq-*.err))"
+for s in kriscendobot-garden kriscendobot-minion.town; do
+  grep -q 'collateral quota failure' "$TR/cq-$s.err" \
+    && ok "sibling $s classified its failure as collateral quota damage" \
+    || bad "sibling $s did not take the quota-degrade path ($(cat "$TR/cq-$s.err"))"
+  grep -q 'source: jq' "$TR/cq-$s.err" \
+    && bad "sibling $s leaked raw collateral stderr" \
+    || ok "sibling $s stayed quiet about the collateral stderr"
+done
+
+# Control: the identical collateral failure with no latch is still structural.
+rm -rf "$CQ_BAR" "$CQ_COOL"; mkdir -p "$CQ_BAR"
+set +e; run_cq kriscendobot-garden nobody/owner 1; cq_ctl_rc=$?; set -e
+[ "$cq_ctl_rc" -ne 0 ] && grep -q 'FATAL:' "$TR/cq-kriscendobot-garden.err" \
+  && ok "without a primary-quota latch the same source failure still dies loud" \
+  || bad "unlatched structural failure was swallowed (rc=$cq_ctl_rc)"
+
+# ----------------------------------------------------------------------------
 # RCF2 — WATCHER-level freeze-then-recover: a tick whose source fails (a surface
 # blip) must NOT advance the cursor; a subsequent HEALTHY tick then observes the
 # previously-un-enumerated inline review comment and posts its job. This closes the

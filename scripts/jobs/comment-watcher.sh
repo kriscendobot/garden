@@ -1752,6 +1752,20 @@ run_source() {
   fi
 }
 
+# A source failure the classifiers below cannot attribute is still the primary-quota
+# outage when a live host-shared primary-quota latch covers this REST watcher: a
+# sibling that passed the api_cooldown_active check above just before another tick
+# latched the quota sees only collateral damage (an admission refusal with no
+# stderr, a truncated page jq cannot parse). The 2026-10-03 15:40:06 refusal fataled
+# two sibling watchers this way and restarted their units. Freeze the cursor (we
+# exit before SRC is read) and skip quietly: the latch's owner already warned.
+quota_degrade_if_latched() {  # quota_degrade_if_latched <context>; exits 0 when latched
+  api_primary_quota_cooldown_active rest || return 0
+  comment_heartbeat_outcome=cooldown
+  log "comment source failed$1 (rc=$src_rc) under the live host-shared primary-quota cooldown — collateral quota failure; cursor frozen, skipping tick"
+  exit 0
+}
+
 run_source
 if [ "$src_rc" -ne 0 ]; then
   # EX_TEMPFAIL is an explicit source contract: enumeration is incomplete, so
@@ -1827,10 +1841,12 @@ if [ "$src_rc" -ne 0 ]; then
         log "WARN: comment source auth failed twice (persistent 401) — skipping tick; cursor frozen"
         exit 0
       fi
+      quota_degrade_if_latched " on auth retry"
       die "comment source failed for $repo on auth retry (rc=$src_rc; see source stderr above)"
     fi
     # Retry succeeded: fall through and process its complete source output normally.
   else
+    quota_degrade_if_latched ""
     sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
     die "comment source failed for $repo (rc=$src_rc; see source stderr above)"
   fi

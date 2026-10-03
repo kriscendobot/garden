@@ -1027,6 +1027,32 @@ api_cooldown_active() {  # api_cooldown_active [all|rest|graphql]; rc 0 = a live
   ) 9>"$GARDEN_API_COOLDOWN_LOCK"
 }
 
+# api_primary_quota_cooldown_active [all|rest|graphql] — rc 0 = a live window covering
+# the caller was latched for a GitHub PRIMARY-quota refusal (its tag names
+# `primary-quota`, whether a watcher or gh_api_retry's admission recorded it). A
+# watcher whose source failed in a way it cannot classify consults this before dying:
+# a sibling that passed its own api_cooldown_active check moments before the latch
+# was written sees collateral failures (an admission refusal with no stderr, a jq
+# parse of a truncated page) that are the same outage, not a structural fault.
+api_primary_quota_cooldown_active() {
+  local need="${1:-all}" secs markers st rest tag
+  secs="$(_api_cooldown_secs)"
+  [ "$secs" -gt 0 ] || return 1
+  case "$need" in
+    rest) markers=("$GARDEN_API_COOLDOWN_MARKER") ;;
+    *)    markers=("$GARDEN_API_COOLDOWN_MARKER" "$GARDEN_API_COOLDOWN_GRAPHQL_MARKER") ;;
+  esac
+  mkdir -p "$GARDEN_API_COOLDOWN_DIR"
+  st="$(
+    flock 9
+    _api_cooldown_live_locked "${markers[@]}"
+  ) 9>"$GARDEN_API_COOLDOWN_LOCK")" || return 1
+  rest="${st#*$'\t'}"
+  tag="${rest%%$'\t'*}"
+  case "$tag" in *primary-quota*) return 0 ;; esac
+  return 1
+}
+
 # _api_cooldown_live_locked <marker>... — the lock-free core of api_cooldown_active.
 # The CALLER must already hold the cooldown flock (never re-take it here: a second
 # open of marker.lock would block on the caller's own lock). rc 0 = some marker is
