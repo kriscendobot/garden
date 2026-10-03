@@ -92,3 +92,13 @@ section for anything that's a real maintainer call rather than an engineering
 judgment call (per `roles/designer/AGENT.md` operating norms — this repo's own
 convention is direct-to-`main2` unless open questions require a review PR).
 Do not implement in this job; a build job follows once the design lands.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T04:33:53Z
