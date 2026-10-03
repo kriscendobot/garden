@@ -80,6 +80,7 @@ Do not attempt to build or publish the book yourself — that's the
 follow-up job's work, once your PR merges and it reads your manifest.
 Report the PR URL plainly in your completion report.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
