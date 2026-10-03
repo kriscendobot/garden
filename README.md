@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T21:57:50Z_
+_As of 2026-10-03T22:05:51Z_
 
 ## Latest
 
@@ -602,7 +602,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.015884s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 2 open notice(s); checker healthy
+worst fetch p95 8.153445s/45s (/home/kris/garden/.garden-state/inbox/kriscendobot-minion.town-pr85-gauntlet-20261003-clean/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (10)
@@ -617,17 +617,16 @@ worst fetch p95 6.015884s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (2)
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #85
-- [`improve-cursor-push-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-cursor-push-recovery.md) — ---
+### doin (0)
+(none)
 
-### tada (10741)
+### tada (10743)
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-6.md) — Cost
+- [`improve-cursor-push-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-cursor-push-recovery.md) — Cost
 - [`oros-health-watch-20261003-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/oros-health-watch-20261003-215006.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-6.md) — Cost
 - [`claude-on-minion-town-completion-press-20261003-215006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/claude-on-minion-town-completion-press-20261003-215006.md) — Cost
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-5.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-0f66db1f2d88`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/canary-probe-endolin-garden2-5bcdff64-0f66db1f2d88.md) — rolling-deploy canary probe — round trip OK
-- … and 10736 more
+- … and 10738 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
