@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T18:33:51Z_
+_As of 2026-10-03T18:36:38Z_
 
 ## Latest
 
@@ -459,6 +459,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 0 -> 1 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=2 target=1
 
+- `build-confined-application-makers-p2-makefromtree-20261003-gauntlet-review-budget-reached` — from gauntlet:build-confined-application-makers-p2-makefromtree-20261003-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-review-budget-reached.md)
+
+> INFO: Gauntlet build-confined-application-makers-p2-makefromtree-20261003-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
+
 - `ebfb-petname-path-only-gauntlet-review-budget-reached` — from gauntlet:ebfb-petname-path-only-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-petname-path-only-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet ebfb-petname-path-only-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
@@ -604,13 +608,13 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`build-confined-application-makers-p1-20261002-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1417
 - [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #148
 
-### tada (10705)
+### tada (10706)
+- [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p2-makefromtree-20261003-gauntlet.md) — gauntlet build-confined-application-makers-p2-makefromtree-20261003-gauntlet ...
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-6.md) — Gauntlet fix round 6 for endojs/endo-but-for-bots#1419: fixes pushed, CI green
 - [`improve-validate-auth-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-validate-auth-recovery.md) — Cost
 - [`claude-on-minion-town-press-20261003-180508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/claude-on-minion-town-press-20261003-180508.md) — Cost
 - [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-2.md) — Cost
-- [`build-confined-application-makers-p1-20261002-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-panel-4.md) — Cost
-- … and 10700 more
+- … and 10701 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
