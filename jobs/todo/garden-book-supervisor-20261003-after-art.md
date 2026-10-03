@@ -1,10 +1,9 @@
 ---
-gate: blocked
-blocked_on: book-codex-illustrations
-priority: normal
-posted_by: producer
-posted_at: 2026-10-03T05:39:44Z
+role: orchestrator
+tier: mentor
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-03T06:06:04Z cleared=none -->
 
 ---
 role: orchestrator
