@@ -29,6 +29,7 @@ PR: https://github.com/kriscendobot/garden-book/pull/3
 Head: kriscendobot/garden-book (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
