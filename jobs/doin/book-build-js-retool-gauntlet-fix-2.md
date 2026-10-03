@@ -48,3 +48,13 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 `kriscendobot/garden-book` has **no GitHub Actions workflows**, so no check ever attaches to a PR head. That is verified: `.github/workflows` is absent and the rollup is empty. Run the CI wait as
 `GARDEN_CI_ALLOW_NO_CHECKS=1 GARDEN_CI_DEADLINE_SECS=3600 scripts/jobs/gardening/ci-wait-merge.sh kriscendobot/garden-book 6 --no-merge` (or the equivalent wait in your stage instructions, with the override env prepended)
 so an empty rollup counts as green rather than looping to a still-pending halt. The repo's real check is local. Run `npm ci && npm test` in your checkout, plus `node build/build.mjs` (or the README's build command), and treat a failure there as RED.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T08:32:01Z
