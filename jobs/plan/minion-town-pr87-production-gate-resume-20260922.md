@@ -64,3 +64,11 @@ local run) and whether credentials/entitlement are provided.
 <!-- garden-annotation: key=pr87-merged-before-production-gate by=gardener at=2026-09-22T03:23:45Z -->
 
 State change observed 2026-09-22T03:13:57Z: PR #87 was merged as merge commit `287af35b9a1b168f7fcb4375c0c79b2721b9e9e4` by a concurrently running conductor, despite the production-reality gate remaining open. The successor still owns the unresolved top-level review ask, but must now treat integration of the chosen real backend and genuine end-to-end production evidence as post-merge remediation (most likely a follow-up PR), then post the evidence back to PR #87. Do not attempt to un-draft or merge #87; it is already merged. Inline fixture ask remains resolved by `8a0bf2bb02769b4e7d91d94003f38388d51163d4` and reply `4067792020`.
+
+<!-- garden-annotation: key=3990f2b532d4 by=producer at=2026-10-03T04:17:26Z -->
+
+Maintainer decision (kriskowal, liaison session 2026-10-03), answering the gate's `maintainer_question`:
+
+(a) **Backend: Claude CLI (Track A)** — kriscendobot/minion.town#105 is the production provider to integrate, not the Agent SDK track. Do not re-run the failed SDK track for a comparison; proceed directly with CLI.
+(b) endo#1015 (@endo/claude confinement core) merged 2026-09-29 — this part of the gate is cleared, no longer a blocker.
+(c) **Evidence bar: deployed AWS host + real guest subscription.** A local authorized run is not sufficient; evidence must come from the deployed minion.town exercising the real setup-token credential path end to end.
