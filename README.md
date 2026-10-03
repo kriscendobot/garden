@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T20:06:00Z_
+_As of 2026-10-03T20:09:07Z_
 
 ## Latest
 
@@ -608,22 +608,22 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`oros-health-checkup-20261003-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-193507.md) — ---
 - [`oros-health-checkup-20261003-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-132007.md) — ---
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #85
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
+- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #148
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (2)
 - [`build-confined-application-makers-p1-20261002-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1417
-- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #148
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #85
 
-### tada (10720)
+### tada (10721)
+- [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-5.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-2.md) — Gauntlet FIX round 2: kriscendobot/minion.town PR #85
 - [`improve-ci-watcher-quota-collateral`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-ci-watcher-quota-collateral.md) — Cost
 - [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-4.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-panel-2.md) — Cost
-- [`build-confined-application-makers-p1-20261002-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p1-20261002-gauntlet-panel-5.md) — Cost
-- … and 10715 more
+- … and 10716 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
