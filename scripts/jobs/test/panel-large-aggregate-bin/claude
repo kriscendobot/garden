@@ -1,0 +1,9 @@
+#!/bin/bash
+# A fake `claude` for panel-large-aggregate-decider-test.sh. It stands in for the
+# foreperson decider: it records its argv byte count and the bytes it read on
+# stdin, then answers `pass` in the --output-format json shape panel.sh parses.
+# Kept as a committed file because the test scratch is a noexec mount.
+set -uo pipefail
+printf '%s' "$*" | wc -c > "$LARGE_AGG_OUT/argv-bytes"
+wc -c > "$LARGE_AGG_OUT/stdin-bytes"
+printf '{"structured_output":{"disposition":"pass"}}\n'

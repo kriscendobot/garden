@@ -647,11 +647,14 @@ decide_disposition() {  # decide_disposition <aggregate-file> -> must-fix | pass
   decide_model="$(seat_model_flag decider)"
   [ -n "$decide_model" ] && decide_args=(--model "$decide_model")
   schema='{"type":"object","properties":{"disposition":{"type":"string","enum":["pass","must-fix"]}},"required":["disposition"],"additionalProperties":false}'
-  raw="$(cd "$wt" && claude -p "${decide_args[@]}" "${panel_budget_args[@]}" --output-format json --json-schema "$schema" --dangerously-skip-permissions "You are the gardener acting as panel foreperson on PR #$pr. Below \
+  # The prompt goes on STDIN, never argv: a 30-seat aggregate routinely exceeds
+  # the kernel's 128 KiB single-argument cap (MAX_ARG_STRLEN), and exec then fails
+  # with "Argument list too long" on every retry (endo-but-for-bots#1419, 194 KB).
+  raw="$( { printf '%s' "You are the gardener acting as panel foreperson on PR #$pr. Below \
 are the jury seats' verdict blocks. Apply the disposition rubric: any concrete \
 request-changes finding is 'must-fix' and blocks the panel; otherwise the panel \
-passes. Answer with exactly one word: 'must-fix' or 'pass'. Verdicts: \
-$(cat "$agg")" )"
+passes. Answer with exactly one word: 'must-fix' or 'pass'. Verdicts: "; cat "$agg"; } \
+    | ( cd "$wt" && claude -p "${decide_args[@]}" "${panel_budget_args[@]}" --output-format json --json-schema "$schema" --dangerously-skip-permissions ) )"
   jq -er '.structured_output.disposition | select(.=="pass" or .=="must-fix")' <<<"$raw"
 }
 
@@ -669,10 +672,12 @@ appellate_pass() {  # appellate_pass <aggregate-file> -> proposals (to run dir)
   local appellate_model appellate_args=()
   appellate_model="$(seat_model_flag appellate)"
   [ -n "$appellate_model" ] && appellate_args=(--model "$appellate_model")
-  ( cd "$wt" && claude -p "${appellate_args[@]}" "${panel_budget_args[@]}" --dangerously-skip-permissions "You are the appellate on PR #$pr. Read the panel's passing verdict \
+  # Prompt on STDIN for the same MAX_ARG_STRLEN reason as decide_disposition.
+  { printf '%s' "You are the appellate on PR #$pr. Read the panel's passing verdict \
 and, conservatively, list any small-and-in-context follow-up/acknowledge items \
 that should be promoted to summary-fix before un-draft. Be terse; silence is a \
-valid output. Verdict: $(cat "$agg")" ) 2>/dev/null || true
+valid output. Verdict: "; cat "$agg"; } \
+    | ( cd "$wt" && claude -p "${appellate_args[@]}" "${panel_budget_args[@]}" --dangerously-skip-permissions ) 2>/dev/null || true
 }
 
 # --- PLUGGABLE HOOK: fixer invocation (non-terminating rounds) ---------------
