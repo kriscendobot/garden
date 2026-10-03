@@ -1,4 +1,5 @@
 ---
+child-ebfb-daemon-test-flakes-20261003-host: endolin-garden-ece02cb4
 order: parallel
 children: ebfb-daemon-test-flakes-20261003 ebfb-red-ci-gauntlets-resume-20261003
 on-child-failure: continue
