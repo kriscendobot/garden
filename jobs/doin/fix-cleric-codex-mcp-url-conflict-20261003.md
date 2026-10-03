@@ -39,3 +39,13 @@ Do:
 4. Undo the stop: `scripts/jobs/set-budget-pool.sh codex-endolin 100 codex-cli-rate-limit --kind percent`.
 5. Revive each job above EXCEPT the kriscendobot-garden-book-pr*-conduct/review jobs (the garden-book supervisor owns merges and reviews there; leave those parked) that the failure doomed or parked (`promote-plan.sh --maintainer <base>`
    for go-ahead-parked ones; re-post any that vanished), and report the list.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T05:19:20Z
