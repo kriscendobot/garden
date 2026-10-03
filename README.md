@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T19:14:22Z_
+_As of 2026-10-03T19:21:22Z_
 
 ## Latest
 
@@ -232,6 +232,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/leader/journal: packs 1024 >= 1000; size=320389120B packs=1024 gc.log=0; automatic remedy=applied.
 
+- `msg-kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1-e6934c5e499a` — from gardener:kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1, reply_to `kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr85-gauntlet-20261003-fix-1-e6934c5e499a.md)
+
+> Security finding, live on minion.town and older than [https://github.com/kriscendobot/minion.town/pull/85](https://github.com/kriscendobot/minion.town/pull/85) (surfaced by that PR's panel, breaker and wire-watcher seats):
+>
+> A clip's hash is base32 of its @sites directory's daemon formula number. The node suffix can be read from any guest's own @self. On the pinned daemon (endo-but-for-bots 1706e632), a guest's storeIdentifier and lookupById accept any formula id. So any guest that knows a clip URL can, through its own evaluate, reach that clip's directory. From there it can read the publisher's `back` power and rebind it, without any upgrade capability. The powers plane reads `back` live for every session, so a rebind takes effect on the next visitor. Served content is not affected, because only the app writes the fs vhost record.
+>
+> The PR does not cause this and cannot close it: moving the back write into an operator-held authority leaves the directory just as reachable. I documented it as residual R3 in daemon-site-registry.ts and in the PR body, and I corrected the claim that "authority is the capability".
+>
+> Real fixes need your call: (a) a clip id that does not designate the directory (the fresh-id/nonce-locator direction of [https://github.com/kriscendobot/minion.town/pull/88](https://github.com/kriscendobot/minion.town/pull/88)), or (b) the daemon gating guest storeIdentifier/lookupById on ids the guest was not given. I have not posted a job for either.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_gardener_scaler_journal` has CLEARED (first seen 2026-10-03T10:05:05Z, cleared 2026-10-03T10:28:38Z).
@@ -298,11 +308,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #32 (first seen 2026-10-03T05:02:31Z, latest 2026-10-03T18:44:27Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 32 times; this is ONE
-> coalesced notice that updates in place, not 32 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-03T05:02:31Z, cleared 2026-10-03T19:15:09Z).
+> It was observed 32 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 914 of 914 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
 
 - `msg-accountant-reslice-20261003-resume2-035809b21719` — from gardener:accountant-reslice-20261003-resume2, reply_to `accountant-reslice-20261003-resume2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-reslice-20261003-resume2-035809b21719.md)
 
@@ -477,8 +487,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-03T05:14:59Z, cleared 2026-10-03T18:39:27Z).
-> It was observed 25 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-03T05:14:59Z, cleared 2026-10-03T19:19:31Z).
+> It was observed 26 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
@@ -581,7 +591,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 87.1M | $594.50 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 4.9M _(+118.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 4.9M _(+118.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
