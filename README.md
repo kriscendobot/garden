@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-03T03:51:40Z_
+_As of 2026-10-03T03:56:20Z_
 
 ## Latest
 
-The garden book's design pass is published — a Tufte-style margin layout (sidenotes for provenance/catalog, five growth-stage line drawings for the Roots/Planting/Catalog/Tending/Almanac parts, paper-soil-leaf palette, system fonts only), draft PR [kriscendobot/garden-book#2](https://github.com/kriscendobot/garden-book/issues/2) stacked on the copy-edit [kriscendobot/garden-book#1](https://github.com/kriscendobot/garden-book/issues/1); it also fixed `publish.py` to stop handing visitors the `sites` capability. Otherwise board activity was mostly routine job churn (accountant intake relay, a book title/audience pass) with no new PRs landed; the long list of unread maintainer messages is largely recurring infrastructure noise — the oros-studio host has been unreachable for ~22 hours and needs a person at the machine, the leader checkout is 25 commits behind and stalled on deploy, and several gauntlets (e.g. [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1398](https://github.com/endojs/endo-but-for-bots/pull/1398)) remain halted awaiting review or a fix decision.
+The garden book's design pass landed: a Tufte-style sidenote layout with five growth-stage part dividers (Roots, Planting, Catalog, Tending, Almanac), a paper/soil/leaf palette, and system-font stacks, published as draft [kriscendobot/garden-book#2](https://github.com/kriscendobot/garden-book/issues/2) stacked on the copyedit PR [kriscendobot/garden-book#1](https://github.com/kriscendobot/garden-book/issues/1); it also fixed `publish.py` to stop handing visitors the `sites` capability by default. The `accountant-budget-conversation-20260930-resume-split` orchestration completed cleanly.
+
+Several gauntlets on [endojs/endo-but-for-bots](https://github.com/endojs/endo-but-for-bots) halted and need a look: the sturdyref layers 3, 4, and 6 fix stages, the petname-path-only sweep-4, the guest-no-identifiers-locators gauntlet, the confined-application-makers build (which also doomed its orchestration after 1 of 5 children), the Claude sandbox bwrap slice, the Claude pinned-CLI-bump panel, and the Claude backends #1357 open-PR clean stage. Three gauntlets instead hit their review-budget ceiling after 6 rounds with CI green and are ready for manual merge review: the ironhorse panic-live-handle-reseat PR, the ironhorse panic-host-call-open-pr PR, and the Claude broker-catalog-pruning PR. PR [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) has a stale panel (reviewed head moved to a new commit) and needs an explicit "run the gauntlet" or manual review before it proceeds.
+
+Both leader hosts are notably behind on deploy — `endolin-garden-ece02cb4` is 25 commits / ~2 days stale (it's also the leader running every singleton producer, so newer directives aren't yet honored) and `endolin-garden2-5bcdff64` is 16 commits / ~1 day stale — both worth investigating. `oros-studio-garden-ce242c49` has been unreachable for over 22 hours with a stuck unacked reset-failed op; it needs someone at the physical machine. Two comment-watcher self-tests (`kriscendobot-test262`, `kriscendobot-vattr97`) are reporting likely-blind failures. On the budget side, the weekly accountant slate applied cleanly with a 5% unallocated reserve, immediately unblocking 31 previously-held plans.
 
 ## Parked for maintainer feedback
 
@@ -434,6 +438,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > oros-studio-garden-ce242c49 still UNREACHABLE (oros-health-watch 2026-10-03T03:05Z): heartbeat last 2026-10-02T05:08Z (~22h), last sysop-log 05:38Z (~21.5h); a reset-failed op sent 06:22Z is still unacked; fleet/health stale since 03:13Z (roll deferred, sha e036bb8e); derotated 06:05Z; checkups 045016/080511/112006/142006 all unclaimed. No new ops sent (nothing would ack). Same as the 21:26Z notice: needs a person at the machine (Docker Desktop / Mac sleep / VM).
 
+- `accountant-budget-conversation-20260930-resume-split-terminal-complete` — from orchestrator:accountant-budget-conversation-20260930-resume-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/accountant-budget-conversation-20260930-resume-split-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: accountant-budget-conversation-20260930-resume-split
+> orchestration-status: complete
+> order: serial
+> children-total: 2
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration accountant-budget-conversation-20260930-resume-split complete (serial): all 2 children reached tada without a machine-readable failure declaration.
+
 - `build-endo-claude-broker-catalog-pruning-gauntlet-review-budget-reached` — from gauntlet:build-endo-claude-broker-catalog-pruning-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-endo-claude-broker-catalog-pruning-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet build-endo-claude-broker-catalog-pruning-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
@@ -461,7 +478,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 6.1M | $32.71 _(notional, rate-card)_ | 2% of 256.0M (ok) |
+| Claude | 6.8M | $37.66 _(notional, rate-card)_ | 3% of 256.0M (ok) |
 | Codex | 20.7M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70382942 tokens/day lower bound._
@@ -470,11 +487,12 @@ _Fleet token-unlock pace: 70382942 tokens/day lower bound._
 worst fetch p95 4.005660s/45s (unknown); 1 open notice(s); checker healthy
 
 ## Board
-### todo (11)
+### todo (12)
 - [`claude-on-minion-town-press-20261003-023507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-023507.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
+- [`deadmail-20261003T035005Z-3d044a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/deadmail-20261003T035005Z-3d044a.md) — Dead-lettered message — pick up its intent
 - [`ebfb-red-ci-gauntlets-resume-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-red-ci-gauntlets-resume-20261003.md) — Resume the six gauntlets halted on red CI (endojs/endo-but-for-bots)
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1379
 - [`book-codex-illustrations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-codex-illustrations.md) — Garden book: generate illustrations and background art (Codex)
@@ -493,13 +511,13 @@ worst fetch p95 4.005660s/45s (unknown); 1 open notice(s); checker healthy
 - [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1397
 - [`ebfb-petname-path-only-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 
-### tada (10514)
+### tada (10515)
+- [`accountant-budget-conversation-20260930-resume-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/accountant-budget-conversation-20260930-resume-split.md) — orchestration accountant-budget-conversation-20260930-resume-split — complete
 - [`accountant-budget-intake-relay-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/accountant-budget-intake-relay-20261003.md) — Cost
 - [`book-title-audience-pass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/book-title-audience-pass.md) — Cost
 - [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-clean.md) — Cost
 - [`kriscendobot-minion.town-pr147-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr147-gauntlet-panel-1.md) — Cost
-- [`accountant-budget-slate-20261001-apply`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/accountant-budget-slate-20261001-apply.md) — Cost
-- … and 10509 more
+- … and 10510 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
