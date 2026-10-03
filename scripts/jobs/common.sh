@@ -5061,6 +5061,33 @@ host_liveness() {
 # an injected GARDEN_FETCH_CMD can drive the classification in tests by writing
 # the same diagnostic strings git would.
 GARDEN_FETCH_STDERR=""
+
+# Fetches run with Git's automatic maintenance disabled: an auto-detached gc can
+# outlive the repository lock, race another fleet operation, and leave a stale
+# gc.log behind if the service cgroup kills it.  That safety setting must not
+# turn every successful fetch into a permanent new pack, though.  Run the same
+# threshold check synchronously after a successful real journal fetch instead.
+# `gc --auto` is a cheap no-op below gc.autoPackLimit and the git wrapper takes
+# the clone's exclusive lock before it can compact.  Keep failures advisory: a
+# fresh journal view is still usable, while the next fetch retries maintenance.
+: "${GARDEN_JOURNAL_AUTO_GC:=1}"
+: "${GARDEN_JOURNAL_AUTO_GC_PACK_LIMIT:=50}"
+journal_auto_gc() {  # journal_auto_gc <clone>
+  local dir="$1" rc=0
+  [ "$GARDEN_JOURNAL_AUTO_GC" = 1 ] || return 0
+  # Test-injected fetches do not necessarily name a real Git repository; their
+  # contract is only the fetch outcome, not this host-maintenance side effect.
+  [ -z "${GARDEN_FETCH_CMD:-}" ] || return 0
+  if git -C "$dir" -c gc.auto=1 -c "gc.autoPackLimit=$GARDEN_JOURNAL_AUTO_GC_PACK_LIMIT" \
+      gc --auto >/dev/null 2>&1; then
+    return 0
+  else
+    rc=$?
+  fi
+  log "WARN: journal auto-gc check failed in $dir (rc=$rc); retaining fetched journal and retrying maintenance after a later fetch"
+  return 0
+}
+
 journal_fetch() {
   local dir="$1" max_age="${2:-$GARDEN_FETCH_MAX_AGE}" attempt=1 rc=0
   GARDEN_FETCH_STDERR=""
@@ -5079,7 +5106,10 @@ journal_fetch() {
     else
       if GARDEN_FETCH_STDERR="$(_journal_git_fetch "$dir" "$max_age" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
     fi
-    [ "$rc" -eq 0 ] && return 0
+    if [ "$rc" -eq 0 ]; then
+      journal_auto_gc "$dir"
+      return 0
+    fi
     # 124 = SIGTERM ended the fetch at the deadline; 137 = a SIGTERM-ignoring transport
     # child was escalated to SIGKILL by --kill-after after GARDEN_FETCH_KILL_AFTER. Both
     # are the same wall-clock-timeout kill — log them identically (and treat both as a
