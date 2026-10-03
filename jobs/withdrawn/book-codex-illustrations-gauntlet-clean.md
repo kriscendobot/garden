@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: supervisor garden-book-supervisor-20261003-after-art reviewed art-only PR #4 directly; brief says default no gauntlet and kriscendobot/garden-book has no CI checks (clean stage would loop to a halt)
+withdrawn_by: orchestrator
+withdrawn_at: 2026-10-03T06:13:28Z
+withdrawn_from: jobs/todo
+---
+
+---
 role: gardener
 handler-budget-role: shepherd
 handler-timeout: 7200
