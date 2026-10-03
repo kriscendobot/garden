@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: design-act-local-ci-screening-split
-priority: normal
-posted_by: producer
-posted_at: 2026-10-03T05:48:10Z
+role: researcher
+tier: mentor
+handler-timeout: 3600
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-03T05:49:05Z cleared=none -->
 
 ---
 role: researcher
