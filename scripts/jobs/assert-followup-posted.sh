@@ -32,8 +32,9 @@
 #         successor newly posted after this job's first claim); the section is
 #         purely INFORMATIONAL (a completed gauntlet stage's driver-owned
 #         transition, a gauntlet stage's structured failed-stage disposition
-#         that the driver halts on, or a section that only surfaces an already-raised
-#         maintainer decision closed for the fleet); or the determination is
+#         that the driver halts on, a section that only surfaces an already-raised
+#         maintainer decision closed for the fleet, or one that repeats a matching
+#         notified gauntlet review-budget terminal); or the determination is
 #         inconclusive (journal clone unavailable, or its sync failed so the
 #         board state it would read is stale).
 #   rc 1: a declared handoff names an absent successor, regardless of whether a
@@ -65,9 +66,9 @@
 #      complete-job.sh verify and record the same successor. Pre-existing and
 #      ambiguous candidates never pass.
 #
-# Three INFORMATIONAL carve-outs additionally pass without a checkable
+# Four INFORMATIONAL carve-outs additionally pass without a worker-authored
 # disposition, because they name no owed successor work (all deterministic and
-# deliberately narrow; the first and third are shared with the async sweep via
+# deliberately narrow; the first, third, and fourth are shared with the async sweep via
 # common.sh):
 #   - a completed gauntlet stage's driver-owned transition
 #     (gauntlet_driver_owns_followups);
@@ -79,7 +80,11 @@
 #     as closed for the fleet (followups_only_surface_decision) — a status-report
 #     or decision-gated job whose sole "follow-up" is a decision already in front
 #     of the maintainer. Grounding: the accepted #1310 status-report directive was
-#     wrongly blocked here for want of a checkable disposition and duplicate-retried.
+#     wrongly blocked here for want of a checkable disposition and duplicate-retried;
+#     and
+#   - a section that only repeats a named gauntlet's `review-budget-reached`
+#     terminal state when the matching coalesced gauntlet notice is already in the
+#     maintainer inbox (followups_only_repeat_gauntlet_review_budget_notice).
 #
 # Fail-toward-not-wedging on an INCONCLUSIVE read (journal clone unavailable, or a
 # failed sync that leaves only stale board state): rc 0
@@ -195,6 +200,16 @@ if ! ensure_clone "$DIR" 2>/dev/null; then
   exit 0
 fi
 sync_or_fail_open
+
+# A downstream job may accurately repeat that its named predecessor gauntlet
+# exhausted the review budget and left a human merge/review decision. gauntlet.sh
+# already sent that decision through a stable, coalesced maintainer notice. Match
+# the section to that exact structured notice; this is informational, not a
+# second inbox obligation from the downstream job.
+if followups_only_repeat_gauntlet_review_budget_notice "$DIR" "$section"; then
+  log "gate: '$base' follow-up section repeats a matching notified gauntlet review-budget terminal; informational, not blocking"
+  exit 0
+fi
 
 # 4. INBOX — the checkable non-board-postable disposition: a maintainer-inbox
 #    message the worker actually sent, tagged reply_to=<base>.

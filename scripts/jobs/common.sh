@@ -6964,6 +6964,69 @@ followups_only_surface_decision() {
   return 0
 }
 
+# followups_only_repeat_gauntlet_review_budget_notice <clone-dir> <section-text>
+# — 0 iff the entire follow-up section only repeats a staged gauntlet's
+# `review-budget-reached` terminal disposition AND the maintainer inbox contains
+# the matching coalesced notice emitted by gauntlet.sh. This is checkable evidence
+# that the human merge/review decision is already in front of the maintainer, not
+# merely a worker's claim that it was surfaced.
+#
+# The match is deliberately structural and narrow:
+#   * the section names the exact gauntlet base and its review-budget state;
+#   * inbox frontmatter has the exact stable msg_key, gauntlet sender, and
+#     coalescing count that gauntlet_notify writes; and
+#   * the notice body identifies that same gauntlet and terminal state.
+# Any additional prescriptive fleet work keeps the section actionable. Both the
+# completion-time gate and async follow-up sweep use this predicate, so a report
+# accepted as informational cannot be re-escalated after it reaches tada.
+# Grounding: the 2026-10-03 PR #85 retcon was blocked after it repeated its
+# predecessor gauntlet's already-notified review-budget decision.
+followups_only_repeat_gauntlet_review_budget_notice() {
+  local dir="${1:-}" section="${2:-}" normalized sub f key gauntlet sender count body
+  [ -d "$dir/inbox/maintainer" ] || return 1
+  normalized="$(
+    printf '%s\n' "$section" \
+      | sed -E '/^[[:space:]]*<!--/d; /^[[:space:]]*$/d' \
+      | tr '\n' ' ' \
+      | sed -E 's/^[[:space:]]*[-*][[:space:]]*//; s/[[:space:]]+/ /g; s/^[[:space:]]+//; s/[[:space:]]+$//' \
+      | tr '[:upper:]' '[:lower:]'
+  )"
+  [ -n "$normalized" ] || return 1
+  printf '%s' "$normalized" | grep -Eq 'review[ -]budget([ -]reached)?|review-budget-reached' \
+    || return 1
+
+  # A terminal gauntlet notice closes the already-spent review loop; it does not
+  # excuse a new loop, role, or job prescribed beside that status note.
+  if printf '%s' "$normalized" | grep -Eq \
+'warrant|(should|must|needs?|need to|ought to|has to|have to)[[:space:]]+(be[[:space:]]+)?(a[[:space:]]+)?(post|dispatch|conduct|shepherd|weav|rebase|retcon|schedul|run|open|file|stage)|(post|dispatch|open|file|stage|schedule|run)[[:space:]]+(a|an|the|another)[[:space:]]+|then[[:space:]]+(conduct|shepherd|weave|rebase|run)|(a[[:space:]]+)?(fresh|new|another)[[:space:]]+(conductor|shepherd|fixer|weaver|builder|gauntlet|panel|job)'; then
+    return 1
+  fi
+
+  for sub in unread read; do
+    [ -d "$dir/inbox/maintainer/$sub" ] || continue
+    for f in "$dir/inbox/maintainer/$sub"/*.md; do
+      [ -f "$f" ] || continue
+      key="$(awk '$0=="---"{exit} /^msg_key:[[:space:]]*/{sub(/^msg_key:[[:space:]]*/, ""); print; exit}' "$f")"
+      case "$key" in *-review-budget-reached) ;; *) continue ;; esac
+      gauntlet="${key%-review-budget-reached}"
+      [ -n "$gauntlet" ] || continue
+      sender="$(awk '$0=="---"{exit} /^from:[[:space:]]*/{sub(/^from:[[:space:]]*/, ""); print; exit}' "$f")"
+      [ "$sender" = "gauntlet:$key" ] || continue
+      count="$(awk '$0=="---"{exit} /^notice_count:[[:space:]]*/{sub(/^notice_count:[[:space:]]*/, ""); print; exit}' "$f")"
+      [[ "$count" =~ ^[1-9][0-9]*$ ]] || continue
+      body="$(awk 'seen{print} $0=="---"{seen=1}' "$f")"
+      printf '%s\n' "$body" \
+        | grep -Fqi "INFO: Gauntlet $gauntlet review budget reached:" \
+        || continue
+      # The report must name this exact gauntlet, not merely describe some
+      # review-budget terminal while an unrelated notice happens to exist.
+      printf '%s' "$normalized" | grep -Fqi -- "$gauntlet" || continue
+      return 0
+    done
+  done
+  return 1
+}
+
 # handoff_successor_posted <clone-dir> <successor-base> — 0 iff <successor-base> is
 # durably posted on the board in <clone-dir>: alive in the plan|todo|doin|tada
 # lifecycle, an orchestration record, or an active staged-gauntlet record. A

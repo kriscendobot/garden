@@ -75,6 +75,37 @@ inbox_put() {  # inbox_put <reply-to-base>
   git -C "$w" -c user.name=t -c user.email=t@t.invalid commit -q -m "inbox msg $base"
   git -C "$w" push -q origin HEAD:journal2
 }
+# Deposit the exact coalesced terminal notice emitted by gauntlet.sh when the
+# subjective panel/fix loop reaches its review budget.
+gauntlet_budget_notice_put() {  # <gauntlet-base> [unread|read]
+  local gauntlet="$1" sub="${2:-unread}" w="$TR/put" key
+  key="$gauntlet-review-budget-reached"
+  rm -rf "$w"; git clone -q --single-branch --branch journal2 "$TR/journal.git" "$w" >/dev/null 2>&1
+  mkdir -p "$w/inbox/maintainer/$sub"
+  {
+    printf 'from_host: test\n'
+    printf 'from: gauntlet:%s\n' "$key"
+    printf 'msg_key: %s\n' "$key"
+    printf 'notice_count: 1\n'
+    printf 'first_seen: 2026-10-03T22:08:07Z\n'
+    printf 'last_seen: 2026-10-03T22:08:08Z\n'
+    printf 'sent_at: 2026-10-03T22:08:08Z\n'
+    printf '%s\n' '---'
+    printf 'INFO: Gauntlet %s review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.\n' "$gauntlet"
+  } >"$w/inbox/maintainer/$sub/$key.md"
+  git -C "$w" add -A
+  git -C "$w" -c user.name=t -c user.email=t@t.invalid commit -q -m "gauntlet notice $gauntlet"
+  git -C "$w" push -q origin HEAD:journal2
+}
+# Deposit a completed report with caller-provided content.
+tada_report_put() {  # <base> <content-file>
+  local base="$1" content="$2" w="$TR/put"
+  rm -rf "$w"; git clone -q --single-branch --branch journal2 "$TR/journal.git" "$w" >/dev/null 2>&1
+  cp "$content" "$w/jobs/tada/$base.md"
+  git -C "$w" add -A
+  git -C "$w" -c user.name=t -c user.email=t@t.invalid commit -q -m "tada report $base"
+  git -C "$w" push -q origin HEAD:journal2
+}
 # Fresh producer clone each assertion so a prior sync cannot mask a missing artifact.
 reset_clone() { rm -rf "$GARDEN_PRODUCER_CLONE"; }
 
@@ -652,6 +683,54 @@ if "$GATE" pr-hidden-work "$JOB" "$TR/r8d.md"; then
 fi
 echo '   gate correctly blocked owed fleet work beside a surfaced decision (rc 1)'
 
+echo '== (h5) PASS: a matching coalesced gauntlet review-budget notice closes a repeated decision =='
+gauntlet_budget_notice_put kriscendobot-minion.town-pr85-gauntlet-20261003 read
+cat >"$TR/r8e.md" <<'EOF'
+Retconned the branch without changing its net tree.
+
+## Follow-ups
+- `kriscendobot-minion.town-pr85-gauntlet-20261003` reached its review budget
+  after six rounds with CI green. The PR remains draft for a human merge/review
+  decision; this retcon adds no further automated work.
+EOF
+reset_clone
+"$GATE" pr85-retcon "$JOB" "$TR/r8e.md" \
+  || fail 'gate blocked a downstream report that repeated a matching notified gauntlet review-budget terminal'
+echo '   gate matched the named gauntlet to its coalesced terminal notice'
+
+echo '== (h6) BLOCK: an absent or unrelated gauntlet notice does not close the follow-up =='
+sed 's/pr85-gauntlet-20261003/pr86-gauntlet-20261003/' "$TR/r8e.md" >"$TR/r8f.md"
+reset_clone
+if "$GATE" pr86-retcon "$JOB" "$TR/r8f.md"; then
+  fail 'gate accepted a review-budget note backed only by an unrelated gauntlet notice'
+fi
+echo '   gate required the notice to match the exact gauntlet named in the section (rc 1)'
+
+echo '== (h7) BLOCK: matching terminal status does not hide additional fleet work =='
+cat >"$TR/r8g.md" <<'EOF'
+Retconned the branch without changing its net tree.
+
+## Follow-ups
+- `kriscendobot-minion.town-pr85-gauntlet-20261003` reached its review budget.
+- A new gauntlet should be run after this retcon.
+EOF
+reset_clone
+if "$GATE" pr85-retcon-extra-work "$JOB" "$TR/r8g.md"; then
+  fail 'gate waved through new fleet work beside a notified gauntlet terminal'
+fi
+echo '   gate kept additional fleet work actionable (rc 1)'
+
+echo '== (h8) PASS: the async sweep also treats the notified terminal as informational =='
+rm -rf "$GARDEN_STATE/follow-up"
+GARDEN_FOLLOWUP_HANDLER=/bin/false "$JOBS/follow-up.sh" \
+  || fail 'follow-up sweep cold start failed while priming its seen marker'
+tada_report_put notified-budget-repeat "$TR/r8e.md"
+GARDEN_FOLLOWUP_HANDLER=/bin/false "$JOBS/follow-up.sh" \
+  || fail 'async sweep tried to escalate a matching notified review-budget terminal'
+grep -qxF notified-budget-repeat "$GARDEN_STATE/follow-up/seen" \
+  || fail 'async sweep did not mark the informational report seen'
+echo '   async sweep marked the report seen without invoking its failing handler'
+
 echo '== (i) PASS: a failed producer-clone sync is inconclusive, not a stale-board block =='
 # Grounding: r4 was blocked at 16:12:52 although its r5 one-time schedule was
 # committed at 16:11:55; the sync failure was discarded and the gate read a stale
@@ -676,4 +755,4 @@ grep -q 'sync failed' "$TR/r9.err" \
   || { cat "$TR/r9.err" >&2; fail 'gate did not log a diagnostic for the failed sync'; }
 echo '   gate failed open with a diagnostic on a failed sync'
 
-echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; deterministic gauntlet panel/fix transitions and structured failed stages pass; already-surfaced maintainer decisions closed for the fleet pass while owed/unsurfaced work still gates; completed clean/fix decisions are pre-forwarded with retry-safe routing and coalescing; a failed producer-clone sync fails open with a diagnostic'
+echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; deterministic gauntlet panel/fix transitions and structured failed stages pass; already-surfaced maintainer decisions and matching notified review-budget terminals closed for the fleet pass while owed/unsurfaced work still gates; completed clean/fix decisions are pre-forwarded with retry-safe routing and coalescing; a failed producer-clone sync fails open with a diagnostic'

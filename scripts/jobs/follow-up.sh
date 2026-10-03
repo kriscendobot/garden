@@ -147,7 +147,8 @@ for f in "${new[@]}"; do
   section="$(report_followups_section "$f")"
   if followups_actionable "$section" \
     && ! gauntlet_driver_owns_followups "$f" "$section" \
-    && ! followups_only_surface_decision "$section"; then
+    && ! followups_only_surface_decision "$section" \
+    && ! followups_only_repeat_gauntlet_review_budget_notice "$DIR" "$section"; then
     actionable=$((actionable+1))
     {
       printf '===== REPORT %s =====\n' "$base"
