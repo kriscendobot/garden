@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T02:22:50Z_
+_As of 2026-10-03T02:26:50Z_
 
 ## Latest
 
@@ -168,11 +168,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #15 (first seen 2026-10-02T17:51:26Z, latest 2026-10-03T02:15:05Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 15 times; this is ONE
-> coalesced notice that updates in place, not 15 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-02T17:51:26Z, cleared 2026-10-03T02:25:30Z).
+> It was observed 15 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 970 of 1059 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4` — from watchdog:root-repo-guard, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-root-repo-deploy-stalled-endolin-garden-ece02cb4.md)
 
@@ -384,7 +384,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 148454722 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 2 open notice(s); checker healthy
+worst fetch p95 5.797447s/45s (/home/kris/garden/.garden-state/regenerate-topics-counts/journal); 1 open notice(s); checker healthy
 
 ## Board
 ### todo (22)
