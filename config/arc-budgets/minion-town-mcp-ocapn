@@ -4,9 +4,9 @@
   "arc": "minion-town-mcp-ocapn",
   "rank": 1,
   "summary": "minion.town operational over MCP and OCapN (top priority)",
-  "token_cap": 142500000,
+  "token_cap": 158175000,
   "window": "week",
   "window_start": "2026-10-03T03:00:00Z",
-  "set_by": "accountant-budget-slate-20261001-apply",
-  "set_at": "2026-10-03T03:38:34Z"
+  "set_by": "accountant-weekly-20261003-160506",
+  "set_at": "2026-10-03T16:08:26Z"
 }

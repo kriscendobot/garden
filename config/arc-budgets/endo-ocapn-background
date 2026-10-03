@@ -3,10 +3,10 @@
   "status": "active",
   "arc": "endo-ocapn-background",
   "rank": 4,
-  "summary": "Background Endo/OCapN: SturdyRef (retire the formula-id/locator guest API surface), byte arrays, streams, OCapN; finishes the in-flight sturdyref stack and petname sweep",
-  "token_cap": 95000000,
+  "summary": "Background Endo/OCapN: SturdyRef, byte arrays, streams, and OCapN",
+  "token_cap": 105450000,
   "window": "week",
   "window_start": "2026-10-03T03:00:00Z",
-  "set_by": "accountant-budget-slate-20261001-apply",
-  "set_at": "2026-10-03T03:38:34Z"
+  "set_by": "accountant-weekly-20261003-160506",
+  "set_at": "2026-10-03T16:08:26Z"
 }

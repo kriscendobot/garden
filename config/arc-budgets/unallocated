@@ -4,9 +4,9 @@
   "arc": "unallocated",
   "rank": 8,
   "summary": "reserve: foreman-drawn work outside the slate",
-  "token_cap": 25000000,
+  "token_cap": 27750000,
   "window": "week",
   "window_start": "2026-10-03T03:00:00Z",
-  "set_by": "accountant-budget-slate-20261001-apply",
-  "set_at": "2026-10-03T03:38:34Z"
+  "set_by": "accountant-weekly-20261003-160506",
+  "set_at": "2026-10-03T16:08:26Z"
 }
