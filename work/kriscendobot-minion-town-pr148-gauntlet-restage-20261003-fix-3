@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-10-03T18:51:19Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-3
