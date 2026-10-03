@@ -2,7 +2,7 @@
 order: parallel
 children: ebfb-daemon-test-flakes-20261003 ebfb-red-ci-gauntlets-resume-20261003
 on-child-failure: continue
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-03T03:42:52Z
 ---
