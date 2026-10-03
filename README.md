@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-03T09:39:56Z_
+_As of 2026-10-03T09:40:49Z_
 
 ## Latest
 
-The garden-book supervisor finished the whole arc overnight: text (#1–#3), illustrations (#4–#5), and now the JavaScript generator retool ([kriscendobot/garden-book#6](https://github.com/kriscendobot/garden-book/issues/6)) are all merged, with the illustrated edition published and verified. Elsewhere, several gauntlets have stalled waiting on a human merge/review call after hitting their 6-round review budget with green CI — [endojs/endo-but-for-bots#1403](https://github.com/endojs/endo-but-for-bots/pull/1403), the sturdyref layer3 and layer6 PRs, and the ci-minion-town-actions-runner PR for [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/pull/145). The Claude-on-minion.town production push also halted: [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) (Claude CLI provider) and its prerequisite [kriscendobot/minion.town#137](https://github.com/kriscendobot/minion.town/pull/137) are both unapproved drafts blocking the canary, so [kriscendobot/minion.town#87](https://github.com/kriscendobot/minion.town/pull/87) stays parked until one of those is approved or gauntleted.
+The garden-book effort continued to dominate: the illustrated edition (merging [kriscendobot/garden-book#4](https://github.com/kriscendobot/garden-book/issues/4) and [#5](https://github.com/kriscendobot/garden-book/issues/5)) and the JavaScript retool ([kriscendobot/garden-book#6](https://github.com/kriscendobot/garden-book/issues/6)) both landed and republished, with the latest edition at https://g2d5d5z6x25qmf43fhv5tm4zmv4ozbxgk5gtke3mkrydrojehaea.ocap.site/. One gardener reported having reviewed the illustration PRs itself and skipped the gauntlet, which proxy flagged as a merge/process-authority call it couldn't bless — that decision needs your sign-off. A separate budget re-slice for the book (15M tokens from the 25M reserve) is also still waiting on your explicit "approve," since a proxy tentative-approval can't substitute for your `authorized_by` on reserve apportionment.
 
-Two decisions are waiting directly on you: a proxy flagged that it can't authorize the 15M-token `garden-book` budget slice (reserve carve from the 25M unallocated pool), and oros-studio-garden-ce242c49 has been heartbeat-offline for over 24 hours with reset/restore requests unacknowledged — it needs someone at the physical machine to check Docker Desktop/sleep/VM state. Journal housekeeping continues in the background (contention watchers, pack-count guards) but nothing there needs your attention beyond the parked budget and offline-host items.
+On the gauntlet front, [endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) (ironhorse computron-parity) and the sturdyref-layer PRs (e.g. [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) are grinding through fix/panel rounds, and two gauntlets ([#1282](https://github.com/endojs/endo-but-for-bots/pull/1282)'s sibling sturdyref-layer3 and layer6 PRs) hit the 6-round review budget without converging, so they're parked for your merge call. The `minion-town-claude-cli-production-20261003` orchestration halted after its provider-conduct child declared its gated outcome unsatisfied, leaving the canary stage parked.
+
+Operationally, `oros-studio-garden-ce242c49` has been offline over 24 hours (heartbeat stale since 2026-10-02) and needs someone at the machine to check Docker Desktop/sleep/VM state — automated reset-failed/restore requests are queued but can't run until it's back. The root-repo guard also caught and auto-repaired a stray tracked edit to `roles/jurors/curator/AGENT.md` that had leaked into the deployed root checkout.
 
 ## Parked for maintainer feedback
 
@@ -311,19 +313,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >    accumulate packs if that is the root cause.
 > Land fixes directly on main2 per garden convention. Report what you changed.
 
-- `msg-claude-on-minion-town-completion-press-20261003-093509-ae22fe1161a9` — from gardener:claude-on-minion-town-completion-press-20261003-093509, reply_to `claude-on-minion-town-completion-press-20261003-093509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261003-093509-ae22fe1161a9.md)
-
-> Claude-on-minion.town completion press (arc [https://github.com/kriscendobot/garden/issues/89](https://github.com/kriscendobot/garden/issues/89)), 09:37Z tick:
->
-> 1. **minion-town-claude-cli-provider-conduct-20261003** completed but reported failure, which halted orchestration **minion-town-claude-cli-production-20261003** at child 2/3 (06:22Z). The halt was auto-surfaced, but this is the one point that needs your decision: **nothing on the board is moving it forward.**
->    - [https://github.com/kriscendobot/minion.town/pull/148](https://github.com/kriscendobot/minion.town/pull/148) (Claude CLI provider) is a draft at ec126e6 with green CI. The builder labelled it non-deliverable-probe, so no gauntlet is running on it.
->    - Its prerequisite [https://github.com/kriscendobot/minion.town/pull/137](https://github.com/kriscendobot/minion.town/pull/137) is also an unapproved draft.
->    - The production canary (minion-town-claude-cli-production-canary-20261003) is parked behind the halt.
->    - The [https://github.com/kriscendobot/minion.town/pull/87](https://github.com/kriscendobot/minion.town/pull/87) production ask stays blocked until you approve or merge both PRs, or ask for a gauntlet on PR 148, and then re-run the orchestration.
-> 2. Minor: arc press dispatch claude-on-minion-town-press-20261002-112006 has sat unclaimed in todo for ~22h. Later dispatches were claimed past it. It is harmless but likely stale; consider withdrawing it.
->
-> Otherwise healthy: ~30 arc completions in the window. No new dooms or policy-refusals, and no job went absent. The [https://github.com/endojs/endo-but-for-bots/pull/1406](https://github.com/endojs/endo-but-for-bots/pull/1406) and [https://github.com/kriscendobot/minion.town/pull/145](https://github.com/kriscendobot/minion.town/pull/145) dooms were resumed and are on fix-6, their last round. [https://github.com/endojs/endo-but-for-bots/pull/1403](https://github.com/endojs/endo-but-for-bots/pull/1403) hit its review budget with green CI and awaits a human merge decision.
-
 - `20261003T065951Z-31100f` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261003T065951Z-31100f.md)
 
 > awaiting maintainer — beyond proxy authority: gardener accountant-reslice-20261003-resume2, msgid msg-accountant-reslice-20261003-resume2-192d988f6e62.md — Budget-slice apportionment is explicitly maintainer-authority: it carves reserve funds and records `authorized_by: kriskowal`, which a proxy answer cannot satisfy even tentatively.
@@ -409,7 +398,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 66.4M | $437.73 _(notional, rate-card)_ | 26% of 256.0M (ok) |
+| Claude | 66.9M | $440.58 _(notional, rate-card)_ | 26% of 256.0M (ok) |
 | Codex | 3.1M _(+82.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 8% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
