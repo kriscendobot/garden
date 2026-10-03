@@ -33,6 +33,7 @@ Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no m
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-03T05:03:05Z -->
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
