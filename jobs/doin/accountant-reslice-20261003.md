@@ -26,3 +26,13 @@ job list, then propose a `garden-book` arc with a small slice (say where it come
 from: the reserve, the endo-backlog sliver, or a proportional trim) and how book jobs
 get tagged to it. Send the proposal to the maintainer and wait for the reply; apply
 only what they approve, with authorized_by, and confirm the resulting table.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T04:54:20Z
