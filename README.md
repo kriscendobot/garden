@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-03T03:25:40Z_
+_As of 2026-10-03T03:31:57Z_
 
 ## Latest
 
-Minion.town PR [#85](https://github.com/kriscendobot/minion.town/pull/85) got a fresh gauntlet rerun and completed cleanly this cycle, alongside steady movement on the Claude-on-minion.town press arc. Two jobs moved into active work: an investigation into the shell-command grammar PR ([endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348)) and the quota-recovery transient-classification fix. Otherwise it was a quiet board tick dominated by routine oros-studio health checks — that host remains unreachable (~22h stale heartbeat) and still needs a human at the machine — plus the usual churn of gauntlet-halt and review-budget-reached notices piling up in the maintainer inbox from the sturdyref, petname-path, and ironhorse-panic PR lines.
+The garden book's design pass landed and published — a Tufte-margin layout with growth-stage line drawings organizing the ten chapters into five parts (Roots, Planting, Catalog, Tending, Almanac), a paper/soil/leaf palette, and system-font type stacks; it's up as draft [kriscendobot/garden-book#2](https://github.com/kriscendobot/garden-book/issues/2), stacked on the copy-edit PR [kriscendobot/garden-book#1](https://github.com/kriscendobot/garden-book/issues/1), alongside a fix so `publish.py` no longer hands visitors the live "sites" capability. The `garden-book-revision-orch` orchestration completed cleanly (3/3 children). On the Endo side, gauntlet work continues across several PRs ([endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397), [#1412](https://github.com/endojs/endo-but-for-bots/pull/1412), [#1403](https://github.com/endojs/endo-but-for-bots/pull/1403), [#1379](https://github.com/endojs/endo-but-for-bots/pull/1379)), while [#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) remain the longest-waiting parked PRs needing a look.
+
+Worth flagging: the leader host is now 25 commits behind `origin/main2` and has been stalled for ~2 days, which per the watchdog means it isn't honoring anything newer than its deployed commit — a real risk of the same stale-leader pattern that previously let paused work keep running. `oros-studio-garden-ce242c49` has also been unreachable for about a day and needs someone at the machine (Docker Desktop/sleep/VM check). Several build gauntlets halted outright (`build-confined-application-makers`, `build-ci-minion-town-actions-runner`, `build-endo-claude-sandbox-bwrap-slice`, `build-endo-claude-pinned-cli-bump`, `build-endo-claude-backends-1357-open-pr`) and are parked awaiting a maintainer look.
 
 ## Parked for maintainer feedback
 
@@ -140,6 +142,20 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget-level changed endolin-garden2-5bcdff64 monk workers 1 -> 2 (target 2): subscription claude-endolin2 spend=109961313 cap=121000000 pace-bias=0.179294 window-start=2026-09-26T03:00Z(calendar) deadline=2026-10-03T03:00Z(calendar) [planned reset 2026-10-03T03:00:00Z not before calendar deadline; ignored] ceiling=4 target=2
 
+- `msg-book-design-pass-56fa92dcf06e` — from gardener:book-design-pass, reply_to `book-design-pass` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-book-design-pass-56fa92dcf06e.md)
+
+> Garden book design pass is published: https://h3ioeqplnvm5cbrxgifjjliisdzanhokdinysv3wuae2ia2xzopq.ocap.site/
+> It is draft PR [kriscendobot/garden-book#2](https://github.com/kriscendobot/garden-book/issues/2), stacked on the copy-edit PR [kriscendobot/garden-book#1](https://github.com/kriscendobot/garden-book/issues/1). Its base is a frozen snapshot, book-copyedit-913c8a7. The chapter text is unchanged.
+>
+> Design decisions and where they come from:
+> - Tufte's sidenote margin. The text is a serif column of about 65 characters. Beside it, a margin column carries each chapter's provenance, each catalog entry's source file, and each chapter's own contents list. The source lines used to link back to their own entry; they now link to the file on main2. Below 76em the notes move inline.
+> - Gardening-book structure. The ten chapters are grouped into five parts: Roots, Planting, Catalog, Tending, Almanac. Each part has a line-drawn growth stage: seed, seedling, leafy stem, bloom, seed head. The drawings carry information (where you are in the book), so they meet Tufte's test. They appear in a title-page frieze, in the sidebar, in the contents, and above each chapter. They are inline SVG with no external assets.
+> - Palette. Paper, soil, and leaf instead of tech blue. Clay is the one warm accent, used only for structural numbers (chapter, section, run-in labels). There is a matching dark scheme. Tables use horizontal rules only and may widen into the margin. Inline code has no background boxes.
+> - Type. System stacks only, because the CSP forbids webfonts: Iowan or Palatino for reading, Gill Sans or Candara for headings and labels. Chapter titles use a regular-weight serif, and figures are old-style.
+> - Phones. The sidebar becomes a slim sticky bar with the title and a link to the contents.
+> - Fix. publish.py now publishes with an inert, empty pet name as powers, not "sites". Passing "sites" would hand every visitor the sites capability.
+> The part names are an editorial call, set in PARTS in build.py.
+
 - `msg-oros-health-watch-20261003-000506-599843334b8b` — from gardener:oros-health-watch-20261003-000506, reply_to `oros-health-watch-20261003-000506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261003-000506-599843334b8b.md)
 
 > oros-studio-garden-ce242c49 UNREACHABLE (watch run 2026-10-03T03:2xZ): heartbeat stale ~22h (last 2026-10-02T05:15Z), sysop-log last activity 2026-10-02T05:35Z, derotated heartbeat-offline since 06:05Z, fleet/health last 03:13Z (deployed e036bb8e, roll deferred). Checkups 045016/080511/112006/142006 all unclaimed in todo. A reset-failed op (msgs/host/.../20261002T062213Z-e32ec4) is still queued unacked; no new ops sent since the sysop is not ticking. Needs a person at the Mac: wake it / check Docker Desktop / the container.
@@ -191,6 +207,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+
+- `garden-book-revision-orch-terminal-complete` — from orchestrator:garden-book-revision-orch-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/garden-book-revision-orch-terminal-complete.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: garden-book-revision-orch
+> orchestration-status: complete
+> order: serial
+> children-total: 3
+> children-failed: 0
+> failed-children: 
+> recovered-children: 
+>
+> Orchestration garden-book-revision-orch complete (serial): all 3 children reached tada without a machine-readable failure declaration.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-4.md)
 
@@ -420,45 +449,43 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 2.6M | $11.66 _(notional, rate-card)_ | 1% of 256.0M (ok) |
+| Claude | 3.4M | $15.02 _(notional, rate-card)_ | 1% of 256.0M (ok) |
 | Codex | 20.6M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70817700 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.579380s/45s (/home/kris/garden/.garden-state/budget-level/journal); 1 open notice(s); checker healthy
+worst fetch p95 4.005660s/45s (unknown); 1 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (11)
 - [`claude-on-minion-town-press-20261003-023507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-023507.md) — Press the Claude-on-minion.town arc forward
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
+- [`kriscendobot-minion.town-pr147-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr147-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #147
+- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1379
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
+- [`accountant-budget-slate-20261001-apply`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-budget-slate-20261001-apply.md) — ---
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
-- [`accountant-budget-conversation-20260930-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-budget-conversation-20260930-resume.md) — Deliberate overrun decomposition for accountant-budget-conversation-20260930-...
-- [`kriscendobot-minion.town-pr147-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr147-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #147
-- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1379
-- [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1397
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6-pr-write`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6-pr-write.md) — PR-write handoff for endojs/endo-but-for-bots#1392 (gauntlet fix round 6)
 - [`claude-on-minion-town-press-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261002-112006.md) — Press the Claude-on-minion.town arc forward
-- [`endojs-endo-but-for-bots-pr1412-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1412-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1412
-- [`ebfb-petname-path-only-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-gauntlet-20261003-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #85
 
 ### doin (6)
-- [`endojs-endo-but-for-bots-pr1404-investigate-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1404-investigate-20261002.md) — Confirm whether the macOS @endo/daemon failure on endojs/endo-but-for-bots#14...
 - [`endojs-endo-but-for-bots-pr1403-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1403-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1403
-- [`book-design-pass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-design-pass.md) — Design pass on the garden book
 - [`endojs-endo-but-for-bots-pr1348-shell-command-grammar`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-shell-command-grammar.md) — ---
-- [`improve-quota-recovery-transient-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-quota-recovery-transient-classification.md) — ---
 - [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1407
+- [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1397
+- [`endojs-endo-but-for-bots-pr1412-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1412
+- [`ebfb-petname-path-only-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-petname-path-only-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1390
 
-### tada (10499)
-- [`kriscendobot-minion.town-pr85-gauntlet-rerun-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-rerun-20261003.md) — Cost
-- [`oros-health-watch-20261003-030506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/oros-health-watch-20261003-030506.md) — Cost
-- [`claude-on-minion-town-completion-press-20261003-032046`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/claude-on-minion-town-completion-press-20261003-032046.md) — Cost
-- [`oros-health-watch-20261003-000506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/oros-health-watch-20261003-000506.md) — Cost
-- [`claude-on-minion-town-completion-press-20261002-212012`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/claude-on-minion-town-completion-press-20261002-212012.md) — Cost
-- … and 10494 more
+### tada (10507)
+- [`garden-book-revision-orch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/garden-book-revision-orch.md) — orchestration garden-book-revision-orch — complete
+- [`accountant-budget-conversation-20260930-resume`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/accountant-budget-conversation-20260930-resume.md) — Cost
+- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-viability.md) — Cost
+- [`book-design-pass`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/book-design-pass.md) — Cost
+- [`kriscendobot-minion.town-pr85-gauntlet-20261003-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-viability.md) — Cost
+- … and 10502 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
