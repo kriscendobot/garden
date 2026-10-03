@@ -1,7 +1,8 @@
 ---
 role: researcher
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 # Summarize the unresolved panel objections on endojs/endo-but-for-bots#1409 for a merge decision
@@ -18,13 +19,5 @@ or taste/noise, with one line of reasoning, and a bottom-line recommendation (me
 as is / merge after a named small fix / needs redesign). Do not push to the PR and
 do not stage another gauntlet.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T05:03:58Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-03T05:23:09Z -->

@@ -1,11 +1,33 @@
 ---
+gate: go-ahead
+priority: normal
 role: conductor
-tier: mentor
-fallback-tier: minion
+tier: minion
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: deterministic
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-03T05:13:12Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-03T05:13:12Z
+---
+
+---
+role: conductor
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
-# Finalize (curate -> merge) kriscendobot/garden-book PR #3
+# Finalize (curate -> merge) kriscendobot/garden-book PR #2
 
 A trusted maintainer APPROVED this PR (the approval is still effective
 even if the head has since advanced) and the approval RECONCILER
@@ -25,17 +47,6 @@ Guards (the reconciler already enforced these; re-verify before merging):
     approval dismissed), dispatch the shepherd/fixer instead of the merge.
   - Idempotent: if the PR is already merging/merged/closed, do nothing.
 
-PR: https://github.com/kriscendobot/garden-book/pull/3
+PR: https://github.com/kriscendobot/garden-book/pull/2
 Head: kriscendobot/garden-book (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
-
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T05:02:41Z

@@ -1,11 +1,12 @@
 ---
 role: conductor
-tier: mentor
-fallback-tier: minion
+tier: minion
+model-burned: mentor
+fallback-tier: 
 dispatch: automatic
 ---
 
-# Finalize (curate -> merge) kriscendobot/garden-book PR #1
+# Finalize (curate -> merge) kriscendobot/garden-book PR #3
 
 A trusted maintainer APPROVED this PR (the approval is still effective
 even if the head has since advanced) and the approval RECONCILER
@@ -25,17 +26,9 @@ Guards (the reconciler already enforced these; re-verify before merging):
     approval dismissed), dispatch the shepherd/fixer instead of the merge.
   - Idempotent: if the PR is already merging/merged/closed, do nothing.
 
-PR: https://github.com/kriscendobot/garden-book/pull/1
+PR: https://github.com/kriscendobot/garden-book/pull/3
 Head: kriscendobot/garden-book (bot-pushable)
 Posted AUTOMATICALLY by the approval reconciler on endolin-garden-ece02cb4 (no maintainer comment).
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T05:05:25Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-03T05:23:09Z -->

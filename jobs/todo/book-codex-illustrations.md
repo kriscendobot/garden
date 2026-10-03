@@ -80,13 +80,5 @@ Do not attempt to build or publish the book yourself — that's the
 follow-up job's work, once your PR merges and it reads your manifest.
 Report the PR URL plainly in your completion report.
 
-<!-- garden-terminal-handler-failure -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-03T05:06:58Z
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-03T05:23:09Z -->
