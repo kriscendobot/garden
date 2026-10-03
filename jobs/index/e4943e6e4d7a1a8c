@@ -1,2 +1,2 @@
-base: improve-ci-primary-quota-source
+base: improve-ci-watcher-quota-collateral
 identity: mentor:scripts/jobs/ci-watcher.sh
