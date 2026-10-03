@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T00:13:36Z_
+_As of 2026-10-03T00:23:40Z_
 
 ## Latest
 
@@ -95,6 +95,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_requirements_watch_journal` cleared on endolin-garden-ece02cb4.
+
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261003-000506` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261003-000506.md)
+
+> Host-requirements gate: job 'oros-health-watch-20261003-000506' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `build-confined-application-makers-p1-20261002-gauntlet-halted` — from gauntlet:build-confined-application-makers-p1-20261002-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-confined-application-makers-p1-20261002-gauntlet-halted.md)
 
