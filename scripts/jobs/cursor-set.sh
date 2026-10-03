@@ -63,6 +63,23 @@ diagnostic_file="$(mktemp "${TMPDIR:-/tmp}/garden-cursor-set.XXXXXX")" \
   || die "cannot create cursor-write diagnostic file"
 trap 'rm -f "$diagnostic_file"' EXIT
 
+push_reject_alert_key="cursor-push-rejected-${GARDEN}-${key//[^A-Za-z0-9._-]/_}"
+
+cursor_set_clear_push_rejection() {
+  alert_maintainer_edge_clear "$push_reject_alert_key" \
+    "cursor-set on $GARDEN can advance $key again; the journal push rejection has cleared." \
+    >/dev/null 2>&1 || true
+}
+
+cursor_set_raise_push_rejection() {  # <class> <diagnostic>
+  local class="$1" diagnostic="$2"
+  if alert_maintainer_edge "$push_reject_alert_key" "$class" \
+      "cursor-set on $GARDEN cannot advance $key after deterministic remote verification: $class. ${cursor_set_reject_verdict:-The requested content was not verified remotely and no safe remote movement was established.} Cursor-driven work will replay until this receive-side rejection is repaired. Push diagnostic:
+$diagnostic"; then
+    log "cursor-set: raised deduplicated repair alert for $key ($class)"
+  fi
+}
+
 cursor_set_latch_outage() {  # <diagnostic>
   local diagnostic="$1"
   if start_journal_outage_cooldown cursor-set; then
@@ -95,16 +112,65 @@ for attempt in $(seq 1 50); do
     exit "$sync_rc"
   fi
 
+  # Remember the authoritative tip this attempt was based on. A receive-side
+  # rejection is not conclusive: the server can accept the update while the
+  # client reports failure, or another writer can move journal2 during the push.
+  # The post-rejection fetch below distinguishes both recoverable cases from a
+  # stationary remote that genuinely refused this write.
+  base_remote="$(git -C "$DIR" rev-parse "origin/$JOURNAL_BRANCH")"
+
   mkdir -p "$(dirname "$DIR/cursors/$key")"
   printf '%s\n' "$BODY" > "$DIR/cursors/$key"
+  desired_blob="$(git -C "$DIR" hash-object "$DIR/cursors/$key")"
   git -C "$DIR" add "cursors/$key"
   # Capture with `|| rc=$?` (a false `if` with no `else` is exit 0 and would
   # swallow commit_and_push's rc=2 "nothing to commit" on an idempotent re-run).
   : > "$diagnostic_file"
   rc=0; commit_and_push "$DIR" "cursor($key) advanced on $GARDEN" 2>"$diagnostic_file" || rc=$?
   push_diagnostic="$(cat "$diagnostic_file")"
-  [ "$rc" -eq 0 ] && { contention_record "$DIR" push-attempts "$attempt"; log "advanced cursor $key"; exit 0; }
-  [ "$rc" -eq 2 ] && exit 0
+  [ "$rc" -eq 0 ] && { cursor_set_clear_push_rejection; contention_record "$DIR" push-attempts "$attempt"; log "advanced cursor $key"; exit 0; }
+  [ "$rc" -eq 2 ] && { cursor_set_clear_push_rejection; exit 0; }
+
+  # A rejected push gets one deterministic fetch before it is classified. Do not
+  # trust the push's generic "failed to push some refs" trailer: first compare the
+  # exact cursor blob at the fetched remote, then compare the remote tip with the
+  # tip this attempt used. Exact content means the durable outcome already exists;
+  # a moved tip means this was safely reconcilable contention, even when a receive
+  # hook described it as a rejection. Only a stationary remote is a true refusal.
+  reject_fetch_rc=0
+  stationary_rejection=0
+  cursor_set_reject_verdict="The requested content was not verified remotely and no safe remote movement was established."
+  if [ "${GARDEN_COMMIT_PUSH_REJECTED:-0}" = 1 ]; then
+    journal_fetch "$DIR" 0 >/dev/null 2>>"$diagnostic_file" || reject_fetch_rc=$?
+  else
+    # commit_and_push reached its normal verify-after-success path already. Its
+    # fetched view and failure classification are authoritative for this attempt.
+    reject_fetch_rc="${GARDEN_VERIFY_FETCH_RC:-1}"
+  fi
+  if [ "$reject_fetch_rc" -ne 0 ]; then
+    cursor_set_reject_verdict="The post-rejection fetch failed, so the requested content and remote movement could not be verified."
+    if _fetch_stderr_is_offline "$GARDEN_FETCH_STDERR" \
+      || { [ "$reject_fetch_rc" -eq 1 ] \
+        && ! journal_diagnostic_is_definite_failure "$GARDEN_FETCH_STDERR"; }; then
+      cursor_set_latch_outage "${GARDEN_FETCH_STDERR:-$push_diagnostic}"
+    fi
+  elif [ "${GARDEN_COMMIT_PUSH_REJECTED:-0}" = 1 ]; then
+    remote_tip="$(git -C "$DIR" rev-parse "origin/$JOURNAL_BRANCH" 2>/dev/null || true)"
+    remote_blob="$(git -C "$DIR" rev-parse "origin/$JOURNAL_BRANCH:cursors/$key" 2>/dev/null || true)"
+    if [ -n "$remote_blob" ] && [ "$remote_blob" = "$desired_blob" ]; then
+      cursor_set_clear_push_rejection
+      contention_record "$DIR" push-attempts "$attempt"
+      log "reconciled cursor $key after rejected push: requested content is already remote"
+      exit 0
+    fi
+    if [ -n "$remote_tip" ] && [ "$remote_tip" != "$base_remote" ]; then
+      log "cursor-set: remote moved after rejected push of $key; reconciling and retrying"
+      backoff "$attempt"
+      continue
+    fi
+    cursor_set_reject_verdict="The fetched remote cursor does not contain the requested content and $JOURNAL_BRANCH did not move."
+    stationary_rejection=1
+  fi
 
   # A push transport failure and the verification fetch after an apparently
   # successful push are both network surfaces. Known transport signatures are
@@ -117,12 +183,33 @@ for attempt in $(seq 1 50); do
     cursor_set_latch_outage "${GARDEN_PUSH_STDERR:-${GARDEN_FETCH_STDERR:-$push_diagnostic}}"
   fi
 
+  # Preserve the existing sibling-outage contract even though deterministic
+  # rejection verification now happens before the retry boundary. A peer may
+  # have opened the host-wide cooldown while our push was in flight.
+  journal_outage_active && exit "${GARDEN_OFFLINE_RC:-75}"
+
   # Positive structural/authentication/server diagnostics must not be diluted into
   # fifty generic rc=1 retries. Re-raise them on the first observation. Unknown
   # failures retain the conservative retry behavior used by the silent-loss guard.
   combined_diagnostic="${GARDEN_PUSH_STDERR}${GARDEN_FETCH_STDERR}${push_diagnostic}"
   if journal_push_is_definite_failure "$combined_diagnostic"; then
     [ -z "$combined_diagnostic" ] || printf '%s\n' "$combined_diagnostic" >&2
+    reject_class="${GARDEN_COMMIT_PUSH_CLASS:-definite-fail}"
+    cursor_set_raise_push_rejection "$reject_class" "${GARDEN_PUSH_STDERR:-$combined_diagnostic}"
+    exit "$rc"
+  fi
+
+  # The classifier intentionally recognizes only stable Git signatures, but a
+  # successful post-rejection fetch gives stronger evidence than text parsing.
+  # If the exact cursor is absent and the remote tip is unchanged, an otherwise
+  # unfamiliar receive-side diagnostic is still a genuine stationary refusal.
+  # Preserve it and page once instead of converting it into 50 opaque retries.
+  if [ "$stationary_rejection" -eq 1 ] \
+    && [ "${GARDEN_COMMIT_PUSH_REJECTED:-0}" = 1 ] \
+    && ! journal_push_is_cas_contention "$GARDEN_PUSH_STDERR"; then
+    [ -z "$GARDEN_PUSH_STDERR" ] || printf '%s\n' "$GARDEN_PUSH_STDERR" >&2
+    cursor_set_raise_push_rejection unclassified-reject \
+      "${GARDEN_PUSH_STDERR:-${push_diagnostic:-no push diagnostic}}"
     exit "$rc"
   fi
 

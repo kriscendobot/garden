@@ -8021,6 +8021,7 @@ sync_clone() {
 # Push the journal branch. Indirected via GARDEN_PUSH_CMD so a test can inject a
 # push that "succeeds" without advancing the remote (the silent-loss case).
 GARDEN_PUSH_STDERR=""
+GARDEN_COMMIT_PUSH_REJECTED=0
 _push_journal() {
   local dir="$1" rc=0
   GARDEN_PUSH_STDERR=""
@@ -8129,6 +8130,7 @@ commit_and_push() {
   # nonzero return. Reset it on every invocation so a prior failed push can
   # never mislabel a later failure that did not reach the push stage.
   GARDEN_COMMIT_PUSH_CLASS=""
+  GARDEN_COMMIT_PUSH_REJECTED=0
   # Structural refusal: a test context must never push to production journal2.
   guard_no_production_push_in_test "$dir"
   if ! git -C "$dir" commit -q -m "$msg"; then clone_unlock "$dir"; return 2; fi
@@ -8140,6 +8142,11 @@ commit_and_push() {
       rc=1
     fi
   else
+    # Expose the actual push-stage outcome to callers that need to distinguish a
+    # receive-side rejection from a successful push whose verification fetch
+    # failed. The latter must not start a second post-rejection fetch.
+    # shellcheck disable=SC2034 # consumed by cursor-set after this function returns
+    GARDEN_COMMIT_PUSH_REJECTED=1
     # journal-contention: classify the rejection for the watch (host-local ring; never
     # fails us). Reuses the existing predicates — no new classification logic, so the
     # recorder and the retry logic in the CAS-loop callers can never drift. One record
