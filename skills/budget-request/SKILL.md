@@ -1,6 +1,6 @@
 ---
 created: 2026-09-30
-updated: 2026-09-30
+updated: 2026-10-03
 author: designer
 ---
 
@@ -40,6 +40,9 @@ files that request itself.
   `next`), `--serves N|none` (the `config/foreman-mandate` item it advances),
   `--urgency blocked|soon|whenever` (default `soon`), `--if-unfunded TEXT`,
   `--link URL`, and a one-to-three-line justification.
+  For minion.town work, `--arc` names one of the three separate slices
+  (`minion-town-mcp-ocapn`, `minion-town-git-remote`, `minion-town-ui`), never a
+  combined minion.town arc.
 
 ## Procedure
 

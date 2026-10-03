@@ -233,7 +233,7 @@ every accountant job, and closing a request is a file move.
 ---
 schema: 1
 effort: minion-town-git-remote        # dedup key; lowercase slug
-arc: minion-town-capabilities         # existing arc, or empty for "propose a new arc"
+arc: minion-town-git-remote           # existing arc, or empty for "propose a new arc"
 tokens: 15M                           # estimate for the window; may be empty only when source is not a role
 window: next                          # this | next (week, per the arc window anchor)
 serves: 1                             # foreman-mandate item number, or "none"
@@ -315,6 +315,23 @@ orchestrator briefs name the skill directly.
 The accountant's proposed slate then funds arcs in rank order up to `available`
 and names each request's proposed disposition. That judgment is the accountant's;
 the numbers above are the script's.
+
+**The standing slate (kriskowal, 2026-10-02).** The maintainer approved a ranked
+slate and directed: *"Going forward, keep distributing tokens to this ranking as
+capacity becomes available each reset, not just as a one-time apportionment."*
+The ranking is `minion-town-mcp-ocapn` 30%, `endo-ocapn-background` 20%,
+`minion-town-git-remote` 20%, `minion-town-ui` 15%, `moonshots` 8%,
+`garden-upkeep` 5%, `endo-backlog` 2% (staged gauntlets only), and a disclosed 5%
+`unallocated` reserve. minion.town is **three separate arcs**, never one combined
+arc, so a request for minion.town work names one of the three slices. The Demand
+roll-up orders by this slate's rank and judges `serves:` fit against it. The weekly
+`--carry-forward` rolls it unchanged; re-sizing the total to each reset's actual
+capacity is the weekly accountant's judgment step under the same authorization.
+Record: `journal2:projects/garden/budget-slate-20261001.md`.
+
+**Intake thresholds.** The maintainer was asked (2026-09-30) whether roles should
+file only above some token size, or only for campaigns and presses, and expressed
+no view. The filing moments in the nudge table above stand as the scope.
 
 ### Disposition and roll-forward
 

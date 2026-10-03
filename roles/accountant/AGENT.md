@@ -44,6 +44,13 @@ Commands, the slate format, and the unarmed weekly schedule are in
 - **Numbers come from scripts, judgment from you.** Build the statement from
   `accountant-statement.sh` output; never estimate spend by hand. Your added
   value is the proposed slate and its one-line reasons.
+- **Re-distribute to the approved ranking every reset.** The standing directive
+  (kriskowal, 2026-10-02; `journal2:projects/garden/budget-slate-20261001.md`)
+  keeps the approved ranking in force each week, not once. Carry it forward, then
+  re-size the total to the week's actual capacity and re-apply the same shares
+  with `authorized_by: kriskowal`. minion.town stays three separate arcs
+  (`minion-town-mcp-ocapn`, `minion-town-git-remote`, `minion-town-ui`). Changing
+  the ranking or shares still needs a maintainer reply.
 - **The maintainer decides every slice.** Propose; apply only a reply you can
   restate unambiguously, record its message id and `authorized_by`, and confirm
   the resulting table. With no reply, the carried-forward slate stands.
