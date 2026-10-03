@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: https://github.com/kriscendobot/garden-book/pull/4
-priority: normal
-posted_by: web-designer
-posted_at: 2026-10-03T06:10:30Z
+role: web-designer
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-03T06:16:11Z cleared=none -->
 
 ---
 role: web-designer
