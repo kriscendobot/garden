@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T05:42:23Z_
+_As of 2026-10-03T05:57:54Z_
 
 ## Latest
 
-The board barely moved since the last snapshot: the only visible transition was a FIX-round completion on [endojs/endo-but-for-bots#1382](https://github.com/endojs/endo-but-for-bots/pull/1382)'s Ironhorse panic-on-host-call gauntlet, which closed out its fix round and reported cost. In-flight work otherwise continues as before — gauntlet panel/fix rounds churning across several endo-but-for-bots and minion.town PRs, plus the garden-upkeep job (blind comment watchers, a comment-provenance gap, and a bloated repo-watcher journal) still in progress. The maintainer inbox has a heavier load than usual: two garden-book completion notices (text work merged and published at the ocap.site URL), a clutch of watchdog journal-clone/contention notices on the leader, a budget-pool-refuse-codex-endolin recurrence (9th occurrence, still uncalibrated), and two reaper notices parking split-eligible jobs (`improve-receipt-primary-quota-cooldown`, `garden-upkeep-watchers-provenance-20261003`) after their retries failed — both held in the plan queue awaiting a promote decision.
+The sturdyref CaptP-construct layer ([endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) exhausted its review budget at 6 fix/panel rounds — CI is green and the PR is improved, but the subjective panel review never converged, so it's parked for a manual merge/review call; a follow-on panel round is already queued for the next sturdyref layer, PR #1397's OCapN-enliven neighbor. The minion.town Claude CLI provider work advanced: PR #146 was reviewed and conducted (merged), and a job to land and deploy it on minion.town is now queued. On the garden-book side, the text PRs (kriscendobot/garden-book#1–#3) are merged and published at the new ocap.site edition, and the accountant has proposed carving a 15M-token "garden-book" budget sliver (rank 7, from the unallocated reserve) to cover the remaining illustration/build-retool work — awaiting your approval. Also worth a glance: three journal-contention/clone-size watchdogs are flagging bloated `.garden-state` clones on the leader (ci-watcher verify clones near/at the 1000-pack guard, plus a triager-pace clone), a budget-pool watchdog has been fail-closing codex-endolin claims for several days on an uncalibrated cap, and a reaper notice reports the receipt-watcher primary-quota-cooldown fix job exhausted its retries and is parked for manual promotion or splitting.
 
 ## Parked for maintainer feedback
 
@@ -101,6 +101,15 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-ocapn: packs 1000 >= 1000; size=341008384B packs=1000 gc.log=0; automatic remedy=deferred-deadline.
 
+- `watchdog-preflight-gather-fail-kriscendobot-minion.town` — from watchdog:pr-feedback-preflight, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-preflight-gather-fail-kriscendobot-minion.town.md)
+
+> pr-feedback-preflight could not gather evidence for [kriscendobot/minion.town#146](https://github.com/kriscendobot/minion.town/issues/146) (cid=5399204347) and failed open.
+> This is a tool/transport failure, not a no-evidence finding — real feedback may
+> have been processed WITHOUT the peer-resolution recheck. Reason:
+> evidence gathering failed: could not fetch pull [kriscendobot/minion.town#146](https://github.com/kriscendobot/minion.town/issues/146)
+> --- captured stderr ---
+> gh: API rate limit exceeded for user ID 279080640. If you reach out to GitHub Support for help, please include the request ID AEF8:305E37:42A151:4A4E27:6AC09649 and timestamp 2026-10-03 05:44:42 UTC. For more on scraping GitHub and how it may affect your rights, please review our Terms of Service (https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) (HTTP 403)
+
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 0 (target 0): shared codex subscription demand active=2 queue=16 quota=ok fleet-envelope=2 target=0
@@ -112,6 +121,42 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+
+- `20261003T055048Z-1f7489` — from gardener:accountant-reslice-20261003, reply_to `accountant-reslice-20261003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261003T055048Z-1f7489.md)
+
+> **Accountant: a `garden-book` budget arc (re: your 10-03 "give the garden book some budget; propose a sliver to fit it in")**
+>
+> Nothing is applied yet — I'll wait for your OK before I write anything.
+>
+> **Where the book stands on the budget today.** The book has no arc. Its jobs run unarced, so the foreman charges them to the 25M `unallocated` reserve on this week's slate (the one you approved 10-02). That works, but it is invisible: the book silently competes with every other genuinely-unarced bit of in-flight work for the same 25M, and nothing bounds or ranks it.
+>
+> **Remaining book spend, estimated.** Grounding figure: the `garden-book-supervisor` orchestrator tick on 10-03 metered ~1.05M tokens (1,044,752 cached reads + 7K output, $0.86). The Claude-side work still ahead:
+> - `book-illustrations-integrate` (web-designer) — integrate the art into chapters/build.py/styles.css
+> - `book-build-js-retool` (builder) — the build retool
+> - `garden-book-supervisor-20261003-after-art` (orchestrator, 3h handler) — supervises to completion across several ticks and drives the discretionary gauntlets + merges
+> - 3 PR review-retros (pr1/pr2/pr3), light
+> - 1–2 discretionary gauntlets on the art / integration / build PRs, plus the conduct/merges
+>
+> That lands around **~30M meter-tokens** remaining on the Claude side. `book-codex-illustrations` is the exception — it runs on the Codex/OpenAI pool, which this week's slate counts as zero, so it does not draw on the Claude arcs at all.
+>
+> **Proposal — carve `garden-book` out of the reserve, don't trim a ranked arc.**
+>
+> | | arc | this change |
+> | ---: | --- | --- |
+> | rank 7 (new) | `garden-book` | **15M**, carved from the reserve |
+> | rank 8 | `endo-backlog` | 9.5M, unchanged (shifts 7→8) |
+> | rank 9 | `unallocated` | 25M → **10M** |
+>
+> Total stays **500M**. Every ranked arc above keeps its exact slice (142.5/95/71.25/95/38/23.75M); only the reserve shrinks.
+>
+> **Why this shape:**
+> - **Source = the reserve, because the book already draws on it.** This just *names and bounds* that draw. It adds no new budget and trims no ranked arc, so it cannot slow minion.town, the git remote, the UI, background Endo, or the moonshots.
+> - **Rank 7, above `endo-backlog`.** You explicitly want the book funded; the off-mandate endo-backlog sliver is lower-want than that, so the book should win the draw ahead of it.
+> - **A sliver, paced on purpose.** ~30M is the full remaining estimate; 15M funds roughly half this week, and the rest rolls into next week's apportionment. If the supervisor needs more sooner, it files a `budget/request` and I re-slice mid-week. 10M of genuine reserve stays for other unarced spillover (deploys, retros, stray in-flight).
+>
+> **How book jobs get tagged.** The producer (you via the liaison, and the supervisor) stamps `--arc garden-book` on the `garden-book-supervisor` orchestration (promoted children inherit it) and on new book jobs; the already-posted `book-illustrations-integrate`, `book-build-js-retool`, and `book-codex-illustrations` get the arc added by re-posting them with `--arc garden-book`. That re-stamp is the producer's action — I own only the allocation layer, so I'll land the arc and mandate line, and the book jobs move onto it as they're (re)posted.
+>
+> **To approve:** reply "approve" for 15M-from-reserve at rank 7 as above, or tell me a different slice size (e.g. 20M), rank, or source (the endo-backlog sliver, or a proportional trim instead of the reserve). Then I apply it in one `set-apportionment.sh` commit with `authorized_by: kriskowal` and confirm the resulting table.
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_finbot.md)
 
@@ -176,6 +221,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > claim gate is FAIL-CLOSED on endolin-garden-ece02cb4: budget pool codex-endolin cap is UNCALIBRATED (provenance placeholder); promote a calibrated cap to admit: set-budget-pool.sh codex-endolin <weekly-token-cap> <calibrated-from>. No job will be claimed on this host until a calibrated cap is set.
 
+- `ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-review-budget-reached` — from gauntlet:ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-review-budget-reached.md)
+
+> INFO: Gauntlet ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
+
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo_but_for_bots` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo_but_for_bots.md)
 
 > Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-endo-but-for-bots: packs 1004 >= 1000; size=344269824B packs=1004 gc.log=0; automatic remedy=deferred-deadline.
@@ -195,39 +244,30 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 22.8M | $145.61 _(notional, rate-card)_ | 9% of 256.0M (ok) |
-| Codex | 951.1k _(+13.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
+| Claude | 27.5M | $182.91 _(notional, rate-card)_ | 11% of 256.0M (ok) |
+| Codex | 1.3M _(+24.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 38% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 70817700 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 4.171776s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 6 open notice(s); checker healthy
+worst fetch p95 4.171776s/45s (/home/kris/garden/.garden-state/library-source-drift-scan/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (29)
+### todo (20)
 - [`claude-on-minion-town-press-20261003-023507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-023507.md) — Press the Claude-on-minion.town arc forward
-- [`build-endo-claude-sandbox-bwrap-slice-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-sandbox-bwrap-slice-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1408
+- [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1407
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
-- [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1397
-- [`kriscendobot-minion.town-pr146-review-338999f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr146-review-338999f3.md) — Review directive on kriscendobot/minion.town PR #146
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
-- [`accountant-reslice-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/accountant-reslice-20261003.md) — Re-slice: propose a garden-book arc sliver (week of 2026-10-03T03:00Z)
-- [`improve-minion-mcp-stdio-config-replace`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-minion-mcp-stdio-config-replace.md) — ---
-- [`fu-endojs-endo-but-for-bots-pr1348-shell-command-grammar-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fu-endojs-endo-but-for-bots-pr1348-shell-command-grammar-2.md) — ---
-- [`ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer6-captp-construct-20260930-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1396
-- [`design-act-local-ci-screening`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-act-local-ci-screening.md) — Deliberate overrun decomposition for design-act-local-ci-screening
-- [`ebfb-guest-no-identifiers-locators-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-guest-no-identifiers-locators-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1404
-- [`book-codex-illustrations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-codex-illustrations.md) — Garden book: generate illustrations and background art (Codex)
 - [`ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer3-pass-style-20260930-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1392
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261003-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1391-gauntlet-20261003-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1391
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
-- [`ebfb-pr1409-panel-summary-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-pr1409-panel-summary-20261003.md) — Summarize the unresolved panel objections on endojs/endo-but-for-bots#1409 fo...
 - [`build-ci-minion-town-actions-runner-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-ci-minion-town-actions-runner-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #145
 - [`build-endo-claude-pinned-cli-bump-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-endo-claude-pinned-cli-bump-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1406
 - [`ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-sturdyref-layer4-marshal-20260930-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1393
 - [`minion-town-claude-cli-provider-conduct-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-claude-cli-provider-conduct-20261003.md) — Land and deploy the minion.town Claude CLI provider PR
+- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1379
 - [`build-confined-application-makers-p1-20261002-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-confined-application-makers-p1-20261002-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1417
 - [`ebfb-petname-path-only-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/ebfb-petname-path-only-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1390
 - [`kriscendobot-minion.town-pr147-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr147-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #147
@@ -235,21 +275,25 @@ worst fetch p95 4.171776s/45s (/home/kris/garden/.garden-state/library-source-dr
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr85-gauntlet-20261003-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #85
 - [`claude-on-minion-town-press-20261003-053508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261003-053508.md) — Press the Claude-on-minion.town arc forward
 
-### doin (6)
-- [`build-confined-application-makers-p2-scan-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p2-scan-20261003.md) — Phase 2a: capture node-modules-with-map and node-modules-scan layouts
-- [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-guest-scoped-daemon-bootstrap-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1407
+### doin (10)
 - [`endojs-endo-but-for-bots-pr1412-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1412-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1412
-- [`garden-upkeep-watchers-provenance-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-upkeep-watchers-provenance-20261003.md) — Garden upkeep on the leader: blind comment watchers, provenance gap, bloated ...
+- [`build-endo-claude-sandbox-bwrap-slice-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-endo-claude-sandbox-bwrap-slice-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1408
+- [`design-act-local-ci-screening-research`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-act-local-ci-screening-research.md) — Research: act (nektos/act) feasibility + Linux-runnable CI inventory
+- [`accountant-reslice-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/accountant-reslice-20261003.md) — Re-slice: propose a garden-book arc sliver (week of 2026-10-03T03:00Z)
 - [`ebfb-daemon-test-flakes-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-daemon-test-flakes-20261003.md) — Fix the flaky @endo/daemon test suite on endojs/endo-but-for-bots (llm)
+- [`fu-endojs-endo-but-for-bots-pr1348-shell-command-grammar-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-endojs-endo-but-for-bots-pr1348-shell-command-grammar-2.md) — ---
 - [`endojs-endo-but-for-bots-pr1403-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1403-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1403
+- [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1397
+- [`ebfb-guest-no-identifiers-locators-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-guest-no-identifiers-locators-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1404
+- [`book-codex-illustrations`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-codex-illustrations.md) — Garden book: generate illustrations and background art (Codex)
 
-### tada (10531)
-- [`endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1.md) — Cost
-- [`garden-book-supervisor-20261003-followup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/garden-book-supervisor-20261003-followup.md) — Cost
-- [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-endo-guest-scoped-daemon-bootstrap-gauntlet-fix-3.md) — Completion report
-- [`resume-halted-gauntlets-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/resume-halted-gauntlets-20261003.md) — Completion report
-- [`ebfb-pr1380-panel-summary-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-pr1380-panel-summary-20261003.md) — Panel-head freshness
-- … and 10526 more
+### tada (10544)
+- [`build-confined-application-makers-p2-mount-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p2-mount-20261003.md) — Cost
+- [`ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-1.md) — Cost
+- [`kriscendobot-minion.town-pr146-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr146-conduct.md) — Cost
+- [`ebfb-pr1409-panel-summary-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/ebfb-pr1409-panel-summary-20261003.md) — Completion report
+- [`build-endo-guest-scoped-daemon-bootstrap-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-endo-guest-scoped-daemon-bootstrap-gauntlet-panel-4.md) — Panel round 4 (single round) on endojs/endo-but-for-bots#1407: must-fix
+- … and 10539 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
