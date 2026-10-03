@@ -49,3 +49,13 @@ compute/time per push); and an explicit `## Open questions` section for genuine
 maintainer calls. Follow `roles/designer/AGENT.md`: land direct-to-`main2` if
 open questions are empty, else the review-PR carve-out. Do not implement; a
 build job follows once the design lands.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-03T06:04:06Z
