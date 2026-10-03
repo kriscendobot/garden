@@ -1,2 +1,2 @@
-base: improve-journal-fallback-warn-dedup
+base: improve-coalesce-gh-api-cooldown-warnings
 identity: mentor:scripts/jobs/common.sh
