@@ -38,3 +38,13 @@ the generator retool and the book are complete.
 
 If work remains before this job ends, post another dated successor supervisor
 with the current state. Scope is `kriscendobot/garden-book` only.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T05:36:18Z
