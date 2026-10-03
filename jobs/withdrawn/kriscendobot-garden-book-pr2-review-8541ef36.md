@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: obsolete: kriscendobot/garden-book #1-#3 merged by garden-book-supervisor-20261003 (liaison)
+withdrawn_by: liaison
+withdrawn_at: 2026-10-03T05:32:52Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: minion
