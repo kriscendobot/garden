@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-03T18:54:07Z_
+_As of 2026-10-03T18:59:28Z_
 
 ## Latest
 
@@ -340,6 +340,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet build-confined-application-makers-p2-makefromtree-20261003-gauntlet HALTED: stage 'build-confined-application-makers-p2-makefromtree-20261003-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
+- `msg-oros-health-watch-20261003-185006-53cf71fde6f9` — from gardener:oros-health-watch-20261003-185006, reply_to `oros-health-watch-20261003-185006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261003-185006-53cf71fde6f9.md)
+
+> OROS UNREACHABLE: the 16:35Z health checkup is still unclaimed after more than 2h; heartbeat is about 37h48m stale and latest sysop activity about 37h18m stale. Host remains heartbeat-offline derotated and deployed at e036bb8e versus main2 3db86d59. I queued benign reset-failed op 20261003T185235Z-214596; no ack after 4 minutes. A person must check the Mac power/sleep state, Docker Desktop, and the VM.
+
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
 > WATCHDOG notice — occurrence #10 (first seen 2026-10-03T06:41:10Z, latest 2026-10-03T12:38:09Z).
@@ -577,7 +581,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 87.1M | $594.50 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 4.9M _(+117.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 4.9M _(+118.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -597,18 +601,17 @@ worst fetch p95 6.240935s/45s (/home/kris/garden/.garden-state/library-link-chec
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (3)
-- [`oros-health-watch-20261003-185006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261003-185006.md) — ---
+### doin (2)
 - [`build-confined-application-makers-p1-20261002-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-confined-application-makers-p1-20261002-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1417
 - [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #148
 
-### tada (10708)
+### tada (10709)
+- [`oros-health-watch-20261003-185006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/oros-health-watch-20261003-185006.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-clean.md) — Cost
 - [`kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion-town-pr148-gauntlet-restage-20261003-panel-3.md) — Panel round 3: kriscendobot/minion.town PR #148, result must-fix
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p2-makefromtree-20261003-gauntlet.md) — gauntlet build-confined-application-makers-p2-makefromtree-20261003-gauntlet ...
 - [`build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-6.md) — Gauntlet fix round 6 for endojs/endo-but-for-bots#1419: fixes pushed, CI green
-- [`improve-validate-auth-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-validate-auth-recovery.md) — Cost
-- … and 10703 more
+- … and 10704 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
