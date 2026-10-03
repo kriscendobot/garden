@@ -1,0 +1,5 @@
+<6>05:07:15 [cleric/1] job 'book-codex-illustrations' resolved tier 'mentor' -> codex -m gpt-5.6-sol
+<6>05:07:15 [cleric/1] job 'book-codex-illustrations' attaching minion.town MCP (stdio bridge)
+Error loading config.toml: url is not supported for stdio
+in `mcp_servers.minion-town`
+
