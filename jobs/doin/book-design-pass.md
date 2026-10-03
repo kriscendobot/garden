@@ -75,3 +75,13 @@ per `build/README.md`. Update its Edition line (keep prior editions listed
 as history). Report the new URL, and a short account of the specific design
 decisions you made and how they trace back to the Tufte/gardening brief, in
 your completion report and via `scripts/jobs/message-user.sh <this-job-base>`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-03T03:18:20Z
