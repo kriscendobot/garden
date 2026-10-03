@@ -40,7 +40,8 @@
 #   SUBTEST 6  MODEL      — a CLI too old for the tier model parks until the
 #                           installed version changes.
 #   SUBTEST 7  AUTH       — a dead credential (matcher, latch, same-content park,
-#                           re-login recovery, codex fingerprint).
+#                           changed-invalid park, validated recovery, codex
+#                           fingerprint).
 #   SUBTEST 8  AUTH SIM   — the endolin-garden2 scenario through the real poll
 #                           loop: transient job, park after one failure, ONE
 #                           maintainer notice, self-un-park on re-login.
@@ -86,6 +87,11 @@ pick_exec_base() {
 }
 EXEC_BASE="$(pick_exec_base)" || { echo "  SKIP: no exec-allowed temp base (needed for the -x probes)"; exit 0; }
 TR="$(mktemp -d "$EXEC_BASE/garden-health-gate.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
+# Keep claim admission hermetic too: usage-meter.sh is sourced before TR exists,
+# so override its default live ~/.claude/projects sensor once the fixture root is
+# available. An empty fixture sensor makes the generous test pool read unknown
+# (fail-open), rather than inheriting this host's real subscription utilization.
+export GARDEN_CCUSAGE_LOGDIR="$TR/ccusage"; mkdir -p "$GARDEN_CCUSAGE_LOGDIR"
 
 git_id=(-c user.name=test -c user.email=test@localhost)
 
@@ -521,9 +527,23 @@ fi
 # though the binary probes healthy, reports ONCE, repeats are silent, and an
 # identical rewrite of the credential does NOT clear it.
 mkdir -p "$TR/authcli" "$TR/cc7"
-printf '#!/bin/sh\nexit 0\n' > "$TR/authcli/claude"; chmod +x "$TR/authcli/claude"
+cat > "$TR/authcli/claude" <<'CLAUDE7_EOF'
+#!/bin/sh
+if [ "${1:-} ${2:-}" = "auth status" ]; then
+  printf '%s\n' auth-status >> "${AUTH_STATUS_CALLS:?}"
+  if grep -q '"accessToken":"fresh"' "$CLAUDE_CONFIG_DIR/.credentials.json"; then
+    printf '{"loggedIn":true,"authMethod":"claude.ai"}\n'
+    exit 0
+  fi
+  printf '{"loggedIn":false}\n'
+  exit 1
+fi
+exit 0
+CLAUDE7_EOF
+chmod +x "$TR/authcli/claude"
 export GARDEN_CLAUDE_BIN="$TR/authcli/claude"
 export CLAUDE_CONFIG_DIR="$TR/cc7"
+export AUTH_STATUS_CALLS="$TR/auth-status-calls7"; : > "$AUTH_STATUS_CALLS"
 unset ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN || true
 printf '{"claudeAiOauth":{"accessToken":"dead","refreshToken":"dead"}}\n' > "$CLAUDE_CONFIG_DIR/.credentials.json"
 if [ "$(claude_credential_file)" = "$TR/cc7/.credentials.json" ]; then
@@ -570,8 +590,27 @@ else
   bad "the episode cleared without the credential content changing"
 fi
 
-# (c) the credential CHANGES (a human re-ran /login) → the gate permits,
-# clears the marker, and reports recovery exactly once.
+# (c) changed-but-still-invalid credentials fail the bounded Claude auth-status
+# probe: the gate stays parked, retains the marker, and suppresses recovery.
+printf '{"claudeAiOauth":{"accessToken":"different-but-dead","refreshToken":"also-dead"}}\n' > "$CLAUDE_CONFIG_DIR/.credentials.json"
+if worker_health_gate monk 1 2>/dev/null; then
+  bad "the gate permitted a changed credential rejected by claude auth status"
+else
+  ok "a changed-but-still-invalid credential remains parked after the Claude auth-status probe"
+fi
+if [ -d "$MARKER7" ] && [ "$(grep -c '^healthy ' "$REPORTS7" || true)" = 0 ]; then
+  ok "failed auth validation retains the marker and suppresses false recovery"
+else
+  bad "failed auth validation removed the marker or reported recovery: $(cat "$REPORTS7")"
+fi
+if [ "$(wc -l < "$AUTH_STATUS_CALLS" | tr -d ' ')" = 1 ]; then
+  ok "the changed credential was checked by claude auth status"
+else
+  bad "claude auth status call count was $(wc -l < "$AUTH_STATUS_CALLS" | tr -d ' '), expected 1"
+fi
+
+# (d) a changed credential that PASSES auth status → the gate permits, clears
+# the marker, and reports recovery exactly once.
 printf '{"claudeAiOauth":{"accessToken":"fresh","refreshToken":"fresh"}}\n' > "$CLAUDE_CONFIG_DIR/.credentials.json"
 if worker_health_gate monk 1 2>/dev/null; then
   ok "the gate permits claiming once the credential content differs from the recorded one"
@@ -587,7 +626,7 @@ else
   bad "$n7 recovery reports, expected exactly 1"
 fi
 
-# (d) the codex side fingerprints its own login file.
+# (e) the codex side fingerprints its own login file.
 export CODEX_HOME="$TR/codex7"; mkdir -p "$CODEX_HOME"
 printf '{"tokens":"old"}\n' > "$CODEX_HOME/auth.json"; fc0="$(worker_credential_fingerprint cleric)"
 printf '{"tokens":"new"}\n' > "$CODEX_HOME/auth.json"; fc1="$(worker_credential_fingerprint cleric)"
@@ -618,7 +657,19 @@ BARE8="$(seed_board "$D8" authjob-a authsimhost)"
   printf '# authjob-c\n\ndo c\n' > "$D8/add/jobs/todo/authjob-c.md"
   git -C "$D8/add" add -A && git -C "$D8/add" "${git_id[@]}" commit -q -m "two more jobs"
   git -C "$D8/add" push -q origin journal2 )
-printf '#!/bin/sh\nexit 0\n' > "$D8/bin/claude"; chmod +x "$D8/bin/claude"
+cat > "$D8/bin/claude" <<'CLAUDE8_EOF'
+#!/bin/sh
+if [ "${1:-} ${2:-}" = "auth status" ]; then
+  if grep -q fresh "$CLAUDE_CONFIG_DIR/.credentials.json"; then
+    printf '{"loggedIn":true}\n'
+    exit 0
+  fi
+  printf '{"loggedIn":false}\n'
+  exit 1
+fi
+exit 0
+CLAUDE8_EOF
+chmod +x "$D8/bin/claude"
 printf '{"claudeAiOauth":{"accessToken":"expired"}}\n' > "$D8/cc/.credentials.json"
 AUTHSTUB="$D8/auth-stub.sh"
 cat > "$AUTHSTUB" <<'AUTHSTUB_EOF'

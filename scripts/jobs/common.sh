@@ -2322,11 +2322,11 @@ worker_credential_fingerprint() {
 # on re-auth, so the marker records reason=auth-failure plus the credential
 # CONTENT fingerprint at latch time, and worker_health_gate keeps the pool parked
 # until that fingerprint CHANGES (a human re-running `claude /login` / `codex
-# login` rewrites the file), then recovers normally. Deliberately NO live API
-# call to confirm auth works: the gate must stay a cheap pre-claim check, and a
-# re-login that is somehow still broken simply reopens the episode on the next
-# failed claim. mkdir is the atomic edge exactly as in the gate: the first failed
-# handler latches and raises the ONE maintainer notice, repeats are silent.
+# login` rewrites the file). Before a Claude episode recovers, the gate also runs
+# a bounded `claude auth status` check: a rewritten credential can still carry a
+# rejected refresh token, and must not produce a false recovery/un-park. mkdir is
+# the atomic edge exactly as in the gate: the first failed handler latches and
+# raises the ONE maintainer notice, repeats are silent.
 worker_auth_failure_latch() {
   local kind="${1:?worker_auth_failure_latch: kind required}" id="${2:-0}" excerpt="${3:-}" marker fp name cure
   marker="$(worker_health_marker "$kind")"
@@ -2346,6 +2346,23 @@ worker_auth_failure_latch() {
     _worker_health_report "$kind" "$id" unhealthy "${name:-agent CLI} is installed but its credential is REJECTED${excerpt:+: \"$excerpt\"}; every claim dies in seconds on authentication. To fix: $cure — the pool un-parks by itself when the credential file changes (a restart with a new API key in the env works too)" \
       "cannot AUTHENTICATE their agent CLI"
   fi
+}
+
+# worker_auth_recovery_probe <kind> <cli> — validate a changed credential before
+# closing an auth-failure episode. Claude's auth status is the credential-aware,
+# token-free check supplied by the CLI; require both a successful exit and its
+# explicit loggedIn=true result (some versions can describe logged-out state on
+# stdout). Bound it because this runs in the pre-claim poll loop and an auth
+# endpoint must never wedge the pool. Other agent CLIs retain their existing
+# fingerprint recovery behavior; this incident and probe are Claude-specific.
+worker_auth_recovery_probe() {
+  local kind="${1:?worker_auth_recovery_probe: kind required}"
+  local cli="${2:?worker_auth_recovery_probe: cli required}" name status bound
+  name="$(worker_agent_bin "$kind" 2>/dev/null || true)"
+  [ "$name" = claude ] || return 0
+  bound="${GARDEN_AUTH_RECOVERY_PROBE_TIMEOUT:-8}"
+  status="$(_probe_bounded "$bound" "$cli" auth status --json 2>/dev/null)" || return 1
+  printf '%s\n' "$status" | grep -Eq '"loggedIn"[[:space:]]*:[[:space:]]*true([[:space:],}]|$)'
 }
 
 # worker_health_gate <kind> <id> — THE PRE-CLAIM GATE. Returns 0 when this worker
@@ -2373,13 +2390,16 @@ worker_health_gate() {
     # An AUTH-FAILURE episode likewise outlives a resolvable binary (see
     # worker_auth_failure_latch above): the CLI runs, its credential does not. It
     # closes only when the credential CONTENT differs from the fingerprint
-    # recorded at latch time — a re-login is the cure — then recovers below.
+    # recorded at latch time — a re-login is the cure. Claude must additionally
+    # confirm the changed credential through its bounded auth-status probe; a
+    # changed-but-still-invalid credential leaves the marker intact.
     if [ -d "$marker" ] && [ "$(cat "$marker/reason" 2>/dev/null)" = auth-failure ]; then
       cur="$(worker_credential_fingerprint "$kind")"
       rec="$(cat "$marker/credential-fingerprint" 2>/dev/null)"
       if [ -z "$cur" ] || [ "$cur" = "$rec" ]; then
         return 1
       fi
+      worker_auth_recovery_probe "$kind" "$cli" || return 1
     fi
     # HEALTHY. Fast path when no episode is open. When one IS open, exactly one
     # worker wins the recovery report: the rename succeeds for the first caller
@@ -2388,7 +2408,7 @@ worker_health_gate() {
       claimed="$marker.recovered.$$"
       if mv "$marker" "$claimed" 2>/dev/null; then
         case "$(cat "$claimed/reason" 2>/dev/null)" in
-          auth-failure)      rec="have a CHANGED credential (re-login detected)" ;;
+          auth-failure)      rec="have a CHANGED credential (re-login validated)" ;;
           model-unsupported) rec="have a CHANGED agent CLI version (update detected)" ;;
           *)                 rec="" ;;
         esac
