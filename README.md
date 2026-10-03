@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-03T07:34:40Z_
+_As of 2026-10-03T07:36:55Z_
 
 ## Latest
 
-The gauntlet for [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and the garden-book JS-retool stage both re-cycled through a CLEAN re-pass this tick, with no completions landing in between — routine gauntlet churn rather than new ground. Otherwise the board is quiet: the dominant activity remains the long tail of in-flight gauntlets (fix/panel rounds on PRs #1393, #1403, #1404, #1406, #1407, #1412, #1417, #1419, plus kriscendobot/minion.town #145 and #147) and the backlog of parked PRs and plan-queue items awaiting maintainer attention, unchanged since the last bulletin.
+The garden book's text edition is merged and published (https://5f7jjhj4sbxaxdbej5t7oxgarnzhmb7wq45ds3nxqnq4wtthotsq.ocap.site/), and the illustrated edition followed shortly after — art and integration landed on main with the gauntlet skipped by the supervisor's own review, now live at https://xwo4jjai3z3lqwmls3tqlxnn6fqzawktp6lskvmyywdox52c272a.ocap.site/; the JS generator retool is queued next. Two accountant jobs are stalled waiting on kriskowal specifically: a 15M-token garden-book budget slice needs the maintainer's own "approve" (a proxy tentative answer arrived but was correctly not applied, since budget authorization can't be delegated), and a proxy likewise declined to bless skipping the panel-review gauntlet on a merge. A serial orchestration (minion-town-claude-cli-production-20261003) halted after its first child declared its gated outcome unsatisfied, leaving a canary job parked pending review. Host oros-studio-garden-ce242c49 remains offline (heartbeat stale ~26h) and excluded from rolling deploys until someone checks the machine. Several gauntlets hit their 6-round review budget without converging — [endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) (sturdyref layer 4), the Claude sandbox bwrap slice, and [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (OCapN enliven) — and are ready for human merge calls. A root-repo guard caught and auto-repaired a stray tracked edit in `roles/jurors/curator/AGENT.md` before it could wedge the rolling deploy. A batch of journal clone-size guards fired across most CI-watcher repos (packs over the 1000 threshold); remedy is deferred-deadline, and a related upkeep job (watcher provenance gap + repo-watcher gc) was parked after its retry also failed, awaiting a human split or disposition call.
 
 ## Parked for maintainer feedback
 
@@ -143,6 +143,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
+> WATCHDOG notice — occurrence #2 (first seen 2026-09-09T21:05:16Z, latest 2026-10-03T07:35:25Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
 > budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=2 target=1
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ocapn` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_ocapn.md)
@@ -238,12 +242,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-comment-ack-blind-kriscendobot-minion.town` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-ack-blind-kriscendobot-minion.town.md)
 
-> WATCHDOG notice — occurrence #11 (first seen 2026-10-03T06:41:50Z, latest 2026-10-03T07:31:33Z).
-> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 11 times; this is ONE
-> coalesced notice that updates in place, not 11 messages. Latest detail:
+> WATCHDOG notice — occurrence #12 (first seen 2026-10-03T06:41:50Z, latest 2026-10-03T07:36:05Z).
+> The SAME condition (`comment-ack-blind-kriscendobot-minion.town`) has now been observed 12 times; this is ONE
+> coalesced notice that updates in place, not 12 messages. Latest detail:
 >
 > Comment acknowledgment blind anomaly for kriscendobot/minion.town:
-> [https://github.com/kriscendobot/minion.town/pull/146](https://github.com/kriscendobot/minion.town/pull/146)#discussion_r4171862063 (age=6945s; heartbeat=full-poll)
+> [https://github.com/kriscendobot/minion.town/pull/146](https://github.com/kriscendobot/minion.town/pull/146)#discussion_r4171862063 (age=7245s; heartbeat=full-poll)
 
 - `doomed-garden-upkeep-watchers-provenance-20261003-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-garden-upkeep-watchers-provenance-20261003-requeue-exhausted.md)
 
@@ -370,8 +374,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 38.0M | $231.01 _(notional, rate-card)_ | 15% of 256.0M (ok) |
-| Codex | 2.4M _(+59.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
+| Claude | 38.2M | $231.54 _(notional, rate-card)_ | 15% of 256.0M (ok) |
+| Codex | 2.4M _(+59.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 6% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
