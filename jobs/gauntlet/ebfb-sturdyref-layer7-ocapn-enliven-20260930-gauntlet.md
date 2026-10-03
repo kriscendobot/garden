@@ -12,7 +12,7 @@ created_at: 2026-09-30T08:00:30Z
 stage: fix
 iteration: 5
 resumes: 0
-stage_retries: 0
+stage_retries: 1
 current_child: ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-fix-5
 state: running
 resumed_at: 2026-10-01T03:37:01Z
