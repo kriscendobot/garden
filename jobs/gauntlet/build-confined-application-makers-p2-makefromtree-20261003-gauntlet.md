@@ -13,7 +13,7 @@ arc:
 stage: fix
 iteration: 6
 resumes: 0
-stage_retries: 0
+stage_retries: 1
 current_child: build-confined-application-makers-p2-makefromtree-20261003-gauntlet-fix-6
 state: running
 resumed_at: 2026-10-03T07:58:51Z
