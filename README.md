@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T05:57:51Z_
+_As of 2026-10-04T06:04:43Z_
 
 ## Latest
 
-The garden-book illumination arc is mid-shuffle: the produce gauntlet's fix round closed out and a revise pass ran and completed, with a fresh supervisor job now watching the post-revise state and a new post-integrate supervisor parked to pick up after the current integrate job lands. Elsewhere the board is quiet — no PR gauntlets advanced, and the long-running [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) remain the oldest items still parked for review. Oros remains offline (~46h stale heartbeat, derotated and behind main2), queuing up a week's worth of unclaimed health-checkup jobs; worth a manual look at the machine.
+Book-illumination work moved forward: the integrate stage and the chapter-illustrations build both completed, and a new supervisor job picked up to review, merge, publish, and continue the garden-book illumination arc after the integrate step. Outstanding from the maintainer inbox: oros-studio-garden-ce242c49 remains offline for its second day (46+ hours stale, still skipped by rolling deploy), oros itself is unreachable per a separate health-watch report with one benign reset-failed op queued but unacked, and a journal-contention storm hit seven clone guards at once on endolin-garden2-5bcdff64 — all flagged as awaiting a healthy post-rebuild fetch with no automatic remedy. The SturdyRef stack panel summary recommends merging [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) as-is once their predecessors land, with [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) needing a retcon first — none of the four PRs have been touched yet pending that decision. The accountant also re-sliced next week's budget allocation, adding a new 5M-token `garden-book` arc.
 
 ## Parked for maintainer feedback
 
@@ -179,13 +179,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.4M | $639.29 _(notional, rate-card)_ | 37% of 256.0M (ok) |
-| Codex | 6.7M _(+153.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 94.8M | $641.26 _(notional, rate-card)_ | 37% of 256.0M (ok) |
+| Codex | 6.7M _(+155.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.910494s/45s (/home/kris/garden/.garden-state/self-deploy/journal); 2 open notice(s); checker healthy
+worst fetch p95 4.648168s/45s (unknown); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (13)
@@ -203,19 +203,18 @@ worst fetch p95 6.910494s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (4)
-- [`garden-book-chapter-illustrations-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-book-chapter-illustrations-build.md) — ---
+### doin (3)
 - [`book-illumination-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-20261004.md) — Supervise production 1: per-chapter/section illuminated illustrations (krisce...
-- [`book-illumination-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-integrate-20261004.md) — INTEGRATE the approved illuminations into the garden-book edition (kriscendob...
 - [`improve-durable-result-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-durable-result-reconcile.md) — ---
+- [`book-illumination-supervisor-after-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-after-integrate-20261004.md) — Supervise garden-book illumination after INTEGRATE: review, merge, publish, r...
 
-### tada (10789)
+### tada (10791)
+- [`book-illumination-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-integrate-20261004.md) — Cost
+- [`garden-book-chapter-illustrations-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/garden-book-chapter-illustrations-build.md) — Cost
 - [`book-illumination-supervisor-after-revise-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-supervisor-after-revise-20261004.md) — Completion report: book-illumination-supervisor-after-revise-20261004
 - [`book-illumination-revise-20261004-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-revise-20261004-gauntlet.md) — gauntlet book-illumination-revise-20261004-gauntlet - not viable
 - [`book-illumination-produce-20261004-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004-gauntlet-fix-1.md) — Fix round 1 report: kriscendobot/garden-book PR #9
-- [`book-illumination-revise-20261004-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-revise-20261004-gauntlet-viability.md) — Cost
-- [`book-illumination-revise-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-revise-20261004.md) — Panel-head freshness
-- … and 10784 more
+- … and 10786 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -306,7 +305,6 @@ worst fetch p95 6.910494s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
-- [`book-illumination-supervisor-after-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-illumination-supervisor-after-integrate-20261004.md) — awaiting `book-illumination-integrate-20261004` · Supervise garden-book illumination after INTEGRATE: review, merge, publish, r...
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`book-hyperlink-references-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-hyperlink-references-20261004.md) — awaiting `book-illumination-and-data-orch-20261004` · Follow-up: make every reference in Better Code and Gardens an actual hyperlin...
