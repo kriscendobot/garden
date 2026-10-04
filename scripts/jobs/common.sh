@@ -401,6 +401,13 @@ export GARDEN
 # a per-tick ExecCondition from hammering the journal while staying responsive to a
 # leader change. The cache also covers a transient journal outage (stale fallback).
 : "${GARDEN_LEADER_TTL:=30}"
+# Seconds between leader-marker fetch probes while a fetch outage is open. A failed
+# fetch writes a host-shared retry marker (its first line is the epoch when the next
+# probe is due); until then every caller reuses the last-known leader instead of
+# queuing another timeout-bounded fetch, and when it falls due exactly one caller
+# (under flock) claims the probe. A successful fetch removes the marker.
+: "${GARDEN_LEADER_RETRY_BACKOFF:=60}"
+: "${GARDEN_LEADER_RETRY_MARKER:=$GARDEN_STATE/leader/retry-at}"
 # Default verdict when the leader is wholly UNDETERMINABLE (no env override, no
 # readable marker, no cache, no network — only a cold offline host hits this).
 # `leader` fails OPEN so a lone host's singletons still run (single-host behavior
@@ -5010,6 +5017,54 @@ _journal_git_fetch() {
   return "$_rc"
 }
 
+# _leader_last_known <clone> <cache> — echo the leader from the clone's last-fetched
+# origin ref, else the host-local cache (possibly empty). No network.
+_leader_last_known() {
+  local val
+  val="$(git -C "$1" show "origin/$JOURNAL_BRANCH:$GARDEN_LEADER_MARKER_PATH" 2>/dev/null | head -1 | tr -d '[:space:]')"
+  if [ -n "$val" ]; then printf '%s\n' "$val";
+  else head -1 "$2" 2>/dev/null | tr -d '[:space:]'; fi
+}
+
+# _leader_retry_claim — rc 0 = this caller may fetch the leader marker now; rc 1 = a
+# fetch outage is open and the next probe is not yet due (or a peer just claimed it).
+# The healthy path (no marker) is one stat. Under the flock the claimant pushes the
+# due time a full backoff out BEFORE probing, so a slow timeout-bounded probe does
+# not let peers pile in behind it. A due time beyond now+backoff (clock step,
+# garbage) counts as due, so a bad marker can never wedge probing off.
+_leader_retry_claim() {
+  local m="$GARDEN_LEADER_RETRY_MARKER" b="$GARDEN_LEADER_RETRY_BACKOFF"
+  [ -e "$m" ] || return 0
+  case "$b" in ''|*[!0-9]*) b=60 ;; esac
+  [ "$b" -gt 0 ] || return 0
+  (
+    flock -n 9 || exit 1
+    local now due tmp
+    now="$(date +%s 2>/dev/null || echo 0)"
+    due="$(sed -n '1p' "$m" 2>/dev/null || true)"
+    case "$due" in ''|*[!0-9]*) due=0 ;; esac
+    if [ "$due" -gt "$now" ] && [ "$due" -le $(( now + b )) ]; then exit 1; fi
+    # The marker may have been cleared by a peer's successful fetch meanwhile.
+    [ -e "$m" ] || exit 0
+    tmp="$m.$$"
+    printf '%s\n' "$(( now + b ))" > "$tmp" 2>/dev/null && mv -f "$tmp" "$m" 2>/dev/null
+    exit 0
+  ) 9>>"$m.lock"
+}
+
+# _leader_retry_arm — after a failed leader fetch, (re)arm the shared marker so the
+# next probe is due one backoff from now. Atomic replace; best-effort.
+_leader_retry_arm() {
+  local m="$GARDEN_LEADER_RETRY_MARKER" b="$GARDEN_LEADER_RETRY_BACKOFF" now tmp
+  case "$b" in ''|*[!0-9]*) b=60 ;; esac
+  [ "$b" -gt 0 ] || return 0
+  mkdir -p "$(dirname "$m")" 2>/dev/null || return 0
+  now="$(date +%s 2>/dev/null || echo 0)"
+  tmp="$m.$$"
+  printf '%s\n' "$(( now + b ))" > "$tmp" 2>/dev/null && mv -f "$tmp" "$m" 2>/dev/null || rm -f "$tmp" 2>/dev/null
+  return 0
+}
+
 # leader_host — echo the configured leader's GARDEN identity. Resolution order:
 #   1. $GARDEN_LEADER if set (operator/test override; no journal read).
 #   2. the cached value when it is younger than GARDEN_LEADER_TTL (cheap, no
@@ -5017,7 +5072,10 @@ _journal_git_fetch() {
 #   3. a fresh read of the journal `leader` marker (bounded best-effort fetch
 #      into a dedicated clone), which then refreshes the cache.
 #   4. the last cached value when the journal is unreachable (transient-outage
-#      fallback so a blip never flips a singleton's leader/follower verdict).
+#      fallback so a blip never flips a singleton's leader/follower verdict). A
+#      failed fetch arms a host-shared retry marker: until GARDEN_LEADER_RETRY_BACKOFF
+#      elapses every caller answers from step 4 without fetching, then exactly one
+#      caller probes again.
 # Echoes the identity (possibly empty if nothing is resolvable). Never exits the
 # caller: unlike sync_clone it does NOT exit on an offline fetch, because it runs
 # as a systemd ExecCondition where a clean 0/1 answer is required, not a skip.
@@ -5040,14 +5098,19 @@ leader_host() {
   # fail-open this function promises). The subshell converts the exit into a
   # plain non-zero status the `|| true` absorbs; the clone lock is released with
   # the subshell's fds, and the fallback-to-cache path below still runs.
+  # During an open fetch outage, only the caller that claims the due probe fetches;
+  # everyone else reuses the last-known leader without touching the network.
+  if ! _leader_retry_claim; then
+    _leader_last_known "$dir" "$cache"; return 0
+  fi
   ( ensure_clone "$dir" ) >/dev/null 2>&1 || true
   if ! _journal_git_fetch "$dir" 0 >/dev/null 2>&1; then
+    _leader_retry_arm
     fallback_warn leader-fetch "leader fetch failed; using last-known leader cache (not fresh)"
-    val="$(git -C "$dir" show "origin/$JOURNAL_BRANCH:$GARDEN_LEADER_MARKER_PATH" 2>/dev/null | head -1 | tr -d '[:space:]')"
-    if [ -n "$val" ]; then printf '%s\n' "$val";
-    else head -1 "$cache" 2>/dev/null | tr -d '[:space:]'; fi
+    _leader_last_known "$dir" "$cache"
     return 0
   fi
+  rm -f "$GARDEN_LEADER_RETRY_MARKER" 2>/dev/null || true
   fallback_warn_clear leader-fetch
   val="$(git -C "$dir" show "origin/$JOURNAL_BRANCH:$GARDEN_LEADER_MARKER_PATH" 2>/dev/null | head -1 | tr -d '[:space:]')"
   if [ -n "$val" ]; then

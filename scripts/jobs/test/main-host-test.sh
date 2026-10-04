@@ -3,8 +3,9 @@
 #
 # Covers issue kriskowal/garden#11: the GARDEN host-identity knob, the
 # is-main-host predicate (journal marker read, GARDEN override, TTL cache, fail
-# open/closed), set-main-host.sh, and the systemd gating (every singleton service
-# carries ExecCondition=is-main-host.sh; gardeners do NOT). No real systemd or
+# open/closed, the single-flight leader-fetch outage backoff), set-main-host.sh,
+# and the systemd gating (every singleton service carries
+# ExecCondition=is-main-host.sh; gardeners do NOT). No real systemd or
 # network: a throwaway bare journal2 stands in for the shared origin.
 #
 # Usage: main-host-test.sh
@@ -93,6 +94,87 @@ env JOURNAL_REMOTE="$BARE" GARDEN_STATE="$CST" GARDEN=leaderhost GARDEN_NO_MAINT
 cached="$(env JOURNAL_REMOTE="$TR/dead.git" GARDEN_STATE="$CST" GARDEN=leaderhost \
                GARDEN_LEADER_TTL=99999 GARDEN_NO_MAINTAINER_ALERT=1 "$IMH" >/dev/null 2>&1; echo $?)"
 [ "$cached" = 0 ] && ok "cached leader value classifies during a journal outage (no fresh read)" || bad "cache fallback failed ($cached)"
+
+# ============================================================================
+hr; echo "OUTAGE BACKOFF — one bounded leader probe per interval, shared by callers"; hr
+# A git shim counts journal fetches so the test can prove concurrent callers during
+# an open leader-fetch outage reuse the cached leader instead of each probing.
+SHIM="$TR/shim"; mkdir -p "$SHIM"; FETCHES="$TR/fetches"; : > "$FETCHES"
+# Target the real binary, never the fleet wrapper: the wrapper picks the first
+# non-wrapper git on PATH (this shim) as "real", so shim→wrapper would loop.
+REALGIT=""
+IFS=: read -ra _pd <<< "$PATH"
+for d in "${_pd[@]}"; do
+  case "$d" in */scripts/jobs/bin) continue ;; esac
+  [ -x "$d/git" ] && { REALGIT="$d/git"; break; }
+done
+cat > "$SHIM/git" <<SH
+#!/bin/bash
+for a in "\$@"; do [ "\$a" = fetch ] && { printf '.' >> "$FETCHES"; break; }; done
+exec "$REALGIT" "\$@"
+SH
+chmod +x "$SHIM/git"
+nfetch() { stat -c %s "$FETCHES" 2>/dev/null || echo 0; }
+BST="$TR/st-backoff"; MARK="$BST/leader/retry-at"
+bimh() {  # bimh <remote> [env...] — is-main-host as leaderhost on the shared state
+  local r="$1"; shift
+  env PATH="$SHIM:$PATH" JOURNAL_REMOTE="$r" JOURNAL_BRANCH="$BRANCH" GARDEN_STATE="$BST" \
+      GARDEN=leaderhost GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_LEADER_RETRY_BACKOFF=600 "$@" \
+      "$IMH" 2>>"$TR/backoff.err" >/dev/null
+  echo $?
+}
+bimh "$BARE" >/dev/null
+[ -f "$BST/leader/cached" ] && [ ! -e "$MARK" ] \
+  && ok "healthy fetch primes the cache and leaves no retry marker" || bad "healthy prime wrong"
+# Break the journal (the clone's origin no longer resolves) and age the cache past TTL.
+mv "$BARE" "$BARE.away"; touch -d '1 hour ago' "$BST/leader/cached"
+: > "$FETCHES"
+rc="$(bimh "$BARE")"
+{ [ "$rc" = 0 ] && [ "$(nfetch)" = 1 ] && [ -s "$MARK" ]; } \
+  && ok "failed fetch answers from the last-known leader and arms the retry marker" \
+  || bad "first outage probe wrong (rc=$rc fetches=$(nfetch) marker=$(cat "$MARK" 2>/dev/null))"
+: > "$FETCHES"; : > "$TR/rcs"
+for _ in 1 2 3 4 5 6 7 8; do ( bimh "$BARE" >> "$TR/rcs" ) & done; wait
+{ [ "$(nfetch)" = 0 ] && [ "$(sort -u "$TR/rcs")" = 0 ] && [ "$(wc -l < "$TR/rcs")" = 8 ]; } \
+  && ok "8 concurrent callers before the probe is due: 0 fetches, all reuse the cached leader" \
+  || bad "backoff not honored (fetches=$(nfetch) rcs=$(tr '\n' ' ' < "$TR/rcs"))"
+# Make the probe due: exactly one of a concurrent herd may claim it.
+printf '%s\n' "$(( $(date +%s) - 1 ))" > "$MARK"
+: > "$FETCHES"; : > "$TR/rcs"
+for _ in 1 2 3 4 5 6 7 8; do ( bimh "$BARE" >> "$TR/rcs" ) & done; wait
+{ [ "$(nfetch)" = 1 ] && [ "$(sort -u "$TR/rcs")" = 0 ]; } \
+  && ok "8 concurrent callers once the probe is due: exactly 1 bounded fetch" \
+  || bad "due probe not single-flight (fetches=$(nfetch) rcs=$(tr '\n' ' ' < "$TR/rcs"))"
+due="$(head -1 "$MARK" 2>/dev/null)"
+[ "${due:-0}" -gt "$(date +%s)" ] \
+  && ok "the failed due probe re-arms the marker one backoff out" || bad "marker not re-armed ($due)"
+# A garbage/far-future due time (clock step) must not wedge probing off.
+printf '%s\n' "$(( $(date +%s) + 999999 ))" > "$MARK"; : > "$FETCHES"
+bimh "$BARE" >/dev/null
+[ "$(nfetch)" = 1 ] && ok "a due time beyond one backoff counts as due (no wedge)" \
+  || bad "far-future marker wedged probing (fetches=$(nfetch))"
+# Persistent-failure escalation is retained: an episode older than the bound
+# escalates to ERROR on the next due probe.
+printf '%s\n' "$(( $(date +%s) - 1 ))" > "$MARK"
+printf '%s\n' "$(( $(date +%s) - 120 ))" > "$BST/fallback-warn/leader-fetch/first"
+: > "$TR/backoff.err"
+bimh "$BARE" GARDEN_FALLBACK_ESCALATE_AFTER=60 >/dev/null
+grep -q 'ERROR: leader fetch failed.*fallback persistent' "$TR/backoff.err" \
+  && ok "persistent outage still escalates once to ERROR" \
+  || bad "escalation lost ($(cat "$TR/backoff.err"))"
+# Recovery: journal back, probe due → fetch succeeds, marker and episode cleared.
+mv "$BARE.away" "$BARE"
+printf '%s\n' "$(( $(date +%s) - 1 ))" > "$MARK"; : > "$FETCHES"; : > "$TR/backoff.err"
+rc="$(bimh "$BARE")"
+{ [ "$rc" = 0 ] && [ "$(nfetch)" = 1 ] && [ ! -e "$MARK" ] && [ ! -e "$BST/fallback-warn/leader-fetch" ]; } \
+  && ok "recovery: successful fetch clears the retry marker and closes the episode" \
+  || bad "recovery wrong (rc=$rc fetches=$(nfetch) marker=$([ -e "$MARK" ] && echo yes))"
+grep -q 'recovered: leader-fetch' "$TR/backoff.err" \
+  && ok "recovery logs one recovered line" || bad "no recovery line"
+touch -d '1 hour ago' "$BST/leader/cached"; : > "$FETCHES"
+bimh "$BARE" >/dev/null
+[ "$(nfetch)" = 1 ] && ok "after recovery a stale cache fetches normally again" \
+  || bad "post-recovery fetch suppressed (fetches=$(nfetch))"
 
 # ============================================================================
 hr; echo "SET-MAIN-HOST — CAS-writes the journal \`leader\` marker; predicate flips"; hr
