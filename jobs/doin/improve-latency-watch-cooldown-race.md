@@ -5,3 +5,13 @@ dispatch: automatic
 ---
 scripts/jobs/comment-latency-watch.sh
 scripts/jobs/comment-latency-watch.sh:192-202 logs one failure per repository when a sibling opens the REST quota latch mid-sweep (2026-10-04 01:42:05-07). Recheck the shared REST cooldown after a source failure, stop the sweep quietly, and record a cooldown heartbeat; add a race-regression test.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T01:51:06Z
