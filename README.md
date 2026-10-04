@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T12:22:59Z_
+_As of 2026-10-04T12:35:21Z_
 
 ## Latest
 
-The headline this cycle is the *Better Code and Gardens* illuminated edition shipping: art landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), with all 25 plates in place, a byte-identical build, 30/30 tests, and a visual pass on phone/desktop in both light and dark mode; a couple of cosmetic nits remain in the chapter 9 plate. Separately, a panel review of the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) came back with merge recommendations but flagged stack hygiene — stale frozen bases under layers 1/2 need a weave before anything lands — and a stale-head notice on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) needs a maintainer call on whether to re-panel.
-
-The main thing needing attention is the **oros-studio host, unreachable for ~50 hours** (heartbeat and sysop both stale since 2026-10-02T05:08Z): it's derotated from the fleet and deploys keep skipping it, with a growing backlog of unclaimed health-checkup jobs and unacked sysop ops — someone needs to physically check the Mac/Docker Desktop/VM. There's also an endojs/endo-but-for-bots#1125-related comment-provenance gap and a halted ironhorse gauntlet worth a look when time allows.
+The board moved only one job this cycle: `improve-leader-fetch-outage-backoff` landed. The real news sits in the unread maintainer inbox rather than the board — Oros (the studio host) has been unreachable for roughly two days now, derotated and stuck on a stale deploy, with 13 health-checkup jobs piling up unclaimed and the sysop queue backed up with unacked ops; it needs a human at the machine to check Docker Desktop, sleep state, and the VM. Separately, the illuminated edition of *Better Code and Gardens* shipped and is live, all 25 plates in with captions, byte-reproducible build, verified in both light/dark and phone/desktop views, with two small cosmetic flaws noted (a crossed book spine and an off-center dash in the chapter 9 plate). The SturdyRef stack (layers 3/4/6/7 on endojs/endo-but-for-bots) is parked awaiting a merge decision — [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) is ready to merge as-is, [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) needs a retcon first, and [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)/[endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) can merge as-is once their dependency lands — but the two layers underneath have drifted and will each need a weave once their predecessor lands. Also flagged: [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has a stale panel review (head moved after the last review, so it needs re-review before any gauntlet), and a budget re-slice landed adding a new `garden-book` arc for future-edition work.
 
 ## Parked for maintainer feedback
 
@@ -212,7 +210,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 105.1M | $694.84 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Claude | 105.1M | $694.38 _(notional, rate-card)_ | 41% of 256.0M (ok) |
 | Codex | 7.4M _(+207.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -238,16 +236,16 @@ worst fetch p95 5.085034s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`improve-leader-fetch-outage-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-leader-fetch-outage-backoff.md) — ---
+### doin (0)
+(none)
 
-### tada (10829)
+### tada (10830)
+- [`improve-leader-fetch-outage-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-leader-fetch-outage-backoff.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-f3d058dd65eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-f3d058dd65eb.md) — rolling-deploy canary probe — round trip OK
 - [`improve-approval-reconciler-primary-quota`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-approval-reconciler-primary-quota.md) — Cost
 - [`oros-health-watch-20261004-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-100509.md) — Cost
 - [`claude-on-minion-town-completion-press-20261004-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-completion-press-20261004-100509.md) — Panel-head freshness
-- [`claude-on-minion-town-press-20261004-093512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-093512.md) — Panel-head freshness
-- … and 10824 more
+- … and 10825 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
