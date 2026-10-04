@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T08:04:19Z_
+_As of 2026-10-04T08:07:01Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* shipped: all 25 plates are in place as chapter openers and section figures with captions, the orchestration (art PR [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration PR [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11)) completed, and the build was verified byte-reproducible with 30/30 tests passing and a manual cross-device/light-dark visual check; a follow-up to hyperlink every reference in the book is now parked pending [kriscendobot/garden-book#8](https://github.com/kriscendobot/garden-book/pull/8). Separately, the accountant re-sliced next week's budget to add a dedicated `garden-book` arc for future editions and upkeep. Elsewhere, two SturdyRef-stack PRs ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) and [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) are recommended to merge as-is and two more ([#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)) need a retcon/weave first, though stack hygiene on the lower layers still needs attention before any of them land. The main operational concern is that the `oros-studio` host has been unreachable for roughly two days (heartbeat stale since 2026-10-02), with 13 health-checkup jobs piling up unclaimed — it needs a human to check the physical machine.
+The only board movement since the last bulletin was another oros health-checkup posted to todo — oros-studio-garden-ce242c49 remains unreachable (heartbeat stale ~50h), now with 13 unclaimed checkups piling up and the sysop queue backed up with unacked ops; the latest dispatch flagged that a human needs to check Docker Desktop/sleep state/the VM directly. Elsewhere, the illuminated edition of *Better Code and Gardens* shipped and is live, all 25 plates captioned and verified in a headless browser across viewports and themes. The SturdyRef stack review landed a full merge-order recommendation: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) is ready to merge once its base PRs land, [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) needs a retcon first, and [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)/[endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) are clear to merge as-is — but stack hygiene is stale across the board (frozen bases drifted by 8–25 commits at every layer). A stale-panel notice also flagged [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) needs re-review after its head moved past the last panel pass.
 
 ## Parked for maintainer feedback
 
@@ -181,18 +181,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> WATCHDOG notice — occurrence #7 (first seen 2026-10-04T04:50:33Z, latest 2026-10-04T08:01:13Z).
-> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 7 times; this is ONE
-> coalesced notice that updates in place, not 7 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-04T08:05:40Z).
+> It was observed 7 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
+> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
 
 - `watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4.md)
 
@@ -209,7 +202,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 101.6M | $680.24 _(notional, rate-card)_ | 40% of 256.0M (ok) |
+| Claude | 101.7M | $680.72 _(notional, rate-card)_ | 40% of 256.0M (ok) |
 | Codex | 7.2M _(+206.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -218,7 +211,7 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 4.648168s/45s (unknown); 2 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (14)
 - [`oros-health-checkup-20261004-015005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-015005.md) — ---
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
@@ -227,6 +220,7 @@ worst fetch p95 4.648168s/45s (unknown); 2 open notice(s); checker healthy
 - [`oros-health-checkup-20261004-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-045008.md) — ---
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`oros-health-checkup-20261003-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-193507.md) — ---
+- [`oros-health-checkup-20261004-080507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-080507.md) — ---
 - [`oros-health-checkup-20261003-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-132007.md) — ---
 - [`oros-health-checkup-20261003-223509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-223509.md) — ---
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
