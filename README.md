@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T02:51:58Z_
+_As of 2026-10-04T02:53:46Z_
 
 ## Latest
 
@@ -647,16 +647,16 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`dependabotany-recheck-endo-but-for-bots-20261004-025006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261004-025006.md) — ---
+### doin (0)
+(none)
 
-### tada (10753)
+### tada (10754)
+- [`dependabotany-recheck-endo-but-for-bots-20261004-025006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/dependabotany-recheck-endo-but-for-bots-20261004-025006.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-474e93f09842`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-474e93f09842.md) — rolling-deploy canary probe — round trip OK
 - [`improve-latency-watch-cooldown-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-latency-watch-cooldown-race.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-152cf11291ce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-152cf11291ce.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-watch-20261004-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-010505.md) — Cost
-- [`improve-fork-watch-offline-rc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-fork-watch-offline-rc.md) — Cost
-- … and 10748 more
+- … and 10749 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
