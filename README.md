@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T19:04:21Z_
+_As of 2026-10-04T19:10:35Z_
 
 ## Latest
 
-The minion.town shell-to-JS orchestration (3 serial parts) finished cleanly, with no failed children — the gauntlets for PRs [#151](https://github.com/kriscendobot/minion.town/pull/151), [#152](https://github.com/kriscendobot/minion.town/pull/152), and [#154](https://github.com/kriscendobot/minion.town/pull/154) are now mid-panel/clean, and [#150](https://github.com/kriscendobot/minion.town/pull/150)'s gauntlet advanced to panel round 6 after a fix-5 completion. Several of these PRs have moved past their last reviewed head without a re-panel, so stale-panel notices are piling up for [#148](https://github.com/kriscendobot/minion.town/pull/148) and [#150](https://github.com/kriscendobot/minion.town/pull/150), plus one for [endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) — none have had a gauntlet staged pending an explicit review call. Separately, the garden-book illuminated edition shipped and is live, with all 25 plates captioned and verified across viewports. The most pressing item otherwise is oros-studio-garden, unreachable for roughly 50 hours now with a growing backlog of unclaimed health checkups and unacked sysop ops — it needs a person at the machine.
+The minion.town shell-to-JS orchestration (PRs [#150](https://github.com/kriscendobot/minion.town/pull/150), [#151](https://github.com/kriscendobot/minion.town/pull/151), [#152](https://github.com/kriscendobot/minion.town/pull/152), [#154](https://github.com/kriscendobot/minion.town/pull/154)) finished its serial run with all three children reaching completion cleanly, though panel rounds are still cycling on parts 1–3 in doin. Separately, [#150](https://github.com/kriscendobot/minion.town/pull/150)'s panel coverage went stale — its head moved from `b93d8452` to `731cdb28` after the last panel pass, so every commit since is unreviewed and a fresh gauntlet stage needs an explicit maintainer call before it merges.
+
+The illuminated edition of *Better Code and Gardens* (2026-10-04) is live, with all 25 plates captioned and verified across screen sizes and color modes — see the supervisor's report for the known minor art flaws. The accountant re-sliced the weekly budget per kriskowal's approval, adding a `garden-book` arc. The most pressing operational item remains oros-studio-garden-ce242c49: it has been unreachable for roughly two days (heartbeat and sysop-log stale since 2026-10-02T05:0x Z), is derotated, and needs a human at the machine to check sleep/power, Docker Desktop, and the VM — watcher messages keep recurring since no new ops can land while 8+ prior ops sit unacked.
 
 ## Parked for maintainer feedback
 
@@ -14,7 +16,7 @@ The minion.town shell-to-JS orchestration (3 serial parts) finished cleanly, wit
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 31d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 32d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 32d)
-- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 33d)
+- [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 34d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 32d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 32d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 36d)
@@ -157,6 +159,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Oros is still unreachable: the 08:05Z checkup remains unclaimed after ~2h; heartbeat is stale since 2026-10-02T05:08Z, sysop-log since 2026-10-02T05:39Z, and fleet health since 03:13Z. The host remains heartbeat-offline derotated and deployed at e036bb8e versus main2 893ccdaa. I sent no further op because at least eight post-failure host ops remain unacked and the dead sysop cannot consume another. A person needs to check the Mac sleep/power state, Docker Desktop, and the VM/container.
 
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=130189335 cap=256000000 pace-bias=0 window-start=2026-10-03T03:00Z(calendar) deadline=2026-10-10T03:00Z(calendar) [planned reset 2026-10-10T03:00:00Z not before calendar deadline; ignored] ceiling=4 target=2
+
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
 > budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): subscription claude-endolin2 spend=101380144 cap=121000000 pace-bias=0 window-start=2026-10-03T03:00Z(calendar) deadline=2026-10-10T03:00Z(calendar) [planned reset 2026-10-10T03:00:00Z not before calendar deadline; ignored] ceiling=4 target=1
@@ -267,13 +273,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 130.8M | $872.79 _(notional, rate-card)_ | 51% of 256.0M (ok) |
+| Claude | 132.8M | $889.30 _(notional, rate-card)_ | 52% of 256.0M (ok) |
 | Codex | 7.8M _(+209.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journal); 2 open notice(s); checker healthy
+worst fetch p95 5.996244s/45s (/home/kris/garden/.garden-state/mentor/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (17)
@@ -295,19 +301,18 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (4)
+### doin (3)
 - [`minion-town-shell-to-js-20261004-part2-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part2-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #152
-- [`minion-town-shell-to-js-20261004-part3-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #154
 - [`minion-town-shell-to-js-20261004-part1-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part1-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #151
-- [`kriscendobot-minion-town-pr150-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr150-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #150
+- [`minion-town-shell-to-js-20261004-part3-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #154
 
-### tada (10887)
+### tada (10889)
+- [`kriscendobot-minion-town-pr150-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-panel-6.md) — Cost
+- [`minion-town-shell-to-js-20261004-part3-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part3-gauntlet-clean.md) — Cost
 - [`minion-town-shell-to-js-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004.md) — orchestration minion-town-shell-to-js-20261004 — complete
 - [`minion-town-shell-to-js-20261004-part3-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part3-gauntlet-viability.md) — Cost
 - [`minion-town-shell-to-js-20261004-part2-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-gauntlet-fix-1.md) — Cost
-- [`minion-town-shell-to-js-20261004-part3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part3.md) — Cost
-- [`kriscendobot-minion-town-pr150-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-fix-5.md) — Cost
-- … and 10882 more
+- … and 10884 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -416,7 +421,7 @@ kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendob
 
 ## Hosts
 - [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 1 monks
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
 - [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 3 monks
