@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-10-04T05:53:27Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-garden-book-chapter-illustrations-build
+pr_number: 10
+pr_repo: kriscendobot/garden-book
+pr_url: https://github.com/kriscendobot/garden-book/pull/10
+pr_head: garden-book-chapter-illustrations-build
