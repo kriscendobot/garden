@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T11:11:48Z_
+_As of 2026-10-04T11:27:57Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* shipped: all 25 plates are in (10 chapter openers, 15 section figures, each captioned), the old title-page garden scene is gone, the build reproduces byte-for-byte, and 30/30 tests pass, with the live site checked on phone and desktop at both light and dark mode. The art landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and the integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11); a couple of minor cosmetic flaws (one book spine crossing a terrace edge, a slightly off-center dash) were left as-is.
+The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in place as chapter openers and section figures with captions, the build reproduces byte-for-byte, and the live site passed a manual phone/desktop, light/dark check — live at https://dnl43y7ksqqrkfzkzsiyzhfoqks7tnxpedzi7gfymzviqo7uvkda.ocap.site/, via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). The accountant re-sliced next week's budget to add a dedicated `garden-book` arc (5M) at kriskowal's request. A panel summary landed on the four-layer SturdyRef sub-stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)): all green and mergeable in order, but still blocked underneath by unlanded layers 1/2 ([#774](https://github.com/endojs/endo-but-for-bots/issues/774), [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) and drifted frozen bases needing a weave. Separately, [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) needs a fresh review — its panel-reviewed head is now stale against the latest push.
 
-On the SturdyRef stack, the panel produced a merge recommendation for all four open layers: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) (pass-style), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) (captp construct), and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) (ocapn enliven) can merge as-is in that order once their underlying layers land, while [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) (marshal) needs a retcon to regroup ~26 rework commits first. All four are CI-green drafts that stalled at their fix-round budget without a re-panel of the latest head, so the changes are unreviewed but assessed as small and low-risk.
-
-Otherwise the main thing needing attention is **Oros**: the host has been unreachable for roughly 50 hours (heartbeat and sysop both stale since 2026-10-02), with 13+ health-checkup jobs piling up unclaimed and a backlog of unacked sysop ops — this needs a person at the machine to check Docker Desktop, sleep state, and the VM. A handful of other watchdog notices are informational (journal-contention backlog cleared, container-hardening still pending a maintainer-driven container recreate on two hosts, and a stale panel-head flag on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) awaiting an explicit "run the gauntlet" or review decision).
+The most urgent item is operational, not code: **oros is still unreachable, going on 50+ hours** (heartbeat stale since 2026-10-02T05:08Z), derotated from the fleet with 15 health-checkup jobs piling up unclaimed and a growing backlog of unacked sysop ops — this needs a human at the machine to check Docker Desktop, sleep state, and the VM. A journal-contention storm on `endolin-garden2` has since cleared on its own. Container hardening remains pending on two hosts (expected until each is recreated with the hardened launcher), and a comment-watcher self-test is failing on `kriscendobot/ocapn`, suggesting it may be silently blind.
 
 ## Parked for maintainer feedback
 
@@ -183,6 +181,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Which layers can land first: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) lands first, as soon as [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) land. [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) follows after the retcon and weave. [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) have no code blockers, but they wait on [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/issues/1394) (L5, already un-drafted). No layer needs a redesign, and none needs another full panel; a scoped re-panel of only the post-panel deltas would be optional. No PR was touched and no gauntlet was staged.
 
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261004-110510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261004-110510.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261004-110510' has remained unclaimed for 1200s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
 
 > ANOMALY: comment-watcher/kriscendobot-ocapn self-test FAILED on kriscendobot/ocapn — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden-ece02cb4 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
@@ -214,8 +216,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.3M | $691.31 _(notional, rate-card)_ | 41% of 256.0M (ok) |
-| Codex | 7.3M _(+206.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 104.4M | $691.55 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Codex | 7.4M _(+206.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
