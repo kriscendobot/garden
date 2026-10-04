@@ -1,6 +1,6 @@
 ---
 created: 2026-06-25
-updated: 2026-09-29
+updated: 2026-10-04
 author: gardener
 ---
 
@@ -28,6 +28,15 @@ sides:
 // --- Fallible work, before the consume ---
 # === Setup ===
 ```
+
+The same goes for rules and boxes drawn with **Unicode box-drawing or
+block-element characters** (U+2500..U+259F): a title bracketed by U+2500
+light-horizontal rules (the `// <rule> title <rule>` shape), a heavy (U+2501)
+or double (U+2550) rule line, a block-element (U+2588 and kin) rule, or a
+shell-comment box whose corners (U+250C, U+2510, U+2514, U+2518) and sides
+(U+2502) frame a title. A comment line carrying even one such glyph is a
+banner, because those characters only ever draw line art. ASCII rule lines of
+`#`, `/`, or `+` (`##########`, `//////////`, `# +--------+`) count as well.
 
 The section title is fine; the rules bracketing it are not, whether they sit
 on their own lines or on the title's line. Write the title as a plain comment
@@ -68,7 +77,8 @@ sites:
 - **Generation.** Avoid banner-rule comments when producing code. The pre-push
   driver does not currently ship a `no-ascii-banners` probe.
 - **Review.** `scripts/jobs/gardening/detect-banners.sh` runs as a deterministic
-  panel pre-pass. On any ADDED banner-rule line in a code file, `panel.sh`
+  panel pre-pass. On any ADDED banner-rule line in a code file (JS/TS and
+  shell, `.sh`/`.bash`), `panel.sh`
   force-adds the `archivist` seat even to a trimmed panel and hands it the
   matching lines as evidence. The juror judges the finding, and any edit follows
   the ordinary panel disposition and fixer loop; the detector never deletes the
@@ -84,6 +94,10 @@ grep -nE '/\*[[:space:]]*[-=*~_]{4,}[[:space:]]*\*/' path/to/file
 # Bracketed titles: `// --- Title ---`, `# === Title ===`, `/* -- Title -- */`.
 grep -nE '^[[:space:]]*(//|#|\*)[[:space:]]*[-=*~_]{2,}[[:space:]]+[^-=*~_[:space:]].*[[:space:]][-=*~_]{2,}[[:space:]]*$' path/to/file
 grep -nE '/\*\*?[[:space:]]*[-=*~_]{2,}[[:space:]]+[^-=*~_[:space:]].*[[:space:]][-=*~_]{2,}[[:space:]]*\*/' path/to/file
+# Rule lines of `#`, `/`, or `+` (`##########`, `//////////`, `# +------+`).
+grep -nE '^[[:space:]]*(//|#|\*)[[:space:]]*[-=*~_#/+]{4,}[[:space:]]*$' path/to/file
+# Any comment carrying a box-drawing or block-element glyph (U+2500..U+259F).
+LC_ALL=C grep -nE $'(^[[:space:]]*[#*]|//|/\\*).*\xe2(\x94[\x80-\xbf]|\x95[\x80-\xbf]|\x96[\x80-\x9f])' path/to/file
 ```
 
 Delete each matched rule-only line. When the banner bracketed a section title, keep the
@@ -109,3 +123,8 @@ bracketed title, strip the rule runs from both ends and keep the title.
   `// --- Fallible work, before the consume ---` on
   `endojs/endo-but-for-bots#1125` (review `5215956390`); the 4+-run-only
   predicate had let it through.
+- _2026-10-04_: widened the rule and `detect-banners.sh` to Unicode
+  box-drawing and block-element glyphs (any one in a comment), to `#`/`/`/`+`
+  rule lines, and to shell files, after kriskowal noted on
+  `kriscendobot/minion.town#148` (comment `5981444423`) that the detector had
+  missed shell box banners and `// <U+2500 rule> title <U+2500 rule>` comments.

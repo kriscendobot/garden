@@ -28,9 +28,9 @@
 # The em dash (U+2014) is deliberately NOT here: skills/em-dash-style owns it and
 # its rewrite (period / parentheses / colon) is judgment, not substitution. The
 # en dash is tolerated per the same skill. Source under src/ and lib/ is already
-# covered whole by the stricter no-non-ascii-in-source probe; box-drawing by
-# no-ascii-banners. Those two rules currently rely on guidance/detection and the
-# panel; this executable probe covers the markdown prose surface only.
+# covered whole by the stricter no-non-ascii-in-source probe; box-drawing in
+# code comments by gardening/detect-banners.sh. Those two rules currently rely on
+# guidance/detection and the panel; this executable probe covers the markdown prose surface only.
 #
 # SCOPE LIMITS (narrow by design, skills/pre-push-gates § Pitfalls): `.md` files
 # only; `references/` (vendored snapshots) and node_modules are skipped; per-file

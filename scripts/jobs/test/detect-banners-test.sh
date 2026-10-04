@@ -18,6 +18,13 @@
 #      kriskowal flagged on endojs/endo-but-for-bots#1125 (review 5215956390).
 #   8. NOT-BRACKETED: `// foo -- bar`, `// a -> b`, prose with dashes, and JSDoc
 #      `**bold**` emphasis do not hit.
+#   9. UNICODE BOX-DRAWING: a title bracketed by U+2500 rules, a heavy/double rule
+#      line, a shell box (corners, sides) in a `.sh` file, and a block-element
+#      rule all hit, as on kriscendobot/minion.town#148 (comment 5981444423).
+#  10. WIDER ASCII RULES: `##########`, `//////////`, and `+--------+` rule lines
+#      hit; shell (`.sh`) dash banners hit now that shell is in scope.
+#  11. NOT-A-BOX: box glyphs inside a string literal (no comment introducer), an
+#      accented letter in a comment, a shebang, and a `.md` file do not hit.
 #
 # Hermetic: throwaway git repos, no network, no systemd. The test itself draws no
 # real banner in its own source — the fixtures are built into throwaway files, so
@@ -54,8 +61,14 @@ commit_lines() {
 }
 
 rule() { printf -- '-%.0s' $(seq 1 "$1"); }   # build a dash run without a literal
+# U+2500 light horizontal, U+2501 heavy, U+2550 double, U+2502 vertical, the
+# four light corners, and U+2588 full block, spelled as UTF-8 byte escapes so the
+# test source carries no box glyph.
+H=$'\xe2\x94\x80'; HH=$'\xe2\x94\x81'; HD=$'\xe2\x95\x90'; V=$'\xe2\x94\x82'
+TL=$'\xe2\x94\x8c'; TR_=$'\xe2\x94\x90'; BL=$'\xe2\x94\x94'; BR=$'\xe2\x94\x98'
+BLK=$'\xe2\x96\x88'; EACUTE=$'\xc3\xa9'
 
-# --- 1: HIT — an added dash-rule comment in a .js file ---------------------
+# 1: HIT — an added dash-rule comment in a .js file.
 R1="$TR/hit"; make_repo "$R1" file.js
 commit_lines "$R1" file.js 'const base = 1;' "// $(rule 20)" '// Section title' "// $(rule 20)"
 "$DET" check "$R1" >/dev/null 2>&1 \
@@ -64,7 +77,7 @@ l1="$("$DET" lines "$R1" 2>/dev/null)"
 { printf '%s' "$l1" | grep -qF 'file.js' && printf '%s' "$l1" | grep -q -- '----'; } \
   && ok "lines: reports the offending path and rule text" || bad "lines did not report the banner ($l1)"
 
-# --- 2: NO-HIT — a clean change -------------------------------------------
+# 2: NO-HIT — a clean change.
 R2="$TR/clean"; make_repo "$R2" file.js
 commit_lines "$R2" file.js 'const base = 1;' '// a real prose comment' 'const x = 2;'
 "$DET" check "$R2" >/dev/null 2>&1 \
@@ -72,7 +85,7 @@ commit_lines "$R2" file.js 'const base = 1;' '// a real prose comment' 'const x 
 [ -z "$("$DET" lines "$R2" 2>/dev/null)" ] \
   && ok "lines: clean change prints nothing" || ok "lines: (n/a)"
 
-# --- 3: ADDED-LINES-ONLY — a REMOVED banner is NOT a hit -------------------
+# 3: ADDED-LINES-ONLY — a REMOVED banner is NOT a hit.
 R3="$TR/removed"; mkdir -p "$R3"; git -C "$R3" init -q
 git -C "$R3" config user.email t@l; git -C "$R3" config user.name t
 printf 'keep = 1;\n// %s\n' "$(rule 20)" > "$R3/file.js"
@@ -83,7 +96,7 @@ git -C "$R3" add -A; git -C "$R3" commit -qm sweep >/dev/null
   && bad "check flagged a REMOVED banner (not added-lines-only)" \
   || ok "check: removed banner is NOT a hit (added-lines-only)"
 
-# --- 4: NOT-A-BANNER — arrow prose and a markdown thematic break -----------
+# 4: NOT-A-BANNER — arrow prose and a markdown thematic break.
 R4="$TR/notbanner"; make_repo "$R4" file.js
 commit_lines "$R4" file.js 'const base = 1;' '// foo -> bar transforms input' '// a - b is a diff'
 "$DET" check "$R4" >/dev/null 2>&1 \
@@ -93,13 +106,13 @@ commit_lines "$R4b" doc.md '# Title' '' "$(rule 20)" '' 'Body prose.'
 "$DET" check "$R4b" >/dev/null 2>&1 \
   && bad "check flagged a markdown thematic break" || ok "check: markdown thematic break is NOT a banner (code files only)"
 
-# --- 5: EQUALS / STAR / BLOCK comment forms all hit ------------------------
+# 5: EQUALS / STAR / BLOCK comment forms all hit.
 R5="$TR/forms"; make_repo "$R5" file.ts
 commit_lines "$R5" file.ts 'const base = 1;' '# ====================' ' * ~~~~~~~~~~' '/* ---------- */'
 "$DET" check "$R5" >/dev/null 2>&1 \
   && ok "check: equals/star/block rule forms all hit" || bad "check missed an equals/star/block banner"
 
-# --- 6: no base -> clean & quiet ------------------------------------------
+# 6: no base -> clean & quiet.
 R6="$TR/nobase"; mkdir -p "$R6"; git -C "$R6" init -q
 git -C "$R6" config user.email t@l; git -C "$R6" config user.name t
 printf 'first = 1;\n// %s\n' "$(rule 20)" > "$R6/file.js"
@@ -107,7 +120,7 @@ git -C "$R6" add -A; git -C "$R6" commit -qm only >/dev/null   # no HEAD~1
 "$DET" check "$R6" >/dev/null 2>&1 \
   && bad "check hit with no resolvable base" || ok "check: unresolvable base -> clean & quiet (exit 1)"
 
-# --- 7: BRACKETED TITLE — each shape hits on its own ---------------------
+# 7: BRACKETED TITLE — each shape hits on its own.
 # hits <label> <file> <line> — assert the single added line is a banner.
 hits() {
   local label="$1" f="$2" line="$3" r
@@ -131,6 +144,37 @@ misses 'directional arrow' file.js '// a -> b'
 misses 'prose with dashes' file.js '// the re-entrant path -- rarely taken -- stays sync'
 misses 'JSDoc bold emphasis' file.js ' * **Note** this is emphasis'
 misses 'leading run only' file.js '// -- not a bracket'
+
+# 9: UNICODE BOX-DRAWING.
+hits 'U+2500 bracketed title (minion.town#148)' file.js "// $H$H title $H$H"
+hits 'U+2500 bracketed title in TS' file.ts "  // $H$H$H Wiring $H$H$H"
+hits 'heavy rule line' file.js "// $HH$HH$HH$HH$HH$HH"
+hits 'double rule line' file.mjs "/* $HD$HD$HD$HD */"
+hits 'JSDoc box rule' file.js " * $H$H$H$H$H$H"
+hits 'shell box top' run.sh "# $TL$H$H$H$H$H$H$TR_"
+hits 'shell box side' run.sh "# $V Setup $V"
+hits 'shell box bottom' run.sh "# $BL$H$H$H$H$H$H$BR"
+hits 'block-element rule' file.js "// $BLK$BLK$BLK$BLK"
+hits 'trailing box comment' file.js "const x = 1; // $H$H x $H$H"
+
+# 10: WIDER ASCII RULES.
+hits 'hash rule line' run.sh '##########'
+hits 'slash rule line' file.js '//////////'
+hits 'plus-corner rule' run.sh "# +$(rule 10)+"
+hits 'shell dash rule' run.sh "# $(rule 20)"
+hits 'shell bracketed title' run.bash '# --- Setup ---'
+
+# 11: NOT-A-BOX.
+misses 'box glyphs in a string literal' file.js "const bar = '$H$H$H$H';"
+misses 'accented letter in a comment' file.js "// caf$EACUTE is spelled with an accent"
+misses 'shebang' run.sh '#!/bin/bash'
+misses 'TS triple-slash directive' file.ts '/// <reference types="node" />'
+misses 'shell comment with a dash' run.sh '# retry once -- the API is flaky'
+misses 'short hash heading' run.sh '## Usage'
+R11="$TR/mdbox"; make_repo "$R11" doc.md
+commit_lines "$R11" doc.md '# Title' "$H$H$H$H" 'Body.'
+"$DET" check "$R11" >/dev/null 2>&1 \
+  && bad "check flagged box glyphs in markdown" || ok "check: box glyphs in a .md file are out of scope"
 
 echo "----------------------------------------------------------------"
 echo "detect-banners: $PASS passed, $FAIL failed"
