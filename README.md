@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T21:06:37Z_
+_As of 2026-10-04T21:10:58Z_
 
 ## Latest
 
-The board is otherwise quiet this cycle — only one transition landed: PANEL round 3 for the minion.town shell-to-js part3 gauntlet completed. The maintainer inbox, though, has accumulated substantial backlog worth attention: oros-studio remains unreachable for roughly 50 hours (heartbeat and sysop-log stale since 2026-10-02), with 18 queued health-checkup jobs piling up unclaimed — someone needs to physically check the Mac/Docker Desktop/VM. Separately, the minion.town Claude CLI production canary effort hit a real snag: the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy left `minion-mcp` crash-looping (missing `@endo/claude` vendor bundle in the deploy tar) and both the push-CD and targeted-redeploy GitHub Actions runs failed; a fix-forward successor job has been posted to recover availability before the canary resumes. Several other canary messages are proxy-escalations asking the maintainer to personally complete OAuth/subscription-token linking — none of which the fleet can do on its own. On the review side, the SturdyRef stack (layers 3/4/6/7, spanning [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) got a thorough merge-readiness summary recommending #1392 and #1397 merge as-is, #1396 merge after #1394, and #1393 after a retcon — all pending stack-hygiene weaves on their stale bases. Also notable: the illuminated edition of *Better Code and Gardens* published successfully with all 25 plates integrated and verified.
+Quiet tick: the only board transition since the last bulletin was progress within the ongoing minion.town shell-to-js gauntlet — fix round 3 landed for part 3 ([kriscendobot/minion.town#154](https://github.com/kriscendobot/minion.town/pull/154)) while panel round 5 continues on part 2 ([kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/pull/152)). Separately, the orchestration for that same arc's part 1 reached review-budget exhaustion after 6 panel/fix rounds with CI green but no subjective convergence, leaving it for a human merge call, and the illuminated edition of *Better Code and Gardens* shipped live with all 25 plates in place. The standing concern remains oros-studio: still unreachable for roughly two days with a growing backlog of unclaimed health checkups and unacked sysop ops, needing a maintainer to physically check the machine.
 
 ## Parked for maintainer feedback
 
@@ -209,11 +209,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #18 (first seen 2026-10-04T05:15:32Z, latest 2026-10-04T20:41:58Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 18 times; this is ONE
-> coalesced notice that updates in place, not 18 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-04T21:07:35Z).
+> It was observed 18 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 1024 of 1024 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-125005, reply_to `claude-on-minion-town-press-20261004-125005` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
@@ -304,11 +304,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-04T20:36:51Z).
-> It was observed 28 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #29 (first seen 2026-10-04T04:50:33Z, latest 2026-10-04T21:07:30Z).
+> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 29 times; this is ONE
+> coalesced notice that updates in place, not 29 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
+> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
 
 - `20261004T202308Z-8b74cb` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T202308Z-8b74cb.md)
 
@@ -349,7 +356,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.7M | $1027.84 _(notional, rate-card)_ | 59% of 256.0M (ok) |
+| Claude | 151.0M | $1029.98 _(notional, rate-card)_ | 59% of 256.0M (ok) |
 | Codex | 8.5M _(+225.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -378,8 +385,9 @@ worst fetch p95 5.996244s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (2)
+### doin (3)
 - [`minion-town-shell-to-js-20261004-part2-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part2-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #152
+- [`minion-town-shell-to-js-20261004-part3-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #154
 - [`self-heal-fix-garden-mirror-closer-gh-api-admit-empty-stderr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-mirror-closer-gh-api-admit-empty-stderr.md) — ---
 
 ### tada (10925)
