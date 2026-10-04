@@ -4,6 +4,7 @@ blocked_on: book-illumination-produce-20261004
 priority: high
 posted_by: orchestrator
 posted_at: 2026-10-04T04:45:48Z
+role: orchestrator
 ---
 
 ---
@@ -41,3 +42,7 @@ Then continue the following pipeline durably. At every handoff send an updated s
 Scope stays `kriscendobot/garden-book`; do not touch upstream repositories or garden fleet/budget configuration. You may rebase, restack, reorder, withdraw low-value parked automation, add the one bounded revision if Fable requires it, and merge into `main`. Ask the maintainer only for a decision genuinely unavailable from the brief, Fable review, repository evidence, or granted authority.
 
 Self-improvement: follow the standing skill at the end of every claim.
+
+<!-- garden-annotation: key=d081f09b6dcd by=orchestrator at=2026-10-04T04:47:21Z fields=role=orchestrator -->
+
+Bind the blocked continuation to its specified supervisor posture.
