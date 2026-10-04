@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T14:18:08Z_
+_As of 2026-10-04T14:20:58Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* shipped: all 25 plates are in (10 chapter openers, 15 section figures), the old title-page garden scene is gone, the build reproduces byte-for-byte and matches the live site, and 30/30 tests pass — live at the published ocap.site link, assembled via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/pull/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/pull/11). Two minor cosmetic flaws remain (a book spine crossing a terrace edge, an off-center dash) but nothing blocking. Separately, the accountant re-sliced the weekly budget to add a `garden-book` arc (5M) for future editions and upkeep, trimming the unallocated reserve to 22.75M.
-
-The dominant open issue is the oros host, unreachable for roughly two days now (heartbeat and sysop both stale since 2026-10-02T05:0x Z): 13 health-checkup jobs are piling up unclaimed, and the automated watch has stopped sending new ops since a backlog of prior ones remain unacked — this needs a person physically checking the Mac's sleep/power state, Docker Desktop, and the VM. A new watchdog also flagged [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) as needing fresh review (its panel coverage went stale after a later push), and a detailed SturdyRef-stack status note recommends merge order once the lower layers land, with [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) ready first. A long-running journal-contention condition on one host cleared on its own after being open since early morning.
+The board stayed essentially quiet since the last snapshot — the only board motion was a fresh `oros-health-checkup-20261004-142006` post, joining a backlog of 16 stuck checkups that no one has claimed. The headline news is that Oros itself remains unreachable going on 50 hours now, heartbeat and sysop-log both silent since 2026-10-02T05:08Z and deployed well behind main2; repeated watcher notices say no one at the machine has checked Docker Desktop, sleep state, or the VM, and the sysop queue has over eight unacked ops piling up, so the watchers have stopped sending more. Separately, the *Better Code and Gardens* illuminated edition is live and worth a look — all 25 plates landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), build verified byte-for-byte, tests 30/30, with only minor cosmetic flaws disclosed. On the Endo side, the SturdyRef stack (layers 3/4/6/7, PRs [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is CI-green but stalled on stale panel coverage and stack-hygiene drift, with a recommended merge order laid out for review. A stale-panel-head flag also came in for [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148), which needs a fresh review pass before anything merges there.
 
 ## Parked for maintainer feedback
 
@@ -216,8 +214,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.3M | $699.35 _(notional, rate-card)_ | 42% of 256.0M (ok) |
-| Codex | 7.5M _(+207.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 106.4M | $699.59 _(notional, rate-card)_ | 42% of 256.0M (ok) |
+| Codex | 7.5M _(+207.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -225,7 +223,7 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 5.085034s/45s (/home/kris/garden/.garden-state/inbox-list/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (15)
+### todo (16)
 - [`oros-health-checkup-20261004-015005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-015005.md) — ---
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
@@ -236,6 +234,7 @@ worst fetch p95 5.085034s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`oros-health-checkup-20261003-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-193507.md) — ---
 - [`oros-health-checkup-20261004-110510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-110510.md) — ---
 - [`oros-health-checkup-20261004-080507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-080507.md) — ---
+- [`oros-health-checkup-20261004-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-142006.md) — ---
 - [`oros-health-checkup-20261003-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-132007.md) — ---
 - [`oros-health-checkup-20261003-223509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-223509.md) — ---
 - [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
