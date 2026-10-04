@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T06:04:43Z_
+_As of 2026-10-04T06:08:43Z_
 
 ## Latest
 
-Book-illumination work moved forward: the integrate stage and the chapter-illustrations build both completed, and a new supervisor job picked up to review, merge, publish, and continue the garden-book illumination arc after the integrate step. Outstanding from the maintainer inbox: oros-studio-garden-ce242c49 remains offline for its second day (46+ hours stale, still skipped by rolling deploy), oros itself is unreachable per a separate health-watch report with one benign reset-failed op queued but unacked, and a journal-contention storm hit seven clone guards at once on endolin-garden2-5bcdff64 — all flagged as awaiting a healthy post-rebuild fetch with no automatic remedy. The SturdyRef stack panel summary recommends merging [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) as-is once their predecessors land, with [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) needing a retcon first — none of the four PRs have been touched yet pending that decision. The accountant also re-sliced next week's budget allocation, adding a new 5M-token `garden-book` arc.
+The headline item: the illuminated second edition of *Better Code and Gardens* is live, with all 25 plates (10 chapter openers, 15 section figures) captioned and the old title-page garden scene removed — art merged via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), with a byte-for-byte reproducible build and 30/30 tests passing. A few cosmetic nits remain (one book spine crossing a terrace edge, a slightly off-center dash in the chapter 9 plate).
+
+Otherwise the board is dominated by housekeeping noise: a cluster of unclaimed `oros-health-checkup` jobs reflects that the oros-studio-garden host has been offline/unreachable for roughly two days and needs a human to check the machine; several watchdog notices (journal-contention overruns/storms on endolin-garden2, pending container hardening on two hosts, a blind comment-watcher on kriscendobot/ocapn, a comment-provenance instrumentation gap) are tracked but non-urgent; and the week's budget was re-sliced per kriskowal's approval, adding a new `garden-book` arc. The SturdyRef review stack (layers 3/4/6/7, PRs [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) has a panel summary awaiting a merge decision, recommending #1392 merge first once its two underlying drafts land.
 
 ## Parked for maintainer feedback
 
@@ -90,13 +92,31 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Every other arc is unchanged. From now on, book-* and garden-book-* jobs should be posted with `--arc garden-book`. The book-illumination/equilibrium jobs already on the board are unarced and orchestrated or blocked. I did not re-tag them, because the accountant only writes the allocation layer. No open budget request existed to close (there is no budget/requests/ on the journal). No reply needed.
 
+- `msg-book-illumination-supervisor-after-integrate-20261004-f9b5d6787b94` — from gardener:book-illumination-supervisor-after-integrate-20261004, reply_to `book-illumination-supervisor-after-integrate-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-book-illumination-supervisor-after-integrate-20261004-f9b5d6787b94.md)
+
+> The illuminated edition of *Better Code and Gardens* (2026-10-04) is live: https://dnl43y7ksqqrkfzkzsiyzhfoqks7tnxpedzi7gfymzviqo7uvkda.ocap.site/
+>
+> All 25 plates are in, as 10 chapter openers and 15 section figures, and each one has a caption. The old garden scene behind the title has been removed.
+>
+> **How it got there:**
+> - Art: [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9), merged as 32cf234.
+> - Integration: [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), reviewed at head b716cab and merged as 636a80f.
+> - Published from that merge. The edition record is commit 6e0ad97 on main.
+>
+> **Checks:**
+> - The build reproduces byte for byte, and the live site serves the same bytes.
+> - Tests: 30/30 pass.
+> - I loaded the live site in a headless browser on a phone-sized and a desktop-sized screen, in light and dark mode. Nothing spills past the screen edge, no picture is clipped or covers text, and the text is easy to read against the background.
+>
+> **Known flaws I left as they are:** in the chapter 9 hanging-library picture, one book spine crosses a terrace edge and a small dash sits slightly off-center. Overall the set is on the plain side of "illuminated".
+
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-04T05:56:04Z).
-> It was observed 2 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #3 (first seen 2026-10-04T05:15:32Z, latest 2026-10-04T06:05:57Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
+> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 37 of 968 clone(s) on consecutive ticks.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -179,7 +199,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.8M | $641.26 _(notional, rate-card)_ | 37% of 256.0M (ok) |
+| Claude | 94.9M | $641.11 _(notional, rate-card)_ | 37% of 256.0M (ok) |
 | Codex | 6.7M _(+155.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -203,18 +223,17 @@ worst fetch p95 4.648168s/45s (unknown); 2 open notice(s); checker healthy
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (3)
+### doin (2)
 - [`book-illumination-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-20261004.md) — Supervise production 1: per-chapter/section illuminated illustrations (krisce...
 - [`improve-durable-result-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-durable-result-reconcile.md) — ---
-- [`book-illumination-supervisor-after-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-after-integrate-20261004.md) — Supervise garden-book illumination after INTEGRATE: review, merge, publish, r...
 
-### tada (10791)
+### tada (10792)
+- [`book-illumination-supervisor-after-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-supervisor-after-integrate-20261004.md) — Cost
 - [`book-illumination-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-integrate-20261004.md) — Cost
 - [`garden-book-chapter-illustrations-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/garden-book-chapter-illustrations-build.md) — Cost
 - [`book-illumination-supervisor-after-revise-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-supervisor-after-revise-20261004.md) — Completion report: book-illumination-supervisor-after-revise-20261004
 - [`book-illumination-revise-20261004-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-revise-20261004-gauntlet.md) — gauntlet book-illumination-revise-20261004-gauntlet - not viable
-- [`book-illumination-produce-20261004-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004-gauntlet-fix-1.md) — Fix round 1 report: kriscendobot/garden-book PR #9
-- … and 10786 more
+- … and 10787 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
