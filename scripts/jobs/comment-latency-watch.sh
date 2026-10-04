@@ -157,6 +157,23 @@ run_source_handler() { # handler args... — rc of the handler; stdout passes th
   return "$rc"
 }
 
+# A sibling watcher can latch the shared REST cooldown MID-sweep: the tick passed its
+# api_cooldown_active check, then a later source fails as collateral of that latch
+# (gh_api_retry's admission refusal, often with no primary signature in OUR stderr).
+# Every remaining source is doomed the same way, so a WARN per repository was a log
+# storm (2026-10-04 01:42:05-07). source_failed <label> rechecks the latch after a
+# failure: rc 0 = the sweep must stop (primary quota or a live shared cooldown, the
+# latter recorded in SHARED_COOLDOWN_HIT for a quiet cooldown heartbeat); rc 1 = an
+# ordinary per-source failure, logged and swept past.
+SHARED_COOLDOWN_HIT=0
+source_failed() {
+  [ "$PRIMARY_QUOTA_HIT" -eq 0 ] || return 0
+  if api_cooldown_active rest; then SHARED_COOLDOWN_HIT=1; return 0; fi
+  log "WARN: latency source failed for $1; heartbeat checks still run"
+  return 1
+}
+sweep_stopped() { [ "$PRIMARY_QUOTA_HIT" -eq 1 ] || [ "$SHARED_COOLDOWN_HIT" -eq 1 ]; }
+
 # Unified rows:
 # created source cadence repo slug surface id number author url body
 collect_sources() {
@@ -174,7 +191,7 @@ collect_sources() {
         [ -n "$author" ] && MAINTAINERS+=("$author")
       done < "$GARDEN_COMMENT_LATENCY_MAINTAINERS_FILE"
     fi
-    run_source_handler "$GARDEN_COMMENT_LATENCY_SOURCE" "$since" || [ "$PRIMARY_QUOTA_HIT" -eq 1 ]
+    run_source_handler "$GARDEN_COMMENT_LATENCY_SOURCE" "$since" || source_failed test-source || sweep_stopped
     return
   fi
   load_journal
@@ -196,10 +213,10 @@ collect_sources() {
           "$created" "$repo" "$slug" "$surface" "$id" "$number" "$author" "$url" "$body"
       done < "$source_file"
     else
-      [ "$PRIMARY_QUOTA_HIT" -eq 1 ] || log "WARN: latency source failed for $repo; heartbeat checks still run"
+      source_failed "$repo" || true
     fi
     rm -f "$source_file"
-    [ "$PRIMARY_QUOTA_HIT" -eq 0 ] || return 0
+    ! sweep_stopped || return 0
   done < <(git -C "$JOURNAL_VIEW" ls-tree -r --name-only "origin/$JOURNAL_BRANCH" comment-repos 2>/dev/null)
 
   repo="$(git -C "$JOURNAL_VIEW" show "origin/$JOURNAL_BRANCH:config/garden-repo" 2>/dev/null \
@@ -213,9 +230,11 @@ collect_sources() {
         printf '%s\tissue-inbox\t120\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
           "$created" "$repo" "$slug" "$kind" "$id" "$number" "$author" "$url" "$body"
       done < "$source_file"
+    else
+      source_failed "$repo issue inbox" || true
     fi
     rm -f "$source_file"
-    [ "$PRIMARY_QUOTA_HIT" -eq 0 ] || return 0
+    ! sweep_stopped || return 0
   fi
 
   source_file="$(mktemp)"
@@ -225,6 +244,8 @@ collect_sources() {
       printf '%s\tmention\t90\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n' \
         "$created" "$repo" "$slug" "$surface" "$id" "$number" "$author" "$url" "$body"
     done < "$source_file"
+  else
+    source_failed "github-wide mentions" || true
   fi
   rm -f "$source_file"
 }
@@ -255,6 +276,12 @@ if [ "$PRIMARY_QUOTA_HIT" -eq 1 ]; then
   if start_api_cooldown "comment-latency-watch:primary-quota" "$secs"; then
     log "WARN: latency source hit GitHub primary quota exhaustion — cooling REST gh-api watchers for ${secs}s and stopping this sweep"
   fi
+  [ "$report_only" -eq 1 ] || watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
+  exit 0
+fi
+# A sibling latched the shared REST cooldown mid-sweep: the latch is already armed
+# (never re-armed or extended here), so stop exactly as if it had been live at start.
+if [ "$SHARED_COOLDOWN_HIT" -eq 1 ]; then
   [ "$report_only" -eq 1 ] || watcher_heartbeat_write "$GARDEN_COMMENT_LATENCY_STATE/heartbeat" cooldown
   exit 0
 fi

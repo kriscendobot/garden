@@ -212,4 +212,30 @@ rm -rf "$COOLDOWN"; run_watch
 [ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = full-poll ] || { echo 'FAIL: heartbeat not full-poll after cooldown'; exit 1; }
 SOURCE="$SOURCE_SAVED"
 
+# Race (2026-10-04 01:42:05-07): a SIBLING latches the shared REST cooldown after this
+# tick's start-of-sweep check, and the source then fails as collateral with no primary
+# signature in its own stderr. The tick must recheck the latch, stop quietly (no
+# per-source WARN), write a cooldown heartbeat, and leave the sibling's latch alone.
+RACE_SOURCE="$TR/source-race.sh"
+cat > "$RACE_SOURCE" <<EOF
+#!/bin/bash
+source "$JOBS/common.sh"
+start_api_cooldown sibling-watcher:primary-quota 3600 rest
+exit 75
+EOF
+chmod +x "$RACE_SOURCE"
+: > "$REACTIONS"; : > "$NOTICES"; rm -rf "$STATE/latency" "$COOLDOWN"
+SOURCE="$RACE_SOURCE"; ERRLOG="$TR/race.err"
+run_watch 2>"$ERRLOG" || { echo 'FAIL: mid-sweep sibling cooldown failed the tick'; cat "$ERRLOG"; exit 1; }
+grep -q 'WARN' "$ERRLOG" && { echo 'FAIL: mid-sweep sibling cooldown logged a source failure'; cat "$ERRLOG"; exit 1; }
+[ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = cooldown ] || { echo 'FAIL: no cooldown heartbeat after mid-sweep latch'; exit 1; }
+grep -q 'sibling-watcher:primary-quota' "$COOLDOWN/marker" || { echo 'FAIL: sibling latch overwritten'; cat "$COOLDOWN/marker"; exit 1; }
+[ -s "$NOTICES" ] && { echo 'FAIL: mid-sweep latch tick emitted notices'; cat "$NOTICES"; exit 1; }
+# Without a latch, the same silent failure is an ordinary per-source failure: logged.
+SILENT_SOURCE="$TR/source-silent.sh"; printf '#!/bin/bash\nexit 1\n' > "$SILENT_SOURCE"; chmod +x "$SILENT_SOURCE"
+rm -rf "$COOLDOWN"; SOURCE="$SILENT_SOURCE"
+run_watch 2>"$ERRLOG" && { echo 'FAIL: unlatched source failure passed silently'; exit 1; }
+grep -q 'WARN: latency source failed' "$ERRLOG" || { echo 'FAIL: unlatched source failure not logged'; cat "$ERRLOG"; exit 1; }
+SOURCE="$SOURCE_SAVED"
+
 echo 'PASS: comment latency watch scenarios'
