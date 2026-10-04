@@ -53,3 +53,13 @@ Push to the same draft PR, report the exact new head SHA and asset list to:
 ```
 
 If you genuinely finish but cannot achieve the gated deliverable, emit `<<<GARDEN-ORCHESTRATION-FAILED>>>` immediately before your completion signal.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T06:41:33Z
