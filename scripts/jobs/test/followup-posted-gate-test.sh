@@ -40,6 +40,10 @@ export GARDEN_PRODUCER_CLONE="$TR/producer"
 GATE="$JOBS/assert-followup-posted.sh"
 FORWARD="$JOBS/forward-gauntlet-followups.sh"
 fail() { echo "FAIL: $*" >&2; exit 1; }
+# The gate's last disposition escalates a section that prescribes no fleet work to
+# the maintainer inbox. Carve-out narrowness cases use this form so they test the
+# carve-out itself rather than the escalation behind it (covered by d2-d4, h3).
+gate_noesc() { GARDEN_FOLLOWUP_GATE_MESSAGE_USER=false "$GATE" "$@"; }
 
 # Post a job/board artifact directly onto origin/journal2 so the gate's producer
 # clone (which it clones+syncs from JOURNAL_REMOTE) sees it.
@@ -345,7 +349,7 @@ reset_clone
   || fail 'gate wrongly blocked a report with a real maintainer-inbox message'
 echo '   gate passed on an actual inbox message'
 
-echo '== (d2) BLOCK: a prose "sent to inbox" claim with NO actual message is refused =='
+echo '== (d2) BLOCK: a prose "sent to inbox" claim is refused when the gate cannot escalate it =='
 cat >"$TR/r4b.md" <<'EOF'
 Rebased the PR.
 
@@ -353,10 +357,53 @@ Rebased the PR.
 - Sent the decision to the maintainer inbox. (no message was actually sent)
 EOF
 reset_clone
-if "$GATE" pr876-rebase-unsent "$JOB" "$TR/r4b.md"; then
-  fail 'gate accepted a BARE PROSE inbox claim with no actual message (must not)'
+if GARDEN_FOLLOWUP_GATE_MESSAGE_USER=false "$GATE" pr876-rebase-unsent "$JOB" "$TR/r4b.md"; then
+  fail 'gate accepted a BARE PROSE inbox claim whose escalation failed (must not)'
 fi
-echo '   gate correctly blocked a bare prose inbox claim (rc 1)'
+# A sender that claims success but writes nothing is not a durable escalation.
+reset_clone
+if GARDEN_FOLLOWUP_GATE_MESSAGE_USER=true "$GATE" pr876-rebase-unsent "$JOB" "$TR/r4b.md"; then
+  fail 'gate accepted an escalation that left no reply_to message on the board'
+fi
+echo '   gate kept the block when escalation failed or was not durable (rc 1)'
+
+echo '== (d3) PASS: unassigned findings are escalated durably and coalesced across retries =='
+# Grounding: a worker reported unassigned telemetry findings, updated only its
+# supervisor, and was blocked here into a reaper retry 36 seconds later.
+cat >"$TR/r4c.md" <<'EOF'
+Collected the telemetry sample and updated the supervisor.
+
+## Follow-ups
+- Unassigned finding: claim latency on host B is 3x host A.
+- Unassigned finding: two monks reported empty usage rows.
+EOF
+reset_clone
+"$GATE" telemetry-sample "$JOB" "$TR/r4c.md" \
+  || fail 'gate blocked unassigned findings it could escalate'
+escalated="$(git --git-dir="$TR/journal.git" show journal2:inbox/maintainer/unread/followup-gate-telemetry-sample.md)" \
+  || fail 'gate passed without a durable followup-gate-telemetry-sample message'
+printf '%s\n' "$escalated" | grep -qx 'reply_to: telemetry-sample' \
+  || fail 'escalation is not tagged reply_to=telemetry-sample'
+printf '%s\n' "$escalated" | grep -qF 'claim latency on host B is 3x host A' \
+  || fail 'escalation omitted the parsed follow-up section'
+reset_clone
+"$GATE" telemetry-sample "$JOB" "$TR/r4c.md" \
+  || fail 'gate blocked a retry whose escalation is already durable'
+count="$(git --git-dir="$TR/journal.git" ls-tree -r --name-only journal2 inbox/maintainer \
+  | grep -c 'followup-gate-telemetry-sample' || true)"
+[ "$count" -eq 1 ] || fail "retry produced $count escalation entries, expected one coalesced entry"
+echo '   gate escalated the section once, reply_to-tagged, and accepted'
+
+echo '== (d4) BLOCK: prescribed fleet work is never escalated in place of posting =='
+reset_clone
+if "$GATE" pr910-shepherd-again "$JOB" "$TR/r1.md"; then
+  fail 'gate escalated a warranted conductor job instead of requiring it be posted'
+fi
+if git --git-dir="$TR/journal.git" ls-tree -r --name-only journal2 inbox/maintainer \
+  | grep -q 'followup-gate-pr910-shepherd-again'; then
+  fail 'gate sent an escalation for prescribed fleet work'
+fi
+echo '   gate blocked prescribed fleet work without escalating it (rc 1)'
 
 echo '== (e) PASS: an explicit override marker with a reason is the safety valve =='
 cat >"$TR/r5.md" <<'EOF'
@@ -533,30 +580,30 @@ echo '   gate passed the prompt-form failure declaration'
 echo '== (f5b) BLOCK: the failed-stage carve-out needs all three anchors to agree =='
 sed '/GARDEN-ORCHESTRATION-FAILED/d' "$TR/r6f.md" >"$TR/r6f-nofail.md"
 reset_clone
-if "$GATE" example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-nofail.md"; then
+if gate_noesc example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-nofail.md"; then
   fail 'gate accepted a still-pending stage follow-up without the orchestration-failure marker'
 fi
 sed 's/fix=still-pending/fix=done/' "$TR/r6f.md" >"$TR/r6f-done.md"
 reset_clone
-if "$GATE" example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-done.md"; then
+if gate_noesc example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-done.md"; then
   fail 'gate accepted a failed stage whose marker contradicts it (fix=done)'
 fi
 sed 's/fix=still-pending/clean=still-pending/' "$TR/r6f.md" >"$TR/r6f-stage.md"
 reset_clone
-if "$GATE" example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-stage.md"; then
+if gate_noesc example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-stage.md"; then
   fail 'gate accepted a failed stage whose marker names a different stage'
 fi
 sed '/gauntlet-stage-result/p' "$TR/r6f.md" >"$TR/r6f-twice.md"
 reset_clone
-if "$GATE" example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-twice.md"; then
+if gate_noesc example-failed-gauntlet-fix-2 "$TR/failed-fix-job.md" "$TR/r6f-twice.md"; then
   fail 'gate accepted a failed stage with more than one stage marker'
 fi
 reset_clone
-if "$GATE" example-failed-gauntlet-fix-1 "$TR/failed-fix-job.md" "$TR/r6f.md"; then
+if gate_noesc example-failed-gauntlet-fix-1 "$TR/failed-fix-job.md" "$TR/r6f.md"; then
   fail 'gate accepted a failed stage whose base is not the job metadata child name'
 fi
 reset_clone
-if "$GATE" example-failed-gauntlet-fix-2 "$JOB" "$TR/r6f.md"; then
+if gate_noesc example-failed-gauntlet-fix-2 "$JOB" "$TR/r6f.md"; then
   fail 'gate accepted a failed-stage report on a job with no gauntlet metadata'
 fi
 echo '   gate kept ordinary follow-ups gated when any anchor disagreed (rc 1)'
@@ -604,7 +651,7 @@ Work stopped before the stage completed.
 - The gauntlet driver posts the next panel stage.
 EOF
 reset_clone
-if "$GATE" incomplete-gauntlet-fix "$JOB" "$TR/r6e.md"; then
+if gate_noesc incomplete-gauntlet-fix "$JOB" "$TR/r6e.md"; then
   fail 'gate accepted driver prose without the fix=done stage marker'
 fi
 echo '   gate correctly required the completed gauntlet-stage marker (rc 1)'
@@ -652,9 +699,10 @@ reset_clone
   || fail 'gate wrongly blocked an "already satisfied / nothing further" surfaced-decision section'
 echo '   gate passed on the already-satisfied surfaced-decision phrasing'
 
-echo '== (h3) BLOCK: a NOT-yet-surfaced maintainer decision still owes the inbox =='
+echo '== (h3) BLOCK, then ESCALATE: a NOT-yet-surfaced maintainer decision owes the inbox =='
 # Missing the "already surfaced" anchor: the decision has not been put to the
 # maintainer, so this is the INBOX disposition, not a closed surfaced decision.
+# Without a working escalation it blocks; with one, the gate routes it itself.
 cat >"$TR/r8c.md" <<'EOF'
 Rebased the PR.
 
@@ -662,10 +710,15 @@ Rebased the PR.
 - The maintainer must decide whether to merge or hold. Nothing further for the fleet.
 EOF
 reset_clone
-if "$GATE" pr-needs-inbox "$JOB" "$TR/r8c.md"; then
-  fail 'gate waved through a not-yet-surfaced maintainer decision (should route to inbox)'
+if gate_noesc pr-needs-inbox "$JOB" "$TR/r8c.md"; then
+  fail 'gate waved through a not-yet-surfaced maintainer decision without routing it'
 fi
-echo '   gate correctly blocked a not-yet-surfaced decision (rc 1)'
+reset_clone
+"$GATE" pr-needs-inbox "$JOB" "$TR/r8c.md" \
+  || fail 'gate did not route a not-yet-surfaced maintainer decision to the inbox'
+git --git-dir="$TR/journal.git" cat-file -e journal2:inbox/maintainer/unread/followup-gate-pr-needs-inbox.md \
+  || fail 'gate passed a not-yet-surfaced decision without a durable inbox message'
+echo '   gate blocked without escalation and routed the decision with it'
 
 echo '== (h4) BLOCK: owed fleet work beside a surfaced decision is not waved through =='
 # The pr876 shape hidden next to a surfaced decision: the prescriptive-work
@@ -701,7 +754,7 @@ echo '   gate matched the named gauntlet to its coalesced terminal notice'
 echo '== (h6) BLOCK: an absent or unrelated gauntlet notice does not close the follow-up =='
 sed 's/pr85-gauntlet-20261003/pr86-gauntlet-20261003/' "$TR/r8e.md" >"$TR/r8f.md"
 reset_clone
-if "$GATE" pr86-retcon "$JOB" "$TR/r8f.md"; then
+if gate_noesc pr86-retcon "$JOB" "$TR/r8f.md"; then
   fail 'gate accepted a review-budget note backed only by an unrelated gauntlet notice'
 fi
 echo '   gate required the notice to match the exact gauntlet named in the section (rc 1)'
@@ -755,4 +808,4 @@ grep -q 'sync failed' "$TR/r9.err" \
   || { cat "$TR/r9.err" >&2; fail 'gate did not log a diagnostic for the failed sync'; }
 echo '   gate failed open with a diagnostic on a failed sync'
 
-echo 'PASS: the posted-follow-up gate blocks described-but-unposted follow-ups; deterministic gauntlet panel/fix transitions and structured failed stages pass; already-surfaced maintainer decisions and matching notified review-budget terminals closed for the fleet pass while owed/unsurfaced work still gates; completed clean/fix decisions are pre-forwarded with retry-safe routing and coalescing; a failed producer-clone sync fails open with a diagnostic'
+echo 'PASS: the posted-follow-up gate blocks described-but-unposted fleet work and durably escalates other follow-ups to the maintainer inbox (blocking if that fails); deterministic gauntlet panel/fix transitions and structured failed stages pass; already-surfaced maintainer decisions and matching notified review-budget terminals closed for the fleet pass while owed/unsurfaced work still gates; completed clean/fix decisions are pre-forwarded with retry-safe routing and coalescing; a failed producer-clone sync fails open with a diagnostic'

@@ -39,7 +39,8 @@
 #         board state it would read is stale).
 #   rc 1: a declared handoff names an absent successor, regardless of whether a
 #         `## Follow-ups` section exists; or a substantive follow-up section has
-#         NO checkable disposition — block completion (leave in doin for retry).
+#         NO checkable disposition and either prescribes fleet work or could not
+#         be durably escalated — block completion (leave in doin for retry).
 #
 # The four accepted dispositions:
 #   1. HANDOFF   — the report ends with <<<GARDEN-JOB-HANDED-OFF: successor>>> AND
@@ -65,6 +66,12 @@
 #      the ordinary handoff marker to the report, so gardener.sh and
 #      complete-job.sh verify and record the same successor. Pre-existing and
 #      ambiguous candidates never pass.
+#
+# A fifth, gate-authored disposition: AUTO-ESCALATION. When none of the above
+# hold and the section prescribes no board-postable fleet work
+# (followups_prescribe_fleet_work), the gate itself sends the section to the
+# maintainer inbox (coalesced, reply_to=<base>) and passes only after a fresh
+# board read shows that message. A failed send or unverified write blocks.
 #
 # Four INFORMATIONAL carve-outs additionally pass without a worker-authored
 # disposition, because they name no owed successor work (all deterministic and
@@ -228,6 +235,10 @@ fi
 # no basename is named, accept only a single new candidate and only when the
 # follow-up section itself says work was posted/parked/staged. Merely saying a job
 # is needed or warranted must not capture an unrelated concurrent board post.
+section_claims_posted() {
+  printf '%s\n' "$section" | grep -Eqi \
+    '(^|[^[:alpha:]])(post(ed|ing)?|park(ed|ing)?|stag(ed|ing)?)([^[:alpha:]]|$)'
+}
 claim_commit="$(
   git -C "$DIR" log --format=%H --diff-filter=A -- "work/$base" 2>/dev/null \
     | tail -1
@@ -264,8 +275,7 @@ if [ -n "$claim_commit" ]; then
     successor="$named"
   elif [ -z "$named" ] \
     && [ "$(printf '%s\n' "$candidates" | grep -c . || true)" -eq 1 ] \
-    && printf '%s\n' "$section" | grep -Eqi \
-      '(^|[^[:alpha:]])(post(ed|ing)?|park(ed|ing)?|stag(ed|ing)?)([^[:alpha:]]|$)'; then
+    && section_claims_posted; then
     successor="$candidates"
   fi
 
@@ -274,6 +284,51 @@ if [ -n "$claim_commit" ]; then
     log "gate: '$base' omitted its handoff marker; inferred and recorded newly posted successor '$successor'"
     exit 0
   fi
+fi
+
+# 6. AUTO-ESCALATION: a section that prescribes no board-postable fleet work
+# (unassigned findings, telemetry, an open question) has no successor to post.
+# Blocking it only re-runs the job. Grounding: a worker reported unassigned
+# telemetry findings and messaged its supervisor at 06:35:15Z; this gate blocked
+# it here for want of a disposition and the job was retried at 06:35:51Z. Route the parsed
+# section to the maintainer inbox ourselves, tagged reply_to=<base>, under a
+# stable coalescing key so a requeued completion amends one entry. Accept only
+# once a FRESH board read shows the message (the INBOX disposition's own check);
+# any send or verification failure falls through to the block. Prescribed fleet
+# work (a job "warranted", "post a shepherd", "then conduct") still blocks: it
+# must be posted, not described. So does a section claiming it posted, parked,
+# or staged work the gate could not identify: that is an unverified handoff.
+escalate_followups() {
+  local body rc=0
+  body="$(mktemp "${TMPDIR:-/tmp}/followup-gate-escalation.XXXXXX")"
+  {
+    printf 'Job "%s" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.\n\n' "$base"
+    printf '## Follow-ups\n%s\n' "$section"
+  } > "$body"
+  GARDEN_MSG_COALESCE=1 \
+  GARDEN_MSG_ID="followup-gate-$base" \
+  GARDEN_SENDER="followup-gate:$base" \
+  GARDEN_SKIP_REF_CHECK=1 \
+    "${GARDEN_FOLLOWUP_GATE_MESSAGE_USER:-$HERE/message-user.sh}" "$base" "$body" >/dev/null 2>&1 || rc=$?
+  rm -f "$body"
+  if [ "$rc" -ne 0 ]; then
+    log "gate: '$base' maintainer-inbox escalation failed (rc=$rc)"
+    return 1
+  fi
+  if ! (sync_clone "$DIR") >/dev/null 2>&1; then
+    log "gate: '$base' escalation sent but the producer clone failed to re-sync; durability unverified"
+    return 1
+  fi
+  if ! maintainer_message_from "$DIR" "$base"; then
+    log "gate: '$base' escalation reported success but no reply_to=$base message is on the board"
+    return 1
+  fi
+  return 0
+}
+if ! followups_prescribe_fleet_work "$section" && ! section_claims_posted \
+  && escalate_followups; then
+  log "gate: '$base' follow-up section prescribes no fleet work; escalated it durably to the maintainer inbox (reply_to=$base), not blocking"
+  exit 0
 fi
 
 log "gate: BLOCK — '$base' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason."

@@ -992,7 +992,9 @@ while :; do
   # GATE the completion on POSTED follow-ups, not described ones. INDEPENDENTLY of
   # everything above: if the report carries a substantive `## Follow-ups` section
   # with no checkable disposition (a verified handoff, a maintainer-inbox message,
-  # or an explicit override), refuse to record the job complete — the exact miss
+  # or an explicit override), and the gate cannot durably escalate it to the
+  # maintainer inbox itself (it never does for prescribed fleet work, which must
+  # be posted), refuse to record the job complete — the exact miss
   # shape of endojs-endo-but-for-bots-pr910-shepherd and -pr876-rebase, each of
   # which described a needed follow-up and settled without posting it. A block is
   # treated exactly like a failed handoff: leave the job in doin, reaper retries.

@@ -6951,6 +6951,37 @@ gauntlet_failed_stage_driver_owned() {
   report_has_orchestration_failure_marker "$report" || tada_failed "$report"
 }
 
+# followups_prescribe_fleet_work <section-text> — 0 iff the follow-up section
+# prescribes new board-postable fleet work: a role/job to be posted, run, or
+# "warranted" (the pr910 "a conductor job is warranted" and pr876 "a fresh
+# shepherd and then conduct" shapes). Such work must be POSTED before the job
+# settles. A section without it (unassigned findings, observations, a question
+# for the maintainer) has no successor to post, so the completion gate may route
+# it to the maintainer inbox instead of blocking. Shared by
+# followups_only_surface_decision (negative guard) and assert-followup-posted.sh
+# (auto-escalation eligibility) so both read "prescribed work" the same way.
+# A list item (or the section's first line) opening with an orchestrator verb
+# in imperative position ("- Conduct next.", "Rebase onto llm") counts as
+# prescribed work too; a wrapped continuation line ("  merge decision is ...")
+# does not.
+followups_prescribe_fleet_work() {
+  local normalized
+  printf '%s\n' "${1:-}" \
+    | awk '/^[[:space:]]*[-*•]/ || (!seen && NF) { print } NF { seen=1 }' \
+    | grep -Eqi \
+'^[[:space:]]*([-*•][[:space:]]*)?(conduct|shepherd|weave|rebase|retcon|refresh|merge|ferry|build|fix|probe|design|investigate|post|dispatch|schedule|run[[:space:]]+the[[:space:]]+gauntlet)([[:space:]]|[.,:;!]|$)' \
+    && return 0
+  normalized="$(
+    printf '%s\n' "${1:-}" \
+      | sed -E '/^[[:space:]]*<!--/d; /^[[:space:]]*$/d' \
+      | tr '\n' ' ' \
+      | sed -E 's/[[:space:]]+/ /g' \
+      | tr '[:upper:]' '[:lower:]'
+  )"
+  printf '%s' "$normalized" | grep -Eq \
+'warrant|(should|must|needs?|need to|ought to|has to|have to)[[:space:]]+(be[[:space:]]+)?(a[[:space:]]+)?(post|dispatch|conduct|shepherd|weav|rebase|retcon|schedul|run|open|file|stage)|(post|dispatch|open|file|stage|schedule|run)[[:space:]]+(a|an|the|another)[[:space:]]+|then[[:space:]]+(conduct|shepherd|weave|rebase|run)|(a[[:space:]]+)?(fresh|new|another)[[:space:]]+(conductor|shepherd|fixer|weaver|builder|gauntlet|panel|job)'
+}
+
 # followups_only_surface_decision <section-text> — 0 iff the ENTIRE follow-up
 # section only reports that the sole outstanding item is a MAINTAINER decision
 # that has ALREADY been surfaced (asked / raised / reported / made live to the
@@ -6992,8 +7023,7 @@ followups_only_surface_decision() {
   # Negative guard FIRST: any prescriptive new-fleet-work phrasing (a role/job to
   # be posted, run, or "warranted") keeps the section actionable, so a report that
   # buries owed successor work beside a surfaced decision is never waved through.
-  if printf '%s' "$normalized" | grep -Eq \
-'warrant|(should|must|needs?|need to|ought to|has to|have to)[[:space:]]+(be[[:space:]]+)?(a[[:space:]]+)?(post|dispatch|conduct|shepherd|weav|rebase|retcon|schedul|run|open|file|stage)|(post|dispatch|open|file|stage|schedule|run)[[:space:]]+(a|an|the|another)[[:space:]]+|then[[:space:]]+(conduct|shepherd|weave|rebase|run)|(a[[:space:]]+)?(fresh|new|another)[[:space:]]+(conductor|shepherd|fixer|weaver|builder|gauntlet|panel|job)'; then
+  if followups_prescribe_fleet_work "$section"; then
     return 1
   fi
 
