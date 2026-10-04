@@ -15,6 +15,10 @@ Standing policy (kriskowal 2026-09-30): spend a subscription to **90%**, never 1
 
 Natural weekly boundaries: the Claude endolin subscriptions reset **Friday 20:00 America/Los_Angeles** (Sat 03:00Z). codex-endolin resets on a rolling 7 days from its last reset. claude-oros ("claude-oros-studio1") resets **Tuesday 04:00 America/Denver** (corrected 2026-10-01 per the oros operator).
 
+## Planned use
+
+- claude-endolin2: spend its one credit (expires 2026-10-22) EARLY in the week of 2026-10-03. Burn to ~90% first (projected ~2026-10-04T22:00Z at the 10-04T04:26Z pace), then the maintainer resets Monday/Tuesday (kriskowal, 2026-10-04). The liaison alerts the maintainer when claude2 nears 90%.
+
 ## Use log
 
 - ~2026-10-02T21:43Z: codex-endolin window rolled early (inferred from the 10-03 dashboard: 0%, resets in 6d 18h). No credit used (kriskowal 2026-10-03).
