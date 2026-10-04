@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T05:28:02Z_
+_As of 2026-10-04T05:34:43Z_
 
 ## Latest
 
-Book illustration production for the garden-book moved forward: the illumination-assess step completed and the supervisor advanced to its "after-assess" stage, with the chapter-illustrations build and panel review (kriscendobot/garden-book PR #9) now in progress. No job-board posts or claims landed outside that pipeline this cycle.
+Book-illumination production for [kriscendobot/garden-book PR #9](https://github.com/kriscendobot/garden-book/pull/9) kept moving: panel round 1 and the post-produce supervisor check both landed in tada, a fix round 1 and a single-illustration revision are now in flight, and the follow-on supervisor step is parked waiting on that revision. No PRs moved into or out of the maintainer's parked queue this cycle. The maintainer inbox is otherwise the usual mix of self-clearing watchdog chatter (oros-studio-garden-ce242c49 still offline 20+ occurrences, container-hardening pending on two hosts, a transient journal-contention storm that already recovered) plus two items worth a glance: the accountant's budget re-slice adding a `garden-book` arc, and a parked `improve-receipt-primary-quota-cooldown` job that exhausted its retry and needs a human decision to split or promote.
 
 ## Parked for maintainer feedback
 
@@ -168,8 +168,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 92.7M | $627.47 _(notional, rate-card)_ | 36% of 256.0M (ok) |
-| Codex | 6.3M _(+143.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 93.3M | $632.34 _(notional, rate-card)_ | 36% of 256.0M (ok) |
+| Codex | 6.4M _(+144.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -195,16 +195,16 @@ worst fetch p95 6.910494s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 ### doin (4)
 - [`garden-book-chapter-illustrations-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-book-chapter-illustrations-build.md) — ---
 - [`book-illumination-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-20261004.md) — Supervise production 1: per-chapter/section illuminated illustrations (krisce...
-- [`book-illumination-supervisor-after-assess-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-after-assess-20261004.md) — Reconcile Fable's illumination review, integrate, merge, and publish
-- [`book-illumination-produce-20261004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-produce-20261004-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/garden-book PR #9
+- [`book-illumination-produce-20261004-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-produce-20261004-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/garden-book PR #9
+- [`book-illumination-revise-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-revise-20261004.md) — Revise four-plus-one illuminations on garden-book PR #9 per Fable's thematic ...
 
-### tada (10782)
+### tada (10784)
+- [`book-illumination-produce-20261004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004-gauntlet-panel-1.md) — Cost
+- [`book-illumination-supervisor-after-assess-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-supervisor-after-assess-20261004.md) — Cost
 - [`book-illumination-assess-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-assess-20261004.md) — Cost
 - [`book-illumination-produce-20261004-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004-gauntlet-clean.md) — Cost
 - [`book-illumination-supervisor-after-produce-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-supervisor-after-produce-20261004.md) — Cost
-- [`minion-town-pr148-ensuredirectory-race-fix-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-pr148-ensuredirectory-race-fix-20261004.md) — Panel-head freshness
-- [`book-illumination-produce-20261004-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004-gauntlet-viability.md) — Cost
-- … and 10777 more
+- … and 10779 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -293,6 +293,7 @@ worst fetch p95 6.910494s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ironhorse-press-first-engagement-20260929.md) — awaiting `ironhorse-test262-press-20260929-173306` · Verify the first live Ironhorse foreman-press engagement (successor of activa...
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
+- [`book-illumination-supervisor-after-revise-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-illumination-supervisor-after-revise-20261004.md) — awaiting `book-illumination-revise-20261004` · Supervise garden-book illumination after the single Codex revision: integrate...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
