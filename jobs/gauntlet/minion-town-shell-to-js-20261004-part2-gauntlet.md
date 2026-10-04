@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 152
 build_job: minion-town-shell-to-js-20261004-part2
 kind: feature
-stage: fix
-iteration: 3
+stage: panel
+iteration: 4
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: minion-town-shell-to-js-20261004-part2-gauntlet-fix-3
+current_child: minion-town-shell-to-js-20261004-part2-gauntlet-panel-4
 state: running
 created_by: producer
 created_at: 2026-10-04T18:15:46Z
