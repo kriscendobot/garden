@@ -44,3 +44,13 @@ Self-improvement: follow the standing skill at the end of every claim.
 <!-- garden-annotation: key=d081f09b6dcd by=orchestrator at=2026-10-04T04:47:21Z fields=role=orchestrator -->
 
 Bind the blocked continuation to its specified supervisor posture.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T05:11:23Z
