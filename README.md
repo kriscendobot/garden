@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T02:41:51Z_
+_As of 2026-10-04T02:51:58Z_
 
 ## Latest
 
@@ -647,8 +647,8 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`dependabotany-recheck-endo-but-for-bots-20261004-025006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/dependabotany-recheck-endo-but-for-bots-20261004-025006.md) — ---
 
 ### tada (10753)
 - [`canary-probe-endolin-garden2-5bcdff64-474e93f09842`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-474e93f09842.md) — rolling-deploy canary probe — round trip OK
