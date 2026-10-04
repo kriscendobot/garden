@@ -19,3 +19,13 @@ upkeep). Apply: a `garden-book` arc at rank 7 (above endo-backlog), **5M**, take
 quote, apply via `set-apportionment.sh`, confirm the resulting table to the maintainer, and
 close any budget request this decides. Future book jobs (book-*, garden-book-*) should be
 tagged to this arc.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T04:40:03Z
