@@ -26,3 +26,13 @@ Do, in kriscendobot/minion.town (PR via ensure-pr.sh, normal gauntlet):
    (`minion-town-claude-cli-production-canary-<date>`, same body as the 20261003 one) or tell
    the orchestration owner it can be re-run. Draft #105 is superseded by #148 and should be
    closed by the canary closeout, not here.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T15:54:23Z
