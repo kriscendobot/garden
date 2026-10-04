@@ -43,15 +43,21 @@
     },
     {
       "rank": 7,
+      "arc": "garden-book",
+      "summary": "Garden book: future editions and upkeep (tag book-* and garden-book-* jobs here)",
+      "token_cap": 5000000
+    },
+    {
+      "rank": 8,
       "arc": "endo-backlog",
       "summary": "Off-mandate endo-but-for-bots backlog sliver: already-staged gauntlets only",
       "token_cap": 10545000
     }
   ],
-  "unallocated_tokens": 27750000,
-  "notes": "Maintainer priority mandate (kriskowal, approved 2026-10-02): keep distributing tokens to this ranking as capacity becomes available each reset. Spend each subscription to 90%, never 100%. The current total rounds down from 90% of the calibrated 557M Claude capacity plus the provisional 60.7M codex-endolin token fit now that codex-endolin is active. The claude-endolin2 credit remains held for mid-week use, and the two codex-endolin credits remain available for use before expiry. Arc slices keep the approved 30/20/15/20/8/5/2 ratios over 95% of the total; the remaining 5% is the unallocated reserve.",
+  "unallocated_tokens": 22750000,
+  "notes": "Maintainer priority mandate (kriskowal, approved 2026-10-02): keep distributing tokens to this ranking as capacity becomes available each reset. Spend each subscription to 90%, never 100%. The current total rounds down from 90% of the calibrated 557M Claude capacity plus the provisional 60.7M codex-endolin token fit now that codex-endolin is active. The claude-endolin2 credit remains held for mid-week use, and the two codex-endolin credits remain available for use before expiry. Arc slices keep the approved 30/20/15/20/8/5/2 ratios over 95% of the total; the remaining 5% is the unallocated reserve. Re-slice 2026-10-04 (kriskowal, liaison session, reply to proposal 20261003T055048Z-1f7489): \"Approve a smaller slice for future editions.\" Adds a standing 5M garden-book arc at rank 7, above endo-backlog, taken from the unallocated reserve; all other arcs unchanged.",
   "authorized_by": "kriskowal",
-  "message_id": "20261002T043717Z-c66a59",
-  "set_by": "accountant-weekly-20261003-160506",
-  "set_at": "2026-10-03T16:08:26Z"
+  "message_id": "20261003T055048Z-1f7489",
+  "set_by": "accountant-reslice-20261004",
+  "set_at": "2026-10-04T04:40:48Z"
 }
