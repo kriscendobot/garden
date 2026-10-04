@@ -1,5 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-10-04T16:51:41Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-improve-claude-production-deploy-verification
