@@ -1,11 +1,9 @@
 ---
-gate: blocked
-blocked_on: book-illumination-revise-20261004
-priority: high
 role: orchestrator
-posted_by: orchestrator
-posted_at: 2026-10-04T05:29:10Z
+tier: mentor
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=high at=2026-10-04T05:46:04Z cleared=none -->
 
 ---
 role: orchestrator
