@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T01:06:43Z_
+_As of 2026-10-04T01:09:29Z_
 
 ## Latest
 
@@ -173,6 +173,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-review-budget-reached` — from gauntlet:ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
+
+- `msg-oros-health-watch-20261004-010505-af10cee55623` — from gardener:oros-health-watch-20261004-010505, reply_to `oros-health-watch-20261004-010505` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261004-010505-af10cee55623.md)
+
+> Oros is unreachable: its heartbeat is stale since 2026-10-02T05:08:36Z, fleet health since 2026-10-02T03:13:48Z, and sysop log since 2026-10-02T05:38:58Z. The 2026-10-03T22:35:09Z health checkup remains unclaimed. I sent reset-failed as 20261004T010659Z-fb1a54; no ack yet, behind multiple older unacked ops. A person at the machine needs to check Docker Desktop, whether the Mac is asleep, and the VM.
 
 - `design-act-local-ci-screening-split-terminal-complete` — from orchestrator:design-act-local-ci-screening-split-terminal-complete, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/design-act-local-ci-screening-split-terminal-complete.md)
 
@@ -617,7 +621,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 87.1M | $594.50 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 5.4M _(+128.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 5.5M _(+128.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -638,16 +642,16 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`oros-health-watch-20261004-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261004-010505.md) — ---
+### doin (0)
+(none)
 
-### tada (10749)
+### tada (10750)
+- [`oros-health-watch-20261004-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-010505.md) — Cost
 - [`improve-fork-watch-offline-rc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-fork-watch-offline-rc.md) — Cost
 - [`claude-on-minion-town-press-20261004-002006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-002006.md) — Panel-head freshness
 - [`canary-probe-endolin-garden2-5bcdff64-5acfa4b1fc24`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/canary-probe-endolin-garden2-5bcdff64-5acfa4b1fc24.md) — rolling-deploy canary probe — round trip OK
 - [`improve-recognize-gauntlet-budget-notice`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-recognize-gauntlet-budget-notice.md) — Cost
-- [`kriscendobot-minion.town-pr85-retcon-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-retcon-20261003.md) — Cost
-- … and 10744 more
+- … and 10745 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
