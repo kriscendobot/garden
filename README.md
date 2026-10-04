@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T12:16:16Z_
+_As of 2026-10-04T12:22:59Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* published 2026-10-04: all 25 plates are in (10 chapter openers, 15 section figures, each captioned), the old title-page garden scene is gone, the build reproduces byte-for-byte and the live site matches, and 30/30 tests pass — verified visually in both light and dark mode on phone and desktop sizes. Art landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). Minor cosmetic flaws remain in one chapter-9 illustration (a book spine crossing a terrace edge, a slightly off-center dash). Separately, the accountant re-sliced the weekly budget (555M planning ceiling) to add a new `garden-book` arc for future editions and upkeep, at the maintainer's request.
+The headline this cycle is the *Better Code and Gardens* illuminated edition shipping: art landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), with all 25 plates in place, a byte-identical build, 30/30 tests, and a visual pass on phone/desktop in both light and dark mode; a couple of cosmetic nits remain in the chapter 9 plate. Separately, a panel review of the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) came back with merge recommendations but flagged stack hygiene — stale frozen bases under layers 1/2 need a weave before anything lands — and a stale-head notice on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) needs a maintainer call on whether to re-panel.
 
-Oros remains unreachable for roughly 50 hours (heartbeat and sysop-log both stale since 2026-10-02), with health checkups piling up unclaimed and outbound ops queued but unacked — this needs someone physically checking the Mac's sleep/Docker/VM state. The SturdyRef PR stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is CI-green and ready for a merge decision pending stack-hygiene weaves on the layers beneath it, and [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has drifted past its last panel review and needs a fresh look before any gauntlet proceeds.
+The main thing needing attention is the **oros-studio host, unreachable for ~50 hours** (heartbeat and sysop both stale since 2026-10-02T05:08Z): it's derotated from the fleet and deploys keep skipping it, with a growing backlog of unclaimed health-checkup jobs and unacked sysop ops — someone needs to physically check the Mac/Docker Desktop/VM. There's also an endojs/endo-but-for-bots#1125-related comment-provenance gap and a halted ironhorse gauntlet worth a look when time allows.
 
 ## Parked for maintainer feedback
 
@@ -212,8 +212,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.9M | $693.68 _(notional, rate-card)_ | 41% of 256.0M (ok) |
-| Codex | 7.4M _(+207.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 105.1M | $694.84 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Codex | 7.4M _(+207.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -238,8 +238,8 @@ worst fetch p95 5.085034s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-leader-fetch-outage-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-leader-fetch-outage-backoff.md) — ---
 
 ### tada (10829)
 - [`canary-probe-endolin-garden2-5bcdff64-f3d058dd65eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-f3d058dd65eb.md) — rolling-deploy canary probe — round trip OK
