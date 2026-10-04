@@ -1,9 +1,14 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:deadline-nudge
-sent_at: 2026-10-04T21:48:21Z
+sent_at: 2026-10-04T23:18:26Z
 watchdog_key: deadline-nudge-push-rejected:endolin-garden-ece02cb4
 notice_count: 1
 first_seen: 2026-10-04T21:48:21Z
-last_seen: 2026-10-04T21:48:21Z
+last_seen: 2026-10-04T23:18:26Z
+recovered: true
 ---
-deadline-nudge on endolin-garden-ece02cb4 cannot push to journal2: server-reject rejection (To github.com:kriscendobot/garden.git  ! [remote rejected]       HEAD -> journal2 (cannot lock ref 'refs/heads/journal2': is at 3d1db15ff6c9389171eb35691cff34223d6d5c7a but expected cbcb6725ae67c39e288842162ef39bb8afb3ae03) error: failed...). Deadline warnings are not being delivered; this needs repair (credentials, upstream, or a receive-side policy), not a retry.
+RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-04T21:48:21Z, cleared 2026-10-04T23:18:26Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+deadline-nudge on endolin-garden-ece02cb4 pushed to journal2 again; the push rejection has cleared.
