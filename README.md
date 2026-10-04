@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T15:12:15Z_
+_As of 2026-10-04T15:22:02Z_
 
 ## Latest
 
-The headline this cycle is the *Better Code and Gardens* illuminated edition going live — all 25 plates in place (10 chapter openers, 15 section figures), each captioned, verified byte-for-byte reproducible and checked in a headless browser across screen sizes and color modes, landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/pull/11). The accountant also re-sliced the weekly budget to carve out a dedicated `garden-book` arc for future editions and upkeep.
-
-On the SturdyRef stack, a panel summary recommends merging layers L3, L6, and L7 as-is ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)), with L4 ([#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)) needing a retcon to regroup ~26 rework commits first; all four sit on drifted bases underneath still-draft layers 1/2 ([#774](https://github.com/endojs/endo-but-for-bots/issues/774), [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)), so sequencing matters before any merge. Separately, [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has stale panel coverage after a post-review head move and needs an explicit maintainer call before it's re-reviewed, and a gauntlet for an ironhorse panic-host-call PR halted after its fix stage was declined.
-
-Oros remains unreachable for roughly 50 hours now, with checkups piling up unclaimed and host ops backing up unacked — this needs a person at the machine to check power/Docker/VM state. Journal contention storms have since cleared, but a comment-provenance instrumentation gap (missing model/harness footer fields) and a receipt-watcher primary-quota cooldown fix (parked, exhausted its retry) are both awaiting attention.
+Two minion.town PRs moved forward: [kriscendobot/minion.town#137](https://github.com/kriscendobot/minion.town/pull/137) passed review and is now being merged, while [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) — already merged — is back in a shepherd job because CI turned red post-merge, and separately its head has drifted past the last panel review (dea0146c → e4fb4e70) and needs fresh eyes before anything further lands on it. On the book front, the illuminated edition of *Better Code and Gardens* is live at ocap.site with all 25 plates captioned and in place, closing out [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) (art) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11) (integration). A panel summary on the SturdyRef stack recommends merging [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), and [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) in sequence once the underlying layers are rebased — worth a maintainer look since no further panel round is needed. Oros remains unreachable going on 50 hours with health checkups piling up unclaimed; it needs a person at the machine (Docker Desktop / sleep state / VM). Separately, the journal-contention storm on endolin-garden2 that opened this morning has cleared.
 
 ## Parked for maintainer feedback
 
@@ -222,8 +218,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 107.4M | $703.65 _(notional, rate-card)_ | 42% of 256.0M (ok) |
-| Codex | 7.5M _(+207.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 108.0M | $706.30 _(notional, rate-card)_ | 42% of 256.0M (ok) |
+| Codex | 7.6M _(+208.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -249,16 +245,17 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (2)
+- [`kriscendobot-minion.town-pr148-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr148-shepherd.md) — shepherd (auto: red CI) on kriscendobot/minion.town PR #148
+- [`kriscendobot-minion.town-pr137-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr137-conduct.md) — Conduct and deploy kriscendobot/minion.town PR #137
 
-### tada (10833)
+### tada (10835)
+- [`kriscendobot-minion.town-pr148-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr148-conduct.md) — Cost
+- [`kriscendobot-minion.town-pr137-review-8f677fe3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr137-review-8f677fe3.md) — Cost
 - [`oros-health-watch-20261004-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-132007.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-aef3d26039f9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-aef3d26039f9.md) — rolling-deploy canary probe — round trip OK
 - [`claude-on-minion-town-press-20261004-125005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-125005.md) — Panel-head freshness
-- [`improve-leader-fetch-outage-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-leader-fetch-outage-backoff.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-f3d058dd65eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-f3d058dd65eb.md) — rolling-deploy canary probe — round trip OK
-- … and 10828 more
+- … and 10830 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -340,6 +337,7 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`endojs-endo-but-for-bots-pr1348-review-4984e562-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1348-review-4984e562-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1348 (primary: endojs-endo-but-...
 - [`kriscendobot-minion.town-pr146-review-338999f3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr146-review-338999f3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #146 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr148-review-cde1226a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr148-review-cde1226a-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #148 (primary: kriscendobot-mini...
+- [`kriscendobot-minion.town-pr137-review-8f677fe3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr137-review-8f677fe3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #137 (primary: kriscendobot-mini...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
