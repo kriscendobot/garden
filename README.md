@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-04T14:58:35Z_
+_As of 2026-10-04T15:00:13Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* is live, with all 25 plates captioned and the old title-page garden scene removed; it reached production through art PR [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) (merged 32cf234) and integration PR [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11) (merged 636a80f), verified byte-reproducible and checked visually across light/dark and phone/desktop. The accountant re-sliced the weekly budget to carve out a new `garden-book` arc (5M), nudging every other arc down slightly. Oros remains unreachable going on ~50 hours — heartbeat, sysop, and fleet-health all stale since 2026-10-02, 13+ health-checkup jobs piling up unclaimed, and the sysop queue backed up with unacked ops — this needs someone at the machine to check power/Docker/VM state. Separately, the SturdyRef stack (layers 3/4/6/7: [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) has panel recommendations ready for a merge decision, and minion.town PR [#148](https://github.com/kriscendobot/minion.town/pull/148) needs a fresh review since its head moved past the last panel pass.
+The headline is the illuminated edition of *Better Code and Gardens*: all 25 plates are in (10 chapter openers, 15 section figures, captions throughout, old title-page garden scene removed), built from art [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), verified byte-reproducible and checked visually across light/dark and phone/desktop — with two small known flaws left as-is (a spine crossing a terrace edge, an off-center dash) in the chapter 9 plate.
+
+On the review side, the SturdyRef stack got a full panel pass across its four draft layers — [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), and [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) — recommending #1392 and #1397 merge as-is, #1396 merge after its predecessor, and #1393 merge after a ~26-commit retcon; stack hygiene (stale frozen bases under #774/#1391) needs resolving first. Separately, [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has drifted out of panel coverage after a fix push and needs either an explicit "run the gauntlet" or a maintainer call on the stale head.
+
+Operationally, the oros-studio host remains unreachable (heartbeat and sysop stale since 2026-10-02, now ~50 hours), derotated from rolling deploy with a stack of unacked sysop ops and over a dozen unclaimed health checkups piling up — it needs someone physically at the machine to check sleep/power, Docker Desktop, and the VM.
 
 ## Parked for maintainer feedback
 
@@ -116,14 +120,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Oros is still unreachable: the 08:05Z checkup remains unclaimed after ~2h; heartbeat is stale since 2026-10-02T05:08Z, sysop-log since 2026-10-02T05:39Z, and fleet health since 03:13Z. The host remains heartbeat-offline derotated and deployed at e036bb8e versus main2 893ccdaa. I sent no further op because at least eight post-failure host ops remain unacked and the dead sysop cannot consume another. A person needs to check the Mac sleep/power state, Docker Desktop, and the VM/container.
 
-- `watchdog-comment-watcher-stuck-cooldown-host` — from watchdog:comment-latency-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-watcher-stuck-cooldown-host.md)
-
-> RECOVERED — the watchdog condition `comment-watcher-stuck-cooldown-host` has CLEARED (first seen 2026-10-04T14:53:10Z, cleared 2026-10-04T14:57:42Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
->
-> Comment acknowledgment condition cleared.
-
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
 > WATCHDOG notice — occurrence #9 (first seen 2026-10-04T05:15:32Z, latest 2026-10-04T13:21:07Z).
@@ -222,7 +218,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 106.8M | $701.25 _(notional, rate-card)_ | 42% of 256.0M (ok) |
+| Claude | 106.9M | $701.49 _(notional, rate-card)_ | 42% of 256.0M (ok) |
 | Codex | 7.5M _(+207.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
