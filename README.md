@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T18:34:04Z_
+_As of 2026-10-04T18:38:11Z_
 
 ## Latest
 
-The quietest tick since the last bulletin: a single completion, [kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/pull/152)'s fourth follow-up fix job, with three gauntlet panels still running on the shell-to-js conversion stack ([#152](https://github.com/kriscendobot/minion.town/pull/152), [#151](https://github.com/kriscendobot/minion.town/pull/151), [#153](https://github.com/kriscendobot/minion.town/pull/153)) plus panel round 5 on [#150](https://github.com/kriscendobot/minion.town/pull/150).
+The garden shipped the illuminated edition of *Better Code and Gardens*, now live, with all 25 plates captioned across chapter openers and section figures via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11); tests pass and the build reproduces byte-for-byte, with only cosmetic nits (a crossed book spine, an off-center dash) left as known flaws. The budget accountant re-sliced the weekly allocation to add a `garden-book` arc, and minion.town conversion/gauntlet work continues on PRs [#150](https://github.com/kriscendobot/minion.town/pull/150), [#151](https://github.com/kriscendobot/minion.town/pull/151), [#152](https://github.com/kriscendobot/minion.town/pull/152), and [#153](https://github.com/kriscendobot/minion.town/pull/153), with [#148](https://github.com/kriscendobot/minion.town/pull/148) and [#150](https://github.com/kriscendobot/minion.town/pull/150) now carrying stale panel coverage needing a fresh review before merge. A reviewer also delivered a detailed merge-readiness assessment of the four-layer SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)), recommending #1392 merge first once its two draft dependencies land, with the others needing a retcon/weave or waiting on layer 5.
 
-The bigger news sits in the inbox: oros-studio-garden-ce242c49 has been unreachable for roughly two days (heartbeat and sysop-log stale since 2026-10-02T05:08Z/05:35Z), with thirteen health-checkup jobs piling up unclaimed and the host still derotated — it needs a human at the machine to check Docker Desktop, sleep/power state, and the VM. Separately, *Better Code and Gardens* shipped its illuminated edition (all 25 plates captioned, live at the ocap.site build), and the SturdyRef stack (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392)/[#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)/[#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)/[#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is CI-green and awaiting a maintainer merge decision, with layer-1/2 stack hygiene ([#774](https://github.com/endojs/endo-but-for-bots/issues/774), [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) needing to land first. Three stale-panel-head notices also want a maintainer call: [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) each moved heads after their last panel review.
+The most pressing operational issue: host **oros-studio-garden-ce242c49** has been unreachable for ~50 hours (since 2026-10-02T05:08Z), is derotated, and has 17 health-checkup jobs piling up unclaimed in the board's `todo` queue plus unacked sysop ops — someone needs to physically check the Mac (sleep/power, Docker Desktop, VM).
 
 ## Parked for maintainer feedback
 
@@ -146,6 +146,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Oros is still unreachable: the 08:05Z checkup remains unclaimed after ~2h; heartbeat is stale since 2026-10-02T05:08Z, sysop-log since 2026-10-02T05:39Z, and fleet health since 03:13Z. The host remains heartbeat-offline derotated and deployed at e036bb8e versus main2 893ccdaa. I sent no further op because at least eight post-failure host ops remain unacked and the dead sysop cannot consume another. A person needs to check the Mac sleep/power state, Docker Desktop, and the VM/container.
 
+- `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
+
+> budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): subscription claude-endolin2 spend=101380144 cap=121000000 pace-bias=0 window-start=2026-10-03T03:00Z(calendar) deadline=2026-10-10T03:00Z(calendar) [planned reset 2026-10-10T03:00:00Z not before calendar deadline; ignored] ceiling=4 target=1
+
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
 > RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-04T18:27:13Z).
@@ -259,7 +263,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 125.8M | $836.97 _(notional, rate-card)_ | 49% of 256.0M (ok) |
+| Claude | 126.2M | $840.26 _(notional, rate-card)_ | 49% of 256.0M (ok) |
 | Codex | 7.8M _(+209.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -408,7 +412,7 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 2 monks
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 1 monks
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 3 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
