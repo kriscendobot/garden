@@ -1,4 +1,5 @@
 ---
+child-minion-town-shell-to-js-20261004-part3-host: endolin-garden2-5bcdff64
 child-minion-town-shell-to-js-20261004-part3-reap-count: 0
 child-minion-town-shell-to-js-20261004-part2-host: endolin-garden-ece02cb4
 child-minion-town-shell-to-js-20261004-part2-reap-count: 0
