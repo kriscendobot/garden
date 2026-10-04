@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T09:49:41Z_
+_As of 2026-10-04T09:51:39Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in (10 chapter openers, 15 section figures, each captioned), the old title-page garden scene removed, art and integration merged via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11) — build reproduces byte-for-byte, tests pass 30/30, live site checked across screen sizes and light/dark mode. The accountant re-sliced the weekly budget to add a `garden-book` arc (5M, authorized by kriskowal) alongside the existing seven. Separately, the SturdyRef stack review (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back with a merge recommendation — #1392 as-is, #1393 after a retcon, #1396/#1397 as-is — but stack hygiene underneath (layers #774 and [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)) still needs weaving before any of it can land.
+The illuminated edition of *Better Code and Gardens* shipped and is live at the published site: all 25 plates are in place as chapter openers and section figures with captions, the old title-page garden scene is gone, the build reproduces byte-for-byte, and a cross-device/light-dark visual check passed — only minor cosmetic rough edges remain (a spine crossing a terrace edge, one slightly off-center caption dash). Separately, the SturdyRef stack review returned a merge-readiness verdict: layers 3, 6, and 7 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) are ready to merge as-is once their predecessors land, while layer 4 ([#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)) needs a retcon to regroup roughly 26 rework commits first; the two layers underneath are still drafts with drifted frozen bases, so stack hygiene has to happen before anything merges. [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) also picked up new commits since its last panel pass and needs a fresh review before any further action.
 
-The main thing needing attention: oros-studio-garden has been unreachable for about 50 hours (heartbeat stale since 2026-10-02T05:08Z), with 13 health-checkup jobs now stuck unclaimed in todo — it needs a person to check the physical machine/Docker Desktop/VM. There's also a stale gauntlet halt on an ironhorse panic-host-call PR, a sysop queue backlog of unacked ops, and a comment-watcher self-test failure on kriscendobot/ocapn worth a look.
+The main thing needing attention is oros: it's been unreachable for about 50 hours (heartbeat and sysop both stale since 2026-10-02), 13 health-checkup jobs are piling up unclaimed, and someone needs to check the machine (Docker Desktop, sleep state, VM). A comment-watcher self-test also failed on kriscendobot/ocapn, suggesting that watcher may be silently blind and worth checking.
 
 ## Parked for maintainer feedback
 
@@ -116,11 +116,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-04T09:41:23Z).
-> It was observed 7 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #8 (first seen 2026-10-04T05:15:32Z, latest 2026-10-04T09:50:49Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 8 times; this is ONE
+> coalesced notice that updates in place, not 8 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
+> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 984 of 984 clone(s) on consecutive ticks.
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-093512, reply_to `claude-on-minion-town-press-20261004-093512` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
@@ -208,8 +208,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.7M | $688.70 _(notional, rate-card)_ | 41% of 256.0M (ok) |
-| Codex | 7.3M _(+206.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 103.7M | $688.93 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Codex | 7.3M _(+206.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
