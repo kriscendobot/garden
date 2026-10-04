@@ -42,3 +42,13 @@ and deployed (child 2). Verify on the host via SSM; if not, report orchestration
 4. Comment the outcome on the arc issue kriscendobot/garden#89 only if the press has not.
 If any canary fails, fix forward via a new fixer job and report orchestration-failed with the
 evidence rather than claiming success.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T15:52:17Z
