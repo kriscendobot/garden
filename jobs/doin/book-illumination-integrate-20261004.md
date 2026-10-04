@@ -34,3 +34,13 @@ Repository: `kriscendobot/garden-book` (scope is only this repo: no upstream rep
 8. Open a **DRAFT** PR against `main-32cf234` only through `scripts/jobs/gardening/ensure-pr.sh`. **Do not merge and do not publish**: the supervisor successor does both. When finished, send the PR URL, head SHA, and verification summary to `book-illumination-supervisor-after-integrate-20261004` with `scripts/jobs/inbox-send.sh`.
 
 Self-improvement: follow the standing skill at the end of every claim.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T05:50:21Z
