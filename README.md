@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T16:34:43Z_
+_As of 2026-10-04T16:38:05Z_
 
 ## Latest
 
-The only board motion since the last bulletin was the gauntlet fix-round for [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) (enabling the Claude CLI provider in production) completing, with its production-enable verification still parked pending that PR. Otherwise the picture is dominated by the ongoing oros-studio host outage, now past 50 hours unreachable with checkups piling up unclaimed and host ops stuck unacked behind a dead sysop — still needs someone physically at the machine. On the brighter side, the illuminated edition of *Better Code and Gardens* shipped and is live, with all 25 plates captioned and verified across screen sizes. The panel also delivered a full merge recommendation for the four-layer SturdyRef stack (issues [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) — three merge-as-is, one needs a retcon — pending stack hygiene on the layers below.
+The illuminated edition of *Better Code and Gardens* shipped 2026-10-04: all 25 plates are in (10 chapter openers, 15 section figures), the old title-page garden scene is gone, tests pass 30/30, and the build reproduces byte-for-byte on the live site — minor cosmetic nits remain in the chapter 9 plate. [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) (enabling the Claude CLI provider in production) is mid-gauntlet, now in its second panel round after one fix pass.
+
+Oros (oros-studio-garden-ce242c49) has been unreachable for roughly two days — heartbeat and sysop-log both stale since 2026-10-02 — with health checkups piling up unclaimed on the board; this needs someone at the machine to check power/sleep, Docker Desktop, and the VM. Separately, the SturdyRef review stack (endojs/endo-but-for-bots #1392/#1393/#1396/#1397) is ready for merge decisions layer by layer, but stack hygiene (frozen-base drift under #774/#1391) needs to resolve first, and a few journal-contention watchdogs cleared on their own after transient slowness.
 
 ## Parked for maintainer feedback
 
@@ -126,7 +128,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_leader_journal.md)
 
-> Journal clone guard on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/leader/journal: packs 1075 >= 1000; size=291738624B packs=1075 gc.log=0; automatic remedy=applied.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` has CLEARED (first seen 2026-10-04T15:10:19Z, cleared 2026-10-04T16:35:15Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden__garden_state_leader_journal` cleared on endolin-garden-ece02cb4.
 
 - `msg-oros-health-watch-20261004-100509-1457518f0c1b` — from gardener:oros-health-watch-20261004-100509, reply_to `oros-health-watch-20261004-100509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261004-100509-1457518f0c1b.md)
 
@@ -230,13 +236,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.9M | $730.46 _(notional, rate-card)_ | 44% of 256.0M (ok) |
+| Claude | 112.5M | $734.73 _(notional, rate-card)_ | 44% of 256.0M (ok) |
 | Codex | 7.6M _(+208.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journal); 3 open notice(s); checker healthy
+worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (16)
@@ -257,8 +263,8 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion-town-pr150-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr150-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #150
 
 ### tada (10849)
 - [`kriscendobot-minion-town-pr150-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-fix-1.md) — Cost
