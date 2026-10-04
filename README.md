@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T02:12:56Z_
+_As of 2026-10-04T02:18:01Z_
 
 ## Latest
 
@@ -521,11 +521,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-03T05:14:59Z, cleared 2026-10-04T00:29:59Z).
-> It was observed 37 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #38 (first seen 2026-10-03T05:14:59Z, latest 2026-10-04T02:15:39Z).
+> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 38 times; this is ONE
+> coalesced notice that updates in place, not 38 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
+> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-3.md)
 
@@ -601,10 +608,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-lock-contention-_home_kris_garden__garden_state_leader_journal` cleared on endolin-garden-ece02cb4.
 
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261004-015005` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261004-015005.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261004-015005' has remained unclaimed for 1189s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo_but_for_bots` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo_but_for_bots.md)
 
 > RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo_but_for_bots` has CLEARED (first seen 2026-10-03T05:37:11Z, cleared 2026-10-03T06:41:27Z).
@@ -654,13 +657,13 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### doin (0)
 (none)
 
-### tada (10752)
+### tada (10753)
+- [`canary-probe-endolin-garden2-5bcdff64-474e93f09842`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-474e93f09842.md) — rolling-deploy canary probe — round trip OK
 - [`improve-latency-watch-cooldown-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-latency-watch-cooldown-race.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-152cf11291ce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-152cf11291ce.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-watch-20261004-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-010505.md) — Cost
 - [`improve-fork-watch-offline-rc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-fork-watch-offline-rc.md) — Cost
-- [`claude-on-minion-town-press-20261004-002006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-002006.md) — Panel-head freshness
-- … and 10747 more
+- … and 10748 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
