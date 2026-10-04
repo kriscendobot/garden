@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-10-04T06:53:43Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-book-equilibrium-data-draft-20261004
-pr_number: 12
-pr_repo: kriscendobot/garden-book
-pr_url: https://github.com/kriscendobot/garden-book/pull/12
-pr_head: book-equilibrium-data
