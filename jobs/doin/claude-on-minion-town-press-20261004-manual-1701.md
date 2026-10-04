@@ -77,3 +77,13 @@ issue 89. No upstream `agoric/agoric-sdk` interaction. No identity switch, no fe
 
 
 Triggered by the maintainer on the arc issue: https://github.com/kriscendobot/garden/issues/89#issuecomment-5981870267 ("@kriscendobot press now, please.", 2026-10-04T16:01Z). Reply on that issue with the press result.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T17:00:36Z
