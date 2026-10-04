@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-10-04T05:32:25Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-book-illumination-produce-20261004-gauntlet-fix-1
