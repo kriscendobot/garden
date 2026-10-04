@@ -1,0 +1,46 @@
+---
+kind: panel-run
+repo: kriscendobot/minion.town
+pr: 151
+panel_kind: code
+base_ref: a378bb3dd51f216aee84775d76e7a38c769fbb41
+rounds: 1
+disposition: must-fix
+exit_code: 0
+reviewed_head: 29c75412a204c3193f6762e9237b39e18a147828
+must_fix_total: 20
+appellate_ran: false
+appellate_proposals: 0
+epoch:
+run_id: 7fbcdd9057ae
+recorded_by: endolin-garden2-5bcdff64
+---
+
+# Panel run — kriscendobot/minion.town #151 (code)
+
+Terminal disposition: **must-fix** after **1** round(s).
+
+## Round 1 — head `29c75412`
+
+seat verdicts (33): archivist=must-fix assessor=pass benchmarker=pass breaker=comment changeset-auditor=pass corner-prober=comment coverage-auditor=comment curator=must-fix duality-auditor=pass engine-realist=must-fix fast-checker=comment gateway=comment integrator=must-fix locksmith=comment migrator=pass orthographer=pass packager=comment procurer=pass prover=must-fix pruner=pass purist=comment reexport-auditor=pass releaser=pass saboteur=must-fix scribe=must-fix spec-keeper=comment stylist=pass surfacer=pass thesaurus=pass transplanter=pass typist=pass warden=pass wire-watcher=pass
+must-fix items (20):
+- archivist: **`tools/vendor-endo-claude.js:1450`**: Shell original (deleted lines 1676–1691) included six paragraphs explaining...
+- archivist: **`deploy/aws/scripts/gen-allowed-emails.js:420`** (no line number marker): Shell original (deleted lines 490–498) ...
+- archivist: **`deploy/aws/scripts/deploy-caddy-route53.js:303`**: Shell original explained that the script verifies the major ver...
+- curator: **[must-fix]** `deploy/aws/scripts/lib/common.js:23-37` introduces a new shared config surface (`awsCommand`, `region...
+- curator: **comment-only** No changeset/bump question applies here — `minion-town` is `"private": true` with no `.changeset` ...
+- engine-realist: **must-fix.** The ESM preflight is deployed without a module-type marker, so on some Node 22 releases the registry wo...
+- engine-realist: Ship the file as `preflight.mjs`, which needs no detection and has no ambiguity.
+- engine-realist: Or tighten the install guard to require v22.7 or later and record that floor.
+- engine-realist: **should-fix.** `test/npm-registry-preflight.test.ts:32` can pass while the deployed copy fails. The test runs the pr...
+- engine-realist: **comment-only.** `deploy/aws/scripts/lib/common.js:63-65` sleeps with `Atomics.wait` on a `SharedArrayBuffer`. This ...
+- engine-realist: **comment-only.** `tools/claude-harness/inspect-image.js:31-44` scans each root with `readdirSync`, which follows a s...
+- engine-realist: **comment-only.** The old `preflight.sh` is left on the box. The deploy switches the unit to `preflight.js` but never...
+- integrator: **should-fix: the commit series will land as-is under a true merge, and it is not grouped for a reader.** The repo me...
+- integrator: policy + `AGENTS.md`/`CLAUDE.md` + gate + allowlist
+- integrator: `scripts/lib/common.js`
+- integrator: one commit per conversion, with its callers and tests
+- integrator: **should-fix: the description no longer matches the head, and the merge commit will carry it.**
+- integrator: The **Testing** counts ("806 tests", "ten policy/helper assertions") are from before `35e60f7` and `29c7541` added te...
+- integrator: The summary says the gate catches "new shell files and extensionless shell shebangs". It now also catches tracked sym...
+- integrator: The description does not say that a production systemd unit changed. `npm-minion-registry.service:19` now runs `ExecS...
