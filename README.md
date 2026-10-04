@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T06:14:52Z_
+_As of 2026-10-04T06:19:26Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* is live, with all 25 plates seated as chapter openers and section figures and captioned; it builds byte-for-byte reproducible and passed a visual pass across phone/desktop and light/dark, with only two cosmetic flaws left on the record (a spine crossing a terrace edge, a slightly off-center dash in the chapter 9 plate). The book arc now has its own budget line (`garden-book`, 5M/week) per the maintainer's re-slice, which also trimmed several other arcs; a follow-up to hyperlink every reference in the book is parked pending the illumination/data orchestration. Separately, the SturdyRef stack panel summary came back clean: layers 3 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)), 6 ([endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)), and 7 ([endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) are ready to merge as-is once their predecessors land, and layer 4 ([endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) needs a retcon first — but the stack's lower layers are stale and will need re-weaving before any of it can land. Otherwise it's a quiet tick: oros-studio-garden-ce242c49 remains offline (~46h stale, unclaimed health checkup pending) and needs a human to check the machine.
+The illuminated edition of *Better Code and Gardens* is live, with all 25 plates in place as chapter openers and section figures, each captioned, and the old title-page garden scene removed; the build reproduces byte-for-byte and checks out across light/dark and phone/desktop views, with two cosmetic flaws disclosed and left as-is (chapter 9 spine crossing a terrace edge, an off-center dash). A new equilibrium chapter draft is in progress under supervision, and the accountant re-sliced the weekly token budget to carve out a dedicated `garden-book` arc (5M) alongside the existing arcs. On the review front, the four-layer SturdyRef sub-stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is CI-green and judged mergeable, but blocked on stack hygiene — stale bases under #774 and #1391 need weaving before anything lands, and #1393 needs a retcon to regroup ~26 rework commits. Separately, the ironhorse-panic-host-call gauntlet halted on a declined fix, and oros-studio-garden has been offline for roughly two days with its health checkup unclaimed and ops queued behind unacked commands — worth a manual look.
 
 ## Parked for maintainer feedback
 
@@ -190,8 +190,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.0M | $641.80 _(notional, rate-card)_ | 37% of 256.0M (ok) |
-| Codex | 6.7M _(+156.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 95.4M | $644.32 _(notional, rate-card)_ | 37% of 256.0M (ok) |
+| Codex | 6.8M _(+156.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -214,7 +214,8 @@ worst fetch p95 4.648168s/45s (unknown); 2 open notice(s); checker healthy
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (2)
+### doin (3)
+- [`book-equilibrium-data-draft-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-data-draft-20261004.md) — Draft the review-economics/equilibrium chapter from real garden data
 - [`book-equilibrium-data-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-data-supervisor-20261004.md) — Supervise production 2: a review-economics chapter/section, from real garden ...
 - [`improve-durable-result-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-durable-result-reconcile.md) — ---
 
