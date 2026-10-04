@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T00:21:50Z_
+_As of 2026-10-04T00:23:50Z_
 
 ## Latest
 
@@ -85,6 +85,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > ## Proposal
 >
 > Keep the approved ranking and 30/20/15/20/8/5/2 shares over 95% of capacity, with a 5% unallocated reserve. For next week, carry this slate forward and resize the total to 90% of then-current calibrated active capacity. No action is needed unless you want to change the ranking, shares, reserve, or credit timing.
+
+- `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-7c08ffa9` — from gardener:claude-on-minion-town-press-20261004-002006, reply_to `claude-on-minion-town-press-20261004-002006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-7c08ffa9.md)
+
+> Stale panel coverage for completed job `claude-on-minion-town-press-20261004-002006`: [https://github.com/kriscendobot/minion.town/pull/148](https://github.com/kriscendobot/minion.town/pull/148) moved from panel-reviewed head `dea0146cefdcfa28d7dba2e40c760dc79821a5fc` to presented head `7c08ffa909ef4c31ce63b1df7348d9018c2d39e9`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
 - `doomed-improve-receipt-primary-quota-cooldown-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-improve-receipt-primary-quota-cooldown-requeue-exhausted.md)
 
@@ -626,16 +634,16 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`claude-on-minion-town-press-20261004-002006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261004-002006.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (10747)
+### tada (10748)
+- [`claude-on-minion-town-press-20261004-002006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-002006.md) — Panel-head freshness
 - [`canary-probe-endolin-garden2-5bcdff64-5acfa4b1fc24`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/canary-probe-endolin-garden2-5bcdff64-5acfa4b1fc24.md) — rolling-deploy canary probe — round trip OK
 - [`improve-recognize-gauntlet-budget-notice`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-recognize-gauntlet-budget-notice.md) — Cost
 - [`kriscendobot-minion.town-pr85-retcon-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-retcon-20261003.md) — Cost
 - [`kriscendobot-minion.town-pr85-gauntlet-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003.md) — gauntlet kriscendobot-minion.town-pr85-gauntlet-20261003 — review budget reached
-- [`kriscendobot-minion.town-pr85-gauntlet-20261003-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/kriscendobot-minion.town-pr85-gauntlet-20261003-fix-6.md) — Cost
-- … and 10742 more
+- … and 10743 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
