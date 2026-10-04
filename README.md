@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-04T15:57:37Z_
+_As of 2026-10-04T16:10:30Z_
 
 ## Latest
 
-The Claude CLI provider enablement for minion.town production completed its canary ([kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148)) and is now being enabled in production, with a follow-up press job also landing. Separately, the orchestration behind that canary work halted. The most urgent item for review is Oros: the host has been unreachable for roughly two days (heartbeat and sysop both stale since 2026-10-02), thirteen-plus health checkups sit unclaimed, and automated recovery has stopped sending ops because too many prior ones are unacked — this needs a person at the machine to check power/Docker/VM state. Also worth a look: the illuminated edition of *Better Code and Gardens* published successfully (all 25 plates integrated, tests passing, visually verified), and a SturdyRef stack review flagged stale panel coverage on PR #148 plus stack-hygiene issues across four draft PRs ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) awaiting a merge decision.
+The Claude CLI provider enabled in production on [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) cleared its clean and viability gates and is now in panel review (round 1), with a rolling-deploy canary probe confirming the round trip is healthy; a verify-and-recanary job is parked pending the gauntlet's outcome, and a merge job waits behind it.
+
+The dominant story remains Oros: the host has been unreachable for roughly 50 hours (heartbeat and sysop both stale since 2026-10-02T05:0X Z), thirteen health-checkup jobs sit unclaimed on the board, and the health-watch gardener has stopped sending sysop ops because a backlog of earlier ops is still unacked — this needs a person at the machine to check power/sleep state, Docker Desktop, and the VM. Separately, the illuminated edition of *Better Code and Gardens* shipped and is live, with all 25 plates captioned and verified across screen sizes, via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11).
+
+A fresh panel summary flags the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) as ready for a merge decision — three layers can merge essentially as-is once their drafted predecessors land and stack hygiene (stale bases, rework commits) is cleaned up — and a stale-panel notice on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) says its reviewed head has since moved and needs either a fresh panel pass or an explicit maintainer review call. Also worth a look: a gauntlet on the Ironhorse panic-host-call PR halted after its fix stage was explicitly declined, and a comment-watcher self-test failure suggests the kriscendobot/ocapn comment source may be silently blind.
 
 ## Parked for maintainer feedback
 
@@ -222,7 +226,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 109.1M | $710.76 _(notional, rate-card)_ | 43% of 256.0M (ok) |
+| Claude | 109.9M | $714.93 _(notional, rate-card)_ | 43% of 256.0M (ok) |
 | Codex | 7.6M _(+208.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -250,15 +254,15 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (1)
-- [`minion-town-claude-cli-production-enable-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-claude-cli-production-enable-20261004.md) — Enable the Claude CLI provider in minion.town production (unblocks the canary)
+- [`kriscendobot-minion-town-pr150-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr150-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #150
 
-### tada (10841)
+### tada (10845)
+- [`kriscendobot-minion-town-pr150-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-clean.md) — Cost
+- [`canary-probe-endolin-garden2-5bcdff64-59cef5bd7aa1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-59cef5bd7aa1.md) — rolling-deploy canary probe — round trip OK
+- [`minion-town-claude-cli-production-enable-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-claude-cli-production-enable-20261004.md) — Completion report: minion-town-claude-cli-production-enable-20261004
+- [`kriscendobot-minion-town-pr150-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-viability.md) — Cost
 - [`minion-town-claude-cli-production-canary-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-claude-cli-production-canary-20261003.md) — Cost
-- [`minion-town-claude-cli-production-20261003`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/minion-town-claude-cli-production-20261003.md) — orchestration minion-town-claude-cli-production-20261003 — HALTED
-- [`claude-on-minion-town-press-20261004-155006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-155006.md) — Cost
-- [`kriscendobot-minion.town-pr148-conduct-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr148-conduct-20261004.md) — Cost
-- [`improve-banner-detection-box-drawing-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-banner-detection-box-drawing-20261004.md) — Cost
-- … and 10836 more
+- … and 10840 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -350,7 +354,9 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`book-hyperlink-references-after-copyedit-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-hyperlink-references-after-copyedit-20261004.md) — awaiting `https://github.com/kriscendobot/garden-book/pull/8` · Follow-up: make every reference in Better Code and Gardens an actual hyperlink
+- [`minion-town-pr150-conduct-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-pr150-conduct-20261004.md) — awaiting `kriscendobot-minion-town-pr150-gauntlet` · Merge kriscendobot/minion.town#150 (enable the Claude CLI provider in product...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
+- [`minion-town-claude-cli-production-enable-verify-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-cli-production-enable-verify-20261004.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/150` · Verify the Claude CLI provider is enabled in production, then re-post the canary
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
