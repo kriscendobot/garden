@@ -1,4 +1,5 @@
 ---
+child-minion-town-shell-to-js-20261004-part1-host: endolin-garden2-5bcdff64
 child-minion-town-shell-to-js-20261004-part1-reap-count: 0
 order: serial
 children: minion-town-shell-to-js-20261004-part1 minion-town-shell-to-js-20261004-part2 minion-town-shell-to-js-20261004-part3
