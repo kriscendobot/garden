@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T07:24:36Z_
+_As of 2026-10-04T07:34:34Z_
 
 ## Latest
 
-The book-equilibrium gauntlet advanced a stage on [kriscendobot/garden-book#12](https://github.com/kriscendobot/garden-book/pull/12): the clean stage and the first fix round both completed, and panel review is now underway with rounds 1 and 2 running concurrently against the data-draft and stylize branches.
-
-Separately, the illuminated edition of *Better Code and Gardens* shipped and went live — all 25 plates in place as chapter and section art, verified byte-reproducible and checked visually across screen sizes and color modes, via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). Worth a maintainer look: oros has been unreachable for roughly 50 hours (heartbeat and sysop both stale since 2026-10-02) and needs a hands-on check of Docker Desktop/sleep/VM state; the SturdyRef stack (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) has a full panel merge recommendation awaiting a maintainer merge decision; and [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has a stale panel (head moved past the last reviewed commit) that needs an explicit "run the gauntlet" or a maintainer review call before it can proceed.
+The book-equilibrium gauntlet on [kriscendobot/garden-book#12](https://github.com/kriscendobot/garden-book/pull/12) advanced a round: stylize panel round 1 landed its must-fix findings and moved into fix round 1, while the companion data-draft PR's panel round 2 also completed. Separately, the illuminated edition of *Better Code and Gardens* published live, with all 25 plates captioned across chapter openers and section figures.
 
 ## Parked for maintainer feedback
 
@@ -116,11 +114,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #5 (first seen 2026-10-04T05:15:32Z, latest 2026-10-04T07:00:41Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 5 times; this is ONE
-> coalesced notice that updates in place, not 5 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-04T07:31:12Z).
+> It was observed 5 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 957 of 975 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-063506, reply_to `claude-on-minion-town-press-20261004-063506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
@@ -183,11 +181,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-04T07:00:36Z).
-> It was observed 5 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #6 (first seen 2026-10-04T04:50:33Z, latest 2026-10-04T07:31:07Z).
+> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 6 times; this is ONE
+> coalesced notice that updates in place, not 6 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
+> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
 
 - `watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4.md)
 
@@ -204,8 +209,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.8M | $653.52 _(notional, rate-card)_ | 38% of 256.0M (ok) |
-| Codex | 7.0M _(+186.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 100.0M | $674.06 _(notional, rate-card)_ | 39% of 256.0M (ok) |
+| Codex | 7.0M _(+191.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -228,19 +233,18 @@ worst fetch p95 4.648168s/45s (unknown); 2 open notice(s); checker healthy
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (4)
+### doin (3)
+- [`book-equilibrium-stylize-20261004-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-stylize-20261004-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/garden-book PR #12
 - [`book-equilibrium-data-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-data-supervisor-20261004.md) — Supervise production 2: a review-economics chapter/section, from real garden ...
-- [`book-equilibrium-stylize-20261004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-stylize-20261004-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/garden-book PR #12
-- [`book-equilibrium-data-draft-20261004-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-data-draft-20261004-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/garden-book PR #12
 - [`book-equilibrium-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-integrate-20261004.md) — Integrate the finished review-economics charts into the book
 
-### tada (10809)
+### tada (10811)
+- [`book-equilibrium-data-draft-20261004-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-data-draft-20261004-gauntlet-panel-2.md) — Cost
+- [`book-equilibrium-stylize-20261004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-stylize-20261004-gauntlet-panel-1.md) — Panel round 1 for kriscendobot/garden-book#12: must-fix
 - [`book-equilibrium-stylize-20261004-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-stylize-20261004-gauntlet-clean.md) — Cost
 - [`book-equilibrium-data-draft-20261004-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-data-draft-20261004-gauntlet-fix-1.md) — Fix round 1 report: kriscendobot/garden-book PR #12
 - [`book-equilibrium-stylize-20261004-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-stylize-20261004-gauntlet-viability.md) — Cost
-- [`daily-progress-summary-20261004-070507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/daily-progress-summary-20261004-070507.md) — Cost
-- [`book-equilibrium-stylize-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-stylize-20261004.md) — Panel-head freshness
-- … and 10804 more
+- … and 10806 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
