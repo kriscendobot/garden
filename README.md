@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T22:43:03Z_
+_As of 2026-10-04T22:46:24Z_
 
 ## Latest
 
-The board was essentially quiescent this cycle: the only transition was the SturdyRef stack's panel round 6 for [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) landing in tada, closing out the series of gauntlet rounds on that layer. Separately, a journalist's digest of the full SturdyRef stack (layers 3/4/6/7, PRs [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) landed in the inbox with per-PR merge recommendations and a landing order, and the illuminated edition of *Better Code and Gardens* shipped live with all 25 plates captioned.
+Board motion since the last bulletin is minimal: fix round 6 of the [kriscendobot/minion.town#154](https://github.com/kriscendobot/minion.town/pull/154) shell-to-js gauntlet (part 3) claimed into `doin`, with its gauntlet record updated — the sibling part-1 and part-2 gauntlets on this same stack already exhausted their 6-round review budget and are parked for a human merge/review call, so part 3 is likely heading the same way.
 
-The bigger story is operational: **oros-studio has been unreachable for ~50 hours** (heartbeat stale since 2026-10-02T05:08Z), with 18 health-checkup jobs piling up unclaimed and reset-failed ops queued with no ack — this needs a human at the machine (Docker Desktop/VM/power state). The minion.town Claude CLI production canary is also stalled waiting on the maintainer to personally complete subscription/OAuth linking (several expired connect links sent); production `minion-mcp` crash-looped after [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) merged due to a packaging/vendor-path gap, and a fix-forward job has been posted to recover it. A journal push-rejection on endolin-garden-ece02cb4 (deadline-nudge) also needs repair. Several stale-panel-head notices (minion.town [#148](https://github.com/kriscendobot/minion.town/pull/148)/[#150](https://github.com/kriscendobot/minion.town/pull/150), endo-but-for-bots [#1407](https://github.com/endojs/endo-but-for-bots/pull/1407)) are awaiting an explicit maintainer review call since their heads moved post-panel.
+The maintainer-facing queue is dominated by two things worth flagging: oros-studio has been unreachable for roughly 50 hours (heartbeat and sysop stale since 2026-10-02T05:08Z, 18 checkups now stuck unclaimed) and needs someone at the machine to check power/sleep, Docker Desktop, and the VM; and the minion.town Claude CLI production canary is blocked entirely on maintainer-side credential actions (subscription connect links and a GitHub OAuth/MCP authorization) that no gardener or proxy can complete — several of these have already expired while waiting. Also notable: *Better Code and Gardens* shipped its illuminated edition with all 25 plates captioned, and production `minion-mcp` crash-looped after [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) merged (missing `vendor` in the deploy tarball), with a fix-forward job now posted to recover availability and fix packaging/rollback before the canary is retried.
 
 ## Parked for maintainer feedback
 
@@ -371,7 +371,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 162.7M | $1125.92 _(notional, rate-card)_ | 64% of 256.0M (ok) |
+| Claude | 162.8M | $1126.47 _(notional, rate-card)_ | 64% of 256.0M (ok) |
 | Codex | 8.7M _(+226.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -400,8 +400,8 @@ worst fetch p95 9.605378s/45s (/home/kris/garden/.garden-state/dependabot-watche
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`minion-town-shell-to-js-20261004-part3-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #154
 
 ### tada (10942)
 - [`minion-town-shell-to-js-20261004-part3-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part3-gauntlet-panel-6.md) — Cost
