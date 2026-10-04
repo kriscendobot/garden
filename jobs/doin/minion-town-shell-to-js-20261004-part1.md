@@ -21,3 +21,13 @@ Scope of THIS child:
 2. **Guard.** Add a cheap CI check (a vitest test or a node script wired into the existing `test` workflow) that fails when a NEW tracked `*.sh` file (or extensionless sh-shebang script) appears outside an explicit allowlist; seed the allowlist with the not-yet-converted scripts so parts 2/3 shrink it to the exceptions-only set.
 3. **Shared helper.** Port `deploy/aws/scripts/common.sh` to a JS module (e.g. `deploy/aws/scripts/lib/common.js`) that the converted deploy scripts import; keep common.sh until its last shell caller is gone (part 3 deletes it).
 4. Convert: `tools/vendor-endo-claude.sh`, `tools/claude-harness/inspect-image.sh`, `deploy/aws/scripts/gen-allowed-emails.sh`, `deploy/aws/scripts/deploy-caddy-route53.sh`, `deploy/aws/npm-registry/npm-registry-preflight.sh`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T17:37:40Z
