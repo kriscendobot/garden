@@ -1,2 +1,2 @@
-base: improve-approval-reconciler-cgroup-straggler-reap
+base: improve-approval-reconciler-primary-quota
 identity: mentor:scripts/jobs/approval-reconciler.sh
