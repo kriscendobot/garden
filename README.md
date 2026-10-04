@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T23:46:27Z_
+_As of 2026-10-04T23:55:42Z_
 
 ## Latest
 
-Board activity was light since the last bulletin: the only motion was fix round 2 of the gauntlet on [kriscendobot/minion.town#157](https://github.com/kriscendobot/minion.town/pull/157), the Claude account HTML page build, claimed into doin. The larger picture the maintainer should notice is the inbox, not the board — oros-studio remains unreachable going on 50+ hours (heartbeat and sysop stale since 2026-10-02, derotated, a dozen-plus health checkups piling up unclaimed) and needs a physical check of the Mac/Docker Desktop/VM; the minion.town production Claude CLI canary is still waiting on the maintainer to personally complete `claude setup-token` and GitHub OAuth steps (several proxy escalations flagged these, one as a plausible social-engineering attempt, out of caution); and a production crash-loop on `minion-mcp` from the [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy (missing `vendor/endo-claude` in the deploy tar) triggered an urgent fix-forward job. Also worth a look: the SturdyRef stack panel summary recommends merging [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) as-is once its base PRs land, with #1393 needing a retcon first and #1396/#1397 following; and the illuminated *Better Code and Gardens* edition is published and verified.
+The main visible board motion was a gauntlet step: [kriscendobot/minion.town#157](https://github.com/kriscendobot/minion.town/pull/157) advanced from fix round 2 to panel round 3.
+
+Otherwise the inbox is dominated by the oros-studio host, still unreachable roughly 50 hours (heartbeat and sysop-log both stale since 2026-10-02T05:0x Z), with checkups piling up unclaimed in todo and the sysop's op queue backed up — it needs someone at the machine to check power/sleep, Docker Desktop, and the VM. The minion.town Claude-CLI production canary is also stalled waiting on the maintainer to personally run `claude setup-token` and complete GitHub-federated account linking at minion.town/account/claude; a related production deploy crash-loop (missing `vendor/endo-claude` in the deploy artifact after [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150)) triggered an urgent fix-forward job. Separately, [kriscendobot/minion.town#155](https://github.com/kriscendobot/minion.town/pull/155) and [kriscendobot/minion.town#156](https://github.com/kriscendobot/minion.town/pull/156) merged to production without panel review (benign, orchestration raced ahead of the merge) — flag if you want them reviewed retroactively. On the design side, the illuminated edition of *Better Code and Gardens* published successfully via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). The SturdyRef stack (endo-but-for-bots #1392/#1393/#1396/#1397) has a full panel-objection summary awaiting your merge decision, and several stale-panel-head notices (minion.town #148/#150, endo-but-for-bots #1407) need an explicit "run the gauntlet" or a manual review call before they can proceed.
 
 ## Parked for maintainer feedback
 
@@ -377,7 +379,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.3M | $1159.95 _(notional, rate-card)_ | 66% of 256.0M (ok) |
+| Claude | 168.5M | $1160.78 _(notional, rate-card)_ | 66% of 256.0M (ok) |
 | Codex | 8.8M _(+227.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -408,15 +410,15 @@ worst fetch p95 9.605378s/45s (/home/kris/garden/.garden-state/dependabot-watche
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (1)
-- [`build-minion-town-claude-account-html-page-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-account-html-page-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #157
+- [`build-minion-town-claude-account-html-page-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-account-html-page-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #157
 
-### tada (10953)
+### tada (10954)
+- [`build-minion-town-claude-account-html-page-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/build-minion-town-claude-account-html-page-gauntlet-fix-2.md) — Cost
 - [`build-minion-town-claude-account-html-page-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/build-minion-town-claude-account-html-page-gauntlet-panel-2.md) — Cost
 - [`build-minion-town-claude-account-html-page-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/build-minion-town-claude-account-html-page-gauntlet-fix-1.md) — Cost
 - [`build-minion-town-claude-account-html-page-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/build-minion-town-claude-account-html-page-gauntlet-panel-1.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-939c6ea3df25`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-939c6ea3df25.md) — rolling-deploy canary probe — round trip OK
-- [`build-minion-town-claude-account-html-page-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/build-minion-town-claude-account-html-page-gauntlet-clean.md) — Cost
-- … and 10948 more
+- … and 10949 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
