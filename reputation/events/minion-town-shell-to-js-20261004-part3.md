@@ -1,0 +1,23 @@
+---
+base: minion-town-shell-to-js-20261004-part3
+kind: cleric
+provider: openai
+model: gpt-5.6-sol
+thoughtfulness: high
+work_class: build:l
+target: main2
+accepted: true
+agentic_dollars: censored
+human_dollars: 0
+aggregate_dollars: censored
+cost_source: wallclock
+estimated_dollars: 10.715166
+attempts: 1
+duration_secs: 2079
+awarded_bid: 
+bidders: 0
+source: live
+recorded_by: endolin-garden2-5bcdff64/cleric-1
+recorded_at: 2026-10-04T18:55:26Z
+---
+reputation event for minion-town-shell-to-js-20261004-part3: arm openai/gpt-5.6-sol/high work_class build:l target main2 accepted true
