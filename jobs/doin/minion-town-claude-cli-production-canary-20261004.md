@@ -31,3 +31,13 @@ If any canary fails, fix forward with a new fixer job and report the failure wit
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-04T20:53:04Z -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T20:53:23Z
