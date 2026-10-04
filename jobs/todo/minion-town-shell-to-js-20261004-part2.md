@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-shell-to-js-20261004
-priority: normal
-posted_by: gardener
-posted_at: 2026-10-04T17:34:26Z
+role: builder
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-04T17:58:04Z cleared=none -->
 
 ---
 role: builder
