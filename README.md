@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T03:36:43Z_
+_As of 2026-10-04T03:39:21Z_
 
 ## Latest
 
@@ -86,9 +86,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Keep the approved ranking and 30/20/15/20/8/5/2 shares over 95% of capacity, with a 5% unallocated reserve. For next week, carry this slate forward and resize the total to 90% of then-current calibrated active capacity. No action is needed unless you want to change the ranking, shares, reserve, or credit timing.
 
-- `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-7c08ffa9` — from gardener:claude-on-minion-town-press-20261004-002006, reply_to `claude-on-minion-town-press-20261004-002006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-7c08ffa9.md)
+- `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-7c08ffa9` — from gardener:claude-on-minion-town-press-20261004-033506, reply_to `claude-on-minion-town-press-20261004-033506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-7c08ffa9.md)
 
-> Stale panel coverage for completed job `claude-on-minion-town-press-20261004-002006`: [https://github.com/kriscendobot/minion.town/pull/148](https://github.com/kriscendobot/minion.town/pull/148) moved from panel-reviewed head `dea0146cefdcfa28d7dba2e40c760dc79821a5fc` to presented head `7c08ffa909ef4c31ce63b1df7348d9018c2d39e9`.
+> COALESCED message — occurrence #2 (first seen 2026-10-04T00:22:11Z, latest 2026-10-04T03:37:42Z).
+> The SAME message (episode key `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-7c08ffa9`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
+>
+> Stale panel coverage for completed job `claude-on-minion-town-press-20261004-033506`: [https://github.com/kriscendobot/minion.town/pull/148](https://github.com/kriscendobot/minion.town/pull/148) moved from panel-reviewed head `dea0146cefdcfa28d7dba2e40c760dc79821a5fc` to presented head `7c08ffa909ef4c31ce63b1df7348d9018c2d39e9`.
 >
 > Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 >
@@ -647,16 +651,16 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`claude-on-minion-town-press-20261004-033506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261004-033506.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (10754)
+### tada (10755)
+- [`claude-on-minion-town-press-20261004-033506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-033506.md) — Panel-head freshness
 - [`dependabotany-recheck-endo-but-for-bots-20261004-025006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/dependabotany-recheck-endo-but-for-bots-20261004-025006.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-474e93f09842`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-474e93f09842.md) — rolling-deploy canary probe — round trip OK
 - [`improve-latency-watch-cooldown-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-latency-watch-cooldown-race.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-152cf11291ce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-152cf11291ce.md) — rolling-deploy canary probe — round trip OK
-- [`oros-health-watch-20261004-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-010505.md) — Cost
-- … and 10749 more
+- … and 10750 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
