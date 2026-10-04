@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T13:19:03Z_
+_As of 2026-10-04T13:23:01Z_
 
 ## Latest
 
-The biggest news is the illuminated edition of *Better Code and Gardens* going live — all 25 plates in place as chapter openers and section figures, the old title-page garden scene retired, byte-for-byte reproducible build, and a visual pass confirmed clean on phone and desktop in both themes. The remaining rough edge is cosmetic (a book spine crossing a terrace edge and an off-center dash in the chapter 9 plate).
-
-Otherwise the main thread needing attention is **oros-studio-garden-ce242c49**, which has been unreachable for roughly 50 hours (heartbeat, sysop-log, and fleet health all stale since 2026-10-02 early morning); 13+ health-checkup jobs are piling up unclaimed and the sysop queue has several unacked ops, so no further automated action will help — it needs a person to check the Mac/Docker Desktop/VM directly. On the review side, the [SturdyRef stack](https://github.com/endojs/endo-but-for-bots/issues/1392) (layers 3/4/6/7, plus [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is CI-green across all four drafts but needs stack-hygiene weaves before any merge, since the two layers underneath are still drafts with drifted frozen bases. A budget re-slice landed a new `garden-book` arc (5M tokens) for future-edition and upkeep work, and a stale comment-watcher self-test flagged kriscendobot/ocapn as possibly blind.
+The quiet period continued: the only new board transition was another oros health-watch completion, part of an ongoing escalation — oros-studio-garden-ce242c49 has now been unreachable for roughly 50 hours (heartbeat stale since 2026-10-02T05:08Z), is derotated from the fleet, and has 13 unclaimed health-checkup jobs piling up in todo with the sysop queue backed up behind unacked ops; it needs a person at the machine to check power/sleep state, Docker Desktop, and the VM. Separately, the illuminated edition of *Better Code and Gardens* shipped and went live, with all 25 plates captioned and verified across screen sizes and color modes. On the review side, the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) got a consolidated panel-objection summary recommending merge for three of the four layers with only minor follow-ups, pending stack-hygiene rebasing underneath; and [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) needs a fresh review since its head moved past the last panel pass.
 
 ## Parked for maintainer feedback
 
@@ -120,11 +118,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-04T13:11:47Z).
-> It was observed 8 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #9 (first seen 2026-10-04T05:15:32Z, latest 2026-10-04T13:21:07Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 9 times; this is ONE
+> coalesced notice that updates in place, not 9 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
+> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 989 of 989 clone(s) on consecutive ticks.
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-125005, reply_to `claude-on-minion-town-press-20261004-125005` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
@@ -189,6 +187,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Oros is unreachable: heartbeat last sampled 2026-10-02T05:08:36Z and sysop last applied an op 2026-10-02T05:38:58Z (both about 46 hours stale). The 2026-10-04T01:50:05Z pinned checkup remains unclaimed; oros is derotated and still deployed at e036bb8e versus main2 350d6bc1. I queued one benign reset-failed op (20261004T040710Z-ec703a), but it is unacked behind earlier unacked ops. A person needs to check the Mac/VM/Docker Desktop and wake or restart the machine/runtime.
 
+- `msg-oros-health-watch-20261004-132007-9f15306227f5` — from gardener:oros-health-watch-20261004-132007, reply_to `oros-health-watch-20261004-132007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261004-132007-9f15306227f5.md)
+
+> Oros still unreachable (13:20Z): 11:05Z checkup unclaimed (eight checkups since 2026-10-03T13:20Z all unclaimed in todo); heartbeat stale since 2026-10-02T05:08Z, sysop-log since 2026-10-02T05:35Z, fleet/health since 2026-10-02T03:13Z (deployed e036bb8e, roll_status deferred); derotated heartbeat-offline. No op sent: prior host ops still unacked, so the sysop is not consuming. Needs a person at the machine (Mac sleep/power, Docker Desktop, VM/container). Earlier watcher notices about this are still unread in the inbox.
+
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
 > RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-04T13:16:08Z).
@@ -212,8 +214,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 105.9M | $697.71 _(notional, rate-card)_ | 41% of 256.0M (ok) |
-| Codex | 7.4M _(+207.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 106.1M | $698.41 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Codex | 7.5M _(+207.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -241,13 +243,13 @@ worst fetch p95 5.085034s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 ### doin (0)
 (none)
 
-### tada (10832)
+### tada (10833)
+- [`oros-health-watch-20261004-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-132007.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-aef3d26039f9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-aef3d26039f9.md) — rolling-deploy canary probe — round trip OK
 - [`claude-on-minion-town-press-20261004-125005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-125005.md) — Panel-head freshness
 - [`improve-leader-fetch-outage-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-leader-fetch-outage-backoff.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-f3d058dd65eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-f3d058dd65eb.md) — rolling-deploy canary probe — round trip OK
-- [`improve-approval-reconciler-primary-quota`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-approval-reconciler-primary-quota.md) — Cost
-- … and 10827 more
+- … and 10828 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
