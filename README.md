@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T04:17:57Z_
+_As of 2026-10-04T04:30:01Z_
 
 ## Latest
 
-Little movement since the last bulletin: one deploy canary round-trip passed cleanly on endolin-garden2-5bcdff64, and the oros health-watch job completed, confirming what the inbox already flags — the oros Mac/VM host remains unreachable (heartbeat and last sysop op both ~46 hours stale, still derotated and running an old build versus main2). No PRs advanced or merged in this window. The maintainer queue is otherwise unchanged: several gauntlets (including [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)-adjacent sturdyref-layer work, the confined-application-makers builds, and others) sit at their 6-round review-budget ceiling awaiting a human merge call, the garden-book budget re-slice still needs a direct "approve" from kriskowal, and [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has drifted past its last-reviewed panel head and needs an explicit re-review decision.
+Quiet cycle on the board: the only transition since the last bulletin was `book-illumination-supervisor-20261004` moving from plan into doin, now running as the active orchestration driving per-chapter/section illuminated illustrations for the garden-book production. The maintainer queue is otherwise unchanged — the panel-freshness notice on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) and the pending garden-book budget re-slice approval are both still waiting on a direct reply, and the pile of review-budget-reached gauntlets (the four ebfb sturdyref layers, guest-no-identifiers-locators, petname-path-only, and several `build-endo-*`/`build-confined-application-makers` arcs) remain parked for a human merge/review call after exhausting their automatic fix rounds.
 
 ## Parked for maintainer feedback
 
@@ -202,8 +202,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 87.8M | $597.78 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 5.7M _(+132.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 88.0M | $600.04 _(notional, rate-card)_ | 34% of 256.0M (ok) |
+| Codex | 5.8M _(+132.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -225,8 +225,8 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`book-illumination-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-20261004.md) — Supervise production 1: per-chapter/section illuminated illustrations (krisce...
 
 ### tada (10759)
 - [`canary-probe-endolin-garden2-5bcdff64-350d6bc198c8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-350d6bc198c8.md) — rolling-deploy canary probe — round trip OK
