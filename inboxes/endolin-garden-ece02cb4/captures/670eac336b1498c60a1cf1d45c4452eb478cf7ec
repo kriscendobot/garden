@@ -1,0 +1,52 @@
+<6>06:16:35 [monk/3] job 'book-equilibrium-data-draft-20261004' resolved tier 'mentor' -> claude --model claude-opus-5-5
+<6>06:16:35 [monk/3] job 'book-equilibrium-data-draft-20261004' call ceiling: tier=mentor max-budget-usd=13.40 (scaled by fresh seven-day headroom when available)
+<6>06:16:35 [monk/3] job 'book-equilibrium-data-draft-20261004' attaching minion.town MCP (stdio bridge)
+garden repo lock: cleared dead-holder metadata pid=1695519 after acquiring /home/kris/garden/.garden-state/repo-locks/659587c38eef83991a024a058f6f2c361a1f5ff3d24c3c653dcd277b09136eb7/repo.lock
+<6>06:35:43 [post-gauntlet] recorded gauntlet 'book-equilibrium-data-draft-20261004-gauntlet' (feature, kriscendobot/garden-book#12, max_iterations=6, max_resumes=6, max_stage_retries=2)
+<6>06:35:43 [auto-gauntlet-handoff] auto-gauntlet: builder 'book-equilibrium-data-draft-20261004' recorded 'book-equilibrium-data-draft-20261004-gauntlet' for https://github.com/kriscendobot/garden-book/pull/12
+panel-head-freshness: unreviewed target=kriscendobot/garden-book#12 disposition=manual-gauntlet-not-triggered
+<6>06:35:51 [assert-followup-posted] gate: BLOCK — 'book-equilibrium-data-draft-20261004' completion report describes a substantive follow-up but has no unambiguous checkable disposition: no declared or deterministically identifiable newly posted successor, no maintainer-inbox message, and no override. Refusing to record complete: post the follow-up and re-report with --handed-off, route it to the inbox (message-user.sh), or set the override marker with a reason.
+
+--- handler report (partial) ---
+# Completion report: book-equilibrium-data-draft-20261004
+
+The review-economics chapter text and the chart spec are drafted from real garden data and are in draft PR **https://github.com/kriscendobot/garden-book/pull/12** (head `book-equilibrium-data` @ `6035935a849ba824c84d63ad9b0b41399a4a2a47`, base `main-6e0ad97`). Nothing is merged or published. I sent the supervisor the URL and SHA (`inbox-send`, message `20261004T063514Z-75411f`).
+
+## What I did
+- **Manuscript.** Added **§ 8.8 "Review economics: an equilibrium"** to chapter 8 rather than a new chapter, and renumbered the quick reference to 8.9. This keeps the five-part structure and the illumination anchors unchanged. Subsections:
+  - where the numbers come from;
+  - three levels of scrutiny (garden `main2`, `endo-but-for-bots`, upstream `endo`);
+  - two price tags on one pull request;
+  - latency and throughput;
+  - the gauntlet's rounds;
+  - does review teach?;
+  - the equilibrium. Observed, derived and scenario figures are kept visibly separate.
+- **`art/equilibrium-data-spec.md`.** Nine charts (E1–E9). Each gives the reader question, the actual series with their kind, sample sizes and cutoff, the classification and formula rules, alt-text intent, and phone layout at a 353px column. It also records the 13-color palette from `art/MANIFEST.md`, which color means what, and its measured contrast on the light and dark page backgrounds.
+- **Auditable analysis.**
+  - `tools/equilibrium/analyze.mjs` reads `journal2` at `6485a3b8d8` (cutoff 2026-10-04T06:16:22Z) and GitHub data.
+  - `fetch-github.sh` saves the GitHub data; its raw output isn't committed.
+  - `scenario.mjs` produces the equilibrium curves.
+  - `data/equilibrium/*.json` holds aggregates only, no review text.
+  - A new test checks the committed scenario output against the committed aggregates.
+- **Checks.**
+  - `npm test`: 32/32 pass, and the build succeeds.
+  - `tools/browser-check.mjs` passes at 390px and 1440px in light and dark.
+  - A separate check of § 8.8 at 390px in both schemes: two blocks first scrolled sideways (the formula and one table). I shortened both, and after that nothing needs horizontal scrolling. Screenshots of the formula and the cost table are readable in both schemes.
+
+## Key findings (tentative, from one fleet's history)
+- **Ledger vs real cost.** The ledger's list price overstates the flat subscription by 15.9× over the window. This fits with the earlier ~8.7× once you account for how incomplete the ledger was then and how much busier the fleet is now.
+- **Cost per merged pull request** (`endo-but-for-bots`, 107 PRs that could be joined to the ledger):
+  - machine: median $0.63 (subscription share);
+  - human review: median $21.77, 2 rounds (the reducer's own pricing formula);
+  - human ÷ machine: median 38× per PR (93× at $30 a round), consistent with the earlier 50–190×.
+- **Latency** (medians): a panel stage takes 7 minutes; the first human review comes after 24 hours; merging takes 60 hours on `endo-but-for-bots` and 118 hours upstream.
+- **The gauntlet rarely passes.** Only 18 of 174 PRs ended on a pass, and 65 of 161 used all six rounds. Must-fix counts are capped at 20 per round, so they can't show whether reviews converge.
+- **What reviews are about.** 79% of classified maintainer comments were new direction and 21% were things the review process should have caught.
+- **Learning is suggestive, not shown.** Across 18 clusters of recurring misses that got a fix, 41 misses came before the fix and 8 after. Clusters only get a fix after several misses, so this split is partly built in; the chapter names what instrumentation would measure learning properly.
+- **The equilibrium is a scenario.** The chapter argues that a point exists where more human review stops paying for itself, but the data can't say where it is, because the cost of an unaddressed finding is assumed.
+
+## Follow-ups (garden data problems found, not fixed here)
+- On every reputation event, `target` is always `main2`, `accepted` means "completed" rather than "merged", and `human_dollars` is always 0 (the per-PR review files it reads were never written).
+- `estimated_dollars` multiplies `duration_secs` by a rate that was measured on a wall-clock basis about 10× wider, so it runs several times too low.
+- The third Claude pool (`claude-oros`) has no recorded price. If it's another $200 plan, window costs rise about 13%.
+- Upstream ferries have no cost records at all.
