@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T11:27:57Z_
+_As of 2026-10-04T11:35:01Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in place as chapter openers and section figures with captions, the build reproduces byte-for-byte, and the live site passed a manual phone/desktop, light/dark check — live at https://dnl43y7ksqqrkfzkzsiyzhfoqks7tnxpedzi7gfymzviqo7uvkda.ocap.site/, via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). The accountant re-sliced next week's budget to add a dedicated `garden-book` arc (5M) at kriskowal's request. A panel summary landed on the four-layer SturdyRef sub-stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)): all green and mergeable in order, but still blocked underneath by unlanded layers 1/2 ([#774](https://github.com/endojs/endo-but-for-bots/issues/774), [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) and drifted frozen bases needing a weave. Separately, [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) needs a fresh review — its panel-reviewed head is now stale against the latest push.
-
-The most urgent item is operational, not code: **oros is still unreachable, going on 50+ hours** (heartbeat stale since 2026-10-02T05:08Z), derotated from the fleet with 15 health-checkup jobs piling up unclaimed and a growing backlog of unacked sysop ops — this needs a human at the machine to check Docker Desktop, sleep state, and the VM. A journal-contention storm on `endolin-garden2` has since cleared on its own. Container hardening remains pending on two hosts (expected until each is recreated with the hardened launcher), and a comment-watcher self-test is failing on `kriscendobot/ocapn`, suggesting it may be silently blind.
+The illuminated edition of *Better Code and Gardens* shipped: all 25 plates are in and captioned, art landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integrated via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), now live and verified byte-reproducible with 30/30 tests passing and a manual visual check in light/dark mode. The main open concern is oros-studio-garden-ce242c49, which has been unreachable for roughly 50 hours (heartbeat and sysop both stale since 2026-10-02), has fallen behind on deploy, and has a growing backlog of unacked health-check and sysop ops — it needs a person at the machine to check Docker Desktop, sleep state, and the VM. A fresh accountant re-slice reapportioned the weekly token budget across arcs and added a new `garden-book` allocation. On the review side, the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) got a thorough panel summary recommending #1392 merge as-is once its base lands, #1393 merge after a retcon, and #1396/#1397 merge as-is once #1394 is in — no PRs were touched pending a maintainer merge decision. Also flagged: [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has stale panel coverage after a new push and needs an explicit review decision or a "run the gauntlet" request, and the ironhorse-panic-host-call gauntlet halted after its fix stage was explicitly declined.
 
 ## Parked for maintainer feedback
 
@@ -181,10 +179,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Which layers can land first: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) lands first, as soon as [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) land. [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) follows after the retcon and weave. [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) have no code blockers, but they wait on [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/issues/1394) (L5, already un-drafted). No layer needs a redesign, and none needs another full panel; a scoped re-panel of only the post-panel deltas would be optional. No PR was touched and no gauntlet was staged.
 
-- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261004-110510` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261004-110510.md)
-
-> Host-requirements gate: job 'oros-health-checkup-20261004-110510' has remained unclaimed for 1200s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
-
 - `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
 
 > ANOMALY: comment-watcher/kriscendobot-ocapn self-test FAILED on kriscendobot/ocapn — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden-ece02cb4 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
@@ -216,7 +210,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.4M | $691.55 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Claude | 104.6M | $692.26 _(notional, rate-card)_ | 41% of 256.0M (ok) |
 | Codex | 7.4M _(+206.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
