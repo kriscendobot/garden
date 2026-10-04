@@ -1,7 +1,3 @@
-cadence: 6h
-last_dispatched: 2026-10-04T10:05:09Z
-job_basename_prefix: claude-on-minion-town-completion-press
----
 ---
 role: gardener
 tier: mentor
