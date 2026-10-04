@@ -527,6 +527,19 @@ if [ "$src_rc" -ne 0 ]; then
     log "WARN: PR source unreachable (transient network) — skipping tick (never guess)"
     exit 0
   fi
+  # A PRIMARY hourly-quota refusal also matches the transient set, but the short
+  # default window expires inside the same quota hour and the next tick retries a
+  # known-doomed source call (2026-10-04T11:49:02Z). Classify it first and request
+  # the full primary-quota window. The shared source is the REST pulls list, so the
+  # refusal proves the REST core bucket spent: arm the host-wide marker. Mirrors
+  # ci-watcher.sh and dependabot-watcher.sh.
+  if is_gh_primary_rate_limit_text "$(cat "$ERRF" 2>/dev/null || true)"; then
+    secs="$(api_primary_quota_secs)"
+    if start_api_cooldown "approval:$slug:source" "$secs"; then
+      log "WARN: PR source hit GitHub primary REST quota exhaustion — cooling all gh-api watchers for ${secs}s (never guess)"
+    fi
+    exit 0
+  fi
   if is_transient_gh_source_error "$ERRF"; then
     if start_api_cooldown "approval:$slug"; then
       log "WARN: PR source hit a transient gh-api blip (5xx/HTML/rate-limit) — cooling all gh-api watchers for $(_api_cooldown_secs)s (never guess)"

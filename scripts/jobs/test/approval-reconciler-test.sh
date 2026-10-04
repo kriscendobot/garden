@@ -41,6 +41,9 @@
 #      bound rather than approaching the unit's 900-second timeout
 #   R. MERGEABILITY PROBE TIMEOUT — a timed-out eligibility read is deferred and
 #      cannot be misclassified as the ordinary rc-1 shepherd path
+#   T. PRIMARY-QUOTA SOURCE REFUSAL — the shared PR source's primary-quota 403 arms
+#      the host-wide gh-api latch for the full primary-quota window (not the 300s
+#      transient default), and a later tick inside that window skips the source
 #
 # Usage: approval-reconciler-test.sh
 set -euo pipefail
@@ -475,6 +478,62 @@ else
   bad "late straggler $LATE_SPID survived the reconciler exit (sweep stopped on a single zero-read)"
   kill -KILL "$LATE_SPID" 2>/dev/null || true
 fi
+
+# ============================================================================
+hr; echo "T. PRIMARY-QUOTA SOURCE REFUSAL — host-wide latch for the full quota window"; hr
+# 2026-10-04T11:49:02Z: the shared REST pulls-list source (ci-pr-source-gh.sh) was
+# refused for GitHub's PRIMARY hourly quota, which also matches the transient set,
+# so the reconciler opened only the 300s default window. It must classify primary
+# quota FIRST and request api_primary_quota_secs on the host-wide marker.
+T_SRC="$TR/quota-source.sh"
+cat > "$T_SRC" <<'EOF'
+#!/bin/bash
+echo '<4>ci-pr-source: gh api repos/endojs/endo-but-for-bots/pulls?state=open&per_page=100 failed (definitive, rc=1); not retrying: gh: API rate limit exceeded for user ID 279080640. If you reach out to GitHub Support for help, please include the request ID 0000:0000:0000000:0000000:00000000. (HTTP 403)' >&2
+exit 1
+EOF
+chmod +x "$T_SRC"
+ROOT_T="$TR/root-quota"; mkdir -p "$ROOT_T"
+BARE="$TR/t.git"; seed_bare "$BARE"
+FIX="$TR/t.tsv"; prline 940 kriscendobot "$BOThead" > "$FIX"
+TLOG="$TR/t.log"; RUN_AR_LOG="$TLOG"; t_before="$(date +%s)"; t_rc=0
+run_ar "$TR/st" "$BARE" "$FIX" "940=0" "940=0" "$SLUG" \
+  GARDEN_ROOT="$ROOT_T" GARDEN_AR_PR_SOURCE="$T_SRC" \
+  GARDEN_API_COOLDOWN_SECS=300 GARDEN_API_PRIMARY_QUOTA_SECS=3600 \
+  GARDEN_GH_API_ATTEMPTS=1 GARDEN_NO_MAINTAINER_ALERT=1 || t_rc=$?
+RUN_AR_LOG=/dev/null
+[ "$t_rc" -eq 0 ] && ok "primary-quota source refusal exits 0 — no crash-loop" \
+  || bad "primary-quota source refusal exited $t_rc ($(tr '\n' ' ' < "$TLOG"))"
+if grep -q 'primary REST quota exhaustion' "$TLOG" && ! grep -q 'transient gh-api blip' "$TLOG"; then
+  ok "logs the primary-quota WARN, not the generic transient blip"
+else bad "wrong quota classification ($(tr '\n' ' ' < "$TLOG"))"; fi
+T_MARKER="$ROOT_T/.garden-state/gh-api-cooldown/marker"
+t_expiry="$(sed -n '1p' "$T_MARKER" 2>/dev/null || echo 0)"
+case "$t_expiry" in ''|*[!0-9]*) t_expiry=0 ;; esac
+[ "$t_expiry" -ge $((t_before + 3600)) ] \
+  && ok "host-wide marker armed for the full primary-quota window ($((t_expiry - t_before))s), not the 300s default" \
+  || bad "host-wide marker expiry $t_expiry is not a full quota window past $t_before"
+grep -q "approval:$SLUG:source" "$T_MARKER" 2>/dev/null \
+  && ok "the latch names the approval source as its owner" || bad "latch tag missing ($(cat "$T_MARKER" 2>/dev/null))"
+[ "$(lane_count "$BARE" todo 'conduct|shepherd')" = 0 ] \
+  && ok "no job posted on a quota-refused enumeration" || bad "posted a job despite the refusal"
+
+# A later tick 600s into the window — past the 300s default — must not re-poll.
+printf '%s\n%s\n' "$((t_expiry - 600))" "approval:$SLUG:source" > "$T_MARKER"
+T_CNT="$TR/quota.count"; printf '0\n' > "$T_CNT"
+T_COUNT_SRC="$TR/quota-counting-source.sh"
+cat > "$T_COUNT_SRC" <<EOF
+#!/bin/bash
+n=\$(( \$(cat "$T_CNT" 2>/dev/null || echo 0) + 1 )); printf '%s\n' "\$n" > "$T_CNT"
+exit 1
+EOF
+chmod +x "$T_COUNT_SRC"
+tl_rc=0
+run_ar "$TR/st2" "$BARE" "$FIX" "940=0" "940=0" "$SLUG" \
+  GARDEN_ROOT="$ROOT_T" GARDEN_AR_PR_SOURCE="$T_COUNT_SRC" \
+  GARDEN_API_COOLDOWN_SECS=300 GARDEN_NO_MAINTAINER_ALERT=1 || tl_rc=$?
+[ "$tl_rc" -eq 0 ] && [ "$(cat "$T_CNT")" -eq 0 ] \
+  && ok "a tick 600s into the quota window skips before polling the doomed source" \
+  || bad "later tick polled the source ($(cat "$T_CNT") calls, rc $tl_rc) inside the quota window"
 
 # ============================================================================
 hr
