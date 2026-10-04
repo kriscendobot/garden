@@ -34,3 +34,13 @@ null-spend)", although `append-quota-checkpoint.sh` recorded fresh rows on 2026-
    or codex/oros pools.
 Context: the maintainer plans to burn claude-endolin2 to ~90% and spend its reset credit
 early this week, so a higher claude2 cap is consistent with that plan.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T04:38:29Z
