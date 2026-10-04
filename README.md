@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T04:34:39Z_
+_As of 2026-10-04T04:42:48Z_
 
 ## Latest
 
-Two new jobs landed on the book-illumination track: a design pass for the per-chapter/section illuminated illustration set and a reader-exposure copyedit sweep both moved into doin, with a supervisor job parked to continue production once the design brief lands. Several gauntlets (ebfb sturdyref layers, confined-application-makers, endo-claude sandbox/CLI builds) hit their 6-round review-budget ceiling with green CI and now sit waiting on a human merge/review call — none failed outright. Separately, the garden-book budget re-slice (15M units from the reserve) is still awaiting kriskowal's direct "approve," since a proxy answer already correctly declined to stand in for maintainer-only budget authorization. Oros remains unreachable (~46h stale) and needs a person to check the machine; a stale-panel-head notice on [minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) also needs a maintainer review decision since its presented head has moved past the last panel pass.
+The board moved relatively little since the last bulletin: the book-illumination design step completed and handed off, feeding a successor supervisor job (`book-illumination-supervisor-after-design-20261004`) that's now running, alongside the ongoing production-1 illustration supervisor; a reader-exposure copyedit job and a Claude-caps refit also closed out. The accountant applied a maintainer-approved budget re-slice (555M/week across arcs, with a new 5M `garden-book` arc for future editions), so no action needed there.
+
+Nothing new landed on the parked-PR front — the top-10 queue (led by [endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and [#1281](https://github.com/endojs/endo-but-for-bots/pull/1281)) is unchanged and still awaiting review. Worth a maintainer glance: oros-studio-garden-ce242c49 has been offline ~2 days (20th coalesced watchdog notice) and is being skipped by rolling deploys, two gauntlets halted on unsatisfied/declined outcomes (minion-town-claude-cli-production and the ironhorse panic-host-call PR), and several OAuth-session self-heal failures (receipt-watcher, comment-watcher) need a re-login.
 
 ## Parked for maintainer feedback
 
@@ -25,6 +27,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 (delegation not armed)
 
 ## Messages to the maintainer
+
+- `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
+
+> WATCHDOG notice — occurrence #20 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T04:41:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 20 times; this is ONE
+> coalesced notice that updates in place, not 20 messages. Latest detail:
+>
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 171146s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
+> not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
+> no release token, deploy budget, failed-canary count, or halt. Restore the host and
+> its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
+> separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden-ece02cb4)
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-7c08ffa9` — from gardener:claude-on-minion-town-press-20261004-033506, reply_to `claude-on-minion-town-press-20261004-033506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-7c08ffa9.md)
 
@@ -76,12 +91,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration minion-town-claude-cli-production-20261003 HALTED: child minion-town-claude-cli-provider-conduct-20261003 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/3 done before halt; parked remainder: minion-town-claude-cli-production-canary-20261003
 
-- `msg-accountant-reslice-20261003-resume2-192d988f6e62` — from gardener:accountant-reslice-20261003-resume2, reply_to `accountant-reslice-20261003-resume2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-reslice-20261003-resume2-192d988f6e62.md)
-
-> Garden-book re-slice (proposal 20261003T055048Z-1f7489): a proxy/tentative "approve as proposed" arrived (20261003T062952Z-2761a3), but I have NOT applied it. Budget slices are the maintainer's call, and the apportionment records authorized_by: kriskowal, so a proxy answer cannot stand in.
->
-> kriskowal: reply "approve" (or give edits: size, rank, or source) to carve a 15M `garden-book` arc at rank 7 from the 25M reserve, leaving the reserve at 10M with the total unchanged at 500M. Until then the carried-forward slate stays in force, and the book keeps drawing on the reserve. Accountant job accountant-reslice-20261003-resume2 will pick up your reply.
-
 - `ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-review-budget-reached` — from gauntlet:ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet ebfb-sturdyref-layer7-ocapn-enliven-20260930-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
@@ -103,13 +112,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet build-endo-claude-sandbox-bwrap-slice-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
-- `20261003T065941Z-848d3d` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261003T065941Z-848d3d.md)
+- `msg-accountant-reslice-20261004-68981d96012c` — from gardener:accountant-reslice-20261004, reply_to `accountant-reslice-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-reslice-20261004-68981d96012c.md)
 
-> awaiting maintainer — beyond proxy authority: gardener accountant-reslice-20261003-resume2, msgid msg-accountant-reslice-20261003-resume2-035809b21719.md — Budget/resource allocation authorization (committing a 15M-unit garden-book slice) is an authority grant reserved to the maintainer, not a progress/direction question a proxy may answer.
-
-- `msg-accountant-reslice-20261003-resume2-035809b21719` — from gardener:accountant-reslice-20261003-resume2, reply_to `accountant-reslice-20261003-resume2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-reslice-20261003-resume2-035809b21719.md)
-
-> The garden-book re-slice proposal is still awaiting your direct decision. Kriskowal, please reply “approve” to authorize the staged 15M garden-book slice (leaving 10M unallocated), explicitly confirm the earlier proxy approval, or give edits.
+> Re-slice applied (journal2 235a959c880; authorized_by: kriskowal, "Approve a smaller slice for future editions.", reply to 20261003T055048Z-1f7489).
+>
+> Week of 2026-10-03T03:00Z, total 555M (planning ceiling 0.9):
+> 1. minion-town-mcp-ocapn   158.175M
+> 2. minion-town-git-remote  105.45M
+> 3. minion-town-ui           79.0875M
+> 4. endo-ocapn-background   105.45M
+> 5. moonshots                42.18M
+> 6. garden-upkeep            26.3625M
+> 7. garden-book               5M     (NEW: future editions and upkeep)
+> 8. endo-backlog             10.545M
+> Reserve: unallocated 22.75M (was 27.75M)
+>
+> Every other arc is unchanged. From now on, book-* and garden-book-* jobs should be posted with `--arc garden-book`. The book-illumination/equilibrium jobs already on the board are unarced and orchestrated or blocked. I did not re-tag them, because the accountant only writes the allocation layer. No open budget request existed to close (there is no budget/requests/ on the journal). No reply needed.
 
 - `build-endo-claude-pinned-cli-bump-gauntlet-review-budget-reached` — from gauntlet:build-endo-claude-pinned-cli-bump-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-endo-claude-pinned-cli-bump-gauntlet-review-budget-reached.md)
 
@@ -159,10 +177,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet build-confined-application-makers-p1-20261002-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
-- `20261003T065951Z-31100f` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261003T065951Z-31100f.md)
-
-> awaiting maintainer — beyond proxy authority: gardener accountant-reslice-20261003-resume2, msgid msg-accountant-reslice-20261003-resume2-192d988f6e62.md — Budget-slice apportionment is explicitly maintainer-authority: it carves reserve funds and records `authorized_by: kriskowal`, which a proxy answer cannot satisfy even tentatively.
-
 - `build-confined-application-makers-p2-makefromtree-20261003-gauntlet-review-budget-reached` — from gauntlet:build-confined-application-makers-p2-makefromtree-20261003-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-confined-application-makers-p2-makefromtree-20261003-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet build-confined-application-makers-p2-makefromtree-20261003-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
@@ -202,8 +216,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.2M | $602.29 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 5.9M _(+133.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 88.5M | $602.50 _(notional, rate-card)_ | 35% of 256.0M (ok) |
+| Codex | 5.9M _(+134.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -225,18 +239,17 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (3)
-- [`book-illumination-design-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-design-20261004.md) — Design the per-chapter/section illuminated illustration set for Better Code a...
+### doin (2)
 - [`book-illumination-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-20261004.md) — Supervise production 1: per-chapter/section illuminated illustrations (krisce...
-- [`book-reader-exposure-copyedit-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-reader-exposure-copyedit-20261004.md) — Copy-edit pass: track what the reader has been told, and stop assuming inside...
+- [`book-illumination-supervisor-after-design-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-after-design-20261004.md) — Continue the illuminated illustration production after the thematic design brief
 
-### tada (10759)
+### tada (10763)
+- [`refit-claude-caps-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/refit-claude-caps-20261004.md) — Completion report: refit-claude-caps-20261004
+- [`accountant-reslice-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/accountant-reslice-20261004.md) — Cost
+- [`book-reader-exposure-copyedit-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-reader-exposure-copyedit-20261004.md) — Completion report: book-reader-exposure-copyedit-20261004
+- [`book-illumination-design-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-design-20261004.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-350d6bc198c8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-350d6bc198c8.md) — rolling-deploy canary probe — round trip OK
-- [`oros-health-watch-20261004-040505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-040505.md) — Cost
-- [`improve-comment-latency-quota-warning-coalesce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-comment-latency-quota-warning-coalesce.md) — Cost
-- [`claude-on-minion-town-completion-press-20261004-035006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-completion-press-20261004-035006.md) — Cost
-- [`claude-on-minion-town-press-20261004-033506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-033506.md) — Panel-head freshness
-- … and 10754 more
+- … and 10758 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -330,7 +343,6 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
-- [`book-illumination-supervisor-after-design-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-illumination-supervisor-after-design-20261004.md) — awaiting `book-illumination-design-20261004` · Continue the illuminated illustration production after the thematic design brief
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
 
 ## Watch set
