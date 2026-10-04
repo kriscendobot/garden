@@ -34,3 +34,13 @@ issue_spine: issue-kriscendobot-garden-89
 issue_url: https://github.com/kriscendobot/garden/issues/89#issuecomment-5985332306
 submitter: kriscendobot
 ----- END ISSUE NOTE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T22:57:43Z
