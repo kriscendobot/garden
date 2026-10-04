@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T00:58:37Z_
+_As of 2026-10-04T01:06:43Z_
 
 ## Latest
 
@@ -617,7 +617,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 87.1M | $594.50 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 5.4M _(+128.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 5.4M _(+128.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -638,8 +638,8 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`oros-health-watch-20261004-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261004-010505.md) — ---
 
 ### tada (10749)
 - [`improve-fork-watch-offline-rc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-fork-watch-offline-rc.md) — Cost
