@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T21:38:38Z_
+_As of 2026-10-04T21:55:15Z_
 
 ## Latest
 
-The main thread since the last bulletin is the minion.town shell-to-JS gauntlet (`minion-town-shell-to-js-20261004`): part 2's fix round 5 landed and moved into panel round 6, part 3 is mid panel round 4, and the overall serial orchestration reports all three children reaching tada cleanly. Elsewhere, the garden-book illuminated edition shipped — all 25 plates integrated and published, verified in both light/dark and phone/desktop layouts, with only cosmetic nits left. The SturdyRef stack panel review flagged four of its seven layers ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) as mergeable with only minor follow-ups, pending stack hygiene below them. The biggest standing problem is oros-studio, unreachable for roughly 50 hours with a growing backlog of unclaimed health checkups and unacked sysop ops — it needs a person at the machine. The minion.town Claude-CLI production canary stalled on several maintainer-only credential steps (subscription token, GitHub OAuth) and separately uncovered a real deploy defect: production `minion-mcp` is crash-looping because the deploy tarball omits the `vendor` directory that `@endo/claude` depends on; a fix-forward job has been posted. The parked-PR queue is otherwise unchanged from last cycle.
+The minion.town shell-to-JS orchestration continues working through its three-part gauntlet: part 3's panel round 4 completed and fix round 4 is now in progress on [kriscendobot/minion.town#154](https://github.com/kriscendobot/minion.town/pull/154), while part 2 is mid-panel round 6 on [kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/pull/152). A rolling-deploy canary round-trip on endolin-garden2-5bcdff64 came back clean.
+
+The most pressing item is the **oros-studio host**, now unreachable for roughly 50 hours (heartbeat stale since 2026-10-02T05:08Z) — 18 health-checkup jobs sit unclaimed in the board's todo queue, and repeated watcher messages ask for someone to physically check the Mac (sleep/power, Docker Desktop, VM). Separately, the **minion-town-claude-cli-production-canary** effort hit a real production incident: the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy left `minion-mcp` crash-looping (missing `@endo/claude` vendor bundle in the deploy tarball), and a fix-forward successor job has been posted to recover availability before the canary resumes — several of the canary's token-submission requests to the maintainer are now moot pending that fix. Also worth a look: stale panel coverage flagged on three PRs after post-panel pushes — [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) — each needs either an explicit "run the gauntlet" or a direct review decision. On the brighter side, the illuminated edition of *Better Code and Gardens* shipped and is live, with all 25 plates in place and verified.
 
 ## Parked for maintainer feedback
 
@@ -227,6 +229,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
+- `watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4` — from watchdog:deadline-nudge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4.md)
+
+> deadline-nudge on endolin-garden-ece02cb4 cannot push to journal2: server-reject rejection (To github.com:kriscendobot/garden.git  ! [remote rejected]       HEAD -> journal2 (cannot lock ref 'refs/heads/journal2': is at 3d1db15ff6c9389171eb35691cff34223d6d5c7a but expected cbcb6725ae67c39e288842162ef39bb8afb3ae03) error: failed...). Deadline warnings are not being delivered; this needs repair (credentials, upstream, or a receive-side policy), not a retry.
+
 - `20261004T204328Z-c8080c` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T204328Z-c8080c.md)
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-claude-cli-production-canary-20261004, msgid msg-minion-town-claude-cli-production-canary-20261004-2e1950f7cfff.md — Requires the maintainer's own machine/credentials to run `claude setup-token` and complete an account-linking action on minion.town — not a question the proxy can answer or fulfill on their behalf.
@@ -349,8 +355,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 153.0M | $1042.94 _(notional, rate-card)_ | 60% of 256.0M (ok) |
-| Codex | 8.5M _(+225.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 156.6M | $1075.90 _(notional, rate-card)_ | 61% of 256.0M (ok) |
+| Codex | 8.6M _(+225.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -379,16 +385,16 @@ worst fetch p95 9.605378s/45s (/home/kris/garden/.garden-state/dependabot-watche
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (2)
-- [`minion-town-shell-to-js-20261004-part3-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #154
+- [`minion-town-shell-to-js-20261004-part3-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #154
 - [`minion-town-shell-to-js-20261004-part2-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part2-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #152
 
-### tada (10930)
+### tada (10932)
+- [`minion-town-shell-to-js-20261004-part3-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part3-gauntlet-panel-4.md) — Cost
+- [`canary-probe-endolin-garden2-5bcdff64-44473901b67e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-44473901b67e.md) — rolling-deploy canary probe — round trip OK
 - [`minion-town-shell-to-js-20261004-part2-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-gauntlet-fix-5.md) — Cost
 - [`improve-mirror-closer-shared-state-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-mirror-closer-shared-state-failure.md) — Cost
 - [`self-heal-fix-garden-mirror-closer-gh-api-admit-empty-stderr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/self-heal-fix-garden-mirror-closer-gh-api-admit-empty-stderr.md) — Cost
-- [`minion-town-shell-to-js-20261004-part3-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part3-gauntlet-fix-3.md) — Cost
-- [`minion-town-shell-to-js-20261004-part2-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-gauntlet-panel-5.md) — Cost
-- … and 10925 more
+- … and 10927 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
