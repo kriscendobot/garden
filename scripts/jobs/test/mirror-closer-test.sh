@@ -438,6 +438,62 @@ mapping_of "$BARE_I" up-repo-19.md | grep -q '^closed_at:' && ok "healthy mappin
 mapping_of "$BARE_I" up-repo-18.md | grep -q '^closed_at:' && bad "bad mapping stamped despite an unreadable state" || ok "bad mapping left unresolved (will retry next tick)"
 [ "$rci" -ne 0 ] && ok "tick exits nonzero because a mapping failed (rc=$rci) — failure stays visible" || bad "tick reported healthy despite a failed mapping"
 
+hr; echo "I2: repeated identical non-quota failures stop the tick after two calls, aggregate once, and retry next tick"; hr
+BARE_I2="$TR/i2.git"; seed_bare "$BARE_I2"
+CL_I2="$TR/close-i2.log"; LOG_I2="$TR/closer-i2.log"; CNT_I2="$TR/i2-calls.count"; : > "$CL_I2"; echo 0 > "$CNT_I2"
+REPEATFAIL="$TR/state-repeat-fail.sh"
+cat > "$REPEATFAIL" <<'EOF'
+#!/bin/bash
+n=$(( $(cat "${MC_REPEAT_COUNT:?set MC_REPEAT_COUNT}" 2>/dev/null || echo 0) + 1 ))
+printf '%s' "$n" > "${MC_REPEAT_COUNT}"
+echo "shared state service unavailable" >&2
+exit 1
+EOF
+chmod +x "$REPEATFAIL"
+for num in 191 192 193 194 195; do
+  record "$TR/state-i2" "$BARE_I2" "up/repo#$num" "garden/mir#$((num + 100))"
+done
+env GARDEN_STATE="$TR/state-i2" JOURNAL_REMOTE="$BARE_I2" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_I2" MC_REPEAT_COUNT="$CNT_I2" \
+    GARDEN_MIRROR_PR_STATE="$REPEATFAIL" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >"$LOG_I2" 2>&1; rci2=$?
+[ "$rci2" -ne 0 ] && ok "repeated non-quota failure keeps the tick unhealthy (rc=$rci2)" || bad "repeated non-quota failure exited healthy"
+[ "$(cat "$CNT_I2")" -eq 2 ] \
+  && ok "identical failure fingerprint stops state queries after the second match (2 calls, not 5)" \
+  || bad "repeated failure did not stop queries (calls=$(cat "$CNT_I2"))"
+[ "$(grep -c 'shared state service unavailable' "$LOG_I2")" -eq 1 ] \
+  && ok "duplicate captured handler diagnostic is emitted once" \
+  || bad "duplicate handler diagnostic count was $(grep -c 'shared state service unavailable' "$LOG_I2")"
+[ "$(grep -c 'repeated identical non-quota handler failure this tick' "$LOG_I2")" -eq 1 ] \
+  && ok "one aggregate error reports the repeated shared failure" \
+  || bad "aggregate repeated-failure error count was $(grep -c 'repeated identical non-quota handler failure this tick' "$LOG_I2")"
+grep -q '5 mapping(s) left unresolved (2 failed, including the repeated pair + 3 unqueried)' "$LOG_I2" \
+  && ok "aggregate error accounts for both failed and all unqueried mappings" \
+  || bad "aggregate repeated-failure accounting wrong: $(cat "$LOG_I2")"
+for num in 191 192 193 194 195; do
+  mapping_of "$BARE_I2" "up-repo-$num.md" | grep -q '^closed_at:' \
+    && bad "up-repo-$num stamped despite failure/unqueried state" || ok "up-repo-$num left unresolved for retry"
+done
+
+# A fresh timer tick starts with a fresh fingerprint set. Switch to an open-state
+# reader and prove that every unresolved mapping is queried again.
+RETRYSTATE="$TR/state-retry-count.sh"
+cat > "$RETRYSTATE" <<'EOF'
+#!/bin/bash
+n=$(( $(cat "${MC_RETRY_COUNT:?set MC_RETRY_COUNT}" 2>/dev/null || echo 0) + 1 ))
+printf '%s' "$n" > "${MC_RETRY_COUNT}"
+printf 'open\tfalse\n'
+EOF
+chmod +x "$RETRYSTATE"
+RETRY_COUNT_I2="$TR/i2-retry-calls.count"; echo 0 > "$RETRY_COUNT_I2"
+env GARDEN_STATE="$TR/state-i2" JOURNAL_REMOTE="$BARE_I2" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_CLOSE_LOG="$CL_I2" MC_RETRY_COUNT="$RETRY_COUNT_I2" \
+    GARDEN_MIRROR_PR_STATE="$RETRYSTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >/dev/null 2>&1; rci2_retry=$?
+[ "$rci2_retry" -eq 0 ] && [ "$(cat "$RETRY_COUNT_I2")" -eq 5 ] \
+  && ok "next tick retries all 5 unresolved mappings" \
+  || bad "next tick did not retry every mapping (rc=$rci2_retry, calls=$(cat "$RETRY_COUNT_I2"))"
+
 hr; echo "J — mirror-pr-state-gh handler: diff-free GraphQL read maps OPEN/CLOSED/MERGED and the large-PR (endo#3137) 422 is impossible by construction"; hr
 # Exercise the REAL default handler (scripts/jobs/handlers/mirror-pr-state-gh.sh),
 # not the STATESTUB — this is the file that carried the HTTP-422 bug. A fake fleet

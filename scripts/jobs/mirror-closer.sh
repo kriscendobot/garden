@@ -62,6 +62,13 @@
 # exits nonzero when any non-quota mapping failed, so the failure stays visible
 # to systemd/journald.
 #
+# REPEATED-FAILURE CIRCUIT BREAKER (2026-10-04 hardening): isolation is useful
+# for a mapping-specific failure, but a shared state-reader failure produces the
+# same captured handler result for every mapping. The watcher fingerprints each
+# non-quota handler failure for the current tick. On the second identical result
+# it stops querying, emits one aggregate error, exits nonzero, and leaves the
+# failed and unqueried mappings unresolved for the next tick.
+#
 # PRIMARY-QUOTA CIRCUIT BREAKER + COOLDOWN (2026-09-16 hardening; consolidated
 # onto the shared latch 2026-09-27): GitHub's primary hourly quota is account-wide
 # and cannot recover until it resets, so once ONE mapping's call is refused, every
@@ -182,9 +189,11 @@ parse_state() {
 }
 
 # Run one pluggable GitHub handler while retaining its stderr for failure
-# classification. Preserve the handler's diagnostics on this service's stderr so
-# journald still carries the original cause. Sets HANDLER_STDERR and the output
-# variable named by $1 (or discards stdout when that name is `-`).
+# classification. Sets HANDLER_STDERR and a byte-for-byte HANDLER_FINGERPRINT
+# (handler + rc + stdout + stderr). The caller emits diagnostics only after
+# deciding whether this is a new failure or a repeat, so a shared outage does not
+# print the same handler error once per mapping.
+# Sets the output variable named by $1 (or discards stdout when that name is `-`).
 run_handler_captured() {  # run_handler_captured <output-var> <handler> [args...]
   local output_var="$1" handler="$2" errf output rc stderr
   shift 2
@@ -192,8 +201,8 @@ run_handler_captured() {  # run_handler_captured <output-var> <handler> [args...
   if output="$("$handler" "$@" 2>"$errf")"; then rc=0; else rc=$?; fi
   stderr="$(cat "$errf" 2>/dev/null || true)"
   rm -f "$errf"
-  [ -z "$stderr" ] || printf '%s\n' "$stderr" >&2
   HANDLER_STDERR="$stderr"
+  HANDLER_FINGERPRINT="$handler"$'\034'"$rc"$'\034'"$output"$'\034'"$stderr"
   [ "$output_var" = - ] || printf -v "$output_var" '%s' "$output"
   return "$rc"
 }
@@ -202,20 +211,42 @@ acted=0
 failed=0
 quota_blocked=0
 quota_break=0
+repeated_failure_break=0
 out=''
 mout=''
 HANDLER_STDERR=''
+HANDLER_FINGERPRINT=''
+declare -a FAILURE_FINGERPRINTS=()
 
-# Classify a handler failure and, on the FIRST primary-quota refusal, arm the
-# circuit breaker (quota_break) so the caller stops querying the remaining
-# mappings this tick — they are all equally doomed until quota resets.
-count_handler_failure() {
+# Classify and report a handler failure. A first-seen non-quota fingerprint keeps
+# the per-mapping isolation behavior. Its second identical occurrence trips a
+# per-tick circuit breaker: the duplicate diagnostic is suppressed here and one
+# aggregate error is emitted after the loop.
+count_handler_failure() {  # count_handler_failure <per-mapping-warning>
+  local warning="$1" fingerprint prior seen=0
   if is_gh_primary_rate_limit_text "$HANDLER_STDERR"; then
     quota_blocked=$((quota_blocked+1))
     quota_break=1
+    [ -z "$HANDLER_STDERR" ] || printf '%s\n' "$HANDLER_STDERR" >&2
+    log "$warning"
   else
     failed=$((failed+1))
+    fingerprint="$HANDLER_FINGERPRINT"
+    for prior in "${FAILURE_FINGERPRINTS[@]}"; do
+      if [ "$prior" = "$fingerprint" ]; then
+        seen=1
+        break
+      fi
+    done
+    if [ "$seen" -eq 1 ]; then
+      repeated_failure_break=1
+    else
+      FAILURE_FINGERPRINTS+=("$fingerprint")
+      [ -z "$HANDLER_STDERR" ] || printf '%s\n' "$HANDLER_STDERR" >&2
+      log "$warning"
+    fi
   fi
+  return 0
 }
 
 for i in $(seq 0 $((n-1))); do
@@ -230,9 +261,8 @@ for i in $(seq 0 $((n-1))); do
   # re-handles it. A non-quota failure still reports unhealthy at the end; an
   # all-primary-quota failure set reports degraded but healthy to systemd.
   if ! run_handler_captured out "$GARDEN_MIRROR_PR_STATE" "$up_repo" "$up_num"; then
-    log "WARN: reading upstream state for $up failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
-    count_handler_failure
-    [ "$quota_break" -eq 1 ] && break
+    count_handler_failure "WARN: reading upstream state for $up failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
+    { [ "$quota_break" -eq 1 ] || [ "$repeated_failure_break" -eq 1 ]; } && break
     continue
   fi
   parse_state "$out"
@@ -247,9 +277,8 @@ for i in $(seq 0 $((n-1))); do
 
   # Look at our mirror. Only close it if it is still open; otherwise reconcile.
   if ! run_handler_captured mout "$GARDEN_MIRROR_PR_STATE" "$mir_repo" "$mir_num"; then
-    log "WARN: reading mirror state for $mir failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
-    count_handler_failure
-    [ "$quota_break" -eq 1 ] && break
+    count_handler_failure "WARN: reading mirror state for $mir failed (handler $GARDEN_MIRROR_PR_STATE); skipping this mapping; will retry next tick"
+    { [ "$quota_break" -eq 1 ] || [ "$repeated_failure_break" -eq 1 ]; } && break
     continue
   fi
   parse_state "$mout"
@@ -268,9 +297,8 @@ for i in $(seq 0 $((n-1))); do
   } > "$cbody"
   if ! run_handler_captured - "$GARDEN_MIRROR_CLOSE" "$mir_repo" "$mir_num" "$cbody"; then
     rm -f "$cbody"
-    log "WARN: closing mirror $mir failed (handler $GARDEN_MIRROR_CLOSE); skipping this mapping; will retry next tick"
-    count_handler_failure
-    [ "$quota_break" -eq 1 ] && break
+    count_handler_failure "WARN: closing mirror $mir failed (handler $GARDEN_MIRROR_CLOSE); skipping this mapping; will retry next tick"
+    { [ "$quota_break" -eq 1 ] || [ "$repeated_failure_break" -eq 1 ]; } && break
     continue
   fi
   rm -f "$cbody"
@@ -300,6 +328,12 @@ if [ "$quota_break" -eq 1 ]; then
     exit 1
   fi
   exit 0
+fi
+if [ "$repeated_failure_break" -eq 1 ]; then
+  skipped=$(( n - 1 - i )); [ "$skipped" -lt 0 ] && skipped=0
+  pending=$(( failed + skipped ))
+  log "ERROR: repeated identical non-quota handler failure this tick; stopped querying after the second matching failure - $pending mapping(s) left unresolved ($failed failed, including the repeated pair + $skipped unqueried) and will retry next tick"
+  exit 1
 fi
 if [ "$failed" -gt 0 ]; then
   log "WARN: $failed non-quota mapping failure(s) this tick; mappings were left unresolved; will retry next tick"
