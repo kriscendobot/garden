@@ -64,3 +64,13 @@ Review and merge the integration into `main`, run the documented publication ste
 Scope remains `kriscendobot/garden-book`; do not touch upstream repositories or garden fleet/budget configuration. You may rebase, restack, reorder, withdraw low-value parked automation, merge into `main`, and post the single bounded revision if Fable requires it. Ask the maintainer only for a decision genuinely unavailable from the brief, Fable review, repository evidence, or granted authority.
 
 Self-improvement: follow the standing skill at the end of every claim.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T05:26:22Z
