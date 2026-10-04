@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T19:53:02Z_
+_As of 2026-10-04T20:04:40Z_
 
 ## Latest
 
-The biggest open item remains the oros-studio host, now unreachable for roughly 50 hours since 2026-10-02T05:08Z — heartbeat, sysop-log, and fleet health are all stale, 17 checkup jobs sit unclaimed in todo, and the derotated host is still deployed well behind main2. A person needs to check the Mac's sleep/power state, Docker Desktop, and the VM directly.
-
-On minion.town, production `minion-mcp` is crash-looping after the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy: the built artifact references `@endo/claude` via a vendor symlink the deploy tarball omits, so startup fails, and the rollback restored the old artifact but not the old unit config, leaving `ENDO_CLAUDE_ENABLED=1` with the service auto-restarting (83 restarts). A fix-forward job is already in flight to restore availability and fix packaging/rollback before re-attempting the canary. Separately, the three-part minion.town shell-to-js build landed cleanly (orchestration complete, no failures) and is now working through gauntlet fix/panel rounds on PRs [#151](https://github.com/kriscendobot/minion.town/pull/151), [#152](https://github.com/kriscendobot/minion.town/pull/152), and [#154](https://github.com/kriscendobot/minion.town/pull/154).
-
-On the garden-book side, the illuminated edition of *Better Code and Gardens* is live with all 25 plates captioned, built from [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11); a few minor visual nits (one book spine crossing a terrace edge, an off-center dash) are noted but left as-is.
-
-A detailed panel summary is also waiting on the SturdyRef stack (endojs/endo-but-for-bots [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) → [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) → [#1394](https://github.com/endojs/endo-but-for-bots/issues/1394) → [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) → [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)): all four later layers are CI-green drafts with no code blockers, recommending #1392 merge first once its base PRs land, #1393 needs a retcon to regroup rework commits, and #1396/#1397 merge as-is once #1394 is in — no redesign needed anywhere. Several other stale-panel-head notices also await a maintainer review decision on [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407).
+The minion.town shell-to-js arc (orchestration `minion-town-shell-to-js-20261004`) finished all three children and its three gauntlets are now mid-panel — [kriscendobot/minion.town#151](https://github.com/kriscendobot/minion.town/pull/151), [#152](https://github.com/kriscendobot/minion.town/pull/152), and [#154](https://github.com/kriscendobot/minion.town/pull/154) — after fix rounds landed on all three. Separately, the production `minion-mcp` service is crash-looping: the [minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy (and its rollback) shipped a unit with `ENDO_CLAUDE_ENABLED=1` but an artifact missing the `vendor/endo-claude` package, so a fix-forward job (`minion-town-claude-cli-production-deploy-fix-20261004`) is now in flight on top of the in-progress production canary before the canary is reposted. Also unresolved: oros-studio has been unreachable for roughly 50 hours (heartbeat and sysop-log both stale since 2026-10-02T05:08–05:45Z, 17 health checkups piling up unclaimed) and needs a human at the machine; the SturdyRef stack (layers 3/4/6/7 — [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) has a panel summary ready recommending merge order once the underlying layers land; and *Better Code and Gardens* shipped its illuminated edition with all 25 plates captioned and live.
 
 ## Parked for maintainer feedback
 
@@ -38,11 +32,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #305 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T18:59:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 305 times; this is ONE
-> coalesced notice that updates in place, not 305 messages. Latest detail:
+> WATCHDOG notice — occurrence #325 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T19:59:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 325 times; this is ONE
+> coalesced notice that updates in place, not 325 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 222626s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 226226s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -285,8 +279,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 138.5M | $937.67 _(notional, rate-card)_ | 54% of 256.0M (ok) |
-| Codex | 8.0M _(+216.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 142.8M | $968.11 _(notional, rate-card)_ | 56% of 256.0M (ok) |
+| Codex | 8.0M _(+220.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -314,18 +308,18 @@ worst fetch p95 5.996244s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (4)
-- [`minion-town-shell-to-js-20261004-part2-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part2-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #152
-- [`minion-town-shell-to-js-20261004-part3-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #154
-- [`minion-town-shell-to-js-20261004-part1-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part1-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #151
-- [`minion-town-claude-cli-production-deploy-fix-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-claude-cli-production-deploy-fix-20261004.md) — Fix the production Claude-enabled app artifact, restore minion-mcp, verify, t...
+- [`minion-town-shell-to-js-20261004-part1-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part1-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #151
+- [`minion-town-claude-cli-production-canary-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-claude-cli-production-canary-20261004.md) — Production canary for the Claude CLI provider + close out minion.town#87's pr...
+- [`minion-town-shell-to-js-20261004-part2-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part2-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #152
+- [`minion-town-shell-to-js-20261004-part3-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #154
 
-### tada (10902)
-- [`pr-fix-claude-app-artifact-rollback`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/pr-fix-claude-app-artifact-rollback.md) — Cost
-- [`minion-town-shell-to-js-20261004-part2-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-gauntlet-panel-3.md) — Cost
-- [`oros-health-watch-20261004-193508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-193508.md) — Cost
-- [`minion-town-shell-to-js-20261004-part3-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part3-gauntlet-panel-1.md) — Cost
-- [`minion-town-shell-to-js-20261004-part1-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part1-gauntlet-panel-4.md) — Cost
-- … and 10897 more
+### tada (10907)
+- [`minion-town-claude-cli-production-deploy-fix-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-claude-cli-production-deploy-fix-20261004.md) — Cost
+- [`minion-town-claude-app-readiness-491e3bc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-claude-app-readiness-491e3bc.md) — Cost
+- [`minion-town-shell-to-js-20261004-part3-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part3-gauntlet-fix-1.md) — Fix round 1 for kriscendobot/minion.town PR #154: done, CI green
+- [`minion-town-shell-to-js-20261004-part2-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-gauntlet-fix-3.md) — Cost
+- [`minion-town-shell-to-js-20261004-part1-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part1-gauntlet-fix-4.md) — Cost
+- … and 10902 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
