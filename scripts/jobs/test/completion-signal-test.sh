@@ -340,6 +340,72 @@ V2G="$T2G/verify"; git clone -q --single-branch --branch journal2 "$BARE2G" "$V2
 rm -rf "$T2G"
 
 # ============================================================================
+hr; echo "SUBTEST 2I: a failed handler whose claim posted its durable result completes from it"; hr
+T2I="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2i.XXXXXX")"
+BARE2I="$(seed_board "$T2I" durablejob)"
+set +e
+env GARDEN="handoffhost" GARDEN_STATE="$T2I/state" JOURNAL_REMOTE="$BARE2I" JOURNAL_BRANCH=journal2 \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=75 GARDEN_STUB_SIGNAL=0 \
+    GARDEN_STUB_POST_RESULT="durable-result-body: pushed the finished build" \
+    GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2I/gardener.log" 2>&1
+worker_rc=$?
+set -e
+V2I="$T2I/verify"; git clone -q --single-branch --branch journal2 "$BARE2I" "$V2I" 2>/dev/null
+TADA2I="$(fixture_tada_file "$V2I" durablejob || true)"
+RES2I="$(grep -rl '^durable-result-body:' "$V2I/entries" 2>/dev/null | head -1)"
+{ [ "$worker_rc" -eq 0 ] && [ -n "$TADA2I" ] && [ ! -e "$V2I/jobs/doin/durablejob.md" ] \
+  && grep -q '^durable-result-body: pushed the finished build' "$TADA2I" \
+  && [ -n "$RES2I" ] && grep -qx 'job: durablejob' "$RES2I" && grep -Eqx 'claim: [0-9a-f]{16}' "$RES2I" \
+  && grep -q "posted its durable result" "$T2I/gardener.log"; } \
+  && ok "rc=75 after a claim-stamped result completed to tada from that durable record" \
+  || bad "durable result after rc=75 was not reconciled (worker rc=$worker_rc, tada=$([ -n "$TADA2I" ] && echo y || echo n), doin=$([ -e "$V2I/jobs/doin/durablejob.md" ] && echo y || echo n))"
+rm -rf "$T2I"
+
+# ============================================================================
+hr; echo "SUBTEST 2J: a result stamped with a DIFFERENT claim never rescues this one"; hr
+T2J="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2j.XXXXXX")"
+BARE2J="$(seed_board "$T2J" staleclaim)"
+env GARDEN="handoffhost" GARDEN_STATE="$T2J/state" JOURNAL_REMOTE="$BARE2J" JOURNAL_BRANCH=journal2 \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_STUB_RC=1 GARDEN_STUB_SIGNAL=0 \
+    GARDEN_STUB_POST_RESULT="stale-claim-body" GARDEN_STUB_RESULT_FP=0123456789abcdef \
+    GARDEN_JOB_HANDLER="$STUB" \
+    "$JOBS/gardener.sh" 1 > "$T2J/gardener.log" 2>&1 || true
+V2J="$T2J/verify"; git clone -q --single-branch --branch journal2 "$BARE2J" "$V2J" 2>/dev/null
+{ [ -f "$V2J/jobs/doin/staleclaim.md" ] && ! fixture_has_tada "$V2J" staleclaim \
+  && grep -rqx 'claim: 0123456789abcdef' "$V2J/entries" \
+  && ! grep -q "posted its durable result" "$T2J/gardener.log"; } \
+  && ok "a result naming another claim's fingerprint kept the failure path" \
+  || bad "a foreign-claim result rescued this claim (doin=$([ -f "$V2J/jobs/doin/staleclaim.md" ] && echo y || echo n))"
+rm -rf "$T2J"
+
+# ============================================================================
+hr; echo "SUBTEST 2K: claim stamp is result-only and refuses a nested job's base"; hr
+T2K="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2k.XXXXXX")"
+BARE2K="$(seed_board "$T2K" stampjob)"
+stamp_post() { # stamp_post <kind> <job-base> <body>
+  printf '%s\n' "$3" | env GARDEN="handoffhost" GARDEN_STATE="$T2K/state" JOURNAL_REMOTE="$BARE2K" \
+    JOURNAL_BRANCH=journal2 GARDEN_JOB_CLAIM_BASE=stampjob GARDEN_JOB_CLAIM_FP=feedfacecafebeef \
+    GARDEN_JOB_BASE="$2" "$JOBS/journal-entry.sh" "$1" >/dev/null 2>&1
+}
+stamp_post result stampjob "own-result"
+stamp_post progress stampjob "own-progress"
+stamp_post result nested-seat "nested-result"
+V2K="$T2K/verify"; git clone -q --single-branch --branch journal2 "$BARE2K" "$V2K" 2>/dev/null
+own="$(grep -rlx 'own-result' "$V2K/entries" | head -1)"
+prog="$(grep -rlx 'own-progress' "$V2K/entries" | head -1)"
+nest="$(grep -rlx 'nested-result' "$V2K/entries" | head -1)"
+{ [ -n "$own" ] && grep -qx 'job: stampjob' "$own" && grep -qx 'claim: feedfacecafebeef' "$own" \
+  && [ -n "$prog" ] && ! grep -q '^claim:' "$prog" \
+  && [ -n "$nest" ] && ! grep -q '^claim:' "$nest" \
+  && rel="$(claim_durable_result "$V2K" stampjob feedfacecafebeef "$(date -u +%FT%TZ)")" \
+  && [ "$V2K/$rel" = "$own" ] \
+  && ! claim_durable_result "$V2K" stampjob 0000000000000000 "$(date -u +%FT%TZ)" >/dev/null; } \
+  && ok "only the claimed job's own result carries the stamp, and lookup matches it exactly" \
+  || bad "claim stamp/lookup mismatch (own=$own prog=$prog nest=$nest)"
+rm -rf "$T2K"
+
+# ============================================================================
 hr; echo "SUBTEST 2H: a stale producer clone's gate block yields to a fresh verified handoff"; hr
 T2H="$(mktemp -d "${TMPDIR:-/tmp}/garden-compsig2h.XXXXXX")"
 BARE2H="$(seed_board "$T2H/real" gatejob)"

@@ -26,6 +26,11 @@
 #                           report's last line (a worker that reached its final
 #                           act) regardless of GARDEN_STUB_SIGNAL/RC.
 #   GARDEN_STUB_CALL_LOG     optional file receiving one basename per invocation.
+#   GARDEN_STUB_POST_RESULT  <body> -> post a `result` journal entry with this body
+#                           through journal-entry.sh (as a worker does before its
+#                           final report), under the claim env gardener.sh exports.
+#   GARDEN_STUB_RESULT_FP    override the claim fingerprint that result is stamped
+#                           with (models a predecessor claim's record).
 #
 # Used by completion-signal-test.sh and productive-cycle-test.sh.
 set -uo pipefail
@@ -45,6 +50,12 @@ fi
 [ "${GARDEN_STUB_COMPLETION_MARKER:-0}" = "1" ] \
   && printf '%s\n' '<<<GARDEN-JOB-COMPLETE>>>' >> "$report"
 [ -n "${GARDEN_STUB_CAPTURE:-}" ] && { echo "$GARDEN_STUB_CAPTURE"; echo "$GARDEN_STUB_CAPTURE" >&2; }
+
+if [ -n "${GARDEN_STUB_POST_RESULT:-}" ]; then
+  printf '%s\n' "$GARDEN_STUB_POST_RESULT" \
+    | GARDEN_JOB_CLAIM_FP="${GARDEN_STUB_RESULT_FP:-${GARDEN_JOB_CLAIM_FP:-}}" GARDEN_ROLE=builder \
+      "$(dirname "${BASH_SOURCE[0]}")/../journal-entry.sh" result >/dev/null 2>&1
+fi
 
 # Model real per-cycle progress: advance the persisted garden worktree's HEAD.
 if [ "${GARDEN_STUB_ADVANCE_HEAD:-0}" = "1" ] && [ -n "${GARDEN_SCRATCH:-}" ]; then

@@ -75,6 +75,26 @@ case "$kind" in
   *[!a-z0-9_-]*) die "unknown kind: '$kind' (a kind may contain only lowercase letters, digits, '_' and '-')" ;;
 esac
 
+# CLAIM STAMP. A `result` posted from inside a claimed job's handler names that
+# job and the claim it ran under (`job:` / `claim:` frontmatter), so gardener.sh
+# can recognize the worker's durable record of a finished job even when the
+# handler then dies before printing its completion signal (2026-10-04: a builder
+# posted its result at 05:43:36 and the same claim was requeued at 05:44:02 after
+# rc=75). The gardener exports GARDEN_JOB_CLAIM_BASE/GARDEN_JOB_CLAIM_FP around the
+# handler; the stamp is written only while GARDEN_JOB_BASE still names that same
+# job, so a nested handler for a different base inheriting the env never forges
+# its parent's completion record.
+claim_stamp=""
+claim_fp=""
+if [ "$kind" = result ] && [ -n "${GARDEN_JOB_CLAIM_BASE:-}" ] && [ -n "${GARDEN_JOB_CLAIM_FP:-}" ] \
+   && [ "${GARDEN_JOB_BASE:-$GARDEN_JOB_CLAIM_BASE}" = "$GARDEN_JOB_CLAIM_BASE" ]; then
+  case "$GARDEN_JOB_CLAIM_BASE$GARDEN_JOB_CLAIM_FP" in
+    *[!A-Za-z0-9._-]*) : ;;
+    *) claim_fp="$GARDEN_JOB_CLAIM_FP"
+       claim_stamp="$(printf 'job: %s\nclaim: %s\n' "$GARDEN_JOB_CLAIM_BASE" "$GARDEN_JOB_CLAIM_FP")" ;;
+  esac
+fi
+
 body_src="${2:-}"
 # The handler exports the role parsed from the claimed job as GARDEN_JOB_ROLE;
 # that is the canonical attribution for entries an agent posts during the job.
@@ -130,7 +150,7 @@ esac
 # are guaranteed to disagree on — cannot defeat the match. Parsing in-shell
 # (rather than piping to sed/awk) keeps the per-candidate cost to zero forks.
 entry_matches() {
-  local line n=0 fk="" fr="" fh="" body=""
+  local line n=0 fk="" fr="" fh="" fc="" body=""
   while IFS= read -r line; do
     if [ "$n" -lt 2 ]; then
       if [ "$line" = "---" ]; then n=$(( n + 1 )); continue; fi
@@ -138,12 +158,16 @@ entry_matches() {
         kind:*) [ -n "$fk" ] || { fk="${line#kind:}"; fk="${fk# }"; } ;;
         role:*) [ -n "$fr" ] || { fr="${line#role:}"; fr="${fr# }"; } ;;
         host:*) [ -n "$fh" ] || { fh="${line#host:}"; fh="${fh# }"; } ;;
+        claim:*) [ -n "$fc" ] || { fc="${line#claim:}"; fc="${fc# }"; } ;;
       esac
       continue
     fi
     body+="$line"$'\n'
   done <<< "$1"
   [ "$fk" = "$kind" ] && [ "$fr" = "$role" ] && [ "$fh" = "$GARDEN" ] || return 1
+  # A claim-stamped result is a re-post only of the SAME claim's result: an
+  # identical body from an earlier claim must not swallow this claim's record.
+  [ "$fc" = "$claim_fp" ] || return 1
   # `$(git cat-file …)` already stripped the blob's trailing newlines and so did
   # the `$(cat …)` that produced $BODY; drop the one newline the accumulation
   # above re-added so the two sides are comparable.
@@ -236,8 +260,10 @@ for attempt in $(seq 1 50); do
   fi
   mkdir -p "$DIR/$(dirname "$rel")"
   {
-    printf -- '---\nkind: %s\nrole: %s\nhost: %s\nat: %s\n---\n' \
+    printf -- '---\nkind: %s\nrole: %s\nhost: %s\nat: %s\n' \
       "$kind" "$role" "$GARDEN" "$(date -u +%FT%TZ)"
+    [ -z "$claim_stamp" ] || printf '%s\n' "$claim_stamp"
+    printf -- '---\n'
     printf '%s\n' "$BODY"
   } > "$DIR/$rel"
   git -C "$DIR" add "$rel"

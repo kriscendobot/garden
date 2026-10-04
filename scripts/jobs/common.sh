@@ -6782,6 +6782,60 @@ report_followup_override_reason() {
   return 1
 }
 
+# job_claim_fingerprint <jobfile> <base> — a short stable hash naming ONE claim of
+# <base>: the job base plus the LAST claim block's host, gardener and claimed_at
+# (a requeued job accrues one block per claim; the newest is the live one). Two
+# claims of the same base never share a fingerprint, so a record stamped with it
+# proves it was written under THIS claim, not a predecessor's or a successor's.
+job_claim_fingerprint() {
+  local f="${1:-}" base="${2:-}" fields
+  [ -f "$f" ] && [ -n "$base" ] || return 1
+  fields="$(awk '
+    /^claim:[[:space:]]*$/ { h=""; g=""; c=""; inb=1; next }
+    inb && /^  host:/       { sub(/^  host:[[:space:]]*/, "");       h=$0; next }
+    inb && /^  gardener:/   { sub(/^  gardener:[[:space:]]*/, "");   g=$0; next }
+    inb && /^  claimed_at:/ { sub(/^  claimed_at:[[:space:]]*/, ""); c=$0; next }
+    inb && !/^  /           { inb=0 }
+    END { if (c != "") print h "|" g "|" c }
+  ' "$f")"
+  [ -n "$fields" ] || return 1
+  printf '%s|%s' "$base" "$fields" | sha256sum | cut -c1-16
+}
+
+# claim_durable_result <clone-dir> <base> <fingerprint> <claimed-at> — print the
+# clone-relative path of the newest journal `result` entry stamped `job: <base>`
+# AND `claim: <fingerprint>` in its frontmatter (journal-entry.sh stamps both when
+# a worker posts a result under a claimed job), else return 1. Only the UTC days
+# from <claimed-at> through today are scanned (capped at 3), so the lookup stays a
+# handful of files. The match is on frontmatter fields, never body prose, so a
+# result quoting another job's stamp cannot satisfy it.
+claim_durable_result() {
+  local dir="$1" base="$2" fp="$3" since="$4" now start days off day p
+  [ -n "$base" ] && [ -n "$fp" ] && [ -d "$dir/entries" ] || return 1
+  now="$(date -u +%s)"
+  start="$(date -u -d "$since" +%s 2>/dev/null)" || start="$now"
+  [ "$start" -le "$now" ] || start="$now"
+  days=$(( now / 86400 - start / 86400 + 1 ))
+  [ "$days" -gt 3 ] && days=3
+  for (( off = 0; off < days; off++ )); do
+    day="$(date -u -d "@$(( now - off * 86400 ))" +%Y/%m/%d)"
+    [ -d "$dir/entries/$day" ] || continue
+    while IFS= read -r p; do
+      awk -v b="$base" -v fp="$fp" '
+        NR == 1 && $0 != "---" { exit }
+        NR > 1 && $0 == "---"  { ok = kj && kc && kr; exit }
+        $0 == "kind: result"   { kr = 1 }
+        $0 == "job: " b        { kj = 1 }
+        $0 == "claim: " fp     { kc = 1 }
+        END { exit !ok }
+      ' "$dir/entries/$day/$p" || continue
+      printf 'entries/%s/%s\n' "$day" "$p"
+      return 0
+    done < <(ls -1 "$dir/entries/$day" 2>/dev/null | grep -e '-result-' | sort -r)
+  done
+  return 1
+}
+
 # report_followups_section <report-file> — the lines under a `## Follow-ups` /
 # `## Follow-up` heading, up to the next `## ` heading or EOF (sub-headings do not
 # terminate it). The single spelling of the canonical follow-up heading scan, used

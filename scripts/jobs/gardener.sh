@@ -629,6 +629,13 @@ while :; do
   # reaper false-dooming a productive long job (common.sh § productive-cycle hint).
   progress_before="$(job_worktree_heads "$base" 2>/dev/null || true)"
 
+  # CLAIM FINGERPRINT. Mint the identity of THIS claim before the handler runs and
+  # hand it to the handler's environment; journal-entry.sh stamps it onto any
+  # `result` the worker posts, which is what lets the durable-result rescue below
+  # recognize a finished job whose handler died before its completion signal.
+  claim_fp="$(job_claim_fingerprint "$jobfile" "$base" 2>/dev/null || true)"
+  claim_at="$(sed -n 's/^  claimed_at:[[:space:]]*//p' "$jobfile" 2>/dev/null | tail -1)"
+
   # Run the handler and capture its exit code EXPLICITLY (not folded into an `if`
   # compound) so the completion gate below can branch on the three distinct
   # outcomes independently: (0 + sentinel)=complete, (0 + no sentinel)=exit-0-
@@ -657,6 +664,7 @@ while :; do
   # Nested bounded work (notably panel seats) must stay strictly inside the exact
   # per-job wall, including an explicit handler-timeout override.
   GARDEN_GARDENER_ID="$id" GARDEN_COMPLETION_SENTINEL="$completion_sentinel" GARDEN_USAGE_FILE="$usage_file" \
+    GARDEN_JOB_CLAIM_BASE="$base" GARDEN_JOB_CLAIM_FP="$claim_fp" \
     GARDEN_APPLIED_HANDLER_BUDGET="$handler_budget" \
     timeout --foreground --signal=TERM --kill-after="$GARDEN_HANDLER_KILL_AFTER" "$handler_budget" \
     "${handler_cmd[@]}" "$base" "$jobfile" "$report" >"$capture" 2>&1 &
@@ -758,6 +766,32 @@ while :; do
     else
       log "handler exited rc=$hrc for '$base' with a handoff to '$rescue_successor' that is NOT verifiably posted; keeping the failure/retry path"
     fi
+  fi
+
+  # DURABLE-RESULT RESCUE. A worker can post its `result` entry — its durable
+  # record that the job is done — and then lose the handler before printing the
+  # completion signal (a quota cut, a transient rc=75, a kill at the wall).
+  # Leaving that claim for the reaper re-runs already-finished work (2026-10-04:
+  # garden-book-chapter-illustrations-build posted its result at 05:43:36 and was
+  # requeued at 05:44:02 after rc=75). Re-read the freshly synced journal for a
+  # result stamped with THIS job AND THIS claim's fingerprint (journal-entry.sh's
+  # claim stamp; a predecessor's or a nested job's result can never match). Only a
+  # verified match converts the outcome into a completion candidate, carrying the
+  # durable result as the report, and it then passes every completion gate below
+  # exactly like a clean exit. No match keeps the ordinary failure/retry path. A
+  # handler that exited 0 without the signal is the worker's own "not finished"
+  # verdict and is left alone.
+  if [ "$hrc" -ne 0 ] && [ ! -e "$completion_sentinel" ] && [ -n "$claim_fp" ] \
+     && durable_rel="$( ( sync_clone "$CLONE" ) >/dev/null 2>&1 \
+          && claim_durable_result "$CLONE" "$base" "$claim_fp" "$claim_at" )"; then
+    log "handler exited rc=$hrc for '$base' without a completion signal, but claim $claim_fp posted its durable result $durable_rel; completing from that record instead of re-running finished work"
+    {
+      printf 'Recovered from the durable result `%s` posted under claim `%s`; the handler exited rc=%s before emitting its completion signal.\n\n' \
+        "$durable_rel" "$claim_fp" "$hrc"
+      awk 'n >= 2 { print; next } $0 == "---" { n++ }' "$CLONE/$durable_rel"
+    } > "$report.durable" && mv "$report.durable" "$report"
+    : > "$completion_sentinel"
+    hrc=0
   fi
 
   # PRODUCTIVE-CYCLE detection. For any NON-completion outcome (the job is about to be

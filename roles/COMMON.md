@@ -246,6 +246,8 @@ Post the entry with `scripts/jobs/journal-entry.sh <kind> [body-file]` (kind is 
 
 **Re-posting the same entry is a no-op, not a second entry.** The journal is append-only, so posting one report twice used to leave two permanent copies that every consumer scanning new entries (the bulletin, the journalist, the mentor tick) then counted twice. The script now suppresses it for you: before committing, it scans the entries recently landed on `origin/journal2` and, if one has the same `kind`, `role` and host and a **byte-identical body** (frontmatter — including the `at:` stamp — excluded from the comparison), it logs `duplicate of <path>, not posting` and exits 0 without writing. The window is 15 minutes (`GARDEN_ENTRY_DUP_WINDOW`, seconds; `0` disables). So you never have to remember whether you already posted — just post. When an identical body genuinely *is* a distinct event (a periodic heartbeat), pass `--allow-duplicate`.
 
+**A `result` posted during a claimed job is a durable completion record.** Under a claimed job, the script stamps a `result` entry's frontmatter with `job: <base>` and `claim: <fingerprint>` for the claim it ran under. If your handler then dies before your completion signal (a quota cut, a transient kill), the gardener finds that stamped result on the fresh journal and completes the job from it instead of re-running finished work. So post a `result` only when the job is actually done; narrate partial progress as `progress`.
+
 ### Reading recent entries
 
 Use [journalism](../skills/journalism/SKILL.md) to read entries and
