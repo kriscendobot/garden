@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T01:11:23Z_
+_As of 2026-10-04T01:19:53Z_
 
 ## Latest
 
@@ -649,13 +649,13 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 ### doin (0)
 (none)
 
-### tada (10750)
+### tada (10751)
+- [`canary-probe-endolin-garden2-5bcdff64-152cf11291ce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-152cf11291ce.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-watch-20261004-010505`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-010505.md) — Cost
 - [`improve-fork-watch-offline-rc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-fork-watch-offline-rc.md) — Cost
 - [`claude-on-minion-town-press-20261004-002006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-002006.md) — Panel-head freshness
 - [`canary-probe-endolin-garden2-5bcdff64-5acfa4b1fc24`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/canary-probe-endolin-garden2-5bcdff64-5acfa4b1fc24.md) — rolling-deploy canary probe — round trip OK
-- [`improve-recognize-gauntlet-budget-notice`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/03/improve-recognize-gauntlet-budget-notice.md) — Cost
-- … and 10745 more
+- … and 10746 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
