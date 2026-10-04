@@ -84,6 +84,7 @@ If you genuinely finish but cannot achieve the gated deliverable (for example th
 <<<GARDEN-JOB-COMPLETE>>>
 ```
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden-ece02cb4
