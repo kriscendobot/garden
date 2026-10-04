@@ -16,3 +16,13 @@ Review: https://github.com/kriscendobot/minion.town/pull/137#pullrequestreview-5
 The review-feedback job re-fetched the complete review and found no inline comments tied to it. At dispatch, head `dbed71270d7be384b1d95f7b4889f60daaad9717` is APPROVED, MERGEABLE/CLEAN, and all three required checks are green. The PR is still draft and targets frozen base `main-7e87a44`.
 
 Honor the maintainer's full directive: promote the PR from draft, conduct it onto the live trunk after the conductor's freshness/CI gates, and wait for the normal `deploy (continuous deployment)` workflow triggered by the merge to finish. Verify and report the deployment outcome; do not complete while merge or deployment is merely pending.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T15:17:29Z
