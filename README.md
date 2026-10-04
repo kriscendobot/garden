@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T09:42:36Z_
+_As of 2026-10-04T09:49:41Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in (10 chapter openers, 15 section figures, captioned), via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), with a byte-reproducible build and 30/30 tests passing; minor cosmetic nits remain (a misaligned book spine, an off-center dash) but nothing blocking.
+The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in (10 chapter openers, 15 section figures, each captioned), the old title-page garden scene removed, art and integration merged via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11) — build reproduces byte-for-byte, tests pass 30/30, live site checked across screen sizes and light/dark mode. The accountant re-sliced the weekly budget to add a `garden-book` arc (5M, authorized by kriskowal) alongside the existing seven. Separately, the SturdyRef stack review (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back with a merge recommendation — #1392 as-is, #1393 after a retcon, #1396/#1397 as-is — but stack hygiene underneath (layers #774 and [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)) still needs weaving before any of it can land.
 
-Oros (one of the three hosts) has been unreachable for roughly 50 hours — heartbeat and sysop both stale since 2026-10-02 — and needs someone at the machine to check Docker Desktop/sleep/VM state; 13 health-checkup jobs are piling up unclaimed in its wake. Separately, the SturdyRef stack (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is CI-green and ready for a merge decision, though stale panel coverage and un-landed lower layers mean each needs a scoped re-review before landing. A gauntlet on the Ironhorse panic-host-call PR halted after its fix round failed and wasn't retried.
+The main thing needing attention: oros-studio-garden has been unreachable for about 50 hours (heartbeat stale since 2026-10-02T05:08Z), with 13 health-checkup jobs now stuck unclaimed in todo — it needs a person to check the physical machine/Docker Desktop/VM. There's also a stale gauntlet halt on an ironhorse panic-host-call PR, a sysop queue backlog of unacked ops, and a comment-watcher self-test failure on kriscendobot/ocapn worth a look.
 
 ## Parked for maintainer feedback
 
@@ -34,11 +34,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #100 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T08:44:07Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 100 times; this is ONE
-> coalesced notice that updates in place, not 100 messages. Latest detail:
+> WATCHDOG notice — occurrence #121 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T09:47:07Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 121 times; this is ONE
+> coalesced notice that updates in place, not 121 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 185731s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 189511s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -187,18 +187,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> WATCHDOG notice — occurrence #11 (first seen 2026-10-04T04:50:33Z, latest 2026-10-04T09:41:18Z).
-> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 11 times; this is ONE
-> coalesced notice that updates in place, not 11 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-04T09:45:47Z).
+> It was observed 11 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
+> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
 
 - `watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4.md)
 
@@ -215,7 +208,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.5M | $687.77 _(notional, rate-card)_ | 40% of 256.0M (ok) |
+| Claude | 103.7M | $688.70 _(notional, rate-card)_ | 41% of 256.0M (ok) |
 | Codex | 7.3M _(+206.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
