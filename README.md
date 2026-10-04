@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T08:30:05Z_
+_As of 2026-10-04T08:34:17Z_
 
 ## Latest
 
-The quiet board (one completion since the last bulletin, a gauntlet terminal-receipt cooldown-noise fix) sits under a pile-up worth attention: Oros has been unreachable for roughly 50 hours and is now derotated, with thirteen health-checkup jobs unclaimed in todo and nine sysop ops still unacked — someone needs to check Docker Desktop, sleep state, and the VM directly. Separately, *Better Code and Gardens* shipped its illuminated edition (all 25 plates captioned, old title art removed) via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), reproducing byte-for-byte with 30/30 tests passing and a visual check across screen sizes and themes — two known cosmetic flaws (a crossed book spine, an off-center dash) were left as-is. The endojs SturdyRef stack (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392)/[endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)/[endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)/[endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) got a merge-readiness review: all four are green drafts recommended to merge (mostly as-is, #1393 after a retcon), but stack hygiene is blocking — the layers underneath have drifted and each needs a weave before the next can land. Also worth a look: minion.town PR [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has stale panel coverage after a new push and needs an explicit maintainer call before any further gauntlet work, and journal contention on endolin-garden2 is still elevated (clone storms, unresolved after multiple ticks).
+The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in (10 chapter openers, 15 section figures), each captioned, with the old title-page garden scene removed — art via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9), integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), published build verified byte-for-byte reproducible and checked visually in light/dark on phone and desktop sizes. Separately, a panel reviewed the four-layer SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) and recommends merging #1392 and #1397 as-is, #1396 as-is after #1394, and #1393 after a retcon — but flags that the stack's base layers (#774, #1391) are still drafts with drifted frozen bases needing a weave first. On the ops side, **oros** (one of the three hosts) has been unreachable for roughly two days with 13 unclaimed health-checkup jobs piling up and needs a person to check Docker Desktop/sleep/VM state; the comment-provenance watchdog, a journal contention overrun, and a stale-panel-coverage flag on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) also await attention.
 
 ## Parked for maintainer feedback
 
@@ -181,18 +181,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> WATCHDOG notice — occurrence #8 (first seen 2026-10-04T04:50:33Z, latest 2026-10-04T08:26:12Z).
-> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 8 times; this is ONE
-> coalesced notice that updates in place, not 8 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-04T08:30:40Z).
+> It was observed 8 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
+> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
 
 - `watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4.md)
 
@@ -209,7 +202,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.1M | $682.13 _(notional, rate-card)_ | 40% of 256.0M (ok) |
+| Claude | 102.2M | $682.83 _(notional, rate-card)_ | 40% of 256.0M (ok) |
 | Codex | 7.3M _(+206.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
