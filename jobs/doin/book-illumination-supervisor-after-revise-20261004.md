@@ -45,3 +45,13 @@ dispatch: automatic
 Send an updated durable-state message to `book-illumination-supervisor-20261004` at every handoff. Scope remains `kriscendobot/garden-book`; no upstream repos, no fleet/budget config. Ask the maintainer only for decisions genuinely unavailable from the brief, review, evidence, or granted authority.
 
 Self-improvement: follow the standing skill at the end of every claim.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T05:46:28Z
