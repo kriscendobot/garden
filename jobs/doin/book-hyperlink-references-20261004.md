@@ -112,3 +112,13 @@ merged, publish per `build/README.md` and record the new edition.
 
 `kriscendobot/garden-book` only. No upstream repos, no garden fleet/budget
 config changes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T07:56:35Z
