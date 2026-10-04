@@ -139,3 +139,13 @@ restack, re-order, withdraw, or add sub-jobs, and merge into `main` yourself.
 Run a gauntlet at your discretion. Ask the maintainer only for a decision you
 genuinely cannot make yourself — e.g. if the data genuinely doesn't support a
 clean equilibrium story, say so rather than forcing one.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T06:13:13Z
