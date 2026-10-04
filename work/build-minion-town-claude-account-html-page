@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-10-04T22:57:43Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-build-minion-town-claude-account-html-page
-pr_number: 157
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/157
-pr_head: claude-account-html-page
