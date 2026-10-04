@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 2
+worker_kind: monk
+claimed_at: 2026-10-04T04:48:24Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-ebfb-pr1406-panel-summary-20261004
