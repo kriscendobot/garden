@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T03:52:34Z_
+_As of 2026-10-04T03:54:21Z_
 
 ## Latest
 
@@ -629,7 +629,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 87.1M | $594.50 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 5.6M _(+129.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 5.7M _(+130.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -651,17 +651,16 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (2)
-- [`claude-on-minion-town-completion-press-20261004-035006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261004-035006.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (1)
 - [`improve-comment-latency-quota-warning-coalesce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-latency-quota-warning-coalesce.md) — ---
 
-### tada (10755)
+### tada (10756)
+- [`claude-on-minion-town-completion-press-20261004-035006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-completion-press-20261004-035006.md) — Cost
 - [`claude-on-minion-town-press-20261004-033506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-033506.md) — Panel-head freshness
 - [`dependabotany-recheck-endo-but-for-bots-20261004-025006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/dependabotany-recheck-endo-but-for-bots-20261004-025006.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-474e93f09842`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-474e93f09842.md) — rolling-deploy canary probe — round trip OK
 - [`improve-latency-watch-cooldown-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-latency-watch-cooldown-race.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-152cf11291ce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-152cf11291ce.md) — rolling-deploy canary probe — round trip OK
-- … and 10750 more
+- … and 10751 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
