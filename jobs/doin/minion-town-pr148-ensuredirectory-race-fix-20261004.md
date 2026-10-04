@@ -12,3 +12,13 @@ https://github.com/kriscendobot/minion.town/pull/148 (confined inference via the
 1. Must-fix: has-then-make race in ensureDirectory (claude-guest-bridge.ts:145, saboteur). Daemon makeDirectory overwrites, so two concurrent first creates can orphan a child binding (quota under-count; removeChild then silently does nothing). Memoize per path; add a concurrency test.
 2. Make activate required (a store that omits it currently skips the pending gate); add a test.
 Push with safe-push-pr-head.sh; drive CI green. No new gauntlet. Do not touch the #149 root-socket relay item (maintainer decision). Report the commits so the maintainer can review 533aabb..new head.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T05:03:00Z
