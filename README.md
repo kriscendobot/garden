@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-04T11:35:01Z_
+_As of 2026-10-04T11:52:40Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* shipped: all 25 plates are in and captioned, art landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integrated via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), now live and verified byte-reproducible with 30/30 tests passing and a manual visual check in light/dark mode. The main open concern is oros-studio-garden-ce242c49, which has been unreachable for roughly 50 hours (heartbeat and sysop both stale since 2026-10-02), has fallen behind on deploy, and has a growing backlog of unacked health-check and sysop ops — it needs a person at the machine to check Docker Desktop, sleep state, and the VM. A fresh accountant re-slice reapportioned the weekly token budget across arcs and added a new `garden-book` allocation. On the review side, the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) got a thorough panel summary recommending #1392 merge as-is once its base lands, #1393 merge after a retcon, and #1396/#1397 merge as-is once #1394 is in — no PRs were touched pending a maintainer merge decision. Also flagged: [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has stale panel coverage after a new push and needs an explicit review decision or a "run the gauntlet" request, and the ironhorse-panic-host-call gauntlet halted after its fix stage was explicitly declined.
+The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in across 10 chapter openers and 15 section figures, each captioned, with the old title-page garden scene removed; the work landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) (art) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11) (integration), and the live build was checked byte-for-byte against the published site, 30/30 tests, and a manual light/dark, phone/desktop pass — only minor cosmetic flaws remain (a stray book spine, an off-center dash).
+
+The SturdyRef stack review is in from the panel: layer [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) is ready to merge as-is once its underlying drafts ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774), [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) land; [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) needs a retcon to regroup ~26 rework commits before merging; [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) are ready as-is but wait on layer 5. No PRs were touched and no gauntlet was staged pending a merge decision.
+
+The oros-studio host remains unreachable (heartbeat stale ~50h as of the latest checkup), still needs someone at the machine to check Docker Desktop/sleep/VM state; the sysop queue there has 8+ unacked ops, so watchers have stopped sending new ones. Separately, the comment-watcher for kriscendobot/ocapn failed its self-test and may be silently blind, and a stale-panel-head notice flags [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) as needing review before any further gauntlet action. The accountant re-sliced next week's budget to add a `garden-book` arc; everything else is unchanged.
 
 ## Parked for maintainer feedback
 
@@ -210,8 +214,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.6M | $692.26 _(notional, rate-card)_ | 41% of 256.0M (ok) |
-| Codex | 7.4M _(+206.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 104.7M | $692.74 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Codex | 7.4M _(+207.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -236,8 +240,8 @@ worst fetch p95 5.085034s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-approval-reconciler-primary-quota`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-approval-reconciler-primary-quota.md) — ---
 
 ### tada (10827)
 - [`oros-health-watch-20261004-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-100509.md) — Cost
