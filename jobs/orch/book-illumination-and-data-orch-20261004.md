@@ -1,4 +1,5 @@
 ---
+child-book-illumination-supervisor-20261004-reap-count: 0
 order: serial
 children: book-illumination-supervisor-20261004 book-equilibrium-data-supervisor-20261004
 on-child-failure: halt
