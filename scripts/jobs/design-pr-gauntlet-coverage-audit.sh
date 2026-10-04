@@ -1,18 +1,22 @@
 #!/bin/bash
 # design-pr-gauntlet-coverage-audit.sh — the STANDING PERIODIC READINESS AUDIT for the
-# readiness backstop. It is NON-MUTATING: it ALERTS the maintainer about a bot-authored,
-# OPEN, NON-DRAFT PR with no gauntlet coverage; it NEVER stages a gauntlet record and
-# NEVER re-drafts a PR.
+# readiness backstop. Its historical-backlog path is NON-MUTATING: it ALERTS the
+# maintainer about a bot-authored, OPEN, NON-DRAFT PR with no gauntlet coverage. A
+# separately bounded path stages coverage for PRs created after this installation
+# first armed the audit. It NEVER re-drafts a PR.
 #
 # WHY IT CHANGED.  This unit used to STAGE a gauntlet for every uncovered design PR it
 # found. On 2026-08-30 that autonomous staging mass-staged 69 gauntlets in a single
 # hourly pass (~$482 on one host — reports/credit-investigation-endolin-garden2-
 # 20260905.md), including stale/superseded PRs churning at iteration 6/6. Under the
 # producer completions now stage their own gauntlets automatically, but a periodic
-# backlog sweep must not do so. This backstop remains a READINESS AUDIT — it catches
-# the "a bot PR reached the mergeable
-# queue with no review" drift, but it does so by telling the maintainer, not by
-# spending a gauntlet. A maintainer who wants review answers with `run the gauntlet #N`.
+# backlog sweep must not do so. On its first run this audit records an epoch and
+# treats every already-open PR as historical forever. PRs created after that epoch
+# are safe to reconcile automatically, subject to a small per-tick stage cap. This
+# closes the short race in which a newly opened ready PR can merge before its
+# producer's completion hook stages coverage, without turning the old backlog back
+# into work. Historical drift still only tells the maintainer, who can answer with
+# `run the gauntlet #N`.
 #
 # WHAT IT DOES (deterministic, NO LLM — PR metadata + trusted journal records only;
 # never a PR body/title/comment into a model):
@@ -22,17 +26,18 @@
 #   2. Keep only BOT-AUTHORED, OPEN, NON-DRAFT PRs (draft artifacts belong to their
 #      completion-local handoff), exempting a probe.
 #   3. If NO staged-gauntlet RECORD already covers the PR (active in jobs/gauntlet/ or
-#      completed in jobs/tada/), raise a DEDUPLICATED maintainer alert.
+#      completed in jobs/tada/), stage it only when created after the durable arm
+#      epoch and the per-tick cap has room; otherwise raise a DEDUPLICATED alert.
 #
 # Dedup keys on `<repo>#<number>:<headRefOid>` via a durable per-PR marker under
 # $GARDEN_STATE, so an UNCHANGED head never re-alerts (no per-tick spam) while a
 # CHANGED head surfaces a fresh warning. The alert itself rides alert_maintainer
 # (throttled + coalescing), so even a first-of-head alert cannot flood the inbox.
 #
-# It NEVER mutates anything on GitHub or the journal: no `gh pr ready`, no
-# post-gauntlet.sh, no journal push. The whole #671/#867 force-draft-under-review
-# hazard the old completion-time scripts guarded against simply cannot arise, because
-# this audit only ever READS and, at most, writes a local dedup marker + inbox alert.
+# It NEVER mutates anything on GitHub: no `gh pr ready`, so the whole #671/#867
+# force-draft-under-review hazard cannot arise. The only journal mutation is an
+# idempotent post-gauntlet record for a post-arm PR, bounded per tick. Historical
+# PRs only write a local dedup marker + inbox alert.
 #
 # Leader-only (the unit's ExecCondition gates it to the leader host): running it on
 # every host would multiply the gh enumeration cost for no benefit. Resilient by
@@ -49,9 +54,15 @@
 #     GARDEN_GH                    the gh binary (default: gh).
 #     GARDEN_ALERT_CMD             alert sink (default: the maintainer inbox via
 #                                  alert_maintainer/watchdog-notice.sh).
+#     GARDEN_DPGCA_GAUNTLET_POST   gauntlet record producer (default:
+#                                  post-gauntlet.sh).
+#     GARDEN_DPGCA_MAX_NEW_PR_STAGES
+#                                  maximum post-arm PRs staged per tick (default: 2).
 #     GARDEN_DPGCA_SOURCE_TIMEOUT_SECS / GARDEN_DPGCA_KILL_AFTER
 #                                  bound both repo enumeration and each per-PR
 #                                  metadata read (defaults: 180 / 10s).
+#     GARDEN_DPGCA_POST_TIMEOUT_SECS
+#                                  bound each gauntlet post (default: 180).
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -64,6 +75,10 @@ export GARDEN_TAG="design-pr-gauntlet-coverage-audit"
 : "${GARDEN_DPGCA_CLONE:=$GARDEN_STATE/design-pr-gauntlet-audit/journal}"
 # Durable per-PR dedup markers (repo#number -> last-alerted headRefOid).
 : "${GARDEN_DPGCA_DEDUP_DIR:=$GARDEN_STATE/pr-gauntlet-readiness}"
+: "${GARDEN_DPGCA_ARM_EPOCH_FILE:=$GARDEN_DPGCA_DEDUP_DIR/new-pr-arm-epoch}"
+: "${GARDEN_DPGCA_GAUNTLET_POST:=$HERE/post-gauntlet.sh}"
+: "${GARDEN_DPGCA_MAX_NEW_PR_STAGES:=2}"
+: "${GARDEN_DPGCA_POST_TIMEOUT_SECS:=180}"
 # Bound each repo's PR-source enumeration so a hung gh/git can never outlive the tick.
 : "${GARDEN_DPGCA_SOURCE_TIMEOUT_SECS:=180}"
 : "${GARDEN_DPGCA_KILL_AFTER:=10s}"
@@ -83,6 +98,35 @@ ensure_clone "$DIR" || die "audit: journal clone $DIR unavailable"
 sync_clone "$DIR" >/dev/null 2>&1 || true
 
 mkdir -p "$GARDEN_DPGCA_DEDUP_DIR" 2>/dev/null || true
+
+case "$GARDEN_DPGCA_MAX_NEW_PR_STAGES" in
+  ''|*[!0-9]*) die "audit: GARDEN_DPGCA_MAX_NEW_PR_STAGES must be a non-negative integer" ;;
+esac
+case "$GARDEN_DPGCA_POST_TIMEOUT_SECS" in
+  ''|*[!0-9]*|0) die "audit: GARDEN_DPGCA_POST_TIMEOUT_SECS must be a positive integer" ;;
+esac
+
+# An absent epoch means this installation has never distinguished future PRs from
+# backlog. Arm now, before enumeration, and deliberately stage nothing from the
+# first snapshot. Losing local state safely returns to alert-only behavior rather
+# than replaying every open PR into the gauntlet queue.
+arming_run=false
+arm_epoch="$(cat "$GARDEN_DPGCA_ARM_EPOCH_FILE" 2>/dev/null || true)"
+case "$arm_epoch" in
+  ''|*[!0-9]*)
+    arming_run=true
+    arm_epoch="$(date -u +%s)"
+    arm_tmp="$GARDEN_DPGCA_ARM_EPOCH_FILE.tmp.$$"
+    if printf '%s\n' "$arm_epoch" >"$arm_tmp" 2>/dev/null \
+       && mv "$arm_tmp" "$GARDEN_DPGCA_ARM_EPOCH_FILE" 2>/dev/null; then
+      log "audit: armed bounded new-PR reconciliation at epoch $arm_epoch; this first snapshot remains alert-only"
+    else
+      rm -f "$arm_tmp" 2>/dev/null || true
+      # Without a durable epoch, fail safe: every run remains historical/alert-only.
+      log "audit: could not persist new-PR arm epoch; this tick remains alert-only"
+    fi
+    ;;
+esac
 
 # The garden runs NO PR workflow on itself (main2/journal2 push direct — CLAUDE.md
 # § Conventions); its only open PRs are long-lived review vessels. Keyed to the
@@ -132,9 +176,19 @@ pr_view() {  # pr_view <PR URL>
   if command -v timeout >/dev/null 2>&1; then
     timeout --signal=TERM --kill-after="$GARDEN_DPGCA_KILL_AFTER" \
       "${GARDEN_DPGCA_SOURCE_TIMEOUT_SECS}s" \
-      "$gh_bin" pr view "$1" --json url,isDraft,state,title,body,author,headRefOid
+      "$gh_bin" pr view "$1" --json url,isDraft,state,title,body,author,headRefOid,createdAt
   else
-    "$gh_bin" pr view "$1" --json url,isDraft,state,title,body,author,headRefOid
+    "$gh_bin" pr view "$1" --json url,isDraft,state,title,body,author,headRefOid,createdAt
+  fi
+}
+
+post_gauntlet() {  # post_gauntlet <base> <PR URL>
+  if command -v timeout >/dev/null 2>&1; then
+    timeout --signal=TERM --kill-after="$GARDEN_DPGCA_KILL_AFTER" \
+      "${GARDEN_DPGCA_POST_TIMEOUT_SECS}s" \
+      "$GARDEN_DPGCA_GAUNTLET_POST" --by design-pr-gauntlet-coverage-audit "$1" "$2"
+  else
+    "$GARDEN_DPGCA_GAUNTLET_POST" --by design-pr-gauntlet-coverage-audit "$1" "$2"
   fi
 }
 
@@ -143,6 +197,9 @@ candidate_prs=0
 alerted=0
 already=0
 quiet=0
+staged=0
+stage_attempted=0
+deferred=0
 
 while IFS= read -r repo; do
   [ -n "$repo" ] || continue
@@ -177,6 +234,7 @@ while IFS= read -r repo; do
     pauthor="$(printf '%s' "$pr_json" | jq -r '.author.login // empty' 2>/dev/null || true)"
     draft="$(printf '%s' "$pr_json" | jq -r '.isDraft // false' 2>/dev/null || true)"
     head_oid="$(printf '%s' "$pr_json" | jq -r '.headRefOid // empty' 2>/dev/null || true)"
+    created_at="$(printf '%s' "$pr_json" | jq -r '.createdAt // empty' 2>/dev/null || true)"
 
     # Re-confirm the invariants on the authoritative per-PR read.
     [ "$pauthor" = "$GARDEN_BOT_LOGIN" ] || continue
@@ -208,8 +266,29 @@ while IFS= read -r repo; do
       continue
     fi
 
-    # Uncovered non-draft bot PR. Dedup on <repo>#<number>:<headRefOid> so an unchanged
-    # head stays quiet; a re-pushed head re-warns. NEVER stage, NEVER touch the PR.
+    # Only PRs demonstrably created after the durable arm epoch enter this path.
+    # The first snapshot is unconditionally historical, even if a remote clock is
+    # ahead. A malformed/missing createdAt likewise fails safe to alert-only.
+    created_epoch="$(date -u -d "$created_at" +%s 2>/dev/null || true)"
+    if [ "$arming_run" = false ] && [ -n "$created_epoch" ] \
+       && [ "$created_epoch" -gt "$arm_epoch" ]; then
+      if [ "$stage_attempted" -lt "$GARDEN_DPGCA_MAX_NEW_PR_STAGES" ]; then
+        stage_attempted=$((stage_attempted + 1))
+        if post_gauntlet "$gauntlet_base" "$pr_url"; then
+          staged=$((staged + 1))
+          log "audit: STAGED bounded new-PR gauntlet '$gauntlet_base' for $pr_url (created $created_at, arm epoch $arm_epoch)"
+          continue
+        fi
+        log "audit: bounded new-PR staging failed for $pr_url; falling back to maintainer alert"
+      else
+        deferred=$((deferred + 1))
+        log "audit: new PR $pr_url exceeded this tick's stage cap ($GARDEN_DPGCA_MAX_NEW_PR_STAGES); alerting now and leaving it eligible for the next tick"
+      fi
+    fi
+
+    # Historical, overflow, or failed-stage candidate. Dedup the alert on
+    # <repo>#<number>:<headRefOid> so an unchanged head stays quiet; a re-pushed head
+    # re-warns. This path never touches the PR.
     marker="$GARDEN_DPGCA_DEDUP_DIR/${slug}-pr${number}"
     prev_oid="$(cat "$marker" 2>/dev/null || true)"
     if [ -n "$head_oid" ] && [ "$prev_oid" = "$head_oid" ]; then
@@ -219,12 +298,12 @@ while IFS= read -r repo; do
     fi
 
     alert_maintainer "pr-gauntlet-readiness-${slug}-pr${number}-${head_oid:0:12}" \
-      "Readiness audit: bot-authored OPEN NON-DRAFT PR $pr_url ($repo#$number) is in the mergeable queue with NO gauntlet review staged (head $head_oid). Producer jobs normally stage their gauntlet at completion, but the periodic audit never mass-stages historical PRs. If you want this PR reviewed, reply with 'run the gauntlet #$number'; otherwise no action is needed. This audit never re-drafts or stages anything."
+      "Readiness audit: bot-authored OPEN NON-DRAFT PR $pr_url ($repo#$number) is in the mergeable queue with NO gauntlet review staged (head $head_oid). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #$number'; otherwise no action is needed. This audit never re-drafts a PR."
     printf '%s\n' "$head_oid" > "$marker" 2>/dev/null || true
     alerted=$((alerted + 1))
     log "audit: ALERTED maintainer about uncovered non-draft PR $pr_url (head $head_oid); no gauntlet staged, PR untouched"
   done <<<"$src"
 done < <(repos_list)
 
-log "audit: swept $scanned_repos watched repo(s); $candidate_prs bot-authored non-draft PR(s), $already already covered, $alerted newly alerted, $quiet quiet (already-alerted head)"
+log "audit: swept $scanned_repos watched repo(s); $candidate_prs bot-authored non-draft PR(s), $already already covered, $staged newly staged from $stage_attempted attempt(s) (cap $GARDEN_DPGCA_MAX_NEW_PR_STAGES), $deferred deferred by cap, $alerted newly alerted, $quiet quiet (already-alerted head)"
 exit 0

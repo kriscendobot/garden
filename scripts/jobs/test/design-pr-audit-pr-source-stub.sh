@@ -19,6 +19,11 @@ case "$repo" in
     row 54 kriscendobot "$repo" 2026-08-16T00:00:00Z 'metadata read hangs'
     row 52 kriscendobot "$repo" 2026-08-16T00:00:00Z 'draft design doc'
     row 53 kriscendobot "$repo" 2026-08-16T00:00:00Z 'design with a COMPLETED gauntlet'
+    if [ "${GARDEN_TEST_FRESH_PRS:-0}" = 1 ]; then
+      row 55 kriscendobot "$repo" 2099-01-01T00:00:00Z 'fresh ready PR one'
+      row 56 kriscendobot "$repo" 2099-01-01T00:00:01Z 'fresh ready PR two'
+      row 57 kriscendobot "$repo" 2099-01-01T00:00:02Z 'fresh ready PR over cap'
+    fi
     ;;
   kriscendobot/garden)
     # The garden's own repo: a bot-authored design PR that MUST be excluded.

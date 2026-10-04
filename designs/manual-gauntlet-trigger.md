@@ -11,9 +11,18 @@ jobs that produce an artifact calling for a gauntlet again stage it automaticall
 The restored edge is narrower and safer than the pre-2026-09-16 mechanism. It
 examines only the PR named by the completing job, stages builder and design-only
 PRs, skips probes and garden open-question answer surfaces, and never changes PR
-state. The hourly historical-coverage audit remains alert-only, so restoring the
+state. The historical-coverage path remains alert-only, so restoring the
 completion edge does not repeat the 2026-08-30 mass-stage event. The decision and
 implementation below remain as the record of the intervening cost-control regime.
+
+An October 2026 readiness hardening closes the remaining completion race. The
+periodic audit records a durable local arm epoch on its first run. Existing PRs
+remain historical and alert-only forever, while an uncovered bot-authored
+non-draft PR created after that epoch may be staged automatically. The audit runs
+every five minutes, stages at most two such PRs per tick, bounds each post, and
+never changes GitHub PR state. Losing the local epoch safely re-baselines to an
+alert-only first snapshot. This let fresh PRs reach the gauntlet promptly without
+reintroducing a backlog reconciler.
 
 ## Implementation note (2026-09-16)
 

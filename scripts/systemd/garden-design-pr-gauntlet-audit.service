@@ -1,5 +1,5 @@
 [Unit]
-Description=Garden PR gauntlet-readiness audit (NON-MUTATING periodic backstop: raise a DEDUPLICATED maintainer ALERT for any bot-authored OPEN NON-DRAFT PR with no gauntlet coverage — never stages a gauntlet, never re-drafts. Manual-gauntlet-trigger regime, designs/manual-gauntlet-trigger.md)
+Description=Garden PR gauntlet-readiness audit (bounded staging for post-arm bot PRs; alert-only historical backlog; never re-drafts)
 
 [Service]
 Type=oneshot
@@ -21,5 +21,7 @@ ExecStart=/bin/bash @GARDEN_ROOT@/scripts/jobs/self-heal-run.sh garden-design-pr
 # The self-heal responder runs synchronously on a failed tick before the wrapper
 # returns the failing rc; give it headroom beyond the implicit 90s oneshot start
 # timeout. The sweep itself bounds every per-repo PR-source read
-# (GARDEN_DPGCA_SOURCE_TIMEOUT_SECS, default 180s each) but reads a small active set.
+# (GARDEN_DPGCA_SOURCE_TIMEOUT_SECS, default 180s each) and each gauntlet post
+# (GARDEN_DPGCA_POST_TIMEOUT_SECS, default 180s), but reads a small active set and
+# attempts at most two posts per tick.
 TimeoutStartSec=900

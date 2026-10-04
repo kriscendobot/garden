@@ -54,8 +54,9 @@
 # Fail-toward-not-wedging on INCONCLUSIVE reads (gh error, unparsable JSON, clone
 # unreachable): return rc 0 rather than block a completion on a transient blip. A
 # wedged completion during a GitHub outage is worse than a missed catch; the
-# non-mutating readiness audit remains the other coverage layer, and the gate bites
-# ONLY on a POSITIVE non-draft + POSITIVE no-record determination.
+# readiness audit remains the other coverage layer: historical PRs only alert,
+# while its bounded post-arm path may stage a newly created PR. The gate bites ONLY
+# on a POSITIVE non-draft + POSITIVE no-record determination.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

@@ -1,10 +1,11 @@
 #!/bin/bash
-# design-pr-gauntlet-coverage-audit-test.sh — the NON-MUTATING readiness audit of the
-# manual-gauntlet-trigger regime (designs/manual-gauntlet-trigger.md). The unit used
+# design-pr-gauntlet-coverage-audit-test.sh — the bounded readiness audit of the
+# automatic-gauntlet regime (designs/manual-gauntlet-trigger.md). The unit used
 # to STAGE a gauntlet for every uncovered design PR; on 2026-08-30 that mass-staged 69
-# gauntlets in one pass (~$482 on one host). It is now demoted to an ALERT-ONLY sweep:
-# it tells the maintainer about a bot-authored OPEN NON-DRAFT PR with no gauntlet
-# coverage and NEVER stages a record or re-drafts a PR.
+# gauntlets in one pass (~$482 on one host). Its first snapshot and historical
+# backlog are now ALERT-ONLY: it tells the maintainer about a bot-authored OPEN
+# NON-DRAFT PR with no gauntlet coverage. A separately
+# bounded path stages only PRs created after the durable arm epoch.
 #
 # Under test (all deterministic, NO LLM):
 #   * An uncovered non-draft bot PR (#47) raises exactly ONE maintainer alert and
@@ -16,6 +17,10 @@
 #   * The garden's OWN repo (#28) is excluded.
 #   * Dedup: re-running with an UNCHANGED head raises no second alert; a CHANGED head
 #     re-alerts.
+#   * After arming, at most two newly created ready bot PRs stage in one tick; an
+#     overflow PR alerts and remains unstaged.
+#   * Failed posts consume the same attempt bound rather than fanning out failures
+#     across the rest of the new-PR set.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -77,6 +82,11 @@ export GARDEN_GH="$HERE/design-pr-audit-gh-stub.sh"
 export GARDEN_ALERT_CMD="$HERE/design-pr-audit-alert-spy.sh"
 export GARDEN_AUDIT_ALERT_LOG="$TR/alert-calls.log"
 : >"$GARDEN_AUDIT_ALERT_LOG"
+# Gauntlet-post spy — proves the historical snapshot is inert and records the
+# bounded post-arm staging calls without mutating the fixture journal.
+export GARDEN_DPGCA_GAUNTLET_POST="$HERE/design-pr-audit-gauntlet-spy.sh"
+export GARDEN_AUDIT_GAUNTLET_LOG="$TR/gauntlet-calls.log"
+: >"$GARDEN_AUDIT_GAUNTLET_LOG"
 # Durable dedup markers live under a test-owned dir (defaults into GARDEN_STATE).
 export GARDEN_DPGCA_DEDUP_DIR="$TR/dedup"
 export GARDEN_DPGCA_SOURCE_TIMEOUT_SECS=1
@@ -91,6 +101,8 @@ echo '== (a) the uncovered non-draft PR (#47) raised exactly ONE alert =='
 echo '== (b) NON-MUTATING: #47 got NO gauntlet record staged =='
 [ "$(record_count kriscendobot-minion.town-pr47-gauntlet)" -eq 0 ] \
   || fail 'the readiness audit STAGED a gauntlet for #47 — it must only ALERT, never stage'
+[ ! -s "$GARDEN_AUDIT_GAUNTLET_LOG" ] \
+  || fail 'the first historical snapshot invoked the gauntlet post path'
 
 echo '== (c) covered PRs (#48 active record, #53 completed in tada) are quiet =='
 [ "$(alert_count pr48)" -eq 0 ] || fail '#48 (covered by active gauntlet) wrongly alerted'
@@ -122,4 +134,25 @@ echo '== (i) a CHANGED head for #47 re-alerts =='
 GARDEN_TEST_PR47_HEAD=bbb47changed "$AUDIT" >/dev/null 2>&1
 [ "$(alert_count pr47)" -eq 2 ] || fail "#47 did not re-alert after its head changed (got $(alert_count pr47), want 2)"
 
-echo 'PASS: the readiness audit ALERTS on uncovered non-draft bot PRs, stages NOTHING, stays quiet on covered/draft/non-bot/probe/own-repo/inconclusive, dedups on head, and re-alerts on a changed head'
+echo '== (j) post-arm ready PRs stage promptly, bounded to two per tick =='
+GARDEN_TEST_FRESH_PRS=1 "$AUDIT" 2>&1 | tee "$TR/fresh.log"
+[ "$(wc -l <"$GARDEN_AUDIT_GAUNTLET_LOG")" -eq 2 ] \
+  || fail "expected exactly two bounded gauntlet posts, got $(wc -l <"$GARDEN_AUDIT_GAUNTLET_LOG")"
+grep -qx -- '--by design-pr-gauntlet-coverage-audit kriscendobot-minion.town-pr55-gauntlet https://github.com/kriscendobot/minion.town/pull/55' "$GARDEN_AUDIT_GAUNTLET_LOG" \
+  || fail '#55 did not stage with the deterministic PR-keyed base'
+grep -qx -- '--by design-pr-gauntlet-coverage-audit kriscendobot-minion.town-pr56-gauntlet https://github.com/kriscendobot/minion.town/pull/56' "$GARDEN_AUDIT_GAUNTLET_LOG" \
+  || fail '#56 did not stage with the deterministic PR-keyed base'
+! grep -q 'pr57-gauntlet' "$GARDEN_AUDIT_GAUNTLET_LOG" \
+  || fail '#57 exceeded the per-tick stage cap but was staged'
+[ "$(alert_count pr57)" -eq 1 ] || fail '#57 overflow should fall back to one maintainer alert'
+grep -q "exceeded this tick's stage cap (2)" "$TR/fresh.log" \
+  || fail 'the bounded overflow disposition was not logged'
+
+echo '== (k) a failed post consumes the attempt bound =='
+: >"$GARDEN_AUDIT_GAUNTLET_LOG"
+GARDEN_TEST_FRESH_PRS=1 GARDEN_AUDIT_GAUNTLET_FAIL=1 \
+  GARDEN_DPGCA_MAX_NEW_PR_STAGES=1 "$AUDIT" >/dev/null 2>&1
+[ "$(wc -l <"$GARDEN_AUDIT_GAUNTLET_LOG")" -eq 1 ] \
+  || fail "one failed post should consume the one-attempt bound (got $(wc -l <"$GARDEN_AUDIT_GAUNTLET_LOG"))"
+
+echo 'PASS: the readiness audit keeps historical backlog alert-only, stages only post-arm PRs with a two-per-tick bound, stays quiet on covered/draft/non-bot/probe/own-repo/inconclusive, dedups alerts on head, and re-alerts on a changed head'

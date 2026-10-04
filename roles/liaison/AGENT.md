@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-29
+updated: 2026-10-04
 author: gardener, liaison
 ---
 
@@ -93,8 +93,10 @@ See [model-selection](../../skills/model-selection/SKILL.md).
   state; the completion-time draft guardrail
   (`scripts/jobs/assert-producer-pr-draft.sh`) catches an accidentally non-draft,
   uncovered artifact and records a maintainer-visible review action without
-  re-drafting a PR that may already be under live review. The hourly readiness
-  audit remains non-mutating and alert-only.
+  re-drafting a PR that may already be under live review. The readiness audit's
+  historical-backlog path remains alert-only; its five-minute, two-per-tick path
+  stages uncovered bot PRs created after the audit's durable local arm epoch and
+  never changes PR state.
 - **Watch the maintainer inbox via the Monitor tool.** Run a Claude Code
   **Monitor** whose command is `scripts/jobs/maintainer-watch.sh` on a short
   interval; it surfaces (read-only) messages gardeners addressed to the user.

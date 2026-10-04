@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-29
+updated: 2026-10-04
 author: gardener
 ---
 
@@ -183,9 +183,10 @@ separate dispatched agents. The panel-fixer loop lives entirely inside
   **non-draft** PR with no gauntlet coverage (the "opened ready by mistake" class).
   On that conclusive result, the gardener records one deduplicated review
   action for the maintainer and terminalizes the already-complete producer job; it
-  never re-drafts the PR. A non-mutating hourly readiness audit alerts the
-  maintainer about any later uncovered transition. The un-draft is still earned
-  only by the panel.
+  never re-drafts the PR. The five-minute readiness audit keeps its historical
+  backlog alert-only, while a bounded path stages at most two uncovered bot PRs
+  created after its durable arm epoch per tick. The un-draft is still earned only
+  by the panel.
 - **No must-fix on first panel round.** The fixer stage does not run; the panel
   declares the loop done after the first verdict, the appellate pass runs, then
   `gh pr ready <N>`.

@@ -1,5 +1,6 @@
 ---
 created: 2026-09-28
+updated: 2026-10-04
 author: liaison
 ---
 
@@ -39,10 +40,11 @@ that is the "fully qualified URL" the maintainer asks for by habit.
 
 `scripts/jobs/design-pr-gauntlet-coverage-audit.sh` is a **standing,
 autonomous, leader-only timer** (deterministic, no LLM) that alerts the
-maintainer inbox when a bot-authored open PR has no gauntlet coverage — it
-runs on its own cadence and posts findings directly, not something the
-liaison invokes on demand. Don't confuse it with a report the liaison
-produces; it's closer in shape to a watchdog.
+maintainer inbox when a historical bot-authored open PR has no gauntlet
+coverage. Its separately bounded path stages coverage for post-arm PRs. It runs
+on its own cadence and posts findings directly, not something the liaison
+invokes on demand. Don't confuse it with a report the liaison produces; it's
+closer in shape to a watchdog.
 
 ## Adding a new entry
 
