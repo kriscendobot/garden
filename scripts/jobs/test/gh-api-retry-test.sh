@@ -391,6 +391,17 @@ rc75=$(cat "$TR"/suppressed.rc.* | grep -c '^rc=75$' || true)
 { [ "$n" -eq 0 ] && [ "$refused" -eq 1 ] && [ "$rc75" -eq 6 ]; } \
   && ok "6 concurrent suppressed callers: one warning, zero requests, all rc 75" \
   || bad "concurrent suppression not coalesced (calls=$n warnings=$refused rc75=$rc75)"
+# Every refusal, warned or quiet, leaves a classifiable stderr line: the quiet ones
+# used to return empty stderr, which callers read as a definitive failure.
+classified=0
+for f in "$TR"/suppressed.err.*; do
+  e="$(cat "$f")"
+  grep -q 'admission refused: host-shared gh-api cooldown live' <<<"$e" \
+    && is_gh_primary_rate_limit_text "$e" && _gh_api_stderr_is_transient "$e" \
+    && classified=$((classified+1))
+done
+[ "$classified" -eq 6 ] && ok "all 6 refusals (incl. the quiet ones) leave primary-quota stderr" \
+  || bad "only $classified/6 refusals left classifiable stderr"
 
 # (b) a live latch refuses even a would-succeed call, and a GraphQL latch does not
 #     silence a REST call (separate buckets), while a REST latch refuses GraphQL.

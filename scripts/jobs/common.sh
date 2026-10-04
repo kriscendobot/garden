@@ -5764,6 +5764,7 @@ _gh_api_stderr_is_transient() {
 _gh_api_admit() {
   local need="$1" label="$2" fd wait st remaining tag marker rest emit=1 markers=("$GARDEN_API_COOLDOWN_MARKER")
   _GH_API_ADMIT_FD=""
+  _GH_API_ADMIT_REFUSAL=""
   [ "$need" = graphql ] && markers+=("$GARDEN_API_COOLDOWN_GRAPHQL_MARKER")
   wait="$GARDEN_GH_API_ADMISSION_WAIT_SECS"
   case "$wait" in ''|*[!0-9]*) wait=60 ;; esac
@@ -5782,6 +5783,12 @@ _gh_api_admit() {
     marker="${rest#*$'\t'}"
     _api_cooldown_claim_warning_locked "$marker" || emit=0
     exec {fd}>&-
+    # The caller-facing stderr line, written on EVERY refusal (see gh_api_retry).
+    # It names the primary-quota signature whatever the latch's tag: any live latch
+    # refuses the rest of the tick's calls just as an exhausted quota would, and a
+    # caller's start_api_cooldown never extends a live window, so classifying it as
+    # primary quota only stops the caller from querying further.
+    _GH_API_ADMIT_REFUSAL="gh api $label admission refused: host-shared gh-api cooldown live (${remaining}s left, tag $tag; API rate limit already exceeded for user); not issued"
     # "rate limit" keeps the line in the transient class for callers that classify
     # this stderr; a latch recorded for the primary quota is named as such so they
     # stop querying the rest of the tick, as they would on the refusal itself.
@@ -5827,6 +5834,12 @@ gh_api_retry() {
     lockfd=""
     if [ "$admit" -eq 1 ]; then
       if ! _gh_api_admit "$need" "$label"; then
+        # Always leave a diagnostic on stderr, even for a quiet (already-warned)
+        # refusal: callers classify gh_api_retry failures by grepping captured
+        # stderr, and an empty one read as a definitive failure (2026-10-04: every
+        # unresolved garden-mirror-closer mapping died FATAL under a live latch).
+        # _gh_api_admit's emit flag gates only its own log() WARN.
+        printf '%s\n' "$_GH_API_ADMIT_REFUSAL" >&2
         rm -f "$errf"
         return "${GARDEN_TRANSIENT_RC:-75}"
       fi
