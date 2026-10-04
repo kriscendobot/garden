@@ -54,3 +54,13 @@ Push the same draft PR and report the exact new head SHA plus test/build/browser
 ```
 
 If you genuinely finish but cannot integrate all nine charts with their exact values and accessibility gates, emit `<<<GARDEN-ORCHESTRATION-FAILED>>>` immediately before your completion signal.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T07:13:28Z
