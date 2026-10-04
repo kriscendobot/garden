@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T19:27:47Z_
+_As of 2026-10-04T19:31:12Z_
 
 ## Latest
 
-The minion.town shell-to-JS orchestration (`minion-town-shell-to-js-20261004`) finished all three parts, clearing the associated panel and fix stages. Meanwhile [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) hit its review budget after six fix rounds and halted there, and its panel coverage is now stale against a later head (`731cdb2`) — it needs an explicit maintainer call before any further gauntlet work. [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) is similarly stale against head `e4fb4e7`. Separately, the SturdyRef stack (endo-but-for-bots #1392/#1393/#1394/#1396/#1397) is fully green across four draft PRs with a detailed merge-order recommendation ready but no PRs touched, and the illuminated edition of *Better Code and Gardens* shipped live with all 25 plates in place. The most pressing open item is `oros-studio-garden-ce242c49`, unreachable for roughly 50 hours with a growing backlog of unclaimed health checkups — it needs a person at the machine to check power/Docker/VM state.
+Progress continued on the minion.town shell-to-JS orchestration: part 1's gauntlet fix round completed, and part 2 moved into panel review round 3 while part 3 started its own panel round 1 — all against [kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/pull/152) and [#154](https://github.com/kriscendobot/minion.town/pull/154). Separately, the orchestration `minion-town-shell-to-js-20261004` itself reported terminal completion (3/3 children, no failures), and the illuminated edition of *Better Code and Gardens* shipped live with all 25 plates in place. The big open item remains the oros-studio host, unreachable for roughly two days now with a growing backlog of unclaimed health checkups and unacked sysop ops — it needs someone at the physical machine to check power/sleep, Docker Desktop, and the VM.
 
 ## Parked for maintainer feedback
 
@@ -271,7 +271,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 135.4M | $910.82 _(notional, rate-card)_ | 53% of 256.0M (ok) |
+| Claude | 135.9M | $913.60 _(notional, rate-card)_ | 53% of 256.0M (ok) |
 | Codex | 7.9M _(+209.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -300,17 +300,17 @@ worst fetch p95 5.996244s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (3)
-- [`minion-town-shell-to-js-20261004-part1-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part1-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #151
+- [`minion-town-shell-to-js-20261004-part2-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part2-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #152
 - [`minion-town-shell-to-js-20261004-part3-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #154
 - [`minion-town-claude-cli-production-enable-verify-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-claude-cli-production-enable-verify-20261004.md) — Verify the Claude CLI provider is enabled in production, then re-post the canary
 
-### tada (10895)
+### tada (10896)
+- [`minion-town-shell-to-js-20261004-part1-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part1-gauntlet-fix-3.md) — Cost
 - [`minion-town-shell-to-js-20261004-part2-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-gauntlet-fix-2.md) — Cost
 - [`minion-town-pr150-conduct-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-pr150-conduct-20261004.md) — Cost
 - [`kriscendobot-minion-town-pr150-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet.md) — gauntlet kriscendobot-minion-town-pr150-gauntlet — review budget reached
 - [`kriscendobot-minion-town-pr150-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-fix-6.md) — Fix round 6: kriscendobot/minion.town PR #150
-- [`minion-town-shell-to-js-20261004-part1-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part1-gauntlet-panel-3.md) — Cost
-- … and 10890 more
+- … and 10891 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
