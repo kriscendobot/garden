@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-04T15:54:23Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-minion-town-claude-cli-production-enable-20261004
+pr_number: 150
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/150
+pr_head: fix/claude-cli-production-enable
