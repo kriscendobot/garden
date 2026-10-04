@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T17:29:22Z_
+_As of 2026-10-04T17:45:05Z_
 
 ## Latest
 
-The gauntlet for [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) (enable the Claude CLI provider in production) continued: panel round 3 completed and fix round 3 is now in doin, with conduct queued behind it. Oros (oros-studio-garden-ce242c49) remains unreachable — heartbeat, sysop-log, and fleet health have all been stale since 2026-10-02, now past 50 hours, with 17 health-checkup jobs piling up unclaimed in todo and multiple post-failure host ops stuck unacked; this needs a person at the machine to check sleep/power, Docker Desktop, and the VM. Separately, the illuminated edition of *Better Code and Gardens* published successfully via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), all 25 plates in place and verified, with two minor cosmetic flaws disclosed. A supervisor also delivered a merge-readiness summary for the four un-paneled SturdyRef stack PRs ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)), recommending #1392 merge first once its two prerequisite layers land, with the others following after a retcon/weave and base-drift cleanup.
+The illuminated edition of *Better Code and Gardens* published today: all 25 plates landed as chapter and section figures, art merged via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), live at the ocap.site edition with a byte-reproducible build and 30/30 tests passing. On [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) (enabling the Claude CLI provider), a third fix round landed a green-CI commit, but it moved the head past the one the maintainer had approved — the gardener is holding for re-approval at the new head rather than merging unapproved changes. A SturdyRef stack of four draft PRs ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) got a detailed merge-readiness summary — #1392 and #1397 are ready to merge as-is, #1393 needs a retcon first, and the whole stack needs a weave once lower layers land. Oros (oros-studio-garden-ce242c49) has been unreachable for roughly 50 hours with a growing backlog of unclaimed health checkups and unacked sysop ops — this needs a person at the machine to check power/Docker/VM state.
 
 ## Parked for maintainer feedback
 
@@ -76,6 +76,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > scripts/jobs/receipt-watcher.sh:97-101 treats GitHub primary-quota stderr as a generic transient and logs a 300s cooldown, though the 2026-10-02T19:45:23Z warning was followed by a 3599s primary-quota latch.
 > Detect primary quota before the generic transient path, request `api_primary_quota_secs`, and log the actual full quota cooldown; add a regression test for the adopted `gh_api_retry` latch.
 
+- `msg-kriscendobot-minion.town-pr150-conduct-ccccdd02b198` — from gardener:kriscendobot-minion.town-pr150-conduct, reply_to `kriscendobot-minion.town-pr150-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr150-conduct-ccccdd02b198.md)
+
+> Correction for [https://github.com/kriscendobot/minion.town/pull/150](https://github.com/kriscendobot/minion.town/pull/150): your second approval (17:30Z) is on fa7b114. Only ONE commit has landed since then: 731cdb2 (17:34Z, gauntlet fix-3) "keep guest-tools importable without SES", 3 files +20/-18. It moves the duplicated childName regex out of agents.ts into child-name.ts, which fixes the red test on fa7b114. CI on 731cdb2 is green. Reply "merge" and I'll merge at 731cdb2 and deploy. I'm holding for a reply for about 20 minutes.
+
 - `msg-oros-health-watch-20261004-162011-eb88ecde19bc` — from gardener:oros-health-watch-20261004-162011, reply_to `oros-health-watch-20261004-162011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261004-162011-eb88ecde19bc.md)
 
 > oros-studio-garden-ce242c49 is still unreachable as of 2026-10-04T16:21Z. Nothing has changed since the earlier unread watcher messages. The heartbeat and sysop-log were last updated 2026-10-02T05:35Z, nine checkups sit unclaimed in todo, and 6 reset-failed ops are queued with no ack. I sent no new ops. Someone needs to go to the Mac (sleep/power, Docker Desktop, VM). This watcher will keep sending one message per run until oros comes back.
@@ -138,11 +142,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #10 (first seen 2026-10-04T05:15:32Z, latest 2026-10-04T15:11:18Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 10 times; this is ONE
-> coalesced notice that updates in place, not 10 messages. Latest detail:
+> WATCHDOG notice — occurrence #11 (first seen 2026-10-04T05:15:32Z, latest 2026-10-04T17:42:06Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 11 times; this is ONE
+> coalesced notice that updates in place, not 11 messages. Latest detail:
 >
-> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 989 of 989 clone(s) on consecutive ticks.
+> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 56 of 1003 clone(s) on consecutive ticks.
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-125005, reply_to `claude-on-minion-town-press-20261004-125005` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
@@ -167,6 +171,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted` — from gauntlet:endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002 HALTED: stage 'endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
+
+- `msg-kriscendobot-minion.town-pr150-conduct-39788cc02c8f` — from gardener:kriscendobot-minion.town-pr150-conduct, reply_to `kriscendobot-minion.town-pr150-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr150-conduct-39788cc02c8f.md)
+
+> [https://github.com/kriscendobot/minion.town/pull/150](https://github.com/kriscendobot/minion.town/pull/150) NOT merged: your approval is on b93d8452c4, but the gauntlet fix-3 stage pushed two panel-3 fix commits on top before the merge landed (fa7b114 "address panel round 3 review" — its CI went red — then 731cdb2 "keep guest-tools importable without SES", whose CI is green). Current head 731cdb2859; diff vs your approved head: 6 files, +35/-24 (child-name.ts dedupe, guest-tools.ts canceled spelling, deploy-app.sh / DEPLOYMENT.md). The base is now unfrozen to live `main`. Following your instruction, I stopped there. Please re-approve at 731cdb2 (or say "merge at current head") and I'll re-post the conductor and deploy. No deploy happened.
 
 - `msg-ebfb-sturdyref-stack-panel-summary-20261004-e7be3fe398d1` — from gardener:ebfb-sturdyref-stack-panel-summary-20261004, reply_to `ebfb-sturdyref-stack-panel-summary-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ebfb-sturdyref-stack-panel-summary-20261004-e7be3fe398d1.md)
 
@@ -213,8 +221,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-04T17:26:34Z).
-> It was observed 21 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-04T17:36:34Z).
+> It was observed 22 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
@@ -228,13 +236,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > unit stays clean meanwhile (exit 3), so it does not fail rolling-deploy canaries. After the
 > first all-pass run, any failure is treated as a regression and fails the unit.
 
+- `stale-panel-head-endojs-endo-but-for-bots-pr1407-a62e91ac-a49568bb` — from gardener:kriscendobot-minion.town-pr149-5162bbc9, reply_to `kriscendobot-minion.town-pr149-5162bbc9` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1407-a62e91ac-a49568bb.md)
+
+> Stale panel coverage for completed job `kriscendobot-minion.town-pr149-5162bbc9`: [https://github.com/endojs/endo-but-for-bots/pull/1407](https://github.com/endojs/endo-but-for-bots/pull/1407) moved from panel-reviewed head `a62e91aca69f41da51c81bab904a1cb902e79609` to presented head `a49568bb92f8e9f8776e22d73380cc66097ff58e`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
 
 ## Spend & quota
 _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-host local spend._
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 117.2M | $771.72 _(notional, rate-card)_ | 46% of 256.0M (ok) |
+| Claude | 118.8M | $780.48 _(notional, rate-card)_ | 46% of 256.0M (ok) |
 | Codex | 7.8M _(+209.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -262,17 +278,18 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (2)
+### doin (3)
 - [`kriscendobot-minion.town-pr150-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr150-conduct.md) — Conduct and deploy kriscendobot/minion.town#150 (enable the Claude CLI provid...
-- [`kriscendobot-minion-town-pr150-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr150-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #150
+- [`kriscendobot-minion-town-pr150-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr150-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #150
+- [`minion-town-shell-to-js-20261004-part1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part1.md) — minion.town: JavaScript-only scripts policy + shared helper + small/tool scri...
 
-### tada (10856)
+### tada (10860)
+- [`kriscendobot-minion.town-pr150-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr150-shepherd.md) — Cost
+- [`kriscendobot-minion-town-pr150-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-fix-3.md) — Fix round 3 complete: kriscendobot/minion.town PR #150 (CI green)
+- [`kriscendobot-minion.town-pr150-review-e74f63c4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr150-review-e74f63c4.md) — Panel-head freshness
+- [`kriscendobot-minion.town-pr149-5162bbc9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr149-5162bbc9.md) — Panel-head freshness
 - [`kriscendobot-minion.town-pr150-review-d432a6d0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr150-review-d432a6d0.md) — Cost
-- [`kriscendobot-minion-town-pr150-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-panel-3.md) — Cost
-- [`claude-on-minion-town-press-20261004-manual-1701`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-manual-1701.md) — Press of the Claude-on-minion.town arc, 2026-10-04 ~17:05Z
-- [`kriscendobot-minion-town-pr150-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-fix-2.md) — Cost
-- [`deadmail-issue-comment-5981870267`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/deadmail-issue-comment-5981870267.md) — Cost
-- … and 10851 more
+- … and 10855 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -356,6 +373,8 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`kriscendobot-minion.town-pr148-review-cde1226a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr148-review-cde1226a-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #148 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr137-review-8f677fe3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr137-review-8f677fe3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #137 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr150-review-d432a6d0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr150-review-d432a6d0-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #150 (primary: kriscendobot-mini...
+- [`kriscendobot-minion.town-pr149-5162bbc9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr149-5162bbc9-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #149 (primary: kriscendobot-mini...
+- [`kriscendobot-minion.town-pr150-review-e74f63c4-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr150-review-e74f63c4-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #150 (primary: kriscendobot-mini...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
@@ -371,6 +390,7 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
+- [`build-minion-town-claude-guest-scoped-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-claude-guest-scoped-mcp.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1407` · build: minion.town Claude CLI backend — guest-scoped bootstrap for the confin...
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
 
 ## Watch set
