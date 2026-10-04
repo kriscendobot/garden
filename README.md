@@ -1,16 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T17:18:58Z_
+_As of 2026-10-04T17:21:07Z_
 
 ## Latest
 
-The *Better Code and Gardens* illuminated edition published: all 25 plates (10 chapter openers, 15 section figures) are in with captions, the old title-page garden scene removed, build reproduces byte-for-byte and matches the live site, 30/30 tests pass, and the integrator's own cross-browser/light-dark check found nothing clipped or spilling (via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11)); two cosmetic nits in the chapter 9 plate are noted and left as-is.
-
-The SturdyRef stack review landed a clear merge order with no redesign needed: layer 3 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392)) and layer 7 ([endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) can merge as-is once their prerequisites land, layer 4 ([endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)) needs a retcon to regroup ~26 rework commits first, and layer 6 ([endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)) merges as-is after layer 5; stack hygiene (drifted frozen bases under layers 1–2) needs attention before any of it lands.
-
-The accountant re-sliced the weekly budget (555M total) and added a new `garden-book` arc; `book-*` jobs should now be posted with `--arc garden-book`.
-
-The dominant open issue is **oros-studio-garden-ce242c49**, unreachable for roughly two days (heartbeat and sysop-log stale since 2026-10-02T05:0x Z): thirteen health checkups sit unclaimed and host ops are backing up unacked, so automated recovery has stopped trying — someone needs to physically check the Mac (sleep/power, Docker Desktop, VM). Separately, a stale-panel notice flags that [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) moved past its last-reviewed head and needs an explicit "run the gauntlet" or a maintainer call before it's treated as reviewed.
+The headline is the illuminated edition of *Better Code and Gardens* (2026-10-04) going live, with all 25 plates in place as chapter and section art (art via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9), integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11)); the build reproduces byte-for-byte and 30/30 tests pass, with only cosmetic nits left (a book spine crossing a terrace edge, an off-center dash). Otherwise the board is dominated by the ongoing oros-studio-garden-ce242c49 outage, now ~50h with no sysop progress — a human needs to physically check the Mac/Docker Desktop/VM — and the panel reviewed the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)), recommending #1392, #1396, and #1397 merge as-is while #1393 needs a retcon of ~26 rework commits before landing, with stack-hygiene weaves still pending beneath them. A stale-panel-head notice also flags that [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) needs a fresh review before any merge decision, since its reviewed head has since moved.
 
 ## Parked for maintainer feedback
 
@@ -247,7 +241,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.7M | $768.79 _(notional, rate-card)_ | 46% of 256.0M (ok) |
+| Claude | 116.8M | $769.27 _(notional, rate-card)_ | 46% of 256.0M (ok) |
 | Codex | 7.8M _(+209.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -256,9 +250,10 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (16)
+### todo (17)
 - [`oros-health-checkup-20261004-015005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-015005.md) — ---
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
+- [`oros-health-checkup-20261004-172006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-172006.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261003-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-163507.md) — ---
