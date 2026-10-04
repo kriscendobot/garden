@@ -1,11 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: minion-town-claude-cli-production-20261003
-priority: high
 role: fixer
-posted_by: minion-town-pr87-production-gate-resume-20260922
-posted_at: 2026-10-03T04:23:26Z
+tier: mentor
+handler-budget-role: review
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-10-04T15:52:04Z cleared=none -->
 
 ---
 role: fixer
