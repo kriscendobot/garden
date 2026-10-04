@@ -26,3 +26,13 @@ Verify that there are exactly 25 new thematic SVGs, every design entry and targe
 Report the PR URL, head SHA, asset count, palette decision, manifest mapping evidence, SVG-safety checks, and test/build results. Leave the PR draft. Do not integrate the assets into `build/build.mjs`, `build/render-book.mjs`, HTML, or CSS yet, and do not publish an edition.
 
 Self-improvement: follow the standing skill at the end of the claim.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T04:48:39Z
