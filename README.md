@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T08:34:17Z_
+_As of 2026-10-04T08:46:03Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in (10 chapter openers, 15 section figures), each captioned, with the old title-page garden scene removed — art via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9), integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), published build verified byte-for-byte reproducible and checked visually in light/dark on phone and desktop sizes. Separately, a panel reviewed the four-layer SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) and recommends merging #1392 and #1397 as-is, #1396 as-is after #1394, and #1393 after a retcon — but flags that the stack's base layers (#774, #1391) are still drafts with drifted frozen bases needing a weave first. On the ops side, **oros** (one of the three hosts) has been unreachable for roughly two days with 13 unclaimed health-checkup jobs piling up and needs a person to check Docker Desktop/sleep/VM state; the comment-provenance watchdog, a journal contention overrun, and a stale-panel-coverage flag on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) also await attention.
+The illuminated edition of *Better Code and Gardens* shipped: all 25 plates landed (10 chapter openers, 15 section figures), the placeholder garden scene behind the title is gone, and the build reproduces byte-for-byte with 30/30 tests passing and a manual cross-device/dark-mode check — live now. Art and integration went through [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11); two small cosmetic flaws (a book spine crossing a terrace edge, an off-center dash) were left as-is in the chapter 9 plate.
+
+Otherwise the board is quiet on new PR work, but two things need a maintainer eye: **oros-studio-garden-ce242c49 has been offline for ~50 hours** (heartbeat stale since 2026-10-02T05:08Z), derotated from the rolling deploy, with 13 health-checkup jobs piling up unclaimed — someone needs to physically check the Mac/Docker Desktop/VM. Separately, the [sturdyref stack](https://github.com/endojs/endo-but-for-bots/pull/1392) (layers 3/4/6/7 — [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is CI-green across all four drafts and ready for a merge decision pending stack-hygiene cleanup (stale frozen bases need re-weaving once lower layers land). [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) also has a stale panel (reviewed head no longer matches presented head) awaiting an explicit "run the gauntlet" or manual review call.
 
 ## Parked for maintainer feedback
 
@@ -32,11 +34,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #81 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T07:44:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 81 times; this is ONE
-> coalesced notice that updates in place, not 81 messages. Latest detail:
+> WATCHDOG notice — occurrence #100 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T08:44:07Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 100 times; this is ONE
+> coalesced notice that updates in place, not 100 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 182126s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 185731s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -202,7 +204,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.2M | $682.83 _(notional, rate-card)_ | 40% of 256.0M (ok) |
+| Claude | 102.3M | $683.29 _(notional, rate-card)_ | 40% of 256.0M (ok) |
 | Codex | 7.3M _(+206.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
