@@ -4,14 +4,14 @@ repo: kriscendobot/minion.town
 pr_number: 157
 build_job: build-minion-town-claude-account-html-page
 kind: feature
-stage: clean
-iteration: 0
+stage: panel
+iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: build-minion-town-claude-account-html-page-gauntlet-clean
+current_child: build-minion-town-claude-account-html-page-gauntlet-panel-1
 state: running
 created_by: producer
 created_at: 2026-10-04T23:01:16Z
