@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T03:11:04Z_
+_As of 2026-10-04T03:36:43Z_
 
 ## Latest
 
@@ -625,7 +625,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 87.1M | $594.50 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 5.5M _(+129.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 5.5M _(+129.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -647,8 +647,8 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`claude-on-minion-town-press-20261004-033506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261004-033506.md) — Press the Claude-on-minion.town arc forward
 
 ### tada (10754)
 - [`dependabotany-recheck-endo-but-for-bots-20261004-025006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/dependabotany-recheck-endo-but-for-bots-20261004-025006.md) — Cost
