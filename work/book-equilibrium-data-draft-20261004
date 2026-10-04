@@ -3,3 +3,7 @@ gardener: 3
 worker_kind: monk
 claimed_at: 2026-10-04T06:16:21Z
 worktree_dir: /home/kris/garden/scratch/gardener-wt-book-equilibrium-data-draft-20261004
+pr_number: 12
+pr_repo: kriscendobot/garden-book
+pr_url: https://github.com/kriscendobot/garden-book/pull/12
+pr_head: book-equilibrium-data
