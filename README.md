@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T17:21:07Z_
+_As of 2026-10-04T17:29:22Z_
 
 ## Latest
 
-The headline is the illuminated edition of *Better Code and Gardens* (2026-10-04) going live, with all 25 plates in place as chapter and section art (art via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9), integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11)); the build reproduces byte-for-byte and 30/30 tests pass, with only cosmetic nits left (a book spine crossing a terrace edge, an off-center dash). Otherwise the board is dominated by the ongoing oros-studio-garden-ce242c49 outage, now ~50h with no sysop progress — a human needs to physically check the Mac/Docker Desktop/VM — and the panel reviewed the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)), recommending #1392, #1396, and #1397 merge as-is while #1393 needs a retcon of ~26 rework commits before landing, with stack-hygiene weaves still pending beneath them. A stale-panel-head notice also flags that [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) needs a fresh review before any merge decision, since its reviewed head has since moved.
+The gauntlet for [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) (enable the Claude CLI provider in production) continued: panel round 3 completed and fix round 3 is now in doin, with conduct queued behind it. Oros (oros-studio-garden-ce242c49) remains unreachable — heartbeat, sysop-log, and fleet health have all been stale since 2026-10-02, now past 50 hours, with 17 health-checkup jobs piling up unclaimed in todo and multiple post-failure host ops stuck unacked; this needs a person at the machine to check sleep/power, Docker Desktop, and the VM. Separately, the illuminated edition of *Better Code and Gardens* published successfully via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), all 25 plates in place and verified, with two minor cosmetic flaws disclosed. A supervisor also delivered a merge-readiness summary for the four un-paneled SturdyRef stack PRs ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)), recommending #1392 merge first once its two prerequisite layers land, with the others following after a retcon/weave and base-drift cleanup.
 
 ## Parked for maintainer feedback
 
@@ -213,18 +213,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> WATCHDOG notice — occurrence #21 (first seen 2026-10-04T04:50:33Z, latest 2026-10-04T17:17:05Z).
-> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 21 times; this is ONE
-> coalesced notice that updates in place, not 21 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-04T17:26:34Z).
+> It was observed 21 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
-> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
+> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
 
 - `watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4.md)
 
@@ -241,7 +234,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 116.8M | $769.27 _(notional, rate-card)_ | 46% of 256.0M (ok) |
+| Claude | 117.2M | $771.72 _(notional, rate-card)_ | 46% of 256.0M (ok) |
 | Codex | 7.8M _(+209.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -269,16 +262,17 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`kriscendobot-minion-town-pr150-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr150-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #150
+### doin (2)
+- [`kriscendobot-minion.town-pr150-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr150-conduct.md) — Conduct and deploy kriscendobot/minion.town#150 (enable the Claude CLI provid...
+- [`kriscendobot-minion-town-pr150-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr150-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #150
 
-### tada (10854)
+### tada (10856)
+- [`kriscendobot-minion.town-pr150-review-d432a6d0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr150-review-d432a6d0.md) — Cost
+- [`kriscendobot-minion-town-pr150-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-panel-3.md) — Cost
 - [`claude-on-minion-town-press-20261004-manual-1701`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-manual-1701.md) — Press of the Claude-on-minion.town arc, 2026-10-04 ~17:05Z
 - [`kriscendobot-minion-town-pr150-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-fix-2.md) — Cost
 - [`deadmail-issue-comment-5981870267`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/deadmail-issue-comment-5981870267.md) — Cost
-- [`improve-claude-production-deploy-verification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-claude-production-deploy-verification.md) — Cost
-- [`kriscendobot-minion-town-pr150-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-panel-2.md) — Cost
-- … and 10849 more
+- … and 10851 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -361,6 +355,7 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`kriscendobot-minion.town-pr146-review-338999f3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr146-review-338999f3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #146 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr148-review-cde1226a-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr148-review-cde1226a-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #148 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr137-review-8f677fe3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr137-review-8f677fe3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #137 (primary: kriscendobot-mini...
+- [`kriscendobot-minion.town-pr150-review-d432a6d0-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr150-review-d432a6d0-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #150 (primary: kriscendobot-mini...
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
