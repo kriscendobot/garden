@@ -1,4 +1,5 @@
 ---
+child-book-equilibrium-data-supervisor-20261004-reap-count: 0
 child-book-illumination-supervisor-20261004-host: endolin-garden2-5bcdff64
 child-book-illumination-supervisor-20261004-reap-count: 0
 order: serial
