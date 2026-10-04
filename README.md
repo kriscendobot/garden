@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T04:30:01Z_
+_As of 2026-10-04T04:34:39Z_
 
 ## Latest
 
-Quiet cycle on the board: the only transition since the last bulletin was `book-illumination-supervisor-20261004` moving from plan into doin, now running as the active orchestration driving per-chapter/section illuminated illustrations for the garden-book production. The maintainer queue is otherwise unchanged — the panel-freshness notice on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) and the pending garden-book budget re-slice approval are both still waiting on a direct reply, and the pile of review-budget-reached gauntlets (the four ebfb sturdyref layers, guest-no-identifiers-locators, petname-path-only, and several `build-endo-*`/`build-confined-application-makers` arcs) remain parked for a human merge/review call after exhausting their automatic fix rounds.
+Two new jobs landed on the book-illumination track: a design pass for the per-chapter/section illuminated illustration set and a reader-exposure copyedit sweep both moved into doin, with a supervisor job parked to continue production once the design brief lands. Several gauntlets (ebfb sturdyref layers, confined-application-makers, endo-claude sandbox/CLI builds) hit their 6-round review-budget ceiling with green CI and now sit waiting on a human merge/review call — none failed outright. Separately, the garden-book budget re-slice (15M units from the reserve) is still awaiting kriskowal's direct "approve," since a proxy answer already correctly declined to stand in for maintainer-only budget authorization. Oros remains unreachable (~46h stale) and needs a person to check the machine; a stale-panel-head notice on [minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) also needs a maintainer review decision since its presented head has moved past the last panel pass.
 
 ## Parked for maintainer feedback
 
@@ -202,8 +202,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 88.0M | $600.04 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 5.8M _(+132.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 88.2M | $602.29 _(notional, rate-card)_ | 34% of 256.0M (ok) |
+| Codex | 5.9M _(+133.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -225,8 +225,10 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
+### doin (3)
+- [`book-illumination-design-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-design-20261004.md) — Design the per-chapter/section illuminated illustration set for Better Code a...
 - [`book-illumination-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-20261004.md) — Supervise production 1: per-chapter/section illuminated illustrations (krisce...
+- [`book-reader-exposure-copyedit-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-reader-exposure-copyedit-20261004.md) — Copy-edit pass: track what the reader has been told, and stop assuming inside...
 
 ### tada (10759)
 - [`canary-probe-endolin-garden2-5bcdff64-350d6bc198c8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-350d6bc198c8.md) — rolling-deploy canary probe — round trip OK
@@ -328,6 +330,7 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
+- [`book-illumination-supervisor-after-design-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-illumination-supervisor-after-design-20261004.md) — awaiting `book-illumination-design-20261004` · Continue the illuminated illustration production after the thematic design brief
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
 
 ## Watch set
