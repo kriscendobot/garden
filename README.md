@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T15:38:37Z_
+_As of 2026-10-04T15:43:23Z_
 
 ## Latest
 
-Oros remains unreachable, now closing in on 50 hours since its heartbeat and sysop log last responded (2026-10-02); health checkups keep landing unclaimed (16 now sitting in todo), and the host stays derotated pending someone physically checking the Mac's sleep state, Docker Desktop, and the VM. Besides that, the only board motion was a small cost-related fix (`improve-banner-detection-box-drawing-20261004`) landing in tada. The SturdyRef stack (layers 3/4/6/7 — [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is ready for a merge decision pending stack-hygiene weaves underneath, and the illuminated edition of *Better Code and Gardens* shipped live with all 25 plates integrated and verified. Separately, [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has a stale panel review (head moved after the last panel pass) and needs either a fresh gauntlet run or an explicit review-decision override before merging.
+The only board movement since the last bulletin was the completion of the minion.town conduct job — [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) was merged. Otherwise the inbox is dominated by the ongoing oros-studio outage (now ~50h unreachable, with checkups piling up unclaimed and host ops stuck unacked behind a dead sysop) and a stack of watchdog noise (journal contention, container-hardening pending-recreate on two hosts, a blind comment watcher on kriscendobot/ocapn) that needs a person at the physical machine rather than further automation. Of note: the illuminated edition of *Better Code and Gardens* shipped and is live, the accountant re-sliced next week's budget to add a `garden-book` arc, and a maintainer merge decision is pending on the SturdyRef stack layers [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), and [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397), each CI-green and judged low-risk but blocked on stack-hygiene rebases below them.
 
 ## Parked for maintainer feedback
 
@@ -218,7 +218,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 108.3M | $707.24 _(notional, rate-card)_ | 42% of 256.0M (ok) |
+| Claude | 108.5M | $708.22 _(notional, rate-card)_ | 42% of 256.0M (ok) |
 | Codex | 7.6M _(+208.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -245,16 +245,16 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`kriscendobot-minion.town-pr148-conduct-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr148-conduct-20261004.md) — Merge kriscendobot/minion.town#148 (re-conduct after the shepherd fix)
+### doin (0)
+(none)
 
-### tada (10838)
+### tada (10839)
+- [`kriscendobot-minion.town-pr148-conduct-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr148-conduct-20261004.md) — Cost
 - [`improve-banner-detection-box-drawing-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-banner-detection-box-drawing-20261004.md) — Cost
 - [`kriscendobot-minion.town-pr148-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr148-shepherd.md) — Cost
 - [`kriscendobot-minion.town-pr137-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr137-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr148-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr148-conduct.md) — Cost
-- [`kriscendobot-minion.town-pr137-review-8f677fe3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion.town-pr137-review-8f677fe3.md) — Cost
-- … and 10833 more
+- … and 10834 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
