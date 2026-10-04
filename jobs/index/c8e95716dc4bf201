@@ -1,2 +1,2 @@
-base: improve-comment-latency-primary-quota-cooldown
+base: improve-latency-watch-cooldown-race
 identity: mentor:scripts/jobs/comment-latency-watch.sh
