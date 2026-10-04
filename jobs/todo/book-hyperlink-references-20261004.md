@@ -1,10 +1,9 @@
 ---
-gate: blocked
-blocked_on: book-illumination-and-data-orch-20261004
-priority: normal
-posted_by: producer
-posted_at: 2026-10-04T04:56:07Z
+role: researcher
+tier: mentor
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-04T07:56:04Z cleared=none -->
 
 ---
 gate: blocked
