@@ -56,3 +56,13 @@ Run the full test suite. Render and inspect all nine restyled charts in a real b
 ```
 
 If you genuinely finish but cannot preserve the data/geometry/accessibility gates while styling, emit `<<<GARDEN-ORCHESTRATION-FAILED>>>` immediately before your completion signal.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T07:01:48Z
