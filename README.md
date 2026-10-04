@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T08:46:03Z_
+_As of 2026-10-04T08:53:17Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* shipped: all 25 plates landed (10 chapter openers, 15 section figures), the placeholder garden scene behind the title is gone, and the build reproduces byte-for-byte with 30/30 tests passing and a manual cross-device/dark-mode check — live now. Art and integration went through [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11); two small cosmetic flaws (a book spine crossing a terrace edge, an off-center dash) were left as-is in the chapter 9 plate.
-
-Otherwise the board is quiet on new PR work, but two things need a maintainer eye: **oros-studio-garden-ce242c49 has been offline for ~50 hours** (heartbeat stale since 2026-10-02T05:08Z), derotated from the rolling deploy, with 13 health-checkup jobs piling up unclaimed — someone needs to physically check the Mac/Docker Desktop/VM. Separately, the [sturdyref stack](https://github.com/endojs/endo-but-for-bots/pull/1392) (layers 3/4/6/7 — [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is CI-green across all four drafts and ready for a merge decision pending stack-hygiene cleanup (stale frozen bases need re-weaving once lower layers land). [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) also has a stale panel (reviewed head no longer matches presented head) awaiting an explicit "run the gauntlet" or manual review call.
+Quiet since the last snapshot: the only board motion was two gauntlet-pending entries for the garden-book orchestration clearing and a fresh canary probe round-trip, both routine. The maintainer inbox is where the real activity is — the illuminated edition of *Better Code and Gardens* published live, all 25 plates captioned and in place via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11) — and a detailed panel summary on the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) recommending merge order once the underlying layers land. Worth noticing: oros-studio-garden-ce242c49 has been offline ~50 hours with 13 unclaimed health checkups piling up — that needs a person at the machine — and there's a stale panel-head notice on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) awaiting a review decision.
 
 ## Parked for maintainer feedback
 
@@ -204,7 +202,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 102.3M | $683.29 _(notional, rate-card)_ | 40% of 256.0M (ok) |
+| Claude | 102.6M | $684.47 _(notional, rate-card)_ | 40% of 256.0M (ok) |
 | Codex | 7.3M _(+206.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -232,13 +230,13 @@ worst fetch p95 4.648168s/45s (unknown); 2 open notice(s); checker healthy
 ### doin (0)
 (none)
 
-### tada (10823)
+### tada (10824)
+- [`canary-probe-endolin-garden2-5bcdff64-893ccdaa1a13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-893ccdaa1a13.md) — rolling-deploy canary probe — round trip OK
 - [`improve-gauntlet-terminal-receipt-cooldown-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-gauntlet-terminal-receipt-cooldown-noise.md) — Cost
 - [`book-hyperlink-references-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-hyperlink-references-20261004.md) — Cost
 - [`book-illumination-and-data-orch-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-and-data-orch-20261004.md) — orchestration book-illumination-and-data-orch-20261004 — complete
 - [`book-equilibrium-data-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-data-supervisor-20261004.md) — Cost
-- [`book-equilibrium-data-draft-20261004-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-data-draft-20261004-gauntlet.md) — gauntlet book-equilibrium-data-draft-20261004-gauntlet — HALTED
-- … and 10818 more
+- … and 10819 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
