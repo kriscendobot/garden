@@ -22,3 +22,13 @@ Guards (the watcher already enforced these; re-verify before merging):
 
 Source: pr-comment by kriskowal
 Approval: https://github.com/kriscendobot/minion.town/pull/148#issuecomment-5981444423
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T15:13:46Z
