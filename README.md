@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T18:29:10Z_
+_As of 2026-10-04T18:34:04Z_
 
 ## Latest
 
-The minion.town shell-to-JS conversion continues to advance: part3 moved from plan to doin, and parts 1/2/2-b each cleared their clean and viability gauntlet stages, with part1 also through its first fix round — panels on PRs [kriscendobot/minion.town#151](https://github.com/kriscendobot/minion.town/pull/151), [#152](https://github.com/kriscendobot/minion.town/pull/152), and [#153](https://github.com/kriscendobot/minion.town/pull/153) are now running concurrently. Separately, the illuminated edition of *Better Code and Gardens* shipped and is live, with all 25 plates captioned and verified across screen sizes.
+The quietest tick since the last bulletin: a single completion, [kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/pull/152)'s fourth follow-up fix job, with three gauntlet panels still running on the shell-to-js conversion stack ([#152](https://github.com/kriscendobot/minion.town/pull/152), [#151](https://github.com/kriscendobot/minion.town/pull/151), [#153](https://github.com/kriscendobot/minion.town/pull/153)) plus panel round 5 on [#150](https://github.com/kriscendobot/minion.town/pull/150).
 
-The main thing needing attention is oros-studio-garden-ce242c49, unreachable for roughly 50 hours now with 13 health-checkup jobs piling up unclaimed — someone needs to physically check the Mac's sleep state, Docker Desktop, and the VM. There's also a maintainer-decision item on the SturdyRef stack (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) through [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)): all four are green drafts recommended for merge once stack hygiene (frozen-base drift on the two layers underneath) is resolved, with #1393 needing a retcon first. A few stale-panel-coverage notices await a review call on [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407).
+The bigger news sits in the inbox: oros-studio-garden-ce242c49 has been unreachable for roughly two days (heartbeat and sysop-log stale since 2026-10-02T05:08Z/05:35Z), with thirteen health-checkup jobs piling up unclaimed and the host still derotated — it needs a human at the machine to check Docker Desktop, sleep/power state, and the VM. Separately, *Better Code and Gardens* shipped its illuminated edition (all 25 plates captioned, live at the ocap.site build), and the SturdyRef stack (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392)/[#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)/[#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)/[#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is CI-green and awaiting a maintainer merge decision, with layer-1/2 stack hygiene ([#774](https://github.com/endojs/endo-but-for-bots/issues/774), [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) needing to land first. Three stale-panel-head notices also want a maintainer call: [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) each moved heads after their last panel review.
 
 ## Parked for maintainer feedback
 
@@ -259,7 +259,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 123.9M | $821.87 _(notional, rate-card)_ | 48% of 256.0M (ok) |
+| Claude | 125.8M | $836.97 _(notional, rate-card)_ | 49% of 256.0M (ok) |
 | Codex | 7.8M _(+209.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -287,21 +287,20 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (6)
+### doin (5)
 - [`minion-town-shell-to-js-20261004-part3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3.md) — minion.town: convert the remaining large/host-side shell scripts to JavaScrip...
 - [`minion-town-shell-to-js-20261004-part2-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part2-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #152
 - [`minion-town-shell-to-js-20261004-part1-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part1-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #151
-- [`fu-minion-town-shell-to-js-20261004-part2-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fu-minion-town-shell-to-js-20261004-part2-4.md) — ---
 - [`kriscendobot-minion-town-pr150-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr150-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #150
 - [`minion-town-shell-to-js-20261004-part2-b-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part2-b-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #153
 
-### tada (10873)
+### tada (10874)
+- [`fu-minion-town-shell-to-js-20261004-part2-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/fu-minion-town-shell-to-js-20261004-part2-4.md) — Cost
 - [`minion-town-shell-to-js-20261004-part1-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part1-gauntlet-fix-1.md) — Cost
 - [`minion-town-shell-to-js-20261004-part2-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-gauntlet-clean.md) — Cost
 - [`minion-town-shell-to-js-20261004-part2-b-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-b-gauntlet-clean.md) — Cost
 - [`minion-town-shell-to-js-20261004-part2-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-gauntlet-viability.md) — Cost
-- [`minion-town-shell-to-js-20261004-part2-b-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-b-gauntlet-viability.md) — Cost
-- … and 10868 more
+- … and 10869 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
