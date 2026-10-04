@@ -268,6 +268,12 @@ gauntlet_terminal_comment() {  # <base> <review-budget-reached|halted|parked-ci-
   case "$iter" in ''|*[!0-9]*) iter="unknown";; esac
 
   marker="<!-- garden-gauntlet-terminal-status: base=$base state=$terminal_state -->"
+  # Under the host-shared gh-api cooldown the read would be refused unissued, and
+  # the cooldown's owner already logged the one actionable quota warning. Defer
+  # silently (as retry_terminal_pending does) rather than adding a WARN per receipt.
+  if api_cooldown_active rest; then
+    return 1
+  fi
   if ! comments="$(gh_api_retry --paginate "repos/$repo/issues/$prnum/comments" --jq '.[].body')"; then
     log "WARN: gauntlet '$base': could not check for terminal PR status comment; deferring the post to a later tick to avoid a duplicate"
     return 1

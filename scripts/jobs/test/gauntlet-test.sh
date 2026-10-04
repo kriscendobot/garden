@@ -25,6 +25,8 @@
 #                    and a later tick delivers the owed receipt exactly once.
 #  14. READ FAILURE — an unreadable comment list (a quota-cooled read) persists a
 #                    pending receipt with the finish; retries post it once, clear it.
+#  15. COOLDOWN   — terminal receipts finishing under a live gh-api cooldown defer
+#                    into pending records WITHOUT a gh read or a per-gauntlet WARN.
 #
 # Usage: gauntlet-test.sh
 
@@ -72,7 +74,15 @@ export GARDEN_GH="$HERE/gauntlet-gh-stub.sh"
 export GAUNTLET_GH_COMMENTS="$TR/pr-comments"
 export GAUNTLET_GH_FAIL_WRITES_FILE="$TR/fail-comment-writes"
 export GAUNTLET_GH_FAIL_READS_FILE="$TR/fail-comment-reads"
-mkdir -p "$GAUNTLET_GH_COMMENTS"
+export GAUNTLET_GH_READS_LOG="$TR/pr-comment-reads"
+# The host-shared gh-api cooldown latch otherwise defaults under the deployed garden
+# root; keep it in the throwaway tree so a live host cooldown cannot leak in.
+export GARDEN_API_COOLDOWN_DIR="$TR/gh-api-cooldown"
+# Likewise the token meter's local sensor defaults to this host's real Claude
+# transcripts; a busy host's weekly spend otherwise exceeds the fixture pool and
+# parks every stage in plan/ as over-token-budget.
+export GARDEN_CCUSAGE_LOGDIR="$TR/claude-projects"
+mkdir -p "$GAUNTLET_GH_COMMENTS" "$GARDEN_API_COOLDOWN_DIR" "$GARDEN_CCUSAGE_LOGDIR"
 # The driver's deterministic merge-base-pinning pre-gate makes a live `gh pr view`
 # on the first tick of each fresh record. This suite's fixture PRs do not exist on
 # GitHub, so point the gate at a fast no-op (exit 0 = pinned = proceed) to keep the
@@ -644,6 +654,38 @@ tick
     && ! in_dir jobs/gauntlet-terminal-pending g15--halted; } \
   && ok "marker dedup clears a re-owed receipt without a second post" \
   || bad "read-failure: dedup count=$(terminal_comment_count g15 halted) pending=[$(board jobs/gauntlet-terminal-pending)]"
+
+# ============================================================================
+hr; echo "SUBTEST 15 — COOLDOWN: terminal receipts under a live gh-api cooldown defer quietly"; hr
+post_gauntlet --max-stage-retries 0 g16 https://github.com/testowner/testrepo/pull/16
+post_gauntlet --max-stage-retries 0 g17 https://github.com/testowner/testrepo/pull/17
+tick   # post g16-clean + g17-clean
+fail_stage g16-clean
+fail_stage g17-clean
+# Arm the host-wide (REST) latch as its owner would: expiry on line 1, tag on line 2.
+printf '%s\nprimary-quota test\n' "$(( $(date +%s) + 600 ))" > "$GARDEN_API_COOLDOWN_DIR/marker"
+: > "$GAUNTLET_GH_READS_LOG"
+tick   # both halt under the cooldown
+{ in_dir jobs/tada g16 && in_dir jobs/tada g17 \
+    && in_dir jobs/gauntlet-terminal-pending g16--halted \
+    && in_dir jobs/gauntlet-terminal-pending g17--halted \
+    && [ "$(terminal_comment_count g16 halted)" = 0 ] \
+    && [ "$(terminal_comment_count g17 halted)" = 0 ]; } \
+  && ok "both terminal receipts under cooldown persisted pending records with their finishes" \
+  || bad "cooldown: tada=[$(board jobs/tada)] pending=[$(board jobs/gauntlet-terminal-pending)]"
+! grep -q "WARN: gauntlet 'g1[67]'" "$TR/tick.log" \
+  && ok "no per-gauntlet WARN for receipts deferred by the cooldown" \
+  || bad "cooldown: per-gauntlet warning spam: [$(grep WARN "$TR/tick.log")]"
+[ ! -s "$GAUNTLET_GH_READS_LOG" ] \
+  && ok "no comment read was attempted while the cooldown was live" \
+  || bad "cooldown: gh comment reads issued under cooldown: [$(cat "$GAUNTLET_GH_READS_LOG")]"
+rm -f "$GARDEN_API_COOLDOWN_DIR/marker"
+tick   # cooldown over → both delivered once and cleared
+{ [ "$(terminal_comment_count g16 halted)" = 1 ] && [ "$(terminal_comment_count g17 halted)" = 1 ] \
+    && ! in_dir jobs/gauntlet-terminal-pending g16--halted \
+    && ! in_dir jobs/gauntlet-terminal-pending g17--halted; } \
+  && ok "after the cooldown lapses both owed receipts post once and clear" \
+  || bad "cooldown: counts=$(terminal_comment_count g16 halted)/$(terminal_comment_count g17 halted) pending=[$(board jobs/gauntlet-terminal-pending)]"
 
 # ============================================================================
 hr

@@ -11,6 +11,7 @@ case "${1:-} ${2:-}" in
       printf 'gh: Not Found (HTTP 404)\n' >&2
       exit 1
     fi
+    [ -z "${GAUNTLET_GH_READS_LOG:-}" ] || printf '%s\n' "$*" >> "$GAUNTLET_GH_READS_LOG"
     # gauntlet.sh asks gh's --jq to print only each top-level comment body. The
     # fixture stores exactly those bodies, so replaying the files is equivalent.
     find "$comments_dir" -maxdepth 1 -type f -name '*.md' -print0 2>/dev/null \
