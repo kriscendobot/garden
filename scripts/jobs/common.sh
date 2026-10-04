@@ -5104,7 +5104,10 @@ leader_host() {
     _leader_last_known "$dir" "$cache"; return 0
   fi
   ( ensure_clone "$dir" ) >/dev/null 2>&1 || true
-  if ! _journal_git_fetch "$dir" 0 >/dev/null 2>&1; then
+  # Use the canonical bounded retry loop here too: one transient transport
+  # failure must not arm the stale-cache fallback while ordinary journal
+  # consumers would recover on a later attempt.
+  if ! journal_fetch "$dir" 0 >/dev/null 2>&1; then
     _leader_retry_arm
     fallback_warn leader-fetch "leader fetch failed; using last-known leader cache (not fresh)"
     _leader_last_known "$dir" "$cache"

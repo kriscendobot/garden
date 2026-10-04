@@ -108,6 +108,30 @@ for d in "${_pd[@]}"; do
   case "$d" in */scripts/jobs/bin) continue ;; esac
   [ -x "$d/git" ] && { REALGIT="$d/git"; break; }
 done
+
+# The leader-marker read uses journal_fetch's bounded retry behavior before it
+# opens a stale-cache fallback episode. Inject one transient failure followed by
+# a real successful fetch and prove that no fallback warning or marker appears.
+RETRY_FETCH="$TR/retry-fetch"; RETRY_COUNT="$TR/retry-fetches"; : > "$RETRY_COUNT"
+cat > "$RETRY_FETCH" <<SH
+#!/bin/bash
+n=\$(stat -c %s "$RETRY_COUNT" 2>/dev/null || echo 0)
+printf '.' >> "$RETRY_COUNT"
+[ "\$n" -eq 0 ] && exit 1
+exec "$REALGIT" -C "\$GARDEN_FETCH_DIR" fetch -q origin "\$JOURNAL_BRANCH"
+SH
+chmod +x "$RETRY_FETCH"
+RST="$TR/st-retry"; : > "$TR/retry.err"
+rc="$(env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_STATE="$RST" \
+          GARDEN=leaderhost GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_FETCH_RETRIES=2 \
+          GARDEN_FETCH_CMD="$RETRY_FETCH" "$IMH" 2>"$TR/retry.err" >/dev/null; echo $?)"
+{ [ "$rc" = 0 ] && [ "$(stat -c %s "$RETRY_COUNT")" = 2 ] \
+    && [ -f "$RST/leader/cached" ] && [ ! -e "$RST/leader/retry-at" ] \
+    && [ ! -e "$RST/fallback-warn/leader-fetch" ] \
+    && ! grep -q 'leader fetch failed' "$TR/retry.err"; } \
+  && ok "transient first leader fetch failure retries successfully without warning" \
+  || bad "transient leader fetch did not recover cleanly (rc=$rc fetches=$(stat -c %s "$RETRY_COUNT") stderr=$(cat "$TR/retry.err"))"
+
 cat > "$SHIM/git" <<SH
 #!/bin/bash
 for a in "\$@"; do [ "\$a" = fetch ] && { printf '.' >> "$FETCHES"; break; }; done
@@ -119,7 +143,8 @@ BST="$TR/st-backoff"; MARK="$BST/leader/retry-at"
 bimh() {  # bimh <remote> [env...] — is-main-host as leaderhost on the shared state
   local r="$1"; shift
   env PATH="$SHIM:$PATH" JOURNAL_REMOTE="$r" JOURNAL_BRANCH="$BRANCH" GARDEN_STATE="$BST" \
-      GARDEN=leaderhost GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_LEADER_RETRY_BACKOFF=600 "$@" \
+      GARDEN=leaderhost GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_LEADER_RETRY_BACKOFF=600 \
+      GARDEN_FETCH_RETRIES=1 "$@" \
       "$IMH" 2>>"$TR/backoff.err" >/dev/null
   echo $?
 }
