@@ -131,3 +131,13 @@ re-order, withdraw, or add sub-jobs, and merge into `main` yourself. Run a
 gauntlet at your discretion if you judge a step warrants one (e.g. the
 generator-touching integration step); it is not required by default. Ask the
 maintainer only for a decision you genuinely cannot make yourself.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T04:28:16Z
