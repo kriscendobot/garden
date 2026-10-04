@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: cleric
 claimed_at: 2026-10-04T18:19:34Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-minion-town-shell-to-js-20261004-part3
+pr_number: 154
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/154
+pr_head: chore/javascript-only-scripts-part-3
