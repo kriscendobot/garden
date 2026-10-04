@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T04:59:14Z_
+_As of 2026-10-04T05:09:54Z_
 
 ## Latest
 
-Panel review landed on several fronts today. Six new panel summaries posted for the SturdyRef capability stack (layers L3/L4/L6/L7: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) — all four are draft, CI-green, but unreviewed at their current heads, and the stack still needs cleanup underneath (layers 1/2, [#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391), have drifted frozen bases). Recommended order: land #1392 first once its predecessors land, retcon #1393, then #1396/#1397 after #1394.
+The illuminated-edition work kept moving: `book-illumination-produce-20261004` completed and its viability check passed, with the supervisor and chapter-illustrations build continuing in `doin`. On the minion.town front, [kriscendobot/minion.town#147](https://github.com/kriscendobot/minion.town/pull/147) got its § 4 app-compatibility check fixed, and a new job is now underway on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) to fix an `ensureDirectory` race.
 
-On minion.town, [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/issues/145) (self-hosted CI runner) is ready to merge pending one human action: rotate the live secret off the over-broad kriscendobot OAuth token to a fine-grained PAT before rollout — the panel coverage is also stale (reviewed 37b05e87, now at 31577bd). Elsewhere, two hosts need attention: oros-studio-garden has been offline ~46 hours (unclaimed health checkups piling up in todo) and will be skipped by rolling deploy, and endolin-garden2 hit a journal clone-contention storm across six watchers simultaneously. A gauntlet for the Ironhorse host-call panic fix halted after its fix attempt explicitly declined.
+The maintainer's inbox is fairly full: oros-studio-garden-ce242c49 has been offline for ~46 hours (heartbeats stale, several health-checkups queued unclaimed) and needs a human to check the machine; two container-hardening and a journal-contention-storm notice are informational/expected; and a detailed panel summary on the SturdyRef PR stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) recommends merging #1392, #1396, and #1397 as-is once their stack predecessors land, with #1393 needing a retcon first — no PR was touched pending maintainer sign-off.
 
 ## Parked for maintainer feedback
 
@@ -75,6 +75,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > unit stays clean meanwhile (exit 3), so it does not fail rolling-deploy canaries. After the
 > first all-pass run, any failure is treated as a regression and fails the unit.
 
+- `watchdog-unclaimable-host-requirements-oros-health-checkup-20261004-045008` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-checkup-20261004-045008.md)
+
+> Host-requirements gate: job 'oros-health-checkup-20261004-045008' has remained unclaimed for 900s with requires: host=oros-studio-garden-ce242c49. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `msg-accountant-reslice-20261004-68981d96012c` — from gardener:accountant-reslice-20261004, reply_to `accountant-reslice-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-reslice-20261004-68981d96012c.md)
 
 > Re-slice applied (journal2 235a959c880; authorized_by: kriskowal, "Approve a smaller slice for future editions.", reply to 20261003T055048Z-1f7489).
@@ -135,44 +139,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Which layers can land first: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) lands first, as soon as [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) land. [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) follows after the retcon and weave. [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) have no code blockers, but they wait on [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/issues/1394) (L5, already un-drafted). No layer needs a redesign, and none needs another full panel; a scoped re-panel of only the post-panel deltas would be optional. No PR was touched and no gauntlet was staged.
 
-- `msg-minion-town-pr145-panel-summary-20261004-473a0f0c87a7` — from gardener:minion-town-pr145-panel-summary-20261004, reply_to `minion-town-pr145-panel-summary-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-pr145-panel-summary-20261004-473a0f0c87a7.md)
-
-> [kriscendobot/minion.town#145](https://github.com/kriscendobot/minion.town/issues/145) (ci.minion.town self-hosted ephemeral runner): merge-decision summary
->
-> State: draft. Head 31577bd. The gauntlet stopped at its review budget (6 rounds). CI is green on 31577bd: all 3 checks passed, and they ran on the self-hosted runner ci-minion-town-0fdb85b6-*.
->
-> Panel coverage: the latest head has NONE. Round 6 reviewed a3c861f. 31577bd answered it, and its main change is a rewrite of the scrub (controller +82/-28): a once-per-boot snapshot keyed by inode, type, mode and owner, plus cgroup-mount checks for systemd-private dirs. No panel has read that rewrite. It is also undeployed: the live host still runs the older controller, so the green CI does not exercise the new scrub. The rewrite has only been tested in a sandbox with a non-root stand-in for root.
->
-> Open objections after round 6. The fix-6 report says 31577bd addressed all of round 6's must-fix and should-fix items: root-ownership trust in the scrub, typist's bare Function type, the integrator's secrets-table row, the scribe summary, and the comment corrections. What remains:
-> - Any defect in the unreviewed snapshot scrub. FOLLOW-UP-WORTHY, not blocking. It is the third design of this mechanism in three rounds, and the doc already says a malicious job (docker means root-equivalent) can outlive the scrub anyway, through /opt/actions-runner tampering or IMDS → off-host runner. So the scrub is hygiene against non-malicious residue, not a security boundary. Running the selftest after the rollout covers it.
-> - migrator: no automated fallback to hosted runners when the single host is down; only manual CI_RUNS_ON. FOLLOW-UP-WORTHY. The doc now tells people to check the host first.
-> - saboteur: a small race between isPrivate and the jitconfig mint. TASTE/NOISE. Exploiting it needs repo-admin, the same tier that controls the allowlist.
-> - archivist: missing JSDoc on the exported minter helpers. TASTE.
-> - fast-checker: property tests. TASTE. Every branch is already covered by examples.
-> - spec-keeper, duality-auditor, coverage-auditor (no c8 for a node --test Lambda), releaser, warden: NOISE. Nothing applies to this repo.
->
-> SECURITY POSTURE (the main thing to act on, and it is not in the diff):
-> - The live secret minion/ci-runner-github-token is STILL the kriscendobot gh OAuth token, with scopes repo, workflow, gist and read:org. The build report flagged this on 9/30. Secrets Manager shows the secret was created and last changed 2026-09-30T19:46Z, so it has never been rotated, and it was last read 2026-10-04.
-> - That token can read and write every repo kriscendobot can reach, not just minion.town. Only the minter Lambda can read it, and the host never holds it. But a stolen Lambda role, or any bug in the minter, gets the bot's whole GitHub reach.
-> - The doc's target is a fine-grained PAT with Administration: write on minion.town only. That is GitHub's minimum for repo-level runners on a user-owned repo, and still broad: it also covers repo settings and visibility. The minter re-checks that the repo is private on every mint and every prune.
-> - Only a person can create that PAT. Rotate with:
->   printf '{"token":"%s"}' "$NEW" | deploy/aws/ci-runner/provision-ci-runner.sh --seed-token-stdin
-> - Inherent residual risk, documented: jobs are root on the host, and a malicious job can persist or exfiltrate the instance role and mint a rogue runner. This is acceptable only because the repo is private (verified PRIVATE today) and the host is isolated. Never make the repo public while this runner is attached.
->
-> Bottom line: MERGE AFTER NAMED SMALL STEPS. The code needs no more fixes, and another gauntlet would most likely churn on scrub taste. Before or with the merge:
-> (1) Rotate the token to the fine-grained PAT. This is your act.
-> (2) Roll out in this order: provision-ci-runner.sh (minter first), then deploy-ci-runner-host.sh, then reboot, then run the ci-runner selftest. That validates the unreviewed scrub on the real host.
-> (3) Squash-merge, as the PR body asks.
-> If you want the new scrub reviewed by a panel before merging instead, that would be a single panel pass on 31577bd, not a seventh fix loop.
-
-- `stale-panel-head-kriscendobot-minion.town-pr145-37b05e87-31577bd7` — from gardener:minion-town-pr145-panel-summary-20261004, reply_to `minion-town-pr145-panel-summary-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr145-37b05e87-31577bd7.md)
-
-> Stale panel coverage for completed job `minion-town-pr145-panel-summary-20261004`: [https://github.com/kriscendobot/minion.town/pull/145](https://github.com/kriscendobot/minion.town/pull/145) moved from panel-reviewed head `37b05e87595aab2d4132c6bbe674707d5bdcd372` to presented head `31577bd76e3886d6717a09e8ca5bff5b50bd4fc5`.
->
-> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
->
-> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
-
 - `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
 
 > ANOMALY: comment-watcher/kriscendobot-ocapn self-test FAILED on kriscendobot/ocapn — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden-ece02cb4 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
@@ -206,8 +172,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 89.7M | $609.87 _(notional, rate-card)_ | 35% of 256.0M (ok) |
-| Codex | 6.1M _(+138.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 90.2M | $611.94 _(notional, rate-card)_ | 35% of 256.0M (ok) |
+| Codex | 6.2M _(+142.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -233,15 +199,15 @@ worst fetch p95 6.910494s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 ### doin (3)
 - [`garden-book-chapter-illustrations-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-book-chapter-illustrations-build.md) — ---
 - [`book-illumination-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-20261004.md) — Supervise production 1: per-chapter/section illuminated illustrations (krisce...
-- [`book-illumination-produce-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-produce-20261004.md) — Produce the complete illuminated illustration asset set
+- [`minion-town-pr148-ensuredirectory-race-fix-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-pr148-ensuredirectory-race-fix-20261004.md) — Fix the ensureDirectory race on kriscendobot/minion.town#148 (and require act...
 
-### tada (10775)
+### tada (10778)
+- [`book-illumination-produce-20261004-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004-gauntlet-viability.md) — Cost
+- [`book-illumination-produce-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004.md) — Cost
+- [`minion-town-pr147-s4-key-fix-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-pr147-s4-key-fix-20261004.md) — Fixed the § 4 app-compatibility check on kriscendobot/minion.town#147
 - [`minion-town-pr148-137-panel-summary-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-pr148-137-panel-summary-20261004.md) — Cost
 - [`minion-town-pr145-panel-summary-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-pr145-panel-summary-20261004.md) — Panel-head freshness
-- [`minion-town-pr85-panel-summary-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-pr85-panel-summary-20261004.md) — Panel-head freshness
-- [`ebfb-pr1408-panel-summary-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/ebfb-pr1408-panel-summary-20261004.md) — Completion report: ebfb-pr1408-panel-summary-20261004
-- [`ebfb-pr1404-panel-summary-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/ebfb-pr1404-panel-summary-20261004.md) — Panel-head freshness
-- … and 10770 more
+- … and 10773 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
