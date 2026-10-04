@@ -50,6 +50,17 @@ to completion — so a follow-up is never forgotten.
   being guessed failed. The final serial prerequisite check runs again inside
   the promotion primitive's fresh sync/CAS loop, so a stale watcher snapshot
   cannot release a later child.
+- **A supervising agent reads the board from fresh `origin/journal2`, never the
+  deployed `journal/` checkout.** That worktree can lag the remote by many
+  minutes. When it does, a predecessor's `tada/` report looks absent, and a
+  supervisor told to "re-attempt if it did not complete" would post a duplicate.
+  In your per-job worktree, run `git fetch origin journal2`, then
+  `git ls-tree -r --name-only origin/journal2 jobs` and
+  `git show origin/journal2:<path>`.
+  This is the agent-side counterpart of the engine's fresh-sync recheck.
+  Example: `book-illumination-supervisor-after-integrate-20261004` had a
+  `journal/` that was 17 minutes stale, so it showed no trace of the completed
+  `book-illumination-integrate-20261004`.
 - **Relate to `blocked_on`, don't duplicate it.** For a plain linear two-step
   dependency with no parallelism, progress report, or failure policy,
   `post-plan.sh --blocked --blocked-on <predecessor>` + the unblock watcher is the
