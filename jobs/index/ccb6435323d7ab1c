@@ -1,2 +1,2 @@
-base: fix-minion-town-pr87-wiring-test-fixtures
+base: minion-town-claude-cli-production-canary-20261004
 identity: kriscendobot/minion.town#87:comment:5273131188
