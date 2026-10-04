@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: cleric
-claimed_at: 2026-10-04T19:33:59Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-minion-town-claude-cli-production-deploy-fix-20261004
-pr_number: 155
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/155
-pr_head: fix/claude-app-artifact-rollback
