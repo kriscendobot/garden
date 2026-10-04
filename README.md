@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T11:55:07Z_
+_As of 2026-10-04T12:16:16Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in across 10 chapter openers and 15 section figures, each captioned, with the old title-page garden scene removed. The art landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and was integrated and published via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11); the build reproduces byte-for-byte and the live site was checked in a headless browser across screen sizes and light/dark mode, with only minor cosmetic nits noted (a book spine crossing a terrace edge, one off-center dash).
+The illuminated edition of *Better Code and Gardens* published 2026-10-04: all 25 plates are in (10 chapter openers, 15 section figures, each captioned), the old title-page garden scene is gone, the build reproduces byte-for-byte and the live site matches, and 30/30 tests pass — verified visually in both light and dark mode on phone and desktop sizes. Art landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). Minor cosmetic flaws remain in one chapter-9 illustration (a book spine crossing a terrace edge, a slightly off-center dash). Separately, the accountant re-sliced the weekly budget (555M planning ceiling) to add a new `garden-book` arc for future editions and upkeep, at the maintainer's request.
 
-Oros remains unreachable going on 50 hours — heartbeat and sysop activity have been stale since 2026-10-02T05:08Z, 13 health-checkup jobs are stacked unclaimed in todo, and the host's sysop queue has several unacked ops piling up behind it; this needs someone at the machine to check Docker Desktop, sleep state, and the VM. Separately, the SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back with a merge-order recommendation (#1392 first, as-is; #1393 after a retcon; #1396/#1397 as-is pending the layer below) and flagged stack hygiene drift underneath. The budget accountant also re-sliced next week's allocation, adding a small `garden-book` arc for future editions. A stale-panel notice is open on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) awaiting an explicit re-review decision.
+Oros remains unreachable for roughly 50 hours (heartbeat and sysop-log both stale since 2026-10-02), with health checkups piling up unclaimed and outbound ops queued but unacked — this needs someone physically checking the Mac's sleep/Docker/VM state. The SturdyRef PR stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is CI-green and ready for a merge decision pending stack-hygiene weaves on the layers beneath it, and [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has drifted past its last panel review and needs a fresh look before any gauntlet proceeds.
 
 ## Parked for maintainer feedback
 
@@ -212,7 +212,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.8M | $693.21 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Claude | 104.9M | $693.68 _(notional, rate-card)_ | 41% of 256.0M (ok) |
 | Codex | 7.4M _(+207.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -241,13 +241,13 @@ worst fetch p95 5.085034s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 ### doin (0)
 (none)
 
-### tada (10828)
+### tada (10829)
+- [`canary-probe-endolin-garden2-5bcdff64-f3d058dd65eb`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-f3d058dd65eb.md) — rolling-deploy canary probe — round trip OK
 - [`improve-approval-reconciler-primary-quota`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-approval-reconciler-primary-quota.md) — Cost
 - [`oros-health-watch-20261004-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-100509.md) — Cost
 - [`claude-on-minion-town-completion-press-20261004-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-completion-press-20261004-100509.md) — Panel-head freshness
 - [`claude-on-minion-town-press-20261004-093512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-093512.md) — Panel-head freshness
-- [`canary-probe-endolin-garden2-5bcdff64-893ccdaa1a13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-893ccdaa1a13.md) — rolling-deploy canary probe — round trip OK
-- … and 10823 more
+- … and 10824 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
