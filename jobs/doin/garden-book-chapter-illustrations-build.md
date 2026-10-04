@@ -18,3 +18,13 @@ Execute the production stage the brief explicitly defers (wear the web-builder v
 This is large — consider whether to orchestrate it into per-image or per-chapter child jobs rather than one monolithic PR.
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T05:53:27Z
