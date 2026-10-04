@@ -25,3 +25,13 @@ Own the full recovery:
 4. Only after those checks pass, post `minion-town-claude-cli-production-canary-20261004` with the exact canary body carried in the predecessor job. Do not run the canary yourself.
 
 If recovery or verification exposes a different cause, record the evidence and fix forward; do not claim success.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T19:33:59Z
