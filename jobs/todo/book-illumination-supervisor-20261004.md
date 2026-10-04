@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: book-illumination-and-data-orch-20261004
-priority: normal
-posted_by: producer
-posted_at: 2026-10-04T04:25:44Z
+role: orchestrator
+tier: mentor
+handler-timeout: 10800
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-04T04:28:03Z cleared=none -->
 
 ---
 role: orchestrator
