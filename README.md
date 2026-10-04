@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T09:37:22Z_
+_As of 2026-10-04T09:39:26Z_
 
 ## Latest
 
-The board stayed quiet this cycle — the only transition was a claim: [claude-on-minion-town-press-20261004-093512](https://github.com/kriscendobot/minion.town/pull/148) picked up again on minion.town PR #148, whose panel coverage is now stale since that PR moved from the reviewed head to a new one, so the gardener's in-flight work there needs a fresh review pass before it can move further. The maintainer inbox is the real story this cycle: Oros has been unreachable for roughly 50 hours (heartbeat and sysop both stale since 2026-10-02) with 13 health-checkup jobs piling up unclaimed — this needs someone at the machine to check Docker Desktop, sleep state, and the VM. Separately, the illuminated edition of *Better Code and Gardens* shipped and is live, all 25 plates in with captions, verified byte-for-byte and across screen sizes/themes. The accountant also re-sliced next week's budget to carve out a new `garden-book` arc. A large SturdyRef PR stack (endojs/endo-but-for-bots [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) has merge recommendations waiting on review, gated behind stack-hygiene cleanup on the layers beneath it.
+Only one board transition landed since the last bulletin: the minion.town Claude-agents press job (`claude-on-minion-town-press-20261004-093512`) completed, but its panel coverage is now stale — the presented head moved past what was last reviewed on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148), so the gauntlet stopped short and the new commits need a maintainer-requested re-review before anything merges. Separately, the overnight SturdyRef-stack review came back: layers L3 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392)), L6 ([endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)), and L7 ([endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) are ready to merge as-is once their stack predecessors land, while L4 ([endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)) needs a retcon to regroup ~26 rework commits first; the stack's bottom layers ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774), [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) remain in draft and the frozen bases have drifted. The *Better Code and Gardens* illuminated edition shipped live with all 25 plates captioned. The standing concern is oros: it's been unreachable for about 50 hours, derotated, with 14 health checkups piling up unclaimed in `todo` — that needs a person at the machine to check Docker Desktop/the VM.
 
 ## Parked for maintainer feedback
 
@@ -120,9 +120,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 983 of 983 clone(s) on consecutive ticks.
 
-- `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-063506, reply_to `claude-on-minion-town-press-20261004-063506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
+- `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-093512, reply_to `claude-on-minion-town-press-20261004-093512` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
-> Stale panel coverage for completed job `claude-on-minion-town-press-20261004-063506`: [https://github.com/kriscendobot/minion.town/pull/148](https://github.com/kriscendobot/minion.town/pull/148) moved from panel-reviewed head `dea0146cefdcfa28d7dba2e40c760dc79821a5fc` to presented head `e4fb4e708da4c64af0a7a9dbde81161b59652c9c`.
+> COALESCED message — occurrence #2 (first seen 2026-10-04T06:38:27Z, latest 2026-10-04T09:37:35Z).
+> The SAME message (episode key `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
+>
+> Stale panel coverage for completed job `claude-on-minion-town-press-20261004-093512`: [https://github.com/kriscendobot/minion.town/pull/148](https://github.com/kriscendobot/minion.town/pull/148) moved from panel-reviewed head `dea0146cefdcfa28d7dba2e40c760dc79821a5fc` to presented head `e4fb4e708da4c64af0a7a9dbde81161b59652c9c`.
 >
 > Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 >
@@ -202,7 +206,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 103.3M | $687.08 _(notional, rate-card)_ | 40% of 256.0M (ok) |
+| Claude | 103.4M | $687.54 _(notional, rate-card)_ | 40% of 256.0M (ok) |
 | Codex | 7.3M _(+206.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -227,16 +231,16 @@ worst fetch p95 5.085034s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`claude-on-minion-town-press-20261004-093512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261004-093512.md) — Press the Claude-on-minion.town arc forward
+### doin (0)
+(none)
 
-### tada (10824)
+### tada (10825)
+- [`claude-on-minion-town-press-20261004-093512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-093512.md) — Panel-head freshness
 - [`canary-probe-endolin-garden2-5bcdff64-893ccdaa1a13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-893ccdaa1a13.md) — rolling-deploy canary probe — round trip OK
 - [`improve-gauntlet-terminal-receipt-cooldown-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-gauntlet-terminal-receipt-cooldown-noise.md) — Cost
 - [`book-hyperlink-references-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-hyperlink-references-20261004.md) — Cost
 - [`book-illumination-and-data-orch-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-and-data-orch-20261004.md) — orchestration book-illumination-and-data-orch-20261004 — complete
-- [`book-equilibrium-data-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-data-supervisor-20261004.md) — Cost
-- … and 10819 more
+- … and 10820 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
