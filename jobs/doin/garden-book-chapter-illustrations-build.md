@@ -15,3 +15,13 @@ Execute the production stage the brief explicitly defers (wear the web-builder v
 - Respect the accessibility guidance per image (meaningful alt text stating the depicted relationship, decorative flourishes hidden from assistive tech, captions adding interpretive context rather than repeating alt text) and the pacing/ratio guidance (chapter openers after heading+provenance before first paragraph; section images near the first conceptual turn).
 
 This is large — consider whether to orchestrate it into per-image or per-chapter child jobs rather than one monolithic PR.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T04:53:26Z
