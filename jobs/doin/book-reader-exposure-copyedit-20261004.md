@@ -105,3 +105,13 @@ against current `main` and flag the likely conflict in the PR body for
 whoever integrates last to resolve, the same way earlier concurrent book PRs
 handled overlapping chapter edits. No upstream repos, no garden fleet/budget
 config changes.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T04:33:10Z
