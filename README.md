@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T22:10:25Z_
+_As of 2026-10-04T22:23:56Z_
 
 ## Latest
 
-The gauntlets on [kriscendobot/minion.town#152](https://github.com/kriscendobot/minion.town/pull/152) and [kriscendobot/minion.town#154](https://github.com/kriscendobot/minion.town/pull/154) ground through their last rounds (fix 6 and panel 5), and a Claude-on-minion.town press run closed out. The oros-studio host remains dark — still stale since 2026-10-02T05:08Z with checkups piling up unclaimed and reset ops unacked — so someone needs to physically check the Mac/Docker Desktop/VM. Separately, production `minion-mcp` is crash-looping after the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy (missing vendored `@endo/claude`), and a fix-forward job has been posted to recover it before the Claude-CLI canary resumes — that canary also has several pending asks requiring the maintainer to personally complete OAuth/subscription linking on minion.town. On a lighter note, the illuminated edition of *Better Code and Gardens* shipped with all 25 plates and passing checks. The SturdyRef PR stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) has a merge-readiness summary ready for review, and stale-panel-coverage flags are waiting on [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407).
+The board's quiet since the last check — progress continued on the minion.town shell-to-js gauntlet for [kriscendobot/minion.town#154](https://github.com/kriscendobot/minion.town/pull/154) (part 2 completed and reported review-budget-reached after 6 panel/fix rounds, CI green but left for human review; part 3 moved from panel round 5 into fix round 5). Nothing else transitioned on the board, but the inbox has a lot for the maintainer: oros-studio has been unreachable for roughly 50 hours and needs a hands-on check (Mac sleep/Docker Desktop/VM); the minion.town Claude CLI production canary is stalled on several credential-granting steps only the maintainer can complete, and production `minion-mcp` is currently crash-looping after the [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy (missing `vendor` in the deploy tarball) — a fix-forward job has been posted. The SturdyRef stack (layers 3/4/6/7, PRs [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) got a detailed merge-readiness panel summary recommending merge order once lower layers land. *Better Code and Gardens* shipped its illuminated 2026-10-04 edition with all 25 plates live. Also worth noting: two stale-panel-coverage flags on [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) need a maintainer review decision, and a deadline-nudge watchdog reports it cannot push to the journal (ref-lock mismatch) — delivery of deadline warnings is currently broken.
 
 ## Parked for maintainer feedback
 
@@ -92,6 +92,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > scripts/jobs/receipt-watcher.sh
 > scripts/jobs/receipt-watcher.sh:97-101 treats GitHub primary-quota stderr as a generic transient and logs a 300s cooldown, though the 2026-10-02T19:45:23Z warning was followed by a 3599s primary-quota latch.
 > Detect primary quota before the generic transient path, request `api_primary_quota_secs`, and log the actual full quota cooldown; add a regression test for the adopted `gh_api_retry` latch.
+
+- `minion-town-shell-to-js-20261004-part2-gauntlet-review-budget-reached` — from gauntlet:minion-town-shell-to-js-20261004-part2-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-shell-to-js-20261004-part2-gauntlet-review-budget-reached.md)
+
+> INFO: Gauntlet minion-town-shell-to-js-20261004-part2-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
 - `20261004T202803Z-ea96d7` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T202803Z-ea96d7.md)
 
@@ -308,8 +312,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-04T21:11:56Z).
-> It was observed 29 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-04T22:22:02Z).
+> It was observed 30 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
@@ -353,7 +357,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 158.8M | $1094.29 _(notional, rate-card)_ | 62% of 256.0M (ok) |
+| Claude | 159.8M | $1102.82 _(notional, rate-card)_ | 62% of 256.0M (ok) |
 | Codex | 8.6M _(+225.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -382,17 +386,16 @@ worst fetch p95 9.605378s/45s (/home/kris/garden/.garden-state/dependabot-watche
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (2)
-- [`minion-town-shell-to-js-20261004-part2-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part2-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #152
-- [`minion-town-shell-to-js-20261004-part3-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #154
+### doin (1)
+- [`minion-town-shell-to-js-20261004-part3-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #154
 
-### tada (10935)
+### tada (10938)
+- [`minion-town-shell-to-js-20261004-part3-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part3-gauntlet-panel-5.md) — Cost
+- [`minion-town-shell-to-js-20261004-part2-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-gauntlet.md) — gauntlet minion-town-shell-to-js-20261004-part2-gauntlet — review budget reached
+- [`minion-town-shell-to-js-20261004-part2-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-gauntlet-fix-6.md) — Cost
 - [`claude-on-minion-town-press-20261004-220507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-220507.md) — Cost
 - [`minion-town-shell-to-js-20261004-part2-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part2-gauntlet-panel-6.md) — Cost
-- [`minion-town-shell-to-js-20261004-part3-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part3-gauntlet-fix-4.md) — Cost
-- [`minion-town-shell-to-js-20261004-part3-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-shell-to-js-20261004-part3-gauntlet-panel-4.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-44473901b67e`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-44473901b67e.md) — rolling-deploy canary probe — round trip OK
-- … and 10930 more
+- … and 10933 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
