@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: kriscendobot-minion-town-pr150-gauntlet
-priority: normal
-posted_by: fixer
-posted_at: 2026-10-04T16:01:51Z
+role: conductor
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-04T19:21:06Z cleared=none -->
 
 ---
 role: conductor
