@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T01:09:29Z_
+_As of 2026-10-04T01:11:23Z_
 
 ## Latest
 
@@ -158,7 +158,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_leader_journal.md)
 
-> Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/leader/journal: packs 1006 >= 1000; size=342695936B packs=1006 gc.log=0; automatic remedy=applied.
+> RECOVERED — the watchdog condition `journal-clone-oversized-_home_kris_garden2__garden_state_leader_journal` has CLEARED (first seen 2026-10-04T00:51:31Z, cleared 2026-10-04T01:10:34Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-clone-oversized-_home_kris_garden2__garden_state_leader_journal` cleared on endolin-garden2-5bcdff64.
 
 - `msg-oros-health-watch-20261003-092011-fd786ebcb1b6` — from gardener:oros-health-watch-20261003-092011, reply_to `oros-health-watch-20261003-092011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261003-092011-fd786ebcb1b6.md)
 
