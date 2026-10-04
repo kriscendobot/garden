@@ -40,3 +40,13 @@ Repository: `kriscendobot/garden-book`. Parent production sentinel: `book-illumi
 Send an updated durable-state message to `book-illumination-supervisor-20261004` at every handoff. Before ending a claim unfinished, post a dated successor of this supervisor. Scope remains `kriscendobot/garden-book` only: no upstream repos, no fleet or budget config. Ask the maintainer only for decisions that the brief, the review, the evidence, and the granted authority can't settle.
 
 Self-improvement: follow the standing skill at the end of every claim.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T06:01:26Z
