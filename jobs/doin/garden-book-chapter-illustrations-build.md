@@ -21,6 +21,7 @@ This is large — consider whether to orchestrate it into per-image or per-chapt
 <!-- garden-plain-retry-not-before: 2026-10-04T05:23:17Z -->
 
 <!-- garden-productive-cycle -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
