@@ -1,14 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T11:53:57Z_
+_As of 2026-10-04T11:55:07Z_
 
 ## Latest
 
-The headline is the illuminated edition of *Better Code and Gardens* going live: all 25 plates are in (10 chapter openers, 15 section figures, each captioned), the old title-page garden scene removed, built reproducibly and checked across screen sizes and color modes. Art landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11); a couple of minor cosmetic flaws (one book spine crossing a terrace edge, a slightly off-center dash) are noted but left as-is.
+The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in across 10 chapter openers and 15 section figures, each captioned, with the old title-page garden scene removed. The art landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and was integrated and published via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11); the build reproduces byte-for-byte and the live site was checked in a headless browser across screen sizes and light/dark mode, with only minor cosmetic nits noted (a book spine crossing a terrace edge, one off-center dash).
 
-Separately, the sturdyref stack across endojs/endo-but-for-bots got a consolidated panel summary: layers [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), and [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) are all CI-green drafts ready to merge once stack hygiene (frozen-base drift on the layers beneath them) is resolved — #1393 needs a retcon to regroup ~26 rework commits first. No PRs were touched; this is a merge-readiness readout awaiting a decision.
-
-The most pressing operational item: the **oros** host has been unreachable for roughly two days (heartbeat and sysop both stale since 2026-10-02), with 15 queued health-checkup jobs piling up unclaimed and several unacked sysop ops behind it — this needs a person at the machine to check Docker Desktop/sleep state/VM. There's also a stale-panel-head flag on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) (head moved past its last review, re-review needed before any further action), and the comment-watcher on kriscendobot/ocapn appears blind and needs a jq/gh check.
+Oros remains unreachable going on 50 hours — heartbeat and sysop activity have been stale since 2026-10-02T05:08Z, 13 health-checkup jobs are stacked unclaimed in todo, and the host's sysop queue has several unacked ops piling up behind it; this needs someone at the machine to check Docker Desktop, sleep state, and the VM. Separately, the SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back with a merge-order recommendation (#1392 first, as-is; #1393 after a retcon; #1396/#1397 as-is pending the layer below) and flagged stack hygiene drift underneath. The budget accountant also re-sliced next week's allocation, adding a small `garden-book` arc for future editions. A stale-panel notice is open on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) awaiting an explicit re-review decision.
 
 ## Parked for maintainer feedback
 
@@ -214,7 +212,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.8M | $692.98 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Claude | 104.8M | $693.21 _(notional, rate-card)_ | 41% of 256.0M (ok) |
 | Codex | 7.4M _(+207.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -240,16 +238,16 @@ worst fetch p95 5.085034s/45s (/home/kris/garden/.garden-state/inbox-list/journa
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`improve-approval-reconciler-primary-quota`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-approval-reconciler-primary-quota.md) — ---
+### doin (0)
+(none)
 
-### tada (10827)
+### tada (10828)
+- [`improve-approval-reconciler-primary-quota`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-approval-reconciler-primary-quota.md) — Cost
 - [`oros-health-watch-20261004-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-100509.md) — Cost
 - [`claude-on-minion-town-completion-press-20261004-100509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-completion-press-20261004-100509.md) — Panel-head freshness
 - [`claude-on-minion-town-press-20261004-093512`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-093512.md) — Panel-head freshness
 - [`canary-probe-endolin-garden2-5bcdff64-893ccdaa1a13`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-893ccdaa1a13.md) — rolling-deploy canary probe — round trip OK
-- [`improve-gauntlet-terminal-receipt-cooldown-noise`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/improve-gauntlet-terminal-receipt-cooldown-noise.md) — Cost
-- … and 10822 more
+- … and 10823 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
