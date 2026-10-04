@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T10:26:44Z_
+_As of 2026-10-04T10:51:02Z_
 
 ## Latest
 
-The headline story is the illuminated edition of *Better Code and Gardens* going live — all 25 plates (10 chapter openers, 15 section figures) landed with captions, the placeholder garden scene removed from the title, art reviewed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) (merged 32cf234) and integrated via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11) (merged 636a80f), with a byte-reproducible build, 30/30 tests, and a manual phone/desktop, light/dark visual pass. Two small cosmetic flaws (a crossed book spine, an off-center dash in the chapter 9 plate) were noted and left as-is. The accountant also re-sliced the weekly budget at the maintainer's request, adding a new `garden-book` arc (5M) for future editions.
-
-The SturdyRef review stack (endojs/endo-but-for-bots [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) needs a merge decision: all four are green drafts whose heads outran their last panel, but the unreviewed deltas are small; #1392 is ready to merge as-is, #1393 needs a retcon to regroup ~26 rework commits first, and #1396/#1397 can follow once lower layers land — stack hygiene (frozen bases drifted under #1392 and #1393) has to be resolved layer by layer. Also needing attention: [endojs/endo-but-for-bots#1125](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)'s comment-provenance gap is recurring (footer missing model/harness info, fail-open), and [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has a stale panel head awaiting an explicit "run the gauntlet" or maintainer review call.
-
-Operationally, the oros-studio host has been unreachable for ~50 hours (heartbeat/sysop stale since 2026-10-02, derotated, 13+ health-checkup jobs piling up unclaimed) and needs a person at the machine to check Docker Desktop/sleep/VM state; the endojs/endo-but-for-bots ironhorse-panic-host-call gauntlet halted on a declined fix; and a comment-watcher self-test failure on kriscendobot/ocapn suggests that watcher may be silently blind.
+The illuminated edition of *Better Code and Gardens* shipped: all 25 plates (10 chapter openers, 15 section figures) are in with captions, the old title-page garden scene is gone, the build reproduces byte-for-byte, 30/30 tests pass, and a headless-browser check across phone/desktop and light/dark found no layout or legibility problems — live at the published ocap.site URL, via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). A full panel review landed on the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)): all four are CI-green drafts recommended to merge, with #1392 ready first and #1393 needing a retcon first, but the stack sits on two still-draft lower layers (#774, #1391) whose frozen bases have drifted and need re-weaving before anything lands. The accountant re-sliced next week's budget to add a `garden-book` arc (5M) for future editions. The main open problem remains host **oros-studio-garden-ce242c49**, unreachable for roughly two days (heartbeat and sysop stale since 2026-10-02T05:08Z) with 14 health-checkup jobs stacking up unclaimed — it needs a person at the machine to check Docker Desktop, sleep state, and the VM. [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has drifted past its last panel review and needs a fresh look before merge.
 
 ## Parked for maintainer feedback
 
@@ -36,11 +32,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #121 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T09:47:07Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 121 times; this is ONE
-> coalesced notice that updates in place, not 121 messages. Latest detail:
+> WATCHDOG notice — occurrence #142 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T10:50:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 142 times; this is ONE
+> coalesced notice that updates in place, not 142 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 189511s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 193286s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -214,7 +210,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 104.1M | $690.36 _(notional, rate-card)_ | 41% of 256.0M (ok) |
+| Claude | 104.2M | $690.60 _(notional, rate-card)_ | 41% of 256.0M (ok) |
 | Codex | 7.3M _(+206.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
