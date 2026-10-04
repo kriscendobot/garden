@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T06:27:30Z_
+_As of 2026-10-04T06:31:56Z_
 
 ## Latest
 
-The headline item is the illuminated edition of *Better Code and Gardens* going live — all 25 plates in place as chapter openers and section figures, each captioned, built from [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) (art) and integrated via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11); the build reproduces byte-for-byte and passes 30/30 tests, with only cosmetic rough edges left (a crossing book spine and an off-center dash in one plate). Meanwhile the deterministic SturdyRef-stack review landed a clear sequencing verdict for the maintainer: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) is ready to merge as-is once its own base lands, [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) needs a retcon first, and [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) are clean but waiting on layer 5. One gauntlet halted outright — the ironhorse panic-host-call PR's fix stage was declined, not just failed, and needs a maintainer look rather than an auto-retry. Operationally, the oros-studio host remains offline for about two days (heartbeat and sysop both stale ~46h) with a backlog of unclaimed health-checkups piling up on the board, and a budget re-slice landed a new `garden-book` arc allocation for future editions.
+The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in across 10 chapter openers and 15 section figures, each captioned, with the old title-page garden scene removed. The build reproduces byte-for-byte and was verified on phone and desktop layouts in both light and dark mode; 30/30 tests pass. Two small cosmetic flaws remain disclosed (a book spine crossing a terrace edge, an off-center dash) but nothing blocks the release. On [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) → [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) → [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) → [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397), the SturdyRef stack panel came back clean — all four are low-risk and ready to merge once the two layers beneath them land and a retcon regroups #1393's rework commits — but the stack needs a weave to fix drifted bases before any of that can happen. Elsewhere, oros-studio-garden-ce242c49 has been offline for over two days and is being skipped by rolling deploy, and a separate FIX stage on the ironhorse-panic-host-call gauntlet halted after an explicit failed/declined report, both awaiting a maintainer look.
 
 ## Parked for maintainer feedback
 
@@ -110,11 +110,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-04T06:21:08Z).
-> It was observed 3 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #4 (first seen 2026-10-04T05:15:32Z, latest 2026-10-04T06:30:30Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
+> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 969 of 969 clone(s) on consecutive ticks.
 
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
@@ -190,8 +190,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.8M | $648.94 _(notional, rate-card)_ | 37% of 256.0M (ok) |
-| Codex | 6.8M _(+158.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 95.9M | $651.89 _(notional, rate-card)_ | 37% of 256.0M (ok) |
+| Codex | 6.8M _(+159.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
