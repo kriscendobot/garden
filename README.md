@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T07:14:20Z_
+_As of 2026-10-04T07:24:36Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* published today: all 25 plates (10 chapter openers, 15 section figures, each captioned) landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), with a byte-reproducible build verified live across light/dark and phone/desktop viewports. A follow-on supervisor is now running a second production (a review-economics chapter/section drawn from real garden data) through clean → draft → fix on garden-book PR #12.
+The book-equilibrium gauntlet advanced a stage on [kriscendobot/garden-book#12](https://github.com/kriscendobot/garden-book/pull/12): the clean stage and the first fix round both completed, and panel review is now underway with rounds 1 and 2 running concurrently against the data-draft and stylize branches.
 
-Oros remains unreachable going on 50 hours (heartbeat stale since 2026-10-02T05:08:36Z), 13 health-checkup jobs are stuck unclaimed, and the sysop queue has 9 unacked ops piling up — this needs someone at the machine to check Docker Desktop/sleep/VM state. Separately, the SturdyRef stack review flagged layer hygiene issues (stale bases under layers 3/4/6/7) needing a weave before merge, and a stale-panel-coverage notice is open on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) awaiting an explicit "run the gauntlet" or maintainer review call.
+Separately, the illuminated edition of *Better Code and Gardens* shipped and went live — all 25 plates in place as chapter and section art, verified byte-reproducible and checked visually across screen sizes and color modes, via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). Worth a maintainer look: oros has been unreachable for roughly 50 hours (heartbeat and sysop both stale since 2026-10-02) and needs a hands-on check of Docker Desktop/sleep/VM state; the SturdyRef stack (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) has a full panel merge recommendation awaiting a maintainer merge decision; and [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has a stale panel (head moved past the last reviewed commit) that needs an explicit "run the gauntlet" or a maintainer review call before it can proceed.
 
 ## Parked for maintainer feedback
 
@@ -204,8 +204,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 97.9M | $658.45 _(notional, rate-card)_ | 38% of 256.0M (ok) |
-| Codex | 7.0M _(+180.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 97.8M | $653.52 _(notional, rate-card)_ | 38% of 256.0M (ok) |
+| Codex | 7.0M _(+186.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -229,18 +229,18 @@ worst fetch p95 4.648168s/45s (unknown); 2 open notice(s); checker healthy
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (4)
-- [`book-equilibrium-stylize-20261004-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-stylize-20261004-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #12
 - [`book-equilibrium-data-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-data-supervisor-20261004.md) — Supervise production 2: a review-economics chapter/section, from real garden ...
-- [`book-equilibrium-data-draft-20261004-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-data-draft-20261004-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/garden-book PR #12
+- [`book-equilibrium-stylize-20261004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-stylize-20261004-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/garden-book PR #12
+- [`book-equilibrium-data-draft-20261004-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-data-draft-20261004-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/garden-book PR #12
 - [`book-equilibrium-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-integrate-20261004.md) — Integrate the finished review-economics charts into the book
 
-### tada (10807)
+### tada (10809)
+- [`book-equilibrium-stylize-20261004-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-stylize-20261004-gauntlet-clean.md) — Cost
+- [`book-equilibrium-data-draft-20261004-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-data-draft-20261004-gauntlet-fix-1.md) — Fix round 1 report: kriscendobot/garden-book PR #12
 - [`book-equilibrium-stylize-20261004-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-stylize-20261004-gauntlet-viability.md) — Cost
 - [`daily-progress-summary-20261004-070507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/daily-progress-summary-20261004-070507.md) — Cost
 - [`book-equilibrium-stylize-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-stylize-20261004.md) — Panel-head freshness
-- [`oros-health-watch-20261004-070507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-070507.md) — Cost
-- [`book-equilibrium-data-draft-20261004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-data-draft-20261004-gauntlet-panel-1.md) — Cost
-- … and 10802 more
+- … and 10804 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
