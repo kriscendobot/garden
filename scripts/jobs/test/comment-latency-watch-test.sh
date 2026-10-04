@@ -45,6 +45,7 @@ run_report() {
   env GARDEN_STATE="$STATE" GARDEN_COMMENT_LATENCY_STATE="$STATE/latency" \
     GARDEN_API_COOLDOWN_DIR="$COOLDOWN" \
     GARDEN_COMMENT_LATENCY_NOW_EPOCH="$NOW" GARDEN_COMMENT_LATENCY_SOURCE="$SOURCE" \
+    GARDEN_COMMENT_LATENCY_SOURCE_LABEL=example/repo \
     GARDEN_COMMENT_LATENCY_REACTIONS="$REACTION_STUB" \
     GARDEN_COMMENT_LATENCY_ASSUME_OPEN=1 \
     GARDEN_COMMENT_LATENCY_TRUSTED_FILE="$TRUSTED" \
@@ -55,6 +56,7 @@ run_watch() {
   env GARDEN_STATE="$STATE" GARDEN_COMMENT_LATENCY_STATE="$STATE/latency" \
     GARDEN_API_COOLDOWN_DIR="$COOLDOWN" \
     GARDEN_COMMENT_LATENCY_NOW_EPOCH="$NOW" GARDEN_COMMENT_LATENCY_SOURCE="$SOURCE" \
+    GARDEN_COMMENT_LATENCY_SOURCE_LABEL=example/repo \
     GARDEN_COMMENT_LATENCY_REACTIONS="$REACTION_STUB" \
     GARDEN_COMMENT_LATENCY_ASSUME_OPEN=1 \
     GARDEN_COMMENT_LATENCY_NOTICE="$NOTICE_STUB" \
@@ -194,7 +196,14 @@ chmod +x "$QUOTA_SOURCE"
 : > "$REACTIONS"; : > "$NOTICES"; rm -rf "$STATE/latency" "$COOLDOWN"
 SOURCE_SAVED="$SOURCE"; SOURCE="$QUOTA_SOURCE"
 t0="$(date +%s)"
-run_watch 2>/dev/null || { echo 'FAIL: primary quota failed the tick'; exit 1; }
+QUOTA_ERR="$TR/quota.err"
+run_watch 2>"$QUOTA_ERR" || { echo 'FAIL: primary quota failed the tick'; exit 1; }
+[ "$(grep -c 'WARN:.*primary quota exhaustion' "$QUOTA_ERR")" -eq 1 ] \
+  || { echo 'FAIL: primary quota did not emit exactly one coordinator warning'; cat "$QUOTA_ERR"; exit 1; }
+grep -q 'latency source for example/repo hit GitHub primary quota exhaustion' "$QUOTA_ERR" \
+  || { echo 'FAIL: primary quota warning lacks repository context'; cat "$QUOTA_ERR"; exit 1; }
+grep -q 'gh: API rate limit exceeded' "$QUOTA_ERR" \
+  && { echo 'FAIL: primary quota relayed the source diagnostic'; cat "$QUOTA_ERR"; exit 1; }
 [ "$(sed -n 's/^outcome: *//p' "$STATE/latency/heartbeat")" = cooldown ] || { echo 'FAIL: no cooldown heartbeat on primary quota'; exit 1; }
 expiry="$(sed -n 1p "$COOLDOWN/marker" 2>/dev/null || echo 0)"
 [ "$expiry" -ge $(( t0 + 3600 )) ] || { echo 'FAIL: primary quota did not latch the primary-quota-duration cooldown'; exit 1; }
