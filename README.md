@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T21:20:05Z_
+_As of 2026-10-04T21:23:31Z_
 
 ## Latest
 
-Board activity since the last bulletin was narrow: the minion.town shell-to-js orchestration pressed its parts 2 and 3 gauntlets forward another round each (part 2 into fix round 5, part 3 into panel round 4), and a self-heal fix for the garden-mirror-closer gh-api empty-stderr handling landed. Part 1 of that orchestration hit its 6-round review budget without converging and is parked for a human merge/review decision on its PR.
-
-The bigger story is in the inbox, not the board: oros-studio has been unreachable for roughly 50 hours (heartbeat and sysop-log both stale since 2026-10-02T05:0x Z), with checkups piling up unclaimed and reset-failed ops queued but unacked — this needs someone at the machine to check power/sleep, Docker Desktop, and the VM. Separately, the minion.town production Claude CLI canary broke the live `minion-mcp` service: the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy crash-loops because the build omits the `vendor` directory that `@endo/claude` symlinks into, and rollback restored the old artifact but not the old unit config; a fix-forward successor job has been posted to recover availability before any canary work resumes. The canary track also generated several credential/OAuth requests (subscription linking, GitHub-federated MCP login) that are correctly parked as maintainer-only actions, including one flagged as a possible phishing/social-engineering pattern worth a direct look. On the review side, a sturdyref PR stack (layers 3/4/6/7 — [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is ready for a merge decision with recommended dispositions (merge #1392 and #1397 as-is, #1393 after a retcon, #1396 after #1394 lands), still gated on the lower layers landing first. On the garden-book side, the illuminated edition published successfully with all 25 plates live and verified in both light/dark and mobile/desktop views.
+A busy day with little board motion since the last snapshot: only the shared-state fix `improve-mirror-closer-shared-state-failure` moved into doin, while the minion.town shell-to-js gauntlet continues its panel/fix rounds (now part2 fix-5, part3 panel-4) and the SturdyRef stack (layers [1392](https://github.com/endojs/endo-but-for-bots/issues/1392)/[1393](https://github.com/endojs/endo-but-for-bots/issues/1393)/[1396](https://github.com/endojs/endo-but-for-bots/issues/1396)/[1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) got a thorough juror summary flagging merge-readiness per layer. The illuminated edition of *Better Code and Gardens* shipped (all 25 plates integrated and published). The dominant issue is **oros-studio, unreachable for ~50 hours** — heartbeat and sysop-log both stale since 2026-10-02, 18 checkup jobs piling up unclaimed, and a stream of repeated watcher messages recommending someone check the Mac/Docker Desktop/VM in person; worth pausing that schedule until it's resolved. Separately, a gardener attempted to set up a production Claude CLI connection on minion.town via `claude setup-token` and an OAuth link — the proxy correctly refused these as maintainer-only credential actions (and flagged one as a possible phishing/social-engineering attempt), and relatedly **production `minion-mcp` is now crash-looping** after the [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/issues/150) deploy (missing `vendor` dir in the deploy tarball), with a fix-forward job already posted. Budget is trending down (Claude workers throttled 3→2 and 2→1 on two hosts as weekly quota approaches its cap), and two stale-panel-head notices ([minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407)) await an explicit maintainer re-review call.
 
 ## Parked for maintainer feedback
 
@@ -351,8 +349,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 151.4M | $1030.85 _(notional, rate-card)_ | 59% of 256.0M (ok) |
-| Codex | 8.5M _(+225.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 151.5M | $1031.52 _(notional, rate-card)_ | 59% of 256.0M (ok) |
+| Codex | 8.5M _(+225.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -380,9 +378,10 @@ worst fetch p95 5.996244s/45s (/home/kris/garden/.garden-state/mentor/journal); 
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (2)
+### doin (3)
 - [`minion-town-shell-to-js-20261004-part3-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part3-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #154
 - [`minion-town-shell-to-js-20261004-part2-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-shell-to-js-20261004-part2-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #152
+- [`improve-mirror-closer-shared-state-failure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-mirror-closer-shared-state-failure.md) — ---
 
 ### tada (10928)
 - [`self-heal-fix-garden-mirror-closer-gh-api-admit-empty-stderr`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/self-heal-fix-garden-mirror-closer-gh-api-admit-empty-stderr.md) — Cost
