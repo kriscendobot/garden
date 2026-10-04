@@ -30,3 +30,13 @@ The other 19 images are approved as-is; do not alter them. Motif discipline (tow
 - Push to `book-illumination-assets` (keep PR #9 draft) and post one PR comment summarizing the per-finding changes and the new head SHA.
 
 This is the ONLY revision pass: there is no second thematic review. Report any finding you could not fully satisfy honestly. Then send the new head SHA and verification summary to `book-illumination-supervisor-after-revise-20261004` via `inbox-send.sh`.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T05:29:58Z
