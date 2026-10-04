@@ -209,17 +209,18 @@ slug_owner_lc() { printf '%s' "${1%%-*}" | tr '[:upper:]' '[:lower:]'; }
 # marker) and logs NOTHING: the caller coalesces the
 # warning through the inconclusive cooldown below. Overridable via
 # GARDEN_FORKWATCH_UPSTREAM_CHECK (a command run as `<cmd> <owner> <name>` whose
-# exit status is used verbatim and whose output is classified the same way) so
+# exit status is used verbatim — 2 or GARDEN_OFFLINE_RC meaning inconclusive —
+# and whose output is classified the same way) so
 # the test harness can drive it with no GitHub. The production probe goes through
 # gh_api_retry: besides absorbing a transient blip, that helper admits the request
 # under the host-shared GitHub API cooldown lock and latches primary-quota
 # refusals before another poller can issue a doomed request.
 upstream_exists() {
   local owner="$1" name="$2" out rc detail
-  UPSTREAM_FAIL_CLASS=""; UPSTREAM_FAIL_DETAIL=""; UPSTREAM_FAIL_SILENT=""
+  UPSTREAM_FAIL_CLASS=""; UPSTREAM_FAIL_DETAIL=""; UPSTREAM_FAIL_SILENT=""; UPSTREAM_FAIL_QUIET=""
   if [ -n "${GARDEN_FORKWATCH_UPSTREAM_CHECK:-}" ]; then
     if out="$("$GARDEN_FORKWATCH_UPSTREAM_CHECK" "$owner" "$name" 2>&1)"; then rc=0; else rc=$?; fi
-    [ "$rc" -eq 2 ] || return "$rc"
+    [ "$rc" -eq 2 ] || [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] || return "$rc"
   elif out="$(gh_api_retry "repos/$owner/$name" --jq .id 2>&1)"; then
     return 0
   else
@@ -230,7 +231,19 @@ upstream_exists() {
   fi
   UPSTREAM_FAIL_CLASS="$(probe_fail_class "$out")"
   detail="$(printf '%s' "$out" | tr -s '[:space:]' ' ' | cut -c1-180)"
-  if [ -n "$detail" ]; then
+  # The shared temporary-unavailable code (GARDEN_OFFLINE_RC, EX_TEMPFAIL 75) with
+  # no diagnostic is a host-wide outage or cooldown that its owner has already
+  # announced: gh_api_retry returns it, silently, for every caller after the first
+  # to meet a live gh-api latch. It is not an unknown failure, so it gets its own
+  # host-wide class, a quiet base-length window, and no escalation (2026-10-04:
+  # one such tick logged an "unclassified" WARN deferring all 15 forks).
+  if [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] && [ "$UPSTREAM_FAIL_CLASS" = unclassified ]; then
+    UPSTREAM_FAIL_CLASS=offline
+    [ -n "$detail" ] || UPSTREAM_FAIL_QUIET=1
+  fi
+  if [ -n "$UPSTREAM_FAIL_QUIET" ]; then
+    UPSTREAM_FAIL_DETAIL="rc=$rc (temporarily unavailable; host-wide outage/cooldown)"
+  elif [ -n "$detail" ]; then
     UPSTREAM_FAIL_DETAIL="rc=$rc: $detail"
   else
     UPSTREAM_FAIL_DETAIL="rc=$rc (no output)"
@@ -385,6 +398,7 @@ declare -a ARMED_DEAD=()   # the subset of DEAD that is currently armed (retirem
 ARMED_PROBED=0             # armed forks actually probed this tick (breaker denominator)
 declare -a DEFERRED=()     # forks left unprobed/undecided by an inconclusive condition
 declare -a WARNED=()       # "class: detail" of each cooldown THIS tick opened
+declare -a QUIETED=()      # quiet (offline) cooldowns THIS tick opened: info, not WARN
 HALTED=""                  # a host-wide inconclusive class stopped probing this tick
 PREEXISTING_WINDOW=""
 global_cooldown_live && PREEXISTING_WINDOW=1
@@ -399,6 +413,13 @@ note_inconclusive() {
     HALTED="$key"
     mkdir -p "$PROBE_COOLDOWN_DIR"
     printf '%s\n' "$1" > "$PROBE_COOLDOWN_DIR/last-tripper"
+  fi
+  if [ -n "$UPSTREAM_FAIL_QUIET" ]; then
+    # Already-announced host-wide outage/cooldown: a fixed base window, no WARN,
+    # and the silent-failure escalation level is left exactly as it was.
+    open_probe_cooldown "$key" "$1" "$UPSTREAM_FAIL_DETAIL" "$window" \
+      && QUIETED+=("$key (cooldown ${OPENED_COOLDOWN_SECS}s)")
+    return 0
   fi
   [ -z "$UPSTREAM_FAIL_SILENT" ] || window="$(next_silent_probe_cooldown)"
   open_probe_cooldown "$key" "$1" "$UPSTREAM_FAIL_DETAIL" "$window" \
@@ -484,6 +505,9 @@ if [ "${#WARNED[@]}" -gt 0 ]; then
     window="stopped probing for this tick"
   fi
   log "WARN: upstream checks inconclusive [$(IFS=';'; printf '%s' "${WARNED[*]}")] — $window; deferring ${#DEFERRED[@]} fork(s) (neither armed, tombstoned, nor retired): ${DEFERRED[*]}"
+fi
+if [ "${#WARNED[@]}" -eq 0 ] && [ "${#QUIETED[@]}" -gt 0 ]; then
+  log "upstream checks temporarily unavailable (rc=$GARDEN_OFFLINE_RC, host-wide outage/cooldown) [$(IFS=';'; printf '%s' "${QUIETED[*]}")]; deferring ${#DEFERRED[@]} fork(s) until it clears"
 fi
 
 # A tick whose probing was cut short by a host-wide inconclusive condition never

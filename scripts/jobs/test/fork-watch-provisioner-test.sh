@@ -32,12 +32,17 @@
 #      quota 429 arms the host-shared cooldown and suppresses a sibling poller
 #   N. silent rc=2 probes retain their status and use a bounded escalating
 #      cooldown that resets after a successful probe
+#   O. a silent rc=75 (GARDEN_OFFLINE_RC) probe is a quiet host-wide outage:
+#      class `offline`, ONE probe, no WARN, a fixed base window (no escalation),
+#      quiet deferral while live, fail-open, and a normal retry once it expires
 #
 # Usage: fork-watch-provisioner-test.sh
 set -euo pipefail
 # Explicit positive test-context sentinel: protects this standalone suite even when
 # invoked outside the test-tree entrypoint heuristic.
 export GARDEN_TEST=1
+# The fleet git wrapper skips "fresh" fetches; fixture reads must see every push.
+export GARDEN_FETCH_MAX_AGE_OVERRIDE=0
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 BRANCH=journal2
@@ -109,7 +114,7 @@ cat > "$CHECK" <<'EOS'
 [ -n "${PROBELOG:-}" ] && printf '%s/%s\n' "$1" "$2" >> "$PROBELOG"
 if [ -f "$UNKNOWNLIST" ] && grep -qxF "$1/$2" "$UNKNOWNLIST"; then
   [ -n "${UNKNOWNMSG:-}" ] && printf '%s\n' "$UNKNOWNMSG" >&2
-  exit 2
+  exit "${UNKNOWNRC:-2}"
 fi
 if [ -f "${DENIEDLIST:-}" ] && grep -qxF "$1/$2" "$DENIEDLIST"; then
   echo "gh: Repository access blocked (HTTP 403)" >&2
@@ -134,7 +139,7 @@ run_prov() {  # run_prov [materialize] [logfile]
       FLAKYLIST="$FLAKYLIST" FLAKYSEEN="$FLAKYSEEN" \
       GARDEN_FORKWATCH_LIVENESS_INTERVAL="${GARDEN_FORKWATCH_LIVENESS_INTERVAL:-0}" \
       GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS="${GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS:-0}" \
-      UNKNOWNMSG="${UNKNOWNMSG:-}" DENIEDLIST="$DENIEDLIST" \
+      UNKNOWNMSG="${UNKNOWNMSG:-}" UNKNOWNRC="${UNKNOWNRC:-2}" DENIEDLIST="$DENIEDLIST" \
       GARDEN_NO_MAINTAINER_ALERT=1 \
       "$JOBS/fork-watch-provisioner.sh" >/dev/null 2>"${2:-/dev/null}"
 }
@@ -556,6 +561,47 @@ GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=10 run_prov
   && ok "silent cooldown restarts at the base after success" || bad "post-success silent cooldown did not reset"
 [ -n "$(jtip repos/kriscendobot-zeta)" ] && [ -z "$(jtip watch-optout/kriscendobot-zeta)" ] \
   && ok "silent inconclusive probes remain fail-open" || bad "silent probe armed/tombstoned/retired a fork"
+
+# ============================================================================
+hr; echo "O — a silent rc=75 probe is a quiet, bounded host-wide outage"; hr
+rm -rf "$TR/state/fork-watch/inconclusive-cooldown"
+printf '%s\n' kriscendobot/flaky kriscendobot/inconclusive kriscendobot/zeta > "$UNKNOWNLIST"
+UNKNOWNMSG=""; : > "$PROBELOG"
+OLOG="$TR/o.log"
+UNKNOWNRC=75 GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=10 run_prov 0 "$OLOG"
+[ "$(wc -l < "$PROBELOG")" -eq 1 ] \
+  && ok "rc=75 halts probing after one probe" || bad "rc=75 probed $(wc -l < "$PROBELOG") forks"
+[ -f "$COOLDIR/offline" ] && [ ! -e "$COOLDIR/unclassified" ] \
+  && ok "rc=75 is classed offline, not unclassified" || bad "rc=75 class wrong: $(ls "$COOLDIR")"
+[ "$(sed -n '4p' "$COOLDIR/offline")" = 10 ] \
+  && ok "rc=75 opens the base cooldown" || bad "rc=75 cooldown was not 10s"
+[ ! -e "$COOLDIR/silent-failures" ] \
+  && ok "rc=75 does not advance silent escalation" || bad "rc=75 advanced silent escalation"
+! grep -q 'WARN' "$OLOG" \
+  && ok "rc=75 logs no WARN" || bad "rc=75 warned: $(cat "$OLOG")"
+grep -q 'temporarily unavailable (rc=75' "$OLOG" \
+  && ok "rc=75 deferral logs one informational line" || bad "rc=75 info line missing: $(cat "$OLOG")"
+# A live window defers every later tick with no probe and no output.
+: > "$PROBELOG"; : > "$OLOG"
+UNKNOWNRC=75 GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=10 run_prov 0 "$OLOG"
+[ ! -s "$PROBELOG" ] && ! grep -q 'WARN\|unavailable' "$OLOG" \
+  && ok "live offline window defers quietly without probing" || bad "live offline window probed/logged"
+# Expired: retry once, reopen at the SAME base length (bounded, no doubling).
+printf '0\nexpired\nrc=75\n10\n' > "$COOLDIR/offline"
+: > "$PROBELOG"; : > "$OLOG"
+UNKNOWNRC=75 GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=10 run_prov 0 "$OLOG"
+[ "$(wc -l < "$PROBELOG")" -eq 1 ] && [ "$(sed -n '4p' "$COOLDIR/offline")" = 10 ] \
+  && ! grep -q WARN "$OLOG" \
+  && ok "expired offline window retries once and reopens at the base length" \
+  || bad "offline retry not bounded (probes=$(wc -l < "$PROBELOG") secs=$(sed -n '4p' "$COOLDIR/offline"))"
+[ -n "$(jtip repos/kriscendobot-zeta)" ] && [ -z "$(jtip watch-optout/kriscendobot-zeta)" ] \
+  && ok "offline probes remain fail-open" || bad "offline probe armed/tombstoned/retired a fork"
+# Recovery: the outage clears, the next expired tick probes everything again.
+printf '0\nexpired\nrc=75\n10\n' > "$COOLDIR/offline"
+: > "$UNKNOWNLIST"; : > "$PROBELOG"
+GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=10 run_prov
+[ "$(wc -l < "$PROBELOG")" -gt 1 ] && [ ! -e "$COOLDIR/offline" ] \
+  && ok "after the outage clears the next tick probes normally" || bad "post-outage tick did not resume probing"
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
