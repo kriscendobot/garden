@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-10-04T16:29:28Z_
+_As of 2026-10-04T16:34:43Z_
 
 ## Latest
 
-Oros remains unreachable for roughly two days now — heartbeat, sysop-log, and fleet health have all been stale since 2026-10-02 early morning, with repeated unclaimed checkups piling up in todo and host ops stuck unacked; this needs a person at the machine to check power/sleep, Docker Desktop, and the VM. Meanwhile *Better Code and Gardens* shipped its illuminated edition — all 25 plates in as chapter openers and section figures, byte-reproducible build, 30/30 tests, verified in a headless browser across screen sizes and themes, with art merged via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integration via [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). The SturdyRef review stack (layers 3/4/6/7 — [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) got a full panel summary: #1392 and #1397 are ready to merge as-is, #1393 needs a retcon to regroup ~26 rework commits before merging, and #1396 waits on layer 5 landing first — none need a redesign. Separately, [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) has stale panel coverage after a new push and needs either an explicit "run the gauntlet" request or a maintainer review decision, and the week's budget was re-sliced (new `garden-book` arc added at 5M) per kriskowal's authorization.
+The only board motion since the last bulletin was the gauntlet fix-round for [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) (enabling the Claude CLI provider in production) completing, with its production-enable verification still parked pending that PR. Otherwise the picture is dominated by the ongoing oros-studio host outage, now past 50 hours unreachable with checkups piling up unclaimed and host ops stuck unacked behind a dead sysop — still needs someone physically at the machine. On the brighter side, the illuminated edition of *Better Code and Gardens* shipped and is live, with all 25 plates captioned and verified across screen sizes. The panel also delivered a full merge recommendation for the four-layer SturdyRef stack (issues [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) — three merge-as-is, one needs a retcon — pending stack hygiene on the layers below.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 7d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 16d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 22d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 30d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 31d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 32d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 32d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 33d)
@@ -230,7 +230,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 111.8M | $729.98 _(notional, rate-card)_ | 44% of 256.0M (ok) |
+| Claude | 111.9M | $730.46 _(notional, rate-card)_ | 44% of 256.0M (ok) |
 | Codex | 7.6M _(+208.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -257,16 +257,16 @@ worst fetch p95 6.355495s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`kriscendobot-minion-town-pr150-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr150-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #150
+### doin (0)
+(none)
 
-### tada (10848)
+### tada (10849)
+- [`kriscendobot-minion-town-pr150-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-fix-1.md) — Cost
 - [`claude-on-minion-town-completion-press-20261004-162011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-completion-press-20261004-162011.md) — Cost
 - [`oros-health-watch-20261004-162011`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/oros-health-watch-20261004-162011.md) — Cost
 - [`kriscendobot-minion-town-pr150-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-panel-1.md) — Cost
 - [`kriscendobot-minion-town-pr150-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/kriscendobot-minion-town-pr150-gauntlet-clean.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-59cef5bd7aa1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-59cef5bd7aa1.md) — rolling-deploy canary probe — round trip OK
-- … and 10843 more
+- … and 10844 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
