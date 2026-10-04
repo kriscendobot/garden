@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T06:31:56Z_
+_As of 2026-10-04T06:46:16Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* published today: all 25 plates are in across 10 chapter openers and 15 section figures, each captioned, with the old title-page garden scene removed. The build reproduces byte-for-byte and was verified on phone and desktop layouts in both light and dark mode; 30/30 tests pass. Two small cosmetic flaws remain disclosed (a book spine crossing a terrace edge, an off-center dash) but nothing blocks the release. On [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) → [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) → [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) → [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397), the SturdyRef stack panel came back clean — all four are low-risk and ready to merge once the two layers beneath them land and a retcon regroups #1393's rework commits — but the stack needs a weave to fix drifted bases before any of that can happen. Elsewhere, oros-studio-garden-ce242c49 has been offline for over two days and is being skipped by rolling deploy, and a separate FIX stage on the ironhorse-panic-host-call gauntlet halted after an explicit failed/declined report, both awaiting a maintainer look.
+The book-equilibrium chapter draft gauntlet is moving: it cleared viability and clean, and the data-draft job cycled back from doin to todo for another pass while its visualize sibling and supervisor job continue in doin. Separately, the illuminated edition of *Better Code and Gardens* published live, with all 25 plates captioned and the old title-page garden scene removed, landing via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11).
+
+Worth a look: a maintainer message flags stale panel coverage on [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) — its head moved past the last-reviewed commit, so it's parked awaiting an explicit "run the gauntlet" or a manual review call. There's also a detailed panel summary on the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) → [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) → [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) → [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) recommending merge order once their stacked bases are woven, and a new budget re-slice added a `garden-book` arc. Several infrastructure watchdogs are open (oros host offline/unreachable, journal contention overruns, a blind comment-watcher on kriscendobot/ocapn) but none has blocked work.
 
 ## Parked for maintainer feedback
 
@@ -28,11 +30,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #41 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T05:44:05Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 41 times; this is ONE
-> coalesced notice that updates in place, not 41 messages. Latest detail:
+> WATCHDOG notice — occurrence #61 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T06:44:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 61 times; this is ONE
+> coalesced notice that updates in place, not 61 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 174925s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 178526s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -116,6 +118,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 969 of 969 clone(s) on consecutive ticks.
 
+- `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-063506, reply_to `claude-on-minion-town-press-20261004-063506` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
+
+> Stale panel coverage for completed job `claude-on-minion-town-press-20261004-063506`: [https://github.com/kriscendobot/minion.town/pull/148](https://github.com/kriscendobot/minion.town/pull/148) moved from panel-reviewed head `dea0146cefdcfa28d7dba2e40c760dc79821a5fc` to presented head `e4fb4e708da4c64af0a7a9dbde81161b59652c9c`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
 - `watchdog-comment-provenance-gap-endolin-garden-ece02cb4` — from watchdog:comment-provenance, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-comment-provenance-gap-endolin-garden-ece02cb4.md)
 
 > WATCHDOG notice — occurrence #10 (first seen 2026-10-03T06:41:10Z, latest 2026-10-03T12:38:09Z).
@@ -190,8 +200,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 95.9M | $651.89 _(notional, rate-card)_ | 37% of 256.0M (ok) |
-| Codex | 6.8M _(+159.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 96.5M | $648.15 _(notional, rate-card)_ | 38% of 256.0M (ok) |
+| Codex | 6.9M _(+164.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -199,7 +209,8 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 4.648168s/45s (unknown); 2 open notice(s); checker healthy
 
 ## Board
-### todo (13)
+### todo (14)
+- [`book-equilibrium-data-draft-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/book-equilibrium-data-draft-20261004.md) — Draft the review-economics/equilibrium chapter from real garden data
 - [`oros-health-checkup-20261004-015005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-015005.md) — ---
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
@@ -214,18 +225,19 @@ worst fetch p95 4.648168s/45s (unknown); 2 open notice(s); checker healthy
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (3)
-- [`book-equilibrium-data-draft-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-data-draft-20261004.md) — Draft the review-economics/equilibrium chapter from real garden data
+### doin (4)
+- [`book-equilibrium-visualize-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-visualize-20261004.md) — Render the review-economics chart specification as accurate SVGs
 - [`book-equilibrium-data-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-data-supervisor-20261004.md) — Supervise production 2: a review-economics chapter/section, from real garden ...
 - [`improve-durable-result-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-durable-result-reconcile.md) — ---
+- [`book-equilibrium-data-draft-20261004-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-data-draft-20261004-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #12
 
-### tada (10794)
+### tada (10797)
+- [`book-equilibrium-data-draft-20261004-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-equilibrium-data-draft-20261004-gauntlet-viability.md) — Cost
+- [`claude-on-minion-town-press-20261004-063506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-063506.md) — Panel-head freshness
+- [`canary-probe-endolin-garden2-5bcdff64-e18494cfb29b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/canary-probe-endolin-garden2-5bcdff64-e18494cfb29b.md) — rolling-deploy canary probe — round trip OK
 - [`garden-book-pr10-superseded`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/garden-book-pr10-superseded.md) — Cost
 - [`book-illumination-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-supervisor-20261004.md) — Cost
-- [`book-illumination-supervisor-after-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-supervisor-after-integrate-20261004.md) — Cost
-- [`book-illumination-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-integrate-20261004.md) — Cost
-- [`garden-book-chapter-illustrations-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/garden-book-chapter-illustrations-build.md) — Cost
-- … and 10789 more
+- … and 10792 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
