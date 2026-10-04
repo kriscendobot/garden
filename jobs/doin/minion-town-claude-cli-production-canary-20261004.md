@@ -25,3 +25,13 @@ The canary root subject is the maintainer's GitHub-federated Cognito sub `895979
 4. Comment the outcome on the arc issue kriscendobot/garden#89, only if the press has not already done so.
 
 If any canary fails, fix forward with a new fixer job and report the failure with the evidence. Do not claim success.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T20:01:53Z
