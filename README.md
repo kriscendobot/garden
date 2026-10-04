@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T05:37:57Z_
+_As of 2026-10-04T05:57:51Z_
 
 ## Latest
 
-Progress remains concentrated on the garden-book illumination arc: `book-illumination-produce-20261004` ran its clean/panel/fix gauntlet stages to completion, and a supervisor is now carrying revisions forward against [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/pull/9) while chapter-illustration builds continue in doin. On the endo-but-for-bots side, the SturdyRef stack review landed a detailed panel summary: layers 3 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)), 6 ([endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)), and 7 ([endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) are ready to merge as-is once their predecessors land, while layer 4 ([endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) needs a retcon to regroup ~26 rework commits before it can merge — no PR was touched yet, pending a maintainer merge decision. A separate gauntlet on the ironhorse panic-host-call PR halted after its fix stage explicitly declined, and the SturdyRef layer-1/layer-2 bases below the stack have drifted and will need weaving once unblocked.
-
-Operationally, the maintainer inbox has a growing backlog of host-health notices: oros-studio-garden has been offline for ~2 days with checkups piling up unclaimed in todo, and a sysop reset op is queued but stuck behind unacked predecessors — this likely needs a hands-on check of that machine. A watchdog also flagged the kriscendobot/ocapn comment-watcher as possibly blind (self-test failure), and there's a recurring comment-provenance instrumentation gap (missing model/harness attribution on fleet-posted comments) worth a fix. Budget-wise Claude spend sits at 37% of weekly quota with no action needed; the accountant applied a maintainer-approved budget re-slice adding a new `garden-book` arc.
+The garden-book illumination arc is mid-shuffle: the produce gauntlet's fix round closed out and a revise pass ran and completed, with a fresh supervisor job now watching the post-revise state and a new post-integrate supervisor parked to pick up after the current integrate job lands. Elsewhere the board is quiet — no PR gauntlets advanced, and the long-running [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) and [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) remain the oldest items still parked for review. Oros remains offline (~46h stale heartbeat, derotated and behind main2), queuing up a week's worth of unclaimed health-checkup jobs; worth a manual look at the machine.
 
 ## Parked for maintainer feedback
 
@@ -30,11 +28,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #20 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T04:41:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 20 times; this is ONE
-> coalesced notice that updates in place, not 20 messages. Latest detail:
+> WATCHDOG notice — occurrence #41 (first seen 2026-10-02T05:41:06Z, latest 2026-10-04T05:44:05Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 41 times; this is ONE
+> coalesced notice that updates in place, not 41 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 171146s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 174925s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -94,8 +92,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-04T05:36:10Z).
-> It was observed 1 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-04T05:56:04Z).
+> It was observed 2 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
@@ -153,9 +151,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-04T04:50:33Z, latest 2026-10-04T05:36:05Z).
-> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-10-04T04:50:33Z, latest 2026-10-04T05:55:59Z).
+> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
 > Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
 > - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
@@ -181,8 +179,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 93.5M | $633.79 _(notional, rate-card)_ | 37% of 256.0M (ok) |
-| Codex | 6.4M _(+145.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 94.4M | $639.29 _(notional, rate-card)_ | 37% of 256.0M (ok) |
+| Codex | 6.7M _(+153.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -208,16 +206,16 @@ worst fetch p95 6.910494s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 ### doin (4)
 - [`garden-book-chapter-illustrations-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-book-chapter-illustrations-build.md) — ---
 - [`book-illumination-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-20261004.md) — Supervise production 1: per-chapter/section illuminated illustrations (krisce...
-- [`book-illumination-produce-20261004-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-produce-20261004-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/garden-book PR #9
-- [`book-illumination-revise-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-revise-20261004.md) — Revise four-plus-one illuminations on garden-book PR #9 per Fable's thematic ...
+- [`book-illumination-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-integrate-20261004.md) — INTEGRATE the approved illuminations into the garden-book edition (kriscendob...
+- [`improve-durable-result-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-durable-result-reconcile.md) — ---
 
-### tada (10784)
-- [`book-illumination-produce-20261004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004-gauntlet-panel-1.md) — Cost
-- [`book-illumination-supervisor-after-assess-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-supervisor-after-assess-20261004.md) — Cost
-- [`book-illumination-assess-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-assess-20261004.md) — Cost
-- [`book-illumination-produce-20261004-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004-gauntlet-clean.md) — Cost
-- [`book-illumination-supervisor-after-produce-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-supervisor-after-produce-20261004.md) — Cost
-- … and 10779 more
+### tada (10789)
+- [`book-illumination-supervisor-after-revise-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-supervisor-after-revise-20261004.md) — Completion report: book-illumination-supervisor-after-revise-20261004
+- [`book-illumination-revise-20261004-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-revise-20261004-gauntlet.md) — gauntlet book-illumination-revise-20261004-gauntlet - not viable
+- [`book-illumination-produce-20261004-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004-gauntlet-fix-1.md) — Fix round 1 report: kriscendobot/garden-book PR #9
+- [`book-illumination-revise-20261004-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-revise-20261004-gauntlet-viability.md) — Cost
+- [`book-illumination-revise-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-revise-20261004.md) — Panel-head freshness
+- … and 10784 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -306,9 +304,9 @@ worst fetch p95 6.910494s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`verify-ironhorse-press-first-engagement-20260929`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/verify-ironhorse-press-first-engagement-20260929.md) — awaiting `ironhorse-test262-press-20260929-173306` · Verify the first live Ironhorse foreman-press engagement (successor of activa...
 - [`build-exo-spreadsheet-structure`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-spreadsheet-structure.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
 - [`endojs-endo-but-for-bots-rust-module-lexer-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-rust-module-lexer-build.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1019` · Build: consolidate the Rust module lexer per designs/rust-module-lexer-consol...
-- [`book-illumination-supervisor-after-revise-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-illumination-supervisor-after-revise-20261004.md) — awaiting `book-illumination-revise-20261004` · Supervise garden-book illumination after the single Codex revision: integrate...
 - [`resume-lint-ceiling-shepherds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/resume-lint-ceiling-shepherds.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/594` · Resume shepherds for PRs blocked by the endo-but-for-bots lint projectService...
 - [`build-minion-town-ocap-mailboxes`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-ocap-mailboxes.md) — awaiting `https://github.com/kriscendobot/minion.town/pull/37` · Build ocap mailboxes from the approved minion.town design
+- [`book-illumination-supervisor-after-integrate-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-illumination-supervisor-after-integrate-20261004.md) — awaiting `book-illumination-integrate-20261004` · Supervise garden-book illumination after INTEGRATE: review, merge, publish, r...
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`book-hyperlink-references-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/book-hyperlink-references-20261004.md) — awaiting `book-illumination-and-data-orch-20261004` · Follow-up: make every reference in Better Code and Gardens an actual hyperlin...
