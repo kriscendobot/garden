@@ -21,3 +21,13 @@ deploy to i-0380cd68b90020fad, which restarts `minion-mcp` with the Claude provi
 minion-town-daemon-eaddrinuse-orphan-recovery if the deploy wedges on :8920. Post-merge
 host verification and the canary re-post belong to the job
 `minion-town-claude-cli-production-enable-verify-20261004`, which is blocked on this PR.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T19:21:56Z
