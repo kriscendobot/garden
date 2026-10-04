@@ -33,3 +33,13 @@ This job creates the thematic brief only, not the SVG assets and not generator i
 The supervisor is authorized to review and merge this design PR. A successful design PR may stage the normal draft-PR review machinery; leave it intact and report it rather than pretending it does not exist.
 
 Self-improvement: follow the standing skill at the end of the engagement.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-04T04:31:55Z
