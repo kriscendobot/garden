@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-04T05:19:28Z_
+_As of 2026-10-04T05:24:51Z_
 
 ## Latest
 
-Board activity since the last bulletin is confined to the book-illumination arc: the chapter-illustrations build was claimed and completed, and its supervisor follow-up fired, spawning the next stage (`book-illumination-assess-20261004`, now in progress) plus a reconciliation job parked awaiting that assessment. A `minion-town-pr148-ensuredirectory-race-fix` job also completed. Separately, a gardener posted a detailed panel summary on the SturdyRef stack (endojs/endo-but-for-bots [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)): all four are draft, CI-green, and stopped at budget without a re-panel of their latest heads, but the content is judged low-risk and mergeable in order once the underlying layers (#774, #1391) land and the stale bases get rewoven. Worth a look: oros-studio-garden-ce242c49 has been offline for over 46 hours and is being skipped by rolling deploy, and the `endojs-endo-but-for-bots-ironhorse-panic-host-call` gauntlet halted after its fix stage explicitly declined.
+The SturdyRef capability stack got a full panel-review verdict: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) (pass-style), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) (captp construct), and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) (ocapn enliven, docs-only) are recommended to merge as-is once their own stack predecessors land, while [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) (marshal) needs a retcon to regroup roughly 26 rework commits first. All four are draft and CI-green but stalled at their fix-round budget with no re-panel since the last push, and the two layers underneath, [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391), still need to land and have their frozen bases re-woven before the stack can move.
+
+Elsewhere, the Ironhorse panic-on-host-call PR gauntlet halted after its fix round came back explicitly declined, and host oros-studio-garden-ce242c49 has now been offline for 20 consecutive checks (heartbeat stale ~48 hours, still deployed behind main2) — it needs someone to check the physical machine. The accountant applied a budget re-slice adding a new `garden-book` arc for the illustrated-book work, leaving every other arc unchanged. On the board, the book-illumination gauntlet moved from viability/clean checks into its first panel round on the garden-book illustrations PR, and container-hardening checks remain in their expected benign-pending state on two hosts awaiting a maintainer-driven container recreation.
 
 ## Parked for maintainer feedback
 
@@ -168,7 +170,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 90.8M | $614.63 _(notional, rate-card)_ | 35% of 256.0M (ok) |
+| Claude | 91.3M | $617.28 _(notional, rate-card)_ | 36% of 256.0M (ok) |
 | Codex | 6.3M _(+143.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -177,11 +179,10 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 6.910494s/45s (/home/kris/garden/.garden-state/self-deploy/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (14)
+### todo (13)
 - [`oros-health-checkup-20261004-015005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-015005.md) — ---
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
-- [`garden-book-chapter-illustrations-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/garden-book-chapter-illustrations-build.md) — ---
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261003-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-163507.md) — ---
 - [`oros-health-checkup-20261004-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-045008.md) — ---
@@ -193,18 +194,19 @@ worst fetch p95 6.910494s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (3)
+### doin (4)
+- [`garden-book-chapter-illustrations-build`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-book-chapter-illustrations-build.md) — ---
 - [`book-illumination-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-supervisor-20261004.md) — Supervise production 1: per-chapter/section illuminated illustrations (krisce...
 - [`book-illumination-assess-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-assess-20261004.md) — Thematic-coherence review of the complete illuminated illustration set
-- [`book-illumination-produce-20261004-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-produce-20261004-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/garden-book PR #9
+- [`book-illumination-produce-20261004-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-illumination-produce-20261004-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/garden-book PR #9
 
-### tada (10780)
+### tada (10781)
+- [`book-illumination-produce-20261004-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004-gauntlet-clean.md) — Cost
 - [`book-illumination-supervisor-after-produce-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-supervisor-after-produce-20261004.md) — Cost
 - [`minion-town-pr148-ensuredirectory-race-fix-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-pr148-ensuredirectory-race-fix-20261004.md) — Panel-head freshness
 - [`book-illumination-produce-20261004-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004-gauntlet-viability.md) — Cost
 - [`book-illumination-produce-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/book-illumination-produce-20261004.md) — Cost
-- [`minion-town-pr147-s4-key-fix-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/minion-town-pr147-s4-key-fix-20261004.md) — Fixed the § 4 app-compatibility check on kriscendobot/minion.town#147
-- … and 10775 more
+- … and 10776 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
