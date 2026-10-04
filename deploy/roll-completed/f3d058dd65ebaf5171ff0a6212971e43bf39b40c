@@ -1,5 +1,5 @@
 target: f3d058dd65ebaf5171ff0a6212971e43bf39b40c
 leader: endolin-garden-ece02cb4
-completed_at: 2026-10-04T12:17:02Z
+completed_at: 2026-10-04T12:20:07Z
 passed_canaries: endolin-garden2-5bcdff64
-skipped_peers: oros-studio-garden-ce242c49 (offline: heartbeat stale by 198506s (offline threshold 1800s; sampled_at_epoch=1790917716))
+skipped_peers: oros-studio-garden-ce242c49 (offline: heartbeat stale by 198691s (offline threshold 1800s; sampled_at_epoch=1790917716))
