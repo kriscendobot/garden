@@ -2,7 +2,7 @@
 order: serial
 children: minion-town-shell-to-js-20261004-part1 minion-town-shell-to-js-20261004-part2 minion-town-shell-to-js-20261004-part3
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-10-04T17:34:47Z
 ---
