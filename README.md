@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-04T00:38:55Z_
+_As of 2026-10-04T00:52:43Z_
 
 ## Latest
 
@@ -155,6 +155,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-garden-book-supervisor-20261003-b45e79a447aa` — from gardener:garden-book-supervisor-20261003, reply_to `garden-book-supervisor-20261003` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-book-supervisor-20261003-b45e79a447aa.md)
 
 > garden-book text work is merged and published. [kriscendobot/garden-book#1](https://github.com/kriscendobot/garden-book/issues/1) through [kriscendobot/garden-book#3](https://github.com/kriscendobot/garden-book/issues/3) are now on main; the book is titled “Better Code and Gardens,” retains the five-part design, and corrects the stale journal-landing note. Published edition: https://5f7jjhj4sbxaxdbej5t7oxgarnzhmb7wq45ds3nxqnq4wtthotsq.ocap.site/
+
+- `watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_leader_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-clone-oversized-_home_kris_garden2__garden_state_leader_journal.md)
+
+> Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/leader/journal: packs 1006 >= 1000; size=342695936B packs=1006 gc.log=0; automatic remedy=applied.
 
 - `msg-oros-health-watch-20261003-092011-fd786ebcb1b6` — from gardener:oros-health-watch-20261003-092011, reply_to `oros-health-watch-20261003-092011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261003-092011-fd786ebcb1b6.md)
 
@@ -613,7 +617,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 87.1M | $594.50 _(notional, rate-card)_ | 34% of 256.0M (ok) |
-| Codex | 5.4M _(+128.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Codex | 5.4M _(+128.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -634,8 +638,8 @@ worst fetch p95 8.962032s/45s (/home/kris/garden/.garden-state/state-clone-keepe
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-fork-watch-offline-rc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-fork-watch-offline-rc.md) — ---
 
 ### tada (10748)
 - [`claude-on-minion-town-press-20261004-002006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/claude-on-minion-town-press-20261004-002006.md) — Panel-head freshness
