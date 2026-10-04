@@ -1,49 +1,49 @@
 {
   "host": "claude-endolin2",
-  "generated_at": "2026-09-28T23:43:07Z",
+  "generated_at": "2026-10-04T04:41:32Z",
   "confidence": "provisional",
   "method": "contiguous-segment-low-band (governing = max total-confidence-weight run, best = freshest highest-confidence point, cap = its low-end rounding band)",
-  "selected_cap_tokens": 68328025,
+  "selected_cap_tokens": 121294018,
   "selected_cap_band": {
-    "low": 68328025,
-    "point": 68796026,
-    "high": 69270481
+    "low": 121294018,
+    "point": 121967874,
+    "high": 122649259
   },
   "governing_point": {
-    "checked_at": "2026-09-09T19:23:00Z",
-    "weekly_percent": 73,
-    "meter_spend_tokens": 50221099,
-    "pairing_confidence": "high",
-    "window_start_epoch": 1788577200
+    "checked_at": "2026-10-02T04:32:21Z",
+    "weekly_percent": 90,
+    "meter_spend_tokens": 109771087,
+    "pairing_confidence": "medium",
+    "window_start_epoch": 1790391600
   },
   "governing_segment": {
-    "segment_id": "run-1-anchor-1788577200",
-    "run_index": 1,
-    "window_start_epoch": 1788577200,
-    "first_checked_at": "2026-09-05T12:47:00Z",
-    "last_checked_at": "2026-09-09T19:23:00Z",
-    "n_points": 5,
+    "segment_id": "run-4-anchor-1790391600",
+    "run_index": 4,
+    "window_start_epoch": 1790391600,
+    "first_checked_at": "2026-09-28T03:58:16Z",
+    "last_checked_at": "2026-10-02T04:32:21Z",
+    "n_points": 7,
     "total_confidence_weight": 14,
     "percent_range": [
-      30,
-      73
+      12,
+      90
     ],
     "cap_point_spread": [
-      65865796,
-      71745766
+      95306896,
+      121967874
     ],
-    "spread_ratio": 1.089,
+    "spread_ratio": 1.28,
     "is_live_window": false
   },
   "checks": {
     "enough_points": true,
     "min_points": 3,
-    "spread_within_tolerance": true,
+    "spread_within_tolerance": false,
     "tolerance": 1.20,
     "boost_active": false,
     "boost_unknown_start": false,
     "live_window_matches": false,
-    "live_window_start_epoch": 1790391600
+    "live_window_start_epoch": 1790996400
   },
   "segments": [
     {
@@ -99,16 +99,32 @@
       "run_index": 4,
       "window_start_epoch": 1790391600,
       "first_checked_at": "2026-09-28T03:58:16Z",
-      "last_checked_at": "2026-09-28T23:42:38Z",
+      "last_checked_at": "2026-10-02T04:32:21Z",
+      "n_points": 7,
+      "total_weight": 14,
+      "percent_range": [
+        12,
+        90
+      ],
+      "cap_point_low": 95306896,
+      "cap_point_high": 121967874,
+      "spread_ratio": 1.28
+    },
+    {
+      "segment_id": "run-5-anchor-1790996400",
+      "run_index": 5,
+      "window_start_epoch": 1790996400,
+      "first_checked_at": "2026-10-03T03:43:54Z",
+      "last_checked_at": "2026-10-04T04:26:35Z",
       "n_points": 2,
       "total_weight": 4,
       "percent_range": [
-        12,
-        26
+        5,
+        53
       ],
-      "cap_point_low": 95306896,
-      "cap_point_high": 116296341,
-      "spread_ratio": 1.22
+      "cap_point_low": 84525780,
+      "cap_point_high": 171790252,
+      "spread_ratio": 2.032
     }
   ],
   "boost_active": false
