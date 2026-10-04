@@ -1,0 +1,2 @@
+base: improve-claude-production-deploy-verification
+identity: mentor:deploy/aws/scripts/deploy-app.sh
