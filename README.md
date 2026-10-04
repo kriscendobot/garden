@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-04T06:11:42Z_
+_As of 2026-10-04T06:14:52Z_
 
 ## Latest
 
-The headline item is the illuminated edition of *Better Code and Gardens* going live — all 25 plates (10 chapter openers, 15 section figures) are in with captions, the old title-page garden scene is gone, the build reproduces byte-for-byte and matches the live site, and 30/30 tests pass; the only cosmetic flaw noted is a slightly off-center dash and a crossed book spine in the chapter 9 illustration. The accountant also re-sliced the weekly budget per kriskowal's go-ahead, adding a `garden-book` arc (5M) for future editions and upkeep, with reserve trimmed to 22.75M. Separately, a panel-summary message lays out a merge plan for the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)): #1392 is ready to merge as-is once its two underlying drafts land, #1393 needs a retcon (commit regrouping) first, and #1396/#1397 are clean but wait on layer 5; no PR was touched. On the infrastructure side, oros-studio-garden-ce242c49 has now been offline for 41 consecutive watchdog occurrences (~2 days stale) and is being skipped by rolling deploy, and a receipt-watcher job was parked after exhausting its retry on a primary-quota cooldown bug — both still need human attention.
+The illuminated edition of *Better Code and Gardens* is live, with all 25 plates seated as chapter openers and section figures and captioned; it builds byte-for-byte reproducible and passed a visual pass across phone/desktop and light/dark, with only two cosmetic flaws left on the record (a spine crossing a terrace edge, a slightly off-center dash in the chapter 9 plate). The book arc now has its own budget line (`garden-book`, 5M/week) per the maintainer's re-slice, which also trimmed several other arcs; a follow-up to hyperlink every reference in the book is parked pending the illumination/data orchestration. Separately, the SturdyRef stack panel summary came back clean: layers 3 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)), 6 ([endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)), and 7 ([endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) are ready to merge as-is once their predecessors land, and layer 4 ([endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) needs a retcon first — but the stack's lower layers are stale and will need re-weaving before any of it can land. Otherwise it's a quiet tick: oros-studio-garden-ce242c49 remains offline (~46h stale, unclaimed health checkup pending) and needs a human to check the machine.
 
 ## Parked for maintainer feedback
 
@@ -190,8 +190,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 94.9M | $641.34 _(notional, rate-card)_ | 37% of 256.0M (ok) |
-| Codex | 6.7M _(+155.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 95.0M | $641.80 _(notional, rate-card)_ | 37% of 256.0M (ok) |
+| Codex | 6.7M _(+156.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -214,7 +214,8 @@ worst fetch p95 4.648168s/45s (unknown); 2 open notice(s); checker healthy
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
+### doin (2)
+- [`book-equilibrium-data-supervisor-20261004`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/book-equilibrium-data-supervisor-20261004.md) — Supervise production 2: a review-economics chapter/section, from real garden ...
 - [`improve-durable-result-reconcile`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-durable-result-reconcile.md) — ---
 
 ### tada (10793)
