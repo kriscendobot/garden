@@ -12,7 +12,7 @@ The fleet regulates "how much of the provider's weekly allowance remains" but no
 loop measures that quantity directly (`cybernetics-audit.md` § 2.1). The one
 authoritative reading of it — the Claude dashboard's weekly-limit percentage — is
 not machine-readable, so a human reads it and states a number. The manual
-quota-checkpoint log (`journal/budget/manual-checkpoints/<host>.jsonl`, already
+quota-checkpoint log (`journal/budget/manual-checkpoints/<subscription>.jsonl`, already
 created and seeded) is the record of those human readings, each paired where
 possible with the simultaneous local token-meter spend. This design says how the
 fleet **uses** that log to ground the cap the leveling controller and the claim
@@ -104,7 +104,7 @@ and names the trigger.
 ## 2. How a fit feeds `config/budget-pools` — human-in-the-loop, never auto-actuated
 
 The fit **measures and records; it does not actuate.** It writes its verdict to
-`budget/quota-fit/<host>.json` and never touches `config/budget-pools`. This is the
+`budget/quota-fit/<subscription>.json` and never touches `config/budget-pools`. This is the
 same measure/actuate boundary `weekly-capacity-calibration.sh` already draws for the
 automatic ledger, and for the same reason `cybernetics-audit.md` § 2.3 gives: do not
 wire an auto-derived setpoint straight to a full-authority actuator.
@@ -148,8 +148,8 @@ rule: a fit below `converged` is never written as a candidate cap.
 
 ## 3. The durable ingestion point — `append-quota-checkpoint.sh`
 
-`append-quota-checkpoint.sh <host> <weekly_percent> [session_percent]` replaces the
-hand-written JSONL row. It reads the current `budget/live/<host>` snapshot and
+`append-quota-checkpoint.sh <subscription> <weekly_percent> [session_percent]` replaces the
+hand-written JSONL row. It reads the current `budget/live/<subscription>/<host>` snapshot and
 auto-fills `meter_spend_tokens`, `meter_sampled_at`, and `meter_window_start_epoch`
 from it, derives `pairing_confidence` from the snapshot's age (never asserting `high`
 on its own — that claim requires human knowledge that spend was frozen, available via
@@ -186,7 +186,7 @@ with its own open questions.
 
 1. `append-quota-checkpoint.sh` — the ingestion helper (§ 3). **Built in this job.**
 2. `fit-quota-calibration.sh` — the segmented, graded fit writing
-   `budget/quota-fit/<host>.json` (§ 1). **Built in this job.**
+   `budget/quota-fit/<subscription>.json` (§ 1). **Built in this job.**
 3. `set-budget-pool.sh` — the deliberate provenance-carrying promotion setter (§ 2).
    **Built in this job.**
 4. The two-coefficient cache-read-aware fit mode and the `meter_cache_read_tokens`

@@ -228,6 +228,50 @@ if jq -e '
 else
   bad "supersession fit verdict was $(jq -c . <<<"$verdict")"
 fi
+
+# Regression (2026-10-04): the recorder keys checkpoints by SUBSCRIPTION, but the
+# fitter was run with the HOST id and read a stale host-keyed log of unpaired rows,
+# reporting "no usable paired checkpoints". A mapped host id must be refused with
+# the subscriptions to fit, and the subscription fit must use the freshest
+# per-host live contribution under budget/live/<subscription>/ for the live-window check.
+SUB=keyed-sub
+printf '# subscription_id\thost\tworker_kind\n%s\t%s\t%s\n%s\t%s\t%s\n' \
+  "$SUB" keyed-host monk other-sub keyed-host cleric > "$WORK/config/subscription-mapping"
+jq -cn '{checked_at:"2026-09-20T00:00:00Z",host:"keyed-host",weekly_percent:6,meter_spend_tokens:null,meter_window_start_epoch:null,pairing_confidence:"none"}' \
+  > "$WORK/budget/manual-checkpoints/keyed-host.jsonl"
+mkdir -p "$WORK/budget/live/$SUB"
+printf 'status: ok\nspend: 1\nwindow_start_epoch: 800\nsampled_at_epoch: 1788566400\n' > "$WORK/budget/live/$SUB/old-host"
+printf 'status: ok\nspend: 1\nwindow_start_epoch: 900\nsampled_at_epoch: 1788570000\n' > "$WORK/budget/live/$SUB/keyed-host"
+{
+  checkpoint 2026-10-03T00:00:00Z 900 10 1000 medium
+  checkpoint 2026-10-03T01:00:00Z 900 20 2000 medium
+  checkpoint 2026-10-03T02:00:00Z 900 30 3000 medium
+} > "$WORK/budget/manual-checkpoints/$SUB.jsonl"
+commit_fixture
+set +e
+host_err="$("$JOBS/fit-quota-calibration.sh" keyed-host --dry-run --json-only 2>&1 >/dev/null)"
+host_rc=$?
+set -e
+if [ "$host_rc" -eq 2 ] && grep -qF 'keyed by subscription' <<<"$host_err" \
+   && grep -qF 'keyed-sub' <<<"$host_err" && grep -qF 'other-sub' <<<"$host_err"; then
+  ok "a mapped host id is refused with the subscriptions to fit"
+else
+  bad "host id was not redirected (rc=$host_rc): $host_err"
+fi
+verdict="$($JOBS/fit-quota-calibration.sh "$SUB" --dry-run --json-only)"
+if jq -e '
+    .confidence == "converged" and
+    .governing_segment.n_points == 3 and
+    .checks.live_window_start_epoch == 900 and
+    .checks.live_window_matches
+  ' <<<"$verdict" >/dev/null; then
+  ok "subscription fit pairs rows and reads the freshest per-host live window"
+else
+  bad "subscription-keyed fit verdict was $(jq -c . <<<"$verdict")"
+fi
+rm -f "$WORK/config/subscription-mapping"
+commit_fixture
+
 HOST=claude-endolin1   # restore for the promotion regressions below
 
 # Promotion remains an explicit setter action with complete provenance. A mutable

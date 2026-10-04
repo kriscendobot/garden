@@ -23,9 +23,15 @@
 # for a trusted one. Fitting a richer cache-read-aware model is deferred until the
 # checkpoint schema carries paired cache_read (see the design's staging).
 #
-#   fit-quota-calibration.sh <host> [--dry-run] [--json-only]
+#   fit-quota-calibration.sh <subscription> [--dry-run] [--json-only]
 #
-#   --dry-run    compute and print the verdict; do NOT write budget/quota-fit/<host>.json
+# The key is the SUBSCRIPTION id (claude-endolin2), the same key
+# append-quota-checkpoint.sh records under and config/budget-pools promotes.
+# A HOST id that config/subscription-mapping lists is refused with the subscriptions
+# it maps to: the host-keyed logs are pre-migration rows with no meter pairing, so
+# fitting one silently returned "no usable paired checkpoints" (2026-10-04).
+#
+#   --dry-run    compute and print the verdict; do NOT write budget/quota-fit/<subscription>.json
 #   --json-only  print only the verdict JSON (no human-readable recommendation line to stderr)
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -40,7 +46,7 @@ export GARDEN_TAG=fit-quota-calibration
 : "${GARDEN_QUOTA_FIT_TOL:=1.20}"
 [[ "$GARDEN_QUOTA_FIT_MIN_POINTS" =~ ^[1-9][0-9]*$ ]] || GARDEN_QUOTA_FIT_MIN_POINTS=3
 
-host="${1:-}"; [ -n "$host" ] || { echo "usage: fit-quota-calibration.sh <host> [--dry-run] [--json-only]" >&2; exit 2; }
+host="${1:-}"; [ -n "$host" ] || { echo "usage: fit-quota-calibration.sh <subscription> [--dry-run] [--json-only]" >&2; exit 2; }
 case "$host" in -*|*/*|'') echo "bad host" >&2; exit 2;; esac
 shift
 dry_run=false; json_only=false
@@ -57,6 +63,17 @@ DIR="${GARDEN_PRODUCER_CLONE:-$GARDEN_STATE/producer/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
+# Checkpoints are keyed by subscription. A host id is a caller error, not a
+# subscription with no data: name the subscriptions to fit instead.
+mapping="$DIR/config/subscription-mapping"
+if [ -r "$mapping" ]; then
+  mapped_subs="$(awk -F'\t' -v h="$host" '$0 !~ /^#/ && $2 == h { print $1 }' "$mapping" | sort -u | paste -sd' ' -)"
+  if [ -n "$mapped_subs" ]; then
+    echo "$host is a host; checkpoints are keyed by subscription. Fit one of: $mapped_subs" >&2
+    exit 2
+  fi
+fi
+
 cp_file="$DIR/budget/manual-checkpoints/$host.jsonl"
 [ -r "$cp_file" ] || { echo "no checkpoint log for host $host ($cp_file)" >&2; exit 1; }
 
@@ -65,12 +82,17 @@ now_iso="$(date -u -d "@$now_epoch" +%FT%TZ)"
 
 # The currently-live meter window anchor for this host, if published — used to decide
 # whether the governing segment describes the window the fleet is metering against NOW.
-live_win=""
-lf="$DIR/budget/live/$host/$GARDEN"
-[ -r "$lf" ] || lf="$(find "$DIR/budget/live/$host" -maxdepth 1 -type f -print -quit 2>/dev/null || true)"
-[ -r "$lf" ] || lf="$DIR/budget/live/$host" # rolling-deploy compatibility
-[ -r "$lf" ] && live_win="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$lf" | head -1)"
-[[ "$live_win" =~ ^[0-9]+$ ]] || live_win=""
+# A shared subscription has one contribution per host under budget/live/<subscription>/;
+# the freshest sample's anchor is the reference, matching append-quota-checkpoint.sh.
+live_win=""; live_ep=-1
+for lf in "$DIR/budget/live/$host"/* "$DIR/budget/live/$host"; do
+  [ -f "$lf" ] || continue
+  w="$(sed -n 's/^window_start_epoch:[[:space:]]*//p' "$lf" | head -1)"
+  ep="$(sed -n 's/^sampled_at_epoch:[[:space:]]*//p' "$lf" | head -1)"
+  [[ "$w" =~ ^[0-9]+$ ]] || continue
+  [[ "$ep" =~ ^[0-9]+$ ]] || ep=0
+  if [ "$ep" -gt "$live_ep" ]; then live_win="$w"; live_ep="$ep"; fi
+done
 
 # Optional boost-events file: rows {start,end,multiplier,note}. A boost whose interval
 # covers `now` (or whose start is unknown/null while its end is still future) is an
