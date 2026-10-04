@@ -29,3 +29,13 @@ Post one structured GitHub PR review on the production PR. This job explicitly a
 Do not substitute a code gauntlet, automated tests, filename/description matching, or SVG-source inspection for visual thematic judgment. Do not edit the branch, merge, integrate, publish, or broaden scope beyond this review. In the completion report, provide the review URL/ID, reviewed head SHA, overall verdict, and the complete bounded findings list (or explicitly say there are none).
 
 Self-improvement: follow the standing skill at the end of the claim.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-04T05:14:32Z
