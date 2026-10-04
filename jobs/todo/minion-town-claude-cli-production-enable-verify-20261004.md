@@ -1,10 +1,9 @@
 ---
-gate: blocked
-blocked_on: https://github.com/kriscendobot/minion.town/pull/150
-priority: normal
-posted_by: fixer
-posted_at: 2026-10-04T16:02:37Z
+role: fixer
+tier: mentor
+handler-budget-role: review
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-04T19:26:06Z cleared=none -->
 
 ---
 role: fixer
