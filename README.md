@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-05T01:00:47Z_
+_As of 2026-10-05T01:04:32Z_
 
 ## Latest
 
-Board activity since the last bulletin was minimal: the `build-minion-town-claude-account-html-page-gauntlet` ([kriscendobot/minion.town#157](https://github.com/kriscendobot/minion.town/pull/157)) advanced through panel round 6 and is now on fix round 6.
+The headline is the oros-studio host, now unreachable for roughly 50 hours (since 2026-10-02T05:08Z): 19 health checkups and multiple sysop ops sit unclaimed and unacked, and watchers have repeatedly asked for someone to check the Mac's power/sleep state, Docker Desktop, and the VM in person.
 
-The bigger story is in the inbox. Oros remains unreachable for roughly 50 hours — someone needs to physically check the Mac's sleep/power state, Docker Desktop, and the VM; the health-watcher has queued a reset op but it's stuck behind an unacked backlog. Separately, the minion.town Claude CLI production canary needs the maintainer in person: several messages are waiting on `claude setup-token` plus a GitHub-federated MCP login at minion.town/account/claude, none of which a gardener or proxy can complete. A related incident surfaced along the way — the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy crash-looped production (`@endo/claude` missing from the deploy tar); rollback restored the old artifact but left `ENDO_CLAUDE_ENABLED=1` set, and a fix-forward job has been posted to recover availability and fix packaging/rollback before the canary resumes.
+On minion.town, the Claude CLI production canary is stuck pending maintainer action — connecting a real subscription token and completing a GitHub-federated OAuth login both require the maintainer's own credentials and can't be delegated; the proxy has correctly declined to act on these. Separately, a packaging bug after [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) merged caused `minion-mcp` to crash-loop in production (missing `vendor` in the deploy tar); a fix-forward job has been posted to restore availability before the canary resumes, and [#155](https://github.com/kriscendobot/minion.town/pull/155) and [#156](https://github.com/kriscendobot/minion.town/pull/156) landed without panel review as part of that recovery.
 
-On the review side, the SturdyRef stack panel summary recommends merging layers 3, 6, and 7 as-is ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) and layer 4 ([#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)) after a retcon, but flags that layers 1–2 underneath are stale drafts needing a weave first. Also worth noting: *Better Code and Gardens* shipped its illuminated edition with all 25 plates captioned, and the book budget arc got a small re-slice to fund future editions.
+The SturdyRef stack on endo-but-for-bots got a consolidated panel summary: layer 3 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)), layer 6 ([#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)), and layer 7 ([#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) are recommended to merge as-is once their dependencies land, while layer 4 ([#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) needs a retcon to regroup ~26 rework commits before merging. Three `minion-town-shell-to-js` gauntlet stages (parts 1–3) each hit the 6-round review budget without converging and are left for manual merge decisions. *Better Code and Gardens* shipped its illuminated edition with all 25 plates captioned and verified. Also worth noting: journal contention on garden2 triggered a 38-occurrence clone-oversized storm (still open), and the garden-book budget arc got a maintainer-approved re-slice.
 
 ## Parked for maintainer feedback
 
@@ -36,11 +36,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #406 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T00:02:09Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 406 times; this is ONE
-> coalesced notice that updates in place, not 406 messages. Latest detail:
+> WATCHDOG notice — occurrence #426 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T01:02:03Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 426 times; this is ONE
+> coalesced notice that updates in place, not 426 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 240807s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 244407s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -221,11 +221,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #23 (first seen 2026-10-04T05:15:32Z, latest 2026-10-05T00:37:29Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 23 times; this is ONE
-> coalesced notice that updates in place, not 23 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-05T01:03:03Z).
+> It was observed 23 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 983 of 1039 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-125005, reply_to `claude-on-minion-town-press-20261004-125005` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
@@ -324,11 +324,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-05T00:37:24Z).
-> It was observed 37 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #38 (first seen 2026-10-04T04:50:33Z, latest 2026-10-05T01:02:58Z).
+> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 38 times; this is ONE
+> coalesced notice that updates in place, not 38 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
+> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
 
 - `20261004T202308Z-8b74cb` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T202308Z-8b74cb.md)
 
@@ -381,7 +388,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 172.0M | $1182.07 _(notional, rate-card)_ | 67% of 256.0M (ok) |
+| Claude | 172.2M | $1182.63 _(notional, rate-card)_ | 67% of 256.0M (ok) |
 | Codex | 8.8M _(+227.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
