@@ -1,17 +1,17 @@
 # Garden bulletin
 
-_As of 2026-10-05T22:21:25Z_
+_As of 2026-10-05T22:53:14Z_
 
 ## Latest
 
-Oros-studio is the most urgent operational problem: it's been unreachable since 2026-10-02 (~74h), checkups have been withdrawn and deferred to 2026-10-11, and queued recovery ops remain unacknowledged — someone needs to check the Mac's power/sleep state, Docker Desktop, and the VM in person. On the product side, the illuminated edition of *Better Code and Gardens* shipped live with all 25 captioned plates, and minion.town's production crash-loop from the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/issues/150) deploy (missing vendored `@endo/claude`) was rolled back and is being fixed forward. Several gauntlets hit their 6-round review budget with CI green and now want a human merge call: [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) (guest-scoped MCP), the Claude-account HTML page build, the three minion-town shell-to-js parts, and the familiar localhttp-protocol build. The SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) → [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) → [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) → [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is also ready for a merge-order decision, pending stack-hygiene weaves. Separately, a deploy-gate regression fix is parked after its retry also failed non-productively and needs promotion to unblock fleet-wide deploys, and Claude spend sits at 90% of its weekly cap with guidance to spend the codex and claude2 credits within the next day or two before they lapse. The minion.town Claude-CLI production canary and the endo [#1343](https://github.com/endojs/endo-but-for-bots/issues/1343)/[#1407](https://github.com/endojs/endo-but-for-bots/issues/1407) base-order decisions are still waiting on you.
+The board is quiet since the last bulletin (todo and doin are both empty), with the only recorded transition being a completed press report on the Claude-on-minion.town arc ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)). The inbox is heavy with activity worth the maintainer's attention: several gauntlets ([kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) guest-scoped MCP, the three minion-town-shell-to-js parts, the Claude account HTML page build, and the familiar localhttp-protocol build) hit their 6-round review budget without converging and are left for a human merge call, and the illuminated edition of *Better Code and Gardens* shipped live with all 25 plates in place via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). Oros-studio remains offline for roughly 74 hours and still needs someone at the machine to check power/sleep, Docker Desktop, and the VM; the production Claude-CLI canary on minion.town is likewise stalled on the maintainer completing `claude setup-token` and GitHub OAuth steps that no proxy or gardener can do on their behalf. Separately, the reset-credit watch flags two subscriptions worth spending in the next ~36h (codex-endolin Monday evening, claude-endolin2 Tuesday evening) and warns claude-endolin1 is running hot toward 100% before its Friday reset.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 20m)
+- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 49m)
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 8d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 23d)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 32d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 34d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 34d)
@@ -711,8 +711,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 229.2M | $1522.82 _(notional, rate-card)_ | 90% of 256.0M (ok) |
-| Codex | 24.2M _(+371.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 229.4M | $1523.47 _(notional, rate-card)_ | 90% of 256.0M (ok) |
+| Codex | 24.6M _(+372.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -726,13 +726,13 @@ worst fetch p95 5.333267s/45s (/home/kris/garden/.garden-state/mirror-closer/jou
 ### doin (0)
 (none)
 
-### tada (11108)
+### tada (11109)
+- [`claude-on-minion-town-press-20261005-225009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/claude-on-minion-town-press-20261005-225009.md) — Press report: Claude on minion.town (kriscendobot/garden#89), 2026-10-05 22:5xZ
 - [`build-minion-town-claude-guest-scoped-mcp-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-minion-town-claude-guest-scoped-mcp-gauntlet.md) — gauntlet build-minion-town-claude-guest-scoped-mcp-gauntlet — review budget r...
 - [`build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-6.md) — Fix round 6 for kriscendobot/minion.town PR #160: both blocking items fixed, ...
 - [`endojs-endo-but-for-bots-pr1348-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1348-fix.md) — Cost
 - [`build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-6.md) — Cost
-- [`canary-probe-endolin-garden2-5bcdff64-faf93b805483`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/canary-probe-endolin-garden2-5bcdff64-faf93b805483.md) — rolling-deploy canary probe — round trip OK
-- … and 11103 more
+- … and 11104 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
