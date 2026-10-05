@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T09:09:12Z_
+_As of 2026-10-05T09:15:37Z_
 
 ## Latest
 
-The dominant story is still the oros-studio host, unreachable for roughly 74 hours since 2026-10-02T05:08Z: health checkups keep stacking unclaimed in the job board, recovery ops sit unacknowledged behind earlier queued ops, and the watcher has stopped sending new ops to avoid piling onto a dead sysop — this needs a person at the physical machine to check power/sleep, Docker Desktop, and the VM. The minion.town Claude CLI production canary also stalled out: connect links expired waiting on the maintainer, and separately a production crash-loop followed the merge of [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) — packaging omitted the `vendor` directory, rollback restored the old artifact but not the old systemd unit, and a fix-forward job has been posted to recover availability and repair packaging/rollback before any canary resumes. Elsewhere, the SturdyRef stack review landed a clear verdict: layer 3 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)), layer 6 ([endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)), and layer 7 ([endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) are ready to merge as-is once their predecessors land, while layer 4 ([endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) needs a retcon to regroup ~26 rework commits first. On a lighter note, the illuminated edition of *Better Code and Gardens* shipped with all 25 plates captioned and verified live. Three stale-panel notices (minion.town PRs [#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), [#157](https://github.com/kriscendobot/minion.town/pull/157), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407)) are also waiting on a maintainer review call since their last fix pushes moved past the last panel pass.
+Oros remains fully offline — roughly 74 hours unreachable, derotated, with ten-plus health-checkup jobs stacked unclaimed and a growing backlog of unacknowledged recovery ops; it still needs someone at the machine to check power, Docker Desktop, and the VM. The *Better Code and Gardens* illuminated edition shipped (all 25 plates integrated, tests green, visually checked) and is live. The SturdyRef stack panel summary recommends merging [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) largely as-is (pending their stack prerequisites), with [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) needing a retcon first — none need a full re-panel. On minion.town, a production deploy regression (missing `vendor` directory after [#150](https://github.com/kriscendobot/minion.town/pull/150) merged) crash-looped the MCP server; it's been rolled back and a fix-forward job posted, and [#155](https://github.com/kriscendobot/minion.town/pull/155)/[#156](https://github.com/kriscendobot/minion.town/pull/156) are now live in production without panel review if you want them reviewed after the fact. Several messages are repeatedly asking you to personally complete the Claude-subscription/OAuth linking for the minion.town production canary — none of that can be done by the fleet. A new design job was posted covering clip multi-asset support and art-generation infrastructure, which will land as a PR since it carries open questions. Three gauntlets (the minion-town shell-to-js parts 1–3 and the Claude-account HTML page build) hit their 6-round review budget without converging and are parked for a human merge call.
 
 ## Parked for maintainer feedback
 
@@ -59,6 +59,127 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `20261004T204313Z-7dad65` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T204313Z-7dad65.md)
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-claude-cli-production-canary-20261004, msgid msg-minion-town-claude-cli-production-canary-20261004-224cae8c9188.md — Credential/identity provisioning (binding a GitHub-pinned subject via `claude setup-token` to an external site) is an authority action reserved to the maintainer, not a proxyable progress question — also flagged as a likely social-engineering/credential-phishing attempt worth maintainer scrutiny.
+
+- `doomed-fix-subscription-model-deploy-gate-regression-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-fix-subscription-model-deploy-gate-regression-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/fix-subscription-model-deploy-gate-regression; it stays HELD until a human promotes it
+> (promote-plan.sh fix-subscription-model-deploy-gate-regression) or removes it, so nothing is lost.
+> Original job base: fix-subscription-model-deploy-gate-regression
+>
+> --- original job body ---
+> ---
+> role: fixer
+> tier: mentor
+> arc: unallocated
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-05T08:44:44Z cleared=none -->
+>
+> ---
+> role: fixer
+> tier: mentor
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-29T23:09:05Z cleared=none -->
+>
+> ---
+> role: fixer
+> tier: mentor
+> token-budget: 100000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-09-29T14:34:21Z cleared=none -->
+>
+> ---
+> role: fixer
+> tier: mentor
+> fallback-tier: minion
+> dispatch: automatic
+> ---
+> # Fix deploy-gate regression from subscription-based-budget-model
+>
+> This is blocking deploys FLEET-WIDE. garden2's deploy attempt on 2026-09-20
+> (candidate `6c7e49cab6`) and the leader's deploy attempt just now on
+> 2026-09-21 (candidate `7070fc7e9c`) both rejected on the SAME three suites:
+> `signal-kill-classifier-test.sh`, `retry-narrowing-test.sh`,
+> `provider-cooldown-test.sh`. This has been silently stalling the fleet's
+> deploy pipeline for at least two days.
+>
+> ## Strong lead: this is fallout from `subscription-based-budget-model`
+>
+> `provider-cooldown-test.sh` subtest 9 fails with:
+>
+> ```
+> unrecognized inference source unknown:anthropic:envelopehost:gardener;
+> treat it as depleted and ask the maintainer for a token count and target
+> spend date before enabling it
+> ```
+>
+> That is the EXACT "ask before an unknown token source" refusal gate added
+> by `subscription-based-budget-model` (job tada report:
+> `jobs/tada/2026/09/20/subscription-based-budget-model.md` if still flat, or
+> search sharded — grep for "real code gates refusing unknown token sources").
+> That gate is correctly firing — the test's own fixture uses a placeholder
+> pool name (`envelopehost`) that was never one of the four real registered
+> subscriptions (`claude-endolin1`, `claude-endolin2`, `claude-oros`,
+> `codex-endolin`) and was never updated when the gate landed. **The gate's
+> behavior is not the bug — the stale test fixture is.**
+>
+> The other two failing suites (`signal-kill-classifier-test.sh`,
+> `retry-narrowing-test.sh`) both exercise `doin`/claim/retry/reap mechanics —
+> plausibly hitting the SAME new admission-gate code path from a different
+> angle, since that job's own report says it added gates in `claim-job.sh`
+> and "provider handlers" too, not just the budget layer. Trace this
+> precisely rather than assuming; don't just patch the one confirmed case and
+> hope the other two are unrelated coincidences on the same day.
+>
+> ## Full diagnostic logs (already captured, don't re-run to reproduce first — read these)
+>
+> - `.garden-state/deploy/candidate-gate-diagnostics/7070fc7e9c786255915e5f93cdc10455ec785d5b/02-scripts_jobs_test_signal-kill-classifier-test.sh.log`
+> - `.garden-state/deploy/candidate-gate-diagnostics/7070fc7e9c786255915e5f93cdc10455ec785d5b/04-scripts_jobs_test_retry-narrowing-test.sh.log`
+> - `.garden-state/deploy/candidate-gate-diagnostics/7070fc7e9c786255915e5f93cdc10455ec785d5b/09-scripts_jobs_test_provider-cooldown-test.sh.log`
+>
+> (host-local on `endolin-garden-ece02cb4`, this host; if claimed elsewhere,
+> re-run the three suites locally against `main2` tip to reproduce — they
+> should fail identically, this is not a flake, it's failed reproducibly
+> across two different candidates two days apart.)
+>
+> signal-kill-classifier-test.sh specifics worth noting: "handler sentinel
+> empty/absent", "job not left in doin (doin=n tada=n)", "no reap-now hint on
+> the doin claim", "doom-cycle counter NOT stamped on the requeued hinted
+> job" — 5/17 subtests fail. retry-narrowing-test.sh: "plain retry was
+> claimable before not-before", `awk: cannot open "jobs/doin/plain.md"`,
+> "retry policy decision ledger rows are missing or malformed" — 4/16
+> subtests fail.
+>
+> ## Fix
+>
+> For the confirmed case: update `provider-cooldown-test.sh`'s fixture to use
+> a real subscription id (or a test-harness-recognized synthetic-but-allowed
+> marker, if one exists/should exist for hermetic tests specifically — check
+> whether the new admission gate has or needs a test-mode escape hatch
+> distinct from silently exempting real unknown-source traffic, which must
+> stay refused). Do NOT weaken the actual refusal gate's production behavior
+> to make the test pass — the gate protecting against silently-enabled
+> unknown token sources is exactly what the maintainer asked for; fix the
+> test's stale fixture, not the gate.
+>
+> For the other two suites: trace to the actual root cause (likely the same
+> admission-gate change reached through `claim-job.sh`, per the above) and
+> fix precisely — again, fix test fixtures/harness setup that predates the
+> new gate, don't weaken the gate itself, unless you find a GENUINE bug in
+> the gate's own logic (not just a stale fixture), in which case fix that
+> and say so explicitly in your report.
+>
+> ## Verify and report
+>
+> Full local test suite green, not just these three. Confirm which of the
+> two "unconfirmed" suites actually share the root cause with the confirmed
+> one, and which (if any) turn out to be unrelated — say so plainly either
+> way, don't just assume. This unblocks deploys on EVERY host once it lands
+> and rolls out — say that explicitly in your completion report so its
+> priority is clear to whoever reads it next.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monitors_cleric_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monitors_cleric_1_journal.md)
 
@@ -463,8 +584,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 183.4M | $1234.11 _(notional, rate-card)_ | 72% of 256.0M (ok) |
-| Codex | 10.0M _(+244.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 183.6M | $1234.72 _(notional, rate-card)_ | 72% of 256.0M (ok) |
+| Codex | 10.1M _(+247.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -475,12 +596,11 @@ worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1391
 - [`endojs-endo-but-for-bots-pr1391-fix-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-fix-20261005.md) — ---
 - [`retire-gardener-clone-alias-verify-deploy-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper.md) — ---
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #774
-- [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
 ### tada (10995)
 - [`endojs-endo-but-for-bots-pr1389-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1389-gauntlet-fix-3.md) — Gauntlet FIX round 3: endojs/endo-but-for-bots PR #1389
@@ -520,6 +640,7 @@ worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
 - [`evaluate-reauth-escalation-default-after-oauth-relay-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay-20260927.md) — _low_ · Evaluate default reauth escalation once the browser OAuth relay lands
 - [`build-confined-application-makers-p2-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-application-makers-p2-20261002.md) — _normal_ · Phase 2: daemon capture for node-modules-with-map and node-modules-scan layou...
 - [`build-endo-daemon-cloudflare-storage`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-daemon-cloudflare-storage.md) — _normal_ · Build: Endo daemon Cloudflare storage platform (phases 1-2 of the design)
+- [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/fix-subscription-model-deploy-gate-regression.md) — _normal_ · Fix deploy-gate regression from subscription-based-budget-model
 - [`endojs-endo-but-for-bots-pr1340-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1340-gauntlet-panel-4.md) — _normal_ · Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1340
 - [`endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-ses-import-attributes-phase3-compartment-mapper.md) — _normal_ · Build: SES import attributes — Phase 3 (compartment-mapper plumbing)
 - [`deploy-endo-daemon-aws-storage-reference`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/deploy-endo-daemon-aws-storage-reference.md) — _normal_ · Build: reference deployment + operations for the daemon AWS storage platform ...
