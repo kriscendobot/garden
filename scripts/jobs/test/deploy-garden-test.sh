@@ -142,6 +142,27 @@ grep -q 'attempt\$attempt-' "$DEPLOY" \
   || bad "candidate gate diagnostics not labelled per attempt"
 
 # ============================================================================
+hr; echo "TRANSIENT FETCH — connectivity failure returns GARDEN_OFFLINE_RC"; hr
+setup_fixture
+REAL_GIT="$(command -v git)"
+cat > "$TR/offline-git.sh" <<EOF
+#!/bin/bash
+for arg in "\$@"; do
+  if [ "\$arg" = fetch ]; then
+    printf '%s\n' 'fatal: unable to access remote: Could not resolve host: example.invalid' >&2
+    exit 1
+  fi
+done
+exec "$REAL_GIT" "\$@"
+EOF
+chmod +x "$TR/offline-git.sh"
+before="$(root_head)"
+run_deploy GARDEN_REAL_GIT="$TR/offline-git.sh"
+[ "$RC" -eq 75 ] && ok "connectivity fetch failure exits GARDEN_OFFLINE_RC (75)" || bad "connectivity fetch failure exited $RC, expected 75: $OUT"
+[ "$(root_head)" = "$before" ] && ok "root untouched after transient fetch failure" || bad "root advanced after transient fetch failure"
+grep -q 'failed transiently; retrying next tick' <<<"$OUT" && ok "transient fetch logs retry-next-tick disposition" || bad "transient fetch disposition missing: $OUT"
+
+# ============================================================================
 hr; echo "CLEAN DEPLOY — quiesced fleet, scripts change: merge + record + lift + restart"; hr
 setup_fixture
 origin_commit scripts/jobs/worker-lib.sh "echo new" "fix: worker-lib"
@@ -403,7 +424,7 @@ draining && bad "drain marker present after a deferral" || ok "no drain marker (
 grep -q restart "$TR/log" && bad "restarted on a deferral" || ok "no restart on a deferral"
 # The deferral leaves a host-local record self-deploy publishes as roll_status
 # `deferred`, so the rolling-deploy conductor waits instead of failing the canary.
-if grep -q '^kind: gardener' "$TR/state/deploy/deferred" 2>/dev/null \
+if grep -q '^kind: monk' "$TR/state/deploy/deferred" 2>/dev/null \
    && grep -q '^id: 1' "$TR/state/deploy/deferred" && grep -qE '^target: [0-9a-f]{40}' "$TR/state/deploy/deferred"; then
   ok "deferral record written (kind/id/target) for self-deploy to publish"
 else bad "no/garbled deferral record: $(cat "$TR/state/deploy/deferred" 2>&1)"; fi
@@ -478,7 +499,7 @@ target="$(origin_head)"
 run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=30 GARDEN_DEPLOY_POLL=1
 [ "$RC" -eq 0 ] && ok "exit 0 (a stale marker did not defer)" || bad "exit $RC: $OUT"
 grep -q "DEFERRED" <<<"$OUT" && bad "DEFERRED on a stale marker (should be swept, not honored)" || ok "not deferred on a stale marker"
-grep -q "swept STALE busy marker: gardener 55" <<<"$OUT" && ok "the stale marker sweep is logged (id + age)" || bad "stale sweep not logged: $OUT"
+grep -q "swept STALE busy marker: monk 55" <<<"$OUT" && ok "the stale marker sweep is logged (kind + id + age)" || bad "stale sweep not logged: $OUT"
 [ ! -e "$TR/state/monks/55/busy" ] && ok "the stale busy marker was removed" || bad "stale marker lingered"
 [ "$(root_head)" = "$target" ] && ok "root advanced (deploy proceeded past the stale marker)" || bad "root not advanced: $OUT"
 grep -q "fleet quiesced" <<<"$OUT" && ok "quiesce reached (stale marker not counted)" || bad "quiesce not reached: $OUT"
@@ -492,7 +513,7 @@ origin_commit scripts/jobs/worker-lib.sh "echo newactive" "fix: worker-lib activ
 before="$(root_head)"
 run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
 [ "$RC" -eq 0 ] && ok "exit 0 on an active long job (deferred, not a failure)" || bad "exit $RC: $OUT"
-grep -q "DEFERRED: gardener 1" <<<"$OUT" && ok "the active gardener still defers (honored as before)" || bad "active gardener not honored: $OUT"
+grep -q "DEFERRED: monk 1" <<<"$OUT" && ok "the active worker still defers (honored as before)" || bad "active worker not honored: $OUT"
 grep -q "swept STALE" <<<"$OUT" && bad "swept an ACTIVE gardener's marker!" || ok "an active marker is never swept"
 [ -e "$TR/state/monks/1/busy" ] && ok "the active gardener's marker is preserved" || bad "active marker was removed"
 [ "$(root_head)" = "$before" ] && ok "root NOT advanced (deferred by the live long job)" || bad "root advanced despite a live long job"
@@ -507,8 +528,8 @@ origin_commit scripts/jobs/worker-lib.sh "echo newmix" "fix: worker-lib mix"
 before="$(root_head)"
 run_deploy GARDEN_DEPLOY_LONG_JOB_THRESHOLD=300 GARDEN_DEPLOY_DRAIN_TIMEOUT=600 GARDEN_DEPLOY_POLL=1
 [ "$RC" -eq 0 ] && ok "exit 0 (deferred by the LIVE long job, not the stale one)" || bad "exit $RC: $OUT"
-grep -q "DEFERRED: gardener 1" <<<"$OUT" && ok "the LIVE gardener 1 governs the deferral (stale 55 excluded)" || bad "live gardener did not govern: $OUT"
-grep -q "swept STALE busy marker: gardener 55" <<<"$OUT" && ok "the stale gardener 55 marker was swept in the mixed case" || bad "stale marker not swept in mixed case: $OUT"
+grep -q "DEFERRED: monk 1" <<<"$OUT" && ok "the LIVE monk 1 governs the deferral (stale 55 excluded)" || bad "live monk did not govern: $OUT"
+grep -q "swept STALE busy marker: monk 55" <<<"$OUT" && ok "the stale monk 55 marker was swept in the mixed case" || bad "stale marker not swept in mixed case: $OUT"
 [ ! -e "$TR/state/monks/55/busy" ] && ok "the stale marker was removed in the mixed case" || bad "stale marker lingered in mixed case"
 [ -e "$TR/state/monks/1/busy" ] && ok "the live gardener's marker is preserved in the mixed case" || bad "the live marker was swept!"
 [ "$(root_head)" = "$before" ] && ok "root NOT advanced in the mixed case (live long job defers)" || bad "root advanced despite the live long job"

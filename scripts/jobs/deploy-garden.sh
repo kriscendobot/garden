@@ -600,8 +600,19 @@ oldest_busy() {
 # Fetch before any drain: a bad candidate must not pause the fleet merely to learn
 # that its own deterministic regression suites fail. The candidate is unpacked and
 # tested above, never overlaid on the deployed root.
-GARDEN_FETCH_MAX_AGE_OVERRIDE=0 git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>/dev/null \
-  || { log "WARN: fetch of origin/$GARDEN_MAIN_BRANCH failed (offline?); aborting deploy"; exit 1; }
+fetch_diagnostic=""
+if fetch_diagnostic="$(GARDEN_FETCH_MAX_AGE_OVERRIDE=0 git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>&1)"; then
+  :
+else
+  fetch_rc=$?
+  if [ "$fetch_rc" -eq 124 ] || [ "$fetch_rc" -eq 137 ] \
+     || _fetch_stderr_is_offline "$fetch_diagnostic"; then
+    log "WARN: fetch of origin/$GARDEN_MAIN_BRANCH failed transiently; retrying next tick (rc=$GARDEN_OFFLINE_RC)"
+    exit "$GARDEN_OFFLINE_RC"
+  fi
+  log "WARN: fetch of origin/$GARDEN_MAIN_BRANCH failed (rc=$fetch_rc); aborting deploy"
+  exit 1
+fi
 candidate_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "origin/$GARDEN_MAIN_BRANCH" || true)"
 [ -n "$candidate_sha" ] || { log "FATAL: cannot resolve fetched origin/$GARDEN_MAIN_BRANCH"; exit 1; }
 

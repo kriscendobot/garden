@@ -27,6 +27,8 @@
 #     new tip and the leader never deploys ahead of an undeployed canary.
 #   - LEADER-SELF-BEFORE-CANARY: the leader's deploy is pinned to the validated target,
 #     and a DEFERRED leader deploy is not recorded as a completed roll.
+#   - a transient leader deploy fetch failure retries next tick without persisting a
+#     rejected-candidate marker for the unchanged SHA.
 #   - CATCH-UP: a leader already current releases a follower left behind it.
 #   - STUCK CANARY: a released-but-undeployed canary raises one coalesced notice.
 #   - DEFERRING CANARY: a follower whose deploy defers behind a long job publishes
@@ -473,6 +475,27 @@ set_leader_signal "$TARGET"; reset_leader_roll_state
 : > "$DEPLOY_LOG"
 run_conductor
 if grep -q "deploy-invoked host=$LEADER" "$DEPLOY_LOG"; then ok "leader-only fleet self-deployed directly (no canary by construction)"; else bad "leader-only fleet did not self-deploy"; fi
+
+# ============================================================================
+hr; echo "TRANSIENT LEADER DEPLOY — offline rc retries next tick without a rejected marker"; hr
+# The 2026-10-05 incident: deploy-garden's origin fetch returned a generic failure,
+# so the conductor persisted a rejection and suppressed every retry for the unchanged
+# SHA. EX_TEMPFAIL is weather, not a verdict on the candidate.
+cat > "$TR/offline-deploy.sh" <<EOF
+#!/bin/bash
+printf 'deploy-invoked host=%s target=%s\n' "\${GARDEN:-?}" "\${GARDEN_DEPLOY_TARGET:-<tip>}" >> "$DEPLOY_LOG"
+exit "\${GARDEN_OFFLINE_RC:-75}"
+EOF
+chmod +x "$TR/offline-deploy.sh"
+REJ_STATE="$TR/state-leader/rolling-deploy"
+set_leader_signal "$TARGET"; reset_leader_roll_state; rm -rf "$REJ_STATE/rejected"
+: > "$DEPLOY_LOG"; : > "$TR/conductor.out"
+run_conductor GARDEN_ROLLING_DEPLOY_CMD="$TR/offline-deploy.sh"
+run_conductor GARDEN_ROLLING_DEPLOY_CMD="$TR/offline-deploy.sh"
+offline_attempts="$(grep -c "deploy-invoked host=$LEADER" "$DEPLOY_LOG" || true)"
+[ "$offline_attempts" -eq 2 ] && ok "OFFLINE: unchanged sha retried on the next tick" || bad "OFFLINE: expected 2 deploy attempts, got $offline_attempts"
+[ ! -e "$REJ_STATE/rejected/$TARGET12" ] && ok "OFFLINE: no rejected-candidate marker persisted" || bad "OFFLINE: transient failure persisted a rejected marker"
+grep -q 'temporarily unavailable.*retrying next tick' "$TR/conductor.out" && ok "OFFLINE: retry-next-tick disposition logged" || bad "OFFLINE: retry-next-tick disposition not logged"
 
 # ============================================================================
 hr; echo "REJECTED-CANDIDATE BACKOFF — a non-zero leader deploy is marked, not retried"; hr

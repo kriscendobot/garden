@@ -122,8 +122,9 @@ leader_deploy() {  # leader_deploy <target>
 }
 
 # --- rejected-candidate backoff ----------------------------------------------
-# A leader self-deploy that returns NON-ZERO (typically a candidate-gate rejection
-# inside deploy-garden.sh) is PERSISTED as a target-keyed marker so the conductor
+# A leader self-deploy that returns a NON-TRANSIENT non-zero (typically a
+# candidate-gate rejection inside deploy-garden.sh) is PERSISTED as a target-keyed
+# marker so the conductor
 # does not re-invoke the deploy — and so deploy-garden.sh does not re-page the
 # maintainer inbox with the identical kind:error — on every subsequent tick while
 # the same upgrade-ready sha still stands (the 2026-09-27T10:23:51Z rejection then
@@ -139,6 +140,14 @@ rejected_mark() {  # rejected_mark <target> <rc>
   mkdir -p "$(dirname "$m")" 2>/dev/null || true
   printf 'target: %s\nrejected_at_epoch: %s\ndeploy_rc: %s\nreported_by: deploy-garden.sh (kind:error inbox + journal)\n' \
     "$1" "$(now_s)" "$2" > "$m" 2>/dev/null || true
+}
+leader_deploy_failed() {  # leader_deploy_failed <target> <rc>
+  if [ "$2" -eq "$GARDEN_OFFLINE_RC" ]; then
+    log "leader self-deploy was temporarily unavailable (rc=$2); no rejection recorded, retrying next tick"
+    return 0
+  fi
+  rejected_mark "$1" "$2"
+  log "WARN: leader self-deploy returned non-zero (rc=$2); marked ${1:0:12} rejected to skip retries until the available sha changes or the marker is cleared (deploy-garden.sh already reported the error and manages its own drain/abort)"
 }
 
 ensure_clone "$DIR"
@@ -635,8 +644,7 @@ if [ "${#all_followers[@]}" -eq 0 ]; then
   log "leader-only fleet (no followers to canary); self-deploying directly on the settled upgrade-ready — today's solo-leader behavior"
   set +e; leader_deploy "$target"; ldrc=$?; set -e
   if [ "$ldrc" -ne 0 ]; then
-    rejected_mark "$target" "$ldrc"
-    log "WARN: leader self-deploy returned non-zero (rc=$ldrc); marked ${target:0:12} rejected to skip retries until the available sha changes or the marker is cleared (deploy-garden.sh already reported the error and manages its own drain/abort)"
+    leader_deploy_failed "$target" "$ldrc"
   fi
   exit 0
 fi
@@ -807,8 +815,7 @@ if [ "$passed_any" -eq 1 ]; then
       log "leader deploy of ${target:0:12} did not land (deployed sha ${now_at:-unknown}; deferred or no-op); no completion recorded, retrying next tick"
     fi
   else
-    rejected_mark "$target" "$ldrc"
-    log "WARN: leader self-deploy returned non-zero (rc=$ldrc); marked ${target:0:12} rejected to skip retries until the available sha changes or the marker is cleared (deploy-garden.sh already reported the error and manages its own drain/abort)"
+    leader_deploy_failed "$target" "$ldrc"
   fi
   # On success deploy-garden.sh records the new sha; the upgrade-monitor clears the
   # signal next tick and this roll's state ages out.
