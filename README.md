@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T11:35:25Z_
+_As of 2026-10-05T11:44:56Z_
 
 ## Latest
 
-The board is quiet operationally — one gauntlet stage (panel round 1) completed and its fix round 1 claimed for [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391); `retire-gardener-clone-alias-verify-deploy-reaper` bounced back from doin to plan. The SturdyRef stack review landed: layers 3/4/6/7 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) are all CI-green and ready to merge pending stack hygiene (frozen-base drift, and a retcon needed on #1393), but nothing can land until layers 1/2 ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)) merge first. The *Better Code and Gardens* illuminated edition published with all 25 plates live at ocap.site. Oros remains offline since 2026-10-02 (~74h) with recovery ops queued and unacked — still needs a hands-on check of the Mac/Docker Desktop/VM. Several minion.town gauntlets (shell-to-js parts 1-3, Claude account HTML page) hit their 6-round review budget and are parked for a human merge call, and the minion.town Claude CLI production canary is stalled awaiting the maintainer to personally run `claude setup-token` and complete OAuth — several proxy messages flagged the bot's own in-band authorization-code request as a probable social-engineering attempt worth scrutiny.
+Board traffic was light: the only completion since the last snapshot was `improve-handler-sigkill-overrun`, while `build-familiar-localhttp-protocol` and a fix round on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)'s gauntlet remain in flight. The real news is off-board. `oros-studio-garden-ce242c49` has been unreachable for roughly 74 hours — heartbeat and sysop activity both stalled since 2026-10-02T05:08Z, recovery ops queued and unacknowledged — and needs someone at the machine to check power/sleep, Docker Desktop, and the VM. The illuminated edition of *Better Code and Gardens* published successfully with all 25 plates in place, built from [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) (art) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11) (integration). On endojs/endo-but-for-bots, the SturdyRef layer stack — [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1394](https://github.com/endojs/endo-but-for-bots/issues/1394), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) — is CI-green and ready for merge decisions, modulo a retcon on #1393's ~26 rework commits and a stack-wide weave once the base layers land. The minion.town Claude CLI production canary is still blocked on your own action — connecting a real subscription at minion.town/account/claude and completing an OAuth login — several automated prompts toward that goal were correctly declined by the proxy as credential-granting actions outside its authority. Separately, `fix-subscription-model-deploy-gate-regression` exhausted its retries and sits parked awaiting a go-ahead.
 
 ## Parked for maintainer feedback
 
@@ -649,8 +649,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 190.0M | $1268.49 _(notional, rate-card)_ | 74% of 256.0M (ok) |
-| Codex | 12.6M _(+279.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 190.0M | $1268.54 _(notional, rate-card)_ | 74% of 256.0M (ok) |
+| Codex | 12.8M _(+280.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -661,18 +661,17 @@ worst fetch p95 5.175933s/45s (unknown); 4 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-handler-sigkill-overrun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-handler-sigkill-overrun.md) — ---
+### doin (2)
 - [`build-familiar-localhttp-protocol`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-familiar-localhttp-protocol.md) — ---
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1391
 
-### tada (11013)
+### tada (11014)
+- [`improve-handler-sigkill-overrun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-handler-sigkill-overrun.md) — Cost
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-1.md) — Cost
 - [`oros-health-watch-20261005-105006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-105006.md) — Cost
 - [`oros-health-watch-20261005-075006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-075006.md) — Cost
 - [`oros-health-watch-20261005-045006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-045006.md) — Cost
-- [`oros-health-watch-20261005-015006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-015006.md) — Cost
-- … and 11008 more
+- … and 11009 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
