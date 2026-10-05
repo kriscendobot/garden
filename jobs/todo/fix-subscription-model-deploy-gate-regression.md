@@ -111,13 +111,6 @@ and rolls out — say that explicitly in your completion report so its
 priority is clear to whoever reads it next.
 
 <!-- garden-transient-elapsed: kind=exit0 through=0 values=59 -->
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: cleric
-  tier: 
-  provider: openai
-  model: 
-  claimed_at: 2026-10-05T08:44:58Z
+
+<!-- garden-reaped: 1 -->
+<!-- garden-plain-retry-not-before: 2026-10-05T09:03:03Z -->
