@@ -36,6 +36,8 @@
 #   post-plan.sh [--go-ahead|--deferred|--awaiting-maintainer|--blocked|--orchestrated|--budget-hold]
 #                [--question TEXT] [--asked-at URL]
 #                [--blocked-on ARTIFACT] [--orchestrated-by ORCH-BASE]
+#                [--split-indivisible-reason REASON
+#                 --split-indivisible-handler-timeout SECONDS]
 #                [--budget-resets-at ISO] [--not-before ISO-UTC]
 #                [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 #
@@ -50,6 +52,11 @@
 #                            required with --awaiting-maintainer and illegal otherwise.
 #   --orchestrated-by ORCH   the owning orchestration base for an --orchestrated
 #                            child. Required with --orchestrated; illegal otherwise.
+#   --split-indivisible-reason REASON
+#   --split-indivisible-handler-timeout SECONDS
+#                            paired metadata for an indivisible --orchestrated
+#                            child. The timeout becomes its handler-timeout and
+#                            must fit within the claim-safe maximum.
 #   --budget-hold            a go-ahead plan held specifically for quota refresh;
 #                            the budget-refresh watcher may promote this subset.
 #   --budget-resets-at ISO   optional parseable provider reset for --budget-hold.
@@ -119,6 +126,8 @@ Usage:
   post-plan.sh [--go-ahead|--deferred|--awaiting-maintainer|--blocked|--orchestrated|--budget-hold]
                [--question TEXT] [--asked-at URL]
                [--blocked-on ARTIFACT] [--orchestrated-by ORCH-BASE]
+               [--split-indivisible-reason REASON
+                --split-indivisible-handler-timeout SECONDS]
                [--budget-resets-at ISO] [--not-before ISO-UTC]
                [--priority LEVEL] [--roadmap ITEM] [--by ROLE] <basename> [body-file]
 
@@ -137,6 +146,11 @@ Usage:
                            <<<GARDEN-ORCHESTRATION-FAILED>>>
                            <<<GARDEN-JOB-COMPLETE>>>
                            in that order; completion stamps the parsed field.
+  --split-indivisible-reason REASON
+  --split-indivisible-handler-timeout SECONDS
+                           paired metadata for an indivisible orchestrated child.
+                           REASON must be concrete and one line; SECONDS becomes
+                           handler-timeout and must fit within the claim-safe max.
   --priority LEVEL         urgent|high|normal|low (default normal).
   --roadmap ITEM           optional roadmap item this serves.
   --arc ARC                the arc this plan draws from (stamped `arc:`).
@@ -153,6 +167,8 @@ priority="normal"
 roadmap=""
 blocked_on=""
 orchestrated_by=""
+split_indivisible_reason=""
+split_indivisible_handler_timeout=""
 maintainer_question=""
 asked_at=""
 budget_hold=false
@@ -176,6 +192,8 @@ while [ $# -gt 0 ]; do
     --question) maintainer_question="${2:?--question needs a value}"; shift 2;;
     --asked-at) asked_at="${2:?--asked-at needs a URL}"; shift 2;;
     --orchestrated-by) orchestrated_by="${2:?--orchestrated-by needs a value}"; shift 2;;
+    --split-indivisible-reason) split_indivisible_reason="${2:?--split-indivisible-reason needs a value}"; shift 2;;
+    --split-indivisible-handler-timeout) split_indivisible_handler_timeout="${2:?--split-indivisible-handler-timeout needs seconds}"; shift 2;;
     --priority)   priority="${2:?--priority needs a value}"; shift 2;;
     --roadmap)    roadmap="${2:?--roadmap needs a value}"; shift 2;;
     --role)       role="${2:?--role needs a value}"; shift 2;;
@@ -222,6 +240,31 @@ if [ "$gate" = "orchestrated" ] && [ -z "$orchestrated_by" ]; then
 fi
 if [ "$gate" != "orchestrated" ] && [ -n "$orchestrated_by" ]; then
   die "--orchestrated-by is only valid with --orchestrated"
+fi
+# Indivisible split evidence is one atomic pair on the parked child. Requiring
+# the producer options here prevents a reason in prose from drifting away from
+# the execution timeout that the completion gate later verifies.
+if [ -n "$split_indivisible_reason" ] || [ -n "$split_indivisible_handler_timeout" ]; then
+  [ "$gate" = "orchestrated" ] \
+    || die "--split-indivisible-reason and --split-indivisible-handler-timeout are only valid with --orchestrated"
+  if [ -z "$split_indivisible_reason" ] || [ -z "$split_indivisible_handler_timeout" ]; then
+    die "--split-indivisible-reason and --split-indivisible-handler-timeout must be supplied together"
+  fi
+  case "$split_indivisible_reason" in
+    *$'\n'*|*$'\r'*) die "--split-indivisible-reason must be one line";;
+    too-large|'too large') die "--split-indivisible-reason must be concrete (not '${split_indivisible_reason}')";;
+  esac
+  [[ "$split_indivisible_reason" =~ [^[:space:]] ]] \
+    || die "--split-indivisible-reason must not be blank"
+  case "$split_indivisible_handler_timeout" in
+    0|*[!0-9]*) die "--split-indivisible-handler-timeout must be a positive base-10 integer";;
+  esac
+  split_indivisible_handler_timeout="${split_indivisible_handler_timeout#"${split_indivisible_handler_timeout%%[!0]*}"}"
+  [ -n "$split_indivisible_handler_timeout" ] \
+    || die "--split-indivisible-handler-timeout must be greater than zero"
+  split_budget_max=$(( ${GARDEN_CLAIM_TTL:-14400} - ${GARDEN_HANDLER_KILL_AFTER:-60} - 1 ))
+  [ "$split_indivisible_handler_timeout" -le "$split_budget_max" ] \
+    || die "--split-indivisible-handler-timeout must not exceed the claim-safe max $split_budget_max"
 fi
 if $budget_hold && [ "$gate" != go-ahead ]; then
   die "--budget-hold cannot be combined with another gate"
@@ -316,6 +359,11 @@ compose() {
   fi
   [ -n "$blocked_on" ] && printf 'blocked_on: %s\n' "$blocked_on"
   [ -n "$orchestrated_by" ] && printf 'orchestrated_by: %s\n' "$orchestrated_by"
+  if [ -n "$split_indivisible_reason" ]; then
+    printf 'handler-timeout: %s\n' "$split_indivisible_handler_timeout"
+    printf 'split-indivisible-reason: %s\n' \
+      "$(yaml_single_quote_scalar "$split_indivisible_reason")"
+  fi
   [ -n "$not_before" ] && printf 'not_before: %s\n' "$not_before"
   printf 'priority: %s\n' "$priority"
   [ -n "$roadmap" ] && printf 'roadmap: %s\n' "$roadmap"

@@ -172,8 +172,9 @@ if [ -f "$WALL_TODO" ] && [ ! -e "$TEMPORARY_ROOT/verify/jobs/plan/wall.md" ] \
    && grep -qx 'split_reason: deadline-overrun' "$WALL_TODO" \
    && grep -qx 'split_orchestration: wall-split' "$WALL_TODO" \
    && grep -q 'at least two self-contained child jobs' "$WALL_TODO" \
-   && grep -q 'split-indivisible-reason:' "$WALL_TODO" \
-   && grep -q 'handler-timeout:.*strictly greater than 1' "$WALL_TODO" \
+   && grep -q -- '--split-indivisible-reason REASON' "$WALL_TODO" \
+   && grep -q -- '--split-indivisible-handler-timeout SECONDS' "$WALL_TODO" \
+   && grep -q 'timeout strictly greater than 1' "$WALL_TODO" \
    && grep -q 'GARDEN-JOB-HANDED-OFF: wall-split' "$WALL_TODO"; then
   ok "first ordinary wall hit re-posts the same base for deliberate orchestration decomposition"
 else
@@ -360,25 +361,65 @@ else
   bad "completion gate rejected a valid divisible split orchestration"
 fi
 
-edit_board 'cat > jobs/orch/leaf-split.md <<EOF
----
-order: serial
-children: leaf-expanded-window
-on-child-failure: halt
-state: pending
----
-split-indivisible-reason: "one atomic build: partitioning is impossible # indivisible"
-split-indivisible-handler-timeout: 2
-EOF
-cat > jobs/plan/leaf-expanded-window.md <<EOF
----
-gate: orchestrated
-orchestrated_by: leaf-split
-handler-timeout: 2
-split-indivisible-reason: "one atomic build: partitioning is impossible # indivisible"
----
-run the atomic build
-EOF'
+printf '%s\n' 'run the atomic build' > "$TEMPORARY_ROOT/leaf-body.md"
+printf '%s\n' \
+  'split-indivisible-reason: "one atomic build: partitioning is impossible # indivisible"' \
+  'split-indivisible-handler-timeout: 2' > "$TEMPORARY_ROOT/leaf-orchestration.md"
+
+rc=0
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by leaf-split \
+  --split-indivisible-reason 'unpaired reason' leaf-unpaired \
+  "$TEMPORARY_ROOT/leaf-body.md" >/dev/null 2>&1 || rc=$?
+if [ "$rc" -ne 0 ]; then
+  ok "post-plan rejects indivisible metadata supplied without its paired timeout"
+else
+  bad "post-plan accepted an unpaired indivisible reason"
+fi
+rc=0
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by leaf-split \
+  --split-indivisible-handler-timeout 2 leaf-timeout-unpaired \
+  "$TEMPORARY_ROOT/leaf-body.md" >/dev/null 2>&1 || rc=$?
+if [ "$rc" -ne 0 ]; then
+  ok "post-plan rejects an indivisible timeout supplied without its paired reason"
+else
+  bad "post-plan accepted an unpaired indivisible timeout"
+fi
+rc=0
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by leaf-split \
+  --split-indivisible-reason 'one atomic build' \
+  --split-indivisible-handler-timeout invalid leaf-invalid-timeout \
+  "$TEMPORARY_ROOT/leaf-body.md" >/dev/null 2>&1 || rc=$?
+if [ "$rc" -ne 0 ]; then
+  ok "post-plan rejects a non-integer indivisible timeout"
+else
+  bad "post-plan accepted a non-integer indivisible timeout"
+fi
+rc=0
+"$JOBS/post-plan.sh" --deferred \
+  --split-indivisible-reason 'one atomic build' \
+  --split-indivisible-handler-timeout 2 leaf-not-orchestrated \
+  "$TEMPORARY_ROOT/leaf-body.md" >/dev/null 2>&1 || rc=$?
+if [ "$rc" -ne 0 ]; then
+  ok "post-plan rejects indivisible metadata outside an orchestrated child"
+else
+  bad "post-plan accepted indivisible metadata on a deferred child"
+fi
+
+"$JOBS/post-plan.sh" --orchestrated --orchestrated-by leaf-split \
+  --split-indivisible-reason 'one atomic build: partitioning is impossible # indivisible' \
+  --split-indivisible-handler-timeout 2 leaf-expanded-window \
+  "$TEMPORARY_ROOT/leaf-body.md" >/dev/null
+snapshot
+if grep -Fqx 'handler-timeout: 2' "$TEMPORARY_ROOT/verify/jobs/plan/leaf-expanded-window.md" \
+   && grep -Fqx "split-indivisible-reason: 'one atomic build: partitioning is impossible # indivisible'" \
+      "$TEMPORARY_ROOT/verify/jobs/plan/leaf-expanded-window.md"; then
+  ok "post-plan atomically stamps the indivisible reason and enlarged timeout"
+else
+  bad "post-plan did not stamp both indivisible child fields"
+fi
+"$JOBS/post-orchestration.sh" leaf-split leaf-expanded-window -- \
+  "$TEMPORARY_ROOT/leaf-orchestration.md" >/dev/null
+snapshot
 cat > "$TEMPORARY_ROOT/leaf-job.md" <<EOF
 ---
 role: orchestrator
