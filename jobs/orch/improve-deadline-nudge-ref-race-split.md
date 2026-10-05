@@ -2,7 +2,7 @@
 order: serial
 children: improve-deadline-nudge-ref-race-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-05T21:04:07Z
 ---
