@@ -41,6 +41,32 @@
 # Silent-failure discipline (the 2026-06-24 jq-outage lesson): require_tools fails
 # LOUD on a missing binary; a structural gh failure surfaces its stderr and exits
 # nonzero so the watcher never mistakes a broken enumeration for "no open PRs".
+# Every page must parse as a JSON array and at least one page must arrive; anything
+# else is an incomplete enumeration and fails loud the same way.
+#
+# SHARED SNAPSHOT CACHE. The ci-, dependabot-, dependabotany-, approval- and audit
+# consumers each enumerate the SAME complete open-PR list on their own timers; at
+# 2026-10-05T03:54:21Z the ci- and dependabot-watcher enumerations both hit GitHub's
+# primary quota for endojs/endo-but-for-bots. So the enumeration is single-flighted
+# per repository behind an flock and its rendered TSV is kept for a short window
+# (GARDEN_CI_PR_SOURCE_CACHE_SECS, default 60s, capped at 600s; 0 disables the
+# cache). A consumer that arrives while another is enumerating waits on the lock
+# and then reuses that result instead of issuing its own paginated walk.
+#
+# Only a VALIDATED SUCCESSFUL snapshot is ever written: gh_api_retry returned 0,
+# every page was an array, and jq rendered the whole list. A failed, refused, or
+# incomplete enumeration exits nonzero WITHOUT touching the cache, so the next
+# consumer retries (behind gh_api_retry's quota latch) rather than reading a guess.
+# The snapshot carries a header with its creation epoch, line count, and the body's
+# sha256; a reader re-verifies all three and treats any mismatch, a future epoch,
+# or an expired window as a miss. Writes go through a temp file and rename, so a
+# reader never sees a partial file. If the lock cannot be taken within
+# GARDEN_CI_PR_SOURCE_CACHE_LOCK_WAIT seconds (default 120) the handler enumerates
+# uncached and leaves the cache alone.
+#
+# The cache lives under the rendered unit root's .garden-state, not GARDEN_STATE,
+# for the same reason as the gh-api cooldown latch: independently namespaced units
+# may override GARDEN_STATE, but every consumer on one host shares GARDEN_ROOT.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -55,14 +81,102 @@ repo="${1:?usage: ci-pr-source-gh.sh <owner/name> [<bot-login>]}"
 
 require_tools gh jq
 
-# The authoritative paginated open-PR list. A structural failure here must NOT be
-# swallowed into an empty list (which would read as "no open PRs" and silently stop
-# every shepherd) — surface gh's stderr and exit nonzero so the watcher dies loud.
-gh_api_retry --paginate "repos/$repo/pulls?state=open&per_page=100" \
-  | jq -r '.[]
+: "${GARDEN_CI_PR_SOURCE_CACHE_DIR:=$GARDEN_ROOT/.garden-state/ci-pr-source-cache}"
+CACHE_MAGIC="ci-pr-source-cache-v1"
+
+cache_secs() {
+  local v="${GARDEN_CI_PR_SOURCE_CACHE_SECS:-60}"
+  case "$v" in ''|*[!0-9]*) v=60 ;; esac
+  [ "$v" -le 600 ] || v=600
+  printf '%s' "$v"
+}
+
+# enumerate <out-file> — write the complete open-PR TSV to <out-file>. A structural
+# failure here must NOT be swallowed into an empty list (which would read as "no
+# open PRs" and silently stop every shepherd): surface gh's stderr and return
+# nonzero so the watcher dies loud.
+enumerate() {
+  local out="$1" raw rc=0
+  raw="$(mktemp)"
+  gh_api_retry --paginate "repos/$repo/pulls?state=open&per_page=100" >"$raw" || rc=$?
+  if [ "$rc" -ne 0 ]; then rm -f "$raw"; return "$rc"; fi
+  if ! jq -e -s 'length > 0 and all(.[]; type == "array")' "$raw" >/dev/null 2>&1; then
+    log "WARN: gh api repos/$repo/pulls returned an incomplete or malformed enumeration; refusing it"
+    rm -f "$raw"
+    return 1
+  fi
+  jq -r '.[]
       | [ (.number|tostring),
           (.user.login // ""),
           (.head.repo.full_name // ""),
           (.updated_at // ""),
           (.title // "") ]
-      | @tsv'
+      | @tsv' "$raw" >"$out" || rc=$?
+  rm -f "$raw"
+  return "$rc"
+}
+
+# cache_read <file> <ttl> — print the snapshot body and return 0 only when the
+# header is intact, the window is live, and the body matches its line count + hash.
+cache_read() {
+  local f="$1" ttl="$2" magic epoch lines sum now body
+  [ -f "$f" ] || return 1
+  read -r magic epoch lines sum < "$f" || return 1
+  [ "$magic" = "$CACHE_MAGIC" ] || return 1
+  case "$epoch$lines" in ''|*[!0-9]*) return 1 ;; esac
+  now="$(date +%s)"
+  [ "$epoch" -le "$now" ] && [ $((now - epoch)) -lt "$ttl" ] || return 1
+  body="$(mktemp)"
+  tail -n +2 "$f" > "$body" || { rm -f "$body"; return 1; }
+  if [ "$(wc -l < "$body")" -ne "$lines" ] \
+     || [ "$(sha256sum < "$body" | cut -d' ' -f1)" != "$sum" ]; then
+    rm -f "$body"; return 1
+  fi
+  cat "$body"
+  rm -f "$body"
+}
+
+# cache_write <file> <body-file> — atomically publish a validated snapshot.
+cache_write() {
+  local f="$1" body="$2" tmp
+  tmp="$(mktemp "$f.tmp.XXXXXX")" || return 1
+  if printf '%s %s %s %s\n' "$CACHE_MAGIC" "$(date +%s)" "$(wc -l < "$body")" \
+       "$(sha256sum < "$body" | cut -d' ' -f1)" > "$tmp" \
+     && cat "$body" >> "$tmp" && mv -f "$tmp" "$f"; then
+    return 0
+  fi
+  rm -f "$tmp"
+  return 1
+}
+
+ttl="$(cache_secs)"
+out="$(mktemp)"
+trap 'rm -f "$out"' EXIT
+
+if [ "$ttl" -eq 0 ] || ! mkdir -p "$GARDEN_CI_PR_SOURCE_CACHE_DIR" 2>/dev/null; then
+  enumerate "$out"
+  cat "$out"
+  exit 0
+fi
+
+key="$(printf '%s' "$repo" | tr '[:upper:]' '[:lower:]' | sha256sum | cut -d' ' -f1)"
+snap="$GARDEN_CI_PR_SOURCE_CACHE_DIR/$key.tsv"
+lock_wait="${GARDEN_CI_PR_SOURCE_CACHE_LOCK_WAIT:-120}"
+case "$lock_wait" in ''|*[!0-9]*) lock_wait=120 ;; esac
+
+exec {lockfd}>>"$GARDEN_CI_PR_SOURCE_CACHE_DIR/$key.lock"
+if ! flock -w "$lock_wait" "$lockfd"; then
+  exec {lockfd}>&-
+  log "WARN: open-PR cache lock for $repo busy for ${lock_wait}s; enumerating uncached"
+  enumerate "$out"
+  cat "$out"
+  exit 0
+fi
+
+if cache_read "$snap" "$ttl"; then
+  exit 0
+fi
+enumerate "$out"
+cache_write "$snap" "$out" || log "WARN: could not write open-PR cache for $repo; continuing uncached"
+exec {lockfd}>&-
+cat "$out"
