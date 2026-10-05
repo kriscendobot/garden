@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T09:02:16Z_
+_As of 2026-10-05T09:04:56Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* (2026-10-04) went live, with all 25 plates in place (10 chapter openers, 15 section figures) and the placeholder title-page garden scene removed; the work landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), with tests and a byte-for-byte build check confirmed. A follow-up design job, `design-clip-multiasset-and-art-infra-20261005`, is now probing whether the book's one-page/inlined-SVG approach is a real platform limit or just a self-imposed simplification, and whether the garden has any real image-generation capability at all (today's art was hand-authored SVG by Codex, not generated imagery); it will land as a PR per the open-questions carve-out rather than bare. The SturdyRef stack review (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392)/[#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)/[#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)/[#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) came back with a clear merge order — #1392 first once its base layers land, #1393 after a retcon, #1396/#1397 waiting only on #1394 — and no redesign needed. On the infrastructure side, **oros-studio** has now been unreachable for roughly 74 hours with a growing backlog of unclaimed health checkups and unacked recovery ops; it needs someone at the physical machine (power/sleep, Docker Desktop, VM). Separately, the minion.town production Claude-CLI canary is stalled on a maintainer-only step — connecting a real subscription token and completing a GitHub OAuth login by hand at minion.town/account/claude — and several proxy messages flagged that flow as plausible social-engineering risk worth a careful look before proceeding.
+The board is quiet overnight: only the subscription-based-budget-model deploy-gate regression fix got claimed into doin, and no new jobs completed. The standing backlog dominates the inbox instead of fresh throughput — Oros (`oros-studio-garden-ce242c49`) has now been unreachable for roughly 76 hours (heartbeat and sysop-log both stuck since 2026-10-02T05:08Z/05:38Z) with ten-plus checkup jobs piling up unclaimed and recovery ops queued but unacked; it needs a human at the actual machine to check power/sleep, Docker Desktop, and the VM. The SturdyRef stack panel summary flags four draft PRs ready for a merge call — [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) — all green CI with only minor must-fixes, but blocked behind landing their stale-base predecessors [#774](https://github.com/endojs/endo-but-for-bots/pull/774) and [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) first. Several shell-to-js and account-page gauntlets on minion.town (PRs [#148](https://github.com/kriscendobot/minion.town/pull/148), [#150](https://github.com/kriscendobot/minion.town/pull/150), [#157](https://github.com/kriscendobot/minion.town/pull/157)) hit their 6-round review budget with CI green but no convergence, and now carry stale panel coverage after later pushes — they're waiting on an explicit "run the gauntlet" or a direct merge call. Separately, the minion.town Claude-CLI production canary needs the maintainer in person: several bot messages are asking for a real `claude setup-token` connection and an OAuth login at minion.town, which is correctly being treated as a credential action no agent can complete on your behalf (one inbound MCP-authorization request was also flagged as a plausible phishing/social-engineering attempt worth a skeptical look). On a brighter note, the illuminated edition of *Better Code and Gardens* shipped and is live, all 25 plates in with captions, tests passing and a visual check done across screen sizes and themes.
 
 ## Parked for maintainer feedback
 
@@ -463,8 +463,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 183.2M | $1232.11 _(notional, rate-card)_ | 72% of 256.0M (ok) |
-| Codex | 9.9M _(+242.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 183.4M | $1233.20 _(notional, rate-card)_ | 72% of 256.0M (ok) |
+| Codex | 10.0M _(+242.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -472,14 +472,15 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
+### todo (0)
+(none)
 
-### doin (4)
+### doin (5)
 - [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1391
 - [`endojs-endo-but-for-bots-pr1391-fix-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-fix-20261005.md) — ---
 - [`retire-gardener-clone-alias-verify-deploy-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper.md) — ---
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #774
+- [`fix-subscription-model-deploy-gate-regression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-subscription-model-deploy-gate-regression.md) — Fix deploy-gate regression from subscription-based-budget-model
 
 ### tada (10995)
 - [`endojs-endo-but-for-bots-pr1389-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1389-gauntlet-fix-3.md) — Gauntlet FIX round 3: endojs/endo-but-for-bots PR #1389
