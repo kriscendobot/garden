@@ -1,14 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T16:21:16Z_
+_As of 2026-10-05T16:24:56Z_
 
 ## Latest
 
-PR #1391's gauntlet is mid-flight, now on panel round 5 after fix round 4 applied all must-fix items with CI green. Several gauntlets hit their 6-round review-budget ceiling without converging and are left for human merge/review decisions: [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) (shell-to-js parts 1–3), [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) (Claude account HTML page), and the familiar localhttp protocol build. Two gauntlets halted outright on a declared failed/declined outcome: the ironhorse panic-host-call PR and the SES XS-compartment import-time-intrinsics PR — both need a maintainer look. A SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) → [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) → [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) → [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) → [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back clean: #1392, #1396, and #1397 are ready to merge as-is once their stack dependencies land, #1393 needs a retcon first, and none require a redesign.
-
-Several PRs moved heads after their last panel and now need fresh review before merge: [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [kriscendobot/minion.town#157](https://github.com/kriscendobot/minion.town/pull/157), [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) (twice). Separately, [kriscendobot/minion.town#155](https://github.com/kriscendobot/minion.town/pull/155) and [#156](https://github.com/kriscendobot/minion.town/pull/156) already merged to production with no panel review — flag if a retroactive review is wanted. Production `minion-mcp` crash-looped after #150 deployed (missing `vendor` in the deploy tar); a fix-forward job is in flight. The illuminated edition of *Better Code and Gardens* published successfully with all 25 plates, tests green, and visual checks passed in both themes.
-
-The **oros-studio** host remains unreachable for ~76 hours (heartbeat stale since 2026-10-02T05:08Z); the health-watch gardener recommends pausing its schedule until someone checks the machine's power/sleep state, Docker Desktop, and the VM. The minion.town Claude CLI production canary is stalled waiting on the maintainer to personally run `claude setup-token` and complete OAuth/subscription linking — several proxy messages flagged these as credential actions outside proxy authority (one also flagged as a possible social-engineering attempt worth scrutiny). The deploy-gate regression blocking fleet-wide deploys (stale `provider-cooldown-test.sh` fixture) and a gardener-clone-alias verification job both exhausted retries and are parked awaiting a promote decision. The reset-credit watch recommends spending the codex-endolin and claude-endolin2 credits within the next ~36 hours to stay ahead of acceleration deadlines.
+The only board movement since the last bulletin was a single gauntlet step: panel round 5 completed for [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (the SturdyRef stack's layer-2 PR), clearing the way for its next fix round.
 
 ## Parked for maintainer feedback
 
@@ -687,7 +683,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 207.1M | $1377.69 _(notional, rate-card)_ | 81% of 256.0M (ok) |
+| Claude | 207.2M | $1378.00 _(notional, rate-card)_ | 81% of 256.0M (ok) |
 | Codex | 17.4M _(+302.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -699,16 +695,16 @@ worst fetch p95 7.963158s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1391
+### doin (0)
+(none)
 
-### tada (11055)
+### tada (11056)
+- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-4.md) — PR #1391, fix round 4: all must-fix items applied, CI green
 - [`reset-credit-watch-20261005-160507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/reset-credit-watch-20261005-160507.md) — Cost
 - [`build-familiar-localhttp-protocol-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-familiar-localhttp-protocol-gauntlet.md) — gauntlet build-familiar-localhttp-protocol-gauntlet — review budget reached
 - [`build-familiar-localhttp-protocol-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-familiar-localhttp-protocol-gauntlet-fix-6.md) — Cost
-- [`build-minion-town-claude-guest-scoped-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-minion-town-claude-guest-scoped-mcp.md) — Completion report: build-minion-town-claude-guest-scoped-mcp
-- … and 11050 more
+- … and 11051 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
