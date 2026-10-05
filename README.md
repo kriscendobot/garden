@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T08:14:56Z_
+_As of 2026-10-05T08:36:13Z_
 
 ## Latest
 
-Oros has now been unreachable for roughly 74 hours (since 2026-10-02T05:08Z); ten `oros-health-checkup` jobs are stacked unclaimed in todo and recovery ops remain unacknowledged — this needs a person at the machine to check power/sleep, Docker Desktop, and the VM. The *Better Code and Gardens* illuminated edition is live with all 25 plates captioned, published via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). On minion.town, the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/issues/150) deploy crash-looped production (`@endo/claude` missing from the deploy tar); a fix-forward job is in flight, and [kriscendobot/minion.town#155](https://github.com/kriscendobot/minion.town/issues/155) and [kriscendobot/minion.town#156](https://github.com/kriscendobot/minion.town/issues/156) landed without panel review during the recovery. The Claude-CLI production canary is still blocked on the maintainer personally completing `claude setup-token` and GitHub OAuth linkage at minion.town — several automated attempts timed out waiting and one flagged link should be treated with phishing-level scrutiny regardless of source. The SturdyRef stack (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392)/[#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)/[#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)/[#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is ready for a merge decision pending stack-hygiene weaves. A new design job was posted to investigate clip multi-asset publishing and art-generation infrastructure gaps, including whether the garden's Codex credential covers image generation. Claude quota sits at 71% of weekly cap; three minion-town gauntlets ([part1](https://github.com/kriscendobot/minion.town/pull/157), part2, part3 of the shell-to-js work) hit their 6-round review budget and are left for manual merge review.
+Oros remains fully unreachable for a third day straight — heartbeat, sysop-log, and fleet health have all been stale since 2026-10-02, the host is derotated, and its reset/restore ops sit unacknowledged in the queue while over a dozen health checkups piled up unclaimed in todo before being withdrawn this cycle. Someone needs to physically check the Mac (power/sleep, Docker Desktop, the VM).
+
+The minion.town Claude CLI production canary stalled on several maintainer-only steps: the production deploy crash-looped after [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) shipped (missing `vendor` in the deploy tar), was fixed forward, and the canary now needs the maintainer to personally connect a real Claude subscription via `claude setup-token` at minion.town/account/claude — several proxy requests for OAuth/credential actions were correctly declined as beyond its authority. The book illustration pipeline, by contrast, finished cleanly: the illuminated edition of *Better Code and Gardens* is live with all 25 plates in place, tests passing, and a visual pass confirming no layout issues. The SturdyRef stack (layers 3/4/6/7, PRs [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) got a full panel summary recommending merge-as-is or merge-after-retcon for each, pending the stack's lower layers landing first. Several stale-panel-head notices flag PRs ([kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), [#157](https://github.com/kriscendobot/minion.town/pull/157), [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407)) that moved past their last reviewed head and need a fresh panel or explicit maintainer decision before merging.
 
 ## Parked for maintainer feedback
 
@@ -456,8 +458,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 182.0M | $1225.47 _(notional, rate-card)_ | 71% of 256.0M (ok) |
-| Codex | 9.6M _(+240.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 182.1M | $1225.76 _(notional, rate-card)_ | 71% of 256.0M (ok) |
+| Codex | 9.6M _(+240.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -465,28 +467,8 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 3.745462s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-ymax-stdio-mcp); 3 open notice(s); checker healthy
 
 ## Board
-### todo (21)
-- [`oros-health-checkup-20261004-015005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-015005.md) — ---
-- [`oros-health-checkup-20261005-053523`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261005-053523.md) — ---
-- [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
-- [`oros-health-checkup-20261004-172006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-172006.md) — ---
-- [`oros-health-checkup-20261004-233506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-233506.md) — ---
-- [`oros-health-checkup-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-112006.md) — ---
-- [`oros-health-checkup-20261005-023513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261005-023513.md) — ---
-- [`oros-health-checkup-20261004-202008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-202008.md) — ---
-- [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
-- [`oros-health-checkup-20261003-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-163507.md) — ---
-- [`oros-health-checkup-20261004-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-045008.md) — ---
-- [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
-- [`oros-health-checkup-20261003-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-193507.md) — ---
-- [`oros-health-checkup-20261004-110510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-110510.md) — ---
-- [`oros-health-checkup-20261004-080507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-080507.md) — ---
-- [`oros-health-checkup-20261004-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-142006.md) — ---
-- [`oros-health-checkup-20261003-132007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-132007.md) — ---
-- [`oros-health-checkup-20261003-223509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-223509.md) — ---
-- [`oros-health-checkup-20261002-142006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-142006.md) — ---
-- [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
-- [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
+### todo (0)
+(none)
 
 ### doin (0)
 (none)
