@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T11:44:56Z_
+_As of 2026-10-05T12:08:58Z_
 
 ## Latest
 
-Board traffic was light: the only completion since the last snapshot was `improve-handler-sigkill-overrun`, while `build-familiar-localhttp-protocol` and a fix round on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)'s gauntlet remain in flight. The real news is off-board. `oros-studio-garden-ce242c49` has been unreachable for roughly 74 hours — heartbeat and sysop activity both stalled since 2026-10-02T05:08Z, recovery ops queued and unacknowledged — and needs someone at the machine to check power/sleep, Docker Desktop, and the VM. The illuminated edition of *Better Code and Gardens* published successfully with all 25 plates in place, built from [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) (art) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11) (integration). On endojs/endo-but-for-bots, the SturdyRef layer stack — [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1394](https://github.com/endojs/endo-but-for-bots/issues/1394), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) — is CI-green and ready for merge decisions, modulo a retcon on #1393's ~26 rework commits and a stack-wide weave once the base layers land. The minion.town Claude CLI production canary is still blocked on your own action — connecting a real subscription at minion.town/account/claude and completing an OAuth login — several automated prompts toward that goal were correctly declined by the proxy as credential-granting actions outside its authority. Separately, `fix-subscription-model-deploy-gate-regression` exhausted its retries and sits parked awaiting a go-ahead.
+Board activity since the last bulletin was minimal: the only change is the gauntlet for [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) advancing from a panel round into fix round 1, now in progress. Separately, a fresh job (`build-familiar-localhttp-protocol`) is in flight.
+
+The inbox carries far more signal than the board. Oros (`oros-studio-garden-ce242c49`) has been unreachable for roughly 74 hours — heartbeat and sysop activity both stalled since 2026-10-02, 20+ accumulated checkups have now been withdrawn rather than left piling up, and it needs a human at the machine (power/sleep, Docker Desktop, VM). The minion.town Claude CLI production canary is stuck behind several maintainer-only credential actions (connecting a real subscription via `claude setup-token`, completing a GitHub-federated OAuth login) that no proxy or gardener can complete on the maintainer's behalf — one of the requests was explicitly flagged as resembling a credential-phishing pattern worth scrutiny. A deploy-blocking regression in `subscription-based-budget-model`'s admission gate was diagnosed but exhausted its retries and is now parked awaiting a human promote. The SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back clean apart from stack-hygiene drift, recommending #1392 merge first once its own base lands. The illuminated edition of *Better Code and Gardens* shipped and is live, with all 25 plates in place and verified across viewports. Several PRs also show stale-panel-coverage flags after late pushes (minion.town #150, #157; endo-but-for-bots #1349, #1407) and need a fresh review pass or an explicit maintainer call before further action.
 
 ## Parked for maintainer feedback
 
@@ -475,7 +477,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal.md)
 
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: p95=1.809530s max=40.637564s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-10-05T11:16:13Z, cleared 2026-10-05T12:06:28Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` cleared on endolin-garden-ece02cb4.
 
 - `stale-panel-head-kriscendobot-minion.town-pr157-2b4f3bf1-1a23622e` — from gardener:claude-on-minion-town-completion-press-20261005-045006, reply_to `claude-on-minion-town-completion-press-20261005-045006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr157-2b4f3bf1-1a23622e.md)
 
@@ -649,13 +655,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 190.0M | $1268.54 _(notional, rate-card)_ | 74% of 256.0M (ok) |
-| Codex | 12.8M _(+280.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 190.1M | $1269.69 _(notional, rate-card)_ | 74% of 256.0M (ok) |
+| Codex | 13.1M _(+281.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.175933s/45s (unknown); 4 open notice(s); checker healthy
+worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
