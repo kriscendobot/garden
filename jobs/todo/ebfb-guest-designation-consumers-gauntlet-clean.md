@@ -1,24 +1,12 @@
 ---
-gate: deferred
-priority: normal
-gauntlet: ebfb-guest-designation-consumers-gauntlet
 role: gardener
 tier: mentor
+arc: unallocated
 handler-budget-role: shepherd
 handler-timeout: 7200
 token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: unknown
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-10-01T19:03:10Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-10-01T19:03:10Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-05T08:45:17Z cleared=none -->
 
 ---
 role: gardener
