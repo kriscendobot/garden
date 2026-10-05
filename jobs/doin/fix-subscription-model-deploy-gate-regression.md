@@ -110,6 +110,7 @@ way, don't just assume. This unblocks deploys on EVERY host once it lands
 and rolls out — say that explicitly in your completion report so its
 priority is clear to whoever reads it next.
 
+<!-- garden-transient-elapsed: kind=exit0 through=0 values=59 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
