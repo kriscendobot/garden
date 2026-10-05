@@ -21,8 +21,9 @@ case "$repo" in
     row 53 kriscendobot "$repo" 2026-08-16T00:00:00Z 'design with a COMPLETED gauntlet'
     if [ "${GARDEN_TEST_FRESH_PRS:-0}" = 1 ]; then
       row 55 kriscendobot "$repo" 2099-01-01T00:00:00Z 'fresh ready PR one'
-      row 56 kriscendobot "$repo" 2099-01-01T00:00:01Z 'fresh ready PR two'
+      row 56 kriscendobot "$repo" 2099-01-01T00:00:01Z 'fresh draft with missed handoff'
       row 57 kriscendobot "$repo" 2099-01-01T00:00:02Z 'fresh ready PR over cap'
+      row 58 kriscendobot "$repo" 2099-01-01T00:00:03Z 'fresh draft probe'
     fi
     ;;
   kriscendobot/garden)

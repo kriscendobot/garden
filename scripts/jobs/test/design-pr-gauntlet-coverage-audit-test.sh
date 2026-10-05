@@ -11,14 +11,15 @@
 #   * An uncovered non-draft bot PR (#47) raises exactly ONE maintainer alert and
 #     stages NO gauntlet record (the whole point — no autonomous spend).
 #   * A covered PR — active record (#48) or completed in tada/ (#53) — is quiet.
-#   * A DRAFT PR (#49, #52) is skipped: draft is the manual regime's hard boundary.
+#   * Historical DRAFT PRs (#49, #52) are skipped.
 #   * A non-bot PR (#50) and a probe (#51) are skipped.
 #   * A stalled per-PR metadata read (#54) is an inconclusive skip; scanning continues.
 #   * The garden's OWN repo (#28) is excluded.
 #   * Dedup: re-running with an UNCHANGED head raises no second alert; a CHANGED head
 #     re-alerts.
-#   * After arming, at most two newly created ready bot PRs stage in one tick; an
-#     overflow PR alerts and remains unstaged.
+#   * After arming, at most two newly created bot PRs stage in one tick, including
+#     a draft whose producer handoff was missed; an overflow ready PR alerts and
+#     remains unstaged, while a draft probe remains exempt.
 #   * Failed posts consume the same attempt bound rather than fanning out failures
 #     across the rest of the new-PR set.
 
@@ -108,7 +109,7 @@ echo '== (c) covered PRs (#48 active record, #53 completed in tada) are quiet ==
 [ "$(alert_count pr48)" -eq 0 ] || fail '#48 (covered by active gauntlet) wrongly alerted'
 [ "$(alert_count pr53)" -eq 0 ] || fail '#53 (covered by completed gauntlet) wrongly alerted'
 
-echo '== (d) draft PRs (#49, #52) are skipped — draft is the hard boundary =='
+echo '== (d) historical draft PRs (#49, #52) are skipped =='
 [ "$(alert_count pr49)" -eq 0 ] || fail '#49 (draft) wrongly alerted'
 [ "$(alert_count pr52)" -eq 0 ] || fail '#52 (draft) wrongly alerted'
 
@@ -141,9 +142,12 @@ GARDEN_TEST_FRESH_PRS=1 "$AUDIT" 2>&1 | tee "$TR/fresh.log"
 grep -qx -- '--by design-pr-gauntlet-coverage-audit kriscendobot-minion.town-pr55-gauntlet https://github.com/kriscendobot/minion.town/pull/55' "$GARDEN_AUDIT_GAUNTLET_LOG" \
   || fail '#55 did not stage with the deterministic PR-keyed base'
 grep -qx -- '--by design-pr-gauntlet-coverage-audit kriscendobot-minion.town-pr56-gauntlet https://github.com/kriscendobot/minion.town/pull/56' "$GARDEN_AUDIT_GAUNTLET_LOG" \
-  || fail '#56 did not stage with the deterministic PR-keyed base'
+  || fail '#56 post-arm draft did not stage with the deterministic PR-keyed base'
 ! grep -q 'pr57-gauntlet' "$GARDEN_AUDIT_GAUNTLET_LOG" \
   || fail '#57 exceeded the per-tick stage cap but was staged'
+! grep -q 'pr58-gauntlet' "$GARDEN_AUDIT_GAUNTLET_LOG" \
+  || fail '#58 draft probe wrongly staged'
+[ "$(alert_count pr58)" -eq 0 ] || fail '#58 draft probe wrongly alerted'
 [ "$(alert_count pr57)" -eq 1 ] || fail '#57 overflow should fall back to one maintainer alert'
 grep -q "exceeded this tick's stage cap (2)" "$TR/fresh.log" \
   || fail 'the bounded overflow disposition was not logged'
@@ -155,4 +159,4 @@ GARDEN_TEST_FRESH_PRS=1 GARDEN_AUDIT_GAUNTLET_FAIL=1 \
 [ "$(wc -l <"$GARDEN_AUDIT_GAUNTLET_LOG")" -eq 1 ] \
   || fail "one failed post should consume the one-attempt bound (got $(wc -l <"$GARDEN_AUDIT_GAUNTLET_LOG"))"
 
-echo 'PASS: the readiness audit keeps historical backlog alert-only, stages only post-arm PRs with a two-per-tick bound, stays quiet on covered/draft/non-bot/probe/own-repo/inconclusive, dedups alerts on head, and re-alerts on a changed head'
+echo 'PASS: the readiness audit keeps historical backlog alert-only, reconciles ready and draft post-arm PRs with a shared two-per-tick bound, stays quiet on historical drafts/covered/non-bot/probe/own-repo/inconclusive, dedups alerts on head, and re-alerts on a changed head'

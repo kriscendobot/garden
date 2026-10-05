@@ -24,10 +24,12 @@
 #      comment-repos/ set — the same gate the CI and comment watchers use), skipping
 #      the garden's own repo (no PR workflow runs on it — CLAUDE.md § Conventions).
 #   2. Keep only BOT-AUTHORED, OPEN, NON-DRAFT PRs (draft artifacts belong to their
-#      completion-local handoff), exempting a probe.
+#      completion-local handoff), except that post-arm drafts are reconciled when
+#      that handoff was missed. Probes remain exempt.
 #   3. If NO staged-gauntlet RECORD already covers the PR (active in jobs/gauntlet/ or
 #      completed in jobs/tada/), stage it only when created after the durable arm
-#      epoch and the per-tick cap has room; otherwise raise a DEDUPLICATED alert.
+#      epoch and the per-tick cap has room; otherwise raise a DEDUPLICATED alert
+#      for a ready PR or quietly retry a draft on the next tick.
 #
 # Dedup keys on `<repo>#<number>:<headRefOid>` via a durable per-PR marker under
 # $GARDEN_STATE, so an UNCHANGED head never re-alerts (no per-tick spam) while a
@@ -240,15 +242,23 @@ while IFS= read -r repo; do
     [ "$pauthor" = "$GARDEN_BOT_LOGIN" ] || continue
     [ "$state" = OPEN ] || continue
 
-    # DRAFT is the manual regime's hard boundary — a draft PR is parked-by-design and
-    # owes nothing. Only a NON-DRAFT PR that reached the mergeable queue is a concern.
-    [ "$draft" = true ] && continue
-
     # A probe intentionally stays draft with no gauntlet — never a concern.
     if printf '%s\n' "$pr_json" | jq -r '[.title, .body] | join("\n")' 2>/dev/null \
          | grep -qi 'gap-revealing prototype\|gap-revealing'; then
       continue
     fi
+
+    # A historical draft is parked-by-design and owes nothing. A post-arm draft,
+    # however, is the normal artifact produced immediately before the completion
+    # hook stages its gauntlet. Reconcile that narrowly bounded class so a missed
+    # producer handoff does not leave the draft stranded forever.
+    created_epoch="$(date -u -d "$created_at" +%s 2>/dev/null || true)"
+    post_arm=false
+    if [ "$arming_run" = false ] && [ -n "$created_epoch" ] \
+       && [ "$created_epoch" -gt "$arm_epoch" ]; then
+      post_arm=true
+    fi
+    [ "$draft" = true ] && [ "$post_arm" = false ] && continue
 
     candidate_prs=$((candidate_prs + 1))
     slug="${repo%/*}-${repo#*/}"
@@ -269,9 +279,7 @@ while IFS= read -r repo; do
     # Only PRs demonstrably created after the durable arm epoch enter this path.
     # The first snapshot is unconditionally historical, even if a remote clock is
     # ahead. A malformed/missing createdAt likewise fails safe to alert-only.
-    created_epoch="$(date -u -d "$created_at" +%s 2>/dev/null || true)"
-    if [ "$arming_run" = false ] && [ -n "$created_epoch" ] \
-       && [ "$created_epoch" -gt "$arm_epoch" ]; then
+    if [ "$post_arm" = true ]; then
       if [ "$stage_attempted" -lt "$GARDEN_DPGCA_MAX_NEW_PR_STAGES" ]; then
         stage_attempted=$((stage_attempted + 1))
         if post_gauntlet "$gauntlet_base" "$pr_url"; then
@@ -279,11 +287,28 @@ while IFS= read -r repo; do
           log "audit: STAGED bounded new-PR gauntlet '$gauntlet_base' for $pr_url (created $created_at, arm epoch $arm_epoch)"
           continue
         fi
-        log "audit: bounded new-PR staging failed for $pr_url; falling back to maintainer alert"
+        if [ "$draft" = true ]; then
+          log "audit: bounded new-PR staging failed for draft $pr_url; leaving it eligible for the next tick"
+        else
+          log "audit: bounded new-PR staging failed for $pr_url; falling back to maintainer alert"
+        fi
       else
         deferred=$((deferred + 1))
-        log "audit: new PR $pr_url exceeded this tick's stage cap ($GARDEN_DPGCA_MAX_NEW_PR_STAGES); alerting now and leaving it eligible for the next tick"
+        if [ "$draft" = true ]; then
+          log "audit: new draft $pr_url exceeded this tick's stage cap ($GARDEN_DPGCA_MAX_NEW_PR_STAGES); deferring without alert and leaving it eligible for the next tick"
+        else
+          log "audit: new PR $pr_url exceeded this tick's stage cap ($GARDEN_DPGCA_MAX_NEW_PR_STAGES); alerting now and leaving it eligible for the next tick"
+        fi
       fi
+    fi
+
+    # Draft overflow or a failed draft post remains eligible for the next tick,
+    # but is not in the mergeable queue and therefore does not warrant a readiness
+    # alert. In particular, do not stamp an alert-dedup marker that could obscure
+    # the later transition to ready.
+    if [ "$draft" = true ]; then
+      log "audit: post-arm draft $pr_url remains unstaged; deferring without alert"
+      continue
     fi
 
     # Historical, overflow, or failed-stage candidate. Dedup the alert on
@@ -305,5 +330,5 @@ while IFS= read -r repo; do
   done <<<"$src"
 done < <(repos_list)
 
-log "audit: swept $scanned_repos watched repo(s); $candidate_prs bot-authored non-draft PR(s), $already already covered, $staged newly staged from $stage_attempted attempt(s) (cap $GARDEN_DPGCA_MAX_NEW_PR_STAGES), $deferred deferred by cap, $alerted newly alerted, $quiet quiet (already-alerted head)"
+log "audit: swept $scanned_repos watched repo(s); $candidate_prs eligible bot-authored PR(s), $already already covered, $staged newly staged from $stage_attempted attempt(s) (cap $GARDEN_DPGCA_MAX_NEW_PR_STAGES), $deferred deferred by cap, $alerted newly alerted, $quiet quiet (already-alerted head)"
 exit 0
