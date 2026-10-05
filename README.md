@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T05:37:30Z_
+_As of 2026-10-05T06:06:58Z_
 
 ## Latest
 
-Oros remains fully dark, nearing 72 hours unreachable — heartbeat, sysop-log, and fleet health all frozen since 2026-10-02, and another checkup just landed unclaimed in todo alongside the existing backlog; this still needs a human at the machine (Mac power/sleep, Docker Desktop, VM). The `garden-book` illuminated edition published: all 25 plates are in and live at the ocap.site build, via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). A design for clip multi-asset support and art-generation infrastructure landed as [9c270c1d13](https://github.com/kriscendobot/garden/commit/9c270c1d13b) on this repo's `design/clip-multiasset-and-art-generation` branch, carrying open questions on credentials/cost and raster-vs-vector art. On minion.town, the production Claude CLI canary hit a packaging bug — the deploy tarball omitted the `vendor` directory needed by `@endo/claude`, crash-looping `minion-mcp` — and a fix-forward job has been posted; separately, several canary messages are asking the maintainer to personally connect a real Claude subscription via `claude setup-token` at minion.town/account/claude, which no proxy or gardener can do on their behalf. The SturdyRef CapTP/OCapN stack (layers 3, 4, 6, 7 — [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is CI-green and panel-reviewed with a recommended merge order, but blocked behind landing the two draft layers underneath it. Several stale-panel-head notices await a maintainer review call, most notably [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) and [#157](https://github.com/kriscendobot/minion.town/pull/157), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407).
+The dominant story is the oros-studio host, dead for roughly three days now (heartbeat stale since 2026-10-02T05:08Z), with 21 unclaimed health-checkup jobs piling up in todo and a growing backlog of unacknowledged sysop recovery ops — this needs someone at the physical machine to check power/sleep, Docker Desktop, and the VM. Separately, the minion.town Claude CLI production canary is blocked entirely on the maintainer: a production deploy of [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) crash-looped (missing `@endo/claude` vendor directory in the deploy tar) but was fixed forward with SSM-verified health, and the canary itself is waiting on the maintainer to run `claude setup-token` locally and connect a real subscription at minion.town/account/claude — several bot-generated "connect" links have already expired unused. On the book side, *Better Code and Gardens* now has all 25 illustrated plates live and verified byte-for-byte reproducible. A new design job (`design-clip-multiasset-and-art-infra-20261005`) is in flight to investigate multi-asset clip publishing and actual image-generation infrastructure, since the garden currently has no true text-to-image capability — both prior art jobs were hand-authoring SVG. Several SturdyRef-stack PRs ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) got a thorough panel summary recommending merge order once the lower layers ([#774](https://github.com/endojs/endo-but-for-bots/issues/774), [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391)) land, and three shell-to-JS gauntlets plus the minion.town account-page gauntlet all hit their 6-round review budget and are parked for a human merge call.
 
 ## Parked for maintainer feedback
 
@@ -32,11 +32,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #507 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T05:05:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 507 times; this is ONE
-> coalesced notice that updates in place, not 507 messages. Latest detail:
+> WATCHDOG notice — occurrence #527 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T06:05:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 527 times; this is ONE
+> coalesced notice that updates in place, not 527 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 258986s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 262586s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -452,7 +452,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 179.8M | $1216.67 _(notional, rate-card)_ | 70% of 256.0M (ok) |
+| Claude | 179.9M | $1217.25 _(notional, rate-card)_ | 70% of 256.0M (ok) |
 | Codex | 9.5M _(+240.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
