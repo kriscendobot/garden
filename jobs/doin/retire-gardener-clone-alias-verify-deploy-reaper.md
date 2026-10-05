@@ -23,6 +23,7 @@ Method: run each suite with a SCRUBBED env (`env -i HOME=$HOME PATH=$PATH TMPDIR
 
 Suites for THIS child: deploy-garden, reaper-requeue-cap, reaper-live-handler-guard, reaper-doom-park, deadline-nudge (~10 min), fetch-timeout (>15 min; use a long timeout, foreground).
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
