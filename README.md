@@ -1,22 +1,22 @@
 # Garden bulletin
 
-_As of 2026-10-05T21:29:32Z_
+_As of 2026-10-05T21:40:06Z_
 
 ## Latest
 
-One job completed since the last bulletin: `improve-overrun-split-child-metadata` reached tada, and board activity otherwise idled (todo empty, two gauntlet fixes still in flight on [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) and [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348)). The inbox is dominated by the ongoing oros-studio outage (unreachable since 2026-10-02, now ~75h, heartbeat/sysop both stale, recovery ops queued and unacknowledged — needs a person at the machine) and a stack of items genuinely awaiting the maintainer: the SturdyRef layer stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392)→[#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)→[#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)→[#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) has a merge-order recommendation ready, M3 needs a base/merge-order call on [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/issues/1343) vs #1042, and the minion.town Claude-CLI production canary is still blocked on the maintainer personally completing `claude setup-token`/OAuth linkage (several proxy messages flagged these as credential actions outside its authority, one noting a possible phishing-style framing worth scrutiny). Also worth a glance: *Better Code and Gardens* shipped its illuminated edition with all 25 plates live, and a design for clip multi-asset support plus art-generation infrastructure was posted as a PR pending open questions.
+The board is nearly idle: three jobs in flight — [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) through its sixth gauntlet panel round, a fix for caddy not reloading on env-file changes in minion.town's deploy scripts, and a fix on [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — with gauntlet fix round 5 on #160 just completed. The main thing for the maintainer's attention is oros-studio-garden-ce242c49, unreachable since 2026-10-02T05:08Z (now ~75h), derotated and running stale checkups that are no longer being dispatched; someone needs to physically check the Mac's power/sleep state, Docker Desktop, and the VM. Several other maintainer-only decisions are parked: a production Claude-CLI canary on minion.town needs the maintainer to personally complete `claude setup-token` and OAuth linking (several proxy escalations flagged possible credential-phishing framing around this), a merge-order choice for [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/issues/1343) blocking M3, and capacity apportionment for the endo-backlog arc blocking M2's panel pass on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349). The SturdyRef stack review (layers [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) came back clean with a recommended merge order once the underlying drafts land. Claude token spend is at 89% of quota for the week — worth a glance before more work is dispatched.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 8d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 23d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 32d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 34d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 34d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 34d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 32d)
-- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 34d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 34d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 35d)
+- [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 34d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 37d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
@@ -417,11 +417,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #45 (first seen 2026-10-04T05:15:32Z, latest 2026-10-05T21:24:15Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 45 times; this is ONE
-> coalesced notice that updates in place, not 45 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-05T21:29:45Z).
+> It was observed 45 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 1033 of 1113 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-125005, reply_to `claude-on-minion-town-press-20261004-125005` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
@@ -703,8 +703,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 225.4M | $1498.59 _(notional, rate-card)_ | 88% of 256.0M (ok) |
-| Codex | 23.2M _(+359.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 226.8M | $1507.07 _(notional, rate-card)_ | 89% of 256.0M (ok) |
+| Codex | 23.4M _(+362.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -715,17 +715,18 @@ worst fetch p95 7.963158s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #160
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1348-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-fix.md) — ---
+- [`build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #160
+- [`build-minion-town-caddy-restart-on-env-change`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-caddy-restart-on-env-change.md) — Fix minion.town deploy scripts: caddy reload never loads new EnvironmentFile ...
 
-### tada (11099)
+### tada (11102)
+- [`xs-locals-limit-check-20261005-213508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/xs-locals-limit-check-20261005-213508.md) — Cost
+- [`deadmail-issue-comment-6003245258`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/deadmail-issue-comment-6003245258.md) — Cost
+- [`build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-5.md) — Cost
 - [`improve-overrun-split-child-metadata`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-overrun-split-child-metadata.md) — Cost
 - [`kriscendobot-minion.town-pr160-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr160-gauntlet.md) — gauntlet kriscendobot-minion.town-pr160-gauntlet — complete
-- [`improve-deadline-nudge-ref-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-deadline-nudge-ref-race.md) — Cost
-- [`kriscendobot-minion.town-pr160-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr160-gauntlet-undraft.md) — Cost
-- [`improve-deadline-nudge-ref-race-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-deadline-nudge-ref-race-split.md) — orchestration improve-deadline-nudge-ref-race-split — complete
-- … and 11094 more
+- … and 11097 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
