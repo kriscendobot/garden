@@ -6166,13 +6166,17 @@ auth_failure_excerpt() {
 
 # Classify a handler exit code ($1) as an EXTERNAL signal-kill: SIGTERM (143),
 # SIGINT (130), or SIGKILL/OOM (137). Returns 0 for these, 1 otherwise. An
-# external signal-kill is NEVER a deterministic job defect — it is a deploy-window
+# external signal-kill is not by itself a deterministic job defect — it is a deploy-window
 # restart, a drain-fleet stop, an OOM, a host shutdown, or the reaper's claim-TTL
 # kill — so it is transient REGARDLESS of whether the killed handler had already
 # flushed partial output to its capture (progress lines, a folded report tail).
 # gardener.sh consults this FIRST, before the empty/non-empty capture split, so
 # capture content is irrelevant for these codes; the reaper requeues the job after
-# GARDEN_CLAIM_TTL. Deliberately does NOT cover the offline rc (GARDEN_OFFLINE_RC):
+# GARDEN_CLAIM_TTL. One timed subset receives additional disposition without ceasing
+# to be transient: rc=137 at the configured handler wall + timeout kill grace is the
+# wrapper's deterministic SIGKILL escalation, so gardener.sh stamps the same
+# deadline-overrun hint as an rc=124 wall hit. Deliberately does NOT cover the
+# offline rc (GARDEN_OFFLINE_RC):
 # that stays gated on its own existing paths (sync_clone's clean skip, the
 # empty-capture is_transient_empty_failure branch), since an offline tick is a
 # connectivity classification, not a process kill.

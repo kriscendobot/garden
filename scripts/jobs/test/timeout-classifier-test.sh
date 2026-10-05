@@ -25,7 +25,10 @@
 # kills is_external_kill_rc covers (143 deploy/drain SIGTERM, 130 SIGINT, 137
 # OOM/SIGKILL). A handler that IGNORES SIGTERM is SIGKILLed by --kill-after and
 # surfaces as rc=137, already an external signal-kill transient via
-# is_external_kill_rc. Either way an inherently-long handler (a shepherd driving CI
+# is_external_kill_rc. Elapsed timing additionally identifies rc=137 at the
+# configured wall plus kill grace as timeout's deterministic escalation and stamps
+# the deadline-overrun hint; an earlier arbitrary SIGKILL/OOM stays an ordinary
+# transient. Either way an inherently-long handler (a shepherd driving CI
 # to green at the 2400s window — shepherd-kriscendobot-agoric-sdk-pr7) is NOT
 # false-escalated to the gardener inbox as a defect on every reaper requeue: it gets
 # ONE kind:progress note and stays in doin. A genuinely DEADLOCKED handler still
@@ -44,8 +47,8 @@
 # SUBTEST 3 is an integration test for the SIGTERM-IGNORING path (the wedge the grace
 # closes): it runs the real gardener.sh against a stub that swallows SIGTERM, and
 # asserts the worker RETURNS (an outer timeout does not fire), the --kill-after kill
-# surfaces as rc=137, and it is classified transient (no inbox escalation, job left
-# in doin).
+# surfaces as rc=137, remains transient (no inbox escalation, job left in doin), and
+# receives the deadline-overrun hint instead of consuming the ordinary retry.
 #
 # Usage: timeout-classifier-test.sh
 set -euo pipefail
@@ -60,6 +63,10 @@ hr()  { echo "----------------------------------------------------------------";
 # otherwise splice its own GARDEN_*/JOURNAL_*/SELF_HEAL_* state underneath the
 # fixture; see run-test.sh § hermetic baseline).
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+# The integration fixtures intentionally substitute a stub handler and a local
+# throwaway board. Mark the run as a hermetic test so the production claim path's
+# fail-closed inference-source gate permits it.
+export GARDEN_TEST=1
 
 # shellcheck source=../common.sh
 source "$JOBS/common.sh"
@@ -100,9 +107,10 @@ if is_external_kill_rc 143; then
 else
   bad "rc=143 NOT classified signal-kill; deploy-drain kill would be falsely escalated"
 fi
-# The --kill-after SIGKILL escalation (the new HARD bound for a SIGTERM-ignoring
+# The --kill-after SIGKILL escalation (the HARD bound for a SIGTERM-ignoring
 # handler) surfaces as rc=137 — an external signal-kill, so it stays transient via
-# is_external_kill_rc (and is NOT a handler-timeout 124). No new branch is needed.
+# is_external_kill_rc (and is NOT a handler-timeout 124). Gardener timing, tested
+# below, gives the wall+grace subset its deadline-overrun disposition.
 if is_external_kill_rc 137; then
   ok "rc=137 (--kill-after SIGKILL escalation) classified external signal-kill → transient"
 else
@@ -155,6 +163,21 @@ if at_wall_branch 100 2400 60; then
 else
   ok "elapsed=100 (far below a 2400s wall) → NOT the deadline-overrun branch (guard excludes non-wall kills)"
 fi
+# For rc=137, the applicable terminal bound is handler wall + kill grace. This is
+# the production incident's shape: a 3180s handler wall plus 60s grace surfaced as
+# rc=137 after 3240s. Require the exact terminal bound so an arbitrary SIGKILL
+# during the TERM grace remains an ordinary transient.
+at_kill_after_branch() { [ "$1" -ge "$(( $2 + $3 ))" ]; } # elapsed wall grace
+if at_kill_after_branch 3240 3180 60; then
+  ok "rc=137 elapsed=3240 at a 3180s wall + 60s grace → deadline-overrun branch"
+else
+  bad "rc=137 at the configured wall + kill grace did NOT trip the deadline-overrun branch"
+fi
+if at_kill_after_branch 3239 3180 60; then
+  bad "rc=137 before wall+grace tripped deadline-overrun; arbitrary SIGKILL must stay ordinary transient"
+else
+  ok "rc=137 before wall+grace → ordinary external-kill transient"
+fi
 
 # ============================================================================
 hr; echo "SUBTEST 2 — integration: a hung handler is bounded by timeout (rc=124) and classified TRANSIENT"; hr
@@ -169,7 +192,7 @@ git -C "$SEED" checkout -q -b "$BRANCH"
 ( cd "$SEED"
   mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
   for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
-  printf '# hangjob\n\ndo the work for hangjob\n' > "jobs/todo/hangjob.md" )
+  printf '%s\n' '---' 'tier: minion' '---' '# hangjob' '' 'do the work for hangjob' > "jobs/todo/hangjob.md" )
 git -C "$SEED" add -A
 git -C "$SEED" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
 git -C "$SEED" remote add origin "$BARE"
@@ -270,13 +293,14 @@ else
 fi
 
 # ============================================================================
-hr; echo "SUBTEST 3 — integration: a SIGTERM-IGNORING handler is killed by --kill-after (rc=137), worker RETURNS, classified TRANSIENT"; hr
+hr; echo "SUBTEST 3 — integration: timeout's rc=137 at wall+grace is a deadline overrun"; hr
 # This is the wedge the --kill-after grace closes. A handler that swallows SIGTERM
 # would, under a bare `timeout`, block the wrapper forever — pinning the gardener
 # worker past GARDEN_HANDLER_TIMEOUT and breaking the reaper-window invariant. With
 # --kill-after the wrapper escalates to an unconditional SIGKILL after the grace, so
-# the worker is GUARANTEED to return; the kill surfaces as rc=137 (external-kill
-# transient → reaper requeues, no inbox escalation).
+# the worker is GUARANTEED to return; the kill surfaces as rc=137 and remains an
+# external-kill transient, but its wall+grace timing stamps the deadline-overrun
+# hint so the reaper splits/escalates it instead of spending the ordinary retry.
 TR3="$(mktemp -d "${TMPDIR:-/tmp}/garden-killafter.XXXXXX")"; trap 'rm -rf "$TR" "$TR3"' EXIT
 BARE3="$TR3/journal.git"
 git init -q --bare "$BARE3"
@@ -285,7 +309,7 @@ git -C "$SEED3" checkout -q -b "$BRANCH"
 ( cd "$SEED3"
   mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
   for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
-  printf '# wedgejob\n\ndo the work for wedgejob\n' > "jobs/todo/wedgejob.md" )
+  printf '%s\n' '---' 'tier: minion' '---' '# wedgejob' '' 'do the work for wedgejob' > "jobs/todo/wedgejob.md" )
 git -C "$SEED3" add -A
 git -C "$SEED3" "${git_id[@]}" commit -q -m "seed: 1 job + structure"
 git -C "$SEED3" remote add origin "$BARE3"
@@ -323,7 +347,7 @@ fi
 
 # (c) classified TRANSIENT (external signal-kill), NOT escalated to the inbox.
 if grep -Eq "looks transient \(rc=137" "$TR3/gardener.log"; then
-  ok "rc=137 logged as a transient outage (reaper requeue, no escalation)"
+  ok "rc=137 logged as a transient outage (reaper disposition, no real-failure escalation)"
 else
   bad "rc=137 not logged as a transient verdict; a kill-after escalation should be transient"
 fi
@@ -339,6 +363,63 @@ if [ -f "$V3/jobs/doin/wedgejob.md" ] && [ ! -f "$V3/jobs/tada/wedgejob.md" ]; t
   ok "job left in doin (not completed to tada on a transient kill)"
 else
   bad "job not left in doin (doin=$([ -f "$V3/jobs/doin/wedgejob.md" ] && echo y || echo n) tada=$([ -f "$V3/jobs/tada/wedgejob.md" ] && echo y || echo n))"
+fi
+
+# (e) rc=137 arrived at the configured handler wall plus kill grace, so it must
+# carry the same deadline-overrun + reap-now markers as the rc=124 wall hit.
+if [ -f "$V3/jobs/doin/wedgejob.md" ] \
+   && grep -Eq '^<!-- garden-deadline-overrun: 1 -->$' "$V3/jobs/doin/wedgejob.md" \
+   && grep -Eq '^<!-- garden-reap-now -->$' "$V3/jobs/doin/wedgejob.md"; then
+  ok "wall+grace rc=137 stamped deadline-overrun and reap-now hints"
+else
+  bad "wall+grace rc=137 lacked deadline-overrun/reap-now hints; it would consume the ordinary retry"
+fi
+
+# (f) The distinctive note records rc=137 and kill-after timing; the generic
+# repeated-transient note is suppressed on every deadline-overrun path.
+if grep -rlq 'rc=137, kill-after-wall' "$CLONE3/entries" 2>/dev/null; then
+  ok "deadline-overrun progress note identifies rc=137 kill-after-wall"
+else
+  bad "no deadline-overrun progress note identifying rc=137 kill-after-wall"
+fi
+if grep -rlq 'transient handler outage' "$CLONE3/entries" 2>/dev/null; then
+  bad "generic transient progress note emitted for wall+grace rc=137"
+else
+  ok "generic transient progress note suppressed for wall+grace rc=137"
+fi
+
+# ============================================================================
+hr; echo "SUBTEST 3b — rc=137 before wall+grace remains an ordinary external kill"; hr
+# rc=137 is ambiguous by itself: timeout's --kill-after and an arbitrary external
+# SIGKILL/OOM share the code. Exercise the other side of the elapsed discriminator
+# with a handler that exits 137 immediately, far before its 30s wall + 5s grace.
+BARE3B="$TR3/journal-early.git"
+git init -q --bare "$BARE3B"
+SEED3B="$TR3/seed-early"; git init -q "$SEED3B"
+git -C "$SEED3B" checkout -q -b "$BRANCH"
+( cd "$SEED3B"
+  mkdir -p jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors
+  for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
+  printf '%s\n' '---' 'tier: minion' '---' '# earlykilljob' '' 'do the work for earlykilljob' > "jobs/todo/earlykilljob.md" )
+git -C "$SEED3B" add -A
+git -C "$SEED3B" "${git_id[@]}" commit -q -m "seed: early rc137 job"
+git -C "$SEED3B" remote add origin "$BARE3B"
+git -C "$SEED3B" push -q -u origin "$BRANCH"
+
+env JOURNAL_REMOTE="$BARE3B" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN="earlykillhost" GARDEN_STATE="$TR3/state-early" \
+    GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_HANDLER_TIMEOUT=30 GARDEN_HANDLER_KILL_AFTER=5 \
+    GARDEN_STUB_RC=137 GARDEN_STUB_SENTINEL="$TR3/early-sentinel" \
+    GARDEN_JOB_HANDLER="$HERE/signal-kill-handler-stub.sh" GARDEN_JOB_HANDLER_BASH=1 \
+    "$JOBS/gardener.sh" 1 > "$TR3/gardener-early.log" 2>&1 || true
+
+V3B="$TR3/verify-early"; git clone -q --single-branch --branch "$BRANCH" "$BARE3B" "$V3B" 2>/dev/null
+if [ -f "$V3B/jobs/doin/earlykilljob.md" ] \
+   && grep -Eq '^<!-- garden-reap-now -->$' "$V3B/jobs/doin/earlykilljob.md" \
+   && ! grep -Eq '^<!-- garden-deadline-overrun:' "$V3B/jobs/doin/earlykilljob.md"; then
+  ok "early rc=137 stamped reap-now only (ordinary external kill, no deadline-overrun)"
+else
+  bad "early rc=137 was not kept on the ordinary external-kill path"
 fi
 
 # ============================================================================
@@ -446,7 +527,7 @@ git -C "$SEED6" checkout -q -b "$BRANCH"
   for d in jobs/todo jobs/doin jobs/tada work repos msgs hosts entries schedules cursors; do touch "$d/.gitkeep"; done
   # A todo job already at cycle 4 (the reaped marker survives the claim into doin,
   # where reap_count reads it), so the generic transient note's cycle guard is met.
-  printf '# neardoomjob\n\ndo the work for neardoomjob\n\n<!-- garden-reaped: 4 -->\n' > "jobs/todo/neardoomjob.md" )
+  printf '%s\n' '---' 'tier: minion' '---' '# neardoomjob' '' 'do the work for neardoomjob' '' '<!-- garden-reaped: 4 -->' > "jobs/todo/neardoomjob.md" )
 git -C "$SEED6" add -A
 git -C "$SEED6" "${git_id[@]}" commit -q -m "seed: 1 near-doom job (reaped:4)"
 git -C "$SEED6" remote add origin "$BARE6"

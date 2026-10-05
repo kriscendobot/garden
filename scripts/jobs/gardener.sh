@@ -108,9 +108,10 @@ fi
 # unkillable child and the gardener worker itself wedges past GARDEN_HANDLER_TIMEOUT,
 # breaking the invariant above (the reaper's claim-TTL only requeues the JOB, it
 # never frees this stuck worker process). Kept small so the worst-case worker runtime
-# stays well under GARDEN_CLAIM_TTL. The SIGKILL escalation surfaces as rc=137, which
-# is_external_kill_rc already classifies transient — so, like the rc=124 wall-clock
-# kill (is_handler_timeout_rc), it needs no new classification branch.
+# stays well under GARDEN_CLAIM_TTL. The SIGKILL escalation surfaces as rc=137. It
+# remains transient, but elapsed timing distinguishes timeout's deterministic
+# wall+grace escalation from an arbitrary external SIGKILL/OOM: the former receives
+# the same deadline-overrun hint as rc=124 so the reaper can split/escalate it early.
 : "${GARDEN_HANDLER_KILL_AFTER:=60}"
 # Grace (seconds) between the group-wide SIGTERM and SIGKILL when the gardener
 # sweeps the handler's process group after it returns (reap_process_group, the
@@ -178,10 +179,11 @@ reap_stale_worker_cgroup "$KIND" "$id" || true
 : "${GARDEN_ELAPSED_CONSTANCY_TOLERANCE_PCT:=15}"
 
 # Deadline-overrun early-escalation (common.sh § deadline-overrun). A handler killed
-# by its OWN wall-clock bound (rc=124 via is_handler_timeout_rc) AT the wall — an
-# elapsed within GARDEN_HANDLER_DEADLINE_EPSILON seconds of GARDEN_HANDLER_TIMEOUT —
-# hit its budget deterministically and will be killed identically on every requeue,
-# unlike an external SIGTERM/OOM/drain that varies in elapsed. The gardener stamps a
+# by its OWN wall-clock bound either exits rc=124 at the wall (it honored SIGTERM) or
+# rc=137 at wall + GARDEN_HANDLER_KILL_AFTER (timeout escalated to SIGKILL). An
+# rc=124 within GARDEN_HANDLER_DEADLINE_EPSILON of the wall, or rc=137 reaching the
+# exact wall+grace terminal bound, identifies the deterministic budget kill, unlike
+# an arbitrary SIGTERM/OOM/drain that varies in elapsed. The gardener stamps a
 # `<!-- garden-deadline-overrun: N -->` counter on such a claim so the reaper dooms
 # it after GARDEN_REAP_OVERRUN_THRESHOLD (a much lower bound) instead of burning the
 # full GARDEN_REAP_DOOM_THRESHOLD cycles. The epsilon is the small guard band that
@@ -564,22 +566,12 @@ while :; do
   # NOT a signal code (is_external_kill_rc covers only 143/130/137) — which
   # is_handler_timeout_rc classifies transient. A handler that IGNORES SIGTERM is
   # SIGKILLed by --kill-after and surfaces as rc=137, already an external signal-kill
-  # transient via is_external_kill_rc. Either way: ONE kind:progress note, no inbox
-  # kind:error, left in doin for the reaper, whose `<!-- garden-reaped: N -->` doom
-  # counter escalates a job that times out EVERY cycle (a genuine deadlock) only after
-  # the threshold. A genuine deploy-drain kill also arrives as rc=143 and stays
-  # transient via is_external_kill_rc.
+  # transient via is_external_kill_rc. The elapsed wall+grace bound additionally
+  # marks that rc=137 as a deadline overrun, so the reaper applies its split/handoff
+  # policy immediately rather than consuming the ordinary retry. Either way: no
+  # inbox kind:error, left in doin for the reaper. A genuine deploy-drain kill also
+  # arrives as rc=143 and stays an ordinary transient via is_external_kill_rc.
   #
-  # Stamp the handler's wall-clock start (SECONDS, the shell's monotonic
-  # seconds-since-start counter) so the failure branch below can report how long
-  # the handler ran before it was killed. A near-CONSTANT elapsed across requeue
-  # cycles is a positive signal of a DETERMINISTIC overrun (the handler runs into
-  # the same fixed bound every time) or a fixed external bound, distinct from a
-  # benign deploy-drain blip that lands at a VARIED elapsed near a known deploy —
-  # which the rc-only classification cannot tell apart until the reaper's doom
-  # threshold. SECONDS is read-only timing state; no new board state.
-  handler_start=$SECONDS
-
   # --- per-job handler budget (optional `handler-timeout:` header) ------------
   # A job may declare a longer run-to-completion budget than the default
   # GARDEN_HANDLER_TIMEOUT by carrying a `handler-timeout: <seconds>` header in its
@@ -659,6 +651,14 @@ while :; do
   # without changing the normal executable-handler production path.
   handler_cmd=("$GARDEN_JOB_HANDLER")
   [ "${GARDEN_JOB_HANDLER_BASH:-0}" = "1" ] && handler_cmd=(bash "$GARDEN_JOB_HANDLER")
+  # Stamp the handler's wall-clock start (SECONDS, the shell's monotonic counter)
+  # immediately before launch. Budget resolution, worktree snapshots, and any
+  # clamp-path maintainer alert above are outside this measurement: rc=137 is
+  # recognized as timeout's kill-after only when the HANDLER itself reaches its
+  # configured wall + grace. A near-constant elapsed across requeue cycles remains
+  # a positive signal of a deterministic overrun or fixed external bound, distinct
+  # from a varied deploy-drain kill. SECONDS is read-only timing state.
+  handler_start=$SECONDS
   set +e
   set -m
   # Nested bounded work (notably panel seats) must stay strictly inside the exact
@@ -1286,7 +1286,25 @@ while :; do
   else
     rc=$hrc  # exit code of the failed handler (captured explicitly above)
     elapsed=$((SECONDS - handler_start))  # wall-clock seconds the handler ran before it died
-    deadline_overrun=0  # 1 iff the handler hit its OWN wall-clock budget (rc=124 at the wall)
+    # Detect both forms of timeout's OWN deterministic wall kill before the generic
+    # signal classifier gets first refusal: rc=124 when the handler honored TERM at
+    # the wall, and rc=137 when it ignored TERM until --kill-after escalated at wall
+    # + grace. The latter is also a valid external-signal code (OOM/manual SIGKILL),
+    # so timing is the discriminator: only a kill at the configured terminal bound
+    # receives the deadline-overrun hint. rc=137 must reach the exact wall+grace
+    # terminal bound; an earlier arbitrary SIGKILL stays a plain transient signal
+    # and consumes the ordinary retry path.
+    deadline_overrun=0
+    deadline_overrun_kind=""
+    if is_handler_timeout_rc "$rc" \
+       && [ "$elapsed" -ge "$(( handler_budget - GARDEN_HANDLER_DEADLINE_EPSILON ))" ]; then
+      deadline_overrun=1
+      deadline_overrun_kind="term-at-wall"
+    elif [ "$rc" -eq 137 ] \
+         && [ "$elapsed" -ge "$(( handler_budget + GARDEN_HANDLER_KILL_AFTER ))" ]; then
+      deadline_overrun=1
+      deadline_overrun_kind="kill-after-wall"
+    fi
     # The job handler — the gardening state machine / a `claude -p` inner agent —
     # exited non-zero. Its combined stdout+stderr is in $capture. DO NOT discard
     # it (the prior one-line report did) and DO NOT complete the job doin→tada
@@ -1339,7 +1357,7 @@ while :; do
     transient=0
     if is_external_kill_rc "$rc"; then
       # An EXTERNAL signal-kill (143 SIGTERM / 130 SIGINT / 137 SIGKILL/OOM) is
-      # never a deterministic job defect — it is a deploy-window restart, a
+      # not by itself a deterministic job defect — it is a deploy-window restart, a
       # drain-fleet stop, an OOM, a host shutdown, or the reaper's claim-TTL kill.
       # Classify it transient FIRST, before the empty/non-empty capture split, so
       # capture content is IRRELEVANT for these codes: a gardener killed mid-job
@@ -1347,8 +1365,10 @@ while :; do
       # folded tail of $report) must NOT be falsely escalated as a real failure
       # just because it had written something (the 2026-06-27 rc=143 escalation of
       # garden-deliberate-deploy-no-shared-tree-development). The reaper requeues
-      # the job after GARDEN_CLAIM_TTL. Only NON-signal rcs fall through to the
-      # capture-content-sensitive tests below.
+      # the job after GARDEN_CLAIM_TTL. A timed rc=137 at the configured wall plus
+      # kill grace has already set deadline_overrun above and takes the early
+      # split/escalation path later; other signal kills stay ordinary transients.
+      # Only NON-signal rcs fall through to the capture-content-sensitive tests below.
       transient=1
     elif is_handler_timeout_rc "$rc"; then
       # A WALL-CLOCK-TIMEOUT kill (rc=124): the handler was terminated by its own
@@ -1383,10 +1403,8 @@ while :; do
       # it after GARDEN_REAP_OVERRUN_THRESHOLD instead. The epsilon guard is
       # belt-and-suspenders: an external kill varies in elapsed and reads as 143/137
       # (is_external_kill_rc), not 124, so this rarely excludes anything — but it means
-      # only a genuine wall-hit gets the fast-doom treatment.
-      if [ "$elapsed" -ge "$(( handler_budget - GARDEN_HANDLER_DEADLINE_EPSILON ))" ]; then
-        deadline_overrun=1
-      fi
+      # only a genuine wall-hit gets the fast-doom treatment. The predicate is
+      # evaluated before this classifier so the rc=137 kill-after case can share it.
     elif is_environmental_rc "$rc"; then
       # An ENVIRONMENTAL failure (rc=GARDEN_ENV_RC/GARDEN_OFFLINE_RC, EX_TEMPFAIL):
       # the handler could not RUN — its agent CLI was absent from PATH and from every
@@ -1566,7 +1584,8 @@ while :; do
          && ! is_environmental_rc "$rc"; then
         constancy_applicable=1
       fi
-      # GATE OUT the deadline-overrun path: an rc=124 handler that hit its OWN wall
+      # GATE OUT the deadline-overrun path: an rc=124 handler that hit its OWN wall,
+      # or rc=137 at its wall+kill grace,
       # (deadline_overrun=1) gets the accurate, distinctive deadline-overrun progress
       # entry emitted below — NOT this generic one. Emitting both produced two
       # contradictory journal entries per event (this one says "no escalation" while
@@ -1616,16 +1635,17 @@ while :; do
           log "could not stamp reap-now hint on '$base' (rc=$?); falling back to the reaper's TTL requeue"
         fi
       elif [ "${deadline_overrun:-0}" -eq 1 ]; then
-        # The handler hit its OWN wall-clock budget (rc=124, elapsed≈GARDEN_HANDLER_TIMEOUT):
+        # The handler hit its OWN wall-clock budget (rc=124 at the wall, or rc=137
+        # at the wall plus timeout's --kill-after grace):
         # a DETERMINISTIC overrun that will be killed identically on every requeue, NOT a
         # varying external kill. Stamp the deadline-overrun COUNTER alongside the reap-now
         # hint (stamp_deadline_overrun_hint does both). The reaper makes an ordinary job
         # split-eligible on this first hit; gauntlet stages hand the failure directly
         # to their driver's max_stage_retries. A productive wall-hit (HEAD advanced — the sanctioned resume
         # treadmill) is spared: the reaper RESETS this counter on a productive cycle.
-        log "handler for '$base' hit its OWN wall-clock budget (rc=124, elapsed=${elapsed}s ≈ handler-budget=${handler_budget}s): deterministic deadline overrun, stamping the overrun counter for early doom"
-        printf 'gardener-%s on %s: job %s handler hit its OWN wall-clock budget (rc=124, elapsed=%ss ≈ handler-budget=%ss) — a DETERMINISTIC deadline overrun, not a varying external kill; stamping <!-- garden-deadline-overrun --> so the reaper applies the bounded wall-hit disposition (ordinary job: split-orchestrator immediately; gauntlet stage: immediate handoff to driver-owned max_stage_retries); left in doin for the reaper\n' \
-          "$id" "$GARDEN" "$base" "$elapsed" "$handler_budget" \
+        log "handler for '$base' hit its OWN wall-clock budget (rc=$rc, kind=$deadline_overrun_kind, elapsed=${elapsed}s, handler-budget=${handler_budget}s, kill-grace=${GARDEN_HANDLER_KILL_AFTER}s): deterministic deadline overrun, stamping the overrun counter for early doom"
+        printf 'gardener-%s on %s: job %s handler hit its OWN wall-clock budget (rc=%s, %s, elapsed=%ss, handler-budget=%ss, kill-grace=%ss) — a DETERMINISTIC deadline overrun, not a varying external kill; stamping <!-- garden-deadline-overrun --> so the reaper applies the bounded wall-hit disposition (ordinary job: split-orchestrator immediately; gauntlet stage: immediate handoff to driver-owned max_stage_retries); left in doin for the reaper\n' \
+          "$id" "$GARDEN" "$base" "$rc" "$deadline_overrun_kind" "$elapsed" "$handler_budget" "$GARDEN_HANDLER_KILL_AFTER" \
           | GARDEN_ROLE=gardener "$HERE/journal-entry.sh" progress || true
         # EARLY ACTIONABLE DIAGNOSIS to the maintainer. A job that DECLARES an
         # over-large `handler-timeout:` gets the clamp-path alert above (line ~358)
@@ -1639,7 +1659,7 @@ while :; do
         # Best-effort/subshell-isolated like the surrounding stamps — never fail the
         # gardener (alert_maintainer already swallows its own errors).
         ( alert_maintainer "handler-budget-overrun-$base" \
-            "gardener job '$base' DETERMINISTICALLY overran its handler budget (rc=124 at the wall, elapsed=${elapsed}s ≈ handler-budget=${handler_budget}s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler." ) || true
+            "gardener job '$base' DETERMINISTICALLY overran its handler budget (rc=$rc, $deadline_overrun_kind, elapsed=${elapsed}s, handler-budget=${handler_budget}s, kill-grace=${GARDEN_HANDLER_KILL_AFTER}s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler." ) || true
         if ( stamp_deadline_overrun_hint "$CLONE" "$JOBS_DOIN/$base.md" ); then
           log "stamped deadline-overrun hint on '$base'; reaper will act before TTL (ordinary split-orchestrator immediately; gauntlet driver handoff immediately)"
         else
