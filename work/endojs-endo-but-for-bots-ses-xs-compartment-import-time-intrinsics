@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-05T09:56:41Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics
+pr_number: 1425
+pr_repo: endojs/endo-but-for-bots
+pr_url: https://github.com/endojs/endo-but-for-bots/pull/1425
+pr_head: fix/ses-xs-lockdown-compartment-intrinsics
