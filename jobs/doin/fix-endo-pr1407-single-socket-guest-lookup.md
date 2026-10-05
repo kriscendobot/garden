@@ -35,3 +35,13 @@ Tasks:
 Run the package tests locally before pushing (CI failure = automation defect).
 
 <!-- garden-reaped: 0 -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-05T06:13:32Z
