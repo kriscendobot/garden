@@ -109,3 +109,13 @@ one, and which (if any) turn out to be unrelated — say so plainly either
 way, don't just assume. This unblocks deploys on EVERY host once it lands
 and rolls out — say that explicitly in your completion report so its
 priority is clear to whoever reads it next.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-05T08:44:58Z
