@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T09:41:16Z_
+_As of 2026-10-05T09:44:40Z_
 
 ## Latest
 
-Oros remains unreachable for roughly 74 hours (since 2026-10-02), with health checkups piling up unclaimed and recovery ops stuck unacknowledged in the sysop queue — this still needs a person at the machine to check power/sleep, Docker Desktop, and the VM. The SturdyRef stack review landed a full panel assessment across layers 3/4/6/7 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)): all four are CI-green drafts ready to merge once the layers beneath them land, though stack hygiene (frozen-base drift, rework commit regrouping) needs attention first. On minion.town, the production Claude CLI deploy ([kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/issues/150)) crash-looped after a packaging gap (missing `vendor` in the deploy tar) but was fixed forward, and two related PRs (#155, #156) are now live in production without panel review, pending a maintainer call on whether to review them after the fact. A deploy-blocking fix job (subscription-model gate regression) and a quota-cooldown improvement job both exhausted retries and parked in the plan queue awaiting promotion. The illuminated edition of *Better Code and Gardens* shipped with all 25 plates captioned and verified live. Several items need a maintainer decision: connecting the real Claude subscription for the minion.town production canary, multiple stale-panel-coverage notices on PRs that moved past their last review (minion.town #150, #148, #157; [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/issues/1407)), and a halted gauntlet on an IronHorse panic-host-call PR that failed its fix stage.
+Board motion since the last bulletin was minimal — the sole visible transition was a botanist dependabot job on [kriscendobot/minion.town#158](https://github.com/kriscendobot/minion.town/pull/158) landing (MERGE-NOW), with 5 other jobs still in flight (gauntlet fix rounds on [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), plus a clone-alias reaper job). The dominant story is the oros-studio host, unreachable since 2026-10-02T05:08Z (~74h and counting) — repeated health-watch messages confirm heartbeat, sysop-log, and fleet-health are all stale, checkups are piling up unclaimed in todo, and recovery ops are queued but unacknowledged; it needs a person at the machine to check power/sleep, Docker Desktop, and the VM. Separately, production minion.town Claude CLI work hit real friction: the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy crash-looped (missing `vendor` in the deploy tar for `@endo/claude`), triggering an urgent fix-forward, and multiple proxy escalations now need the maintainer to personally run `claude setup-token` and complete OAuth/subscription linking at minion.town/account/claude — none of which a gardener or proxy can do on their behalf. On a brighter note, the illuminated edition of *Better Code and Gardens* shipped: 25 captioned plates integrated and published, verified byte-reproducible with cross-device/dark-mode checks. The SturdyRef stack review (layers 3/4/6/7, PRs [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is ready for a merge decision, with a clear landing order and only one PR ([#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)) needing a retcon first. A fleet-wide deploy-blocking regression (stale test fixtures colliding with the new subscription-budget admission gate) was reaped after its retry also failed and now sits parked awaiting a human promote.
 
 ## Parked for maintainer feedback
 
@@ -577,8 +577,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 184.4M | $1239.00 _(notional, rate-card)_ | 72% of 256.0M (ok) |
-| Codex | 10.7M _(+255.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 184.4M | $1238.60 _(notional, rate-card)_ | 72% of 256.0M (ok) |
+| Codex | 10.7M _(+255.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -589,21 +589,20 @@ worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (6)
+### doin (5)
 - [`endojs-endo-but-for-bots-pr1349-fix-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-20261005.md) — ---
 - [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1391
-- [`kriscendobot-minion.town-pr158-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr158-dependabot.md) — botanist (auto: dependabot PR) on kriscendobot/minion.town PR #158
 - [`endojs-endo-but-for-bots-pr1391-fix-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-fix-20261005.md) — ---
 - [`retire-gardener-clone-alias-verify-deploy-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper.md) — ---
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #774
 
-### tada (10995)
+### tada (10996)
+- [`kriscendobot-minion.town-pr158-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr158-dependabot.md) — Botanist report: kriscendobot/minion.town PR #158 — merged (MERGE-NOW)
 - [`endojs-endo-but-for-bots-pr1389-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1389-gauntlet-fix-3.md) — Gauntlet FIX round 3: endojs/endo-but-for-bots PR #1389
 - [`endojs-endo-but-for-bots-pr1394-20260930-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1394-20260930-gauntlet-panel-2.md) — Manual gauntlet handoff
 - [`ebfb-guest-designation-consumers-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/ebfb-guest-designation-consumers-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-3.md) — Completion report
-- [`oros-health-watch-20261005-075006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-075006.md) — Cost
-- … and 10990 more
+- … and 10991 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
