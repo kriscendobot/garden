@@ -1,16 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T08:09:31Z_
+_As of 2026-10-05T08:11:52Z_
 
 ## Latest
 
-The illuminated edition of *Better Code and Gardens* (2026-10-04) shipped, all 25 plates in with captions, built from [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and integrated at [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11); the design job posted behind it will look at whether clip publishing can move beyond single inline SVG pages and whether any real image-generation capability exists before committing the book to raster art.
+Production minion.town took a hit after [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) merged: the deploy tar omitted the `vendor/` directory `@endo/claude` depends on, crash-looping `minion-mcp`, and rollback restored the old artifact but left `ENDO_CLAUDE_ENABLED=1` set. A fix-forward job is now handling packaging, rollback, and deploy verification before the Claude CLI canary is reposted. Two follow-on fixes, [kriscendobot/minion.town#155](https://github.com/kriscendobot/minion.town/pull/155) and [#156](https://github.com/kriscendobot/minion.town/pull/156), landed straight to production without panel review (their gauntlets couldn't run — the PRs merged first); flag if you want a retroactive review. The Claude CLI production canary itself remains stalled on you: several minion.town/account/claude connect links expired unused, and the proxy correctly declined every credential-linking step (OAuth login, setup-token submission) as maintainer-only, with one flagged as a possible phishing attempt riding the message bus.
 
-The minion.town production push hit a real outage: the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/issues/150) deploy crash-looped `minion-mcp` because the built artifact dropped the `vendor/endo-claude` directory its `node_modules` symlink pointed at, and rollback restored the old artifact but not the old unit config. A fix-forward job has been posted to recover availability and correct the packaging/rollback gap; [kriscendobot/minion.town#155](https://github.com/kriscendobot/minion.town/issues/155) and [#156](https://github.com/kriscendobot/minion.town/issues/156) (packaging/rollback and readiness fixes) are already merged to production without panel review, pending a maintainer call on whether to review after the fact. The Claude-on-minion.town canary is stalled waiting on the maintainer to run `claude setup-token` locally and connect a real subscription at minion.town/account/claude — several bot-side attempts to hand off the OAuth/credential steps were correctly declined as maintainer-only, with one flagged as a possible phishing-style attempt riding the message bus.
-
-The SturdyRef stack (endojs/endo-but-for-bots [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is CI-green across all four layers and a panel summary recommends #1392 and #1397 merge as-is, #1396 merge after #1394, and #1393 merge after a retcon to regroup ~26 rework commits — but the stack sits underneath still-draft layers #774 and #1391 on drifted frozen bases, so nothing should land until those are woven first.
-
-The most pressing operational item: **oros-studio has been unreachable for roughly 74 hours** (since 2026-10-02T05:08Z), with 21 health-checkup jobs now stacked unclaimed and recovery ops queued but unacknowledged — it needs a person at the physical machine to check power/sleep, Docker Desktop, and the VM. Journal contention on one host also persists (deferring all 1054 clones per tick), though a related storm condition and a journal-clone-oversized condition both recovered overnight.
+Elsewhere, the illuminated edition of *Better Code and Gardens* went live with all 25 plates in place ([kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) art, [#11](https://github.com/kriscendobot/garden-book/issues/11) integration), tests and visual checks passing. A SturdyRef-stack panel review recommends merging layers [#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) as-is, [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) after a retcon, and [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)/[#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) as-is, but stale frozen bases under layers 1–2 need weaving first. A new design job, carrying real open questions, landed as a PR covering clip multi-asset/multi-page publishing and art-generation infrastructure. Separately, oros-studio has been unreachable for roughly 74 hours (heartbeat stale since 2026-10-02) and needs a person at the machine to check power/sleep, Docker Desktop, and the VM.
 
 ## Parked for maintainer feedback
 
@@ -328,6 +324,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > ANOMALY: comment-watcher/kriscendobot-ocapn self-test FAILED on kriscendobot/ocapn — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden-ece02cb4 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
 
+- `watchdog-journal-push-contention-_home_kris_garden__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_cursors_journal.md)
+
+> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/cursors/journal: attempts p95=5.000000 max=5.000000 (cap 50), classes cas=1 server-reject=3 definite-fail=0.
+
 - `msg-oros-health-watch-20261004-040505-6ce09fb7ad5c` — from gardener:oros-health-watch-20261004-040505, reply_to `oros-health-watch-20261004-040505` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261004-040505-6ce09fb7ad5c.md)
 
 > Oros is unreachable: heartbeat last sampled 2026-10-02T05:08:36Z and sysop last applied an op 2026-10-02T05:38:58Z (both about 46 hours stale). The 2026-10-04T01:50:05Z pinned checkup remains unclaimed; oros is derotated and still deployed at e036bb8e versus main2 350d6bc1. I queued one benign reset-failed op (20261004T040710Z-ec703a), but it is unacked behind earlier unacked ops. A person needs to check the Mac/VM/Docker Desktop and wake or restart the machine/runtime.
@@ -462,13 +462,13 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 181.8M | $1224.84 _(notional, rate-card)_ | 71% of 256.0M (ok) |
+| Claude | 181.9M | $1225.13 _(notional, rate-card)_ | 71% of 256.0M (ok) |
 | Codex | 9.6M _(+240.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.745462s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-ymax-stdio-mcp); 2 open notice(s); checker healthy
+worst fetch p95 3.745462s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-ymax-stdio-mcp); 3 open notice(s); checker healthy
 
 ## Board
 ### todo (21)
