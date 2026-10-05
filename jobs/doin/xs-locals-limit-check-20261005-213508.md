@@ -47,3 +47,13 @@ above rather than from the upstream patch.
       `schedules/xs-frame-locals-limit-upstream-watch.md` from `journal2` and push
       (a normal CAS commit). Say in your report that you retired it, so the
       maintainer knows the watch has stopped.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-05T21:36:16Z
