@@ -115,6 +115,7 @@ priority is clear to whoever reads it next.
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-05T09:03:03Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
