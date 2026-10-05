@@ -1,10 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: improve-deadline-nudge-ref-race-split
-priority: normal
-posted_by: producer
-posted_at: 2026-10-05T21:03:54Z
+tier: mentor
+handler-timeout: 5400
+split-indivisible-reason: 'the deliverable is one atomic change — a narrow classifier predicate in common.sh plus its regression test in deadline-nudge-test.sh; neither half is useful or verifiable alone. The parent overran the 2400s wall not because of size but because the deadline-nudge suite takes ~10 min wall-clock under host load (load avg ~10) and was run several times. The implementation is already done and verified (passed 57, failed 0); the child only needs to apply, re-verify once, and land.'
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-05T21:07:08Z cleared=none -->
 
 ---
 tier: mentor
