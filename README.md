@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-05T10:58:34Z_
+_As of 2026-10-05T11:13:00Z_
 
 ## Latest
 
@@ -32,11 +32,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #609 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T10:11:01Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 609 times; this is ONE
-> coalesced notice that updates in place, not 609 messages. Latest detail:
+> WATCHDOG notice — occurrence #629 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T11:11:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 629 times; this is ONE
+> coalesced notice that updates in place, not 629 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 277345s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 280946s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -611,8 +611,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 187.0M | $1246.32 _(notional, rate-card)_ | 73% of 256.0M (ok) |
-| Codex | 12.1M _(+277.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 187.2M | $1248.76 _(notional, rate-card)_ | 73% of 256.0M (ok) |
+| Codex | 12.3M _(+278.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -624,16 +624,16 @@ worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
 (none)
 
 ### doin (2)
+- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1391
 - [`retire-gardener-clone-alias-verify-deploy-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper.md) — ---
-- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1391
 
-### tada (11011)
+### tada (11012)
+- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-clean.md) — Cost
 - [`oros-health-watch-20261005-105006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-105006.md) — Cost
 - [`claude-on-minion-town-completion-press-20261005-105006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/claude-on-minion-town-completion-press-20261005-105006.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-d02a31d0fef3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/canary-probe-endolin-garden2-5bcdff64-d02a31d0fef3.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-viability.md) — Cost
-- [`endojs-endo-but-for-bots-pr1391-fix-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-fix-20261005.md) — Panel-head freshness
-- … and 11006 more
+- … and 11007 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
