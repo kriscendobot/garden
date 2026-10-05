@@ -1,2 +1,2 @@
-base: improve-fork-watch-offline-rc
+base: improve-fork-watch-shared-cooldown
 identity: mentor:scripts/jobs/fork-watch-provisioner.sh
