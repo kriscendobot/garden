@@ -17,3 +17,13 @@ This is the curation step: un-draft if still draft and merge, following `roles/c
 PR: https://github.com/endojs/endo-but-for-bots/pull/1407
 Approved review: https://github.com/endojs/endo-but-for-bots/pull/1407#pullrequestreview-5416263690
 Checkpoint head: `06780c2731794cc34f843971f1bac2adcfcfd081`
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-05T14:45:47Z
