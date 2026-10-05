@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-600060793
 @kriscendobot The Claude account page is now Forbidden (presumed 403). 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-05T18:30:58Z
