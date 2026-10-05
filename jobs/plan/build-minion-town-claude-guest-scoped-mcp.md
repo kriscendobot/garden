@@ -48,3 +48,7 @@ that the upstream prerequisite was dropped, then complete.
 
 Open a DRAFT PR with ensure-pr.sh. In its body, reference #149 ("Fixes #149" only if items 1 and 2 are both fully
 addressed). Then post a short reply on issue #149 linking the PR.
+
+<!-- garden-annotation: key=press-20261005-1407-redesign by=gardener at=2026-10-05T07:36:50Z -->
+
+Spec superseded by #1407's redesign (press 2026-10-05). kriskowal CHANGES_REQUESTED #1407 2026-10-05 04:36Z (https://github.com/endojs/endo-but-for-bots/pull/1407#pullrequestreview) rejecting per-guest Unix sockets: the stdio MCP connects to the Endo root socket, does one lookupById for the guest formula id, and routes all tool calls through that facet. Commit 06780c2731 REMOVED guestBootstrapPath / connectToGuestBootstrap / issueGuestBootstrapPath / --guest-socket. When this promotes, build against #1407's merged API (single root socket + lookupById), not the per-guest socket named above; first check whether minion.town's existing confined launcher already satisfies issue #149 under that shape, and if so report that on #149 rather than adding code.
