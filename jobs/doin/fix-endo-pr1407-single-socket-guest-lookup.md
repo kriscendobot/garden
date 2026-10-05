@@ -36,6 +36,7 @@ Run the package tests locally before pushing (CI failure = automation defect).
 
 <!-- garden-productive-cycle -->
 <!-- garden-transient-elapsed: kind=signature through=0 values=4075 -->
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
