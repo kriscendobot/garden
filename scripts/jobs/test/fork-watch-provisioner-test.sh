@@ -35,6 +35,8 @@
 #   O. a silent rc=75 (GARDEN_OFFLINE_RC) probe is a quiet host-wide outage:
 #      class `offline`, ONE probe, no WARN, a fixed base window (no escalation),
 #      quiet deferral while live, fail-open, and a normal retry once it expires
+#   P. a gh-api admission refusal under a live shared latch defers quietly for
+#      the latch's remaining duration (no repeated rate-limit WARN).
 #
 # Usage: fork-watch-provisioner-test.sh
 set -euo pipefail
@@ -602,6 +604,41 @@ printf '0\nexpired\nrc=75\n10\n' > "$COOLDIR/offline"
 GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=10 run_prov
 [ "$(wc -l < "$PROBELOG")" -gt 1 ] && [ ! -e "$COOLDIR/offline" ] \
   && ok "after the outage clears the next tick probes normally" || bad "post-outage tick did not resume probing"
+
+# ============================================================================
+hr; echo "P — a gh-api admission refusal under a live shared latch is quiet and inherits its duration"; hr
+rm -rf "$TR/state/fork-watch/inconclusive-cooldown"
+printf '%s\n' kriscendobot/flaky kriscendobot/inconclusive kriscendobot/zeta > "$UNKNOWNLIST"
+: > "$PROBELOG"
+PLOG="$TR/p.log"
+ADMSG='gh api repos/kriscendobot/zeta admission refused: host-shared gh-api cooldown live (1234s left, tag gh-api:repos/x:primary-quota; API rate limit already exceeded for user); not issued'
+UNKNOWNMSG="$ADMSG" UNKNOWNRC=75 GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=300 run_prov 0 "$PLOG"
+[ "$(wc -l < "$PROBELOG")" -eq 1 ] \
+  && ok "admission refusal halts probing after one probe" || bad "admission refusal probed $(wc -l < "$PROBELOG") forks"
+[ -f "$COOLDIR/gh-api-cooldown" ] && [ ! -e "$COOLDIR/rate-limit" ] \
+  && ok "admission refusal is not classed as a new rate limit" || bad "admission refusal class wrong: $(ls "$COOLDIR")"
+[ "$(sed -n '4p' "$COOLDIR/gh-api-cooldown")" = 1234 ] \
+  && ok "admission refusal inherits the latch's remaining duration" \
+  || bad "admission refusal window was $(sed -n '4p' "$COOLDIR/gh-api-cooldown")"
+! grep -q 'WARN' "$PLOG" \
+  && ok "admission refusal logs no WARN (the latch owner already did)" || bad "admission refusal warned: $(cat "$PLOG")"
+[ ! -e "$COOLDIR/silent-failures" ] \
+  && ok "admission refusal does not advance silent escalation" || bad "admission refusal advanced silent escalation"
+: > "$PROBELOG"; : > "$PLOG"
+UNKNOWNMSG="$ADMSG" UNKNOWNRC=75 GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=300 run_prov 0 "$PLOG"
+[ ! -s "$PROBELOG" ] && [ ! -s "$PLOG" ] \
+  && ok "live inherited window defers silently without probing" || bad "inherited window probed/logged: $(cat "$PLOG")"
+# A latch longer than the provisioner's own 3600s cap is clamped to it.
+rm -rf "$TR/state/fork-watch/inconclusive-cooldown"; : > "$PROBELOG"
+UNKNOWNMSG="${ADMSG/1234s/99999s}" UNKNOWNRC=75 GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=300 run_prov
+[ "$(sed -n '4p' "$COOLDIR/gh-api-cooldown")" = 3600 ] \
+  && ok "inherited window is capped at 3600s" || bad "inherited window not capped"
+# A genuine rate-limit diagnostic still WARNs (owner path unchanged).
+rm -rf "$TR/state/fork-watch/inconclusive-cooldown"; : > "$PLOG"
+UNKNOWNMSG="gh: API rate limit exceeded for user ID 1 (HTTP 403)" GARDEN_FORKWATCH_INCONCLUSIVE_COOLDOWN_SECS=300 run_prov 0 "$PLOG"
+grep -q 'WARN: upstream checks inconclusive \[rate-limit' "$PLOG" \
+  && ok "a real rate-limit refusal still WARNs" || bad "real rate-limit did not WARN: $(cat "$PLOG")"
+rm -rf "$TR/state/fork-watch/inconclusive-cooldown"; : > "$UNKNOWNLIST"; UNKNOWNMSG=""
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

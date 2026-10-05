@@ -217,7 +217,9 @@ slug_owner_lc() { printf '%s' "${1%%-*}" | tr '[:upper:]' '[:lower:]'; }
 # refusals before another poller can issue a doomed request.
 upstream_exists() {
   local owner="$1" name="$2" out rc detail
+  local left
   UPSTREAM_FAIL_CLASS=""; UPSTREAM_FAIL_DETAIL=""; UPSTREAM_FAIL_SILENT=""; UPSTREAM_FAIL_QUIET=""
+  UPSTREAM_FAIL_WINDOW=""
   if [ -n "${GARDEN_FORKWATCH_UPSTREAM_CHECK:-}" ]; then
     if out="$("$GARDEN_FORKWATCH_UPSTREAM_CHECK" "$owner" "$name" 2>&1)"; then rc=0; else rc=$?; fi
     [ "$rc" -eq 2 ] || [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] || return "$rc"
@@ -241,6 +243,29 @@ upstream_exists() {
     UPSTREAM_FAIL_CLASS=offline
     [ -n "$detail" ] || UPSTREAM_FAIL_QUIET=1
   fi
+  # gh_api_retry's admission refusal under a LIVE host-shared gh-api latch. Its
+  # stderr says "rate limit" so generic callers stop querying, but it is not a new
+  # rate-limit observation: no request was issued, and the latch owner has already
+  # logged the one WARN for the episode. Treat it as quiet and inherit the latch's
+  # remaining duration, so the fork probes defer silently until the latch clears
+  # instead of re-WARNing every base window (2026-10-05T01:55:23Z-02:15:30Z: four
+  # rate-limit WARNs under one 3600s latch).
+  case "$out" in
+    *"admission refused: host-shared gh-api cooldown live ("*)
+      left="${out#*admission refused: host-shared gh-api cooldown live (}"
+      left="${left%%s left*}"
+      case "$left" in ''|*[!0-9]*) left="" ;; esac
+      UPSTREAM_FAIL_CLASS=gh-api-cooldown
+      UPSTREAM_FAIL_QUIET=1
+      if [ -n "$left" ]; then
+        [ "$left" -ge 1 ] || left=1
+        [ "$left" -le 3600 ] || left=3600
+        UPSTREAM_FAIL_WINDOW="$left"
+      fi
+      UPSTREAM_FAIL_DETAIL="rc=$rc (host-shared gh-api cooldown live${left:+, ${left}s left}; announced by its owner)"
+      return 2
+      ;;
+  esac
   if [ -n "$UPSTREAM_FAIL_QUIET" ]; then
     UPSTREAM_FAIL_DETAIL="rc=$rc (temporarily unavailable; host-wide outage/cooldown)"
   elif [ -n "$detail" ]; then
@@ -415,8 +440,11 @@ note_inconclusive() {
     printf '%s\n' "$1" > "$PROBE_COOLDOWN_DIR/last-tripper"
   fi
   if [ -n "$UPSTREAM_FAIL_QUIET" ]; then
-    # Already-announced host-wide outage/cooldown: a fixed base window, no WARN,
-    # and the silent-failure escalation level is left exactly as it was.
+    # Already-announced host-wide outage/cooldown: a fixed base window (or the
+    # live gh-api latch's remaining duration, when known), no WARN, and the
+    # silent-failure escalation level is left exactly as it was. A base of 0
+    # still records no window.
+    [ "$window" -eq 0 ] || window="${UPSTREAM_FAIL_WINDOW:-$window}"
     open_probe_cooldown "$key" "$1" "$UPSTREAM_FAIL_DETAIL" "$window" \
       && QUIETED+=("$key (cooldown ${OPENED_COOLDOWN_SECS}s)")
     return 0
