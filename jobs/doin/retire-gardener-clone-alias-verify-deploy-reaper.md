@@ -26,6 +26,7 @@ Suites for THIS child: deploy-garden, reaper-requeue-cap, reaper-live-handler-gu
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-05T10:03:12Z -->
 
+<!-- garden-reap-now -->
 ---
 claim:
   host: endolin-garden-ece02cb4
