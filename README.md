@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T14:58:00Z_
+_As of 2026-10-05T15:06:35Z_
 
 ## Latest
 
-Endo PR [#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) was conducted (merged) today, closing out the M3 milestone question raised earlier about whether the documentation-only PR should merge or be closed as superseded. The familiar localhttp-protocol gauntlet (build [endojs/endo-but-for-bots#1426](https://github.com/endojs/endo-but-for-bots/pull/1426)) ground through another fix/panel round and is now on panel round 6, and the minion.town Claude-account Caddy-route gauntlet ([kriscendobot/minion.town#159](https://github.com/kriscendobot/minion.town/pull/159)) halted after its panel round found the PR had already been merged. The SturdyRef capability stack (layers 3/4/6/7, PRs [#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) got a full panel summary recommending merge order and flagging stack-hygiene rebases needed before any of them land.
+The board barely moved: the only transition since the last bulletin was `build-minion-town-claude-guest-scoped-mcp` getting claimed into doin, alongside two gauntlet stages already in flight (fix round 3 on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) and panel round 6 on the familiar-localhttp-protocol PR).
 
-Two things need the maintainer's attention: oros-studio has been unreachable for roughly three days now with no automated recovery possible (someone needs to physically check the Mac/Docker Desktop/VM), and several "connect your Claude subscription" prompts for the minion.town production canary have expired waiting on manual OAuth/setup-token steps that only the maintainer can complete.
+The larger story is the oros-studio host, still unreachable after roughly 74 hours (heartbeat and sysop activity both stale since 2026-10-02T05:08Z); its health-watch checkups have been withdrawn and deferred to 2026-10-11 pending a person physically checking the Mac's power state, Docker Desktop, and the VM. Meanwhile the SturdyRef capability stack (layers 3/4/6/7, spanning [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) has a full panel verdict ready for a merge decision, with #1392 clear to land first once its underlying drafts land. The minion.town Claude CLI production canary remains stalled on maintainer action — a subscription connect link and a GitHub OAuth authorization are both waiting at minion.town/account/claude, flagged as credential-granting steps no proxy can complete. Separately, a production crash-loop from the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy (a missing `vendor` directory in the deploy tarball) has a fix-forward job already posted. The illuminated edition of *Better Code and Gardens* also shipped, with all 25 plates integrated and live.
 
 ## Parked for maintainer feedback
 
@@ -664,21 +664,22 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 204.2M | $1357.86 _(notional, rate-card)_ | 80% of 256.0M (ok) |
-| Codex | 16.1M _(+296.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 206.0M | $1375.33 _(notional, rate-card)_ | 80% of 256.0M (ok) |
+| Codex | 16.3M _(+297.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.349505s/45s (/home/kris/garden/.garden-state/self-deploy/journal); 2 open notice(s); checker healthy
+worst fetch p95 7.963158s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 2 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1391
 - [`build-familiar-localhttp-protocol-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-familiar-localhttp-protocol-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1426
+- [`build-minion-town-claude-guest-scoped-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-guest-scoped-mcp.md) — build: minion.town Claude CLI backend — guest-scoped bootstrap for the confin...
 
 ### tada (11047)
 - [`endojs-endo-but-for-bots-pr1407-conduct-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1407-conduct-20261005.md) — Cost
@@ -748,7 +749,6 @@ worst fetch p95 5.349505s/45s (/home/kris/garden/.garden-state/self-deploy/journ
 - [`build-endo-inspect`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-endo-inspect.md) — awaiting `endojs/endo-but-for-bots#715` · Build: implement @endo/inspect per the landed design
 - [`daemon-rename-to-manager-phase3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/daemon-rename-to-manager-phase3.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/780` · Build: daemon→manager rename Phase 3 (consumer sweep + CHANGELOG + docs)
 - [`build-exo-sheets-service`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-exo-sheets-service.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/881` · ---
-- [`build-minion-town-claude-guest-scoped-mcp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-minion-town-claude-guest-scoped-mcp.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1407` · build: minion.town Claude CLI backend — guest-scoped bootstrap for the confin...
 - [`ironhorse-fuzz-triage-differential_source-efffacee3e2a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ironhorse-fuzz-triage-differential_source-efffacee3e2a.md) — awaiting `https://github.com/kriscendobot/garden/issues/91` · Triage 7 Ironhorse fuzz finding(s) for target differential_source
 
 ## Watch set
