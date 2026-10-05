@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T03:13:43Z_
+_As of 2026-10-05T03:22:00Z_
 
 ## Latest
 
-The SturdyRef capability stack (layers 3–7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) got a full panel pass: all four draft heads are CI-green, and #1392, #1396, and #1397 are ready to merge as-is once their stack predecessors land, while #1393 needs a retcon to regroup ~26 rework commits before landing. The minion.town production deploy of [#150](https://github.com/kriscendobot/minion.town/pull/150) crash-looped (missing `vendor/endo-claude` in the deploy tar), but a fix-forward job restored availability; [#155](https://github.com/kriscendobot/minion.town/pull/155) and [#156](https://github.com/kriscendobot/minion.town/pull/156) subsequently merged straight to production without panel review and may be worth a retroactive look. *Better Code and Gardens* shipped its illuminated edition with all 25 plates live. Separately, host `oros-studio-garden-ce242c49` has been unreachable for roughly 50 hours (heartbeat and sysop stale since 2026-10-02T05:08Z) and needs a person at the machine to check power/sleep, Docker Desktop, and the VM. The maintainer is also still needed to complete the Claude CLI subscription connection for the minion.town production canary — several automated nudges are stuck awaiting that manual step.
+Production incident and recovery dominate: merging [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) crash-looped the Claude CLI backend because the deploy tar omitted the vendored `@endo/claude` package; rollback restored the artifact but not the systemd unit, and a fix-forward job is now repairing packaging, rollback, and verification before the canary resumes. Two related PRs, [#155](https://github.com/kriscendobot/minion.town/issues/155) and [#156](https://github.com/kriscendobot/minion.town/issues/156), already landed on main and are running in production without panel review — flag if you want them reviewed after the fact. The canary also needs you directly: connect your real Claude subscription at minion.town/account/claude (`claude setup-token`, submitted only on that page) to unblock [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) and the guest-scoped MCP build — and note a separate ask for a GitHub-federated MCP login URL on that same thread was flagged by the proxy as outside its authority and plausibly a social-engineering attempt, worth a skeptical look.
+
+The SturdyRef stack (layers [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is ready for a merge call: all green and mostly low-risk, #1392 clear to land first once drafts [#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) land beneath it, #1393 needing a retcon/weave, and #1396/#1397 waiting only on #1394. Three gauntlets (the minion-town shell-to-js split and the Claude account HTML page) hit the 6-round review cap without converging and are parked for a human decision, and stale-panel notices mean [minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), and [endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) each need a fresh panel pass before merge. Separately, oros-studio has been unreachable for over 50 hours with a growing unclaimed-checkup backlog and needs a hands-on check of the Mac/Docker Desktop/VM; Claude spend sits at 69% of quota; and the illuminated edition of *Better Code and Gardens* is now live.
 
 ## Parked for maintainer feedback
 
@@ -221,11 +223,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-05T03:08:04Z).
-> It was observed 26 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #27 (first seen 2026-10-04T05:15:32Z, latest 2026-10-05T03:17:31Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 27 times; this is ONE
+> coalesced notice that updates in place, not 27 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
+> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 1046 of 1046 clone(s) on consecutive ticks.
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-125005, reply_to `claude-on-minion-town-press-20261004-125005` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
@@ -385,8 +387,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 175.6M | $1198.47 _(notional, rate-card)_ | 69% of 256.0M (ok) |
-| Codex | 8.9M _(+228.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 175.8M | $1199.31 _(notional, rate-card)_ | 69% of 256.0M (ok) |
+| Codex | 8.9M _(+228.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
