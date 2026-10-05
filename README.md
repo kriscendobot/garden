@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T06:20:19Z_
+_As of 2026-10-05T07:09:10Z_
 
 ## Latest
 
-Two CI-infrastructure fixes landed since the last bulletin: `ci-wait-merge` now refuses to merge onto a non-trunk frozen snapshot base, and the single-socket guest-lookup fix for [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) completed, though a stale-panel notice flags its head as needing fresh review before merge. A rolling-deploy canary round-trip on endolin-garden2-5bcdff64 confirmed clean. The dominant open item remains oros-studio: unreachable for roughly 50 hours straight, with checkups piling up unclaimed in `todo` and recovery ops queued but unacknowledged — it needs a person at the machine to check power/sleep, Docker Desktop, and the VM. Separately, several minion.town Claude-CLI production-canary steps are stalled awaiting the maintainer to personally run `claude setup-token` and complete account linking at minion.town, and a production crash-loop from the [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy (missing vendored `@endo/claude`) is being fixed forward.
+Board activity since the last bulletin was minimal — a single new daily-progress-summary job claimed into `doin`, no new completions logged — so most of what's notable comes from the maintainer inbox. The oros-studio host has now been unreachable for roughly 50 hours (since 2026-10-02T05:08Z), derotated and heartbeat-offline, with 13+ queued health-checkup jobs and multiple unacked sysop ops piling up; it needs a human at the machine to check power/sleep, Docker Desktop, and the VM. On minion.town, the production Claude CLI canary work hit a real snag: the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy crash-looped (missing `vendor/endo-claude` in the deploy tarball, rollback left `ENDO_CLAUDE_ENABLED=1` set), and a fix-forward job has been posted to recover availability, fix packaging/rollback, and verify deployment before re-attempting the canary — separately, several messages are waiting on the maintainer to personally complete `claude setup-token` and OAuth account-linking on minion.town, which no gardener or proxy can do on their behalf. The `design-clip-multiasset-and-art-infra-20261005` design job landed (findings: no real platform gap blocking multi-page clips; the garden has no actual image-generation capability, only hand-authored SVG; OpenAI image-gen cost under the existing Codex login is unconfirmed) and will come back as a PR with open questions since it carries real cost/scope decisions. The SturdyRef PR stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is CI-green and panel-reviewed with a clear merge order (#1392 first, then #1393 after a retcon, then #1396/#1397), but needs a maintainer merge decision since none converged the review loop automatically. Several other gauntlets ([minion-town-shell-to-js](https://github.com/kriscendobot/minion.town) parts 1–3, [build-minion-town-claude-account-html-page](https://github.com/kriscendobot/minion.town)) hit their 6-round review budget without full convergence and are left improved but awaiting human merge review; also *Better Code and Gardens* shipped a fully illustrated edition (25 plates) with no outstanding issues to flag.
 
 ## Parked for maintainer feedback
 
@@ -32,11 +32,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #527 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T06:05:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 527 times; this is ONE
-> coalesced notice that updates in place, not 527 messages. Latest detail:
+> WATCHDOG notice — occurrence #548 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T07:08:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 548 times; this is ONE
+> coalesced notice that updates in place, not 548 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 262586s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 266366s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -452,8 +452,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 180.4M | $1219.30 _(notional, rate-card)_ | 70% of 256.0M (ok) |
-| Codex | 9.5M _(+240.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 180.7M | $1220.17 _(notional, rate-card)_ | 71% of 256.0M (ok) |
+| Codex | 9.6M _(+240.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -484,8 +484,8 @@ worst fetch p95 3.525174s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`daily-progress-summary-20261005-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261005-070506.md) — Daily midnight Pacific progress summary
 
 ### tada (10988)
 - [`fix-endo-pr1407-single-socket-guest-lookup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/fix-endo-pr1407-single-socket-guest-lookup.md) — Panel-head freshness
