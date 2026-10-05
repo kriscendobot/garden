@@ -218,6 +218,35 @@ add_entry 2026/08/01/000001Z-a "$(embargo_body 902 2026-08-05)"   # matured befo
 run_pre ""
 [ "$RC" -eq 0 ] && ok "due ledger row + no PRs → exit 0 (reconcile)" || bad "exit $RC (want 0); OUT=$OUT"
 grep -qi 'due dependabotany ledger row' <<<"$OUT" && ok "logged the due-row dispatch" || bad "no due-row log; OUT=$OUT"
+SNAP_HEAD="$(git --git-dir="$BARE" rev-parse "$BRANCH")"
+grep -q -- "- Journal HEAD: \`$SNAP_HEAD\`" <<<"$CONTEXT" \
+  && ok "snapshot is keyed to the exact scanned journal HEAD" \
+  || bad "snapshot HEAD missing/wrong; CONTEXT=$CONTEXT"
+grep -q $'^2026-08-05\t902\tentries/2026/08/01/000001Z-a$' <<<"$CONTEXT" \
+  && ok "snapshot carries a normalized maturity/PR/source row" \
+  || bad "normalized row missing; CONTEXT=$CONTEXT"
+grep -q "fail open to the role's case-insensitive full scan" <<<"$CONTEXT" \
+  && ok "snapshot tells a stale/unavailable consumer to use the full-scan fallback" \
+  || bad "full-scan fallback instruction missing; CONTEXT=$CONTEXT"
+FIRST_CONTEXT="$CONTEXT"
+run_pre ""
+[ "$CONTEXT" = "$FIRST_CONTEXT" ] \
+  && ok "same journal HEAD produces a byte-identical snapshot" \
+  || bad "snapshot changed without a journal HEAD change"
+
+# ============================================================================
+hr; echo "SNAPSHOT — a drain resets history; only later active rows survive"; hr
+reset_bare
+add_entry 2026/08/01/000001Z-a "$(embargo_body 800 2026-08-02)"
+add_entry 2026/08/03/000002Z-b "$(drained_body)"
+add_entry 2026/08/04/000003Z-c "$(embargo_body 801 2026-08-05)"
+run_pre ""
+[ "$RC" -eq 0 ] && ok "post-drain due row dispatches" || bad "exit $RC (want 0); OUT=$OUT"
+grep -q $'^2026-08-05\t801\tentries/2026/08/04/000003Z-c$' <<<"$CONTEXT" \
+  && ! grep -q $'^2026-08-02\t800\t' <<<"$CONTEXT" \
+  && grep -q -- '- Rows: 1' <<<"$CONTEXT" \
+  && ok "snapshot contains only the active generation after the last drain" \
+  || bad "drained history leaked into active snapshot; CONTEXT=$CONTEXT"
 
 # ============================================================================
 hr; echo "WORK — an open dependabot PR (drained ledger): exit 0"; hr
@@ -262,7 +291,10 @@ prline 1175 "$DEP" 'Bump compatible-pkg from 1.0.0 to 1.1.0' > "$FIX_NOPROOF"
 COMP_FIXTURE=""; COMP_LOG="$TR/compat-no-proof.log"; : > "$COMP_LOG"
 run_pre "$FIX_NOPROOF"
 [ "$RC" -eq 0 ] && ok "missing proof falls open to the ordinary recheck" || bad "exit $RC (want 0); OUT=$OUT"
-[ -z "$CONTEXT" ] && ok "missing proof emits no routing context" || bad "unexpected routing context: $CONTEXT"
+grep -q 'Dependabotany active-row snapshot (v1)' <<<"$CONTEXT" \
+  && ! grep -q 'declaration-compatibility preflight routing' <<<"$CONTEXT" \
+  && ok "missing proof emits the ledger snapshot but no compatibility routing" \
+  || bad "snapshot/routing context was wrong: $CONTEXT"
 
 # ============================================================================
 hr; echo "AUTHOR GATE — only NON-dependabot open PRs (drained ledger): exit 2"; hr

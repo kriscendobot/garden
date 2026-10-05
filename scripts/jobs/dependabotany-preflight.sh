@@ -51,7 +51,7 @@
 # stubs, exactly like dependabot-watcher.sh:
 #   GARDEN_DEPB_PR_SOURCE <owner/name> <bot-login> -> TSV: number author head updated title
 #   GARDEN_DEPB_COMPAT   <repo> <pr> <pkg> <new-ver> -> TSV declaration proof
-#   GARDEN_PREFLIGHT_CONTEXT_FILE                  -> scheduler-owned routing context
+#   GARDEN_PREFLIGHT_CONTEXT_FILE                  -> scheduler-owned snapshot/routing context
 #   GARDEN_DEPB_ENTRIES_DIR                        -> the ledger entries/ tree to grep
 #   GARDEN_DEPB_REPO                               -> owner/name override (else derived from the ledger)
 #   GARDEN_DEPB_TODAY                              -> UTC YYYY-MM-DD override for the due comparison
@@ -103,6 +103,18 @@ mapfile -t LEDGER < <(
     | while IFS= read -r f; do grep -qiE '^#[[:space:]]*dependabotany' "$f" 2>/dev/null && printf '%s\n' "$f"; done \
     | sort
 )
+
+# Pin every derived fact to the exact journal tree that was scanned. The
+# scheduler copies this snapshot into the dispatched job, so a botanist can use
+# the small normalized row set instead of case-insensitively grepping the entire
+# prose ledger again. A consumer only trusts it while its journal clone is still
+# at this commit; roles/botanist/AGENT.md retains the old full scan as the
+# fail-open path for a missing, malformed, or stale snapshot.
+journal_head="$(git -C "$CLONE" rev-parse --verify 'HEAD^{commit}' 2>/dev/null || true)"
+if [[ ! "$journal_head" =~ ^[0-9a-f]{40}$ ]]; then
+  log "WARN: cannot key the ledger snapshot to journal HEAD — failing open (dispatch)"
+  exit 0
+fi
 
 # --- (B) is there a DUE row in the ledger? -----------------------------------
 # Reconstruct just enough of the active embargo set to answer "is any matured row
@@ -164,18 +176,71 @@ ledger_declares_drained() {
 }
 
 ledger_due=0
+declare -a SNAPSHOT_ROWS=()
+declare -a ACTIVE_LEDGER=()
+declare -A SNAPSHOT_DATE=() SNAPSHOT_PR=() SNAPSHOT_SOURCE=()
 if [ "${#LEDGER[@]}" -gt 0 ]; then
-  latest="${LEDGER[-1]}"
-  if ledger_declares_drained "$latest"; then
-    log "ledger: latest entry ($(basename "$latest")) declares the embargo set drained/retired — no active rows"
+  # Fold global drain declarations in chronology order. A drain resets all rows
+  # before it; later entries can start a new active generation. This avoids
+  # resurrecting old embargoes merely because a later terminal history entry did
+  # not repeat the drain prose.
+  last_drain=""
+  for entry in "${LEDGER[@]}"; do
+    if ledger_declares_drained "$entry"; then
+      ACTIVE_LEDGER=()
+      last_drain="$entry"
+    else
+      ACTIVE_LEDGER+=("$entry")
+    fi
+  done
+
+  if [ "${#ACTIVE_LEDGER[@]}" -eq 0 ] && [ -n "$last_drain" ]; then
+    log "ledger: entry ($(basename "$last_drain")) declares the embargo set drained/retired — no later active rows"
   else
+    # Normalize the conservative active set used by this gate. Each row is
+    # maturity<TAB>PR-or-unknown<TAB>journal-relative source. Prose has never had
+    # a schema, so associate a maturity with a PR on the same line when possible,
+    # then with the first PR named by that entry. Unknown remains explicit rather
+    # than guessing. Sorting makes the snapshot byte-deterministic for a given
+    # journal HEAD.
+    for entry in "${ACTIVE_LEDGER[@]}"; do
+      rel="${entry#"$CLONE"/}"
+      fallback_pr="$(grep -Eio 'github\.com/[^/[:space:]]+/[^/[:space:]]+/pull/[0-9]+|PR[[:space:]]*#?[0-9]+|#[0-9]+' "$entry" 2>/dev/null \
+        | sed -nE 's@.*(/pull/|PR[[:space:]]*#?|#)([0-9]+).*@\2@Ip' | head -1 || true)"
+      while IFS= read -r line; do
+        [ -n "$line" ] || continue
+        line_pr="$(printf '%s\n' "$line" \
+          | grep -Eio 'github\.com/[^/[:space:]]+/[^/[:space:]]+/pull/[0-9]+|PR[[:space:]]*#?[0-9]+|#[0-9]+' 2>/dev/null \
+          | sed -nE 's@.*(/pull/|PR[[:space:]]*#?|#)([0-9]+).*@\2@Ip' | head -1 || true)"
+        [ -n "$line_pr" ] || line_pr="${fallback_pr:-unknown}"
+        while IFS= read -r d; do
+          [ -n "$d" ] || continue
+          d="${d#EMBARGO-}"
+          key="$line_pr"
+          [ "$key" != unknown ] || key="unknown:$rel"
+          # One normalized row per PR. A later/extended maturity replaces the
+          # earlier date; repeated mentions of the same date collapse.
+          if [ -z "${SNAPSHOT_DATE[$key]:-}" ] || [[ "${SNAPSHOT_DATE[$key]}" < "$d" ]]; then
+            SNAPSHOT_DATE[$key]="$d"
+            SNAPSHOT_PR[$key]="$line_pr"
+            SNAPSHOT_SOURCE[$key]="$rel"
+          fi
+        done < <(printf '%s\n' "$line" | grep -oE 'EMBARGO-[0-9]{4}-[0-9]{2}-[0-9]{2}' | sort -u)
+      done < <(grep -iE 'EMBARGO-[0-9]{4}-[0-9]{2}-[0-9]{2}' "$entry" 2>/dev/null || true)
+    done
+    if [ "${#SNAPSHOT_DATE[@]}" -gt 0 ]; then
+      for key in "${!SNAPSHOT_DATE[@]}"; do
+        SNAPSHOT_ROWS+=("${SNAPSHOT_DATE[$key]}"$'\t'"${SNAPSHOT_PR[$key]}"$'\t'"${SNAPSHOT_SOURCE[$key]}")
+      done
+      mapfile -t SNAPSHOT_ROWS < <(printf '%s\n' "${SNAPSHOT_ROWS[@]}" | LC_ALL=C sort)
+    fi
+
     # Presumed-live set: due iff any recorded maturity date is at or before today.
     due_date=""
-    while IFS= read -r d; do
-      [ -n "$d" ] || continue
+    for row in "${SNAPSHOT_ROWS[@]}"; do
+      d="${row%%$'\t'*}"
       if [ "$d" \< "$today" ] || [ "$d" = "$today" ]; then due_date="$d"; break; fi
-    done < <(grep -rhoE 'EMBARGO-[0-9]{4}-[0-9]{2}-[0-9]{2}' "${LEDGER[@]}" 2>/dev/null \
-               | sed 's/^EMBARGO-//' | sort -u)
+    done
     if [ -n "$due_date" ]; then
       ledger_due=1
       log "ledger: a matured embargo row is present (maturity $due_date <= $today) and the set is not declared drained — work present"
@@ -296,6 +361,24 @@ case "$GARDEN_DEPB_COMPAT_MAX_CHECKS" in
   ;;
 esac
 
+if [ -n "${GARDEN_PREFLIGHT_CONTEXT_FILE:-}" ]; then
+  {
+    printf 'Dependabotany active-row snapshot (v1):\n\n'
+    printf -- '- Journal HEAD: `%s`\n' "$journal_head"
+    printf -- '- Project: `%s`\n' "$project"
+    printf -- '- Repository: `%s`\n' "$repo"
+    printf -- '- Rows: %s\n\n' "${#SNAPSHOT_ROWS[@]}"
+    printf 'This normalized snapshot is authoritative only when your synced journal HEAD\n'
+    printf 'is exactly the commit above. If it matches, consume these rows directly and do\n'
+    printf 'not reconstruct the unindexed prose ledger. If the snapshot is unavailable,\n'
+    printf "malformed, or HEAD has changed, fail open to the role's case-insensitive full scan.\n\n"
+    printf '```tsv\n'
+    printf 'maturity_date\tpr\tsource\n'
+    [ "${#SNAPSHOT_ROWS[@]}" -eq 0 ] || printf '%s\n' "${SNAPSHOT_ROWS[@]}"
+    printf '```\n\n'
+  } > "$GARDEN_PREFLIGHT_CONTEXT_FILE"
+fi
+
 if [ -s "$ROUTES" ] && [ -n "${GARDEN_PREFLIGHT_CONTEXT_FILE:-}" ]; then
   {
     printf 'Dependabotany declaration-compatibility preflight routing:\n\n'
@@ -312,7 +395,7 @@ if [ -s "$ROUTES" ] && [ -n "${GARDEN_PREFLIGHT_CONTEXT_FILE:-}" ]; then
       printf '  Proof: `%s` declares Node `%s` (floor %s), but `%s` %s requires Node `%s`; the dependency excludes the project-supported floor.\n' \
         "$path" "$declared" "$floor" "$pkg" "$new" "$required"
     done < "$ROUTES"
-  } > "$GARDEN_PREFLIGHT_CONTEXT_FILE"
+  } >> "$GARDEN_PREFLIGHT_CONTEXT_FILE"
 fi
 
 # A due ledger row still dispatches even when the live PR roster is empty, so the

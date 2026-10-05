@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-28
+updated: 2026-10-05
 author: gardener, liaison
 ---
 
@@ -108,6 +108,8 @@ For a single Dependabot PR `#N`:
     ```
 
     The `-i` is load-bearing and is not cosmetic tidying: entries written with a lowercase `# dependabotany …` heading are **invisible** to the case-sensitive form, and an invisible row is exactly the rot the backstop sweep exists to prevent. Precipitating evidence: 2026-07-29 on `endojs/endo-but-for-bots`, the case-sensitive grep recovered 25 of 27 ledger entries; the two it dropped (`2026/07/28/073334Z-…` for PR 556, `2026/07/28/073552Z-…` for PR 562) were both terminal, so nothing was lost that time, but an EMBARGO row hidden the same way would have left its PR relying on a one-shot the backstop could no longer verify.
+
+    A dispatched daily recheck normally carries a `Dependabotany active-row snapshot (v1)` block produced by its deterministic preflight. Sync the journal and compare its `HEAD` with the snapshot's `Journal HEAD`. On an exact match, consume the normalized TSV rows directly; do **not** repeat the full prose-ledger grep. If the block is absent, malformed, or names a different HEAD, fail open to the case-insensitive recovery command above. The snapshot is an optimization keyed to one immutable journal tree, never authority to ignore rows written after that tree.
 
 ## Autonomous disposition
 
