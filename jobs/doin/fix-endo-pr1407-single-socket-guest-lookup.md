@@ -33,3 +33,13 @@ Tasks:
    nothing beyond what llm already does, say so in a PR reply and propose closing.
 4. Reply on the review thread summarizing the rework with commit SHAs.
 Run the package tests locally before pushing (CI failure = automation defect).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-05T04:58:25Z
