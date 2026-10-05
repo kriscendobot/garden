@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T23:35:38Z_
+_As of 2026-10-05T23:43:46Z_
 
 ## Latest
 
-Board activity was minimal this cycle: the only transitions were two completions, `fix-gauntlet-autostage-miss-and-pr-dedupe-20261005` and `improve-gauntlet-pr-dedup`, both self-improvement fixes to the gauntlet's auto-staging and PR-dedup logic, plus a `kriscendobot/minion.town` [PR #163](https://github.com/kriscendobot/minion.town/pull/163) panel round now in flight. The notable news is off the board: a second edition of *Better Code and Gardens* published with all 25 illustrated plates in place ([kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [#11](https://github.com/kriscendobot/garden-book/issues/11)), a four-layer SturdyRef PR stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is CI-green and ready for a merge decision pending stack-hygiene cleanup below it, and the minion.town production Claude-CLI canary remains stalled on the maintainer completing subscription/OAuth setup by hand. Oros (`oros-studio-garden-ce242c49`) has now been unreachable for roughly 76 hours and needs a person at the machine to check power/sleep, Docker Desktop, and the VM.
+Board activity was minimal: a panel round completed and a fix round began on [kriscendobot/minion.town#163](https://github.com/kriscendobot/minion.town/pull/163)'s gauntlet, otherwise the board is quiet with everything else sitting in tada.
+
+The bigger story is in the inbox, not the board. Several PRs/gauntlets hit their review budget without converging and now want a human merge/review call: [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) (guest-scoped MCP), the three minion.town shell-to-js parts, and the minion.town Claude account HTML page build. The SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)→[#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)→[#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)→[#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back with a clear per-layer merge recommendation (merge #1392 first once its base layers land, retcon #1393, merge #1396/#1397 as-is) — worth a look since it's a fully worked decision, not just a flag. The *Better Code and Gardens* illuminated edition shipped live with all 25 plates. Separately, oros-studio has been unreachable for ~75 hours (heartbeat stale since 2026-10-02) and needs physical attention (Mac power/sleep, Docker Desktop, VM); the fix-subscription-model-deploy-gate-regression job is parked after exhausting retries and needs either a human promote or a split. And several messages are waiting specifically on you to complete the minion.town Claude-subscription connection at minion.town/account/claude — none of that can be done by the fleet.
 
 ## Parked for maintainer feedback
 
@@ -711,8 +713,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 230.8M | $1529.21 _(notional, rate-card)_ | 90% of 256.0M (ok) |
-| Codex | 25.3M _(+375.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 231.1M | $1530.16 _(notional, rate-card)_ | 90% of 256.0M (ok) |
+| Codex | 25.3M _(+375.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -724,15 +726,15 @@ worst fetch p95 5.333267s/45s (/home/kris/garden/.garden-state/mirror-closer/jou
 (none)
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr163-gauntlet-20261005-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr163-gauntlet-20261005-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #163
+- [`kriscendobot-minion.town-pr163-gauntlet-20261005-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr163-gauntlet-20261005-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #163
 
-### tada (11116)
+### tada (11117)
+- [`kriscendobot-minion.town-pr163-gauntlet-20261005-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr163-gauntlet-20261005-panel-1.md) — Cost
 - [`fix-gauntlet-autostage-miss-and-pr-dedupe-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/fix-gauntlet-autostage-miss-and-pr-dedupe-20261005.md) — Cost
 - [`improve-gauntlet-pr-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-gauntlet-pr-dedup.md) — Cost
 - [`improve-draft-gauntlet-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-draft-gauntlet-recovery.md) — Cost
 - [`oros-health-watch-20261005-232008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-232008.md) — Cost
-- [`kriscendobot-minion.town-pr163-gauntlet-20261005-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr163-gauntlet-20261005-clean.md) — Cost
-- … and 11111 more
+- … and 11112 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
