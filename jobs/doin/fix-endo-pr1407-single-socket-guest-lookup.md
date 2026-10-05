@@ -34,6 +34,7 @@ Tasks:
 4. Reply on the review thread summarizing the rework with commit SHAs.
 Run the package tests locally before pushing (CI failure = automation defect).
 
+<!-- garden-productive-cycle -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
