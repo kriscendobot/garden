@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-05T11:31:02Z_
+_As of 2026-10-05T11:35:25Z_
 
 ## Latest
 
@@ -649,8 +649,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 189.7M | $1267.62 _(notional, rate-card)_ | 74% of 256.0M (ok) |
-| Codex | 12.5M _(+279.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 190.0M | $1268.49 _(notional, rate-card)_ | 74% of 256.0M (ok) |
+| Codex | 12.6M _(+279.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -661,8 +661,9 @@ worst fetch p95 5.175933s/45s (unknown); 4 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`improve-handler-sigkill-overrun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-handler-sigkill-overrun.md) — ---
+- [`build-familiar-localhttp-protocol`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-familiar-localhttp-protocol.md) — ---
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1391
 
 ### tada (11013)
