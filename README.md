@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-05T12:08:58Z_
+_As of 2026-10-05T12:20:25Z_
 
 ## Latest
 
@@ -34,11 +34,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #629 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T11:11:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 629 times; this is ONE
-> coalesced notice that updates in place, not 629 messages. Latest detail:
+> WATCHDOG notice — occurrence #649 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T12:11:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 649 times; this is ONE
+> coalesced notice that updates in place, not 649 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 280946s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 284546s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -521,11 +521,12 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> WATCHDOG notice — occurrence #53 (first seen 2026-10-04T04:50:33Z, latest 2026-10-05T10:48:00Z).
-> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 53 times; this is ONE
-> coalesced notice that updates in place, not 53 messages. Latest detail:
+> WATCHDOG notice — occurrence #54 (first seen 2026-10-04T04:50:33Z, latest 2026-10-05T12:19:03Z).
+> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 54 times; this is ONE
+> coalesced notice that updates in place, not 54 messages. Latest detail:
 >
-> Journal contention storm on endolin-garden2-5bcdff64: 6 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 6 independent faults):
+> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
 > - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
 > - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
 > - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
@@ -655,8 +656,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 190.1M | $1269.69 _(notional, rate-card)_ | 74% of 256.0M (ok) |
-| Codex | 13.1M _(+281.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 192.6M | $1286.46 _(notional, rate-card)_ | 75% of 256.0M (ok) |
+| Codex | 13.3M _(+282.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -664,20 +665,19 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`build-familiar-localhttp-protocol`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/build-familiar-localhttp-protocol.md) — ---
 
-### doin (2)
-- [`build-familiar-localhttp-protocol`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-familiar-localhttp-protocol.md) — ---
-- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1391
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-2.md) — Gauntlet stage: PANEL round 2 — endojs/endo-but-for-bots PR #1391
 
-### tada (11014)
+### tada (11016)
+- [`canary-probe-endolin-garden2-5bcdff64-c2d2cd162634`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/canary-probe-endolin-garden2-5bcdff64-c2d2cd162634.md) — rolling-deploy canary probe — round trip OK
+- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-1.md) — Cost
 - [`improve-handler-sigkill-overrun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-handler-sigkill-overrun.md) — Cost
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-1.md) — Cost
 - [`oros-health-watch-20261005-105006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-105006.md) — Cost
-- [`oros-health-watch-20261005-075006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-075006.md) — Cost
-- [`oros-health-watch-20261005-045006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-045006.md) — Cost
-- … and 11009 more
+- … and 11011 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
