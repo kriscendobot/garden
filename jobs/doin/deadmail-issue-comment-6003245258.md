@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/89#issuecomment-600324525
 @kriscendobot Tried again with no difference in outcome. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-05T21:30:56Z
