@@ -18,3 +18,13 @@ const T = new Compartment().evaluate('TextEncoder');
 print(typeof T, Object.isFrozen(T), Object.isFrozen(T.prototype)); // function false false
 ```
 Expected: `undefined` (Node behavior, see `packages/ses/test/text-encoder-decoder-missing.test.js`), or at minimum a hardened object. Fix so XS samples compartment global intrinsics at lockdown (as Node does), add an XS smoke assertion, and a changeset (patch, `ses`). Once fixed, PR #1349's `_xs-delete-text-codecs.js` pre-import module could be folded back into the fixture after `import 'ses'`; mention that in the PR, don't edit #1349.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-05T09:56:41Z
