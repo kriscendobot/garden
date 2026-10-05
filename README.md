@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-05T16:13:28Z_
+_As of 2026-10-05T16:21:16Z_
 
 ## Latest
 
-The board itself was quiet since the last bulletin — a single PR #1391 gauntlet stage advanced ([endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) fix round 4 landed clean with CI green and moved into panel round 5) — but the maintainer inbox has a sizable backlog worth attention. Oros (`oros-studio-garden-ce242c49`) has been unreachable for roughly 74+ hours (heartbeat and sysop activity both stale since 2026-10-02), with a dozen-plus identical watcher notices piling up; someone needs to physically check the Mac's power state, Docker Desktop, and the VM. Separately, the minion.town Claude-CLI production canary is stalled on several maintainer-only credential actions (subscription connect links and a GitHub-federated MCP login) that no proxy or gardener can complete. Three gauntlets hit their review budget without converging and are left for a human merge call: [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) (parts 1–3 of the shell-to-js press), [kriscendobot/minion.town#157](https://github.com/kriscendobot/minion.town/pull/157), and the familiar-localhttp-protocol build. The SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) → [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) → [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) → [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) recommends merging layers 3, 6, and 7 as-is and layer 4 after a retcon, contingent on the still-draft base layers landing first. Also notable: *Better Code and Gardens* shipped its illuminated 2026-10-04 edition live, and a deploy-gate regression blocking fleet-wide deploys (traced to a stale test fixture from the subscription-budget-model gate) was parked after its retry failed — it needs either a human promotion or a split.
+PR #1391's gauntlet is mid-flight, now on panel round 5 after fix round 4 applied all must-fix items with CI green. Several gauntlets hit their 6-round review-budget ceiling without converging and are left for human merge/review decisions: [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) (shell-to-js parts 1–3), [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) (Claude account HTML page), and the familiar localhttp protocol build. Two gauntlets halted outright on a declared failed/declined outcome: the ironhorse panic-host-call PR and the SES XS-compartment import-time-intrinsics PR — both need a maintainer look. A SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) → [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) → [#1394](https://github.com/endojs/endo-but-for-bots/pull/1394) → [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) → [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back clean: #1392, #1396, and #1397 are ready to merge as-is once their stack dependencies land, #1393 needs a retcon first, and none require a redesign.
+
+Several PRs moved heads after their last panel and now need fresh review before merge: [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [kriscendobot/minion.town#157](https://github.com/kriscendobot/minion.town/pull/157), [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) (twice). Separately, [kriscendobot/minion.town#155](https://github.com/kriscendobot/minion.town/pull/155) and [#156](https://github.com/kriscendobot/minion.town/pull/156) already merged to production with no panel review — flag if a retroactive review is wanted. Production `minion-mcp` crash-looped after #150 deployed (missing `vendor` in the deploy tar); a fix-forward job is in flight. The illuminated edition of *Better Code and Gardens* published successfully with all 25 plates, tests green, and visual checks passed in both themes.
+
+The **oros-studio** host remains unreachable for ~76 hours (heartbeat stale since 2026-10-02T05:08Z); the health-watch gardener recommends pausing its schedule until someone checks the machine's power/sleep state, Docker Desktop, and the VM. The minion.town Claude CLI production canary is stalled waiting on the maintainer to personally run `claude setup-token` and complete OAuth/subscription linking — several proxy messages flagged these as credential actions outside proxy authority (one also flagged as a possible social-engineering attempt worth scrutiny). The deploy-gate regression blocking fleet-wide deploys (stale `provider-cooldown-test.sh` fixture) and a gardener-clone-alias verification job both exhausted retries and are parked awaiting a promote decision. The reset-credit watch recommends spending the codex-endolin and claude-endolin2 credits within the next ~36 hours to stay ahead of acceleration deadlines.
 
 ## Parked for maintainer feedback
 
@@ -32,11 +36,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #711 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T15:17:55Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 711 times; this is ONE
-> coalesced notice that updates in place, not 711 messages. Latest detail:
+> WATCHDOG notice — occurrence #732 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T16:20:01Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 732 times; this is ONE
+> coalesced notice that updates in place, not 732 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 295759s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 299485s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -683,8 +687,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 207.0M | $1377.40 _(notional, rate-card)_ | 81% of 256.0M (ok) |
-| Codex | 17.2M _(+301.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 207.1M | $1377.69 _(notional, rate-card)_ | 81% of 256.0M (ok) |
+| Codex | 17.4M _(+302.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
