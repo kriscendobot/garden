@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/51#issuecomment-598861308
 @kriscendobot Please confirm that this engagement now has a budget, per the accountant. 
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-05T05:25:25Z
