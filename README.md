@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T20:54:41Z_
+_As of 2026-10-05T21:09:42Z_
 
 ## Latest
 
-Board activity was quiet this cycle: the only transitions were the SturdyRef stack's `endojs/endo-but-for-bots#1407` panel/fix progressing (round 3→5), the oros-health-watch's recurring unclaimed-checkup cycle, and a pages-shepherd auto-triggered on a red Pages deploy for kriscendobot/garden.
+The board is quiet (todo empty, 5 jobs in doin) since the last bulletin, with no completions landing in that window besides the Pages shepherd diagnosing the earlier GitHub Actions hosted-runner outage as external infrastructure, not a content problem. In progress now: panel round 3 of the gauntlet on [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) and panel round 5 of `build-minion-town-claude-guest-scoped-mcp`'s gauntlet on the same PR, plus continuing work on `endojs-endo-but-for-bots-pr1348-fix` and two deadline-nudge ref-race jobs (the latter now split into an orchestration after a deliberate overrun decomposition).
 
-The backlog of unread maintainer items, however, is substantial. **Oros remains offline for ~75 hours** (heartbeat stale since 2026-10-02T05:08Z); a human needs to check the Mac's power/sleep state, Docker Desktop, and the VM — the watcher is now suggesting its own schedule be paused until someone intervenes. The **minion.town Claude-CLI production canary** needs the maintainer to personally run `claude setup-token` and complete OAuth/subscription linking at minion.town/account/claude — several proxy escalations flagged this (and a GitHub-federated MCP login request) as identity/credential actions outside automated authority, one explicitly flagged as a possible phishing/social-engineering pattern worth scrutiny. Three gauntlets ([kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) parts 1–3 shell-to-js work, plus [build-minion-town-claude-account-html-page](https://github.com/kriscendobot/minion.town) and [build-familiar-localhttp-protocol](https://github.com/kriscendobot/garden)) exhausted their 6-round review budget and are parked for human merge decisions. A reaper flagged the **deploy-gate regression** fix (subscription-based-budget-model fallout) as exhausted after retries — still held in the plan queue pending promotion. The **SturdyRef stack review** ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) → [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) → [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) → [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) has a full merge-order recommendation ready. And the illuminated *Better Code and Gardens* edition (2026-10-04) is live and fully checked. Claude spend is at 88% of weekly quota; the reset-credit watch recommends spending codex-endolin and claude-endolin2 credits within the next day or two to avoid losing them to natural reset timing.
+Several stale-panel-head warnings accumulated for PRs whose heads moved past their last review — [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#157](https://github.com/kriscendobot/minion.town/pull/157), and [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) — each needs an explicit "run the gauntlet" or a manual review decision before merge. The SturdyRef stack summary (layers #1392, #1393, #1396, #1397) is ready for a merge-order decision, and the illuminated *Better Code and Gardens* edition is live with 25 plates, byte-reproducible and tested. Oros remains offline since 2026-10-02 (now ~3.5 days) and needs a human at the machine; the deploy-gate regression fix and the receipt quota-cooldown fix both got parked after exhausting retries and await a maintainer promote decision.
 
 ## Parked for maintainer feedback
 
@@ -17,7 +17,7 @@ The backlog of unread maintainer items, however, is substantial. **Oros remains 
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 34d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 32d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 34d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 33d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 34d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 35d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 37d)
 
@@ -488,6 +488,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Which layers can land first: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) lands first, as soon as [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) land. [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) follows after the retcon and weave. [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) have no code blockers, but they wait on [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/issues/1394) (L5, already un-drafted). No layer needs a redesign, and none needs another full panel; a scoped re-panel of only the post-panel deltas would be optional. No PR was touched and no gauntlet was staged.
 
+- `msg-garden-pages-da1f562a9dd2-shepherd-310b4154c945` — from gardener:garden-pages-da1f562a9dd2-shepherd, reply_to `garden-pages-da1f562a9dd2-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-pages-da1f562a9dd2-shepherd-310b4154c945.md)
+
+> Self-improvement recommendation: pages-build-shepherd currently names deploy-message flakes and content/config errors but not the hosted-runner acquisition failure observed here. Consider documenting check-run annotations as the diagnostic source and classifying persistent The job was not acquired by Runner of type hosted failures as an operational impasse after bounded reruns.
+
 - `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
 
 > COALESCED message — occurrence #3 (first seen 2026-10-05T13:32:06Z, latest 2026-10-05T20:41:25Z).
@@ -638,6 +642,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > site) and will land as a PR per this repo's own open-questions carve-out, not
 > bare to `main2`.
 
+- `msg-garden-pages-da1f562a9dd2-shepherd-283bfdca35cd` — from gardener:garden-pages-da1f562a9dd2-shepherd, reply_to `garden-pages-da1f562a9dd2-shepherd` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-garden-pages-da1f562a9dd2-shepherd-283bfdca35cd.md)
+
+> Pages run 37366923921 is blocked by GitHub-hosted runner acquisition, not docs content. The original attempt and two rerun attempts each left build unstarted for 15 minutes, then failed with annotation: The job was not acquired by Runner of type hosted even after multiple attempts. No code change can repair this external Actions runner outage; next: liaison. Re-run after hosted runners recover.
+
 - `msg-oros-health-watch-20261005-015006-46c81f34a765` — from gardener:oros-health-watch-20261005-015006, reply_to `oros-health-watch-20261005-015006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261005-015006-46c81f34a765.md)
 
 > Oros remains unreachable: the 23:35Z pinned checkup is still unclaimed; heartbeat last sampled 2026-10-02T05:08:36Z; latest sysop ack was 2026-10-02T05:38:58Z; it remains derotated and deployed at e036bb8e versus main2 939c6ea3. Six reset-failed ops and one restore op remain queued and unacknowledged, so I sent no duplicate op. Someone must check the Mac power/sleep state, Docker Desktop, and the VM/container.
@@ -693,8 +701,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 224.5M | $1495.39 _(notional, rate-card)_ | 88% of 256.0M (ok) |
-| Codex | 22.6M _(+349.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 224.7M | $1495.48 _(notional, rate-card)_ | 88% of 256.0M (ok) |
+| Codex | 22.8M _(+353.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -708,17 +716,17 @@ worst fetch p95 7.963158s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ### doin (5)
 - [`kriscendobot-minion.town-pr160-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr160-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #160
 - [`build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #160
+- [`improve-deadline-nudge-ref-race-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-ref-race-expanded-window.md) — ---
 - [`endojs-endo-but-for-bots-pr1348-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-fix.md) — ---
-- [`garden-pages-da1f562a9dd2-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-pages-da1f562a9dd2-shepherd.md) — pages-shepherd (auto: red Pages deploy) on kriscendobot/garden
-- [`improve-deadline-nudge-ref-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-ref-race.md) — ---
+- [`improve-deadline-nudge-ref-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-ref-race.md) — Deliberate overrun decomposition for improve-deadline-nudge-ref-race
 
-### tada (11090)
+### tada (11091)
+- [`garden-pages-da1f562a9dd2-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/garden-pages-da1f562a9dd2-shepherd.md) — Cost
 - [`oros-health-watch-20261005-202006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-202006.md) — Cost
 - [`kriscendobot-minion.town-pr160-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr160-gauntlet-fix-2.md) — Cost
 - [`build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-4.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-da1f562a9dd2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/canary-probe-endolin-garden2-5bcdff64-da1f562a9dd2.md) — rolling-deploy canary probe — round trip OK
-- [`improve-transient-deploy-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-transient-deploy-fetch.md) — Cost
-- … and 11085 more
+- … and 11086 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
