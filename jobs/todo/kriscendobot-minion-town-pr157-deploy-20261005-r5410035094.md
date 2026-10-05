@@ -1,10 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: kriscendobot-minion-town-pr157-conduct-deploy-r5410035094
-priority: urgent
-posted_by: gardener
-posted_at: 2026-10-05T04:59:22Z
+tier: mentor
+handler-budget-role: review
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=urgent at=2026-10-05T05:04:05Z cleared=none -->
 
 ---
 handler-budget-role: review
