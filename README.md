@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T20:07:28Z_
+_As of 2026-10-05T20:24:56Z_
 
 ## Latest
 
-A quiet tick: the only board transition since the last bulletin was `improve-transient-deploy-fetch` landing (cost-only receipt, no further detail surfaced), while three gauntlet jobs continue in flight — [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) (fix round 4) and [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) (fix). The inbox is the real story right now: **oros-studio remains offline for ~3.5 days** with heartbeat/sysop activity stale since 2026-10-02, derotated, and a backlog of unacknowledged reset/restore ops — it needs a person at the machine to check power/sleep, Docker Desktop, and the VM. The deploy-blocking `fix-subscription-model-deploy-gate-regression` job was reaper-doomed and parked for manual promotion (stale test fixture vs. the new budget-admission gate, diagnosis already captured). Several PRs have stale panel coverage after post-review pushes and need an explicit "run the gauntlet" or a manual call: [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#157](https://github.com/kriscendobot/minion.town/pull/157), and [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349)/[#1407](https://github.com/endojs/endo-but-for-bots/pull/1407). The minion.town Claude-CLI production canary is blocked entirely on the maintainer completing `claude setup-token` + OAuth linking by hand (several proxy messages correctly declined to act on this, one flagging a possible phishing/social-engineering shape to scrutinize). The SturdyRef review (layers [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392)/[#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)/[#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)/[#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is ready for a merge decision pending stack hygiene underneath. Claude quota sits at 87% of its weekly cap; a reset-credit watch recommends spending the codex-endolin and claude-endolin2 top-up credits within the next ~36h to stay ahead of the 90% brake.
+The board's claim/completion volume is dominated by the ongoing `build-minion-town-claude-guest-scoped-mcp` gauntlet, now on panel/fix round 4 against [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) — round 2's panel flagged a must-fix and the fix loop is iterating. Alongside it, `endojs-endo-but-for-bots-pr1348-fix` and a reaper-reliability fix (`improve-deadline-nudge-ref-race`, addressing a watchdog-reported push rejection on `journal2`) are both in progress. A rolling-deploy canary probe completed clean on `endolin-garden2-5bcdff64`.
+
+The maintainer inbox remains heavy with unread items worth a look when there's time: oros-studio has been unreachable for roughly three days and needs a hands-on check (power/Docker Desktop/VM); several PRs have stale panel coverage pending an explicit re-review decision ([minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), [#157](https://github.com/kriscendobot/minion.town/pull/157), [endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407), [#1349](https://github.com/endojs/endo-but-for-bots/pull/1349)); and the Claude-on-minion.town production canary is still waiting on the maintainer to personally complete subscription/OAuth setup (flagged partly as a likely phishing-pattern ask). The illuminated edition of *Better Code and Gardens* also shipped live, and a reaper-parked job traced a fleet-wide deploy-gate test failure to a stale `provider-cooldown-test.sh` fixture predating the subscription-budget-model gate.
 
 ## Parked for maintainer feedback
 
@@ -32,11 +34,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #792 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T19:20:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 792 times; this is ONE
-> coalesced notice that updates in place, not 792 messages. Latest detail:
+> WATCHDOG notice — occurrence #812 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T20:20:06Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 812 times; this is ONE
+> coalesced notice that updates in place, not 812 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 310286s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 313886s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -429,11 +431,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4` — from watchdog:deadline-nudge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4.md)
 
-> RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-04T21:48:21Z, cleared 2026-10-04T23:18:26Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-04T21:48:21Z, latest 2026-10-05T20:18:32Z).
+> The SAME condition (`deadline-nudge-push-rejected:endolin-garden-ece02cb4`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> deadline-nudge on endolin-garden-ece02cb4 pushed to journal2 again; the push rejection has cleared.
+> deadline-nudge on endolin-garden-ece02cb4 cannot push to journal2: server-reject rejection (To github.com:kriscendobot/garden.git  ! [remote rejected]       HEAD -> journal2 (cannot lock ref 'refs/heads/journal2': is at 13794d0a3e18e1ecaa40487b1a3a6acc5bfec809 but expected 9d1e6f0d8da33e79f4e21fb3f1dafea9226ba066) error: failed...). Deadline warnings are not being delivered; this needs repair (credentials, upstream, or a receive-side policy), not a retry.
 
 - `20261004T204328Z-c8080c` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T204328Z-c8080c.md)
 
@@ -691,8 +693,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 223.6M | $1493.41 _(notional, rate-card)_ | 87% of 256.0M (ok) |
-| Codex | 21.6M _(+340.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 223.9M | $1494.28 _(notional, rate-card)_ | 87% of 256.0M (ok) |
+| Codex | 21.9M _(+342.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -700,21 +702,22 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 7.963158s/45s (/home/kris/garden/.garden-state/worktree-sweeper/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`oros-health-watch-20261005-202006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261005-202006.md) — ---
 
-### doin (3)
+### doin (4)
 - [`build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #160
 - [`endojs-endo-but-for-bots-pr1348-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-fix.md) — ---
 - [`kriscendobot-minion.town-pr160-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr160-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #160
+- [`improve-deadline-nudge-ref-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-ref-race.md) — ---
 
-### tada (11086)
+### tada (11087)
+- [`canary-probe-endolin-garden2-5bcdff64-da1f562a9dd2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/canary-probe-endolin-garden2-5bcdff64-da1f562a9dd2.md) — rolling-deploy canary probe — round trip OK
 - [`improve-transient-deploy-fetch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-transient-deploy-fetch.md) — Cost
 - [`claude-on-minion-town-press-20261005-195006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/claude-on-minion-town-press-20261005-195006.md) — Cost
 - [`kriscendobot-minion.town-pr160-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr160-gauntlet-panel-2.md) — Panel round 2 on kriscendobot/minion.town PR #160: must-fix
 - [`build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-4.md) — Cost
-- [`kriscendobot-minion.town-pr160-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr160-gauntlet-fix-1.md) — Cost
-- … and 11081 more
+- … and 11082 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
