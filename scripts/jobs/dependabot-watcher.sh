@@ -70,6 +70,15 @@
 # reverify-and-close botanist job. Missing/unsupported declarations, malformed API
 # data, registry/API failure, and the timeout all fall open to the full review.
 #
+# ── Migration hooks (exact repo + package match, fail-closed runner) ─────────
+# Some bumps are red by construction until a known regeneration step lands (every
+# `@anthropic-ai/claude-code` bump on kriscendobot/minion.town needs
+# `npm run claude-harness:refresh`). For a full-review PR whose parsed package and
+# repo match a row of dependabot-migration.sh's closed table, the body tells the
+# botanist to run that hook before shepherding CI. The runner checks the PR is a
+# plain bump, confines the command's writes to declared outputs, re-validates, and
+# commits only on success; anything else is an ordinary unrepaired CI failure.
+#
 # ── Scope: watched-repo, NOT bot-repo ────────────────────────────────────────
 # Unlike the ci-watcher (which DRIVES a branch and so is scoped hard to bot-pushable
 # repos), the botanist merely REVIEWS: on a bot-owned repo it executes its verdict,
@@ -116,6 +125,7 @@
 #                                                     peer/Node incompatibility
 #                                                     (non-zero = no proof)
 #   GARDEN_DEP_POST      <basename> <body-file>    (post-job.sh)
+#   GARDEN_DEP_MIGRATION lookup <repo> <pkg>       -> hook id (dependabot-migration.sh)
 # The dependabot-author gate and the whole preflight live HERE (not in a handler) so
 # the test exercises them directly against a fixture of mixed-author PRs. The PR
 # source is SHARED with the ci-watcher (handlers/ci-pr-source-gh.sh emits every open
@@ -136,6 +146,8 @@ export GARDEN_TAG="dependabot-watcher/$slug"
 : "${GARDEN_DEP_COMPARE:=$HERE/handlers/dep-compare-gh.sh}"
 : "${GARDEN_DEP_COMPAT:=$HERE/handlers/dep-compat-gh.sh}"
 : "${GARDEN_DEP_POST:=$HERE/post-job.sh}"
+# Per-(repo, package) migration hooks the full-review body names (lookup only).
+: "${GARDEN_DEP_MIGRATION:=$HERE/dependabot-migration.sh}"
 # Bound the containment oracle the same way the PR source is bounded: a hung gh or
 # registry read must not outlive the tick. The oracle is only consulted for a group
 # with a genuine version disagreement, so this is a handful of calls at most.
@@ -611,6 +623,24 @@ write_full_body() {  # write_full_body <pr> [<pkg> <old> <new>]
     printf 'Watcher preflight: the title of this PR did not match the `bump <pkg> from <a>\n'
     printf 'to <b>` form, so it could not be grouped and NO cross-PR reconciliation was done.\n'
     printf 'Run the sibling-PR supersession check yourself (roles/botanist/AGENT.md step 1).\n\n'
+  fi
+  local hook=""
+  [ -n "${2:-}" ] && hook="$("$GARDEN_DEP_MIGRATION" lookup "$repo" "$2" 2>/dev/null)" || hook=""
+  if [ -n "$hook" ]; then
+    printf 'MIGRATION HOOK `%s` (matched exactly on %s + `%s` by\n' "$hook" "$repo" "$2"
+    printf 'scripts/jobs/dependabot-migration.sh): every bump of this package leaves the\n'
+    printf 'Dependabot head RED until a mechanical regeneration step is committed. Do not\n'
+    printf 'wait for that predictable CI failure. On a bot-owned repo, once the review\n'
+    printf 'below has not ruled the bump out, and BEFORE shepherding CI, run in your\n'
+    printf 'isolated project checkout of the PR head:\n\n'
+    printf '    scripts/jobs/dependabot-migration.sh run %s <checkout> <base-sha>\n\n' "$hook"
+    printf 'with <base-sha> the PR baseRefOid. It checks the PR diff is still a plain bump,\n'
+    printf 'runs the refresh, refuses any write outside its declared output set, re-runs\n'
+    printf 'the pin check, and commits only on success. rc 0 (`committed <sha>` or\n'
+    printf '`already-current`): push the head, then shepherd CI. Any other rc: commit and\n'
+    printf 'push NOTHING by hand; treat it as an unrepaired CI failure (step 6 routing)\n'
+    printf 'and quote the hook'"'"'s stderr in the verdict. On an upstream the bot does not\n'
+    printf 'own, name the hook in the recommendation instead of running it.\n\n'
   fi
   printf 'Then the rest of the chain: read the lockfile transitive set, install with\n'
   printf 'scripts disabled, read the upstream source, cross-check every moved version\n'

@@ -36,6 +36,7 @@
 #   N. an empty peer-dependency range intersection → cheap incompatible close job
 #   O. a target Node engine excluding the project floor → cheap incompatible job
 #   P. no compatibility proof → fall open to the full review
+#   MIG. a migration hook is named only for its exact (repo, package) row
 #   Q. a primary REST-quota source refusal arms the host-wide gh-api latch for the
 #      full primary-quota window (not the 300s transient default), and a later tick
 #      inside that window skips before polling the source
@@ -484,6 +485,27 @@ grep -qx HELD "$VLOCK_LOG" && ! grep -qx FREE "$VLOCK_LOG" \
 flock -n "$TR/state-s/dependabot-watcher/verify.lock" true \
   && ok "the VERIFY clone lock is released after the run" \
   || bad "VERIFY clone lock still held after exit"
+
+# ============================================================================
+hr; echo "MIG — migration hook: only the exact repo + package names claude-harness-refresh"; hr
+MT_SLUG=kriscendobot-minion.town
+BARE_MIG="$TR/mig.git"; seed_bare "$BARE_MIG"
+FIX_MIG="$TR/fix-mig.tsv"
+{ depline 158 'Bump @anthropic-ai/claude-code from 2.1.278 to 2.1.283 in /tools/claude-harness'
+  depline 159 'Bump vitest from 3.0.0 to 3.1.0'; } > "$FIX_MIG"
+COMP_FIXTURE="" run_dep "$TR/state-mig" "$BARE_MIG" "$FIX_MIG" "$MT_SLUG"
+has_in_body "$BARE_MIG" "$MT_SLUG-pr158-dependabot" 'MIGRATION HOOK `claude-harness-refresh`' \
+  && has_in_body "$BARE_MIG" "$MT_SLUG-pr158-dependabot" 'dependabot-migration.sh run claude-harness-refresh' \
+  && ok "claude-code bump on minion.town names the refresh hook" || bad "hook missing from the claude-code body"
+has_in_body "$BARE_MIG" "$MT_SLUG-pr159-dependabot" 'read the lockfile transitive set' \
+  && ! has_in_body "$BARE_MIG" "$MT_SLUG-pr159-dependabot" 'MIGRATION HOOK' \
+  && ok "unrelated package on the same repo gets the full body, no hook" || bad "unrelated package body wrong"
+BARE_MIG2="$TR/mig2.git"; seed_bare "$BARE_MIG2"
+FIX_MIG2="$TR/fix-mig2.tsv"; depline 160 'Bump @anthropic-ai/claude-code from 2.1.278 to 2.1.283' > "$FIX_MIG2"
+COMP_FIXTURE="" run_dep "$TR/state-mig2" "$BARE_MIG2" "$FIX_MIG2"
+has_in_body "$BARE_MIG2" "$SLUG-pr160-dependabot" 'read the lockfile transitive set' \
+  && ! has_in_body "$BARE_MIG2" "$SLUG-pr160-dependabot" 'MIGRATION HOOK' \
+  && ok "same package on a different repo gets the full body, no hook" || bad "other-repo body wrong"
 
 # ============================================================================
 hr; echo "Q — a primary REST-quota source refusal arms the host-wide latch for the quota window"; hr
