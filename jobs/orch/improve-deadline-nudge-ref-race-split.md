@@ -1,4 +1,5 @@
 ---
+child-improve-deadline-nudge-ref-race-expanded-window-reap-count: 0
 order: serial
 children: improve-deadline-nudge-ref-race-expanded-window
 on-child-failure: halt
