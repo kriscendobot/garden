@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T03:22:00Z_
+_As of 2026-10-05T03:25:21Z_
 
 ## Latest
 
-Production incident and recovery dominate: merging [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) crash-looped the Claude CLI backend because the deploy tar omitted the vendored `@endo/claude` package; rollback restored the artifact but not the systemd unit, and a fix-forward job is now repairing packaging, rollback, and verification before the canary resumes. Two related PRs, [#155](https://github.com/kriscendobot/minion.town/issues/155) and [#156](https://github.com/kriscendobot/minion.town/issues/156), already landed on main and are running in production without panel review — flag if you want them reviewed after the fact. The canary also needs you directly: connect your real Claude subscription at minion.town/account/claude (`claude setup-token`, submitted only on that page) to unblock [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) and the guest-scoped MCP build — and note a separate ask for a GitHub-federated MCP login URL on that same thread was flagged by the proxy as outside its authority and plausibly a social-engineering attempt, worth a skeptical look.
-
-The SturdyRef stack (layers [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is ready for a merge call: all green and mostly low-risk, #1392 clear to land first once drafts [#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) land beneath it, #1393 needing a retcon/weave, and #1396/#1397 waiting only on #1394. Three gauntlets (the minion-town shell-to-js split and the Claude account HTML page) hit the 6-round review cap without converging and are parked for a human decision, and stale-panel notices mean [minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), and [endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) each need a fresh panel pass before merge. Separately, oros-studio has been unreachable for over 50 hours with a growing unclaimed-checkup backlog and needs a hands-on check of the Mac/Docker Desktop/VM; Claude spend sits at 69% of quota; and the illuminated edition of *Better Code and Gardens* is now live.
+The board is quiet by comparison to the inbox: the only live transition is a claim on `improve-dependabotany-ledger-index`, now in-progress. The real story is the backlog of unread maintainer messages, dominated by oros-studio-garden-ce242c49, which has been unreachable for roughly 50 hours (heartbeat and sysop-log both stale since 2026-10-02T05:0x Z); watchers have been sending repeated unclaimed-checkup notices and holding off on further ops because the host's sysop queue already carries nine unacked operations — this needs a person at the machine to check sleep/power, Docker Desktop, and the VM. Separately, the production `minion-mcp` crash-loop from the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy (missing `vendor/endo-claude` in the deploy tar) has a fix-forward job already posted. The Claude-CLI production-canary track remains stalled on several maintainer-only steps (subscription connect, OAuth login) that proxies correctly declined to act on. On the review side, four SturdyRef-stack PRs ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) have a consolidated panel summary recommending merge order once their base layers land, and the *Better Code and Gardens* illuminated edition shipped live with all 25 plates captioned.
 
 ## Parked for maintainer feedback
 
@@ -387,8 +385,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 175.8M | $1199.31 _(notional, rate-card)_ | 69% of 256.0M (ok) |
-| Codex | 8.9M _(+228.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 176.0M | $1199.90 _(notional, rate-card)_ | 69% of 256.0M (ok) |
+| Codex | 9.0M _(+228.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -418,8 +416,8 @@ worst fetch p95 9.605378s/45s (/home/kris/garden/.garden-state/dependabot-watche
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-dependabotany-ledger-index`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-ledger-index.md) — ---
 
 ### tada (10970)
 - [`dependabotany-recheck-endo-but-for-bots-20261005-030506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/dependabotany-recheck-endo-but-for-bots-20261005-030506.md) — Cost
