@@ -47,6 +47,8 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = view ]; then
     */pull/214) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"design: oq","body":"<!-- garden-design-open-questions -->",%s,"files":[{"path":"designs/oq.md"}]}\n' "$url" "$bot" ;;
     # DRAFT PR authored by someone else → citation, not a producer artifact.
     */pull/215) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"feat: cited","body":"b","author":{"login":"interloper"},"files":[{"path":"src/x.js"}]}\n' "$url" ;;
+    # DRAFT build PRs with plain titles: the probe classification rides on the job file.
+    */pull/216|*/pull/217) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"fix: plain","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
     *) echo "unexpected pr view: $url" >&2; exit 64 ;;
   esac
   exit 0

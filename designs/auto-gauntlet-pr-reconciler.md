@@ -106,6 +106,14 @@ Three properties still make it incomplete:
 3. **Out-of-band creation.** A PR with no producer completion still creates no
    record; only the proposed reconciler can adopt it.
 
+Two narrower edges are closed. Probe classification (`is_probe_job` in
+`scripts/jobs/common.sh`) needs the probe *verb* or an explicit marker, not the
+bare word: on 2026-10-05 a build that mentioned "the smoke probe" left
+kriscendobot/minion.town#163 unstaged. And at most one gauntlet per PR is live:
+`post-gauntlet.sh` refuses a second non-terminal record on the same PR under any
+base, and `gauntlet.sh` retires a fresh duplicate that raced past that check
+(minion.town#160 ran two fix loops on one head the same day).
+
 Draft state is not a sufficient record. It says the PR has not been made ready,
 but it cannot distinguish a newly opened feature, a deliberate probe, a halted
 gauntlet, and a forgotten PR.

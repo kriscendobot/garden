@@ -10381,6 +10381,45 @@ is_open_questions_design_pr() {  # is_open_questions_design_pr <pr-json>
     | grep -qi 'garden-design-open-questions'
 }
 
+# is_probe_job <job-file> [pr-json]
+# Is a producer job a deliberate gap-revealing PROBE (skills/gap-revealing-build),
+# whose draft stays draft with no gauntlet? True on the probe PR's title marker
+# (`gap-revealing prototype`), a job naming the gap-revealing skill, a `probe-*`
+# job file, a `kind:`/`verb:` probe header, or the probe VERB in directive position
+# (`probe #N`, `probe <pr-url>`, `probe the design`). A bare word "probe" is NOT
+# enough: build-minion-town-caddy-restart-on-env-change (2026-10-05) asked to
+# "strengthen the smoke probe", was misread as a probe, and its draft PR
+# kriscendobot/minion.town#163 staged no gauntlet. Deterministic, NO LLM.
+is_probe_job() {
+  local jobfile="$1" pr_json="${2:-}"
+  if [ -n "$pr_json" ] && printf '%s\n' "$pr_json" | jq -r '[.title, .body] | join("\n")' 2>/dev/null \
+       | grep -qi 'gap-revealing prototype'; then
+    return 0
+  fi
+  [ -f "$jobfile" ] || return 1
+  case "$(basename "$jobfile")" in probe-*) return 0;; esac
+  grep -qi 'gap-revealing' "$jobfile" && return 0
+  grep -qiE '^(kind|verb):[[:space:]]*probe[[:space:]]*$' "$jobfile" && return 0
+  grep -qiE '(^|[^[:alnum:]_-])probe[[:space:]]+(#[0-9]+|https?://github\.com/[^[:space:]]+/pull/[0-9]+|[[:alnum:]_.-]+/[[:alnum:]_.-]+#[0-9]+|the[[:space:]]+design)' "$jobfile"
+}
+
+# active_gauntlets_for_pr <clone-dir> <repo> <pr-number> [exclude-base]
+# Echo the basename of every NON-TERMINAL gauntlet record (state not done/halted)
+# covering <repo>#<pr-number>, other than <exclude-base>, one per line; rc 0 iff
+# any. Two live gauntlets on one PR run two fix loops against the same head
+# (kriscendobot/minion.town#160, 2026-10-05: 8 fix rounds, 9 panels), so
+# post-gauntlet.sh refuses a second one and gauntlet.sh retires a racing duplicate.
+active_gauntlets_for_pr() {
+  local dir="$1" repo="$2" num="$3" exclude="${4:-}" g found=1
+  while IFS= read -r g; do
+    [ -n "$g" ] && [ "$g" != "$exclude" ] || continue
+    case "$(gauntlet_state "$dir/$JOBS_GAUNTLET/$g.md")" in done|halted) continue;; esac
+    printf '%s\n' "$g"
+    found=0
+  done < <(gauntlet_record_for_pr "$dir" "$repo" "$num" || true)
+  return "$found"
+}
+
 # gauntlet_record_for_pr <clone-dir> <repo> <pr-number>
 # Echo the basename of every staged-gauntlet RECORD (jobs/gauntlet/<g>.md) in the
 # given synced journal clone that covers <repo>#<pr-number> — matched on the

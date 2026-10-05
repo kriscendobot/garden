@@ -79,8 +79,7 @@ if [ "$draft" != true ]; then
   exit 0
 fi
 
-if printf '%s\n' "$pr_json" | jq -r '[.title, .body] | join("\\n")' | grep -qi 'gap-revealing prototype' \
-   || grep -qiE '(^|[^[:alnum:]])probe([^[:alnum:]]|$)|gap-revealing' "$jobfile"; then
+if is_probe_job "$jobfile" "$pr_json"; then
   log "auto-gauntlet: $pr_url is a probe; leaving it draft"
   exit 0
 fi

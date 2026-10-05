@@ -38,6 +38,12 @@ printf -- '---\nrole: designer\n---\nDesign.\n' >"$designer"
 printf -- '---\nrole: web-builder\n---\nBuild a web surface.\n' >"$web_builder"
 printf -- '---\nrole: builder\n---\nProbe the design.\n' >"$probe"
 printf 'Produce an implementation artifact.\n' >"$roleless"
+# build-minion-town-caddy-restart-on-env-change (2026-10-05) used "probe" as an
+# ordinary noun and was misclassified as a probe; minion.town#163 staged nothing.
+smoke_probe="$TR/smoke-probe.md"
+probe_verb="$TR/probe-verb.md"
+printf -- '---\nrole: builder\n---\n3. Optionally, strengthen the smoke probe so a gated route is detected.\n' >"$smoke_probe"
+printf -- '---\nrole: builder\n---\nprobe #12 and report the gaps.\n' >"$probe_verb"
 
 run_hook() { # <base> <job> <pr>
   local base="$1" job="$2" pr="$3" report
@@ -64,8 +70,16 @@ run_hook ordinary-fix "$designer" 200
 [ "$(find "$GARDEN_PRODUCER_CLONE/jobs/gauntlet" -name 'endojs-endo-but-for-bots-pr200-gauntlet.md' | wc -l)" -eq 1 ] \
   || fail 'two producers for one PR did not converge on one record'
 
+echo '== the word "probe" in an ordinary build still stages =='
+run_hook build-caddy "$smoke_probe" 216
+[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr216-gauntlet.md" ] \
+  || fail 'a build mentioning a smoke probe was misread as a probe and staged nothing'
+
 echo '== exclusions do not stage =='
 run_hook probe-x "$probe" 203
+run_hook probe-verb "$probe_verb" 217
+[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr217-gauntlet.md" ] \
+  || fail 'a "probe #N" directive staged a gauntlet'
 run_hook ready-build "$builder" 210
 run_hook open-questions "$roleless" 214
 run_hook cited-draft "$roleless" 215

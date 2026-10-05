@@ -520,6 +520,43 @@ finish_done() {  # <base> <reason>
   rm -f "$sf"
 }
 
+# gauntlet_coalesce_winner <base> <rec> <repo> <pr> — echo the live peer record a
+# FRESH <base> must yield to (rc 0), or rc 1 when <base> may run.
+gauntlet_coalesce_winner() {
+  local base="$1" rec="$2" repo="$3" prnum="$4" peer pf mine theirs
+  mine="$(plan_field "$rec" created_at 2>/dev/null || true)"
+  while IFS= read -r peer; do
+    [ -n "$peer" ] || continue
+    pf="$DIR/$JOBS_GAUNTLET/$peer.md"
+    if [ -n "$(gauntlet_current_child "$pf")" ]; then
+      printf '%s\n' "$peer"; return 0
+    fi
+    theirs="$(plan_field "$pf" created_at 2>/dev/null || true)"
+    if [[ "$theirs" < "$mine" ]] || { [ "$theirs" = "$mine" ] && [[ "$peer" < "$base" ]]; }; then
+      printf '%s\n' "$peer"; return 0
+    fi
+  done < <(active_gauntlets_for_pr "$DIR" "$repo" "$prnum" "$base" || true)
+  return 1
+}
+
+# Retire a duplicate fresh gauntlet into the live one on the same PR, loudly.
+coalesce_gauntlet() {  # <base> <winner> <repo> <pr>
+  local base="$1" winner="$2" repo="$3" prnum="$4" sf
+  log "WARN: DUPLICATE GAUNTLET COALESCED: '$base' on $repo#$prnum yields to live gauntlet '$winner'; retiring it without spending any stage"
+  sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-coalesced.XXXXXX")"
+  {
+    printf 'gauntlet-status: coalesced\n'
+    printf 'coalesced_into: %s\n' "$winner"
+    printf '# gauntlet %s — coalesced\n\n' "$base"
+    printf 'A second gauntlet was recorded on %s#%s while `%s` was live; this one was retired so only one fix loop pushes to the head.\n' \
+      "$repo" "$prnum" "$winner"
+  } > "$sf"
+  finish_gauntlet "$base" "$sf" || log "gauntlet '$base': coalesce-finish failed; retrying next tick"
+  rm -f "$sf"
+  printf 'Duplicate gauntlet `%s` on %s#%s was coalesced into the live gauntlet `%s` (no stages spent).\n' \
+    "$base" "$repo" "$prnum" "$winner" | gauntlet_notify "$base-coalesced"
+}
+
 # A non-viable PR is a successful gate outcome, not an infrastructure failure.
 # Retire it without an orchestration-failed marker, preserve the report as evidence,
 # and tell the maintainer why no clean/panel/fix budget was admitted.
@@ -1171,6 +1208,16 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
   # Fresh record (no stage in flight): spend one small viability claim before
   # admitting any clean/panel/fix-loop budget.
   if [ -z "$child" ]; then
+    # PR-keyed dedupe, driver side. post-gauntlet.sh refuses a second live run on
+    # a PR, but two producers can still race distinct bases past that check. A
+    # fresh record yields to any live peer on the same PR that already has a stage
+    # in flight or was recorded first (created_at, then base), so only one fix
+    # loop ever pushes to the head (minion.town#160, 2026-10-05).
+    if winner="$(gauntlet_coalesce_winner "$base" "$f" "$repo" "$prnum")"; then
+      coalesce_gauntlet "$base" "$winner" "$repo" "$prnum"
+      advanced=$((advanced+1))
+      continue
+    fi
     # DETERMINISTIC merge-base-pinning pre-gate, BEFORE any review spend (sibling
     # of the viability gate; the merge-base-pinning review-miss cluster). A PR that
     # targets a FLOATING trunk (master/llm/main) instead of a pinned <base>-<sha>

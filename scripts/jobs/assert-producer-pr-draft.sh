@@ -157,8 +157,7 @@ author="$(printf '%s' "$pr_json" | jq -r '.author.login // empty' 2>/dev/null ||
 # ── Beyond here the PR is bot-authored, OPEN, and NON-DRAFT ──────────────────────
 # A probe intentionally stays draft with no gauntlet; a non-draft probe is a
 # contradiction, but exempt one defensively (never a miss).
-if printf '%s\n' "$pr_json" | jq -r '[.title, .body] | join("\\n")' 2>/dev/null | grep -qi 'gap-revealing prototype' \
-   || grep -qiE '(^|[^[:alnum:]])probe([^[:alnum:]]|$)|gap-revealing' "$jobfile" 2>/dev/null; then
+if is_probe_job "$jobfile" "$pr_json"; then
   exit 0
 fi
 

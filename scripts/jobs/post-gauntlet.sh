@@ -38,7 +38,9 @@
 # Idempotent on <g>: if the record (or a completed tada/<g>) already exists the post
 # is a no-op success — a re-triggered gauntlet on the same PR reuses the same record
 # and stage bases. Posts are ADDs, so a rejected push re-syncs and retries. Mirrors
-# post-orchestration.sh exactly.
+# post-orchestration.sh exactly. Also idempotent on the PR: while another
+# non-terminal gauntlet record covers the same PR, the post is refused (exit 0,
+# logged loudly as DUPLICATE GAUNTLET REFUSED) rather than starting a second loop.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -166,6 +168,14 @@ for attempt in $(seq 1 "${GARDEN_POST_ATTEMPTS:-50}"); do
   sync_clone "$DIR"
   if [ -e "$DIR/$JOBS_GAUNTLET/$base.md" ] || tada_exists "$DIR" "$base"; then
     log "gauntlet '$base' already recorded; nothing to do"
+    exit 0
+  fi
+  # PR-keyed dedupe: a second LIVE gauntlet on the same PR (under any base name)
+  # would run a second fix loop against the same head. Coalesce into the live
+  # one and say so loudly; a done/halted record does not block a fresh run.
+  if peers="$(active_gauntlets_for_pr "$DIR" "$repo" "$pr_number" "$base")"; then
+    peers="$(printf '%s' "$peers" | paste -sd, -)"
+    log "WARN: DUPLICATE GAUNTLET REFUSED: '$base' for $repo#$pr_number coalesced into live gauntlet(s) $peers (requested by $by${build_job:+, build $build_job}); not recording a second run"
     exit 0
   fi
   mkdir -p "$DIR/$JOBS_GAUNTLET"
