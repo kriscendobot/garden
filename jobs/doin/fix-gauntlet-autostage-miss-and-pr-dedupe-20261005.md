@@ -2,9 +2,8 @@
 tier: mentor
 fallback-tier: minion
 dispatch: automatic
----
 role: fixer
-
+---
 Fix two gauntlet-staging defects in the garden (kriscendobot/garden, main2), reported by the arc kriscendobot/garden#89 completion press, 2026-10-05 23:05Z.
 
 1. **Missed auto-stage.** A successful build job that opens a draft PR should stage its gauntlet automatically when it completes. `build-minion-town-caddy-restart-on-env-change` completed at 21:43Z with draft PR https://github.com/kriscendobot/minion.town/pull/163 and staged no gauntlet. This happened after c051d90c70b ("classify producer drafts by artifact") was deployed. The same class of miss hit https://github.com/kriscendobot/minion.town/pull/160 earlier the same day, and that gauntlet was staged late. The liaison has since staged #163 by hand (`kriscendobot-minion.town-pr163-gauntlet-20261005`). Find out why the completion edge skipped it, and fix that.
