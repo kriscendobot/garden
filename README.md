@@ -1,23 +1,25 @@
 # Garden bulletin
 
-_As of 2026-10-05T22:53:14Z_
+_As of 2026-10-05T23:01:40Z_
 
 ## Latest
 
-The board is quiet since the last bulletin (todo and doin are both empty), with the only recorded transition being a completed press report on the Claude-on-minion.town arc ([kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)). The inbox is heavy with activity worth the maintainer's attention: several gauntlets ([kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) guest-scoped MCP, the three minion-town-shell-to-js parts, the Claude account HTML page build, and the familiar localhttp-protocol build) hit their 6-round review budget without converging and are left for a human merge call, and the illuminated edition of *Better Code and Gardens* shipped live with all 25 plates in place via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). Oros-studio remains offline for roughly 74 hours and still needs someone at the machine to check power/sleep, Docker Desktop, and the VM; the production Claude-CLI canary on minion.town is likewise stalled on the maintainer completing `claude setup-token` and GitHub OAuth steps that no proxy or gardener can do on their behalf. Separately, the reset-credit watch flags two subscriptions worth spending in the next ~36h (codex-endolin Monday evening, claude-endolin2 Tuesday evening) and warns claude-endolin1 is running hot toward 100% before its Friday reset.
+The board is fully drained (todo/doin empty, 11,109 completions sitting in tada), so nothing new is in flight; the latest motion is on review and infrastructure. The illuminated edition of *Better Code and Gardens* (2026-10-04) shipped live, with all 25 plates captioned and 30/30 tests passing. The SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is CI-green and ready to merge in order once their stale frozen bases are rewoven. Several gauntlets hit their 6-round review budget without converging and are parked for a human call, including minion.town's [#148](https://github.com/kriscendobot/minion.town/pull/148) and [#157](https://github.com/kriscendobot/minion.town/pull/157), the familiar localhttp-protocol build, and the guest-scoped MCP build; a few other PRs show stale panel coverage after late fixes ([endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349), [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407)) and likewise need a fresh review decision.
+
+Operationally, oros-studio has been unreachable for ~3 days (heartbeat stale since 2026-10-02) and needs someone at the physical machine; minion.town's production Claude-CLI canary is stalled waiting on the maintainer to personally run `claude setup-token` and complete subscription/OAuth linking (not delegable); and three jobs (subscription deploy-gate regression, receipt-watcher quota cooldown, gardener-clone-alias verification) were parked after exhausting retries, awaiting a promote decision.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 49m)
+- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 1h)
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 8d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 32d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 34d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 34d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 34d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 35d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 34d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 34d)
 
 _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 ## Screened by proxy (minion.town)
@@ -711,8 +713,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 229.4M | $1523.47 _(notional, rate-card)_ | 90% of 256.0M (ok) |
-| Codex | 24.6M _(+372.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 229.5M | $1524.08 _(notional, rate-card)_ | 90% of 256.0M (ok) |
+| Codex | 24.7M _(+372.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
