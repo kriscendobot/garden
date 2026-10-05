@@ -74,7 +74,8 @@
 #      payment/spending limit kept from starting (maintainer alerted)
 #                                                     → park until billing is fixed
 #   1  hard error / merge or rebase blocked (`needs weave`) / not mergeable /
-#      frozen base shared by a sibling stack / reviewDecision=CHANGES_REQUESTED (maintainer
+#      frozen base shared by a sibling stack / base is a snapshot of a non-trunk
+#      branch (`reason=nontrunk-frozen-base`) / reviewDecision=CHANGES_REQUESTED (maintainer
 #      alerted)                                      → stall, re-enqueue
 #
 # --no-merge makes it a pure block-until-CI-terminal probe (exit 0 = green,
@@ -359,6 +360,67 @@ actions_billing_blocked() {
 # the pending branch does, so a flapping gh/network can never spin unbounded.
 past_deadline() { [ $(( $(date +%s) - start )) -ge "$deadline_secs" ]; }
 
+# Read one field of a $repo REST resource. Prints it and returns 0; returns 2 when
+# GitHub says the resource does not exist (HTTP 404/422 — no such branch or
+# commit) and 1 on any other read failure, so callers can tell "no such thing"
+# from "could not ask".
+gh_repo_read() {
+  local path="$1" jqexpr="$2" out err rc=0
+  err="$(mktemp)"
+  out="$("$GH" api "repos/$repo/$path" --jq "$jqexpr" 2>"$err")" || rc=$?
+  if [ "$rc" -ne 0 ]; then
+    if grep -qE 'HTTP (404|422)' "$err"; then rm -f "$err"; return 2; fi
+    rm -f "$err"; return 1
+  fi
+  rm -f "$err"
+  [ -n "$out" ] || return 1
+  printf '%s\n' "$out"
+}
+
+# NON-TRUNK SNAPSHOT: a base `<name>-<hex>` whose `<name>` is a live branch other
+# than llm/main/master (e.g. `feat/daemon-provisioning-grants-5feadae`, a snapshot
+# of draft #1042's head that endo-but-for-bots#1343 was stacked on). There is no
+# trunk to unfreeze to: merging onto the snapshot strands the content off every
+# live branch (the #621 failure class), and retargeting to trunk or to the live
+# feature branch are different decisions with different diffs. Refuse and let the
+# maintainer choose (retarget to trunk, retarget to the live feature branch, or
+# land the parent PR first).
+#
+# It is a snapshot only when `<name>` exists AND the `<hex>` suffix names the base's
+# tip commit, or an ancestor of it (a sibling already merged onto the snapshot and
+# moved its tip). An ordinary branch whose name merely ends in hex-looking digits
+# (`release-2024`) names no such commit and still merges. Any failed read fails
+# CLOSED.
+#
+# Returns 0 (not a non-trunk snapshot → proceed), 1 (read failure → refuse), or
+# 11 (non-trunk snapshot → maintainer alerted, refuse).
+refuse_nontrunk_snapshot_base() {
+  local base="$1" name suffix base_sha status rc
+  [[ "$base" =~ ^(.+)-([0-9a-f]{4,40})$ ]] || return 0
+  name="${BASH_REMATCH[1]}"; suffix="${BASH_REMATCH[2]}"
+  rc=0; gh_repo_read "git/ref/heads/$name" '.object.sha' >/dev/null || rc=$?
+  case "$rc" in
+    0) ;;
+    2) return 0 ;;   # no live <name>: an ordinary branch, not a snapshot of one
+    *) log "could not read branch '$name' on $repo for $repo#$pr base '$base' — refusing to merge without the non-trunk snapshot check"; return 1 ;;
+  esac
+  rc=0; base_sha="$(gh_repo_read "git/ref/heads/$base" '.object.sha')" || rc=$?
+  [ "$rc" -eq 0 ] \
+    || { log "could not read base branch '$base' on $repo for $repo#$pr — refusing to merge without the non-trunk snapshot check"; return 1; }
+  if [ "${base_sha#"$suffix"}" = "$base_sha" ]; then
+    rc=0; status="$(gh_repo_read "compare/$suffix...$base_sha" '.status')" || rc=$?
+    case "$rc" in
+      0) [ "$status" = ahead ] || [ "$status" = identical ] || return 0 ;;
+      2) return 0 ;;   # the suffix names no commit: not a snapshot
+      *) log "could not compare '$suffix' with base '$base' on $repo for $repo#$pr — refusing to merge without the non-trunk snapshot check"; return 1 ;;
+    esac
+  fi
+  alert_maintainer "nontrunk-frozen-base-${repo//\//_}-$pr" \
+    "conductor merge BLOCKED for $repo#$pr: its base '$base' is a frozen snapshot of the live non-trunk branch '$name', not of llm/main/master. Merging onto the snapshot would strand the content off every live branch. Decide: retarget #$pr to the trunk, retarget it to the live '$name', or land the parent PR first. (#$pr left untouched: not merged, base not edited.)"
+  echo "unfreeze-blocked repo=$repo pr=$pr base=$base reason=nontrunk-frozen-base live=$name → alerted maintainer, NOT merging"
+  return 11
+}
+
 # --- conductor step 2: unfreeze a frozen-base snapshot to the live trunk ------
 # A fork-side PR opened under the frozen-base-branch convention targets a snapshot
 # named `<branch>-<sha>`. Merging onto the snapshot strands the content there; the
@@ -385,6 +447,7 @@ past_deadline() { [ $(( $(date +%s) - start )) -ge "$deadline_secs" ]; }
 # Returns:
 #   0  base is already live, or it was successfully unfrozen → proceed to merge
 #   10 a real dependent stacks on this PR's head → maintainer alerted; do NOT merge
+#   11 base is a snapshot of a live NON-trunk branch → maintainer alerted; do NOT merge
 unfreeze_base_if_frozen() {
   local meta state base live head_ref dependents sib_count
   meta="$("$GH" pr view "$pr" -R "$repo" --json state,baseRefName,headRefName 2>/dev/null)" \
@@ -398,7 +461,10 @@ unfreeze_base_if_frozen() {
   # Only an OPEN PR can be unfrozen; the wait loop handles terminal states.
   [ "$state" = OPEN ] || return 0
   # Frozen-base pattern: <live-branch>-<4..40 hex>. A live trunk (no -<sha>) skips.
-  [[ "$base" =~ ^(llm|main|master)-[0-9a-f]{4,40}$ ]] || return 0
+  if ! [[ "$base" =~ ^(llm|main|master)-[0-9a-f]{4,40}$ ]]; then
+    refuse_nontrunk_snapshot_base "$base" || return $?
+    return 0
+  fi
   live="${base%-*}"   # llm-65b0abe → llm; master-c49fb04 → master
   # Stack safety: a DEPENDENT is an open PR based on THIS PR's HEAD ref — not merely
   # a sibling on the same frozen base. Block only when a real dependent exists;

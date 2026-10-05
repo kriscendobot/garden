@@ -57,6 +57,13 @@
 #   T33 stale CANCELLED run superseded by a green rerun of the same check → merge
 #   T34 stale green run superseded by a red rerun of the same check → exit 3
 #   T35 stale red run superseded by a still-queued rerun → keeps waiting (exit 4)
+#   T36 base is a snapshot of a live NON-trunk branch (endo-but-for-bots#1343's
+#      feat/…-5feadae) → refuse with reason=nontrunk-frozen-base, exit 1, no merge,
+#      no base edit (the #621 stranding class)
+#   T37 non-trunk snapshot whose tip moved past the suffix commit → still refuse
+#   T38 ordinary `release-2024` base (suffix names no commit) → merge
+#   T39 `<name>-<hex>` base with no live `<name>` → merge
+#   T40 live-branch read fails → fail closed, no merge
 #
 # Usage: ci-wait-merge-test.sh
 set -euo pipefail
@@ -91,6 +98,18 @@ SEQ="$STUBDIR/seq"; i=$(cat "$STUBDIR/i" 2>/dev/null || echo 0)
 # holds the messages; a missing file is a failed read.
 if [ "$1" = api ] && [[ "$2" =~ check-runs/([0-9]+)/annotations ]]; then
   cat "$STUBDIR/ann_${BASH_REMATCH[1]}" 2>/dev/null || exit 1; exit 0; fi
+# Branch tips (the non-trunk snapshot check): $STUBDIR/refs holds `<branch> <sha>`
+# lines; an absent branch is a 404, and $STUBDIR/refs_fail makes every read fail.
+if [ "$1" = api ] && [[ "$2" =~ /git/ref/heads/(.+)$ ]]; then
+  [ -f "$STUBDIR/refs_fail" ] && { echo "gh: Server Error (HTTP 502)" >&2; exit 1; }
+  sha="$(awk -v b="${BASH_REMATCH[1]}" '$1==b {print $2}' "$STUBDIR/refs" 2>/dev/null)"
+  [ -n "$sha" ] || { echo "gh: Not Found (HTTP 404)" >&2; exit 1; }
+  echo "$sha"; exit 0; fi
+# Compare (is the snapshot suffix an ancestor of the base tip?): $STUBDIR/compare
+# holds the status; absent → 404 (the suffix names no commit).
+if [ "$1" = api ] && [[ "$2" =~ /compare/ ]]; then
+  [ -f "$STUBDIR/compare" ] || { echo "gh: Not Found (HTTP 404)" >&2; exit 1; }
+  cat "$STUBDIR/compare"; exit 0; fi
 if [ "$1" = api ]; then cat "$STUBDIR/reviews" 2>/dev/null || printf '[{"state":"APPROVED","commit_id":"123abc123abc123abc123abc123abc123abc123a","user":{"login":"kriskowal"}}]'; exit 0; fi
 case "$1 $2" in
   "pr view")
@@ -157,7 +176,7 @@ CONFLICT_EMPTY="{\"state\":\"OPEN\",\"mergeable\":\"CONFLICTING\",\"headRefOid\"
 # Green CI but a maintainer requested changes: reviewDecision drives the gate.
 GREEN_CR="{\"state\":\"OPEN\",\"mergeable\":\"MERGEABLE\",\"headRefOid\":\"$HEAD\",\"reviewDecision\":\"CHANGES_REQUESTED\",\"statusCheckRollup\":[{\"name\":\"build\",\"status\":\"COMPLETED\",\"conclusion\":\"SUCCESS\"}]}"
 
-reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR"/ann_* "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/rebase.log" "$STUBDIR/rebase_head" "$STUBDIR/rebase_rc" "$STUBDIR/rebase_seq" "$STUBDIR/rebase_i" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta"; }
+reset_seq() { : > "$STUBDIR/seq"; echo 0 > "$STUBDIR/i"; rm -f "$STUBDIR"/ann_* "$STUBDIR/merge.log" "$STUBDIR/edit.log" "$STUBDIR/rebase.log" "$STUBDIR/rebase_head" "$STUBDIR/rebase_rc" "$STUBDIR/rebase_seq" "$STUBDIR/rebase_i" "$STUBDIR/basemeta" "$STUBDIR/prcount" "$STUBDIR/prnums" "$STUBDIR/downstream" "$STUBDIR/headref" "$STUBDIR/author" "$STUBDIR/author_fail" "$STUBDIR/finalreview" "$STUBDIR/finalreview_fail" "$STUBDIR/reviews" "$STUBDIR/approvalmeta" "$STUBDIR/refs" "$STUBDIR/refs_fail" "$STUBDIR/compare"; }
 seq_add()   { b64 "$1" >> "$STUBDIR/seq"; printf '\n' >> "$STUBDIR/seq"; }
 chk()       { if [ "$1" = "$2" ]; then ok "$3 (rc=$1)"; else bad "$3 (got rc=$1 want $2)"; fi; }
 merged()    { if [ -f "$STUBDIR/merge.log" ]; then ok "$1 merge called"; else bad "$1 merge NOT called"; fi; }
@@ -235,6 +254,41 @@ printf '{"state":"OPEN","baseRefName":"llm-65b0abe","headRefName":"feat-510"}' >
 echo 2 > "$STUBDIR/prcount"
 printf '521' > "$STUBDIR/downstream"   # #521 bases on feat-510 → a real dependent
 run o/r 510; chk "$rc" 1 T10b; nomerge T10b; noedit T10b
+
+SNAP='5feadae0123456789abcdef0123456789abcdef0'
+echo "T36 base is a snapshot of a live NON-trunk branch → refuse (exit 1, no merge, no base edit)"
+# endojs/endo-but-for-bots#1343: base feat/daemon-provisioning-grants-5feadae, a
+# snapshot of draft #1042's head. No trunk to unfreeze to; merging strands it.
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"state":"OPEN","baseRefName":"feat/daemon-provisioning-grants-5feadae","headRefName":"feat-1343"}' > "$STUBDIR/basemeta"
+printf 'feat/daemon-provisioning-grants %s\nfeat/daemon-provisioning-grants-5feadae %s\n' "$HEAD" "$SNAP" > "$STUBDIR/refs"
+run_capture o/r 1343; chk "$rc" 1 T36; nomerge T36; noedit T36
+if grep -q 'reason=nontrunk-frozen-base' "$STUBDIR/output"; then ok "T36 distinct reason"; else bad "T36 reason missing"; fi
+
+echo "T37 non-trunk snapshot whose tip moved (suffix is an ancestor) → still refuse"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"state":"OPEN","baseRefName":"feat/x-5feadae","headRefName":"feat-y"}' > "$STUBDIR/basemeta"
+printf 'feat/x %s\nfeat/x-5feadae %s\n' "$SNAP" "$HEAD" > "$STUBDIR/refs"
+echo ahead > "$STUBDIR/compare"
+run o/r 1343; chk "$rc" 1 T37; nomerge T37; noedit T37
+
+echo "T38 ordinary branch ending in hex digits (release-2024; suffix names no commit) → merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"state":"OPEN","baseRefName":"release-2024","headRefName":"feat-y"}' > "$STUBDIR/basemeta"
+printf 'release %s\nrelease-2024 %s\n' "$SNAP" "$HEAD" > "$STUBDIR/refs"
+run o/r 42; chk "$rc" 0 T38; merged T38; noedit T38
+
+echo "T39 <name>-<hex> base with no live <name> branch → merge"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"state":"OPEN","baseRefName":"feat-cafe","headRefName":"feat-y"}' > "$STUBDIR/basemeta"
+printf 'feat-cafe %s\n' "$HEAD" > "$STUBDIR/refs"
+run o/r 42; chk "$rc" 0 T39; merged T39
+
+echo "T40 live-branch read fails → fail closed (exit 1, no merge)"
+reset_seq; seq_add "$GREEN"; printf 'MERGED|false' > "$STUBDIR/verify"
+printf '{"state":"OPEN","baseRefName":"feat/x-5feadae","headRefName":"feat-y"}' > "$STUBDIR/basemeta"
+: > "$STUBDIR/refs_fail"
+run o/r 1343; chk "$rc" 1 T40; nomerge T40
 
 echo "T11 green + reviewDecision=CHANGES_REQUESTED → refuse to merge (exit 1, no merge)"
 reset_seq; seq_add "$GREEN_CR"; printf 'MERGED|false' > "$STUBDIR/verify"
