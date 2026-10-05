@@ -1,0 +1,5 @@
+host: endolin-garden2-5bcdff64
+gardener: 1
+worker_kind: monk
+claimed_at: 2026-10-05T04:22:17Z
+worktree_dir: /home/kris/garden2/scratch/gardener-wt-improve-ci-pr-source-rest-cache
