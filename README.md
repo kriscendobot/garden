@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T11:20:29Z_
+_As of 2026-10-05T11:31:02Z_
 
 ## Latest
 
-Oros remains fully offline, now past 74 hours (heartbeat and sysop-log both stuck since 2026-10-02T05:08Z); the health watcher withdrew all 20 accumulated unclaimed checkups at 08:45Z rather than keep stacking them, so this needs hands on the actual Mac (power/sleep, Docker Desktop, VM). The `endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-1` panel is in progress for the SturdyRef stack's layer 3, whose full seven-layer review landed as a detailed maintainer message: L3 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)), L6 ([endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)), and L7 ([endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) are recommended to merge as-is, while L4 ([endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) needs a retcon first; several stack layers also need re-weaving onto drifted frozen bases before anything merges. Separately, the illuminated edition of *Better Code and Gardens* shipped (all 25 plates integrated and verified live), and three `minion-town-shell-to-js-20261004` gauntlet parts plus the `build-minion-town-claude-account-html-page` gauntlet hit their 6-round review budget and are parked for a human merge call. The minion.town Claude-CLI production canary is still waiting on the maintainer to personally complete `claude setup-token` and the account-link page — several proxy escalations correctly declined to act on this — and a related packaging bug briefly crash-looped production `minion-mcp` after [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) merged, now fixed forward. Four stale-panel-head notices (minion.town PRs [#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), [#157](https://github.com/kriscendobot/minion.town/pull/157), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407)) mean those heads moved past their last panel review and need an explicit "run the gauntlet" or a manual review decision.
+The board is quiet operationally — one gauntlet stage (panel round 1) completed and its fix round 1 claimed for [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391); `retire-gardener-clone-alias-verify-deploy-reaper` bounced back from doin to plan. The SturdyRef stack review landed: layers 3/4/6/7 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) are all CI-green and ready to merge pending stack hygiene (frozen-base drift, and a retcon needed on #1393), but nothing can land until layers 1/2 ([endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/pull/774), [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391)) merge first. The *Better Code and Gardens* illuminated edition published with all 25 plates live at ocap.site. Oros remains offline since 2026-10-02 (~74h) with recovery ops queued and unacked — still needs a hands-on check of the Mac/Docker Desktop/VM. Several minion.town gauntlets (shell-to-js parts 1-3, Claude account HTML page) hit their 6-round review budget and are parked for a human merge call, and the minion.town Claude CLI production canary is stalled awaiting the maintainer to personally run `claude setup-token` and complete OAuth — several proxy messages flagged the bot's own in-band authorization-code request as a probable social-engineering attempt worth scrutiny.
 
 ## Parked for maintainer feedback
 
@@ -265,6 +265,40 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The link expires at 2026-10-04T20:14:51.813Z. Please reply when the page reports `connected`. Do not send the token to me or paste it into any message or log.
 
+- `doomed-retire-gardener-clone-alias-verify-deploy-reaper-requeue-exhausted` — from reaper:endolin-garden-ece02cb4, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/doomed-retire-gardener-clone-alias-verify-deploy-reaper-requeue-exhausted.md)
+
+> SPLIT-ELIGIBLE job PARKED in jobs/plan/ (held, gate=go-ahead) after its sole backed-off retry also exited non-productively on endolin-garden-ece02cb4.
+> The reaper stopped retrying it; split it into claim-sized stages or surface it as indivisible.
+> The work is preserved at jobs/plan/retire-gardener-clone-alias-verify-deploy-reaper; it stays HELD until a human promotes it
+> (promote-plan.sh retire-gardener-clone-alias-verify-deploy-reaper) or removes it, so nothing is lost.
+> Original job base: retire-gardener-clone-alias-verify-deploy-reaper
+>
+> --- original job body ---
+> ---
+> tier: mentor
+> arc: unallocated
+> token-budget: 60000
+> ---
+> <!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-05T08:45:02Z cleared=none -->
+>
+> ---
+> tier: mentor
+> token-budget: 60000
+> ---
+> <!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-09-30T22:16:07Z cleared=none -->
+>
+> ---
+> tier: mentor
+> fallback-tier: minion
+> token-budget: 60000
+> dispatch: automatic
+> ---
+> Context: parent `retire-gardener-worker-kind-alias-env-fallback` LANDED its full diff on main2 as 70b6d1e3d42 ("refactor(jobs): retire the GARDEN_GARDENER_CLONE env alias"); `grep -rn GARDEN_GARDENER_CLONE scripts` is empty. DO NOT redo it. Remaining work is regression verification only.
+>
+> Method: run each suite with a SCRUBBED env (`env -i HOME=$HOME PATH=$PATH TMPDIR=$TMPDIR GARDEN_TEST=1 bash scripts/jobs/test/<t>-test.sh`), because a live worker exports GARDEN_WORKER_CLONE etc. that leak into direct runs. Compare against the pre-change tree 70b6d1e3d42^ (extract with `git archive -o $TMPDIR/b.tar 70b6d1e3d42^ scripts && tar -xf $TMPDIR/b.tar -C $TMPDIR/base`) and diff the FAIL lines. Already verified identical-to-baseline (pre-existing failures, NOT regressions): host-requirements-gating, kimi-credit-exhaustion-routing, auction-reputation, live-budget-admission, model-routing. Already passing: canary-probe-claim-priority, qwen-mentor-trial, monk-claude-tier-serving, scaler-desired-count, library-link-check, library-slug-prefix-check, regenerate-sections-index, regenerate-topics-counts. Any NEW failure attributable to 70b6d1e3d42: fix it and land on main2. Report which suites needed updating vs already passed.
+>
+> Suites for THIS child: deploy-garden, reaper-requeue-cap, reaper-live-handler-guard, reaper-doom-park, deadline-nudge (~10 min), fetch-timeout (>15 min; use a long timeout, foreground).
+
 - `endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet HALTED: stage 'endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -354,11 +388,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #37 (first seen 2026-10-04T05:15:32Z, latest 2026-10-05T11:18:31Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 37 times; this is ONE
-> coalesced notice that updates in place, not 37 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-05T11:24:12Z).
+> It was observed 37 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 1041 of 1066 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-125005, reply_to `claude-on-minion-town-press-20261004-125005` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
@@ -615,29 +649,29 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 189.3M | $1264.76 _(notional, rate-card)_ | 74% of 256.0M (ok) |
-| Codex | 12.3M _(+278.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 189.7M | $1267.62 _(notional, rate-card)_ | 74% of 256.0M (ok) |
+| Codex | 12.5M _(+279.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
+worst fetch p95 5.175933s/45s (unknown); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (2)
-- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1391
-- [`retire-gardener-clone-alias-verify-deploy-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper.md) — ---
+- [`improve-handler-sigkill-overrun`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-handler-sigkill-overrun.md) — ---
+- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1391
 
-### tada (11012)
+### tada (11013)
+- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-1.md) — Cost
 - [`oros-health-watch-20261005-105006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-105006.md) — Cost
 - [`oros-health-watch-20261005-075006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-075006.md) — Cost
 - [`oros-health-watch-20261005-045006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-045006.md) — Cost
 - [`oros-health-watch-20261005-015006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-015006.md) — Cost
-- [`kriscendobot-minion.town-pr158-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr158-dependabot.md) — Botanist report: kriscendobot/minion.town PR #158 — merged (MERGE-NOW)
-- … and 11007 more
+- … and 11008 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -665,6 +699,7 @@ worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
 - [`drive-mystic-rollout-20260723`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/drive-mystic-rollout-20260723.md) — _low_ · ---
 - [`kimi-k3-canary-20260723-c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kimi-k3-canary-20260723-c.md) — _low_ · ---
 - [`foreman-budget-cross-host-weekly-token-aggregation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/foreman-budget-cross-host-weekly-token-aggregation.md) — _normal_ · PLAN: deterministic cross-host weekly token-spend aggregation for the foreman...
+- [`retire-gardener-clone-alias-verify-deploy-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/retire-gardener-clone-alias-verify-deploy-reaper.md) — _normal_ · ---
 - [`kriscendobot-minion-town-pr148-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion-town-pr148-gauntlet-viability.md) — _normal_ · Gauntlet stage: PRE-SPEND VIABILITY - kriscendobot/minion.town PR #148
 - [`evaluate-reauth-escalation-default-after-oauth-relay-20260927`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/evaluate-reauth-escalation-default-after-oauth-relay-20260927.md) — _low_ · Evaluate default reauth escalation once the browser OAuth relay lands
 - [`build-confined-application-makers-p2-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/build-confined-application-makers-p2-20261002.md) — _normal_ · Phase 2: daemon capture for node-modules-with-map and node-modules-scan layou...
