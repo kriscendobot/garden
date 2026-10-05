@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T10:09:37Z_
+_As of 2026-10-05T10:15:28Z_
 
 ## Latest
 
-The journal committed one gauntlet-stage transition: the clean stage for [endojs/endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425) (SES/XS compartment import-time intrinsics) landed and the viability report moved into `tada`.
+The board is quiet — four jobs still in flight (two endo-but-for-bots #1349/#1391 fixes, #774's layer-1 shim gauntlet fix round 2, and a gardener-clone-alias reaper job), and the only board transition since the last bulletin was the [endojs/endo-but-for-bots SES/XS compartment import-time-intrinsics gauntlet](https://github.com/kriscendobot/garden/blob/journal2/jobs/gauntlet-terminal-pending/endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet--halted.md) halting at its clean stage.
 
-Beyond the board's narrow churn, the inbox carries the real signal: oros-studio has been unreachable for roughly 74 hours (heartbeat and sysop-log stale since 2026-10-02), with recovery ops queued and unacknowledged — someone needs to check the Mac's power/sleep state, Docker Desktop, and the VM directly. The minion.town Claude CLI production canary is also stalled on the maintainer: several subscription-connect links have expired waiting for `claude setup-token` to be run and submitted at minion.town/account/claude, and a separate GitHub-federated MCP authorization request for that canary was flagged as a credential/identity action outside proxy authority (and worth scrutiny as a possible phishing pattern). A `minion-mcp` production crash-loop following [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) (missing `vendor` in the deploy tarball) has a fix-forward job already in flight. The SturdyRef stack panel summary flags four draft PRs ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) as ready to merge in sequence once lower layers land, pending a stack-hygiene weave. Separately, the illuminated edition of *Better Code and Gardens* shipped live with all 25 plates integrated and verified. A deploy-blocking regression (stale `provider-cooldown-test.sh` fixture plus two related suite failures) exhausted its retry and is parked awaiting a human promote.
+Oros-studio remains unreachable going on 75 hours, still heartbeat-stale since 2026-10-02 and derotated from the fleet — this needs someone physically checking the Mac's power/sleep state, Docker Desktop, and the VM. Separately, a run of `minion-town-claude-cli-production-canary` messages is waiting on the maintainer to personally complete `claude setup-token` and a GitHub OAuth linking step on minion.town — no bot can do this, and one of the linked authorization URLs is flagged as worth scrutiny as a possible social-engineering pattern riding the message bus. On the brighter side, the illuminated edition of *Better Code and Gardens* shipped (all 25 plates in, verified byte-for-byte reproducible and checked across viewport/color-scheme combinations), and a deep SturdyRef-stack review landed recommending merge-as-is for three of four reviewed PRs with one needing a commit-regrouping retcon first. The subscription-model deploy-gate regression fix was parked after exhausting its retry budget and needs a human promote or a split into smaller stages.
 
 ## Parked for maintainer feedback
 
@@ -34,11 +34,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #588 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T09:08:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 588 times; this is ONE
-> coalesced notice that updates in place, not 588 messages. Latest detail:
+> WATCHDOG notice — occurrence #609 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T10:11:01Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 609 times; this is ONE
+> coalesced notice that updates in place, not 609 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 273566s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 277345s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -262,6 +262,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > https://minion.town/account/claude/6fa9ba56-0ffd-41e7-b8bf-e53a5e03c709
 >
 > The link expires at 2026-10-04T20:14:51.813Z. Please reply when the page reports `connected`. Do not send the token to me or paste it into any message or log.
+
+- `endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet HALTED: stage 'endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
 - `stale-panel-head-kriscendobot-minion.town-pr150-b93d8452-731cdb28` — from gardener:kriscendobot-minion.town-pr150-conduct, reply_to `kriscendobot-minion.town-pr150-conduct` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr150-b93d8452-731cdb28.md)
 
@@ -585,8 +589,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 185.6M | $1243.48 _(notional, rate-card)_ | 72% of 256.0M (ok) |
-| Codex | 11.1M _(+264.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 185.8M | $1244.42 _(notional, rate-card)_ | 73% of 256.0M (ok) |
+| Codex | 11.2M _(+266.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -597,20 +601,19 @@ worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1349-fix-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-20261005.md) — ---
 - [`endojs-endo-but-for-bots-pr1391-fix-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-fix-20261005.md) — ---
-- [`endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1425
 - [`retire-gardener-clone-alias-verify-deploy-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper.md) — ---
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #774
 
-### tada (11001)
+### tada (11003)
+- [`endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet.md) — gauntlet endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-g...
+- [`endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-viability.md) — Cost
 - [`improve-dependabot-claude-harness-refresh`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-dependabot-claude-harness-refresh.md) — Cost
 - [`endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics.md) — Cost
-- [`endojs-endo-but-for-bots-pr1349-fix-review-5412024379`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1349-fix-review-5412024379.md) — Panel-head freshness
-- [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-5.md) — Gauntlet fix-5: endojs/endo-but-for-bots#1391
-- … and 10996 more
+- … and 10998 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
