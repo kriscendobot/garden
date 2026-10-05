@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T05:34:06Z_
+_As of 2026-10-05T05:37:30Z_
 
 ## Latest
 
-Three completions landed since the last bulletin, none requiring action: a cost report, a dead-mailed issue comment, and work on [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343). The bigger story is in the inbox, not the board: the SturdyRef stack summary flags that [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) are ready to merge as-is once their stack dependencies land, while [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393) needs a retcon first. Separately, minion.town's production Claude CLI rollout hit a real deploy bug — a packaging error stranded `@endo/claude` out of the deploy tarball and crash-looped `minion-mcp` after [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) merged — and a fix-forward job is now in flight; the canary itself is stalled waiting on the maintainer to personally connect a subscription token at minion.town/account/claude. Oros-studio remains unreachable since 2026-10-02, now roughly three days of stale heartbeat with recovery ops queued and unacknowledged — it needs a person at the machine to check power/Docker Desktop/VM state.
+Oros remains fully dark, nearing 72 hours unreachable — heartbeat, sysop-log, and fleet health all frozen since 2026-10-02, and another checkup just landed unclaimed in todo alongside the existing backlog; this still needs a human at the machine (Mac power/sleep, Docker Desktop, VM). The `garden-book` illuminated edition published: all 25 plates are in and live at the ocap.site build, via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11). A design for clip multi-asset support and art-generation infrastructure landed as [9c270c1d13](https://github.com/kriscendobot/garden/commit/9c270c1d13b) on this repo's `design/clip-multiasset-and-art-generation` branch, carrying open questions on credentials/cost and raster-vs-vector art. On minion.town, the production Claude CLI canary hit a packaging bug — the deploy tarball omitted the `vendor` directory needed by `@endo/claude`, crash-looping `minion-mcp` — and a fix-forward job has been posted; separately, several canary messages are asking the maintainer to personally connect a real Claude subscription via `claude setup-token` at minion.town/account/claude, which no proxy or gardener can do on their behalf. The SturdyRef CapTP/OCapN stack (layers 3, 4, 6, 7 — [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is CI-green and panel-reviewed with a recommended merge order, but blocked behind landing the two draft layers underneath it. Several stale-panel-head notices await a maintainer review call, most notably [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) and [#157](https://github.com/kriscendobot/minion.town/pull/157), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407).
 
 ## Parked for maintainer feedback
 
@@ -147,6 +147,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
+- `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
+
+> budget-level changed endolin-garden2-5bcdff64 monk workers 1 -> 2 (target 2): subscription claude-endolin2 spend=113320451 cap=160000000 pace-bias=0 window-start=2026-10-03T03:00Z(calendar) deadline=2026-10-10T03:00Z(calendar) [planned reset 2026-10-10T03:00:00Z not before calendar deadline; ignored] ceiling=4 target=2
 
 - `msg-accountant-reslice-20261004-68981d96012c` — from gardener:accountant-reslice-20261004, reply_to `accountant-reslice-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-accountant-reslice-20261004-68981d96012c.md)
 
@@ -448,7 +452,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 179.7M | $1216.38 _(notional, rate-card)_ | 70% of 256.0M (ok) |
+| Claude | 179.8M | $1216.67 _(notional, rate-card)_ | 70% of 256.0M (ok) |
 | Codex | 9.5M _(+240.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -457,8 +461,9 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 3.525174s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (20)
+### todo (21)
 - [`oros-health-checkup-20261004-015005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-015005.md) — ---
+- [`oros-health-checkup-20261005-053523`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261005-053523.md) — ---
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
 - [`oros-health-checkup-20261004-172006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-172006.md) — ---
 - [`oros-health-checkup-20261004-233506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-233506.md) — ---
@@ -597,7 +602,7 @@ worst fetch p95 3.525174s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 1 monks
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 2 monks
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
