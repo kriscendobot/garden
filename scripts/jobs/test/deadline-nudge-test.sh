@@ -502,7 +502,6 @@ handoff_report="$TEST_ROOT/handoff-report"
 printf 'partial work committed and successor posted\n%s\n' '<<<GARDEN-JOB-HANDED-OFF: handoff-successor>>>' > "$handoff_report"
 env JOURNAL_REMOTE="$BARE" JOURNAL_BRANCH="$BRANCH" GARDEN_ROOT="$ROOT" \
   GARDEN_STATE="$STATE" GARDEN=worker-host GARDEN_WORKER_CLONE="$STATE/handoff/journal" \
-  GARDEN_WORKER_CLONE="$STATE/handoff/journal" \
   "$JOBS/complete-job.sh" --handed-off handoff-successor 3 handoff "$handoff_report" \
   > "$TEST_ROOT/handoff.out" 2>&1
 handoff_tada="$(tip_tada_path handoff)"
