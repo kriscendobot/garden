@@ -11,11 +11,11 @@ max_stage_retries: 2
 created_by: shepherd
 created_at: 2026-09-30T01:13:25Z
 arc: 
-stage: panel
+stage: undraft
 iteration: 3
 resumes: 0
 stage_retries: 0
-current_child: endojs-endo-but-for-bots-pr1349-gauntlet-20260930-panel-3
+current_child: endojs-endo-but-for-bots-pr1349-gauntlet-20260930-undraft
 state: running
 resumed_at: 2026-10-05T16:46:46Z
 resumed_from_stage: panel
