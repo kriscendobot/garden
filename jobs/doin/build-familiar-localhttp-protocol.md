@@ -7,6 +7,7 @@ dispatch: automatic
 ---
 Build on endojs/endo-but-for-bots from the llm branch to complete the remaining Familiar localhttp protocol work: render the Chat security-warning banner from the preload IPC channel, with tests.
 
+<!-- garden-transient-elapsed: kind=signature through=0 values=2082 -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
