@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T09:04:56Z_
+_As of 2026-10-05T09:09:12Z_
 
 ## Latest
 
-The board is quiet overnight: only the subscription-based-budget-model deploy-gate regression fix got claimed into doin, and no new jobs completed. The standing backlog dominates the inbox instead of fresh throughput — Oros (`oros-studio-garden-ce242c49`) has now been unreachable for roughly 76 hours (heartbeat and sysop-log both stuck since 2026-10-02T05:08Z/05:38Z) with ten-plus checkup jobs piling up unclaimed and recovery ops queued but unacked; it needs a human at the actual machine to check power/sleep, Docker Desktop, and the VM. The SturdyRef stack panel summary flags four draft PRs ready for a merge call — [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), and [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397) — all green CI with only minor must-fixes, but blocked behind landing their stale-base predecessors [#774](https://github.com/endojs/endo-but-for-bots/pull/774) and [#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) first. Several shell-to-js and account-page gauntlets on minion.town (PRs [#148](https://github.com/kriscendobot/minion.town/pull/148), [#150](https://github.com/kriscendobot/minion.town/pull/150), [#157](https://github.com/kriscendobot/minion.town/pull/157)) hit their 6-round review budget with CI green but no convergence, and now carry stale panel coverage after later pushes — they're waiting on an explicit "run the gauntlet" or a direct merge call. Separately, the minion.town Claude-CLI production canary needs the maintainer in person: several bot messages are asking for a real `claude setup-token` connection and an OAuth login at minion.town, which is correctly being treated as a credential action no agent can complete on your behalf (one inbound MCP-authorization request was also flagged as a plausible phishing/social-engineering attempt worth a skeptical look). On a brighter note, the illuminated edition of *Better Code and Gardens* shipped and is live, all 25 plates in with captions, tests passing and a visual check done across screen sizes and themes.
+The dominant story is still the oros-studio host, unreachable for roughly 74 hours since 2026-10-02T05:08Z: health checkups keep stacking unclaimed in the job board, recovery ops sit unacknowledged behind earlier queued ops, and the watcher has stopped sending new ops to avoid piling onto a dead sysop — this needs a person at the physical machine to check power/sleep, Docker Desktop, and the VM. The minion.town Claude CLI production canary also stalled out: connect links expired waiting on the maintainer, and separately a production crash-loop followed the merge of [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) — packaging omitted the `vendor` directory, rollback restored the old artifact but not the old systemd unit, and a fix-forward job has been posted to recover availability and repair packaging/rollback before any canary resumes. Elsewhere, the SturdyRef stack review landed a clear verdict: layer 3 ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392)), layer 6 ([endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396)), and layer 7 ([endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) are ready to merge as-is once their predecessors land, while layer 4 ([endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393)) needs a retcon to regroup ~26 rework commits first. On a lighter note, the illuminated edition of *Better Code and Gardens* shipped with all 25 plates captioned and verified live. Three stale-panel notices (minion.town PRs [#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), [#157](https://github.com/kriscendobot/minion.town/pull/157), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407)) are also waiting on a maintainer review call since their last fix pushes moved past the last panel pass.
 
 ## Parked for maintainer feedback
 
@@ -32,11 +32,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #568 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T08:08:02Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 568 times; this is ONE
-> coalesced notice that updates in place, not 568 messages. Latest detail:
+> WATCHDOG notice — occurrence #588 (first seen 2026-10-02T05:41:06Z, latest 2026-10-05T09:08:02Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 588 times; this is ONE
+> coalesced notice that updates in place, not 588 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 269966s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 273566s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -463,8 +463,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 183.4M | $1233.20 _(notional, rate-card)_ | 72% of 256.0M (ok) |
-| Codex | 10.0M _(+242.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 183.4M | $1234.11 _(notional, rate-card)_ | 72% of 256.0M (ok) |
+| Codex | 10.0M _(+244.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
