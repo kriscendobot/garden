@@ -1,23 +1,11 @@
 ---
-gate: deferred
-priority: normal
-gauntlet: endojs-endo-but-for-bots-pr1349-gauntlet-20260930
 role: gardener
+arc: unallocated
 handler-budget-role: panel
 handler-timeout: 10800
 token-budget: 250000
-doomed: true
-doom_signature: requeue-exhausted
-doom_count: 1
-failure_classification: unknown
-requeue_cycles: 1
-deadline_overruns: 0
-elapsed_constancy_confirmations: 0
-doomed_at: 2026-09-30T11:23:09Z
-doomed_on: endolin-garden-ece02cb4
-posted_by: reaper:endolin-garden-ece02cb4
-posted_at: 2026-09-30T11:23:09Z
 ---
+<!-- garden-promoted-from-plan: gate=deferred priority=normal at=2026-10-05T08:44:11Z cleared=none -->
 
 ---
 role: gardener
