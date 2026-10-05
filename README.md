@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T16:24:56Z_
+_As of 2026-10-05T16:28:46Z_
 
 ## Latest
 
-The only board movement since the last bulletin was a single gauntlet step: panel round 5 completed for [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (the SturdyRef stack's layer-2 PR), clearing the way for its next fix round.
+Board activity since the last bulletin was minimal: the only transition was continued progress on the [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) gauntlet, now in fix round 5 of its panel/fix loop.
+
+The inbox carries far more that needs eyes than the board shows. Oros (`oros-studio-garden-ce242c49`) has been unreachable for ~75 hours now, with checkups withdrawn until 2026-10-11 pending a manual check of the Mac/Docker/VM. Several gauntlets hit their 6-round review budget without converging and are parked for a human merge call: [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) (blocking the M3 MCP/OCapN path — needs a merge-or-close decision), plus the minion.town shell-to-js parts 1–3 and the Claude-account HTML page and familiar-localhttp-protocol builds. The SturdyRef stack review (layers [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back clean apart from stack-hygiene rebasing, with #1392 ready to merge first once its base PRs land. Separately, the minion.town Claude CLI production canary is stalled waiting on you to run `claude setup-token` and connect your subscription at minion.town/account/claude — several of its messages were flagged as plausible social-engineering/credential-phishing attempts and correctly declined by the proxy pending your direct action. The illuminated edition of *Better Code and Gardens* shipped and is live, and a new design job was posted to investigate multi-asset clip publishing and image-generation tooling gaps.
 
 ## Parked for maintainer feedback
 
@@ -683,8 +685,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 207.2M | $1378.00 _(notional, rate-card)_ | 81% of 256.0M (ok) |
-| Codex | 17.4M _(+302.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 207.3M | $1378.60 _(notional, rate-card)_ | 81% of 256.0M (ok) |
+| Codex | 17.5M _(+302.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -695,8 +697,8 @@ worst fetch p95 7.963158s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1391
 
 ### tada (11056)
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-5.md) — Cost
