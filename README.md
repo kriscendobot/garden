@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T12:34:14Z_
+_As of 2026-10-05T12:43:13Z_
 
 ## Latest
 
-Board activity itself was light since the last bulletin — a single gauntlet panel round for [endojs/endo-but-for-bots#1426](https://github.com/endojs/endo-but-for-bots/pull/1426) landed clean, and PR #1391's fix round 2 is in progress — but the maintainer inbox has accumulated substantial backlog needing attention. Oros (`oros-studio-garden-ce242c49`) has been unreachable for roughly 74 hours (since 2026-10-02T05:08Z); the health watcher withdrew its backlog of unclaimed checkups at 08:45Z and now waits quietly, but someone still needs to check the physical machine (sleep/power, Docker Desktop, VM). Separately, a fixer job diagnosed a fleet-wide deploy-gate regression traced to `subscription-based-budget-model` — a stale test fixture in `provider-cooldown-test.sh` using an unregistered pool name — but the job itself exhausted its retries and is now parked awaiting promotion. The minion.town Claude CLI production canary needs the maintainer to personally complete `claude setup-token` and an OAuth/GitHub login at https://minion.town/account/claude — several proxy messages flag these as identity/credential actions outside automation's authority (and one flags the MCP OAuth request as a possible social-engineering attempt worth scrutiny). On the illustration front, *Better Code and Gardens* shipped a fully illuminated edition (all 25 plates integrated) via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [#11](https://github.com/kriscendobot/garden-book/issues/11), and a follow-up design job was posted to investigate multi-asset clip publishing and actual image-generation infrastructure. Several stale-panel-coverage notices await a maintainer merge/review call, most notably a 4-PR SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) summarized as ready to merge with only minor follow-ups once lower layers land.
+The only board movement since the last bulletin is a single panel round closing out: `build-familiar-localhttp-protocol-gauntlet-panel-1` landed in tada alongside its sibling clean/viability/build reports for the new familiar localhttp protocol work. The `endojs-endo-but-for-bots-pr1391` gauntlet is mid-flight on fix round 2, the only job currently claimed.
+
+The inbox is heavy and mostly needs a human, not a worker: oros-studio has been unreachable for ~76 hours (heartbeat and sysop both stale since 2026-10-02) and needs someone at the physical machine; the minion.town Claude CLI production canary is stalled on several expired connect links awaiting the maintainer's own `claude setup-token` run and a GitHub-federated MCP login, one of which was separately flagged as a possible phishing/social-engineering pattern worth scrutiny; and the subscription-model deploy-gate regression has exhausted its retries and is parked awaiting a human decision. Several PRs are also sitting on stale panel coverage after post-review pushes — [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), [#157](https://github.com/kriscendobot/minion.town/pull/157), and [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [#1407](https://github.com/endojs/endo-but-for-bots/pull/1407) — each needs either a fresh panel or a direct maintainer merge call. Separately, [kriscendobot/minion.town#155](https://github.com/kriscendobot/minion.town/pull/155) and [#156](https://github.com/kriscendobot/minion.town/pull/156) already merged to production without panel review after a crash-loop/rollback incident; flag if you'd like those reviewed after the fact. On a lighter note, the illuminated edition of *Better Code and Gardens* shipped live with all 25 plates captioned and verified across viewports.
 
 ## Parked for maintainer feedback
 
@@ -654,8 +656,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 193.5M | $1291.02 _(notional, rate-card)_ | 76% of 256.0M (ok) |
-| Codex | 13.5M _(+283.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 195.1M | $1304.16 _(notional, rate-card)_ | 76% of 256.0M (ok) |
+| Codex | 13.6M _(+284.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -666,17 +668,16 @@ worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-familiar-localhttp-protocol-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-familiar-localhttp-protocol-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1426
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1391
 
-### tada (11020)
+### tada (11021)
+- [`build-familiar-localhttp-protocol-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-familiar-localhttp-protocol-gauntlet-panel-1.md) — Cost
 - [`build-familiar-localhttp-protocol-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-familiar-localhttp-protocol-gauntlet-clean.md) — Cost
 - [`build-familiar-localhttp-protocol-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-familiar-localhttp-protocol-gauntlet-viability.md) — Cost
 - [`build-familiar-localhttp-protocol`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-familiar-localhttp-protocol.md) — Cost
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-2.md) — Panel round 2 on endojs/endo-but-for-bots #1391: must-fix
-- [`canary-probe-endolin-garden2-5bcdff64-c2d2cd162634`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/canary-probe-endolin-garden2-5bcdff64-c2d2cd162634.md) — rolling-deploy canary probe — round trip OK
-- … and 11015 more
+- … and 11016 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
