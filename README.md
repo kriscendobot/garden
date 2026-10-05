@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T00:09:28Z_
+_As of 2026-10-05T00:13:46Z_
 
 ## Latest
 
-The dominant story this cycle is the oros-studio host, still unreachable roughly 50 hours after going dark (heartbeat and sysop-log stale since 2026-10-02T05:08–05:45Z); 19 queued health-checkup jobs sit unclaimed and the sysop queue holds 9 unacked ops, so the watcher has stopped sending new ones to avoid piling up — this needs a person at the machine to check power/sleep, Docker Desktop, and the VM.
+Gauntlet progress continued on [kriscendobot/minion.town#157](https://github.com/kriscendobot/minion.town/pull/157) (the Claude account HTML page): fix round 3 landed and panel round 4 is now in flight. The board itself is otherwise steady — no new posts or completions beyond that single PR's gauntlet steps since the last bulletin.
 
-Separately, the minion.town Claude-CLI production canary stalled on several expired connect links; the maintainer still needs to run `claude setup-token` on their own machine and complete it via the stable page at minion.town/account/claude. The earlier crash-loop from [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) (missing `vendor` in the deploy tar) was rolled back and a fix-forward job posted. On the review side, the SturdyRef stack (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) got a full panel summary recommending merge for most layers pending stack-hygiene weaves, and the illuminated edition of *Better Code and Gardens* shipped live with all 25 plates. Three `minion-town-shell-to-js` gauntlets and one Ironhorse gauntlet hit their review budgets or halted and are parked for a human merge/review call.
+Two things stand out from the inbox for the maintainer's attention. First, **oros-studio remains unreachable, now past 50 hours** (heartbeat and sysop-log both stale since 2026-10-02T05:08–05:45Z), with 19 checkup jobs piled up unclaimed and the automated watchers unable to help further — this needs a person physically checking the Mac's sleep/power state, Docker Desktop, and the VM. Second, the production `minion-mcp` deploy crash-looped after [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) merged (a packaging gap left `@endo/claude`'s vendor directory out of the deploy tar); a fix-forward job has been posted, but the Claude CLI production canary flow is now blocked on the maintainer personally completing `claude setup-token` and the GitHub-federated OAuth linkage at minion.town — no proxy or gardener can do this step. Separately, the SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back with merge recommendations for all four layers, pending stack-hygiene reweaves underneath. On a lighter note, the illuminated edition of *Better Code and Gardens* shipped and is live, with all 25 plates captioned and checks passing.
 
 ## Parked for maintainer feedback
 
@@ -386,7 +386,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.9M | $1162.44 _(notional, rate-card)_ | 66% of 256.0M (ok) |
+| Claude | 169.1M | $1163.28 _(notional, rate-card)_ | 66% of 256.0M (ok) |
 | Codex | 8.8M _(+227.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -417,15 +417,15 @@ worst fetch p95 9.605378s/45s (/home/kris/garden/.garden-state/dependabot-watche
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
 ### doin (1)
-- [`build-minion-town-claude-account-html-page-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-account-html-page-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #157
+- [`build-minion-town-claude-account-html-page-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-account-html-page-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — kriscendobot/minion.town PR #157
 
-### tada (10955)
+### tada (10956)
+- [`build-minion-town-claude-account-html-page-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-minion-town-claude-account-html-page-gauntlet-fix-3.md) — Cost
 - [`build-minion-town-claude-account-html-page-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-minion-town-claude-account-html-page-gauntlet-panel-3.md) — Cost
 - [`build-minion-town-claude-account-html-page-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/build-minion-town-claude-account-html-page-gauntlet-fix-2.md) — Cost
 - [`build-minion-town-claude-account-html-page-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/build-minion-town-claude-account-html-page-gauntlet-panel-2.md) — Cost
 - [`build-minion-town-claude-account-html-page-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/build-minion-town-claude-account-html-page-gauntlet-fix-1.md) — Cost
-- [`build-minion-town-claude-account-html-page-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/04/build-minion-town-claude-account-html-page-gauntlet-panel-1.md) — Cost
-- … and 10950 more
+- … and 10951 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
