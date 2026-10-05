@@ -23,7 +23,9 @@ Updated 2026-10-04T05:15Z (fix status refreshed 05:45Z) by the liaison on endoli
 
 ## 2. Git remote
 
-Nothing is waiting on your review.
+| PR | What it is | Your act |
+|---|---|---|
+| [endojs/endo-but-for-bots#1367](https://github.com/endojs/endo-but-for-bots/pull/1367) | design: adopt git capability URLs as GitRemotes (the next daemon-git-remotes slice). Draft. | **The foreman's M3 git-remote path is blocked here (2026-10-05).** Decide how capability URLs are scoped, what form the locator takes, and whether credentials persist. Implementation waits on your answers. |
 
 ## 3. UI: clip gutter, clip iframe, ocap.site
 
