@@ -816,8 +816,9 @@ while :; do
   # AUTOMATIC GAUNTLET HANDOFF. A successful producer that names its new draft PR
   # must durably stage the review it calls for before the producer settles. The
   # hook is deliberately completion-local: it never scans historical drafts, never
-  # changes PR state, skips probes/open-question answer surfaces, and limits the
-  # non-builder path to design-only PRs. A failed post leaves the job retryable.
+  # changes PR state, and skips probes/open-question answer surfaces. Producer
+  # classification is based on the reported bot-authored draft, not a role header.
+  # A failed post leaves the job retryable.
   if [ "$hrc" -eq 0 ] && [ -e "$completion_sentinel" ]; then
     set +e
     "$HERE/auto-gauntlet-handoff.sh" "$base" "$jobfile" "$report" >>"$capture" 2>&1

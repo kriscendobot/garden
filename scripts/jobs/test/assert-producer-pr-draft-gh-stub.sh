@@ -28,7 +28,7 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = view ]; then
     */pull/207) echo "boom" >&2; exit 1 ;;
     # DRAFT design-only producer PR → automatic design gauntlet.
     */pull/208) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"design: x","body":"b",%s,"files":[{"path":"designs/x.md"}]}\n' "$url" "$bot" ;;
-    # DRAFT non-design PR from a non-builder → no inferred gauntlet.
+    # DRAFT non-design PR from a non-builder → automatic gauntlet.
     */pull/209) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"fix: x","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
     # OPEN, non-draft builder artifact → auto-handoff does not mutate or stage.
     */pull/210) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"feat: ready","body":"b",%s,"files":[{"path":"src/x.js"}]}\n' "$url" "$bot" ;;
@@ -43,6 +43,10 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = view ]; then
     */pull/212) echo 'Post "https://api.github.com/graphql": net/http: TLS handshake timeout' >&2; exit 1 ;;
     # a number that is an issue, not a PR → a definitive, non-retried answer.
     */pull/213) echo 'GraphQL: Could not resolve to a PullRequest with the number of 213. (repository.pullRequest)' >&2; exit 1 ;;
+    # DRAFT open-questions answer surface → no automatic gauntlet.
+    */pull/214) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"design: oq","body":"<!-- garden-design-open-questions -->",%s,"files":[{"path":"designs/oq.md"}]}\n' "$url" "$bot" ;;
+    # DRAFT PR authored by someone else → citation, not a producer artifact.
+    */pull/215) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"feat: cited","body":"b","author":{"login":"interloper"},"files":[{"path":"src/x.js"}]}\n' "$url" ;;
     *) echo "unexpected pr view: $url" >&2; exit 64 ;;
   esac
   exit 0

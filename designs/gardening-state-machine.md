@@ -118,17 +118,17 @@ authorizes the rebased head without a re-approval round trip. Only a dismissal o
 a later `CHANGES_REQUESTED` revokes it. This ordering — and the amendment — is
 specified in [conductor-rebase-before-merge](conductor-rebase-before-merge.md).
 
-## Build handoff invariant
+## Producer handoff invariant
 
-The builder's initial draft PR is followed by a durable board edge, not merely a
-prompt instruction. When `gardener.sh` sees a genuinely completed `role: builder`
-job, `auto-gauntlet-handoff.sh` extracts its reported PR URL and queries GitHub.
-For an open draft feature PR it posts the idempotent `<build-base>-gauntlet` job
-before the build can move from `doin/` to `tada/`. The posted job records the
-source build and PR URL, which makes the handoff visible on the journal board.
-A failed post leaves the build claim unfinished for requeue rather than silently
-stranding a draft PR. Probe builds are recognized from their gap-revealing PR/body
-annotation and deliberately skip this edge.
+A producer's initial draft PR is followed by a durable board edge, not merely a
+prompt instruction. When `gardener.sh` sees a genuinely completed job,
+`auto-gauntlet-handoff.sh` extracts its reported PR URL and queries GitHub. For any
+bot-authored open draft artifact, independent of the job's declared role, it posts
+the idempotent `<owner>-<repo>-pr<N>-gauntlet` record before the producer can move
+from `doin/` to `tada/`. The record carries the source job and PR URL, which makes
+the handoff visible on the journal board. A failed post leaves the producer claim
+unfinished for requeue rather than silently stranding a draft PR. Probes and
+garden open-question answer surfaces deliberately skip this edge.
 
 **"Reported" is load-bearing: only the completion report may name the build's own
 PR.** A PR the build opened did not exist when the job was posted, so a GitHub PR

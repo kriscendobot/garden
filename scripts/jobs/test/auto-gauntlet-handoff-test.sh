@@ -32,10 +32,12 @@ builder="$TR/builder.md"
 designer="$TR/designer.md"
 web_builder="$TR/web-builder.md"
 probe="$TR/probe.md"
+roleless="$TR/roleless.md"
 printf -- '---\nrole: builder\n---\nBuild.\n' >"$builder"
 printf -- '---\nrole: designer\n---\nDesign.\n' >"$designer"
 printf -- '---\nrole: web-builder\n---\nBuild a web surface.\n' >"$web_builder"
 printf -- '---\nrole: builder\n---\nProbe the design.\n' >"$probe"
+printf 'Produce an implementation artifact.\n' >"$roleless"
 
 run_hook() { # <base> <job> <pr>
   local base="$1" job="$2" pr="$3" report
@@ -44,54 +46,60 @@ run_hook() { # <base> <job> <pr>
   "$JOBS/auto-gauntlet-handoff.sh" "$base" "$job" "$report"
 }
 
-echo '== builder draft records its staged gauntlet =='
+echo '== producer drafts record PR-keyed staged gauntlets =='
 run_hook build-x "$builder" 200
-[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/build-x-gauntlet.md" ] \
+[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr200-gauntlet.md" ] \
   || fail 'builder gauntlet was not recorded'
-grep -q '^build_job: build-x$' "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/build-x-gauntlet.md" \
+grep -q '^build_job: build-x$' "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr200-gauntlet.md" \
   || fail 'builder provenance missing'
-run_hook build-web "$web_builder" 200
-[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/build-web-gauntlet.md" ] \
+run_hook build-web "$web_builder" 208
+[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr208-gauntlet.md" ] \
   || fail 'web-builder gauntlet was not recorded'
 
-echo '== design-only non-builder records a PR-keyed gauntlet =='
-run_hook design-x "$designer" 208
-[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr208-gauntlet.md" ] \
-  || fail 'design gauntlet was not recorded'
+echo '== role-less and non-design non-builder producers also stage =='
+run_hook roleless-x "$roleless" 209
+[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr209-gauntlet.md" ] \
+  || fail 'role-less producer gauntlet was not recorded'
+run_hook ordinary-fix "$designer" 200
+[ "$(find "$GARDEN_PRODUCER_CLONE/jobs/gauntlet" -name 'endojs-endo-but-for-bots-pr200-gauntlet.md' | wc -l)" -eq 1 ] \
+  || fail 'two producers for one PR did not converge on one record'
 
 echo '== exclusions do not stage =='
 run_hook probe-x "$probe" 203
-run_hook ordinary-fix "$designer" 209
 run_hook ready-build "$builder" 210
-[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/probe-x-gauntlet.md" ] \
+run_hook open-questions "$roleless" 214
+run_hook cited-draft "$roleless" 215
+[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr203-gauntlet.md" ] \
   || fail 'probe staged a gauntlet'
-[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr209-gauntlet.md" ] \
-  || fail 'non-design non-builder staged a gauntlet'
-[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/ready-build-gauntlet.md" ] \
+[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr210-gauntlet.md" ] \
   || fail 'ready PR staged through the draft-only hook'
+[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr214-gauntlet.md" ] \
+  || fail 'open-questions answer surface staged a gauntlet'
+[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr215-gauntlet.md" ] \
+  || fail 'cited draft from another author staged a gauntlet'
 ! grep -qE 'pr (ready|merge|edit|close|reopen)' "$TR/gh-calls.log" \
   || fail 'auto handoff mutated GitHub PR state'
 
-echo '== idempotent replay keeps one record =='
+echo '== idempotent replay keeps one PR-keyed record =='
 run_hook build-x "$builder" 200
-[ "$(find "$GARDEN_PRODUCER_CLONE/jobs/gauntlet" -name 'build-x-gauntlet.md' | wc -l)" -eq 1 ] \
+[ "$(find "$GARDEN_PRODUCER_CLONE/jobs/gauntlet" -name 'endojs-endo-but-for-bots-pr200-gauntlet.md' | wc -l)" -eq 1 ] \
   || fail 'builder replay duplicated the record'
 
 echo '== a transient first gh read is retried, not a failed completion =='
 export GARDEN_BACKOFF_BASE_MS=1 GARDEN_BACKOFF_CAP_MS=5 GARDEN_GH_API_ATTEMPTS=3
 run_hook build-flaky "$builder" 211 || fail 'transient first attempt failed the handoff'
-[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/build-flaky-gauntlet.md" ] \
+[ -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr211-gauntlet.md" ] \
   || fail 'transient-retried builder gauntlet was not recorded'
 [ "$(grep -c 'pull/211 ' "$TR/gh-calls.log")" -eq 2 ] || fail 'transient read was not retried exactly once'
 
 echo '== a non-PR no-ops immediately, without retries =='
 run_hook build-issue "$builder" 213 || fail 'non-PR failed the handoff'
 [ "$(grep -c 'pull/213 ' "$TR/gh-calls.log")" -eq 1 ] || fail 'non-PR read was retried'
-[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/build-issue-gauntlet.md" ] || fail 'non-PR staged a gauntlet'
+[ ! -e "$GARDEN_PRODUCER_CLONE/jobs/gauntlet/endojs-endo-but-for-bots-pr213-gauntlet.md" ] || fail 'non-PR staged a gauntlet'
 
 echo '== a persistent transient fails only after the retry budget =='
 if run_hook build-down "$builder" 212 2>"$TR/down.err"; then fail 'exhausted transient reads succeeded'; fi
 [ "$(grep -c 'pull/212 ' "$TR/gh-calls.log")" -eq 3 ] || fail 'exhausted read did not spend exactly GARDEN_GH_API_ATTEMPTS'
 grep -q 'gh could not inspect' "$TR/down.err" || fail 'exhaustion did not fail loud'
 
-echo 'PASS: completion-local auto handoff stages builder/design gauntlets, skips exceptions, never mutates PR state, replays idempotently, and retries only transient gh reads'
+echo 'PASS: completion-local auto handoff stages every bot-authored draft artifact by PR identity, skips exceptions, never mutates PR state, replays idempotently, and retries only transient gh reads'

@@ -1,6 +1,6 @@
 ---
 created: 2026-08-05
-updated: 2026-09-29
+updated: 2026-10-05
 author: gardener
 ---
 
@@ -25,13 +25,12 @@ endo-but-for-bots #809, minion.town #41 — three DESIGN PRs that reached mainta
 review with no panel because the auto-gauntlet edge fired only for `role: builder`):
 
 - **Producer decoupling at the completion edge.**
-  `scripts/jobs/auto-gauntlet-handoff.sh` no longer gates on `role: builder`. Any
-  NON-builder completion that produced a bot-authored, OPEN, DRAFT, DESIGN-ONLY PR
-  (deterministic `design_only_paths` predicate in `common.sh`, mirroring
-  `panel.sh`) now records that PR's design gauntlet under a **PR-keyed** base
-  (`<owner>-<repo>-pr<N>-gauntlet`), with `gauntlet_record_for_pr` giving the
-  PR-identity idempotence this design's § Current-failure-boundary item 4 asks for.
-  It never re-drafts a ready PR on this path (the #671/#867 hazard).
+  `scripts/jobs/auto-gauntlet-handoff.sh` no longer gates on a declared producer
+  role or a design-only diff. Any completion that produced a bot-authored, OPEN,
+  DRAFT PR now records that PR's gauntlet under a **PR-keyed** base
+  (`<owner>-<repo>-pr<N>-gauntlet`). Probe and garden open-question PRs remain
+  explicit exceptions. The hook never re-drafts a ready PR (the #671/#867
+  hazard).
 - **A completion-time sensor.** `scripts/jobs/assert-design-pr-gauntlet.sh` is wired
   into `gardener.sh`'s completion path and refuses to record a job complete
   (doin→tada) while a design PR it named has no gauntlet record — sensing the
@@ -47,13 +46,12 @@ but not a PR with no owning completion at all.
 
 ## Summary
 
-The auto-gauntlet invariant is currently attached to one producer's completion
-path. `gardener.sh` calls `auto-gauntlet-handoff.sh` only after a successful job
-whose frontmatter says `role: builder`. The hook then discovers a PR URL by
-scraping the completion report. A draft PR opened by any other path has no
-automatic edge into the gauntlet. A builder can also open a PR hours before its
-job completes, leaving a window in which the PR can reach human review before the
-completion hook runs.
+The auto-gauntlet invariant is currently attached to the job-completion path.
+`gardener.sh` calls `auto-gauntlet-handoff.sh` after any successful job, and the
+hook discovers the first PR URL by scraping the completion report. A draft PR
+opened without an owning completion still has no automatic edge into the
+gauntlet. A producer can also open a PR hours before its job completes, leaving a
+window in which the PR can reach human review before the completion hook runs.
 
 Add a deterministic, leader-only **PR lifecycle reconciler** over every watched
 bot repository. It enumerates open bot-authored, bot-pushable PRs and ensures that
@@ -88,27 +86,25 @@ differs, but the obligation to register the PR does not.
 
 ## Current failure boundary
 
-The current path is:
+The current completion-local path is:
 
 ```text
-builder job succeeds
-  -> gardener.sh sees role: builder
+producer job succeeds
+  -> gardener.sh runs the handoff independent of role metadata
   -> auto-gauntlet-handoff.sh scrapes the completion report
   -> the first accepted PR URL passes author and state checks
-  -> post-gauntlet.sh creates a record
+  -> post-gauntlet.sh creates a PR-keyed record
 ```
 
-Four properties make it incomplete:
+Three properties still make it incomplete:
 
-1. **Producer coupling.** Only a `role: builder` completion enters the path.
-2. **Completion timing.** PR creation and job completion are separate events. The
+1. **Completion timing.** PR creation and job completion are separate events. The
    interval can include CI, requeues, review responses, and human review.
-3. **Report coupling.** Discovery depends on prose containing one unambiguous PR
+2. **Report coupling.** Discovery depends on prose containing one unambiguous PR
    URL. `ensure-pr.sh` already writes a durable `garden-job` marker, but the handoff
    does not use it.
-4. **Base-keyed idempotence.** `post-gauntlet.sh` deduplicates on the caller's
-   gauntlet basename. Two producers can choose different bases for one PR and
-   create two runs, while a PR with no producer creates none.
+3. **Out-of-band creation.** A PR with no producer completion still creates no
+   record; only the proposed reconciler can adopt it.
 
 Draft state is not a sufficient record. It says the PR has not been made ready,
 but it cannot distinguish a newly opened feature, a deliberate probe, a halted

@@ -6,9 +6,9 @@
 #
 # This is a completion-path edge, not a backlog reconciler. It considers only a
 # PR newly named by the completion report, so restoring automatic handoff cannot
-# repeat the 2026-08-30 mass-stage incident. Builder roles owe a feature gauntlet;
-# non-builder jobs owe one only when the produced PR is design-only. Probes and
-# garden open-question answer surfaces remain deliberate draft exceptions.
+# repeat the 2026-08-30 mass-stage incident. Every bot-authored draft artifact
+# owes a feature gauntlet, independent of which role (if any) produced it. Probes
+# and garden open-question answer surfaces remain deliberate draft exceptions.
 #
 # The hook never changes PR state. Producers already have an unconditional draft
 # rule; an accidentally ready PR is left to assert-producer-pr-draft.sh, which
@@ -23,7 +23,6 @@ export GARDEN_TAG="auto-gauntlet-handoff"
 base="${1:?job basename}"
 jobfile="${2:?job file}"
 report="${3:?completion report}"
-role="$(plan_role "$jobfile" 2>/dev/null || true)"
 # The producer's arc rides into the gauntlet record so every stage is charged
 # to it (designs/accountant-arc-apportionment.md § The arc).
 arc_args=()
@@ -33,9 +32,6 @@ producer_arc="$(job_arc "$jobfile" 2>/dev/null || true)"
 pr_urls="$(extract_pr_refs_from_text "$report" || true)"
 pr_url="$(printf '%s\n' "$pr_urls" | head -1)"
 if [ -z "$pr_url" ]; then
-  if [ "$role" = builder ] || [ "$role" = web-builder ]; then
-    log "auto-gauntlet: builder '$base' named no PR in its completion report; no handoff"
-  fi
   exit 0
 fi
 if [ "$(printf '%s\n' "$pr_urls" | sed '/^$/d' | wc -l)" -gt 1 ]; then
@@ -94,19 +90,6 @@ if is_open_questions_design_pr "$pr_json"; then
   exit 0
 fi
 
-if [ "$role" = builder ] || [ "$role" = web-builder ]; then
-  gauntlet_base="$base-gauntlet"
-  "$HERE/post-gauntlet.sh" --build-job "$base" "${arc_args[@]}" "$gauntlet_base" "$pr_url"
-  log "auto-gauntlet: builder '$base' recorded '$gauntlet_base' for $pr_url"
-  exit 0
-fi
-
-mapfile -t pr_files < <(printf '%s' "$pr_json" | jq -r '(.files // [])[].path // empty')
-if [ "${#pr_files[@]}" -eq 0 ] || ! design_only_paths "${pr_files[@]}"; then
-  log "auto-gauntlet: '$base' (role ${role:-none}) did not produce a design-only PR; no automatic handoff"
-  exit 0
-fi
-
 ref="$(parse_pr_ref "$pr_url")" || die "auto-gauntlet: could not parse $pr_url"
 repo="$(printf '%s' "$ref" | cut -f1)"
 pr_number="$(printf '%s' "$ref" | cut -f2)"
@@ -116,4 +99,4 @@ gauntlet_base="${slug}-pr${pr_number}-gauntlet"
 # The PR-keyed base makes repeated producer completions converge on one record.
 # post-gauntlet.sh supplies the journal-side active/completed idempotence.
 "$HERE/post-gauntlet.sh" --build-job "$base" "${arc_args[@]}" "$gauntlet_base" "$pr_url"
-log "auto-gauntlet: '$base' recorded design gauntlet '$gauntlet_base' for $pr_url"
+log "auto-gauntlet: '$base' recorded gauntlet '$gauntlet_base' for $pr_url"
