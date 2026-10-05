@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T20:36:01Z_
+_As of 2026-10-05T20:39:43Z_
 
 ## Latest
 
-The board stayed quiet since the last snapshot — the only transition was [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407)'s pages-shepherd job picking up kriscendobot/garden's red GitHub Pages deploy. Outstanding work continues underneath: [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) is in its fourth gauntlet fix round, and [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) is mid-fix as well. The bigger story is still oros-studio: it's been unreachable for over three days (heartbeat stale since 2026-10-02), health checkups have been withdrawn pending a human look at the Mac's power/sleep state, Docker Desktop, and the VM. Several maintainer-only items remain parked, most notably the minion.town Claude CLI production canary (needs a real subscription connected by hand) and a reset-credit watch flagging that both codex-endolin and claude-endolin2 credits are worth spending in the next day or two before their natural resets.
+Oros remains fully unreachable, now past 74 hours since its last heartbeat (2026-10-02T05:08Z); checkups have been withdrawn and deferred to 2026-10-11 pending someone physically checking the Mac, Docker Desktop, and the VM. The illuminated edition of *Better Code and Gardens* shipped, with all 25 plates integrated via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11) and verified byte-reproducible and tested at 30/30. The minion.town Claude-CLI production canary stalled on several maintainer-only steps — connecting a real subscription token and a GitHub OAuth login — and the proxy correctly declined to act on these (one flagged as a possible phishing attempt); meanwhile a related deploy briefly crash-looped from a packaging/rollback bug now fixed and reverified. The SturdyRef stack (layers [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is CI-green with a full panel readout recommending merge order once lower layers [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) land, though several heads have drifted stale since their last panel pass and need re-review before merge. Several other PRs ([kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160), [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348), [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407), [kriscendobot/minion.town#157](https://github.com/kriscendobot/minion.town/pull/157)) likewise have fresh, unreviewed heads awaiting an explicit "run the gauntlet" call. A fixer job addressing a deploy-gate test regression (stale subscription-pool fixtures blocking fleet-wide deploys) exhausted its retries and is parked awaiting promotion. Claude spend sits at 88% of its weekly quota with two credit-timing recommendations pending maintainer action within the next day or so.
 
 ## Parked for maintainer feedback
 
@@ -427,6 +427,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261005-202006` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261005-202006.md)
+
+> Host-requirements gate: job 'oros-health-watch-20261005-202006' has remained unclaimed for 900s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
+
 - `watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4` — from watchdog:deadline-nudge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4.md)
 
 > RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-04T21:48:21Z, cleared 2026-10-05T20:33:25Z).
@@ -636,6 +640,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > site) and will land as a PR per this repo's own open-questions carve-out, not
 > bare to `main2`.
 
+- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1348-808f037289a2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1348-808f037289a2.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1348](https://github.com/endojs/endo-but-for-bots/pull/1348) ([endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/issues/1348)) is in the mergeable queue with NO gauntlet review staged (head 808f037289a2788e2bd81fb0bdac9aa793bca9ce). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1348'; otherwise no action is needed. This audit never re-drafts a PR.
+
 - `msg-oros-health-watch-20261005-015006-46c81f34a765` — from gardener:oros-health-watch-20261005-015006, reply_to `oros-health-watch-20261005-015006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261005-015006-46c81f34a765.md)
 
 > Oros remains unreachable: the 23:35Z pinned checkup is still unclaimed; heartbeat last sampled 2026-10-02T05:08:36Z; latest sysop ack was 2026-10-02T05:38:58Z; it remains derotated and deployed at e036bb8e versus main2 939c6ea3. Six reset-failed ops and one restore op remain queued and unacknowledged, so I sent no duplicate op. Someone must check the Mac power/sleep state, Docker Desktop, and the VM/container.
@@ -691,8 +699,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 224.2M | $1495.64 _(notional, rate-card)_ | 88% of 256.0M (ok) |
-| Codex | 22.2M _(+345.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 224.3M | $1496.06 _(notional, rate-card)_ | 88% of 256.0M (ok) |
+| Codex | 22.2M _(+346.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
