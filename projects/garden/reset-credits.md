@@ -19,6 +19,8 @@ Natural weekly boundaries: the Claude endolin subscriptions reset **Friday 20:00
 
 - claude-endolin2: spend its one credit (expires 2026-10-22) EARLY in the week of 2026-10-03. Burn to ~90% first (projected ~2026-10-04T22:00Z at the 10-04T04:26Z pace), then the maintainer resets Monday/Tuesday (kriskowal, 2026-10-04). The liaison alerts the maintainer when claude2 nears 90%.
 
+- codex-endolin: maintainer also plans to spend one codex credit this week once it is spent (kriskowal 2026-10-05: "I plan to reset endolin-claude2 and endolin-codex1 this week, whenever they're spent"). Readings 2026-10-05T05:15Z: claude1 61%, claude2 70%, codex 44% (natural reset in 4d16h, ~2026-10-09T21:10Z).
+
 ## Use log
 
 - ~2026-10-02T21:43Z: codex-endolin window rolled early (inferred from the 10-03 dashboard: 0%, resets in 6d 18h). No credit used (kriskowal 2026-10-03).
