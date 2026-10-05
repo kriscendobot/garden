@@ -65,6 +65,12 @@ VERIFY="$GARDEN_PAGES_VERIFY_CLONE"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
+# A sibling gh-api watcher (or an earlier tick of this one) already proved GitHub
+# transiently unreachable this window. Do no API work and log nothing: the latch
+# owner's single WARN covers the episode (common.sh api_cooldown_active). The source
+# is `gh run list`, a REST read, so a GraphQL-only latch does not silence it.
+api_cooldown_active rest && exit 0
+
 # --- resolve the watched repo -----------------------------------------------
 # The Pages site is the garden's own repo. Read config/garden-repo (the same journal
 # config the issue-inbox watcher uses, written by set-garden-repo.sh) when present;
@@ -233,21 +239,41 @@ trap 'cleanup; exit 130' INT
 # Bounded backoff before a 401-retry; tests set it to 0 to keep the run fast.
 : "${GARDEN_PAGES_AUTH_RETRY_SLEEP:=5}"
 
-# classify_source_failure <errf> [context] — the shared transient gate BOTH the
-# first-pass and post-401-retry die sites consult before dying, so the two stay in
-# sync. When GitHub is overloaded it serves an HTML gateway/5xx/rate-limit page
-# instead of JSON; the default `gh run list … | jq` source then fails rc=1 with a
-# Go-decoder / HTTP-5NN / rate-limit signature that matches NEITHER
-# is_transient_net_error NOR is_transient_auth_error. That is the exact transient
-# class commit 9cf685607d added to GARDEN_TRANSIENT_GH_API_SIGNATURES; consult it
-# via is_transient_gh_source_error and, on a match, WARN + exit 0 (skip the tick)
-# rather than `die` and detonate the self-heal restart. Ordered AFTER the net/auth
-# checks and BEFORE the final die, so a genuinely structural failure (a real 404, a
-# malformed slug) still dies loud and preserves "never guess a state".
+# classify_source_failure <errf> [context] — the shared transient gate every source
+# die site consults before dying, so the first-pass and post-401-retry paths stay in
+# sync. On a transient class it joins the HOST-WIDE gh-api cooldown and exits 0
+# (skip the tick, post nothing, never guess a state):
+#   - transient network loss (DNS, TLS/read timeout, "error connecting to
+#     api.github.com") — is_transient_net_error;
+#   - a GitHub PRIMARY hourly-quota refusal — latched for the full quota window
+#     (api_primary_quota_secs), since a short window would expire inside the hour;
+#   - an HTML gateway/5xx/rate-limit page where JSON was expected (the Go-decoder /
+#     HTTP-5NN signature) — is_transient_gh_source_error.
+# start_api_cooldown is an atomic flock'd latch: only the tick that OPENS the window
+# owns its one WARN; a tick that finds it already live stays quiet. Before this, a
+# network outage made the watcher WARN and retry every timer tick (120s) on its own
+# while its siblings had already latched (journalctl 2026-10-05T12:50:25Z). Anything
+# else returns, so a genuinely structural failure (a real 404, a malformed slug)
+# still dies loud at the caller and nothing is latched for it.
 classify_source_failure() {
-  local errf="$1" ctx="${2:-}"
+  local errf="$1" ctx="${2:-}" secs
+  if is_transient_net_error "$errf"; then
+    if start_api_cooldown "pages:$REPO:net"; then
+      log "WARN: pages run source unreachable (transient network)${ctx:+ $ctx} — cooling all gh-api watchers for $(_api_cooldown_secs)s (never guess)"
+    fi
+    exit 0
+  fi
+  if is_gh_primary_rate_limit_text "$(cat "$errf" 2>/dev/null || true)"; then
+    secs="$(api_primary_quota_secs)"
+    if start_api_cooldown "pages:$REPO:primary-quota" "$secs"; then
+      log "WARN: pages run source hit GitHub primary REST quota exhaustion${ctx:+ $ctx} — cooling all gh-api watchers for ${secs}s (never guess)"
+    fi
+    exit 0
+  fi
   if is_transient_gh_source_error "$errf"; then
-    log "WARN: pages run source hit a transient gh-api blip (5xx/HTML/rate-limit)${ctx:+ $ctx} — skipping tick"
+    if start_api_cooldown "pages:$REPO"; then
+      log "WARN: pages run source hit a transient gh-api blip (5xx/HTML/rate-limit)${ctx:+ $ctx} — cooling all gh-api watchers for $(_api_cooldown_secs)s (never guess)"
+    fi
     exit 0
   fi
 }
@@ -276,14 +302,11 @@ run_source() {
 run_source
 if [ "$src_rc" -ne 0 ]; then
   sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
-  # A transient connectivity failure is not a broken enumeration — degrade the same
-  # way the ci-watcher does: skip the tick rather than die, so a GitHub outage doesn't
-  # detonate a systemd restart storm. A structural failure (404, malformed) still
-  # dies loud — that IS a bug to surface.
-  if is_transient_net_error "$ERRF"; then
-    log "WARN: pages run source unreachable (transient network) — skipping tick (never guess)"
-    exit 0
-  fi
+  # A transient connectivity failure is not a broken enumeration: latch the shared
+  # cooldown and skip the tick rather than die, so a GitHub outage neither detonates a
+  # systemd restart storm nor re-warns every tick. A structural failure (404,
+  # malformed) still dies loud below — that IS a bug to surface.
+  is_transient_net_error "$ERRF" && classify_source_failure "$ERRF"
   # GitHub returns a transient `HTTP 401: Bad credentials` for a brief window while an
   # OAuth/installation token rotates; the identical call succeeds moments later. Retry
   # ONCE (same reaped, timeout-wrapped path) after a short backoff before treating a 401
@@ -294,10 +317,7 @@ if [ "$src_rc" -ne 0 ]; then
     run_source
     if [ "$src_rc" -ne 0 ]; then
       sed -E 's/^(<[0-9]>)?/\1  source(retry): /' "$ERRF" >&2 || true
-      if is_transient_net_error "$ERRF"; then
-        log "WARN: pages run source unreachable (transient network) on retry — skipping tick (never guess)"
-        exit 0
-      fi
+      is_transient_net_error "$ERRF" && classify_source_failure "$ERRF" "on retry"
       # Still 401 after the retry — a persistent auth failure (a revoked/misconfigured
       # credential), not a rotation blip. Surface it loudly and skip the tick; the WARN
       # repeats every tick until the credential is fixed (never swallowed into "all green").
