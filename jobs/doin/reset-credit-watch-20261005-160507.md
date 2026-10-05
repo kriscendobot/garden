@@ -29,3 +29,13 @@ Standing maintainer direction (kriskowal, 2026-09-30): "We should plan to use th
 5. Complete the job, noting whether the recommendation needs a timely decision (for example a credit expiring within 10 days).
 
 Keep it short: one screen. If nothing is actionable (no live credits, or none near expiry), send a one-line "no action this week" status and finish.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-05T16:05:15Z
