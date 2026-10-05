@@ -36,6 +36,7 @@ fleet_draining && exit 0
 DIR="${GARDEN_MENTOR_CLONE:-$GARDEN_STATE/mentor/journal}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
+clone_unlock "$DIR"
 
 SEEN="$GARDEN_STATE/mentor/seen"
 JSINCE="$GARDEN_STATE/mentor/journalctl-since"
