@@ -1,2 +1,2 @@
-base: improve-dependabot-primary-quota
+base: improve-dependabot-claude-harness-refresh
 identity: mentor:scripts/jobs/dependabot-watcher.sh
