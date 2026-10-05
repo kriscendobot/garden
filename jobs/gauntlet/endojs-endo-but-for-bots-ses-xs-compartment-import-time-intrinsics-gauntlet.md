@@ -11,8 +11,8 @@ resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: 
-state: pending
+current_child: endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-viability
+state: running
 created_by: producer
 arc: endo-ocapn-background
 created_at: 2026-10-05T10:03:39Z
