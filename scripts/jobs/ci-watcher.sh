@@ -102,8 +102,22 @@ RETIRE="$GARDEN_CI_RETIRE_CLONE"
 #   UNREADABLE_ABORT_THRESHOLD — cascade circuit-breaker. When this many rollup reads
 #     fall through as unreadable with NOT ONE successful read yet this tick, the API is
 #     throttling every call; abort the rest of the sweep rather than deepen the cooldown.
+#   ROLLUP_BUDGET — hard cap on every PR rollup read in one tick, including stale-
+#     shepherd re-validation. A durable per-repo cursor rotates the complete open-PR
+#     source list after the last PR read, so the next tick spends its primary-scan
+#     allowance on PRs this tick had to defer instead of repeatedly starting at the
+#     source's first page and starving the tail.
 : "${GARDEN_CI_ACTIVITY_WINDOW:=3 days}"
 : "${GARDEN_CI_UNREADABLE_ABORT_THRESHOLD:=3}"
+: "${GARDEN_CI_ROLLUP_BUDGET:=10}"
+case "$GARDEN_CI_ROLLUP_BUDGET" in
+  ''|*[!0-9]*) log "WARN: invalid GARDEN_CI_ROLLUP_BUDGET='$GARDEN_CI_ROLLUP_BUDGET'; using 10"; GARDEN_CI_ROLLUP_BUDGET=10 ;;
+esac
+# Host-persistent rather than invocation-temporary: the rendered service's state
+# survives ticks and restarts. Per-slug keeps independent repo watchers from moving
+# one another's place. The cursor is only a fairness hint (never authoritative event
+# state), so losing it safely restarts at the source's first row.
+: "${GARDEN_CI_ROLLUP_CURSOR:=$GARDEN_STATE/ci-watcher/rollup-cursor-$slug}"
 # Host-scoped latch that dedups the stale-shepherd sweep's "journal fetch failed"
 # warning across the per-repo CI watchers (see § Journal-outage latch below). The
 # unit template gives every repo instance one GARDEN_ROOT, while invocation-local
@@ -318,7 +332,7 @@ retire_stale_shepherd() {  # retire_stale_shepherd <base> <verdict-phrase>
 # The source runs `gh --paginate`, which forks git credential helpers; bound it under
 # `timeout` and reap the whole process group on signal/exit so a systemd stop mid-tick
 # cannot orphan a git child into the unit cgroup (mirrors comment-watcher.sh's reap).
-SRC="$(mktemp)"; ERRF="$(mktemp)"
+SRC="$(mktemp)"; ERRF="$(mktemp)"; ORDERED_SRC="$(mktemp)"
 SOURCE_TIMEOUT_PID=""
 # Final cgroup-wide straggler sweep — the EXIT-path complement to the stop-time cgroup
 # SIGKILL backstop, which never covers a clean tick exit. The negated-PGID reap in
@@ -406,7 +420,7 @@ reap_cgroup_stragglers() {
   done
 }
 cleanup() {
-  rm -f "$SRC" "$ERRF"
+  rm -f "$SRC" "$ERRF" "$ORDERED_SRC"
   local pid="$SOURCE_TIMEOUT_PID"
   SOURCE_TIMEOUT_PID=""                 # idempotent: the TERM and EXIT traps both fire
   if [ -n "$pid" ]; then
@@ -522,7 +536,33 @@ fi
 
 bot_lc="$(printf '%s' "$GARDEN_BOT_LOGIN" | tr '[:upper:]' '[:lower:]')"
 open_prs=0; ours=0; red=0; pending=0; posted=0; unreadable=0; stale=0
-reads_ok=0; aborted=0
+reads_ok=0; aborted=0; rollup_spent=0; rollup_deferred=0
+# Rotate the authoritative source snapshot to the row AFTER the last PR whose
+# rollup we actually read. Thus a budget-limited tick resumes with the untouched
+# tail first. If that PR closed between ticks and vanished from the snapshot, fall
+# back to source order; this can only delay work by one bounded sweep, never lose it.
+rollup_cursor=""
+if [ -r "$GARDEN_CI_ROLLUP_CURSOR" ]; then
+  IFS= read -r rollup_cursor < "$GARDEN_CI_ROLLUP_CURSOR" || rollup_cursor=""
+fi
+case "$rollup_cursor" in ''|*[!0-9]*) rollup_cursor="" ;; esac
+awk -F '\t' -v cursor="$rollup_cursor" '
+  { row[NR]=$0; if (cursor != "" && $1 == cursor) cut=NR }
+  END {
+    if (cut == "") cut=0
+    for (i=cut+1; i<=NR; i++) print row[i]
+    for (i=1; i<=cut; i++) print row[i]
+  }
+' "$SRC" > "$ORDERED_SRC"
+persist_rollup_cursor() {  # persist_rollup_cursor <pr-number>
+  local pr="$1" dir tmp
+  dir="$(dirname "$GARDEN_CI_ROLLUP_CURSOR")"
+  mkdir -p "$dir" 2>/dev/null || return 0
+  tmp="$(mktemp "$GARDEN_CI_ROLLUP_CURSOR.tmp.XXXXXX" 2>/dev/null)" || return 0
+  if ! printf '%s\n' "$pr" > "$tmp" || ! mv -f "$tmp" "$GARDEN_CI_ROLLUP_CURSOR"; then
+    rm -f "$tmp"
+  fi
+}
 # Activity-bound cutoff: PRs whose head branch was last touched before this epoch are
 # skipped without a rollup read. Computed once/tick from GARDEN_CI_ACTIVITY_WINDOW; 0
 # (empty window, or an unparseable expression) means "no bound — read every PR".
@@ -559,6 +599,15 @@ while IFS=$'\t' read -r pr author head updated _title; do
     fi
   fi
 
+  # A spent budget is an ordinary pacing boundary, not an outage. Keep walking the
+  # in-memory snapshot only to preserve complete summary counts; issue no more
+  # GraphQL reads. The cursor still names the last VISITED PR, so the rotated source
+  # starts with these deferred eligible PRs on the next tick.
+  if [ "$rollup_spent" -ge "$GARDEN_CI_ROLLUP_BUDGET" ]; then
+    rollup_deferred=$((rollup_deferred+1))
+    continue
+  fi
+
   # Read the CI rollup DETERMINISTICALLY. Exit code IS the verdict.
   # Capture the handler's stderr (it deliberately writes a diagnostic on an
   # unreadable state — "gh pr view failed", "empty PR state", etc.) so a mass
@@ -566,6 +615,11 @@ while IFS=$'\t' read -r pr author head updated _title; do
   # network) is visible in journalctl instead of N identical opaque lines.
   rerr="$(mktemp)"
   set +e; "$GARDEN_CI_ROLLUP" "$repo" "$pr" >/dev/null 2>"$rerr"; rrc=$?; set -e
+  rollup_spent=$((rollup_spent+1))
+  # "Visited" means the bounded GraphQL operation was attempted, regardless of its
+  # verdict. Advancing on unreadable reads prevents one bad PR from pinning the fair
+  # rotation; the existing unreadable/cooldown safeguards still govern retry timing.
+  persist_rollup_cursor "$pr"
   case "$rrc" in
     0)  rm -f "$rerr"; reads_ok=$((reads_ok+1)) ;;          # RED → shepherd (below)
     10) rm -f "$rerr"; reads_ok=$((reads_ok+1)); log "#$pr green — nothing to do"; continue ;;
@@ -621,9 +675,9 @@ while IFS=$'\t' read -r pr author head updated _title; do
   else
     log "WARN: post of $base did not reach origin/$JOURNAL_BRANCH — will retry next tick"
   fi
-done < "$SRC"
+done < "$ORDERED_SRC"
 
-log "scanned $open_prs open PR(s) on $repo: $ours bot-authored, $stale stale-skipped, $red red, $pending in-progress, $unreadable unreadable, $posted shepherd job(s) posted"
+log "scanned $open_prs open PR(s) on $repo: $ours bot-authored, $stale stale-skipped, $red red, $pending in-progress, $unreadable unreadable, $posted shepherd job(s) posted; rollup budget $rollup_spent/$GARDEN_CI_ROLLUP_BUDGET spent, $rollup_deferred eligible deferred"
 
 # Cascade abort: the circuit-breaker tripped — the first reads all fell through
 # unreadable with no success, so the API is throttling every call. Emit ONE loud WARN
@@ -746,6 +800,7 @@ note_journal_recovered() {  # note_journal_recovered — a successful sweep fetc
 # this runs inside the same is-main-host.sh-gated unit as the post path (header
 # § Leader-only singleton), so a follower never double-retires.
 retired=0; revalidated=0
+stale_budget_deferred=0
 if verify_fetch fresh; then
   note_journal_recovered   # if a host-scoped outage was latched, clear it + notice once
   # Enumerate THIS watcher's shepherd jobs currently in todo/ on the live board.
@@ -754,12 +809,22 @@ if verify_fetch fresh; then
   for base in $todo_shepherds; do
     pr="${base#"$slug"-pr}"; pr="${pr%-shepherd}"
     case "$pr" in ''|*[!0-9]*) continue ;; esac   # defensive: numeric PR ids only
+    # The configured cap is per WHOLE tick, not merely the open-PR pass. A newly
+    # posted or older unclaimed shepherd must not let the cleanup sweep exceed the
+    # same GraphQL allowance. Main-scan fairness wins when the budget is saturated;
+    # this cleanup is advisory and safely retries on a later tick or becomes moot
+    # when a gardener claims the job.
+    if [ "$rollup_spent" -ge "$GARDEN_CI_ROLLUP_BUDGET" ]; then
+      stale_budget_deferred=$((stale_budget_deferred+1))
+      continue
+    fi
     revalidated=$((revalidated+1))
     # Re-read the rollup DETERMINISTICALLY — same handler, same verdict codes as the
     # post pass. Only a definitive no-longer-red verdict retires; an unreadable state
     # leaves the shepherd untouched (never guess a state).
     rerr="$(mktemp)"
     set +e; "$GARDEN_CI_ROLLUP" "$repo" "$pr" >/dev/null 2>"$rerr"; srrc=$?; set -e
+    rollup_spent=$((rollup_spent+1))
     case "$srrc" in
       0)  rm -f "$rerr"; log "stale-check #$pr still RED — auto-shepherd $base stands"; continue ;;
       10) rm -f "$rerr"; phrase="green" ;;
@@ -784,4 +849,7 @@ else
 fi
 if [ "$revalidated" -gt 0 ]; then
   log "stale-shepherd sweep on $repo: re-validated $revalidated unclaimed auto-shepherd(s), retired $retired"
+fi
+if [ "$stale_budget_deferred" -gt 0 ]; then
+  log "rollup budget $rollup_spent/$GARDEN_CI_ROLLUP_BUDGET spent; deferred $stale_budget_deferred stale-shepherd re-validation(s) to a later tick"
 fi

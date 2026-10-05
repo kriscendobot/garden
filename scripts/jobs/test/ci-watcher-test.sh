@@ -23,6 +23,8 @@
 #      aborts the tick before the tail red PR, so no shepherd is posted (rate-limit)
 #   K. an early successful read disarms the circuit-breaker → later unreadable reads
 #      do NOT abort ("zero successful reads so far this tick" clause)
+#   K2. a configurable rollup budget caps each tick and a persisted fair cursor makes
+#      the next tick visit the previously-deferred eligible PRs before wrapping
 #   L. the ci-rollup handler routes its `gh pr view` read through common.sh's
 #      canonical gh_pr_view_retry: a TRANSIENT stderr (TLS-handshake timeout, and a
 #      throttle now that the canonical absorber owns it) is retried up to
@@ -554,6 +556,53 @@ run_ci_env "$TR/state-k" "$BARE_K" "$FIX_K" "85=0 86=1 87=1 88=1 89=0" "$SLUG" \
   GARDEN_CI_ACTIVITY_WINDOW="3 days" GARDEN_CI_UNREADABLE_ABORT_THRESHOLD=3
 board_has "$BARE_K" "$SLUG-pr85-shepherd" && ok "leading red #85 shepherded" || bad "#85 not shepherded"
 board_has "$BARE_K" "$SLUG-pr89-shepherd" && ok "trailing red #89 still shepherded (breaker never armed after a success)" || bad "#89 not shepherded — breaker wrongly aborted after a successful read"
+
+# ============================================================================
+hr; echo "K2 — rollup budget is hard-bounded and resumes fairly next tick"; hr
+BARE_K2="$TR/k2.git"; seed_bare "$BARE_K2"
+FIX_K2="$TR/fix-k2.tsv"
+{ prline 130 kriscendobot "$REPO" "$FRESH_TS"
+  prline 131 kriscendobot "$REPO" "$FRESH_TS"
+  prline 132 kriscendobot "$REPO" "$FRESH_TS"
+  prline 133 kriscendobot "$REPO" "$FRESH_TS"
+  prline 134 kriscendobot "$REPO" "$FRESH_TS"; } > "$FIX_K2"
+CALLS_K2="$TR/k2.calls"; : > "$CALLS_K2"
+STATE_K2="$TR/state-k2"
+run_ci_env "$STATE_K2" "$BARE_K2" "$FIX_K2" "130=10 131=10 132=10 133=10 134=10" "$SLUG" \
+  GARDEN_CI_ROLLUP_BUDGET=2 CI_ROLLUP_CALLS="$CALLS_K2"
+[ "$(tr '\n' ' ' < "$CALLS_K2")" = '130 131 ' ] \
+  && ok "first tick spends exactly two rollup reads" \
+  || bad "first tick exceeded or missed its two-read budget ($(tr '\n' ' ' < "$CALLS_K2"))"
+[ "$(cat "$STATE_K2/ci-watcher/rollup-cursor-$SLUG" 2>/dev/null)" = 131 ] \
+  && ok "fair cursor persisted the last visited PR" \
+  || bad "fair cursor missing or wrong ($(cat "$STATE_K2/ci-watcher/rollup-cursor-$SLUG" 2>/dev/null || echo absent))"
+: > "$CALLS_K2"
+run_ci_env "$STATE_K2" "$BARE_K2" "$FIX_K2" "130=10 131=10 132=10 133=10 134=10" "$SLUG" \
+  GARDEN_CI_ROLLUP_BUDGET=2 CI_ROLLUP_CALLS="$CALLS_K2"
+[ "$(tr '\n' ' ' < "$CALLS_K2")" = '132 133 ' ] \
+  && ok "next tick prioritizes the two previously-unvisited eligible PRs" \
+  || bad "next tick did not resume after the fair cursor ($(tr '\n' ' ' < "$CALLS_K2"))"
+: > "$CALLS_K2"
+run_ci_env "$STATE_K2" "$BARE_K2" "$FIX_K2" "130=10 131=10 132=10 133=10 134=10" "$SLUG" \
+  GARDEN_CI_ROLLUP_BUDGET=2 CI_ROLLUP_CALLS="$CALLS_K2"
+[ "$(tr '\n' ' ' < "$CALLS_K2")" = '134 130 ' ] \
+  && ok "fair cursor wraps only after visiting the remaining tail" \
+  || bad "fair cursor did not wrap correctly ($(tr '\n' ' ' < "$CALLS_K2"))"
+
+# A RED read posts an auto-shepherd, which the stale-shepherd pass would normally
+# re-read later in the SAME invocation. The cap covers that second pass too: one
+# budget unit means exactly one GraphQL rollup call for the whole tick.
+BARE_K2B="$TR/k2b.git"; seed_bare "$BARE_K2B"
+FIX_K2B="$TR/fix-k2b.tsv"; prline 135 kriscendobot "$REPO" "$FRESH_TS" > "$FIX_K2B"
+CALLS_K2B="$TR/k2b.calls"; : > "$CALLS_K2B"
+run_ci_env "$TR/state-k2b" "$BARE_K2B" "$FIX_K2B" "135=0" "$SLUG" \
+  GARDEN_CI_ROLLUP_BUDGET=1 CI_ROLLUP_CALLS="$CALLS_K2B"
+[ "$(tr '\n' ' ' < "$CALLS_K2B")" = '135 ' ] \
+  && ok "one-read budget also prevents a same-tick stale-shepherd re-read" \
+  || bad "stale-shepherd sweep exceeded the whole-tick budget ($(tr '\n' ' ' < "$CALLS_K2B"))"
+in_lane "$BARE_K2B" todo "$SLUG-pr135-shepherd" \
+  && ok "budget-deferred stale re-validation leaves the shepherd safely queued" \
+  || bad "budget-deferred stale re-validation lost or retired the shepherd"
 
 # ============================================================================
 hr; echo "L — ci-rollup handler routes through gh_pr_view_retry (transient retried, definitive not)"; hr
