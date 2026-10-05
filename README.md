@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T04:45:36Z_
+_As of 2026-10-05T04:55:05Z_
 
 ## Latest
 
-A quiet tick: the only board transition was `design-clip-multiasset-and-art-infra-20261005` landing in tada, pairing with the liaison's own message about that design job. It verifies that the garden has no real text-to-image generation capability — both the Claude and Codex illustration work so far has been hand-authored SVG markup — and will test empirically whether clip publishing already supports multi-asset/multi-page content (the CSP and skill docs suggest it does) and whether the Codex OAuth login bundles image-generation access, rather than assuming either way; it will land as a PR, not bare, since it carries real open questions on credentials, raster-vs-vector art, and book restructuring.
-
-Otherwise the inbox is dominated by two long-running situations needing a person: **oros-studio** has been unreachable for roughly 50 hours (heartbeat and sysop both stale since 2026-10-02T05:08Z–05:45Z), with 13+ unclaimed checkup jobs piling up and reset ops queued unacked — it needs someone at the physical machine to check Docker Desktop, sleep/power state, and the VM; and the **minion.town Claude CLI production canary** is stuck waiting on the maintainer to personally run `claude setup-token` and complete GitHub-federated OAuth — several proxy messages correctly declined to act on this since it's a credential-granting step only the maintainer can do (one was also flagged as plausible social-engineering framing worth a second look, given it asks for OAuth completion over the message bus). Separately, the SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back with merge recommendations pending stack hygiene (weaves/retcons) once lower layers land, and a minion.town deploy issue surfaced where [#155](https://github.com/kriscendobot/minion.town/pull/155) and [#156](https://github.com/kriscendobot/minion.town/pull/156) reached production without panel review after a crash-loop/rollback incident — worth a look if you want them reviewed after the fact.
+Oros remains offline since 2026-10-02T05:08Z — now over three days, with 20 health checkups piled up unclaimed in `todo` and host ops still unacked; this needs someone at the machine to check power/sleep, Docker Desktop, and the VM. The [minion.town#157](https://github.com/kriscendobot/minion.town/pull/157) press and a panel-head freshness check both completed, but #157's head drifted past its last panel review and awaits a maintainer decision on whether to re-run review. A new design job, `design-clip-multiasset-and-art-infra-20261005`, was posted to work out multi-asset clip publishing and art-generation infrastructure, carrying open questions (notably whether the existing Codex/ChatGPT login bundles image generation or would require separate billing) and will land as a review PR rather than bare to main2.
 
 ## Parked for maintainer feedback
 
@@ -304,6 +302,14 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The separate Claude subscription connect link I sent earlier remains the place to submit the output of `claude setup-token`; please never include that setup token in your reply.
 
+- `stale-panel-head-kriscendobot-minion.town-pr157-2b4f3bf1-1a23622e` — from gardener:claude-on-minion-town-completion-press-20261005-045006, reply_to `claude-on-minion-town-completion-press-20261005-045006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr157-2b4f3bf1-1a23622e.md)
+
+> Stale panel coverage for completed job `claude-on-minion-town-completion-press-20261005-045006`: [https://github.com/kriscendobot/minion.town/pull/157](https://github.com/kriscendobot/minion.town/pull/157) moved from panel-reviewed head `2b4f3bf17e1a45a5b2530965d918b6a9e2a7c44a` to presented head `1a23622ec5c7046135c2d21911b418adc726b5cc`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
 - `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
 
 > ANOMALY: comment-watcher/kriscendobot-ocapn self-test FAILED on kriscendobot/ocapn — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden-ece02cb4 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
@@ -326,11 +332,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-05T04:02:34Z).
-> It was observed 44 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #45 (first seen 2026-10-04T04:50:33Z, latest 2026-10-05T04:53:12Z).
+> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 45 times; this is ONE
+> coalesced notice that updates in place, not 45 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
+> Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/dependabot-watcher/verify: awaiting a healthy post-rebuild fetch; size=48050176B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/retire: awaiting a healthy post-rebuild fetch; size=47344640B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/ci-watcher/verify: awaiting a healthy post-rebuild fetch; size=48037888B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/fireworkers/1/journal: awaiting a healthy post-rebuild fetch; size=48944128B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: awaiting a healthy post-rebuild fetch; size=48939008B packs=1 gc.log=0; automatic remedy=none.
+> - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/approval-reconciler/verify: awaiting a healthy post-rebuild fetch; size=48019456B packs=1 gc.log=0; automatic remedy=none.
+
+- `msg-oros-health-watch-20261005-045006-df2886df6b23` — from gardener:oros-health-watch-20261005-045006, reply_to `oros-health-watch-20261005-045006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261005-045006-df2886df6b23.md)
+
+> Oros remains unreachable: the 2026-10-05 02:35Z pinned checkup is still unclaimed; heartbeat/fleet-health/sysop activity has been stale since 2026-10-02, the host remains heartbeat-offline derotated, and deployed e036bb8e trails main2 9c270c1d. Existing reset-failed/restore recovery ops remain unacknowledged, so I sent no duplicate op. A person must check whether the Mac is awake/powered, then Docker Desktop and the VM/container.
 
 - `20261004T202308Z-8b74cb` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T202308Z-8b74cb.md)
 
@@ -434,8 +451,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 177.8M | $1208.87 _(notional, rate-card)_ | 69% of 256.0M (ok) |
-| Codex | 9.2M _(+236.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 178.1M | $1210.00 _(notional, rate-card)_ | 70% of 256.0M (ok) |
+| Codex | 9.3M _(+236.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -468,13 +485,13 @@ worst fetch p95 9.605378s/45s (/home/kris/garden/.garden-state/dependabot-watche
 ### doin (0)
 (none)
 
-### tada (10975)
+### tada (10977)
+- [`oros-health-watch-20261005-045006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-045006.md) — Cost
+- [`claude-on-minion-town-completion-press-20261005-045006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/claude-on-minion-town-completion-press-20261005-045006.md) — Panel-head freshness
 - [`design-clip-multiasset-and-art-infra-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/design-clip-multiasset-and-art-infra-20261005.md) — Cost
 - [`improve-ci-pr-source-rest-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-ci-pr-source-rest-cache.md) — Cost
 - [`claude-on-minion-town-press-20261005-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/claude-on-minion-town-press-20261005-042007.md) — Panel-head freshness
-- [`canary-probe-endolin-garden2-5bcdff64-7500a8f07d30`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/canary-probe-endolin-garden2-5bcdff64-7500a8f07d30.md) — rolling-deploy canary probe — round trip OK
-- [`improve-dependabotany-ledger-index`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-dependabotany-ledger-index.md) — Cost
-- … and 10970 more
+- … and 10972 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
