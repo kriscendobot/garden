@@ -19,3 +19,13 @@ Fix: when the base matches `<name>-<hex sha>` and `<name>` exists as a live bran
 the repo but is not llm/main/master, refuse the merge with a distinct exit/reason
 (block for maintainer decision: retarget to trunk, retarget to the live feature
 branch, or land the parent PR first), never merge onto the snapshot. Add a test.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-05T05:28:37Z
