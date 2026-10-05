@@ -1,10 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-05T04:06:40Z_
+_As of 2026-10-05T04:25:15Z_
 
 ## Latest
 
-The board itself stayed quiet (no new post/claim/completion transitions since the last bulletin, and todo is down to oros health checkups awaiting a human), but the inbox carried the real news. **Oros remains offline for ~50 hours**, heartbeat and sysop-log both stale since 2026-10-02T05:08Z, derotated, with checkups piling up unclaimed and reset ops unacknowledged — it needs someone physically at the machine to check Docker Desktop/sleep/VM state. On minion.town, [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) and [#156](https://github.com/kriscendobot/minion.town/pull/156) are now live in production after a crash-loop/rollback scramble (missing `vendor` in the deploy tar broke `@endo/claude`), fixed forward with SSM-verified health but landed without panel review — worth a retroactive look if wanted. The Claude-CLI production canary is stuck waiting on the maintainer to personally run `claude setup-token` and complete GitHub OAuth at minion.town/account/claude; several proxy escalations correctly declined to touch those credential-granting steps. On the Endo side, the SturdyRef stack review landed a clear verdict: layer [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) is ready to merge as-is once its drafts underneath land, with [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) needing a retcon first and layers [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)/[#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) clear to merge as-is. Separately, *Better Code and Gardens* shipped its illuminated edition with all 25 plates live and verified. Three PRs ([kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407)) moved past their last panel review and need a fresh look or an explicit maintainer call before any gauntlet proceeds.
+The *Better Code and Gardens* illuminated edition shipped: all 25 plates are in (10 chapter openers, 15 section figures, each captioned), published from [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/pull/11) at commit 636a80f, with the art landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/pull/9); 30/30 tests pass and the live site checked out cleanly on phone and desktop, light and dark.
+
+Oros (oros-studio-garden-ce242c49) has been unreachable since 2026-10-02T05:08Z — heartbeat, sysop-log, and fleet health all stale, derotated, with 20 health-checkup jobs piling up unclaimed and reset-failed ops queued unacknowledged. This needs a person at the machine to check Mac sleep/power, Docker Desktop, and the VM; the health-watch cadence may be worth pausing until it's back.
+
+The minion.town production Claude-CLI canary hit a packaging bug after [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) merged: the deploy tar omitted `vendor`, crash-looping `minion-mcp` (83 restarts); a fix-forward job has been posted to restore availability and fix packaging/rollback before re-attempting the canary. Separately, several canary-setup messages are asking the maintainer to personally complete `claude setup-token` and a GitHub OAuth login on minion.town — these are credential/identity actions the proxy correctly declined to perform, flagged partly out of phishing caution. The SturdyRef stack (layers 3/4/6/7, PRs [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) got a full panel summary recommending merge-as-is for #1392/#1396/#1397 and a retcon-then-merge for #1393, pending the lower layers landing first. The budget re-slice applied a new `garden-book` arc (5M/week) alongside the existing seven.
 
 ## Parked for maintainer feedback
 
@@ -385,8 +389,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 176.7M | $1202.73 _(notional, rate-card)_ | 69% of 256.0M (ok) |
-| Codex | 9.0M _(+228.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 177.3M | $1205.44 _(notional, rate-card)_ | 69% of 256.0M (ok) |
+| Codex | 9.0M _(+228.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -416,16 +420,16 @@ worst fetch p95 9.605378s/45s (/home/kris/garden/.garden-state/dependabot-watche
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-ci-pr-source-rest-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-ci-pr-source-rest-cache.md) — ---
 
-### tada (10972)
+### tada (10973)
+- [`claude-on-minion-town-press-20261005-042007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/claude-on-minion-town-press-20261005-042007.md) — Panel-head freshness
 - [`canary-probe-endolin-garden2-5bcdff64-7500a8f07d30`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/canary-probe-endolin-garden2-5bcdff64-7500a8f07d30.md) — rolling-deploy canary probe — round trip OK
 - [`improve-dependabotany-ledger-index`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-dependabotany-ledger-index.md) — Cost
 - [`dependabotany-recheck-endo-but-for-bots-20261005-030506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/dependabotany-recheck-endo-but-for-bots-20261005-030506.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-de654e29609c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/canary-probe-endolin-garden2-5bcdff64-de654e29609c.md) — rolling-deploy canary probe — round trip OK
-- [`improve-fork-watch-shared-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-fork-watch-shared-cooldown.md) — Cost
-- … and 10967 more
+- … and 10968 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
