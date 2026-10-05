@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T04:26:56Z_
+_As of 2026-10-05T04:38:19Z_
 
 ## Latest
 
-Only one board transition landed since the last bulletin: `improve-ci-pr-source-rest-cache` completed. The inbox is dominated by the ongoing oros-studio outage — now past 50 hours unreachable, derotated, with 13+ health-checkups stuck unclaimed and a growing backlog of unacked sysop ops — which still needs someone at the machine to check power/sleep, Docker Desktop, and the VM. Several other threads are waiting on the maintainer directly: the minion.town production Claude CLI canary needs a real subscription connected via `claude setup-token` at minion.town/account/claude (several proxy messages flagged the surrounding OAuth/credential requests as out of proxy authority and worth scrutiny); a crash-loop in production `minion-mcp` following [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) was diagnosed as a packaging/rollback gap (vendor/endo-claude omitted from the deploy tar) and a fix-forward job has been posted; and the SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) has a full panel summary ready for a merge decision, with #1392 clear to land first once its two drafted predecessors do. Separately, *Better Code and Gardens* shipped its illuminated edition with all 25 plates captioned and verified live. Three stale-panel-coverage notices (minion.town #148, #150, and endo-but-for-bots#1407) flag PR heads that moved past their last review and need either a fresh panel or an explicit maintainer call.
+Little moved on the board itself since the last bulletin: the only board transition is the new `design-clip-multiasset-and-art-infra-20261005` design job now claimed into `doin`, investigating whether clip publishing can support multi-asset/multi-page content and whether the garden has (or can get) real image-generation infrastructure for the book, after confirming both the production CSP and the clip-publishing skill already support non-inlined assets, and that the current art pipeline is hand-authored SVG rather than a model-pin failure. The larger story is in the inbox: oros-studio-garden-ce242c49 remains offline for roughly two and a half days (heartbeat and sysop stale since 2026-10-02T05:08Z, derotated, 13+ unclaimed health checkups, unacked sysop ops piling up) and needs a human at the machine. The minion.town Claude CLI production canary is also stalled on the maintainer completing `claude setup-token` and a GitHub OAuth login personally — several proxy messages flag this and a related Cognito authorization-code request as credential/identity actions outside bot authority, with one flagged as a possible social-engineering/phishing pattern worth scrutiny. Separately, a merged PR ([kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150)) briefly crash-looped production `minion-mcp` because the deploy tarball omitted the `vendor` directory needed by `@endo/claude`; a fix-forward job has been posted. The SturdyRef stack review (layers 3/4/6/7, [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is ready for a merge decision pending lower-layer landings and a retcon on #1393. The illuminated edition of *Better Code and Gardens* is now live and fully captioned at the published ocap.site URL. Several stale-panel-coverage notices (minion.town #150, #148, and endo-but-for-bots #1407) and three minion-town-shell-to-js gauntlets that hit their 6-round review budget are also awaiting a human merge/review call.
 
 ## Parked for maintainer feedback
 
@@ -338,6 +338,53 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > The renewed nonce link has now expired without a reply. When you are available, open the stable authenticated page https://minion.town/account/claude; it will mint and display a fresh connect path for your pinned GitHub subject. Run `claude setup-token` locally and submit it only on that HTTPS page, then reply `connected`. Never send the setup token in a message or log.
 
+- `msg-design-clip-multiasset-and-art-infra-20261005-06cf20b856fe` — from gardener:design-clip-multiasset-and-art-infra-20261005, reply_to `design-clip-multiasset-and-art-infra-20261005` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-design-clip-multiasset-and-art-infra-20261005-06cf20b856fe.md)
+
+> from: liaison
+> sent_at: 2026-10-05T04:30:00Z
+> ---
+> **Illustration quality / clip-capability / art-infrastructure follow-up**
+>
+> Posted `design-clip-multiasset-and-art-infra-20261005` (role: designer) to
+> land a design PR on kriscendobot/garden covering two threads:
+>
+> 1. **Clip multi-asset/multi-page capability.** Checked live just now:
+>    `img-src 'self' data:` is already in the deployed CSP, and
+>    `minion-town-clip-publishing`'s own skill doc already documents
+>    `publish`'s `content` as an array of files (CSS is already shipped as a
+>    sibling file, not inlined). This strongly suggests there is **no real
+>    platform gap** forcing inline-only SVG — the one-big-page,
+>    everything-inlined approach was a self-imposed simplification in the book
+>    tooling, not a hard constraint. The design job will empirically verify
+>    this (publish a real test clip with a separate raster image and two
+>    linked HTML pages) before concluding either way, and will scope the
+>    book's eventual move to real per-chapter pages with navigation if
+>    confirmed.
+> 2. **Image-generation / art-supervisor / art-recognition infrastructure.**
+>    Confirmed by checking the actual reputation-event receipt that the
+>    illustration production genuinely was claimed by Codex
+>    (`provider: openai`, `model: gpt-5.6-sol`) — the model pin did not fail.
+>    The real problem: this garden has **no actual text-to-image generation
+>    capability anywhere** — both the Claude and Codex art jobs were hand-
+>    authoring SVG markup, which is inherently limited regardless of which
+>    text/code model writes it.
+> 3. **On the OpenAI-subscription question:** confirmed the garden's Codex
+>    workers already authenticate via a ChatGPT-plan OAuth login (not a
+>    metered API key) — this repo's own design docs already note Codex's
+>    dollar cost is unresolved under that auth. Whether that same login also
+>    grants bundled image-generation access, or whether generating images
+>    would hit OpenAI's separately-billed Platform Images API regardless, is
+>    **not something I could confirm from documentation** — I did not correct
+>    or confirm your belief either way, and told the design job to test it
+>    directly (try invoking image generation under the existing Codex
+>    credential, see what it actually does/bills) rather than guess.
+>
+> This design job carries real open questions (new credential/cost
+> authorization if a separate API key turns out to be needed, raster-vs-vector
+> choice for book art, scope of restructuring garden-book into a multi-page
+> site) and will land as a PR per this repo's own open-questions carve-out, not
+> bare to `main2`.
+
 - `msg-oros-health-watch-20261005-015006-46c81f34a765` — from gardener:oros-health-watch-20261005-015006, reply_to `oros-health-watch-20261005-015006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261005-015006-46c81f34a765.md)
 
 > Oros remains unreachable: the 23:35Z pinned checkup is still unclaimed; heartbeat last sampled 2026-10-02T05:08:36Z; latest sysop ack was 2026-10-02T05:38:58Z; it remains derotated and deployed at e036bb8e versus main2 939c6ea3. Six reset-failed ops and one restore op remain queued and unacknowledged, so I sent no duplicate op. Someone must check the Mac power/sleep state, Docker Desktop, and the VM/container.
@@ -385,8 +432,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 177.4M | $1205.72 _(notional, rate-card)_ | 69% of 256.0M (ok) |
-| Codex | 9.0M _(+228.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 177.6M | $1208.01 _(notional, rate-card)_ | 69% of 256.0M (ok) |
+| Codex | 9.2M _(+232.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -416,8 +463,8 @@ worst fetch p95 9.605378s/45s (/home/kris/garden/.garden-state/dependabot-watche
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`design-clip-multiasset-and-art-infra-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-clip-multiasset-and-art-infra-20261005.md) — Design: multi-asset/multi-page clips, and real image-generation infrastructur...
 
 ### tada (10974)
 - [`improve-ci-pr-source-rest-cache`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-ci-pr-source-rest-cache.md) — Cost
