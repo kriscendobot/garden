@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T13:31:44Z_
+_As of 2026-10-05T13:34:42Z_
 
 ## Latest
 
-Board activity since the last bulletin was minimal: the only move was the familiar/localhttp protocol gauntlet for [endojs/endo-but-for-bots#1426](https://github.com/endojs/endo-but-for-bots/pull/1426) advancing into panel round 3, continuing alongside an in-progress fix round 2 on [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391).
+The board itself is quiet — nothing in todo, just two gauntlet stages mid-flight on [endo-but-for-bots#1426](https://github.com/endojs/endo-but-for-bots/pull/1426) (panel round 3) and [endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391) (fix round 2) — but the maintainer inbox is carrying real decisions. The illuminated edition of *Better Code and Gardens* shipped, with all 25 plates captioned and live at its ocap.site URL. The SturdyRef capability stack (layers [1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) is CI-green and ready for a merge call, with a clear per-layer plan (1392 first, then 1393 after a retcon, then 1396/1397 once 1394 lands). Several gauntlets stalled at their 6-round review budget without converging — [endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407), and three parts of the minion.town shell-to-JS migration — and now wait on a human merge/review call; a foreman note flags #1407 specifically as blocking the MCP/OCapN path and needing a merge-or-close decision since it's now documentation-only.
 
-The maintainer inbox carries more of substance than the board itself. **oros-studio remains offline** for roughly 74 hours (heartbeat and sysop activity both stale since 2026-10-02), derotated and now sitting with no checkups even queued after the watcher gave up and withdrew them — this needs a hands-on check of the Mac/Docker Desktop/VM. The **minion.town Claude CLI production canary** is stalled waiting on the maintainer to personally run `claude setup-token` and complete GitHub-federated OAuth at minion.town/account/claude; several proxy escalations confirm this can't be delegated, and one flagged the request pattern as worth scrutiny for social-engineering risk. Separately, a production **minion-mcp crash loop** following [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) was diagnosed (missing `vendor` dir in the deploy tarball, incomplete rollback) with a fix-forward job already posted. The **book illumination edition** shipped and is live, and the **SturdyRef stack** ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) through [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) got a full panel-objection summary with per-layer merge recommendations, pending stack hygiene on its lower layers. Several stale-panel-coverage notices await a maintainer merge/review call on [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#157](https://github.com/kriscendobot/minion.town/pull/157), [#148](https://github.com/kriscendobot/minion.town/pull/148), and [endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349)/[#1407](https://github.com/endojs/endo-but-for-bots/pull/1407).
+The minion.town production Claude-CLI canary had a rough day: a deploy left `@endo/claude`'s vendor directory out of the packaged artifact, crash-looping the service (83 restarts) until a fix-forward restored it; the canary itself is now blocked purely on the maintainer completing `claude setup-token` and the GitHub OAuth linking step by hand. Separately, oros-studio has been unreachable for roughly three days (heartbeat stale since Oct 2), and the health watcher has now stopped posting new checkups and recovery ops since they just pile up unacknowledged — it needs a person at the machine to check power/sleep, Docker Desktop, and the VM. Budget sits at 78% of the Claude weekly quota.
 
 ## Parked for maintainer feedback
 
@@ -463,6 +463,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Which layers can land first: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) lands first, as soon as [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) land. [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) follows after the retcon and weave. [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) have no code blockers, but they wait on [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/issues/1394) (L5, already un-drafted). No layer needs a redesign, and none needs another full panel; a scoped re-panel of only the post-panel deltas would be optional. No PR was touched and no gauntlet was staged.
 
+- `foreman-milestone-M3` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M3.md)
+
+> M3’s top-priority MCP/OCapN path is blocked at [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/issues/1407) after its fix: decide whether to merge the now documentation-only PR or close it as superseded by the base implementation.
+
 - `msg-oros-health-watch-20261005-075006-7f9338ba5a07` — from gardener:oros-health-watch-20261005-075006, reply_to `oros-health-watch-20261005-075006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261005-075006-7f9338ba5a07.md)
 
 > Oros still unreachable (~74h): the 05:35Z pinned checkup is unclaimed (10 oros-health-checkup jobs now stacked in todo since 2026-10-04 01:50Z); heartbeat last sampled 2026-10-02T05:08Z, last sysop-log 2026-10-02T05:35Z, host derotated heartbeat-offline, deployed e036bb8e vs main2 5058262e17e. Queued reset-failed/restore ops remain unacknowledged, so no new op sent. A person must check the Mac's power/sleep state, Docker Desktop, and the VM/container.
@@ -656,8 +660,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 198.5M | $1326.41 _(notional, rate-card)_ | 78% of 256.0M (ok) |
-| Codex | 14.5M _(+287.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 199.3M | $1332.42 _(notional, rate-card)_ | 78% of 256.0M (ok) |
+| Codex | 14.6M _(+288.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
