@@ -1,12 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T21:27:44Z_
+_As of 2026-10-05T21:29:32Z_
 
 ## Latest
 
-The board is otherwise quiet, but two PR gauntlets completed: [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) finished its full panel/fix/un-draft gauntlet and is ready for merge review, while the fix-5 round for the Claude guest-scoped MCP build (same repo) is still in progress. An orchestrated deadline-nudge ref-race fix completed and was split into sub-tasks, also landing cleanly.
-
-The inbox is dominated by the ongoing oros-studio outage — now past 74 hours unreachable, with health checkups piling up unclaimed and recovery ops stuck unacknowledged; it needs a human at the machine to check power/sleep, Docker Desktop, and the VM. Separately, the minion.town Claude-CLI production canary work is fully blocked on the maintainer personally completing subscription/OAuth linking (`claude setup-token` plus a GitHub-federated MCP login) — no proxy or gardener action can substitute, and one of the relay messages was flagged as a plausible phishing/social-engineering pattern worth scrutiny. A parked fixer job for a fleet-wide deploy-gate regression (stale test fixtures from the subscription-budget-model change) exhausted its retries and needs a human promote decision, and the foreman is still waiting on a base/merge-order call for [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343) to unblock M3. On a lighter note, the illuminated edition of *Better Code and Gardens* shipped and is live, and a detailed panel summary of the four-layer SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) recommends merging three of the four as-is pending a retcon on #1393.
+One job completed since the last bulletin: `improve-overrun-split-child-metadata` reached tada, and board activity otherwise idled (todo empty, two gauntlet fixes still in flight on [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) and [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348)). The inbox is dominated by the ongoing oros-studio outage (unreachable since 2026-10-02, now ~75h, heartbeat/sysop both stale, recovery ops queued and unacknowledged — needs a person at the machine) and a stack of items genuinely awaiting the maintainer: the SturdyRef layer stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392)→[#1393](https://github.com/endojs/endo-but-for-bots/issues/1393)→[#1396](https://github.com/endojs/endo-but-for-bots/issues/1396)→[#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) has a merge-order recommendation ready, M3 needs a base/merge-order call on [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/issues/1343) vs #1042, and the minion.town Claude-CLI production canary is still blocked on the maintainer personally completing `claude setup-token`/OAuth linkage (several proxy messages flagged these as credential actions outside its authority, one noting a possible phishing-style framing worth scrutiny). Also worth a glance: *Better Code and Gardens* shipped its illuminated edition with all 25 plates live, and a design for clip multi-asset support plus art-generation infrastructure was posted as a PR pending open questions.
 
 ## Parked for maintainer feedback
 
@@ -705,8 +703,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 225.4M | $1498.29 _(notional, rate-card)_ | 88% of 256.0M (ok) |
-| Codex | 23.2M _(+359.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 225.4M | $1498.59 _(notional, rate-card)_ | 88% of 256.0M (ok) |
+| Codex | 23.2M _(+359.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -717,18 +715,17 @@ worst fetch p95 7.963158s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ### todo (0)
 (none)
 
-### doin (3)
-- [`improve-overrun-split-child-metadata`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-overrun-split-child-metadata.md) — ---
+### doin (2)
 - [`build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #160
 - [`endojs-endo-but-for-bots-pr1348-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-fix.md) — ---
 
-### tada (11098)
+### tada (11099)
+- [`improve-overrun-split-child-metadata`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-overrun-split-child-metadata.md) — Cost
 - [`kriscendobot-minion.town-pr160-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr160-gauntlet.md) — gauntlet kriscendobot-minion.town-pr160-gauntlet — complete
 - [`improve-deadline-nudge-ref-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-deadline-nudge-ref-race.md) — Cost
 - [`kriscendobot-minion.town-pr160-gauntlet-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr160-gauntlet-undraft.md) — Cost
 - [`improve-deadline-nudge-ref-race-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-deadline-nudge-ref-race-split.md) — orchestration improve-deadline-nudge-ref-race-split — complete
-- [`build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-5.md) — Cost
-- … and 11093 more
+- … and 11094 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
