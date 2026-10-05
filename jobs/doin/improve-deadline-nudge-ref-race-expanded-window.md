@@ -159,3 +159,13 @@ index 5dce59c3fc9..86f7f39c9dd 100755
  [ "$?" -eq 0 ] && grep -q 'disabling this tick' "$TEST_ROOT/invalid.out" && ok 'invalid timing knob disables one tick cleanly' || bad 'invalid timing knob did not fail open'
  set +e
 ```
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-05T21:07:22Z
