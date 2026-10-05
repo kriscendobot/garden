@@ -1,17 +1,15 @@
 # Garden bulletin
 
-_As of 2026-10-05T20:24:56Z_
+_As of 2026-10-05T20:36:01Z_
 
 ## Latest
 
-The board's claim/completion volume is dominated by the ongoing `build-minion-town-claude-guest-scoped-mcp` gauntlet, now on panel/fix round 4 against [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) — round 2's panel flagged a must-fix and the fix loop is iterating. Alongside it, `endojs-endo-but-for-bots-pr1348-fix` and a reaper-reliability fix (`improve-deadline-nudge-ref-race`, addressing a watchdog-reported push rejection on `journal2`) are both in progress. A rolling-deploy canary probe completed clean on `endolin-garden2-5bcdff64`.
-
-The maintainer inbox remains heavy with unread items worth a look when there's time: oros-studio has been unreachable for roughly three days and needs a hands-on check (power/Docker Desktop/VM); several PRs have stale panel coverage pending an explicit re-review decision ([minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [#148](https://github.com/kriscendobot/minion.town/pull/148), [#157](https://github.com/kriscendobot/minion.town/pull/157), [endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407), [#1349](https://github.com/endojs/endo-but-for-bots/pull/1349)); and the Claude-on-minion.town production canary is still waiting on the maintainer to personally complete subscription/OAuth setup (flagged partly as a likely phishing-pattern ask). The illuminated edition of *Better Code and Gardens* also shipped live, and a reaper-parked job traced a fleet-wide deploy-gate test failure to a stale `provider-cooldown-test.sh` fixture predating the subscription-budget-model gate.
+The board stayed quiet since the last snapshot — the only transition was [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407)'s pages-shepherd job picking up kriscendobot/garden's red GitHub Pages deploy. Outstanding work continues underneath: [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) is in its fourth gauntlet fix round, and [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) is mid-fix as well. The bigger story is still oros-studio: it's been unreachable for over three days (heartbeat stale since 2026-10-02), health checkups have been withdrawn pending a human look at the Mac's power/sleep state, Docker Desktop, and the VM. Several maintainer-only items remain parked, most notably the minion.town Claude CLI production canary (needs a real subscription connected by hand) and a reset-credit watch flagging that both codex-endolin and claude-endolin2 credits are worth spending in the next day or two before their natural resets.
 
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 8d)
-- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 17d)
+- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 23d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 34d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 34d)
@@ -431,11 +429,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4` — from watchdog:deadline-nudge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-04T21:48:21Z, latest 2026-10-05T20:18:32Z).
-> The SAME condition (`deadline-nudge-push-rejected:endolin-garden-ece02cb4`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-04T21:48:21Z, cleared 2026-10-05T20:33:25Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> deadline-nudge on endolin-garden-ece02cb4 cannot push to journal2: server-reject rejection (To github.com:kriscendobot/garden.git  ! [remote rejected]       HEAD -> journal2 (cannot lock ref 'refs/heads/journal2': is at 13794d0a3e18e1ecaa40487b1a3a6acc5bfec809 but expected 9d1e6f0d8da33e79f4e21fb3f1dafea9226ba066) error: failed...). Deadline warnings are not being delivered; this needs repair (credentials, upstream, or a receive-side policy), not a retry.
+> deadline-nudge on endolin-garden-ece02cb4 pushed to journal2 again; the push rejection has cleared.
 
 - `20261004T204328Z-c8080c` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T204328Z-c8080c.md)
 
@@ -693,8 +691,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 223.9M | $1494.28 _(notional, rate-card)_ | 87% of 256.0M (ok) |
-| Codex | 21.9M _(+342.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 224.2M | $1495.64 _(notional, rate-card)_ | 88% of 256.0M (ok) |
+| Codex | 22.2M _(+345.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -705,9 +703,10 @@ worst fetch p95 7.963158s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ### todo (1)
 - [`oros-health-watch-20261005-202006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261005-202006.md) — ---
 
-### doin (4)
+### doin (5)
 - [`build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #160
 - [`endojs-endo-but-for-bots-pr1348-fix`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1348-fix.md) — ---
+- [`garden-pages-da1f562a9dd2-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-pages-da1f562a9dd2-shepherd.md) — pages-shepherd (auto: red Pages deploy) on kriscendobot/garden
 - [`kriscendobot-minion.town-pr160-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr160-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #160
 - [`improve-deadline-nudge-ref-race`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-ref-race.md) — ---
 
