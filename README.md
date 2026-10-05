@@ -1,12 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-05T01:25:20Z_
+_As of 2026-10-05T01:44:50Z_
 
 ## Latest
 
-The book-illumination edition of *Better Code and Gardens* (2026-10-04) shipped: all 25 plates landed via [kriscendobot/garden-book#9](https://github.com/kriscendobot/garden-book/issues/9) and [kriscendobot/garden-book#11](https://github.com/kriscendobot/garden-book/issues/11), and the live site passed phone/desktop and light/dark checks with 30/30 tests green. The minion.town production side had a rough day: the merge of [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/issues/150) triggered a deploy-time crash loop (a packaging bug stripped `vendor/endo-claude` from the deploy tar), caught and fixed forward with SSM-verified health, and [kriscendobot/minion.town#155](https://github.com/kriscendobot/minion.town/issues/155) and [kriscendobot/minion.town#156](https://github.com/kriscendobot/minion.town/issues/156) are now live in production without panel review (say the word if you want them reviewed after the fact). Three parallel shell-to-JS gauntlets and the Claude-account-HTML-page gauntlet all hit their 6-round review budget with CI green but didn't converge — those PRs are sitting ready for a human merge call. Separately, the gardener assembling the Claude-CLI production canary spent much of the day trying to get you to complete OAuth/subscription-token steps by hand; the proxy correctly declined to act on its behalf each time, so that thread is still waiting on you at minion.town/account/claude.
+The dominant story is the oros-studio host, dead for over two days now (heartbeat stale since 2026-10-02T05:08Z), with thirteen health-checkup jobs piling up unclaimed and the sysop queue backed up with unacked ops — this needs a person physically checking the Mac's power/sleep state, Docker Desktop, and the VM.
 
-Worth flagging: **oros-studio has been unreachable for ~50 hours** (heartbeat stale since 2026-10-02T05:08Z), is derotated from the fleet, and has a backlog of unacked sysop ops — it needs a person at the machine to check Docker Desktop, sleep/power state, and the VM. The SturdyRef stack (layers 3/4/6/7, PRs [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392), [#1393](https://github.com/endojs/endo-but-for-bots/issues/1393), [#1396](https://github.com/endojs/endo-but-for-bots/issues/1396), [#1397](https://github.com/endojs/endo-but-for-bots/issues/1397)) got a thorough panel summary recommending merge order once the underlying layers land — no action taken, just queued for your read.
+On the production side, the merge of [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) triggered a crash loop (missing `vendor/endo-claude` in the deploy tarball), which was fixed and verified; [kriscendobot/minion.town#155](https://github.com/kriscendobot/minion.town/pull/155) and [kriscendobot/minion.town#156](https://github.com/kriscendobot/minion.town/pull/156) landed the packaging/rollback fix and are now live in production without panel review, available for a retroactive review on request. The Claude CLI production canary is stalled awaiting the maintainer to personally complete `claude setup-token` and OAuth account-linking on minion.town — several expired connect links and a GitHub-federated MCP authorization request are queued, with the proxy correctly declining to act on any of them as credential-granting steps.
+
+Three minion.town shell-to-js gauntlet parts and the Claude-account-HTML-page gauntlet all hit their 6-round review budget with CI green but no convergence, left for manual merge review. A SturdyRef stack panel summary recommends merging layers #1392, #1396, and #1397 as-is (pending their predecessors), with #1393 needing a retcon first; two PRs ([#150](https://github.com/kriscendobot/minion.town/pull/150) and [#1407](https://github.com/endojs/endo-but-for-bots/pull/1407)) show stale panel coverage after further pushes and need re-review before merge. The illuminated edition of *Better Code and Gardens* shipped and verified live. Budget watchdogs throttled Claude workers down on both endolin hosts as weekly quota spend crossed 68% and 84% of cap respectively.
 
 ## Parked for maintainer feedback
 
@@ -223,11 +225,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #24 (first seen 2026-10-04T05:15:32Z, latest 2026-10-05T01:12:59Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 24 times; this is ONE
-> coalesced notice that updates in place, not 24 messages. Latest detail:
+> WATCHDOG notice — occurrence #25 (first seen 2026-10-04T05:15:32Z, latest 2026-10-05T01:42:28Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 25 times; this is ONE
+> coalesced notice that updates in place, not 25 messages. Latest detail:
 >
-> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 56 of 1041 clone(s) on consecutive ticks.
+> Journal contention checker on endolin-garden2-5bcdff64 cannot finish a tick inside its 210s budget: deferred 1041 of 1041 clone(s) on consecutive ticks.
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-125005, reply_to `claude-on-minion-town-press-20261004-125005` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
@@ -326,8 +328,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-05T01:07:26Z).
-> It was observed 38 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-05T01:42:23Z).
+> It was observed 39 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-storm-clone-oversized` cleared on endolin-garden2-5bcdff64.
@@ -383,7 +385,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 172.6M | $1184.58 _(notional, rate-card)_ | 67% of 256.0M (ok) |
+| Claude | 172.9M | $1185.45 _(notional, rate-card)_ | 68% of 256.0M (ok) |
 | Codex | 8.8M _(+227.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
