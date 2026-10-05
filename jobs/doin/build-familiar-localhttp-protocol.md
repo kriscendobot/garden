@@ -6,3 +6,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Build on endojs/endo-but-for-bots from the llm branch to complete the remaining Familiar localhttp protocol work: render the Chat security-warning banner from the preload IPC channel, with tests.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-05T11:31:33Z
