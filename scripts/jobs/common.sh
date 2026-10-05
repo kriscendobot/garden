@@ -5416,18 +5416,34 @@ journal_diagnostic_is_definite_failure() {  # <diagnostic>
 # signal that this is a lost compare-and-swap and can be reconciled by re-syncing.
 journal_push_is_cas_contention() {  # <diagnostic>
   printf '%s\n' "$1" | grep -qiE \
-    '\[rejected\].*\((non-fast-forward|fetch first)\)|Updates were rejected because (the tip of your current branch is behind|the remote contains work)'
+    '\[rejected\].*\((non-fast-forward|fetch first)\)|Updates were rejected because (the tip of your current branch is behind|the remote contains work)' \
+    || journal_push_is_ref_lock_race "$1"
+}
+
+# The receiver's own compare-and-swap: a concurrent writer advanced the ref after
+# the receiver read it, so its ref transaction refuses with
+#   ! [remote rejected] journal2 -> journal2 (cannot lock ref
+#   'refs/heads/journal2': is at <new> but expected <old>)
+# That arrives as a `[remote rejected]` and contains `cannot lock ref`, the
+# server-rejection and local-failure signatures, yet it is a lost race that a
+# re-sync resolves (2026-10-05T20:18:32Z, deadline-nudge). Recognize it narrowly
+# by the "is at X but expected Y" detail and let it override those classes.
+journal_push_is_ref_lock_race() {  # <diagnostic>
+  printf '%s\n' "$1" | grep -qiE \
+    "cannot lock ref '[^']*': is at [0-9a-f]+ but expected [0-9a-f]+"
 }
 
 # A receive-side policy or hook rejection is not CAS contention. Keep this set
 # separate from journal_diagnostic_is_definite_failure because these signatures
 # describe push-only failures, not fetch/clone diagnostics.
 journal_push_is_server_rejection() {  # <diagnostic>
+  journal_push_is_ref_lock_race "$1" && return 1
   printf '%s\n' "$1" | grep -qiE \
     '\[remote rejected\]|pre-receive hook declined|protected branch hook declined|GH00[0-9]|GH01[0-9]|remote: error:|deny updating a hidden ref'
 }
 
 journal_push_is_definite_failure() {  # <diagnostic>
+  journal_push_is_ref_lock_race "$1" && return 1
   journal_diagnostic_is_definite_failure "$1" \
     || journal_push_is_server_rejection "$1"
 }

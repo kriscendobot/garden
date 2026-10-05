@@ -471,6 +471,47 @@ else
   sed 's/^/    /' "$TEST_ROOT/pushreject-clear.out" | tail -5
 fi
 
+# A legitimate concurrent journal push that beats the scanner inside the
+# receiver's ref transaction surfaces as `[remote rejected] ... (cannot lock ref
+# ...: is at X but expected Y)`. That is a lost CAS, not a receive-side wall: the
+# scanner must re-sync, recompute its batch (picking up the concurrent claim),
+# deliver both warnings, and raise no repair alert (2026-10-05T20:18:32Z).
+reflock_stub="$HERE/deadline-nudge-reflock-push-stub.sh"
+add_claim_at_tip reflock 300
+write_claim "$TEST_ROOT/reflock-claim" reflock-concurrent "fixer" "" 2400 300
+run_nudge reflock-scan env GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS=3 \
+  GARDEN_NUDGE_REFLOCK_BARE="$BARE" GARDEN_NUDGE_REFLOCK_MARKER="$TEST_ROOT/reflock.marker" \
+  GARDEN_NUDGE_REFLOCK_CLAIM="$TEST_ROOT/reflock-claim/jobs/doin/reflock-concurrent.md" \
+  GARDEN_PUSH_CMD="$reflock_stub" > "$TEST_ROOT/reflock.out" 2>&1
+reflock_rc=$?
+if [ "$reflock_rc" -eq 0 ] \
+  && [ -e "$TEST_ROOT/reflock.marker" ] \
+  && grep -q 'push stage lost a race (attempt 1/3)' "$TEST_ROOT/reflock.out" \
+  && ! grep -q 'push stage rejected' "$TEST_ROOT/reflock.out" \
+  && ! grep -q 'repair alert' "$TEST_ROOT/reflock.out" \
+  && [ ! -e "$reject_fp" ] \
+  && [ -n "$(nudge_paths reflock)" ] \
+  && [ -n "$(nudge_paths reflock-concurrent)" ]; then
+  ok 'a remote ref-lock CAS race is retried as a lost race, recomputes the batch, and raises no alert'
+else
+  bad 'a remote ref-lock CAS race was treated as a rejection, dropped warnings, or alerted'
+  sed 's/^/    /' "$TEST_ROOT/reflock.out" | tail -8
+fi
+reflock_diag=" ! [remote rejected] HEAD -> journal2 (cannot lock ref 'refs/heads/journal2': is at 1111111111111111111111111111111111111111 but expected 2222222222222222222222222222222222222222)"
+if journal_push_is_cas_contention "$reflock_diag" \
+  && ! journal_push_is_server_rejection "$reflock_diag" \
+  && ! journal_push_is_definite_failure "$reflock_diag"; then
+  ok 'shared push classifier: remote ref-lock race is cas, not server-reject or definite'
+else
+  bad 'shared push classifier mislabels a remote ref-lock race'
+fi
+if ! journal_push_is_cas_contention " ! [remote rejected] HEAD -> journal2 (cannot lock ref 'refs/heads/journal2': Permission denied)" \
+  && journal_push_is_definite_failure " ! [remote rejected] HEAD -> journal2 (cannot lock ref 'refs/heads/journal2': Permission denied)"; then
+  ok 'shared push classifier: a non-race ref-lock failure stays definite'
+else
+  bad 'shared push classifier widened the race class past the expected-value mismatch'
+fi
+
 run_nudge invalid env GARDEN_DEADLINE_NUDGE_INTERVAL=oops > "$TEST_ROOT/invalid.out" 2>&1
 [ "$?" -eq 0 ] && grep -q 'disabling this tick' "$TEST_ROOT/invalid.out" && ok 'invalid timing knob disables one tick cleanly' || bad 'invalid timing knob did not fail open'
 set +e
