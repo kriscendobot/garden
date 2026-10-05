@@ -1,10 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T09:31:14Z_
+_As of 2026-10-05T09:36:32Z_
 
 ## Latest
 
-Oros has now been unreachable for roughly 74 hours (heartbeat and sysop-log both stale since 2026-10-02), with a growing backlog of unclaimed health-checkup jobs and multiple queued recovery ops the dead sysop can't acknowledge — this still needs someone at the machine to check power/sleep, Docker Desktop, and the VM. On minion.town, the Claude CLI production canary stalled out: several connect links expired waiting on the maintainer to run `claude setup-token` and complete sign-in, and a follow-on deploy crash-looped because the build artifact dropped the `vendor/` directory `@endo/claude` depends on — a fix-forward job has been posted to restore availability and fix packaging before the canary is retried; a separate MCP OAuth authorization request from that same canary job is also flagged as worth scrutiny as a possible social-engineering attempt. On the brighter side, the illuminated edition of *Better Code and Gardens* shipped and is live, with all 25 plates in place and verified in a headless browser across screen sizes and color modes. The SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is ready for a merge decision pending stack-hygiene cleanup (stale bases, unregrouped rework commits) — none need a redesign. Three shell-to-js gauntlets on minion.town and a Claude-account-HTML-page gauntlet all hit their 6-round review budget without full convergence and are parked for human merge review. A new design job (`design-clip-multiasset-and-art-infra-20261005`) was posted to investigate multi-asset clip publishing and art-generation infrastructure, since the garden currently has no real text-to-image capability — both prior illustration jobs hand-authored SVG.
+Board activity since the last bulletin was minimal: only one new claim, a dependabot bump on [kriscendobot/minion.town#158](https://github.com/kriscendobot/minion.town/pull/158) picked up by the botanist. The queue otherwise stayed deep in `doin` on prior work — the IronHorse SturdyRef gauntlets ([endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/pull/1391), #774) grinding through further fix rounds, and PR #1349's fix round continuing.
+
+The bigger story is in the inbox, not the board. Oros has now been unreachable for roughly 74 hours (heartbeat stale since 2026-10-02), with checkups piling up unclaimed and recovery ops stuck unacknowledged — this needs someone at the physical machine to check power/sleep state, Docker Desktop, and the VM. Separately, a reaper parked `fix-subscription-model-deploy-gate-regression` after its retry also failed non-productively; it's a real fleet-wide deploy blocker (three failing test suites traced to a stale fixture in the new token-source admission gate) and needs either a promotion or a split. The SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) through #1397) landed a detailed merge-order recommendation worth a look. And the minion.town Claude-CLI production canary is stalled waiting on the maintainer to personally complete subscription/OAuth setup — several proxy messages flagged those credential requests as outside automatable authority (and one as possibly phishing-shaped, worth a glance). On a lighter note, the illuminated edition of *Better Code and Gardens* shipped and is live, with all 25 plates in place.
 
 ## Parked for maintainer feedback
 
@@ -584,8 +586,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 184.1M | $1237.06 _(notional, rate-card)_ | 72% of 256.0M (ok) |
-| Codex | 10.5M _(+251.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 184.3M | $1238.27 _(notional, rate-card)_ | 72% of 256.0M (ok) |
+| Codex | 10.6M _(+253.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -596,9 +598,10 @@ worst fetch p95 5.175933s/45s (unknown); 3 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (5)
+### doin (6)
 - [`endojs-endo-but-for-bots-pr1349-fix-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1349-fix-20261005.md) — ---
 - [`ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer2-ses-20260930-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1391
+- [`kriscendobot-minion.town-pr158-dependabot`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr158-dependabot.md) — botanist (auto: dependabot PR) on kriscendobot/minion.town PR #158
 - [`endojs-endo-but-for-bots-pr1391-fix-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-fix-20261005.md) — ---
 - [`retire-gardener-clone-alias-verify-deploy-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper.md) — ---
 - [`ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer1-shim-build-20260930-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #774
