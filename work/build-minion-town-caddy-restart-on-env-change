@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-05T21:33:09Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-minion-town-caddy-restart-on-env-change
+pr_number: 163
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/163
+pr_head: fix/caddy-restart-on-env-change
