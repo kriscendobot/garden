@@ -151,3 +151,13 @@ design-clip-multiasset-and-art-infra-20261005`, state plainly: whether the
 clip "gap" is real or not (Thread 1's test result), and the tested (not
 assumed) answer to the maintainer's subscription/billing question (Thread
 2).
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-05T04:29:48Z
