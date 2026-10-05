@@ -12,3 +12,13 @@ Fix two gauntlet-staging defects in the garden (kriscendobot/garden, main2), rep
 2. **No per-PR dedupe.** #160 ran two gauntlets at the same time: `build-minion-town-claude-guest-scoped-mcp-gauntlet` (the late auto-stage) and `kriscendobot-minion.town-pr160-gauntlet` (from a run-the-gauntlet request). Both fix loops pushed to the same head, for 8 fix rounds and 9 panels in total. Make `post-gauntlet.sh`, or the gauntlet driver, refuse or coalesce a second active gauntlet on the same PR, and log loudly when it does.
 
 Add regression tests for both. Land on main2 directly.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-05T23:09:59Z
