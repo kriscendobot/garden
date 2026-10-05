@@ -3,3 +3,7 @@ gardener: 1
 worker_kind: monk
 claimed_at: 2026-10-05T14:11:29Z
 worktree_dir: /home/kris/garden2/scratch/gardener-wt-build-minion-town-claude-account-caddy-route
+pr_number: 159
+pr_repo: kriscendobot/minion.town
+pr_url: https://github.com/kriscendobot/minion.town/pull/159
+pr_head: claude-account-caddy-route
