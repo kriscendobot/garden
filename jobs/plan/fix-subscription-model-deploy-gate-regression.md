@@ -1,4 +1,25 @@
 ---
+gate: go-ahead
+priority: normal
+role: fixer
+tier: mentor
+token-budget: 100000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+split_eligible: true
+split_reason: repeated-plain-exit
+failure_classification: transient
+requeue_cycles: 2
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-05T09:13:05Z
+doomed_on: endolin-garden-ece02cb4
+posted_by: reaper:endolin-garden-ece02cb4
+posted_at: 2026-10-05T09:13:05Z
+---
+
+---
 role: fixer
 tier: mentor
 arc: unallocated
@@ -109,19 +130,3 @@ one, and which (if any) turn out to be unrelated — say so plainly either
 way, don't just assume. This unblocks deploys on EVERY host once it lands
 and rolls out — say that explicitly in your completion report so its
 priority is clear to whoever reads it next.
-
-<!-- garden-transient-elapsed: kind=exit0 through=0 values=59 -->
-
-<!-- garden-reaped: 1 -->
-<!-- garden-plain-retry-not-before: 2026-10-05T09:03:03Z -->
-
-<!-- garden-reap-now -->
----
-claim:
-  host: endolin-garden-ece02cb4
-  gardener: 2
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-05T09:03:12Z
