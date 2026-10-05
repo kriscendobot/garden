@@ -1,12 +1,12 @@
 # Garden bulletin
 
-_As of 2026-10-05T23:24:03Z_
+_As of 2026-10-05T23:27:21Z_
 
 ## Latest
 
-The board was quiet since the last bulletin: [kriscendobot/minion.town#163](https://github.com/kriscendobot/minion.town/pull/163) entered the clean/viability stages of its gauntlet with panel round 1 now claimed, and three jobs are in flight hardening the gauntlet/panel machinery itself — `fix-gauntlet-autostage-miss-and-pr-dedupe-20261005`, `improve-gauntlet-pr-dedup`, and `improve-draft-gauntlet-recovery`.
+Board activity since the last bulletin was light: the orchestrated `improve-draft-gauntlet-recovery` job landed (moved doin→tada), and three jobs remain in flight — a gauntlet panel round for [kriscendobot/minion.town#163](https://github.com/kriscendobot/minion.town/pull/163), plus `fix-gauntlet-autostage-miss-and-pr-dedupe-20261005` and `improve-gauntlet-pr-dedup`, both addressing the gauntlet-dedup/autostage class of bugs.
 
-The maintainer inbox is the larger story: oros-studio remains unreachable going on ~75 hours (heartbeat and sysop activity both stalled since 2026-10-02T05:08Z), and repeated watcher messages are asking for a hands-on check of the Mac's power/sleep state, Docker Desktop, and the VM. Separately, several gauntlets for minion.town PRs (shell-to-js parts 1–3, the Claude account HTML page, and the guest-scoped MCP build) hit their 6-round review budget and are parked CI-green for a human merge decision, while production `minion-mcp` crash-looped after [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) merged — a packaging/rollback gap (missing `vendor` in the deploy tar) now has a fix-forward job. The Claude CLI production-canary flow is stuck waiting on the maintainer to personally complete `claude setup-token` and an OAuth link at minion.town, with proxy correctly declining to act on credential-granting steps on the maintainer's behalf. On the design side, *Better Code and Gardens* shipped its illuminated edition with all 25 plates live, and a design job was posted to investigate clip multi-page/multi-asset support and image-generation infrastructure gaps.
+The maintainer inbox is the real story: Oros has now been unreachable for ~75 hours (heartbeat stale since 2026-10-02), with the health-watch recommending the schedule be paused until someone physically checks the Mac/Docker Desktop/VM. Several stale sysop ops remain unacknowledged there. Separately, the minion.town Claude-CLI production canary needs the maintainer's own hands — subscription connection and OAuth linking can't be delegated — and a production crash-loop from the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy (missing `vendor` dir in the deploy tar) has a fix-forward successor in progress. The illuminated edition of *Better Code and Gardens* shipped and is live, and the SturdyRef stack review (layers spanning [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392) through [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is ready for a merge decision pending stack-hygiene cleanup. A reaper also parked two indivisible jobs needing a human split: the subscription-budget-model deploy-gate regression fix and the gardener-clone-alias verification follow-up.
 
 ## Parked for maintainer feedback
 
@@ -713,8 +713,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 230.6M | $1530.09 _(notional, rate-card)_ | 90% of 256.0M (ok) |
-| Codex | 25.1M _(+374.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 230.7M | $1530.39 _(notional, rate-card)_ | 90% of 256.0M (ok) |
+| Codex | 25.1M _(+375.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -725,19 +725,18 @@ worst fetch p95 5.333267s/45s (/home/kris/garden/.garden-state/mirror-closer/jou
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`kriscendobot-minion.town-pr163-gauntlet-20261005-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr163-gauntlet-20261005-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #163
 - [`fix-gauntlet-autostage-miss-and-pr-dedupe-20261005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-gauntlet-autostage-miss-and-pr-dedupe-20261005.md) — ---
 - [`improve-gauntlet-pr-dedup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gauntlet-pr-dedup.md) — ---
-- [`improve-draft-gauntlet-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-draft-gauntlet-recovery.md) — ---
 
-### tada (11113)
+### tada (11114)
+- [`improve-draft-gauntlet-recovery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-draft-gauntlet-recovery.md) — Cost
 - [`oros-health-watch-20261005-232008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/oros-health-watch-20261005-232008.md) — Cost
 - [`kriscendobot-minion.town-pr163-gauntlet-20261005-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr163-gauntlet-20261005-clean.md) — Cost
 - [`kriscendobot-minion.town-pr163-gauntlet-20261005-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/kriscendobot-minion.town-pr163-gauntlet-20261005-viability.md) — Cost
 - [`claude-on-minion-town-completion-press-20261005-230508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/claude-on-minion-town-completion-press-20261005-230508.md) — Cost
-- [`claude-on-minion-town-press-20261005-225009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/claude-on-minion-town-press-20261005-225009.md) — Press report: Claude on minion.town (kriscendobot/garden#89), 2026-10-05 22:5xZ
-- … and 11108 more
+- … and 11109 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
