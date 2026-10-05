@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T17:58:09Z_
+_As of 2026-10-05T18:06:33Z_
 
 ## Latest
 
-The board itself barely moved — the only board transition was one gauntlet panel stage for [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150)'s successor work completing — but the inbox accumulated a heavy backlog of unread signals worth the maintainer's attention. Oros (`oros-studio-garden-ce242c49`) has now been unreachable for roughly 76 hours with no change: heartbeat and sysop activity stale since 2026-10-02, derotated, and accumulating unacked recovery ops; the watcher is now asking to pause itself until someone checks the Mac's power/sleep state, Docker Desktop, and the VM. Several gauntlets hit their review-budget ceiling without converging and are left for human merge decisions: [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148), [kriscendobot/minion.town#157](https://github.com/kriscendobot/minion.town/pull/157), and the three minion-town-shell-to-js parts. Separately, a reaper-exhausted job flagged a fleet-wide deploy-gate regression traced to a stale test fixture in `subscription-based-budget-model`'s refusal gate (`provider-cooldown-test.sh`), still parked awaiting a human promote. The minion-town Claude-CLI production canary needs the maintainer's own hands: three separate OAuth/subscription-token steps are stuck awaiting personal credentials, and one MCP authorization request was flagged as a plausible phishing/social-engineering attempt worth scrutiny. On a lighter note, the illuminated edition of *Better Code and Gardens* shipped and is live, with all 25 plates integrated and verified. Also open: a maintainer decision on merging vs. closing the now-documentation-only [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407), and a detailed panel readout on the four-layer SturdyRef stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) recommending near-term merges once stack hygiene is resolved.
+Board activity since the last bulletin was minimal: a gauntlet fix round landed for [kriscendobot/minion.town#160](https://github.com/kriscendobot/minion.town/pull/160) (claude guest-scoped MCP build, fix round 2), and a rolling-deploy canary probe on endolin-garden2-5bcdff64 came back round-trip OK. The maintainer inbox is the real story tonight: oros-studio remains unreachable going on ~75 hours (heartbeat stale since 2026-10-02T05:08Z), still derotated with a stack of unacknowledged recovery ops — someone needs to physically check the Mac's power/sleep state, Docker Desktop, and the VM. Several gauntlets hit their 6-round review budget without converging and are parked for a human merge call, including [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148) and the three minion-town shell-to-js parts. The minion.town Claude-CLI production canary is still waiting on the maintainer to personally complete `claude setup-token` and OAuth account-linking — several proxy messages flagged follow-on asks (an MCP GitHub-login grant) as authority actions outside its scope, one explicitly flagged as a possible phishing/social-engineering pattern worth a careful look. Separately, a reaper parked three fixer jobs (subscription-model deploy-gate regression, receipt-watcher quota cooldown, gardener-clone-alias verification) after their sole retries also failed non-productively — all held in the plan queue pending promotion. On the editorial side, the illuminated edition of *Better Code and Gardens* shipped and is live, and a SturdyRef stack review ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) came back with a clear merge order and only minor follow-ups, none blocking.
 
 ## Parked for maintainer feedback
 
@@ -409,8 +409,8 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-05T17:14:35Z).
-> It was observed 42 time(s) while open. Nothing further is required;
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-05T18:04:26Z).
+> It was observed 43 time(s) while open. Nothing further is required;
 > this notice closes the loop so the end of the condition is on the record.
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden2-5bcdff64.
@@ -552,9 +552,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
-> WATCHDOG notice — occurrence #60 (first seen 2026-10-04T04:50:33Z, latest 2026-10-05T17:14:29Z).
-> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 60 times; this is ONE
-> coalesced notice that updates in place, not 60 messages. Latest detail:
+> WATCHDOG notice — occurrence #61 (first seen 2026-10-04T04:50:33Z, latest 2026-10-05T18:04:20Z).
+> The SAME condition (`journal-contention-storm-clone-oversized`) has now been observed 61 times; this is ONE
+> coalesced notice that updates in place, not 61 messages. Latest detail:
 >
 > Journal contention storm on endolin-garden2-5bcdff64: 7 clones hit clone-oversized in one tick (storm guard > 5; one shared cause is likelier than 7 independent faults):
 > - Journal clone guard on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: awaiting a healthy post-rebuild fetch; size=47377408B packs=1 gc.log=0; automatic remedy=none.
@@ -687,8 +687,8 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 214.0M | $1422.92 _(notional, rate-card)_ | 84% of 256.0M (ok) |
-| Codex | 19.0M _(+310.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 214.3M | $1424.21 _(notional, rate-card)_ | 84% of 256.0M (ok) |
+| Codex | 19.2M _(+310.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -699,16 +699,17 @@ worst fetch p95 7.963158s/45s (/home/kris/garden/.garden-state/worktree-sweeper/
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-guest-scoped-mcp-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #160
 - [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1391
 
-### tada (11069)
+### tada (11070)
+- [`canary-probe-endolin-garden2-5bcdff64-c051d90c70b1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/canary-probe-endolin-garden2-5bcdff64-c051d90c70b1.md) — rolling-deploy canary probe — round trip OK
 - [`build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/build-minion-town-claude-guest-scoped-mcp-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1349-gauntlet-20260930.md) — gauntlet endojs-endo-but-for-bots-pr1349-gauntlet-20260930 — complete
 - [`improve-auto-gauntlet-producer-classification`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/improve-auto-gauntlet-producer-classification.md) — Cost
 - [`endojs-endo-but-for-bots-pr1349-gauntlet-20260930-undraft`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1349-gauntlet-20260930-undraft.md) — Cost
-- [`endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/endojs-endo-but-for-bots-pr1391-gauntlet-20261005-panel-6.md) — Cost
-- … and 11064 more
+- … and 11065 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
