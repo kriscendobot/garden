@@ -1,10 +1,10 @@
 # Garden bulletin
 
-_As of 2026-10-05T07:09:10Z_
+_As of 2026-10-05T07:15:25Z_
 
 ## Latest
 
-Board activity since the last bulletin was minimal — a single new daily-progress-summary job claimed into `doin`, no new completions logged — so most of what's notable comes from the maintainer inbox. The oros-studio host has now been unreachable for roughly 50 hours (since 2026-10-02T05:08Z), derotated and heartbeat-offline, with 13+ queued health-checkup jobs and multiple unacked sysop ops piling up; it needs a human at the machine to check power/sleep, Docker Desktop, and the VM. On minion.town, the production Claude CLI canary work hit a real snag: the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150) deploy crash-looped (missing `vendor/endo-claude` in the deploy tarball, rollback left `ENDO_CLAUDE_ENABLED=1` set), and a fix-forward job has been posted to recover availability, fix packaging/rollback, and verify deployment before re-attempting the canary — separately, several messages are waiting on the maintainer to personally complete `claude setup-token` and OAuth account-linking on minion.town, which no gardener or proxy can do on their behalf. The `design-clip-multiasset-and-art-infra-20261005` design job landed (findings: no real platform gap blocking multi-page clips; the garden has no actual image-generation capability, only hand-authored SVG; OpenAI image-gen cost under the existing Codex login is unconfirmed) and will come back as a PR with open questions since it carries real cost/scope decisions. The SturdyRef PR stack ([endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [#1396](https://github.com/endojs/endo-but-for-bots/pull/1396), [#1397](https://github.com/endojs/endo-but-for-bots/pull/1397)) is CI-green and panel-reviewed with a clear merge order (#1392 first, then #1393 after a retcon, then #1396/#1397), but needs a maintainer merge decision since none converged the review loop automatically. Several other gauntlets ([minion-town-shell-to-js](https://github.com/kriscendobot/minion.town) parts 1–3, [build-minion-town-claude-account-html-page](https://github.com/kriscendobot/minion.town)) hit their 6-round review budget without full convergence and are left improved but awaiting human merge review; also *Better Code and Gardens* shipped a fully illustrated edition (25 plates) with no outstanding issues to flag.
+Quiet tick: the only board transition since the last bulletin was the daily-progress-summary job bouncing from `doin` back to `todo`, no completions landed. The maintainer queue is still dominated by the oros-studio outage — heartbeat, sysop, and fleet-health have all been stale since 2026-10-02, with 13+ unclaimed checkups and a growing pile of unacked recovery ops, so a hands-on check of that Mac (power/sleep, Docker Desktop, VM) remains the top physical-world item. Several PR heads have drifted past their last panel review and need a fresh look or an explicit maintainer call before any gauntlet resumes: [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/pull/150), [kriscendobot/minion.town#148](https://github.com/kriscendobot/minion.town/pull/148), [kriscendobot/minion.town#157](https://github.com/kriscendobot/minion.town/pull/157), and [endojs/endo-but-for-bots#1407](https://github.com/endojs/endo-but-for-bots/pull/1407). The minion.town Claude-CLI production canary is stuck waiting on the maintainer to personally run `claude setup-token` and complete GitHub-federated sign-in at minion.town/account/claude — no agent can do this step, and one of the relay links has already expired. Separately, the SturdyRef PR stack (layers 3/4/6/7, #1392/#1393/#1396/#1397) is ready for a merge decision with detailed panel notes already in hand, and a new design job (`design-clip-multiasset-and-art-infra-20261005`) is in flight to resolve the clip multi-asset and art-generation-infrastructure questions, landing as a PR per the open-questions carve-out since it raises real unresolved choices.
 
 ## Parked for maintainer feedback
 
@@ -452,7 +452,7 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 180.7M | $1220.17 _(notional, rate-card)_ | 71% of 256.0M (ok) |
+| Claude | 180.8M | $1220.75 _(notional, rate-card)_ | 71% of 256.0M (ok) |
 | Codex | 9.6M _(+240.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -461,7 +461,7 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 3.525174s/45s (/home/kris/garden/.garden-state/dependabotany-preflight/journal); 2 open notice(s); checker healthy
 
 ## Board
-### todo (21)
+### todo (22)
 - [`oros-health-checkup-20261004-015005`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-015005.md) — ---
 - [`oros-health-checkup-20261005-053523`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261005-053523.md) — ---
 - [`oros-health-checkup-20261002-045016`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-045016.md) — ---
@@ -473,6 +473,7 @@ worst fetch p95 3.525174s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`oros-health-checkup-20261003-070602`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-070602.md) — ---
 - [`oros-health-checkup-20261003-163507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-163507.md) — ---
 - [`oros-health-checkup-20261004-045008`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-045008.md) — ---
+- [`daily-progress-summary-20261005-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/daily-progress-summary-20261005-070506.md) — Daily midnight Pacific progress summary
 - [`oros-health-checkup-20261002-080511`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261002-080511.md) — ---
 - [`oros-health-checkup-20261003-193507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-193507.md) — ---
 - [`oros-health-checkup-20261004-110510`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261004-110510.md) — ---
@@ -484,8 +485,8 @@ worst fetch p95 3.525174s/45s (/home/kris/garden/.garden-state/dependabotany-pre
 - [`oros-health-checkup-20261003-040508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-040508.md) — ---
 - [`oros-health-checkup-20261003-102007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-checkup-20261003-102007.md) — ---
 
-### doin (1)
-- [`daily-progress-summary-20261005-070506`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/daily-progress-summary-20261005-070506.md) — Daily midnight Pacific progress summary
+### doin (0)
+(none)
 
 ### tada (10988)
 - [`fix-endo-pr1407-single-socket-guest-lookup`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/05/fix-endo-pr1407-single-socket-guest-lookup.md) — Panel-head freshness
