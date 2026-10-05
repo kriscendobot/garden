@@ -1,2 +1,2 @@
-base: improve-ci-watcher-quota-collateral
+base: improve-ci-rollup-quota-budget
 identity: mentor:scripts/jobs/ci-watcher.sh
