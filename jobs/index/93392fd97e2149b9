@@ -1,2 +1,2 @@
-base: improve-deploy-candidate-gate-timeouts
+base: improve-transient-deploy-fetch
 identity: mentor:scripts/jobs/deploy-garden.sh
