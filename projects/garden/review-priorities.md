@@ -40,6 +40,7 @@ Nothing is waiting on your review.
 
 | PR | Verdict |
 |---|---|
+| L2 #1391, ses SturdyRef shim | gauntlet 2026-10-05 used all six panel/fix rounds without converging; CI green, head `19e56526f`, still draft. Ready for your manual review. |
 | L3 #1392, pass-style | merge as is once L1 and L2 land |
 | L4 #1393, marshal | merge after a retcon that regroups about 26 rework commits, plus a weave onto the landed L3 |
 | L6 #1396, captp construct | merge as is after L5 |
