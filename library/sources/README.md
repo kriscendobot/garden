@@ -1178,3 +1178,4 @@ because the specs are repository READMEs.
 | Source | URL | Sections | Status |
 |--------|-----|----------|--------|
 | [David Bushell — "Fine, I'll build my own text editor!"](web--dbushell-text-editor.md) | https://dbushell.com/2026/09/01/text-editor/ | 5 | current (blog post, 2026-09-01; retrieved 2026-09-30, content SHA-256 `3ab555a0`; hands-on comparison of `<canvas>` / `contenteditable="plaintext-only"` / `<textarea>` editor substrates against Monaco, plus highlighting and UTF-16 pitfalls) |
+| [Secret Seal: leak-resistant browser requests](web--secret-seal.md) | https://jasvir.github.io/secretseal/ | 4 | current (Jasvir Nagra, 2026-09-01; retrieved 2026-10-06, content SHA-256 `def69ed7510d`; HTTP request-carrier leakage, fragment and Performance Timeline exposure, opaque-handle redemption, safe request representations, and leak-canary testing) |
