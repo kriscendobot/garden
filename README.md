@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T09:10:17Z_
+_As of 2026-10-06T09:16:28Z_
 
 ## Latest
 
@@ -483,9 +483,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden2-5bcdff64.
 
-- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1379-shepherd` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1379-shepherd.md)
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1379-shepherd` — from watchdog:cleric/2, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1379-shepherd.md)
 
-> gardener job 'endojs-endo-but-for-bots-pr1379-shepherd' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7215s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-06T07:06:47Z, latest 2026-10-06T09:14:48Z).
+> The SAME condition (`handler-budget-overrun-endojs-endo-but-for-bots-pr1379-shepherd`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> gardener job 'endojs-endo-but-for-bots-pr1379-shepherd' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7210s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr251-8626e5d78319` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr251-8626e5d78319.md)
 
@@ -1450,7 +1454,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.3M | $1795.26 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
+| Claude | 152.3M | $1795.64 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
 | Codex | 7.1M _(+192.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
