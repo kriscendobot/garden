@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T19:39:30Z_
+_As of 2026-10-06T19:42:50Z_
 
 ## Latest
 
@@ -973,6 +973,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/825](https://github.com/endojs/endo-but-for-bots/pull/825) ([endojs/endo-but-for-bots#825](https://github.com/endojs/endo-but-for-bots/issues/825)) is in the mergeable queue with NO gauntlet review staged (head 686d8b98f84316ebc991d9dbc11f548f46bc789f). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #825'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `watchdog-handler-budget-overrun-retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006` — from watchdog:monk/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006.md)
+
+> gardener job 'retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7877s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted` — from gauntlet:endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002 HALTED: stage 'endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -1590,7 +1594,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 160.2M | $1906.53 _(notional, rate-card)_ | 100% of 160.0M (backoff) |
+| Claude | 160.2M | $1907.31 _(notional, rate-card)_ | 100% of 160.0M (backoff) |
 | Codex | 8.6M _(+230.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1602,7 +1606,8 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (1)
 - [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-185007.md) — ---
 
-### doin (2)
+### doin (3)
+- [`kriscendobot-minion.town-pr165-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #165
 - [`build-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-standing-token-backoff-ramp.md) — Build the accepted standing token-backoff ramp and prepare its deployment
 - [`retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006.md) — ---
 
