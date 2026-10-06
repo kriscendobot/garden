@@ -40,9 +40,7 @@ git -C "$TR/seed" push -q origin HEAD:journal2
 : > "$TR/gh-calls.log"
 report='Ready PR: https://github.com/endojs/endo-but-for-bots/pull/201
 
-## Follow-ups
-
-Run the manual gauntlet if review is wanted.'
+Implementation complete.'
 
 env GARDEN=draft-terminal-test GARDEN_STATE="$TR/state" \
   JOURNAL_REMOTE="$TR/journal.git" JOURNAL_BRANCH=journal2 \
@@ -62,7 +60,7 @@ tada="$(find "$TR/verify/jobs/tada" -type f -name readyjob.md -print -quit)"
 [ ! -e "$TR/verify/jobs/todo/readyjob.md" ] || fail 'guarded completed job was requeued'
 [ "$(wc -l < "$TR/handler-calls.log")" -eq 1 ] || fail 'handler ran more than once'
 
-msg="$TR/verify/inbox/maintainer/unread/manual-gauntlet-handoff-readyjob-endojs-endo-but-for-bots-pr201.md"
+msg="$TR/verify/inbox/maintainer/unread/manual-gauntlet-handoff-endojs-endo-but-for-bots-pr201.md"
 [ -f "$msg" ] || fail 'durable manual-gauntlet maintainer action was not recorded'
 grep -q 'reply_to: readyjob' "$msg" || fail 'maintainer action is not attributed to the completed job'
 grep -q 'did not re-draft the PR and did not stage a gauntlet' "$msg" \
@@ -75,16 +73,30 @@ grep -q 'terminalized it' "$TR/gardener.log" || fail 'terminalization was not lo
 ! grep -qE 'pr (ready|merge|edit|close|reopen)' "$TR/gh-calls.log" \
   || fail 'draft guardrail mutated the PR'
 
-# A second worker pass sees an empty board: no repeated handler and no repeated
-# maintainer action. This is the regression boundary for the former reaper loop.
+# A second producer job naming the same PR still runs and terminalizes, but its
+# maintainer action deduplicates on PR identity rather than the producer basename.
+printf -- '---\nrole: builder\n---\nMention the same completed feature.\n' \
+  > "$TR/verify/jobs/todo/readyjob-two.md"
+git -C "$TR/verify" add jobs/todo/readyjob-two.md
+git -C "$TR/verify" -c user.name=test -c user.email=test@example.invalid \
+  commit -q -m 'post second producer'
+git -C "$TR/verify" push -q origin HEAD:journal2
 env GARDEN=draft-terminal-test GARDEN_STATE="$TR/state2" \
   JOURNAL_REMOTE="$TR/journal.git" JOURNAL_BRANCH=journal2 \
   GARDEN_ONESHOT=1 GARDEN_IDLE_SLEEP=1 GARDEN_BOT_LOGIN=kriscendobot \
+  GARDEN_PRODUCER_CLONE="$TR/state2/producer/journal" \
+  GARDEN_GH="$HERE/assert-producer-pr-draft-gh-stub.sh" \
+  GARDEN_GH_CALL_LOG="$TR/gh-calls.log" \
+  GARDEN_STUB_RC=0 GARDEN_STUB_SIGNAL=1 GARDEN_STUB_REPORT="$report" \
   GARDEN_STUB_CALL_LOG="$TR/handler-calls.log" \
   GARDEN_JOB_HANDLER="$HERE/completion-signal-handler-stub.sh" \
   "$JOBS/gardener.sh" 2 > "$TR/gardener-second.log" 2>&1 || true
-[ "$(wc -l < "$TR/handler-calls.log")" -eq 1 ] || fail 'terminal job ran the handler again'
+[ "$(wc -l < "$TR/handler-calls.log")" -eq 2 ] || fail 'second producer job did not run exactly once'
+rm -rf "$TR/verify"
+git clone -q --single-branch --branch journal2 "$TR/journal.git" "$TR/verify"
+[ -n "$(find "$TR/verify/jobs/tada" -type f -name readyjob-two.md -print -quit)" ] \
+  || fail 'second producer job did not terminalize in tada'
 [ "$(find "$TR/verify/inbox/maintainer/unread" -name 'manual-gauntlet-handoff-*.md' | wc -l)" -eq 1 ] \
-  || fail 'manual-gauntlet action was duplicated'
+  || fail 'two jobs naming one PR created more than one manual-gauntlet action'
 
-echo 'PASS: conclusive draft guardrail hits terminalize completed jobs with one durable manual-gauntlet action, no PR mutation, and no repeated handler run'
+echo 'PASS: conclusive draft guardrail hits terminalize completed jobs with one durable per-PR manual-gauntlet action, no PR mutation, and no repeated handler run'

@@ -849,9 +849,10 @@ while :; do
     set -e
     if [ "$sensor_rc" -eq 1 ]; then
       # The sensor is report-only, so this is the same first PR reference it
-      # positively classified above. Use a per-job+PR stable message id: if the
-      # completion CAS loses a race or goes offline after this send, a resumed
-      # cycle cannot create a second maintainer action.
+      # positively classified above. Use a per-PR stable message id: every
+      # completing job that mentions the same uncovered PR represents the same
+      # maintainer action, so neither a resumed cycle nor a different producer
+      # job may create another notice.
       draft_gate_pr="$(extract_pr_refs_from_text "$report" | head -1 || true)"
       draft_gate_ref="$(parse_pr_ref "$draft_gate_pr" 2>/dev/null || true)"
       draft_gate_repo="$(printf '%s' "$draft_gate_ref" | cut -f1)"
@@ -865,7 +866,7 @@ while :; do
       } > "$draft_gate_notice"
       set +e
       GARDEN_MSG_COALESCE=0 \
-        GARDEN_MSG_ID="manual-gauntlet-handoff-${base}-${draft_gate_slug}-pr${draft_gate_number}" \
+        GARDEN_MSG_ID="manual-gauntlet-handoff-${draft_gate_slug}-pr${draft_gate_number}" \
         GARDEN_SENDER="gardener:$base" \
         "$HERE/message-user.sh" "$base" "$draft_gate_notice" >>"$capture" 2>&1
       draft_gate_notice_rc=$?

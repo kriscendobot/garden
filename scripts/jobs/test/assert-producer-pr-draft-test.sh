@@ -9,7 +9,7 @@
 # Under test (all deterministic, NO LLM):
 #   * A DRAFT producer PR passes this independent sensor without GitHub mutation.
 #   * A NON-DRAFT PR with no gauntlet is BLOCKED (rc 1), still with no mutation.
-#   * A NON-DRAFT PR already covered by a gauntlet record passes (rc 0).
+#   * NON-DRAFT PRs covered by live, archived, or completed gauntlet history pass.
 #   * A probe, a non-bot-authored PR, and an open-questions carve-out all pass.
 #   * A PR named only in the JOB FILE (not the report) is a citation → pass.
 #   * Review/attention feedback reports may re-name their existing input PR without
@@ -24,11 +24,12 @@ JOBS="$(cd "$HERE/.." && pwd)"
 TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-producer-draft-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
 
-# --- seed a bare journal with ONE pre-existing gauntlet record (covers #202) --------
+# --- seed a bare journal with live, archived, and completed gauntlet history ---------
 git init -q --bare "$TR/journal.git"
 git init -q "$TR/seed"
 git -C "$TR/seed" checkout -q -b journal2
-mkdir -p "$TR/seed/jobs/"{todo,doin,tada,index,gauntlet} "$TR/seed/work"
+mkdir -p "$TR/seed/jobs/"{todo,doin,tada,index,gauntlet,gauntlet-archived} \
+  "$TR/seed/jobs/tada/2026/10/05" "$TR/seed/work"
 mkdir -p "$TR/seed/maintainers"
 touch "$TR/seed/jobs/todo/.gitkeep" "$TR/seed/jobs/doin/.gitkeep" \
   "$TR/seed/jobs/tada/.gitkeep" "$TR/seed/jobs/index/.gitkeep" \
@@ -36,6 +37,10 @@ touch "$TR/seed/jobs/todo/.gitkeep" "$TR/seed/jobs/doin/.gitkeep" \
 printf 'kriskowal\n' >"$TR/seed/maintainers/allowlist"
 printf 'repo: endojs/endo-but-for-bots\npr_number: 202\nkind: feature\n' \
   >"$TR/seed/jobs/gauntlet/endojs-endo-but-for-bots-pr202-gauntlet.md"
+printf 'repo: endojs/endo-but-for-bots\npr_number: 206\nkind: feature\n' \
+  >"$TR/seed/jobs/gauntlet-archived/build-archived-gauntlet.md"
+printf 'gauntlet-status: complete\nrepo: endojs/endo-but-for-bots\npr_number: 218\n' \
+  >"$TR/seed/jobs/tada/2026/10/05/build-completed-gauntlet.md"
 git -C "$TR/seed" add -A
 git -C "$TR/seed" -c user.name=test -c user.email=test@example.invalid commit -q -m seed
 git -C "$TR/seed" remote add origin "$TR/journal.git"
@@ -88,6 +93,12 @@ assert_no_mutation
 echo '== (c) a NON-DRAFT PR already covered by a gauntlet passes (rc 0) =='
 run_gate "$jobf" "Ready PR: https://github.com/$repo/pull/202"
 [ "$RC" -eq 0 ] || fail "non-draft covered PR #202 should pass (rc=$RC): $(cat "$TR/gate.out")"
+
+echo '== (c2) archived and completed gauntlet history also cover a NON-DRAFT PR =='
+run_gate "$jobf" "Ready PR: https://github.com/$repo/pull/206"
+[ "$RC" -eq 0 ] || fail "archived gauntlet for PR #206 should pass (rc=$RC): $(cat "$TR/gate.out")"
+run_gate "$jobf" "Ready PR: https://github.com/$repo/pull/218"
+[ "$RC" -eq 0 ] || fail "completed gauntlet for PR #218 should pass (rc=$RC): $(cat "$TR/gate.out")"
 
 echo '== (d) a NON-DRAFT probe passes (rc 0) =='
 run_gate "$probe_jobf" "Probe PR: https://github.com/$repo/pull/203"
@@ -170,4 +181,4 @@ run_gate "$TR/forged-undraft-job.md" 'Un-drafted https://github.com/kriscendobot
   undraft-minion-town-99-harness-provisioning-20260916
 [ "$RC" -eq 1 ] || fail "non-allowlisted undraft attestation must not bypass the ready-PR gate (rc=$RC): $(cat "$TR/gate.out")"
 
-echo 'PASS: the draft guardrail passes draft/covered/probe/non-bot/carve-out/citation/inconclusive, existing-PR feedback, and maintainer-attested undraft completions; blocks ordinary/forged uncovered ready-PR producers; and never mutates PR state or stages a record'
+echo 'PASS: the draft guardrail passes draft/live-archived-completed-gauntlet/probe/non-bot/carve-out/citation/inconclusive, existing-PR feedback, and maintainer-attested undraft completions; blocks ordinary/forged uncovered ready-PR producers; and never mutates PR state or stages a record'

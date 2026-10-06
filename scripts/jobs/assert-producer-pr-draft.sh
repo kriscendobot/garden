@@ -185,9 +185,9 @@ if ! ensure_clone "$DIR" 2>/dev/null; then
 fi
 sync_clone "$DIR" >/dev/null 2>&1 || true
 
-if gauntlet_record_for_pr "$DIR" "$repo" "$pr_number" >/dev/null \
+if gauntlet_history_for_pr "$DIR" "$repo" "$pr_number" >/dev/null \
    || [ -e "$DIR/$JOBS_GAUNTLET/${slug}-pr${pr_number}-gauntlet.md" ] \
-   || [ -e "$DIR/$JOBS_TADA/${slug}-pr${pr_number}-gauntlet.md" ]; then
+   || tada_exists "$DIR" "${slug}-pr${pr_number}-gauntlet"; then
   exit 0
 fi
 

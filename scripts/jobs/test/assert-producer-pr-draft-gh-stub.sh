@@ -18,6 +18,8 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = view ]; then
     */pull/201) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"feat: y","body":"b",%s}\n' "$url" "$bot" ;;
     # NON-DRAFT, covered by a seeded gauntlet record → pass.
     */pull/202) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"feat: z","body":"b",%s}\n' "$url" "$bot" ;;
+    # NON-DRAFT, covered by archived/completed gauntlet history → pass.
+    */pull/206|*/pull/218) printf '{"url":"%s","isDraft":false,"state":"OPEN","title":"feat: previously reviewed","body":"b",%s}\n' "$url" "$bot" ;;
     # NON-DRAFT probe → pass (exempt).
     */pull/203) printf '{"url":"%s","isDraft":true,"state":"OPEN","title":"probe (gap-revealing prototype)","body":"gap",%s,"files":[{"path":"src/probe.js"}]}\n' "$url" "$bot" ;;
     # NON-DRAFT authored by someone else → pass (citation of another author's PR).
