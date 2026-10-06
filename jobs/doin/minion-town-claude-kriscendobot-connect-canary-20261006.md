@@ -28,3 +28,13 @@ maintainer's own sign-in. #164 is merged and verified live (job `minion-town-ver
    ANTHROPIC_AUTH_TOKEN in its spawn env; disconnect then infer fails cleanly). Do its authorized
    closeout, then retire that parked job with `scripts/jobs/withdraw-plan.sh` so it does not double-run.
 4. Report the evidence on garden#89 (one concise comment) and in your completion report.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-06T03:41:33Z
