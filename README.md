@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T04:16:37Z_
+_As of 2026-10-06T04:22:05Z_
 
 ## Latest
 
@@ -1090,8 +1090,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.7M | $1729.77 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
-| Codex | 5.9M _(+176.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 145.6M | $1729.62 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
+| Codex | 6.0M _(+177.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -1099,23 +1099,22 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 45.001597s/45s (/home/kris/garden2/.garden-state/comment-watcher/verify); 12 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1428-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1428
-- [`claude-on-minion-town-press-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261002-112006.md) — Press the Claude-on-minion.town arc forward
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1426
-- [`minion-town-claude-kriscendobot-connect-canary-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-claude-kriscendobot-connect-canary-20261006.md) — Connect kriscendobot's own Claude subscription on minion.town, then run the p...
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-minion-town-verify-lock-busy-fatal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-comment-watcher-kriscendobot-minion-town-verify-lock-busy-fatal.md) — ---
 - [`fix-gate-test-live-cooldown-leak-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-gate-test-live-cooldown-leak-20261006.md) — ---
+- [`claude-on-minion-town-press-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261002-112006.md) — Press the Claude-on-minion.town arc forward
 
-### tada (11170)
+### tada (11171)
+- [`minion-town-claude-kriscendobot-connect-canary-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/minion-town-claude-kriscendobot-connect-canary-20261006.md) — Cost
 - [`improve-comment-source-timeout-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-comment-source-timeout-backoff.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-1574472ecab2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-1574472ecab2.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-fix-2.md) — Cost
-- [`endojs-endo-but-for-bots-pr1428-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-viability.md) — Cost
-- … and 11165 more
+- … and 11166 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
