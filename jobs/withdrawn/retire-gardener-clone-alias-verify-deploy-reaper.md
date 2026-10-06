@@ -1,4 +1,12 @@
 ---
+withdrawn: true
+withdrawn_reason: superseded by retry job retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006, which reran the suites (parked entry was doomed after two transient timeouts)
+withdrawn_by: producer
+withdrawn_at: 2026-10-06T18:28:53Z
+withdrawn_from_gate: go-ahead
+---
+
+---
 gate: go-ahead
 priority: normal
 tier: mentor
