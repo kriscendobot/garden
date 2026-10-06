@@ -48,3 +48,13 @@ current state and why you scoped the stub the way you did.
 
 <!-- garden-reaped: 1 -->
 <!-- garden-plain-retry-not-before: 2026-10-06T19:23:15Z -->
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 4
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-06T19:23:41Z
