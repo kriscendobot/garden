@@ -1,9 +1,0 @@
-host: endolin-garden-ece02cb4
-gardener: 1
-worker_kind: monk
-claimed_at: 2026-10-06T01:06:01Z
-worktree_dir: /home/kris/garden/scratch/gardener-wt-fix-ebfb-master-zizmor-paths-filter-pin-20261006
-pr_number: 1427
-pr_repo: endojs/endo-but-for-bots
-pr_url: https://github.com/endojs/endo-but-for-bots/pull/1427
-pr_head: fix/zizmor-paths-filter-pin-comment
