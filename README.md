@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T11:20:03Z_
+_As of 2026-10-06T11:23:28Z_
 
 ## Latest
 
@@ -1479,7 +1479,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 152.3M | $1799.40 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
-| Codex | 7.2M _(+192.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 7.3M _(+193.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -1490,8 +1490,8 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-mirror-quota-warning-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-mirror-quota-warning-suppression.md) — ---
 
 ### tada (11219)
 - [`claude-on-minion-town-completion-press-20261006-110513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-completion-press-20261006-110513.md) — Cost
