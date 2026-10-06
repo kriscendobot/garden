@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T17:12:25Z_
+_As of 2026-10-06T17:22:22Z_
 
 ## Latest
 
@@ -1546,7 +1546,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 157.7M | $1869.46 _(notional, rate-card)_ | 99% of 160.0M (ok) |
+| Claude | 157.7M | $1870.72 _(notional, rate-card)_ | 99% of 160.0M (ok) |
 | Codex | 8.0M _(+211.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1555,7 +1555,8 @@ _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-moddable); 9 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`claude-on-minion-town-completion-press-20261006-172007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261006-172007.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006.md) — ---
 
 ### doin (2)
