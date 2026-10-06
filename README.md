@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T15:11:29Z_
+_As of 2026-10-06T15:15:55Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ These items still need you:
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 13m)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 18m)
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 17h)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
@@ -1538,8 +1538,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 153.3M | $1820.55 _(notional, rate-card)_ | 96% of 160.0M (ok) |
-| Codex | 7.8M _(+201.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 153.3M | $1820.67 _(notional, rate-card)_ | 96% of 160.0M (ok) |
+| Codex | 7.8M _(+202.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1550,19 +1550,18 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (0)
 (none)
 
-### doin (4)
-- [`kriscendobot-minion-town-pr163-conduct-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr163-conduct-20261006.md) — Finalize kriscendobot/minion.town PR 163
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1370-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1370-gauntlet.md) — ---
 - [`minion-town-verify-caddy-gate-token-deploy-be0edb8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-verify-caddy-gate-token-deploy-be0edb8.md) — ---
 - [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1370
 
-### tada (11236)
+### tada (11237)
+- [`kriscendobot-minion-town-pr163-conduct-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion-town-pr163-conduct-20261006.md) — Conductor report: kriscendobot/minion.town#163 is merged and deployed
 - [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-clean.md) — Cost
 - [`kriscendobot-minion.town-pr163-review-b54cabfc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr163-review-b54cabfc.md) — Panel-head freshness
 - [`design-foreman-discretion-pool`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/design-foreman-discretion-pool.md) — Cost
 - [`endojs-endo-but-for-bots-pr1282-weave-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1282-weave-20261006.md) — Cost
-- [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-viability.md) — Cost
-- … and 11231 more
+- … and 11232 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
