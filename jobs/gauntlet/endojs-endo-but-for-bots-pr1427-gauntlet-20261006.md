@@ -5,14 +5,14 @@ repo: endojs/endo-but-for-bots
 pr_number: 1427
 build_job: 
 kind: feature
-stage: panel
+stage: undraft
 iteration: 1
 max_iterations: 6
 resumes: 0
 max_resumes: 6
 stage_retries: 0
 max_stage_retries: 2
-current_child: endojs-endo-but-for-bots-pr1427-gauntlet-20261006-panel-1
+current_child: endojs-endo-but-for-bots-pr1427-gauntlet-20261006-undraft
 state: running
 created_by: fixer
 created_at: 2026-10-06T01:08:34Z
