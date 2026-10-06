@@ -2331,9 +2331,11 @@ worker_credential_fingerprint() {
 # until that fingerprint CHANGES (a human re-running `claude /login` / `codex
 # login` rewrites the file). Before a Claude episode recovers, the gate also runs
 # a bounded `claude auth status` check: a rewritten credential can still carry a
-# rejected refresh token, and must not produce a false recovery/un-park. mkdir is
-# the atomic edge exactly as in the gate: the first failed handler latches and
-# raises the ONE maintainer notice, repeats are silent.
+# rejected refresh token, and must not produce a false recovery/un-park. Recovery
+# requires two consecutive successful probes against the same fingerprint; the
+# first success is recorded in the episode marker and the second confirms it.
+# mkdir is the atomic edge exactly as in the gate: the first failed handler
+# latches and raises the ONE maintainer notice, repeats are silent.
 worker_auth_failure_latch() {
   local kind="${1:?worker_auth_failure_latch: kind required}" id="${2:-0}" excerpt="${3:-}" marker fp name cure
   marker="$(worker_health_marker "$kind")"
@@ -2372,6 +2374,40 @@ worker_auth_recovery_probe() {
   printf '%s\n' "$status" | grep -Eq '"loggedIn"[[:space:]]*:[[:space:]]*true([[:space:],}]|$)'
 }
 
+# worker_auth_recovery_confirm <kind> <cli> <marker> <fingerprint> — require a
+# changed Claude credential to pass auth status twice, on consecutive gate ticks,
+# without its content changing. A failed probe (including the confirmation)
+# clears only the candidate success, never the auth-failure episode. Thus a
+# transient success cannot un-park the pool, while the next stable pair does.
+# Other CLIs retain the fingerprint-only recovery behavior.
+worker_auth_recovery_confirm() {
+  local kind="${1:?worker_auth_recovery_confirm: kind required}"
+  local cli="${2:?worker_auth_recovery_confirm: cli required}"
+  local marker="${3:?worker_auth_recovery_confirm: marker required}"
+  local fingerprint="${4:?worker_auth_recovery_confirm: fingerprint required}"
+  local name candidate after tmp
+  name="$(worker_agent_bin "$kind" 2>/dev/null || true)"
+  [ "$name" = claude ] || return 0
+
+  candidate="$(cat "$marker/auth-recovery-fingerprint" 2>/dev/null || true)"
+  if ! worker_auth_recovery_probe "$kind" "$cli"; then
+    rm -f "$marker/auth-recovery-fingerprint" 2>/dev/null || true
+    return 1
+  fi
+  after="$(worker_credential_fingerprint "$kind")"
+  if [ -z "$after" ] || [ "$after" != "$fingerprint" ]; then
+    rm -f "$marker/auth-recovery-fingerprint" 2>/dev/null || true
+    return 1
+  fi
+  if [ "$candidate" != "$fingerprint" ]; then
+    tmp="$marker/.auth-recovery-fingerprint.$$"
+    printf '%s\n' "$fingerprint" > "$tmp" 2>/dev/null || return 1
+    mv "$tmp" "$marker/auth-recovery-fingerprint" 2>/dev/null || return 1
+    return 1
+  fi
+  return 0
+}
+
 # worker_health_gate <kind> <id> — THE PRE-CLAIM GATE. Returns 0 when this worker
 # may claim, 1 when it must not. Idempotent and cheap on the happy path: one probe
 # plus one directory test, no fork, no journal traffic, so a healthy fleet behaves
@@ -2398,15 +2434,16 @@ worker_health_gate() {
     # worker_auth_failure_latch above): the CLI runs, its credential does not. It
     # closes only when the credential CONTENT differs from the fingerprint
     # recorded at latch time — a re-login is the cure. Claude must additionally
-    # confirm the changed credential through its bounded auth-status probe; a
-    # changed-but-still-invalid credential leaves the marker intact.
+    # confirm the changed credential through two bounded auth-status probes on
+    # consecutive ticks; both must see the same credential fingerprint. A failed
+    # confirmation leaves the marker intact and restarts the success pair.
     if [ -d "$marker" ] && [ "$(cat "$marker/reason" 2>/dev/null)" = auth-failure ]; then
       cur="$(worker_credential_fingerprint "$kind")"
       rec="$(cat "$marker/credential-fingerprint" 2>/dev/null)"
       if [ -z "$cur" ] || [ "$cur" = "$rec" ]; then
         return 1
       fi
-      worker_auth_recovery_probe "$kind" "$cli" || return 1
+      worker_auth_recovery_confirm "$kind" "$cli" "$marker" "$cur" || return 1
     fi
     # HEALTHY. Fast path when no episode is open. When one IS open, exactly one
     # worker wins the recovery report: the rename succeeds for the first caller

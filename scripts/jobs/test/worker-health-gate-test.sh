@@ -40,8 +40,8 @@
 #   SUBTEST 6  MODEL      — a CLI too old for the tier model parks until the
 #                           installed version changes.
 #   SUBTEST 7  AUTH       — a dead credential (matcher, latch, same-content park,
-#                           changed-invalid park, validated recovery, codex
-#                           fingerprint).
+#                           changed-invalid park, stable two-probe recovery,
+#                           failed confirmation retention, codex fingerprint).
 #   SUBTEST 8  AUTH SIM   — the endolin-garden2 scenario through the real poll
 #                           loop: transient job, park after one failure, ONE
 #                           maintainer notice, self-un-park on re-login.
@@ -531,7 +531,16 @@ cat > "$TR/authcli/claude" <<'CLAUDE7_EOF'
 #!/bin/sh
 if [ "${1:-} ${2:-}" = "auth status" ]; then
   printf '%s\n' auth-status >> "${AUTH_STATUS_CALLS:?}"
-  if grep -q '"accessToken":"fresh"' "$CLAUDE_CONFIG_DIR/.credentials.json"; then
+  call_count="$(wc -l < "${AUTH_STATUS_CALLS:?}" | tr -d ' ')"
+  if grep -q '"accessToken":"mutating"' "$CLAUDE_CONFIG_DIR/.credentials.json"; then
+    printf '{"claudeAiOauth":{"accessToken":"changed-during-probe"}}\n' \
+      > "$CLAUDE_CONFIG_DIR/.credentials.json"
+    printf '{"loggedIn":true,"authMethod":"claude.ai"}\n'
+    exit 0
+  fi
+  if grep -q '"accessToken":"fresh"' "$CLAUDE_CONFIG_DIR/.credentials.json" \
+      || { grep -q '"accessToken":"flaky"' "$CLAUDE_CONFIG_DIR/.credentials.json" \
+           && [ "$call_count" -eq 2 ]; }; then
     printf '{"loggedIn":true,"authMethod":"claude.ai"}\n'
     exit 0
   fi
@@ -609,13 +618,58 @@ else
   bad "claude auth status call count was $(wc -l < "$AUTH_STATUS_CALLS" | tr -d ' '), expected 1"
 fi
 
-# (d) a changed credential that PASSES auth status → the gate permits, clears
-# the marker, and reports recovery exactly once.
+# (d) one successful probe is only a candidate. A failed confirmation retains
+# the episode marker and resets the candidate, so recovery still needs a fresh
+# stable pair for one unchanged fingerprint.
+printf '{"claudeAiOauth":{"accessToken":"flaky","refreshToken":"flaky"}}\n' > "$CLAUDE_CONFIG_DIR/.credentials.json"
+if worker_health_gate monk 1 2>/dev/null; then
+  bad "the gate permitted claiming after only one successful auth-status probe"
+else
+  ok "one successful auth-status probe leaves the pool parked pending confirmation"
+fi
+if [ -d "$MARKER7" ] && [ -s "$MARKER7/auth-recovery-fingerprint" ]; then
+  ok "the first successful probe records its credential fingerprint in the episode marker"
+else
+  bad "the first successful probe did not retain its confirmation candidate"
+fi
+if worker_health_gate monk 1 2>/dev/null; then
+  bad "the gate permitted claiming after a failed confirmation"
+else
+  ok "a failed confirmation keeps the auth-failure episode parked"
+fi
+if [ -d "$MARKER7" ] && [ ! -e "$MARKER7/auth-recovery-fingerprint" ]; then
+  ok "a failed confirmation resets the candidate but retains the episode marker"
+else
+  bad "failed confirmation did not reset only the candidate"
+fi
+
+# Even a successful probe does not count if the CLI rewrites the credential
+# during that probe: the two observations must cover one unchanged fingerprint.
+printf '{"claudeAiOauth":{"accessToken":"mutating","refreshToken":"mutating"}}\n' > "$CLAUDE_CONFIG_DIR/.credentials.json"
+if worker_health_gate monk 1 2>/dev/null; then
+  bad "the gate permitted a credential whose fingerprint changed during the probe"
+else
+  ok "a successful probe does not count when its credential fingerprint changes"
+fi
+if [ -d "$MARKER7" ] && [ ! -e "$MARKER7/auth-recovery-fingerprint" ]; then
+  ok "a during-probe credential change retains the episode without a candidate"
+else
+  bad "a changing credential was recorded as a stable recovery candidate"
+fi
+
+# (e) a changed credential that PASSES twice without changing → the first probe
+# remains parked and the second clears the marker and reports recovery once.
 printf '{"claudeAiOauth":{"accessToken":"fresh","refreshToken":"fresh"}}\n' > "$CLAUDE_CONFIG_DIR/.credentials.json"
 if worker_health_gate monk 1 2>/dev/null; then
-  ok "the gate permits claiming once the credential content differs from the recorded one"
+  bad "the gate permitted claiming before the stable credential was confirmed"
 else
-  bad "the gate still refuses after re-login"
+  ok "the first success for a new fingerprint remains parked"
+fi
+[ -d "$MARKER7" ] || bad "the auth-failure marker cleared after one success"
+if worker_health_gate monk 1 2>/dev/null; then
+  ok "the gate permits claiming after two successes for one unchanged fingerprint"
+else
+  bad "the gate still refuses after stable repeated auth confirmation"
 fi
 [ -d "$MARKER7" ] && bad "the auth-failure marker survived the re-login" || ok "the marker is cleared on the credential change"
 for i in 2 3 4; do worker_health_gate monk "$i" 2>/dev/null || true; done
@@ -626,7 +680,7 @@ else
   bad "$n7 recovery reports, expected exactly 1"
 fi
 
-# (e) the codex side fingerprints its own login file.
+# (f) the codex side fingerprints its own login file.
 export CODEX_HOME="$TR/codex7"; mkdir -p "$CODEX_HOME"
 printf '{"tokens":"old"}\n' > "$CODEX_HOME/auth.json"; fc0="$(worker_credential_fingerprint cleric)"
 printf '{"tokens":"new"}\n' > "$CODEX_HOME/auth.json"; fc1="$(worker_credential_fingerprint cleric)"
