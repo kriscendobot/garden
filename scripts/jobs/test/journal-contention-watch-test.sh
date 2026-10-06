@@ -136,16 +136,16 @@ reset_case
 for c in aa bb cc; do sample lock-giveup 99 1 "$c"; done
 export GARDEN_CONTENTION_TICK_BUDGET=1000 GARDEN_CONTENTION_RESERVE=0 GARDEN_CONTENTION_TEST_SLUG_COST=1000
 run_watch 100
-assert_open journal-lock-contention-aa
-if grep -q 'journal-lock-contention-bb\|journal-lock-contention-cc' "$NOTICES"; then echo 'FAIL: deferred clone was analyzed'; exit 1; fi
+if grep -q 'journal-lock-contention-aa\|journal-lock-contention-bb\|journal-lock-contention-cc' "$NOTICES"; then echo 'FAIL: exhausted tick delivered an unbounded notice'; exit 1; fi
+[ -e "$WATCH_STATE/notice-pending/journal-lock-contention-aa.action" ] || { echo 'FAIL: notice delivery was not deferred'; exit 1; }
 grep -q '^outcome: partial-poll$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: partial tick lost heartbeat'; exit 1; }
 grep -q '^deferred_clones: 2$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: deferred count missing'; exit 1; }
 [ "$(cat "$WATCH_STATE/deferred")" = $'bb\ncc' ] || { echo 'FAIL: deferred list wrong'; exit 1; }
 run_watch 400
-assert_open journal-lock-contention-bb; assert_open journal-contention-watch-overrun
+assert_open journal-lock-contention-aa
 [ "$(cat "$WATCH_STATE/deferred")" = $'cc\naa' ] || { echo 'FAIL: deferred clones were not run first'; exit 1; }
 GARDEN_CONTENTION_TEST_SLUG_COST=0 run_watch 700
-assert_open journal-lock-contention-cc
+assert_open journal-lock-contention-bb; assert_open journal-lock-contention-cc; assert_open journal-contention-watch-overrun
 grep -q '^outcome: full-poll$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: full tick not recorded'; exit 1; }
 [ ! -e "$WATCH_STATE/deferred" ] || { echo 'FAIL: deferred list survived a full tick'; exit 1; }
 grep -q '^--recovered journal-contention-watch-overrun ' "$NOTICES" || { echo 'FAIL: overrun not recovered'; exit 1; }
@@ -246,6 +246,44 @@ slug="${CLONE//[!A-Za-z0-9]/_}"
 countshim 3 100; run_remedy 1000
 assert_open "journal-clone-oversized-$slug"
 
+# Notice delivery is capped by the remaining tick budget. A hung delivery is
+# durable work, and the heartbeat still lands before the service wall.
+reset_case
+SLOW_NOTICE="$TR/slow-notice.sh"
+printf '#!/bin/bash\nsleep 10\n' > "$SLOW_NOTICE"; chmod +x "$SLOW_NOTICE"
+sample lock-giveup 99 1 slow-notice
+start=$SECONDS
+env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE="$WATCH_STATE" \
+  GARDEN_CONTENTION_NOTICE="$SLOW_NOTICE" GARDEN_CONTENTION_NOW_EPOCH=1000 \
+  GARDEN_JOURNAL_OUTAGE_DIR="$STATE/outage" GARDEN_JOURNAL_OUTAGE_MARKER="$STATE/outage/active" \
+  GARDEN_CONTENTION_REMEDY=0 GARDEN_CONTENTION_TICK_BUDGET=3 GARDEN_CONTENTION_RESERVE=0 \
+  GARDEN_CONTENTION_KILL_AFTER=1 "$JOBS/journal-contention-watch.sh"
+elapsed=$(( SECONDS - start ))
+[ "$elapsed" -lt 6 ] || { echo "FAIL: notice delivery escaped tick budget (${elapsed}s)"; exit 1; }
+[ -e "$WATCH_STATE/notice-pending/journal-lock-contention-slow-notice.action" ] || { echo 'FAIL: timed-out notice was not recorded'; exit 1; }
+grep -q '^deferred_notices: 1$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: heartbeat omitted deferred notice'; exit 1; }
+
+# A hung rebuild is likewise capped. The renamed clone is restored, the remedy
+# is marked for retry, and the heartbeat survives the timeout.
+reset_case
+CLONE="$STATE/slow-remedy/journal"; mkdir -p "$CLONE"; git -C "$CLONE" init -q
+printf '%2048s' x > "$CLONE/oversized"; git -C "$CLONE" hash-object -w oversized >/dev/null
+slug="${CLONE//[!A-Za-z0-9]/_}"
+SLOW_ENSURE="$TR/slow-ensure.sh"
+printf '#!/bin/bash\nsleep 10\nmkdir -p "$1/.git"\n' > "$SLOW_ENSURE"; chmod +x "$SLOW_ENSURE"
+start=$SECONDS
+env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE="$WATCH_STATE" \
+  GARDEN_CONTENTION_NOTICE="$NOTICE" JC_NOTICES="$NOTICES" GARDEN_CONTENTION_NOW_EPOCH=1000 \
+  GARDEN_JOURNAL_OUTAGE_DIR="$STATE/outage" GARDEN_JOURNAL_OUTAGE_MARKER="$STATE/outage/active" \
+  GARDEN_CONTENTION_CLONE_MAX_BYTES=4096 GARDEN_CONTENTION_REMEDY_MIN=0 \
+  GARDEN_CONTENTION_ENSURE_CLONE_CMD="$SLOW_ENSURE" GARDEN_CONTENTION_TICK_BUDGET=4 \
+  GARDEN_CONTENTION_RESERVE=0 GARDEN_CONTENTION_KILL_AFTER=1 "$JOBS/journal-contention-watch.sh"
+elapsed=$(( SECONDS - start ))
+[ "$elapsed" -lt 7 ] || { echo "FAIL: clone remedy escaped tick budget (${elapsed}s)"; exit 1; }
+[ -e "$CLONE/oversized" ] || { echo 'FAIL: timed-out remedy did not restore original clone'; exit 1; }
+[ -e "$WATCH_STATE/remedy-deferred/$slug" ] || { echo 'FAIL: timed-out remedy was not recorded'; exit 1; }
+grep -q '^deferred_remedies: 1$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: heartbeat omitted deferred remedy'; exit 1; }
+
 # Old samples age out: one lock give-up no longer pages forever, and its open
 # notice recovers once the sample leaves the window.
 reset_case; sample lock-giveup 1000 1 aged; run_watch 1100
@@ -282,4 +320,4 @@ rm -f "$RINGS/lock-giveup/s6" "$RINGS/lock-giveup/s7"
 grep -q '^--recovered journal-contention-storm-lock-contention ' "$NOTICES" || { echo 'FAIL: storm summary not recovered'; exit 1; }
 [ "$(grep -c '^journal-lock-contention-s[1-5] ' "$NOTICES")" -eq 5 ] || { echo 'FAIL: sub-storm notices not individual'; cat "$NOTICES"; exit 1; }
 
-echo 'PASS: contention recorder, thresholds, drift, outage latch, clone remedy, recovery, tick deadline, and quiet baseline'
+echo 'PASS: contention recorder, thresholds, drift, outage latch, bounded notice/remedy work, recovery, tick deadline, and quiet baseline'

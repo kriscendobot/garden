@@ -51,12 +51,13 @@ GARDEN_CONTENTION_SLUG_PREFIX="${GARDEN_CONTENTION_SLUG_PREFIX-$(contention_clon
 : "${GARDEN_CONTENTION_TICK_BUDGET:=210}"
 : "${GARDEN_CONTENTION_RESERVE:=20}"
 : "${GARDEN_CONTENTION_REMEDY_MIN:=120}"
+: "${GARDEN_CONTENTION_KILL_AFTER:=2}"
 # Inspection is optional read-side work: never queue behind a producer long
 # enough to consume the tick. A busy clone stays deferred until the next tick.
 : "${GARDEN_CONTENTION_INSPECTION_LOCK_WAIT:=2}"
 : "${GARDEN_CONTENTION_TEST_SLUG_COST:=0}" # test hook: fake seconds charged per analyzed clone
 
-mkdir -p "$GARDEN_CONTENTION_STATE"/{stats,confirm,alerts,remedy,remedy-await}
+mkdir -p "$GARDEN_CONTENTION_STATE"/{stats,confirm,alerts,remedy,remedy-await,remedy-deferred,remedy-cleanup,notice-pending}
 now="$GARDEN_CONTENTION_NOW_EPOCH"
 export JC_SINCE=$(( now - GARDEN_CONTENTION_MAX_AGE ))
 hard_fetch="$(awk -v cap="$GARDEN_FETCH_TIMEOUT" 'BEGIN { printf "%.6f", cap * 0.70 }')"
@@ -67,21 +68,50 @@ tick_remaining() { printf '%s' $(( GARDEN_CONTENTION_TICK_BUDGET - SECONDS - tic
 float_true() { awk "BEGIN { exit !($*) }"; }
 ring() { printf '%s/%s/%s\n' "$GARDEN_CONTENTION_DIR" "$1" "$2"; }
 
+notice_queue() { # action key body
+  local action="$1" key="$2" body="$3" base="$GARDEN_CONTENTION_STATE/notice-pending/$2" tmp
+  tmp="${base}.body.$$"
+  printf '%s\n' "$body" > "$tmp"
+  mv -f "$tmp" "$base.body"
+  printf '%s\n' "$action" > "$base.action"
+}
 notice_open() { # key body
-  local key="$1" body="$2" marker="$GARDEN_CONTENTION_STATE/alerts/$1" bf
-  [ -e "$marker" ] && return 0
-  bf="$(mktemp)"; printf '%s\n' "$body" > "$bf"
-  "$GARDEN_CONTENTION_NOTICE" "$key" "$bf"
-  : > "$marker"; rm -f "$bf"
+  local key="$1" body="$2" marker="$GARDEN_CONTENTION_STATE/alerts/$1" base="$GARDEN_CONTENTION_STATE/notice-pending/$1"
+  if [ -e "$marker" ]; then rm -f "$base.action" "$base.body"; return 0; fi
+  notice_queue open "$key" "$body"
 }
 notice_close() {
-  local key="$1" marker="$GARDEN_CONTENTION_STATE/alerts/$1" bf
-  [ -e "$marker" ] || return 0
-  bf="$(mktemp)"
+  local key="$1" marker="$GARDEN_CONTENTION_STATE/alerts/$1" base="$GARDEN_CONTENTION_STATE/notice-pending/$1" body
+  if [ ! -e "$marker" ]; then rm -f "$base.action" "$base.body"; return 0; fi
   # shellcheck disable=SC2016
-  printf 'Journal contention condition `%s` cleared on %s.\n' "$key" "$GARDEN" > "$bf"
-  GARDEN_WATCHDOG_RECOVERY_IF_OPEN_ONLY=1 "$GARDEN_CONTENTION_NOTICE" --recovered "$key" "$bf"
-  rm -f "$marker" "$bf"
+  printf -v body 'Journal contention condition `%s` cleared on %s.' "$key" "$GARDEN"
+  notice_queue close "$key" "$body"
+}
+flush_notices() {
+  local af base key action remaining run_for rc
+  for af in "$GARDEN_CONTENTION_STATE"/notice-pending/*.action; do
+    [ -e "$af" ] || continue
+    remaining="$(tick_remaining)"
+    run_for=$(( remaining - GARDEN_CONTENTION_KILL_AFTER ))
+    [ "$run_for" -gt 0 ] || break
+    base="${af%.action}"; key="${base##*/}"; action="$(cat "$af")"; rc=0
+    if [ "$action" = close ]; then
+      GARDEN_WATCHDOG_RECOVERY_IF_OPEN_ONLY=1 timeout --signal=TERM \
+        --kill-after="${GARDEN_CONTENTION_KILL_AFTER}s" "${run_for}s" \
+        "$GARDEN_CONTENTION_NOTICE" --recovered "$key" "$base.body" || rc=$?
+    else
+      timeout --signal=TERM --kill-after="${GARDEN_CONTENTION_KILL_AFTER}s" "${run_for}s" \
+        "$GARDEN_CONTENTION_NOTICE" "$key" "$base.body" || rc=$?
+    fi
+    if [ "$rc" -eq 0 ]; then
+      if [ "$action" = close ]; then rm -f "$GARDEN_CONTENTION_STATE/alerts/$key"
+      else : > "$GARDEN_CONTENTION_STATE/alerts/$key"; fi
+      rm -f "$af" "$base.body"
+    else
+      log "notice delivery deferred for $key (action=$action rc=$rc; $(tick_remaining)s tick budget remaining)"
+      break
+    fi
+  done
 }
 
 # Baseline/drift conditions require two consecutive ticks; hard guards pass 1.
@@ -110,8 +140,59 @@ condition_update() { # key active hard body [class]
   return 0
 }
 
+remedy_clone_inner() { # clone old; invoked beneath the tick's hard timeout
+  _remedy_clone="$1"; _remedy_old="$2"; _remedy_locked=0
+  remedy_restore() {
+    local rc=$?
+    if [ "$rc" -ne 0 ] && [ ! -e "$_remedy_clone" ] && [ -e "$_remedy_old" ]; then
+      mv -T -- "$_remedy_old" "$_remedy_clone" || true
+    fi
+    [ "$_remedy_locked" -eq 0 ] || garden_repo_unlock "$_remedy_clone" || true
+    return "$rc"
+  }
+  trap 'exit 124' TERM INT
+  trap remedy_restore EXIT
+  GARDEN_CLONE_LOCK_SOFT=1 GARDEN_LOCK_SOFT_WAIT="${GARDEN_CONTENTION_REMEDY_LOCK_WAIT:-2}"
+  export GARDEN_CLONE_LOCK_SOFT GARDEN_LOCK_SOFT_WAIT
+  clone_lock "$_remedy_clone"; _remedy_locked=1
+  [ -e "$_remedy_clone" ] || return 1
+  mv -- "$_remedy_clone" "$_remedy_old"
+  if [ -n "${GARDEN_CONTENTION_ENSURE_CLONE_CMD:-}" ]; then
+    "$GARDEN_CONTENTION_ENSURE_CLONE_CMD" "$_remedy_clone"
+    clone_unlock "$_remedy_clone"; _remedy_locked=0
+  else
+    ensure_clone "$_remedy_clone" # re-entrant lock; ensure_clone releases it
+    _remedy_locked=0
+  fi
+}
+
+if [ "${1:-}" = --remedy-inner ]; then
+  remedy_clone_inner "$2" "$3"
+  exit
+fi
+
+remedy_cleanup() { # slug old-path; records cleanup before attempting it
+  local slug="$1" old="$2" pending="$GARDEN_CONTENTION_STATE/remedy-cleanup/$1" remaining run_for rc=0
+  printf '%s\n' "$old" > "$pending"
+  remaining="$(tick_remaining)"; run_for=$(( remaining - GARDEN_CONTENTION_KILL_AFTER ))
+  [ "$run_for" -gt 0 ] || return 0
+  timeout --signal=TERM --kill-after="${GARDEN_CONTENTION_KILL_AFTER}s" "${run_for}s" rm -rf -- "$old" || rc=$?
+  [ "$rc" -ne 0 ] || rm -f "$pending"
+}
+
+flush_remedy_cleanups() {
+  local cleanup_file old
+  for cleanup_file in "$GARDEN_CONTENTION_STATE"/remedy-cleanup/*; do
+    [ -e "$cleanup_file" ] || continue
+    old="$(cat "$cleanup_file")"
+    case "${old%/}/" in "${GARDEN_STATE%/}/"*) ;; *) log "refusing out-of-scope remedy cleanup $old"; continue;; esac
+    case "$old" in *.contention-old.*) ;; *) log "refusing malformed remedy cleanup $old"; continue;; esac
+    remedy_cleanup "${cleanup_file##*/}" "$old"
+  done
+}
+
 remedy_clone() { # clone slug reason; prints applied|backoff|disabled|deferred|out-of-scope
-  local clone="$1" slug="$2" reason="$3" last=0 old ts
+  local clone="$1" slug="$2" reason="$3" last=0 old ts remaining run_for rc=0
   local stamp="$GARDEN_CONTENTION_STATE/remedy/$slug"
   [ "$GARDEN_CONTENTION_REMEDY" = 1 ] || { printf 'disabled'; return 0; }
   case "${clone%/}/" in "${GARDEN_STATE%/}/"*) ;; *) printf 'out-of-scope'; return 0;; esac
@@ -120,32 +201,19 @@ remedy_clone() { # clone slug reason; prints applied|backoff|disabled|deferred|o
   if [ "$last" -gt 0 ] && [ $(( now - last )) -lt "$GARDEN_CONTENTION_REMEDY_INTERVAL" ]; then printf 'backoff'; return 0; fi
   ts="$(date -u -d "@$now" +%Y%m%dT%H%M%SZ 2>/dev/null || printf '%s' "$now")"
   old="${clone}.contention-old.${ts}"
-  if (
-    GARDEN_CLONE_LOCK_SOFT=1 GARDEN_LOCK_SOFT_WAIT="${GARDEN_CONTENTION_REMEDY_LOCK_WAIT:-2}"
-    export GARDEN_CLONE_LOCK_SOFT GARDEN_LOCK_SOFT_WAIT
-    # Fit the rebuild's bounded attempts into what is left of the tick. A rebuild is
-    # a COLD clone (ensure_clone -> reclone_clone), bounded by GARDEN_CLONE_TIMEOUT,
-    # not the incremental-fetch cap; budget by that so a single attempt is not started
-    # against a tick that cannot hold it.
-    fit=$(( $(tick_remaining) / (${GARDEN_CLONE_TIMEOUT:-$GARDEN_FETCH_TIMEOUT} + GARDEN_FETCH_KILL_AFTER) ))
-    [ "$fit" -ge 1 ] || fit=1
-    if [ "$fit" -lt "$GARDEN_FETCH_RETRIES" ]; then export GARDEN_FETCH_RETRIES="$fit"; fi
-    clone_lock "$clone"
-    [ -e "$clone" ] || { clone_unlock "$clone"; exit 1; }
-    mv -- "$clone" "$old"
-    if [ -n "${GARDEN_CONTENTION_ENSURE_CLONE_CMD:-}" ]; then
-      "$GARDEN_CONTENTION_ENSURE_CLONE_CMD" "$clone"
-      clone_unlock "$clone"
-    else
-      ensure_clone "$clone" # re-entrant lock; ensure_clone releases it
-    fi
-    if [ "${GARDEN_CONTENTION_DELETE_SYNC:-0}" = 1 ]; then rm -rf -- "$old"
-    else ( rm -rf -- "$old" >/dev/null 2>&1 & ) </dev/null >/dev/null 2>&1; fi
-  ); then
+  remaining="$(tick_remaining)"; run_for=$(( remaining - GARDEN_CONTENTION_KILL_AFTER ))
+  [ "$run_for" -gt 0 ] || { printf 'deferred'; return 0; }
+  GARDEN_CLONE_TIMEOUT="$run_for" GARDEN_CLONE_RETRIES=1 GARDEN_FETCH_RETRIES=1 \
+    timeout --signal=TERM --kill-after="${GARDEN_CONTENTION_KILL_AFTER}s" "${run_for}s" \
+    "$HERE/journal-contention-watch.sh" --remedy-inner "$clone" "$old" || rc=$?
+  if [ "$rc" -eq 0 ]; then
     printf '%s\n' "$now" > "$stamp"
+    rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug"
     log "rebuilt contention-affected clone $clone ($reason)"
+    remedy_cleanup "$slug" "$old"
     printf 'applied'
   else
+    printf '%s\n' "$reason" > "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug"
     printf 'deferred'
   fi
 }
@@ -228,8 +296,12 @@ analyze_clone() {
   fi
   if [ -z "$await_class" ] && [ -n "$clone" ] && { [ "$clone_bad" -eq 1 ] || [ "$fetch_hard" -eq 1 ]; }; then
     if [ "$clone_bad" -eq 1 ]; then remedy_class=clone; else remedy_class=fetch; fi
-    if [ "$(tick_remaining)" -lt "$GARDEN_CONTENTION_REMEDY_MIN" ]; then remedy="deferred-deadline" # no stamp: retried next tick
+    if [ "$(tick_remaining)" -lt "$GARDEN_CONTENTION_REMEDY_MIN" ]; then
+      remedy="deferred-deadline" # no backoff stamp: retried next tick
+      printf '%s\n' "${clone_reason:-fetch ${fmax}s near ${hard_fetch}s cap guard}" \
+        > "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug"
     else remedy="$(remedy_clone "$clone" "$slug" "${clone_reason:-fetch ${fmax}s near ${hard_fetch}s cap guard}")"; fi
+    case "$remedy" in deferred|deferred-deadline) ;; *) rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug";; esac
     if [ "$remedy" = applied ]; then
       printf '%s %s\n' "$now" "$remedy_class" > "$await_file"
       # Old-clone latency must not keep the rebuilt clone anomalous forever. A
@@ -237,6 +309,8 @@ analyze_clone() {
       mkdir -p "$GARDEN_CONTENTION_DIR/fetch"
       : > "$(ring fetch "$slug")"
     fi
+  elif [ "$clone_bad" -eq 0 ] && [ "$fetch_hard" -eq 0 ]; then
+    rm -f "$GARDEN_CONTENTION_STATE/remedy-deferred/$slug"
   fi
 
   {
@@ -260,6 +334,10 @@ analyze_clone() {
 }
 
 # Trim every append-only ring before analysis. The recorder never pays this cost.
+# First retry delivery work that a previous tick durably deferred; otherwise a
+# consistently full clone sweep could starve its own diagnostics forever.
+flush_notices
+flush_remedy_cleanups
 for signal_dir in "$GARDEN_CONTENTION_DIR"/*; do
   [ -d "$signal_dir" ] || continue
   [ "$(tick_remaining)" -gt 0 ] || break
@@ -288,6 +366,9 @@ for slug in "${ordered[@]}"; do
   if [ "${#deferred[@]}" -gt 0 ] || [ "$(tick_remaining)" -le 0 ]; then deferred+=("$slug"); continue; fi
   rc=0; analyze_clone "$slug" || rc=$?
   case "$rc" in 0) ;; 3) deferred+=("$slug");; *) exit "$rc";; esac
+  # Give conditions found for this clone a chance to report while its share of
+  # the tick is still available. A timeout leaves the durable queue intact.
+  flush_notices
   tick_charged=$(( tick_charged + GARDEN_CONTENTION_TEST_SLUG_COST ))
 done
 
@@ -326,13 +407,27 @@ for marker in "$GARDEN_CONTENTION_STATE"/alerts/*; do
   [ "$keep" -eq 1 ] || notice_close "$key"
 done
 
+# The storm decision is now known, so deliver any newly queued per-clone work
+# before deciding whether this tick was partial.
+flush_notices
+
 if [ "${#deferred[@]}" -gt 0 ]; then
   printf '%s\n' "${deferred[@]}" > "$deferred_file"
   log "tick deadline: deferred ${#deferred[@]} of ${#ordered[@]} clone(s) to the next tick (budget ${GARDEN_CONTENTION_TICK_BUDGET}s, reserve ${GARDEN_CONTENTION_RESERVE}s)"
-  outcome=partial-poll
 else
-  rm -f "$deferred_file"; outcome=full-poll
+  rm -f "$deferred_file"
 fi
+
+# A partial tick includes actuator work as well as clone inspection. Notice and
+# old-clone cleanup queues are durable; a remedy has its own durable marker until
+# the next analysis retries it. Exclude the overrun notice itself so its recovery
+# cannot keep the checker permanently partial.
+remedy_deferred_count="$(find "$GARDEN_CONTENTION_STATE/remedy-deferred" -type f 2>/dev/null | wc -l)"
+cleanup_deferred_count="$(find "$GARDEN_CONTENTION_STATE/remedy-cleanup" -type f 2>/dev/null | wc -l)"
+notice_deferred_count="$(find "$GARDEN_CONTENTION_STATE/notice-pending" -type f -name '*.action' \
+  ! -name 'journal-contention-watch-overrun.action' 2>/dev/null | wc -l)"
+deferred_work_count=$(( ${#deferred[@]} + remedy_deferred_count + cleanup_deferred_count + notice_deferred_count ))
+if [ "$deferred_work_count" -gt 0 ]; then outcome=partial-poll; else outcome=full-poll; fi
 
 # Host-level outage episode: one full checker tick without a new skip closes it.
 last_tick="$(jc_field "$GARDEN_CONTENTION_STATE/heartbeat" epoch)"; last_tick="${last_tick:-$(( now - GARDEN_CONTENTION_CADENCE ))}"
@@ -357,6 +452,17 @@ condition_update journal-outage-stuck "$outage_stuck" 1 \
   "Journal outage latch stuck on $GARDEN for ${outage_age}s (limit ${GARDEN_CONTENTION_LATCH_MAX}s); skips this tick=$recent_skips, trailing skips=$skip_total."
 # Two consecutive partial ticks mean this host's clones no longer fit the budget.
 condition_update journal-contention-watch-overrun "$([ "$outcome" = partial-poll ] && echo 1 || echo 0)" 0 \
-  "Journal contention checker on $GARDEN cannot finish a tick inside its ${GARDEN_CONTENTION_TICK_BUDGET}s budget: deferred ${#deferred[@]} of ${#ordered[@]} clone(s) on consecutive ticks."
-printf 'epoch: %s\nlast_tick_at: %s\noutcome: %s\ndeferred_clones: %s\ntick_elapsed_s: %s\noutage_skips: %s\noutage_latch_active: %s\n' \
-  "$now" "$(date -u -d "@$now" +%FT%TZ)" "$outcome" "${#deferred[@]}" "$SECONDS" "$skip_total" "$latch_active" > "$GARDEN_CONTENTION_STATE/heartbeat"
+  "Journal contention checker on $GARDEN cannot finish a tick inside its ${GARDEN_CONTENTION_TICK_BUDGET}s budget: deferred work=$deferred_work_count (clones=${#deferred[@]}, remedies=$remedy_deferred_count, cleanup=$cleanup_deferred_count, notices=$notice_deferred_count) on consecutive ticks."
+
+# Delivery and cleanup are last: each attempt is capped by the remaining useful
+# tick time and leaves its queue file intact on timeout. The heartbeat is written
+# after them even when no useful budget remains.
+flush_notices
+flush_remedy_cleanups
+notice_deferred_count="$(find "$GARDEN_CONTENTION_STATE/notice-pending" -type f -name '*.action' 2>/dev/null | wc -l)"
+cleanup_deferred_count="$(find "$GARDEN_CONTENTION_STATE/remedy-cleanup" -type f 2>/dev/null | wc -l)"
+deferred_work_count=$(( ${#deferred[@]} + remedy_deferred_count + cleanup_deferred_count + notice_deferred_count ))
+printf 'epoch: %s\nlast_tick_at: %s\noutcome: %s\ndeferred_clones: %s\ndeferred_remedies: %s\ndeferred_cleanup: %s\ndeferred_notices: %s\ndeferred_work: %s\ntick_elapsed_s: %s\noutage_skips: %s\noutage_latch_active: %s\n' \
+  "$now" "$(date -u -d "@$now" +%FT%TZ)" "$outcome" "${#deferred[@]}" "$remedy_deferred_count" \
+  "$cleanup_deferred_count" "$notice_deferred_count" "$deferred_work_count" "$SECONDS" "$skip_total" "$latch_active" \
+  > "$GARDEN_CONTENTION_STATE/heartbeat"
