@@ -2,7 +2,7 @@
 order: serial
 children: kriscendobot-garden-pr116-conduct build-standing-token-backoff-ramp release-standing-token-backoff-ramp
 on-child-failure: halt
-state: pending
+state: running
 created_by: gardener
 created_at: 2026-10-06T19:04:24Z
 ---
