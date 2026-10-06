@@ -490,16 +490,26 @@ triager_pace_schedule() { # <observed-sha> <ref>
 # (cursor-get/set, pacing) stay foreground; a stop landing in one of those is bounded
 # by garden-triager@.service's TimeoutStopSec backstop.
 TRIAGER_CHILD_PID=""
+TRIAGER_CHILD_KILL_AFTER=""
 # triager_run_reaped <duration> <kill-after> <cmd...> — run <cmd> under `timeout` in
 # its own process group, trap-interruptibly; returns the command's rc (124/137 on a
-# timeout as usual). <duration> 0 disables the wall clock but keeps the group. Callers
-# redirect stdout/stderr to files: a `$(...)` capture would put the background job in
-# a subshell the parent's trap cannot see, and re-defer the trap on the substitution.
+# timeout as usual). <duration> 0 disables the wall clock but keeps the group: the
+# command runs WITHOUT `timeout` (a `timeout` that rejects or mis-handles a zero
+# duration silently skipped the handler and the pacing paths), under `setsid` so its
+# PID is still the PGID triager_cleanup signals. A background job of a non-interactive
+# shell is never a group leader, so setsid does not fork and $! stays the leader.
+# Callers redirect stdout/stderr to files: a `$(...)` capture would put the background
+# job in a subshell the parent's trap cannot see, and re-defer the trap on the
+# substitution.
 triager_run_reaped() {
   local duration="$1" kill_after="$2" rc=0
   shift 2
-  timeout --signal=TERM --kill-after="$kill_after" "$duration" "$@" &
+  case "$duration" in
+    0|0s|0.0|0.0s) setsid "$@" & ;;
+    *) timeout --signal=TERM --kill-after="$kill_after" "$duration" "$@" & ;;
+  esac
   TRIAGER_CHILD_PID=$!
+  TRIAGER_CHILD_KILL_AFTER="${kill_after%s}"
   wait "$TRIAGER_CHILD_PID" || rc=$?
   TRIAGER_CHILD_PID=""
   return "$rc"
@@ -603,8 +613,18 @@ triager_cleanup() {
   rm -f "${pace_probe_out:-}" "${fetch_err:-}" 2>/dev/null || true
   if [ -n "$pid" ]; then
     kill -TERM "-$pid" 2>/dev/null || kill -TERM "$pid" 2>/dev/null || true
-    # timeout's --kill-after only escalates while its monitored child lives; the
-    # group SIGKILL after the wait fells a TERM-ignoring grandchild it left behind.
+    # timeout's --kill-after only escalates while its monitored child lives, and a
+    # zero-duration child has no timeout at all, so bound the wait ourselves: give the
+    # group <kill-after> seconds, then SIGKILL it. The group SIGKILL after the wait
+    # also fells a TERM-ignoring grandchild timeout left behind.
+    local grace="${TRIAGER_CHILD_KILL_AFTER:-$GARDEN_TRIAGE_HANDLER_KILL_AFTER}" ticks=0
+    [[ "$grace" =~ ^[0-9]+$ ]] || grace=10
+    while kill -0 "$pid" 2>/dev/null && _triager_straggler_alive "$pid" \
+        && [ "$ticks" -lt $((grace * 10)) ]; do
+      sleep 0.1 2>/dev/null || sleep 1
+      ticks=$((ticks + 1))
+    done
+    kill -KILL "-$pid" 2>/dev/null || true
     wait "$pid" 2>/dev/null || true
     kill -KILL "-$pid" 2>/dev/null || true
   fi

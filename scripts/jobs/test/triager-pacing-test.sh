@@ -495,5 +495,47 @@ else
   bad "changed fail-open reason was suppressed (fail-open-skipped records=$FO_SKIPPED_AFTER want 2, new-reason=$FO_NEW_REASON want 1): $(tr '\n' ' ' < "$FO_DECISIONS")"
 fi
 
+# A disabled tick deadline (GARDEN_TRIAGE_TICK_DEADLINE=0) must still run the handler.
+# The zero-duration path once handed `0` to `timeout`, which on the failing host
+# skipped the handler entirely; a PATH `timeout` that refuses a zero duration pins
+# that the path now runs the handler in a reaped group WITHOUT `timeout`.
+ZD_BIN="$TEMPORARY_ROOT/zero-duration-bin"
+mkdir -p "$ZD_BIN"
+REAL_TIMEOUT="$(command -v timeout)"
+cat > "$ZD_BIN/timeout" <<STUB
+#!/bin/bash
+for a in "\$@"; do
+  case "\$a" in -*) continue ;; esac
+  case "\$a" in 0|0s) echo "stub timeout: refusing zero duration" >&2; exit 125 ;; esac
+  break
+done
+exec "$REAL_TIMEOUT" "\$@"
+STUB
+chmod +x "$ZD_BIN/timeout"
+printf 'three\n' > "$SOURCE/value"
+git -C "$SOURCE" add value
+git -C "$SOURCE" "${GIT_ID[@]}" commit -qm three
+ZD_SHA="$(git -C "$SOURCE" rev-parse HEAD)"
+ZD_STATE="$TEMPORARY_ROOT/zero-duration-state"
+ZD_OUTPUT="$TEMPORARY_ROOT/zero-duration-output"
+mkdir -p "$ZD_STATE"
+if timeout 45 env PATH="$ZD_BIN:$PATH" GARDEN_TEST=1 GARDEN="$HOST" GARDEN_STATE="$ZD_STATE" \
+    JOURNAL_REMOTE="$JOURNAL_REMOTE" JOURNAL_BRANCH=journal2 \
+    GARDEN_REPOS="$REPOSITORIES" GARDEN_WATCH_REF="$REF" \
+    GARDEN_TRIAGE_HANDLER="$HANDLER" HANDLER_CALLS="$HANDLER_CALLS" \
+    GARDEN_DECISION_APPEND="$DECISION_STUB" DECISIONS="$DECISIONS" \
+    GARDEN_TRIAGE_PACE_NOW="$NOW" GARDEN_TRIAGE_PACE_PROJECTOR="$FALLBACK_PROJECTOR" \
+    GARDEN_TRIAGE_PACE_COOLDOWN=0 GARDEN_TRIAGE_TICK_DEADLINE=0 \
+    "$JOBS/triager.sh" "$SLUG" >"$ZD_OUTPUT" 2>&1; then
+  if awk -F'\t' -v sha="$ZD_SHA" '$3 == sha {found=1} END {exit !found}' "$HANDLER_CALLS" \
+     && ! grep -q 'refusing zero duration' "$ZD_OUTPUT"; then
+    ok "a disabled tick deadline still executes the handler (reaped group, no zero-duration timeout)"
+  else
+    bad "handler did not execute with the tick deadline disabled: $(tr '\n' ' ' < "$ZD_OUTPUT")"
+  fi
+else
+  bad "zero-duration triager run failed: $(tr '\n' ' ' < "$ZD_OUTPUT")"
+fi
+
 echo "RESULT: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
