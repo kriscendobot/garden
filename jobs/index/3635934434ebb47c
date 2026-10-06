@@ -1,2 +1,2 @@
-base: improve-mirror-closer-shared-state-failure
+base: improve-mirror-quota-warning-suppression
 identity: mentor:scripts/jobs/mirror-closer.sh
