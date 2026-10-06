@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T12:30:08Z_
+_As of 2026-10-06T12:34:21Z_
 
 ## Latest
 
@@ -562,7 +562,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-zone-endolin-garden-ece02cb4-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-backoff.md)
 
-> subscription codex-endolin changed zone ok -> backoff at spend=85.0%/100% tokens=28928658.
+> WATCHDOG notice — occurrence #2 (first seen 2026-08-23T02:43:12Z, latest 2026-10-06T12:32:31Z).
+> The SAME condition (`budget-zone-endolin-garden-ece02cb4-backoff`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> subscription claude-endolin1 changed zone ok -> backoff at spend=258615217/271000000.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr311-712918f280ca` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr311-712918f280ca.md)
 
@@ -1482,7 +1486,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.3M | $1801.18 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
+| Claude | 152.3M | $1801.54 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
 | Codex | 7.5M _(+196.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
