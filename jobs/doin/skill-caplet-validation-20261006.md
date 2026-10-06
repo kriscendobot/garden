@@ -61,3 +61,13 @@ inputs, state, procedure, output shape, notes. If minion.town doesn't yet
 have a real caplet to validate against (check first), say so plainly and
 write the skill as a procedure ready to apply to the first real one, rather
 than inventing a fake example to validate against.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-06T19:12:19Z
