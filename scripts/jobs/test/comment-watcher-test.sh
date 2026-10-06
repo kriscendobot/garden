@@ -1043,6 +1043,12 @@ EOF
   BARE_BQ="$TR/bq.git"; seed_bare "$BARE_BQ"
   RLOG_BQ="$TR/react-bq.log"; : > "$RLOG_BQ"; LOG_BQ="$TR/bq.log"; : > "$LOG_BQ"
   ALLOW_BQ="$TR/allow-bq"; printf 'kriskowal\n' > "$ALLOW_BQ"
+  # Give the end-to-end watcher an older cursor. A cold-start poll intentionally
+  # establishes its boundary without replaying existing comments, so it would not
+  # exercise this fixture row at all.
+  printf 'last_seen: %s\n' "$SINCE_TS" \
+    | env GARDEN_STATE="$TR/state-bq" JOURNAL_REMOTE="$BARE_BQ" JOURNAL_BRANCH="$BRANCH" \
+        "$JOBS/cursor-set.sh" "comments/$SLUG" >/dev/null
   env PATH="$GHBQ:$PATH" TS="$REV_TS" \
       GARDEN_STATE="$TR/state-bq" JOURNAL_REMOTE="$BARE_BQ" JOURNAL_BRANCH="$BRANCH" \
       GARDEN_REPOS="$TR/norepos" GARDEN_NO_MAINTAINER_ALERT=1 \
@@ -3568,6 +3574,81 @@ grep -qx HELD "$VLOCK_LOG" && ! grep -qx FREE "$VLOCK_LOG" \
   || bad "a VERIFY fetch ran without the clone lock ($(tr '\n' ' ' < "$VLOCK_LOG"))"
 flock -n "$TR/state-vl/comment-watcher/verify.lock" true \
   && ok "the VERIFY clone lock is released after the tick" || bad "VERIFY clone lock still held after exit"
+
+# ============================================================================
+hr; echo "VBUSY — a busy shared VERIFY lock is a quiet skip; fresh-confirm skip replays safely"; hr
+# The outer verify_fetch lock is SOFT. A live sibling holder must produce a bounded,
+# quiet rc=75 and latch the caller-scoped host cooldown rather than spend the hard
+# 3x60s ladder and FATAL. Because the watcher exits before cursor-set, the comment
+# remains below the cursor for the next tick.
+ROOT_VB="$TR/root-vb"; STATE_VB="$TR/state-vb"; BARE_VB="$TR/vb.git"; seed_bare "$BARE_VB"
+RLOG_VB="$TR/react-vb.log"; : > "$RLOG_VB"
+VB_LOCK="$STATE_VB/comment-watcher/verify.lock"; mkdir -p "$(dirname "$VB_LOCK")"
+VB_READY="$TR/vb.ready"; rm -f "$VB_READY"
+( exec 9<>"$VB_LOCK"; flock 9; printf '%s %s\n' "$BASHPID" "$(date +%s)" >&9; : > "$VB_READY"; exec sleep 60 ) &
+VB_HOLDER=$!
+for _ in $(seq 1 100); do [ -e "$VB_READY" ] && break; sleep 0.05; done
+VB_ERR="$TR/vb.err"; vb_rc=0; vb_t0=$(date +%s)
+GARDEN_ROOT="$ROOT_VB" GARDEN_LOCK_WAIT=30 GARDEN_LOCK_SOFT_WAIT=1 CW_LOG="$VB_ERR" \
+  run_watcher "$STATE_VB" "$BARE_VB" "$FIX_A" "$RLOG_VB" || vb_rc=$?
+vb_dt=$(( $(date +%s) - vb_t0 ))
+kill "$VB_HOLDER" 2>/dev/null || true; wait "$VB_HOLDER" 2>/dev/null || true
+[ "$vb_rc" -eq 75 ] && ok "busy VERIFY lock -> exit 75 (GARDEN_OFFLINE_RC)" \
+  || bad "busy VERIFY lock exited rc=$vb_rc, want 75 ($(tail -n 3 "$VB_ERR" | tr '\n' ' '))"
+! grep -q 'FATAL' "$VB_ERR" && ok "no FATAL on busy VERIFY lock" \
+  || bad "FATAL emitted on busy VERIFY lock ($(grep FATAL "$VB_ERR" | head -n 1))"
+[ "$vb_dt" -lt 25 ] && ok "busy VERIFY lock used the short soft wait (${vb_dt}s)" \
+  || bad "busy VERIFY lock waited ${vb_dt}s (the hard ladder ran)"
+[ -s "$ROOT_VB/.garden-state/journal-outage-cooldown/marker" ] \
+  && ok "busy VERIFY lock opens the shared cooldown for sibling slugs" \
+  || bad "busy VERIFY lock did not open the shared cooldown"
+[ -z "$(cursor_seen "$STATE_VB" "$BARE_VB")" ] \
+  && ok "busy-lock skip leaves the comment cursor unchanged" \
+  || bad "busy-lock skip advanced the cursor ($(cursor_seen "$STATE_VB" "$BARE_VB"))"
+
+# More exact race: let the post land, then take the lock before verify_posted's
+# mandatory fresh fetch. That tick exits 75 without acking or advancing. Once the
+# holder releases, the next tick's idempotency path sees the landed job, avoids a
+# duplicate post, confirms it, acknowledges it exactly once, and advances past the
+# comment.
+ROOT_VF="$TR/root-vf"; STATE_VF="$TR/state-vf"; BARE_VF="$TR/vf.git"; seed_bare "$BARE_VF"
+RLOG_VF="$TR/react-vf.log"; : > "$RLOG_VF"
+VF_LOCK="$STATE_VF/comment-watcher/verify.lock"; VF_READY="$TR/vf.ready"; VF_PID="$TR/vf.pid"
+VF_POST="$TR/vf-post.sh"
+cat > "$VF_POST" <<'SH'
+#!/bin/bash
+"$VF_REAL_POST" "$@"
+( exec 9<>"$VF_LOCK"; flock 9; printf '%s %s\n' "$BASHPID" "$(date +%s)" >&9
+  printf '%s\n' "$BASHPID" > "$VF_PID"; : > "$VF_READY"; exec sleep 60 ) &
+for _ in $(seq 1 100); do [ -e "$VF_READY" ] && break; sleep 0.01; done
+SH
+chmod +x "$VF_POST"
+vf_rc=0
+GARDEN_ROOT="$ROOT_VF" GARDEN_LOCK_SOFT_WAIT=1 VF_REAL_POST="$JOBS/post-job.sh" \
+  VF_LOCK="$VF_LOCK" VF_READY="$VF_READY" VF_PID="$VF_PID" \
+  run_watcher "$STATE_VF" "$BARE_VF" "$FIX_A" "$RLOG_VF" "$VF_POST" || vf_rc=$?
+[ "$vf_rc" -eq 75 ] && ok "busy fresh post-confirm -> quiet exit 75" \
+  || bad "busy fresh post-confirm exited rc=$vf_rc, want 75"
+board_has "$BARE_VF" "$SLUG-pr57-rebase" \
+  && ok "the directive landed before the skipped fresh confirmation" \
+  || bad "directive did not land before the skipped fresh confirmation"
+[ -z "$(cursor_seen "$STATE_VF" "$BARE_VF")" ] \
+  && ok "fresh-confirm skip leaves the directive below the cursor" \
+  || bad "fresh-confirm skip advanced the cursor ($(cursor_seen "$STATE_VF" "$BARE_VF"))"
+[ ! -s "$RLOG_VF" ] && ok "unconfirmed post was not acknowledged" \
+  || bad "unconfirmed post was acknowledged ($(cat "$RLOG_VF"))"
+VF_HOLDER="$(cat "$VF_PID")"; kill "$VF_HOLDER" 2>/dev/null || true
+for _ in $(seq 1 100); do kill -0 "$VF_HOLDER" 2>/dev/null || break; sleep 0.01; done
+run_watcher "$STATE_VF" "$BARE_VF" "$FIX_A" "$RLOG_VF"
+[ "$(todo_count "$BARE_VF")" -eq 1 ] \
+  && ok "next tick's idempotency check dedups the replay" \
+  || bad "replayed directive duplicated (todo=$(todo_count "$BARE_VF"))"
+[ "$(grep -c . "$RLOG_VF")" -eq 1 ] && grep -qx "issue-comment 111 eyes" "$RLOG_VF" \
+  && ok "replay acknowledges the now-confirmed post exactly once" \
+  || bad "replay acknowledgment was not exactly once ($(cat "$RLOG_VF"))"
+[ "$(cursor_seen "$STATE_VF" "$BARE_VF")" = 2026-06-24T10:00:00Z ] \
+  && ok "idempotent replay advances the cursor on the next tick" \
+  || bad "replay did not advance the cursor ($(cursor_seen "$STATE_VF" "$BARE_VF"))"
 
 # ============================================================================
 hr; echo "GA1 — 'Please run a gauntlet.' (not just 'run THE gauntlet') → a gauntlet record"; hr

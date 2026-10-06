@@ -527,7 +527,16 @@ last_seen="$(printf '%s\n' "$cursor_out" | sed -n 's/^last_seen:[[:space:]]*//p'
 _VERIFY_FETCHED=""
 verify_fetch() {  # verify_fetch [fresh]; ensure+fetch the VERIFY clone (once/tick unless fresh)
   local rc=0
-  clone_lock "$VERIFY"
+  # This board check is optional per-tick work: abandoning a busy tick leaves its
+  # cursor unchanged, and abandoning the fresh post-confirm makes the already-posted
+  # directive an idempotent pre-check hit next tick. The VERIFY path is shared by all
+  # comment-watcher slugs on the host, so a live peer can legitimately hold it longer
+  # than the hard 3x60s ladder. Take it SOFT (matching ci-watcher): one short wait,
+  # then a quiet rc=75 skip, with a caller-scoped host cooldown so sibling slugs do
+  # not each repeat even that wait.
+  GARDEN_CLONE_LOCK_SOFT=1 \
+    GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY=comment-watcher-verify \
+    clone_lock "$VERIFY"
   # A subshell swallows ensure_clone's offline `exit`/die; re-raise it after unlocking.
   # ensure_clone_or_latch_outage (not raw ensure_clone): a (re)clone that times out
   # with no stderr is an ambiguous outage, not a fault — latch the cooldown and exit
