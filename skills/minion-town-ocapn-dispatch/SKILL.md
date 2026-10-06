@@ -148,9 +148,9 @@ which needs the AWS/SSM access described in
 [aws-administration](../aws-administration/SKILL.md)). Use it when the cheap
 checks disagree.
 
-If any line fails, stop. Send a dispatch request to the liaison
-(`scripts/jobs/message-user.sh`) or to the `endo-minion-town-guest-locator-federation`
-orchestration, naming the failing line. Do not improvise a workaround through the
+If any line fails, stop. Name the failing line in your completion report, or
+send it to the `endo-minion-town-guest-locator-federation` orchestration
+(`scripts/jobs/inbox-send.sh`). Do not improvise a workaround through the
 demo endpoints.
 
 ### B. Dispatch (NOT YET RUNNABLE: the shape the plan points to)

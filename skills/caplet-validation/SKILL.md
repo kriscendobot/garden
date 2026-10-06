@@ -270,8 +270,8 @@ Combine steps 1 to 4 under the rubric in *Output shape*. Then act on it:
   with the findings inlined ([job-board](../job-board/SKILL.md)). Re-validate
   after the fix. The fixed version becomes the treatment arm, and the failing
   version is the baseline.
-- `needs-human`: send the ambiguous evidence to the maintainer with
-  `scripts/jobs/message-user.sh <job-base>`, naming the probe and what would
+- `needs-human`: raise the ambiguous evidence on the caplet's issue or pull
+  request and in your completion report, naming the probe and what would
   settle it. Do not adopt in the meantime.
 
 ## Output shape
