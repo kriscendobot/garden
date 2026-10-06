@@ -1,4 +1,5 @@
 ---
+child-retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006-expanded-window-reap-count: 0
 order: serial
 children: retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006-expanded-window
 on-child-failure: halt
