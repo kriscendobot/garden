@@ -296,20 +296,36 @@ trap 'write_comment_heartbeat' EXIT
 # knob, so an operator who set the old name still tunes the (now shared) window.
 [ -n "${GARDEN_COMMENT_API_COOLDOWN_SECS:-}" ] && : "${GARDEN_API_COOLDOWN_SECS:=$GARDEN_COMMENT_API_COOLDOWN_SECS}"
 
-# A source timeout is usually not a five-minute blip when it repeats after the
-# shared cooldown expires. Keep one host-scoped strike count (not one per repo),
-# and double the next shared cooldown for every consecutive timeout. A successful
-# source sweep is the only watcher outcome that clears the count: other failures
-# still tell us nothing about whether the slow-source episode has recovered.
-COMMENT_SOURCE_TIMEOUT_STRIKES="$GARDEN_API_COOLDOWN_DIR/comment-source-timeout-strikes"
-COMMENT_SOURCE_TIMEOUT_STRIKES_LOCK="$COMMENT_SOURCE_TIMEOUT_STRIKES.lock"
+# A wall-clock source timeout proves only that THIS repo's enumeration exceeded its
+# tick budget. It does not prove that GitHub is unavailable to sibling repos. Keep
+# the exponential backoff in a per-slug record; only stderr that positively matches
+# a shared network/API/quota failure may open the host-wide gh-api cooldown below.
+# A successful source sweep clears this slug's streak. Other failures leave it in
+# place because they say nothing about whether this repo's slow-source episode has
+# recovered.
+: "${GARDEN_COMMENT_TIMEOUT_BACKOFF_DIR:=$GARDEN_STATE/comment-watcher/source-timeout-backoff}"
+COMMENT_SOURCE_TIMEOUT_BACKOFF="$GARDEN_COMMENT_TIMEOUT_BACKOFF_DIR/$slug"
+COMMENT_SOURCE_TIMEOUT_BACKOFF_LOCK="$COMMENT_SOURCE_TIMEOUT_BACKOFF.lock"
 
-comment_source_timeout_strike() {  # prints "<strike> <cooldown-secs>"
-  local strike base cap secs i tmp
-  mkdir -p "$GARDEN_API_COOLDOWN_DIR"
+comment_source_timeout_backoff_active() {  # prints seconds remaining; rc 0 = active
+  local now expiry
+  mkdir -p "$GARDEN_COMMENT_TIMEOUT_BACKOFF_DIR"
   (
     flock 9
-    strike="$(sed -n '1p' "$COMMENT_SOURCE_TIMEOUT_STRIKES" 2>/dev/null || true)"
+    expiry="$(sed -n '2p' "$COMMENT_SOURCE_TIMEOUT_BACKOFF" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) return 1;; esac
+    now="$(date +%s)"
+    [ "$expiry" -gt "$now" ] || return 1
+    printf '%s\n' "$((expiry - now))"
+  ) 9>"$COMMENT_SOURCE_TIMEOUT_BACKOFF_LOCK"
+}
+
+comment_source_timeout_strike() {  # prints "<strike> <backoff-secs>"
+  local strike base cap secs i tmp expiry
+  mkdir -p "$GARDEN_COMMENT_TIMEOUT_BACKOFF_DIR"
+  (
+    flock 9
+    strike="$(sed -n '1p' "$COMMENT_SOURCE_TIMEOUT_BACKOFF" 2>/dev/null || true)"
     case "$strike" in ''|*[!0-9]*) strike=0;; esac
     strike=$((strike + 1))
     base="$(_api_cooldown_secs)"
@@ -321,19 +337,20 @@ comment_source_timeout_strike() {  # prints "<strike> <cooldown-secs>"
       if [ "$secs" -gt $((cap / 2)) ]; then secs="$cap"; else secs=$((secs * 2)); fi
       i=$((i + 1))
     done
-    tmp="$COMMENT_SOURCE_TIMEOUT_STRIKES.$$.$RANDOM"
-    printf '%s\n' "$strike" > "$tmp"
-    mv -f "$tmp" "$COMMENT_SOURCE_TIMEOUT_STRIKES"
+    expiry=$(( $(date +%s) + secs ))
+    tmp="$COMMENT_SOURCE_TIMEOUT_BACKOFF.$$.$RANDOM"
+    printf '%s\n%s\n' "$strike" "$expiry" > "$tmp"
+    mv -f "$tmp" "$COMMENT_SOURCE_TIMEOUT_BACKOFF"
     printf '%s %s\n' "$strike" "$secs"
-  ) 9>"$COMMENT_SOURCE_TIMEOUT_STRIKES_LOCK"
+  ) 9>"$COMMENT_SOURCE_TIMEOUT_BACKOFF_LOCK"
 }
 
-clear_comment_source_timeout_strikes() {
-  mkdir -p "$GARDEN_API_COOLDOWN_DIR"
+clear_comment_source_timeout_backoff() {
+  mkdir -p "$GARDEN_COMMENT_TIMEOUT_BACKOFF_DIR"
   (
     flock 9
-    rm -f "$COMMENT_SOURCE_TIMEOUT_STRIKES"
-  ) 9>"$COMMENT_SOURCE_TIMEOUT_STRIKES_LOCK"
+    rm -f "$COMMENT_SOURCE_TIMEOUT_BACKOFF"
+  ) 9>"$COMMENT_SOURCE_TIMEOUT_BACKOFF_LOCK"
 }
 
 # --- silent-blindness self-test (NOT an inactivity detector) -----------------
@@ -460,6 +477,13 @@ fleet_draining && { comment_heartbeat_outcome=drained; log "fleet draining; skip
 # GraphQL latch re-armed hourly. The one GraphQL read (the mergeable probe) checks
 # the GraphQL latch itself at its call site.
 api_cooldown_active rest && { comment_heartbeat_outcome=cooldown; exit 0; }
+
+# A timeout backoff is deliberately local to this slug. Do not let one expensive
+# repository suppress unrelated comment sources on the same host.
+if comment_source_timeout_backoff_active >/dev/null; then
+  comment_heartbeat_outcome=source-timeout
+  exit 0
+fi
 
 # slug is <owner>-<name>; owners in our set carry no dash, so split on the first.
 owner="${slug%%-*}"; name="${slug#*-}"
@@ -1840,14 +1864,30 @@ if [ "$src_rc" -ne 0 ]; then
     exit "$src_rc"
   fi
   # `timeout` reports its own wall-clock expiry as rc 124, or rc 137 when the
-  # source ignores TERM and --kill-after escalates to SIGKILL. Either result says
-  # only that GitHub could not be enumerated within this tick's bound; stderr may
-  # be empty, so classify the return code before the text-based transient gates.
+  # source ignores TERM and --kill-after escalates to SIGKILL. The rc alone says
+  # only that THIS slug exceeded its tick budget. Open the host-shared latch only
+  # when captured stderr positively identifies a shared network/API/quota failure;
+  # otherwise back off this slug and leave every sibling free to poll.
   if [ "$src_rc" -eq 124 ] || [ "$src_rc" -eq 137 ]; then
-    read -r timeout_strike timeout_cooldown_secs < <(comment_source_timeout_strike)
-    if start_api_cooldown "comment:$slug:source-timeout:$timeout_strike" "$timeout_cooldown_secs"; then
-      log "WARN: comment source timed out (transient, rc=$src_rc) — strike $timeout_strike; cooling all gh-api watchers for ${timeout_cooldown_secs}s (never guess)"
+    timeout_err="$(cat "$ERRF" 2>/dev/null || true)"
+    comment_heartbeat_outcome=source-timeout
+    if is_gh_primary_rate_limit_text "$timeout_err"; then
+      comment_heartbeat_outcome=cooldown
+      pq_secs="$(api_primary_quota_secs)"
+      if start_api_cooldown "comment:$slug:primary-quota" "$pq_secs"; then
+        log "WARN: comment source timed out after GitHub primary quota exhaustion (rc=$src_rc) — cooling REST gh-api watchers for ${pq_secs}s"
+      fi
+      exit 0
     fi
+    if is_transient_net_error "$timeout_err" || is_transient_gh_source_error "$timeout_err"; then
+      comment_heartbeat_outcome=cooldown
+      if start_api_cooldown "comment:$slug:source-timeout-shared-failure"; then
+        log "WARN: comment source timed out with a shared network/API failure (rc=$src_rc) — cooling REST gh-api watchers for $(_api_cooldown_secs)s"
+      fi
+      exit 0
+    fi
+    read -r timeout_strike timeout_cooldown_secs < <(comment_source_timeout_strike)
+    log "WARN: comment source timed out (transient, rc=$src_rc) — strike $timeout_strike; backing off only $slug for ${timeout_cooldown_secs}s (never guess)"
     exit 0
   fi
   # Transient connectivity (GitHub outage, DNS blip, TLS/read timeout) is "we
@@ -1901,7 +1941,7 @@ if [ "$src_rc" -ne 0 ]; then
     die "comment source failed for $repo (rc=$src_rc; see source stderr above)"
   fi
 fi
-clear_comment_source_timeout_strikes
+clear_comment_source_timeout_backoff
 comment_heartbeat_outcome=full-poll
 # Defensive ascending sort by created_at (field 1); the source should already.
 sort -t$'\t' -k1,1 -o "$SRC" "$SRC"

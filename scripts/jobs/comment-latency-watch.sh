@@ -71,7 +71,7 @@ classify_state() { # age latency-or-dash cadence hb-outcome hb-age outcome-age d
   esac
   case "$outcome" in
     drained|not-main-host|cooldown|offline-journal) printf 'muted\n' ;;
-    full-poll) printf 'never-acked:blind\n' ;;
+    full-poll|source-timeout) printf 'never-acked:blind\n' ;;
     *) printf 'never-acked:dead\n' ;;
   esac
 }

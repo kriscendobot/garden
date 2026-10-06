@@ -2035,8 +2035,8 @@ BARE_RATE="$TR/rate.git"; seed_bare "$BARE_RATE"
 
 # A source killed by `timeout` commonly leaves no stderr signature. Both timeout's
 # own deadline code (124) and its --kill-after SIGKILL code (137) must therefore be
-# classified from the return code alone: skip the tick, freeze the cursor, and open
-# the same shared API cooldown used by text-classified GitHub availability failures.
+# classified from the return code alone: skip the tick, freeze the cursor, and back
+# off ONLY this slug. An unqualified timeout must never suppress sibling repo polls.
 for timeout_rc in 124 137; do
   TIMEOUT_SOURCE="$TR/timeout-source-$timeout_rc.sh"
   printf '#!/bin/bash\nexit %s\n' "$timeout_rc" > "$TIMEOUT_SOURCE"
@@ -2055,9 +2055,10 @@ for timeout_rc in 124 137; do
     && ok "source rc $timeout_rc is absorbed as a skipped tick" \
     || bad "source rc $timeout_rc escaped as watcher failure $timeout_watch_rc"
   grep -q "WARN: comment source timed out (transient, rc=$timeout_rc)" "$TIMEOUT_ERR" \
-    && [ -f "$TIMEOUT_STATE/gh-api-cooldown/marker" ] \
-    && ok "source rc $timeout_rc warns once and opens the shared API cooldown" \
-    || bad "source rc $timeout_rc warning/cooldown missing ($(cat "$TIMEOUT_ERR"))"
+    && [ -f "$TIMEOUT_STATE/comment-watcher/source-timeout-backoff/$SLUG" ] \
+    && [ ! -e "$TIMEOUT_STATE/gh-api-cooldown/marker" ] \
+    && ok "source rc $timeout_rc warns once and backs off only its slug" \
+    || bad "source rc $timeout_rc timeout isolation missing ($(cat "$TIMEOUT_ERR"))"
   [ -z "$(cursor_seen "$TIMEOUT_STATE" "$BARE_RATE")" ] \
     && ok "source rc $timeout_rc freezes the cursor" \
     || bad "source rc $timeout_rc advanced the cursor"
@@ -2066,11 +2067,12 @@ for timeout_rc in 124 137; do
     || ok "source rc $timeout_rc did not emit FATAL"
 done
 
-# Consecutive source timeouts share one host-scoped strike count across repo
-# watchers. Each timeout after an expired latch doubles the next cooldown; only a
-# successful source sweep resets the streak.
+# Consecutive source timeouts keep independent per-slug strike counts. Each slug's
+# timeout after its own expired backoff doubles only that slug's next window; only a
+# successful sweep of that same slug resets its streak.
 BACKOFF_STATE="$TR/state-timeout-backoff"
 BACKOFF_COOL="$BACKOFF_STATE/gh-api-cooldown"
+BACKOFF_DIR="$BACKOFF_STATE/comment-watcher/source-timeout-backoff"
 BACKOFF_MODE="$TR/timeout-backoff.mode"
 BACKOFF_SOURCE="$TR/timeout-backoff-source.sh"
 cat > "$BACKOFF_SOURCE" <<'EOF'
@@ -2098,50 +2100,88 @@ printf 'timeout\n' > "$BACKOFF_MODE"
 BACKOFF_LOG1="$TR/timeout-backoff-1.err"
 run_timeout_backoff endojs-endo-but-for-bots "$BACKOFF_LOG1"
 backoff_now="$(date +%s)"
-backoff_expiry="$(sed -n '1p' "$BACKOFF_COOL/marker")"
-[ "$(cat "$BACKOFF_COOL/comment-source-timeout-strikes")" -eq 1 ] \
+backoff_expiry="$(sed -n '2p' "$BACKOFF_DIR/endojs-endo-but-for-bots")"
+[ "$(sed -n '1p' "$BACKOFF_DIR/endojs-endo-but-for-bots")" -eq 1 ] \
   && [ "$backoff_expiry" -ge $((backoff_now + 9)) ] \
   && [ "$backoff_expiry" -le $((backoff_now + 11)) ] \
-  && ok "first source timeout records host strike 1 and a 10s cooldown" \
-  || bad "first timeout strike/cooldown wrong (strike=$(cat "$BACKOFF_COOL/comment-source-timeout-strikes" 2>/dev/null), expiry=$backoff_expiry, now=$backoff_now)"
+  && [ ! -e "$BACKOFF_COOL/marker" ] \
+  && ok "first source timeout records slug strike 1 and a 10s local backoff" \
+  || bad "first timeout strike/backoff wrong (record=$(cat "$BACKOFF_DIR/endojs-endo-but-for-bots" 2>/dev/null), expiry=$backoff_expiry, now=$backoff_now)"
 [ "$(grep -c 'WARN: comment source timed out' "$BACKOFF_LOG1" || true)" -eq 1 ] \
   && ok "first timeout episode emits one warning" \
   || bad "first timeout warning count wrong ($(cat "$BACKOFF_LOG1"))"
 
-printf '0\nexpired-test\n' > "$BACKOFF_COOL/marker"
+# Before its local window expires, the same slug must skip without invoking even a
+# now-successful source (which would clear the record if it ran).
+printf 'success\n' > "$BACKOFF_MODE"
+BACKOFF_LOG_SKIP="$TR/timeout-backoff-skip.err"
+run_timeout_backoff endojs-endo-but-for-bots "$BACKOFF_LOG_SKIP"
+[ "$(sed -n '1p' "$BACKOFF_DIR/endojs-endo-but-for-bots")" -eq 1 ] \
+  && [ ! -s "$BACKOFF_LOG_SKIP" ] \
+  && ok "the timed-out slug skips quietly during its own local backoff" \
+  || bad "the timed-out slug polled during its active backoff ($(cat "$BACKOFF_LOG_SKIP"))"
+
+printf 'timeout\n' > "$BACKOFF_MODE"
 BACKOFF_LOG2="$TR/timeout-backoff-2.err"
 run_timeout_backoff kriscendobot-garden "$BACKOFF_LOG2"
 backoff_now="$(date +%s)"
-backoff_expiry="$(sed -n '1p' "$BACKOFF_COOL/marker")"
-[ "$(cat "$BACKOFF_COOL/comment-source-timeout-strikes")" -eq 2 ] \
-  && [ "$backoff_expiry" -ge $((backoff_now + 19)) ] \
-  && [ "$backoff_expiry" -le $((backoff_now + 21)) ] \
-  && ok "second repo timeout shares strike 2 and doubles the cooldown to 20s" \
-  || bad "second timeout strike/cooldown wrong (strike=$(cat "$BACKOFF_COOL/comment-source-timeout-strikes" 2>/dev/null), expiry=$backoff_expiry, now=$backoff_now)"
+backoff_expiry="$(sed -n '2p' "$BACKOFF_DIR/kriscendobot-garden")"
+[ "$(sed -n '1p' "$BACKOFF_DIR/kriscendobot-garden")" -eq 1 ] \
+  && [ "$backoff_expiry" -ge $((backoff_now + 9)) ] \
+  && [ "$backoff_expiry" -le $((backoff_now + 11)) ] \
+  && [ ! -e "$BACKOFF_COOL/marker" ] \
+  && ok "a different repo starts its own strike 1 without a shared cooldown" \
+  || bad "second slug was not isolated (record=$(cat "$BACKOFF_DIR/kriscendobot-garden" 2>/dev/null), expiry=$backoff_expiry, now=$backoff_now)"
 [ "$(grep -c 'WARN: comment source timed out' "$BACKOFF_LOG2" || true)" -eq 1 ] \
   && ok "second timeout episode retains one-warning behavior" \
   || bad "second timeout warning count wrong ($(cat "$BACKOFF_LOG2"))"
 
-printf '0\nexpired-test\n' > "$BACKOFF_COOL/marker"
+sed -i '2c 0' "$BACKOFF_DIR/endojs-endo-but-for-bots"
+run_timeout_backoff endojs-endo-but-for-bots "$TR/timeout-backoff-1b.err"
+[ "$(sed -n '1p' "$BACKOFF_DIR/endojs-endo-but-for-bots")" -eq 2 ] \
+  && [ "$(sed -n '1p' "$BACKOFF_DIR/kriscendobot-garden")" -eq 1 ] \
+  && ok "a repeated timeout doubles only the same slug's strike" \
+  || bad "per-slug timeout strikes crossed (first=$(cat "$BACKOFF_DIR/endojs-endo-but-for-bots"), second=$(cat "$BACKOFF_DIR/kriscendobot-garden"))"
+
+sed -i '2c 0' "$BACKOFF_DIR/endojs-endo-but-for-bots"
 printf 'transient\n' > "$BACKOFF_MODE"
 run_timeout_backoff endojs-endo-but-for-bots "$TR/timeout-backoff-transient.err"
-[ "$(cat "$BACKOFF_COOL/comment-source-timeout-strikes")" -eq 2 ] \
+[ "$(sed -n '1p' "$BACKOFF_DIR/endojs-endo-but-for-bots")" -eq 2 ] \
   && ok "a non-timeout source failure does not reset timeout strikes" \
-  || bad "a non-timeout failure changed timeout strikes ($(cat "$BACKOFF_COOL/comment-source-timeout-strikes" 2>/dev/null))"
+  || bad "a non-timeout failure changed timeout strikes ($(cat "$BACKOFF_DIR/endojs-endo-but-for-bots" 2>/dev/null))"
 
-printf '0\nexpired-test\n' > "$BACKOFF_COOL/marker"
+rm -f "$BACKOFF_COOL/marker"
 printf 'success\n' > "$BACKOFF_MODE"
 run_timeout_backoff endojs-endo-but-for-bots "$TR/timeout-backoff-success.err"
-[ ! -e "$BACKOFF_COOL/comment-source-timeout-strikes" ] \
-  && ok "successful source sweep resets the host timeout strikes" \
-  || bad "successful source sweep left timeout strikes ($(cat "$BACKOFF_COOL/comment-source-timeout-strikes" 2>/dev/null))"
+[ ! -e "$BACKOFF_DIR/endojs-endo-but-for-bots" ] \
+  && [ -e "$BACKOFF_DIR/kriscendobot-garden" ] \
+  && ok "successful source sweep resets only its slug's timeout strikes" \
+  || bad "successful source sweep reset the wrong timeout state"
 
 printf 'timeout\n' > "$BACKOFF_MODE"
+sed -i '2c 0' "$BACKOFF_DIR/kriscendobot-garden"
 BACKOFF_LOG3="$TR/timeout-backoff-3.err"
 run_timeout_backoff kriscendobot-garden "$BACKOFF_LOG3"
-grep -q 'strike 1;.*10s' "$BACKOFF_LOG3" \
-  && ok "timeout after a successful sweep restarts backoff at strike 1" \
-  || bad "timeout backoff did not restart after success ($(cat "$BACKOFF_LOG3"))"
+grep -q 'strike 2;.*20s' "$BACKOFF_LOG3" \
+  && ok "the other slug retains and doubles its independent timeout streak" \
+  || bad "the other slug lost its independent backoff ($(cat "$BACKOFF_LOG3"))"
+
+# A timeout accompanied by a positive shared-network signature is the deliberate
+# exception: it opens the host latch and does not create a slug-local strike.
+NETWORK_TIMEOUT_SOURCE="$TR/network-timeout-source.sh"
+printf '#!/bin/bash\necho '\''net/http: TLS handshake timeout'\'' >&2\nexit 124\n' > "$NETWORK_TIMEOUT_SOURCE"
+chmod +x "$NETWORK_TIMEOUT_SOURCE"
+NETWORK_TIMEOUT_STATE="$TR/state-network-timeout"
+env GARDEN_STATE="$NETWORK_TIMEOUT_STATE" GARDEN_API_COOLDOWN_DIR="$NETWORK_TIMEOUT_STATE/gh-api-cooldown" \
+    GARDEN_API_COOLDOWN_SECS=10 JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$NETWORK_TIMEOUT_SOURCE" \
+    GARDEN_NO_MAINTAINER_ALERT=1 \
+    "$JOBS/comment-watcher.sh" "$SLUG" >/dev/null 2>"$TR/network-timeout.err"
+[ -s "$NETWORK_TIMEOUT_STATE/gh-api-cooldown/marker" ] \
+  && [ ! -e "$NETWORK_TIMEOUT_STATE/comment-watcher/source-timeout-backoff/$SLUG" ] \
+  && grep -q 'shared network/API failure' "$TR/network-timeout.err" \
+  && ok "positive network stderr on timeout opens only the shared cooldown" \
+  || bad "network-signature timeout was not shared-classified ($(cat "$TR/network-timeout.err"))"
 
 RATE_WATCH_SOURCE="$TR/rate-watch-source.sh"
 cat > "$RATE_WATCH_SOURCE" <<'EOF'

@@ -149,7 +149,7 @@ Each watcher writes, at every exit point, a small file:
 ```
 $GARDEN_STATE/comment-watcher/heartbeat/<slug>          (issue-inbox and mention have their own keys)
   last_tick_at: 2026-09-23T16:25:56Z
-  outcome: full-poll | drained | cooldown | not-main-host | offline-journal
+  outcome: full-poll | drained | cooldown | source-timeout | not-main-host | offline-journal
 ```
 
 The outcome field is load-bearing: it is what distinguishes the incident's
@@ -162,6 +162,9 @@ see on the leader host and raises:
 - **stuck non-productive outcome** (`cooldown` or `offline-journal` continuously
   for longer than a bound, default 20 min): the exact incident. The watcher is
   ticking but wedged behind the shared cooldown latch.
+- **per-slug source timeout** (`source-timeout`): the timer is live, but that
+  repository's enumeration is blind while its local timeout backoff runs. It is
+  never folded into the host-wide cooldown mute.
 
 `drained` and `not-main-host` are expected and are surfaced as `muted`/quiescent,
 never paged (next section).

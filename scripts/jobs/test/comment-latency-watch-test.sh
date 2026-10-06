@@ -104,6 +104,9 @@ classify() { "$JOBS/comment-latency-watch.sh" --classify "$@"; }
 # (a) A negative (future) heartbeat age is fresh, never dead.
 [ "$(classify 2000 - 90 full-poll -13 -13 0)" = never-acked:blind ] || { echo 'FAIL: negative heartbeat age classified as dead'; exit 1; }
 [ "$(classify 2000 - 90 cooldown -13 600 0)" = muted ] || { echo 'FAIL: negative-age cooldown not muted'; exit 1; }
+# A live timer in a per-slug source-timeout backoff is blind for that slug, not
+# dead and not part of the host-wide cooldown mute.
+[ "$(classify 2000 - 90 source-timeout 30 600 0)" = never-acked:blind ] || { echo 'FAIL: per-slug source timeout was not classified blind'; exit 1; }
 # A genuinely stale heartbeat is still dead, whatever its last outcome.
 [ "$(classify 2000 - 90 cooldown 1000 600 0)" = never-acked:dead ] || { echo 'FAIL: stale heartbeat not dead'; exit 1; }
 
