@@ -74,17 +74,19 @@ post_gauntlet() { "$JOBS/post-gauntlet.sh" "$@" >/dev/null 2>&1; }
 
 complete_viability() { # <base> <result> [report-prefix]
   local base="$1" result="$2" prefix="${3:-}"
-  local edit="$TEST_ROOT/complete-$base"
+  local edit="$TEST_ROOT/complete-$base" shard
   rm -rf "$edit"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$edit"
   git -C "$edit" rm -q "jobs/todo/$base-viability.md"
+  shard=$(date -u +%Y/%m/%d)
+  mkdir -p "$edit/jobs/tada/$shard"
   {
     [ -z "$prefix" ] || printf '%s\n' "$prefix"
     printf 'Deciding question: Does this PR still implement a needed, unsuperseded change?\n'
     printf 'Evidence: current PR and base history inspected.\n'
     printf '<!-- gauntlet-stage-result: viability=%s -->\n' "$result"
-  } > "$edit/jobs/tada/$base-viability.md"
-  git -C "$edit" add "jobs/tada/$base-viability.md"
+  } > "$edit/jobs/tada/$shard/$base-viability.md"
+  git -C "$edit" add "jobs/tada/$shard/$base-viability.md"
   git -C "$edit" "${git_id[@]}" commit -q -m "complete viability $base ($result)"
   git -C "$edit" push -q origin "HEAD:$BRANCH"
 }

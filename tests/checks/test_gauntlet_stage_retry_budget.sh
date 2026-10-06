@@ -136,12 +136,14 @@ doom_stage() { # <base> <doom-signature> <failure-classification>
 }
 
 complete_stage() { # <base> <stage=result>
-  local edit="$TEST_ROOT/complete-$1"
+  local edit="$TEST_ROOT/complete-$1" shard
   rm -rf "$edit"
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$edit"
   git -C "$edit" rm -q "jobs/todo/$1.md"
-  printf '<!-- gauntlet-stage-result: %s -->\n' "$2" > "$edit/jobs/tada/$1.md"
-  git -C "$edit" add "jobs/tada/$1.md"
+  shard=$(date -u +%Y/%m/%d)
+  mkdir -p "$edit/jobs/tada/$shard"
+  printf '<!-- gauntlet-stage-result: %s -->\n' "$2" > "$edit/jobs/tada/$shard/$1.md"
+  git -C "$edit" add "jobs/tada/$shard/$1.md"
   git -C "$edit" "${git_id[@]}" commit -q -m "complete $1 ($2)"
   git -C "$edit" push -q origin "HEAD:$BRANCH"
 }

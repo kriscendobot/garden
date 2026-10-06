@@ -72,6 +72,7 @@ FREE_STANDING_ROLES=(
   monitor      # re-homed redirect onto triager + watchman
   mentor       # posts improvement jobs
   orchestrator # drives a job tree on the board; halts surface to the maintainer
+  accountant   # scheduled budget allocator; asks the maintainer to approve slices
 )
 
 # The EXACT set of files under roles/ + skills/ permitted to carry a
@@ -84,6 +85,7 @@ INBOX_ALLOWLIST=(
   roles/foreman/AGENT.md
   roles/gardener/AGENT.md
   roles/orchestrator/AGENT.md
+  roles/accountant/AGENT.md
   roles/scholar/AGENT.md
   skills/message-bus/SKILL.md
   skills/at-mention-surveillance/SKILL.md
