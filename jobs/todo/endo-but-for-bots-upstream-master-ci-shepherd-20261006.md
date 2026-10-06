@@ -1,10 +1,8 @@
 ---
-gate: blocked
-blocked_on: endo-but-for-bots-upstream-master-pin-20261006
-priority: normal
-posted_by: producer
-posted_at: 2026-10-06T02:43:29Z
+role: shepherd
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=blocked priority=normal at=2026-10-06T03:01:21Z cleared=none -->
 
 ---
 gate: blocked
