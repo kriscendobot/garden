@@ -6,3 +6,13 @@ dispatch: automatic
 In scripts/jobs/receipt-watcher.sh, the journal-prerequisite subshell (`ensure_clone "$DIR"; sync_clone "$DIR"`, around lines 138–152) FATALs with rc=1 when clone_lock's bounded wait gives up on a LIVE holder. Failure signature: `FATAL: cannot acquire clone lock …/receipt-watcher/journal-<slug>.lock after 3 waits of 60s and 0 reclaim attempt(s) (a live holder is still busy…)` → `receipt journal prerequisite failed for <repo> (rc=1…)`. Observed 2026-10-06 05:03:54Z on garden-receipt-watcher@kriscendobot-finbot. The holder was journal-contention-watch.sh's remedy_clone, which moved the 2.4G clone to `.contention-old.*` and ran a cold reclone that took more than 3 minutes. This is normal, self-resolving contention. common.sh already classifies it as contention: see `clone_lock_is_busy_contention` and `ensure_clone_or_latch_outage`, used by cursor-get/cursor-set. receipt-watcher does not use either, and its `shared_availability_failure` only checks for GARDEN_OFFLINE_RC, 124/137, and network or gh errors.
 
 Fix: in the `prereq_rc -ne 0` branch, before the loud die, add `if clone_lock_is_busy_contention "$prereq_rc" "$(cat "$PREREQ_ERR")"; then log "receipt journal clone lock busy (live peer; likely a contention rebuild) — skipping tick"; rm -f "$PREREQ_ERR"; exit 0; fi`. Do NOT start the gh-api cooldown for this case: it is local lock contention, not API unavailability, and it must not cool the other watchers. Alternatively, switch the ensure_clone call to `ensure_clone_or_latch_outage "$DIR" receipt-watcher` if its latch semantics fit. Keep the `journal_diagnostic_is_definite_failure` guard so a real corruption, auth or local fault in the same capture still fails loud. Add a test that stubs clone_lock to die with that exact message and asserts exit 0 with no FATAL. Also check the other watchers that run bare `ensure_clone` before an `|| die` (grep `ensure_clone "\$DIR"` in scripts/jobs/*-watcher.sh) for the same gap.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-06T05:05:00Z
