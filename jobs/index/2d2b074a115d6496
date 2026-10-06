@@ -1,2 +1,2 @@
-base: improve-comment-source-timeout-backoff
+base: improve-comment-timeout-isolation
 identity: mentor:scripts/jobs/comment-watcher.sh
