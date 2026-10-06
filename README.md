@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T16:30:27Z_
+_As of 2026-10-06T16:43:14Z_
 
 ## Latest
 
@@ -20,7 +20,7 @@ These items still need you:
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 18h)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 32d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 33d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 34d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 34d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 35d)
@@ -835,11 +835,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T16:18:36Z).
-> It was observed 76 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #77 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T16:38:30Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 77 times; this is ONE
+> coalesced notice that updates in place, not 77 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred work=102 (clones=102, remedies=0, cleanup=0, notices=0) on consecutive ticks.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
 
@@ -1546,7 +1546,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 153.6M | $1827.49 _(notional, rate-card)_ | 96% of 160.0M (ok) |
+| Claude | 155.4M | $1846.33 _(notional, rate-card)_ | 97% of 160.0M (ok) |
 | Codex | 8.0M _(+211.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1559,16 +1559,16 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 (none)
 
 ### doin (2)
-- [`kriscendobot-minion.town-pr165-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #165
-- [`improve-comment-source-quota-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-source-quota-fanout.md) — ---
+- [`fix-comment-watcher-test-cooldown-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-comment-watcher-test-cooldown-isolation.md) — ---
+- [`kriscendobot-minion.town-pr165-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — kriscendobot/minion.town PR #165
 
-### tada (11249)
+### tada (11252)
+- [`improve-receipt-watcher-primary-quota-cooldown-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-receipt-watcher-primary-quota-cooldown-retry.md) — Completion report: improve-receipt-watcher-primary-quota-cooldown-retry
+- [`improve-comment-source-quota-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-comment-source-quota-fanout.md) — Report: improve-comment-source-quota-fanout
+- [`kriscendobot-minion.town-pr165-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-clean.md) — Cost
 - [`kriscendobot-minion.town-pr165-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-viability.md) — Cost
 - [`build-minion-town-claude-pinned-responder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/build-minion-town-claude-pinned-responder.md) — Cost
-- [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006.md) — gauntlet endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006 — HALTED
-- [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-fix-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1282-shepherd.md) — Cost
-- … and 11244 more
+- … and 11247 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
