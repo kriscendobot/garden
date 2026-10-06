@@ -25,3 +25,13 @@ Implement every accepted decision and the complete test plan, including:
 This is garden infrastructure, so work in the per-job garden worktree, land explicit commits on `main2` with the required locked rebase-CAS loop, and run the exact local and CI verification gates. Do not open an implementation PR unless a current garden convention explicitly requires one. Record the exact implementation head for the release child. Do not touch the deployed root.
 
 No further maintainer review is required by this directive. The next serial child, `release-standing-token-backoff-ramp`, owns the destructive deployment operation after this build is green.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-06T19:21:27Z
