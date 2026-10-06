@@ -1,9 +1,14 @@
 from_host: endolin-garden2-5bcdff64
 from: watchdog:journal-contention-watch
-sent_at: 2026-10-06T05:09:47Z
+sent_at: 2026-10-06T14:10:56Z
 watchdog_key: journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_garden
 notice_count: 1
 first_seen: 2026-10-06T05:09:47Z
-last_seen: 2026-10-06T05:09:47Z
+last_seen: 2026-10-06T14:10:56Z
+recovered: true
 ---
-Journal fetch anomaly on endolin-garden2-5bcdff64 for _home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_garden: p95=45.001685s max=45.001830s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_garden` has CLEARED (first seen 2026-10-06T05:09:47Z, cleared 2026-10-06T14:10:56Z).
+It was observed 1 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
+
+Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_garden` cleared on endolin-garden2-5bcdff64.
