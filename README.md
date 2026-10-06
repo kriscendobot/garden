@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T09:30:04Z_
+_As of 2026-10-06T09:40:12Z_
 
 ## Latest
 
@@ -699,6 +699,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > It expires at 2026-10-04T20:36:05.663Z. Run `claude setup-token` on your own machine and submit the result only through that HTTPS page. Never send the token to me or put it in a message or log. Please reply when the page reports `connected`.
 
+- `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
+
+> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=4 target=1
+
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=130189335 cap=256000000 pace-bias=0 window-start=2026-10-03T03:00Z(calendar) deadline=2026-10-10T03:00Z(calendar) [planned reset 2026-10-10T03:00:00Z not before calendar deadline; ignored] ceiling=4 target=2
@@ -791,11 +795,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T09:28:21Z).
-> It was observed 61 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #62 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T09:38:23Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 62 times; this is ONE
+> coalesced notice that updates in place, not 62 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred work=102 (clones=102, remedies=0, cleanup=0, notices=0) on consecutive ticks.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
 
@@ -1462,7 +1466,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.3M | $1796.06 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
+| Claude | 152.3M | $1797.94 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
 | Codex | 7.1M _(+192.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -1475,16 +1479,16 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 (none)
 
 ### doin (2)
-- [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1426
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1379
+- [`fix-gauntlet-audit-restages-finished-prs-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-gauntlet-audit-restages-finished-prs-20261006.md) — ---
 
-### tada (11212)
+### tada (11214)
+- [`endojs-endo-but-for-bots-pr1426-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1426-gauntlet — review budget reached
+- [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-fix-6.md) — Completion report: endojs/endo-but-for-bots#1426, gauntlet fix round 6
 - [`oros-health-watch-20261006-090537`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-090537.md) — Cost
 - [`claude-on-minion-town-press-20261006-090537`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261006-090537.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-79bca08dd84b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-79bca08dd84b.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1428-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-shepherd.md) — Cost
-- [`endojs-endo-but-for-bots-pr1428-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1428-gauntlet — HALTED
-- … and 11207 more
+- … and 11209 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
