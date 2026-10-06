@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T08:07:16Z_
+_As of 2026-10-06T08:12:23Z_
 
 ## Latest
 
@@ -1438,7 +1438,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.4M | $1776.76 _(notional, rate-card)_ | 124% of 121.0M (backoff) |
+| Claude | 150.4M | $1776.81 _(notional, rate-card)_ | 124% of 121.0M (backoff) |
 | Codex | 7.0M _(+191.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -1450,19 +1450,18 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1379
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1428
-- [`improve-comment-timeout-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-timeout-isolation.md) — ---
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1426
 
-### tada (11201)
+### tada (11202)
+- [`improve-comment-timeout-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-comment-timeout-isolation.md) — Cost
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-fix-4.md) — Cost
 - [`improve-comment-source-timeout-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-comment-source-timeout-fanout.md) — Cost
-- [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-panel-4.md) — Cost
-- … and 11196 more
+- … and 11197 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
