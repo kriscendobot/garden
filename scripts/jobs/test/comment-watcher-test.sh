@@ -1453,6 +1453,109 @@ EOF
 fi
 
 # ============================================================================
+# FAN — SOURCE-level deadline regression: enough recently-active PRs that two
+# serial metadata reads per PR cannot finish inside the scaled deadline. The real
+# source must complete with bounded fan-out and emit every inline-bearing review;
+# finishing fast by truncating the PR set is explicitly rejected by the row and
+# endpoint-call counts.
+hr; echo "FAN — active-PR review metadata is bounded-concurrent, deadline-safe, and complete"; hr
+command -v jq >/dev/null 2>&1 && command -v timeout >/dev/null 2>&1 && have_fan=1 || have_fan=0
+if [ "$have_fan" -eq 0 ]; then
+  echo "  SKIP: jq or timeout unavailable on host"
+else
+  GHFAN="$TR/gh-fan"; mkdir -p "$GHFAN"
+  FAN_CALLS="$TR/fan.calls"; : >"$FAN_CALLS"
+  FAN_ACTIVE="$TR/fan.active"; printf '0\n' >"$FAN_ACTIVE"
+  FAN_MAX="$TR/fan.max"; printf '0\n' >"$FAN_MAX"
+  FAN_LOCK="$TR/fan-counter"
+  cat > "$GHFAN/gh" <<'EOF'
+#!/bin/bash
+args="$*"; ts="${TS:?TS must be set}"
+lock() { while ! mkdir "${FAN_LOCK:?}.lock" 2>/dev/null; do sleep 0.005; done; }
+unlock() { rmdir "${FAN_LOCK:?}.lock"; }
+enter_call() {
+  lock
+  active=$(( $(cat "${FAN_ACTIVE:?}") + 1 )); printf '%s\n' "$active" >"$FAN_ACTIVE"
+  max=$(cat "${FAN_MAX:?}"); [ "$active" -le "$max" ] || printf '%s\n' "$active" >"$FAN_MAX"
+  unlock
+}
+leave_call() {
+  lock
+  active=$(( $(cat "${FAN_ACTIVE:?}") - 1 )); printf '%s\n' "$active" >"$FAN_ACTIVE"
+  unlock
+}
+case "$args" in
+  *"/issues/comments"*) printf '[]\n'; exit 0;;
+  *"/pulls?state=open"*)
+    printf '['
+    for n in $(seq 1 20); do
+      [ "$n" -eq 1 ] || printf ','
+      printf '{"number":%s,"updated_at":"%s"}' "$n" "$ts"
+    done
+    printf ']\n'; exit 0;;
+  *"/pulls/comments"*) printf '[]\n'; exit 0;;
+esac
+if [[ "$args" =~ /pulls/([0-9]+)/comments ]]; then
+  n="${BASH_REMATCH[1]}"; printf 'comments\t%s\n' "$n" >>"$FAN_CALLS"
+  enter_call; sleep 0.20; leave_call
+  printf '[{"pull_request_review_id":%s}]\n' "$((7000+n))"; exit 0
+fi
+if [[ "$args" =~ /pulls/([0-9]+)/reviews ]]; then
+  n="${BASH_REMATCH[1]}"; printf 'reviews\t%s\n' "$n" >>"$FAN_CALLS"
+  enter_call; sleep 0.20; leave_call
+  if [ "${FAN_FAIL_PR:-}" = "$n" ]; then
+    echo "HTTP 503: Service Unavailable (pulls/$n/reviews)" >&2; exit 1
+  fi
+  printf '[{"id":%s,"state":"COMMENTED","body":"","submitted_at":"%s","user":{"login":"kriskowal"},"html_url":"https://x/pull/%s#r%s"}]\n' "$((7000+n))" "$ts" "$n" "$((7000+n))"; exit 0
+fi
+printf '[]\n'
+EOF
+  chmod +x "$GHFAN/gh"
+  FAN_OUT="$TR/fan.out"; FAN_ERR="$TR/fan.err"
+  set +e
+  env PATH="$GHFAN:$PATH" TS="$REV_TS" FAN_CALLS="$FAN_CALLS" \
+    FAN_ACTIVE="$FAN_ACTIVE" FAN_MAX="$FAN_MAX" FAN_LOCK="$FAN_LOCK" \
+    GARDEN_COMMENT_REVIEW_CONCURRENCY=4 GARDEN_GH_API_ATTEMPTS=1 \
+    GARDEN_API_COOLDOWN_SECS=300 \
+    GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-fan" \
+    timeout 5s "$JOBS/handlers/comment-source-gh.sh" \
+      endojs/endo-but-for-bots "$SINCE_TS" kriscendobot >"$FAN_OUT" 2>"$FAN_ERR"
+  fan_rc=$?
+  set -e
+  [ "$fan_rc" -eq 0 ] \
+    && ok "20 active PRs complete inside the scaled deadline (serial work needs >8s)" \
+    || bad "fan-out source missed its 5s deadline or failed (rc=$fan_rc err=$(cat "$FAN_ERR"))"
+  [ "$(grep -c $'\tpr-review-body\t' "$FAN_OUT" || true)" -eq 20 ] \
+    && ok "all 20 inline-bearing review surfaces are emitted (no deadline shortcut/truncation)" \
+    || bad "expected 20 review rows, got $(grep -c $'\tpr-review-body\t' "$FAN_OUT" || true)"
+  [ "$(grep -c '^comments' "$FAN_CALLS" || true)" -eq 20 ] && [ "$(grep -c '^reviews' "$FAN_CALLS" || true)" -eq 20 ] \
+    && ok "both paginated metadata endpoints were read for every active PR" \
+    || bad "metadata coverage incomplete: comments=$(grep -c '^comments' "$FAN_CALLS" || true) reviews=$(grep -c '^reviews' "$FAN_CALLS" || true)"
+  fan_max="$(cat "$FAN_MAX")"
+  [ "$fan_max" -gt 1 ] && [ "$fan_max" -le 4 ] \
+    && ok "observed bounded concurrency (max $fan_max, configured 4)" \
+    || bad "metadata concurrency was not bounded fan-out (observed max $fan_max, want 2..4)"
+
+  # Concurrency must not weaken the cursor contract: a single failed worker makes
+  # the entire source nonzero even while its peers finish successfully.
+  FAN_FAIL_ERR="$TR/fan-fail.err"
+  set +e
+  env PATH="$GHFAN:$PATH" TS="$REV_TS" FAN_FAIL_PR=10 FAN_CALLS="$FAN_CALLS" \
+    FAN_ACTIVE="$FAN_ACTIVE" FAN_MAX="$FAN_MAX" FAN_LOCK="$FAN_LOCK" \
+    GARDEN_COMMENT_REVIEW_CONCURRENCY=4 GARDEN_GH_API_ATTEMPTS=1 \
+    GARDEN_API_COOLDOWN_SECS=300 \
+    GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-fan-fail" \
+    timeout 5s "$JOBS/handlers/comment-source-gh.sh" \
+      endojs/endo-but-for-bots "$SINCE_TS" kriscendobot >/dev/null 2>"$FAN_FAIL_ERR"
+  fan_fail_rc=$?
+  set -e
+  [ "$fan_fail_rc" -ne 0 ] && grep -q 'FETCH INCOMPLETE' "$FAN_FAIL_ERR" \
+    && grep -q 'pulls/10/reviews' "$FAN_FAIL_ERR" \
+    && ok "one failed concurrent worker fails the whole tick (cursor remains frozen)" \
+    || bad "concurrent worker failure was silently accepted (rc=$fan_fail_rc err=$(cat "$FAN_FAIL_ERR"))"
+fi
+
+# ============================================================================
 # FF — SIGNAL REAPING: a systemd stop/restart that SIGTERMs the watcher mid-tick
 # must leave NO source descendants behind. The source's `gh --paginate` forks git
 # credential helpers; the prior EXIT-only trap never ran on a signalled stop, so
@@ -1913,14 +2016,19 @@ EOF
   : > "$RATE_CALLS"
   set +e
   env PATH="$GHRATE:$PATH" RATE_CALLS="$RATE_CALLS" RATE_LATE=1 GARDEN_GH_API_ATTEMPTS=4 \
+    GARDEN_COMMENT_REVIEW_CONCURRENCY=2 \
     GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-rate-late" \
     "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
     >/dev/null 2>"$TR/rate-late.err"
   rate_late_rc=$?
   set -e
-  [ "$rate_late_rc" -eq 75 ] && [ "$(wc -l < "$RATE_CALLS")" -eq 3 ] \
-    && ok "quota discovered inside the PR walk stops all later PR/surface requests" \
-    || bad "late quota did not short-circuit (rc=$rate_late_rc calls=$(wc -l < "$RATE_CALLS")): $(cat "$RATE_CALLS")"
+  rate_late_calls="$(wc -l < "$RATE_CALLS")"
+  if [ "$rate_late_rc" -eq 75 ] && [ "$rate_late_calls" -ge 3 ] && [ "$rate_late_calls" -le 4 ] \
+      && ! grep -qE '/reviews|/pulls/comments' "$RATE_CALLS"; then
+    ok "quota discovered inside the PR walk stops all but the bounded in-flight peer"
+  else
+    bad "late quota did not short-circuit within the concurrency bound (rc=$rate_late_rc calls=$rate_late_calls): $(cat "$RATE_CALLS")"
+  fi
 fi
 
 BARE_RATE="$TR/rate.git"; seed_bare "$BARE_RATE"

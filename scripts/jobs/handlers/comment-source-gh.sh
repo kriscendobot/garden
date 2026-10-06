@@ -331,10 +331,27 @@ rm -f "$s1_err"
 # SIGPIPEs the paginating gh, which would otherwise trip pipefail and spuriously
 # echo the structural-call stderr buffer on a clean early-stop.
 #
+# The two paginated review-metadata reads used to run serially for every active PR.
+# A busy repo can have dozens of PRs updated inside one cursor window, and that
+# O(active PRs * endpoint latency) walk repeatedly overran comment-watcher's 180s
+# source deadline. Fetch one PR's complete metadata in a worker and run a bounded
+# number of those workers concurrently. Each worker has private output/error files;
+# the parent waits for every worker, folds every failure through note_fetch_failure,
+# and concatenates rows in PR-list order. Thus concurrency changes latency only:
+# there is no cap, no omitted PR, and any partial worker still freezes the cursor.
+: "${GARDEN_COMMENT_REVIEW_CONCURRENCY:=8}"
+case "$GARDEN_COMMENT_REVIEW_CONCURRENCY" in
+  ''|*[!0-9]*|0) log "WARN: invalid GARDEN_COMMENT_REVIEW_CONCURRENCY=$GARDEN_COMMENT_REVIEW_CONCURRENCY; using 8"; GARDEN_COMMENT_REVIEW_CONCURRENCY=8 ;;
+esac
+if [ "$GARDEN_COMMENT_REVIEW_CONCURRENCY" -gt 32 ]; then
+  log "WARN: capping GARDEN_COMMENT_REVIEW_CONCURRENCY=$GARDEN_COMMENT_REVIEW_CONCURRENCY at 32"
+  GARDEN_COMMENT_REVIEW_CONCURRENCY=32
+fi
+
 # Capture buffers for the structural gh calls' stderr (see Stderr policy EXCEPTION
 # above): echoed to fd 2 only when the call fails, so a real fault reaches ERRF
 # while a clean run stays quiet.
-prlist_err="$(mktemp)"; rids_err="$(mktemp)"; rev_err="$(mktemp)"; s3out="$(mktemp)"; ic_err="$(mktemp)"
+prlist_err="$(mktemp)"; s3out="$(mktemp)"; review_tmp="$(mktemp -d)"
 # A FAILED open-PR list is NOT an empty list: degrading it to open_prs="" (the prior
 # behavior) silently dropped EVERY review surface while the cursor still advanced off
 # the successful issue-comment surface. Mark it a fetch failure so the tick is frozen.
@@ -348,34 +365,31 @@ else
     || { note_fetch_failure "pulls?state=open (open-PR list)" "$prlist_err"; open_prs=""; }
 fi
 
-scanned=0; total=0
-while IFS=$'\t' read -r n updated; do
-  [ -n "$n" ] || continue
-  total=$((total+1))
-  # Activity bound: the list is newest-activity-first, so once a PR's updated_at
-  # predates the cursor, every remaining PR is older too and none can carry a
-  # review/comment submitted since `since`. Stop scanning here.
-  if [ -n "$updated" ] && [ "$updated" \< "$since" ]; then break; fi
-  scanned=$((scanned+1))
-  # Review ids that carry at least one inline comment on this PR. A
-  # space-delimited string so the reviews jq below can membership-test it.
-  # rids feeds the inline-bearing membership test. A FAILED fetch is NOT "this PR has
-  # no inline comments": rids="" would silently demote an inline-only review out of
-  # the review-body surface (the r3566529028 drop class). Mark it a fetch failure.
-  : >"$rids_err"
-  rids="$(gh_api_retry --paginate "repos/$repo/pulls/$n/comments?per_page=100" 2>"$rids_err" \
-          | jq -r '.[] | (.pull_request_review_id // empty) | tostring' \
-          | sort -u | tr '\n' ' ')" || { rids=""; note_fetch_failure "pulls/$n/comments (review-id map)" "$rids_err"; }
-  # A primary quota refusal applies to every remaining surface for this identity.
-  # Stop the PR walk immediately instead of multiplying doomed requests by every
-  # active PR and its review surfaces.
-  [ -n "$fetch_primary_quota" ] && break
-  # Guard the reviews fetch too: a swallowed failure here dropped that PR's entire
-  # review-body surface while the cursor advanced. Capture-then-emit so a gh failure
-  # is DETECTED (fetch_failed), not lost to `| jq … || true`.
-  : >"$rev_err"
-  if _revs="$(gh_api_retry --paginate "repos/$repo/pulls/$n/reviews?per_page=100" 2>"$rev_err")"; then
-    printf '%s' "$_revs" | jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " --arg bot "$bot" "$jqdef"'
+fetch_pr_review_metadata() { # fetch_pr_review_metadata <sequence> <pr-number>
+  local seq="$1" n="$2" prefix="$review_tmp/$1" rids="" raw
+  : >"$prefix.out"
+
+  # A sibling may have discovered primary-quota exhaustion while this worker was
+  # queued. Do not multiply requests after that host-wide fact is known.
+  [ ! -e "$review_tmp/primary-quota" ] || return 0
+
+  raw="$prefix.comments.json"
+  if gh_api_retry --paginate "repos/$repo/pulls/$n/comments?per_page=100" >"$raw" 2>"$prefix.comments.err"; then
+    if ! rids="$(jq -r '.[] | (.pull_request_review_id // empty) | tostring' "$raw" 2>>"$prefix.comments.err" \
+        | sort -u | tr '\n' ' ')"; then
+      printf '%s\t%s\n' "pulls/$n/comments (review-id map)" "$prefix.comments.err" >>"$prefix.failures"
+    fi
+  else
+    printf '%s\t%s\n' "pulls/$n/comments (review-id map)" "$prefix.comments.err" >>"$prefix.failures"
+  fi
+  if [ -s "$prefix.comments.err" ] && is_gh_primary_rate_limit_text "$(cat "$prefix.comments.err")"; then
+    : >"$review_tmp/primary-quota"
+    return 0
+  fi
+
+  raw="$prefix.reviews.json"
+  if gh_api_retry --paginate "repos/$repo/pulls/$n/reviews?per_page=100" >"$raw" 2>"$prefix.reviews.err"; then
+    if ! jq -r --arg s "$since" --arg n "$n" --arg rids " $rids " --arg bot "$bot" "$jqdef"'
         .[] | select((.submitted_at // "") >= $s)
         | select((.user.login // "") != $bot)
         | (.id|tostring) as $rid
@@ -385,32 +399,112 @@ while IFS=$'\t' read -r n updated; do
             ( (if $inline then "[INLINE-REVIEW] " else "" end)
             + (if .state=="CHANGES_REQUESTED" then "[CHANGES_REQUESTED] " else "" end)
             + (if .state=="APPROVED" then "[APPROVED] " else "" end)
-            + ((.body // "") | sq) ) ] | @tsv' >> "$s3out"
-  else
-    note_fetch_failure "pulls/$n/reviews" "$rev_err"
-  fi
-  [ -n "$fetch_primary_quota" ] && break
-  # ISSUES-DISABLED degraded mode: the repo-level issues/comments feed 404'd because
-  # Issues are OFF, so recover THIS PR's conversation comments (surface=pr-comment)
-  # directly — issues/<n>/comments returns 200 even with Issues disabled (verified),
-  # so coverage is PRESERVED, not merely the crash stopped. The shared
-  # emit_pr_conversation_comments helper keeps the since= filter, self-authored $bot
-  # drop, and html_url test("/pull/") classification byte-identical to surface 1
-  # (true-issue comments are genuinely absent — no issue can exist). This is the SOLE
-  # per-PR conversation-comment enumeration; a second copy would duplicate every row.
-  # Guarded exactly like the other surfaces: a failure is DETECTED (fetch_failed),
-  # never swallowed into a silent partial subset. Emitted to $s3out so it is cat'd with
-  # the review-body rows; the watcher re-sorts by created_at, so order is irrelevant.
-  if [ -n "$issues_disabled" ]; then
-    : >"$ic_err"
-    if _ic="$(gh_api_retry --paginate "repos/$repo/issues/$n/comments?since=$since&per_page=100" 2>"$ic_err")"; then
-      emit_pr_conversation_comments "$_ic" >> "$s3out"
-    else
-      note_fetch_failure "issues/$n/comments (pr-comment, issues-disabled mode)" "$ic_err"
+            + ((.body // "") | sq) ) ] | @tsv' "$raw" >>"$prefix.out" 2>>"$prefix.reviews.err"; then
+      printf '%s\t%s\n' "pulls/$n/reviews" "$prefix.reviews.err" >>"$prefix.failures"
     fi
-    [ -n "$fetch_primary_quota" ] && break
+  else
+    printf '%s\t%s\n' "pulls/$n/reviews" "$prefix.reviews.err" >>"$prefix.failures"
+  fi
+  if [ -s "$prefix.reviews.err" ] && is_gh_primary_rate_limit_text "$(cat "$prefix.reviews.err")"; then
+    : >"$review_tmp/primary-quota"
+    return 0
+  fi
+
+  # On an Issues-disabled fork, preserve the PR-conversation surface in the same
+  # bounded worker. This is a third call only in that explicit degraded mode.
+  if [ -n "$issues_disabled" ]; then
+    raw="$prefix.issue-comments.json"
+    if gh_api_retry --paginate "repos/$repo/issues/$n/comments?since=$since&per_page=100" >"$raw" 2>"$prefix.issue-comments.err"; then
+      if ! emit_pr_conversation_comments "$(cat "$raw")" >>"$prefix.out" 2>>"$prefix.issue-comments.err"; then
+        printf '%s\t%s\n' "issues/$n/comments (pr-comment, issues-disabled mode)" "$prefix.issue-comments.err" >>"$prefix.failures"
+      fi
+    else
+      printf '%s\t%s\n' "issues/$n/comments (pr-comment, issues-disabled mode)" "$prefix.issue-comments.err" >>"$prefix.failures"
+    fi
+    if [ -s "$prefix.issue-comments.err" ] && is_gh_primary_rate_limit_text "$(cat "$prefix.issue-comments.err")"; then
+      : >"$review_tmp/primary-quota"
+    fi
+  fi
+  return 0
+}
+
+review_pids=()
+wait_oldest_review_worker() {
+  local pid="${review_pids[0]}"
+  wait "$pid" || true
+  review_pids=("${review_pids[@]:1}")
+}
+
+# gh_api_retry normally single-flights each request under the host cooldown lock.
+# That is the right default for unrelated callers, but would serialize this entire
+# fan-out back into the deadline failure we are fixing. Admit the WHOLE bounded
+# group once, retain that lock until all workers finish, and mark the worker calls
+# as nested/admitted. Other watcher ticks still wait outside the group; only this
+# explicitly bounded set runs concurrently. If a worker finds primary exhaustion,
+# record the host latch under the still-held lock before releasing it.
+review_admit_fd=""
+review_group_admitted=""
+if [ -z "$fetch_primary_quota" ] && [ -z "${_GARDEN_GH_API_ADMITTED:-}" ] \
+    && [ "$(_api_cooldown_secs)" -gt 0 ]; then
+  if _gh_api_admit rest "repos/$repo/pulls review-metadata fanout"; then
+    review_admit_fd="$_GH_API_ADMIT_FD"
+    review_group_admitted=1
+  else
+    printf '%s\n' "$_GH_API_ADMIT_REFUSAL" >"$review_tmp/admission.err"
+    note_fetch_failure "pull review-metadata fanout admission" "$review_tmp/admission.err"
+    : >"$review_tmp/primary-quota"
+  fi
+fi
+
+scanned=0; total=0
+while IFS=$'\t' read -r n updated; do
+  [ -n "$n" ] || continue
+  total=$((total+1))
+  # Activity bound: the list is newest-activity-first, so once a PR's updated_at
+  # predates the cursor, every remaining PR is older too and none can carry a
+  # review/comment submitted since `since`. Stop scanning here.
+  if [ -n "$updated" ] && [ "$updated" \< "$since" ]; then break; fi
+  [ ! -e "$review_tmp/primary-quota" ] || break
+  scanned=$((scanned+1))
+  if [ -n "$review_group_admitted" ]; then
+    _GARDEN_GH_API_ADMITTED=1 fetch_pr_review_metadata "$scanned" "$n" &
+  else
+    fetch_pr_review_metadata "$scanned" "$n" &
+  fi
+  review_pids+=("$!")
+  if [ "${#review_pids[@]}" -ge "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
+    wait_oldest_review_worker
   fi
 done <<< "$open_prs"
+while [ "${#review_pids[@]}" -gt 0 ]; do wait_oldest_review_worker; done
+
+# Harvest in source-list order for deterministic fixtures and diagnostics. A
+# worker's failure makes the whole tick nonzero at the tail, preserving the
+# fail-closed cursor contract even if other workers returned useful rows.
+for seq in $(seq 1 "$scanned"); do
+  [ ! -f "$review_tmp/$seq.out" ] || cat "$review_tmp/$seq.out" >>"$s3out"
+  if [ -f "$review_tmp/$seq.failures" ]; then
+    while IFS=$'\t' read -r label errfile; do
+      note_fetch_failure "$label" "$errfile"
+    done <"$review_tmp/$seq.failures"
+  fi
+done
+if [ -e "$review_tmp/primary-quota" ]; then
+  # Nested worker calls cannot latch for themselves (doing so would deadlock on
+  # the group lock). Publish the same host-wide primary-quota fact before another
+  # caller can be admitted.
+  review_quota_secs="$(api_primary_quota_secs)"
+  review_quota_marker="$(_api_cooldown_marker_for all)"
+  if [ -n "$review_admit_fd" ]; then
+    _api_cooldown_record_locked "$review_quota_marker" "$review_quota_secs" \
+      "gh-api:repos/$repo/pulls-review-metadata:primary-quota" || true
+    _api_cooldown_claim_warning_locked "$review_quota_marker" >/dev/null 2>&1 || true
+  elif [ -n "$review_group_admitted" ]; then
+    start_api_cooldown "gh-api:repos/$repo/pulls-review-metadata:primary-quota" \
+      "$review_quota_secs" all || true
+  fi
+fi
+[ -z "$review_admit_fd" ] || exec {review_admit_fd}>&-
 # No silent caps: record how many open PRs were polled vs how many the activity
 # bound skipped (info-level stderr; the watcher ignores a 0-exit source's stderr).
 log "polled $scanned of $total open PR(s) on $repo (activity-bounded at since=$since)"
@@ -464,7 +558,8 @@ if [ -z "$fetch_primary_quota" ]; then
 fi
 rm -f "$s2_err"
 
-rm -f "$prlist_err" "$rids_err" "$rev_err" "$s3out" "$ic_err"
+rm -f "$prlist_err" "$s3out"
+rm -rf "$review_tmp"
 
 # --- the REPO-GONE degrade (a 404 repo must DEACTIVATE, never crash-loop) -----
 # The LOST-FETCH invariant below is built for a RECOVERABLE gap: freeze the cursor,
