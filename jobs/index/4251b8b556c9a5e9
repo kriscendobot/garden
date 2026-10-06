@@ -1,2 +1,2 @@
-base: improve-deadline-nudge-ref-race
+base: improve-deadline-nudge-lock-contention
 identity: mentor:scripts/jobs/deadline-nudge.sh
