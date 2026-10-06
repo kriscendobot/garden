@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T13:19:48Z_
+_As of 2026-10-06T13:24:06Z_
 
 ## Latest
 
@@ -1495,7 +1495,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 152.3M | $1802.96 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
-| Codex | 7.5M _(+196.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 7.6M _(+197.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -1506,8 +1506,8 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`improve-follow-up-seen-cursor-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-follow-up-seen-cursor-retry.md) — ---
 
 ### tada (11226)
 - [`improve-promote-primary-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-promote-primary-quota-cooldown.md) — Cost
