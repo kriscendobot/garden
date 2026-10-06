@@ -156,7 +156,14 @@ if [ "${FAIL_GIT_CONFIG_KILL:-0}" = 1 ]; then
     esac
   done
   if [ "$is_config" = 1 ] && [ "$is_get" = 0 ]; then
-    kill -TERM "$PPID"; exit 0
+    # The fleet git entrypoint (scripts/jobs/bin/git, 9090b2685be) sits ahead of this
+    # stub on PATH, so the direct parent may be that wrapper rather than the subshell.
+    # Climb past it so the signal lands on the prerequisite subshell itself.
+    target="$PPID"
+    while tr '\0' ' ' < "/proc/$target/cmdline" 2>/dev/null | grep -q '/scripts/jobs/bin/\(\.\./bin/\)\?git '; do
+      target="$(awk '{ s=$0; sub(/^.*\) /,"",s); split(s,f," "); print f[2] }' "/proc/$target/stat")"
+    done
+    kill -TERM "$target"; exit 0
   fi
 fi
 exec /usr/bin/git "$@"
@@ -257,13 +264,14 @@ else
 fi
 unset FAIL_CLONE_LOCK_BUSY GARDEN_LOCK_WAIT GARDEN_LOCK_RETRIES GARDEN_LOCK_STEALS
 
-# A first-ever tick has no receipt clone yet. ensure_clone reports a network clone
-# failure as rc=1 today, so classification must use the captured signature too, not
-# only sync_clone's EX_TEMPFAIL code.
+# A first-ever tick has no receipt clone yet. ensure_clone classifies an offline
+# network clone failure as EX_TEMPFAIL (rc=75, since 08966639b0e); before that it
+# surfaced as rc=1 and the watcher had to classify by captured signature. Either way
+# the tick must skip with the shared warning and cooldown, so accept both codes.
 rm -f "$STATE/gh-api-cooldown/marker"
 FRESH_CLONE="$STATE/receipt-watcher/fresh-journal"
 if run_watch kriscendobot-source "$TR/fresh-clone.err" "" "$TR/bin/empty-source" 1 "$FRESH_CLONE"; then
-  grep -q 'receipt journal prerequisite unavailable (transient, rc=1)' "$TR/fresh-clone.err" \
+  grep -Eq 'receipt journal prerequisite unavailable \(transient, rc=(1|75)\)' "$TR/fresh-clone.err" \
     && [ -s "$STATE/gh-api-cooldown/marker" ] \
     && ok "fresh-clone network outage is signature-classified and skipped with cooldown" \
     || bad "fresh-clone outage lost its warning/cooldown"

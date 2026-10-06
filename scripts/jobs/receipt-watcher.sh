@@ -176,13 +176,18 @@ if [ "$prereq_rc" -ne 0 ]; then
     rm -f "$PREREQ_ERR"
     exit 0
   fi
-  if [ -s "$PREREQ_ERR" ]; then
+  # garden_repo_lock reports clearing a prior tick's dead-holder record on stderr.
+  # Every earlier prerequisite subshell exits holding that lock, so the line appears on
+  # most ticks. It is housekeeping, not a diagnostic for THIS failure, and must not
+  # disable the empty-stderr guard below.
+  if grep -qv '^garden repo lock: cleared dead-holder metadata ' "$PREREQ_ERR"; then
     sed -E 's/^(<[0-9]>)?/\1  prerequisite: /' "$PREREQ_ERR" >&2 || true
     rm -f "$PREREQ_ERR"
     die "receipt journal prerequisite failed for $repo (rc=$prereq_rc; see prerequisite stderr above)"
   fi
+  sed -E 's/^/  prerequisite: /' "$PREREQ_ERR" >&2 || true
   rm -f "$PREREQ_ERR"
-  # A completely empty stderr here is now the environmental-interruption signature: the
+  # A stderr empty apart from lock housekeeping is the environmental-interruption signature: the
   # ERR trap above (commit 3002969de5) captures any command that fails under errexit, and
   # every die()/log() path in ensure_clone/sync_clone/clone_lock/journal_remote logs
   # unconditionally — so if NOTHING was captured, the subshell was cut down before a
