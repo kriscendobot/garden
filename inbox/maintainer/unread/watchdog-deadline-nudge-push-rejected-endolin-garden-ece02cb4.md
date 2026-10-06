@@ -1,13 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:deadline-nudge
-sent_at: 2026-10-05T20:33:25Z
+sent_at: 2026-10-06T00:27:30Z
 watchdog_key: deadline-nudge-push-rejected:endolin-garden-ece02cb4
 notice_count: 2
 first_seen: 2026-10-04T21:48:21Z
-last_seen: 2026-10-05T20:33:25Z
+last_seen: 2026-10-06T00:27:30Z
 recovered: true
 ---
-RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-04T21:48:21Z, cleared 2026-10-05T20:33:25Z).
+RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-04T21:48:21Z, cleared 2026-10-06T00:27:30Z).
 It was observed 2 time(s) while open. Nothing further is required;
 this notice closes the loop so the end of the condition is on the record.
 
