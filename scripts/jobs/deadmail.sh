@@ -53,6 +53,7 @@ export GARDEN_TAG="deadmail"
 fleet_draining && exit 0
 
 DIR="${GARDEN_DEADMAIL_CLONE:-$GARDEN_STATE/deadmail/journal}"
+POST_JOB="${GARDEN_DEADMAIL_POST_JOB:-$HERE/post-job.sh}"
 ensure_clone "$DIR"
 sync_clone "$DIR"
 
@@ -126,6 +127,7 @@ match_recurring_schedule() {  # $1=clone-dir $2=recipient-base
 
 promoted=0
 carried=0
+tick_rc=0
 for f in $(list_jobs "$DIR" inbox/dead); do
   case "$f" in *.md) ;; *) continue;; esac
   src="$DIR/inbox/dead/$f"
@@ -207,12 +209,22 @@ for f in $(list_jobs "$DIR" inbox/dead); do
   # The if/else (not `if ! …`) captures post-job's REAL exit in the else branch:
   # `! cmd` would clobber $? to the negation, losing timeout's 124.
   err="$(mktemp "${TMPDIR:-/tmp}/garden-deadmail-err.XXXXXX")"
-  if timeout "${GARDEN_POST_TIMEOUT:-120}" "$HERE/post-job.sh" "$base" "$body" >/dev/null 2>"$err"; then
+  if timeout "${GARDEN_POST_TIMEOUT:-120}" "$POST_JOB" "$base" "$body" >/dev/null 2>"$err"; then
     rm -f "$body" "$err"
   else
     rc=$?
-    if [ "$rc" -eq 124 ]; then
-      log "WARN post of '$base' timed out after ${GARDEN_POST_TIMEOUT:-120}s (likely a stale producer journal.lock); leaving dead-mail $msgid for the next tick"
+    if [ "$rc" -eq 124 ] || [ "$rc" -eq 75 ]; then
+      if [ "$rc" -eq 124 ]; then
+        failure="timed out after ${GARDEN_POST_TIMEOUT:-120}s (likely a stale producer journal.lock)"
+      else
+        failure="temporarily failed (rc=$rc)"
+      fi
+      detail=""
+      [ -s "$err" ] && detail="; stderr: $(tr '\n' ' ' < "$err")"
+      log "WARN post of '$base' $failure; leaving dead-mail $msgid for the next tick and stopping this tick$detail"
+      tick_rc=75
+      rm -f "$body" "$err"
+      break
     else
       log "WARN post of '$base' failed (rc=$rc); leaving dead-mail $msgid for the next tick"
     fi
@@ -244,4 +256,4 @@ done
 
 [ "$promoted" -gt 0 ] && log "promoted $promoted dead-mail message(s) to jobs"
 [ "$carried" -gt 0 ] && log "carried $carried dead-mail message(s) forward to schedule mailbox(es)"
-exit 0
+exit "$tick_rc"
