@@ -160,14 +160,49 @@ mkpostmock
 # after the wedge is handled (no broadcast / handler path to mock).
 run_watchman() {  # fills $OUT/$RC
   local seen="$TR/state/watchman/seen-main2"
+  local -a git_env=()
+  [ -z "${WATCHMAN_REAL_GIT:-}" ] || git_env=("GARDEN_REAL_GIT=$WATCHMAN_REAL_GIT")
   mkdir -p "$(dirname "$seen")"; git -C "$TR/root" rev-parse HEAD > "$seen"
   set +e
   OUT="$(env GARDEN_ROOT="$TR/root" GARDEN_STATE="$TR/state" GARDEN_SCRATCH="$TR/scratch" \
              GARDEN_MAIN_BRANCH=main2 GARDEN_AGGRESSIVE_CHECKOUT=1 \
+             GARDEN_WATCHMAN_LOCAL_SHA_RETRY_SLEEP=0 \
+             "${git_env[@]}" \
              GARDEN_POST_JOB="$TR/post-mock.sh" bash "$WATCHMAN" 2>&1)"
   RC=$?
   set -e
 }
+
+hr; echo "WATCHMAN/LOCAL-SHA-RETRY — a transient lock failure does not kill the tick"; hr
+setup_fixture; rm -rf "$TR/state"
+REAL_GIT="$(command -v git)"
+mkdir -p "$TR/git-shim"
+cat > "$TR/git-shim/git" <<'EOF'
+#!/bin/bash
+if [ "$#" -eq 6 ] && [ "$1" = -C ] && [ "$2" = "$WATCHMAN_TEST_ROOT" ] \
+   && [ "$3" = rev-parse ] && [ "$4" = --verify ] && [ "$5" = --quiet ] \
+   && [ "$6" = main2 ]; then
+  count="$(cat "$WATCHMAN_TEST_COUNT" 2>/dev/null || echo 0)"
+  count=$((count + 1)); printf '%s\n' "$count" > "$WATCHMAN_TEST_COUNT"
+  if [ "$count" -lt 3 ]; then
+    printf 'garden repo lock: timeout after 10s: fixture (shared)\n' >&2
+    printf 'garden repo lock: busy pid=123 since=fixture; retaining lock inode\n' >&2
+    exit 124
+  fi
+fi
+exec "$WATCHMAN_TEST_REAL_GIT" "$@"
+EOF
+chmod +x "$TR/git-shim/git"
+export WATCHMAN_TEST_ROOT="$TR/root" WATCHMAN_TEST_COUNT="$TR/local-sha-count" \
+       WATCHMAN_TEST_REAL_GIT="$REAL_GIT"
+WATCHMAN_REAL_GIT="$TR/git-shim/git"
+run_watchman
+unset WATCHMAN_REAL_GIT WATCHMAN_TEST_ROOT WATCHMAN_TEST_COUNT WATCHMAN_TEST_REAL_GIT
+[ "$RC" -eq 0 ] && ok "watchman recovered after two transient local rev-parse failures" || bad "watchman exit $RC"
+[ "$(cat "$TR/local-sha-count" 2>/dev/null)" -eq 3 ] \
+  && ok "local branch resolution made three bounded attempts" \
+  || bad "local branch resolution attempt count was $(cat "$TR/local-sha-count" 2>/dev/null || echo 0)"
+grep -q 'attempt 2/3' <<<"$OUT" && ok "retry attempts were logged" || bad "retry attempts were not logged"
 
 hr; echo "WATCHMAN/TRACKED-WEDGE — posts a resolve-wedge job, no maintainer message"; hr
 setup_fixture; : > "$POSTLOG"; rm -rf "$TR/state"

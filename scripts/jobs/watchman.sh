@@ -33,12 +33,22 @@ export GARDEN_TAG="watchman"
 : "${GARDEN_MAIN_BRANCH:=main2}"
 : "${GARDEN_AGGRESSIVE_CHECKOUT:=0}"
 : "${GARDEN_WATCH_HANDLER:=$HERE/handlers/watchman-claude.sh}"
+: "${GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS:=3}"
+: "${GARDEN_WATCHMAN_LOCAL_SHA_RETRY_SLEEP:=1}"
 
 fleet_draining && { log "fleet draining; skipping"; exit 0; }
 
 git -C "$GARDEN_ROOT" fetch -q origin "$GARDEN_MAIN_BRANCH" 2>/dev/null || log "fetch of origin/$GARDEN_MAIN_BRANCH failed (offline?)"
 
-local_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "$GARDEN_MAIN_BRANCH" || true)"
+local_sha=''
+for ((attempt = 1; attempt <= GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS; attempt += 1)); do
+  local_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "$GARDEN_MAIN_BRANCH" || true)"
+  [ -z "$local_sha" ] || break
+  if [ "$attempt" -lt "$GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS" ]; then
+    log "WARN: cannot resolve local $GARDEN_MAIN_BRANCH in $GARDEN_ROOT (attempt $attempt/$GARDEN_WATCHMAN_LOCAL_SHA_ATTEMPTS); retrying after ${GARDEN_WATCHMAN_LOCAL_SHA_RETRY_SLEEP}s"
+    sleep "$GARDEN_WATCHMAN_LOCAL_SHA_RETRY_SLEEP"
+  fi
+done
 [ -n "$local_sha" ] || die "cannot resolve local $GARDEN_MAIN_BRANCH in $GARDEN_ROOT"
 up_sha="$(git -C "$GARDEN_ROOT" rev-parse --verify --quiet "origin/$GARDEN_MAIN_BRANCH" || echo "$local_sha")"
 
