@@ -46,11 +46,12 @@ echo x >> "$TR/handled"
 EOF
 chmod +x "$TR/handler"
 
-tick() {  # <host> — one follow-up tick as <host>, with its own host-local state
+tick() {  # <host> [cursor-set] — one tick with its own host-local state
   : > "$TR/digests"; : > "$TR/handled"
   rc=0
   env GARDEN="$1" GARDEN_STATE="$TR/state-$1" JOURNAL_REMOTE="$BARE" \
       GARDEN_FOLLOWUP_HANDLER="$TR/handler" GARDEN_CONTENTION_DIR="$TR/state-$1/contention" \
+      GARDEN_FOLLOWUP_CURSOR_SET="${2:-$JOBS/cursor-set.sh}" \
       "$JOBS/follow-up.sh" >/dev/null 2>"$TR/$1.err" || rc=$?
   handled="$(wc -l < "$TR/handled")"
 }
@@ -129,6 +130,36 @@ if [ "$rc" -eq 0 ] && [ "$handled" -eq 0 ] && grep -q 'no journal seen cursor' "
   ok "a stale marker without a cursor is treated as a cold start"
 else
   bad "no cursor: rc=$rc handled=$handled stderr=$(tr '\n' ' ' < "$TR/hostD.err")"
+fi
+
+hr; echo "CASE — failed cursor publication persists and a no-op tick retries it"; hr
+cat > "$TR/cursor-set-once" <<EOF
+#!/bin/bash
+if [ ! -e "$TR/cursor-set-failed" ]; then
+  touch "$TR/cursor-set-failed"
+  exit 1
+fi
+exec "$JOBS/cursor-set.sh" "\$@"
+EOF
+chmod +x "$TR/cursor-set-once"
+report r6
+tick hostE "$TR/cursor-set-once"       # cold start: local seen advance, publish fails
+pending="$TR/state-hostE/follow-up/seen-cursor-pending"
+pending_sha="$(git --git-dir="$BARE" rev-parse journal2)"
+if [ "$rc" -eq 0 ] && [ "$handled" -eq 0 ] && [ -s "$pending" ] \
+   && grep -qx 'host: hostE' "$pending" && grep -qx "sha: $pending_sha" "$pending" \
+   && grep -q 'publication remains pending' "$TR/hostE.err"; then
+  ok "a failed cursor publication leaves its complete body pending"
+else
+  bad "failed publish: rc=$rc handled=$handled pending=$(test -s "$pending" && echo yes || echo no) stderr=$(tr '\n' ' ' < "$TR/hostE.err")"
+fi
+tick hostE "$TR/cursor-set-once"       # no new reports: must still retry publication
+cur="$(git --git-dir="$BARE" show journal2:cursors/follow-up/seen 2>/dev/null || true)"
+if [ "$rc" -eq 0 ] && [ "$handled" -eq 0 ] && [ ! -e "$pending" ] \
+   && printf '%s\n' "$cur" | grep -qx 'host: hostE'; then
+  ok "a later no-op tick publishes the pending cursor and clears it only after success"
+else
+  bad "no-op retry: rc=$rc handled=$handled pending=$(test -e "$pending" && echo yes || echo no) cursor=$(printf '%s' "$cur" | tr '\n' ' ') stderr=$(tr '\n' ' ' < "$TR/hostE.err")"
 fi
 
 hr; echo "RESULT: $PASS passed, $FAIL failed"

@@ -80,6 +80,9 @@
 # host published more recently, every report in that commit's tree is adopted as
 # seen; when no cursor exists, or its commit is unreadable here, the stale marker
 # is treated as a cold start. A missing marker stays a plain cold start.
+# A failed cursor publication is retained in a host-local pending file and retried
+# on every later tick, including ticks with no new reports. The pending file is
+# cleared only after cursor-set confirms that publication is durable.
 #
 # Pluggable for tests: GARDEN_FOLLOWUP_HANDLER <digest-file>.
 
@@ -96,6 +99,7 @@ export GARDEN_TAG="follow-up"
 : "${GARDEN_FOLLOWUP_TRANSIENT_MAX_SECS:=21600}"   # 6h
 # Journal cursor key carrying the cross-host seen position (LEADERSHIP CHANGE above).
 : "${GARDEN_FOLLOWUP_SEEN_CURSOR:=follow-up/seen}"
+: "${GARDEN_FOLLOWUP_CURSOR_SET:=$HERE/cursor-set.sh}"
 # A local marker untouched for this long (three 10-minute ticks) is checked
 # against the journal cursor before use. The marker is rewritten on every tick
 # that gets past the sync, so only a host that was not running follow-up ages it.
@@ -113,6 +117,8 @@ SEEN="$GARDEN_STATE/follow-up/seen"
 FAILCOUNT="$GARDEN_STATE/follow-up/fail-count"
 # The uncounted-stretch marker: "<first-epoch> <sha-of-new-list> <notified 0|1>".
 TRANSIENT="$GARDEN_STATE/follow-up/transient"
+# Complete cursor body awaiting durable journal publication.
+SEEN_CURSOR_PENDING="$GARDEN_STATE/follow-up/seen-cursor-pending"
 mkdir -p "$(dirname "$SEEN")"
 cold_start=0; [ -e "$SEEN" ] || cold_start=1
 
@@ -186,20 +192,39 @@ mark_new_seen() {
 }
 
 # publish_seen_cursor — record that every tada report in the synced journal commit
-# is now seen. Best-effort: a failed publish only widens what a later leadership
-# change could replay, so it is logged, never fatal.
+# is now seen. Stage the complete publication body locally before attempting the
+# journal write so a failure remains retryable after this process exits.
 publish_seen_cursor() {
-  local sha
+  local sha pending_tmp
   sha="$(git -C "$DIR" rev-parse -q --verify HEAD 2>/dev/null)" || return 0
-  printf 'host: %s\nat: %s\nsha: %s\n' "${GARDEN:-unknown}" "$(date +%s)" "$sha" \
-    | "$HERE/cursor-set.sh" "$GARDEN_FOLLOWUP_SEEN_CURSOR" >/dev/null 2>&1 \
-    || log "WARN: could not publish the follow-up seen cursor; a leadership change before the next publish may replay reports seen since the last one"
+  pending_tmp="$SEEN_CURSOR_PENDING.$$"
+  printf 'host: %s\nat: %s\nsha: %s\n' "${GARDEN:-unknown}" "$(date +%s)" "$sha" > "$pending_tmp"
+  mv "$pending_tmp" "$SEEN_CURSOR_PENDING"
+  retry_pending_seen_cursor
+}
+
+# retry_pending_seen_cursor — retry a previously staged publication. Publication
+# remains best-effort for this tick, but the durable local marker makes failure
+# persistent rather than forgotten. cursor-set's success includes its remote
+# verification/idempotent-content paths, so only then is it safe to clear.
+retry_pending_seen_cursor() {
+  [ -s "$SEEN_CURSOR_PENDING" ] || return 0
+  if "$GARDEN_FOLLOWUP_CURSOR_SET" "$GARDEN_FOLLOWUP_SEEN_CURSOR" "$SEEN_CURSOR_PENDING" \
+      >/dev/null 2>&1; then
+    rm -f "$SEEN_CURSOR_PENDING"
+  else
+    log "WARN: could not publish the follow-up seen cursor; publication remains pending and will retry next tick"
+  fi
 }
 
 # A content hash of the (sorted) new-report basename set — the key the
 # consecutive-failure counter is bound to, so an UNCHANGED pending set increments
 # the streak while any change (a new report arrives, or some clear) resets it.
 new_list_sha() { local f; for f in "${new[@]}"; do basename "$f" .md; done | sort | git -C "$DIR" hash-object --stdin; }
+
+# A prior tick may have advanced the local marker but failed to publish its
+# cursor. Retry even when this tick has no reports and would otherwise exit here.
+retry_pending_seen_cursor
 
 # cold start: record everything seen without acting, then stay silent
 if [ "$cold_start" -eq 1 ]; then
