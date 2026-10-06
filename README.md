@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T07:43:53Z_
+_As of 2026-10-06T07:50:14Z_
 
 ## Latest
 
@@ -1430,7 +1430,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.2M | $1774.22 _(notional, rate-card)_ | 124% of 121.0M (backoff) |
+| Claude | 150.4M | $1776.64 _(notional, rate-card)_ | 124% of 121.0M (backoff) |
 | Codex | 6.9M _(+191.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -1443,17 +1443,17 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 (none)
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1428
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1379
-- [`endojs-endo-but-for-bots-pr1426-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1426
+- [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1428
+- [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1426
 
-### tada (11198)
+### tada (11200)
+- [`endojs-endo-but-for-bots-pr1426-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-panel-5.md) — Cost
+- [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-fix-4.md) — Cost
 - [`improve-comment-source-timeout-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-comment-source-timeout-fanout.md) — Cost
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-fix-4.md) — Gauntlet fix round 4: endojs/endo-but-for-bots PR #1426
-- [`daily-progress-summary-20261006-070524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/daily-progress-summary-20261006-070524.md) — Cost
-- [`oros-health-watch-20261006-060517`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-060517.md) — Cost
-- … and 11193 more
+- … and 11195 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
