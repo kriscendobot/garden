@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T13:59:32Z_
+_As of 2026-10-06T14:01:45Z_
 
 ## Latest
 
@@ -348,7 +348,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_ci_watcher_verify_kriscendobot_vattr97` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_ci_watcher_verify_kriscendobot_vattr97.md)
 
-> Journal fetch anomaly on endolin-garden2-5bcdff64 for _home_kris_garden2__garden_state_ci_watcher_verify_kriscendobot_vattr97: p95=45.000941s max=45.000941s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_ci_watcher_verify_kriscendobot_vattr97` has CLEARED (first seen 2026-10-06T03:53:39Z, cleared 2026-10-06T13:59:48Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_ci_watcher_verify_kriscendobot_vattr97` cleared on endolin-garden2-5bcdff64.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr166-d6ea530ef0bb` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr166-d6ea530ef0bb.md)
 
@@ -705,7 +709,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_comment_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_comment_watcher_verify.md)
 
-> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: p95=45.001597s max=45.001914s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_comment_watcher_verify` has CLEARED (first seen 2026-10-06T04:12:45Z, cleared 2026-10-06T14:00:02Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden2__garden_state_comment_watcher_verify` cleared on endolin-garden2-5bcdff64.
 
 - `msg-minion-town-claude-cli-production-canary-20261004-2e1950f7cfff` — from gardener:minion-town-claude-cli-production-canary-20261004, reply_to `minion-town-claude-cli-production-canary-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-cli-production-canary-20261004-2e1950f7cfff.md)
 
@@ -1457,7 +1465,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-lock-contention-_home_kris_garden2__garden_state_comment_watcher_verify` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden2__garden_state_comment_watcher_verify.md)
 
-> Journal lock contention on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/comment-watcher/verify: p95=0.014757s, giveups=1, steals=1 (max 3/window), wait floor=60s.
+> RECOVERED — the watchdog condition `journal-lock-contention-_home_kris_garden2__garden_state_comment_watcher_verify` has CLEARED (first seen 2026-10-06T04:13:03Z, cleared 2026-10-06T14:00:12Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-lock-contention-_home_kris_garden2__garden_state_comment_watcher_verify` cleared on endolin-garden2-5bcdff64.
 
 - `20261004T203331Z-594d59` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T203331Z-594d59.md)
 
@@ -1504,7 +1516,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
+worst fetch p95 45.002097s/45s (unknown); 17 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
