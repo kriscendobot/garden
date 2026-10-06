@@ -338,7 +338,8 @@ rm -f "$s1_err"
 # number of those workers concurrently. Each worker has private output/error files;
 # the parent waits for every worker, folds every failure through note_fetch_failure,
 # and concatenates rows in PR-list order. Thus concurrency changes latency only:
-# there is no cap, no omitted PR, and any partial worker still freezes the cursor.
+# there is no silent cap: a PR the quota guard below declines to poll freezes the
+# cursor exactly like a partial worker does.
 : "${GARDEN_COMMENT_REVIEW_CONCURRENCY:=8}"
 case "$GARDEN_COMMENT_REVIEW_CONCURRENCY" in
   ''|*[!0-9]*|0) log "WARN: invalid GARDEN_COMMENT_REVIEW_CONCURRENCY=$GARDEN_COMMENT_REVIEW_CONCURRENCY; using 8"; GARDEN_COMMENT_REVIEW_CONCURRENCY=8 ;;
@@ -456,6 +457,60 @@ if [ -z "$fetch_primary_quota" ] && [ -z "${_GARDEN_GH_API_ADMITTED:-}" ] \
   fi
 fi
 
+# QUOTA-AWARE FANOUT GUARD. One admission used to release a full batch of eight
+# concurrent workers whose first requests all landed on an already-exhausted
+# primary quota: the 2026-10-06T15:58:36Z tick emitted eight refused requests
+# before the shared cooldown could be opened. Two bounds now apply before any
+# review-metadata request is issued:
+#   1. Read the REST core quota from `gh api rate_limit` (GitHub does not charge
+#      that endpoint against the quota). When `remaining` is at or below the
+#      reserve, issue NO review-metadata request: freeze the cursor and open the
+#      shared cooldown until the reported reset. Otherwise cap both the number of
+#      PRs admitted this tick and the concurrency at what the headroom above the
+#      reserve can pay for (2 calls per PR, 3 in issues-disabled mode). A walk
+#      that would need more PRs than that stops admitting, freezes the cursor, and
+#      opens the cooldown instead of spending the quota down to a refusal.
+#   2. The FIRST worker always runs alone (a canary). Peers start only after it
+#      returns without a primary-quota refusal, so a quota the probe could not see
+#      (unknown remaining, or spent by another host since the probe) costs one
+#      refused request, not a whole concurrent batch.
+: "${GARDEN_COMMENT_REVIEW_QUOTA_RESERVE:=100}"
+case "$GARDEN_COMMENT_REVIEW_QUOTA_RESERVE" in
+  ''|*[!0-9]*) GARDEN_COMMENT_REVIEW_QUOTA_RESERVE=100 ;;
+esac
+review_pr_cost=2; [ -z "$issues_disabled" ] || review_pr_cost=3
+review_pr_budget=""            # empty = unknown quota: no cap beyond the canary
+review_quota_reset_secs=""     # seconds until the probed reset, when known
+review_quota_guard_trip() {   # review_quota_guard_trip <reason>
+  log "WARN: review-metadata fanout quota guard on $repo: $1 — freezing the cursor and opening the shared cooldown"
+  fetch_failed=1
+  fetch_primary_quota=1
+  : >"$review_tmp/primary-quota"
+}
+if [ -z "$fetch_primary_quota" ] && [ ! -e "$review_tmp/primary-quota" ] && [ -n "$open_prs" ]; then
+  review_rl="$(timeout 20 gh api rate_limit --jq '[.resources.core.remaining, .resources.core.reset] | @tsv' 2>/dev/null || true)"
+  review_rl_remaining="${review_rl%%$'\t'*}"
+  review_rl_reset="${review_rl#*$'\t'}"
+  case "$review_rl_remaining" in
+    ''|*[!0-9]*) log "review-metadata fanout: REST quota unknown (rate_limit probe gave no count); canary-first ramp only" ;;
+    *)
+      case "$review_rl_reset" in
+        ''|*[!0-9]*) ;;
+        *) review_quota_reset_secs=$(( review_rl_reset - $(date +%s) ))
+           [ "$review_quota_reset_secs" -ge 1 ] || review_quota_reset_secs="" ;;
+      esac
+      review_pr_budget=$(( (review_rl_remaining - GARDEN_COMMENT_REVIEW_QUOTA_RESERVE) / review_pr_cost ))
+      if [ "$review_pr_budget" -le 0 ]; then
+        review_pr_budget=0
+        review_quota_guard_trip "REST remaining $review_rl_remaining <= reserve $GARDEN_COMMENT_REVIEW_QUOTA_RESERVE; issuing no review-metadata request"
+      elif [ "$review_pr_budget" -lt "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
+        log "review-metadata fanout: REST remaining $review_rl_remaining; concurrency $GARDEN_COMMENT_REVIEW_CONCURRENCY clamped to $review_pr_budget"
+        GARDEN_COMMENT_REVIEW_CONCURRENCY="$review_pr_budget"
+      fi
+      ;;
+  esac
+fi
+
 scanned=0; total=0
 while IFS=$'\t' read -r n updated; do
   [ -n "$n" ] || continue
@@ -465,6 +520,10 @@ while IFS=$'\t' read -r n updated; do
   # review/comment submitted since `since`. Stop scanning here.
   if [ -n "$updated" ] && [ "$updated" \< "$since" ]; then break; fi
   [ ! -e "$review_tmp/primary-quota" ] || break
+  if [ -n "$review_pr_budget" ] && [ "$scanned" -ge "$review_pr_budget" ]; then
+    review_quota_guard_trip "REST headroom above reserve $GARDEN_COMMENT_REVIEW_QUOTA_RESERVE pays for $review_pr_budget PR(s); PR #$n and older active PRs not polled"
+    break
+  fi
   scanned=$((scanned+1))
   if [ -n "$review_group_admitted" ]; then
     _GARDEN_GH_API_ADMITTED=1 fetch_pr_review_metadata "$scanned" "$n" &
@@ -472,7 +531,9 @@ while IFS=$'\t' read -r n updated; do
     fetch_pr_review_metadata "$scanned" "$n" &
   fi
   review_pids+=("$!")
-  if [ "${#review_pids[@]}" -ge "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
+  # Canary: the first worker runs alone, so an exhausted quota is learned from one
+  # refused request before any peer is launched.
+  if [ "$scanned" -eq 1 ] || [ "${#review_pids[@]}" -ge "$GARDEN_COMMENT_REVIEW_CONCURRENCY" ]; then
     wait_oldest_review_worker
   fi
 done <<< "$open_prs"
@@ -494,6 +555,10 @@ if [ -e "$review_tmp/primary-quota" ]; then
   # the group lock). Publish the same host-wide primary-quota fact before another
   # caller can be admitted.
   review_quota_secs="$(api_primary_quota_secs)"
+  # A probed reset that arrives sooner than the default window shortens the latch.
+  if [ -n "$review_quota_reset_secs" ] && [ "$review_quota_reset_secs" -lt "$review_quota_secs" ]; then
+    review_quota_secs="$review_quota_reset_secs"
+  fi
   review_quota_marker="$(_api_cooldown_marker_for all)"
   if [ -n "$review_admit_fd" ]; then
     _api_cooldown_record_locked "$review_quota_marker" "$review_quota_secs" \

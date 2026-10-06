@@ -2023,12 +2023,85 @@ EOF
   rate_late_rc=$?
   set -e
   rate_late_calls="$(wc -l < "$RATE_CALLS")"
-  if [ "$rate_late_rc" -eq 75 ] && [ "$rate_late_calls" -ge 3 ] && [ "$rate_late_calls" -le 4 ] \
-      && ! grep -qE '/reviews|/pulls/comments' "$RATE_CALLS"; then
-    ok "quota discovered inside the PR walk stops all but the bounded in-flight peer"
+  if [ "$rate_late_rc" -eq 75 ] && [ "$(grep -c '/pulls/[0-9]*/' "$RATE_CALLS" || true)" -eq 1 ] \
+      && ! grep -qE '/reviews|/pulls/comments|/pulls/2/' "$RATE_CALLS"; then
+    ok "quota discovered inside the PR walk stops after the lone canary request"
   else
-    bad "late quota did not short-circuit within the concurrency bound (rc=$rate_late_rc calls=$rate_late_calls): $(cat "$RATE_CALLS")"
+    bad "late quota did not short-circuit at the canary (rc=$rate_late_rc calls=$rate_late_calls): $(cat "$RATE_CALLS")"
   fi
+
+  # QUOTA FANOUT — eight active PRs at concurrency 8 under one group admission.
+  # (a) the rate_limit probe reports headroom (stale: another host spent it) yet
+  #     every per-PR request is refused: the canary bounds the burst to ONE refused
+  #     request, the cursor freezes (rc 75), and the shared cooldown opens;
+  # (b) the probe reports remaining <= reserve: NO review-metadata request at all,
+  #     and the cooldown is clamped to the reported reset;
+  # (c) the probe's headroom pays for 3 PRs: exactly 3 are polled, concurrency
+  #     never exceeds 3, and the unpolled remainder freezes the cursor.
+  GHQF="$TR/gh-quota-fanout"; mkdir -p "$GHQF"
+  QF_CALLS="$TR/qf.calls"; QF_LOCK="$TR/qf-counter"
+  QF_ACTIVE="$TR/qf.active"; QF_MAX="$TR/qf.max"
+  cat > "$GHQF/gh" <<'EOF'
+#!/bin/bash
+if [ "${1:-}" = auth ]; then printf 'test-token\n'; exit 0; fi
+args="$*"
+case "$args" in
+  *rate_limit*) printf '%s\t%s\n' "${QF_REMAINING:?}" "$(( $(date +%s) + 120 ))"; exit 0 ;;
+  *"/issues/comments"*) printf '[]\n'; exit 0 ;;
+  *"/pulls?state=open"*)
+    printf '['
+    for n in $(seq 1 8); do
+      [ "$n" -eq 1 ] || printf ','
+      printf '{"number":%s,"updated_at":"2099-01-01T00:00:00Z"}' "$n"
+    done
+    printf ']\n'; exit 0 ;;
+  *"/pulls/comments"*) printf '[]\n'; exit 0 ;;
+esac
+echo "$args" >> "${QF_CALLS:?}"
+lock() { while ! mkdir "${QF_LOCK:?}.lock" 2>/dev/null; do sleep 0.005; done; }
+unlock() { rmdir "${QF_LOCK:?}.lock"; }
+lock; a=$(( $(cat "$QF_ACTIVE") + 1 )); echo "$a" >"$QF_ACTIVE"
+[ "$a" -le "$(cat "$QF_MAX")" ] || echo "$a" >"$QF_MAX"; unlock
+sleep 0.1
+lock; echo $(( $(cat "$QF_ACTIVE") - 1 )) >"$QF_ACTIVE"; unlock
+if [ "${QF_REFUSE:-0}" = 1 ]; then
+  echo "gh: API rate limit exceeded for user ID 279080640 (HTTP 403)" >&2; exit 1
+fi
+printf '[]\n'
+EOF
+  chmod +x "$GHQF/gh"
+  qf_run() { # qf_run <tag> <remaining> <refuse>
+    : >"$QF_CALLS"; echo 0 >"$QF_ACTIVE"; echo 0 >"$QF_MAX"
+    set +e
+    env PATH="$GHQF:$PATH" QF_CALLS="$QF_CALLS" QF_LOCK="$QF_LOCK" \
+      QF_ACTIVE="$QF_ACTIVE" QF_MAX="$QF_MAX" QF_REMAINING="$2" QF_REFUSE="$3" \
+      GARDEN_COMMENT_REVIEW_CONCURRENCY=8 GARDEN_COMMENT_REVIEW_QUOTA_RESERVE=100 \
+      GARDEN_GH_API_ATTEMPTS=1 GARDEN_API_COOLDOWN_SECS=300 \
+      GARDEN_NO_MAINTAINER_ALERT=1 GARDEN_STATE="$TR/state-qf-$1" \
+      GARDEN_API_COOLDOWN_DIR="$TR/state-qf-$1/gh-api-cooldown" \
+      "$JOBS/handlers/comment-source-gh.sh" endojs/endo-but-for-bots "$SINCE_TS" kriscendobot \
+      >/dev/null 2>"$TR/qf-$1.err"
+    qf_rc=$?
+    set -e
+  }
+  qf_run stale 4000 1
+  [ "$qf_rc" -eq 75 ] && [ "$(wc -l < "$QF_CALLS")" -eq 1 ] \
+    && grep -q primary-quota "$TR/state-qf-stale/gh-api-cooldown/marker" 2>/dev/null \
+    && ok "a quota refusal bounds the eight-worker burst to one refused request, then latches" \
+    || bad "quota refusal burst not bounded (rc=$qf_rc calls=$(wc -l < "$QF_CALLS")): $(cat "$QF_CALLS") $(cat "$TR/qf-stale.err")"
+  qf_run low 40 0
+  qf_expiry="$(awk '{print $1; exit}' "$TR/state-qf-low/gh-api-cooldown/marker" 2>/dev/null || echo 0)"
+  [ "$qf_rc" -eq 75 ] && [ ! -s "$QF_CALLS" ] \
+    && grep -q primary-quota "$TR/state-qf-low/gh-api-cooldown/marker" 2>/dev/null \
+    && [ "${qf_expiry:-0}" -le "$(( $(date +%s) + 130 ))" ] \
+    && ok "REST remaining at or below the reserve issues no review-metadata request and latches until the reset" \
+    || bad "near-exhausted quota still fanned out or failed to latch (rc=$qf_rc calls=$(wc -l < "$QF_CALLS") expiry=$qf_expiry): $(cat "$TR/qf-low.err")"
+  qf_run budget 106 0
+  [ "$qf_rc" -eq 75 ] && [ "$(wc -l < "$QF_CALLS")" -eq 6 ] \
+    && ! grep -qE '/pulls/[4-8]/' "$QF_CALLS" && [ "$(cat "$QF_MAX")" -le 3 ] \
+    && grep -q 'not polled' "$TR/qf-budget.err" \
+    && ok "REST headroom for 3 PRs admits exactly 3 (concurrency <= 3) and freezes the cursor for the rest" \
+    || bad "budgeted fanout wrong (rc=$qf_rc calls=$(wc -l < "$QF_CALLS") max=$(cat "$QF_MAX")): $(cat "$QF_CALLS")"
 fi
 
 BARE_RATE="$TR/rate.git"; seed_bare "$BARE_RATE"
