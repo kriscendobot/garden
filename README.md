@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T13:55:20Z_
+_As of 2026-10-06T13:59:32Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ These items still need you:
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 15h)
+- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 16h)
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 9d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
@@ -1510,16 +1510,16 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-persist-mirror-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-persist-mirror-quota-cooldown.md) — ---
+### doin (0)
+(none)
 
-### tada (11229)
+### tada (11230)
+- [`improve-persist-mirror-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-persist-mirror-quota-cooldown.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-c3b3c458adb0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-c3b3c458adb0.md) — rolling-deploy canary probe — round trip OK
 - [`canary-probe-endolin-garden-ece02cb4-1fc7b6236d1c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-1fc7b6236d1c.md) — rolling-deploy canary probe — round trip OK
 - [`improve-follow-up-seen-cursor-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-follow-up-seen-cursor-retry.md) — Cost
 - [`improve-promote-primary-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-promote-primary-quota-cooldown.md) — Cost
-- [`canary-probe-endolin-garden-ece02cb4-dbc7d5bb27f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-dbc7d5bb27f3.md) — rolling-deploy canary probe — round trip OK
-- … and 11224 more
+- … and 11225 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
