@@ -49,3 +49,13 @@ Once green, report the green run URL and state clearly that this is parked on
 the pinned fork branch, not merged or ferried anywhere — carrying this back
 to the real `endojs/endo` is a separate, later, explicitly-authorized step
 this job does not take.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-06T03:10:58Z
