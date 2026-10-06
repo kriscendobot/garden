@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T12:09:13Z_
+_As of 2026-10-06T12:26:07Z_
 
 ## Latest
 
@@ -290,9 +290,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/318](https://github.com/endojs/endo-but-for-bots/pull/318) ([endojs/endo-but-for-bots#318](https://github.com/endojs/endo-but-for-bots/issues/318)) is in the mergeable queue with NO gauntlet review staged (head e398dbc53ef41aefbd584bb8f540b053e7267e9d). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #318'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04` — from gardener:claude-on-minion-town-completion-press-20261006-050509, reply_to `claude-on-minion-town-completion-press-20261006-050509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04.md)
+- `stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04` — from gardener:claude-on-minion-town-press-20261006-122018, reply_to `claude-on-minion-town-press-20261006-122018` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04.md)
 
-> Stale panel coverage for completed job `claude-on-minion-town-completion-press-20261006-050509`: [https://github.com/kriscendobot/minion.town/pull/163](https://github.com/kriscendobot/minion.town/pull/163) moved from panel-reviewed head `e40b9f46378c645b01224f0cb8005ddf1ac3f8d2` to presented head `7c172b045897e186855dca384ba6484bb4f886c7`.
+> COALESCED message — occurrence #2 (first seen 2026-10-06T05:26:45Z, latest 2026-10-06T12:22:36Z).
+> The SAME message (episode key `stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
+>
+> Stale panel coverage for completed job `claude-on-minion-town-press-20261006-122018`: [https://github.com/kriscendobot/minion.town/pull/163](https://github.com/kriscendobot/minion.town/pull/163) moved from panel-reviewed head `e40b9f46378c645b01224f0cb8005ddf1ac3f8d2` to presented head `7c172b045897e186855dca384ba6484bb4f886c7`.
 >
 > Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 >
@@ -1478,8 +1482,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.3M | $1800.44 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
-| Codex | 7.4M _(+194.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 152.3M | $1801.18 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
+| Codex | 7.5M _(+195.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -1490,16 +1494,16 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`fix-false-gauntlet-handoff-alarm-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-false-gauntlet-handoff-alarm-20261006.md) — ---
 
-### tada (11221)
+### tada (11223)
+- [`claude-on-minion-town-press-20261006-122018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261006-122018.md) — Manual gauntlet handoff
+- [`oros-health-watch-20261006-122018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-122018.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-0ae291ef036a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-0ae291ef036a.md) — rolling-deploy canary probe — round trip OK
 - [`improve-mirror-quota-warning-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-mirror-quota-warning-suppression.md) — Cost
 - [`claude-on-minion-town-completion-press-20261006-110513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-completion-press-20261006-110513.md) — Cost
-- [`canary-probe-endolin-garden-ece02cb4-d8dfa37f3733`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-d8dfa37f3733.md) — rolling-deploy canary probe — round trip OK
-- [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1379-shepherd.md) — Cost
-- … and 11216 more
+- … and 11218 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
