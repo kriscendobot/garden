@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T20:44:06Z_
+_As of 2026-10-06T20:46:12Z_
 
 ## Latest
 
@@ -1598,7 +1598,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 163.7M | $1944.52 _(notional, rate-card)_ | 102% of 160.0M (backoff) |
+| Claude | 164.0M | $1946.81 _(notional, rate-card)_ | 103% of 160.0M (backoff) |
 | Codex | 8.7M _(+231.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1610,8 +1610,8 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (1)
 - [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-185007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion.town-pr165-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #165
 
 ### tada (11283)
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-5.md) — Fix round 5 report: kriscendobot/minion.town PR #165
