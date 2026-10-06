@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T22:15:05Z_
+_As of 2026-10-06T22:37:10Z_
 
 ## Latest
 
@@ -18,7 +18,7 @@ These items still need you:
 
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 1d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 19d)
-- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
+- [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 25d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 33d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 35d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 35d)
@@ -1270,11 +1270,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #37 (first seen 2026-10-06T18:20:02Z, latest 2026-10-06T21:35:07Z).
-> The SAME condition (`rolling-deploy-canary-stuck-endolin-garden-ece02cb4`) has now been observed 37 times; this is ONE
-> coalesced notice that updates in place, not 37 messages. Latest detail:
+> WATCHDOG notice — occurrence #57 (first seen 2026-10-06T18:20:02Z, latest 2026-10-06T22:35:06Z).
+> The SAME condition (`rolling-deploy-canary-stuck-endolin-garden-ece02cb4`) has now been observed 57 times; this is ONE
+> coalesced notice that updates in place, not 57 messages. Latest detail:
 >
-> Rolling-deploy canary endolin-garden-ece02cb4 is STUCK: it was released to 05b29b3e8fa2 87 min ago
+> Rolling-deploy canary endolin-garden-ece02cb4 is STUCK: it was released to 05b29b3e8fa2 147 min ago
 > but still reports deployed_sha de4f2eece5f746c23d8bac7b3634b8aecfeb7ef6. Check garden-self-deploy on endolin-garden-ece02cb4
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1622,8 +1622,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.6M | $1966.65 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
-| Codex | 9.0M _(+236.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 165.6M | $1967.12 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
+| Codex | 9.0M _(+237.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
