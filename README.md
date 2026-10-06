@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T21:25:16Z_
+_As of 2026-10-06T21:28:07Z_
 
 ## Latest
 
@@ -567,6 +567,22 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-kriscendobot-minion.town-pr165-gauntlet-fix-4-fd2c6dcf128f` — from gardener:kriscendobot-minion.town-pr165-gauntlet-fix-4, reply_to `kriscendobot-minion.town-pr165-gauntlet-fix-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr165-gauntlet-fix-4-fd2c6dcf128f.md)
 
 > [kriscendobot/minion.town#165](https://github.com/kriscendobot/minion.town/issues/165) (claude pinned responder) cannot clear the gauntlet panel by fix rounds. Its phase-evidence gate is blocked: designs/claude-agents-capability.md Phase 1 (Endo substrate) is blocked and Phases 3-6 plus Acceptance are open (production canaries and inbox-watch flood/slot observations). In panel mode the gate blocks both a 'deliverable' disposition and a 'non-deliverable-probe' one, so panel-5 will return must-fix again. Fix-4 applied every code/body must-fix (CI green, head 96e1b18). Decision needed: park the gauntlet and keep [kriscendobot/minion.town#165](https://github.com/kriscendobot/minion.town/issues/165) draft until Phase 1 lands and the root canary and inbox-watch acceptance are recorded (integrator's option), or reclassify it as a probe.
+
+- `watchdog-rolling-deploy-canary-failed-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-failed-endolin-garden-ece02cb4.md)
+
+> Rolling deploy HALTED on a failed canary.
+> canary host: endolin-garden-ece02cb4
+> target sha:  05b29b3e8fa29919ae5024586f91c84e34fc9a08
+> failing signal: retries exhausted after re-validation kept failing
+> This canary was RETRIED 3 time(s) automatically and kept
+> failing, so the roll has stopped retrying and now needs YOU. This is a persistent,
+> confirmed regression, not a transient blip — treat it as higher severity than a
+> first-tick halt.
+> The roll released no further followers and the LEADER did NOT advance itself — a
+> broken tip that fails a canary never reaches the leader. The canary was left DRAINED
+> (benign roll-induced drain op) pending your decision; auto-rollback is deliberately not
+> performed (designs/follower-self-deploy.md § Failure handling). Investigate the target
+> on endolin-garden-ece02cb4, then lift its drain and re-trigger, or hold the tip. (leader=endolin-garden2-5bcdff64)
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
@@ -1602,7 +1618,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.6M | $1965.70 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
+| Claude | 165.6M | $1966.18 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
 | Codex | 8.8M _(+231.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
