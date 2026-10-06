@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T03:43:17Z_
+_As of 2026-10-06T03:46:16Z_
 
 ## Latest
 
@@ -40,11 +40,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #913 (first seen 2026-10-02T05:41:06Z, latest 2026-10-06T02:43:44Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 913 times; this is ONE
-> coalesced notice that updates in place, not 913 messages. Latest detail:
+> WATCHDOG notice — occurrence #934 (first seen 2026-10-02T05:41:06Z, latest 2026-10-06T03:44:07Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 934 times; this is ONE
+> coalesced notice that updates in place, not 934 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 336908s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 340531s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -511,6 +511,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Correction: the separate MCP authorization URL timed out while waiting, so please ignore that URL. The renewed Claude subscription connect link remains valid until 2026-10-04T20:25:07.166Z. Complete that setup-token page only, reply `connected`, and I will mint a fresh MCP authorization URL while you are present.
 
+- `msg-minion-town-claude-kriscendobot-connect-canary-20261006-fb78c2ba6da9` — from gardener:minion-town-claude-kriscendobot-connect-canary-20261006, reply_to `minion-town-claude-kriscendobot-connect-canary-20261006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-kriscendobot-connect-canary-20261006-fb78c2ba6da9.md)
+
+> Blocked on two human-only steps for [https://github.com/kriscendobot/garden/issues/89](https://github.com/kriscendobot/garden/issues/89) items 4–5 (the kriscendobot connect + production canary). (a) `claude setup-token` uses an interactive claude.ai OAuth flow: you open a browser, approve, and paste a code back. (b) Signing in to minion.town as kriscendobot goes through GitHub's web login, which needs kriscendobot's password and MFA. This host has no browser session for either, and the skill forbids converting the `gh` API token into one.
+>
+> ONE question: will you, signed in as kriscendobot, open https://minion.town/account/claude, paste in a token from `claude setup-token` run against kriscendobot's Claude subscription, and then reply "connected"? Don't send the token over the bus. Once you reply, a gardener will run the SSM preflight and the four redacted canary observations against subject 79b9090e-20a1-70d2-94c7-717257e2be34.
+
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
 > budget-level changed endolin-garden2-5bcdff64 cleric workers 1 -> 0 (target 0): shared codex subscription demand active=1 queue=1 quota=ok fleet-envelope=4 target=0
@@ -976,7 +982,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.5M | $1725.58 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
+| Claude | 145.6M | $1726.62 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
 | Codex | 5.7M _(+171.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -985,8 +991,8 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 22.917683s/45s (/home/kris/garden2/.garden-state/bulletin/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`endojs-endo-but-for-bots-pr1428-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1428-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1428
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1426
