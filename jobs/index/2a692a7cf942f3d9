@@ -1,2 +1,2 @@
-base: improve-foreman-retired-provider-fallback
+base: improve-foreman-provider-outage-latch
 identity: mentor:scripts/jobs/handlers/foreman-claude.sh
