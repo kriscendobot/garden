@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T15:15:55Z_
+_As of 2026-10-06T15:19:26Z_
 
 ## Latest
 
@@ -200,6 +200,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > way, don't just assume. This unblocks deploys on EVERY host once it lands
 > and rolls out — say that explicitly in your completion report so its
 > priority is clear to whoever reads it next.
+
+- `msg-minion-town-verify-caddy-gate-token-deploy-be0edb8-e471d7f66aba` — from gardener:minion-town-verify-caddy-gate-token-deploy-be0edb8, reply_to `minion-town-verify-caddy-gate-token-deploy-be0edb8` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-verify-caddy-gate-token-deploy-be0edb8-e471d7f66aba.md)
+
+> Production verification for the merged Caddy gate-token fix is at the final signed-in browser smoke. GitHub sent a fresh SMS verification code for the kriscendobot account. Please reply promptly with that one-time code so I can complete the already-open login and check signed-in GET /account/claude plus /billing/balance. Do not post any password or long-lived credential.
 
 - `watchdog-unclaimable-host-requirements-minion-town-claude-kriscendobot-connect-canary-20261006` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-minion-town-claude-kriscendobot-connect-canary-20261006.md)
 
@@ -831,11 +835,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T14:23:55Z).
-> It was observed 73 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #74 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T15:17:38Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 74 times; this is ONE
+> coalesced notice that updates in place, not 74 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred work=1397 (clones=1397, remedies=0, cleanup=0, notices=0) on consecutive ticks.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
 
@@ -1538,8 +1542,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 153.3M | $1820.67 _(notional, rate-card)_ | 96% of 160.0M (ok) |
-| Codex | 7.8M _(+202.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 153.3M | $1821.33 _(notional, rate-card)_ | 96% of 160.0M (ok) |
+| Codex | 7.8M _(+203.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
