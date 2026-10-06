@@ -143,3 +143,6 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - syntax highlighting, code highlighting in the browser, CSS Custom Highlight API, `::highlight`, custom highlights, OpaqueRange, OpaqueRange API, Tree-sitter, tree-sitter, MicroLighter, highlight overlay layer, inverse sticky technique, virtualised scrolling, virtualized scrolling -> code-editor-syntax-highlighting
 - grapheme cluster, grapheme clusters, UTF-16 code units, UTF-16 string length, `Intl.Segmenter`, grapheme segmentation, ZWJ emoji length, code units vs code points vs graphemes -> grapheme-cluster-text-indexing
 - `ReadableTreeInterface`, `EndoReadableTree`, `SnapshotTree`, readable-tree capability -> npm-registry-proxy
+- HTTP request carrier, request carrier leakage, secret in URL, credential in URL, sensitive request data, request logging leakage -> request-carrier-leakage
+- fragment credential, URL fragment secret, hash-fragment bearer, fragment-held key, fragment-held credential, Navigation Timing secret, Performance Timeline secret -> fragment-held-credential
+- leak canary, leak-canary testing, secret propagation test, redaction canary, carrier canary -> leak-canary-testing
