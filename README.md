@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T04:51:05Z_
+_As of 2026-10-06T04:54:45Z_
 
 ## Latest
 
@@ -444,6 +444,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I have not changed anything (no actuation). Please tell me once you use a credit and I will log it in reset-credits.md.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_reaper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_reaper_journal.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/reaper/journal: p95=45.001693s max=45.001920s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr288-152ecdac143a` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr288-152ecdac143a.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/288](https://github.com/endojs/endo-but-for-bots/pull/288) ([endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/issues/288)) is in the mergeable queue with NO gauntlet review staged (head 152ecdac143ab219da4070c21332fd1ae126f5a0). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #288'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -595,6 +599,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/322](https://github.com/endojs/endo-but-for-bots/pull/322) ([endojs/endo-but-for-bots#322](https://github.com/endojs/endo-but-for-bots/issues/322)) is in the mergeable queue with NO gauntlet review staged (head 7b2add4930f53298c36da41269a6445da619bc67). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #322'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_endo` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_endo.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-endo: p95=45.001996s max=45.002030s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr360-83e2a8031703` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr360-83e2a8031703.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/360](https://github.com/endojs/endo-but-for-bots/pull/360) ([endojs/endo-but-for-bots#360](https://github.com/endojs/endo-but-for-bots/issues/360)) is in the mergeable queue with NO gauntlet review staged (head 83e2a80317033878ea41612114a50d99a11151c2). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #360'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -625,6 +633,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/832](https://github.com/endojs/endo-but-for-bots/pull/832) ([endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/issues/832)) is in the mergeable queue with NO gauntlet review staged (head 675d412bce5933ca701bdc59650f3374f3cb7907). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #832'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_cosgov` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_cosgov.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-cosgov: p95=45.001482s max=45.001991s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr996-f94615159497` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr996-f94615159497.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/996](https://github.com/endojs/endo-but-for-bots/pull/996) ([endojs/endo-but-for-bots#996](https://github.com/endojs/endo-but-for-bots/issues/996)) is in the mergeable queue with NO gauntlet review staged (head f946151594973e48240667cc6f50d29d5e6eec96). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #996'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -643,11 +655,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #52 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T04:47:07Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 52 times; this is ONE
-> coalesced notice that updates in place, not 52 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T04:52:59Z).
+> It was observed 52 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 1377 of 1411 clone(s) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1343-eaa3fd3534d9` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1343-eaa3fd3534d9.md)
 
@@ -972,6 +984,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Oros still unreachable (13:20Z): 11:05Z checkup unclaimed (eight checkups since 2026-10-03T13:20Z all unclaimed in todo); heartbeat stale since 2026-10-02T05:08Z, sysop-log since 2026-10-02T05:35Z, fleet/health since 2026-10-02T03:13Z (deployed e036bb8e, roll_status deferred); derotated heartbeat-offline. No op sent: prior host ops still unacked, so the sysop is not consuming. Needs a person at the machine (Mac sleep/power, Docker Desktop, VM/container). Earlier watcher notices about this are still unread in the inbox.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_endojs_endo_but_for_bots` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_endojs_endo_but_for_bots.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/receipt-watcher/journal-endojs-endo-but-for-bots: p95=45.001706s max=45.002020s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+
 - `watchdog-journal-contention-storm-clone-oversized` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-clone-oversized.md)
 
 > RECOVERED — the watchdog condition `journal-contention-storm-clone-oversized` has CLEARED (first seen 2026-10-04T04:50:33Z, cleared 2026-10-06T01:24:44Z).
@@ -1158,13 +1174,13 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.7M | $1732.88 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
-| Codex | 6.2M _(+182.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 145.7M | $1732.95 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
+| Codex | 6.3M _(+182.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 45.001730s/45s (/home/kris/garden2/.garden-state/issue-inbox/verify); 13 open notice(s); checker healthy
+worst fetch p95 45.001996s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-endo); 17 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
