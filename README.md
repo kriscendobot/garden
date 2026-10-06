@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T16:55:17Z_
+_As of 2026-10-06T16:58:07Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ These items still need you:
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 1h)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 2h)
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 18h)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
@@ -1546,7 +1546,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 155.7M | $1850.12 _(notional, rate-card)_ | 97% of 160.0M (ok) |
+| Claude | 155.7M | $1850.85 _(notional, rate-card)_ | 97% of 160.0M (ok) |
 | Codex | 8.0M _(+211.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1558,17 +1558,16 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — kriscendobot/minion.town PR #165
-- [`fix-journal-contention-watch-deferred-clone-backlog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-journal-contention-watch-deferred-clone-backlog.md) — ---
 
-### tada (11254)
+### tada (11255)
+- [`fix-journal-contention-watch-deferred-clone-backlog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-journal-contention-watch-deferred-clone-backlog.md) — Cost
 - [`kriscendobot-minion.town-pr165-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-1.md) — Cost
 - [`fix-comment-watcher-test-cooldown-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-comment-watcher-test-cooldown-isolation.md) — Completion report: fix-comment-watcher-test-cooldown-isolation
 - [`improve-receipt-watcher-primary-quota-cooldown-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-receipt-watcher-primary-quota-cooldown-retry.md) — Completion report: improve-receipt-watcher-primary-quota-cooldown-retry
 - [`improve-comment-source-quota-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-comment-source-quota-fanout.md) — Report: improve-comment-source-quota-fanout
-- [`kriscendobot-minion.town-pr165-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-clean.md) — Cost
-- … and 11249 more
+- … and 11250 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
