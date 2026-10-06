@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T22:01:25Z_
+_As of 2026-10-06T22:08:09Z_
 
 ## Latest
 
@@ -333,6 +333,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr266-964cc634b818` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr266-964cc634b818.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/266](https://github.com/endojs/endo-but-for-bots/pull/266) ([endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/issues/266)) is in the mergeable queue with NO gauntlet review staged (head 964cc634b8182451e8b90c3ba6acc65842061ac1). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #266'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261006-215007` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261006-215007.md)
+
+> Host-requirements gate: job 'oros-health-watch-20261006-215007' has remained unclaimed for 901s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr320-18836dc69193` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr320-18836dc69193.md)
 
