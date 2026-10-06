@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T03:28:56Z_
+_As of 2026-10-06T03:37:37Z_
 
 ## Latest
 
@@ -188,6 +188,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > way, don't just assume. This unblocks deploys on EVERY host once it lands
 > and rolls out — say that explicitly in your completion report so its
 > priority is clear to whoever reads it next.
+
+- `watchdog-unclaimable-host-requirements-minion-town-claude-kriscendobot-connect-canary-20261006` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-minion-town-claude-kriscendobot-connect-canary-20261006.md)
+
+> Host-requirements gate: job 'minion-town-claude-kriscendobot-connect-canary-20261006' has remained unclaimed for 1204s with requires: aws. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monitors_cleric_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_monitors_cleric_1_journal.md)
 
@@ -638,6 +642,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Oros still unreachable (~74h): the 05:35Z pinned checkup is unclaimed (10 oros-health-checkup jobs now stacked in todo since 2026-10-04 01:50Z); heartbeat last sampled 2026-10-02T05:08Z, last sysop-log 2026-10-02T05:35Z, host derotated heartbeat-offline, deployed e036bb8e vs main2 5058262e17e. Queued reset-failed/restore ops remain unacknowledged, so no new op sent. A person must check the Mac's power/sleep state, Docker Desktop, and the VM/container.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_regenerate_topics_counts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_regenerate_topics_counts_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/regenerate-topics-counts/journal: p95=18.815246s max=18.815246s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+
 - `msg-minion-town-claude-cli-production-canary-20261004-1c8d0da21764` — from gardener:minion-town-claude-cli-production-canary-20261004, reply_to `minion-town-claude-cli-production-canary-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-cli-production-canary-20261004-1c8d0da21764.md)
 
 > I also need a short-lived GitHub-federated MCP login for your root subject so I can drive the four production root tools myself. Please open this authorization URL, choose GitHub, and reply with the final `http://localhost:8080/callback?...` URL that your browser reaches. The authorization code is one-time and will be exchanged directly by the waiting Claude MCP client; do not send any GitHub credential or Claude setup token.
@@ -916,7 +924,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.6M | $1727.58 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
+| Claude | 145.5M | $1725.58 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
 | Codex | 5.7M _(+171.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -925,21 +933,20 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 22.917683s/45s (/home/kris/garden2/.garden-state/bulletin/journal); 10 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`minion-town-claude-kriscendobot-connect-canary-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-claude-kriscendobot-connect-canary-20261006.md) — Connect kriscendobot's own Claude subscription on minion.town, then run the p...
-- [`endojs-endo-but-for-bots-pr1428-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1428-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1428
 
 ### doin (2)
-- [`endo-but-for-bots-upstream-master-ci-shepherd-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-upstream-master-ci-shepherd-20261006.md) — Shepherd upstream endojs/endo's master CI to green (pinned on endo-but-for-bots)
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1426
+- [`endojs-endo-but-for-bots-pr1428-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1428
 
-### tada (11164)
+### tada (11165)
+- [`endo-but-for-bots-upstream-master-ci-shepherd-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endo-but-for-bots-upstream-master-ci-shepherd-20261006.md) — Cost
 - [`improve-dependabotany-preflight-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-dependabotany-preflight-deadline.md) — Cost
 - [`oros-health-watch-20261006-025617`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-025617.md) — Cost
 - [`improve-foreman-provider-outage-latch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-foreman-provider-outage-latch.md) — Cost
 - [`fix-journal-clone-seed-from-local-root-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-journal-clone-seed-from-local-root-20261006.md) — Cost
-- [`improve-auth-recovery-debounce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-auth-recovery-debounce.md) — Cost
-- … and 11159 more
+- … and 11160 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
