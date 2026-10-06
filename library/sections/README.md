@@ -6,7 +6,7 @@ Sections are named `<source-slug>--<section-slug>.md`. Sorting by filename group
 
 ## Current sections (auto-generated index, alphabetical by source)
 
-Total section files: 7234 (530 parent indexes + 6704 children).
+Total section files: 7238 (530 parent indexes + 6708 children).
 
 ### agoric-labs--agoric-to-axelar-local-agoric-docs-ymax-evm-remote-accounts
 
@@ -10220,6 +10220,13 @@ Total section files: 7234 (530 parent indexes + 6704 children).
 ### web--parcel-targets
 
 - [web--parcel-targets--targets-source-engines-and-output-format](web--parcel-targets--targets-source-engines-and-output-format.md)
+
+### web--secret-seal
+
+- [web--secret-seal--framework-controls-and-leak-canaries](web--secret-seal--framework-controls-and-leak-canaries.md)
+- [web--secret-seal--opaque-handles-and-revelation-boundaries](web--secret-seal--opaque-handles-and-revelation-boundaries.md)
+- [web--secret-seal--request-carriers-and-accidental-copying](web--secret-seal--request-carriers-and-accidental-copying.md)
+- [web--secret-seal--url-fragments-and-split-knowledge](web--secret-seal--url-fragments-and-split-knowledge.md)
 
 ### web--simonw-llm-meta-ai
 
