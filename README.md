@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T05:45:15Z_
+_As of 2026-10-06T05:51:33Z_
 
 ## Latest
 
@@ -40,11 +40,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #955 (first seen 2026-10-02T05:41:06Z, latest 2026-10-06T04:47:09Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 955 times; this is ONE
-> coalesced notice that updates in place, not 955 messages. Latest detail:
+> WATCHDOG notice — occurrence #976 (first seen 2026-10-02T05:41:06Z, latest 2026-10-06T05:50:08Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 976 times; this is ONE
+> coalesced notice that updates in place, not 976 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 344313s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 348090s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -1090,11 +1090,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden_journal.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-10-06T03:47:03Z, latest 2026-10-06T05:27:41Z).
-> The SAME condition (`journal-fetch-slow-_home_kris_garden_journal`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden_journal` has CLEARED (first seen 2026-10-06T03:47:03Z, cleared 2026-10-06T05:47:59Z).
+> It was observed 2 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal fetch anomaly on endolin-garden-ece02cb4 for _home_kris_garden_journal: p95=15.450170s max=15.450170s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> Journal contention condition `journal-fetch-slow-_home_kris_garden_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr469-596b4c1185d2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr469-596b4c1185d2.md)
 
@@ -1366,8 +1366,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 147.0M | $1744.89 _(notional, rate-card)_ | 121% of 121.0M (backoff) |
-| Codex | 6.6M _(+188.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 147.0M | $1745.62 _(notional, rate-card)_ | 122% of 121.0M (backoff) |
+| Codex | 6.6M _(+188.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
