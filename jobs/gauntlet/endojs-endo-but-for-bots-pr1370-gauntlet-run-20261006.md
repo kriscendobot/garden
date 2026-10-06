@@ -10,11 +10,11 @@ max_stage_retries: 2
 created_by: producer
 created_at: 2026-10-06T14:52:05Z
 arc: 
-stage: viability
+stage: clean
 iteration: 0
 resumes: 0
 stage_retries: 0
-current_child: endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-viability
+current_child: endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-clean
 state: running
 resumed_at: 2026-10-06T14:53:40Z
 resumed_from_stage: viability
