@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T16:20:21Z_
+_As of 2026-10-06T16:22:30Z_
 
 ## Latest
 
@@ -961,10 +961,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002 HALTED: stage 'endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
 
-- `endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-halted` — from gauntlet:endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-halted.md)
-
-> Gauntlet endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006 HALTED: stage 'endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr289-df0ae9721b96` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr289-df0ae9721b96.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/289](https://github.com/endojs/endo-but-for-bots/pull/289) ([endojs/endo-but-for-bots#289](https://github.com/endojs/endo-but-for-bots/issues/289)) is in the mergeable queue with NO gauntlet review staged (head df0ae9721b96e7b8e0e111d05c647e4ba7c4386a). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #289'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -1550,8 +1546,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 153.5M | $1825.80 _(notional, rate-card)_ | 96% of 160.0M (ok) |
-| Codex | 7.9M _(+210.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 153.5M | $1826.30 _(notional, rate-card)_ | 96% of 160.0M (ok) |
+| Codex | 8.0M _(+211.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1562,8 +1558,9 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
 - [`build-minion-town-claude-pinned-responder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-pinned-responder.md) — minion.town: pinned per-guest Claude responder (wake-on-message, survives dae...
+- [`improve-comment-source-quota-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-source-quota-fanout.md) — ---
 
 ### tada (11247)
 - [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006.md) — gauntlet endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006 — HALTED
