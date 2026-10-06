@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T18:44:15Z_
+_As of 2026-10-06T18:49:36Z_
 
 ## Latest
 
@@ -369,6 +369,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr741-17e8d74cc13a` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr741-17e8d74cc13a.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/741](https://github.com/endojs/endo-but-for-bots/pull/741) ([endojs/endo-but-for-bots#741](https://github.com/endojs/endo-but-for-bots/issues/741)) is in the mergeable queue with NO gauntlet review staged (head 17e8d74cc13a3672899405bc2e2e622f77c5a21a). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #741'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `watchdog-budget-zone-endolin-garden-ece02cb4-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden-ece02cb4-ok.md)
+
+> subscription codex-endolin changed zone backoff -> ok at spend=unknown%/95% tokens=0.
 
 - `msg-minion-town-claude-cli-production-canary-20261004-445d58a36b95` — from gardener:minion-town-claude-cli-production-canary-20261004, reply_to `minion-town-claude-cli-production-canary-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-cli-production-canary-20261004-445d58a36b95.md)
 
@@ -835,11 +839,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T18:09:23Z).
-> It was observed 79 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #80 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T18:47:56Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 80 times; this is ONE
+> coalesced notice that updates in place, not 80 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred work=1403 (clones=1403, remedies=0, cleanup=0, notices=0) on consecutive ticks.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
 
@@ -1312,6 +1316,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-claude-cli-production-canary-20261004, msgid msg-minion-town-claude-cli-production-canary-20261004-943b7f85213c.md — Connecting a real paying Claude subscription token to production requires the maintainer's own GitHub sign-in and personal subscription credentials — an identity/authority action no proxy can perform or authorize on their behalf.
 
+- `watchdog-budget-zone-endolin-garden2-5bcdff64-ok` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-ok.md)
+
+> subscription claude-endolin2 changed zone backoff -> ok at spend=10500/168000000.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr546-2f2c0a3bf59e` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr546-2f2c0a3bf59e.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/546](https://github.com/endojs/endo-but-for-bots/pull/546) ([endojs/endo-but-for-bots#546](https://github.com/endojs/endo-but-for-bots/issues/546)) is in the mergeable queue with NO gauntlet review staged (head 2f2c0a3bf59e2d6e650ea388a3c29cb08d37b1c1). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #546'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -1546,8 +1554,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 157.9M | $1875.45 _(notional, rate-card)_ | 99% of 160.0M (ok) |
-| Codex | 8.1M _(+212.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 157.9M | $1875.98 _(notional, rate-card)_ | 99% of 160.0M (ok) |
+| Codex | 8.1M _(+215.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
