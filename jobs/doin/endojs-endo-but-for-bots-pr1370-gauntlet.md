@@ -5,3 +5,13 @@ fallback-tier: minion
 dispatch: automatic
 ---
 Run the gauntlet (clean, then panel review, then fix-loop, then un-draft) on endojs/endo-but-for-bots#1370, "docs(ironhorse): settle panic recovery design questions". It is the design amendment at the root of the #1018 Ironhorse panic-recovery stack (#1372–#1385). It has been a draft since 2026-09-29 with no reviews and no gauntlet, and the build legs that follow it depend on its answers.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-06T14:51:00Z
