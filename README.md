@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T08:30:58Z_
+_As of 2026-10-06T08:37:00Z_
 
 ## Latest
 
@@ -268,7 +268,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_transcripts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_transcripts_journal.md)
 
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/transcripts/journal: p95=24.019467s max=24.019467s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_transcripts_journal` has CLEARED (first seen 2026-10-06T02:53:00Z, cleared 2026-10-06T08:31:58Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_transcripts_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-2.md)
 
@@ -607,7 +611,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-zone-endolin-garden2-5bcdff64-backoff` — from watchdog:gardener-scaler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-zone-endolin-garden2-5bcdff64-backoff.md)
 
-> subscription claude-endolin2 changed zone ok -> backoff at spend=145588968/160000000.
+> WATCHDOG notice — occurrence #2 (first seen 2026-08-30T06:58:11Z, latest 2026-10-06T08:33:31Z).
+> The SAME condition (`budget-zone-endolin-garden2-5bcdff64-backoff`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> subscription codex-endolin changed zone ok -> backoff at spend=85.0%/100% tokens=7016769.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr279-13ee82881ccd` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr279-13ee82881ccd.md)
 
@@ -1442,7 +1450,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 150.4M | $1777.74 _(notional, rate-card)_ | 124% of 121.0M (backoff) |
+| Claude | 150.7M | $1778.78 _(notional, rate-card)_ | 125% of 121.0M (backoff) |
 | Codex | 7.0M _(+192.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -1454,17 +1462,18 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1428
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1379
-- [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1426
+- [`endojs-endo-but-for-bots-pr1426-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — endojs/endo-but-for-bots PR #1426
 
-### tada (11203)
+### tada (11204)
+- [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-fix-5.md) — Gauntlet fix round 5: endojs/endo-but-for-bots PR #1426
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-fix-5.md) — Gauntlet fix round 5: endojs/endo-but-for-bots PR #1428
 - [`improve-comment-timeout-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-comment-timeout-isolation.md) — Cost
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-panel-5.md) — Cost
-- [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-fix-4.md) — Cost
-- … and 11198 more
+- … and 11199 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
