@@ -112,12 +112,26 @@ Treat allocation as heartbeat-live capacity, not claiming capacity.
 The foreman ships with active target **2**.
 Its independent journal-backed
 `brake-foreman.sh` stops only that pump. `config/foreman-mandate` supplies optional
-priority direction, and `config/token-backoff-fraction` supplies the budget
-high-water fraction when there is no environment override.
-The validated
-`set-token-backoff-fraction.sh` writer can be used as a one-shot schedule
-preflight hook for a later change (exit 2 means the write is done and no job is
-needed).
+priority direction. The budget high-water fraction is the **standing
+token-backoff ramp**
+([design](../../designs/standing-token-backoff-ramp.md)): per subscription,
+computed when read (`token_backoff_fraction_for` in `usage-meter.sh`), it starts
+at the initial reserve `config/token-backoff-initial` (default 0.50; writer
+`set-token-backoff-initial.sh`) when that subscription's window begins and
+rises linearly to 1.00 at its next reset. A passed planned reset restarts the
+ramp; a Claude manual reset keeps the weekly deadline; a Codex (manual-cadence)
+reset starts a window whose deadline is only the next reset time recorded after
+it. A window that cannot be resolved uses 0.95, and `budget-level` edge-alerts
+asking for the reset time (`append-reset-event.sh <sub> --type
+expected-next-scheduled --precision scheduled --at <ISO>`). Each tick logs
+`budget-level backoff <pool>: <f> (<source>; ...)`.
+`config/token-backoff-fraction` is an **intervention pin** only, for every
+pool: `set-token-backoff-fraction.sh <f> [--until <RFC3339>]` writes it and
+`--clear` removes it. A pin with `until` holds until that instant even when
+quota is available; nothing expires it early. An explicit
+`GARDEN_TOKEN_BACKOFF_FRACTION` environment value beats everything. The writer
+still works as a one-shot schedule preflight hook (exit 2 means the write is done
+and no job is needed).
 See
 [scaling.md](scaling.md) for the distinct claim moratorium (drain).
 

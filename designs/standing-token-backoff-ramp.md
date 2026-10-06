@@ -4,7 +4,7 @@
 | --- | --- |
 | Created | 2026-09-28 |
 | Author | designer (job `design-standing-token-backoff-ramp`) |
-| Status | Accepted |
+| Status | Implemented (build `build-standing-token-backoff-ramp`; deployed by `release-standing-token-backoff-ramp`) |
 
 ## Directive
 
@@ -215,6 +215,27 @@ without a pending plan; the 0.95 unknown-window fallback; indefinite and
 `token-backoff-initial` falling back to 0.50 with a WARN; and
 `meter_quota_status` for two pools at different points in their windows giving
 different verdicts for the same used percentage.
+
+## Implementation notes (build)
+
+- `usage-meter.sh`: `token_backoff_fraction_for <pool> [dir] [now]` prints
+  `<fraction>\t<source>\t<detail>`; `token_backoff_ramp_window`,
+  `token_backoff_override`, and `token_backoff_initial` are its parts.
+  `meter_quota_status` passes the pool's value to `meter_verdict`.
+  `resolve_token_backoff_fraction` also sets `GARDEN_TOKEN_BACKOFF_SOURCE`,
+  `_DETAIL`, and `_POOL` for the foreman's notice.
+- A passed planned reset counts only when it was not superseded by an observed
+  reset that began the current window (the same rule
+  `subscription_pacing_window` applies to pending plans). Without this, a
+  pre-reset acceleration marker passing after a Codex manual reset would
+  re-anchor the window and drop its valid deadline.
+- Manual-cadence and observed-only pools take their deadline only from the
+  earliest pending planned reset recorded at or after the window start.
+- `budget-level.sh` logs every Anthropic pool's value and source each tick,
+  appends `backoff=<f>(<source>)` to its reasons, and edge-alerts once per
+  episode for any configured pool on the 0.95 fallback.
+- New writer `set-token-backoff-initial.sh` for the control surface.
+- Tests: `scripts/jobs/test/token-backoff-ramp-test.sh` (in CI).
 
 ## Accepted decisions
 

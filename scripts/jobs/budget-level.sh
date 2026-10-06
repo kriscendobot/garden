@@ -158,7 +158,18 @@ snapshot="$({
  clone_unlock "$DIR"
 })" || rc=$?
 case "$rc" in 0);;3)log "budget pool config absent; leveling is off";finish;;4)log "WARN: $GARDEN_WORKER_LEVELING_PATH absent; leveling frozen";finish;;"$GARDEN_OFFLINE_RC")log "WARN: budget-level preflight offline (journal clone/sync, rc=$rc); skipping this leveling tick, retry next cadence (fail-open)";finish;;*)log "WARN: budget-level preflight failed (journal clone/sync, rc=$rc); skipping this leveling tick, retry next cadence (fail-open)";finish;;esac
-resolve_token_backoff_fraction "$DIR"
+# The token-backoff high-water fraction is per pool and computed when read
+# (token_backoff_fraction_for, designs/standing-token-backoff-ramp.md). Every
+# configured pool whose reset window cannot be resolved runs on the 0.95
+# fallback; ask once per episode for the reset time that would resolve it.
+while read -r rpool _;do case "$rpool" in ''|'#'*)continue;;esac
+ IFS=$'\t' read -r _ rsrc rdetail < <(token_backoff_fraction_for "$rpool" "$DIR")
+ if [ "$rsrc" = fallback ];then
+  report_freeze "token-backoff-reset-unknown-$rpool" "$rdetail" "token backoff for $rpool is on the 0.95 fallback: $rdetail. Record the next reset time so the standing ramp can resume."
+ else
+  report_unfreeze "token-backoff-reset-unknown-$rpool" "token backoff for $rpool has a resolved reset window again ($rsrc); the standing ramp is back in charge."
+ fi
+done < <(grep -v '^[[:space:]]*#' "$(budget_pool_file "$DIR" 2>/dev/null||echo /dev/null)" 2>/dev/null||true)
 
 declare -a pools=() phosts=() pcaps=() pprov=() hosts=() monk_pool_eligible=()
 declare -A mcap=() ccap=() mceil=() active=() active_ids=() demand=() ctarget=()
@@ -290,9 +301,10 @@ for((i=0;i<n;i++));do pool="${pools[i]}";h="${phosts[i]}";cap="${pcaps[i]}";prov
   if [ "$h" = "$GARDEN" ];then if [[ "$pool" == anthropic:* ]];then spend="$(meter_window_total anchor 2>/dev/null)";else spend="$(meter_subscription_window_total "$pool" "$DIR" 2>/dev/null)";fi||{ pool_failure "$pool" "$h" read-local-spend "$?";continue;};elif [[ "$pool" == anthropic:* ]];then spend="$(meter_journal_host_tokens "$DIR" "$h" "$cutoff" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-remote-spend "$?";continue;};else pool_failure "$pool" "$h" read-remote-spend "$snap_rc";continue;fi
  fi
  [[ "$spend" =~ ^[0-9]+$ ]]||{ pool_failure "$pool" "$h" validate-spend 1;continue;};hf="$DIR/hosts/$h";if [ -n "$GARDEN_BUDGET_LEVEL_KIND" ];then kind="$GARDEN_BUDGET_LEVEL_KIND";else kind=monk;fi;key="$(worker_kind_field "$kind" count_key 2>/dev/null||echo monks)";cur="$(read_desired_count "$hf" "$key" 2>/dev/null)"||{ pool_failure "$pool" "$h" read-host-workers "$?";continue;}
- if [ "$mv" -ne 1 ];then uncalibrated "$prov"&&continue;awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" 'BEGIN{exit !(t>=q*f)}'||continue;target="$GARDEN_BUDGET_LEVEL_MIN";else hi="${mceil[$h]}";target="$(awk -v t="$spend" -v q="$cap" -v f="$GARDEN_TOKEN_BACKOFF_FRACTION" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{m=q*f;if(m<=0||t>=m)n=lo;else n=lo+int((1-t/m)*(hi-lo)+.5);if(n<lo)n=lo;if(n>hi)n=hi;print n}')";bias="$(subscription_pacing_bias "$pool" "$spend" "$cap" "$DIR")";pacing="$(subscription_pacing_summary "$pool" "$DIR")";case "$pacing" in *'(planned)'*|*'['*)log "budget-level pacing $pool: $pacing";;esac;pace_target="$(awk -v b="$bias" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{print lo+int(b*(hi-lo)+.5)}')";[ "$pace_target" -le "$target" ]||target="$pace_target";fi
+ IFS=$'\t' read -r bfrac bsrc bdetail < <(token_backoff_fraction_for "$pool" "$DIR");log "budget-level backoff $pool: $bfrac ($bsrc; $bdetail)"
+ if [ "$mv" -ne 1 ];then uncalibrated "$prov"&&continue;awk -v t="$spend" -v q="$cap" -v f="$bfrac" 'BEGIN{exit !(t>=q*f)}'||continue;target="$GARDEN_BUDGET_LEVEL_MIN";else hi="${mceil[$h]}";target="$(awk -v t="$spend" -v q="$cap" -v f="$bfrac" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{m=q*f;if(m<=0||t>=m)n=lo;else n=lo+int((1-t/m)*(hi-lo)+.5);if(n<lo)n=lo;if(n>hi)n=hi;print n}')";bias="$(subscription_pacing_bias "$pool" "$spend" "$cap" "$DIR")";pacing="$(subscription_pacing_summary "$pool" "$DIR")";case "$pacing" in *'(planned)'*|*'['*)log "budget-level pacing $pool: $pacing";;esac;pace_target="$(awk -v b="$bias" -v lo="$GARDEN_BUDGET_LEVEL_MIN" -v hi="$hi" 'BEGIN{print lo+int(b*(hi-lo)+.5)}')";[ "$pace_target" -le "$target" ]||target="$pace_target";fi
  if [[ "${uncal_hosts[$h]+set}" ]]&&[ "$target" -gt "$cur" ];then log "budget-level: $h holds an uncalibrated pool; monk target $target clamped to current $cur (non-increasable)";target="$cur";fi
- apply_target "$pool" "$h" "$kind" "$cur" "$target" "subscription $pool spend=$spend cap=$cap pace-bias=${bias:-0} ${pacing:-deadline=unknown} ceiling=${mceil[$h]:-frozen} target=$target" "$spend" "$cap" "$prov" weekly-token-spend
+ apply_target "$pool" "$h" "$kind" "$cur" "$target" "subscription $pool spend=$spend cap=$cap pace-bias=${bias:-0} ${pacing:-deadline=unknown} ceiling=${mceil[$h]:-frozen} backoff=$bfrac($bsrc) target=$target" "$spend" "$cap" "$prov" weekly-token-spend
 done
 
 # A cleric job is counted only on hosts that pass the same static provider/model,

@@ -2,6 +2,11 @@
 # Hermetic coverage for live pool admission, anchored windows, routing, promotion,
 # and proportional worker leveling.
 set -euo pipefail
+# These fixtures exercise admission mechanics at the historical 0.85 high-water
+# mark and carry no reset facts, so pin it explicitly: unpinned, the standing
+# ramp would use its 0.95 unresolved-window fallback
+# (designs/standing-token-backoff-ramp.md; covered by token-backoff-ramp-test.sh).
+export GARDEN_TOKEN_BACKOFF_FRACTION=0.85
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 TR="$(mktemp -d "${TMPDIR:-/tmp}/garden-live-budget-test.XXXXXX")"

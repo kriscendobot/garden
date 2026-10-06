@@ -24,8 +24,10 @@ Environment=GARDEN_ROOT=@GARDEN_ROOT@
 # script default is 3 (kriskowal, 2026-07-03: keep ~3 jobs actively progressing).
 # Raised from the quota-pressure-era 2 (kriskowal, 2026-09-16) to 10 (kriskowal,
 # 2026-09-27): saturate the fleet's current ~8 physical worker slots plus a small
-# buffer, and let GARDEN_TOKEN_BACKOFF_FRACTION (config/token-backoff-fraction on
-# journal2) be the actual spend brake rather than this concurrency cap.
+# buffer, and let the standing token-backoff ramp (per-pool high-water fraction
+# rising from config/token-backoff-initial on journal2 to 1.00 at each reset;
+# designs/standing-token-backoff-ramp.md) be the actual spend brake rather than
+# this concurrency cap.
 # Tune here or via a per-host drop-in.
 # (GARDEN_FOREMAN_WIP is the deprecated former name, still honored as an alias.)
 Environment=GARDEN_FOREMAN_ACTIVE_TARGET=10
@@ -49,7 +51,7 @@ Environment=GARDEN_FOREMAN_ACTIVE_TARGET=10
 # GARDEN_TOKEN_WEEKLY_QUOTA remains a test/emergency fallback when no pool row is
 # available.
 # Optional tunables (defaults shown; uncomment to override):
-#   Environment=GARDEN_TOKEN_BACKOFF_FRACTION=0.85   # back off at 85% of quota
+#   Environment=GARDEN_TOKEN_BACKOFF_FRACTION=0.85   # pin 85%, bypassing the ramp
 # The quota cutoff is fixed at Friday 21:00 America/Los_Angeles (DST-aware).
 #   Environment=GARDEN_TOKEN_COUNT_CACHE_READ=0      # 1 = also count cache_read
 #   Environment=GARDEN_CCUSAGE_LOGDIR=%h/.claude/projects  # session-log location

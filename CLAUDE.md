@@ -234,7 +234,9 @@ capacity changes. `brake-foreman.sh on|off|status` controls the journal-backed
 foreman-only brake; drain stops new claims on the local host.
 The shipped
 foreman active target is 10, not 0 (raised 2026-09-27 to saturate the fleet's
-physical worker slots; `GARDEN_TOKEN_BACKOFF_FRACTION` is the spend brake).
+physical worker slots; the standing per-subscription token-backoff ramp is the
+spend brake, controlled by `config/token-backoff-initial`, with
+`set-token-backoff-fraction.sh` reserved for intervention pins).
 Pool limits, budget pacing, subscription
 calibration, and known gaps live in
 [context/operations/cybernetics.md](context/operations/cybernetics.md);

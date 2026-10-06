@@ -1808,11 +1808,13 @@ ST_OK="$( cd "$JOBS"; GARDEN_STATE="$TR/sm3" GARDEN=meterhost GARDEN_CCUSAGE_LOG
 ST_BO="$( cd "$JOBS"; GARDEN_STATE="$TR/sm4" GARDEN=meterhost GARDEN_CCUSAGE_LOGDIR="$MLOG" \
   GARDEN_USAGE_NOW=10000 GARDEN_TOKEN_WINDOW_SECS=1000 GARDEN_TOKEN_WEEKLY_QUOTA=300 \
   GARDEN_USAGE_LEDGER="$TR/sm4-noledger" bash -c 'source ./common.sh; meter_quota_status' 2>/dev/null )"
-[ "$ST_BO" = "backoff" ] && ok "quota status: at/over high-water (315 ≥ 0.85·300) → backoff" || bad "quota status backoff wrong (got '$ST_BO')"
+[ "$ST_BO" = "backoff" ] && ok "quota status: at/over high-water (315 ≥ 0.95·300) → backoff" || bad "quota status backoff wrong (got '$ST_BO')"
 
-# Journal-backed fraction resolution: absent preserves the historical default,
-# a valid journal value overrides it, malformed content warns and fails back to
-# 0.85, and an explicit environment value retains absolute precedence.
+# Journal-backed fraction resolution (designs/standing-token-backoff-ramp.md):
+# with no pool/reset window the value is the 0.95 fallback, a journal
+# intervention override pins it, malformed override content warns and is
+# ignored, and an explicit environment value retains absolute precedence. The
+# per-pool ramp itself is covered by test/token-backoff-ramp-test.sh.
 FRCFG="$TR/fraction-journal"; mkdir -p "$FRCFG/config"
 fraction_value() { # [explicit-env]
   ( cd "$JOBS"; env GARDEN_STATE="$TR/fraction-state" GARDEN=meterhost \
@@ -1820,16 +1822,16 @@ fraction_value() { # [explicit-env]
     bash -c 'source ./common.sh; resolve_token_backoff_fraction "$1"; printf "%s\n" "$GARDEN_TOKEN_BACKOFF_FRACTION"' _ "$FRCFG" )
 }
 rm -f "$FRCFG/config/token-backoff-fraction"
-[ "$(fraction_value)" = 0.85 ] && ok "token fraction: absent journal override preserves 0.85 default" \
-  || bad "token fraction: absent journal override changed the default"
+[ "$(fraction_value)" = 0.95 ] && ok "token fraction: no override and no resolvable window uses the 0.95 fallback" \
+  || bad "token fraction: unresolved window did not use the 0.95 fallback"
 printf '0.72\n' > "$FRCFG/config/token-backoff-fraction"
-[ "$(fraction_value)" = 0.72 ] && ok "token fraction: valid journal override is applied" \
-  || bad "token fraction: valid journal override was not applied"
+[ "$(fraction_value)" = 0.72 ] && ok "token fraction: journal intervention override is applied" \
+  || bad "token fraction: journal intervention override was not applied"
 printf 'not-a-fraction\n' > "$FRCFG/config/token-backoff-fraction"
 FROUT="$(fraction_value 2>&1)"
-{ [ "$(printf '%s\n' "$FROUT" | tail -1)" = 0.85 ] && printf '%s\n' "$FROUT" | grep -q 'WARN: invalid token backoff fraction'; } \
-  && ok "token fraction: malformed journal value warns and falls back to 0.85" \
-  || bad "token fraction: malformed journal value did not warn/fall back ($FROUT)"
+{ [ "$(printf '%s\n' "$FROUT" | tail -1)" = 0.95 ] && printf '%s\n' "$FROUT" | grep -q 'WARN: invalid token backoff override'; } \
+  && ok "token fraction: malformed override warns and is ignored" \
+  || bad "token fraction: malformed override did not warn/fall back ($FROUT)"
 printf '0.61\n' > "$FRCFG/config/token-backoff-fraction"
 [ "$(fraction_value 0.93)" = 0.93 ] && ok "token fraction: explicit environment value wins over journal" \
   || bad "token fraction: journal overrode explicit environment"

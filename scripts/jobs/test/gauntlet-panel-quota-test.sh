@@ -33,6 +33,11 @@ hr()  { echo "----------------------------------------------------------------";
 # real journal/root underneath the hermetic fixture.
 # shellcheck disable=SC2046
 unset $(compgen -v 2>/dev/null | grep -E '^(GARDEN_|JOURNAL_|SELF_HEAL_|XDG_)' || true) 2>/dev/null || true
+# These fixtures exercise admission mechanics at the historical 0.85 high-water
+# mark and carry no reset facts, so pin it explicitly: unpinned, the standing
+# ramp would use its 0.95 unresolved-window fallback
+# (designs/standing-token-backoff-ramp.md; covered by token-backoff-ramp-test.sh).
+export GARDEN_TOKEN_BACKOFF_FRACTION=0.85
 
 TR=/home/kris/.garden-gauntlet-panel-quota-test
 rm -rf "$TR"; mkdir -p "$TR"

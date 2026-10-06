@@ -76,12 +76,17 @@
 # unit (scripts/systemd/garden-foreman.service) for where to set it.
 : "${GARDEN_TOKEN_WEEKLY_QUOTA:=0}"
 # High-water mark as a fraction of the quota; at/over this the foreman backs off.
-# Once a caller has synced its journal clone, config/token-backoff-fraction may
-# replace the default. An explicit environment value retains highest precedence.
-if [ "${GARDEN_TOKEN_BACKOFF_FRACTION+x}" = x ]; then
+# The value is per subscription and computed when read (token_backoff_fraction_for
+# below); 0.95 is the unresolved-window fallback a caller sees before it resolves.
+# An explicit environment value retains highest precedence.
+# Classify once per shell: a second source must not mistake a value
+# resolve_token_backoff_fraction already computed for an environment pin.
+if [ -n "${_GARDEN_TOKEN_BACKOFF_FRACTION_FROM_ENV:-}" ]; then
+  :
+elif [ "${GARDEN_TOKEN_BACKOFF_FRACTION+x}" = x ]; then
   _GARDEN_TOKEN_BACKOFF_FRACTION_FROM_ENV=1
 else
-  GARDEN_TOKEN_BACKOFF_FRACTION=0.85
+  GARDEN_TOKEN_BACKOFF_FRACTION=0.95
   _GARDEN_TOKEN_BACKOFF_FRACTION_FROM_ENV=0
 fi
 # The rolling-window compatibility/reporting default. The quota gate itself uses
@@ -515,33 +520,207 @@ budget_pool_file() {
   return 1
 }
 
-# resolve_token_backoff_fraction [journal-dir] — apply the journal-backed
-# high-water setting after a caller has synced its journal clone. An explicit
-# environment setting always wins. Missing config preserves the historical 0.85
-# default; malformed config warns and also preserves that default so a typo can
-# never silently stop the fleet.
+# --- the standing token-backoff ramp (designs/standing-token-backoff-ramp.md) --
+#
+# The high-water fraction is a per-subscription value computed when read, never
+# ticked into the journal.  Precedence, highest first:
+#   env       an explicit GARDEN_TOKEN_BACKOFF_FRACTION in the environment;
+#   override  journal config/token-backoff-fraction, an INTERVENTION pin for every
+#             pool (set-token-backoff-fraction.sh). Either one bare number, or
+#             `fraction: <f>` plus an optional `until: <RFC3339>` gate. A gated
+#             pin holds until that instant even when quota is available, and is
+#             ignored at and after it. Nothing expires a pin early;
+#   ramp      r0 + (1 - r0) * elapsed / duration over the pool's ramp window,
+#             clamped to [r0, 1]. r0 is config/token-backoff-initial (default
+#             0.50), the standing control surface;
+#   fallback  0.95 when no ramp window can be resolved. The reason says which
+#             reset time needs to be recorded; nothing guesses a deadline.
+: "${GARDEN_TOKEN_BACKOFF_INITIAL_DEFAULT:=0.50}"
+: "${GARDEN_TOKEN_BACKOFF_UNRESOLVED:=0.95}"
+
+# _token_backoff_valid_fraction <raw> — print the trimmed number when it lies in
+# (0, 1]; fail otherwise.
+_token_backoff_valid_fraction() {
+  local raw="$1"
+  [[ "$raw" =~ ^[[:space:]]*([0-9]+([.][0-9]*)?|[.][0-9]+)([eE][+-]?[0-9]+)?[[:space:]]*$ ]] || return 1
+  awk -v f="$raw" 'BEGIN { exit !(f > 0 && f <= 1) }' || return 1
+  printf '%s\n' "$raw" | awk '{$1=$1; print}'
+}
+
+# _token_backoff_journal_dir [journal-dir] — the clone the config is read from:
+# the caller's clone, else the same discovered clone budget_pool_file uses, so a
+# stale side clone can never supply a forgotten pin.
+_token_backoff_journal_dir() {
+  local dir="${1:-}" file
+  [ -z "$dir" ] || { printf '%s\n' "$dir"; return 0; }
+  [ -z "${GARDEN_BUDGET_POOLS_FILE:-}" ] || return 1
+  file="$(budget_pool_file "" 2>/dev/null)" || return 1
+  [ -n "$file" ] || return 1
+  dirname "$(dirname "$file")"
+}
+
+# token_backoff_initial [journal-dir] — r0 from config/token-backoff-initial;
+# absent or malformed means 0.50 (malformed also WARNs).
+token_backoff_initial() {
+  local dir="${1:-}" file raw value
+  file="${dir:+$dir/config/token-backoff-initial}"
+  if [ -n "$file" ] && [ -e "$file" ]; then
+    raw="$(grep -v '^[[:space:]]*#' "$file" 2>/dev/null | grep -v '^[[:space:]]*$' || true)"
+    if value="$(_token_backoff_valid_fraction "$raw")"; then
+      printf '%s\n' "$value"; return 0
+    fi
+    log "WARN: invalid token backoff initial reserve in $file (expected one number in (0, 1]); using $GARDEN_TOKEN_BACKOFF_INITIAL_DEFAULT"
+  fi
+  printf '%s\n' "$GARDEN_TOKEN_BACKOFF_INITIAL_DEFAULT"
+}
+
+# token_backoff_override <journal-dir> [now] — when an intervention pin is in
+# force print "<fraction>\t<until-or-indefinite>"; fail when it is absent,
+# expired, or malformed (malformed also WARNs, and the ramp stays in charge).
+token_backoff_override() {
+  local dir="${1:-}" now="${2:-$(meter_now)}" file body frac="" until="" until_epoch line key value
+  [ -n "$dir" ] || return 1
+  file="$dir/config/token-backoff-fraction"
+  [ -e "$file" ] || return 1
+  body="$(grep -v '^[[:space:]]*#' "$file" 2>/dev/null | grep -v '^[[:space:]]*$' || true)"
+  if frac="$(_token_backoff_valid_fraction "$body")"; then
+    printf '%s\tindefinite\n' "$frac"; return 0
+  fi
+  frac=""
+  while IFS= read -r line; do
+    key="${line%%:*}"; value="${line#*:}"
+    key="$(printf '%s' "$key" | awk '{$1=$1; print}')"
+    value="$(printf '%s' "$value" | awk '{$1=$1; print}')"
+    case "$key" in
+      fraction) frac="$value" ;;
+      until) until="$value" ;;
+      *) frac=""; break ;;
+    esac
+  done <<<"$body"
+  if ! frac="$(_token_backoff_valid_fraction "$frac")"; then
+    log "WARN: invalid token backoff override in $file (expected one number in (0, 1], or fraction:/until: lines); ignoring it"
+    return 1
+  fi
+  [ -n "$until" ] || { printf '%s\tindefinite\n' "$frac"; return 0; }
+  until_epoch="$(date -u -d "$until" +%s 2>/dev/null)" || until_epoch=""
+  if ! [[ "$until_epoch" =~ ^[0-9]+$ ]]; then
+    log "WARN: invalid until '$until' in token backoff override $file; ignoring it"
+    return 1
+  fi
+  [ "$now" -lt "$until_epoch" ] || return 1
+  printf '%s\tuntil=%s\n' "$frac" "$(date -u -d "@$until_epoch" +%Y-%m-%dT%H:%M:%SZ)"
+}
+
+# _token_backoff_planned_epochs <subscription> [journal-dir] — every planned
+# reset ("expected-next-scheduled") as "<reset-epoch>\t<recorded-epoch>".
+_token_backoff_planned_epochs() {
+  local file
+  file="$(subscription_reset_file "$1" "${2:-}")" || return 1
+  command -v jq >/dev/null 2>&1 || return 1
+  jq -sr '
+    def epoch: if type != "string" then null else
+      (capture("^(?<d>[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2})([.][0-9]+)?(?<z>Z|[+-][0-9]{2}:?[0-9]{2})$") // null) as $m
+      | if $m == null then null else
+          (($m.d + "Z") | fromdateiso8601) as $t
+          | if $m.z == "Z" then $t else
+              ($m.z | gsub(":"; "")) as $z
+              | (($z[1:3] | tonumber) * 3600 + ($z[3:5] | tonumber) * 60) as $off
+              | if $z[0:1] == "-" then $t + $off else $t - $off end
+            end
+        end end;
+    map(select((.event_type // "") == "expected-next-scheduled")
+        | [(.reset_at | epoch), (.recorded_at | epoch)]
+        | select(.[0] != null) | [.[0], (.[1] // 0)] | @tsv) | .[]' "$file" 2>/dev/null
+}
+
+# _token_backoff_passed_plan <planned-rows> <start> <start-source> <now> — the
+# latest planned reset that has passed and lies after <start>, if any.  As in
+# subscription_pacing_window, a plan recorded before an observed reset that
+# began the current window is superseded by that reset and never counts.
+_token_backoff_passed_plan() {
+  awk -F '\t' -v now="$4" -v s="$2" -v observed="$([ "$3" = observed ] && echo 1 || echo 0)" '
+    NF && $1 <= now && $1 > s && !(observed && $2 < s) && ($1 > m || m == "") { m = $1 }
+    END { if (m != "") print m }' <<<"$1"
+}
+
+# token_backoff_ramp_window <subscription> [journal-dir] [now] — the window the
+# ramp spans, as "<start>\t<start-source>\t<deadline>\t<deadline-source>".  When
+# it cannot be resolved, print the reason and fail.
+#   calendar  subscription_pacing_window, whose start already prefers an observed
+#             reset: a Claude manual reset PRESERVES the weekly phase (new start,
+#             same calendar deadline).  The start then snaps forward to the latest
+#             planned reset that has passed (and was not superseded by an
+#             observed reset), so a passed plan begins a fresh window at the
+#             initial reserve.  The meter cutoff is unchanged.
+#   manual / observed-only  the latest reset event SHIFTS the phase (Codex): it
+#             starts the window, and only a planned reset recorded at or after
+#             that start supplies the deadline.  Without one the deadline is
+#             unclear and the caller falls back.
+token_backoff_ramp_window() {
+  local subscription="$1" dir="${2:-}" now="${3:-$(meter_now)}"
+  local fact mode window start start_source deadline deadline_source planned passed row
+  fact="$(subscription_reset_fact "$subscription" "$dir" 2>/dev/null)" && [ -n "$fact" ] \
+    || { printf 'no reset facts for %s; record its reset schedule\n' "$subscription"; return 1; }
+  mode="${fact%%$'\t'*}"
+  planned="$(_token_backoff_planned_epochs "$subscription" "$dir" 2>/dev/null || true)"
+  if [ "$mode" = calendar ]; then
+    window="$(subscription_pacing_window "$subscription" "$dir" "$now" 2>/dev/null)" \
+      || { printf 'calendar reset window for %s unresolved; record its next reset time\n' "$subscription"; return 1; }
+    IFS=$'\t' read -r start start_source deadline deadline_source _ <<<"$window"
+    passed="$(_token_backoff_passed_plan "$planned" "$start" "$start_source" "$now")"
+    if [ -n "$passed" ]; then start="$passed"; start_source="planned-passed"; fi
+  else
+    row="$(_subscription_window_start "$subscription" "$dir" "$now" 2>/dev/null)" \
+      || { printf 'no observed reset for %s; record its last and next reset times\n' "$subscription"; return 1; }
+    IFS=$'\t' read -r start start_source <<<"$row"
+    passed="$(_token_backoff_passed_plan "$planned" "$start" "$start_source" "$now")"
+    if [ -n "$passed" ]; then start="$passed"; start_source="planned-passed"; fi
+    deadline="$(awk -F '\t' -v now="$now" -v s="$start" 'NF && $1 > now && $2 >= s && ($1 < d || d == "") { d = $1 } END { if (d != "") print d }' <<<"$planned")"
+    [ -n "$deadline" ] || {
+      printf 'next reset for %s after %s unclear; record it (append-reset-event.sh %s --type expected-next-scheduled --precision scheduled --at <ISO>)\n' \
+        "$subscription" "$(date -u -d "@$start" +%Y-%m-%dT%H:%MZ)" "$subscription"
+      return 1
+    }
+    deadline_source=planned
+  fi
+  [[ "$start" =~ ^[0-9]+$ && "$deadline" =~ ^[0-9]+$ ]] && [ "$deadline" -gt "$start" ] \
+    || { printf 'reset window for %s is empty; record its next reset time\n' "$subscription"; return 1; }
+  printf '%s\t%s\t%s\t%s\n' "$start" "$start_source" "$deadline" "$deadline_source"
+}
+
+# token_backoff_fraction_for <pool> [journal-dir] [now] — prints
+# "<fraction>\t<source>\t<detail>", source in env|override|ramp|fallback.
+token_backoff_fraction_for() {
+  local pool="${1:-}" dir="${2:-}" now="${3:-$(meter_now)}" jdir="" pin r0 window start start_source deadline deadline_source
+  if [ "${_GARDEN_TOKEN_BACKOFF_FRACTION_FROM_ENV:-0}" -eq 1 ]; then
+    printf '%s\tenv\t-\n' "$GARDEN_TOKEN_BACKOFF_FRACTION"; return 0
+  fi
+  jdir="$(_token_backoff_journal_dir "$dir")" || jdir=""
+  if pin="$(token_backoff_override "$jdir" "$now")"; then
+    printf '%s\toverride\t%s\n' "${pin%%$'\t'*}" "${pin#*$'\t'}"; return 0
+  fi
+  r0="$(token_backoff_initial "$jdir")"
+  if [ -n "$pool" ] && window="$(token_backoff_ramp_window "$pool" "$jdir" "$now")"; then
+    IFS=$'\t' read -r start start_source deadline deadline_source <<<"$window"
+    awk -v r0="$r0" -v s="$start" -v d="$deadline" -v now="$now" \
+      -v detail="r0=$r0 window=$(date -u -d "@$start" +%Y-%m-%dT%H:%MZ)($start_source)->$(date -u -d "@$deadline" +%Y-%m-%dT%H:%MZ)($deadline_source)" \
+      'BEGIN { f = r0 + (1 - r0) * (now - s) / (d - s); if (f < r0) f = r0; if (f > 1) f = 1
+               printf "%.4f\tramp\t%s\n", f, detail }'
+    return 0
+  fi
+  [ -n "$pool" ] || window="no subscription pool resolved"
+  printf '%s\tfallback\t%s\n' "$GARDEN_TOKEN_BACKOFF_UNRESOLVED" "$window"
+}
+
+# resolve_token_backoff_fraction [journal-dir] — for callers with no pool in
+# hand: set GARDEN_TOKEN_BACKOFF_FRACTION (and _SOURCE, _DETAIL, _POOL) to this
+# host's Anthropic pool's value.  An explicit environment setting always wins.
 resolve_token_backoff_fraction() {
-  local dir="${1:-}" file="" raw
-  [ "$_GARDEN_TOKEN_BACKOFF_FRACTION_FROM_ENV" -eq 0 ] || return 0
-  if [ -n "$dir" ]; then
-    file="$dir/config/token-backoff-fraction"
-  else
-    local f
-    for f in "${GARDEN_WORKER_CLONE:-}" \
-             "${GARDEN_PRODUCER_CLONE:-}" "$GARDEN_STATE"/*/journal; do
-      if [ -z "$f" ] || [ ! -e "$f/config/token-backoff-fraction" ]; then continue; fi
-      file="$f/config/token-backoff-fraction"; break
-    done
-  fi
-  [ -n "$file" ] && [ -e "$file" ] || return 0
-  raw="$(cat "$file" 2>/dev/null)" || raw=""
-  if [[ "$raw" =~ ^[[:space:]]*([0-9]+([.][0-9]*)?|[.][0-9]+)([eE][+-]?[0-9]+)?[[:space:]]*$ ]] \
-     && awk -v f="$raw" 'BEGIN { exit !(f > 0 && f <= 1) }'; then
-    GARDEN_TOKEN_BACKOFF_FRACTION="$(printf '%s\n' "$raw" | awk '{$1=$1; print}')"
-  else
-    GARDEN_TOKEN_BACKOFF_FRACTION=0.85
-    log "WARN: invalid token backoff fraction in $file (expected one number in (0, 1]); using 0.85"
-  fi
+  local dir="${1:-}" row
+  GARDEN_TOKEN_BACKOFF_POOL="$(budget_pool_for_provider_host anthropic "$GARDEN" "$dir" 2>/dev/null || true)"
+  row="$(token_backoff_fraction_for "$GARDEN_TOKEN_BACKOFF_POOL" "$dir")"
+  # shellcheck disable=SC2034  # read by foreman.sh's back-off notice
+  IFS=$'\t' read -r GARDEN_TOKEN_BACKOFF_FRACTION GARDEN_TOKEN_BACKOFF_SOURCE GARDEN_TOKEN_BACKOFF_DETAIL <<<"$row"
 }
 
 # budget_pool_row <pool> [journal-dir] — print the normalized five-column row.
@@ -1351,8 +1530,7 @@ subscription_allocation_weight() {
 #   backoff  — at/over the high-water mark (pause the pump).
 meter_quota_status() {
   local pool="${1:-}" dir="${2:-}" quota="${GARDEN_TOKEN_WEEKLY_QUOTA:-0}"
-  local row provider kind total cutoff
-  resolve_token_backoff_fraction "$dir"
+  local row provider kind total cutoff frac
   if [ -z "$pool" ]; then
     pool="$(budget_pool_for_provider_host anthropic "$GARDEN" "$dir" 2>/dev/null || true)"
     # Preserve the standalone/env-only meter interface used by diagnostics and
@@ -1366,12 +1544,15 @@ meter_quota_status() {
       # The environment-only compatibility path retains its historical explicit
       # rolling window. Journal-configured pools below use the fixed reset anchor.
       total="$(meter_window_total "$GARDEN_TOKEN_WINDOW_SECS")" || { printf 'unknown\n'; return 0; }
-      meter_verdict "$total" "$quota"; return 0
+      frac="$(token_backoff_fraction_for "$pool" "$dir" | cut -f1)"
+      meter_verdict "$total" "$quota" "$frac"; return 0
     fi
   else
     row="$(budget_pool_row "$pool" "$dir" 2>/dev/null)" || { printf 'off\n'; return 0; }
     IFS=$'\t' read -r _ provider kind quota _ <<<"$row"
   fi
+  # The high-water fraction belongs to the pool being admitted against.
+  frac="$(token_backoff_fraction_for "$pool" "$dir" | cut -f1)"
 
   case "$kind" in
     unmetered) printf 'ok\n'; return 0 ;;
@@ -1382,7 +1563,7 @@ meter_quota_status() {
       # hand-calibrated token ceiling below is retained only as fallback.
       total="$(subscription_used_percent "$pool" "$dir" 2>/dev/null || true)"
       if [[ "$total" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
-        meter_verdict "$total" 100
+        meter_verdict "$total" 100 "$frac"
         return 0
       fi
       cutoff="$(subscription_window_start_epoch "$pool" "$dir" 2>/dev/null || true)"
@@ -1412,7 +1593,7 @@ meter_quota_status() {
       ;;
     *) printf 'unknown\n'; return 0 ;;
   esac
-  meter_verdict "$total" "$quota"
+  meter_verdict "$total" "$quota" "$frac"
 }
 
 # pool_provenance_uncalibrated <provenance> — true when a pool's calibrated_from

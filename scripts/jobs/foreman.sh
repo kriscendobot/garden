@@ -93,11 +93,13 @@ export GARDEN_TAG="foreman"
 # independent account per host. The Admin Usage & Cost API (API-key/Console only)
 # does NOT apply and is deliberately not wired.
 #   config/budget-pools          per-subscription ceiling (journal source of truth).
-#   config/token-backoff-fraction journal high-water fraction (when env is unset).
+#   config/token-backoff-initial  standing ramp's initial reserve r0 (default 0.50).
+#   config/token-backoff-fraction intervention pin overriding the ramp (when env is unset).
 #   config/foreman-mandate       optional free-text priority direction for generation.
 #   config/subscription-mapping  explicit host/worker-kind ownership relation.
 #   GARDEN_TOKEN_WEEKLY_QUOTA    fallback when no current-host pool row exists.
-#   GARDEN_TOKEN_BACKOFF_FRACTION high-water mark as a fraction of quota (default 0.85).
+#   GARDEN_TOKEN_BACKOFF_FRACTION explicit high-water pin; unset means the per-pool
+#                                 ramp (designs/standing-token-backoff-ramp.md).
 #   budget/reset-events/*         independent reset facts; no global default.
 #   GARDEN_CCUSAGE_LOGDIR         Claude Code session-log dir (primary source).
 #   GARDEN_USAGE_LEDGER           legacy ledger path (fallback only).
@@ -290,7 +292,7 @@ fi
 resolve_token_backoff_fraction "$DIR"
 if [ "$provider_fallback_enabled" = false ]; then case "$(meter_quota_status "" "$DIR")" in
   backoff)
-    note_once "token-backoff" "foreman: this host's Anthropic subscription is at/over the ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark. Pausing the autonomous pump until its independently tracked reset."
+    note_once "token-backoff" "foreman: this host's Anthropic subscription ${GARDEN_TOKEN_BACKOFF_POOL:-(unresolved)} is at/over its ${GARDEN_TOKEN_BACKOFF_FRACTION} high-water mark (source ${GARDEN_TOKEN_BACKOFF_SOURCE:-unknown}: ${GARDEN_TOKEN_BACKOFF_DETAIL:--}). Pausing the autonomous pump until the ramp rises or its independently tracked reset."
     log "token quota high-water reached; backing off (no pump this tick)"
     decide token-backoff
     record_budget_halt current-host-token-quota backoff \

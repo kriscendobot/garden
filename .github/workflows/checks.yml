@@ -77,7 +77,8 @@ jobs:
             scripts/jobs/test/report-error-reachable-test.sh \
             scripts/jobs/test/reputation-reduce-incremental-test.sh \
             scripts/jobs/test/worktree-sweeper-follower-test.sh \
-            scripts/jobs/test/ironhorse-test262-ratchet-gate-test.sh
+            scripts/jobs/test/ironhorse-test262-ratchet-gate-test.sh \
+            scripts/jobs/test/token-backoff-ramp-test.sh
 
       - name: bash -n (syntax check, all scripts/ and skill main scripts)
         # Syntactic check on every shell script under scripts/ and skills/.
@@ -120,6 +121,7 @@ jobs:
           bash scripts/jobs/test/muster-pilot-test.sh
           bash scripts/jobs/test/classify-foreign-content-test.sh
           bash scripts/jobs/test/ironhorse-test262-ratchet-gate-test.sh
+          bash scripts/jobs/test/token-backoff-ramp-test.sh
           python3 scripts/jobs/test/ci-wait-merge-ratchet-test.py
           python3 scripts/jobs/test/ci-wait-merge-screening-test.py
           python3 scripts/jobs/test/minion-town-screening-test.py
