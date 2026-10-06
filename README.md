@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T14:19:47Z_
+_As of 2026-10-06T14:23:21Z_
 
 ## Latest
 
@@ -373,10 +373,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > https://minion.town/account/claude/4c1fff46-bb7a-4c64-ab8c-b53925ebd566
 >
 > It expires at 2026-10-04T20:25:07.166Z. Run `claude setup-token` on your own machine and submit it only through that HTTPS page; never send the setup token to me or put it in a message or log. Please also complete the separate MCP authorization URL from my preceding message and return only its localhost callback URL.
-
-- `watchdog-journal-fetch-drift-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_cosgov` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-drift-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_cosgov.md)
-
-> Journal fetch drift on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-cosgov: oldest-third median=45.001031s newest-third median=45.001066s over 20779s/87 samples; floor=10s, 1.5x rise or projected-to-guard=-6750533000s within 86400s.
 
 - `watchdog-unclaimable-host-requirements-oros-health-watch-20261006-060517` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261006-060517.md)
 
@@ -1538,8 +1534,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.3M | $1805.14 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
-| Codex | 7.6M _(+197.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 152.3M | $1805.90 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
+| Codex | 7.7M _(+197.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
