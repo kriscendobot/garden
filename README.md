@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T14:57:16Z_
+_As of 2026-10-06T15:06:38Z_
 
 ## Latest
 
@@ -16,8 +16,8 @@ These items still need you:
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 56s)
-- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 16h)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 6m)
+- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 17h)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 32d)
@@ -40,11 +40,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1138 (first seen 2026-10-02T05:41:06Z, latest 2026-10-06T14:02:05Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1138 times; this is ONE
-> coalesced notice that updates in place, not 1138 messages. Latest detail:
+> WATCHDOG notice — occurrence #1159 (first seen 2026-10-02T05:41:06Z, latest 2026-10-06T15:05:10Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1159 times; this is ONE
+> coalesced notice that updates in place, not 1159 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 377609s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 381387s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -294,13 +294,13 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/318](https://github.com/endojs/endo-but-for-bots/pull/318) ([endojs/endo-but-for-bots#318](https://github.com/endojs/endo-but-for-bots/issues/318)) is in the mergeable queue with NO gauntlet review staged (head e398dbc53ef41aefbd584bb8f540b053e7267e9d). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #318'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04` — from gardener:claude-on-minion-town-press-20261006-122018, reply_to `claude-on-minion-town-press-20261006-122018` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04.md)
+- `stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04` — from gardener:kriscendobot-minion.town-pr163-review-b54cabfc, reply_to `kriscendobot-minion.town-pr163-review-b54cabfc` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04.md)
 
-> COALESCED message — occurrence #2 (first seen 2026-10-06T05:26:45Z, latest 2026-10-06T12:22:36Z).
-> The SAME message (episode key `stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04`) has now been sent 2 times; this is
-> ONE entry that updates in place, not 2 messages. Latest detail:
+> COALESCED message — occurrence [#3](https://github.com/kriscendobot/minion.town/issues/3) (first seen 2026-10-06T05:26:45Z, latest 2026-10-06T15:02:53Z).
+> The SAME message (episode key `stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04`) has now been sent 3 times; this is
+> ONE entry that updates in place, not 3 messages. Latest detail:
 >
-> Stale panel coverage for completed job `claude-on-minion-town-press-20261006-122018`: [https://github.com/kriscendobot/minion.town/pull/163](https://github.com/kriscendobot/minion.town/pull/163) moved from panel-reviewed head `e40b9f46378c645b01224f0cb8005ddf1ac3f8d2` to presented head `7c172b045897e186855dca384ba6484bb4f886c7`.
+> Stale panel coverage for completed job `kriscendobot-minion.town-pr163-review-b54cabfc`: [https://github.com/kriscendobot/minion.town/pull/163](https://github.com/kriscendobot/minion.town/pull/163) moved from panel-reviewed head `e40b9f46378c645b01224f0cb8005ddf1ac3f8d2` to presented head `7c172b045897e186855dca384ba6484bb4f886c7`.
 >
 > Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 >
@@ -815,11 +815,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-1.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-26T03:06:05Z, latest 2026-10-05T21:20:39Z).
-> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-1`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #3 (first seen 2026-09-26T03:06:05Z, latest 2026-10-06T15:05:33Z).
+> The SAME condition (`budget-level-monk-endolin-garden2-5bcdff64-1`) has now been observed 3 times; this is ONE
+> coalesced notice that updates in place, not 3 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): subscription claude-endolin2 spend=133490423 cap=160000000 pace-bias=0 window-start=2026-10-03T03:00Z(calendar) deadline=2026-10-06T15:00Z(planned) ceiling=4 target=1
+> budget-level changed endolin-garden2-5bcdff64 monk workers 2 -> 1 (target 1): subscription claude-endolin2 spend=152518363 cap=160000000 pace-bias=0 window-start=2026-10-03T03:00Z(calendar) deadline=2026-10-10T03:00Z(calendar) ceiling=4 target=1
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr237-1c4f9a729cb2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr237-1c4f9a729cb2.md)
 
@@ -1196,6 +1196,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_sysop_journal` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1282-1dfafdaa590f` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1282-1dfafdaa590f.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1282](https://github.com/endojs/endo-but-for-bots/pull/1282) ([endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/issues/1282)) is in the mergeable queue with NO gauntlet review staged (head 1dfafdaa590f4bd315496ef9c32b23d50f5f9020). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1282'; otherwise no action is needed. This audit never re-drafts a PR.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr313-ceea5f188590` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr313-ceea5f188590.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/313](https://github.com/endojs/endo-but-for-bots/pull/313) ([endojs/endo-but-for-bots#313](https://github.com/endojs/endo-but-for-bots/issues/313)) is in the mergeable queue with NO gauntlet review staged (head ceea5f18859007cb9a667d83b6de146bfcd82e9f). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #313'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -1534,8 +1538,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.5M | $1814.95 _(notional, rate-card)_ | 95% of 160.0M (ok) |
-| Codex | 7.8M _(+198.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 152.8M | $1817.88 _(notional, rate-card)_ | 95% of 160.0M (ok) |
+| Codex | 7.8M _(+200.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1547,17 +1551,17 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 (none)
 
 ### doin (3)
-- [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1370
-- [`design-foreman-discretion-pool`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-foreman-discretion-pool.md) — Design: a foreman-discretion pool, third-way split of the weekly budget
+- [`kriscendobot-minion-town-pr163-conduct-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr163-conduct-20261006.md) — Finalize kriscendobot/minion.town PR 163
 - [`endojs-endo-but-for-bots-pr1370-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1370-gauntlet.md) — ---
+- [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1370
 
-### tada (11233)
+### tada (11236)
+- [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-clean.md) — Cost
+- [`kriscendobot-minion.town-pr163-review-b54cabfc`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr163-review-b54cabfc.md) — Panel-head freshness
+- [`design-foreman-discretion-pool`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/design-foreman-discretion-pool.md) — Cost
 - [`endojs-endo-but-for-bots-pr1282-weave-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1282-weave-20261006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-viability.md) — Cost
-- [`canary-probe-endolin-garden-ece02cb4-61b77cc9a9fe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-61b77cc9a9fe.md) — rolling-deploy canary probe — round trip OK
-- [`improve-persist-mirror-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-persist-mirror-quota-cooldown.md) — Cost
-- [`canary-probe-endolin-garden-ece02cb4-c3b3c458adb0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-c3b3c458adb0.md) — rolling-deploy canary probe — round trip OK
-- … and 11228 more
+- … and 11231 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1626,7 +1630,7 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 2 monks
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 1 monks
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
