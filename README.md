@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T18:52:06Z_
+_As of 2026-10-06T19:01:46Z_
 
 ## Latest
 
@@ -16,8 +16,7 @@ These items still need you:
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 3h)
-- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 20h)
+- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 21h)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 33d)
@@ -26,8 +25,9 @@ These items still need you:
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 35d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 34d)
 - [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 34d)
+- [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 38d)
 
-_Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
+_Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 ## Screened by proxy (minion.town)
 
 (delegation not armed)
@@ -839,11 +839,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #80 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T18:47:56Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 80 times; this is ONE
-> coalesced notice that updates in place, not 80 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T18:58:47Z).
+> It was observed 80 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred work=1403 (clones=1403, remedies=0, cleanup=0, notices=0) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
 
@@ -1554,8 +1554,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 157.9M | $1876.62 _(notional, rate-card)_ | 99% of 160.0M (ok) |
-| Codex | 8.2M _(+217.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 157.9M | $1877.52 _(notional, rate-card)_ | 99% of 160.0M (ok) |
+| Codex | 8.3M _(+221.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1563,14 +1563,16 @@ _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-moddable); 9 open notice(s); checker healthy
 
 ## Board
-### todo (8)
+### todo (10)
 - [`improve-deadmail-tempfail-short-circuit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-deadmail-tempfail-short-circuit.md) — ---
+- [`endojs-endo-but-for-bots-pr1428-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1428-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1428
 - [`skill-ocap-attenuation-authoring-stub-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/skill-ocap-attenuation-authoring-stub-20261006.md) — Author a short stub: skills/ocap-attenuation-authoring/SKILL.md
 - [`claude-on-minion-town-completion-press-20261006-172007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261006-172007.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-185007.md) — ---
 - [`claude-on-minion-town-press-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261006-185007.md) — Press the Claude-on-minion.town arc forward
 - [`skill-caplet-validation-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/skill-caplet-validation-20261006.md) — Author skills/caplet-validation/SKILL.md — verifying a caplet's confinement a...
 - [`skill-minion-town-ocapn-dispatch-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/skill-minion-town-ocapn-dispatch-20261006.md) — Author skills/minion-town-ocapn-dispatch/SKILL.md — garden-side procedure for...
+- [`endojs-endo-but-for-bots-pr1282-review-c5a5c1c1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1282-review-c5a5c1c1.md) — Review directive on endojs/endo-but-for-bots PR #1282
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr165-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #165
 
 ### doin (2)
