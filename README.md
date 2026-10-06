@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T20:14:32Z_
+_As of 2026-10-06T20:19:32Z_
 
 ## Latest
 
@@ -1594,7 +1594,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 161.9M | $1924.48 _(notional, rate-card)_ | 101% of 160.0M (backoff) |
+| Claude | 161.9M | $1923.64 _(notional, rate-card)_ | 101% of 160.0M (backoff) |
 | Codex | 8.7M _(+230.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1606,17 +1606,16 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (1)
 - [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-185007.md) — ---
 
-### doin (2)
-- [`release-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/release-standing-token-backoff-ramp.md) — Deploy the standing token-backoff ramp implementation
+### doin (1)
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #165
 
-### tada (11278)
+### tada (11280)
+- [`orch-standing-token-backoff-ramp-delivery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/orch-standing-token-backoff-ramp-delivery.md) — orchestration orch-standing-token-backoff-ramp-delivery — complete
+- [`release-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/release-standing-token-backoff-ramp.md) — Cost
 - [`kriscendobot-minion.town-pr165-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-4.md) — Panel round 4 report: kriscendobot/minion.town PR #165
 - [`build-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/build-standing-token-backoff-ramp.md) — Completion report: build-standing-token-backoff-ramp
 - [`retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006-split.md) — orchestration retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006...
-- [`retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006-expanded-window.md) — Cost
-- [`kriscendobot-minion.town-pr165-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-3.md) — Fix round 3 for kriscendobot/minion.town PR #165
-- … and 11273 more
+- … and 11275 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
