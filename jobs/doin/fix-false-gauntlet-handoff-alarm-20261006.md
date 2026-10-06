@@ -13,3 +13,13 @@ The missed-draft-handoff recovery added in 7d3ec941b11 ("fix(gauntlet): recover 
 It recurs. Every `claude-on-minion-town-press-*` / `-completion-press-*` job that mentions #163 triggers it again; the latest was `claude-on-minion-town-press-20261006-122018`. The liaison has archived four of these.
 
 Fix: decide "has a gauntlet" by PR identity across live `jobs/gauntlet`, `jobs/gauntlet-archived` and `jobs/tada` gauntlet reports, the same lookup d8dfa37f373 added for re-staging. Also dedupe the notice per PR, not per job. Add a regression test. Land on main2.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-06T12:24:21Z
