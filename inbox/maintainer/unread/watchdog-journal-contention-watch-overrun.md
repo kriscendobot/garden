@@ -1,14 +1,13 @@
 from_host: endolin-garden-ece02cb4
 from: watchdog:journal-contention-watch
-sent_at: 2026-10-06T05:27:51Z
+sent_at: 2026-10-06T05:38:06Z
 watchdog_key: journal-contention-watch-overrun
-notice_count: 53
+notice_count: 54
 first_seen: 2026-10-04T05:15:32Z
-last_seen: 2026-10-06T05:27:51Z
-recovered: true
+last_seen: 2026-10-06T05:38:06Z
 ---
-RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T05:27:51Z).
-It was observed 53 time(s) while open. Nothing further is required;
-this notice closes the loop so the end of the condition is on the record.
+WATCHDOG notice — occurrence #54 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T05:38:06Z).
+The SAME condition (`journal-contention-watch-overrun`) has now been observed 54 times; this is ONE
+coalesced notice that updates in place, not 54 messages. Latest detail:
 
-Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 54 of 1413 clone(s) on consecutive ticks.
