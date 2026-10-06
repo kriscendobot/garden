@@ -19,7 +19,19 @@ case "${1:-} ${2:-}" in
     ;;
   "pr view")
     pr="${3:-0}"
-    printf '{"headRefOid":"%040d","statusCheckRollup":[{"status":"COMPLETED","conclusion":"SUCCESS"}]}\n' "$pr"
+    [ ! -e "${GAUNTLET_GH_FAIL_VIEWS_FILE:-/nonexistent}" ] || exit 1
+    if [ -s "${GAUNTLET_GH_HEAD_FILE:-/nonexistent}" ]; then
+      head_oid="$(cat "$GAUNTLET_GH_HEAD_FILE")"
+    else
+      head_oid="$(printf '%040d' "$pr")"
+    fi
+    if [ -s "${GAUNTLET_GH_DRAFT_FILE:-/nonexistent}" ]; then
+      is_draft="$(cat "$GAUNTLET_GH_DRAFT_FILE")"
+    else
+      is_draft=false
+    fi
+    printf '{"headRefOid":"%s","isDraft":%s,"statusCheckRollup":[{"status":"COMPLETED","conclusion":"SUCCESS"}]}\n' \
+      "$head_oid" "$is_draft"
     ;;
   "pr comment")
     [ ! -e "${GAUNTLET_GH_FAIL_WRITES_FILE:-/nonexistent}" ] || exit 1

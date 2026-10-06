@@ -27,6 +27,9 @@
 #                    pending receipt with the finish; retries post it once, clear it.
 #  15. COOLDOWN   — terminal receipts finishing under a live gh-api cooldown defer
 #                    into pending records WITHOUT a gh read or a per-gauntlet WARN.
+#  16. STALE UNDRAFT HEAD: an undraft=done report cannot complete a head other
+#                    than the exact head recorded for the passing panel.
+#  17. STILL-DRAFT UNDRAFT: an undraft=done report requires live isDraft=false.
 #
 # Usage: gauntlet-test.sh
 
@@ -75,6 +78,9 @@ export GAUNTLET_GH_COMMENTS="$TR/pr-comments"
 export GAUNTLET_GH_FAIL_WRITES_FILE="$TR/fail-comment-writes"
 export GAUNTLET_GH_FAIL_READS_FILE="$TR/fail-comment-reads"
 export GAUNTLET_GH_READS_LOG="$TR/pr-comment-reads"
+export GAUNTLET_GH_FAIL_VIEWS_FILE="$TR/fail-pr-views"
+export GAUNTLET_GH_HEAD_FILE="$TR/pr-head"
+export GAUNTLET_GH_DRAFT_FILE="$TR/pr-draft"
 # The host-shared gh-api cooldown latch otherwise defaults under the deployed garden
 # root; keep it in the throwaway tree so a live host cooldown cannot leak in.
 export GARDEN_API_COOLDOWN_DIR="$TR/gh-api-cooldown"
@@ -273,6 +279,12 @@ tick   # panel pass (feature) → post undraft
 [ -z "$(handler_timeout g1-undraft)" ] \
   && ok "undraft stage carries NO handler-timeout (short stage takes the plain default)" \
   || bad "undraft handler-timeout=[$(handler_timeout g1-undraft)] (expected none)"
+undraft_body="$(todo_body g1-undraft)"
+{ printf '%s' "$undraft_body" | grep -Fq "The passing panel covered exactly \`$(printf '%040d' 1)\`" \
+    && printf '%s' "$undraft_body" | grep -Fq 'gh pr view https://github.com/testowner/testrepo/pull/1 --json isDraft,state,headRefOid' \
+    && printf '%s' "$undraft_body" | grep -Fq 'do NOT run `gh pr ready`'; } \
+  && ok "undraft stage carries the exact panel head and a pre-mutation equality gate" \
+  || bad "undraft stage is missing its exact-head pre-mutation gate: [$undraft_body]"
 
 complete_stage g1-undraft undraft=done
 tick   # undraft done → finish
@@ -686,6 +698,38 @@ tick   # cooldown over → both delivered once and cleared
     && ! in_dir jobs/gauntlet-terminal-pending g17--halted; } \
   && ok "after the cooldown lapses both owed receipts post once and clear" \
   || bad "cooldown: counts=$(terminal_comment_count g16 halted)/$(terminal_comment_count g17 halted) pending=[$(board jobs/gauntlet-terminal-pending)]"
+
+# ============================================================================
+hr; echo "SUBTEST 16 - STALE UNDRAFT HEAD: a done claim cannot complete a different head"; hr
+post_gauntlet g18 https://github.com/testowner/testrepo/pull/18
+tick; complete_stage g18-clean clean=done
+tick; complete_stage g18-panel-1 panel=pass
+tick   # panel pass -> undraft, with panel_head=...18 recorded
+complete_stage g18-undraft undraft=done
+printf '%040d\n' 999 > "$GAUNTLET_GH_HEAD_FILE"
+tick   # the independent terminal gate must reject the worker's done claim
+rm -f "$GAUNTLET_GH_HEAD_FILE"
+{ in_dir jobs/tada g18 && ! in_dir jobs/gauntlet g18 \
+    && printf '%s' "$(tada_body g18)" | grep -qi 'gauntlet-status: halted' \
+    && printf '%s' "$(tada_body g18)" | grep -Fq 'live headRefOid no longer equals the recorded panel_head'; } \
+  && ok "stale live head halted the gauntlet instead of accepting undraft=done" \
+  || bad "stale-head undraft was not rejected: [$(tada_body g18)]"
+
+# ============================================================================
+hr; echo "SUBTEST 17 - STILL-DRAFT UNDRAFT: done requires live isDraft=false"; hr
+post_gauntlet g19 https://github.com/testowner/testrepo/pull/19
+tick; complete_stage g19-clean clean=done
+tick; complete_stage g19-panel-1 panel=pass
+tick
+complete_stage g19-undraft undraft=done
+printf 'true\n' > "$GAUNTLET_GH_DRAFT_FILE"
+tick
+rm -f "$GAUNTLET_GH_DRAFT_FILE"
+{ in_dir jobs/tada g19 && ! in_dir jobs/gauntlet g19 \
+    && printf '%s' "$(tada_body g19)" | grep -qi 'gauntlet-status: halted' \
+    && printf '%s' "$(tada_body g19)" | grep -Fq 'could not prove both panel-head equality and isDraft=false'; } \
+  && ok "isDraft=true halted the gauntlet instead of accepting undraft=done" \
+  || bad "still-draft undraft was not rejected: [$(tada_body g19)]"
 
 # ============================================================================
 hr

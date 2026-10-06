@@ -520,6 +520,40 @@ finish_done() {  # <base> <reason>
   rm -f "$sf"
 }
 
+# Accept an undraft=done claim only when GitHub independently reports the exact
+# head covered by the passing panel and the PR is no longer a draft. The stage
+# worker performs the same check immediately before `gh pr ready`, but its report
+# is not authority for this terminal transition. Return 1 for a stale head, 2 for
+# malformed/missing recorded or live facts, and 3 when GitHub could not be read
+# (the caller leaves the completed child in place and retries on the next tick).
+undraft_completion_gate() {  # <record-file> <repo> <pr-number>
+  local rec="$1" repo="$2" prnum="$3" panel_head meta live_head is_draft
+  panel_head="$(plan_field "$rec" panel_head 2>/dev/null || true)"
+  if ! [[ "$panel_head" =~ ^[0-9a-f]{40}$ ]]; then
+    log "WARN: gauntlet '$(basename "$rec" .md)': refusing undraft completion without a valid recorded panel_head"
+    return 2
+  fi
+  if ! meta="$(gh_pr_view_retry "$prnum" -R "$repo" --json isDraft,headRefOid)"; then
+    log "WARN: gauntlet '$(basename "$rec" .md)': cannot validate undraft completion against live PR metadata; retrying next tick"
+    return 3
+  fi
+  live_head="$(printf '%s' "$meta" | jq -r '.headRefOid // empty' 2>/dev/null || true)"
+  is_draft="$(printf '%s' "$meta" | jq -r 'if .isDraft == true then "true" elif .isDraft == false then "false" else "" end' 2>/dev/null || true)"
+  if ! [[ "$live_head" =~ ^[0-9a-f]{40}$ ]] || [ -z "$is_draft" ]; then
+    log "WARN: gauntlet '$(basename "$rec" .md)': refusing undraft completion because live isDraft/headRefOid metadata is malformed"
+    return 2
+  fi
+  if [ "$live_head" != "$panel_head" ]; then
+    log "WARN: gauntlet '$(basename "$rec" .md)': refusing undraft completion: live head $live_head != panel head $panel_head"
+    return 1
+  fi
+  if [ "$is_draft" != false ]; then
+    log "WARN: gauntlet '$(basename "$rec" .md)': refusing undraft completion because GitHub still reports isDraft=true"
+    return 2
+  fi
+  return 0
+}
+
 # gauntlet_coalesce_winner <base> <rec> <repo> <pr> — echo the live peer record a
 # FRESH <base> must yield to (rc 0), or rc 1 when <base> may run.
 gauntlet_coalesce_winner() {
@@ -671,7 +705,7 @@ finish_review_budget_reached() {  # <base> <reason>
 # stage-result marker this driver greps. The driver itself runs NO `claude -p`.
 compose_stage_body() {  # <base> <rec-file> <stage> <iter> <child>
   local base="$1" rec="$2" stage="$3" iter="$4" child="$5"
-  local pr repo prnum kind
+  local pr repo prnum kind panel_head
   pr="$(gauntlet_pr "$rec")"; repo="$(gauntlet_repo "$rec")"
   prnum="$(gauntlet_pr_number "$rec")"; kind="$(gauntlet_kind "$rec")"
 
@@ -851,20 +885,34 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
 EOF
       ;;
     undraft)
+      panel_head="$(plan_field "$rec" panel_head 2>/dev/null || true)"
       cat <<EOF
 # Gauntlet stage: UNDRAFT — $repo PR #$prnum
 
 You are the FINAL stage of a staged gauntlet ($base). The panel passed. Un-draft the PR.
 
-1. Idempotence: \`gh pr view $pr --json isDraft,state\`. If the PR is already ready
-   (not draft) or not OPEN, this stage is a NO-OP: skip to the marker.
-2. Advisory appellate pass (advisory only — it never blocks the un-draft): a light
+The passing panel covered exactly \`$panel_head\`. A different head has no passing
+panel and MUST NOT be un-drafted.
+
+1. Advisory appellate pass (advisory only — it never blocks the un-draft): a light
    \`claude -p\` review for anything the panel systematically missed; record it, do not
    gate on it.
-3. \`gh pr ready $pr\` to un-draft (kind=$kind — a probe never reaches this stage).
+2. Immediately before any mutation, fetch fresh metadata with
+   \`gh pr view $pr --json isDraft,state,headRefOid\`. Require state OPEN and
+   headRefOid exactly \`$panel_head\`. If the metadata is unreadable/malformed, do
+   NOT run \`gh pr ready\`; report \`undraft=metadata-unreadable\`. If the head
+   differs, do NOT run \`gh pr ready\`; report \`undraft=head-mismatch\`.
+3. If the matching head is already ready, this stage is a NO-OP. Otherwise run
+   \`gh pr ready $pr\` to un-draft (kind=$kind — a probe never reaches this stage).
+4. Fetch \`isDraft,headRefOid\` again. Emit \`undraft=done\` only when isDraft is
+   false and headRefOid still equals \`$panel_head\`; otherwise use the applicable
+   failure marker below. The deterministic driver independently repeats this gate
+   before accepting \`undraft=done\`.
 
-END your completion report with EXACTLY this marker line (last line):
+END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: undraft=done -->
+  <!-- gauntlet-stage-result: undraft=head-mismatch -->
+  <!-- gauntlet-stage-result: undraft=metadata-unreadable -->
 EOF
       ;;
   esac
@@ -1361,7 +1409,17 @@ for j in $(list_jobs "$DIR" "$JOBS_GAUNTLET"); do
       esac;;
     undraft)
       case "$mresult" in
-        done) finish_done "$base" "un-drafted after a clean panel — the staged gauntlet is complete.";;
+        done)
+          undraft_gate_rc=0
+          undraft_completion_gate "$f" "$repo" "$prnum" || undraft_gate_rc=$?
+          case "$undraft_gate_rc" in
+            0) finish_done "$base" "un-drafted after a clean panel — the staged gauntlet is complete.";;
+            1) halt_gauntlet "$base" "undraft stage reported done, but live headRefOid no longer equals the recorded panel_head. The PR head changed after the passing panel; run a new panel before un-drafting.";;
+            2) halt_gauntlet "$base" "undraft stage reported done, but the deterministic completion gate could not prove both panel-head equality and isDraft=false; refusing to complete fail-closed.";;
+            3) continue;;
+          esac;;
+        head-mismatch) halt_gauntlet "$base" "undraft stage detected that live headRefOid no longer equals the recorded panel_head and correctly refused to un-draft. Run a new panel on the current head.";;
+        metadata-unreadable) halt_gauntlet "$base" "undraft stage could not read valid isDraft/headRefOid metadata and correctly refused to un-draft.";;
         *)    halt_gauntlet "$base" "undraft stage reported unexpected result '$mresult'";;
       esac;;
     *)
