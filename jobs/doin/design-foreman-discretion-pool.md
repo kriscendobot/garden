@@ -126,3 +126,13 @@ remain — likely candidate: whether maintainer-discretion should become an
 enforced reservation per item 3 above). Keep open questions to genuine
 maintainer decisions; resolve everything else in the document so a later build
 job can proceed without further clarification.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-06T14:55:14Z
