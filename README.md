@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T04:07:29Z_
+_As of 2026-10-06T04:08:58Z_
 
 ## Latest
 
@@ -269,6 +269,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `20261004T202803Z-ea96d7` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T202803Z-ea96d7.md)
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-claude-cli-production-canary-20261004, msgid msg-minion-town-claude-cli-production-canary-20261004-1c8d0da21764.md — Granting a GitHub-federated OAuth login to drive production root tools (and completing an authorization-code redemption) is an authority/credential grant to an external service, not a progress/direction question — reserved to the maintainer.
+
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_receipt_watcher_journal_kriscendobot_endo.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-endo: p95=16.467636s max=16.467636s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr779-994f9fd94645` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr779-994f9fd94645.md)
 
@@ -1059,7 +1063,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 145.6M | $1727.43 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
-| Codex | 5.9M _(+174.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 5.9M _(+174.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
