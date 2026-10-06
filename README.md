@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T16:28:25Z_
+_As of 2026-10-06T16:30:27Z_
 
 ## Latest
 
@@ -1546,7 +1546,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 153.5M | $1826.71 _(notional, rate-card)_ | 96% of 160.0M (ok) |
+| Claude | 153.6M | $1827.49 _(notional, rate-card)_ | 96% of 160.0M (ok) |
 | Codex | 8.0M _(+211.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1558,7 +1558,8 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`kriscendobot-minion.town-pr165-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-clean.md) — Gauntlet stage: CLEAN — kriscendobot/minion.town PR #165
 - [`improve-comment-source-quota-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-source-quota-fanout.md) — ---
 
 ### tada (11249)
