@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T16:13:42Z_
+_As of 2026-10-06T16:20:21Z_
 
 ## Latest
 
@@ -835,11 +835,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #76 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T16:12:44Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 76 times; this is ONE
-> coalesced notice that updates in place, not 76 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T16:18:36Z).
+> It was observed 76 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred work=1392 (clones=1392, remedies=0, cleanup=0, notices=0) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
 
@@ -1550,7 +1550,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 153.4M | $1825.32 _(notional, rate-card)_ | 96% of 160.0M (ok) |
+| Claude | 153.5M | $1825.80 _(notional, rate-card)_ | 96% of 160.0M (ok) |
 | Codex | 7.9M _(+210.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
