@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T05:57:21Z_
+_As of 2026-10-06T06:00:44Z_
 
 ## Latest
 
@@ -739,11 +739,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T05:43:04Z).
-> It was observed 54 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #55 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T05:58:27Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 55 times; this is ONE
+> coalesced notice that updates in place, not 55 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 52 of 1413 clone(s) on consecutive ticks.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
 
@@ -950,11 +950,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
 
-> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal` has CLEARED (first seen 2026-10-06T01:57:53Z, cleared 2026-10-06T02:37:07Z).
-> It was observed 1 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-06T01:57:53Z, latest 2026-10-06T05:58:14Z).
+> The SAME condition (`journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
 >
-> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal` cleared on endolin-garden-ece02cb4.
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=17.212321s max=17.212321s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr357-45e38da5de5d` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr357-45e38da5de5d.md)
 
@@ -971,6 +971,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `build-familiar-localhttp-protocol-gauntlet-review-budget-reached` — from gauntlet:build-familiar-localhttp-protocol-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/build-familiar-localhttp-protocol-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet build-familiar-localhttp-protocol-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
+
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_test262.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-test262: p95=16.487540s max=16.487540s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr359-24e5fdfc9296` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr359-24e5fdfc9296.md)
 
@@ -1259,6 +1263,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Oros remains unreachable: the 23:35Z pinned checkup is still unclaimed; heartbeat last sampled 2026-10-02T05:08:36Z; latest sysop ack was 2026-10-02T05:38:58Z; it remains derotated and deployed at e036bb8e versus main2 939c6ea3. Six reset-failed ops and one restore op remain queued and unacknowledged, so I sent no duplicate op. Someone must check the Mac power/sleep state, Docker Desktop, and the VM/container.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_ci_watcher_verify_kriscendobot_endo.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/ci-watcher/verify-kriscendobot-endo: p95=16.723257s max=16.723257s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+
 - `msg-oros-health-watch-20261005-105006-820c351ad64b` — from gardener:oros-health-watch-20261005-105006, reply_to `oros-health-watch-20261005-105006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261005-105006-820c351ad64b.md)
 
 > Oros remains unreachable at 2026-10-05T10:55Z. The heartbeat has been stale since 2026-10-02T05:08Z, the last sysop-log activity was 2026-10-02T05:38Z, and the rolling-deploy watchdog now reports the host offline. There is no current checkup in todo/doin/tada: at 08:45Z all 20 accumulated unclaimed checkups were moved to withdrawn and the checkup schedule's last_dispatched was advanced to 2026-10-11T21:00Z. Oros remains derotated heartbeat-offline; fleet health is stale/deferred on e036bb8e versus main2 d02a31d0. Existing reset-failed/restore ops remain unacknowledged, so I sent no duplicate op. A person must check the Mac's power/sleep state, Docker Desktop, and the VM/container.
@@ -1366,8 +1374,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 147.0M | $1745.62 _(notional, rate-card)_ | 122% of 121.0M (backoff) |
-| Codex | 6.7M _(+188.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 147.0M | $1744.89 _(notional, rate-card)_ | 121% of 121.0M (backoff) |
+| Codex | 6.8M _(+189.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -1378,18 +1386,19 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1428
+### doin (4)
 - [`improve-gauntlet-undraft-head-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gauntlet-undraft-head-gate.md) — ---
+- [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-gauntlet-panel-3.md) — Gauntlet stage: PANEL round 3 — endojs/endo-but-for-bots PR #1428
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1379
+- [`endojs-endo-but-for-bots-pr1426-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1426
 
-### tada (11186)
+### tada (11187)
+- [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-fix-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-fix-3.md) — Cost
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-panel-2.md) — Cost
 - [`endojs-endo-but-for-bots-pr1425-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1425-shepherd.md) — Cost
 - [`claude-on-minion-town-completion-press-20261006-050509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-completion-press-20261006-050509.md) — Manual gauntlet handoff
-- [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-fix-1.md) — Cost
-- … and 11181 more
+- … and 11182 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
