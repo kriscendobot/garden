@@ -1,2 +1,2 @@
-base: improve-auth-recovery-debounce
+base: improve-promote-primary-quota-cooldown
 identity: mentor:scripts/jobs/common.sh
