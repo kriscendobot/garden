@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T18:42:04Z_
+_As of 2026-10-06T18:44:15Z_
 
 ## Latest
 
@@ -1547,7 +1547,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 157.9M | $1875.45 _(notional, rate-card)_ | 99% of 160.0M (ok) |
-| Codex | 8.0M _(+211.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Codex | 8.1M _(+212.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1555,9 +1555,12 @@ _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-moddable); 9 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (6)
 - [`improve-deadmail-tempfail-short-circuit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-deadmail-tempfail-short-circuit.md) — ---
+- [`skill-ocap-attenuation-authoring-stub-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/skill-ocap-attenuation-authoring-stub-20261006.md) — Author a short stub: skills/ocap-attenuation-authoring/SKILL.md
 - [`claude-on-minion-town-completion-press-20261006-172007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261006-172007.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+- [`skill-caplet-validation-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/skill-caplet-validation-20261006.md) — Author skills/caplet-validation/SKILL.md — verifying a caplet's confinement a...
+- [`skill-minion-town-ocapn-dispatch-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/skill-minion-town-ocapn-dispatch-20261006.md) — Author skills/minion-town-ocapn-dispatch/SKILL.md — garden-side procedure for...
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr165-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #165
 
 ### doin (2)
