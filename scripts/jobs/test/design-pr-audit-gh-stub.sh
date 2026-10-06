@@ -34,6 +34,8 @@ if [ "${1:-}" = pr ] && [ "${2:-}" = view ]; then
     *minion.town/pull/56) printf '{"url":"%s","isDraft":true,"title":"feat: fresh draft with missed handoff","body":"d",%s,"headRefOid":"aaa56","createdAt":"2099-01-01T00:00:01Z"}\n' "$url" "$botopen" ;;
     *minion.town/pull/57) printf '{"url":"%s","isDraft":false,"title":"feat: fresh overflow","body":"d",%s,"headRefOid":"aaa57","createdAt":"2099-01-01T00:00:02Z"}\n' "$url" "$botopen" ;;
     *minion.town/pull/58) printf '{"url":"%s","isDraft":true,"title":"probe (gap-revealing prototype)","body":"gap report",%s,"headRefOid":"aaa58","createdAt":"2099-01-01T00:00:03Z"}\n' "$url" "$botopen" ;;
+    # Post-arm, non-draft PRs whose gauntlet already finished (#59-#62) + control #63.
+    *minion.town/pull/59|*minion.town/pull/6[0-3]) printf '{"url":"%s","isDraft":false,"title":"feat: finished","body":"d",%s,"headRefOid":"bbb%s","createdAt":"2099-01-02T00:00:00Z"}\n' "$url" "$botopen" "${url##*/}" ;;
     # garden's own repo → excluded before any pr view (defensive fixture).
     *garden/pull/28)      printf '{"url":"%s","isDraft":false,"title":"design: garden own","body":"d",%s,"headRefOid":"aaa28","createdAt":"2026-08-16T00:00:00Z"}\n' "$url" "$botopen" ;;
     *) echo "unexpected pr view: $url" >&2; exit 64 ;;

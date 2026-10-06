@@ -25,6 +25,11 @@ case "$repo" in
       row 57 kriscendobot "$repo" 2099-01-01T00:00:02Z 'fresh ready PR over cap'
       row 58 kriscendobot "$repo" 2099-01-01T00:00:03Z 'fresh draft probe'
     fi
+    if [ "${GARDEN_TEST_FINISHED_PRS:-0}" = 1 ]; then
+      for n in 59 60 61 62 63; do
+        row "$n" kriscendobot "$repo" 2099-01-02T00:00:00Z 'fresh PR with prior gauntlet history'
+      done
+    fi
     ;;
   kriscendobot/garden)
     # The garden's own repo: a bot-authored design PR that MUST be excluded.

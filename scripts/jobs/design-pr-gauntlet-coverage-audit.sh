@@ -26,10 +26,11 @@
 #   2. Keep only BOT-AUTHORED, OPEN, NON-DRAFT PRs (draft artifacts belong to their
 #      completion-local handoff), except that post-arm drafts are reconciled when
 #      that handoff was missed. Probes remain exempt.
-#   3. If NO staged-gauntlet RECORD already covers the PR (active in jobs/gauntlet/ or
-#      completed in jobs/tada/), stage it only when created after the durable arm
-#      epoch and the per-tick cap has room; otherwise raise a DEDUPLICATED alert
-#      for a ready PR or quietly retry a draft on the next tick.
+#   3. If NO gauntlet has EVER covered the PR (live or terminal in jobs/gauntlet/,
+#      archived, or finished in jobs/tada/ — gauntlet_history_for_pr), stage it
+#      only when created after the durable arm epoch and the per-tick cap has
+#      room; otherwise raise a DEDUPLICATED alert for a ready PR or quietly retry
+#      a draft on the next tick.
 #
 # Dedup keys on `<repo>#<number>:<headRefOid>` via a durable per-PR marker under
 # $GARDEN_STATE, so an UNCHANGED head never re-alerts (no per-tick spam) while a
@@ -264,13 +265,19 @@ while IFS= read -r repo; do
     slug="${repo%/*}-${repo#*/}"
     gauntlet_base="${slug}-pr${number}-gauntlet"
 
-    # Already covered by an active (jobs/gauntlet/) or completed (jobs/tada/) gauntlet?
-    if existing="$(gauntlet_record_for_pr "$DIR" "$repo" "$number")"; then
+    # Already covered by ANY gauntlet this PR has ever had: live or terminal in
+    # jobs/gauntlet/, archived, or finished into the date-sharded jobs/tada/. A
+    # finished run (complete, review-budget-reached, halted) is coverage, not a gap:
+    # the record leaves jobs/gauntlet/ when it finishes, and checking only there
+    # re-ran six more panel/fix rounds on endo-but-for-bots#1425/#1426 on
+    # 2026-10-06. A fresh run on a terminal PR is the maintainer's call
+    # (`run the gauntlet #N`), never this audit's.
+    if existing="$(gauntlet_history_for_pr "$DIR" "$repo" "$number")"; then
       already=$((already + 1))
-      log "audit: $pr_url already covered by gauntlet record(s) [$(printf '%s' "$existing" | tr '\n' ' ')]; no alert"
+      log "audit: $pr_url already covered by gauntlet history [$(printf '%s' "$existing" | tr '\n' ' ')]; not staging, no alert"
       continue
     fi
-    if [ -e "$DIR/$JOBS_GAUNTLET/$gauntlet_base.md" ] || [ -e "$DIR/$JOBS_TADA/$gauntlet_base.md" ]; then
+    if [ -e "$DIR/$JOBS_GAUNTLET/$gauntlet_base.md" ] || tada_exists "$DIR" "$gauntlet_base"; then
       already=$((already + 1))
       log "audit: $pr_url already covered by gauntlet '$gauntlet_base' (active or completed); no alert"
       continue

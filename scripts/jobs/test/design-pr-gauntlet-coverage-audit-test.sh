@@ -22,6 +22,10 @@
 #     remains unstaged, while a draft probe remains exempt.
 #   * Failed posts consume the same attempt bound rather than fanning out failures
 #     across the rest of the new-PR set.
+#   * A post-arm PR whose gauntlet already FINISHED is never re-staged, whether the
+#     history is an archived record (#59), a legacy identity-less tada report bound
+#     by its stage reports (#60), a halted report (#61), or a date-sharded PR-keyed
+#     report (#62); an uncovered control (#63) still stages.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -47,6 +51,32 @@ printf 'repo: kriscendobot/minion.town\npr_number: 48\nkind: feature\n' \
 # A COMPLETED gauntlet for minion.town #53 — its record lives in jobs/tada/.
 printf '# gauntlet (completed)\n\ndone\n' \
   >"$TR/seed/jobs/tada/kriscendobot-minion.town-pr53-gauntlet.md"
+# FINISHED gauntlet history for post-arm PRs #59-#62 (2026-10-06: the audit re-staged
+# endo-but-for-bots#1425/#1426 because a finished run leaves jobs/gauntlet/).
+mkdir -p "$TR/seed/jobs/gauntlet-archived" "$TR/seed/jobs/tada/2026/10/05"
+# #59: an ARCHIVED record only.
+printf -- '---\narchived: true\n---\n\n---\nrepo: kriscendobot/minion.town\npr_number: 59\nstage: panel\n---\n' \
+  >"$TR/seed/jobs/gauntlet-archived/build-fifty-nine-gauntlet.md"
+# #60: TADA-ONLY legacy review-budget report under a build-job name with no PR
+# identity; only its own stage reports name the PR (the #1426 shape).
+printf 'gauntlet-status: review-budget-reached\n# gauntlet build-sixty-gauntlet — review budget reached\n\nApplied 6 rounds.\n' \
+  >"$TR/seed/jobs/tada/2026/10/05/build-sixty-gauntlet.md"
+printf 'Panel round 1 on https://github.com/kriscendobot/minion.town/pull/60 came back must-fix.\n' \
+  >"$TR/seed/jobs/tada/2026/10/05/build-sixty-gauntlet-panel-1.md"
+# #61: a HALTED tada report carrying PR identity in its frontmatter.
+printf -- '---\npr: https://github.com/kriscendobot/minion.town/pull/61\nrepo: kriscendobot/minion.town\npr_number: 61\nstate: halted\ngauntlet-status: halted\n---\n# gauntlet build-sixty-one-gauntlet — HALTED\n' \
+  >"$TR/seed/jobs/tada/2026/10/05/build-sixty-one-gauntlet.md"
+# #62: a COMPLETE report under the PR-keyed basename, date-sharded (not flat).
+printf 'gauntlet-status: complete\n# gauntlet — complete\n' \
+  >"$TR/seed/jobs/tada/2026/10/05/kriscendobot-minion.town-pr62-gauntlet.md"
+# Decoys that must NOT cover the uncovered control #63: a legacy report whose
+# stage report names pull/630 (prefix), and a coalesced run that never spent.
+printf 'gauntlet-status: review-budget-reached\n# gauntlet build-decoy-gauntlet\n' \
+  >"$TR/seed/jobs/tada/2026/10/05/build-decoy-gauntlet.md"
+printf 'Fixed https://github.com/kriscendobot/minion.town/pull/630 and more.\n' \
+  >"$TR/seed/jobs/tada/2026/10/05/build-decoy-gauntlet-fix-1.md"
+printf 'gauntlet-status: coalesced\nrepo: kriscendobot/minion.town\npr_number: 63\n' \
+  >"$TR/seed/jobs/tada/2026/10/05/build-coalesced-gauntlet.md"
 git -C "$TR/seed" add -A
 git -C "$TR/seed" -c user.name=test -c user.email=test@example.invalid commit -q -m seed
 git -C "$TR/seed" remote add origin "$TR/journal.git"
@@ -158,5 +188,24 @@ GARDEN_TEST_FRESH_PRS=1 GARDEN_AUDIT_GAUNTLET_FAIL=1 \
   GARDEN_DPGCA_MAX_NEW_PR_STAGES=1 "$AUDIT" >/dev/null 2>&1
 [ "$(wc -l <"$GARDEN_AUDIT_GAUNTLET_LOG")" -eq 1 ] \
   || fail "one failed post should consume the one-attempt bound (got $(wc -l <"$GARDEN_AUDIT_GAUNTLET_LOG"))"
+
+echo '== (l) a PR whose gauntlet already FINISHED (archived / tada-only) is never re-staged =='
+: >"$GARDEN_AUDIT_GAUNTLET_LOG"
+GARDEN_TEST_FINISHED_PRS=1 GARDEN_DPGCA_MAX_NEW_PR_STAGES=10 "$AUDIT" 2>&1 | tee "$TR/finished.log"
+for n in 59 60 61 62; do
+  ! grep -q "pr$n-gauntlet" "$GARDEN_AUDIT_GAUNTLET_LOG" \
+    || fail "#$n already finished a gauntlet but the audit re-staged it"
+  [ "$(alert_count "pr$n")" -eq 0 ] || fail "#$n already finished a gauntlet but the audit alerted"
+done
+grep -q 'pull/59 already covered by gauntlet history \[archived:build-fifty-nine-gauntlet' "$TR/finished.log" \
+  || fail '#59 was not recognized via its archived record'
+grep -q 'pull/60 already covered by gauntlet history \[tada:build-sixty-gauntlet' "$TR/finished.log" \
+  || fail '#60 was not recognized via its legacy tada-only report'
+grep -q 'pull/61 already covered by gauntlet history \[tada:build-sixty-one-gauntlet' "$TR/finished.log" \
+  || fail '#61 was not recognized via its halted tada report'
+grep -q 'pull/62 already covered by gauntlet history \[tada:kriscendobot-minion.town-pr62-gauntlet' "$TR/finished.log" \
+  || fail '#62 was not recognized via its date-sharded PR-keyed tada report'
+grep -qx -- '--by design-pr-gauntlet-coverage-audit kriscendobot-minion.town-pr63-gauntlet https://github.com/kriscendobot/minion.town/pull/63' "$GARDEN_AUDIT_GAUNTLET_LOG" \
+  || fail '#63 (no real history; only a pull/630 decoy and a coalesced run) should still stage'
 
 echo 'PASS: the readiness audit keeps historical backlog alert-only, reconciles ready and draft post-arm PRs with a shared two-per-tick bound, stays quiet on historical drafts/covered/non-bot/probe/own-repo/inconclusive, dedups alerts on head, and re-alerts on a changed head'

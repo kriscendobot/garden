@@ -10671,6 +10671,79 @@ gauntlet_record_for_pr() {
   return "$found"
 }
 
+# gauntlet_stage_reports_name_pr <tada-dir> <base> <ere> — rc 0 iff one of the
+# gauntlet <base>'s own stage reports in <tada-dir> matches <ere>.
+gauntlet_stage_reports_name_pr() {
+  local d="$1" base="$2" re="$3" f
+  for f in "$d/$base-clean.md" "$d/$base-viability.md" "$d/$base-undraft.md" \
+           "$d/$base-panel-"*.md "$d/$base-fix-"*.md; do
+    [ -f "$f" ] || continue
+    grep -qE "$re" "$f" 2>/dev/null && return 0
+  done
+  return 1
+}
+
+# gauntlet_history_for_pr <clone-dir> <repo> <pr-number>
+# Echo `<where>:<base>` for every gauntlet that has EVER been recorded for
+# <repo>#<pr-number> — live or terminal records in jobs/gauntlet/ (`gauntlet`),
+# archived records in jobs/gauntlet-archived/ (`archived`), and terminal reports
+# anywhere under the date-sharded jobs/tada/ (`tada`) — one per line; rc 0 iff
+# any. gauntlet_record_for_pr sees only jobs/gauntlet/, and finish_gauntlet REMOVES
+# the record when it writes the tada report, so a finished run was invisible to a
+# producer asking "has this PR been through the gauntlet?" (2026-10-06: the
+# coverage audit re-ran six panel/fix rounds on endo-but-for-bots#1426 and #1425
+# after their first gauntlets had already finished).
+#
+# A tada report counts when it is a gauntlet TERMINAL report (it carries a
+# `gauntlet-status:` line; `coalesced` is skipped — that run never spent a stage
+# and yielded to a peer that is itself on record) and names the PR by its
+# machine-owned `repo:`+`pr_number:` or `pr:` lines, or by the conventional
+# `<owner>-<name>-pr<N>-gauntlet` basename. Older review-budget/complete reports
+# carry no identity at all; for those, the run's own stage reports
+# (`<base>-clean|viability|panel-K|fix-K|undraft`) naming the PR URL bind it.
+# Deterministic, no LLM.
+gauntlet_history_for_pr() {
+  local dir="${1%/}" repo="$2" num="$3" f base found=1 slug url_re status
+  slug="${repo%/*}-${repo#*/}"
+  while IFS= read -r base; do
+    [ -n "$base" ] || continue
+    printf 'gauntlet:%s\n' "$base"; found=0
+  done < <(gauntlet_record_for_pr "$dir" "$repo" "$num" || true)
+  if [ -d "$dir/jobs/gauntlet-archived" ]; then
+    for f in "$dir/jobs/gauntlet-archived"/*.md; do
+      [ -e "$f" ] || continue
+      grep -qxF "pr_number: $num" "$f" 2>/dev/null || continue
+      grep -qxF "repo: $repo" "$f" 2>/dev/null || continue
+      printf 'archived:%s\n' "$(basename "$f" .md)"; found=0
+    done
+  fi
+  [ -d "$dir/$JOBS_TADA" ] || return "$found"
+  url_re="github\\.com/${repo//./\\.}/pull/${num}([^0-9]|\$)"
+  declare -A seen=()
+  while IFS= read -r f; do
+    [ -n "$f" ] || continue
+    status="$(sed -n 's/^gauntlet-status:[[:space:]]*//p' "$f" 2>/dev/null | head -1)"
+    case "$status" in ''|coalesced) continue ;; esac
+    base="$(basename "$f" .md)"
+    [ -z "${seen[$base]:-}" ] || continue
+    if grep -qxF "pr_number: $num" "$f" 2>/dev/null && grep -qxF "repo: $repo" "$f" 2>/dev/null; then
+      :
+    elif grep -qxF "pr: https://github.com/$repo/pull/$num" "$f" 2>/dev/null; then
+      :
+    elif [ "$base" = "${slug}-pr${num}-gauntlet" ]; then
+      :
+    elif ! grep -qE '^(pr_number|pr):' "$f" 2>/dev/null \
+         && gauntlet_stage_reports_name_pr "$(dirname "$f")" "$base" "$url_re"; then
+      :
+    else
+      continue
+    fi
+    seen[$base]=1
+    printf 'tada:%s\n' "$base"; found=0
+  done < <(find "$dir/$JOBS_TADA" -type f -name '*-gauntlet.md' 2>/dev/null)
+  return "$found"
+}
+
 # Is an artifact a JOB basename (a blocker that is another job)? True when it is a
 # plain basename — no '/', '#', ':', and non-empty — i.e. the spine that ties a
 # job's plan/todo/doin/tada files together.

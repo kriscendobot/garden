@@ -595,7 +595,7 @@ coalesce_gauntlet() {  # <base> <winner> <repo> <pr>
 # Retire it without an orchestration-failed marker, preserve the report as evidence,
 # and tell the maintainer why no clean/panel/fix budget was admitted.
 finish_not_viable() {  # <base> <result> <viability-report>
-  local base="$1" result="$2" report="$3" sf question="" reason
+  local base="$1" result="$2" report="$3" sf question="" reason key value
   case "$result" in
     closed) reason="the PR is closed; the gauntlet did not enter its budgeted loop." ;;
     merged) reason="the PR is already merged; the gauntlet did not enter its budgeted loop." ;;
@@ -614,6 +614,10 @@ finish_not_viable() {  # <base> <result> <viability-report>
   {
     printf 'gauntlet-status: not-viable\n'
     printf 'viability-result: %s\n' "$result"
+    for key in repo pr_number; do
+      value="$(plan_field "$DIR/$JOBS_GAUNTLET/$base.md" "$key" 2>/dev/null || true)"
+      [ -n "$value" ] && printf '%s: %s\n' "$key" "$value"
+    done
     printf '# gauntlet %s - not viable\n\n' "$base"
     printf '%s\n\n' "$reason"
     printf '## Viability report\n\n'
@@ -681,11 +685,17 @@ park_ci_billing() {  # <base> <stage> <iteration> <child>
 # that useful terminal outcome as a non-failure and hand the remaining judgement
 # to a human; downstream gates therefore see an ordinary completed tada report.
 finish_review_budget_reached() {  # <base> <reason>
-  local base="$1" reason="$2" sf rec pending
+  local base="$1" reason="$2" sf rec pending key value
   sf="$(mktemp "${TMPDIR:-/tmp}/gauntlet-review-budget.XXXXXX")"
   rec="$DIR/$JOBS_GAUNTLET/$base.md"
   {
     printf 'gauntlet-status: review-budget-reached\n'
+    # PR identity, so a later producer can tell this PR already ran its gauntlet
+    # once the record leaves jobs/gauntlet/ (gauntlet_history_for_pr).
+    for key in repo pr_number; do
+      value="$(plan_field "$rec" "$key" 2>/dev/null || true)"
+      [ -n "$value" ] && printf '%s: %s\n' "$key" "$value"
+    done
     printf '# gauntlet %s — review budget reached\n\n' "$base"
     printf '%s\n' "$reason"
   } > "$sf"
