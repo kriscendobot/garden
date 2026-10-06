@@ -20,3 +20,5 @@ The liaison worked around it by hand. It seeded each clone from the host's own r
 4. Note that the per-host clone URL is still the old `kriskowal/garden` redirect.
 
 Add regression tests. Land on main2.
+
+**Related defect to fix in the same job.** `scripts/jobs/follow-up.sh` keeps its seen-marker in host-local `$GARDEN_STATE/follow-up/seen`. On a host promoted to leader, that marker is as stale as the host's last term as leader. On 2026-10-06 it was 09-23, so 4,049 old tada reports looked new. The follow-up service began re-running `claude -p` over them and re-asking the maintainer follow-ups the old leader had already handled. The liaison stopped the tick and marked every report seen. Move the seen-state onto the journal, as the comment watcher's cursors already are, or treat a stale marker as a cold start. Then a leadership change can't replay the backlog.
