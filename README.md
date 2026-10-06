@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T19:19:31Z_
+_As of 2026-10-06T19:22:46Z_
 
 ## Latest
 
@@ -745,7 +745,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden-ece02cb4-1.md)
 
-> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=4 target=1
+> WATCHDOG notice — occurrence #2 (first seen 2026-10-06T09:36:04Z, latest 2026-10-06T19:20:48Z).
+> The SAME condition (`budget-level-cleric-endolin-garden-ece02cb4-1`) has now been observed 2 times; this is ONE
+> coalesced notice that updates in place, not 2 messages. Latest detail:
+>
+> budget-level changed endolin-garden-ece02cb4 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=2 queue=1 quota=ok fleet-envelope=4 target=1
 
 - `watchdog-budget-level-monk-endolin-garden-ece02cb4-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-2.md)
 
@@ -872,6 +876,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr319-e7fc98faa2bb` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr319-e7fc98faa2bb.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/319](https://github.com/endojs/endo-but-for-bots/pull/319) ([endojs/endo-but-for-bots#319](https://github.com/endojs/endo-but-for-bots/issues/319)) is in the mergeable queue with NO gauntlet review staged (head e7fc98faa2bb526bfd27ae1cc6964db07f7a6c40). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #319'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `watchdog-budget-level-monk-endolin-garden2-5bcdff64-4` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-4.md)
+
+> budget-level changed endolin-garden2-5bcdff64 monk workers 3 -> 4 (target 4): subscription claude-endolin2 spend=169312 cap=168000000 pace-bias=0.006438 window-start=2026-10-06T18:39Z(observed) deadline=2026-10-10T03:00Z(calendar) [planned reset 2026-10-10T03:00:00Z not before calendar deadline; ignored] ceiling=4 target=4
 
 - `stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70` — from gardener:claude-on-minion-town-press-20261004-125005, reply_to `claude-on-minion-town-press-20261004-125005` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr148-dea0146c-e4fb4e70.md)
 
@@ -1570,8 +1578,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 158.1M | $1882.74 _(notional, rate-card)_ | 99% of 160.0M (ok) |
-| Codex | 8.5M _(+227.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 158.2M | $1886.61 _(notional, rate-card)_ | 99% of 160.0M (ok) |
+| Codex | 8.6M _(+228.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1585,17 +1593,17 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 
 ### doin (4)
 - [`improve-deadmail-tempfail-short-circuit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadmail-tempfail-short-circuit.md) — ---
-- [`endojs-endo-but-for-bots-pr1428-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1428
+- [`build-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-standing-token-backoff-ramp.md) — Build the accepted standing token-backoff ramp and prepare its deployment
 - [`retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006.md) — ---
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #165
 
-### tada (11267)
+### tada (11268)
+- [`endojs-endo-but-for-bots-pr1428-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-retcon.md) — Cost
 - [`kriscendobot-garden-pr116-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-garden-pr116-conduct.md) — Conduct report: kriscendobot/garden#116 (standing token-backoff ramp design)
 - [`endojs-endo-but-for-bots-pr1282-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1282-conduct.md) — Cost
 - [`skill-caplet-validation-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/skill-caplet-validation-20261006.md) — Completion report: skill-caplet-validation-20261006
 - [`skill-minion-town-ocapn-dispatch-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/skill-minion-town-ocapn-dispatch-20261006.md) — Cost
-- [`endojs-endo-but-for-bots-pr1282-review-c5a5c1c1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1282-review-c5a5c1c1.md) — Cost
-- … and 11262 more
+- … and 11263 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1664,7 +1672,7 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendobot-ocapn kriscendobot-oros-ckm-data-readiness kriscendobot-list kriscendobot-moddable kriscendobot-proposal-compartments kriscendobot-ymax-stdio-mcp kriscendobot-ymax-e2e kriscendobot-vattr97 kriscendobot-test262 kriscendobot-endo kriscendobot-endo-but-for-bots kriscendobot-finbot
 
 ## Hosts
-- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 3 monks
+- [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 4 monks
 - [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
