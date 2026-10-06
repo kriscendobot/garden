@@ -1,14 +1,14 @@
 # Garden bulletin
 
-_As of 2026-10-06T01:57:15Z_
+_As of 2026-10-06T01:59:56Z_
 
 ## Latest
 
-Not much moved this interval. The gauntlet for [kriscendobot/minion.town#163](https://github.com/kriscendobot/minion.town/pull/163) finished fix round 5 and has started panel round 6, its last round. If this panel doesn't converge, expect a review-budget-reached handoff for you to make the merge decision. A self-heal fix for the watchman's local `main2` lock retry also completed. In the inbox, the clone-oversized journal-contention storm has cleared, while the oros outage (now about four days) still needs someone at the machine.
+No board transitions were recorded since the last bulletin. The latest completed job finished the gauntlet for [endo-but-for-bots#1427](https://github.com/endojs/endo-but-for-bots/pull/1427) and took it out of draft. That should release the parked re-gauntlet of [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425). Two jobs are in progress: fix round 1 of the gauntlet for [endo-but-for-bots#1426](https://github.com/endojs/endo-but-for-bots/pull/1426), and panel round 6 (the last round) for [minion.town#163](https://github.com/kriscendobot/minion.town/pull/163). Claude spend has reached 116% of the backoff quota. The budget leveler has already cut monk workers to one per host, but claude-endolin1 is close to its cap, and the reset-credit watch recommends spending the codex and claude-endolin2 credits within the next day. Milestone M2 is waiting on your merges of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381). The panel review of #1349 is out of date because its head has moved since then, so either decide on the current head as it stands or ask for the gauntlet to be rerun. M3 needs you to choose the base and merge order for [endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343). Oros has now been offline for about four days and still needs someone at the Mac. The fix for the deploy-gate regression is held in plan after its retries ran out, and it needs your go-ahead or a split. The production canary for Claude on minion.town is still waiting for you to connect your subscription at minion.town/account/claude. The proxy flagged those credential requests for your scrutiny, so check them before you act.
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 3h)
+- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 4h)
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 9d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
@@ -447,6 +447,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet build-minion-town-claude-guest-scoped-mcp-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_clerics_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_clerics_1_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/clerics/1/journal: p95=8.001998s max=45.001320s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+
 - `watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4` — from watchdog:deadline-nudge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4.md)
 
 > RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-04T21:48:21Z, cleared 2026-10-06T00:27:30Z).
@@ -529,6 +533,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > https://minion-town.auth.us-west-1.amazoncognito.com/oauth2/authorize?response_type=code&client_id=1uesun672b9a0lidth983v0vc9&code_challenge=P2wad2q1RUg3C0XPsFLFU3nEu51asRp1jl6Xjz0qrcw&code_challenge_method=S256&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fcallback&state=pahxf5RNH6UostpMp-iUgDA9ECr0y0lu5RqUFU_lw8c&scope=mcp%2Ftools+mcp%2Fguest&resource=https%3A%2F%2Fminion.town%2Fmcp
 >
 > The separate Claude subscription connect link I sent earlier remains the place to submit the output of `claude setup-token`; please never include that setup token in your reply.
+
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_worktree_sweeper_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/worktree-sweeper/journal: p95=33.899779s max=33.899779s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal.md)
 
@@ -720,7 +728,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 140.0M | $1678.30 _(notional, rate-card)_ | 116% of 121.0M (backoff) |
+| Claude | 140.2M | $1679.92 _(notional, rate-card)_ | 116% of 121.0M (backoff) |
 | Codex | 5.3M _(+166.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
