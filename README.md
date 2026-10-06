@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T21:37:12Z_
+_As of 2026-10-06T22:01:25Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ These items still need you:
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 23h)
+- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 1d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 19d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 33d)
@@ -1618,8 +1618,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.6M | $1966.18 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
-| Codex | 8.8M _(+231.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 165.6M | $1966.65 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
+| Codex | 9.0M _(+236.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1627,19 +1627,19 @@ _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-moddable); 9 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`oros-health-watch-20261006-215007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-215007.md) — ---
 
 ### doin (0)
 (none)
 
-### tada (11287)
+### tada (11289)
+- [`issue-kriscendobot-garden-120`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/issue-kriscendobot-garden-120.md) — Cost
+- [`claude-on-minion-town-press-20261006-215007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261006-215007.md) — Cost
 - [`kriscendobot-minion.town-pr165-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet.md) — gauntlet kriscendobot-minion.town-pr165-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-6.md) — Fix round 6 for kriscendobot/minion.town PR #165: three code must-fixes pushe...
 - [`kriscendobot-minion.town-pr165-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-6.md) — Cost
-- [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-185007.md) — Cost
-- [`kriscendobot-minion.town-pr165-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-5.md) — Fix round 5 report: kriscendobot/minion.town PR #165
-- … and 11282 more
+- … and 11284 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
