@@ -11,3 +11,13 @@ dispatch: automatic
 The "one live gauntlet per PR" guard (de50427c6a2) prevents only *concurrent* runs. It doesn't stop a new run once the earlier one is terminal. The audit appears to key on the gauntlet *basename*, or only on live records, not on "has any gauntlet for this PR reached a terminal state".
 
 **Fix.** Before staging, look up gauntlet history by PR identity: live records, archived records, and the `jobs/tada` reports. Do not re-stage when any earlier gauntlet for that PR is terminal (complete, review-budget-reached, or halted). The one exception is a run the maintainer explicitly requests, and even that should carry a fresh-head justification. Add a regression test that covers both the archived-record and tada-only cases. Land on main2.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-06T09:37:01Z
