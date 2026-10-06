@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T20:37:10Z_
+_As of 2026-10-06T20:44:06Z_
 
 ## Latest
 
@@ -1598,7 +1598,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 163.7M | $1945.48 _(notional, rate-card)_ | 102% of 160.0M (backoff) |
+| Claude | 163.7M | $1944.52 _(notional, rate-card)_ | 102% of 160.0M (backoff) |
 | Codex | 8.7M _(+231.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1610,16 +1610,16 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (1)
 - [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-185007.md) — ---
 
-### doin (1)
-- [`kriscendobot-minion.town-pr165-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #165
+### doin (0)
+(none)
 
-### tada (11282)
+### tada (11283)
+- [`kriscendobot-minion.town-pr165-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-5.md) — Fix round 5 report: kriscendobot/minion.town PR #165
 - [`kriscendobot-minion.town-pr165-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-5.md) — Cost
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-4.md) — Cost
 - [`orch-standing-token-backoff-ramp-delivery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/orch-standing-token-backoff-ramp-delivery.md) — orchestration orch-standing-token-backoff-ramp-delivery — complete
 - [`release-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/release-standing-token-backoff-ramp.md) — Cost
-- [`kriscendobot-minion.town-pr165-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-4.md) — Panel round 4 report: kriscendobot/minion.town PR #165
-- … and 11277 more
+- … and 11278 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
