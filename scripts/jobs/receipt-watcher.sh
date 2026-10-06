@@ -92,8 +92,28 @@ export GARDEN_TAG="receipt-watcher/$slug"
 # one bounded window and warns; siblings exit 0 without each becoming a failed
 # systemd unit. Structural errors deliberately return false so the caller prints
 # the captured diagnostic and fails loud on every later tick until repaired.
+#
+# A GitHub PRIMARY hourly-quota refusal is classified BEFORE the transient path: the
+# account-wide bucket cannot recover before its hourly reset, so the short default
+# window would expire inside the quota hour and the next tick would retry a doomed
+# call. Request the full api_primary_quota_secs window instead, as comment-watcher
+# does. When gh_api_retry already latched the quota (the usual case: the source's or
+# generator's gh call recorded it under the admission lock, where nobody announces
+# it), start_api_cooldown ADOPTS that latch with its expiry untouched and this tick
+# owns the single WARN, so the logged window is read back from the marker: the real
+# remaining cooldown, not the nominal request.
 shared_availability_failure() {  # shared_availability_failure <stage> <rc> <stderr-file>
-  local stage="$1" rc="$2" errf="$3"
+  local stage="$1" rc="$2" errf="$3" pq_secs expiry now
+  if is_gh_primary_rate_limit_text "$(cat "$errf" 2>/dev/null || true)"; then
+    pq_secs="$(api_primary_quota_secs)"
+    if start_api_cooldown "receipt:$slug:$stage:primary-quota" "$pq_secs"; then
+      expiry="$(sed -n '1p' "$(_api_cooldown_marker_for all)" 2>/dev/null || true)"
+      now="$(date +%s)"
+      case "$expiry" in ''|*[!0-9]*) : ;; *) [ "$expiry" -le "$now" ] || pq_secs=$((expiry - now)) ;; esac
+      log "WARN: receipt $stage hit GitHub primary quota exhaustion (rc=$rc) — cooling all receipt/gh-api watchers for ${pq_secs}s (never guess)"
+    fi
+    return 0
+  fi
   if [ "$rc" -eq "$GARDEN_OFFLINE_RC" ] || [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ] || \
      is_transient_net_error "$errf" || is_transient_gh_source_error "$errf"; then
     if start_api_cooldown "receipt:$slug:$stage"; then

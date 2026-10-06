@@ -479,5 +479,63 @@ else
   bad "transient generate failure posted a fallback or lost its cooldown"
 fi
 
+# A GitHub PRIMARY-quota refusal is not a 300s blip: the hourly bucket cannot recover
+# inside the short window. The watcher must classify it before the transient path and
+# request api_primary_quota_secs (default 3600s), not the short default (120s here).
+cat > "$TR/bin/primary-quota-source" <<'EOF2'
+#!/bin/bash
+echo 'gh: API rate limit exceeded for user ID 279080640. (HTTP 403)' >&2
+exit 1
+EOF2
+chmod +x "$TR/bin/primary-quota-source"
+rm -f "$STATE/gh-api-cooldown/marker" "$STATE/gh-api-cooldown/marker.warned"
+if run_watch kriscendobot-source "$TR/pq-source.err" "" "$TR/bin/primary-quota-source"; then
+  expiry="$(sed -n '1p' "$STATE/gh-api-cooldown/marker" 2>/dev/null || echo 0)"; now="$(date +%s)"
+  if [ $((expiry - now)) -gt 3000 ] && [ $((expiry - now)) -le 3600 ] \
+     && grep -q 'primary-quota' "$STATE/gh-api-cooldown/marker" \
+     && grep -q 'receipt PR source hit GitHub primary quota exhaustion (rc=1) .* for 3600s' "$TR/pq-source.err" \
+     && ! grep -q 'transient' "$TR/pq-source.err"; then
+    ok "primary-quota source refusal requests the full quota window and logs it"
+  else
+    bad "primary-quota source refusal got the short transient window or lost its log"
+  fi
+else
+  bad "primary-quota source refusal escaped as a failure"
+fi
+
+# The usual shape: the source's gh call goes through gh_api_retry, which latches the
+# primary quota itself under the admission lock, where nobody announces it. The
+# watcher must ADOPT that latch: exit cleanly, keep its expiry (never a short transient
+# window), record its own tag on it, and own the one WARN, logging the real remaining
+# window read back from the marker.
+cat > "$TR/bin/fake-gh-primary" <<'EOF2'
+#!/bin/bash
+echo 'gh: API rate limit exceeded for user ID 279080640. (HTTP 403)' >&2
+exit 1
+EOF2
+cat > "$TR/bin/gh-retry-source" <<EOF2
+#!/bin/bash
+. "$JOBS/common.sh"
+GARDEN_GH="$TR/bin/fake-gh-primary" gh_api_retry "repos/\$1/pulls?state=closed"
+EOF2
+chmod +x "$TR/bin/fake-gh-primary" "$TR/bin/gh-retry-source"
+rm -f "$STATE/gh-api-cooldown/marker" "$STATE/gh-api-cooldown/marker.warned"
+if run_watch kriscendobot-source "$TR/pq-adopt.err" "" "$TR/bin/gh-retry-source"; then
+  expiry="$(sed -n '1p' "$STATE/gh-api-cooldown/marker" 2>/dev/null || echo 0)"; now="$(date +%s)"
+  tag="$(sed -n '2p' "$STATE/gh-api-cooldown/marker" 2>/dev/null || true)"
+  left=$((expiry - now))
+  logged="$(sed -n 's/.*cooling all receipt\/gh-api watchers for \([0-9]*\)s.*/\1/p' "$TR/pq-adopt.err")"
+  if [ "$left" -gt 3000 ] \
+     && case "$tag" in "receipt:kriscendobot-source:PR source:primary-quota <- gh-api:"*primary-quota) true ;; *) false ;; esac \
+     && [ "$(grep -c 'hit GitHub primary quota exhaustion' "$TR/pq-adopt.err")" -eq 1 ] \
+     && [ -n "$logged" ] && [ "$logged" -ge "$((left - 2))" ] && [ "$logged" -le "$((left + 2))" ]; then
+    ok "watcher adopts gh_api_retry's primary-quota latch unshortened"
+  else
+    bad "watcher replaced or shortened gh_api_retry's primary-quota latch (tag=$tag, left=$((expiry - now)))"
+  fi
+else
+  bad "adopted primary-quota latch escaped as a failure"
+fi
+
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
