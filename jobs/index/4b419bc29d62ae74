@@ -1,2 +1,2 @@
-base: improve-leader-fetch-retry
+base: improve-auth-recovery-debounce
 identity: mentor:scripts/jobs/common.sh
