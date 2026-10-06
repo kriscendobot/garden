@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T00:30:56Z_
+_As of 2026-10-06T00:42:10Z_
 
 ## Latest
 
@@ -576,6 +576,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > awaiting maintainer — beyond proxy authority: gardener minion-town-claude-cli-production-canary-20261004, msgid msg-minion-town-claude-cli-production-canary-20261004-445d58a36b95.md — Requires the maintainer to personally complete OAuth/subscription-token setup on their own machine with their own Claude credentials — a credential-granting action the proxy cannot perform or authorize on their behalf.
 
+- `watchdog-budget-level-monk-endolin-garden-ece02cb4-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden-ece02cb4-1.md)
+
+> budget-level changed endolin-garden-ece02cb4 monk workers 2 -> 1 (target 1): subscription claude-endolin1 spend=238171790 cap=285000000 pace-bias=0 window-start=2026-10-03T03:00Z(calendar) deadline=2026-10-10T03:00Z(calendar) [planned reset 2026-10-10T03:00:00Z not before calendar deadline; ignored] ceiling=4 target=1
+
 - `msg-oros-health-watch-20261004-132007-9f15306227f5` — from gardener:oros-health-watch-20261004-132007, reply_to `oros-health-watch-20261004-132007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261004-132007-9f15306227f5.md)
 
 > Oros still unreachable (13:20Z): 11:05Z checkup unclaimed (eight checkups since 2026-10-03T13:20Z all unclaimed in todo); heartbeat stale since 2026-10-02T05:08Z, sysop-log since 2026-10-02T05:35Z, fleet/health since 2026-10-02T03:13Z (deployed e036bb8e, roll_status deferred); derotated heartbeat-offline. No op sent: prior host ops still unacked, so the sysop is not consuming. Needs a person at the machine (Mac sleep/power, Docker Desktop, VM/container). Earlier watcher notices about this are still unread in the inbox.
@@ -662,6 +666,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > site) and will land as a PR per this repo's own open-questions carve-out, not
 > bare to `main2`.
 
+- `watchdog-journal-push-contention-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden__garden_state_bulletin_journal.md)
+
+> Journal push contention on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/bulletin/journal: attempts p95=- max=- (cap 50), classes cas=96 server-reject=1 definite-fail=1.
+
 - `msg-oros-health-watch-20261005-015006-46c81f34a765` — from gardener:oros-health-watch-20261005-015006, reply_to `oros-health-watch-20261005-015006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261005-015006-46c81f34a765.md)
 
 > Oros remains unreachable: the 23:35Z pinned checkup is still unclaimed; heartbeat last sampled 2026-10-02T05:08:36Z; latest sysop ack was 2026-10-02T05:38:58Z; it remains derotated and deployed at e036bb8e versus main2 939c6ea3. Six reset-failed ops and one restore op remain queued and unacknowledged, so I sent no duplicate op. Someone must check the Mac power/sleep state, Docker Desktop, and the VM/container.
@@ -717,29 +725,29 @@ _Since claude-endolin1 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 237.9M | $1571.77 _(notional, rate-card)_ | 93% of 256.0M (ok) |
-| Codex | 26.1M _(+378.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 238.5M | $1575.17 _(notional, rate-card)_ | 93% of 256.0M (ok) |
+| Codex | 26.1M _(+378.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 6.680599s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-endo); 2 open notice(s); checker healthy
+worst fetch p95 6.680599s/45s (/home/kris/garden/.garden-state/receipt-watcher/journal-kriscendobot-endo); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
 ### doin (2)
-- [`kriscendobot-minion.town-pr163-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr163-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #163
-- [`kriscendobot-minion.town-pr163-gauntlet-20261005-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr163-gauntlet-20261005-panel-3.md) — Gauntlet stage: PANEL round 3 — kriscendobot/minion.town PR #163
+- [`kriscendobot-minion.town-pr163-gauntlet-20261005-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr163-gauntlet-20261005-fix-3.md) — Gauntlet stage: FIX round 3 — kriscendobot/minion.town PR #163
+- [`kriscendobot-minion.town-pr163-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr163-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #163
 
-### tada (11125)
+### tada (11127)
+- [`kriscendobot-minion.town-pr163-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr163-gauntlet-panel-2.md) — Cost
+- [`kriscendobot-minion.town-pr163-gauntlet-20261005-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr163-gauntlet-20261005-panel-3.md) — Cost
 - [`canary-probe-endolin-garden2-5bcdff64-4bad63cb790c-r1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden2-5bcdff64-4bad63cb790c-r1.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-minion.town-pr163-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr163-gauntlet-fix-1.md) — Fix round 1 on kriscendobot/minion.town#163: must-fix items applied, CI green
 - [`kriscendobot-minion.town-pr163-gauntlet-20261005-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr163-gauntlet-20261005-fix-2.md) — Cost
-- [`kriscendobot-minion.town-pr163-gauntlet-20261005-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr163-gauntlet-20261005-panel-2.md) — Cost
-- [`kriscendobot-minion.town-pr163-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr163-gauntlet-panel-1.md) — Cost
-- … and 11120 more
+- … and 11122 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -808,7 +816,7 @@ kriscendobot-minion.town kriscendobot-garden-book kriscendobot-cosgov kriscendob
 
 ## Hosts
 - [endolin-garden2-5bcdff64](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden2-5bcdff64): 1 monks
-- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 2 monks
+- [endolin-garden-ece02cb4](https://github.com/kriscendobot/garden/blob/journal2/hosts/endolin-garden-ece02cb4): 1 monks
 - [.archived-ps23-garden-f65473ae](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23-garden-f65473ae): ? monks
 - [.archived-ps23](https://github.com/kriscendobot/garden/blob/journal2/hosts/.archived-ps23): ? monks
 - [oros-studio-garden-ce242c49](https://github.com/kriscendobot/garden/blob/journal2/hosts/oros-studio-garden-ce242c49): 3 monks
