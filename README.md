@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T03:24:16Z_
+_As of 2026-10-06T03:28:56Z_
 
 ## Latest
 
@@ -692,7 +692,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_state_clone_keeper_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_state_clone_keeper_journal.md)
 
-> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/state-clone-keeper/journal: p95=36.065255s max=36.065255s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+> RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_state_clone_keeper_journal` has CLEARED (first seen 2026-10-06T02:38:58Z, cleared 2026-10-06T03:27:45Z).
+> It was observed 1 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
+>
+> Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_state_clone_keeper_journal` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
 
@@ -912,7 +916,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.6M | $1726.47 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
+| Claude | 145.6M | $1727.58 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
 | Codex | 5.7M _(+171.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -925,18 +929,17 @@ worst fetch p95 22.917683s/45s (/home/kris/garden2/.garden-state/bulletin/journa
 - [`minion-town-claude-kriscendobot-connect-canary-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/minion-town-claude-kriscendobot-connect-canary-20261006.md) — Connect kriscendobot's own Claude subscription on minion.town, then run the p...
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1428-gauntlet-viability.md) — Gauntlet stage: PRE-SPEND VIABILITY - endojs/endo-but-for-bots PR #1428
 
-### doin (3)
+### doin (2)
 - [`endo-but-for-bots-upstream-master-ci-shepherd-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endo-but-for-bots-upstream-master-ci-shepherd-20261006.md) — Shepherd upstream endojs/endo's master CI to green (pinned on endo-but-for-bots)
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1426
-- [`improve-dependabotany-preflight-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-dependabotany-preflight-deadline.md) — ---
 
-### tada (11163)
+### tada (11164)
+- [`improve-dependabotany-preflight-deadline`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-dependabotany-preflight-deadline.md) — Cost
 - [`oros-health-watch-20261006-025617`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-025617.md) — Cost
 - [`improve-foreman-provider-outage-latch`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-foreman-provider-outage-latch.md) — Cost
 - [`fix-journal-clone-seed-from-local-root-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-journal-clone-seed-from-local-root-20261006.md) — Cost
 - [`improve-auth-recovery-debounce`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-auth-recovery-debounce.md) — Cost
-- [`claude-on-minion-town-press-20261006-025617`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261006-025617.md) — Cost
-- … and 11158 more
+- … and 11159 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
