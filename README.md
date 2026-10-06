@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T11:00:13Z_
+_As of 2026-10-06T11:07:58Z_
 
 ## Latest
 
@@ -1493,13 +1493,13 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### doin (0)
 (none)
 
-### tada (11218)
+### tada (11219)
+- [`claude-on-minion-town-completion-press-20261006-110513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-completion-press-20261006-110513.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-d8dfa37f3733`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-d8dfa37f3733.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1379-shepherd.md) — Cost
 - [`kriscendobot-agoric-sdk-pr10-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-agoric-sdk-pr10-gauntlet.md) — gauntlet kriscendobot-agoric-sdk-pr10-gauntlet — HALTED
 - [`fix-gauntlet-audit-restages-finished-prs-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-gauntlet-audit-restages-finished-prs-20261006.md) — Fix gauntlet audit re-staging finished PRs: completion report
-- [`endojs-endo-but-for-bots-pr1426-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1426-gauntlet — review budget reached
-- … and 11213 more
+- … and 11214 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
