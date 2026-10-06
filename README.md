@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T20:55:15Z_
+_As of 2026-10-06T20:58:06Z_
 
 ## Latest
 
@@ -24,7 +24,7 @@ These items still need you:
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 35d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 36d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 35d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 34d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 35d)
 - [endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/pull/832) — docs: Design ReadableBlob lines stream (waiting 38d)
 
 _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
@@ -1602,7 +1602,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.6M | $1963.32 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
+| Claude | 165.7M | $1964.16 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
 | Codex | 8.8M _(+231.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1614,8 +1614,8 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (0)
 (none)
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion.town-pr165-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — kriscendobot/minion.town PR #165
 
 ### tada (11285)
 - [`kriscendobot-minion.town-pr165-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-6.md) — Cost
