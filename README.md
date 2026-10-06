@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T07:05:26Z_
+_As of 2026-10-06T07:16:59Z_
 
 ## Latest
 
@@ -475,6 +475,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-contention-storm-fetch-slow` cleared on endolin-garden2-5bcdff64.
 
+- `watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1379-shepherd` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-endojs-endo-but-for-bots-pr1379-shepherd.md)
+
+> gardener job 'endojs-endo-but-for-bots-pr1379-shepherd' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7215s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr251-8626e5d78319` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr251-8626e5d78319.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/251](https://github.com/endojs/endo-but-for-bots/pull/251) ([endojs/endo-but-for-bots#251](https://github.com/endojs/endo-but-for-bots/issues/251)) is in the mergeable queue with NO gauntlet review staged (head 8626e5d783192be366fede534842dcf4dbf14fe9). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #251'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -683,6 +687,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349) ([endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349)) is in the mergeable queue with NO gauntlet review staged (head 4d3354123e209709df55da0c1374a30f7d7a5a86). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1349'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `msg-oros-health-watch-20261006-060517-3e4b3e4a97a0` — from gardener:oros-health-watch-20261006-060517, reply_to `oros-health-watch-20261006-060517` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261006-060517-3e4b3e4a97a0.md)
+
+> UNREACHABLE: oros-studio remains offline. No active checkup exists because its schedule is deferred to 2026-10-11. Heartbeat and sysop-log have been stale since 2026-10-02; fleet health is stale, the host remains heartbeat-offline derotated, and deployed e036bb8e is 152 commits behind main2 04055d337fa1. I sent no new op because seven reset-failed and one restore requests are already queued without acknowledgement. A person must check the Mac power/sleep state, Docker Desktop, and the VM/container.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr322-7b2add4930f5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr322-7b2add4930f5.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/322](https://github.com/endojs/endo-but-for-bots/pull/322) ([endojs/endo-but-for-bots#322](https://github.com/endojs/endo-but-for-bots/issues/322)) is in the mergeable queue with NO gauntlet review staged (head 7b2add4930f53298c36da41269a6445da619bc67). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #322'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -755,11 +763,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T07:02:46Z).
-> It was observed 55 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #56 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T07:13:19Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 56 times; this is ONE
+> coalesced notice that updates in place, not 56 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred work=34 (clones=34, remedies=0, cleanup=0, notices=0) on consecutive ticks.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
 
@@ -1414,7 +1422,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 148.4M | $1759.31 _(notional, rate-card)_ | 123% of 121.0M (backoff) |
+| Claude | 148.4M | $1760.06 _(notional, rate-card)_ | 123% of 121.0M (backoff) |
 | Codex | 6.9M _(+191.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -1423,22 +1431,22 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 
 ## Board
-### todo (3)
-- [`improve-comment-source-timeout-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-comment-source-timeout-fanout.md) — ---
-- [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1428-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1428
-- [`oros-health-watch-20261006-060517`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-060517.md) — ---
+### todo (0)
+(none)
 
-### doin (2)
+### doin (4)
+- [`improve-comment-source-timeout-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-source-timeout-fanout.md) — ---
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — endojs/endo-but-for-bots PR #1426
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1379
+- [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1428
 
-### tada (11192)
+### tada (11195)
+- [`daily-progress-summary-20261006-070524`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/daily-progress-summary-20261006-070524.md) — Cost
+- [`oros-health-watch-20261006-060517`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-060517.md) — Cost
+- [`canary-probe-endolin-garden-ece02cb4-04055d337fa1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-04055d337fa1.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-fix-3.md) — Cost
 - [`claude-on-minion-town-press-20261006-060517`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261006-060517.md) — Cost
-- [`endojs-endo-but-for-bots-pr1426-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-panel-4.md) — Cost
-- [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-panel-3.md) — Cost
-- [`improve-gauntlet-undraft-head-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-gauntlet-undraft-head-gate.md) — Cost
-- … and 11187 more
+- … and 11190 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
