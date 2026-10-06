@@ -79,7 +79,7 @@ advance_moving() {  # advance_moving [content]
 seed_board() {  # seed_board <stable-sha> <moving-sha>
   rm -rf "$TR/seed"; local SEED="$TR/seed"; git init -q "$SEED"
   git -C "$SEED" checkout -q -b journal2
-  mkdir -p "$SEED/library/sources" "$SEED/jobs/todo" "$SEED/jobs/doin" "$SEED/jobs/tada"
+  mkdir -p "$SEED/library/sources" "$SEED/jobs/todo" "$SEED/jobs/doin" "$SEED/jobs/tada/2026/01/01"
   : > "$SEED/jobs/todo/.gitkeep"; : > "$SEED/jobs/doin/.gitkeep"; : > "$SEED/jobs/tada/.gitkeep"
   cat > "$SEED/library/sources/README.md" <<EOF
 # Sources
@@ -171,12 +171,12 @@ hr; echo "SECOND DRIFT — a COMPLETED refresh must not suppress the next drift"
 drain_to_tada() {  # drain_to_tada <base>
   local W="$TR/drain"; rm -rf "$W"
   git clone -q --branch journal2 "$BARE" "$W"
-  mkdir -p "$W/jobs/tada"
+  mkdir -p "$W/jobs/tada/2026/01/01"
   if [ ! -e "$W/jobs/todo/$1.md" ]; then
     bad "drain fixture: no jobs/todo/$1.md to drain (nothing was posted)"
     rm -rf "$W"; return 1
   fi
-  git -C "$W" mv -f "jobs/todo/$1.md" "jobs/tada/$1.md"
+  git -C "$W" mv -f "jobs/todo/$1.md" "jobs/tada/2026/01/01/$1.md"
   git -C "$W" "${git_id[@]}" commit -q -m "tada($1)"
   git -C "$W" push -q origin journal2
   rm -rf "$W"

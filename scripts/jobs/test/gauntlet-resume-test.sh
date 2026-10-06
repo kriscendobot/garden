@@ -19,12 +19,12 @@ git_id=(-c user.name=test -c user.email=test@localhost)
 git init -q --bare "$BARE"
 git init -q "$SEED"
 git -C "$SEED" checkout -q -b "$BRANCH"
-mkdir -p "$SEED/jobs/"{todo,doin,tada,plan,gauntlet,index} "$SEED/work" \
+mkdir -p "$SEED/jobs/"{todo,doin,tada/2026/01/01,plan,gauntlet,index} "$SEED/work" \
   "$SEED/inbox/maintainer/"{unread,read}
 for d in jobs/todo jobs/doin jobs/tada jobs/plan jobs/gauntlet jobs/index work \
   inbox/maintainer/unread inbox/maintainer/read; do touch "$SEED/$d/.gitkeep"; done
 
-cat >"$SEED/jobs/tada/g-resume.md" <<'EOF'
+cat >"$SEED/jobs/tada/2026/01/01/g-resume.md" <<'EOF'
 ---
 pr: https://github.com/testowner/testrepo/pull/42
 repo: testowner/testrepo
@@ -47,13 +47,13 @@ gauntlet-status: halted
 ---
 # halted gauntlet
 EOF
-cat >"$SEED/jobs/tada/g-resume-fix-2.md" <<'EOF'
+cat >"$SEED/jobs/tada/2026/01/01/g-resume-fix-2.md" <<'EOF'
 ---
 orchestration-failed: true
 ---
 old failed result which must not be consumed after resume
 EOF
-cat >"$SEED/jobs/tada/g-complete.md" <<'EOF'
+cat >"$SEED/jobs/tada/2026/01/01/g-complete.md" <<'EOF'
 ---
 gauntlet-status: complete
 ---
@@ -99,7 +99,7 @@ created_by: test
 created_at: 2026-09-30T00:00:00Z
 ---
 EOF
-cat >"$SEED/jobs/tada/g-billing-fix-3.md" <<'EOF'
+cat >"$SEED/jobs/tada/2026/01/01/g-billing-fix-3.md" <<'EOF'
 Fix pushed; ci-wait-merge.sh exited 5 (CI BILLING-BLOCKED).
 <!-- gauntlet-stage-result: fix=ci-billing-blocked -->
 EOF
@@ -120,15 +120,15 @@ git clone -q --single-branch --branch "$BRANCH" "$BARE" "$VERIFY"
 record="$VERIFY/jobs/gauntlet/g-resume.md"
 todo="$VERIFY/jobs/todo/g-resume-fix-2.md"
 if [ -f "$record" ] && [ -f "$todo" ] \
-  && [ ! -e "$VERIFY/jobs/tada/g-resume.md" ] \
-  && [ ! -e "$VERIFY/jobs/tada/g-resume-fix-2.md" ]; then
+  && [ ! -e "$VERIFY/jobs/tada/2026/01/01/g-resume.md" ] \
+  && [ ! -e "$VERIFY/jobs/tada/2026/01/01/g-resume-fix-2.md" ]; then
   ok "resume atomically replaced terminal/stale reports with an active record and fresh FIX todo"
 else
   bad "resume did not produce the expected record/todo ownership"
 fi
 # The driver-generated halt lands at a date-sharded path (tada_write_path).
 generated_halt="$(find "$VERIFY/jobs/tada" -type f -name 'g-generated-halt.md' -print -quit 2>/dev/null)"
-generated_halt="${generated_halt:-$VERIFY/jobs/tada/g-generated-halt.md}"
+generated_halt="${generated_halt:-$VERIFY/jobs/tada/2026/01/01/g-generated-halt.md}"
 if [ -f "$generated_halt" ] \
   && grep -qx 'gauntlet-status: halted' "$generated_halt" \
   && grep -qx 'pr: https://github.com/testowner/testrepo/pull/43' "$generated_halt" \
@@ -178,8 +178,8 @@ activation="$(git -C "$VERIFY" log --format=%H --grep='resume at fix/2' -1)"
 restart="$(git -C "$VERIFY" log --format=%H --grep='restart stage g-resume-fix-2' -1)"
 if [ -n "$activation" ] && [ -n "$restart" ] \
   && git -C "$VERIFY" show --format= --name-status "$activation" \
-    | grep -Eq $'^(R[0-9]+\tjobs/tada/g-resume.md\tjobs/gauntlet/g-resume.md|A\tjobs/gauntlet/g-resume.md)$' \
-  && git -C "$VERIFY" show --format= --name-status "$restart" | grep -q $'D\tjobs/tada/g-resume-fix-2.md' \
+    | grep -Eq $'^(R[0-9]+\tjobs/tada/2026/01/01/g-resume.md\tjobs/gauntlet/g-resume.md|A\tjobs/gauntlet/g-resume.md)$' \
+  && git -C "$VERIFY" show --format= --name-status "$restart" | grep -q $'D\tjobs/tada/2026/01/01/g-resume-fix-2.md' \
   && git -C "$VERIFY" show --format= --name-status "$restart" | grep -q $'A\tjobs/todo/g-resume-fix-2.md'; then
   ok "git history proves each resume transition landed as one CAS commit"
 else

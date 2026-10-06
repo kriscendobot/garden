@@ -25,7 +25,7 @@ BARE="$TR/journal.git"; W="$TR/writer"
 git init -q --bare "$BARE"
 git init -q "$W"
 git -C "$W" checkout -q -b journal2
-mkdir -p "$W/jobs/tada"; : > "$W/jobs/tada/.gitkeep"
+mkdir -p "$W/jobs/tada/2026/01/01"; : > "$W/jobs/tada/.gitkeep"
 git -C "$W" add -A
 git -C "$W" -c user.name=t -c user.email=t@localhost commit -q -m init
 git -C "$W" remote add origin "$BARE"
@@ -33,7 +33,7 @@ git -C "$W" push -q origin HEAD:journal2
 report() {  # <basename> — push an actionable tada report
   git -C "$W" pull -q --rebase origin journal2
   printf '# %s\n## Follow-ups (escalated to liaison)\n- weaver rebase #197 for %s\n' "$1" "$1" \
-    > "$W/jobs/tada/$1.md"
+    > "$W/jobs/tada/2026/01/01/$1.md"
   git -C "$W" add -A
   git -C "$W" -c user.name=t -c user.email=t@localhost commit -q -m "tada $1"
   git -C "$W" push -q origin HEAD:journal2

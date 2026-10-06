@@ -144,8 +144,9 @@ complete_child() {  # complete_child <base>
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
   git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
-  printf '# %s done\n\nwork complete\n' "$1" > "$wt/jobs/tada/$1.md"
-  git -C "$wt" add "jobs/tada/$1.md"
+  mkdir -p "$wt/jobs/tada/2026/01/01"
+  printf '# %s done\n\nwork complete\n' "$1" > "$wt/jobs/tada/2026/01/01/$1.md"
+  git -C "$wt" add "jobs/tada/2026/01/01/$1.md"
   git -C "$wt" "${git_id[@]}" commit -q -m "tada($1)"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
@@ -190,8 +191,9 @@ complete_failed_child() {  # complete_failed_child <base>
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
   git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
-  printf '%s\n' '---' 'orchestration-failed: true' '---' "# $1 completed without its gated outcome" > "$wt/jobs/tada/$1.md"
-  git -C "$wt" add "jobs/tada/$1.md"
+  mkdir -p "$wt/jobs/tada/2026/01/01"
+  printf '%s\n' '---' 'orchestration-failed: true' '---' "# $1 completed without its gated outcome" > "$wt/jobs/tada/2026/01/01/$1.md"
+  git -C "$wt" add "jobs/tada/2026/01/01/$1.md"
   git -C "$wt" "${git_id[@]}" commit -q -m "tada($1) gated-failure"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
@@ -218,8 +220,9 @@ promote_and_complete_externally() {  # promote_and_complete_externally <base>
   git -C "$wt" rm -q "jobs/plan/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
-  printf '# %s done\n\nwork complete via another promotion path\n' "$1" > "$wt/jobs/tada/$1.md"
-  git -C "$wt" add "jobs/tada/$1.md"
+  mkdir -p "$wt/jobs/tada/2026/01/01"
+  printf '# %s done\n\nwork complete via another promotion path\n' "$1" > "$wt/jobs/tada/2026/01/01/$1.md"
+  git -C "$wt" add "jobs/tada/2026/01/01/$1.md"
   git -C "$wt" "${git_id[@]}" commit -q -m "manual-promote+tada($1)"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
@@ -868,7 +871,7 @@ hr; echo "SUBTEST 18 — SNAPSHOT: completed child survives a half-applied check
 tick
 complete_child snap-a
 half_checkout="$TR/half-checkout.sh"
-printf '%s\n' '#!/bin/sh' 'rm -f "$1/jobs/tada/snap-a.md"' > "$half_checkout"
+printf '%s\n' '#!/bin/sh' 'rm -f "$1/jobs/tada/2026/01/01/snap-a.md"' > "$half_checkout"
 chmod +x "$half_checkout"
 GARDEN_ORCH_AFTER_SYNC_CMD="$half_checkout" tick
 snapshot_ok=1
@@ -886,8 +889,9 @@ hr; echo "SUBTEST 19 — INCONSISTENT: duplicate board locations retry without f
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt orch-inconsistent dup-a dup-b >/dev/null
 dupwt="$(mktemp -d "$TR/edit.XXXXXX")"
 git clone -q --single-branch --branch "$BRANCH" "$BARE" "$dupwt"
-printf '# duplicate completed location\n' > "$dupwt/jobs/tada/dup-a.md"
-git -C "$dupwt" add jobs/tada/dup-a.md
+mkdir -p "$dupwt/jobs/tada/2026/01/01"
+printf '# duplicate completed location\n' > "$dupwt/jobs/tada/2026/01/01/dup-a.md"
+git -C "$dupwt" add jobs/tada/2026/01/01/dup-a.md
 git -C "$dupwt" "${git_id[@]}" commit -q -m 'fixture: duplicate dup-a board location'
 git -C "$dupwt" push -q origin "HEAD:$BRANCH"
 rm -rf "$dupwt"
@@ -929,7 +933,7 @@ complete_child aa-a        # aa-a's tada lands on origin
 # child vanished.
 transient_gone="$TR/transient-gone.sh"
 printf '%s\n' '#!/bin/sh' \
-  'git -C "$1" rm -q jobs/tada/aa-a.md 2>/dev/null || true' \
+  'git -C "$1" rm -q jobs/tada/2026/01/01/aa-a.md 2>/dev/null || true' \
   'git -C "$1" -c user.name=t -c user.email=t@l commit -q -m "transient: aa-a momentarily off-board" || true' \
   > "$transient_gone"
 chmod +x "$transient_gone"
@@ -992,7 +996,8 @@ hr; echo "SUBTEST 22 - SERIAL CAS: N+1 promotion revalidates N=tada in the autho
 "$JOBS/post-orchestration.sh" --serial --on-child-failure halt 00-serial-cas 00-cas-a 00-cas-b >/dev/null
 stale_serial="$TR/stale-serial.sh"
 printf '%s\n' '#!/bin/sh' \
-  'git -C "$1" mv jobs/plan/00-cas-a.md jobs/tada/00-cas-a.md' \
+  'mkdir -p "$1/jobs/tada/2026/01/01"' \
+  'git -C "$1" mv jobs/plan/00-cas-a.md jobs/tada/2026/01/01/00-cas-a.md' \
   'git -C "$1" -c user.name=t -c user.email=t@l commit -q -m "transient: stale view says child 1 done"' \
   > "$stale_serial"
 chmod +x "$stale_serial"
@@ -1093,7 +1098,7 @@ transient_stale="$TR/transient-stale.sh"
 oldts="$(date -u -d '2 hours ago' +%FT%TZ)"
 {
   printf '%s\n' '#!/bin/sh' 'd="$1"'
-  printf '%s\n' 'git -C "$d" rm -q jobs/tada/ta-x.md 2>/dev/null || true'
+  printf '%s\n' 'git -C "$d" rm -q jobs/tada/2026/01/01/ta-x.md 2>/dev/null || true'
   printf '%s\n' 'mkdir -p "$d/jobs/doin"'
   printf 'printf "handler-timeout: 1\\n\\n# ta-x\\n\\n---\\nclaim:\\n  host: stale-host\\n  gardener: 1\\n  claimed_at: %s\\n" > "$d/jobs/doin/ta-x.md"\n' "$oldts"
   printf '%s\n' 'git -C "$d" add jobs/doin/ta-x.md'
@@ -1280,10 +1285,11 @@ n_rec="$(grep -c '^RECOVERED ' "$(tada_report rp-orch)" 2>/dev/null || echo 0)"
 
 # (c) LEGACY record shape (no failed-children field; prose disposition lines only).
 wt="$(mktemp -d "$TR/edit.XXXXXX")"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
+mkdir -p "$wt/jobs/tada/2026/01/01"
 printf '%s\n' 'orchestration-status: complete-with-failures' '# orchestration lg-orch — complete' '' \
   'All 2 children reached a terminal state (parallel).' '2 child(ren) FAILED: lg-a lg-b' '' 'Child dispositions:' \
-  '- lg-a: failure detected' '- lg-b: failure detected' > "$wt/jobs/tada/lg-orch.md"
-printf '# lg-a done\n' > "$wt/jobs/tada/lg-a.md"
+  '- lg-a: failure detected' '- lg-b: failure detected' > "$wt/jobs/tada/2026/01/01/lg-orch.md"
+printf '# lg-a done\n' > "$wt/jobs/tada/2026/01/01/lg-a.md"
 git -C "$wt" add jobs/tada; git -C "$wt" "${git_id[@]}" commit -q -m "legacy fixture"
 git -C "$wt" push -q origin "HEAD:$BRANCH"; rm -rf "$wt"
 tick

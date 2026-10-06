@@ -105,7 +105,8 @@ gauntlet_budget_notice_put() {  # <gauntlet-base> [unread|read]
 tada_report_put() {  # <base> <content-file>
   local base="$1" content="$2" w="$TR/put"
   rm -rf "$w"; git clone -q --single-branch --branch journal2 "$TR/journal.git" "$w" >/dev/null 2>&1
-  cp "$content" "$w/jobs/tada/$base.md"
+  mkdir -p "$w/jobs/tada/2026/01/01"
+  cp "$content" "$w/jobs/tada/2026/01/01/$base.md"
   git -C "$w" add -A
   git -C "$w" -c user.name=t -c user.email=t@t.invalid commit -q -m "tada report $base"
   git -C "$w" push -q origin HEAD:journal2

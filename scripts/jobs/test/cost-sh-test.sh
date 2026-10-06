@@ -14,9 +14,9 @@ export GARDEN_TEST=1 GARDEN_ROOT="$ROOT" GARDEN_NO_MAINTAINER_ALERT=1
 command -v jq >/dev/null 2>&1 || { echo "cost-sh-test: jq absent, skipping"; exit 0; }
 
 TR="$(mktemp -d "${TMPDIR:-/tmp}/cost-sh.XXXXXX")"; trap 'rm -rf "$TR"' EXIT
-D="$TR/journal"; mkdir -p "$D/usage" "$D/jobs/tada"
+D="$TR/journal"; mkdir -p "$D/usage" "$D/jobs/tada/2026/01/01"
 # Five completed jobs across both layouts (coverage denominator); three carry a ledger.
-for b in j1 j2 j3 j4; do printf 'done\n' > "$D/jobs/tada/$b.md"; done
+for b in j1 j2 j3 j4; do printf 'done\n' > "$D/jobs/tada/2026/01/01/$b.md"; done
 mkdir -p "$D/jobs/tada/2026/08/13"
 printf 'done\n' > "$D/jobs/tada/2026/08/13/j5.md"
 # j1: two priced engagements on host A (role builder, opus).
@@ -72,8 +72,8 @@ jj="$(run --job j2 --json)"
   && ok "--job j2 restricts to that base's single engagement" || bad "--job filter wrong"
 
 # --- empty ledger degrades gracefully ---------------------------------------
-mkdir -p "$TR/empty/usage" "$TR/empty/jobs/tada"
-printf 'x\n' > "$TR/empty/jobs/tada/only.md"
+mkdir -p "$TR/empty/usage" "$TR/empty/jobs/tada/2026/01/01"
+printf 'x\n' > "$TR/empty/jobs/tada/2026/01/01/only.md"
 out="$(GARDEN_STATE="$TR/nostate" bash "$JOBS/cost.sh" --dir "$TR/empty" 2>&1)"
 echo "$out" | grep -q '0 of 1 completed jobs metered' && ok "empty ledger: reports 0 of 1 metered, no crash" || bad "empty ledger handling wrong: $out"
 

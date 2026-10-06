@@ -192,7 +192,7 @@ done
 # terminality with the live GitHub state; open PR jobs are expected to have been
 # removed by complete-job.sh and are retained here on any ambiguity.
 if budget_remains; then
-  # Flat AND date-sharded reports (completion writers use tada_write_path now).
+  # Every date-sharded report (completion writers use tada_write_path).
   tada_recs="$(tada_list "$CLONE" | sed "s#^#$CLONE/#")"
   for file in $tada_recs; do
     [ -e "$file" ] || continue

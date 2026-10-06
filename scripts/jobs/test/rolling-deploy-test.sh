@@ -119,7 +119,7 @@ simulate_follower_deploy() {  # <host> <sha> [roll_status] [unit_failures] [firs
 seed_probe_tada() {  # <host> [retry-n] — seed the canary probe's tada as if the round trip completed
   local suffix=""; [ -n "${2:-}" ] && [ "$2" -gt 0 ] 2>/dev/null && suffix="-r$2"
   local probe="canary-probe-$1-$TARGET12$suffix"
-  push_change "jobs/tada/$probe.md" "canary-probe: ok"$'\n'"host: $1"$'\n' "sim: probe $probe completed"
+  push_change "jobs/tada/2026/01/01/$probe.md" "canary-probe: ok"$'\n'"host: $1"$'\n' "sim: probe $probe completed"
 }
 
 # Recorders for the conductor's seams.
@@ -704,7 +704,7 @@ grep -q deploy-invoked "$DEPLOY_LOG" && bad "leader self-deployed while its cana
 hr; echo "LEADER-SELF-BEFORE-CANARY — pinned leader deploy; a DEFER is not a completed roll"; hr
 simulate_follower_deploy "$F1" "$NEW"
 run_conductor                                  # posts F1 probe for NEW
-push_change "jobs/tada/canary-probe-$F1-${NEW:0:12}.md" "canary-probe: ok"$'\n' "sim: probe for NEW"
+push_change "jobs/tada/2026/01/01/canary-probe-$F1-${NEW:0:12}.md" "canary-probe: ok"$'\n' "sim: probe for NEW"
 : > "$DEPLOY_LOG"
 run_conductor REC_DEPLOY_DEFER=1               # canary passed; leader deploy DEFERS
 if grep -q "deploy-invoked host=$LEADER target=$NEW" "$DEPLOY_LOG"; then

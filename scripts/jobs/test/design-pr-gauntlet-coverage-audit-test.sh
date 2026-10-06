@@ -49,8 +49,9 @@ touch "$TR/seed/comment-repos/kriscendobot-garden"
 printf 'repo: kriscendobot/minion.town\npr_number: 48\nkind: feature\n' \
   >"$TR/seed/jobs/gauntlet/kriscendobot-minion.town-pr48-gauntlet.md"
 # A COMPLETED gauntlet for minion.town #53 — its record lives in jobs/tada/.
+mkdir -p "$TR/seed/jobs/tada/2026/01/01"
 printf '# gauntlet (completed)\n\ndone\n' \
-  >"$TR/seed/jobs/tada/kriscendobot-minion.town-pr53-gauntlet.md"
+  >"$TR/seed/jobs/tada/2026/01/01/kriscendobot-minion.town-pr53-gauntlet.md"
 # FINISHED gauntlet history for post-arm PRs #59-#62 (2026-10-06: the audit re-staged
 # endo-but-for-bots#1425/#1426 because a finished run leaves jobs/gauntlet/).
 mkdir -p "$TR/seed/jobs/gauntlet-archived" "$TR/seed/jobs/tada/2026/10/05"

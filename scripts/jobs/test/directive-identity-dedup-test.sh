@@ -155,7 +155,8 @@ post --identity "$IDA" "$CBASE" "$(bodyfile 'first shepherd on #671')"
 has "$CBASE" && ok "8a first same-base directive posted" || bad "8a first directive did not post"
 # Complete it: move todo → tada (the finished auto-shepherd shape).
 CC="$TR/complete"; git clone -q -b journal2 "$BARE" "$CC" 2>/dev/null
-git -C "$CC" mv "jobs/todo/$CBASE.md" "jobs/tada/$CBASE.md"
+mkdir -p "$CC/jobs/tada/2026/01/01"
+git -C "$CC" mv "jobs/todo/$CBASE.md" "jobs/tada/2026/01/01/$CBASE.md"
 git -C "$CC" -c user.name=t -c user.email=t@l commit -q -m 'complete shepherd (todo->tada)'
 git -C "$CC" push -q origin journal2
 ! has "$CBASE" && ok "8b the completed job is now in tada/ (not todo)" || bad "8b completed job still in todo"
@@ -169,7 +170,8 @@ has "$CBASE" && ok "8c a FRESH directive re-mints the base despite the completed
 # idempotency, unchanged.
 NIB=plain-tada-idempotent
 CC3="$TR/ntada"; git clone -q -b journal2 "$BARE" "$CC3" 2>/dev/null
-printf 'done\n' > "$CC3/jobs/tada/$NIB.md"
+mkdir -p "$CC3/jobs/tada/2026/01/01"
+printf 'done\n' > "$CC3/jobs/tada/2026/01/01/$NIB.md"
 git -C "$CC3" add -A; git -C "$CC3" -c user.name=t -c user.email=t@l commit -q -m 'seed tada for no-id case'
 git -C "$CC3" push -q origin journal2
 post "$NIB" "$(bodyfile 'plain no-identity re-post')"
@@ -196,7 +198,8 @@ post "$SHARDED_NIB" "$(bodyfile 'plain no-identity re-post of sharded completion
 # routine plan/todo/doin "already present" no-op.
 WBASE=warn-on-tada-collision
 CC5="$TR/warn-tada"; git clone -q -b journal2 "$BARE" "$CC5" 2>/dev/null
-printf 'done\n' > "$CC5/jobs/tada/$WBASE.md"
+mkdir -p "$CC5/jobs/tada/2026/01/01"
+printf 'done\n' > "$CC5/jobs/tada/2026/01/01/$WBASE.md"
 git -C "$CC5" add -A; git -C "$CC5" -c user.name=t -c user.email=t@l commit -q -m 'seed tada for warn case'
 git -C "$CC5" push -q origin journal2
 werr="$("$JOBS/post-job.sh" "$WBASE" "$(bodyfile 'recurring post that collides with a completed job')" 2>&1 >/dev/null)"
@@ -221,7 +224,8 @@ OLDBASE=endojs-endo-but-for-bots-pr475-e3925eb5
 NEWBASE=endojs-endo-but-for-bots-pr475-reply-humans-resolve-policy
 idrkey="$(job_id_hash "$IDR")"
 CC6="$TR/tada-owner-blocks"; git clone -q -b journal2 "$BARE" "$CC6" 2>/dev/null
-printf 'done\n' > "$CC6/jobs/tada/$OLDBASE.md"
+mkdir -p "$CC6/jobs/tada/2026/01/01"
+printf 'done\n' > "$CC6/jobs/tada/2026/01/01/$OLDBASE.md"
 mkdir -p "$CC6/jobs/index"
 printf 'base: %s\nidentity: %s\n' "$OLDBASE" "$IDR" > "$CC6/jobs/index/$idrkey"
 git -C "$CC6" add -A
@@ -246,7 +250,8 @@ IDT="endojs/endo-but-for-bots#912:comment:8123456789"
 SAMEBASE=endojs-endo-but-for-bots-pr912-shepherd
 idtkey="$(job_id_hash "$IDT")"
 CC7="$TR/tada-replay-terminal"; git clone -q -b journal2 "$BARE" "$CC7" 2>/dev/null
-printf 'done\n' > "$CC7/jobs/tada/$SAMEBASE.md"
+mkdir -p "$CC7/jobs/tada/2026/01/01"
+printf 'done\n' > "$CC7/jobs/tada/2026/01/01/$SAMEBASE.md"
 mkdir -p "$CC7/jobs/index"
 printf 'base: %s\nidentity: %s\n' "$SAMEBASE" "$IDT" > "$CC7/jobs/index/$idtkey"
 git -C "$CC7" add -A

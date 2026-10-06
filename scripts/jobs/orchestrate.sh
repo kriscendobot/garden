@@ -1063,8 +1063,8 @@ complete_done() {  # <base> <total> <order> [<failed-child>...]
 # `halted-resumed` is skipped.
 resume_recovered_halts() {
   local rec base status failed_child remainder resume_base view loc snapshot jf ts kid still_parked path attempt rc
-  # Enumerate every tada report, flat AND date-sharded (writers switched to
-  # tada_write_path — a bare $JOBS_TADA/*.md glob would miss sharded halts).
+  # Enumerate every date-sharded tada report through the centralized lister (a
+  # bare $JOBS_TADA/*.md glob would miss every sharded halt).
   local _recs; _recs="$(tada_list "$DIR" | sed "s#^#$DIR/#")"
   for rec in $_recs; do
     [ -f "$rec" ] || continue
@@ -1149,8 +1149,8 @@ resume_recovered_halts() {
 # steady-state tick does at most one cheap `sed` read per tada file.
 supersede_stale_halts() {
   local rec base attempt path progressed child view loc ts rc
-  # Enumerate every tada report, flat AND date-sharded (writers switched to
-  # tada_write_path — a bare $JOBS_TADA/*.md glob would miss sharded halts).
+  # Enumerate every date-sharded tada report through the centralized lister (a
+  # bare $JOBS_TADA/*.md glob would miss every sharded halt).
   local _recs; _recs="$(tada_list "$DIR" | sed "s#^#$DIR/#")"
   for rec in $_recs; do
     [ -f "$rec" ] || continue

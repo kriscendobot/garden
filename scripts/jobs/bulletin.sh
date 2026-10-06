@@ -227,7 +227,7 @@ render_board() {
   fi
 
   # tada can hold hundreds of completed jobs; never list them all. Show the count
-  # and at most the 5 most-recently-modified, with descriptions.
+  # and at most the 5 newest from the recent date shards, with descriptions.
   printf '\n### tada (%s)\n' "$tada_n"
   if [ "$tada_n" -gt 0 ]; then
     while IFS= read -r j; do

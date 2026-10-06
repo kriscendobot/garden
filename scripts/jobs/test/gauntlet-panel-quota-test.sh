@@ -80,8 +80,7 @@ export GARDEN_SHEPHERD_HANDLER_TIMEOUT=7200
 V="$TR/verify"
 board() {  # board <subdir> → basenames present
   rm -rf "$V"; git clone -q --single-branch --branch "$BRANCH" "$BARE" "$V"
-  # shellcheck disable=SC2010
-  ls -1 "$V/$1" 2>/dev/null | grep -v -x '.gitkeep' | sed 's/\.md$//' | sort | tr '\n' ' '
+  find "$V/$1" -type f -name '*.md' -printf '%f\n' 2>/dev/null | sed 's/\.md$//' | sort | tr '\n' ' '
 }
 in_dir() { board "$1" | tr ' ' '\n' | grep -qx "$2"; }
 record_field() {  # record_field <g> <key>
@@ -98,9 +97,10 @@ complete_stage() {  # complete_stage <base> <marker-body>
   git clone -q --single-branch --branch "$BRANCH" "$BARE" "$wt"
   git -C "$wt" rm -q "jobs/todo/$1.md" 2>/dev/null || true
   git -C "$wt" rm -q "jobs/doin/$1.md" 2>/dev/null || true
+  mkdir -p "$wt/jobs/tada/2026/01/01"
   { printf '# %s complete\n\nstage work done.\n\n' "$1"
-    printf '<!-- gauntlet-stage-result: %s -->\n' "$2"; } > "$wt/jobs/tada/$1.md"
-  git -C "$wt" add "jobs/tada/$1.md"
+    printf '<!-- gauntlet-stage-result: %s -->\n' "$2"; } > "$wt/jobs/tada/2026/01/01/$1.md"
+  git -C "$wt" add "jobs/tada/2026/01/01/$1.md"
   git -C "$wt" "${git_id[@]}" commit -q -m "tada($1) $2"
   git -C "$wt" push -q origin "HEAD:$BRANCH"
   rm -rf "$wt"
