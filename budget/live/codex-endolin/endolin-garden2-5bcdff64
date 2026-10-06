@@ -5,7 +5,7 @@ spend: 7056812
 spend_unit: tokens
 cap_percent: 100
 status: backoff
-sampled_at_epoch: 1791277423
-sampled_at: 2026-10-06T09:03:43Z
-sample_bucket: 1990308
+sampled_at_epoch: 1791278329
+sampled_at: 2026-10-06T09:18:49Z
+sample_bucket: 1990309
 used_percent: 86.0
