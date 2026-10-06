@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T17:04:18Z_
+_As of 2026-10-06T17:07:25Z_
 
 ## Latest
 
@@ -1546,7 +1546,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 156.1M | $1852.72 _(notional, rate-card)_ | 98% of 160.0M (ok) |
+| Claude | 156.7M | $1860.52 _(notional, rate-card)_ | 98% of 160.0M (ok) |
 | Codex | 8.0M _(+211.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1559,16 +1559,16 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 (none)
 
 ### doin (2)
-- [`fix-receipt-watcher-test-fresh-clone-outage-and-empty-stderr-warn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-receipt-watcher-test-fresh-clone-outage-and-empty-stderr-warn.md) — ---
 - [`kriscendobot-minion.town-pr165-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-panel-2.md) — Gauntlet stage: PANEL round 2 — kriscendobot/minion.town PR #165
+- [`garden-tada-shard-five-cleanup-retire-flat-fallback-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/garden-tada-shard-five-cleanup-retire-flat-fallback-20261006.md) — ---
 
-### tada (11256)
+### tada (11257)
+- [`fix-receipt-watcher-test-fresh-clone-outage-and-empty-stderr-warn`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-receipt-watcher-test-fresh-clone-outage-and-empty-stderr-warn.md) — Completion report: fix-receipt-watcher-test-fresh-clone-outage-and-empty-stde...
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-1.md) — Cost
 - [`fix-journal-contention-watch-deferred-clone-backlog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-journal-contention-watch-deferred-clone-backlog.md) — Cost
 - [`kriscendobot-minion.town-pr165-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-1.md) — Cost
 - [`fix-comment-watcher-test-cooldown-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-comment-watcher-test-cooldown-isolation.md) — Completion report: fix-comment-watcher-test-cooldown-isolation
-- [`improve-receipt-watcher-primary-quota-cooldown-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-receipt-watcher-primary-quota-cooldown-retry.md) — Completion report: improve-receipt-watcher-primary-quota-cooldown-retry
-- … and 11251 more
+- … and 11252 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
