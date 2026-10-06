@@ -1067,9 +1067,11 @@ api_primary_quota_cooldown_active() {
   esac
   mkdir -p "$GARDEN_API_COOLDOWN_DIR"
   st="$(
-    flock 9
-    _api_cooldown_live_locked "${markers[@]}"
-  ) 9>"$GARDEN_API_COOLDOWN_LOCK")" || return 1
+    {
+      flock 9
+      _api_cooldown_live_locked "${markers[@]}"
+    } 9>"$GARDEN_API_COOLDOWN_LOCK"
+  )" || return 1
   rest="${st#*$'\t'}"
   tag="${rest%%$'\t'*}"
   case "$tag" in *primary-quota*) return 0 ;; esac
@@ -1126,45 +1128,68 @@ _api_cooldown_claim_warning_locked() {
 # The scope (default all) picks the marker; `graphql` records the GraphQL-only latch
 # (see SCOPE above). Liveness is judged per marker, so a live GraphQL latch never
 # stops a REST blip from opening the host-wide window.
+# A requested window is a long-outage (primary-quota) latch, and it PROMOTES a live
+# short transient latch it outlasts (see _api_cooldown_record_locked); an unrequested
+# caller still never extends anything.
 start_api_cooldown() {
-  local tag="${1:-}" req="${2:-}" scope="${3:-all}" secs cap marker
+  local tag="${1:-}" req="${2:-}" scope="${3:-all}" secs cap marker kind=transient
   secs="$(_api_cooldown_secs)"
   [ "$secs" -gt 0 ] || return 0
   case "$req" in
     ''|*[!0-9]*) : ;;                                  # no request → the short default
-    *) secs="$req"; [ "$secs" -ge 1 ] || secs=1
+    *) secs="$req"; [ "$secs" -ge 1 ] || secs=1; kind=primary-quota
        cap="$(_api_cooldown_max_secs)"; [ "$secs" -le "$cap" ] || secs="$cap" ;;
   esac
   marker="$(_api_cooldown_marker_for "$scope")"
   mkdir -p "$GARDEN_API_COOLDOWN_DIR"
   (
     flock 9
-    _api_cooldown_record_locked "$marker" "$secs" "$tag"
+    _api_cooldown_record_locked "$marker" "$secs" "$tag" "$kind"
   ) 9>"$GARDEN_API_COOLDOWN_LOCK"
 }
 
-# _api_cooldown_record_locked <marker> <secs> <tag> — the lock-free core of
-# start_api_cooldown (already-validated secs). The CALLER must hold the cooldown
-# flock. rc 0 = recorded; rc 1 = a live window already exists (never extended).
+# _api_cooldown_record_locked <marker> <secs> <tag> [transient|primary-quota] — the
+# lock-free core of start_api_cooldown (already-validated secs). The CALLER must hold
+# the cooldown flock. rc 0 = recorded; rc 1 = a live window already exists (never
+# extended). The kind (default transient) is stored as the marker's third line.
 #
 # One exception keeps the watchers' single warning: gh_api_retry latches a primary
 # refusal itself (tag `gh-api:…`, see _gh_api_admit) from inside a watcher's source
 # process, where nobody announces it. The first detector to report that live
 # window ADOPTS it: its tag is recorded, the expiry is left untouched, and it gets
 # rc 0, so exactly one watcher still owns the one WARN for the outage.
+#
+# One exception lets a known long outage outrank a blip: a primary-quota request
+# PROMOTES a live TRANSIENT latch whose expiry is shorter than the requested window.
+# Without it a 300s latch armed earlier in the same tick (2026-10-06 12:24:38: the
+# receipt watcher's blip latch masked mirror-closer's 3600s primary-quota latch)
+# expires inside the quota hour and every REST watcher retries doomed calls. A live
+# primary-quota latch is never extended, so repeated detectors cannot push the window
+# out without bound; a transient caller never extends anything.
 _api_cooldown_record_locked() {
-  local marker="$1" secs="$2" tag="$3" now expiry old_tag tmp
+  local marker="$1" secs="$2" tag="$3" kind="${4:-transient}" now expiry old_tag old_kind tmp
   now="$(date +%s 2>/dev/null || echo 0)"
   expiry="$(sed -n '1p' "$marker" 2>/dev/null || true)"
   case "$expiry" in ''|*[!0-9]*) expiry=0;; esac
   tmp="$marker.$$.$RANDOM"
   if [ "$expiry" -gt "$now" ]; then
     old_tag="$(sed -n '2p' "$marker" 2>/dev/null || true)"
+    old_kind="$(sed -n '3p' "$marker" 2>/dev/null || true)"
+    # A marker written before the kind line existed is classified by its tag.
+    case "$old_tag" in *primary-quota*) old_kind=primary-quota ;; esac
+    if [ "$kind" = primary-quota ] && [ "$old_kind" != primary-quota ] \
+       && [ "$((now + secs))" -gt "$expiry" ]; then
+      printf '%s\n%s <- %s\n%s\n' "$((now + secs))" "$tag" "$old_tag" "$kind" > "$tmp"
+      # The promoted latch is a new outage episode: it owns a fresh warning.
+      rm -f "$marker.warned"
+      mv -f "$tmp" "$marker"
+      return 0
+    fi
     case "$old_tag" in gh-api:*) ;; *) return 1 ;; esac
     case "$tag" in gh-api:*) return 1 ;; esac
-    printf '%s\n%s <- %s\n' "$expiry" "$tag" "$old_tag" > "$tmp"
+    printf '%s\n%s <- %s\n%s\n' "$expiry" "$tag" "$old_tag" "${old_kind:-transient}" > "$tmp"
   else
-    printf '%s\n%s\n' "$((now + secs))" "$tag" > "$tmp"
+    printf '%s\n%s\n%s\n' "$((now + secs))" "$tag" "$kind" > "$tmp"
     # A fresh latch is a fresh warning episode even if an old emission marker
     # survived an interrupted cleanup.
     rm -f "$marker.warned"
@@ -6092,7 +6117,7 @@ gh_api_retry() {
       pq="$(api_primary_quota_secs)"
       marker="$(_api_cooldown_marker_for "$latch")"
       if [ -n "$lockfd" ]; then
-        _api_cooldown_record_locked "$marker" "$pq" "gh-api:$label:primary-quota" || true
+        _api_cooldown_record_locked "$marker" "$pq" "gh-api:$label:primary-quota" primary-quota || true
         _api_cooldown_claim_warning_locked "$marker" || emit=0
       elif [ "$admit" -eq 1 ]; then
         start_api_cooldown "gh-api:$label:primary-quota" "$pq" "$latch" || true

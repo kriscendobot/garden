@@ -169,5 +169,49 @@ run_common issue 'start_api_cooldown "issue-inbox:o-r:primary-quota" 3600' \
   && bad "a second detector re-announced an adopted window" \
   || ok "a second detector stays an observer once the latch is adopted"
 
+# A primary-quota request PROMOTES a live shorter transient latch (2026-10-06 12:24:38:
+# the receipt watcher's 300s blip latch masked mirror-closer's 3600s primary-quota latch
+# in the same tick, so REST watchers resumed doomed calls inside the quota hour).
+rm -f "$MARKER" "$MARKER.warned" "$GQL_MARKER"
+run_common receipt 'start_api_cooldown "receipt:o-r:stage"' \
+  && ok "a transient caller opens the short window" \
+  || bad "the transient caller did not open the short window"
+short_exp="$(sed -n 1p "$MARKER")"
+printf '%s\n' "$short_exp" > "$MARKER.warned"
+run_common mirror 'start_api_cooldown "mirror-closer:primary-quota" 3600' \
+  && ok "a primary-quota request promotes a live shorter transient latch (owns the warning)" \
+  || bad "the primary-quota request was masked by the live transient latch"
+promo_exp="$(sed -n 1p "$MARKER")"
+[ "$promo_exp" -ge "$(( $(date +%s) + 3500 ))" ] \
+  && grep -q '^mirror-closer:primary-quota <- receipt:o-r:stage$' "$MARKER" \
+  && [ "$(sed -n 3p "$MARKER")" = primary-quota ] \
+  && ok "the promoted latch spans the quota hour and records both tags and its kind" \
+  || bad "the promotion did not span the quota window: $(tr '\n' ' ' < "$MARKER")"
+[ ! -e "$MARKER.warned" ] && ok "promotion is a fresh warning episode" \
+  || bad "a stale warning claim survived the promotion"
+run_common comment 'api_cooldown_active rest && api_primary_quota_cooldown_active rest' \
+  && ok "REST watchers stay suppressed under the promoted primary-quota latch" \
+  || bad "REST watchers missed the promoted primary-quota latch"
+run_common receipt 'start_api_cooldown "receipt:o-r:stage"' \
+  && bad "a transient caller re-announced over the primary-quota latch" \
+  || ok "a later transient caller stays an observer"
+run_common ci 'start_api_cooldown "ci:o-r:source" 3600' \
+  && bad "a second primary-quota request re-announced the live primary latch" \
+  || ok "a second primary-quota request stays an observer"
+[ "$(sed -n 1p "$MARKER")" = "$promo_exp" ] \
+  && ok "a live primary-quota latch is never extended" \
+  || bad "a later request extended the primary-quota latch: $(tr '\n' ' ' < "$MARKER")"
+# A transient caller never extends a live latch, even a shorter one.
+printf '%s\nreceipt:o-r:stage\ntransient\n' "$(( $(date +%s) + 30 ))" > "$MARKER"
+run_common comment 'start_api_cooldown "comment:o-r"' \
+  && bad "a transient caller extended a live transient latch" \
+  || ok "a transient caller never extends a live window"
+# A request no longer than the live transient window leaves it alone.
+printf '%s\nreceipt:o-r:stage\ntransient\n' "$(( $(date +%s) + 600 ))" > "$MARKER"
+run_common mirror 'start_api_cooldown "mirror-closer:primary-quota" 60' \
+  && bad "a shorter primary-quota request rewrote a longer live latch" \
+  || ok "a primary-quota request never shortens a live window"
+rm -f "$MARKER" "$MARKER.warned"
+
 echo "TOTAL: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
