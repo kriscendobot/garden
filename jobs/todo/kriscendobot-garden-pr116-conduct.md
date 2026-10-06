@@ -1,11 +1,8 @@
 ---
-gate: orchestrated
-orchestrated_by: orch-standing-token-backoff-ramp-delivery
-priority: high
 role: conductor
-posted_by: gardener
-posted_at: 2026-10-06T19:03:42Z
+tier: mentor
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=high at=2026-10-06T19:06:13Z cleared=none -->
 
 ---
 tier: mentor
