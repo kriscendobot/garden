@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T19:15:23Z_
+_As of 2026-10-06T19:19:31Z_
 
 ## Latest
 
@@ -1570,8 +1570,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 158.1M | $1882.99 _(notional, rate-card)_ | 99% of 160.0M (ok) |
-| Codex | 8.4M _(+226.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 158.1M | $1882.74 _(notional, rate-card)_ | 99% of 160.0M (ok) |
+| Codex | 8.5M _(+227.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1579,27 +1579,23 @@ _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-moddable); 9 open notice(s); checker healthy
 
 ## Board
-### todo (5)
-- [`improve-deadmail-tempfail-short-circuit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-deadmail-tempfail-short-circuit.md) — ---
+### todo (2)
 - [`skill-ocap-attenuation-authoring-stub-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/skill-ocap-attenuation-authoring-stub-20261006.md) — Author a short stub: skills/ocap-attenuation-authoring/SKILL.md
-- [`kriscendobot-garden-pr116-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-garden-pr116-conduct.md) — Conduct the accepted standing token-backoff ramp design
 - [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-185007.md) — ---
-- [`kriscendobot-minion.town-pr165-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/kriscendobot-minion.town-pr165-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #165
 
-### doin (5)
+### doin (4)
+- [`improve-deadmail-tempfail-short-circuit`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadmail-tempfail-short-circuit.md) — ---
 - [`endojs-endo-but-for-bots-pr1428-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-retcon.md) — retcon directive on endojs/endo-but-for-bots PR #1428
-- [`skill-caplet-validation-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/skill-caplet-validation-20261006.md) — Author skills/caplet-validation/SKILL.md — verifying a caplet's confinement a...
-- [`skill-minion-town-ocapn-dispatch-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/skill-minion-town-ocapn-dispatch-20261006.md) — Author skills/minion-town-ocapn-dispatch/SKILL.md — garden-side procedure for...
 - [`retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006.md) — ---
-- [`endojs-endo-but-for-bots-pr1282-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1282
+- [`kriscendobot-minion.town-pr165-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #165
 
-### tada (11263)
+### tada (11267)
+- [`kriscendobot-garden-pr116-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-garden-pr116-conduct.md) — Conduct report: kriscendobot/garden#116 (standing token-backoff ramp design)
+- [`endojs-endo-but-for-bots-pr1282-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1282-conduct.md) — Cost
+- [`skill-caplet-validation-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/skill-caplet-validation-20261006.md) — Completion report: skill-caplet-validation-20261006
+- [`skill-minion-town-ocapn-dispatch-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/skill-minion-town-ocapn-dispatch-20261006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1282-review-c5a5c1c1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1282-review-c5a5c1c1.md) — Cost
-- [`claude-on-minion-town-press-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261006-185007.md) — Arc #89 press: no change since 15:37Z, still waiting on review of endojs/endo...
-- [`claude-on-minion-town-completion-press-20261006-172007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-completion-press-20261006-172007.md) — Cost
-- [`kriscendobot-garden-pr116-review-66d1a44d`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-garden-pr116-review-66d1a44d.md) — Cost
-- [`garden-tada-shard-five-cleanup-retire-flat-fallback-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/garden-tada-shard-five-cleanup-retire-flat-fallback-20261006.md) — Completion report: garden-tada-shard-five-cleanup-retire-flat-fallback-20261006
-- … and 11258 more
+- … and 11262 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
