@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T05:51:33Z_
+_As of 2026-10-06T05:53:53Z_
 
 ## Latest
 
@@ -1367,7 +1367,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 147.0M | $1745.62 _(notional, rate-card)_ | 122% of 121.0M (backoff) |
-| Codex | 6.6M _(+188.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 6.7M _(+188.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -1378,9 +1378,10 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1426
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1428
+- [`improve-gauntlet-undraft-head-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-gauntlet-undraft-head-gate.md) — ---
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1379
 
 ### tada (11185)
