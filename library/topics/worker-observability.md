@@ -12,6 +12,8 @@ Worker observability covers structured logging, ambient diagnostic context, boun
 | [Telemetry field-name normalization](../sections/cloudflare-os--packages-gatekeeper-cloudflare-readme--telemetry-field-name-normalization.md) | worker-observability | Query keys are normalized across result paths and provider index names. |
 | [Provider error data minimization](../sections/cloudflare-os--packages-gatekeeper-cloudflare-readme--provider-error-data-minimization.md) | worker-observability, errors, capability-security | Provider error text stays out of logs because it can reflect caller-controlled filter values. |
 | [Paginated account discovery](../sections/cloudflare-os--packages-gatekeeper-cloudflare-readme--paginated-account-discovery.md) | capability-mediated-integrations, worker-observability | Account discovery walks every provider page before applying client-side substring matching. |
+| [request carriers and accidental copying](../sections/web--secret-seal--request-carriers-and-accidental-copying.md) | http-secret-handling, oauth-credentials, worker-observability | Logs, traces, request dumps, and error reporters often erase the apparent safety difference between carriers. |
+| [framework controls and leak canaries](../sections/web--secret-seal--framework-controls-and-leak-canaries.md) | http-secret-handling, worker-observability, testing | Safe request views and carrier-specific leak canaries turn redaction into an observed property. |
 
 ## See also
 
