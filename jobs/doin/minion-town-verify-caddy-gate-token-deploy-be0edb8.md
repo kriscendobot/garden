@@ -10,3 +10,13 @@ Task: verify on production that the deployed change works. Do not rewrite the fi
 3. Confirm that the new lock directory /run/minion-town-deploy is created root-owned 0700 by deploy-caddy.sh and the secret scripts, and that the scripts no longer warn about a foreign-owned lock directory.
 4. Smoke-test a signed-in GET /account/claude and the billing gated route end to end: expect no 403 from an empty gate token.
 If anything is red, fix it in a small follow-up PR, using the gauntlet as usual and GARDEN_YARN=npm. Before deploying, watch for the known minion-mcp EADDRINUSE orphan (PR #137) and the CD-reverts-unmerged-guest.js hazard. Report the result on kriscendobot/garden#89.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-06T15:09:53Z
