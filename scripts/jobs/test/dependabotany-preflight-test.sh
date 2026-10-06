@@ -57,6 +57,10 @@ printf '#!/bin/bash\necho "boom: 404" >&2\nexit 22\n' > "$FAILSTUB"; chmod +x "$
 # A source refused by the shared gh-api cooldown latch (gh_api_retry's EX_TEMPFAIL).
 COOLSTUB="$TR/pr-source-cooldown.sh"
 printf '#!/bin/bash\necho "gh-api cooldown active" >&2\nexit 75\n' > "$COOLSTUB"; chmod +x "$COOLSTUB"
+# A source that outlives the gate's total deadline. Its own per-stage cap is set
+# much higher in the test, proving the gate clips the call to its remaining budget.
+HANGSTUB="$TR/pr-source-hang.sh"
+printf '#!/bin/bash\nprintf started > "${HANG_MARKER:?}"\nexec sleep 300\n' > "$HANGSTUB"; chmod +x "$HANGSTUB"
 
 # Declaration-compatibility oracle stub. Fixture rows carry the PR number before
 # the real oracle's six-field result so one fixture can model several open PRs.
@@ -320,6 +324,22 @@ add_entry 2026/08/06/000002Z-b "$(drained_body)"
 run_pre "" "$COOLSTUB"
 [ "$RC" -eq 75 ] && ok "cooldown → deferred (exit 75), not fail-open dispatch" || bad "exit $RC (want 75); OUT=$OUT"
 grep -qi 'deferring' <<<"$OUT" && ok "logged the deferral" || bad "no deferral log; OUT=$OUT"
+
+# ============================================================================
+hr; echo "DEADLINE — hanging source is clipped to the total budget: exit 75"; hr
+reset_bare
+add_entry 2026/08/06/000002Z-b "$(drained_body)"
+HANG_MARKER="$TR/hang-started"
+start=$SECONDS
+GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS=4 GARDEN_DEPB_SOURCE_TIMEOUT_SECS=180 \
+  GARDEN_DEPB_KILL_AFTER=1 HANG_MARKER="$HANG_MARKER" run_pre "" "$HANGSTUB"
+elapsed=$((SECONDS - start))
+[ -f "$HANG_MARKER" ] && ok "hanging source was invoked" || bad "hanging source was not invoked; OUT=$OUT"
+[ "$RC" -eq 75 ] && ok "deadline exhaustion -> deferred (exit 75)" || bad "exit $RC (want 75); OUT=$OUT"
+[ "$elapsed" -lt 10 ] && ok "180s source cap clipped to remaining total budget (${elapsed}s)" \
+  || bad "source was not clipped to the total budget (${elapsed}s); OUT=$OUT"
+grep -q "open-PR source exhausted.*4s total deadline" <<<"$OUT" \
+  && ok "log identifies the clipped stage and total deadline" || bad "deadline log missing; OUT=$OUT"
 
 # ============================================================================
 hr; echo "NO LEDGER — no entries at all, no repo derivable: fail open exit 0"; hr

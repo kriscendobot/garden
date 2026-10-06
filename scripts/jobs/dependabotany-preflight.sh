@@ -14,7 +14,8 @@
 # has elapsed and acts on the exit code (skills/schedule/SKILL.md):
 #   exit 0 = work present → dispatch the botanist ledger sweep + advance the clock
 #   exit 2 = no work      → advance the clock only, dispatch nothing
-#   exit 75 = deferred    → the open-PR source hit the gh-api cooldown; the
+#   exit 75 = deferred    → the gate reached its total deadline without a verdict,
+#                           or the open-PR source hit the gh-api cooldown; the
 #                           scheduler leaves the schedule due and retries later
 # ANY other exit is treated by the scheduler as work-present (fail open), so a
 # broken gate never starves the backstop.
@@ -55,6 +56,7 @@
 #   GARDEN_DEPB_ENTRIES_DIR                        -> the ledger entries/ tree to grep
 #   GARDEN_DEPB_REPO                               -> owner/name override (else derived from the ledger)
 #   GARDEN_DEPB_TODAY                              -> UTC YYYY-MM-DD override for the due comparison
+#   GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS             -> total wall-clock budget (default 110)
 # Read-only against the journal: it reuses common.sh's ensure_clone/sync_clone and
 # never writes or pushes.
 
@@ -69,10 +71,40 @@ export GARDEN_TAG="dependabotany-preflight"
 : "${GARDEN_DEPB_PR_SOURCE:=$HERE/handlers/ci-pr-source-gh.sh}"
 : "${GARDEN_DEPB_COMPAT:=$HERE/handlers/dep-compat-gh.sh}"
 : "${GARDEN_DEPB_PREFLIGHT_CLONE:=$GARDEN_STATE/dependabotany-preflight/journal}"
+: "${GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS:=110}"
 : "${GARDEN_DEPB_SOURCE_TIMEOUT_SECS:=180}"
 : "${GARDEN_DEPB_COMPAT_TIMEOUT_SECS:=45}"
 : "${GARDEN_DEPB_COMPAT_MAX_CHECKS:=8}"
-: "${GARDEN_DEPB_KILL_AFTER:=10s}"
+: "${GARDEN_DEPB_KILL_AFTER:=2s}"
+
+case "$GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS" in
+  ''|*[!0-9]*|0) die "GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS must be a positive integer" ;;
+esac
+kill_after_secs="${GARDEN_DEPB_KILL_AFTER%s}"
+case "$kill_after_secs" in
+  ''|*[!0-9]*|0) die "GARDEN_DEPB_KILL_AFTER must be a positive integer number of seconds, optionally suffixed by s" ;;
+esac
+
+# The scheduler gives a preflight 120s. Keep one smaller deadline for this whole
+# gate, including journal synchronization, PR enumeration, and compatibility
+# checks. Each external stage receives at most its configured cap and the time
+# still available, less the SIGKILL grace and one second for classification and
+# exit. Thus a hung child is reaped and this script can return EX_TEMPFAIL before
+# the scheduler's outer timeout converts the result into a fail-open dispatch.
+PREFLIGHT_START=$SECONDS
+stage_timeout() { # stage_timeout <configured-cap>; writes STAGE_TIMEOUT
+  local cap="$1" remaining
+  case "$cap" in ''|*[!0-9]*|0) return 1 ;; esac
+  remaining=$(( GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS - (SECONDS - PREFLIGHT_START) - kill_after_secs - 1 ))
+  [ "$remaining" -gt 0 ] || return 1
+  STAGE_TIMEOUT="$cap"
+  [ "$STAGE_TIMEOUT" -le "$remaining" ] || STAGE_TIMEOUT="$remaining"
+}
+
+deadline_defer() { # deadline_defer <stage>
+  log "$1 exhausted the dependabotany preflight's ${GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS}s total deadline — deferring (EX_TEMPFAIL)"
+  exit "${GARDEN_TRANSIENT_RC:-75}"
+}
 
 name="${1:-}"
 [ -n "$name" ] || die "usage: dependabotany-preflight.sh <schedule-name>"
@@ -87,7 +119,25 @@ esac
 
 # --- sync the journal clone (fail OPEN on an unreadable/offline journal) ------
 CLONE="$GARDEN_DEPB_PREFLIGHT_CLONE"
-if ! ensure_clone "$CLONE" 2>/dev/null || ! sync_clone "$CLONE" 2>/dev/null; then
+journal_rc=0
+if ! stage_timeout "$GARDEN_DEPB_PREFLIGHT_DEADLINE_SECS"; then
+  deadline_defer "journal synchronization"
+fi
+if timeout --signal=TERM --kill-after="$GARDEN_DEPB_KILL_AFTER" "${STAGE_TIMEOUT}s" \
+     bash -c 'set -euo pipefail; source "$1"; ensure_clone "$2"; sync_clone "$2"' \
+     _ "$HERE/common.sh" "$CLONE" 2>/dev/null; then
+  journal_rc=0
+else
+  journal_rc=$?
+fi
+if [ "$journal_rc" -eq 124 ] || [ "$journal_rc" -eq 137 ]; then
+  deadline_defer "journal synchronization"
+fi
+if [ "$journal_rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
+  log "journal synchronization deferred — deferring (EX_TEMPFAIL)"
+  exit "$journal_rc"
+fi
+if [ "$journal_rc" -ne 0 ]; then
   log "WARN: journal unreachable; failing open (dispatch) — never guess the ledger is empty"
   exit 0
 fi
@@ -274,11 +324,14 @@ fi
 SRC="$(mktemp)"; ERRF="$(mktemp)"; DEPS="$(mktemp)"; ROUTES="$(mktemp)"
 trap 'rm -f "$SRC" "$ERRF" "$DEPS" "$ROUTES"' EXIT
 src_rc=0
-if command -v timeout >/dev/null 2>&1; then
-  timeout --signal=TERM --kill-after="$GARDEN_DEPB_KILL_AFTER" "${GARDEN_DEPB_SOURCE_TIMEOUT_SECS}s" \
-    "$GARDEN_DEPB_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
-else
+if ! stage_timeout "$GARDEN_DEPB_SOURCE_TIMEOUT_SECS"; then
+  deadline_defer "open-PR source"
+fi
+timeout --signal=TERM --kill-after="$GARDEN_DEPB_KILL_AFTER" "${STAGE_TIMEOUT}s" \
   "$GARDEN_DEPB_PR_SOURCE" "$repo" "$GARDEN_BOT_LOGIN" > "$SRC" 2>"$ERRF" || src_rc=$?
+if [ "$src_rc" -eq 124 ] || [ "$src_rc" -eq 137 ]; then
+  sed -E 's/^(<[0-9]>)?/\1  source: /' "$ERRF" >&2 || true
+  deadline_defer "open-PR source"
 fi
 if [ "$src_rc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
   # EX_TEMPFAIL from gh_api_retry: the shared gh-api cooldown latch is live. Not a
@@ -340,13 +393,13 @@ case "$GARDEN_DEPB_COMPAT_MAX_CHECKS" in
       [ "$checked" -lt "$GARDEN_DEPB_COMPAT_MAX_CHECKS" ] || break
       checked=$((checked+1))
       proof=""; compat_rc=0
-      if command -v timeout >/dev/null 2>&1; then
-        proof="$(timeout --signal=TERM --kill-after="$GARDEN_DEPB_KILL_AFTER" \
-          "${GARDEN_DEPB_COMPAT_TIMEOUT_SECS}s" \
-          "$GARDEN_DEPB_COMPAT" "$repo" "$pr" "$pkg" "$new")" || compat_rc=$?
-      else
-        proof="$("$GARDEN_DEPB_COMPAT" "$repo" "$pr" "$pkg" "$new")" || compat_rc=$?
+      if ! stage_timeout "$GARDEN_DEPB_COMPAT_TIMEOUT_SECS"; then
+        log "compatibility checks reached the total preflight deadline; using the ordinary dispatch verdict"
+        break
       fi
+      proof="$(timeout --signal=TERM --kill-after="$GARDEN_DEPB_KILL_AFTER" \
+        "${STAGE_TIMEOUT}s" \
+        "$GARDEN_DEPB_COMPAT" "$repo" "$pr" "$pkg" "$new")" || compat_rc=$?
       if [ "$compat_rc" -ne 0 ] || [ -z "$proof" ]; then continue; fi
       IFS=$'\t' read -r verdict kind floor declared required path _extra <<< "$(printf '%s' "$proof" | head -1)"
       if [ "$verdict" != incompatible ] || [ "$kind" != node ]; then continue; fi
