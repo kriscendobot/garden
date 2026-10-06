@@ -56,3 +56,13 @@ branch the fleet can push to — not a design change, not new feature work.
 Do not touch `llm` or any of its in-flight work. No ferry/upstream-push
 authority here; once green, carrying anything back to `endojs/endo` itself is
 a separate, later, explicitly-authorized decision.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-06T02:43:05Z
