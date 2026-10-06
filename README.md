@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T15:50:01Z_
+_As of 2026-10-06T16:01:49Z_
 
 ## Latest
 
@@ -16,8 +16,8 @@ These items still need you:
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 52m)
-- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 17h)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 1h)
+- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 18h)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 32d)
@@ -1546,8 +1546,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 153.4M | $1823.39 _(notional, rate-card)_ | 96% of 160.0M (ok) |
-| Codex | 7.9M _(+208.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 153.3M | $1822.92 _(notional, rate-card)_ | 96% of 160.0M (ok) |
+| Codex | 7.9M _(+210.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1558,18 +1558,16 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1370
+### doin (1)
 - [`build-minion-town-claude-pinned-responder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-pinned-responder.md) — minion.town: pinned per-guest Claude responder (wake-on-message, survives dae...
-- [`endojs-endo-but-for-bots-pr1282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1282
 
-### tada (11244)
+### tada (11246)
+- [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-fix-1.md) — Cost
+- [`endojs-endo-but-for-bots-pr1282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1282-shepherd.md) — Cost
 - [`minion-town-claude-bot-restart-canary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/minion-town-claude-bot-restart-canary.md) — Cost
 - [`claude-on-minion-town-press-20261006-153513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261006-153513.md) — Cost
 - [`oros-health-watch-20261006-153513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-153513.md) — Cost
-- [`canary-probe-endolin-garden-ece02cb4-de4f2eece5f7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-de4f2eece5f7.md) — rolling-deploy canary probe — round trip OK
-- [`minion-town-verify-caddy-gate-token-deploy-be0edb8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/minion-town-verify-caddy-gate-token-deploy-be0edb8.md) — Cost
-- … and 11239 more
+- … and 11241 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
