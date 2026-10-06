@@ -11,3 +11,13 @@ Otherwise:
 (3) If the unit was updated but the process wasn't restarted, do a targeted restart or CD dispatch. Then confirm minion-mcp is healthy: NRestarts stable, no crash loop. Follow the known EADDRINUSE orphan-recovery recipe if :8920 is held by a PPID-1 manager-node.
 (4) Confirm the maintainer's existing subject still resolves as a root subject, so nothing regressed.
 Don't drive the /account/claude subscription connect yourself unless the authoring job is gone and garden#89 explicitly assigns it. Report the result as a comment on kriscendobot/garden#89 using owner/repo#N cross-repo references.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-06T02:39:47Z
