@@ -1,12 +1,11 @@
 ---
-gate: orchestrated
-orchestrated_by: retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006-split
+role: fixer
+tier: mentor
+arc: garden-upkeep
 handler-timeout: 10800
 split-indivisible-reason: 'remaining work is one serial fetch-timeout-test.sh verdict (15-50 min per run under host load, must also run against the 70b6d1e3d42^ extract); one suite run cannot be partitioned'
-priority: normal
-posted_by: producer
-posted_at: 2026-10-06T19:44:09Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-06T19:45:35Z cleared=none -->
 
 ---
 arc: garden-upkeep
