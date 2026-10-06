@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T20:19:32Z_
+_As of 2026-10-06T20:25:30Z_
 
 ## Latest
 
@@ -17,7 +17,7 @@ These items still need you:
 ## Parked for maintainer feedback
 
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 22h)
-- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
+- [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 19d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 33d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 35d)
@@ -564,6 +564,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/670](https://github.com/endojs/endo-but-for-bots/pull/670) ([endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/issues/670)) is in the mergeable queue with NO gauntlet review staged (head 9c120d7b5ed1bf7306877dbf43199e436cd1de35). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #670'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `msg-kriscendobot-minion.town-pr165-gauntlet-fix-4-fd2c6dcf128f` — from gardener:kriscendobot-minion.town-pr165-gauntlet-fix-4, reply_to `kriscendobot-minion.town-pr165-gauntlet-fix-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr165-gauntlet-fix-4-fd2c6dcf128f.md)
+
+> [kriscendobot/minion.town#165](https://github.com/kriscendobot/minion.town/issues/165) (claude pinned responder) cannot clear the gauntlet panel by fix rounds. Its phase-evidence gate is blocked: designs/claude-agents-capability.md Phase 1 (Endo substrate) is blocked and Phases 3-6 plus Acceptance are open (production canaries and inbox-watch flood/slot observations). In panel mode the gate blocks both a 'deliverable' disposition and a 'non-deliverable-probe' one, so panel-5 will return must-fix again. Fix-4 applied every code/body must-fix (CI green, head 96e1b18). Decision needed: park the gauntlet and keep [kriscendobot/minion.town#165](https://github.com/kriscendobot/minion.town/issues/165) draft until Phase 1 lands and the root canary and inbox-watch acceptance are recorded (integrator's option), or reclassify it as a probe.
+
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-2` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-2.md)
 
 > WATCHDOG notice — occurrence #3 (first seen 2026-09-12T03:20:21Z, latest 2026-10-06T19:05:22Z).
@@ -847,11 +851,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> WATCHDOG notice — occurrence #82 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T20:13:27Z).
-> The SAME condition (`journal-contention-watch-overrun`) has now been observed 82 times; this is ONE
-> coalesced notice that updates in place, not 82 messages. Latest detail:
+> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T20:24:04Z).
+> It was observed 82 time(s) while open. Nothing further is required;
+> this notice closes the loop so the end of the condition is on the record.
 >
-> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred work=1454 (clones=1454, remedies=0, cleanup=0, notices=0) on consecutive ticks.
+> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
 
@@ -1594,8 +1598,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 161.9M | $1923.64 _(notional, rate-card)_ | 101% of 160.0M (backoff) |
-| Codex | 8.7M _(+230.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 162.2M | $1926.99 _(notional, rate-card)_ | 101% of 160.0M (backoff) |
+| Codex | 8.7M _(+231.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1607,15 +1611,15 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 - [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-185007.md) — ---
 
 ### doin (1)
-- [`kriscendobot-minion.town-pr165-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-fix-4.md) — Gauntlet stage: FIX round 4 — kriscendobot/minion.town PR #165
+- [`kriscendobot-minion.town-pr165-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — kriscendobot/minion.town PR #165
 
-### tada (11280)
+### tada (11281)
+- [`kriscendobot-minion.town-pr165-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-4.md) — Cost
 - [`orch-standing-token-backoff-ramp-delivery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/orch-standing-token-backoff-ramp-delivery.md) — orchestration orch-standing-token-backoff-ramp-delivery — complete
 - [`release-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/release-standing-token-backoff-ramp.md) — Cost
 - [`kriscendobot-minion.town-pr165-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-4.md) — Panel round 4 report: kriscendobot/minion.town PR #165
 - [`build-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/build-standing-token-backoff-ramp.md) — Completion report: build-standing-token-backoff-ramp
-- [`retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006-split.md) — orchestration retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006...
-- … and 11275 more
+- … and 11276 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
