@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T03:51:12Z_
+_As of 2026-10-06T03:53:19Z_
 
 ## Latest
 
@@ -991,7 +991,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
 | Claude | 145.6M | $1726.62 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
-| Codex | 5.8M _(+171.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Codex | 5.8M _(+171.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -1002,7 +1002,8 @@ worst fetch p95 22.917683s/45s (/home/kris/garden2/.garden-state/bulletin/journa
 ### todo (1)
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1428-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1428
 
-### doin (2)
+### doin (3)
+- [`improve-comment-source-timeout-backoff`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-source-timeout-backoff.md) — ---
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1426
 - [`minion-town-claude-kriscendobot-connect-canary-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-claude-kriscendobot-connect-canary-20261006.md) — Connect kriscendobot's own Claude subscription on minion.town, then run the p...
 
