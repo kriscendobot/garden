@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T13:24:06Z_
+_As of 2026-10-06T13:31:27Z_
 
 ## Latest
 
@@ -807,11 +807,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T13:08:21Z).
-> It was observed 69 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #70 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T13:28:17Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 70 times; this is ONE
+> coalesced notice that updates in place, not 70 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred work=55 (clones=55, remedies=0, cleanup=0, notices=0) on consecutive ticks.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
 
@@ -1494,7 +1494,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.3M | $1802.96 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
+| Claude | 152.3M | $1803.14 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
 | Codex | 7.6M _(+197.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -1506,16 +1506,16 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
-- [`improve-follow-up-seen-cursor-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-follow-up-seen-cursor-retry.md) — ---
+### doin (0)
+(none)
 
-### tada (11226)
+### tada (11228)
+- [`canary-probe-endolin-garden-ece02cb4-1fc7b6236d1c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-1fc7b6236d1c.md) — rolling-deploy canary probe — round trip OK
+- [`improve-follow-up-seen-cursor-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-follow-up-seen-cursor-retry.md) — Cost
 - [`improve-promote-primary-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-promote-primary-quota-cooldown.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-dbc7d5bb27f3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-dbc7d5bb27f3.md) — rolling-deploy canary probe — round trip OK
 - [`fix-false-gauntlet-handoff-alarm-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-false-gauntlet-handoff-alarm-20261006.md) — Cost
-- [`claude-on-minion-town-press-20261006-122018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261006-122018.md) — Manual gauntlet handoff
-- [`oros-health-watch-20261006-122018`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-122018.md) — Cost
-- … and 11221 more
+- … and 11223 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
