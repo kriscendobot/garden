@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T11:39:14Z_
+_As of 2026-10-06T11:46:37Z_
 
 ## Latest
 
@@ -1478,7 +1478,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.3M | $1799.75 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
+| Claude | 152.3M | $1800.27 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
 | Codex | 7.3M _(+194.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -1493,13 +1493,13 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### doin (0)
 (none)
 
-### tada (11220)
+### tada (11221)
+- [`canary-probe-endolin-garden-ece02cb4-0ae291ef036a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-0ae291ef036a.md) — rolling-deploy canary probe — round trip OK
 - [`improve-mirror-quota-warning-suppression`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-mirror-quota-warning-suppression.md) — Cost
 - [`claude-on-minion-town-completion-press-20261006-110513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-completion-press-20261006-110513.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-d8dfa37f3733`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-d8dfa37f3733.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1379-shepherd.md) — Cost
-- [`kriscendobot-agoric-sdk-pr10-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-agoric-sdk-pr10-gauntlet.md) — gauntlet kriscendobot-agoric-sdk-pr10-gauntlet — HALTED
-- … and 11215 more
+- … and 11216 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
