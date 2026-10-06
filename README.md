@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T09:58:12Z_
+_As of 2026-10-06T10:05:03Z_
 
 ## Latest
 
@@ -1478,7 +1478,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.3M | $1797.82 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
+| Claude | 152.3M | $1798.16 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
 | Codex | 7.1M _(+192.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -1493,13 +1493,13 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### doin (0)
 (none)
 
-### tada (11217)
+### tada (11218)
+- [`canary-probe-endolin-garden-ece02cb4-d8dfa37f3733`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-d8dfa37f3733.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1379-shepherd.md) — Cost
 - [`kriscendobot-agoric-sdk-pr10-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-agoric-sdk-pr10-gauntlet.md) — gauntlet kriscendobot-agoric-sdk-pr10-gauntlet — HALTED
 - [`fix-gauntlet-audit-restages-finished-prs-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-gauntlet-audit-restages-finished-prs-20261006.md) — Fix gauntlet audit re-staging finished PRs: completion report
 - [`endojs-endo-but-for-bots-pr1426-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1426-gauntlet — review budget reached
-- [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-fix-6.md) — Completion report: endojs/endo-but-for-bots#1426, gauntlet fix round 6
-- … and 11212 more
+- … and 11213 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
