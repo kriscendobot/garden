@@ -7170,7 +7170,7 @@ claim_durable_result() {
       ' "$dir/entries/$day/$p" || continue
       printf 'entries/%s/%s\n' "$day" "$p"
       return 0
-    done < <(ls -1 "$dir/entries/$day" 2>/dev/null | grep -e '-result-' | sort -r)
+    done < <(find "$dir/entries/$day" -maxdepth 1 -type f -name '*-result-*' -printf '%f\n' 2>/dev/null | sort -r)
   done
   return 1
 }
