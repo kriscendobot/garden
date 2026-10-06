@@ -398,6 +398,44 @@ else
   bad "shared latch window was ${cd_remaining_a}s (expected >900 and <=3600)"
 fi
 
+# Part A2: if the quota refusal is real but the shared cooldown state becomes
+# unwritable before the latch can be recorded, the tick must fail loudly. It must
+# never claim that the hour-long latch was armed, because the next timer tick would
+# otherwise issue another quota-doomed request.
+BARE_H1D_FAIL="$TR/h1d-fail.git"; seed_bare "$BARE_H1D_FAIL"
+LOG_H1D_FAIL="$TR/closer-h1d-fail.log"
+CD_DIR_FAIL="$TR/h1d-cd-fail"
+FAILCOOLDOWNSTATE="$TR/state-quota-break-cooldown.sh"
+cat > "$FAILCOOLDOWNSTATE" <<'EOF'
+#!/bin/bash
+rm -f "${MC_COOLDOWN_DIR:?set MC_COOLDOWN_DIR}/marker.lock"
+rmdir "$MC_COOLDOWN_DIR"
+printf 'not a directory\n' > "$MC_COOLDOWN_DIR"
+echo "gh: API rate limit already exceeded for user ID 279080640." >&2
+exit 1
+EOF
+chmod +x "$FAILCOOLDOWNSTATE"
+record "$TR/state-h1d-fail" "$BARE_H1D_FAIL" "up/repo#183" "garden/mir#283"
+env GARDEN_STATE="$TR/state-h1d-fail" JOURNAL_REMOTE="$BARE_H1D_FAIL" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_NO_MAINTAINER_ALERT=1 MC_COOLDOWN_DIR="$CD_DIR_FAIL" \
+    GARDEN_API_COOLDOWN_DIR="$CD_DIR_FAIL" GARDEN_API_COOLDOWN_SECS=300 \
+    GARDEN_MIRROR_PR_STATE="$FAILCOOLDOWNSTATE" GARDEN_MIRROR_CLOSE="$CLOSESTUB" \
+    "$JOBS/mirror-closer.sh" >"$LOG_H1D_FAIL" 2>&1; rch1d_fail=$?
+[ "$rch1d_fail" -ne 0 ] \
+  && ok "an unavailable shared cooldown latch fails the quota-blocked tick (rc=$rch1d_fail)" \
+  || bad "quota-blocked tick swallowed the cooldown persistence failure"
+grep -q 'cooldown latch could not be persisted' "$LOG_H1D_FAIL" \
+  && ok "cooldown persistence failure names the unavailable latch for self-healing" \
+  || bad "cooldown persistence diagnostic missing: $(cat "$LOG_H1D_FAIL")"
+if grep -q 'and armed a .* shared gh-api cooldown' "$LOG_H1D_FAIL"; then
+  bad "cooldown persistence failure falsely claimed that the latch was armed"
+else
+  ok "cooldown persistence failure does not claim that the latch was armed"
+fi
+mapping_of "$BARE_H1D_FAIL" up-repo-183.md | grep -q '^closed_at:' \
+  && bad "stamped a quota-blocked mapping after cooldown persistence failed" \
+  || ok "mapping remains unresolved when cooldown persistence fails"
+
 # Part B: when the SHARED latch is already active (tripped by any sibling watcher),
 # mirror-closer must skip the whole tick — before cloning the journal or making a
 # single upstream state call — exactly as ci-watcher.sh does.

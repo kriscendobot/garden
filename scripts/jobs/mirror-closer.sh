@@ -318,10 +318,16 @@ if [ "$quota_break" -eq 1 ]; then
   skipped=$(( n - 1 - i )); [ "$skipped" -lt 0 ] && skipped=0
   pending=$(( quota_blocked + skipped ))
   # Arm the shared host-wide gh-api latch for the full primary-quota hour so this
-  # watcher AND every sibling skips the doomed retries until the bucket resets. An
-  # observer never extends a live window, so this only ever records or no-ops.
-  start_api_cooldown "mirror-closer:primary-quota" "$(api_primary_quota_secs)" || true
-  log "WARN: GitHub primary quota exhausted this tick; stopped querying after the first doomed call and armed a $(api_primary_quota_secs)s shared gh-api cooldown — $pending mapping(s) left unresolved ($quota_blocked quota-refused + $skipped unqueried) and will retry after the cooldown"
+  # watcher AND every sibling skips the doomed retries until the bucket resets. A
+  # nonzero result can also mean a sibling won the race and already armed a live
+  # window, so verify that state before diagnosing a persistence failure.
+  cooldown_secs="$(api_primary_quota_secs)"
+  if ! start_api_cooldown "mirror-closer:primary-quota" "$cooldown_secs" \
+     && ! api_cooldown_active; then
+    log "ERROR: GitHub primary quota exhausted, but the shared gh-api cooldown latch could not be persisted; failing this tick so self-healing can diagnose the unavailable cooldown state"
+    exit 1
+  fi
+  log "WARN: GitHub primary quota exhausted this tick; stopped querying after the first doomed call and armed a ${cooldown_secs}s shared gh-api cooldown — $pending mapping(s) left unresolved ($quota_blocked quota-refused + $skipped unqueried) and will retry after the cooldown"
   # A non-quota failure seen BEFORE the circuit break still keeps the tick
   # unhealthy: a real (404/etc.) failure must never be masked by the degrade.
   if [ "$failed" -gt 0 ]; then
