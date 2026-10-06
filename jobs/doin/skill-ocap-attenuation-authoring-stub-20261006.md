@@ -45,6 +45,7 @@ Land `skills/ocap-attenuation-authoring/SKILL.md` directly on `main2` (no
 PR). Say in your completion report what you found about the migration's
 current state and why you scoped the stub the way you did.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
