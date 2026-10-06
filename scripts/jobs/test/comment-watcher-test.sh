@@ -1952,6 +1952,83 @@ for timeout_rc in 124 137; do
     || ok "source rc $timeout_rc did not emit FATAL"
 done
 
+# Consecutive source timeouts share one host-scoped strike count across repo
+# watchers. Each timeout after an expired latch doubles the next cooldown; only a
+# successful source sweep resets the streak.
+BACKOFF_STATE="$TR/state-timeout-backoff"
+BACKOFF_COOL="$BACKOFF_STATE/gh-api-cooldown"
+BACKOFF_MODE="$TR/timeout-backoff.mode"
+BACKOFF_SOURCE="$TR/timeout-backoff-source.sh"
+cat > "$BACKOFF_SOURCE" <<'EOF'
+#!/bin/bash
+mode="$(cat "${BACKOFF_MODE:?}")"
+case "$mode" in
+  timeout) exit 124 ;;
+  success) exit 0 ;;
+  transient) echo 'HTTP 503: Service Unavailable' >&2; exit 1 ;;
+  *) exit 1 ;;
+esac
+EOF
+chmod +x "$BACKOFF_SOURCE"
+run_timeout_backoff() {  # run_timeout_backoff <slug> <stderr-file>
+  env GARDEN_STATE="$BACKOFF_STATE" GARDEN_API_COOLDOWN_DIR="$BACKOFF_COOL" \
+      GARDEN_API_COOLDOWN_SECS=10 GARDEN_API_COOLDOWN_MAX_SECS=80 \
+      JOURNAL_REMOTE="$BARE_RATE" JOURNAL_BRANCH="$BRANCH" \
+      GARDEN_REPOS="$TR/norepos" GARDEN_COMMENT_SOURCE="$BACKOFF_SOURCE" \
+      BACKOFF_MODE="$BACKOFF_MODE" GARDEN_COMMENT_SELFTEST=/bin/true \
+      GARDEN_NO_MAINTAINER_ALERT=1 \
+      "$JOBS/comment-watcher.sh" "$1" >/dev/null 2>"$2"
+}
+
+printf 'timeout\n' > "$BACKOFF_MODE"
+BACKOFF_LOG1="$TR/timeout-backoff-1.err"
+run_timeout_backoff endojs-endo-but-for-bots "$BACKOFF_LOG1"
+backoff_now="$(date +%s)"
+backoff_expiry="$(sed -n '1p' "$BACKOFF_COOL/marker")"
+[ "$(cat "$BACKOFF_COOL/comment-source-timeout-strikes")" -eq 1 ] \
+  && [ "$backoff_expiry" -ge $((backoff_now + 9)) ] \
+  && [ "$backoff_expiry" -le $((backoff_now + 11)) ] \
+  && ok "first source timeout records host strike 1 and a 10s cooldown" \
+  || bad "first timeout strike/cooldown wrong (strike=$(cat "$BACKOFF_COOL/comment-source-timeout-strikes" 2>/dev/null), expiry=$backoff_expiry, now=$backoff_now)"
+[ "$(grep -c 'WARN: comment source timed out' "$BACKOFF_LOG1" || true)" -eq 1 ] \
+  && ok "first timeout episode emits one warning" \
+  || bad "first timeout warning count wrong ($(cat "$BACKOFF_LOG1"))"
+
+printf '0\nexpired-test\n' > "$BACKOFF_COOL/marker"
+BACKOFF_LOG2="$TR/timeout-backoff-2.err"
+run_timeout_backoff kriscendobot-garden "$BACKOFF_LOG2"
+backoff_now="$(date +%s)"
+backoff_expiry="$(sed -n '1p' "$BACKOFF_COOL/marker")"
+[ "$(cat "$BACKOFF_COOL/comment-source-timeout-strikes")" -eq 2 ] \
+  && [ "$backoff_expiry" -ge $((backoff_now + 19)) ] \
+  && [ "$backoff_expiry" -le $((backoff_now + 21)) ] \
+  && ok "second repo timeout shares strike 2 and doubles the cooldown to 20s" \
+  || bad "second timeout strike/cooldown wrong (strike=$(cat "$BACKOFF_COOL/comment-source-timeout-strikes" 2>/dev/null), expiry=$backoff_expiry, now=$backoff_now)"
+[ "$(grep -c 'WARN: comment source timed out' "$BACKOFF_LOG2" || true)" -eq 1 ] \
+  && ok "second timeout episode retains one-warning behavior" \
+  || bad "second timeout warning count wrong ($(cat "$BACKOFF_LOG2"))"
+
+printf '0\nexpired-test\n' > "$BACKOFF_COOL/marker"
+printf 'transient\n' > "$BACKOFF_MODE"
+run_timeout_backoff endojs-endo-but-for-bots "$TR/timeout-backoff-transient.err"
+[ "$(cat "$BACKOFF_COOL/comment-source-timeout-strikes")" -eq 2 ] \
+  && ok "a non-timeout source failure does not reset timeout strikes" \
+  || bad "a non-timeout failure changed timeout strikes ($(cat "$BACKOFF_COOL/comment-source-timeout-strikes" 2>/dev/null))"
+
+printf '0\nexpired-test\n' > "$BACKOFF_COOL/marker"
+printf 'success\n' > "$BACKOFF_MODE"
+run_timeout_backoff endojs-endo-but-for-bots "$TR/timeout-backoff-success.err"
+[ ! -e "$BACKOFF_COOL/comment-source-timeout-strikes" ] \
+  && ok "successful source sweep resets the host timeout strikes" \
+  || bad "successful source sweep left timeout strikes ($(cat "$BACKOFF_COOL/comment-source-timeout-strikes" 2>/dev/null))"
+
+printf 'timeout\n' > "$BACKOFF_MODE"
+BACKOFF_LOG3="$TR/timeout-backoff-3.err"
+run_timeout_backoff kriscendobot-garden "$BACKOFF_LOG3"
+grep -q 'strike 1;.*10s' "$BACKOFF_LOG3" \
+  && ok "timeout after a successful sweep restarts backoff at strike 1" \
+  || bad "timeout backoff did not restart after success ($(cat "$BACKOFF_LOG3"))"
+
 RATE_WATCH_SOURCE="$TR/rate-watch-source.sh"
 cat > "$RATE_WATCH_SOURCE" <<'EOF'
 #!/bin/bash

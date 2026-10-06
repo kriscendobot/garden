@@ -296,6 +296,46 @@ trap 'write_comment_heartbeat' EXIT
 # knob, so an operator who set the old name still tunes the (now shared) window.
 [ -n "${GARDEN_COMMENT_API_COOLDOWN_SECS:-}" ] && : "${GARDEN_API_COOLDOWN_SECS:=$GARDEN_COMMENT_API_COOLDOWN_SECS}"
 
+# A source timeout is usually not a five-minute blip when it repeats after the
+# shared cooldown expires. Keep one host-scoped strike count (not one per repo),
+# and double the next shared cooldown for every consecutive timeout. A successful
+# source sweep is the only watcher outcome that clears the count: other failures
+# still tell us nothing about whether the slow-source episode has recovered.
+COMMENT_SOURCE_TIMEOUT_STRIKES="$GARDEN_API_COOLDOWN_DIR/comment-source-timeout-strikes"
+COMMENT_SOURCE_TIMEOUT_STRIKES_LOCK="$COMMENT_SOURCE_TIMEOUT_STRIKES.lock"
+
+comment_source_timeout_strike() {  # prints "<strike> <cooldown-secs>"
+  local strike base cap secs i tmp
+  mkdir -p "$GARDEN_API_COOLDOWN_DIR"
+  (
+    flock 9
+    strike="$(sed -n '1p' "$COMMENT_SOURCE_TIMEOUT_STRIKES" 2>/dev/null || true)"
+    case "$strike" in ''|*[!0-9]*) strike=0;; esac
+    strike=$((strike + 1))
+    base="$(_api_cooldown_secs)"
+    cap="$(_api_cooldown_max_secs)"
+    secs="$base"
+    [ "$secs" -le "$cap" ] || secs="$cap"
+    i=1
+    while [ "$i" -lt "$strike" ] && [ "$secs" -lt "$cap" ]; do
+      if [ "$secs" -gt $((cap / 2)) ]; then secs="$cap"; else secs=$((secs * 2)); fi
+      i=$((i + 1))
+    done
+    tmp="$COMMENT_SOURCE_TIMEOUT_STRIKES.$$.$RANDOM"
+    printf '%s\n' "$strike" > "$tmp"
+    mv -f "$tmp" "$COMMENT_SOURCE_TIMEOUT_STRIKES"
+    printf '%s %s\n' "$strike" "$secs"
+  ) 9>"$COMMENT_SOURCE_TIMEOUT_STRIKES_LOCK"
+}
+
+clear_comment_source_timeout_strikes() {
+  mkdir -p "$GARDEN_API_COOLDOWN_DIR"
+  (
+    flock 9
+    rm -f "$COMMENT_SOURCE_TIMEOUT_STRIKES"
+  ) 9>"$COMMENT_SOURCE_TIMEOUT_STRIKES_LOCK"
+}
+
 # --- silent-blindness self-test (NOT an inactivity detector) -----------------
 # The 2026-06-24 outage hid for ~16h because a broken source (jq absent) emitted
 # ZERO comments every tick and "no new comments" reads as normal for an idle repo.
@@ -1795,8 +1835,9 @@ if [ "$src_rc" -ne 0 ]; then
   # only that GitHub could not be enumerated within this tick's bound; stderr may
   # be empty, so classify the return code before the text-based transient gates.
   if [ "$src_rc" -eq 124 ] || [ "$src_rc" -eq 137 ]; then
-    if start_api_cooldown "comment:$slug"; then
-      log "WARN: comment source timed out (transient, rc=$src_rc) — cooling all gh-api watchers for $(_api_cooldown_secs)s (never guess)"
+    read -r timeout_strike timeout_cooldown_secs < <(comment_source_timeout_strike)
+    if start_api_cooldown "comment:$slug:source-timeout:$timeout_strike" "$timeout_cooldown_secs"; then
+      log "WARN: comment source timed out (transient, rc=$src_rc) — strike $timeout_strike; cooling all gh-api watchers for ${timeout_cooldown_secs}s (never guess)"
     fi
     exit 0
   fi
@@ -1851,6 +1892,7 @@ if [ "$src_rc" -ne 0 ]; then
     die "comment source failed for $repo (rc=$src_rc; see source stderr above)"
   fi
 fi
+clear_comment_source_timeout_strikes
 comment_heartbeat_outcome=full-poll
 # Defensive ascending sort by created_at (field 1); the source should already.
 sort -t$'\t' -k1,1 -o "$SRC" "$SRC"
