@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T16:22:30Z_
+_As of 2026-10-06T16:28:25Z_
 
 ## Latest
 
@@ -1546,7 +1546,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 153.5M | $1826.30 _(notional, rate-card)_ | 96% of 160.0M (ok) |
+| Claude | 153.5M | $1826.71 _(notional, rate-card)_ | 96% of 160.0M (ok) |
 | Codex | 8.0M _(+211.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1558,17 +1558,16 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (0)
 (none)
 
-### doin (2)
-- [`build-minion-town-claude-pinned-responder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/build-minion-town-claude-pinned-responder.md) — minion.town: pinned per-guest Claude responder (wake-on-message, survives dae...
+### doin (1)
 - [`improve-comment-source-quota-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-comment-source-quota-fanout.md) — ---
 
-### tada (11247)
+### tada (11249)
+- [`kriscendobot-minion.town-pr165-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-viability.md) — Cost
+- [`build-minion-town-claude-pinned-responder`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/build-minion-town-claude-pinned-responder.md) — Cost
 - [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006.md) — gauntlet endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006 — HALTED
 - [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-fix-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1282-shepherd.md) — Cost
-- [`minion-town-claude-bot-restart-canary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/minion-town-claude-bot-restart-canary.md) — Cost
-- [`claude-on-minion-town-press-20261006-153513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261006-153513.md) — Cost
-- … and 11242 more
+- … and 11244 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
