@@ -69,6 +69,18 @@
 # replaying the entire historical backlog — consistent with the tightly-bound
 # authority the liaison role carries here.
 #
+# LEADERSHIP CHANGE: follow-up is leader-only, but the seen-marker above is
+# host-local, so on a host promoted to leader it is exactly as old as that host's
+# last term (2026-10-06: a marker from 09-23 made 4,049 handled reports look new,
+# and the service re-ran `claude -p` over them and re-asked the maintainer). Every
+# tick that advances the marker therefore also publishes a journal cursor
+# (cursors/$GARDEN_FOLLOWUP_SEEN_CURSOR: host, epoch, and the journal commit whose
+# tada reports are now all seen). A tick that finds its local marker older than
+# GARDEN_FOLLOWUP_SEEN_STALE_SECS reads that cursor before diffing: when another
+# host published more recently, every report in that commit's tree is adopted as
+# seen; when no cursor exists, or its commit is unreadable here, the stale marker
+# is treated as a cold start. A missing marker stays a plain cold start.
+#
 # Pluggable for tests: GARDEN_FOLLOWUP_HANDLER <digest-file>.
 
 set -euo pipefail
@@ -82,6 +94,13 @@ export GARDEN_TAG="follow-up"
 # Wall-clock bound on an UNCOUNTED (not-attributable) failure stretch before the
 # maintainer is told once that this host is not recovering. 0 disables the notice.
 : "${GARDEN_FOLLOWUP_TRANSIENT_MAX_SECS:=21600}"   # 6h
+# Journal cursor key carrying the cross-host seen position (LEADERSHIP CHANGE above).
+: "${GARDEN_FOLLOWUP_SEEN_CURSOR:=follow-up/seen}"
+# A local marker untouched for this long (three 10-minute ticks) is checked
+# against the journal cursor before use. The marker is rewritten on every tick
+# that gets past the sync, so only a host that was not running follow-up ages it.
+: "${GARDEN_FOLLOWUP_SEEN_STALE_SECS:=1800}"
+case "$GARDEN_FOLLOWUP_SEEN_STALE_SECS" in ''|*[!0-9]*) GARDEN_FOLLOWUP_SEEN_STALE_SECS=1800 ;; esac
 case "$GARDEN_FOLLOWUP_TRANSIENT_MAX_SECS" in ''|*[!0-9]*) GARDEN_FOLLOWUP_TRANSIENT_MAX_SECS=0 ;; esac
 
 fleet_draining && exit 0
@@ -96,6 +115,47 @@ FAILCOUNT="$GARDEN_STATE/follow-up/fail-count"
 TRANSIENT="$GARDEN_STATE/follow-up/transient"
 mkdir -p "$(dirname "$SEEN")"
 cold_start=0; [ -e "$SEEN" ] || cold_start=1
+
+# adopt_journal_seen <marker-mtime> — reconcile a stale local marker with the
+# journal cursor (LEADERSHIP CHANGE above). rc 0: the marker is usable (adopted
+# the cursor's seen set, or this host published last); rc 1: treat as cold start.
+# An unreadable cursor (journal outage) skips the tick with the marker untouched,
+# so it is still stale, and still reconciled, on the next tick.
+adopt_journal_seen() {
+  local marker_mtime="$1" body crc=0 at sha host list n
+  body="$("$HERE/cursor-get.sh" "$GARDEN_FOLLOWUP_SEEN_CURSOR" 2>/dev/null)" || crc=$?
+  if [ "$crc" -ne 0 ]; then
+    log "stale seen-marker and the journal seen cursor is unreadable (rc=$crc); skipping tick"
+    exit "$GARDEN_OFFLINE_RC"
+  fi
+  at="$(printf '%s\n' "$body" | sed -n 's/^at: *//p' | head -1)"
+  sha="$(printf '%s\n' "$body" | sed -n 's/^sha: *//p' | head -1)"
+  host="$(printf '%s\n' "$body" | sed -n 's/^host: *//p' | head -1)"
+  case "$at" in ''|*[!0-9]*) at="" ;; esac
+  if [ -z "$at" ] || [ -z "$sha" ]; then
+    log "stale seen-marker and no journal seen cursor; treating as a cold start"
+    return 1
+  fi
+  if [ "$at" -le "$marker_mtime" ]; then
+    return 0   # this host advanced the marker after the last publish anywhere
+  fi
+  if ! list="$(git -C "$DIR" ls-tree -r --name-only "$sha" -- "$JOBS_TADA" 2>/dev/null)"; then
+    log "stale seen-marker; journal seen cursor commit $sha (from ${host:-?}) is unreadable here; treating as a cold start"
+    return 1
+  fi
+  list="$(printf '%s\n' "$list" | awk -F/ '{ leaf=$NF; sub(/\.md$/, "", leaf); if (leaf != "") print leaf }')"
+  [ -z "$list" ] || printf '%s\n' "$list" >> "$SEEN"
+  n="$(printf '%s' "$list" | grep -c . || true)"
+  log "stale seen-marker; adopted ${n:-0} seen tada report(s) from the journal seen cursor (${host:-?} at $at, commit ${sha:0:12})"
+  return 0
+}
+
+if [ "$cold_start" -eq 0 ]; then
+  seen_mtime="$(stat -c %Y "$SEEN" 2>/dev/null || echo 0)"
+  if [ $(( $(date +%s) - seen_mtime )) -ge "$GARDEN_FOLLOWUP_SEEN_STALE_SECS" ]; then
+    adopt_journal_seen "$seen_mtime" || cold_start=1
+  fi
+fi
 touch "$SEEN"
 
 # Normalize the pre-sharding rel-path marker in place before comparing. This is
@@ -118,7 +178,23 @@ done < <(tada_list "$DIR")
 
 # Record the whole new set as seen (used on success, on no-op, and to quarantine
 # a wedged digest). Appends each new report's stable basename to the seen-marker.
-mark_new_seen() { local f; for f in "${new[@]}"; do basename "$f" .md; done >> "$SEEN"; }
+# Every advance is also published to the journal seen cursor (LEADERSHIP CHANGE).
+mark_new_seen() {
+  local f
+  for f in "${new[@]}"; do basename "$f" .md; done >> "$SEEN"
+  publish_seen_cursor
+}
+
+# publish_seen_cursor — record that every tada report in the synced journal commit
+# is now seen. Best-effort: a failed publish only widens what a later leadership
+# change could replay, so it is logged, never fatal.
+publish_seen_cursor() {
+  local sha
+  sha="$(git -C "$DIR" rev-parse -q --verify HEAD 2>/dev/null)" || return 0
+  printf 'host: %s\nat: %s\nsha: %s\n' "${GARDEN:-unknown}" "$(date +%s)" "$sha" \
+    | "$HERE/cursor-set.sh" "$GARDEN_FOLLOWUP_SEEN_CURSOR" >/dev/null 2>&1 \
+    || log "WARN: could not publish the follow-up seen cursor; a leadership change before the next publish may replay reports seen since the last one"
+}
 
 # A content hash of the (sorted) new-report basename set — the key the
 # consecutive-failure counter is bound to, so an UNCHANGED pending set increments

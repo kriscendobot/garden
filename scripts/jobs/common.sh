@@ -629,6 +629,22 @@ export GARDEN
 # uses this larger, still-bounded cap; reclone_clone additionally bootstraps from the
 # root repo's local objects (--reference-if-able) so a cold clone is seconds, not minutes.
 : "${GARDEN_CLONE_TIMEOUT:=300}"  # seconds before a COLD clone is killed (a fetch keeps the 45s cap)
+# Seed journal clones from the host's OWN root repo before touching the network.
+# The deployed root ($GARDEN_ROOT/.git) is the object store the journal/ worktree
+# checks journal2 out of, so its refs/remotes/origin/journal2 is kept minutes-fresh
+# by the worktree keeper. A cold or two-week-stale clone that negotiates its whole
+# gap with GitHub overran even the 300s clone cap (2026-10-06: a newly promoted
+# leader's every singleton reported offline for ~80 minutes with `fetch-pack:
+# unexpected disconnect while reading sideband packet`, and each aborted fetch left
+# a tmp_pack_* behind — 570 MiB in one clone). Seeding a shallow tip locally first
+# leaves the network only the incremental top-up (seconds). See
+# journal_seed_from_root / reclone_clone / sync_clone.
+: "${GARDEN_JOURNAL_SEED_FROM_ROOT:=1}"   # 0 disables the local seed (network-only clones)
+: "${GARDEN_JOURNAL_SEED_DEPTH:=50}"      # shallow depth of a seeded clone
+: "${GARDEN_JOURNAL_SEED_TIMEOUT:=120}"   # wall-clock cap on the local seed fetch
+# A tmp_pack_* older than any bounded git transfer can run is a killed fetch's
+# leftover, never a live transfer's in-progress pack.
+: "${GARDEN_TMP_PACK_STALE_SECS:=$(( GARDEN_CLONE_TIMEOUT + GARDEN_FETCH_KILL_AFTER + 60 ))}"
 : "${GARDEN_OFFLINE_RC:=75}"      # EX_TEMPFAIL: sync_clone exit on a connectivity/DNS outage
 # Overall wall-clock bound on a producer's push-CAS retry loop (post-job.sh /
 # post-plan.sh). The loop is bounded only by GARDEN_POST_ATTEMPTS (attempt COUNT),
@@ -4931,6 +4947,7 @@ _sweep_stale_git_locks() {
     done < <(find "$gitdir/refs" -type f -name '*.lock' -print0)
   fi
   [ "$removed" -eq 0 ] || log "swept stale git lockfile(s) in $gitdir"
+  _sweep_tmp_packs "$dir"
 }
 
 # Ensure a single-branch journal clone exists at $1 and is identity-pinned. The
@@ -4949,12 +4966,165 @@ clone_is_corrupt() {
   return 1
 }
 
+# _sweep_tmp_packs <dir> [since-epoch] — delete tmp_pack_*/tmp_idx_*/tmp_rev_* that
+# a killed fetch or clone left in <dir>'s pack directory. git never cleans these up
+# after a SIGTERM/SIGKILL, so a clone whose capped fetch keeps timing out grows by
+# one partial pack per attempt (570 MiB in one foreman clone, 2026-10-06). Without
+# <since-epoch> only files older than GARDEN_TMP_PACK_STALE_SECS go: no bounded git
+# transfer can still be writing them, so this is safe without any lock. With
+# <since-epoch> (a caller whose own timed-out attempt began then), files written
+# since that attempt began go too; the per-repository fetch mutex in the git wrapper
+# makes that attempt the only fetch that could have written them. A linked
+# worktree's .git is a file, so the root repo's pack directory is never touched.
+_sweep_tmp_packs() {
+  local pack="$1/.git/objects/pack" since="${2:-}" f n=0 age=()
+  [ -d "$pack" ] || return 0
+  if [ -n "$since" ]; then age=(-newermt "@$since")
+  else age=(-mmin "+$(( (GARDEN_TMP_PACK_STALE_SECS + 59) / 60 ))"); fi
+  while IFS= read -r -d '' f; do
+    rm -f -- "$f" && n=$((n+1))
+  done < <(find "$pack" -maxdepth 1 -type f \( -name 'tmp_pack_*' -o -name 'tmp_idx_*' -o -name 'tmp_rev_*' \) "${age[@]}" -print0 2>/dev/null)
+  [ "$n" -eq 0 ] || log "swept $n stray tmp_pack file(s) left by killed fetches in $pack"
+  return 0
+}
+
+# _journal_root_seed_fetch <dir> <extra fetch flags...> — fetch the root repo's
+# refs/remotes/origin/$JOURNAL_BRANCH from local disk into <dir>'s scratch ref
+# refs/garden-seed/$JOURNAL_BRANCH, bounded by GARDEN_JOURNAL_SEED_TIMEOUT. Only the
+# root's REMOTE-tracking ref is a source: it holds exactly what GitHub served, while
+# the journal worktree's local branch may carry an unpushed commit that must never
+# be passed off as origin's. The fetch spawns a read-only upload-pack against
+# $GARDEN_ROOT/.git; no git command runs IN the root. Echoes the fetched commit.
+# Seeds only a clone whose origin is the root's own origin (alias-canonicalized):
+# a clone of any other journal (a test's throwaway bare repo, an operator's
+# JOURNAL_REMOTE) must never be filled with the production journal's history.
+_journal_root_seed_fetch() {
+  local dir="$1"; shift
+  local tmpref="refs/garden-seed/$JOURNAL_BRANCH" seed="" t0 root_url clone_url
+  [ "$GARDEN_JOURNAL_SEED_FROM_ROOT" = 1 ] || return 1
+  [ -d "$GARDEN_ROOT/.git" ] && [ -d "$dir/.git" ] || return 1
+  root_url="$(git config --file "$GARDEN_ROOT/.git/config" --get remote.origin.url 2>/dev/null)" || return 1
+  clone_url="$(git -C "$dir" config --get remote.origin.url 2>/dev/null)" || return 1
+  [ "$(_canonical_journal_clone_url "$root_url" 2>/dev/null)" = "$(_canonical_journal_clone_url "$clone_url" 2>/dev/null)" ] || return 1
+  t0="$(date +%s)"
+  if ! timeout --kill-after="$GARDEN_FETCH_KILL_AFTER" "$GARDEN_JOURNAL_SEED_TIMEOUT" \
+       git -C "$dir" fetch -q --no-tags "$@" "file://$GARDEN_ROOT/.git" \
+         "+refs/remotes/origin/$JOURNAL_BRANCH:$tmpref" >/dev/null 2>&1; then
+    _sweep_tmp_packs "$dir" "$t0"
+    git -C "$dir" update-ref -d "$tmpref" >/dev/null 2>&1 || true
+    return 1
+  fi
+  seed="$(git -C "$dir" rev-parse -q --verify "$tmpref^{commit}" 2>/dev/null)" || seed=""
+  git -C "$dir" update-ref -d "$tmpref" >/dev/null 2>&1 || true
+  [ -n "$seed" ] || return 1
+  printf '%s\n' "$seed"
+}
+
+# journal_seed_from_root <dir> — advance <dir>'s refs/remotes/origin/$JOURNAL_BRANCH
+# to the root repo's copy of it, from local disk, so the following network fetch
+# only has to transfer the minutes-old remainder. A missing ref or an already
+# shallow clone is seeded shallowly (GARDEN_JOURNAL_SEED_DEPTH, --update-shallow);
+# a complete stale clone takes the local delta in full. Never rewinds: when the
+# root's copy is already contained in the clone's ref (the root lags), nothing
+# moves. rc 0 when the ref was created or advanced, 1 otherwise (disabled, no root
+# repo, no journal ref there, or nothing to gain) — callers then use the network.
+journal_seed_from_root() {
+  local dir="$1" cur seed flags=()
+  [ "$GARDEN_JOURNAL_SEED_FROM_ROOT" = 1 ] && [ -d "$GARDEN_ROOT/.git" ] && [ -d "$dir/.git" ] || return 1
+  cur="$(git -C "$dir" rev-parse -q --verify "refs/remotes/origin/$JOURNAL_BRANCH^{commit}" 2>/dev/null)" || cur=""
+  if [ -z "$cur" ] || [ "$(git -C "$dir" rev-parse --is-shallow-repository 2>/dev/null)" = true ]; then
+    flags=(--depth="$GARDEN_JOURNAL_SEED_DEPTH" --update-shallow)
+  fi
+  seed="$(_journal_root_seed_fetch "$dir" "${flags[@]}")" || return 1
+  [ "$seed" != "$cur" ] || return 1
+  # Ancestry is tested from the clone's tip back toward the seed, never the reverse:
+  # a shallow seed's history stops at its depth boundary and cannot reach an old tip.
+  if [ -n "$cur" ] && git -C "$dir" merge-base --is-ancestor "$seed" "$cur" 2>/dev/null; then
+    return 1
+  fi
+  git -C "$dir" update-ref "refs/remotes/origin/$JOURNAL_BRANCH" "$seed" >/dev/null 2>&1 || return 1
+  log "seeded journal clone $dir from local root repo (origin/$JOURNAL_BRANCH ${cur:0:12}${cur:+ -> }${seed:0:12}${flags:+, shallow})"
+  return 0
+}
+
+# journal_deepen_from_root <dir> — complete a shallow seeded clone's history from
+# the root repo, locally. A seeded clone comes up shallow so that it is usable at
+# once, but some journal readers walk history (`git log --diff-filter=A` for
+# creation times, reputation's add/delete replay), and a depth boundary would give
+# them wrong answers. sync_clone calls this after a successful sync; it is a no-op
+# on a complete clone and, on failure, leaves the clone usable and shallow until a
+# later tick. rc 0 when the clone is complete afterwards.
+journal_deepen_from_root() {
+  local dir="$1"
+  [ "$(git -C "$dir" rev-parse --is-shallow-repository 2>/dev/null)" = true ] || return 0
+  if _journal_root_seed_fetch "$dir" --unshallow >/dev/null; then
+    log "completed shallow journal clone $dir from local root repo"
+    return 0
+  fi
+  log "WARN: could not complete shallow journal clone $dir from local root repo; it stays shallow until a later sync"
+  return 1
+}
+
+# _canonical_journal_clone_url <url> — rewrite a migration-alias journal URL
+# (GARDEN_PRODUCTION_JOURNAL_REPO_ALIASES, kriskowal/garden) to the canonical repo,
+# keeping its transport form. A host whose root origin was never migrated still
+# hands the old path to every new clone, which then goes through GitHub's redirect
+# for every fetch; new clones are given the canonical name instead. Other URLs
+# (a test's local bare repo, an operator's JOURNAL_REMOTE) pass through unchanged.
+_canonical_journal_clone_url() {
+  local url="$1" alias
+  for alias in $GARDEN_PRODUCTION_JOURNAL_REPO_ALIASES; do
+    case "$url" in
+      *github.com[:/]"$alias"|*github.com[:/]"$alias".git|*github.com[:/]"$alias"/)
+        url="${url/$alias/$GARDEN_PRODUCTION_JOURNAL_REPO}"
+        fallback_warn journal-remote-alias "journal remote $1 names the pre-transfer repo $alias; new journal clones use $url (migrate the root origin: git -C \"$GARDEN_ROOT\" remote set-url origin $GARDEN_PRODUCTION_JOURNAL_URL)"
+        break ;;
+    esac
+  done
+  printf '%s\n' "$url"
+}
+
+# _seed_clone_from_root <dir> <remote> — build a fresh journal clone at <dir>
+# without the network: `git init` a sibling temp, point origin at <remote> with
+# the single-branch refspec a `clone --single-branch` writes, seed origin's ref
+# from the root repo, check out the tracking branch, and publish it with the same
+# atomic `mv -T` bounded_clone uses. rc 1 (and nothing left behind) when no seed is
+# available, so the caller falls back to a network clone. The clone's first sync
+# tops it up from origin incrementally.
+_seed_clone_from_root() {
+  local dir="$1" remote="$2" tmp="${1%/}.seed.$$"
+  [ "$GARDEN_JOURNAL_SEED_FROM_ROOT" = 1 ] && [ -d "$GARDEN_ROOT/.git" ] || return 1
+  rm -rf "$tmp"
+  mkdir -p "$(dirname "$dir")"
+  if git init -q "$tmp" >/dev/null 2>&1 \
+     && git -C "$tmp" remote add -t "$JOURNAL_BRANCH" origin "$remote" >/dev/null 2>&1 \
+     && journal_seed_from_root "$tmp" \
+     && git -C "$tmp" checkout -q -b "$JOURNAL_BRANCH" --track "origin/$JOURNAL_BRANCH" >/dev/null 2>&1; then
+    if mv -T "$tmp" "$dir" 2>/dev/null; then
+      return 0
+    fi
+    rm -rf "$tmp"
+    is_own_git_repo "$dir" && return 0
+    return 1
+  fi
+  rm -rf "$tmp"
+  return 1
+}
+
 # reclone_clone <dir> <remote> -- replace a missing, partial, or corrupt journal
 # clone through bounded_clone's sibling-temp atomic rename. A recognized
 # connectivity failure exits EX_TEMPFAIL rather than failing every timer tick.
 reclone_clone() {
-  local dir="$1" remote="$2" rc
+  local dir="$1" remote rc
+  remote="$(_canonical_journal_clone_url "$2")"
   rm -rf "$dir"
+  # Seed from the root repo's local objects first (journal_seed_from_root): a
+  # network clone of journal2 can overrun even GARDEN_CLONE_TIMEOUT (2026-10-06).
+  if _seed_clone_from_root "$dir" "$remote"; then
+    return 0
+  fi
+  # No local seed (no root repo, no journal ref in it, seeding disabled): clone
+  # over the network.
   # Bootstrap a COLD clone from the root repo's LOCAL objects. The deployed root
   # ($GARDEN_ROOT/.git) is the SAME object store the journal/ worktree checks out
   # journal2 in, so it already holds journal2's objects. `--reference-if-able` borrows
@@ -5277,9 +5447,13 @@ journal_auto_gc() {  # journal_auto_gc <clone>
 }
 
 journal_fetch() {
-  local dir="$1" max_age="${2:-$GARDEN_FETCH_MAX_AGE}" attempt=1 rc=0
+  local dir="$1" max_age="${2:-$GARDEN_FETCH_MAX_AGE}" attempt=1 rc=0 t0
   GARDEN_FETCH_STDERR=""
   while :; do
+    # Each attempt first clears the partial packs earlier killed fetches left, and a
+    # timed-out attempt clears its own below (_sweep_tmp_packs).
+    _sweep_tmp_packs "$dir"
+    t0="$(date +%s)"
     # Capture the fetch's stderr AND its exit code. The assignment must sit inside
     # an `if` so a non-zero command substitution does NOT trip the caller's `set -e`
     # before we can read $rc: a bare `VAR="$(failing-cmd)"; rc=$?` exits the whole
@@ -5302,7 +5476,10 @@ journal_fetch() {
     # child was escalated to SIGKILL by --kill-after after GARDEN_FETCH_KILL_AFTER. Both
     # are the same wall-clock-timeout kill — log them identically (and treat both as a
     # transient stall in sync_clone's offline classification below).
-    { [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; } && log "journal fetch in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$rc) on attempt $attempt"
+    if [ "$rc" -eq 124 ] || [ "$rc" -eq 137 ]; then
+      log "journal fetch in $dir timed out (>${GARDEN_FETCH_TIMEOUT}s, rc=$rc) on attempt $attempt"
+      _sweep_tmp_packs "$dir" "$t0"
+    fi
     if [ "$attempt" -ge "$GARDEN_FETCH_RETRIES" ]; then
       log "journal fetch in $dir failed after $attempt attempt(s) (last rc=$rc)${GARDEN_FETCH_STDERR:+: $GARDEN_FETCH_STDERR}"
       return "$rc"
@@ -8169,6 +8346,17 @@ sync_clone() {
   # transient outage below. Capture the rc through an `if` so `set -e` is suspended
   # for the call and the offline path is actually reachable from a bare caller.
   if journal_fetch "$dir" 0; then rc=0; else rc=$?; fi
+  # A capped fetch on a STALE clone can fail every tick forever: it has to
+  # negotiate and transfer the whole gap from GitHub inside GARDEN_FETCH_TIMEOUT
+  # (2026-10-06: clones a newly promoted leader last synced on 09-23 timed out at
+  # 45s on every tick). Before classifying the failure, close the gap from the
+  # root repo's local copy of journal2 and retry the network once; the retry only
+  # has to carry the minutes the root lags origin. journal_seed_from_root refuses
+  # when it would not advance the ref, so a genuine outage on an up-to-date clone
+  # costs one local no-op, not a second network attempt.
+  if [ "$rc" -ne 0 ] && [ -d "$dir/.git" ] && journal_seed_from_root "$dir"; then
+    if journal_fetch "$dir" 0; then rc=0; else rc=$?; fi
+  fi
   if [ "$rc" -ne 0 ]; then
     # A transient network/resolver outage is not a real failure: exit EX_TEMPFAIL
     # so the wrapper and callers skip the tick and retry next cadence instead of
@@ -8298,6 +8486,9 @@ sync_clone() {
       fi
     fi
   fi
+  # A clone seeded shallowly from the root repo is completed locally once it is in
+  # sync, so history-walking readers see the whole journal (journal_deepen_from_root).
+  journal_deepen_from_root "$dir" || true
   git -C "$dir" clean -qfd jobs 2>/dev/null || true
 }
 
