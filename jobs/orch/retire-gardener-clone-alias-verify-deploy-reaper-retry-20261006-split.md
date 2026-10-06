@@ -2,7 +2,7 @@
 order: serial
 children: retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: producer
 created_at: 2026-10-06T19:44:22Z
 ---
