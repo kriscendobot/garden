@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T16:43:14Z_
+_As of 2026-10-06T16:46:19Z_
 
 ## Latest
 
@@ -1546,7 +1546,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 155.4M | $1846.33 _(notional, rate-card)_ | 97% of 160.0M (ok) |
+| Claude | 155.5M | $1847.86 _(notional, rate-card)_ | 97% of 160.0M (ok) |
 | Codex | 8.0M _(+211.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1555,8 +1555,8 @@ _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-moddable); 9 open notice(s); checker healthy
 
 ## Board
-### todo (0)
-(none)
+### todo (1)
+- [`fix-journal-contention-watch-deferred-clone-backlog`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/fix-journal-contention-watch-deferred-clone-backlog.md) — ---
 
 ### doin (2)
 - [`fix-comment-watcher-test-cooldown-isolation`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-comment-watcher-test-cooldown-isolation.md) — ---
