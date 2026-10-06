@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T09:40:12Z_
+_As of 2026-10-06T09:45:48Z_
 
 ## Latest
 
@@ -841,6 +841,14 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet build-minion-town-claude-guest-scoped-mcp-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
+- `stale-panel-head-kriscendobot-agoric-sdk-pr10-5c8c53ef-d4beb292` — from gardener:fix-gauntlet-audit-restages-finished-prs-20261006, reply_to `fix-gauntlet-audit-restages-finished-prs-20261006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-agoric-sdk-pr10-5c8c53ef-d4beb292.md)
+
+> Stale panel coverage for completed job `fix-gauntlet-audit-restages-finished-prs-20261006`: [https://github.com/kriscendobot/agoric-sdk/pull/10](https://github.com/kriscendobot/agoric-sdk/pull/10) moved from panel-reviewed head `5c8c53ef` to presented head `d4beb292d3f0588947782607ba12ab98d6b4dea0`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_clerics_1_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_clerics_1_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_clerics_1_journal` has CLEARED (first seen 2026-10-06T01:57:32Z, cleared 2026-10-06T02:36:36Z).
@@ -1466,7 +1474,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.3M | $1797.94 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
+| Claude | 152.3M | $1797.47 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
 | Codex | 7.1M _(+192.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -1478,17 +1486,16 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1379
-- [`fix-gauntlet-audit-restages-finished-prs-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/fix-gauntlet-audit-restages-finished-prs-20261006.md) — ---
 
-### tada (11214)
+### tada (11216)
+- [`kriscendobot-agoric-sdk-pr10-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-agoric-sdk-pr10-gauntlet.md) — gauntlet kriscendobot-agoric-sdk-pr10-gauntlet — HALTED
+- [`fix-gauntlet-audit-restages-finished-prs-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-gauntlet-audit-restages-finished-prs-20261006.md) — Fix gauntlet audit re-staging finished PRs: completion report
 - [`endojs-endo-but-for-bots-pr1426-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1426-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-fix-6.md) — Completion report: endojs/endo-but-for-bots#1426, gauntlet fix round 6
 - [`oros-health-watch-20261006-090537`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-090537.md) — Cost
-- [`claude-on-minion-town-press-20261006-090537`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261006-090537.md) — Cost
-- [`canary-probe-endolin-garden-ece02cb4-79bca08dd84b`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-79bca08dd84b.md) — rolling-deploy canary probe — round trip OK
-- … and 11209 more
+- … and 11211 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
