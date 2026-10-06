@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T05:09:19Z_
+_As of 2026-10-06T05:13:35Z_
 
 ## Latest
 
@@ -261,6 +261,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_transcripts_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_transcripts_journal.md)
 
 > Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/transcripts/journal: p95=24.019467s max=24.019467s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+
+- `watchdog-journal-lock-contention-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_finbot` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_finbot.md)
+
+> Journal lock contention on endolin-garden2-5bcdff64 for _home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_finbot: p95=0.016562s, giveups=1, steals=0 (max 3/window), wait floor=60s.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr318-e398dbc53ef4` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr318-e398dbc53ef4.md)
 
@@ -587,6 +591,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > budget-level changed endolin-garden-ece02cb4 monk workers 3 -> 2 (target 2): subscription claude-endolin1 spend=130189335 cap=256000000 pace-bias=0 window-start=2026-10-03T03:00Z(calendar) deadline=2026-10-10T03:00Z(calendar) [planned reset 2026-10-10T03:00:00Z not before calendar deadline; ignored] ceiling=4 target=2
 
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_garden` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_garden.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for _home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_garden: p95=45.001685s max=45.001830s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1089-cb6f2aa6eab8` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1089-cb6f2aa6eab8.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1089](https://github.com/endojs/endo-but-for-bots/pull/1089) ([endojs/endo-but-for-bots#1089](https://github.com/endojs/endo-but-for-bots/issues/1089)) is in the mergeable queue with NO gauntlet review staged (head cb6f2aa6eab8fff29d1563ef2c8f390863c53723). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1089'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -655,11 +663,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-journal-contention-watch-overrun` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-watch-overrun.md)
 
-> RECOVERED — the watchdog condition `journal-contention-watch-overrun` has CLEARED (first seen 2026-10-04T05:15:32Z, cleared 2026-10-06T04:52:59Z).
-> It was observed 52 time(s) while open. Nothing further is required;
-> this notice closes the loop so the end of the condition is on the record.
+> WATCHDOG notice — occurrence #53 (first seen 2026-10-04T05:15:32Z, latest 2026-10-06T05:12:12Z).
+> The SAME condition (`journal-contention-watch-overrun`) has now been observed 53 times; this is ONE
+> coalesced notice that updates in place, not 53 messages. Latest detail:
 >
-> Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
+> Journal contention checker on endolin-garden-ece02cb4 cannot finish a tick inside its 210s budget: deferred 1413 of 1413 clone(s) on consecutive ticks.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
 
@@ -795,6 +803,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > ONE entry that updates in place, not 3 messages. Latest detail:
 >
 > M3’s guest-endowment step, [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/issues/1343), is blocked on choosing whether to land it with #1042 or after #1042 reaches `llm`. Please select the base/merge order.
+
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_finbot` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_finbot.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for _home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_finbot: p95=45.002097s max=45.002456s; hard guard=31.500000s (70% of 45s cap); remedy=none.
 
 - `msg-oros-health-watch-20261005-075006-7f9338ba5a07` — from gardener:oros-health-watch-20261005-075006, reply_to `oros-health-watch-20261005-075006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261005-075006-7f9338ba5a07.md)
 
@@ -1190,32 +1202,31 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.8M | $1733.62 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
-| Codex | 6.3M _(+182.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 145.7M | $1732.60 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
+| Codex | 6.4M _(+184.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 45.002097s/45s (unknown); 18 open notice(s); checker healthy
+worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (1)
 - [`claude-on-minion-town-completion-press-20261006-050509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261006-050509.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
-- [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1428-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1428
 
 ### doin (4)
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1426
+- [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1428
 - [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1379
 - [`self-heal-fix-garden-receipt-watcher-kriscendobot-finbot-prereq-clone-lock-busy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-receipt-watcher-kriscendobot-finbot-prereq-clone-lock-busy.md) — ---
-- [`improve-deadline-nudge-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-lock-contention.md) — ---
 
-### tada (11178)
+### tada (11179)
+- [`improve-deadline-nudge-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-deadline-nudge-lock-contention.md) — Cost
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-gauntlet-panel-1.md) — Panel round 1: endojs/endo-but-for-bots#1428, verdict must-fix
 - [`improve-journal-contention-watch-time-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-journal-contention-watch-time-budget.md) — Cost
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-minion-town-verify-lock-busy-fatal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/self-heal-fix-garden-comment-watcher-kriscendobot-minion-town-verify-lock-busy-fatal.md) — Cost
 - [`claude-on-minion-town-press-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261002-112006.md) — Manual gauntlet handoff
-- [`improve-triager-zero-duration-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-triager-zero-duration-reaper.md) — Cost
-- … and 11173 more
+- … and 11174 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
