@@ -26,3 +26,13 @@ Do this: rerun fetch-timeout-test.sh on HEAD with the scrubbed env, detached (se
 - If subtest 7 passes, it was host load. Report that and land nothing.
 - If it still fails, test whether the commit is the cause: run gardener.sh with GARDEN_GARDENER_CLONE versus GARDEN_WORKER_CLONE, or apply the test hunk in reverse. Land a fix only if 70b6d1e3d42 caused it. Otherwise report it as a separate pre-existing issue.
 Never run the suite concurrently with another copy of itself or with the reaper/deploy suites, because they share fixed ~/.garden-*-test fixture paths.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-06T19:45:45Z
