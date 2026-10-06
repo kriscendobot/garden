@@ -1,2 +1,2 @@
-base: improve-comment-source-timeout-fanout
+base: improve-comment-source-quota-fanout
 identity: mentor:scripts/jobs/handlers/comment-source-gh.sh
