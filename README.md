@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T04:54:45Z_
+_As of 2026-10-06T05:00:47Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ These items still need you:
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 6h)
+- [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 7h)
 - [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 9d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
@@ -1099,6 +1099,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Oros remains unreachable at 2026-10-05T10:55Z. The heartbeat has been stale since 2026-10-02T05:08Z, the last sysop-log activity was 2026-10-02T05:38Z, and the rolling-deploy watchdog now reports the host offline. There is no current checkup in todo/doin/tada: at 08:45Z all 20 accumulated unclaimed checkups were moved to withdrawn and the checkup schedule's last_dispatched was advanced to 2026-10-11T21:00Z. Oros remains derotated heartbeat-offline; fleet health is stale/deferred on e036bb8e versus main2 d02a31d0. Existing reset-failed/restore ops remain unacknowledged, so I sent no duplicate op. A person must check the Mac's power/sleep state, Docker Desktop, and the VM/container.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_endo_but_for_bots` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_endo_but_for_bots.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-endo-but-for-bots: p95=45.001547s max=45.002866s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+
 - `msg-claude-on-minion-town-completion-press-20261004-223508-3f12053754a6` — from gardener:claude-on-minion-town-completion-press-20261004-223508, reply_to `claude-on-minion-town-completion-press-20261004-223508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261004-223508-3f12053754a6.md)
 
 > Completion-press (arc [kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89)), tick 22:35Z. One finding is flagged, and it is low severity.
@@ -1174,13 +1178,13 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.7M | $1732.95 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
+| Claude | 145.7M | $1733.02 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
 | Codex | 6.3M _(+182.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 45.001996s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-endo); 17 open notice(s); checker healthy
+worst fetch p95 45.001996s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-endo); 18 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
