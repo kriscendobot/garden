@@ -387,9 +387,10 @@ execute_gate_suites() { # <candidate> <gate_root> <deadline> <attempt> <failed-a
   local candidate="$1" gate_root="$2" deadline="$3" attempt="$4"
   local -n _failed="$5" _failed_suites="$6" _timed_out="$7" _limits="$8"
   shift 8
-  local suite now remaining limit capture rc diagnostic suite_number=0
+  local suite now remaining limit capture rc diagnostic suite_number=0 suite_state
   for suite in "$@"; do
     suite_number=$((suite_number + 1))
+    suite_state="$gate_root/.candidate-gate-state/$suite_number"
     now="$(date +%s)"
     if [ "$now" -ge "$deadline" ]; then _failed+=("total-wall-clock"); break; fi
     if [ ! -f "$gate_root/$suite" ]; then _failed+=("missing:$suite"); continue; fi
@@ -397,7 +398,17 @@ execute_gate_suites() { # <candidate> <gate_root> <deadline> <attempt> <failed-a
     [ "$remaining" -lt "$limit" ] && limit="$remaining"
     capture="$gate_root/.candidate-gate-output-$attempt-$suite_number"
     rc=0
-    timeout --kill-after=5 "$limit" env GARDEN_TEST=1 bash "$gate_root/$suite" 2>&1 \
+    # Candidate suites must not inherit any host-standing latch. GARDEN_STATE
+    # covers the ordinary defaults; the explicit overrides cover the older
+    # host-shared defaults which intentionally resolve beneath GARDEN_ROOT.
+    timeout --kill-after=5 "$limit" env \
+      GARDEN_TEST=1 \
+      GARDEN_STATE="$suite_state" \
+      GARDEN_API_COOLDOWN_DIR="$suite_state/gh-api-cooldown" \
+      GARDEN_JOURNAL_OUTAGE_DIR="$suite_state/journal-outage-cooldown" \
+      GARDEN_CI_JOURNAL_OUTAGE_LATCH="$suite_state/ci-watcher/journal-outage" \
+      GARDEN_CI_PR_SOURCE_CACHE_DIR="$suite_state/ci-pr-source-cache" \
+      bash "$gate_root/$suite" 2>&1 \
       | tail -c "$GARDEN_DEPLOY_TEST_OUTPUT_BYTES" >"$capture" || rc=$?
     if [ "$rc" -ne 0 ]; then
       if diagnostic="$(persist_candidate_gate_diagnostic "$candidate" "$attempt" "$suite_number" "$suite" "$rc" "$capture")"; then

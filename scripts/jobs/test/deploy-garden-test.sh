@@ -142,6 +142,27 @@ grep -q 'attempt\$attempt-' "$DEPLOY" \
   || bad "candidate gate diagnostics not labelled per attempt"
 
 # ============================================================================
+hr; echo "CANDIDATE TEST GATE — host latches are isolated from every suite"; hr
+setup_fixture
+LIVE_COOLDOWN="$TR/root/.garden-state/gh-api-cooldown"
+mkdir -p "$LIVE_COOLDOWN"
+printf '%s\nprimary-quota regression-fixture\n' "$(( $(date +%s) + 3600 ))" > "$LIVE_COOLDOWN/marker"
+origin_commit scripts/jobs/test/deploy-gate-probe.sh '#!/bin/bash
+set -euo pipefail
+[ "${GARDEN_API_COOLDOWN_DIR:?}" != "${EXPECTED_LIVE_COOLDOWN_DIR:?}" ]
+[ ! -e "$GARDEN_API_COOLDOWN_DIR/marker" ]
+[ "$GARDEN_API_COOLDOWN_DIR" = "$GARDEN_STATE/gh-api-cooldown" ]
+[ "$GARDEN_JOURNAL_OUTAGE_DIR" = "$GARDEN_STATE/journal-outage-cooldown" ]
+[ "$GARDEN_CI_JOURNAL_OUTAGE_LATCH" = "$GARDEN_STATE/ci-watcher/journal-outage" ]
+[ "$GARDEN_CI_PR_SOURCE_CACHE_DIR" = "$GARDEN_STATE/ci-pr-source-cache" ]' \
+  "test: assert candidate gate isolates host latches"
+target="$(origin_head)"
+run_deploy EXPECTED_LIVE_COOLDOWN_DIR="$LIVE_COOLDOWN"
+[ "$RC" -eq 0 ] && ok "candidate suite passes while the real-root API cooldown is live" || bad "live host cooldown leaked into candidate suite: $OUT"
+[ "$(root_head)" = "$target" ] && ok "candidate with an isolated suite deploys" || bad "isolated candidate did not deploy"
+[ -e "$LIVE_COOLDOWN/marker" ] && ok "candidate suite leaves the real host latch untouched" || bad "candidate suite removed the real host latch"
+
+# ============================================================================
 hr; echo "TRANSIENT FETCH — connectivity failure returns GARDEN_OFFLINE_RC"; hr
 setup_fixture
 REAL_GIT="$(command -v git)"
