@@ -51,7 +51,8 @@
 # (anti-flap), `noted` (maintainer-note dedupe), `notice-seen/<milestones>` (the
 # PR/issue refs already surfaced in a milestone/bottleneck maintainer notice, so a
 # stalled milestone notifies once per NEW blocker, not every tick or every
-# rewording), and `decisions.log` (a durable,
+# rewording), `provider-outage-cooldown` (the live handler's bounded all-routes
+# outage latch), and `decisions.log` (a durable,
 # self-trimming per-tick DECISION record: one line per tick giving inflight,
 # target, and the guard/branch that ended it — added after the "malingering
 # foreman" investigation, job investigate-malingering-foreman 2026-09-16, found a
@@ -434,6 +435,18 @@ herrf="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-err.XXXXXX")"
 hrc=0
 out="$("$GARDEN_FOREMAN_HANDLER" "$digest" 2>"$herrf")" || hrc=$?
 if [ "$hrc" -ne 0 ]; then
+  if [ "$hrc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
+    # The live handler uses EX_TEMPFAIL when every configured inference route is
+    # unavailable (and while its bounded outage latch is live). This is expected,
+    # self-recovering timer state: record it and exit success so systemd never
+    # marks the timer Failed or emits one maintainer alert per tick. Do not reset
+    # idle-since; every timer tick cheaply consults the latch and the first tick
+    # after its expiry performs the bounded re-probe immediately.
+    log "foreman handler transiently unavailable rc=$hrc; inference deferred to its bounded re-probe"
+    decide handler-transient "rc=$hrc"
+    rm -f "$digest" "$herrf"
+    exit 0
+  fi
   log "WARN: foreman handler failed rc=$hrc: $(tail -c 500 "$herrf" 2>/dev/null || echo '<no stderr>')"
   alert_maintainer "foreman-handler-failed-$GARDEN" \
     "garden-foreman's pump handler ($GARDEN_FOREMAN_HANDLER) failed rc=$hrc on $GARDEN; the board pump is starving. stderr tail: $(tail -c 500 "$herrf" 2>/dev/null)"

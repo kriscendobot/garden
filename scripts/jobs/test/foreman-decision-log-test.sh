@@ -122,6 +122,36 @@ hr; echo "SUBTEST C — LOCATION: the decision log is host-local, never in the j
   && ok "decisions.log is host-local (\$GARDEN_STATE/foreman), not inside the synced journal clone" \
   || bad "decisions.log leaked into the journal clone (would churn journal2)"
 
+# ============================================================================
+hr; echo "SUBTEST D — handler EX_TEMPFAIL is a healthy timer tick, not a foreman FATAL"; hr
+BD="$(new_journal d)"; SD="$TR/state-d/f"; mkdir -p "$SD"; : > "$SD/stub-calls"
+# Prime the settle marker without invoking the handler.
+env GARDEN=okhost GARDEN_STATE="$SD" HOME="$TR" \
+    JOURNAL_REMOTE="$BD" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_FOREMAN_NOW=1000 GARDEN_FOREMAN_IDLE_SETTLE=0 \
+    GARDEN_FOREMAN_ACTIVE_TARGET=5 GARDEN_FOREMAN_HANDLER="$STUB" \
+    GARDEN_FOREMAN_STUB_CALLS="$SD/stub-calls" \
+    "$JOBS/foreman.sh" >"$TR/transient-prime.log" 2>&1
+if env GARDEN=okhost GARDEN_STATE="$SD" HOME="$TR" \
+    JOURNAL_REMOTE="$BD" JOURNAL_BRANCH="$BRANCH" \
+    GARDEN_FOREMAN_NOW=1001 GARDEN_FOREMAN_IDLE_SETTLE=0 \
+    GARDEN_FOREMAN_ACTIVE_TARGET=5 GARDEN_FOREMAN_HANDLER="$STUB" \
+    GARDEN_FOREMAN_STUB_CALLS="$SD/stub-calls" GARDEN_FOREMAN_STUB_RC=75 \
+    "$JOBS/foreman.sh" >"$TR/transient.log" 2>&1; then
+  ok "foreman normalizes handler EX_TEMPFAIL to a successful timer tick"
+else
+  bad "foreman propagated handler EX_TEMPFAIL and would make the timer unhealthy"
+fi
+grep -q 'guard=handler-transient rc=75' "$SD/foreman/decisions.log" 2>/dev/null \
+  && ok "the transient deferral is visible in decisions.log" \
+  || bad "decisions.log lacks handler-transient: $(cat "$SD/foreman/decisions.log" 2>/dev/null)"
+! grep -q 'WARN: foreman handler failed' "$TR/transient.log" \
+  && ok "expected provider outage emits no generic handler-failure WARN" \
+  || bad "transient outage was still logged as a handler failure"
+[ "$(cat "$SD/foreman/idle-since" 2>/dev/null)" = 1000 ] \
+  && ok "transient ticks preserve idle-since so the due re-probe is immediate" \
+  || bad "transient tick reset idle-since: $(cat "$SD/foreman/idle-since" 2>/dev/null)"
+
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]

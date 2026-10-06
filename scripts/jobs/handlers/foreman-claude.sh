@@ -29,6 +29,8 @@
 # rejected: the local-qwen hermit lane was retired 2026-09-13. A provider
 # outage or quota error advances to the next provider. A malformed model response
 # is a semantic error, not an availability signal, and stops safely without posting.
+# Exhausting the whole order arms a bounded, order/quota-keyed cooldown and returns
+# EX_TEMPFAIL; foreman.sh normalizes that expected deferral to a healthy timer tick.
 # Test harnesses may still override GARDEN_FOREMAN_HANDLER with a deterministic stub.
 
 set -euo pipefail
@@ -43,6 +45,8 @@ digest="${1:?usage: foreman-claude.sh <digest-file>}"
 role_brief="$GARDEN_ROOT/roles/foreman/AGENT.md"
 common_brief="$GARDEN_ROOT/roles/COMMON.md"
 : "${GARDEN_FOREMAN_PROVIDER_ORDER:=anthropic}"
+: "${GARDEN_FOREMAN_PROVIDER_OUTAGE_COOLDOWN_SECS:=300}"
+: "${GARDEN_FOREMAN_PROVIDER_OUTAGE_COOLDOWN_MAX_SECS:=1800}"
 
 # NOTE: the EOF delimiter is INTENTIONALLY UNQUOTED — the body relies on shell
 # interpolation of $common_brief/$role_brief (line ~39) and $(cat "$digest")
@@ -151,6 +155,99 @@ provider_order() {
   fi
   [ -n "$out" ] || die "GARDEN_FOREMAN_PROVIDER_ORDER contains no providers"
   printf '%s\n' "$out"
+}
+
+# An exhausted provider order is one transient condition, not a fresh handler
+# failure on every foreman tick. Persist a short, bounded host-local window after
+# every configured provider returns the availability rc (10). The marker is keyed
+# by BOTH the normalized provider order and each provider's current deterministic
+# quota verdict: an operator changing the order, or a recorded quota transition,
+# invalidates the old outage immediately; an unchanged API/auth outage waits for
+# the bounded re-probe instead of spending one inference attempt per timer tick.
+#
+# This latch is deliberately separate from common.sh's per-provider claim router.
+# The foreman is itself a multi-provider client, so only exhaustion of its WHOLE
+# ordered route warrants suppressing the next inference pass.
+foreman_provider_quota_key() { # <normalized-space-delimited-order>
+  local order="$1" provider subscription quota key
+  key="order=$order"
+  for provider in $order; do
+    case "$provider" in
+      anthropic)
+        quota="$(meter_quota_status 2>/dev/null || printf unknown)"
+        ;;
+      openai)
+        subscription="$(budget_pool_for_provider_host openai "$GARDEN" "" 2>/dev/null || true)"
+        if [ -z "$subscription" ]; then
+          quota=unmapped
+        else
+          quota="$subscription:$(meter_quota_status "$subscription" 2>/dev/null || printf unknown)"
+        fi
+        ;;
+    esac
+    key+="|$provider=$quota"
+  done
+  # Include explicit admission controls as well as their computed verdicts. A
+  # changed override is new quota state even if a temporarily unreadable meter
+  # reports `unknown` on both sides of the change.
+  key+="|quota-limit=${GARDEN_TOKEN_WEEKLY_QUOTA:-journal}"
+  key+="|quota-backoff=${GARDEN_TOKEN_BACKOFF_FRACTION:-journal}"
+  printf '%s\n' "$key"
+}
+
+_foreman_provider_outage_now() {
+  printf '%s\n' "${GARDEN_FOREMAN_PROVIDER_OUTAGE_NOW:-$(date +%s 2>/dev/null || echo 0)}"
+}
+
+_foreman_provider_outage_window() {
+  local secs="${GARDEN_FOREMAN_PROVIDER_OUTAGE_COOLDOWN_SECS:-300}"
+  local cap="${GARDEN_FOREMAN_PROVIDER_OUTAGE_COOLDOWN_MAX_SECS:-1800}"
+  case "$cap" in ''|*[!0-9]*) cap=1800 ;; esac
+  [ "$cap" -ge 1 ] || cap=1800
+  case "$secs" in ''|*[!0-9]*) secs=300 ;; esac
+  [ "$secs" -le "$cap" ] || secs="$cap"
+  printf '%s\n' "$secs"
+}
+
+foreman_provider_outage_cooldown_active() { # <order/quota-key>
+  local key="$1" marker="$GARDEN_STATE/foreman/provider-outage-cooldown"
+  local lock="$marker.lock"
+  [ "$(_foreman_provider_outage_window)" -gt 0 ] || return 1
+  mkdir -p "${marker%/*}" 2>/dev/null || return 1
+  (
+    flock 9 || exit 1
+    local now expiry recorded
+    now="$(_foreman_provider_outage_now)"; case "$now" in ''|*[!0-9]*) now=0 ;; esac
+    expiry="$(sed -n '1p' "$marker" 2>/dev/null || true)"
+    recorded="$(sed -n '2p' "$marker" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0 ;; esac
+    if [ "$expiry" -gt "$now" ] && [ "$recorded" = "$key" ]; then exit 0; fi
+    rm -f "$marker" 2>/dev/null || true
+    exit 1
+  ) 9>"$lock"
+}
+
+start_foreman_provider_outage_cooldown() { # <order/quota-key>
+  local key="$1" marker="$GARDEN_STATE/foreman/provider-outage-cooldown"
+  local lock="$marker.lock" secs
+  secs="$(_foreman_provider_outage_window)"
+  [ "$secs" -gt 0 ] || return 1
+  mkdir -p "${marker%/*}" 2>/dev/null || return 1
+  (
+    flock 9 || exit 1
+    local now expiry recorded tmp
+    now="$(_foreman_provider_outage_now)"; case "$now" in ''|*[!0-9]*) now=0 ;; esac
+    expiry="$(sed -n '1p' "$marker" 2>/dev/null || true)"
+    recorded="$(sed -n '2p' "$marker" 2>/dev/null || true)"
+    case "$expiry" in ''|*[!0-9]*) expiry=0 ;; esac
+    [ "$expiry" -le "$now" ] || [ "$recorded" != "$key" ] || exit 1
+    tmp="$marker.$$"
+    printf '%s\n%s\n' "$(( now + secs ))" "$key" > "$tmp" 2>/dev/null \
+      || { rm -f "$tmp" 2>/dev/null; exit 1; }
+    mv -f "$tmp" "$marker" 2>/dev/null \
+      || { rm -f "$tmp" 2>/dev/null; exit 1; }
+    exit 0
+  ) 9>"$lock"
 }
 
 # Validate the exact, single-block protocol before giving foreman.sh anything to
@@ -316,7 +413,13 @@ foreman_anthropic_attempt() { # <prompt>
 raw="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-provider-raw.XXXXXX")"
 canonical="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-provider-canonical.XXXXXX")"
 trap 'rm -f "$raw" "$canonical"' EXIT
-for provider in $(provider_order); do
+order="$(provider_order)"
+outage_key="$(foreman_provider_quota_key "$order")"
+if foreman_provider_outage_cooldown_active "$outage_key"; then
+  log "foreman inference skipped: all configured providers remain in bounded outage cooldown (order: $order)"
+  exit "${GARDEN_TRANSIENT_RC:-75}"
+fi
+for provider in $order; do
   : > "$raw"
   rc=0
   case "$provider" in
@@ -337,4 +440,6 @@ for provider in $(provider_order); do
   record_malformed_reply "$provider" "$raw"
   die "foreman provider '$provider' returned malformed semantic output; refusing fallback to avoid multiplying work"
 done
-die "no configured foreman inference provider was available"
+start_foreman_provider_outage_cooldown "$outage_key" || true
+log "TRANSIENT: no configured foreman inference provider was available; bounded re-probe cooldown armed (order: $order)"
+exit "${GARDEN_TRANSIENT_RC:-75}"

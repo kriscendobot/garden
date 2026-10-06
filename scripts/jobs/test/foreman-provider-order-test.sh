@@ -187,6 +187,85 @@ FM_CAP="$(find "$TR/state/foreman/rejected" -name '*-openai.txt' 2>/dev/null | h
   && ok "malformed reply also saved as a per-failure capture under foreman/rejected/" \
   || bad "durable rejected/ capture missing or lacking the raw output"
 
+rm -rf "$TR/state"; mkdir -p "$TR/state"
+hr; echo "SUBTEST 12 — exhausted order latches a bounded, state-keyed transient cooldown"; hr
+LOG12="$TR/log12"; : > "$LOG12"
+set +e
+run_handler openai,anthropic \
+  GARDEN_FOREMAN_PROVIDER_OUTAGE_NOW=1000000000 \
+  GARDEN_TEST_PROVIDER_LOG="$LOG12" GARDEN_TEST_OPENAI_CODEX_RC=1 GARDEN_TEST_ANTHROPIC_RC=1 \
+  >"$TR/outage1.out" 2>"$TR/outage1.err"
+rc=$?
+set -e
+[ "$rc" -eq 75 ] && ok "all-provider exhaustion returns EX_TEMPFAIL (75), not FATAL" \
+  || bad "all-provider exhaustion returned rc=$rc (wanted 75)"
+[ "$(tr '\n' ' ' < "$LOG12")" = "openai anthropic " ] \
+  && ok "the first outage observation tries the complete configured order" \
+  || bad "first outage attempt trace: $(tr '\n' ' ' < "$LOG12")"
+LATCH="$TR/state/foreman/provider-outage-cooldown"
+[ "$(sed -n '1p' "$LATCH" 2>/dev/null)" = 1000000300 ] \
+  && ok "the persisted re-probe deadline is the bounded 300s window" \
+  || bad "unexpected outage deadline: $(sed -n '1p' "$LATCH" 2>/dev/null)"
+grep -q '^order=openai anthropic|openai=.*|anthropic=.*|quota-limit=' "$LATCH" 2>/dev/null \
+  && ok "the latch identity includes normalized order and provider quota states" \
+  || bad "latch is not keyed to order/quota state: $(sed -n '2p' "$LATCH" 2>/dev/null)"
+
+: > "$LOG12"
+set +e
+run_handler openai,anthropic \
+  GARDEN_FOREMAN_PROVIDER_OUTAGE_NOW=1000000100 \
+  GARDEN_TEST_PROVIDER_LOG="$LOG12" GARDEN_TEST_OPENAI_CODEX_RC=1 GARDEN_TEST_ANTHROPIC_RC=1 \
+  >"$TR/outage2.out" 2>"$TR/outage2.err"
+rc=$?
+set -e
+[ "$rc" -eq 75 ] && [ ! -s "$LOG12" ] \
+  && ok "an unchanged live outage skips all inference and stays transient" \
+  || bad "live cooldown invoked providers or returned rc=$rc: $(tr '\n' ' ' < "$LOG12")"
+
+# A provider-order change is part of the latch identity and must force an
+# immediate probe rather than waiting out a stale route's window.
+: > "$LOG12"
+set +e
+run_handler anthropic \
+  GARDEN_FOREMAN_PROVIDER_OUTAGE_NOW=1000000100 \
+  GARDEN_TEST_PROVIDER_LOG="$LOG12" GARDEN_TEST_ANTHROPIC_RC=1 \
+  >"$TR/outage3.out" 2>"$TR/outage3.err"
+rc=$?
+set -e
+[ "$rc" -eq 75 ] && [ "$(tr '\n' ' ' < "$LOG12")" = "anthropic " ] \
+  && ok "changing provider order invalidates the old latch and probes immediately" \
+  || bad "changed order did not re-probe (rc=$rc trace=$(tr '\n' ' ' < "$LOG12"))"
+
+# The order is now unchanged, but its explicit quota control changes. Even when
+# the fixture has no readable usage meter and both verdicts are `unknown`, that
+# control transition is new quota state and must invalidate the stale identity.
+: > "$LOG12"
+set +e
+run_handler anthropic \
+  GARDEN_TOKEN_WEEKLY_QUOTA=100 GARDEN_FOREMAN_PROVIDER_OUTAGE_NOW=1000000100 \
+  GARDEN_TEST_PROVIDER_LOG="$LOG12" GARDEN_TEST_ANTHROPIC_RC=1 \
+  >"$TR/outage-quota.out" 2>"$TR/outage-quota.err"
+rc=$?
+set -e
+[ "$rc" -eq 75 ] && [ "$(tr '\n' ' ' < "$LOG12")" = "anthropic " ] \
+  && grep -q '|quota-limit=100|' "$LATCH" \
+  && ok "changing quota state invalidates the old latch and probes immediately" \
+  || bad "changed quota state did not re-probe/re-key (rc=$rc trace=$(tr '\n' ' ' < "$LOG12") key=$(sed -n '2p' "$LATCH"))"
+
+# Expire the replacement Anthropic-only window without sleeping. The due tick
+# must make a new inference attempt, proving the skip is bounded.
+: > "$LOG12"
+set +e
+run_handler anthropic \
+  GARDEN_TOKEN_WEEKLY_QUOTA=100 GARDEN_FOREMAN_PROVIDER_OUTAGE_NOW=1000000401 \
+  GARDEN_TEST_PROVIDER_LOG="$LOG12" GARDEN_TEST_ANTHROPIC_RC=1 \
+  >"$TR/outage4.out" 2>"$TR/outage4.err"
+rc=$?
+set -e
+[ "$rc" -eq 75 ] && [ "$(tr '\n' ' ' < "$LOG12")" = "anthropic " ] \
+  && ok "the first tick past expiry performs the bounded re-probe" \
+  || bad "expired window did not re-probe (rc=$rc trace=$(tr '\n' ' ' < "$LOG12"))"
+
 hr
 echo "RESULTS: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
