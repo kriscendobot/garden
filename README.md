@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T09:45:48Z_
+_As of 2026-10-06T09:52:33Z_
 
 ## Latest
 
@@ -1190,11 +1190,11 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1.md)
 
-> WATCHDOG notice — occurrence #2 (first seen 2026-09-09T20:50:24Z, latest 2026-10-06T07:51:00Z).
-> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 2 times; this is ONE
-> coalesced notice that updates in place, not 2 messages. Latest detail:
+> WATCHDOG notice — occurrence #4 (first seen 2026-09-09T20:50:24Z, latest 2026-10-06T09:50:57Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 4 times; this is ONE
+> coalesced notice that updates in place, not 4 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 cleric workers 0 -> 1 (target 1): shared codex subscription demand active=1 queue=0 quota=ok fleet-envelope=4 target=1
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 0 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=4 target=1
 
 - `20261004T203316Z-46caa2` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T203316Z-46caa2.md)
 
@@ -1474,8 +1474,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.3M | $1797.47 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
-| Codex | 7.1M _(+192.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 152.3M | $1797.82 _(notional, rate-card)_ | 126% of 121.0M (backoff) |
+| Codex | 7.1M _(+192.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -1486,16 +1486,16 @@ worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1379
+### doin (0)
+(none)
 
-### tada (11216)
+### tada (11217)
+- [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1379-shepherd.md) — Cost
 - [`kriscendobot-agoric-sdk-pr10-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-agoric-sdk-pr10-gauntlet.md) — gauntlet kriscendobot-agoric-sdk-pr10-gauntlet — HALTED
 - [`fix-gauntlet-audit-restages-finished-prs-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-gauntlet-audit-restages-finished-prs-20261006.md) — Fix gauntlet audit re-staging finished PRs: completion report
 - [`endojs-endo-but-for-bots-pr1426-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1426-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-fix-6.md) — Completion report: endojs/endo-but-for-bots#1426, gauntlet fix round 6
-- [`oros-health-watch-20261006-090537`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-090537.md) — Cost
-- … and 11211 more
+- … and 11212 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
