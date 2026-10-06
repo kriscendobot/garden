@@ -344,7 +344,13 @@ for signal_dir in "$GARDEN_CONTENTION_DIR"/*; do
   for sample_ring in "$signal_dir"/*; do [ -f "$sample_ring" ] && jc_trim_ring "$sample_ring"; done
 done
 
-# Clones deferred by the previous tick run first, so a slow tail is not starved.
+# Inspection rotates through the clones in passes; the deferred file is the
+# cursor, listing the clones the current pass has not yet inspected. They run
+# first, so a slow tail is not starved. Once the pass is exhausted, leftover
+# budget starts the next pass with the clones not already inspected this tick.
+# A busy clone is skipped for this tick and stays in the pass, never blocking the
+# clones behind it (2026-10-04..06: one busy clone at the head of the list
+# deferred all 102 behind it on every tick, so the backlog never shrank).
 deferred_file="$GARDEN_CONTENTION_STATE/deferred"
 # Build in this shell so each repository gets at most one bounded inspection-lock
 # attempt per tick; jc_all_slugs otherwise runs in mapfile's process substitution.
@@ -357,15 +363,31 @@ mapfile -t all_slugs < <(jc_all_slugs | LC_ALL=C sort -u | while IFS= read -r s;
     rm -f "$GARDEN_CONTENTION_DIR"/*/"$s"
   fi
 done)
-mapfile -t ordered < <({
-  if [ -f "$deferred_file" ]; then grep -Fxf <(printf '%s\n' "${all_slugs[@]}") "$deferred_file" || true; fi
-  printf '%s\n' "${all_slugs[@]}"
-} | awk 'NF && !seen[$0]++')
-deferred=()
+pass=()
+if [ -f "$deferred_file" ] && [ "${#all_slugs[@]}" -gt 0 ]; then
+  mapfile -t pass < <(grep -Fxf <(printf '%s\n' "${all_slugs[@]}") "$deferred_file" | awk 'NF && !seen[$0]++' || true)
+fi
+[ "${#pass[@]}" -gt 0 ] || pass=("${all_slugs[@]}")
+mapfile -t ordered < <(printf '%s\n' "${pass[@]}" "${all_slugs[@]}" | awk 'NF && !seen[$0]++')
+pass_len="${#pass[@]}"
+# deferred: the persisted cursor. skipped: every clone not inspected this tick,
+# whose open notices must survive until its turn comes round.
+deferred=() skipped=() analyzed=0 busy_count=0 next_started=0 i=-1
 for slug in "${ordered[@]}"; do
-  if [ "${#deferred[@]}" -gt 0 ] || [ "$(tick_remaining)" -le 0 ]; then deferred+=("$slug"); continue; fi
+  i=$(( i + 1 ))
+  if [ "$(tick_remaining)" -le 0 ]; then
+    skipped+=("$slug")
+    if [ "$i" -lt "$pass_len" ]; then deferred+=("$slug")
+    elif [ "$next_started" -eq 1 ]; then deferred+=("$slug"); fi
+    continue
+  fi
+  [ "$i" -lt "$pass_len" ] || next_started=1
   rc=0; analyze_clone "$slug" || rc=$?
-  case "$rc" in 0) ;; 3) deferred+=("$slug");; *) exit "$rc";; esac
+  case "$rc" in
+    0) analyzed=$(( analyzed + 1 ));;
+    3) skipped+=("$slug"); deferred+=("$slug"); busy_count=$(( busy_count + 1 ));;
+    *) exit "$rc";;
+  esac
   # Give conditions found for this clone a chance to report while its share of
   # the tick is still available. A timeout leaves the durable queue intact.
   flush_notices
@@ -403,7 +425,7 @@ for marker in "$GARDEN_CONTENTION_STATE"/alerts/*; do
   [ -z "${EVALUATED[$key]+x}" ] || continue
   case "$key" in journal-outage-stuck|journal-contention-watch-overrun) continue ;; esac
   keep=0
-  for d in "${deferred[@]}"; do [ "${key%-"$d"}" != "$key" ] && { keep=1; break; }; done
+  for d in "${skipped[@]}"; do [ "${key%-"$d"}" != "$key" ] && { keep=1; break; }; done
   [ "$keep" -eq 1 ] || notice_close "$key"
 done
 
@@ -413,7 +435,7 @@ flush_notices
 
 if [ "${#deferred[@]}" -gt 0 ]; then
   printf '%s\n' "${deferred[@]}" > "$deferred_file"
-  log "tick deadline: deferred ${#deferred[@]} of ${#ordered[@]} clone(s) to the next tick (budget ${GARDEN_CONTENTION_TICK_BUDGET}s, reserve ${GARDEN_CONTENTION_RESERVE}s)"
+  log "tick deadline: analyzed $analyzed, ${#deferred[@]} of ${#ordered[@]} clone(s) left in the inspection pass (busy=$busy_count; budget ${GARDEN_CONTENTION_TICK_BUDGET}s, reserve ${GARDEN_CONTENTION_RESERVE}s)"
 else
   rm -f "$deferred_file"
 fi
@@ -428,6 +450,17 @@ notice_deferred_count="$(find "$GARDEN_CONTENTION_STATE/notice-pending" -type f 
   ! -name 'journal-contention-watch-overrun.action' 2>/dev/null | wc -l)"
 deferred_work_count=$(( ${#deferred[@]} + remedy_deferred_count + cleanup_deferred_count + notice_deferred_count ))
 if [ "$deferred_work_count" -gt 0 ]; then outcome=partial-poll; else outcome=full-poll; fi
+
+# Progress, not completeness, is the health signal: a backlog that rotates through
+# the clones a slice per tick is working as designed. A tick is stalled only when
+# work is deferred, no clone was analyzed, and the deferred work did not shrink
+# relative to the previous tick.
+prev_deferred_work="$(jc_field "$GARDEN_CONTENTION_STATE/heartbeat" deferred_work)"
+case "$prev_deferred_work" in *[!0-9]*|'') prev_deferred_work=0;; esac
+stalled=0
+if [ "$deferred_work_count" -gt 0 ] && [ "$analyzed" -eq 0 ] && [ "$deferred_work_count" -ge "$prev_deferred_work" ]; then
+  stalled=1
+fi
 
 # Host-level outage episode: one full checker tick without a new skip closes it.
 last_tick="$(jc_field "$GARDEN_CONTENTION_STATE/heartbeat" epoch)"; last_tick="${last_tick:-$(( now - GARDEN_CONTENTION_CADENCE ))}"
@@ -450,9 +483,9 @@ outage_age=$(( now - episode_start )); outage_stuck=0
 [ "$recent_skips" -gt 0 ] && [ "$latch_active" -eq 1 ] && [ "$outage_age" -gt "$GARDEN_CONTENTION_LATCH_MAX" ] && outage_stuck=1
 condition_update journal-outage-stuck "$outage_stuck" 1 \
   "Journal outage latch stuck on $GARDEN for ${outage_age}s (limit ${GARDEN_CONTENTION_LATCH_MAX}s); skips this tick=$recent_skips, trailing skips=$skip_total."
-# Two consecutive partial ticks mean this host's clones no longer fit the budget.
-condition_update journal-contention-watch-overrun "$([ "$outcome" = partial-poll ] && echo 1 || echo 0)" 0 \
-  "Journal contention checker on $GARDEN cannot finish a tick inside its ${GARDEN_CONTENTION_TICK_BUDGET}s budget: deferred work=$deferred_work_count (clones=${#deferred[@]}, remedies=$remedy_deferred_count, cleanup=$cleanup_deferred_count, notices=$notice_deferred_count) on consecutive ticks."
+# Two consecutive stalled ticks mean this host's checker is making no progress.
+condition_update journal-contention-watch-overrun "$stalled" 0 \
+  "Journal contention checker on $GARDEN made no progress inside its ${GARDEN_CONTENTION_TICK_BUDGET}s budget on consecutive ticks: analyzed=$analyzed, deferred work=$deferred_work_count (previous $prev_deferred_work; clones=${#deferred[@]} [busy=$busy_count], remedies=$remedy_deferred_count, cleanup=$cleanup_deferred_count, notices=$notice_deferred_count)."
 
 # Delivery and cleanup are last: each attempt is capped by the remaining useful
 # tick time and leaves its queue file intact on timeout. The heartbeat is written
@@ -462,7 +495,7 @@ flush_remedy_cleanups
 notice_deferred_count="$(find "$GARDEN_CONTENTION_STATE/notice-pending" -type f -name '*.action' 2>/dev/null | wc -l)"
 cleanup_deferred_count="$(find "$GARDEN_CONTENTION_STATE/remedy-cleanup" -type f 2>/dev/null | wc -l)"
 deferred_work_count=$(( ${#deferred[@]} + remedy_deferred_count + cleanup_deferred_count + notice_deferred_count ))
-printf 'epoch: %s\nlast_tick_at: %s\noutcome: %s\ndeferred_clones: %s\ndeferred_remedies: %s\ndeferred_cleanup: %s\ndeferred_notices: %s\ndeferred_work: %s\ntick_elapsed_s: %s\noutage_skips: %s\noutage_latch_active: %s\n' \
-  "$now" "$(date -u -d "@$now" +%FT%TZ)" "$outcome" "${#deferred[@]}" "$remedy_deferred_count" \
+printf 'epoch: %s\nlast_tick_at: %s\noutcome: %s\nanalyzed_clones: %s\ndeferred_clones: %s\ndeferred_remedies: %s\ndeferred_cleanup: %s\ndeferred_notices: %s\ndeferred_work: %s\ntick_elapsed_s: %s\noutage_skips: %s\noutage_latch_active: %s\n' \
+  "$now" "$(date -u -d "@$now" +%FT%TZ)" "$outcome" "$analyzed" "${#deferred[@]}" "$remedy_deferred_count" \
   "$cleanup_deferred_count" "$notice_deferred_count" "$deferred_work_count" "$SECONDS" "$skip_total" "$latch_active" \
   > "$GARDEN_CONTENTION_STATE/heartbeat"

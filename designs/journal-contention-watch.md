@@ -219,10 +219,18 @@ root-repo-guard's maintenance which defers to the deploy.
   clone rather than reading it as 0 bytes. A clone rebuild starts only with
   `GARDEN_CONTENTION_REMEDY_MIN` (120s) left, its fetch retries trimmed to fit, and
   otherwise records `remedy: deferred-deadline` with no backoff stamp so the next tick
-  retries it. Deferred clones are written to `deferred` and run first next tick, so a
-  slow tail is never starved; their confirm counters and open notices are left
-  untouched. The heartbeat records `outcome: partial-poll` and `deferred_clones`, and
-  two consecutive partial ticks open `journal-contention-watch-overrun`.
+  retries it. Inspection rotates through the clones in passes: `deferred` is the
+  cursor, listing the clones the current pass has not yet inspected, and they run
+  first next tick, so a slow tail is never starved; once a pass is exhausted, leftover
+  budget starts the next one. A busy clone (a producer holds its lock) is skipped
+  for the tick and stays in the pass, never blocking the clones behind it. Skipped
+  clones keep their confirm counters and open notices. The heartbeat records
+  `outcome: partial-poll`, `analyzed_clones`, and `deferred_clones`. A backlog that
+  shrinks a slice per tick is healthy; only two consecutive *stalled* ticks (work
+  deferred, no clone analyzed, and deferred work not smaller than the previous
+  tick's) open `journal-contention-watch-overrun`. Before 2026-10-06, one busy clone at
+  the head of the list deferred every clone behind it, so a 102-clone backlog never
+  shrank and the overrun paged on every tick.
 - **Its own liveness** follows comment-latency-watch's three turtles: (1) systemd
   `Restart=on-failure` + timer re-arm; (2) it writes its own host-local heartbeat
   (`$GARDEN_STATE/journal-contention-watch/heartbeat`), whose staleness the probe and

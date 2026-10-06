@@ -131,7 +131,8 @@ env GARDEN_STATE="$STATE" GARDEN_CONTENTION_DIR="$RINGS" GARDEN_CONTENTION_STATE
 grep -q "^--recovered journal-clone-oversized-$slug " "$NOTICES" || { echo 'FAIL: clone recovery not closed'; exit 1; }
 
 # Tick deadline: clone work stops once the budget is spent, the heartbeat is still
-# written, deferred clones go first next tick, and repeated overrun pages once.
+# written, deferred clones go first next tick, and a tick that makes progress
+# never pages an overrun.
 reset_case
 for c in aa bb cc; do sample lock-giveup 99 1 "$c"; done
 export GARDEN_CONTENTION_TICK_BUDGET=1000 GARDEN_CONTENTION_RESERVE=0 GARDEN_CONTENTION_TEST_SLUG_COST=1000
@@ -143,11 +144,47 @@ grep -q '^deferred_clones: 2$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: deferre
 [ "$(cat "$WATCH_STATE/deferred")" = $'bb\ncc' ] || { echo 'FAIL: deferred list wrong'; exit 1; }
 run_watch 400
 assert_open journal-lock-contention-aa
-[ "$(cat "$WATCH_STATE/deferred")" = $'cc\naa' ] || { echo 'FAIL: deferred clones were not run first'; exit 1; }
+[ "$(cat "$WATCH_STATE/deferred")" = cc ] || { echo 'FAIL: deferred clones were not run first'; exit 1; }
 GARDEN_CONTENTION_TEST_SLUG_COST=0 run_watch 700
-assert_open journal-lock-contention-bb; assert_open journal-lock-contention-cc; assert_open journal-contention-watch-overrun
+assert_open journal-lock-contention-bb; assert_open journal-lock-contention-cc
+if grep -q '^journal-contention-watch-overrun ' "$NOTICES"; then echo 'FAIL: progressing ticks paged an overrun'; exit 1; fi
 grep -q '^outcome: full-poll$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: full tick not recorded'; exit 1; }
 [ ! -e "$WATCH_STATE/deferred" ] || { echo 'FAIL: deferred list survived a full tick'; exit 1; }
+
+# A backlog of ~100 clones drains across a bounded number of ticks: each tick
+# advances the rotation cursor by its budget's worth of clones, the deferred
+# count strictly shrinks, and no overrun pages while progress is being made
+# (2026-10-04..06: a 102-clone backlog never shrank and paged 77 times).
+reset_case
+for n in $(seq -w 1 100); do sample push-attempts 99 1 "bulk$n"; done
+GARDEN_CONTENTION_TEST_SLUG_COST=100
+prev=101; t=0; ticks=0
+while :; do
+  ticks=$(( ticks + 1 )); t=$(( t + 300 ))
+  [ "$ticks" -le 12 ] || { echo "FAIL: 100-clone backlog did not drain in 12 ticks"; exit 1; }
+  run_watch "$t"
+  left="$(sed -n 's/^deferred_clones: //p' "$WATCH_STATE/heartbeat")"
+  [ "$left" -lt "$prev" ] || { echo "FAIL: backlog did not shrink on tick $ticks ($prev -> $left)"; exit 1; }
+  grep -q '^analyzed_clones: [1-9]' "$WATCH_STATE/heartbeat" || { echo "FAIL: tick $ticks analyzed nothing"; exit 1; }
+  [ "$left" -gt 0 ] || break
+  prev="$left"
+done
+[ "$ticks" -le 11 ] || { echo "FAIL: backlog took $ticks ticks"; exit 1; }
+[ ! -e "$WATCH_STATE/deferred" ] || { echo 'FAIL: drained backlog left a deferred list'; exit 1; }
+if grep -q '^journal-contention-watch-overrun ' "$NOTICES"; then echo 'FAIL: draining backlog paged an overrun'; exit 1; fi
+bulk_stats=("$WATCH_STATE"/stats/bulk*); [ "${#bulk_stats[@]}" -eq 100 ] || { echo 'FAIL: not every clone was analyzed'; exit 1; }
+
+# A tick that analyzes nothing while work stays deferred is stalled: the overrun
+# pages after two consecutive stalls and recovers once progress resumes.
+reset_case
+for c in aa bb cc; do sample push-attempts 99 1 "$c"; done
+GARDEN_CONTENTION_TICK_BUDGET=0 run_watch 100
+GARDEN_CONTENTION_TICK_BUDGET=0 run_watch 400
+# A zero budget cannot deliver either: the overrun notice is queued durably.
+[ -e "$WATCH_STATE/notice-pending/journal-contention-watch-overrun.action" ] \
+  || [ -e "$WATCH_STATE/alerts/journal-contention-watch-overrun" ] || { echo 'FAIL: stalled ticks did not raise an overrun'; exit 1; }
+GARDEN_CONTENTION_TEST_SLUG_COST=0 run_watch 700
+assert_open journal-contention-watch-overrun
 grep -q '^--recovered journal-contention-watch-overrun ' "$NOTICES" || { echo 'FAIL: overrun not recovered'; exit 1; }
 unset GARDEN_CONTENTION_TICK_BUDGET GARDEN_CONTENTION_RESERVE GARDEN_CONTENTION_TEST_SLUG_COST
 
@@ -186,6 +223,26 @@ kill "$holder" 2>/dev/null || true; wait "$holder" 2>/dev/null || true
 grep -qx "$slug" "$WATCH_STATE/deferred" || { echo 'FAIL: busy clone was not deferred'; exit 1; }
 grep -q '^outcome: partial-poll$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: busy clone lost heartbeat'; exit 1; }
 [ ! -e "$WATCH_STATE/stats/$slug" ] || { echo 'FAIL: busy clone recorded partial stats'; exit 1; }
+
+# A busy clone at the head of the deferred queue is skipped, not allowed to hold
+# back the clones behind it: they are analyzed, and the busy one rotates last.
+reset_case
+CLONE="$STATE/busy/journal"; mkdir -p "$CLONE"; git -C "$CLONE" init -q
+slug="${CLONE//[!A-Za-z0-9]/_}"
+sample lock-giveup 99 1 "$slug"
+for c in qq rr; do sample push-attempts 99 1 "$c"; done
+mkdir -p "$WATCH_STATE"; printf '%s\nqq\nrr\n' "$slug" > "$WATCH_STATE/deferred"
+rm -f "$HELD"
+GARDEN_STATE="$STATE" bash -c \
+  '. "$1/common.sh"; garden_repo_lock "$2" exclusive; touch "$3"; sleep 10' \
+  _ "$JOBS" "$CLONE" "$HELD" & holder=$!
+for n in $(seq 1 100); do [ -e "$HELD" ] && break; sleep 0.01; done
+[ -e "$HELD" ] || { echo 'FAIL: producer repository lock was not acquired'; kill "$holder" 2>/dev/null || true; exit 1; }
+GARDEN_CONTENTION_INSPECTION_LOCK_WAIT=0.1 run_watch 100
+kill "$holder" 2>/dev/null || true; wait "$holder" 2>/dev/null || true
+[ -e "$WATCH_STATE/stats/qq" ] && [ -e "$WATCH_STATE/stats/rr" ] || { echo 'FAIL: busy clone blocked the clones behind it'; exit 1; }
+[ "$(cat "$WATCH_STATE/deferred")" = "$slug" ] || { echo 'FAIL: only the busy clone should stay deferred'; exit 1; }
+grep -q '^analyzed_clones: 2$' "$WATCH_STATE/heartbeat" || { echo 'FAIL: analyzed count wrong'; exit 1; }
 
 # Too little budget left for a rebuild defers the remedy without a backoff stamp.
 reset_case
