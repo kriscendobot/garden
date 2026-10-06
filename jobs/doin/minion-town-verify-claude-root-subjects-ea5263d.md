@@ -10,3 +10,13 @@ Task: check that the deployment is live and healthy. Do not change the code.
 3. The restart can leave an orphaned manager-node holding :8920 (EADDRINUSE; see PR #137). If that happened, use the documented orphan-kill-and-restart recovery.
 4. Optional: if you can do it without exposing secrets, confirm that the kriscendobot identity can reach the root @claude-agents tools and the /account/claude connect flow.
 Report what you found to the maintainer inbox. If nothing is wrong, close as a no-op.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-06T02:42:10Z
