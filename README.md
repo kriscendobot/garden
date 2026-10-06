@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T15:34:54Z_
+_As of 2026-10-06T15:40:01Z_
 
 ## Latest
 
@@ -16,7 +16,7 @@ These items still need you:
 
 ## Parked for maintainer feedback
 
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 36m)
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 41m)
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 17h)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
@@ -1316,6 +1316,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/546](https://github.com/endojs/endo-but-for-bots/pull/546) ([endojs/endo-but-for-bots#546](https://github.com/endojs/endo-but-for-bots/issues/546)) is in the mergeable queue with NO gauntlet review staged (head 2f2c0a3bf59e2d6e650ea388a3c29cb08d37b1c1). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #546'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `msg-oros-health-watch-20261006-153513-69dd66e80ebe` — from gardener:oros-health-watch-20261006-153513, reply_to `oros-health-watch-20261006-153513` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261006-153513-69dd66e80ebe.md)
+
+> Oros remains unreachable as of 2026-10-06T15:36Z. No active checkup exists because its schedule is deferred to 2026-10-11. Heartbeat and sysop activity have been stale since 2026-10-02; fleet health is stale/deferred, the host remains heartbeat-offline derotated, and deployed e036bb8e is 161 commits behind main2 de4f2eec. Seven reset-failed ops and one restore op remain unacknowledged, so I sent no duplicate host op. A person must check the Mac power/sleep state, Docker Desktop, and the VM/container.
+
 - `stale-panel-head-endojs-endo-but-for-bots-pr1407-a62e91ac-06780c27` — from gardener:claude-on-minion-town-press-20261005-103509, reply_to `claude-on-minion-town-press-20261005-103509` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1407-a62e91ac-06780c27.md)
 
 > Stale panel coverage for completed job `claude-on-minion-town-press-20261005-103509`: [https://github.com/endojs/endo-but-for-bots/pull/1407](https://github.com/endojs/endo-but-for-bots/pull/1407) moved from panel-reviewed head `a62e91aca69f41da51c81bab904a1cb902e79609` to presented head `06780c2731794cc34f843971f1bac2adcfcfd081`.
@@ -1542,8 +1546,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 153.3M | $1822.96 _(notional, rate-card)_ | 96% of 160.0M (ok) |
-| Codex | 7.9M _(+205.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 153.4M | $1823.35 _(notional, rate-card)_ | 96% of 160.0M (ok) |
+| Codex | 7.9M _(+206.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1554,17 +1558,18 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
+- [`minion-town-claude-bot-restart-canary`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/minion-town-claude-bot-restart-canary.md) — Item 6 evidence: a minion.town guest's Claude bot survives a daemon restart
 - [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1370
 - [`endojs-endo-but-for-bots-pr1282-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1282
 
-### tada (11241)
+### tada (11243)
+- [`claude-on-minion-town-press-20261006-153513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261006-153513.md) — Cost
+- [`oros-health-watch-20261006-153513`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-153513.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-de4f2eece5f7`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-de4f2eece5f7.md) — rolling-deploy canary probe — round trip OK
 - [`minion-town-verify-caddy-gate-token-deploy-be0edb8`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/minion-town-verify-caddy-gate-token-deploy-be0edb8.md) — Cost
 - [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr1370-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet.md) — Cost
-- [`kriscendobot-minion-town-pr163-conduct-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion-town-pr163-conduct-20261006.md) — Conductor report: kriscendobot/minion.town#163 is merged and deployed
-- … and 11236 more
+- … and 11238 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
