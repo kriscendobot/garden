@@ -36,6 +36,11 @@ bad() { echo "  FAIL: $*"; FAIL=$((FAIL+1)); }
 hr()  { echo "----------------------------------------------------------------"; }
 
 rm -rf "$TR"; mkdir -p "$TR"
+# Cases that do not name their own GARDEN_API_COOLDOWN_DIR latch the fixture dir,
+# never the live host's (test-live-cooldown-guard.sh).
+# shellcheck source=test-live-cooldown-guard.sh
+source "$HERE/test-live-cooldown-guard.sh"
+live_cooldown_guard_begin "$TR"
 git_id=(-c user.name=test -c user.email=test@localhost)
 
 seed_bare() {  # seed_bare <bare-path>
@@ -424,6 +429,9 @@ else bad "QC2 tick failed when the quota trips mid-source"; fi
   || bad "QC2 heartbeat outcome '$(qc_outcome "$ST_QC2")', want cooldown"
 grep -q 'mention source failed' "$OUT_QC2" && bad "QC2 died as a source failure" \
   || ok "QC2 not reported as a source failure"
+
+if live_cooldown_guard_end; then ok "live gh-api cooldown markers unchanged"
+else bad "the suite latched the live gh-api cooldown"; fi
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr

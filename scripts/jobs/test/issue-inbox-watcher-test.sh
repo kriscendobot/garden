@@ -58,6 +58,11 @@ report_result() {
 trap 'rc=$?; if [ "$reported" -eq 0 ]; then hr; echo "RESULT: $PASS passed, $FAIL failed (ABORTED, rc=$rc)"; hr; fi' EXIT
 
 rm -rf "$TR"; mkdir -p "$TR"
+# Cases that do not name their own GARDEN_API_COOLDOWN_DIR latch the fixture dir,
+# never the live host's (test-live-cooldown-guard.sh).
+# shellcheck source=test-live-cooldown-guard.sh
+source "$HERE/test-live-cooldown-guard.sh"
+live_cooldown_guard_begin "$TR"
 export GARDEN_API_COOLDOWN_SECS=0
 git_id=(-c user.name=test -c user.email=test@localhost)
 
@@ -668,6 +673,9 @@ grep -q '(rc=75)' "$ERR_CGL" \
 [ ! -s "$PL_CGL" ] && [ ! -s "$ML_CGL" ] \
   && ok "nothing dispatched behind the unreadable cursor (tick skipped cleanly)" \
   || bad "dispatched despite the failed cursor read (post=$(cat "$PL_CGL") msg=$(cat "$ML_CGL"))"
+
+if live_cooldown_guard_end; then ok "live gh-api cooldown markers unchanged"
+else bad "the suite latched the live gh-api cooldown"; fi
 
 # ============================================================================
 report_result

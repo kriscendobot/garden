@@ -32,6 +32,8 @@ HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 JOBS="$(cd "$HERE/.." && pwd)"
 # shellcheck source=test-tmpdir.sh
 source "$HERE/test-tmpdir.sh"
+# shellcheck source=test-live-cooldown-guard.sh
+source "$HERE/test-live-cooldown-guard.sh"
 BRANCH=journal2
 # Per-run temp root (mktemp), NOT a fixed shared path: ~20 gardeners can race this
 # suite concurrently, and a fixed dir makes each run's `rm -rf; mkdir` collide with a
@@ -41,6 +43,9 @@ BRANCH=journal2
 TEST_TMPDIR="$(garden_test_exec_tmpdir)"
 TR="$(mktemp -d "$TEST_TMPDIR/.garden-cw-test.XXXXXX")"
 trap 'rm -rf "$TR"' EXIT
+# Every case that does not name its own GARDEN_API_COOLDOWN_DIR latches this fixture
+# dir, never the live host's (the 2026-10-06 RATE-section fleet latch).
+live_cooldown_guard_begin "$TR"
 SLUG=endojs-endo-but-for-bots
 PASS=0; FAIL=0
 ok()  { echo "  PASS: $*"; PASS=$((PASS+1)); }
@@ -3958,6 +3963,11 @@ board_has "$BARE_GA3" "$SLUG-pr1073-rebase" && bad "reduced to a bare rebase (dr
   || ok "not reduced to a bare rebase"
 [ "$(todo_count "$BARE_GA3")" -eq 1 ] && ok "one attention job triages the whole directive" \
   || bad "expected one attention job (todo=$(todo_count "$BARE_GA3"))"
+
+# ============================================================================
+hr; echo "LIVE-COOLDOWN — the suite left the live host's gh-api cooldown untouched"; hr
+if live_cooldown_guard_end; then ok "live gh-api cooldown markers unchanged"
+else bad "the suite latched the live gh-api cooldown"; fi
 
 # ============================================================================
 hr; echo "RESULT: $PASS passed, $FAIL failed"; hr
