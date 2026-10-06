@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T14:48:06Z_
+_As of 2026-10-06T14:57:16Z_
 
 ## Latest
 
@@ -16,8 +16,8 @@ These items still need you:
 
 ## Parked for maintainer feedback
 
+- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 56s)
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 16h)
-- [endojs/endo-but-for-bots#1282](https://github.com/endojs/endo-but-for-bots/pull/1282) — chore(ironhorse): demolish the XS-computron-parity myth (waiting 9d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 18d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 24d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 32d)
@@ -1534,8 +1534,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 152.4M | $1811.84 _(notional, rate-card)_ | 95% of 160.0M (ok) |
-| Codex | 7.7M _(+197.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 152.5M | $1814.95 _(notional, rate-card)_ | 95% of 160.0M (ok) |
+| Codex | 7.8M _(+198.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1546,16 +1546,18 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1282-weave-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1282-weave-20261006.md) — ---
+### doin (3)
+- [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1370
+- [`design-foreman-discretion-pool`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-foreman-discretion-pool.md) — Design: a foreman-discretion pool, third-way split of the weekly budget
+- [`endojs-endo-but-for-bots-pr1370-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1370-gauntlet.md) — ---
 
-### tada (11231)
+### tada (11233)
+- [`endojs-endo-but-for-bots-pr1282-weave-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1282-weave-20261006.md) — Cost
+- [`endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-viability.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-61b77cc9a9fe`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-61b77cc9a9fe.md) — rolling-deploy canary probe — round trip OK
 - [`improve-persist-mirror-quota-cooldown`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-persist-mirror-quota-cooldown.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-c3b3c458adb0`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-c3b3c458adb0.md) — rolling-deploy canary probe — round trip OK
-- [`canary-probe-endolin-garden-ece02cb4-1fc7b6236d1c`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/canary-probe-endolin-garden-ece02cb4-1fc7b6236d1c.md) — rolling-deploy canary probe — round trip OK
-- [`improve-follow-up-seen-cursor-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-follow-up-seen-cursor-retry.md) — Cost
-- … and 11226 more
+- … and 11228 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
