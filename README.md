@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T19:31:07Z_
+_As of 2026-10-06T19:37:02Z_
 
 ## Latest
 
@@ -1240,6 +1240,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/151](https://github.com/endojs/endo-but-for-bots/pull/151) ([endojs/endo-but-for-bots#151](https://github.com/endojs/endo-but-for-bots/issues/151)) is in the mergeable queue with NO gauntlet review staged (head 97e419b9c9517e6009c89575a241a4fb53b5ea61). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #151'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `watchdog-rolling-deploy-canary-stuck-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden-ece02cb4.md)
+
+> WATCHDOG notice — occurrence #11 (first seen 2026-10-06T18:20:02Z, latest 2026-10-06T19:35:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-endolin-garden-ece02cb4`) has now been observed 11 times; this is ONE
+> coalesced notice that updates in place, not 11 messages. Latest detail:
+>
+> Rolling-deploy canary endolin-garden-ece02cb4 is STUCK: it was released to 5305b5aed91a 21 min ago
+> but still reports deployed_sha de4f2eece5f746c23d8bac7b3634b8aecfeb7ef6. Check garden-self-deploy on endolin-garden-ece02cb4
+> (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
+> keeps it from advancing. The leader does not advance past an undeployed canary.
+> (leader=endolin-garden2-5bcdff64)
+
 - `msg-oros-health-watch-20261004-193508-d945f8d88359` — from gardener:oros-health-watch-20261004-193508, reply_to `oros-health-watch-20261004-193508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261004-193508-d945f8d88359.md)
 
 > oros-studio is still unreachable (19:41Z 2026-10-04). Its heartbeat was last seen at 2026-10-02T05:08Z, the last sysop-log entry is from 2026-10-02T05:45Z, and 6 queued reset-failed ops are unacked. Checkups 110510, 142006 and 172006 are unclaimed in todo. I sent no ops. Someone needs to go to the Mac (sleep, power, Docker Desktop, VM). This is the same outage as the 5 earlier unread watcher messages; consider pausing the oros-health-watch schedule until oros returns.
@@ -1262,11 +1274,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-1.md)
 
-> WATCHDOG notice — occurrence #4 (first seen 2026-09-09T20:50:24Z, latest 2026-10-06T09:50:57Z).
-> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 4 times; this is ONE
-> coalesced notice that updates in place, not 4 messages. Latest detail:
+> WATCHDOG notice — occurrence #5 (first seen 2026-09-09T20:50:24Z, latest 2026-10-06T19:35:27Z).
+> The SAME condition (`budget-level-cleric-endolin-garden2-5bcdff64-1`) has now been observed 5 times; this is ONE
+> coalesced notice that updates in place, not 5 messages. Latest detail:
 >
-> budget-level changed endolin-garden2-5bcdff64 cleric workers 0 -> 1 (target 1): shared codex subscription demand active=0 queue=0 quota=ok fleet-envelope=4 target=1
+> budget-level changed endolin-garden2-5bcdff64 cleric workers 2 -> 1 (target 1): shared codex subscription demand active=0 queue=1 quota=ok fleet-envelope=4 target=1
 
 - `20261004T203316Z-46caa2` — from proxy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/20261004T203316Z-46caa2.md)
 
@@ -1578,7 +1590,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 158.6M | $1888.42 _(notional, rate-card)_ | 99% of 160.0M (ok) |
+| Claude | 160.2M | $1906.50 _(notional, rate-card)_ | 100% of 160.0M (backoff) |
 | Codex | 8.6M _(+230.5M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
