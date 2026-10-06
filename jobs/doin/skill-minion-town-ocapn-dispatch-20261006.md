@@ -58,3 +58,13 @@ this repo's own convention for garden-library additions with no maintainer-
 facing open question). Say in your completion report which of the two
 outcomes above you landed (usable procedure vs. honest not-yet-ready status)
 and why.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-06T19:11:58Z
