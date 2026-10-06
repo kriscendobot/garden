@@ -313,6 +313,54 @@ else
   bad 'journal-sync exhaustion was opaque or exceeded its retry bound'
 fi
 
+# Live clone-lock contention (a slow previous tick, or any peer holding this
+# scanner's clone lock) is a courtesy-timer deferral: one short soft wait, then
+# a clean exit, never the hard 3x60s ladder ending in a FATAL. Cover both a
+# cold and a warm clone.
+hold_clone_lock() {  # hold_clone_lock <clone-dir> <ready-file>: live holder, stamped "PID EPOCH"
+  local lf="${1%/}.lock" ready="$2"
+  mkdir -p "$(dirname "$lf")"
+  bash -c 'exec 9<>"$1"; flock 9; printf "%s %s\n" "$$" "$(date +%s)" >&9; : > "$2"; exec sleep 30' \
+    _ "$lf" "$ready" </dev/null >/dev/null 2>&1 &
+  LOCK_HOLDER=$!
+  for _ in $(seq 1 50); do [ -e "$ready" ] && return 0; sleep 0.1; done
+  return 1
+}
+lock_busy_check() {  # lock_busy_check <label> <stage-regex> <out>
+  local label="$1" stage="$2" out="$3" rc="$4" elapsed="$5"
+  if [ "$rc" -eq 0 ] && [ "$elapsed" -lt 30 ] \
+    && grep -qE "$stage stage skipped: journal offline or clone lock busy \\(rc=75\\)" "$out" \
+    && ! grep -q 'FATAL\|cannot acquire clone lock\|tick failed locally\|ERROR:' "$out" \
+    && ! grep -q 'attempt 2/' "$out"; then
+    ok "$label"
+  else
+    bad "$label (rc=$rc elapsed=${elapsed}s)"
+    sed 's/^/    /' "$out" | tail -8
+  fi
+}
+add_claim_at_tip lock-busy 300
+hold_clone_lock "$STATE/lock-busy-cold/journal" "$TEST_ROOT/lock-busy-cold.ready" \
+  || bad 'lock-busy fixture could not take the clone lock'
+lb_t0=$SECONDS
+run_nudge lock-busy-cold env GARDEN_DEADLINE_NUDGE_LOCK_WAIT=1 \
+  > "$TEST_ROOT/lock-busy-cold.out" 2>&1
+lb_rc=$?
+kill "$LOCK_HOLDER" 2>/dev/null || true; wait "$LOCK_HOLDER" 2>/dev/null || true
+lock_busy_check 'clone stage under live clone-lock contention defers cleanly without the hard wait ladder' \
+  clone "$TEST_ROOT/lock-busy-cold.out" "$lb_rc" "$(( SECONDS - lb_t0 ))"
+run_nudge lock-busy-warm > "$TEST_ROOT/lock-busy-warm-seed.out" 2>&1
+hold_clone_lock "$STATE/lock-busy-warm/journal" "$TEST_ROOT/lock-busy-warm.ready" \
+  || bad 'lock-busy fixture could not take the warm clone lock'
+lb_t0=$SECONDS
+run_nudge lock-busy-warm env GARDEN_DEADLINE_NUDGE_LOCK_WAIT=1 \
+  > "$TEST_ROOT/lock-busy-warm.out" 2>&1
+lb_rc=$?
+kill "$LOCK_HOLDER" 2>/dev/null || true; wait "$LOCK_HOLDER" 2>/dev/null || true
+# ensure_clone takes the lock even for an existing clone, so the clone stage is
+# normally the one that defers here; either stage deferring cleanly is the contract.
+lock_busy_check 'warm clone under live clone-lock contention defers cleanly without the hard wait ladder' \
+  '(clone|journal-sync)' "$TEST_ROOT/lock-busy-warm.out" "$lb_rc" "$(( SECONDS - lb_t0 ))"
+
 stage_stub="$HERE/deadline-nudge-stage-git-stub.sh"
 stage_stub_bin="$TEST_ROOT/stage-stub-bin"
 mkdir -p "$stage_stub_bin"

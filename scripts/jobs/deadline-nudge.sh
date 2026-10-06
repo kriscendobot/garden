@@ -18,6 +18,11 @@ export GARDEN_TAG="deadline-nudge"
 : "${GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS:=5}"
 : "${GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS:=3}"
 : "${GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS:=3}"
+# Seconds the prerequisite clone/sync stages wait for this scanner's clone lock.
+# This is a courtesy timer, so a live peer holding the lock (typically a slow
+# previous tick) defers the tick instead of paying the hard 3x60s wait ladder
+# and dying FATAL (the 2026-10-06T04:02:00Z incident).
+: "${GARDEN_DEADLINE_NUDGE_LOCK_WAIT:=$GARDEN_LOCK_SOFT_WAIT}"
 
 DIR="${GARDEN_DEADLINE_NUDGE_CLONE:-$GARDEN_STATE/deadline-nudge/journal}"
 # Host-local, reconstructible record of the current tick's stage and, on a
@@ -27,20 +32,29 @@ FAULT="${GARDEN_DEADLINE_NUDGE_FAULT:-$GARDEN_STATE/deadline-nudge/tick-fault}"
 
 positive_integer() { [[ "${1:-}" =~ ^[1-9][0-9]*$ ]]; }
 
+# Run a clone-lock-taking command with SOFT acquisition: one short bounded wait,
+# then clone_lock exits GARDEN_OFFLINE_RC (a retry-next-tick signal) instead of
+# the FATAL give-up. The callers below treat that rc as a clean deferral.
+soft_clone_lock() {
+  GARDEN_CLONE_LOCK_SOFT=1 GARDEN_LOCK_SOFT_WAIT="$GARDEN_DEADLINE_NUDGE_LOCK_WAIT" "$@"
+}
+
 # ensure_clone and sync_clone deliberately exit from several failure paths. Run
 # them in contained subshells so this courtesy timer can absorb a short-lived
 # prerequisite failure instead of abandoning the whole tick on the first try.
 # A successful sync normally leaves the clone lock held for the following
 # write/push transaction; the subshell closes that fd, so reacquire it before
-# returning to the caller.
+# returning to the caller. Both stages take the lock SOFT, so live-lock contention
+# surfaces as GARDEN_OFFLINE_RC and defers the tick without spending the retry
+# bound; only real failures are retried.
 prepare_clone() {
   local attempt rc=1
   for attempt in $(seq 1 "$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS"); do
     rc=0
-    ( ensure_clone "$DIR" ) || rc=$?
+    ( soft_clone_lock ensure_clone "$DIR" ) || rc=$?
     [ "$rc" -eq 0 ] && return 0
     if [ "$rc" -eq "$GARDEN_OFFLINE_RC" ]; then
-      log "deadline-nudge clone stage skipped: journal offline (rc=$rc); deferring to next timer tick"
+      log "deadline-nudge clone stage skipped: journal offline or clone lock busy (rc=$rc); deferring to next timer tick"
       return "$rc"
     fi
     log "deadline-nudge clone stage failed (attempt $attempt/$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS, rc=$rc)"
@@ -54,16 +68,20 @@ sync_journal() {
   local attempt rc=1
   for attempt in $(seq 1 "$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS"); do
     rc=0
-    ( sync_clone "$DIR" ) || rc=$?
+    ( soft_clone_lock sync_clone "$DIR" ) || rc=$?
     if [ "$rc" -eq 0 ]; then
-      clone_lock "$DIR"
+      # A peer can slip in between the subshell's release and this reacquire.
+      # Soft mode exits the tick subshell with GARDEN_OFFLINE_RC on contention,
+      # which the tick's EXIT handling records as a clean deferral.
+      soft_clone_lock clone_lock "$DIR"
       return 0
     fi
     # A connectivity blip is a routine transient, not a stage fault to retry or
     # surface as exhausted: sync_clone already logged the outage and exits
     # EX_TEMPFAIL. Defer this tick cleanly rather than spinning the retry bound.
+    # A soft clone-lock give-up under live contention exits the same rc.
     if [ "$rc" -eq "$GARDEN_OFFLINE_RC" ]; then
-      log "deadline-nudge journal-sync stage skipped: journal offline (rc=$rc); deferring to next timer tick"
+      log "deadline-nudge journal-sync stage skipped: journal offline or clone lock busy (rc=$rc); deferring to next timer tick"
       return "$rc"
     fi
     log "deadline-nudge journal-sync stage failed (attempt $attempt/$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS, rc=$rc)"
@@ -366,7 +384,8 @@ deadline_nudge_tick() {
   local now attempt rc stage_rc
   for value in "$GARDEN_DEADLINE_NUDGE_INTERVAL" "$GARDEN_DEADLINE_NUDGE_FRACTION" \
                "$GARDEN_DEADLINE_NUDGE_CAP" "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS" \
-               "$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS" "$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS"; do
+               "$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS" "$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS" \
+               "$GARDEN_DEADLINE_NUDGE_LOCK_WAIT"; do
     if ! positive_integer "$value"; then
       log "invalid deadline-nudge timing/retry value '$value'; disabling this tick"
       return 0
@@ -528,7 +547,9 @@ tick_on_signal() {
 
 tick_on_exit() {
   local rc="$1" cmd="$2" command
-  if [ "$rc" -ne 0 ]; then
+  # GARDEN_OFFLINE_RC from a helper's `exit` (an offline journal or a soft
+  # clone-lock give-up) is a deferral already logged by that helper, not a fault.
+  if [ "$rc" -ne 0 ] && [ "$rc" -ne "$GARDEN_OFFLINE_RC" ]; then
     command="\`$(tick_trace_squash "$cmd")\` at $(tick_trace_stack)"
     log "ERROR: deadline-nudge tick exited rc=$rc in stage ${TICK_STAGE:-unknown} during $command; recent failed commands (oldest first): $(tick_err_trail)"
     printf 'rc: %s\ncommand: %s\ntrail: %s\n' "$rc" "$command" "$(tick_err_trail)" >> "$FAULT" 2>/dev/null || true
@@ -586,7 +607,9 @@ set +e
 )
 tick_rc=$?
 set -e
-if [ "$tick_rc" -ne 0 ]; then
+if [ "$tick_rc" -eq "$GARDEN_OFFLINE_RC" ]; then
+  log "deadline nudge tick deferred (rc=$tick_rc: journal offline or clone lock busy); next timer tick will retry"
+elif [ "$tick_rc" -ne 0 ]; then
   log "WARN: deadline nudge tick failed locally (rc=$tick_rc; $(tick_fault_summary "$tick_rc"); fault record $FAULT); next timer tick will retry"
 fi
 exit 0

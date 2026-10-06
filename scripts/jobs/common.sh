@@ -4726,7 +4726,8 @@ clone_lock() {
   # instead of proceeding lock-less. A caller whose siblings share this clone may set
   # GARDEN_CLONE_LOCK_SOFT_COOLDOWN_KEY: clone_lock opens that caller-scoped host
   # cooldown before exiting. Set soft mode only for optional work (the triager pacing
-  # subshell, ci-watcher's verify_fetch board check, journal-contention-watch remedies).
+  # subshell, ci-watcher's verify_fetch board check, journal-contention-watch remedies,
+  # deadline-nudge's courtesy-timer clone/sync stages).
   local wait="$GARDEN_LOCK_WAIT" retries="$GARDEN_LOCK_RETRIES"
   if [ "${GARDEN_CLONE_LOCK_SOFT:-0}" = 1 ]; then wait="$GARDEN_LOCK_SOFT_WAIT"; retries=1; fi
   [ -n "${_CLONE_LOCK_FD[$dir]:-}" ] && return 0       # this process already holds it
