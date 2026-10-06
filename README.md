@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T20:35:06Z_
+_As of 2026-10-06T20:37:10Z_
 
 ## Latest
 
@@ -1250,11 +1250,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-canary-stuck-endolin-garden-ece02cb4` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-canary-stuck-endolin-garden-ece02cb4.md)
 
-> WATCHDOG notice — occurrence #11 (first seen 2026-10-06T18:20:02Z, latest 2026-10-06T19:35:02Z).
-> The SAME condition (`rolling-deploy-canary-stuck-endolin-garden-ece02cb4`) has now been observed 11 times; this is ONE
-> coalesced notice that updates in place, not 11 messages. Latest detail:
+> WATCHDOG notice — occurrence #17 (first seen 2026-10-06T18:20:02Z, latest 2026-10-06T20:35:02Z).
+> The SAME condition (`rolling-deploy-canary-stuck-endolin-garden-ece02cb4`) has now been observed 17 times; this is ONE
+> coalesced notice that updates in place, not 17 messages. Latest detail:
 >
-> Rolling-deploy canary endolin-garden-ece02cb4 is STUCK: it was released to 5305b5aed91a 21 min ago
+> Rolling-deploy canary endolin-garden-ece02cb4 is STUCK: it was released to 05b29b3e8fa2 27 min ago
 > but still reports deployed_sha de4f2eece5f746c23d8bac7b3634b8aecfeb7ef6. Check garden-self-deploy on endolin-garden-ece02cb4
 > (journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
 > keeps it from advancing. The leader does not advance past an undeployed canary.
@@ -1598,7 +1598,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 163.7M | $1944.52 _(notional, rate-card)_ | 102% of 160.0M (backoff) |
+| Claude | 163.7M | $1945.48 _(notional, rate-card)_ | 102% of 160.0M (backoff) |
 | Codex | 8.7M _(+231.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1610,8 +1610,8 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### todo (1)
 - [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-185007.md) — ---
 
-### doin (0)
-(none)
+### doin (1)
+- [`kriscendobot-minion.town-pr165-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — kriscendobot/minion.town PR #165
 
 ### tada (11282)
 - [`kriscendobot-minion.town-pr165-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-5.md) — Cost
