@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T04:42:14Z_
+_As of 2026-10-06T04:44:12Z_
 
 ## Latest
 
@@ -418,6 +418,18 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > Method: run each suite with a SCRUBBED env (`env -i HOME=$HOME PATH=$PATH TMPDIR=$TMPDIR GARDEN_TEST=1 bash scripts/jobs/test/<t>-test.sh`), because a live worker exports GARDEN_WORKER_CLONE etc. that leak into direct runs. Compare against the pre-change tree 70b6d1e3d42^ (extract with `git archive -o $TMPDIR/b.tar 70b6d1e3d42^ scripts && tar -xf $TMPDIR/b.tar -C $TMPDIR/base`) and diff the FAIL lines. Already verified identical-to-baseline (pre-existing failures, NOT regressions): host-requirements-gating, kimi-credit-exhaustion-routing, auction-reputation, live-budget-admission, model-routing. Already passing: canary-probe-claim-priority, qwen-mentor-trial, monk-claude-tier-serving, scaler-desired-count, library-link-check, library-slug-prefix-check, regenerate-sections-index, regenerate-topics-counts. Any NEW failure attributable to 70b6d1e3d42: fix it and land on main2. Report which suites needed updating vs already passed.
 >
 > Suites for THIS child: deploy-garden, reaper-requeue-cap, reaper-live-handler-guard, reaper-doom-park, deadline-nudge (~10 min), fetch-timeout (>15 min; use a long timeout, foreground).
+
+- `watchdog-journal-contention-storm-fetch-slow` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-contention-storm-fetch-slow.md)
+
+> Journal contention storm on endolin-garden2-5bcdff64: 8 clones hit fetch-slow in one tick (storm guard > 5; one shared cause is likelier than 8 independent faults):
+> - Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/issue-inbox/verify: p95=45.001730s max=45.010532s; hard guard=31.500000s (70% of 45s cap); remedy=none.
+> - Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/gardener-scaler/journal: p95=11.891840s max=44.512788s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+> - Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/pages-watcher/verify: p95=45.001520s max=45.001619s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+> - Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/foreman/journal: p95=45.001320s max=45.001389s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+> - Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/deadmail/verify: p95=45.001093s max=45.001399s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+> - Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/deadline-nudge/journal: p95=45.001094s max=45.002121s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+> - Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/maintainer-approval/verify: p95=8.446985s max=35.810685s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
+> - Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/monitors/monk-1/journal: p95=8.374135s max=39.097298s; hard guard=31.500000s (70% of 45s cap); remedy=deferred-deadline.
 
 - `msg-reset-credit-watch-20261005-160507-0235e607b482` — from gardener:reset-credit-watch-20261005-160507, reply_to `reset-credit-watch-20261005-160507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261005-160507-0235e607b482.md)
 
@@ -948,6 +960,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/554](https://github.com/endojs/endo-but-for-bots/pull/554) ([endojs/endo-but-for-bots#554](https://github.com/endojs/endo-but-for-bots/issues/554)) is in the mergeable queue with NO gauntlet review staged (head 9612069324c0a037b4330a4ef485797260157f44). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #554'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `watchdog-journal-lock-contention-_home_kris_garden2__garden_state_deadline_nudge_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-lock-contention-_home_kris_garden2__garden_state_deadline_nudge_journal.md)
+
+> Journal lock contention on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/deadline-nudge/journal: p95=0.016016s, giveups=3, steals=0 (max 3/window), wait floor=60s.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1156-6362c8602b79` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1156-6362c8602b79.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1156](https://github.com/endojs/endo-but-for-bots/pull/1156) ([endojs/endo-but-for-bots#1156](https://github.com/endojs/endo-but-for-bots/issues/1156)) is in the mergeable queue with NO gauntlet review staged (head 6362c8602b79ca113df081a6483ba5b100735c71). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1156'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -1142,13 +1158,13 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.7M | $1732.23 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
+| Claude | 145.7M | $1732.69 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
 | Codex | 6.2M _(+182.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 45.001597s/45s (/home/kris/garden2/.garden-state/comment-watcher/verify); 12 open notice(s); checker healthy
+worst fetch p95 45.001730s/45s (/home/kris/garden2/.garden-state/issue-inbox/verify); 14 open notice(s); checker healthy
 
 ## Board
 ### todo (1)
