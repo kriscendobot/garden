@@ -16,3 +16,13 @@ Fix:
 3. Add a regression test: arm a fake live cooldown under the real-root path and assert the suite still passes.
 
 Land on main2. Once a new sha is available, the leader's rejected marker clears by itself.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-06T04:14:45Z
