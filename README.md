@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T19:22:46Z_
+_As of 2026-10-06T19:26:48Z_
 
 ## Latest
 
@@ -1578,8 +1578,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 158.2M | $1886.61 _(notional, rate-card)_ | 99% of 160.0M (ok) |
-| Codex | 8.6M _(+228.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 158.3M | $1889.68 _(notional, rate-card)_ | 99% of 160.0M (ok) |
+| Codex | 8.6M _(+230.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1587,8 +1587,7 @@ _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-moddable); 9 open notice(s); checker healthy
 
 ## Board
-### todo (2)
-- [`skill-ocap-attenuation-authoring-stub-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/skill-ocap-attenuation-authoring-stub-20261006.md) — Author a short stub: skills/ocap-attenuation-authoring/SKILL.md
+### todo (1)
 - [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-185007.md) — ---
 
 ### doin (4)
@@ -1597,13 +1596,13 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 - [`retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/retire-gardener-clone-alias-verify-deploy-reaper-retry-20261006.md) — ---
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — kriscendobot/minion.town PR #165
 
-### tada (11268)
+### tada (11269)
+- [`skill-ocap-attenuation-authoring-stub-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/skill-ocap-attenuation-authoring-stub-20261006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1428-retcon`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1428-retcon.md) — Cost
 - [`kriscendobot-garden-pr116-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-garden-pr116-conduct.md) — Conduct report: kriscendobot/garden#116 (standing token-backoff ramp design)
 - [`endojs-endo-but-for-bots-pr1282-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1282-conduct.md) — Cost
 - [`skill-caplet-validation-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/skill-caplet-validation-20261006.md) — Completion report: skill-caplet-validation-20261006
-- [`skill-minion-town-ocapn-dispatch-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/skill-minion-town-ocapn-dispatch-20261006.md) — Cost
-- … and 11263 more
+- … and 11264 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
