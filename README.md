@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T06:37:19Z_
+_As of 2026-10-06T06:39:05Z_
 
 ## Latest
 
@@ -1410,7 +1410,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 148.3M | $1756.77 _(notional, rate-card)_ | 123% of 121.0M (backoff) |
+| Claude | 148.4M | $1757.81 _(notional, rate-card)_ | 123% of 121.0M (backoff) |
 | Codex | 6.9M _(+191.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
@@ -1419,8 +1419,9 @@ _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 worst fetch p95 45.002097s/45s (unknown); 21 open notice(s); checker healthy
 
 ## Board
-### todo (2)
+### todo (3)
 - [`improve-comment-source-timeout-fanout`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/improve-comment-source-timeout-fanout.md) — ---
+- [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1428-gauntlet-panel-4.md) — Gauntlet stage: PANEL round 4 — endojs/endo-but-for-bots PR #1428
 - [`oros-health-watch-20261006-060517`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-060517.md) — ---
 
 ### doin (2)
