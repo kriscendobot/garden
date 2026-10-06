@@ -3,9 +3,9 @@ host: endolin-garden2-5bcdff64
 window_start_epoch: 1790977380
 spend: 7668390
 spend_unit: tokens
-cap_percent: 100
+cap_percent: 94
 status: backoff
-sampled_at_epoch: 1791297187
-sampled_at: 2026-10-06T14:33:07Z
-sample_bucket: 1990330
+sampled_at_epoch: 1791298094
+sampled_at: 2026-10-06T14:48:14Z
+sample_bucket: 1990331
 used_percent: 89.0
