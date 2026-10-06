@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T20:50:06Z_
+_As of 2026-10-06T20:55:15Z_
 
 ## Latest
 
@@ -1576,6 +1576,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > unit stays clean meanwhile (exit 3), so it does not fail rolling-deploy canaries. After the
 > first all-pass run, any failure is treated as a regression and fails the unit.
 
+- `msg-oros-health-watch-20261006-185007-a6f4c686f168` — from gardener:oros-health-watch-20261006-185007, reply_to `oros-health-watch-20261006-185007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261006-185007-a6f4c686f168.md)
+
+> Oros remains unreachable as of 2026-10-06T20:52Z. No current oros-health-checkup is active because its schedule is deferred to 2026-10-11. The heartbeat was last sampled 2026-10-02T05:08:36Z; fleet health last updated 2026-10-02T03:13:48Z with roll_status deferred; and the sysop last acknowledged an op at 2026-10-02T05:38:58Z. The host remains derotated for heartbeat-offline and deployed e036bb8e is 177 commits behind main2. I sent no duplicate op because seven reset-failed and one restore op remain unacknowledged. A person must check the Mac power/sleep state, Docker Desktop, and the VM/container.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr253-46d4edf31714` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr253-46d4edf31714.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/253](https://github.com/endojs/endo-but-for-bots/pull/253) ([endojs/endo-but-for-bots#253](https://github.com/endojs/endo-but-for-bots/issues/253)) is in the mergeable queue with NO gauntlet review staged (head 46d4edf31714c1488ec1d95492cc1ae9643c1f9f). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #253'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -1598,8 +1602,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.3M | $1959.54 _(notional, rate-card)_ | 103% of 160.0M (backoff) |
-| Codex | 8.7M _(+231.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 165.6M | $1963.32 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
+| Codex | 8.8M _(+231.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1607,19 +1611,19 @@ _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-moddable); 9 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/oros-health-watch-20261006-185007.md) — ---
+### todo (0)
+(none)
 
-### doin (1)
-- [`kriscendobot-minion.town-pr165-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr165-gauntlet-panel-6.md) — Gauntlet stage: PANEL round 6 — kriscendobot/minion.town PR #165
+### doin (0)
+(none)
 
-### tada (11283)
+### tada (11285)
+- [`kriscendobot-minion.town-pr165-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-6.md) — Cost
+- [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-185007.md) — Cost
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-5.md) — Fix round 5 report: kriscendobot/minion.town PR #165
 - [`kriscendobot-minion.town-pr165-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-5.md) — Cost
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-4.md) — Cost
-- [`orch-standing-token-backoff-ramp-delivery`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/orch-standing-token-backoff-ramp-delivery.md) — orchestration orch-standing-token-backoff-ramp-delivery — complete
-- [`release-standing-token-backoff-ramp`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/release-standing-token-backoff-ramp.md) — Cost
-- … and 11278 more
+- … and 11280 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
