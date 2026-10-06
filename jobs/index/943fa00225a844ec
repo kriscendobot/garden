@@ -1,2 +1,2 @@
-base: improve-follow-up-outage-retry-budget
+base: improve-follow-up-seen-cursor-retry
 identity: mentor:scripts/jobs/follow-up.sh
