@@ -1,13 +1,17 @@
 from_host: endolin-garden2-5bcdff64
-from: gardener:claude-on-minion-town-completion-press-20261006-050509
-reply_to: claude-on-minion-town-completion-press-20261006-050509
+from: gardener:claude-on-minion-town-press-20261006-122018
+reply_to: claude-on-minion-town-press-20261006-122018
 msg_key: stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04
-notice_count: 1
+notice_count: 2
 first_seen: 2026-10-06T05:26:45Z
-last_seen: 2026-10-06T05:26:47Z
-sent_at: 2026-10-06T05:26:47Z
+last_seen: 2026-10-06T12:22:36Z
+sent_at: 2026-10-06T12:22:36Z
 ---
-Stale panel coverage for completed job `claude-on-minion-town-completion-press-20261006-050509`: https://github.com/kriscendobot/minion.town/pull/163 moved from panel-reviewed head `e40b9f46378c645b01224f0cb8005ddf1ac3f8d2` to presented head `7c172b045897e186855dca384ba6484bb4f886c7`.
+COALESCED message — occurrence #2 (first seen 2026-10-06T05:26:45Z, latest 2026-10-06T12:22:36Z).
+The SAME message (episode key `stale-panel-head-kriscendobot-minion.town-pr163-e40b9f46-7c172b04`) has now been sent 2 times; this is
+ONE entry that updates in place, not 2 messages. Latest detail:
+
+Stale panel coverage for completed job `claude-on-minion-town-press-20261006-122018`: https://github.com/kriscendobot/minion.town/pull/163 moved from panel-reviewed head `e40b9f46378c645b01224f0cb8005ddf1ac3f8d2` to presented head `7c172b045897e186855dca384ba6484bb4f886c7`.
 
 Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 
