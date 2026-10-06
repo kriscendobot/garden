@@ -266,8 +266,8 @@ hr; echo "H1c — CIRCUIT BREAKER: the first primary-quota refusal stops the tic
 # quota stub records how many times it is called. Before the circuit breaker the
 # closer queried every mapping (3 doomed calls + a fatal-per-mapping WARN storm);
 # now it must break at the FIRST refusal, so the stub is called exactly ONCE, every
-# mapping is preserved unresolved, and the tick exits 0 with a single aggregate
-# degraded warning naming the skipped mappings.
+# mapping is preserved unresolved, and the tick exits 0 with only the aggregate
+# degraded warning naming the skipped mappings (no per-mapping quota warning).
 BARE_H1C="$TR/h1c.git"; seed_bare "$BARE_H1C"
 CL_H1C="$TR/close-h1c.log"; LOG_H1C="$TR/closer-h1c.log"; CNT_H1C="$TR/quota-calls.count"; : > "$CL_H1C"; : > "$CNT_H1C"
 CD_H1C="$TR/h1c-cd"                              # isolated shared-cooldown dir for this scenario
@@ -295,8 +295,19 @@ grep -q 'GitHub primary quota exhausted this tick' "$LOG_H1C" \
   && ok "one aggregate degraded WARN names GitHub primary quota" || bad "aggregate quota WARN missing: $(cat "$LOG_H1C")"
 grep -q '3 mapping(s) left unresolved (1 quota-refused + 2 unqueried)' "$LOG_H1C" \
   && ok "aggregate WARN accounts for all 3 mappings (1 refused + 2 unqueried)" || bad "aggregate WARN miscounts: $(cat "$LOG_H1C")"
-[ "$(grep -c 'reading upstream state for .* failed' "$LOG_H1C")" -eq 1 ] \
-  && ok "no fatal-per-mapping WARN storm: exactly one per-mapping WARN before the break" || bad "per-mapping WARN storm: $(grep -c 'reading upstream state for .* failed' "$LOG_H1C") lines"
+[ "$(grep -c 'WARN:' "$LOG_H1C")" -eq 1 ] \
+  && ok "quota refusal emits only the aggregate cooldown WARN" \
+  || bad "quota refusal emitted extra WARNs: $(grep 'WARN:' "$LOG_H1C")"
+if grep -q 'reading upstream state for .* failed' "$LOG_H1C"; then
+  bad "quota refusal emitted a per-mapping WARN: $(grep 'reading upstream state for .* failed' "$LOG_H1C")"
+else
+  ok "primary-quota classification suppresses the per-mapping WARN"
+fi
+if grep -q 'API rate limit already exceeded' "$LOG_H1C"; then
+  bad "quota refusal relayed the captured per-call diagnostic: $(grep 'API rate limit already exceeded' "$LOG_H1C")"
+else
+  ok "primary-quota classification suppresses the captured per-call diagnostic"
+fi
 for k in up-repo-171 up-repo-172 up-repo-173; do
   mapping_of "$BARE_H1C" "$k.md" | grep -q '^closed_at:' \
     && bad "$k stamped despite being quota-blocked/unqueried" || ok "$k left unresolved (preserved for retry after quota reset)"

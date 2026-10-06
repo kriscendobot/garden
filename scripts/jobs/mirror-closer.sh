@@ -191,8 +191,9 @@ parse_state() {
 # Run one pluggable GitHub handler while retaining its stderr for failure
 # classification. Sets HANDLER_STDERR and a byte-for-byte HANDLER_FINGERPRINT
 # (handler + rc + stdout + stderr). The caller emits diagnostics only after
-# deciding whether this is a new failure or a repeat, so a shared outage does not
-# print the same handler error once per mapping.
+# deciding whether this is a new failure, a repeat, or a primary-quota refusal,
+# so a shared outage does not print the same handler error once per mapping and a
+# quota refusal is reported only by the aggregate cooldown warning.
 # Sets the output variable named by $1 (or discards stdout when that name is `-`).
 run_handler_captured() {  # run_handler_captured <output-var> <handler> [args...]
   local output_var="$1" handler="$2" errf output rc stderr
@@ -221,14 +222,14 @@ declare -a FAILURE_FINGERPRINTS=()
 # Classify and report a handler failure. A first-seen non-quota fingerprint keeps
 # the per-mapping isolation behavior. Its second identical occurrence trips a
 # per-tick circuit breaker: the duplicate diagnostic is suppressed here and one
-# aggregate error is emitted after the loop.
+# aggregate error is emitted after the loop. A primary-quota refusal is counted
+# without relaying its captured diagnostic or the per-mapping warning; the
+# aggregate cooldown report after the loop is the sole warning for that event.
 count_handler_failure() {  # count_handler_failure <per-mapping-warning>
   local warning="$1" fingerprint prior seen=0
   if is_gh_primary_rate_limit_text "$HANDLER_STDERR"; then
     quota_blocked=$((quota_blocked+1))
     quota_break=1
-    [ -z "$HANDLER_STDERR" ] || printf '%s\n' "$HANDLER_STDERR" >&2
-    log "$warning"
   else
     failed=$((failed+1))
     fingerprint="$HANDLER_FINGERPRINT"
