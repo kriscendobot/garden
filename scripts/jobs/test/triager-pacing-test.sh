@@ -10,6 +10,10 @@ TEMPORARY_ROOT="$(mktemp -d "$(garden_test_exec_tmpdir)/garden-triager-pacing.XX
 trap 'rm -rf "$TEMPORARY_ROOT"' EXIT
 # common.sh deliberately keeps these latches host-shared beneath GARDEN_ROOT,
 # independent of GARDEN_STATE. This suite must never observe a live host latch.
+export GARDEN_ROOT="$TEMPORARY_ROOT/live-root"
+mkdir -p "$GARDEN_ROOT/.garden-state/gh-api-cooldown"
+printf '%s\nprimary-quota regression-fixture\n' "$(( $(date +%s) + 3600 ))" \
+  > "$GARDEN_ROOT/.garden-state/gh-api-cooldown/marker"
 export GARDEN_API_COOLDOWN_DIR="$TEMPORARY_ROOT/gh-api-cooldown"
 export GARDEN_JOURNAL_OUTAGE_DIR="$TEMPORARY_ROOT/journal-outage-cooldown"
 # Every triager tick invokes the cgroup straggler sweep.  Its test-only seam uses
