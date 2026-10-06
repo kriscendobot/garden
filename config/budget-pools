@@ -6,4 +6,4 @@
 claude-endolin1	anthropic	weekly-tokens	271000000	manual-implied-301M-90pct-20261006-maintainer	2026-10-06
 claude-endolin2	anthropic	weekly-tokens	168000000	manual-maintainer-squeeze-pre-reset-20261006	2026-10-06
 claude-oros	anthropic	weekly-tokens	180000000	manual-utilization-13pct-at-24.7M-20261002-maintainer-rebalance	2026-10-02
-codex-endolin	openai	percent	94	codex-cli-rate-limit-94pct-pre-reset-20261006-maintainer	2026-10-06
+codex-endolin	openai	percent	95	manual-maintainer-squeeze-pre-reset-20261006	2026-10-06
