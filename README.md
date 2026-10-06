@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T05:00:47Z_
+_As of 2026-10-06T05:09:19Z_
 
 ## Latest
 
@@ -661,6 +661,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-contention-watch-overrun` cleared on endolin-garden-ece02cb4.
 
+- `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/moddable/pull/2](https://github.com/kriscendobot/moddable/pull/2) ([kriscendobot/moddable#2](https://github.com/kriscendobot/moddable/issues/2)) is in the mergeable queue with NO gauntlet review staged (head 3ec15a8e8dc5e0df3739dc9a3e548f7e01c15d19). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #2'; otherwise no action is needed. This audit never re-drafts a PR.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1343-eaa3fd3534d9` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1343-eaa3fd3534d9.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1343](https://github.com/endojs/endo-but-for-bots/pull/1343) ([endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/issues/1343)) is in the mergeable queue with NO gauntlet review staged (head eaa3fd3534d99647fdc7286e05a55403a5815e67). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1343'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -896,6 +900,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/281](https://github.com/endojs/endo-but-for-bots/pull/281) ([endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/issues/281)) is in the mergeable queue with NO gauntlet review staged (head 75115559bda5254bc8da9e9bbd3ab622c820ca8f). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #281'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `watchdog-pr-gauntlet-readiness-kriscendobot-finbot-pr7-e52e9ba66c29` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-finbot-pr7-e52e9ba66c29.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/finbot/pull/7](https://github.com/kriscendobot/finbot/pull/7) ([kriscendobot/finbot#7](https://github.com/kriscendobot/finbot/issues/7)) is in the mergeable queue with NO gauntlet review staged (head e52e9ba66c298137ec51c2384583c9d53660efce). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #7'; otherwise no action is needed. This audit never re-drafts a PR.
+
 - `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
 
 > ANOMALY: comment-watcher/kriscendobot-ocapn self-test FAILED on kriscendobot/ocapn — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden-ece02cb4 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
@@ -1115,6 +1123,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet minion-town-shell-to-js-20261004-part3-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
+- `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr1-8d6b46c914ed` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr1-8d6b46c914ed.md)
+
+> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/moddable/pull/1](https://github.com/kriscendobot/moddable/pull/1) ([kriscendobot/moddable#1](https://github.com/kriscendobot/moddable/issues/1)) is in the mergeable queue with NO gauntlet review staged (head 8d6b46c914edc4e523c58053410e35332e40186c). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1'; otherwise no action is needed. This audit never re-drafts a PR.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr355-4bb98fe192c0` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr355-4bb98fe192c0.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/355](https://github.com/endojs/endo-but-for-bots/pull/355) ([endojs/endo-but-for-bots#355](https://github.com/endojs/endo-but-for-bots/issues/355)) is in the mergeable queue with NO gauntlet review staged (head 4bb98fe192c0920f5eecf75f56b7ba4d1ad2bdbe). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #355'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -1178,20 +1190,23 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.7M | $1733.02 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
-| Codex | 6.3M _(+182.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 145.8M | $1733.62 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
+| Codex | 6.3M _(+182.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 45.001996s/45s (/home/kris/garden2/.garden-state/receipt-watcher/journal-kriscendobot-endo); 18 open notice(s); checker healthy
+worst fetch p95 45.002097s/45s (unknown); 18 open notice(s); checker healthy
 
 ## Board
-### todo (1)
+### todo (2)
+- [`claude-on-minion-town-completion-press-20261006-050509`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-completion-press-20261006-050509.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1428-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1428
 
-### doin (2)
+### doin (4)
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1426-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1426
+- [`endojs-endo-but-for-bots-pr1379-shepherd`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1379-shepherd.md) — shepherd (auto: red CI) on endojs/endo-but-for-bots PR #1379
+- [`self-heal-fix-garden-receipt-watcher-kriscendobot-finbot-prereq-clone-lock-busy`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/self-heal-fix-garden-receipt-watcher-kriscendobot-finbot-prereq-clone-lock-busy.md) — ---
 - [`improve-deadline-nudge-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-lock-contention.md) — ---
 
 ### tada (11178)
