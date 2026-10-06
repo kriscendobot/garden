@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T21:05:06Z_
+_As of 2026-10-06T21:08:13Z_
 
 ## Latest
 
@@ -1602,7 +1602,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.6M | $1963.32 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
+| Claude | 165.6M | $1964.99 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
 | Codex | 8.8M _(+231.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1617,13 +1617,13 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### doin (0)
 (none)
 
-### tada (11286)
+### tada (11287)
+- [`kriscendobot-minion.town-pr165-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet.md) — gauntlet kriscendobot-minion.town-pr165-gauntlet — review budget reached
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-6.md) — Fix round 6 for kriscendobot/minion.town PR #165: three code must-fixes pushe...
 - [`kriscendobot-minion.town-pr165-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-6.md) — Cost
 - [`oros-health-watch-20261006-185007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/oros-health-watch-20261006-185007.md) — Cost
 - [`kriscendobot-minion.town-pr165-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-fix-5.md) — Fix round 5 report: kriscendobot/minion.town PR #165
-- [`kriscendobot-minion.town-pr165-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/kriscendobot-minion.town-pr165-gauntlet-panel-5.md) — Cost
-- … and 11281 more
+- … and 11282 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
