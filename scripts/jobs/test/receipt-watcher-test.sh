@@ -161,8 +161,15 @@ if [ "${FAIL_GIT_CONFIG_KILL:-0}" = 1 ]; then
 fi
 exec /usr/bin/git "$@"
 EOF
+cat > "$TR/gitbin/flock" <<'EOF'
+#!/bin/bash
+if [ "${FAIL_CLONE_LOCK_BUSY:-0}" = 1 ]; then
+  exit 1
+fi
+exec /usr/bin/flock "$@"
+EOF
 chmod +x "$TR/bin/"*
-chmod +x "$TR/gitbin/git"
+chmod +x "$TR/gitbin/git" "$TR/gitbin/flock"
 
 run_watch() {  # run_watch <slug> <stderr-file> [fetch-command] [source-command] [fail-clone] [watch-clone] [cgroup-procs]
   local slug="$1" err="$2" fetch="${3:-}" source="${4:-$TR/bin/empty-source}"
@@ -229,6 +236,26 @@ if [ -s "$STATE/gh-api-cooldown/marker" ]; then
 else
   bad "journal outage did not create a shared cooldown marker"
 fi
+
+# A live peer holding clone_lock past its bounded wait is ordinary, self-resolving
+# contention (for example journal-contention-watch doing a cold rebuild). Stub flock
+# busy so the REAL clone_lock emits its exact fatal give-up diagnostic immediately;
+# the watcher must classify that capture, skip cleanly, and avoid both a FATAL and the
+# gh-api cooldown (this is a local lock, not API unavailability).
+rm -f "$STATE/gh-api-cooldown/marker"
+export FAIL_CLONE_LOCK_BUSY=1 GARDEN_LOCK_WAIT=0 GARDEN_LOCK_RETRIES=1 GARDEN_LOCK_STEALS=0
+if run_watch kriscendobot-source "$TR/clone-lock-busy.err" "$TR/bin/empty-source"; then
+  if grep -q 'receipt journal clone lock busy (live peer; likely a contention rebuild) — skipping tick' "$TR/clone-lock-busy.err" \
+     && ! grep -q 'FATAL:' "$TR/clone-lock-busy.err" \
+     && [ ! -e "$STATE/gh-api-cooldown/marker" ]; then
+    ok "live-peer clone-lock contention skips the tick without FATAL or gh-api cooldown"
+  else
+    bad "live-peer clone-lock contention lost its skip diagnostic, emitted FATAL, or opened gh-api cooldown"
+  fi
+else
+  bad "live-peer clone-lock contention escaped as a watcher failure"
+fi
+unset FAIL_CLONE_LOCK_BUSY GARDEN_LOCK_WAIT GARDEN_LOCK_RETRIES GARDEN_LOCK_STEALS
 
 # A first-ever tick has no receipt clone yet. ensure_clone reports a network clone
 # failure as rc=1 today, so classification must use the captured signature too, not

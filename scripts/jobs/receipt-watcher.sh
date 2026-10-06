@@ -142,6 +142,16 @@ set +e
 prereq_rc=$?
 set -e
 if [ "$prereq_rc" -ne 0 ]; then
+  # A live peer can legitimately hold this clone through a contention rebuild
+  # longer than clone_lock's bounded wait ladder. That is local, self-resolving
+  # contention: skip this tick without opening the fleet-wide gh-api cooldown.
+  # clone_lock_is_busy_contention keeps definite local/auth/corruption failures
+  # loud even when the same capture also contains the busy-lock signature.
+  if clone_lock_is_busy_contention "$prereq_rc" "$(cat "$PREREQ_ERR")"; then
+    log "receipt journal clone lock busy (live peer; likely a contention rebuild) — skipping tick"
+    rm -f "$PREREQ_ERR"
+    exit 0
+  fi
   if shared_availability_failure "journal prerequisite" "$prereq_rc" "$PREREQ_ERR"; then
     rm -f "$PREREQ_ERR"
     exit 0

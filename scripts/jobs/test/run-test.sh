@@ -400,6 +400,30 @@ grep -qxF "systemctl --user disable --now garden-triager@kriscendobot-endo.timer
   && ok "unwatch issued disable --now for the triager timer" \
   || bad "unwatch did not issue disable --now for the triager timer"
 
+# repo-watcher is the only other *-watcher with a bare ensure_clone "$DIR"
+# prerequisite. Model clone_lock exhausting its live-holder wait ladder by making
+# flock fail immediately; this local, self-resolving contention must skip the tick
+# cleanly rather than turning the singleton watcher into a failed unit.
+RWLOCKBIN="$TR/repo-watcher-lock-bin"; mkdir -p "$RWLOCKBIN"
+cat > "$RWLOCKBIN/flock" <<'EOF'
+#!/bin/bash
+exit 1
+EOF
+chmod +x "$RWLOCKBIN/flock"
+rwlockerr="$TR/rw-clone-lock-busy.err"
+if env PATH="$RWLOCKBIN:$PATH" GARDEN_FORK_PROVISIONER="$TR/no-provisioner" \
+     GARDEN_LOCK_WAIT=0 GARDEN_LOCK_RETRIES=1 GARDEN_LOCK_STEALS=0 \
+     "$JOBS/repo-watcher.sh" >/dev/null 2>"$rwlockerr"; then
+  if grep -q 'repo watcher journal clone lock busy (live peer; likely a contention rebuild) — skipping tick' "$rwlockerr" \
+     && ! grep -q 'FATAL:' "$rwlockerr"; then
+    ok "repo-watcher live-peer clone-lock contention skips the tick without FATAL"
+  else
+    bad "repo-watcher clone-lock contention lost its skip diagnostic or emitted FATAL"
+  fi
+else
+  bad "repo-watcher live-peer clone-lock contention escaped as a failure"
+fi
+
 # --- self-heal a missing template unit ---------------------------------------
 # A comment-repo wants garden-comment-watcher@ AND garden-ci-watcher@. With a
 # FRESH empty $DEST (neither template rendered), the pre-fix behavior armed the

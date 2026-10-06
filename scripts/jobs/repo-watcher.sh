@@ -86,8 +86,25 @@ if [ -x "$PROVISIONER" ]; then
 fi
 
 DIR="${GARDEN_WATCHER_CLONE:-$GARDEN_STATE/repo-watcher/journal}"
-ensure_clone "$DIR"
-sync_clone "$DIR"
+PREREQ_ERR="$(mktemp)"
+prereq_rc=0
+set +e
+( set -e
+  ensure_clone "$DIR"; sync_clone "$DIR" ) 2>"$PREREQ_ERR"
+prereq_rc=$?
+set -e
+if [ "$prereq_rc" -ne 0 ]; then
+  if clone_lock_is_busy_contention "$prereq_rc" "$(cat "$PREREQ_ERR")"; then
+    log "repo watcher journal clone lock busy (live peer; likely a contention rebuild) — skipping tick"
+    rm -f "$PREREQ_ERR"
+    exit 0
+  fi
+  cat "$PREREQ_ERR" >&2
+  rm -f "$PREREQ_ERR"
+  die "repo watcher journal prerequisite failed (rc=$prereq_rc; see prerequisite stderr above)"
+fi
+cat "$PREREQ_ERR" >&2
+rm -f "$PREREQ_ERR"
 
 # Where install-units.sh renders the systemd --user unit files. repo-watcher
 # derives it identically so it can tell whether a template unit for a given
