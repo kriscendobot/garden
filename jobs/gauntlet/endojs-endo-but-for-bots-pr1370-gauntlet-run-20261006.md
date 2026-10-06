@@ -14,8 +14,8 @@ stage: viability
 iteration: 0
 resumes: 0
 stage_retries: 0
-current_child: 
-state: resume-pending
+current_child: endojs-endo-but-for-bots-pr1370-gauntlet-run-20261006-viability
+state: running
 resumed_at: 2026-10-06T14:53:40Z
 resumed_from_stage: viability
 ---
