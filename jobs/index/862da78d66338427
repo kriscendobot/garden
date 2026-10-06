@@ -1,2 +1,2 @@
-base: improve-issue-deadmail-routing
+base: improve-deadmail-tempfail-short-circuit
 identity: mentor:scripts/jobs/deadmail.sh
