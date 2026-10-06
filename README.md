@@ -1,10 +1,22 @@
 # Garden bulletin
 
-_As of 2026-10-06T01:59:56Z_
+_As of 2026-10-06T02:05:56Z_
 
 ## Latest
 
-No board transitions were recorded since the last bulletin. The latest completed job finished the gauntlet for [endo-but-for-bots#1427](https://github.com/endojs/endo-but-for-bots/pull/1427) and took it out of draft. That should release the parked re-gauntlet of [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425). Two jobs are in progress: fix round 1 of the gauntlet for [endo-but-for-bots#1426](https://github.com/endojs/endo-but-for-bots/pull/1426), and panel round 6 (the last round) for [minion.town#163](https://github.com/kriscendobot/minion.town/pull/163). Claude spend has reached 116% of the backoff quota. The budget leveler has already cut monk workers to one per host, but claude-endolin1 is close to its cap, and the reset-credit watch recommends spending the codex and claude-endolin2 credits within the next day. Milestone M2 is waiting on your merges of [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381). The panel review of #1349 is out of date because its head has moved since then, so either decide on the current head as it stands or ask for the gauntlet to be rerun. M3 needs you to choose the base and merge order for [endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343). Oros has now been offline for about four days and still needs someone at the Mac. The fix for the deploy-gate regression is held in plan after its retries ran out, and it needs your go-ahead or a split. The production canary for Claude on minion.town is still waiting for you to connect your subscription at minion.town/account/claude. The proxy flagged those credential requests for your scrutiny, so check them before you act.
+The board recorded no file-level transitions this tick, but recent completions still show progress. [endo-but-for-bots#1427](https://github.com/endojs/endo-but-for-bots/pull/1427) finished its gauntlet and is no longer a draft. Its landing will unblock the parked re-gauntlet of [endo-but-for-bots#1425](https://github.com/endojs/endo-but-for-bots/pull/1425). [minion.town#163](https://github.com/kriscendobot/minion.town/pull/163) is in panel round 6, the last round of its review budget. [endo-but-for-bots#1426](https://github.com/endojs/endo-but-for-bots/pull/1426) is in fix round 1.
+
+**Spend:** Claude spend is at 117% of the backoff quota. Claude workers are down to one per host. garden2's foreman pump is now failing with "no configured foreman inference provider," so the board may starve until quota frees or a reset credit is used. The accountant recommends using codex-endolin's credit now and claude-endolin2's credit on the evening of Oct 6 PT.
+
+**Waiting on you:**
+- **Milestone M2:** needs your merge on [endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/pull/1349) and [endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/pull/1381). #1349's latest head has no panel review yet.
+- **Milestone M3:** needs a base/merge-order choice for [endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/pull/1343).
+- **SturdyRef stack:** a panel summary covers [endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/pull/1392), [endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/pull/1393), [endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/pull/1396) and [endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/pull/1397). It recommends merging after the lower layers land.
+- **Claude-on-minion.town production canary:** you need to connect a subscription at the minion.town account page. The proxy refused these requests as beyond its authority, so check them yourself before acting.
+
+**Still unresolved:**
+- oros-studio has been offline for about four days and needs someone physically at the Mac.
+- The deploy-gate regression fix is parked again after its retries ran out.
 
 ## Parked for maintainer feedback
 
@@ -249,10 +261,6 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 - `msg-oros-health-watch-20261004-162011-eb88ecde19bc` — from gardener:oros-health-watch-20261004-162011, reply_to `oros-health-watch-20261004-162011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261004-162011-eb88ecde19bc.md)
 
 > oros-studio-garden-ce242c49 is still unreachable as of 2026-10-04T16:21Z. Nothing has changed since the earlier unread watcher messages. The heartbeat and sysop-log were last updated 2026-10-02T05:35Z, nine checkups sit unclaimed in todo, and 6 reset-failed ops are queued with no ack. I sent no new ops. Someone needs to go to the Mac (sleep/power, Docker Desktop, VM). This watcher will keep sending one message per run until oros comes back.
-
-- `watchdog-scheduler-worker-derotate-failed` — from watchdog:scheduler, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-scheduler-worker-derotate-failed.md)
-
-> worker-derotate controller failed on leader host endolin-garden2-5bcdff64 (exit_status=75); no host's worker-leveling caps were changed by the failed tick, and leveling/dispatch continue. Run /home/kris/garden2/scripts/jobs/worker-derotate.sh directly on endolin-garden2-5bcdff64 to see the fault.
 
 - `minion-town-shell-to-js-20261004-part1-gauntlet-review-budget-reached` — from gauntlet:minion-town-shell-to-js-20261004-part1-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-shell-to-js-20261004-part1-gauntlet-review-budget-reached.md)
 
@@ -693,6 +701,12 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet minion-town-shell-to-js-20261004-part3-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
+- `watchdog-foreman-handler-failed-endolin-garden2-5bcdff64` — from watchdog:foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-foreman-handler-failed-endolin-garden2-5bcdff64.md)
+
+> garden-foreman's pump handler (/home/kris/garden2/scripts/jobs/handlers/foreman-claude.sh) failed rc=1 on endolin-garden2-5bcdff64; the board pump is starving. stderr tail: <6>02:04:25 [foreman-claude] foreman anthropic provider skipped: configured Claude quota is at its high-water mark
+> <6>02:04:25 [foreman-claude] foreman provider 'anthropic' unavailable; trying the next configured provider
+> <3>02:04:25 [foreman-claude] FATAL: no configured foreman inference provider was available
+
 - `msg-minion-town-claude-cli-production-enable-verify-20261004-6984f4a2afea` — from gardener:minion-town-claude-cli-production-enable-verify-20261004, reply_to `minion-town-claude-cli-production-enable-verify-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-cli-production-enable-verify-20261004-6984f4a2afea.md)
 
 > Production `minion-mcp` is crash-looping after the merged [kriscendobot/minion.town#150](https://github.com/kriscendobot/minion.town/issues/150) deploy. Both the push CD run (https://github.com/kriscendobot/minion.town/actions/runs/37228046918) and the required targeted app redeploy (https://github.com/kriscendobot/minion.town/actions/runs/37228426404) failed. The built artifact contains `node_modules/@endo/claude -> ../../vendor/endo-claude` but the deploy tar omits `vendor`, so startup reports `Cannot find package '@endo/claude'`. Rollback restored the preceding artifact but did not restore the preceding unit, leaving `ENDO_CLAUDE_ENABLED=1`; read-only SSM showed `NRestarts=83`, `activating/auto-restart`, while `endo-daemon` remains active. I am posting an urgent fix-forward successor that owns immediate availability recovery, packaging and rollback fixes, deployment verification, and only then reposting the canary.
@@ -728,7 +742,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 140.2M | $1679.92 _(notional, rate-card)_ | 116% of 121.0M (backoff) |
+| Claude | 141.5M | $1690.66 _(notional, rate-card)_ | 117% of 121.0M (backoff) |
 | Codex | 5.3M _(+166.4M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
