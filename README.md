@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T04:38:56Z_
+_As of 2026-10-06T04:42:14Z_
 
 ## Latest
 
@@ -1142,8 +1142,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 145.7M | $1732.17 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
-| Codex | 6.2M _(+180.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
+| Claude | 145.7M | $1732.23 _(notional, rate-card)_ | 120% of 121.0M (backoff) |
+| Codex | 6.2M _(+182.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
 
@@ -1154,18 +1154,17 @@ worst fetch p95 45.001597s/45s (/home/kris/garden2/.garden-state/comment-watcher
 ### todo (1)
 - [`endojs-endo-but-for-bots-pr1426-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1426-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1426
 
-### doin (3)
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1428-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1428-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1428
-- [`improve-journal-contention-watch-time-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-contention-watch-time-budget.md) — ---
 - [`improve-deadline-nudge-lock-contention`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-deadline-nudge-lock-contention.md) — ---
 
-### tada (11176)
+### tada (11177)
+- [`improve-journal-contention-watch-time-budget`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-journal-contention-watch-time-budget.md) — Cost
 - [`self-heal-fix-garden-comment-watcher-kriscendobot-minion-town-verify-lock-busy-fatal`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/self-heal-fix-garden-comment-watcher-kriscendobot-minion-town-verify-lock-busy-fatal.md) — Cost
 - [`claude-on-minion-town-press-20261002-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/claude-on-minion-town-press-20261002-112006.md) — Manual gauntlet handoff
 - [`improve-triager-zero-duration-reaper`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/improve-triager-zero-duration-reaper.md) — Cost
 - [`fix-gate-test-live-cooldown-leak-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/fix-gate-test-live-cooldown-leak-20261006.md) — Cost
-- [`endojs-endo-but-for-bots-pr1426-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/06/endojs-endo-but-for-bots-pr1426-gauntlet-panel-3.md) — Cost
-- … and 11171 more
+- … and 11172 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
