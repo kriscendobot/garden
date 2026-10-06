@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-06T06:25:21Z_
+_As of 2026-10-06T06:28:12Z_
 
 ## Latest
 
@@ -349,6 +349,10 @@ _Showing top 10 of 27 parked PRs (ranked by recency + roadmap relevance)._
 > https://minion.town/account/claude/4c1fff46-bb7a-4c64-ab8c-b53925ebd566
 >
 > It expires at 2026-10-04T20:25:07.166Z. Run `claude setup-token` on your own machine and submit it only through that HTTPS page; never send the setup token to me or put it in a message or log. Please also complete the separate MCP authorization URL from my preceding message and return only its localhost callback URL.
+
+- `watchdog-unclaimable-host-requirements-oros-health-watch-20261006-060517` — from watchdog:requirements-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-unclaimable-host-requirements-oros-health-watch-20261006-060517.md)
+
+> Host-requirements gate: job 'oros-health-watch-20261006-060517' has remained unclaimed for 1187s with requires: host=endolin-garden-ece02cb4. No live host has met these requirements in the dwell window (or no eligible workers are live), so this work is not silently progressing. Provision the capability/worker or revise the job requirement.
 
 - `msg-oros-health-watch-20261004-162011-eb88ecde19bc` — from gardener:oros-health-watch-20261004-162011, reply_to `oros-health-watch-20261004-162011` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261004-162011-eb88ecde19bc.md)
 
@@ -1402,7 +1406,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 148.3M | $1756.77 _(notional, rate-card)_ | 123% of 121.0M (backoff) |
+| Claude | 148.4M | $1757.69 _(notional, rate-card)_ | 123% of 121.0M (backoff) |
 | Codex | 6.9M _(+191.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 3% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 44710904 tokens/day lower bound._
