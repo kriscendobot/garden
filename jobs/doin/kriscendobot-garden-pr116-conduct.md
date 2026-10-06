@@ -18,3 +18,13 @@ The review feedback was applied at PR head `6986cf38c24351ceae4eed8859b6cbf70f29
 Re-fetch all state. Apply the garden open-questions answer-surface exception from the conductor role: confirm the design file on the PR head is byte-identical to `origin/main2`, confirm the approval remains effective and the relevant checks remain green, un-draft if needed, and carry the merge to completion. Sweep the review head and frozen base according to the conductor procedure.
 
 This child gates the implementation child in orchestration `orch-standing-token-backoff-ramp-delivery`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-06T19:15:47Z
