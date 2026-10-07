@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T14:30:26Z_
+_As of 2026-10-07T14:33:48Z_
 
 ## Latest
 
@@ -1809,28 +1809,28 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.1M | $164.49 _(notional, rate-card)_ | 10% of 168.0M (ok) |
+| Claude | 17.1M | $164.74 _(notional, rate-card)_ | 10% of 168.0M (ok) |
 | Codex | 4.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 111631335 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.079671s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 4 open notice(s); checker healthy
+worst fetch p95 4.890480s/45s (/home/kris/garden2/.garden-state/accountant/journal); 4 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1124-weave-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-weave-20261007.md) — ---
+### doin (0)
+(none)
 
-### tada (11373)
+### tada (11374)
+- [`endojs-endo-but-for-bots-pr1124-weave-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-weave-20261007.md) — Cost
 - [`endojs-endo-but-for-bots-pr1398-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1398-gauntlet — review budget reached
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-fix-6.md) — Fix round 6: endojs/endo-but-for-bots PR #1398
 - [`canary-probe-endolin-garden-ece02cb4-7ece247af521`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-7ece247af521.md) — rolling-deploy canary probe — round trip OK
 - [`improve-auth-gated-orchestration-parking`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-auth-gated-orchestration-parking.md) — Completion report: improve-auth-gated-orchestration-parking
-- [`improve-panel-item-reference-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-panel-item-reference-gate.md) — Cost
-- … and 11368 more
+- … and 11369 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
