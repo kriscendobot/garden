@@ -1,2 +1,2 @@
-base: improve-rolling-deploy-rejected-candidate-backoff
+base: improve-rolling-deploy-sigterm-retry
 identity: mentor:scripts/jobs/rolling-deploy.sh
