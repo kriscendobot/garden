@@ -141,8 +141,18 @@ rejected_mark() {  # rejected_mark <target> <rc>
   printf 'target: %s\nrejected_at_epoch: %s\ndeploy_rc: %s\nreported_by: deploy-garden.sh (kind:error inbox + journal)\n' \
     "$1" "$(now_s)" "$2" > "$m" 2>/dev/null || true
 }
+# Transient exits are weather, not a verdict on the candidate: EX_TEMPFAIL and a
+# signal death (143 = SIGTERM, 130 = SIGINT), such as a SIGTERM-interrupted origin
+# fetch inside deploy-garden.sh (2026-10-07 15:56:04 suppressed every retry for
+# 0c64481407d9 by marking that interruption rejected).
+leader_deploy_rc_is_transient() {  # leader_deploy_rc_is_transient <rc>
+  case "$1" in
+    "$GARDEN_OFFLINE_RC"|143|130) return 0 ;;
+  esac
+  return 1
+}
 leader_deploy_failed() {  # leader_deploy_failed <target> <rc>
-  if [ "$2" -eq "$GARDEN_OFFLINE_RC" ]; then
+  if leader_deploy_rc_is_transient "$2"; then
     log "leader self-deploy was temporarily unavailable (rc=$2); no rejection recorded, retrying next tick"
     return 0
   fi

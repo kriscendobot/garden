@@ -28,7 +28,8 @@
 #   - LEADER-SELF-BEFORE-CANARY: the leader's deploy is pinned to the validated target,
 #     and a DEFERRED leader deploy is not recorded as a completed roll.
 #   - a transient leader deploy fetch failure retries next tick without persisting a
-#     rejected-candidate marker for the unchanged SHA.
+#     rejected-candidate marker for the unchanged SHA; likewise a signal exit
+#     (143 SIGTERM, 130 SIGINT).
 #   - CATCH-UP: a leader already current releases a follower left behind it.
 #   - STUCK CANARY: a released-but-undeployed canary raises one coalesced notice.
 #   - DEFERRING CANARY: a follower whose deploy defers behind a long job publishes
@@ -496,6 +497,25 @@ offline_attempts="$(grep -c "deploy-invoked host=$LEADER" "$DEPLOY_LOG" || true)
 [ "$offline_attempts" -eq 2 ] && ok "OFFLINE: unchanged sha retried on the next tick" || bad "OFFLINE: expected 2 deploy attempts, got $offline_attempts"
 [ ! -e "$REJ_STATE/rejected/$TARGET12" ] && ok "OFFLINE: no rejected-candidate marker persisted" || bad "OFFLINE: transient failure persisted a rejected marker"
 grep -q 'temporarily unavailable.*retrying next tick' "$TR/conductor.out" && ok "OFFLINE: retry-next-tick disposition logged" || bad "OFFLINE: retry-next-tick disposition not logged"
+
+# The 2026-10-07 incident: a SIGTERM-interrupted origin fetch made the deploy exit
+# 143, which was marked rejected. Signal exits (143 SIGTERM, 130 SIGINT) are transient.
+for sig_rc in 143 130; do
+  cat > "$TR/signal-deploy.sh" <<EOF
+#!/bin/bash
+printf 'deploy-invoked host=%s target=%s\n' "\${GARDEN:-?}" "\${GARDEN_DEPLOY_TARGET:-<tip>}" >> "$DEPLOY_LOG"
+exit $sig_rc
+EOF
+  chmod +x "$TR/signal-deploy.sh"
+  set_leader_signal "$TARGET"; reset_leader_roll_state; rm -rf "$REJ_STATE/rejected"
+  : > "$DEPLOY_LOG"; : > "$TR/conductor.out"
+  run_conductor GARDEN_ROLLING_DEPLOY_CMD="$TR/signal-deploy.sh"
+  run_conductor GARDEN_ROLLING_DEPLOY_CMD="$TR/signal-deploy.sh"
+  sig_attempts="$(grep -c "deploy-invoked host=$LEADER" "$DEPLOY_LOG" || true)"
+  [ "$sig_attempts" -eq 2 ] && ok "SIGNAL rc=$sig_rc: unchanged sha retried on the next tick" || bad "SIGNAL rc=$sig_rc: expected 2 deploy attempts, got $sig_attempts"
+  [ ! -e "$REJ_STATE/rejected/$TARGET12" ] && ok "SIGNAL rc=$sig_rc: no rejected-candidate marker persisted" || bad "SIGNAL rc=$sig_rc: signal exit persisted a rejected marker"
+  grep -q "temporarily unavailable (rc=$sig_rc).*retrying next tick" "$TR/conductor.out" && ok "SIGNAL rc=$sig_rc: retry-next-tick disposition logged" || bad "SIGNAL rc=$sig_rc: retry-next-tick disposition not logged"
+done
 
 # ============================================================================
 hr; echo "REJECTED-CANDIDATE BACKOFF — a non-zero leader deploy is marked, not retried"; hr
