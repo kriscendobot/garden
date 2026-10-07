@@ -2,7 +2,7 @@
 order: serial
 children: improve-journal-deepen-retry-expanded-window-expanded-window
 on-child-failure: halt
-state: pending
+state: running
 created_by: orchestrator
 created_at: 2026-10-07T18:15:48Z
 ---
