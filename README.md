@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T14:42:00Z_
+_As of 2026-10-07T14:46:03Z_
 
 ## Latest
 
@@ -1813,7 +1813,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.2M | $167.53 _(notional, rate-card)_ | 10% of 168.0M (ok) |
+| Claude | 17.3M | $169.98 _(notional, rate-card)_ | 10% of 168.0M (ok) |
 | Codex | 4.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 111631335 tokens/day lower bound._
@@ -1825,16 +1825,17 @@ worst fetch p95 4.890480s/45s (/home/kris/garden2/.garden-state/accountant/journ
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/audit-unanchored-journal-reads.md) — ---
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1124
 
-### tada (11378)
+### tada (11379)
+- [`canary-probe-endolin-garden-ece02cb4-0c64481407d9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-0c64481407d9.md) — rolling-deploy canary probe — round trip OK
 - [`build-ocapn-tcp-for-test-extraction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/build-ocapn-tcp-for-test-extraction.md) — Cost
 - [`oros-health-watch-20261007-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-143507.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-viability.md) — Cost
 - [`claude-on-minion-town-press-20261007-143507`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/claude-on-minion-town-press-20261007-143507.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1124-weave-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-weave-20261007.md) — Cost
-- … and 11373 more
+- … and 11374 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
