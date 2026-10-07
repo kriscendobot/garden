@@ -13,7 +13,8 @@
 #   * a seed never rewinds a clone that is ahead of the root;
 #   * a seeded shallow clone is completed from the root after its first sync;
 #   * stray tmp_pack_* files are swept (stale ones always, a timed-out attempt's own);
-#   * a pre-transfer kriskowal/garden URL is canonicalized for new clones.
+#   * pre-transfer kriskowal/garden URLs are canonicalized for both new and
+#     already-existing clones, including before an existing producer pushes.
 #
 # Usage: journal-clone-seed-from-root-test.sh
 set -euo pipefail
@@ -104,8 +105,9 @@ fi
 git -C "$ROOT" remote set-url origin "$RB"
 rc=0
 ( export GARDEN_JOURNAL_SEED_FROM_ROOT=0; ensure_clone "$TR/c-net" ) >/dev/null 2>&1 || rc=$?
-if [ "$rc" -eq 0 ] && [ "$(git -C "$TR/c-net" rev-parse HEAD)" = "$(tip)" ]; then
-  ok "network clone still works when seeding is off"
+if [ "$rc" -eq 0 ] && [ "$(git -C "$TR/c-net" rev-parse HEAD)" = "$(tip)" ] \
+   && [ "$(git -C "$TR/c-net" config --get remote.origin.url)" = "$RB" ]; then
+  ok "network clone still works when seeding is off; explicit non-production origin preserved"
 else
   bad "network fallback clone failed (rc=$rc)"
 fi
@@ -197,6 +199,39 @@ if [ "$c1" = git@github.com:kriscendobot/garden.git ] && [ "$c2" = https://githu
   ok "alias rewritten; local and unrelated URLs untouched"
 else
   bad "canonicalize: $c1 | $c2 | $c3 | $c4"
+fi
+
+hr; echo "CASE — an existing alias-origin clone repairs, fetches, and pushes"; hr
+MIGRATED="$TR/c-migrated"
+git clone -q --single-branch --branch journal2 "$RB" "$MIGRATED"
+git -C "$MIGRATED" remote set-url origin git@github.com:kriskowal/garden.git
+# Keep the production-looking URLs entirely offline: Git's insteadOf rewrite
+# maps only the canonical URL to this test's throwaway bare repository.  The old
+# alias is intentionally NOT mapped, so either fetch or push fails if preflight
+# neglects to repair it.  Disable the production-push test signature because the
+# apparent target is locally redirected and cannot reach production.
+cat > "$TR/migration.gitconfig" <<EOF
+[url "file://$RB"]
+  insteadOf = git@github.com:kriscendobot/garden.git
+EOF
+rc=0
+(
+  export GIT_CONFIG_GLOBAL="$TR/migration.gitconfig"
+  export GARDEN_JOURNAL_SEED_FROM_ROOT=0
+  export GARDEN_PRODUCTION_JOURNAL_REMOTE_RE='a^'
+  ensure_clone "$MIGRATED"
+  sync_clone "$MIGRATED"
+  printf 'recovered\n' > "$MIGRATED/migration-recovery"
+  git -C "$MIGRATED" add migration-recovery
+  commit_and_push "$MIGRATED" "test: recover migrated clone"
+) >/dev/null 2>"$TR/migrated.err" || rc=$?
+if [ "$rc" -eq 0 ] \
+   && [ "$(git -C "$MIGRATED" config --get remote.origin.url)" = git@github.com:kriscendobot/garden.git ] \
+   && [ "$(git -C "$RB" show journal2:migration-recovery 2>/dev/null)" = recovered ] \
+   && grep -q 'REPAIRED: migrated journal clone' "$TR/migrated.err"; then
+  ok "existing alias origin rewritten before fetch; recovered commit pushed to canonical origin"
+else
+  bad "existing alias recovery: rc=$rc origin=$(git -C "$MIGRATED" config --get remote.origin.url) stderr=$(tr '\n' ' ' < "$TR/migrated.err")"
 fi
 
 hr; echo "RESULT: $PASS passed, $FAIL failed"

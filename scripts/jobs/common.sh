@@ -5110,6 +5110,26 @@ _canonical_journal_clone_url() {
   printf '%s\n' "$url"
 }
 
+# repair_migrated_journal_clone_origin <dir> — migrate an EXISTING journal
+# clone's origin when (and only when) it still names a recognized pre-transfer
+# production repo.  GitHub may continue to redirect fetches from an old repo
+# name while rejecting pushes to it, so canonicalizing only reclone_clone's input
+# is insufficient: long-lived producer clones never take that path.  The URL
+# transformer above is deliberately exact-path gated; an operator's local,
+# test, fork, or other explicitly configured remote is therefore left byte-for-
+# byte unchanged.  Call this from both clone preflight and the fetch/push
+# primitives so even a caller that skips ensure_clone cannot contact the alias.
+repair_migrated_journal_clone_origin() {
+  local dir="$1" current canonical
+  current="$(git -C "$dir" config --get remote.origin.url 2>/dev/null || true)"
+  [ -n "$current" ] || return 0
+  canonical="$(_canonical_journal_clone_url "$current")"
+  [ "$canonical" != "$current" ] || return 0
+  git -C "$dir" remote set-url origin "$canonical" \
+    || die "could not migrate journal clone $dir origin from $current to $canonical"
+  log "REPAIRED: migrated journal clone $dir origin from $current to $canonical"
+}
+
 # _seed_clone_from_root <dir> <remote> — build a fresh journal clone at <dir>
 # without the network: `git init` a sibling temp, point origin at <remote> with
 # the single-branch refspec a `clone --single-branch` writes, seed origin's ref
@@ -5223,6 +5243,7 @@ ensure_clone() {
     die "repository lock unavailable for $dir"
   fi
   _sweep_stale_git_locks "$dir"
+  repair_migrated_journal_clone_origin "$dir"
   git -C "$dir" config user.name  "$(bot_name)"
   git -C "$dir" config user.email "$(bot_email)"
   clone_unlock "$dir"
@@ -5475,6 +5496,7 @@ journal_auto_gc() {  # journal_auto_gc <clone>
 journal_fetch() {
   local dir="$1" max_age="${2:-$GARDEN_FETCH_MAX_AGE}" attempt=1 rc=0 t0
   GARDEN_FETCH_STDERR=""
+  repair_migrated_journal_clone_origin "$dir"
   while :; do
     # Each attempt first clears the partial packs earlier killed fetches left, and a
     # timed-out attempt clears its own below (_sweep_tmp_packs).
@@ -8542,6 +8564,7 @@ GARDEN_COMMIT_PUSH_REJECTED=0
 _push_journal() {
   local dir="$1" rc=0
   GARDEN_PUSH_STDERR=""
+  repair_migrated_journal_clone_origin "$dir"
   if [ -n "${GARDEN_PUSH_CMD:-}" ]; then
     if GARDEN_PUSH_STDERR="$(GARDEN_PUSH_DIR="$dir" "$GARDEN_PUSH_CMD" 2>&1 1>/dev/null)"; then rc=0; else rc=$?; fi
   else
