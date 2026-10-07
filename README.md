@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T06:03:18Z_
+_As of 2026-10-07T06:06:29Z_
 
 ## Latest
 
@@ -849,6 +849,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > ONE question: will you, signed in as kriscendobot, open https://minion.town/account/claude, paste in a token from `claude setup-token` run against kriscendobot's Claude subscription, and then reply "connected"? Don't send the token over the bus. Once you reply, a gardener will run the SSM preflight and the four redacted canary observations against subject 79b9090e-20a1-70d2-94c7-717257e2be34.
 
+- `msg-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-63f2e790c428` — from gardener:kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684, reply_to `kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-63f2e790c428.md)
+
+> Correction after the production metadata check: kriscendobot’s Claude subscription credential is already present and active. The remaining blocker is obtaining a root MCP OAuth session as kriscendobot. A disposable Playwright run reaches GitHub’s rendered sign-in page and requires kriscendobot password/MFA; the fleet’s gh API credential cannot be converted into that browser session. If you can provide an authenticated browser checkpoint on this host or another approved root-auth channel without sending bearer material over the bus, please reply with the method.
+
 - `watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-cleric-endolin-garden2-5bcdff64-0.md)
 
 > WATCHDOG notice — occurrence #5 (first seen 2026-09-13T14:20:13Z, latest 2026-10-07T05:19:08Z).
@@ -1686,13 +1690,13 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 - [`kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684.md) — Observe deployment and validate kriscendobot/minion.town PR #165 in production
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1398
 
-### tada (11302)
+### tada (11303)
+- [`endojs-endo-but-for-bots-pr1343-review-5933a851-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1343-review-5933a851-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1340-review-c8f6e4bb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1340-review-c8f6e4bb-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1340-review-85c8bc95-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1340-review-85c8bc95-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1340-review-620de24d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1340-review-620de24d-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1116-review-d33d67ff-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1116-review-d33d67ff-retro.md) — Cost
-- [`kriscendobot-minion-town-pr165-conduct-20261007-review5436814684`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion-town-pr165-conduct-20261007-review5436814684.md) — Cost
-- … and 11297 more
+- … and 11298 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1740,7 +1744,6 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 - [`minion-town-claude-kriscendobot-canary-after-connect-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-kriscendobot-canary-after-connect-20261006.md) - [Connect kriscendobot Claude subscription at minion.town/account/claude (GitHub login+MFA, claude setup-token) and reply "connected"](https://github.com/kriscendobot/garden/issues/89#issuecomment-6009162863)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr1343-review-5933a851-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1343-review-5933a851-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1343 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1348-review-3fce8521-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1348-review-3fce8521-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1348 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1348-review-4984e562-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1348-review-4984e562-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1348 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1357-review-a8630960-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1357-review-a8630960-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1357 (primary: endojs-endo-but-...
