@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T08:10:46Z_
+_As of 2026-10-07T08:12:56Z_
 
 ## Latest
 
@@ -577,6 +577,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
+- `watchdog-review-miss-recurrence-stale-related-design-direction` — from watchdog:review-miss, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-review-miss-recurrence-stale-related-design-direction.md)
+
+> Review-miss recurrence: closed cluster 'stale-related-design-direction' was reopened by the committed miss 'review-misses/misses/kriscendobot-minion.town-pr160-review-cb820c52.md' for kriscendobot/minion.town PR 160. The prior improvement did not prevent or catch the pattern. Inspect the cluster before starting another improvement round.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr670-9c120d7b5ed1` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr670-9c120d7b5ed1.md)
 
@@ -1765,7 +1769,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.9M | $1995.30 _(notional, rate-card)_ | 106% of 160.0M (backoff) |
+| Claude | 168.8M | $1994.76 _(notional, rate-card)_ | 106% of 160.0M (backoff) |
 | Codex | 10.3M _(+254.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1777,17 +1781,16 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1398
-- [`kriscendobot-minion.town-pr160-review-cb820c52-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr160-review-cb820c52-retro.md) — Retrospective on kriscendobot/minion.town PR #160 (primary: kriscendobot-mini...
 
-### tada (11347)
+### tada (11348)
+- [`kriscendobot-minion.town-pr160-review-cb820c52-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr160-review-cb820c52-retro.md) — Cost
 - [`kriscendobot-minion.town-pr91-review-857b06ab-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr91-review-857b06ab-retro.md) — Cost
 - [`kriscendobot-minion.town-pr90-d6a72a2f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr90-d6a72a2f-retro.md) — Cost
 - [`kriscendobot-minion.town-pr85-review-f6a41dd9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr85-review-f6a41dd9-retro.md) — Cost
 - [`review-improve-identity-gated-authority`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/review-improve-identity-gated-authority.md) — Cost
-- [`fu-review-improve-builder-pr-gauntlet-bypass-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/fu-review-improve-builder-pr-gauntlet-bypass-1.md) — Cost
-- … and 11342 more
+- … and 11343 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
