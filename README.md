@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T16:07:38Z_
+_As of 2026-10-07T16:39:04Z_
 
 ## Latest
 
@@ -19,7 +19,7 @@ These items still need you:
 - [endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/pull/1348) — feat(agentry,agent-tools)!: integrate explicit workspace capability tools (waiting 1d)
 - [endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/pull/1281) — fix(ses): silence lockdown intrinsics report for the WHATWG URL family (waiting 19d)
 - [endojs/endo#3110](https://github.com/endojs/endo/pull/3110) — refactor(error-console-internal): for use only by ses and @endo/errors (waiting 25d)
-- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 33d)
+- [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 34d)
 - [endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/pull/182) — test(ses): isImmutableDataProperty regression for iOS Safari fix (closes #947) (waiting 35d)
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 35d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 35d)
@@ -36,24 +36,16 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1485 (first seen 2026-10-02T05:41:06Z, latest 2026-10-07T15:29:03Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1485 times; this is ONE
-> coalesced notice that updates in place, not 1485 messages. Latest detail:
+> WATCHDOG notice — occurrence #1505 (first seen 2026-10-02T05:41:06Z, latest 2026-10-07T16:29:03Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1505 times; this is ONE
+> coalesced notice that updates in place, not 1505 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 469227s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 472827s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
 > its heartbeat to rejoin automatically. If hosts/oros-studio-garden-ce242c49 was archived, unarchive it as a
 > separate operator decision; this watchdog never reverses decommissioning. (leader=endolin-garden2-5bcdff64)
-
-- `watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr143-43a1387084e1` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr143-43a1387084e1.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/minion.town/pull/143](https://github.com/kriscendobot/minion.town/pull/143) ([kriscendobot/minion.town#143](https://github.com/kriscendobot/minion.town/issues/143)) is in the mergeable queue with NO gauntlet review staged (head 43a1387084e1791f5d4418d9145041e590333891). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #143'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr508-e366054a8d6f` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr508-e366054a8d6f.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/508](https://github.com/endojs/endo-but-for-bots/pull/508) ([endojs/endo-but-for-bots#508](https://github.com/endojs/endo-but-for-bots/issues/508)) is in the mergeable queue with NO gauntlet review staged (head e366054a8d6ff7ba6f73302e099ef0a1097a65e7). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #508'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr450-994c1a86bc2a` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr450-994c1a86bc2a.md)
 
@@ -209,18 +201,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > scripts/jobs/receipt-watcher.sh:97-101 treats GitHub primary-quota stderr as a generic transient and logs a 300s cooldown, though the 2026-10-02T19:45:23Z warning was followed by a 3599s primary-quota latch.
 > Detect primary quota before the generic transient path, request `api_primary_quota_secs`, and log the actual full quota cooldown; add a regression test for the adopted `gh_api_retry` latch.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr730-89cb42200d94` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr730-89cb42200d94.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/730](https://github.com/endojs/endo-but-for-bots/pull/730) ([endojs/endo-but-for-bots#730](https://github.com/endojs/endo-but-for-bots/issues/730)) is in the mergeable queue with NO gauntlet review staged (head 89cb42200d945611d25ff6db4435b7a5fbf9f314). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #730'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1355-3c06675b1bef` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1355-3c06675b1bef.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1355](https://github.com/endojs/endo-but-for-bots/pull/1355) ([endojs/endo-but-for-bots#1355](https://github.com/endojs/endo-but-for-bots/issues/1355)) is in the mergeable queue with NO gauntlet review staged (head 3c06675b1bef346d90e0f41ee2570ababc2fd508). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1355'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1038-85a01329c4b6` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1038-85a01329c4b6.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1038](https://github.com/endojs/endo-but-for-bots/pull/1038) ([endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/issues/1038)) is in the mergeable queue with NO gauntlet review staged (head 85a01329c4b60615447341c2d1b19da93b9fc7d1). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1038'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr256-8ca6c8000d12` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr256-8ca6c8000d12.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/256](https://github.com/endojs/endo-but-for-bots/pull/256) ([endojs/endo-but-for-bots#256](https://github.com/endojs/endo-but-for-bots/issues/256)) is in the mergeable queue with NO gauntlet review staged (head 8ca6c8000d12ce7a0eea606ac50b0d0f455c4af1). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #256'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -228,10 +208,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `minion-town-shell-to-js-20261004-part2-gauntlet-review-budget-reached` — from gauntlet:minion-town-shell-to-js-20261004-part2-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/minion-town-shell-to-js-20261004-part2-gauntlet-review-budget-reached.md)
 
 > INFO: Gauntlet minion-town-shell-to-js-20261004-part2-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr318-e398dbc53ef4` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr318-e398dbc53ef4.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/318](https://github.com/endojs/endo-but-for-bots/pull/318) ([endojs/endo-but-for-bots#318](https://github.com/endojs/endo-but-for-bots/issues/318)) is in the mergeable queue with NO gauntlet review staged (head e398dbc53ef41aefbd584bb8f540b053e7267e9d). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #318'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `foreman-milestone-M2` — from foreman, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/foreman-milestone-M2.md)
 
@@ -249,14 +225,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/266](https://github.com/endojs/endo-but-for-bots/pull/266) ([endojs/endo-but-for-bots#266](https://github.com/endojs/endo-but-for-bots/issues/266)) is in the mergeable queue with NO gauntlet review staged (head 964cc634b8182451e8b90c3ba6acc65842061ac1). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #266'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr320-18836dc69193` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr320-18836dc69193.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/320](https://github.com/endojs/endo-but-for-bots/pull/320) ([endojs/endo-but-for-bots#320](https://github.com/endojs/endo-but-for-bots/issues/320)) is in the mergeable queue with NO gauntlet review staged (head 18836dc691933c12d90c0aad74703538bb3077d7). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #320'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr779-994f9fd94645` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr779-994f9fd94645.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/779](https://github.com/endojs/endo-but-for-bots/pull/779) ([endojs/endo-but-for-bots#779](https://github.com/endojs/endo-but-for-bots/issues/779)) is in the mergeable queue with NO gauntlet review staged (head 994f9fd94645eb56da9c19a4453dc6bb991f1425). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #779'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `msg-kriscendobot-minion.town-pr146-review-64a01f1e-retro-40202fed3594` — from gardener:kriscendobot-minion.town-pr146-review-64a01f1e-retro, reply_to `kriscendobot-minion.town-pr146-review-64a01f1e-retro` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion.town-pr146-review-64a01f1e-retro-40202fed3594.md)
 
 > Review-retro on [kriscendobot/minion.town#146](https://github.com/kriscendobot/minion.town/issues/146) (your 10-02 review asking to use upstream @endo/cancel JS instead of a TS copy): recorded as a MISS in cluster `prefer-endo-primitives` (now 9 members, 9 PRs).
@@ -267,14 +235,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Proposed round 2, if you want it: (a) seed export-index-providers (minion.town -> endojs/endo-but-for-bots@llm); (b) treat an @endo/* provider that is "blocked: not yet a dependency" as a should-fix "add the dependency" finding, not silence; (c) add a builder/purist line: an unpublished upstream is no license to vendor a copy; consume it (dev registry or git dep) or fix it upstream. Reply "dispatch" to post review-improve-prefer-endo-primitives-r2, or "hold".
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr166-d6ea530ef0bb` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr166-d6ea530ef0bb.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/166](https://github.com/endojs/endo-but-for-bots/pull/166) ([endojs/endo-but-for-bots#166](https://github.com/endojs/endo-but-for-bots/issues/166)) is in the mergeable queue with NO gauntlet review staged (head d6ea530ef0bb7b3be972351e597846fa6c9a32cd). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #166'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr741-17e8d74cc13a` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr741-17e8d74cc13a.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/741](https://github.com/endojs/endo-but-for-bots/pull/741) ([endojs/endo-but-for-bots#741](https://github.com/endojs/endo-but-for-bots/issues/741)) is in the mergeable queue with NO gauntlet review staged (head 17e8d74cc13a3672899405bc2e2e622f77c5a21a). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #741'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `msg-scholar-ingest-oh-my-pi-rust-core-3-3b5c9c4c15cc` — from scholar:scholar-ingest-oh-my-pi-rust-core-3, reply_to `scholar-ingest-oh-my-pi-rust-core-3` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-3-3b5c9c4c15cc.md)
 
 > oh-my-pi Rust core, cycle 3 ([kriscendobot/garden#121](https://github.com/kriscendobot/garden/issues/121)): ingested 8 sources / 11 sections into the library. These cover the `pi-natives` shell, iso, and ast N-API bindings; vendored brush-parser and brush-core (README + crate root each); and the third-party yeluo45 explainer, kept as a secondary description with a claim-by-claim divergence ledger.
@@ -283,33 +243,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The deeper pi-iso/pi-ast/pi-shell module docs and `shell/vfs.rs` are queued as `scholar-ingest-oh-my-pi-rust-core-4`. Result: journal entries/2026/10/07/160447Z-result-gardener-1327b8.md
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr344-5b5209afda55` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr344-5b5209afda55.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/344](https://github.com/endojs/endo-but-for-bots/pull/344) ([endojs/endo-but-for-bots#344](https://github.com/endojs/endo-but-for-bots/issues/344)) is in the mergeable queue with NO gauntlet review staged (head 5b5209afda5587870e21983cde0f4f64efbe2ee8). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #344'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr346-6f11231cc69e` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr346-6f11231cc69e.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/346](https://github.com/endojs/endo-but-for-bots/pull/346) ([endojs/endo-but-for-bots#346](https://github.com/endojs/endo-but-for-bots/issues/346)) is in the mergeable queue with NO gauntlet review staged (head 6f11231cc69eb7229e67aa9f4b51b2dd8013f156). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #346'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-kriscendobot-endo-pr2-063ecd888609` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-endo-pr2-063ecd888609.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/endo/pull/2](https://github.com/kriscendobot/endo/pull/2) ([kriscendobot/endo#2](https://github.com/kriscendobot/endo/issues/2)) is in the mergeable queue with NO gauntlet review staged (head 063ecd8886090e3f1c19bafe925b0a5986a135c5). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #2'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `liaison-followup-204bf211474f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-204bf211474f.md)
 
 > mentat-opus55-tier-open-questions-20260923: the open questions behind design PR #108 are now resolved on `main2`, and the follow-up job `build-opus55-tier` is on the board. The job recommended closing #108 in its reply but left the close to you. Please confirm whether to close #108 ([https://github.com/kriscendobot/garden/pull/108](https://github.com/kriscendobot/garden/pull/108)).
 
-- `watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr94-7b7060fb8c29` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr94-7b7060fb8c29.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/minion.town/pull/94](https://github.com/kriscendobot/minion.town/pull/94) ([kriscendobot/minion.town#94](https://github.com/kriscendobot/minion.town/issues/94)) is in the mergeable queue with NO gauntlet review staged (head 7b7060fb8c2924b19c84200d8ed51260dc785a9b). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #94'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr667-4f9d899d509b` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr667-4f9d899d509b.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/667](https://github.com/endojs/endo-but-for-bots/pull/667) ([endojs/endo-but-for-bots#667](https://github.com/endojs/endo-but-for-bots/issues/667)) is in the mergeable queue with NO gauntlet review staged (head 4f9d899d509b9c7858ef69b10b6183a3227e15ab). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #667'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1416-2f8506cd8505` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1416-2f8506cd8505.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1416](https://github.com/endojs/endo-but-for-bots/pull/1416) ([endojs/endo-but-for-bots#1416](https://github.com/endojs/endo-but-for-bots/issues/1416)) is in the mergeable queue with NO gauntlet review staged (head 2f8506cd8505cf23b1aabc7881300f8a54fc7e75). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1416'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr303-831bdfb98e22` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr303-831bdfb98e22.md)
 
@@ -319,13 +259,24 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet minion-town-shell-to-js-20261004-part1-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
+- `msg-scholar-ingest-oh-my-pi-rust-core-4-5ac08eb28d9c` — from scholar:scholar-ingest-oh-my-pi-rust-core-4, reply_to `scholar-ingest-oh-my-pi-rust-core-4` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-4-5ac08eb28d9c.md)
+
+> **oh-my-pi Rust-core ingest (issue [kriscendobot/garden#121](https://github.com/kriscendobot/garden/issues/121)): complete.** Cycle 4 added 12 library sections from 9 new sources plus 1 extended source:
+>
+> - `pi-natives` `shell/vfs.rs`, the ShellFilesystem JS-to-pi-vfs bridge. Shell, grep, glob, and ast accept it; fuzzyFind stays host-path-only.
+> - `pi-iso` rcopy, overlayfs, and the resolve priority rules.
+> - `pi-ast` language registry and ops.
+> - `pi-shell` process (terminate-then-kill tree shutdown that spares the harness), cancel, and the documented contracts in `shell.rs`.
+>
+> Two explainer claims are now settled from source:
+> - pi-ast has 57 statically linked tree-sitter grammars and no WASM.
+> - The native loader has **no** JavaScript fallback. It throws when no `.node` file loads.
+>
+> No follow-on job was posted. The undocumented ~7k lines of `pi-shell/src/shell.rs` are deliberately left uningested. Details: journal entry `entries/2026/10/07/162129Z-result-gardener-756c36.md`.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr847-799128b915f6` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr847-799128b915f6.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/847](https://github.com/endojs/endo-but-for-bots/pull/847) ([endojs/endo-but-for-bots#847](https://github.com/endojs/endo-but-for-bots/issues/847)) is in the mergeable queue with NO gauntlet review staged (head 799128b915f6633ac04ad141874a7b02c712d8fe). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #847'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr324-4318246203f7` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr324-4318246203f7.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/324](https://github.com/endojs/endo-but-for-bots/pull/324) ([endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/issues/324)) is in the mergeable queue with NO gauntlet review staged (head 4318246203f7ba8b6f97da189e659cb1f6b0dd76). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #324'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `msg-endojs-endo-but-for-bots-pr1124-gauntlet-fix-1-fe86b1fdba84` — from gardener:endojs-endo-but-for-bots-pr1124-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr1124-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1124-gauntlet-fix-1-fe86b1fdba84.md)
 
@@ -352,14 +303,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1281](https://github.com/endojs/endo-but-for-bots/pull/1281) ([endojs/endo-but-for-bots#1281](https://github.com/endojs/endo-but-for-bots/issues/1281)) is in the mergeable queue with NO gauntlet review staged (head ee335ddf6de050bf5ea5036f9325cf7d364f6763). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1281'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr283-78f73eddc8a8` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr283-78f73eddc8a8.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/283](https://github.com/endojs/endo-but-for-bots/pull/283) ([endojs/endo-but-for-bots#283](https://github.com/endojs/endo-but-for-bots/issues/283)) is in the mergeable queue with NO gauntlet review staged (head 78f73eddc8a89d9aa005b74cfb83459ff239750b). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #283'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr251-8626e5d78319` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr251-8626e5d78319.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/251](https://github.com/endojs/endo-but-for-bots/pull/251) ([endojs/endo-but-for-bots#251](https://github.com/endojs/endo-but-for-bots/issues/251)) is in the mergeable queue with NO gauntlet review staged (head 8626e5d783192be366fede534842dcf4dbf14fe9). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #251'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `msg-reset-credit-watch-20261005-160507-0235e607b482` — from gardener:reset-credit-watch-20261005-160507, reply_to `reset-credit-watch-20261005-160507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261005-160507-0235e607b482.md)
 
 > **Reset-credit watch, week of 10-03.** Readings from the live meter at 10-05 15:33Z. The % figures are meter-derived against the fitted caps; please confirm them on the dashboard. Timely decision: both credits are worth spending in the next ~36h.
@@ -377,10 +320,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > I have not changed anything (no actuation). Please tell me once you use a credit and I will log it in reset-credits.md.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr288-152ecdac143a` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr288-152ecdac143a.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/288](https://github.com/endojs/endo-but-for-bots/pull/288) ([endojs/endo-but-for-bots#288](https://github.com/endojs/endo-but-for-bots/issues/288)) is in the mergeable queue with NO gauntlet review staged (head 152ecdac143ab219da4070c21332fd1ae126f5a0). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #288'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted` — from gauntlet:endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet HALTED: stage 'endojs-endo-but-for-bots-ses-xs-compartment-import-time-intrinsics-gauntlet-clean' (clean) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
@@ -388,10 +327,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr670-9c120d7b5ed1` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr670-9c120d7b5ed1.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/670](https://github.com/endojs/endo-but-for-bots/pull/670) ([endojs/endo-but-for-bots#670](https://github.com/endojs/endo-but-for-bots/issues/670)) is in the mergeable queue with NO gauntlet review staged (head 9c120d7b5ed1bf7306877dbf43199e436cd1de35). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #670'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr389-c7307a12a9b0` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr389-c7307a12a9b0.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/389](https://github.com/endojs/endo-but-for-bots/pull/389) ([endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389)) is in the mergeable queue with NO gauntlet review staged (head c7307a12a9b0a117332370f7d6c5d8b0d2e2cb13). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #389'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal.md)
 
@@ -401,37 +336,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` cleared on endolin-garden2-5bcdff64.
 
-- `watchdog-pr-gauntlet-readiness-kriscendobot-endo-but-for-bots-pr1-979641659a4d` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-endo-but-for-bots-pr1-979641659a4d.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/endo-but-for-bots/pull/1](https://github.com/kriscendobot/endo-but-for-bots/pull/1) ([kriscendobot/endo-but-for-bots#1](https://github.com/kriscendobot/endo-but-for-bots/issues/1)) is in the mergeable queue with NO gauntlet review staged (head 979641659a4d8774c97058d4a8fda5fd06278bf7). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr250-6029ba736a8e` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr250-6029ba736a8e.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/250](https://github.com/endojs/endo-but-for-bots/pull/250) ([endojs/endo-but-for-bots#250](https://github.com/endojs/endo-but-for-bots/issues/250)) is in the mergeable queue with NO gauntlet review staged (head 6029ba736a8ebf4fffa9001c884eac17e41627ed). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #250'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `liaison-followup-847507094048` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-847507094048.md)
 
 > minion-town-pr81-deploy-recover-27a6e2bf: the app needs a secret at startup, but only a hand-run script provisions it, and CD neither runs that script nor checks for the secret. The job suggests adding a pre-restart check to `deploy-app.sh` in kriscendobot/minion.town. Should we build it?
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr311-712918f280ca` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr311-712918f280ca.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/311](https://github.com/endojs/endo-but-for-bots/pull/311) ([endojs/endo-but-for-bots#311](https://github.com/endojs/endo-but-for-bots/issues/311)) is in the mergeable queue with NO gauntlet review staged (head 712918f280cabfc08124d7c03f0cab4d816b1aac). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #311'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1049-c3c2b8166a70` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1049-c3c2b8166a70.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1049](https://github.com/endojs/endo-but-for-bots/pull/1049) ([endojs/endo-but-for-bots#1049](https://github.com/endojs/endo-but-for-bots/issues/1049)) is in the mergeable queue with NO gauntlet review staged (head c3c2b8166a706c1836f8222f2cbea42130f062aa). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1049'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1394-75167825778c` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1394-75167825778c.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1394](https://github.com/endojs/endo-but-for-bots/pull/1394) ([endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/issues/1394)) is in the mergeable queue with NO gauntlet review staged (head 75167825778c18a2276f9572c6665e4e5fe150e4). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1394'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1427-1b1ead43c8e1` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1427-1b1ead43c8e1.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1427](https://github.com/endojs/endo-but-for-bots/pull/1427) ([endojs/endo-but-for-bots#1427](https://github.com/endojs/endo-but-for-bots/issues/1427)) is in the mergeable queue with NO gauntlet review staged (head 1b1ead43c8e117314d38e9640ca0c0d20b55fc4e). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1427'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-kriscendobot-vattr97-pr1-36ba47a354fc` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-vattr97-pr1-36ba47a354fc.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/vattr97/pull/1](https://github.com/kriscendobot/vattr97/pull/1) ([kriscendobot/vattr97#1](https://github.com/kriscendobot/vattr97/issues/1)) is in the mergeable queue with NO gauntlet review staged (head 36ba47a354fcf213e0b36edade978830d1975008). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr264-8d141d7bb8ce` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr264-8d141d7bb8ce.md)
 
@@ -441,21 +348,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/509](https://github.com/endojs/endo-but-for-bots/pull/509) ([endojs/endo-but-for-bots#509](https://github.com/endojs/endo-but-for-bots/issues/509)) is in the mergeable queue with NO gauntlet review staged (head af58944875b5e64e500fbbbacde98dfc77b3fea4). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #509'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr279-13ee82881ccd` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr279-13ee82881ccd.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/279](https://github.com/endojs/endo-but-for-bots/pull/279) ([endojs/endo-but-for-bots#279](https://github.com/endojs/endo-but-for-bots/issues/279)) is in the mergeable queue with NO gauntlet review staged (head 13ee82881ccd30eaa4f9202098a8f423fc1b868d). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #279'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr60-488646a2b3b0` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr60-488646a2b3b0.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/60](https://github.com/endojs/endo-but-for-bots/pull/60) ([endojs/endo-but-for-bots#60](https://github.com/endojs/endo-but-for-bots/issues/60)) is in the mergeable queue with NO gauntlet review staged (head 488646a2b3b00145f8281e832514309b34110a24). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #60'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr347-786d8290d5d9` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr347-786d8290d5d9.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/347](https://github.com/endojs/endo-but-for-bots/pull/347) ([endojs/endo-but-for-bots#347](https://github.com/endojs/endo-but-for-bots/issues/347)) is in the mergeable queue with NO gauntlet review staged (head 786d8290d5d95122a9200764b0d4fb8a02b42dfa). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #347'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr130-d24effe2c321` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr130-d24effe2c321.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/minion.town/pull/130](https://github.com/kriscendobot/minion.town/pull/130) ([kriscendobot/minion.town#130](https://github.com/kriscendobot/minion.town/issues/130)) is in the mergeable queue with NO gauntlet review staged (head d24effe2c3214fff021c330155513e72bd1c2804). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #130'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr599-478b17e7e8f2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr599-478b17e7e8f2.md)
 
@@ -469,25 +364,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr241-e277aabf0003` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr241-e277aabf0003.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/241](https://github.com/endojs/endo-but-for-bots/pull/241) ([endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/issues/241)) is in the mergeable queue with NO gauntlet review staged (head e277aabf00034c38cbc42e1800439a4f872115d1). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #241'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1089-cb6f2aa6eab8` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1089-cb6f2aa6eab8.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1089](https://github.com/endojs/endo-but-for-bots/pull/1089) ([endojs/endo-but-for-bots#1089](https://github.com/endojs/endo-but-for-bots/issues/1089)) is in the mergeable queue with NO gauntlet review staged (head cb6f2aa6eab8fff29d1563ef2c8f390863c53723). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1089'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1349-4d3354123e20` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1349-4d3354123e20.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349) ([endojs/endo-but-for-bots#1349](https://github.com/endojs/endo-but-for-bots/issues/1349)) is in the mergeable queue with NO gauntlet review staged (head 4d3354123e209709df55da0c1374a30f7d7a5a86). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1349'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr322-7b2add4930f5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr322-7b2add4930f5.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/322](https://github.com/endojs/endo-but-for-bots/pull/322) ([endojs/endo-but-for-bots#322](https://github.com/endojs/endo-but-for-bots/issues/322)) is in the mergeable queue with NO gauntlet review staged (head 7b2add4930f53298c36da41269a6445da619bc67). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #322'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr360-83e2a8031703` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr360-83e2a8031703.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/360](https://github.com/endojs/endo-but-for-bots/pull/360) ([endojs/endo-but-for-bots#360](https://github.com/endojs/endo-but-for-bots/issues/360)) is in the mergeable queue with NO gauntlet review staged (head 83e2a80317033878ea41612114a50d99a11151c2). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #360'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `msg-minion-town-claude-kriscendobot-connect-canary-20261006-fb78c2ba6da9` — from gardener:minion-town-claude-kriscendobot-connect-canary-20261006, reply_to `minion-town-claude-kriscendobot-connect-canary-20261006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-minion-town-claude-kriscendobot-connect-canary-20261006-fb78c2ba6da9.md)
 
@@ -499,57 +378,17 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Correction after the production metadata check: kriscendobot’s Claude subscription credential is already present and active. The remaining blocker is obtaining a root MCP OAuth session as kriscendobot. A disposable Playwright run reaches GitHub’s rendered sign-in page and requires kriscendobot password/MFA; the fleet’s gh API credential cannot be converted into that browser session. If you can provide an authenticated browser checkpoint on this host or another approved root-auth channel without sending bearer material over the bus, please reply with the method.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1381-6e3fa01ae7a7` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1381-6e3fa01ae7a7.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1381](https://github.com/endojs/endo-but-for-bots/pull/1381) ([endojs/endo-but-for-bots#1381](https://github.com/endojs/endo-but-for-bots/issues/1381)) is in the mergeable queue with NO gauntlet review staged (head 6e3fa01ae7a7b80820b1cd5acbd980b72aa2f68e). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1381'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr153-2ca6c15ca1fa` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr153-2ca6c15ca1fa.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/minion.town/pull/153](https://github.com/kriscendobot/minion.town/pull/153) ([kriscendobot/minion.town#153](https://github.com/kriscendobot/minion.town/issues/153)) is in the mergeable queue with NO gauntlet review staged (head 2ca6c15ca1fa3fc4c6be1fd03781a5322a6f7789). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #153'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `msg-scholar-ingest-oh-my-pi-rust-core-565b36348d7f` — from scholar:scholar-ingest-oh-my-pi-rust-core, reply_to `scholar-ingest-oh-my-pi-rust-core` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-565b36348d7f.md)
 
 > The first oh-my-pi Rust-core cycle landed five file-anchored sources covering `pi-iso`, the `pi-shell` facade, its output minimizer and brush-parser planner, and the `pi-ast` crate surface. Headline correction: the minimizer compresses command output and preserves originals through artifacts; it is not a privilege or destructive-command safety gate, and `pi-iso` is a workspace/diff layer rather than a process sandbox. The indexed cycle is summarized in the job's result entry, and follow-on `scholar-ingest-oh-my-pi-rust-core-2` owns `pi-vfs`, `pi-builtins`, and the first `pi-natives` files before continuing the remaining explainer and brush backlog.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr356-18b52cac40fa` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr356-18b52cac40fa.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/356](https://github.com/endojs/endo-but-for-bots/pull/356) ([endojs/endo-but-for-bots#356](https://github.com/endojs/endo-but-for-bots/issues/356)) is in the mergeable queue with NO gauntlet review staged (head 18b52cac40fad298cfd70b9ab0d0142310bf4e33). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #356'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr832-675d412bce59` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr832-675d412bce59.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/832](https://github.com/endojs/endo-but-for-bots/pull/832) ([endojs/endo-but-for-bots#832](https://github.com/endojs/endo-but-for-bots/issues/832)) is in the mergeable queue with NO gauntlet review staged (head 675d412bce5933ca701bdc59650f3374f3cb7907). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #832'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr996-f94615159497` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr996-f94615159497.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/996](https://github.com/endojs/endo-but-for-bots/pull/996) ([endojs/endo-but-for-bots#996](https://github.com/endojs/endo-but-for-bots/issues/996)) is in the mergeable queue with NO gauntlet review staged (head f946151594973e48240667cc6f50d29d5e6eec96). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #996'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr237-1c4f9a729cb2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr237-1c4f9a729cb2.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/237](https://github.com/endojs/endo-but-for-bots/pull/237) ([endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/issues/237)) is in the mergeable queue with NO gauntlet review staged (head 1c4f9a729cb2e36bf7d9744844963f9418d36523). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #237'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-moddable-pr2-3ec15a8e8dc5.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/moddable/pull/2](https://github.com/kriscendobot/moddable/pull/2) ([kriscendobot/moddable#2](https://github.com/kriscendobot/moddable/issues/2)) is in the mergeable queue with NO gauntlet review staged (head 3ec15a8e8dc5e0df3739dc9a3e548f7e01c15d19). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #2'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1343-eaa3fd3534d9` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1343-eaa3fd3534d9.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1343](https://github.com/endojs/endo-but-for-bots/pull/1343) ([endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/issues/1343)) is in the mergeable queue with NO gauntlet review staged (head eaa3fd3534d99647fdc7286e05a55403a5815e67). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1343'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr306-af5f4082e622` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr306-af5f4082e622.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/306](https://github.com/endojs/endo-but-for-bots/pull/306) ([endojs/endo-but-for-bots#306](https://github.com/endojs/endo-but-for-bots/issues/306)) is in the mergeable queue with NO gauntlet review staged (head af5f4082e622a4c827cdec88b2fb0859fa67db5b). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #306'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr258-ace90ab0afed` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr258-ace90ab0afed.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/258](https://github.com/endojs/endo-but-for-bots/pull/258) ([endojs/endo-but-for-bots#258](https://github.com/endojs/endo-but-for-bots/issues/258)) is in the mergeable queue with NO gauntlet review staged (head ace90ab0afedcd0c70f0b8f30ed7f2fc1d4c28f2). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #258'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr472-a516972374d9` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr472-a516972374d9.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/472](https://github.com/endojs/endo-but-for-bots/pull/472) ([endojs/endo-but-for-bots#472](https://github.com/endojs/endo-but-for-bots/issues/472)) is in the mergeable queue with NO gauntlet review staged (head a516972374d9a47eb2d940067ff872ee4e9b7d35). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #472'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr319-e7fc98faa2bb` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr319-e7fc98faa2bb.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/319](https://github.com/endojs/endo-but-for-bots/pull/319) ([endojs/endo-but-for-bots#319](https://github.com/endojs/endo-but-for-bots/issues/319)) is in the mergeable queue with NO gauntlet review staged (head e7fc98faa2bb526bfd27ae1cc6964db07f7a6c40). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #319'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `stale-panel-head-kriscendobot-agoric-sdk-pr10-5c8c53ef-d4beb292` — from gardener:fix-gauntlet-audit-restages-finished-prs-20261006, reply_to `fix-gauntlet-audit-restages-finished-prs-20261006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-agoric-sdk-pr10-5c8c53ef-d4beb292.md)
 
@@ -580,10 +419,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/756](https://github.com/endojs/endo-but-for-bots/pull/756) ([endojs/endo-but-for-bots#756](https://github.com/endojs/endo-but-for-bots/issues/756)) is in the mergeable queue with NO gauntlet review staged (head 54be58f744720f39cca5f3b1d66bebd866d2f734). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #756'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr37-7e50eb2a7d32` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-minion.town-pr37-7e50eb2a7d32.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/minion.town/pull/37](https://github.com/kriscendobot/minion.town/pull/37) ([kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/issues/37)) is in the mergeable queue with NO gauntlet review staged (head 7e50eb2a7d3282b9cf3101f48d731988648ca4a9). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #37'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `followup-gate-review-improve-design-bespoke-mechanism-over-existing-path` — from followup-gate:review-improve-design-bespoke-mechanism-over-existing-path, reply_to `review-improve-design-bespoke-mechanism-over-existing-path` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-review-improve-design-bespoke-mechanism-over-existing-path.md)
 
 > Job "review-improve-design-bespoke-mechanism-over-existing-path" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
@@ -591,17 +426,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > ## Follow-ups
 > - Neither check has run on a live panel yet; the first code PR that adds a socket or formula type will be the first real exercise.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr880-9ed17ff83d48` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr880-9ed17ff83d48.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/880](https://github.com/endojs/endo-but-for-bots/pull/880) ([endojs/endo-but-for-bots#880](https://github.com/endojs/endo-but-for-bots/issues/880)) is in the mergeable queue with NO gauntlet review staged (head 9ed17ff83d48df0fc62af6e8ff079fa33bd50ab9). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #880'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr660-403b27892cd3` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr660-403b27892cd3.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/660](https://github.com/endojs/endo-but-for-bots/pull/660) ([endojs/endo-but-for-bots#660](https://github.com/endojs/endo-but-for-bots/issues/660)) is in the mergeable queue with NO gauntlet review staged (head 403b27892cd3eae3d7770ff0f7da70d11fc54730). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #660'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr242-bb85932b6e90` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr242-bb85932b6e90.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/242](https://github.com/endojs/endo-but-for-bots/pull/242) ([endojs/endo-but-for-bots#242](https://github.com/endojs/endo-but-for-bots/issues/242)) is in the mergeable queue with NO gauntlet review staged (head bb85932b6e90141c0d2b5de18d2ddf16a38a869f). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #242'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr96-ee41a8a298a4` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr96-ee41a8a298a4.md)
 
@@ -615,17 +442,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > comment-provenance INSTRUMENTATION GAP on host endolin-garden-ece02cb4: a fleet `gh` comment was posted by an LLM-driven caller, but NEITHER GARDEN_JOB_MODEL NOR GARDEN_WORKER_KIND resolved — so the footer named only the host and garden commit (no model/harness/provider). This is the PR #1125 defect. The comment STILL posted (fail-open); nothing is broken. FIX: find the code path posting the comment and export the job facts (GARDEN_JOB_MODEL + GARDEN_WORKER_KIND) before its `gh` call, OR set GARDEN_NO_LLM=1 if it is a deterministic (no-LLM) post.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr825-686d8b98f843` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr825-686d8b98f843.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/825](https://github.com/endojs/endo-but-for-bots/pull/825) ([endojs/endo-but-for-bots#825](https://github.com/endojs/endo-but-for-bots/issues/825)) is in the mergeable queue with NO gauntlet review staged (head 686d8b98f84316ebc991d9dbc11f548f46bc789f). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #825'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted` — from gauntlet:endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-halted.md)
 
 > Gauntlet endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002 HALTED: stage 'endojs-endo-but-for-bots-ironhorse-panic-host-call-open-pr-gauntlet-20261002-fix-1' (fix) failed 1 times and was NOT retried because its completed report explicitly declared the gated outcome failed/declined.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr289-df0ae9721b96` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr289-df0ae9721b96.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/289](https://github.com/endojs/endo-but-for-bots/pull/289) ([endojs/endo-but-for-bots#289](https://github.com/endojs/endo-but-for-bots/issues/289)) is in the mergeable queue with NO gauntlet review staged (head df0ae9721b96e7b8e0e111d05c647e4ba7c4386a). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #289'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `msg-ebfb-sturdyref-stack-panel-summary-20261004-e7be3fe398d1` — from gardener:ebfb-sturdyref-stack-panel-summary-20261004, reply_to `ebfb-sturdyref-stack-panel-summary-20261004` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-ebfb-sturdyref-stack-panel-summary-20261004-e7be3fe398d1.md)
 
@@ -674,17 +493,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > M3’s guest-endowment step, [endojs/endo-but-for-bots#1343](https://github.com/endojs/endo-but-for-bots/issues/1343), is blocked on choosing whether to land it with #1042 or after #1042 reaches `llm`. Please select the base/merge order.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr350-9e43ad243d50` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr350-9e43ad243d50.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/350](https://github.com/endojs/endo-but-for-bots/pull/350) ([endojs/endo-but-for-bots#350](https://github.com/endojs/endo-but-for-bots/issues/350)) is in the mergeable queue with NO gauntlet review staged (head 9e43ad243d50fc703eaf1cc50e564cbd71705007). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #350'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr329-a9624e71c75d` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr329-a9624e71c75d.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/329](https://github.com/endojs/endo-but-for-bots/pull/329) ([endojs/endo-but-for-bots#329](https://github.com/endojs/endo-but-for-bots/issues/329)) is in the mergeable queue with NO gauntlet review staged (head a9624e71c75dd2267a35417ef54fbfaa6fc93c8c). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #329'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr321-0b2c72fcf43b` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr321-0b2c72fcf43b.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/321](https://github.com/endojs/endo-but-for-bots/pull/321) ([endojs/endo-but-for-bots#321](https://github.com/endojs/endo-but-for-bots/issues/321)) is in the mergeable queue with NO gauntlet review staged (head 0b2c72fcf43b1677e387dea91d2c1a20a384e0a4). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #321'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr186-3ffb8a8f0cae` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr186-3ffb8a8f0cae.md)
 
@@ -694,17 +505,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/138](https://github.com/endojs/endo-but-for-bots/pull/138) ([endojs/endo-but-for-bots#138](https://github.com/endojs/endo-but-for-bots/issues/138)) is in the mergeable queue with NO gauntlet review staged (head cb800c2ef45c4d76b81eba12c912059f3dfe22e0). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #138'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1061-0be935906390` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1061-0be935906390.md)
+- `watchdog-handler-budget-overrun-improve-journal-deepen-retry` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-improve-journal-deepen-retry.md)
 
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1061](https://github.com/endojs/endo-but-for-bots/pull/1061) ([endojs/endo-but-for-bots#1061](https://github.com/endojs/endo-but-for-bots/issues/1061)) is in the mergeable queue with NO gauntlet review staged (head 0be9359063903118dfe48d6fa4ca78c417cfe652). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1061'; otherwise no action is needed. This audit never re-drafts a PR.
+> gardener job 'improve-journal-deepen-retry' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=2405s, handler-budget=2400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
 
 - `liaison-followup-f43c049012d8` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-f43c049012d8.md)
 
 > kriscendobot-minion-town-pr130-conduct-prod-validate-20260928-resume: [kriscendobot/minion.town#130](https://github.com/kriscendobot/minion.town/issues/130) ([https://github.com/kriscendobot/minion.town/pull/130](https://github.com/kriscendobot/minion.town/pull/130)) needs your decision. Should it be woven onto `main` at `7e87a44`, or closed as superseded? If it lands later, the job asks that CD and production be re-validated: guest API, landing page rendered in a real browser, guest-locator section still hidden, no `deploy-endo-federation.sh enable`. It also asks that the result be posted on [https://github.com/kriscendobot/minion.town/pull/117](https://github.com/kriscendobot/minion.town/pull/117).
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr357-45e38da5de5d` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr357-45e38da5de5d.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/357](https://github.com/endojs/endo-but-for-bots/pull/357) ([endojs/endo-but-for-bots#357](https://github.com/endojs/endo-but-for-bots/issues/357)) is in the mergeable queue with NO gauntlet review staged (head 45e38da5de5d628696dbf646508af35f673c57fb). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #357'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `stale-panel-head-endojs-endo-but-for-bots-pr695-a9decaa5-e22f7e5c` — from gardener:endojs-endo-but-for-bots-pr695-5e067785-retro, reply_to `endojs-endo-but-for-bots-pr695-5e067785-retro` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr695-a9decaa5-e22f7e5c.md)
 
@@ -722,10 +529,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > INFO: Gauntlet build-familiar-localhttp-protocol-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr359-24e5fdfc9296` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr359-24e5fdfc9296.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/359](https://github.com/endojs/endo-but-for-bots/pull/359) ([endojs/endo-but-for-bots#359](https://github.com/endojs/endo-but-for-bots/issues/359)) is in the mergeable queue with NO gauntlet review staged (head 24e5fdfc9296863485290c02f6012cc95c656011). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #359'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `stale-panel-head-kriscendobot-minion.town-pr85-981ae8dc-53ff65ec` — from gardener:kriscendobot-minion.town-pr85-101f9480-retro, reply_to `kriscendobot-minion.town-pr85-101f9480-retro` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-kriscendobot-minion.town-pr85-981ae8dc-53ff65ec.md)
 
 > Stale panel coverage for completed job `kriscendobot-minion.town-pr85-101f9480-retro`: [https://github.com/kriscendobot/minion.town/pull/85](https://github.com/kriscendobot/minion.town/pull/85) moved from panel-reviewed head `981ae8dcaea9b49bdf1d3c3a421bff2738ca185d` to presented head `53ff65ec7d7b954ba2d4dafdb86652aab83e71b3`.
@@ -738,21 +541,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/334](https://github.com/endojs/endo-but-for-bots/pull/334) ([endojs/endo-but-for-bots#334](https://github.com/endojs/endo-but-for-bots/issues/334)) is in the mergeable queue with NO gauntlet review staged (head 30c43c645a9ed5295e62063579dc7082a6222ea6). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #334'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr586-24e992ed364a` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr586-24e992ed364a.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/586](https://github.com/endojs/endo-but-for-bots/pull/586) ([endojs/endo-but-for-bots#586](https://github.com/endojs/endo-but-for-bots/issues/586)) is in the mergeable queue with NO gauntlet review staged (head 24e992ed364a1b54c5cc3475ad8c58761565b718). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #586'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr764-02b806d2f492` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr764-02b806d2f492.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/764](https://github.com/endojs/endo-but-for-bots/pull/764) ([endojs/endo-but-for-bots#764](https://github.com/endojs/endo-but-for-bots/issues/764)) is in the mergeable queue with NO gauntlet review staged (head 02b806d2f492844f2b1b59bfff506fb2f756dff5). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #764'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr281-75115559bda5` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr281-75115559bda5.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/281](https://github.com/endojs/endo-but-for-bots/pull/281) ([endojs/endo-but-for-bots#281](https://github.com/endojs/endo-but-for-bots/issues/281)) is in the mergeable queue with NO gauntlet review staged (head 75115559bda5254bc8da9e9bbd3ab622c820ca8f). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #281'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-kriscendobot-finbot-pr7-e52e9ba66c29` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-finbot-pr7-e52e9ba66c29.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/finbot/pull/7](https://github.com/kriscendobot/finbot/pull/7) ([kriscendobot/finbot#7](https://github.com/kriscendobot/finbot/issues/7)) is in the mergeable queue with NO gauntlet review staged (head e52e9ba66c298137ec51c2384583c9d53660efce). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #7'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-blind-comment-watcher-kriscendobot-ocapn` — from watchdog:comment-watcher/kriscendobot-ocapn, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-blind-comment-watcher-kriscendobot-ocapn.md)
 
@@ -765,10 +556,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr883-7f6a9a2008e3` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr883-7f6a9a2008e3.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/883](https://github.com/endojs/endo-but-for-bots/pull/883) ([endojs/endo-but-for-bots#883](https://github.com/endojs/endo-but-for-bots/issues/883)) is in the mergeable queue with NO gauntlet review staged (head 7f6a9a2008e3bfbde4aea0d73f4a072524876c95). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #883'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `msg-oros-health-watch-20261007-143507-64f89ffdee6d` — from gardener:oros-health-watch-20261007-143507, reply_to `oros-health-watch-20261007-143507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261007-143507-64f89ffdee6d.md)
 
@@ -786,41 +573,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The review-retrospective for that review is filed as not-a-miss: an approval is not review feedback.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr101-f1d411788f1d` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr101-f1d411788f1d.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/101](https://github.com/endojs/endo-but-for-bots/pull/101) ([endojs/endo-but-for-bots#101](https://github.com/endojs/endo-but-for-bots/issues/101)) is in the mergeable queue with NO gauntlet review staged (head f1d411788f1d5c1fc3edb5c03798229ee1b0526f). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #101'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr762-f129f92247a0` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr762-f129f92247a0.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/762](https://github.com/endojs/endo-but-for-bots/pull/762) ([endojs/endo-but-for-bots#762](https://github.com/endojs/endo-but-for-bots/issues/762)) is in the mergeable queue with NO gauntlet review staged (head f129f92247a0e2aaf1a90e1a4f507af397d01dbc). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #762'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr348-496b4ffa423d` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr348-496b4ffa423d.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/348](https://github.com/endojs/endo-but-for-bots/pull/348) ([endojs/endo-but-for-bots#348](https://github.com/endojs/endo-but-for-bots/issues/348)) is in the mergeable queue with NO gauntlet review staged (head 496b4ffa423de024ac292923eb4ad77e91b8b8ba). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #348'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr313-ceea5f188590` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr313-ceea5f188590.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/313](https://github.com/endojs/endo-but-for-bots/pull/313) ([endojs/endo-but-for-bots#313](https://github.com/endojs/endo-but-for-bots/issues/313)) is in the mergeable queue with NO gauntlet review staged (head ceea5f18859007cb9a667d83b6de146bfcd82e9f). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #313'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr353-6557181c1422` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr353-6557181c1422.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/353](https://github.com/endojs/endo-but-for-bots/pull/353) ([endojs/endo-but-for-bots#353](https://github.com/endojs/endo-but-for-bots/issues/353)) is in the mergeable queue with NO gauntlet review staged (head 6557181c142269838c7cdb4f5764da52d3609c8f). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #353'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr71-58240c0ffaaf` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr71-58240c0ffaaf.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/71](https://github.com/endojs/endo-but-for-bots/pull/71) ([endojs/endo-but-for-bots#71](https://github.com/endojs/endo-but-for-bots/issues/71)) is in the mergeable queue with NO gauntlet review staged (head 58240c0ffaafa4e9bcad671020287535ba02c971). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #71'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr278-6b723074f793` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr278-6b723074f793.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/278](https://github.com/endojs/endo-but-for-bots/pull/278) ([endojs/endo-but-for-bots#278](https://github.com/endojs/endo-but-for-bots/issues/278)) is in the mergeable queue with NO gauntlet review staged (head 6b723074f7938223f7ae035e5ce572d7fe76570e). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #278'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr151-97e419b9c951` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr151-97e419b9c951.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/151](https://github.com/endojs/endo-but-for-bots/pull/151) ([endojs/endo-but-for-bots#151](https://github.com/endojs/endo-but-for-bots/issues/151)) is in the mergeable queue with NO gauntlet review staged (head 97e419b9c9517e6009c89575a241a4fb53b5ea61). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #151'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr79-9ae6e4d55861` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr79-9ae6e4d55861.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/79](https://github.com/endojs/endo-but-for-bots/pull/79) ([endojs/endo-but-for-bots#79](https://github.com/endojs/endo-but-for-bots/issues/79)) is in the mergeable queue with NO gauntlet review staged (head 9ae6e4d558618491a64034b84e3ff24c7613616a). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #79'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr469-596b4c1185d2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr469-596b4c1185d2.md)
 
@@ -830,21 +589,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/minion.town/pull/32](https://github.com/kriscendobot/minion.town/pull/32) ([kriscendobot/minion.town#32](https://github.com/kriscendobot/minion.town/issues/32)) is in the mergeable queue with NO gauntlet review staged (head 111713873c58bee2cdff02577997361a9f50e49d). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #32'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr155-7ef09a689e24` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr155-7ef09a689e24.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/155](https://github.com/endojs/endo-but-for-bots/pull/155) ([endojs/endo-but-for-bots#155](https://github.com/endojs/endo-but-for-bots/issues/155)) is in the mergeable queue with NO gauntlet review staged (head 7ef09a689e24a9c99ffcf5aa11d7ea74440fd8b1). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #155'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr554-9612069324c0` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr554-9612069324c0.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/554](https://github.com/endojs/endo-but-for-bots/pull/554) ([endojs/endo-but-for-bots#554](https://github.com/endojs/endo-but-for-bots/issues/554)) is in the mergeable queue with NO gauntlet review staged (head 9612069324c0a037b4330a4ef485797260157f44). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #554'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr216-3964a6f62930` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr216-3964a6f62930.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/216](https://github.com/endojs/endo-but-for-bots/pull/216) ([endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/issues/216)) is in the mergeable queue with NO gauntlet review staged (head 3964a6f62930c640047186fca2c8a8d3c2110984). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #216'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1156-6362c8602b79` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1156-6362c8602b79.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1156](https://github.com/endojs/endo-but-for-bots/pull/1156) ([endojs/endo-but-for-bots#1156](https://github.com/endojs/endo-but-for-bots/issues/1156)) is in the mergeable queue with NO gauntlet review staged (head 6362c8602b79ca113df081a6483ba5b100735c71). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1156'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-budget-level-monk-endolin-garden2-5bcdff64-3` — from watchdog:budget-level, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-budget-level-monk-endolin-garden2-5bcdff64-3.md)
 
@@ -862,10 +609,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr546-2f2c0a3bf59e` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr546-2f2c0a3bf59e.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/546](https://github.com/endojs/endo-but-for-bots/pull/546) ([endojs/endo-but-for-bots#546](https://github.com/endojs/endo-but-for-bots/issues/546)) is in the mergeable queue with NO gauntlet review staged (head 2f2c0a3bf59e2d6e650ea388a3c29cb08d37b1c1). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #546'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `followup-gate-review-improve-builder-pr-gauntlet-bypass` — from followup-gate:review-improve-builder-pr-gauntlet-bypass, reply_to `review-improve-builder-pr-gauntlet-bypass` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-review-improve-builder-pr-gauntlet-bypass.md)
 
 > Job "review-improve-builder-pr-gauntlet-bypass" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
@@ -873,10 +616,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > ## Follow-ups
 > - The dated re-stage handles one re-review per day per PR. A second held-draft finish on the same day would silently skip the next re-stage until the following day.
 > - The local `journal/` checkout was stale: it didn't have the #148 miss record. The producer clone did.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1016-4dc235600b87` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1016-4dc235600b87.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1016](https://github.com/endojs/endo-but-for-bots/pull/1016) ([endojs/endo-but-for-bots#1016](https://github.com/endojs/endo-but-for-bots/issues/1016)) is in the mergeable queue with NO gauntlet review staged (head 4dc235600b87a0a0a05e7e81ad7415bfb0b48f91). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1016'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached.md)
 
@@ -895,29 +634,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684 HALTED: child kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr977-c49251a1cbb2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr977-c49251a1cbb2.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/977](https://github.com/endojs/endo-but-for-bots/pull/977) ([endojs/endo-but-for-bots#977](https://github.com/endojs/endo-but-for-bots/issues/977)) is in the mergeable queue with NO gauntlet review staged (head c49251a1cbb2cd19858af552d1412a89678c0aee). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #977'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1348-808f037289a2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1348-808f037289a2.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1348](https://github.com/endojs/endo-but-for-bots/pull/1348) ([endojs/endo-but-for-bots#1348](https://github.com/endojs/endo-but-for-bots/issues/1348)) is in the mergeable queue with NO gauntlet review staged (head 808f037289a2788e2bd81fb0bdac9aa793bca9ce). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1348'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1146-65e4e9b95afa` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr1146-65e4e9b95afa.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1146](https://github.com/endojs/endo-but-for-bots/pull/1146) ([endojs/endo-but-for-bots#1146](https://github.com/endojs/endo-but-for-bots/issues/1146)) is in the mergeable queue with NO gauntlet review staged (head 65e4e9b95afa5e1fe05ed6c082ef67df11814fc9). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1146'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr170-a330e24492fe` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr170-a330e24492fe.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/170](https://github.com/endojs/endo-but-for-bots/pull/170) ([endojs/endo-but-for-bots#170](https://github.com/endojs/endo-but-for-bots/issues/170)) is in the mergeable queue with NO gauntlet review staged (head a330e24492fe2086129b2da5929dfe0bb9f3ce59). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #170'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr182-b9f8ec1e862c` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr182-b9f8ec1e862c.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/182](https://github.com/endojs/endo-but-for-bots/pull/182) ([endojs/endo-but-for-bots#182](https://github.com/endojs/endo-but-for-bots/issues/182)) is in the mergeable queue with NO gauntlet review staged (head b9f8ec1e862c1a8e9296403fbf8ab615bc633ea5). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #182'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr129-77193d0d8f69` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr129-77193d0d8f69.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/129](https://github.com/endojs/endo-but-for-bots/pull/129) ([endojs/endo-but-for-bots#129](https://github.com/endojs/endo-but-for-bots/issues/129)) is in the mergeable queue with NO gauntlet review staged (head 77193d0d8f698d3d6e647cad41a2d8529cea44dd). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #129'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `msg-scholar-ingest-oh-my-pi-rust-core-2-b6d0f6b4499d` — from scholar:scholar-ingest-oh-my-pi-rust-core-2, reply_to `scholar-ingest-oh-my-pi-rust-core-2` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-scholar-ingest-oh-my-pi-rust-core-2-b6d0f6b4499d.md)
 
@@ -947,17 +666,9 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/887](https://github.com/endojs/endo-but-for-bots/pull/887) ([endojs/endo-but-for-bots#887](https://github.com/endojs/endo-but-for-bots/issues/887)) is in the mergeable queue with NO gauntlet review staged (head d8e75061384af8b41e5bdb66afdbe7269c3561df). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #887'; otherwise no action is needed. This audit never re-drafts a PR.
 
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr555-db4a877bcd42` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr555-db4a877bcd42.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/555](https://github.com/endojs/endo-but-for-bots/pull/555) ([endojs/endo-but-for-bots#555](https://github.com/endojs/endo-but-for-bots/issues/555)) is in the mergeable queue with NO gauntlet review staged (head db4a877bcd42a3a3f64223e83f4fd10919683a50). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #555'; otherwise no action is needed. This audit never re-drafts a PR.
-
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr594-27d11be73643` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr594-27d11be73643.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/594](https://github.com/endojs/endo-but-for-bots/pull/594) ([endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/issues/594)) is in the mergeable queue with NO gauntlet review staged (head 27d11be73643826d24b042004b49ed77bfe4b013). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #594'; otherwise no action is needed. This audit never re-drafts a PR.
-
-- `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr305-94f4d28dc588` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr305-94f4d28dc588.md)
-
-> Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/305](https://github.com/endojs/endo-but-for-bots/pull/305) ([endojs/endo-but-for-bots#305](https://github.com/endojs/endo-but-for-bots/issues/305)) is in the mergeable queue with NO gauntlet review staged (head 94f4d28dc58895d3813b74f9171f239685c8c9f5). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #305'; otherwise no action is needed. This audit never re-drafts a PR.
 
 - `watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-endolin-garden-ece02cb4.md)
 
@@ -978,8 +689,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.2M | $188.62 _(notional, rate-card)_ | 11% of 168.0M (ok) |
-| Codex | 3.2M _(+68.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 20.9M | $199.72 _(notional, rate-card)_ | 12% of 168.0M (ok) |
+| Codex | 3.3M _(+69.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
@@ -991,18 +702,18 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 (none)
 
 ### doin (4)
-- [`scholar-ingest-oh-my-pi-rust-core-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-oh-my-pi-rust-core-4.md) — Continue ingesting oh-my-pi's Rust core: shell VFS bridge and deeper pi-iso /...
 - [`pr-readiness-plan-gauntlets-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-readiness-plan-gauntlets-20261007.md) — ---
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
-- [`improve-journal-deepen-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry.md) — ---
+- [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
+- [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1124
 
-### tada (11390)
-- [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-fix-1.md) — Cost
-- [`scholar-ingest-oh-my-pi-rust-core-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core-3.md) — Completion report: scholar-ingest-oh-my-pi-rust-core-3
-- [`pr-readiness-arc-classify-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/pr-readiness-arc-classify-20261007.md) — Cost
-- [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/audit-unanchored-journal-reads.md) — Job complete: audit-unanchored-journal-reads
-- [`scholar-ingest-oh-my-pi-rust-core-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core-2.md) — Cost
-- … and 11385 more
+### tada (11395)
+- [`improve-journal-deepen-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry.md) — Cost
+- [`improve-rolling-deploy-sigterm-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-rolling-deploy-sigterm-retry.md) — Cost
+- [`scholar-ingest-oh-my-pi-rust-core-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core-4.md) — scholar-ingest-oh-my-pi-rust-core-4: completion report
+- [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-2.md) — Cost
+- [`fu-qwen-model-watch-20260728-180502-1-20261007-162009`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/fu-qwen-model-watch-20260728-180502-1-20261007-162009.md) — Cost
+- … and 11390 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1050,7 +761,83 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 - [`minion-town-claude-kriscendobot-canary-after-connect-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-kriscendobot-canary-after-connect-20261006.md) - [Connect kriscendobot Claude subscription at minion.town/account/claude (GitHub login+MFA, claude setup-token) and reply "connected"](https://github.com/kriscendobot/garden/issues/89#issuecomment-6009162863)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-(none)
+- [`endojs-endo-but-for-bots-pr60-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr60-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr71-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr71-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr79-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr79-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr101-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr101-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr129-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr129-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr155-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr155-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr166-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr166-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr170-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr170-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr182-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr182-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr241-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr241-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr242-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr242-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr250-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr250-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr251-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr251-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr258-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr258-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr278-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr278-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr279-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr279-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr283-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr283-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr288-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr288-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr289-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr289-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr305-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr305-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr306-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr306-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr311-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr311-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr318-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr318-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr319-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr319-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr320-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr320-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr321-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr321-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr322-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr322-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr324-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr324-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr344-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr344-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr346-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr346-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr348-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr348-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr350-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr350-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr353-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr353-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr356-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr356-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr357-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr357-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr359-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr359-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr360-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr360-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr389-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr389-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr472-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr472-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr508-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr508-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr546-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr546-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr554-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr554-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr555-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr555-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr586-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr586-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr730-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr730-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr741-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr741-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr762-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr762-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr764-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr764-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr779-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr779-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr825-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr825-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr880-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr880-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr883-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr883-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr977-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr977-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1016-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1016-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr996-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr996-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1038-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1038-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1049-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1049-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1061-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1061-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1146-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1146-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1156-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1156-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1343-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1343-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1349-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1349-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1355-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1355-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1381-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1381-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1394-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1394-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1416-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1416-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`endojs-endo-but-for-bots-pr1427-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1427-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-endo-but-for-bots-pr1-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-endo-but-for-bots-pr1-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-moddable-pr2-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-moddable-pr2-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-vattr97-pr1-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-vattr97-pr1-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-endo-pr2-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-endo-pr2-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-finbot-pr7-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-finbot-pr7-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-minion.town-pr37-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr37-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-minion.town-pr130-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr130-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-minion.town-pr94-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr94-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-minion.town-pr143-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr143-gauntlet-plan-20261007.md) — _normal_ · ---
+- [`kriscendobot-minion.town-pr153-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr153-gauntlet-plan-20261007.md) — _normal_ · ---
 
 ### blocked (awaiting an artifact; unblock watcher auto-promotes on completion)
 - [`ebfb-platform-fs-pet-name-path-only`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/ebfb-platform-fs-pet-name-path-only.md) — awaiting `https://github.com/endojs/endo-but-for-bots/pull/1390` · ---
