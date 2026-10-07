@@ -14,3 +14,13 @@ dispatch: automatic
 - If you conclude that sysfs visibility is itself an exposure the design meant to close, say so, propose masking `/sys/block` in the `garden` launcher instead, and do not change the probe.
 
 Add a test, and update `context/operations/harden-container.md` if its wording implies lsblk must be empty. Once deployed, the first all-pass run writes the hardened-verified marker and closes the pending notice.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T22:08:28Z
