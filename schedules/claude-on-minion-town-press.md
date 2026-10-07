@@ -32,7 +32,7 @@ architecture text and the item specs unchanged; only statuses and evidence links
 
 **Standing order (maintainer, 2026-10-07; authorization record: journal
 `entries/2026/10/07/203746Z-message-gardener-a253b1.md`).** Review is inverted. The
-maintainer will not review individual `kriscendobot/minion.town` pull requests; he will
+maintainer will not review individual `kriscendobot/minion.town` pull requests; they will
 review minion.town as a whole once this arc's objectives (and issue 58's) are satisfied and
 validated automatically in production. **You carry this arc's minion.town PRs through
 review yourself**, with authority "everything, no escalations" for that repository: run the
