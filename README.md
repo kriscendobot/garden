@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T17:29:56Z_
+_As of 2026-10-07T17:31:41Z_
 
 ## Latest
 
@@ -866,19 +866,18 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (4)
+### doin (3)
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-3.md) — Gauntlet stage: FIX round 3 — endojs/endo-but-for-bots PR #1124
-- [`improve-repair-migrated-journal-clone-origin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-repair-migrated-journal-clone-origin.md) — ---
 - [`improve-journal-deepen-retry-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 
-### tada (11403)
+### tada (11404)
+- [`improve-repair-migrated-journal-clone-origin`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-repair-migrated-journal-clone-origin.md) — Cost
 - [`improve-deadline-nudge-ambiguous-push`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-deadline-nudge-ambiguous-push.md) — Cost
 - [`claude-on-minion-town-completion-press-20261007-172010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/claude-on-minion-town-completion-press-20261007-172010.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-0b0324fd9841`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-0b0324fd9841.md) — rolling-deploy canary probe — round trip OK
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-3.md) — Cost
-- [`pr-readiness-arc-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/pr-readiness-arc-plan-20261007.md) — orchestration pr-readiness-arc-plan-20261007 — complete
-- … and 11398 more
+- … and 11399 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
