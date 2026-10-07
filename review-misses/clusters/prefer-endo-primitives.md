@@ -1,7 +1,7 @@
 ---
 slug: prefer-endo-primitives
 category: style-convention
-status: improvement-dispatched
+status: closed
 count: 9
 members:
   - endojs-endo-but-for-bots-pr671-review-9737517c
@@ -14,9 +14,10 @@ members:
   - kriscendobot-minion.town-pr140-review-8f6d6ac9
   - kriscendobot-minion.town-pr146-review-64a01f1e
 prs: [671, 755, 824, 836, 877, 882, 1336, 140, 146]
-improvement_job: review-improve-prefer-endo-primitives
-improved_by: main2 37b04ec909: roles/builder/AGENT.md (@endo-utilities directive) + roles/jurors/purist/AGENT.md (reuse-over-reimplementation axis)
+improvement_job: review-miss-prefer-endo-primitives-round2
+improved_by: main2 1f090cba7a7 (round 2: procurer @endo not-a-dependency should-fix, export-index-providers seeded, abort-controller idiom, builder/purist unpublished-upstream rule) + main2 37b04ec909 (round 1: builder @endo-utilities directive, purist reuse axis)
 ---
+
 
 
 
@@ -54,3 +55,40 @@ the existing `endo-errors-over-raw-throw` and `named-imports-over-namespace` clu
 scans added code for hand-rolled hex/base64/ascii/hashing signatures and suggests the
 `@endo/*` import — the tier-1 mechanization the seat amendment cannot match. Left as a
 builder follow-up because a reliable signature catalog is more than a seat edit.
+
+**Threshold rationale:** # Round 2 — closed 2026-10-07 (job `review-miss-prefer-endo-primitives-round2`)
+
+Maintainer approved all of round 2 (kriskowal, liaison muster 2026-10-07).
+
+**Reconciliation of the three misses since round 1 (2026-08-04, main2 37b04ec909):**
+- endojs/endo-but-for-bots#1336 (`b8dfc07e`, 2026-09-24): copied promise-kit
+  helpers. Covered by the build-vs-buy detector (export index + name pass +
+  procurer seat, landed 2026-09-24), which postdates the review; the replay in
+  `build-vs-buy-probe-test.sh` reports the copy as a strong hit.
+- kriscendobot/minion.town#140 (`8f6d6ac9`, 2026-10-01): a raw platform
+  `AbortController` where `@endo/cancel` owns cancellation; zero panel rounds ran
+  (cluster `builder-pr-gauntlet-bypass`). Round 2 adds idiom row
+  `abort-controller` (waived when the file imports `@endo/cancel`) and names
+  `@endo/cancel` in the builder catalog.
+- kriscendobot/minion.town#146 (`64a01f1e`, 2026-10-02): a vendored TypeScript
+  port of the unpublished `@endo/cancel` `makeCancelKit`, approved by two panel
+  rounds. Root causes: no `config/export-index-providers` (endo exports never
+  indexed for minion.town) and blocked `provider-not-a-dependency` hits silenced.
+
+**Round-2 improvements (main2 1f090cba7a7, journal config):**
+- (a) journal `config/export-index-providers` seeded:
+  `kriscendobot/minion.town endojs/endo-but-for-bots@llm`. Replaying the
+  procurer gate on #146's reviewed head 1258647 (base af7af618) now indexes
+  endo-but-for-bots@llm and finds `src/endo/cancel-kit.ts:46 makeCancelKit`.
+  Also fixed: `ensure-export-index.sh --providers` now prints
+  `<index>=<provider clone>`; both callers had passed provider indexes without
+  a readable repo root.
+- (b) the procurer maps a blocked `provider-not-a-dependency` hit on an
+  `@endo/*` package with a distinctive name to **should-fix** ("add the
+  dependency and consume it"; comment-only when waived). The #146 replay yields
+  `request-changes` with that finding.
+- (c) builder rule and purist juror axis: an unpublished upstream is no license
+  to vendor a copy; consume it (dev registry, workspace/file/link, pinned git
+  dependency, fix packaging upstream) or block and ask.
+
+Any later miss in this cluster is a recurrence of a closed cluster.
