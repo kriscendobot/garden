@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T08:06:26Z_
+_As of 2026-10-07T08:10:46Z_
 
 ## Latest
 
@@ -1765,8 +1765,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 168.8M | $1994.70 _(notional, rate-card)_ | 106% of 160.0M (backoff) |
-| Codex | 10.3M _(+254.1M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 168.9M | $1995.30 _(notional, rate-card)_ | 106% of 160.0M (backoff) |
+| Codex | 10.3M _(+254.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1777,18 +1777,17 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 ### todo (0)
 (none)
 
-### doin (3)
-- [`kriscendobot-minion.town-pr91-review-857b06ab-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr91-review-857b06ab-retro.md) — Retrospective on kriscendobot/minion.town PR #91 (primary: kriscendobot-minio...
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1398
-- [`kriscendobot-minion.town-pr90-d6a72a2f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr90-d6a72a2f-retro.md) — Retrospective on kriscendobot/minion.town PR #90 (primary: kriscendobot-minio...
+- [`kriscendobot-minion.town-pr160-review-cb820c52-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion.town-pr160-review-cb820c52-retro.md) — Retrospective on kriscendobot/minion.town PR #160 (primary: kriscendobot-mini...
 
-### tada (11345)
+### tada (11347)
+- [`kriscendobot-minion.town-pr91-review-857b06ab-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr91-review-857b06ab-retro.md) — Cost
+- [`kriscendobot-minion.town-pr90-d6a72a2f-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr90-d6a72a2f-retro.md) — Cost
 - [`kriscendobot-minion.town-pr85-review-f6a41dd9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr85-review-f6a41dd9-retro.md) — Cost
 - [`review-improve-identity-gated-authority`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/review-improve-identity-gated-authority.md) — Cost
 - [`fu-review-improve-builder-pr-gauntlet-bypass-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/fu-review-improve-builder-pr-gauntlet-bypass-1.md) — Cost
-- [`kriscendobot-minion.town-pr85-review-9f17a419-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr85-review-9f17a419-retro.md) — Retrospective: kriskowal's review of minion.town PR #85 (review 5360873327)
-- [`kriscendobot-minion.town-pr85-101f9480-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr85-101f9480-retro.md) — Panel-head freshness
-- … and 11340 more
+- … and 11342 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1836,7 +1835,6 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 - [`minion-town-claude-kriscendobot-canary-after-connect-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-kriscendobot-canary-after-connect-20261006.md) - [Connect kriscendobot Claude subscription at minion.town/account/claude (GitHub login+MFA, claude setup-token) and reply "connected"](https://github.com/kriscendobot/garden/issues/89#issuecomment-6009162863)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-minion.town-pr160-review-cb820c52-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr160-review-cb820c52-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #160 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr163-review-b54cabfc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr163-review-b54cabfc-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #163 (primary: kriscendobot-mini...
 - [`kriscendobot-garden-pr116-review-66d1a44d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr116-review-66d1a44d-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #116 (primary: kriscendobot-garden-pr...
 - [`endojs-endo-but-for-bots-pr1282-review-c5a5c1c1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1282-review-c5a5c1c1-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1282 (primary: endojs-endo-but-...
