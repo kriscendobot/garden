@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T06:12:26Z_
+_As of 2026-10-07T06:22:54Z_
 
 ## Latest
 
@@ -40,11 +40,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1282 (first seen 2026-10-02T05:41:06Z, latest 2026-10-07T05:17:43Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1282 times; this is ONE
-> coalesced notice that updates in place, not 1282 messages. Latest detail:
+> WATCHDOG notice — occurrence #1303 (first seen 2026-10-02T05:41:06Z, latest 2026-10-07T06:20:03Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1303 times; this is ONE
+> coalesced notice that updates in place, not 1303 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 432524s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 436287s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -981,6 +981,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Journal contention condition `journal-fetch-slow-_home_kris_garden__garden_state_clerics_1_journal` cleared on endolin-garden-ece02cb4.
 
+- `kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-child-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-failed` — from orchestrator:kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-child-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-child-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-failed.md)
+
+> orchestration-event: orchestration-child-failure
+> orchestration: kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684
+> orchestration-status: running
+> child: kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684
+> failure-kind: gated-outcome-unsatisfied
+> order: serial
+> on-child-failure: halt
+> detail: completed but declared its gated outcome unsatisfied
+>
+> Orchestration kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684 observed child kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684: completed but declared its gated outcome unsatisfied.
+
 - `msg-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-967a150ea10a` — from gardener:kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684, reply_to `kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684-967a150ea10a.md)
 
 > Production deployment of [kriscendobot/minion.town#165](https://github.com/kriscendobot/minion.town/issues/165) succeeded, but the only fleet MCP credential is the non-root minion-mcp-test-cc principal; its live tools/list has no Claude tools, and the production responder index is absent. To run the required root watchInbox canary, please connect kriscendobot’s Claude subscription while signed in as kriscendobot at https://minion.town/account/claude, then reply "connected". Do not send any token over the bus.
@@ -1464,6 +1477,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1016](https://github.com/endojs/endo-but-for-bots/pull/1016) ([endojs/endo-but-for-bots#1016](https://github.com/endojs/endo-but-for-bots/issues/1016)) is in the mergeable queue with NO gauntlet review staged (head 4dc235600b87a0a0a05e7e81ad7415bfb0b48f91). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1016'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-halted` — from orchestrator:kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684
+> orchestration-status: halted
+> child: kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684
+> failure-kind: gated-outcome-unsatisfied
+> children-completed: 1
+> children-total: 2
+> halt-parked-remainder: 
+>
+> Orchestration kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684 HALTED: child kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684 completed but declared its gated outcome unsatisfied (serial, on-child-failure=halt). 1/2 done before halt; parked remainder: none
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr977-c49251a1cbb2` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr977-c49251a1cbb2.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/977](https://github.com/endojs/endo-but-for-bots/pull/977) ([endojs/endo-but-for-bots#977](https://github.com/endojs/endo-but-for-bots/issues/977)) is in the mergeable queue with NO gauntlet review staged (head c49251a1cbb2cd19858af552d1412a89678c0aee). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #977'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -1682,8 +1708,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.9M | $1975.09 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
-| Codex | 9.4M _(+242.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 165.9M | $1975.14 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
+| Codex | 9.5M _(+243.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1695,16 +1721,16 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 (none)
 
 ### doin (2)
-- [`kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684.md) — Observe deployment and validate kriscendobot/minion.town PR #165 in production
+- [`endojs-endo-but-for-bots-pr1371-3ab5ee33-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1371-3ab5ee33-retro.md) — Retrospective on endojs/endo-but-for-bots PR #1371 (primary: endojs-endo-but-...
 - [`ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/ebfb-sturdyref-layer8-daemon-formula-20260930-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1398
 
-### tada (11304)
+### tada (11308)
+- [`endojs-endo-but-for-bots-pr1357-review-a8630960-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1357-review-a8630960-retro.md) — Cost
+- [`endojs-endo-but-for-bots-pr1348-review-4984e562-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1348-review-4984e562-retro.md) — Panel-head freshness
+- [`kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684.md) — orchestration kriscendobot-minion-town-pr165-conduct-deploy-validate-54368146...
+- [`kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684.md) — Cost
 - [`endojs-endo-but-for-bots-pr1348-review-3fce8521-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1348-review-3fce8521-retro.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1343-review-5933a851-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1343-review-5933a851-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr1340-review-c8f6e4bb-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1340-review-c8f6e4bb-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr1340-review-85c8bc95-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1340-review-85c8bc95-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr1340-review-620de24d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1340-review-620de24d-retro.md) — Cost
-- … and 11299 more
+- … and 11303 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1752,9 +1778,6 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 - [`minion-town-claude-kriscendobot-canary-after-connect-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-kriscendobot-canary-after-connect-20261006.md) - [Connect kriscendobot Claude subscription at minion.town/account/claude (GitHub login+MFA, claude setup-token) and reply "connected"](https://github.com/kriscendobot/garden/issues/89#issuecomment-6009162863)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr1348-review-4984e562-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1348-review-4984e562-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1348 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1357-review-a8630960-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1357-review-a8630960-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1357 (primary: endojs-endo-but-...
-- [`endojs-endo-but-for-bots-pr1371-3ab5ee33-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1371-3ab5ee33-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1371 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1371-review-cd454ee3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1371-review-cd454ee3-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1371 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1402-review-141e965e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1402-review-141e965e-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1402 (primary: endojs-endo-but-...
 - [`endojs-endo-but-for-bots-pr1407-review-1d8c37a5-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr1407-review-1d8c37a5-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #1407 (primary: endojs-endo-but-...
