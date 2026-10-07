@@ -14,3 +14,13 @@ For each item, read the gauntlet's final panel report and its fix rounds (journa
 3. **One message for the stack**: https://github.com/kriscendobot/minion.town/pull/151 → /152 → /154 (JavaScript-only deploy migration; gauntlets `minion-town-shell-to-js-20261004-part{1,2,3}-gauntlet`). Review in order from #151.
 
 After each message is sent, archive the matching `*-review-budget-reached.md` notice(s) with `scripts/jobs/maintainer-archive.sh`.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T22:10:21Z
