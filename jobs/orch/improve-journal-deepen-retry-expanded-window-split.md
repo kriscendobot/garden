@@ -1,4 +1,5 @@
 ---
+child-improve-journal-deepen-retry-expanded-window-expanded-window-reap-count: 0
 order: serial
 children: improve-journal-deepen-retry-expanded-window-expanded-window
 on-child-failure: halt
