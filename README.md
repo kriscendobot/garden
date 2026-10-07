@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T15:36:37Z_
+_As of 2026-10-07T15:38:42Z_
 
 ## Latest
 
@@ -318,6 +318,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr324-4318246203f7` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr324-4318246203f7.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/324](https://github.com/endojs/endo-but-for-bots/pull/324) ([endojs/endo-but-for-bots#324](https://github.com/endojs/endo-but-for-bots/issues/324)) is in the mergeable queue with NO gauntlet review staged (head 4318246203f7ba8b6f97da189e659cb1f6b0dd76). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #324'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `msg-endojs-endo-but-for-bots-pr1124-gauntlet-fix-1-fe86b1fdba84` — from gardener:endojs-endo-but-for-bots-pr1124-gauntlet-fix-1, reply_to `endojs-endo-but-for-bots-pr1124-gauntlet-fix-1` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1124-gauntlet-fix-1-fe86b1fdba84.md)
+
+> [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) (nonce locator), gauntlet fix-1: a design question for you.
+>
+> The panel-1 decomplector seat raised a must-fix: drop the per-session miss bound and the `@endo/ocapn` `makeLocatorForSession` hook entirely. Its reasons: the 256-bit bearer id already makes guessing infeasible; design §2 asks only for decode, assert local, `provide(id)`; and the existing `localGateway.provide` nonce locator has no bound. The bound came from the builder, not from you. It has been hardened over five earlier panel rounds.
+>
+> I did NOT remove it in this round. [endojs/endo-but-for-bots#1333](https://github.com/endojs/endo-but-for-bots/issues/1333) (`endo store --locator`) builds directly on `makeLocatorForSession`, so removing it is a scope decision that belongs to you. I applied the other concrete fixes and pushed b20669cb4: session-scoped teardown, hardened context, typedef moves, and the error-classification guard.
+>
+> The deciding question: should incoming `bootstrap.fetch` carry a per-session miss bound at all?
+> - Keep it: the next panel round should treat the bound as settled.
+> - Drop it: post a fixer job to strip the hook and the bound, then re-point [endojs/endo-but-for-bots#1333](https://github.com/endojs/endo-but-for-bots/issues/1333).
 
 - `watchdog-container-hardening-pending-recreate-endolin-garden2-5bcdff64` — from watchdog:self-heal, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-container-hardening-pending-recreate-endolin-garden2-5bcdff64.md)
 
@@ -946,8 +958,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.5M | $191.31 _(notional, rate-card)_ | 12% of 168.0M (ok) |
-| Codex | 3.0M _(+63.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 19.5M | $191.88 _(notional, rate-card)_ | 12% of 168.0M (ok) |
+| Codex | 3.0M _(+63.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
@@ -962,15 +974,15 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1124
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/audit-unanchored-journal-reads.md) — ---
-- [`issue-kriscendobot-garden-121`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/issue-kriscendobot-garden-121.md) — Issue from jcorbin on kriscendobot/garden #121
+- [`scholar-ingest-oh-my-pi-rust-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-oh-my-pi-rust-core.md) — Ingest oh-my-pi's Rust core (pi-iso, pi-ast, pi-shell, pi-natives, pi-vfs) an...
 
-### tada (11383)
+### tada (11384)
+- [`issue-kriscendobot-garden-121`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/issue-kriscendobot-garden-121.md) — Completion report: issue-kriscendobot-garden-121
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1430-gauntlet-viability.md) — Cost
 - [`design-ocapn-tcp-for-test-extraction-revision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/design-ocapn-tcp-for-test-extraction-revision.md) — Cost
-- [`canary-probe-endolin-garden-ece02cb4-0c64481407d9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-0c64481407d9.md) — rolling-deploy canary probe — round trip OK
-- … and 11378 more
+- … and 11379 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
