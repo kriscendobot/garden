@@ -5,10 +5,12 @@
 #   ensure-export-index.sh <repo-root> <commit> [<owner/repo>]
 #       print the path of $GARDEN_STATE/export-index/<owner>-<repo>/<sha>.tsv
 #   ensure-export-index.sh --providers <repo-root> <owner/repo>
-#       print one index path per provider repo listed for <owner/repo> in the
-#       journal file config/export-index-providers
+#       print one `<index-path>=<provider-bare-clone>` per provider repo listed
+#       for <owner/repo> in the journal file config/export-index-providers
 #       (`<owner/repo> <provider-owner/repo>@<ref>` per line), each built at the
-#       ref's resolved sha from the provider's bare clone under worktrees/.
+#       ref's resolved sha from the provider's bare clone under worktrees/. The
+#       line is detect.cjs's `--index <tsv>=<repo-root>` argument verbatim, so the
+#       detector reads provider source from the provider's clone, not the project.
 #
 # The cache is content-addressed on the FULL commit sha: a check always indexes
 # the base commit it reviews against, never a floating tip. The build writes a
@@ -67,14 +69,18 @@ ensure() {  # ensure <repo-root> <commit> [<slug>]
 providers() {  # providers <repo-root> <owner/repo>
   local slug="$2" file="$GARDEN_JOURNAL_DIR/config/export-index-providers"
   [ -r "$file" ] || return 0
-  local consumer spec prepo ref bare
+  local consumer spec prepo ref bare idx
   while read -r consumer spec _; do
     case "$consumer" in ''|'#'*) continue ;; esac
     [ "$consumer" = "$slug" ] || continue
     prepo="${spec%@*}"; ref="${spec#*@}"; [ "$ref" = "$spec" ] && ref=HEAD
     bare="$GARDEN_ROOT/worktrees/${prepo//\//-}.git"
     [ -d "$bare" ] || { echo "ensure-export-index: no bare clone for provider $prepo" >&2; continue; }
-    ensure "$bare" "$ref" "$prepo" || echo "ensure-export-index: provider $prepo@$ref unavailable" >&2
+    if idx="$(ensure "$bare" "$ref" "$prepo")"; then
+      printf '%s=%s\n' "$idx" "$bare"
+    else
+      echo "ensure-export-index: provider $prepo@$ref unavailable" >&2
+    fi
   done < "$file"
 }
 

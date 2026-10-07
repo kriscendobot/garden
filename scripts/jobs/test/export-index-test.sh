@@ -53,5 +53,18 @@ for n in 1 2 3; do git -C "$R" commit -q --allow-empty -m "gc $n"; GARDEN_EXPORT
 [ "$(ls "$GARDEN_STATE/export-index/owner-repo"/*.tsv | wc -l)" -eq 2 ] && ok 'GC keeps the newest N indexes' \
   || bad "GC left $(ls "$GARDEN_STATE/export-index/owner-repo"/*.tsv | wc -l) indexes"
 
+# --providers: one `<index>=<provider clone>` per row of config/export-index-providers,
+# built at the ref from the provider's bare clone under $GARDEN_ROOT/worktrees/.
+mkdir -p "$T/root/worktrees" "$GARDEN_JOURNAL_DIR/config"
+git clone -q --bare "$R" "$T/root/worktrees/prov-endo.git"
+printf '# consumer provider@ref\nconsumer/app prov/endo@HEAD\nother/app prov/none@HEAD\n' \
+  > "$GARDEN_JOURNAL_DIR/config/export-index-providers"
+psha=$(git -C "$T/root/worktrees/prov-endo.git" rev-parse HEAD)
+out=$(GARDEN_ROOT="$T/root" "$ENSURE" --providers "$R" consumer/app 2>/dev/null)
+[ "$out" = "$GARDEN_STATE/export-index/prov-endo/$psha.tsv=$T/root/worktrees/prov-endo.git" ] \
+  && ok '--providers prints <index>=<provider clone> for the consumer' || bad "--providers output: $out"
+out=$(GARDEN_ROOT="$T/root" "$ENSURE" --providers "$R" unlisted/app 2>/dev/null)
+[ -z "$out" ] && ok '--providers prints nothing for an unlisted consumer' || bad "unlisted consumer: $out"
+
 echo "$passes passing, $failures failing"
 [ "$failures" -eq 0 ]

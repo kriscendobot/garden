@@ -60,6 +60,17 @@ printf '%s\n' "$name_output" | grep -q '"pass":"name","file":"fixture.test.js","
   || bad "the name pass missed a local makePromiseKit: $name_output"
 expect_prefer_failure '@endo/promise-kit' '  let resolve = () => {};'
 expect_prefer_failure 'makeExo from @endo/exo' "  Far('EndoGuest', {"
+# kriscendobot/minion.town#140: a raw AbortController where @endo/cancel owns the
+# cancellation abstraction; a platform adapter that imports @endo/cancel is waived.
+expect_prefer_failure '@endo/cancel' '  const controller = new AbortController();'
+if printf '%s\n' \
+    "import { makeCancelKit } from '@endo/cancel';" \
+    'const controller = new AbortController();' \
+    | "$PREFER" --scan-stdin fixture.js | grep -qx pass; then
+  ok 'an adapter importing @endo/cancel may bridge AbortController'
+else
+  bad 'the AbortController signature fired despite an @endo/cancel import'
+fi
 
 if printf '%s\n' \
     "import { Far } from '@endo/far';" \

@@ -24,10 +24,14 @@ You are a mandatory code-panel seat, **cost-gated at dispatch** by
 surface at the PR's base commit (`scripts/jobs/export-index/`), runs the name pass
 of `skills/build-vs-buy/detect.cjs` over the added lines, and spends nothing when
 there is no hit. With hits, it ranks them (strong before weak, unwaived before
-waived), lists `blocked` hits (a dependency cycle, or a private provider) without
-judging them, and runs **one low-tier call per hit** for the top eight. Each call
+waived), lists `blocked` hits (a dependency cycle, a private provider, or a provider
+package the local package does not yet depend on) without judging them, and runs **one low-tier call per hit** for the top eight. Each call
 receives only this brief's rubric and the two fenced bodies. You never write the
-seat's verdict level: the gate maps your JSON answer to findings.
+seat's verdict level: the gate maps your JSON answer to findings. One blocked
+case is decided without you: a distinctive local copy of an `@endo/*` export whose
+package is not yet a dependency is **should-fix** ("add the dependency and consume
+it"), because an unpublished or not-yet-depended-on upstream is no reason to keep a
+vendored copy (`kriscendobot/minion.town#146`).
 
 ## Rubric (what each per-hit call decides)
 

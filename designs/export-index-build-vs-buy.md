@@ -104,6 +104,13 @@ index is built at the ref's resolved sha from that provider's bare clone. For
 provider. A provider row is a hit only when the consuming package's
 `package.json` already lists the provider package as a dependency, or when the
 project allows new dependencies. v1 treats the second case as comment-only.
+**Amended 2026-10-07** (review-miss cluster `prefer-endo-primitives`, round 2):
+an `@endo/*` provider that is not yet a dependency is **should-fix**, "add the
+dependency and consume it", because the comment-only treatment let a vendored
+TypeScript port of the unpublished `@endo/cancel` through two panel rounds on
+`kriscendobot/minion.town#146`. The `--providers` lines are `<index>=<provider
+bare clone>`, and the journal row `kriscendobot/minion.town
+endojs/endo-but-for-bots@llm` is seeded.
 
 ### 2. The library section: `journal/library/exports/`
 

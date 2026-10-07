@@ -19,7 +19,10 @@ Origin: @kriskowal's inline comment on `endojs/endo-but-for-bots#1336` (review
 - The export-name index at the base commit, from
   `scripts/jobs/export-index/ensure-export-index.sh <repo-root> <commit>`, plus any
   provider-repo indexes listed in the journal's `config/export-index-providers`
-  (`<owner/repo> <provider-owner/repo>@<ref>` per line).
+  (`<owner/repo> <provider-owner/repo>@<ref>` per line; today
+  `kriscendobot/minion.town endojs/endo-but-for-bots@llm`). `--providers` prints
+  each as `<index>=<provider bare clone>`, so the detector reads provider source
+  from the provider's clone.
 
 ## State
 
@@ -67,6 +70,9 @@ Strength of a name hit:
   `private` and not already a dependency, or (v1) a provider-repo package that the
   local package does not already depend on.
 
+A `blocked` hit also carries `latent_strength`/`latent_reason`, the strength it
+would have had were the provider importable.
+
 The stoplist is derived: any name exported by three or more packages, plus the
 floor `main run init setup test get set make`. Hits in the provider's own package
 are skipped.
@@ -77,12 +83,18 @@ are skipped.
 | --- | --- | --- |
 | `pre-push-gates/probes/build-vs-buy.sh` | each unwaived `strong` name hit | `weak`, `blocked` |
 | `pre-push-gates/probes/prefer-endo-primitives.sh` (idiom-only shim) | each idiom hit whose waiver does not apply | name hits |
-| `seat-gate-procurer.sh` (jury seat [procurer](../../roles/jurors/procurer/AGENT.md), haiku) | judges the top 8 `strong`/`weak` hits, one low-tier call each | nothing: `blocked` and capped hits are listed as comment-only |
+| `seat-gate-procurer.sh` (jury seat [procurer](../../roles/jurors/procurer/AGENT.md), haiku) | judges the top 8 `strong`/`weak` hits, one low-tier call each; flags an `@endo/*` provider-not-a-dependency hit as should-fix without a call | nothing: other `blocked` and capped hits are listed as comment-only |
 
 The seat's disposition is deterministic: `buy` on a strong hit is must-fix, `buy`
 on a weak hit and any `adapt` are should-fix, `build` is dropped (comment-only when
 the hit carried a waiver), and a malformed reply or confidence below 0.5 is
-comment-only.
+comment-only. A `blocked` hit is never judged, with one deterministic exception: a
+`provider-not-a-dependency` hit on an `@endo/*` package with a distinctive name
+(`latent_reason` is not `generic-name`) is **should-fix**, "add the dependency and
+consume it" (comment-only when waived). An unpublished upstream is no license to
+vendor a copy: consume it through a dev registry, a workspace or `file:`/`link:`
+dependency, or a pinned git dependency, or block and ask. Origin:
+`kriscendobot/minion.town#146`, a vendored TypeScript port of `@endo/cancel`.
 
 ## Waivers
 

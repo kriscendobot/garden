@@ -11,7 +11,8 @@
 #                                        claude -p (never a silent approve).
 #   hits                              -> rank them (strong > weak, unwaived before
 #                                        waived; blocked hits listed, never
-#                                        dispatched), judge the top K (8) with one
+#                                        dispatched; an @endo/* hit not yet a
+#                                        dependency is should-fix), judge the top K (8) with one
 #                                        low-tier `claude -p` each, at most 4 at a
 #                                        time, through a verdict cache, then map the
 #                                        JSON verdicts to findings deterministically

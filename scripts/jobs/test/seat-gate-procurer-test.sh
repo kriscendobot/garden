@@ -4,7 +4,8 @@
 # repo, a hand-written export index, and a stub `claude` on PATH that logs calls.
 #   no hits -> APPROVE, zero model calls; nine hits -> eight dispatched, one
 #   capped; malformed reply -> comment-only; cache hit -> zero calls on a re-run;
-#   `buy` on a strong hit -> must-fix; blocked -> listed, never dispatched.
+#   `buy` on a strong hit -> must-fix; blocked -> listed, never dispatched; an
+#   @endo/* provider not yet a dependency -> should-fix "add the dependency".
 # shellcheck disable=SC2015
 set -uo pipefail
 ROOT=$(cd "$(dirname "$0")/../../.." && pwd)
@@ -93,6 +94,45 @@ printf '%s\n' "$out" | grep -q 'must-fix.*makeKitThing' && ok 'buy on a strong h
 out=$(GARDEN_EXPORT_INDEX_ENSURE=/bin/false "$GATE" procurer 1 "$R2" "$base2")
 printf '%s\n' "$out" | grep -q '^\*\*Verdict:\*\* comment-only' && printf '%s\n' "$out" | grep -q 'could not be checked' \
   && ok 'an unavailable index is surfaced as comment-only' || bad "no-index case: $out"
+
+# A provider-repo @endo/* package the local package does not depend on yet
+# (the minion.town#146 vendored makeCancelKit): should-fix "add the dependency",
+# never dispatched; a waiver downgrades it to a comment; a generic-name clash and
+# a non-@endo provider stay comment-only.
+R3="$T/consumer"; mkdir -p "$R3/src"
+git -C "$R3" init -q; git -C "$R3" config user.name t; git -C "$R3" config user.email t@example.invalid
+echo '{"name":"consumer","dependencies":{"@endo/far":"^1.0.0"}}' > "$R3/package.json"
+echo 'export const unrelated = 1;' > "$R3/src/index.ts"
+git -C "$R3" add -A; git -C "$R3" commit -qm base; base3=$(git -C "$R3" rev-parse HEAD)
+printf '# repo=o/consumer commit=%s generator=test\n' "$base3" > "$T/own.tsv"
+{
+  echo '# repo=o/endo commit=HEAD generator=test'
+  printf 'makeCancelKit\t@endo/cancel\t@endo/cancel\tpackages/cancel/src/cancel-kit.js:30\tconst-function\t2\tnoshape\t9\t0\n'
+  printf 'makeOtherKit\t@endo/other\t@endo/other\tpackages/other/index.js:1\tconst-function\t0\tnoshape\t9\t0\n'
+  printf 'makeLodashThing\tlodash-thing\tlodash-thing\tindex.js:1\tconst-function\t0\tnoshape\t9\t0\n'
+  printf 'get\t@endo/getter\t@endo/getter\tpackages/getter/index.js:1\tconst-function\t0\tnoshape\t9\t0\n'
+} > "$T/provider.tsv"
+printf '#!/bin/bash\nif [ "$1" = --providers ]; then echo %q; exit 0; fi\necho %q\n' "$T/provider.tsv=$T/nowhere" "$T/own.tsv" > "$T/ensure3"; chmod +x "$T/ensure3"
+cat >> "$R3/src/index.ts" <<'TS'
+export const makeCancelKit = (reason?: string) => ({ cancel: () => reason });
+// build-not-buy: the upstream kit has a different contract here
+export const makeOtherKit = () => ({});
+export const makeLodashThing = () => 1;
+export const get = () => 2;
+TS
+git -C "$R3" commit -qam vendored
+: > "$STUB_LOG"
+out=$(GARDEN_EXPORT_INDEX_ENSURE="$T/ensure3" STUB_OUT='{"verdict":"build","confidence":0.9,"reason":"n/a"}' "$GATE" procurer 1 "$R3" "$base3")
+[ "$(calls)" = 0 ] && ok 'blocked provider hits are never dispatched' || bad "blocked hits made $(calls) calls"
+printf '%s\n' "$out" | grep -q 'should-fix.*makeCancelKit.*@endo/cancel.*not yet a dependency: add the dependency and consume it' \
+  && printf '%s\n' "$out" | grep -q '^\*\*Verdict:\*\* request-changes' \
+  && ok 'an @endo provider that is not yet a dependency is should-fix' || bad "endo not-a-dependency case: $out"
+printf '%s\n' "$out" | grep -q 'makeOtherKit.*kept by waiver' && ! printf '%s\n' "$out" | grep -q 'should-fix.*makeOtherKit' \
+  && ok 'a waived @endo not-a-dependency hit is a comment' || bad "waived endo case: $out"
+printf '%s\n' "$out" | grep -q 'makeLodashThing.*blocked (provider-not-a-dependency)' && ! printf '%s\n' "$out" | grep -q 'should-fix.*makeLodashThing' \
+  && ok 'a non-@endo provider that is not a dependency stays comment-only' || bad "non-endo case: $out"
+! printf '%s\n' "$out" | grep -q 'should-fix.*`get`' \
+  && ok 'a generic-name @endo clash is not should-fix' || bad "generic-name case: $out"
 
 grep -Eq '(^|[[:space:]])procurer[[:space:]}]' "$ROOT/scripts/jobs/gardening/panel.sh" \
   && grep -qP '^procurer\thaiku$' "$ROOT/scripts/jobs/gardening/seat-model-tiers.tsv" \

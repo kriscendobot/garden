@@ -8,7 +8,8 @@
 //   node procure.cjs plan <hits.jsonl> <K> <cache-dir>
 //       -> plan.jsonl: {rank, dispatch, capped, cache, hit} per name-pass hit, in
 //          rank order (strong > weak, unwaived before waived; blocked last and
-//          never dispatched; beyond K -> capped).
+//          never dispatched; beyond K -> capped). A blocked @endo/* hit whose
+//          provider is not yet a dependency maps to should-fix, not comment-only.
 //   node procure.cjs prompt <plan.jsonl> <rank> <brief>   -> the per-hit prompt
 //   node procure.cjs parse <reply-file>                   -> normalized verdict JSON
 //                                                           or exit 1 (malformed)
@@ -89,6 +90,15 @@ function parseReply(file) {
   process.stdout.write(`${JSON.stringify({ verdict: value.verdict, confidence, reason })}\n`);
 }
 
+// An @endo/* provider the consuming package does not depend on yet is not a
+// reason to keep a local copy: the fix is to add the dependency. Only a
+// distinctive name counts, so a generic-name clash stays comment-only.
+const endoNotYetADependency = hit =>
+  hit.strength === 'blocked' &&
+  hit.reason === 'provider-not-a-dependency' &&
+  /^@endo\//.test(hit.provider.package || '') &&
+  hit.latent_reason !== 'generic-name';
+
 function block(seat, planFile, verdictDir) {
   const entries = readLines(planFile);
   const must = [];
@@ -96,6 +106,14 @@ function block(seat, planFile, verdictDir) {
   const comment = [];
   const where = h => `\`${h.file}:${h.line}\` \`${h.name}\` duplicates \`${h.provider.export}\` from \`${h.provider.specifier}\` (${h.provider.def})`;
   for (const { rank, dispatch, capped, hit } of entries) {
+    if (endoNotYetADependency(hit)) {
+      if (hit.waiver) {
+        comment.push(`${where(hit)} — kept by waiver "build-not-buy: ${hit.waiver}"; \`${hit.provider.package}\` is not yet a dependency, and an unpublished upstream is no reason to vendor a copy, so check the waiver's reason. [rule: ${RULE}]`);
+      } else {
+        should.push(`**should-fix** ${where(hit)}; \`${hit.provider.package}\` is not yet a dependency: add the dependency and consume it instead of the local copy. If it is unpublished, link it (workspace link or dev registry) or block and ask; never vendor a copy. [rule: ${RULE}]`);
+      }
+      continue;
+    }
     if (hit.strength === 'blocked') {
       comment.push(`${where(hit)} — not judged: importing it is blocked (${hit.reason}). [rule: ${RULE}]`);
       continue;

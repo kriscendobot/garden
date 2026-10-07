@@ -18,3 +18,4 @@ ascii-charcodeat	Uint8Array\.from\s*\(.*charCodeAt\s*\(	@endo/ascii	-	import	han
 insist-declaration	(^|\s)(const|let|var|function)\s+insist[A-Za-z0-9_$]*	@endo/errors	-	import	hand-rolled insist/assert helper
 deferred-resolve-reject	(^|\s)let\s+(resolve|reject)([^A-Za-z0-9_$]|$)	@endo/promise-kit	makePromiseKit	import	hand-rolled promise kit
 bare-far	(^|[^A-Za-z0-9_$.])Far\s*\(	@endo/exo	makeExo	none	bare Far (use makeExo with an interface guard)
+abort-controller	(^|[^A-Za-z0-9_$.])new\s+AbortController\b	@endo/cancel	makeCancelKit	import	raw platform AbortController in application code (only a platform adapter may bridge it)

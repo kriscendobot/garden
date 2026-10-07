@@ -34,7 +34,7 @@ index="$("$ENSURE" . "$base" 2>/dev/null)" || {
 index_args=(--index "$index")
 slug="$(sed -n '1s/^# repo=\([^ ]*\) .*/\1/p' "$index")"
 while IFS= read -r provider; do
-  [ -n "$provider" ] && index_args+=(--index "$provider=$(dirname "$(dirname "$provider")")")
+  [ -n "$provider" ] && index_args+=(--index "$provider")  # <tsv>=<provider clone>
 done < <("$ENSURE" --providers . "$slug" 2>/dev/null)
 
 mode=()

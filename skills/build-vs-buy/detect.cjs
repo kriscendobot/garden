@@ -22,6 +22,8 @@
 //   idiom pass: {pass:"idiom", file, line, id, name, description, advice,
 //                provider:{specifier, export}, waiver:null}   (only unwaived idioms)
 //   strength: strong | weak | blocked (name pass; idiom hits are always "idiom").
+//   A blocked hit also carries latent_strength (strong | weak) and latent_reason:
+//   the classification it would have had were the provider importable.
 // EXIT: 0 ran (zero or more hits); 2 usage; 3 git or an index unreadable.
 
 'use strict';
@@ -339,15 +341,19 @@ function main() {
       );
       let strength;
       let reason;
-      if (blocked) {
-        strength = 'blocked';
-        reason = blocked;
-      } else if (distinctive(decl.name) && (localShape === row.shape || similarity >= 0.6 || idiomNamesIt)) {
+      if (distinctive(decl.name) && (localShape === row.shape || similarity >= 0.6 || idiomNamesIt)) {
         strength = 'strong';
         reason = localShape === row.shape ? 'shape-equal' : similarity >= 0.6 ? `jaccard=${similarity.toFixed(2)}` : 'idiom';
       } else {
         strength = 'weak';
         reason = distinctive(decl.name) ? `jaccard=${similarity.toFixed(2)}` : 'generic-name';
+      }
+      // A blocked hit keeps the strength it would have had, so a caller can tell
+      // a distinctive copy of a not-yet-a-dependency package from a name clash.
+      const latent = blocked ? { latent_strength: strength, latent_reason: reason } : {};
+      if (blocked) {
+        strength = 'blocked';
+        reason = blocked;
       }
       const above = decl.line >= 2 ? lines[decl.line - 2] : '';
       const waiverMatch = above.match(/\/\/\s*build-not-buy:\s*(.*)$/);
@@ -364,6 +370,7 @@ function main() {
         waiver: waiverMatch ? waiverMatch[1].trim() || '(no reason given)' : null,
         local_shape: localShape,
         provider_shape: row.shape,
+        ...latent,
       });
     }
   }
