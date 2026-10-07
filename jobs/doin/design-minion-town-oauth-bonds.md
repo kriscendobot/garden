@@ -54,6 +54,7 @@ Open the design as a PR on `kriscendobot/minion.town` (draft). Per the maintaine
 PRs through review; do not wait on the maintainer for design sign-off. Any genuine design
 fork goes in the design's `## Open questions`, not a blocked job.
 
+<!-- garden-terminal-handler-failure -->
 ---
 claim:
   host: endolin-garden2-5bcdff64
