@@ -10,6 +10,9 @@
 | [feature-gated shell builtins](../sections/oh-my-pi--crates-pi-builtins-src-lib--feature-gated-shell-builtins.md) | oh-my-pi `pi-builtins` | In-process utilities run against the shell host view, allowing them to share the injected filesystem. |
 | [N-API ripgrep search](../sections/oh-my-pi--crates-pi-natives-src-grep--napi-ripgrep-search.md) | oh-my-pi `pi-natives` grep | Native grep searches host paths and provider URLs through the same injected filesystem. |
 | [N-API virtual glob walk](../sections/oh-my-pi--crates-pi-natives-src-glob--napi-virtual-glob-walk.md) | oh-my-pi `pi-natives` glob | Glob walks injected provider URLs without wrapping a host glob process or creating host files. |
+| [N-API shell sessions and filesystem injection](../sections/oh-my-pi--crates-pi-natives-src-shell--napi-shell-sessions-and-filesystem-injection.md) | oh-my-pi `pi-natives` shell | Persistent and one-shot brush shells reach JavaScript with streamed output, minimizer telemetry, and session- or run-scoped `pi-vfs` filesystems. |
+| [ast-grep search over injected filesystems](../sections/oh-my-pi--crates-pi-natives-src-ast--ast-grep-search-over-injected-filesystems.md) | oh-my-pi `pi-natives` ast | Structural search over host paths or `scheme://` URLs through an injected filesystem, or over in-memory source, with deterministic paging and non-fatal diagnostics. |
+| [divergence ledger against the oh-my-pi source](../sections/web--oh-my-pi-design-rust-core--divergence-ledger-against-source.md) | third-party explainer vs source | Where the explainer departs from the source: missing `pi-vfs`, minimizer-as-permission-gate, wrong brush path, invented AST and iso APIs. |
 
 ## See also
 
