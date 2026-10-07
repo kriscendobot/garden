@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T20:56:50Z_
+_As of 2026-10-07T21:01:06Z_
 
 ## Latest
 
@@ -23,7 +23,7 @@ These items still need you:
 - [endojs/endo-but-for-bots#186](https://github.com/endojs/endo-but-for-bots/pull/186) — feat(eventual-send): eager-shim/lazy-main delegate ponyfill (per #175) (waiting 36d)
 - [endojs/endo-but-for-bots#241](https://github.com/endojs/endo-but-for-bots/pull/241) — design: familiar/host run applications over a VFS (mount caps, npm-to-sqlite, Go-mod-shaped resolution) (waiting 34d)
 - [endojs/endo-but-for-bots#594](https://github.com/endojs/endo-but-for-bots/pull/594) — chore(lint): lint per package to avoid the typescript-eslint project-service ceiling (waiting 36d)
-- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 35d)
+- [endojs/endo-but-for-bots#1038](https://github.com/endojs/endo-but-for-bots/pull/1038) — docs(daemon): gate the setExceptionBreakMode('uncaught') silent no-op (waiting 36d)
 - [endojs/endo-but-for-bots#237](https://github.com/endojs/endo-but-for-bots/pull/237) — design: lal define-jessie tool with Blockly rendering (waiting 37d)
 - [endojs/endo-but-for-bots#216](https://github.com/endojs/endo-but-for-bots/pull/216) — feat(endor,tui): interactive TUI mode + stub packages (per kriskowal #32 reconstruct) (waiting 41d)
 
@@ -813,14 +813,6 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > ANOMALY: comment-watcher/kriscendobot-ocapn self-test FAILED on kriscendobot/ocapn — the comment source path could not fetch a known-existing comment, so the watcher is likely silently BLIND (the 2026-06-24 jq-outage signature). Check jq/gh on endolin-garden-ece02cb4 and the comment-source handler. This is a POSITIVE proof the source path is broken, NOT a report that the repo is quiet.
 
-- `stale-panel-head-endojs-endo-but-for-bots-pr1349-ea0889c7-4d335412` — from gardener:endojs-endo-but-for-bots-pr1349-fix-20261005, reply_to `endojs-endo-but-for-bots-pr1349-fix-20261005` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1349-ea0889c7-4d335412.md)
-
-> Stale panel coverage for completed job `endojs-endo-but-for-bots-pr1349-fix-20261005`: [https://github.com/endojs/endo-but-for-bots/pull/1349](https://github.com/endojs/endo-but-for-bots/pull/1349) moved from panel-reviewed head `ea0889c799eb467e99b3bfb1ebdd3dff86487d08` to presented head `4d3354123e209709df55da0c1374a30f7d7a5a86`.
->
-> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
->
-> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
-
 - `msg-oros-health-watch-20261007-143507-64f89ffdee6d` — from gardener:oros-health-watch-20261007-143507, reply_to `oros-health-watch-20261007-143507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261007-143507-64f89ffdee6d.md)
 
 > UNREACHABLE: Oros remains offline as of 2026-10-07T14:38Z. Fresh journal2 has no active checkup; its schedule is deferred to 2026-10-11T21:00:00Z. The heartbeat last sampled 2026-10-02T05:08:36Z, fleet health last reported 2026-10-02T03:13:48Z with roll_status deferred, sysop last applied an op 2026-10-02T05:38:58Z, and heartbeat-offline derotation remains active. Deployed e036bb8e is 187 commits behind main2. I sent no duplicate op because seven reset-failed and one restore are already queued without acknowledgments. A person must check the Mac power/sleep state, Docker Desktop, and VM/container.
@@ -1046,8 +1038,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.9M | $267.54 _(notional, rate-card)_ | 18% of 168.0M (ok) |
-| Codex | 4.1M _(+75.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 29.9M | $270.01 _(notional, rate-card)_ | 18% of 168.0M (ok) |
+| Codex | 4.1M _(+76.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
@@ -1055,8 +1047,10 @@ _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 worst fetch p95 10.088527s/45s (/home/kris/garden2/.garden-state/inbox/build-minion-town-issue58-prod-objective-probes/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (3)
+### todo (5)
 - [`endojs-endo-but-for-bots-pr1381-review-a6b93d7a`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-review-a6b93d7a.md) — Review directive on endojs/endo-but-for-bots PR #1381
+- [`endojs-endo-but-for-bots-pr1381-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1381-conduct.md) — Finalize (curate -> merge) endojs/endo-but-for-bots PR #1381
+- [`endojs-endo-but-for-bots-pr1349-textcodec-encapsulation-mentat`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/endojs-endo-but-for-bots-pr1349-textcodec-encapsulation-mentat.md) — ---
 - [`design-minion-town-oauth-bonds`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/design-minion-town-oauth-bonds.md) — Design: clarify, list, and delete OAuth bonds on minion.town
 - [`weave-kriscendobot-minion-town-pr68-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/weave-kriscendobot-minion-town-pr68-20261007.md) — Weave kriscendobot/minion.town#68 onto the live main
 
