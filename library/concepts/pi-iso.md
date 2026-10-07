@@ -14,6 +14,9 @@ topics: [sandbox-platforms, file-systems, agent-workspaces]
 |---|---|
 | [cross-platform copy-on-write workspaces](../sections/oh-my-pi--crates-pi-iso-src-lib--cross-platform-copy-on-write-workspaces.md) | Native workspace backends, Git fallback, diff contract, and the process-sandbox boundary. |
 | [N-API isolation lifecycle and the unavailable-error protocol](../sections/oh-my-pi--crates-pi-natives-src-iso--napi-isolation-lifecycle.md) | JavaScript-facing probe/resolve/start/stop/diff and the `ISO_UNAVAILABLE:` fallback signal. |
+| [Rcopy fallback backend](../sections/oh-my-pi--crates-pi-iso-src-rcopy--git-worktree-or-recursive-copy-fallback.md) | Git-worktree materialization with dirty-state replay, or recursive copy; always available. |
+| [overlayfs with fuse-overlayfs fallback](../sections/oh-my-pi--crates-pi-iso-src-overlayfs--kernel-overlay-with-fuse-fallback.md) | Kernel overlay mount, fuse fallback on refusal, per-mount teardown flavor. |
+| [backend resolution priority](../sections/oh-my-pi--crates-pi-iso-src-lib--backend-resolution-priority.md) | Per-OS automatic order, preferred-first resolution, `Resolution` fields, and tree-cloning candidates. |
 
 ## See also
 
