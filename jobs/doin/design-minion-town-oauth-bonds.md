@@ -53,3 +53,13 @@ Open the design as a PR on `kriscendobot/minion.town` (draft). Per the maintaine
 `entries/2026/10/07/203746Z-message-gardener-a253b1.md`), the arc supervisors carry minion.town
 PRs through review; do not wait on the maintainer for design sign-off. Any genuine design
 fork goes in the design's `## Open questions`, not a blocked job.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 2
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T22:08:39Z
