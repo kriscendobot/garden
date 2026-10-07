@@ -8,7 +8,7 @@
 #             whole weeks, so a slice re-cut each week never inherits last week's
 #             spend. `rank` and `summary` ride along; `token_cap` may be 0 (an arc
 #             kept on the slate but unfunded this week).
-# Exit codes: 2 no config, 3 malformed/inactive config, 4 untrusted ledger,
+# Exit codes: 2 no config, 3 malformed/inactive config, 4 unreadable ledger,
 # 5 arc retired from the slate (its plans stay parked).
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -102,32 +102,39 @@ if [ -d "$directory/usage" ]; then
   fi
 fi
 if [ "${#ledgers[@]}" -eq 0 ]; then
-  rows='[]'
+  rows='{"usable":[],"unmetered":0}'
 else
+  # Unusable rows (unparseable ts, source:none, no token fields, or malformed token
+  # counts) are filtered out and counted as `unmetered`, matching campaign-spend.sh,
+  # rather than poisoning the arc: one unmetered engagement once held every slice
+  # (2026-10-06, foreman arc-held for every arc). Only an unreadable ledger is untrusted.
   rows="$(jq -s --arg arc "$arc" --argjson cutoff_epoch "$cutoff_epoch" '
+    def usable:
+      ((.ts? | type) == "string")
+      and ((try (.ts | fromdateiso8601) catch null) != null)
+      and ((.source? // "") != "none")
+      and ([.input_tokens?, .output_tokens?, .cache_creation_tokens?] | any(. != null))
+      and ([.input_tokens?, .output_tokens?, .cache_creation_tokens?]
+           | all(. == null or (type == "number" and . >= 0 and floor == .)));
     [ .[] | select(.arc? == $arc) ] as $arc_rows
-    | if any($arc_rows[];
-        ((.ts? | type) != "string")
-        or ((try (.ts | fromdateiso8601) catch null) == null)
-        or ((.source? // "") == "none")
-        or ([.input_tokens?, .output_tokens?, .cache_creation_tokens?] | all(. == null))
-        or ([.input_tokens?, .output_tokens?, .cache_creation_tokens?]
-            | any(. != null and (type != "number" or . < 0 or floor != .))))
-      then error("unmetered or malformed matching arc usage row")
-      else [ $arc_rows[] | select((.ts | fromdateiso8601) >= $cutoff_epoch) ] end
+    | { usable: [ $arc_rows[] | select(usable)
+                  | select((.ts | fromdateiso8601) >= $cutoff_epoch) ],
+        unmetered: ([ $arc_rows[] | select(usable | not)
+                      | select((try (.ts | fromdateiso8601) catch null) == null
+                               or (.ts | fromdateiso8601) >= $cutoff_epoch) ] | length) }
   ' "${ledgers[@]}" 2>/dev/null)" || { log "arc '$arc' usage ledger is untrusted"; exit 4; }
 fi
 
 jq -cn --arg arc "$arc" --arg cutoff "$cutoff" --arg as_of "$as_of" \
   --argjson cap "$token_cap" --argjson window "$window_seconds" \
-  --argjson rows "$rows" --slurpfile cfg "$config" '
-  ($cfg[0]) as $c
+  --argjson ledger "$rows" --slurpfile cfg "$config" '
+  ($cfg[0]) as $c | ($ledger.usable) as $rows
   | ($rows | map((.input_tokens // 0) + (.output_tokens // 0)
                + (.cache_creation_tokens // 0)) | add // 0) as $spend
   | {arc:$arc, schema:$c.schema, token_cap:$cap, window_seconds:$window,
      press_interval_seconds:($c.press_interval_seconds // null), cutoff:$cutoff,
      as_of:$as_of, spend_tokens:$spend, remaining_tokens:([$cap-$spend,0]|max),
-     over_budget:($spend >= $cap), engagements:($rows|length),
+     over_budget:($spend >= $cap), engagements:($rows|length), unmetered:$ledger.unmetered,
      completions:([$rows[] | select(.outcome? == "tada") | .base] | unique | length)}
   + (if $c.schema == 2 then {window:"week", window_start:$cutoff,
        rank:($c.rank // null), summary:($c.summary // "")} else {} end)

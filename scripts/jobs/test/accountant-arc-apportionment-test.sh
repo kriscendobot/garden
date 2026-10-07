@@ -106,6 +106,13 @@ row 2026-09-28T00:00:00Z alpha 60 job-alpha-2 >> "$V/usage/alpha.jsonl"; push_v 
 "$JOBS/arc-spend.sh" --dir "$V" --now-epoch $((NOW + 7*86400)) alpha \
   | jq -e '.spend_tokens == 0 and .window_start == "2026-10-03T04:00:00Z"' >/dev/null \
   && ok "the weekly window rolls forward without a carry-forward" || bad "window did not roll"
+{ jq -cn '{ts:"2026-09-27T01:00:00Z",base:"unmetered",arc:"alpha",source:"none",outcome:"requeue"}'
+  jq -cn '{ts:"bogus",base:"bad-ts",arc:"alpha",source:"codex",input_tokens:5}'
+  jq -cn '{ts:"2026-09-27T02:00:00Z",base:"bad-n",arc:"alpha",source:"codex",input_tokens:-1}'
+} >> "$V/usage/alpha.jsonl"; push_v usage-alpha-unmetered
+"$JOBS/arc-spend.sh" --dir "$V" --now-epoch "$NOW" alpha \
+  | jq -e '.spend_tokens == 510 and .engagements == 2 and .unmetered == 3' >/dev/null \
+  && ok "unusable usage rows are filtered and counted, not poisoning the arc" || bad "unmetered rows poisoned the arc"
 set +e; "$JOBS/arc-spend.sh" --dir "$V" --now-epoch "$NOW" gamma >/dev/null 2>&1; rc=$?; set -e
 [ "$rc" -eq 5 ] && ok "a retired arc exits 5" || bad "retired arc rc=$rc"
 
