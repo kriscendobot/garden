@@ -1,17 +1,14 @@
 from_host: endolin-garden2-5bcdff64
 from: watchdog:rolling-deploy
-sent_at: 2026-10-07T05:17:55Z
+sent_at: 2026-10-07T05:32:04Z
 watchdog_key: rolling-deploy-canary-stuck-endolin-garden-ece02cb4
-notice_count: 71
+notice_count: 76
 first_seen: 2026-10-06T18:20:02Z
-last_seen: 2026-10-07T05:17:55Z
+last_seen: 2026-10-07T05:32:04Z
+recovered: true
 ---
-WATCHDOG notice — occurrence #71 (first seen 2026-10-06T18:20:02Z, latest 2026-10-07T05:17:55Z).
-The SAME condition (`rolling-deploy-canary-stuck-endolin-garden-ece02cb4`) has now been observed 71 times; this is ONE
-coalesced notice that updates in place, not 71 messages. Latest detail:
+RECOVERED — the watchdog condition `rolling-deploy-canary-stuck-endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-06T18:20:02Z, cleared 2026-10-07T05:32:04Z).
+It was observed 76 time(s) while open. Nothing further is required;
+this notice closes the loop so the end of the condition is on the record.
 
-Rolling-deploy canary endolin-garden-ece02cb4 is STUCK: it was released to 05b29b3e8fa2 549 min ago
-but still reports deployed_sha de4f2eece5f746c23d8bac7b3634b8aecfeb7ef6. Check garden-self-deploy on endolin-garden-ece02cb4
-(journalctl --user -u garden-self-deploy): a hold or a deferring deploy-garden.sh
-keeps it from advancing. The leader does not advance past an undeployed canary.
-(leader=endolin-garden2-5bcdff64)
+canary endolin-garden-ece02cb4 is no longer stuck (release 05b29b3e8fa29919ae5024586f91c84e34fc9a08, deployed 05b29b3e8fa29919ae5024586f91c84e34fc9a08).
