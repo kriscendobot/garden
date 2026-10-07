@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T16:06:35Z_
+_As of 2026-10-07T16:07:38Z_
 
 ## Latest
 
@@ -978,7 +978,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 19.3M | $189.91 _(notional, rate-card)_ | 11% of 168.0M (ok) |
+| Claude | 19.2M | $188.62 _(notional, rate-card)_ | 11% of 168.0M (ok) |
 | Codex | 3.2M _(+68.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -990,20 +990,19 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (5)
-- [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1124
+### doin (4)
 - [`scholar-ingest-oh-my-pi-rust-core-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/scholar-ingest-oh-my-pi-rust-core-4.md) — Continue ingesting oh-my-pi's Rust core: shell VFS bridge and deeper pi-iso /...
 - [`pr-readiness-plan-gauntlets-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/pr-readiness-plan-gauntlets-20261007.md) — ---
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`improve-journal-deepen-retry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry.md) — ---
 
-### tada (11389)
+### tada (11390)
+- [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-fix-1.md) — Cost
 - [`scholar-ingest-oh-my-pi-rust-core-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core-3.md) — Completion report: scholar-ingest-oh-my-pi-rust-core-3
 - [`pr-readiness-arc-classify-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/pr-readiness-arc-classify-20261007.md) — Cost
 - [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/audit-unanchored-journal-reads.md) — Job complete: audit-unanchored-journal-reads
 - [`scholar-ingest-oh-my-pi-rust-core-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core-2.md) — Cost
-- [`scholar-ingest-oh-my-pi-rust-core`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/scholar-ingest-oh-my-pi-rust-core.md) — Cost
-- … and 11384 more
+- … and 11385 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
