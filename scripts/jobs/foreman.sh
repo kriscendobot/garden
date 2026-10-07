@@ -435,7 +435,11 @@ digest="$(mktemp "${TMPDIR:-/tmp}/garden-foreman.XXXXXX")"
 # rest of the foreman down with it.
 herrf="$(mktemp "${TMPDIR:-/tmp}/garden-foreman-err.XXXXXX")"
 hrc=0
-out="$("$GARDEN_FOREMAN_HANDLER" "$digest" 2>"$herrf")" || hrc=$?
+# Point the handler's quota meter at THIS tick's synced clone. Unset, the meter
+# falls back to the first $GARDEN_STATE/*/journal it finds (alphabetically the
+# accountant's), and a stale one there read a retired backoff pin and held the
+# whole provider route at rc=75 for hours (2026-10-07).
+out="$(GARDEN_PRODUCER_CLONE="$DIR" "$GARDEN_FOREMAN_HANDLER" "$digest" 2>"$herrf")" || hrc=$?
 if [ "$hrc" -ne 0 ]; then
   if [ "$hrc" -eq "${GARDEN_TRANSIENT_RC:-75}" ]; then
     # The live handler uses EX_TEMPFAIL when every configured inference route is
