@@ -49,3 +49,13 @@ Comment: https://github.com/kriscendobot/garden/issues/121#issuecomment-60432118
 @kriscendobot okay so to clarify: the builtin shell can still execute normal system commands too, so one still needs process containment of some form? this seems to be more about efficacy: being lighter weight than fork/exec at every step, and turn efficiency? may provide some so
 
 ----- END ORIGINAL MESSAGE -----
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T18:00:41Z
