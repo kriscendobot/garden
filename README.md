@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T20:12:16Z_
+_As of 2026-10-07T20:19:32Z_
 
 ## Latest
 
@@ -585,6 +585,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Current head: `ceea5f188590`. CI: 25 checks successful and `test (24.x, ubuntu-latest)` failed. The requested test coverage is present; the failing current CI state is called out for triage.
 
+- `watchdog-handler-budget-overrun-improve-journal-deepen-retry-expanded-window-expanded-window` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-improve-journal-deepen-retry-expanded-window-expanded-window.md)
+
+> gardener job 'improve-journal-deepen-retry-expanded-window-expanded-window' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=7204s, handler-budget=7200s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
+
 - `watchdog-handler-budget-overrun-improve-journal-deepen-retry-expanded-window` — from watchdog:cleric/1, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-handler-budget-overrun-improve-journal-deepen-retry-expanded-window.md)
 
 > gardener job 'improve-journal-deepen-retry-expanded-window' DETERMINISTICALLY overran its handler budget (rc=124, term-at-wall, elapsed=5404s, handler-budget=5400s, kill-grace=60s). It does not fit in a single claim-scoped handler. An ordinary job is re-posted for deliberate orchestration decomposition immediately; a gauntlet stage is handed directly to its driver's max_stage_retries policy. Same root cause as an over-large declared handler-timeout, but under the default budget it gets no early signal — surfaced here so you don't have to reverse-engineer it from the reaper report. Remedy: SPLIT it into claim-sized stages, or run it DETACHED outside the claim-scoped handler.
@@ -719,6 +723,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Orchestration pr-readiness-arc-plan-20261007 complete (serial): all 3 children reached tada without a machine-readable failure declaration.
 
+- `improve-journal-deepen-retry-expanded-window-split-child-improve-journal-deepen-retry-expanded-window-expanded-window-failed` — from orchestrator:improve-journal-deepen-retry-expanded-window-split-child-improve-journal-deepen-retry-expanded-window-expanded-window-failed, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-journal-deepen-retry-expanded-window-split-child-improve-journal-deepen-retry-expanded-window-expanded-window-failed.md)
+
+> orchestration-event: orchestration-child-timeout
+> orchestration: improve-journal-deepen-retry-expanded-window-split
+> orchestration-status: running
+> child: improve-journal-deepen-retry-expanded-window-expanded-window
+> failure-kind: handler-timeout
+> order: serial
+> on-child-failure: halt
+> detail: stalled in flight for 7272s on host endolin-garden2-5bcdff64 (handler-timeout=7200s, multiplier=1)
+>
+> Orchestration improve-journal-deepen-retry-expanded-window-split observed child improve-journal-deepen-retry-expanded-window-expanded-window: stalled in flight for 7272s on host endolin-garden2-5bcdff64 (handler-timeout=7200s, multiplier=1).
+
 - `stale-panel-head-endojs-endo-but-for-bots-pr1416-6306845e-2f8506cd` — from gardener:endojs-endo-but-for-bots-pr1416-gauntlet-plan-20261007, reply_to `endojs-endo-but-for-bots-pr1416-gauntlet-plan-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr1416-6306845e-2f8506cd.md)
 
 > Stale panel coverage for completed job `endojs-endo-but-for-bots-pr1416-gauntlet-plan-20261007`: [https://github.com/endojs/endo-but-for-bots/pull/1416](https://github.com/endojs/endo-but-for-bots/pull/1416) moved from panel-reviewed head `6306845e2c61c36aae611c05cb3ad527bfe74f00` to presented head `2f8506cd8505cf23b1aabc7881300f8a54fc7e75`.
@@ -758,6 +775,19 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - Applied: skip the `@nets` migration because it is not widely deployed. `babf96d2498a` rewrote `designs/ocapn-daemon-integration.md` to replace `@nets` with `@transports` in one cutover, removing coexistence, fallback, shim, and deprecation-window language.
 >
 > Current head: `cb800c2ef45c`. CI: 5 checks, all successful. No requested item was declined.
+
+- `improve-journal-deepen-retry-expanded-window-split-halted` — from orchestrator:improve-journal-deepen-retry-expanded-window-split-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/improve-journal-deepen-retry-expanded-window-split-halted.md)
+
+> orchestration-event: orchestration-terminal
+> orchestration: improve-journal-deepen-retry-expanded-window-split
+> orchestration-status: halted
+> child: improve-journal-deepen-retry-expanded-window-expanded-window
+> failure-kind: handler-timeout
+> children-completed: 0
+> children-total: 1
+> halt-parked-remainder: 
+>
+> Orchestration improve-journal-deepen-retry-expanded-window-split HALTED: child improve-journal-deepen-retry-expanded-window-expanded-window stalled in flight for 7272s on host endolin-garden2-5bcdff64 (handler-timeout=7200s, multiplier=1) (serial, on-child-failure=halt). 0/1 done before halt; parked remainder: none
 
 - `stale-panel-head-endojs-endo-but-for-bots-pr695-a9decaa5-e22f7e5c` — from gardener:endojs-endo-but-for-bots-pr695-5e067785-retro, reply_to `endojs-endo-but-for-bots-pr695-5e067785-retro` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr695-a9decaa5-e22f7e5c.md)
 
@@ -1019,7 +1049,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 27.8M | $247.89 _(notional, rate-card)_ | 17% of 168.0M (ok) |
+| Claude | 27.8M | $249.26 _(notional, rate-card)_ | 17% of 168.0M (ok) |
 | Codex | 3.6M _(+70.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -1036,13 +1066,13 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 - [`improve-journal-deepen-retry-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1343
 
-### tada (11423)
+### tada (11424)
+- [`improve-journal-deepen-retry-expanded-window-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry-expanded-window-split.md) — orchestration improve-journal-deepen-retry-expanded-window-split — HALTED
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-6.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-fix-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr977-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr977-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr977-gauntlet-20261007 — HALTED
-- [`endojs-endo-but-for-bots-pr977-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr977-gauntlet-plan-20261007.md) — Panel-head freshness
-- … and 11418 more
+- … and 11419 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
