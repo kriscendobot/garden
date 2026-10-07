@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T15:23:37Z_
+_As of 2026-10-07T15:29:53Z_
 
 ## Latest
 
@@ -36,11 +36,11 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 - `watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49` — from watchdog:rolling-deploy, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-rolling-deploy-host-offline-oros-studio-garden-ce242c49.md)
 
-> WATCHDOG notice — occurrence #1465 (first seen 2026-10-02T05:41:06Z, latest 2026-10-07T14:29:03Z).
-> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1465 times; this is ONE
-> coalesced notice that updates in place, not 1465 messages. Latest detail:
+> WATCHDOG notice — occurrence #1485 (first seen 2026-10-02T05:41:06Z, latest 2026-10-07T15:29:03Z).
+> The SAME condition (`rolling-deploy-host-offline-oros-studio-garden-ce242c49`) has now been observed 1485 times; this is ONE
+> coalesced notice that updates in place, not 1485 messages. Latest detail:
 >
-> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 465626s (offline threshold 1800s; sampled_at_epoch=1790917716).
+> Host oros-studio-garden-ce242c49 is OFFLINE: heartbeat stale by 469227s (offline threshold 1800s; sampled_at_epoch=1790917716).
 > The authority is budget/live/<pool>/oros-studio-garden-ce242c49, refreshed periodically; fleet/health/oros-studio-garden-ce242c49 is
 > not a heartbeat and was intentionally ignored. Rolling deploy will SKIP this peer:
 > no release token, deploy budget, failed-canary count, or halt. Restore the host and
@@ -942,7 +942,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.6M | $175.91 _(notional, rate-card)_ | 10% of 168.0M (ok) |
+| Claude | 19.3M | $188.61 _(notional, rate-card)_ | 12% of 168.0M (ok) |
 | Codex | 3.0M _(+63.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -954,18 +954,17 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (3)
-- [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1124
+### doin (2)
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1430-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1430
 - [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/audit-unanchored-journal-reads.md) — ---
 
-### tada (11382)
+### tada (11383)
+- [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-1.md) — Cost
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-clean.md) — Cost
 - [`endojs-endo-but-for-bots-pr1430-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1430-gauntlet-viability.md) — Cost
 - [`design-ocapn-tcp-for-test-extraction-revision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/design-ocapn-tcp-for-test-extraction-revision.md) — Cost
 - [`canary-probe-endolin-garden-ece02cb4-0c64481407d9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-0c64481407d9.md) — rolling-deploy canary probe — round trip OK
-- [`build-ocapn-tcp-for-test-extraction`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/build-ocapn-tcp-for-test-extraction.md) — Cost
-- … and 11377 more
+- … and 11378 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
