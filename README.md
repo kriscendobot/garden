@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T06:51:41Z_
+_As of 2026-10-07T07:01:04Z_
 
 ## Latest
 
@@ -1006,6 +1006,13 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/kriscendobot/minion.town/pull/37](https://github.com/kriscendobot/minion.town/pull/37) ([kriscendobot/minion.town#37](https://github.com/kriscendobot/minion.town/issues/37)) is in the mergeable queue with NO gauntlet review staged (head 7e50eb2a7d3282b9cf3101f48d731988648ca4a9). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #37'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `followup-gate-review-improve-design-bespoke-mechanism-over-existing-path` — from followup-gate:review-improve-design-bespoke-mechanism-over-existing-path, reply_to `review-improve-design-bespoke-mechanism-over-existing-path` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/followup-gate-review-improve-design-bespoke-mechanism-over-existing-path.md)
+
+> Job "review-improve-design-bespoke-mechanism-over-existing-path" completed with a `## Follow-ups` section that names no posted successor, no maintainer message, and no override. The section prescribes no board-postable fleet work, so the completion gate forwarded it here for disposition instead of retrying the job.
+>
+> ## Follow-ups
+> - Neither check has run on a live panel yet; the first code PR that adds a socket or formula type will be the first real exercise.
+
 - `watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4` — from watchdog:deadline-nudge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-deadline-nudge-push-rejected-endolin-garden-ece02cb4.md)
 
 > RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden-ece02cb4` has CLEARED (first seen 2026-10-04T21:48:21Z, cleared 2026-10-06T00:27:30Z).
@@ -1732,8 +1739,8 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 167.5M | $1990.59 _(notional, rate-card)_ | 105% of 160.0M (backoff) |
-| Codex | 9.6M _(+245.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
+| Claude | 167.4M | $1984.91 _(notional, rate-card)_ | 105% of 160.0M (backoff) |
+| Codex | 9.8M _(+246.6M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
@@ -1746,15 +1753,15 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 
 ### doin (2)
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1398
-- [`review-improve-design-bespoke-mechanism-over-existing-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-design-bespoke-mechanism-over-existing-path.md) — review-improve-design-bespoke-mechanism-over-existing-path
+- [`kriscendobot-garden-pr75-review-6b5f570b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/kriscendobot-garden-pr75-review-6b5f570b-retro.md) — Retrospective on kriscendobot/garden PR #75 (primary: kriscendobot-garden-pr7...
 
-### tada (11320)
+### tada (11323)
+- [`kriscendobot-garden-book-pr3-review-dcb68a02-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-garden-book-pr3-review-dcb68a02-retro.md) — Cost
+- [`kriscendobot-garden-book-pr2-review-8541ef36-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-garden-book-pr2-review-8541ef36-retro.md) — Cost
+- [`review-improve-design-bespoke-mechanism-over-existing-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/review-improve-design-bespoke-mechanism-over-existing-path.md) — Completion report: review-improve-design-bespoke-mechanism-over-existing-path
 - [`kriscendobot-garden-book-pr1-review-6536e219-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-garden-book-pr1-review-6536e219-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-panel-1.md) — Cost
-- [`endojs-endo-but-for-bots-pr695-5e067785-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr695-5e067785-retro.md) — Panel-head freshness
-- [`endojs-endo-but-for-bots-pr1407-review-4504ec86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1407-review-4504ec86-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr1398-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-clean.md) — CLEAN stage: endojs/endo-but-for-bots#1398 — nothing to do
-- … and 11315 more
+- … and 11318 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1802,9 +1809,6 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 - [`minion-town-claude-kriscendobot-canary-after-connect-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-kriscendobot-canary-after-connect-20261006.md) - [Connect kriscendobot Claude subscription at minion.town/account/claude (GitHub login+MFA, claude setup-token) and reply "connected"](https://github.com/kriscendobot/garden/issues/89#issuecomment-6009162863)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`kriscendobot-garden-book-pr2-review-8541ef36-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-book-pr2-review-8541ef36-retro.md) — _low_ · Retrospective on kriscendobot/garden-book PR #2 (primary: kriscendobot-garden...
-- [`kriscendobot-garden-book-pr3-review-dcb68a02-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-book-pr3-review-dcb68a02-retro.md) — _low_ · Retrospective on kriscendobot/garden-book PR #3 (primary: kriscendobot-garden...
-- [`kriscendobot-garden-pr75-review-6b5f570b-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-pr75-review-6b5f570b-retro.md) — _low_ · Retrospective on kriscendobot/garden PR #75 (primary: kriscendobot-garden-pr7...
 - [`kriscendobot-minion.town-pr135-review-e4d01640-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr135-review-e4d01640-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #135 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr137-review-8f677fe3-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr137-review-8f677fe3-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #137 (primary: kriscendobot-mini...
 - [`kriscendobot-minion.town-pr140-review-8f6d6ac9-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-minion.town-pr140-review-8f6d6ac9-retro.md) — _low_ · Retrospective on kriscendobot/minion.town PR #140 (primary: kriscendobot-mini...
