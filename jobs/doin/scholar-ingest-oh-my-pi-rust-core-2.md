@@ -20,3 +20,13 @@ Ingest next, in order, from https://github.com/can1357/oh-my-pi `main`, anchored
 3. `crates/pi-natives/src/grep.rs`, `glob.rs`, and `fd.rs`, including ripgrep/searcher/PCRE2 and N-API boundaries.
 
 Before concluding the cycle, survey and name the still-deferred remainder in another `scholar-ingest-oh-my-pi-*` follow-on: `pi-natives` `shell.rs`, `iso.rs`, and `ast.rs`; deeper `pi-iso`, `pi-ast`, and `pi-shell` module docs as needed; the fetched-and-classified third-party explainer; the vendored brush README plus `brush-core` / `brush-parser` docs. Preserve the known divergence notes from the parent job, especially that `pi-vfs` is absent from the explainer.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T15:43:47Z
