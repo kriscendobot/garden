@@ -19,3 +19,13 @@ failed conductor report (which saw head `ed16371657` conflicting) as current.
 
 PR: https://github.com/endojs/endo-but-for-bots/pull/1381
 Expected head: `345438a7886cf1fe1400419c306574848cbc3bb2`
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 2
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T22:26:42Z
