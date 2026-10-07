@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T11:22:10Z_
+_As of 2026-10-07T11:24:25Z_
 
 ## Latest
 
@@ -1134,6 +1134,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Which layers can land first: [endojs/endo-but-for-bots#1392](https://github.com/endojs/endo-but-for-bots/issues/1392) lands first, as soon as [endojs/endo-but-for-bots#774](https://github.com/endojs/endo-but-for-bots/issues/774) and [endojs/endo-but-for-bots#1391](https://github.com/endojs/endo-but-for-bots/issues/1391) land. [endojs/endo-but-for-bots#1393](https://github.com/endojs/endo-but-for-bots/issues/1393) follows after the retcon and weave. [endojs/endo-but-for-bots#1396](https://github.com/endojs/endo-but-for-bots/issues/1396) and [endojs/endo-but-for-bots#1397](https://github.com/endojs/endo-but-for-bots/issues/1397) have no code blockers, but they wait on [endojs/endo-but-for-bots#1394](https://github.com/endojs/endo-but-for-bots/issues/1394) (L5, already un-drafted). No layer needs a redesign, and none needs another full panel; a scoped re-panel of only the post-panel deltas would be optional. No PR was touched and no gauntlet was staged.
 
+- `msg-claude-on-minion-town-completion-press-20261007-112006-552089783381` — from gardener:claude-on-minion-town-completion-press-20261007-112006, reply_to `claude-on-minion-town-completion-press-20261007-112006` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-claude-on-minion-town-completion-press-20261007-112006-552089783381.md)
+
+> Arc [kriscendobot/garden#89](https://github.com/kriscendobot/garden/issues/89) completion press, 11:20Z. kriscendobot-minion-town-pr165-deploy-validate-20261007-review5436814684 completed at 06:13Z with orchestration-failed: true, and its serial orchestration halted. You were notified at 06:15Z. [kriscendobot/minion.town#165](https://github.com/kriscendobot/minion.town/issues/165) IS merged (d750b09b) and deployed: the receipt matches, health checks pass, and the fail-closed auth checks pass. What is missing is the positive half: watchInbox, rate-cap, slot contention, restart/recovery, dismissal, and mailbox sender are all unverified. The cause is credentials, not code. The fleet holds only a non-root MCP credential, and root OAuth needs kriscendobot's interactive GitHub MFA. That is the same gate already parked as minion-town-claude-kriscendobot-canary-after-connect-20261006, so promoting that canary after you connect would close it. There are no dooms, absences, or stalls on the arc otherwise. Detail: [https://github.com/kriscendobot/minion.town/pull/165](https://github.com/kriscendobot/minion.town/pull/165)#issuecomment-6032132655
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr238-8c2d081051f4` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr238-8c2d081051f4.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/238](https://github.com/endojs/endo-but-for-bots/pull/238) ([endojs/endo-but-for-bots#238](https://github.com/endojs/endo-but-for-bots/issues/238)) is in the mergeable queue with NO gauntlet review staged (head 8c2d081051f433da0ebd3f8b9a89f3ed6fa885f3). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #238'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -1781,7 +1785,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 173.2M | $2025.44 _(notional, rate-card)_ | 108% of 160.0M (backoff) |
+| Claude | 173.2M | $2024.83 _(notional, rate-card)_ | 108% of 160.0M (backoff) |
 | Codex | 10.4M _(+256.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1793,17 +1797,16 @@ worst fetch p95 3.009958s/45s (/home/kris/garden2/.garden-state/dependabotany-pr
 ### todo (0)
 (none)
 
-### doin (2)
-- [`claude-on-minion-town-completion-press-20261007-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-completion-press-20261007-112006.md) — Press: are the Claude-on-minion.town arc's jobs running to completion?
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-5.md) — Gauntlet stage: FIX round 5 — endojs/endo-but-for-bots PR #1398
 
-### tada (11361)
+### tada (11362)
+- [`claude-on-minion-town-completion-press-20261007-112006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/claude-on-minion-town-completion-press-20261007-112006.md) — Cost
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-panel-5.md) — Cost
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-fix-4.md) — PR #1398 fix round 4: must-fix items applied, CI green
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-panel-4`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-panel-4.md) — Cost
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-fix-3.md) — Gauntlet fix round 3: endojs/endo-but-for-bots PR #1398
-- [`endojs-endo-but-for-bots-pr1398-gauntlet-panel-3`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-panel-3.md) — Cost
-- … and 11356 more
+- … and 11357 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
