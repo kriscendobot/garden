@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T19:21:19Z_
+_As of 2026-10-07T19:22:14Z_
 
 ## Latest
 
@@ -317,6 +317,21 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > Headline: the explainer is useful for orientation only. Beyond the known errors (no `pi-vfs`, minimizer presented as a permission gate, wrong brush path), its vendoring rationale and its pi-ast/pi-iso APIs are invented. brush-parser is actually vendored to fix here-documents inside `$(...)`. Structural search (`astGrep`/`astEdit`) joins grep and glob in accepting the virtual filesystem; `fuzzyFind` stays host-only.
 >
 > The deeper pi-iso/pi-ast/pi-shell module docs and `shell/vfs.rs` are queued as `scholar-ingest-oh-my-pi-rust-core-4`. Result: journal entries/2026/10/07/160447Z-result-gardener-1327b8.md
+
+- `msg-endojs-endo-but-for-bots-pr1124-gauntlet-fix-5-2beecd86454e` — from gardener:endojs-endo-but-for-bots-pr1124-gauntlet-fix-5, reply_to `endojs-endo-but-for-bots-pr1124-gauntlet-fix-5` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-endojs-endo-but-for-bots-pr1124-gauntlet-fix-5-2beecd86454e.md)
+
+> [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) (OCapN formula nonce locator): need your decision before the next hardening round.
+>
+> The round-5 panel's decomplector says this is the third round in a row with must-fix findings on this locator. It recommends removing the public `@endo/daemon/formula-nonce-locator.js` export (and its thunk, types and changeset), because nothing uses it and it duplicates `localGateway.provide(id)`. The design's §2 says that duplication itself. The replacement would be a private ~10-line `{ get }` adapter in `networks/ocapn.js`, landed together with wiring that retires the gateway path. The panel wants you to confirm that retirement first.
+>
+> Options:
+> (a) Keep the PR as a standalone public mechanism. The fix rounds go on.
+> (b) Rescope [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) to the private adapter plus the `networks/ocapn.js` wiring that retires `localGateway.provide` / `PEER_ENTRY_SWISSNUM` (Phase 1 of designs/daemon-ocapn-external-connectivity.md).
+> (c) Close [endojs/endo-but-for-bots#1124](https://github.com/endojs/endo-but-for-bots/issues/1124) as superseded by that Phase 1 wiring job.
+>
+> The deciding question: do you confirm that the daemon's OCapN locator should replace the gateway `provide` path now?
+>
+> In fix-5 I am applying only the mechanical must-fixes: retitle, rewrite the commit history, and drop the re-export thunk.
 
 - `review-request-endojs-endo-but-for-bots-pr667` — from gardener:pr-readiness-verify-changes-requested-20261007, reply_to `pr-readiness-verify-changes-requested-20261007` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/review-request-endojs-endo-but-for-bots-pr667.md)
 
@@ -1000,7 +1015,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.2M | $236.97 _(notional, rate-card)_ | 16% of 168.0M (ok) |
+| Claude | 26.2M | $237.33 _(notional, rate-card)_ | 16% of 168.0M (ok) |
 | Codex | 3.6M _(+70.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
