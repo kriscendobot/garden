@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T05:37:17Z_
+_As of 2026-10-07T05:46:37Z_
 
 ## Latest
 
@@ -1662,7 +1662,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 165.8M | $1972.33 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
+| Claude | 165.8M | $1972.90 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
 | Codex | 9.2M _(+240.7M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1677,13 +1677,13 @@ worst fetch p95 45.001559s/45s (/home/kris/garden2/.garden-state/receipt-watcher
 ### doin (0)
 (none)
 
-### tada (11295)
+### tada (11296)
+- [`canary-probe-endolin-garden-ece02cb4-2b3089c074e9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-2b3089c074e9.md) — rolling-deploy canary probe — round trip OK
 - [`oros-health-watch-20261006-215007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261006-215007.md) — Cost
 - [`oros-health-watch-20261007-051913`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-051913.md) — Cost
 - [`kriscendobot-minion.town-pr165-conduct`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr165-conduct.md) — Cost
 - [`kriscendobot-minion.town-pr165-review-24dc8368`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr165-review-24dc8368.md) — Cost
-- [`claude-on-minion-town-press-20261007-051913`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/claude-on-minion-town-press-20261007-051913.md) — Cost
-- … and 11290 more
+- … and 11291 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
