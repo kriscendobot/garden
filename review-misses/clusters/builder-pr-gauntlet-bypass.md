@@ -1,7 +1,7 @@
 ---
 slug: builder-pr-gauntlet-bypass
 category: evaluator-gaming
-status: improvement-dispatched
+status: closed
 count: 3
 members:
   - endojs-endo-but-for-bots-pr1015-2b55429b
@@ -9,7 +9,9 @@ members:
   - kriscendobot-minion.town-pr148-review-cde1226a
 prs: [1015, 1097, 148]
 improvement_job: review-improve-builder-pr-gauntlet-bypass
+improved_by: main2 bcecceb0c80: orchestrated-slice ledger disposition (phase-evidence-gate.sh author/panel hold-draft exit 30; panel.sh no must-fix binding; gauntlet.sh held-draft finish; auto-gauntlet-handoff.sh stages probe-ledger builds + re-stages after held-draft); roles/builder, skills/pr-formation, skills/orchestration, jurors/integrator; tests phase-evidence-gate-test, gauntlet-test SUBTEST 18, auto-gauntlet-handoff-test
 ---
+
 
 
 
