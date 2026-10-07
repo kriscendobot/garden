@@ -1,12 +1,9 @@
 ---
-gate: orchestrated
-orchestrated_by: improve-journal-deepen-retry-split
+tier: mentor
 handler-timeout: 5400
 split-indivisible-reason: 'single-function edit to journal_deepen_from_root plus stderr threading through _journal_root_seed_fetch and its one regression test file; the retry predicate, diagnostic capture, and test fixtures depend on each other, so any split leaves an untested or unimplemented half; prior overrun came from running the full test suite rather than the targeted seed-from-root test'
-priority: normal
-posted_by: producer
-posted_at: 2026-10-07T16:34:26Z
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-07T16:37:42Z cleared=none -->
 
 ---
 tier: mentor
