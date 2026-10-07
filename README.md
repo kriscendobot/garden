@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T08:25:28Z_
+_As of 2026-10-07T08:28:01Z_
 
 ## Latest
 
@@ -1654,6 +1654,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/129](https://github.com/endojs/endo-but-for-bots/pull/129) ([endojs/endo-but-for-bots#129](https://github.com/endojs/endo-but-for-bots/issues/129)) is in the mergeable queue with NO gauntlet review staged (head 77193d0d8f698d3d6e647cad41a2d8529cea44dd). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #129'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `msg-oros-health-watch-20261007-082010-ccd82cea5e8f` — from gardener:oros-health-watch-20261007-082010, reply_to `oros-health-watch-20261007-082010` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261007-082010-ccd82cea5e8f.md)
+
+> Oros remains unreachable as of 2026-10-07T08:26Z. No current oros-health-checkup exists; its schedule is deferred to 2026-10-11T21:00:00Z. Heartbeat last sampled 2026-10-02T05:08:36Z, fleet health last reported 2026-10-02T03:13:48Z with roll_status deferred, and sysop last applied an op 2026-10-02T05:38:58Z. The host remains derotated for heartbeat-offline; deployed e036bb8e is 183 commits behind main2. Seven reset-failed ops and one restore remain unacknowledged, so I sent no duplicate op. A person must check the Mac power/sleep state, Docker Desktop, and VM/container.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_endo_but_for_bots` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_endo_but_for_bots.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden2__garden_state_receipt_watcher_journal_kriscendobot_endo_but_for_bots` has CLEARED (first seen 2026-10-06T04:59:07Z, cleared 2026-10-06T14:10:36Z).
@@ -1781,17 +1785,16 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 ### todo (0)
 (none)
 
-### doin (2)
-- [`oros-health-watch-20261007-082010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261007-082010.md) — ---
+### doin (1)
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-2`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-2.md) — Gauntlet stage: FIX round 2 — endojs/endo-but-for-bots PR #1398
 
-### tada (11353)
+### tada (11354)
+- [`oros-health-watch-20261007-082010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-082010.md) — Cost
 - [`endojs-endo-but-for-bots-pr1282-review-c5a5c1c1-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1282-review-c5a5c1c1-retro.md) — Cost
 - [`claude-on-minion-town-press-20261007-082010`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/claude-on-minion-town-press-20261007-082010.md) — Press tick 2026-10-07 08:2xZ: issue 89 updated; the arc is now blocked on one...
 - [`canary-probe-endolin-garden-ece02cb4-2782d6294d86`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-2782d6294d86.md) — rolling-deploy canary probe — round trip OK
 - [`kriscendobot-minion.town-pr163-review-b54cabfc-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-minion.town-pr163-review-b54cabfc-retro.md) — Cost
-- [`kriscendobot-garden-pr116-review-66d1a44d-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/kriscendobot-garden-pr116-review-66d1a44d-retro.md) — Cost
-- … and 11348 more
+- … and 11349 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
