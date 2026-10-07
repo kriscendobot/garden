@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T19:16:14Z_
+_As of 2026-10-07T19:19:51Z_
 
 ## Latest
 
@@ -393,6 +393,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > a maintainer step: context/operations/harden-container.md. The garden-container-hardening
 > unit stays clean meanwhile (exit 3), so it does not fail rolling-deploy canaries. After the
 > first all-pass run, any failure is treated as a regression and fails the unit.
+
+- `endojs-endo-but-for-bots-pr977-gauntlet-20261007-halted` — from gauntlet:endojs-endo-but-for-bots-pr977-gauntlet-20261007-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr977-gauntlet-20261007-halted.md)
+
+> Gauntlet endojs-endo-but-for-bots-pr977-gauntlet-20261007 HALTED: PR [endojs/endo-but-for-bots#977](https://github.com/endojs/endo-but-for-bots/issues/977) targets a FLOATING base (not a pinned <base>-<sha> snapshot); refusing to spend review budget on a mis-based PR. Pin the merge base ('pin the merge base #977') or refresh it, then re-run the gauntlet. See skills/frozen-base-branch.
 
 - `msg-reset-credit-watch-20261005-160507-0235e607b482` — from gardener:reset-credit-watch-20261005-160507, reply_to `reset-credit-watch-20261005-160507` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-reset-credit-watch-20261005-160507-0235e607b482.md)
 
@@ -996,7 +1000,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 26.1M | $235.82 _(notional, rate-card)_ | 16% of 168.0M (ok) |
+| Claude | 26.2M | $236.56 _(notional, rate-card)_ | 16% of 168.0M (ok) |
 | Codex | 3.6M _(+70.2M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -1008,18 +1012,17 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 ### todo (0)
 (none)
 
-### doin (3)
+### doin (2)
 - [`improve-journal-deepen-retry-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/improve-journal-deepen-retry-expanded-window-expanded-window.md) — Bounded jittered retry for journal_deepen_from_root (expanded window)
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1343
-- [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-panel-5.md) — Gauntlet stage: PANEL round 5 — endojs/endo-but-for-bots PR #1124
 
-### tada (11419)
+### tada (11421)
+- [`endojs-endo-but-for-bots-pr1124-gauntlet-panel-5`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1124-gauntlet-panel-5.md) — Cost
+- [`endojs-endo-but-for-bots-pr977-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr977-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr977-gauntlet-20261007 — HALTED
 - [`endojs-endo-but-for-bots-pr977-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr977-gauntlet-plan-20261007.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-viability.md) — Cost
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1343-gauntlet-plan-20261007.md) — Cost
-- [`endojs-endo-but-for-bots-pr1416-gauntlet-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1416-gauntlet-20261007.md) — gauntlet endojs-endo-but-for-bots-pr1416-gauntlet-20261007 — HALTED
-- [`endojs-endo-but-for-bots-pr1416-gauntlet-plan-20261007`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1416-gauntlet-plan-20261007.md) — Panel-head freshness
-- … and 11414 more
+- … and 11416 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
