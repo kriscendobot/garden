@@ -49,7 +49,8 @@ The taxonomy below is the **seed** from the pilot ingestion (2026-05-13). It wil
 | [async-flow](async-flow.md) | The `@agoric/async-flow` durable-replay async-function infrastructure; closed-function discipline. | 8 |
 | [patterns](patterns.md) | The @endo/patterns shape-matching language; method guards. | 95 |
 | [getting-started](getting-started.md) | The on-ramp into Endo: install, first encounters, confinement walk-through. | 25 |
-| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 85 |
+| [tooling](tooling.md) | Endo's developer-facing tooling and assorted single-purpose packages. | 89 |
+| [virtual-filesystems](virtual-filesystems.md) | Injectable and provider-backed filesystem interfaces that let shells and tools operate on virtual paths and files without requiring host-filesystem materialization. | 4 |
 | [bundles](bundles.md) | Module bundling, Compartment module loading, bundle-source / compartment-mapper family. | 33 |
 | [spec-to-implementation](spec-to-implementation.md) | Cross-cutting concordance: OCapN spec sections ↔ Endo realizations. | (meta) |
 | [references](references.md) | The cross-reference axis: external prior-art and specification citations the library quotes, and internal cross-cycle observations (design-evolution-record family, multi-cycle pattern threads) the scholar attaches while ingesting. A meta tag, not a section catalog; the routing target for `keywords.md`'s `\| references` lines. | (meta) |
