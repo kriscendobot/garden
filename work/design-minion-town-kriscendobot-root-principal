@@ -1,9 +1,0 @@
-host: endolin-garden2-5bcdff64
-gardener: 2
-worker_kind: monk
-claimed_at: 2026-10-07T22:02:05Z
-worktree_dir: /home/kris/garden2/scratch/gardener-wt-design-minion-town-kriscendobot-root-principal
-pr_number: 167
-pr_repo: kriscendobot/minion.town
-pr_url: https://github.com/kriscendobot/minion.town/pull/167
-pr_head: design/root-canary-principal
