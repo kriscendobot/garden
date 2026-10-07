@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T14:46:03Z_
+_As of 2026-10-07T14:47:33Z_
 
 ## Latest
 
@@ -1813,10 +1813,10 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 17.3M | $169.98 _(notional, rate-card)_ | 10% of 168.0M (ok) |
-| Codex | 4.3M _(fleet aggregate)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 17.4M | $171.26 _(notional, rate-card)_ | 10% of 168.0M (ok) |
+| Codex | 3.0M _(+63.8M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
-_Fleet token-unlock pace: 111631335 tokens/day lower bound._
+_Fleet token-unlock pace: 109077821 tokens/day lower bound._
 
 ## Journal contention (this host)
 worst fetch p95 4.890480s/45s (/home/kris/garden2/.garden-state/accountant/journal); 4 open notice(s); checker healthy
@@ -1825,9 +1825,10 @@ worst fetch p95 4.890480s/45s (/home/kris/garden2/.garden-state/accountant/journ
 ### todo (0)
 (none)
 
-### doin (2)
+### doin (3)
 - [`audit-unanchored-journal-reads`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/audit-unanchored-journal-reads.md) — ---
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-clean.md) — Gauntlet stage: CLEAN — endojs/endo-but-for-bots PR #1124
+- [`design-ocapn-tcp-for-test-extraction-revision`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/design-ocapn-tcp-for-test-extraction-revision.md) — ---
 
 ### tada (11379)
 - [`canary-probe-endolin-garden-ece02cb4-0c64481407d9`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-0c64481407d9.md) — rolling-deploy canary probe — round trip OK
