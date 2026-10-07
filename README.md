@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T18:21:15Z_
+_As of 2026-10-07T18:23:56Z_
 
 ## Latest
 
@@ -317,6 +317,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 > - Applied in `645bb68284d4`: moved the JSONL RPC bridge into the `@endo/agentry/rpc` subpath, including implementation, types, documentation, exports, and 37 tests; `@endo/genie` retains only the spawnable entry wiring.
 >
 > CI: 24 checks, all successful. No requested item was declined.
+
+- `watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden2__garden_state_cursors_journal.md)
+
+> Journal fetch anomaly on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/cursors/journal: p95=2.508016s max=37.486622s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
 
 - `liaison-followup-204bf211474f` — from liaison:follow-up, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/liaison-followup-204bf211474f.md)
 
@@ -695,6 +699,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > The review-retrospective for that review is filed as not-a-miss: an approval is not review feedback.
 
+- `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_repo_watcher_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_repo_watcher_journal.md)
+
+> Journal fetch anomaly on endolin-garden-ece02cb4 for /home/kris/garden/.garden-state/repo-watcher/journal: p95=2.021957s max=41.728875s; hard guard=31.500000s (70% of 45s cap); remedy=applied.
+
 - `watchdog-deadline-nudge-push-rejected-endolin-garden2-5bcdff64` — from watchdog:deadline-nudge, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-deadline-nudge-push-rejected-endolin-garden2-5bcdff64.md)
 
 > RECOVERED — the watchdog condition `deadline-nudge-push-rejected:endolin-garden2-5bcdff64` has CLEARED (first seen 2026-10-07T16:55:08Z, cleared 2026-10-07T17:22:11Z).
@@ -887,13 +895,13 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 24.5M | $226.25 _(notional, rate-card)_ | 15% of 168.0M (ok) |
-| Codex | 3.5M _(+69.9M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
+| Claude | 24.5M | $226.31 _(notional, rate-card)_ | 15% of 168.0M (ok) |
+| Codex | 3.5M _(+70.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
+worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 6 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
