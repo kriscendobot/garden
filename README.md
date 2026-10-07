@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T06:40:21Z_
+_As of 2026-10-07T06:43:55Z_
 
 ## Latest
 
@@ -1197,6 +1197,18 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/357](https://github.com/endojs/endo-but-for-bots/pull/357) ([endojs/endo-but-for-bots#357](https://github.com/endojs/endo-but-for-bots/issues/357)) is in the mergeable queue with NO gauntlet review staged (head 45e38da5de5d628696dbf646508af35f673c57fb). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #357'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `stale-panel-head-endojs-endo-but-for-bots-pr695-a9decaa5-e22f7e5c` — from gardener:endojs-endo-but-for-bots-pr695-5e067785-retro, reply_to `endojs-endo-but-for-bots-pr695-5e067785-retro` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/stale-panel-head-endojs-endo-but-for-bots-pr695-a9decaa5-e22f7e5c.md)
+
+> COALESCED message — occurrence [#2](https://github.com/endojs/endo-but-for-bots/issues/2) (first seen 2026-10-07T06:42:04Z, latest 2026-10-07T06:42:04Z).
+> The SAME message (episode key `stale-panel-head-endojs-endo-but-for-bots-pr695-a9decaa5-e22f7e5c`) has now been sent 2 times; this is
+> ONE entry that updates in place, not 2 messages. Latest detail:
+>
+> Stale panel coverage for completed job `endojs-endo-but-for-bots-pr695-5e067785-retro`: [https://github.com/endojs/endo-but-for-bots/pull/695](https://github.com/endojs/endo-but-for-bots/pull/695) moved from panel-reviewed head `a9decaa5` to presented head `e22f7e5cd15c5d9776ce0202b0fef3d2f663e4d6`.
+>
+> Disposition: **review required**. The earlier panel does not cover the current head; every commit delta is conservatively review-relevant. A PR metadata-only edit would leave the head unchanged and would not trigger this disposition.
+>
+> No gauntlet was staged. Route the current head through the existing panel stage only after an explicit maintainer `run the gauntlet` request, or make a maintainer review decision with the stale coverage stated explicitly.
+
 - `watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal.md)
 
 > RECOVERED — the watchdog condition `journal-fetch-slow-_home_kris_garden__garden_state_bulletin_journal` has CLEARED (first seen 2026-10-05T11:16:13Z, cleared 2026-10-05T12:06:28Z).
@@ -1720,7 +1732,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 166.7M | $1984.01 _(notional, rate-card)_ | 104% of 160.0M (backoff) |
+| Claude | 167.4M | $1988.69 _(notional, rate-card)_ | 105% of 160.0M (backoff) |
 | Codex | 9.6M _(+245.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1732,17 +1744,16 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 ### todo (0)
 (none)
 
-### doin (2)
-- [`endojs-endo-but-for-bots-pr1398-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-panel-1.md) — Gauntlet stage: PANEL round 1 — endojs/endo-but-for-bots PR #1398
+### doin (1)
 - [`review-improve-design-bespoke-mechanism-over-existing-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-design-bespoke-mechanism-over-existing-path.md) — review-improve-design-bespoke-mechanism-over-existing-path
 
-### tada (11317)
+### tada (11319)
+- [`endojs-endo-but-for-bots-pr1398-gauntlet-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-panel-1.md) — Cost
+- [`endojs-endo-but-for-bots-pr695-5e067785-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr695-5e067785-retro.md) — Panel-head freshness
 - [`endojs-endo-but-for-bots-pr1407-review-4504ec86-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1407-review-4504ec86-retro.md) — Cost
 - [`endojs-endo-but-for-bots-pr1398-gauntlet-clean`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-clean.md) — CLEAN stage: endojs/endo-but-for-bots#1398 — nothing to do
 - [`endojs-endo-but-for-bots-pr1416-review-37d3281c-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1416-review-37d3281c-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr1402-review-141e965e-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1402-review-141e965e-retro.md) — Cost
-- [`endojs-endo-but-for-bots-pr1398-gauntlet-viability`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-viability.md) — Cost
-- … and 11312 more
+- … and 11314 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
@@ -1790,7 +1801,6 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 - [`minion-town-claude-kriscendobot-canary-after-connect-20261006`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/minion-town-claude-kriscendobot-canary-after-connect-20261006.md) - [Connect kriscendobot Claude subscription at minion.town/account/claude (GitHub login+MFA, claude setup-token) and reply "connected"](https://github.com/kriscendobot/garden/issues/89#issuecomment-6009162863)
 
 ### deferred (top by priority; foreman auto-promotes when idle)
-- [`endojs-endo-but-for-bots-pr695-5e067785-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/endojs-endo-but-for-bots-pr695-5e067785-retro.md) — _low_ · Retrospective on endojs/endo-but-for-bots PR #695 (primary: endojs-endo-but-f...
 - [`kriscendobot-garden-book-pr1-review-6536e219-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-book-pr1-review-6536e219-retro.md) — _low_ · Retrospective on kriscendobot/garden-book PR #1 (primary: kriscendobot-garden...
 - [`kriscendobot-garden-book-pr2-review-8541ef36-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-book-pr2-review-8541ef36-retro.md) — _low_ · Retrospective on kriscendobot/garden-book PR #2 (primary: kriscendobot-garden...
 - [`kriscendobot-garden-book-pr3-review-dcb68a02-retro`](https://github.com/kriscendobot/garden/blob/journal2/jobs/plan/kriscendobot-garden-book-pr3-review-dcb68a02-retro.md) — _low_ · Retrospective on kriscendobot/garden-book PR #3 (primary: kriscendobot-garden...
