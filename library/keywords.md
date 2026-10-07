@@ -151,3 +151,8 @@ Grep-friendly map from a domain term or phrase to a concept-id (`concepts/<id>.m
 - pi-vfs, oh-my-pi VFS, virtualized bash, virtual files without host materialization, `scheme://` filesystem provider, `ShellFilesystem`, `FileSystem` provider -> pi-vfs
 - pi-builtins, oh-my-pi builtins, `BuiltinSet`, `ShellBuilderExt`, in-process shell utilities -> pi-builtins
 - pi-natives search, native grep, native glob, fuzzyFind, ripgrep N-API, grep-searcher, grep-pcre2 -> pi-native-search
+- brush, brush-core, brush-parser, reubeno/brush, vendored brush, `crates/vendor/brush-core`, `crates/vendor/brush-parser`, `command_substitution_body_len`, here-document command substitution -> brush-shell
+- `astGrep`, `astMatch`, `astEdit`, pi-natives ast, ast-grep N-API, oh-my-pi structural search, oh-my-pi structural rewrite -> pi-ast-grep
+- oh-my-pi-design, yeluo45 explainer, oh-my-pi Rust core explainer, `MinimizerWarning`, `FsPrimitive`, `parseAst`, `crates/brush-core-vendored` -> oh-my-pi-design-explainer
+- pi-natives shell, `executeShell`, `Shell.pids`, `liveBackgroundJobCount`, `BRIDGE_QUEUE_CHUNKS`, `FORWARD_STALL_TIMEOUT`, shell output bridge backpressure -> pi-shell-output-minimizer
+- `isoResolve`, `isoStart`, `isoDiff`, `ISO_UNAVAILABLE`, `IsoBackendKind` -> pi-iso
