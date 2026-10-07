@@ -1,4 +1,5 @@
 ---
+child-improve-journal-deepen-retry-expanded-window-host: endolin-garden2-5bcdff64
 child-improve-journal-deepen-retry-expanded-window-reap-count: 0
 order: serial
 children: improve-journal-deepen-retry-expanded-window
