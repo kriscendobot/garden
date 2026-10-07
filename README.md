@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T20:36:17Z_
+_As of 2026-10-07T20:40:41Z_
 
 ## Latest
 
@@ -1015,6 +1015,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 >
 > Current head: `3ffb8a8f0cae`. CI: 26 checks, all successful. No requested item was declined.
 
+- `msg-oros-health-watch-20261007-203508-c391b049064f` — from gardener:oros-health-watch-20261007-203508, reply_to `oros-health-watch-20261007-203508` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/msg-oros-health-watch-20261007-203508-c391b049064f.md)
+
+> Oros remains unreachable as of 2026-10-07T20:36Z: heartbeat and fleet health are stale since 2026-10-02, sysop has not acknowledged anything since 2026-10-02T05:38:58Z, the host remains heartbeat-offline derotated, and no current health-checkup exists because its schedule is deferred to 2026-10-11T21:00Z. Deployed e036bb8e is now 193 commits behind origin/main2. I sent no duplicate op: seven reset-failed, one restore, and two attested garden-gardener-scaler unit requests are already unacknowledged. A person must check the Mac power/sleep state, Docker Desktop, and the VM/container runtime.
+
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr887-d8e75061384a` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr887-d8e75061384a.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/887](https://github.com/endojs/endo-but-for-bots/pull/887) ([endojs/endo-but-for-bots#887](https://github.com/endojs/endo-but-for-bots/issues/887)) is in the mergeable queue with NO gauntlet review staged (head d8e75061384af8b41e5bdb66afdbe7269c3561df). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #887'; otherwise no action is needed. This audit never re-drafts a PR.
@@ -1050,7 +1054,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.8M | $262.65 _(notional, rate-card)_ | 18% of 168.0M (ok) |
+| Claude | 29.8M | $264.83 _(notional, rate-card)_ | 18% of 168.0M (ok) |
 | Codex | 3.9M _(+74.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -1066,15 +1070,15 @@ worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topic
 - [`endojs-endo-but-for-bots-pr1416-conduct-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1416-conduct-20261002.md) — Conduct (merge) endojs/endo-but-for-bots PR #1416
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1124
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1343
-- [`oros-health-watch-20261007-203508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/oros-health-watch-20261007-203508.md) — ---
+- [`widen-minion-town-delegation-supervised-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/widen-minion-town-delegation-supervised-carry.md) — Widen the minion.town delegation to supervised carry (no escalations)
 
-### tada (11430)
+### tada (11431)
+- [`oros-health-watch-20261007-203508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-203508.md) — Cost
 - [`improve-journal-deepen-retry-expanded-window-expanded-window-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry-expanded-window-expanded-window-split.md) — orchestration improve-journal-deepen-retry-expanded-window-expanded-window-sp...
 - [`improve-journal-deepen-retry-expanded-window-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry-expanded-window-expanded-window-expanded-window.md) — Cost
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-1.md) — Cost
 - [`improve-bound-recursive-deadline-splits`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-bound-recursive-deadline-splits.md) — Cost
-- [`improve-journal-deepen-retry-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry-expanded-window-expanded-window.md) — Cost
-- … and 11425 more
+- … and 11426 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
