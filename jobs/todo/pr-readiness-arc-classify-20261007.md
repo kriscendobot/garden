@@ -1,11 +1,10 @@
 ---
-gate: orchestrated
-orchestrated_by: pr-readiness-arc-plan-20261007
-priority: normal
+role: fixer
+tier: mentor
 arc: garden-upkeep
-posted_by: producer
-posted_at: 2026-10-07T15:52:49Z
+handler-timeout: 7200
 ---
+<!-- garden-promoted-from-plan: gate=orchestrated priority=normal at=2026-10-07T15:53:48Z cleared=none -->
 
 ---
 role: fixer
