@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T20:40:41Z_
+_As of 2026-10-07T20:43:14Z_
 
 ## Latest
 
@@ -1054,7 +1054,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 29.8M | $264.83 _(notional, rate-card)_ | 18% of 168.0M (ok) |
+| Claude | 29.8M | $264.64 _(notional, rate-card)_ | 18% of 168.0M (ok) |
 | Codex | 3.9M _(+74.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 9% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 106743140 tokens/day lower bound._
@@ -1063,22 +1063,22 @@ _Fleet token-unlock pace: 106743140 tokens/day lower bound._
 worst fetch p95 5.871720s/45s (/home/kris/garden2/.garden-state/regenerate-topics-counts/journal); 5 open notice(s); checker healthy
 
 ## Board
-### todo (1)
-- [`claude-on-minion-town-press-20261007-203508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/todo/claude-on-minion-town-press-20261007-203508.md) — Press the Claude-on-minion.town arc forward
+### todo (0)
+(none)
 
 ### doin (4)
-- [`endojs-endo-but-for-bots-pr1416-conduct-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1416-conduct-20261002.md) — Conduct (merge) endojs/endo-but-for-bots PR #1416
 - [`endojs-endo-but-for-bots-pr1124-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1124-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1124
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1343
 - [`widen-minion-town-delegation-supervised-carry`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/widen-minion-town-delegation-supervised-carry.md) — Widen the minion.town delegation to supervised carry (no escalations)
+- [`claude-on-minion-town-press-20261007-203508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/claude-on-minion-town-press-20261007-203508.md) — Press the Claude-on-minion.town arc forward
 
-### tada (11431)
+### tada (11432)
+- [`endojs-endo-but-for-bots-pr1416-conduct-20261002`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1416-conduct-20261002.md) — Completion report
 - [`oros-health-watch-20261007-203508`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/oros-health-watch-20261007-203508.md) — Cost
 - [`improve-journal-deepen-retry-expanded-window-expanded-window-split`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry-expanded-window-expanded-window-split.md) — orchestration improve-journal-deepen-retry-expanded-window-expanded-window-sp...
 - [`improve-journal-deepen-retry-expanded-window-expanded-window-expanded-window`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-journal-deepen-retry-expanded-window-expanded-window-expanded-window.md) — Cost
 - [`endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1343-gauntlet-20261007-panel-1.md) — Cost
-- [`improve-bound-recursive-deadline-splits`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-bound-recursive-deadline-splits.md) — Cost
-- … and 11426 more
+- … and 11427 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
