@@ -64,3 +64,13 @@ submitter: jcorbin
 Budget: 3 to 5 sources or ~25 sections per cycle; post a `scholar-ingest-oh-my-pi-*` follow-on
 for any remainder (copy the ISSUE NOTE into it). When done, comment a short digest on
 https://github.com/kriscendobot/garden/issues/121 (do NOT close the issue).
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T15:37:39Z
