@@ -10,14 +10,14 @@
 #   - post-merge validation of attested merges: deploy.yml + the MCP watchdog; a
 #     failure pauses the delegation, posts a heal fixer, and notifies the maintainer;
 #   - auto-resume of a screener-made pause after a green main deploy + healthy watchdog;
-#   - the screen: gates 1–6 on each open PR's exact head, writing an attestation under
+#   - the screen: gates 1–8 on each open PR's exact head, writing an attestation under
 #     screenings/ and posting a conductor that runs
 #     ci-wait-merge.sh --screened-delegated-merge.
 # Reads only GitHub metadata, CI rollups, diff paths, and journal records (the body is
-# matched only against the exact heal marker), so it widens no surveillance.
+# matched only against exact heal and fixed gap-revealing markers), so it widens no surveillance.
 #
 # Journal writes land in ONE CAS commit on a dedicated clone; the driver's actions
-# (deterministically named posts, gauntlet records, review requests) run only after
+# (deterministically named posts and gauntlet records) run only after
 # that commit lands, and each is idempotent across ticks.
 #
 # Test seams: GARDEN_SCREEN_CLONE, GARDEN_SCREEN_HEARTBEAT, GARDEN_GH,
@@ -33,8 +33,6 @@ journal="${GARDEN_SCREEN_CLONE:-$GARDEN_STATE/screening/journal}"
 : "${GARDEN_SCREEN_POST_JOB:=$HERE/post-job.sh}"
 : "${GARDEN_SCREEN_POST_GAUNTLET:=$HERE/post-gauntlet.sh}"
 export GARDEN_SCREEN_HEARTBEAT
-GH="${GARDEN_GH:-gh}"
-repository=kriscendobot/minion.town
 ensure_clone "$journal"
 out="$(mktemp)"; trap 'rm -f "$out"' EXIT
 
@@ -72,12 +70,6 @@ for attempt in $(seq 1 20); do
           GARDEN_SENDER=proxy:screen "$GARDEN_SCREEN_POST_GAUNTLET" --by proxy:screen \
             "$(jq -r .base <<<"$action")" "$(jq -r .url <<<"$action")" >/dev/null \
             || log "WARN: gauntlet $(jq -r .base <<<"$action") failed; retrying next tick" ;;
-        request-review)
-          # The JSON-body shape; `-f reviewers[]=` returns HTTP 422 (roles/fixer/AGENT.md).
-          echo '{"reviewers":["kriskowal"]}' \
-            | "$GH" api -X POST "repos/$repository/pulls/$(jq -r .number <<<"$action")/requested_reviewers" \
-                --input - >/dev/null 2>&1 \
-            || log "WARN: review request for #$(jq -r .number <<<"$action") failed (the inbox notice stands)" ;;
       esac
     done
     exit 0

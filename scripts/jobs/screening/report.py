@@ -19,14 +19,13 @@ def seeded(journal):
 
 
 def parked_filter(journal, rows):
-    """Drop delegated-repository rows unless the screen escalated that PR."""
+    """Drop delegated-repository rows while the no-escalation screen is seeded."""
     for row in rows:
         if not row.strip():
             continue
         cells = row.rstrip('\n').split('\t')
         if seeded(journal) and cells[0] == REPOSITORY and len(cells) > 1 and cells[1].isdigit():
-            if not any((journal / SCREENINGS / cells[1]).glob('escalated-*.json')):
-                continue
+            continue
         sys.stdout.write(row if row.endswith('\n') else row + '\n')
 
 
@@ -55,6 +54,10 @@ def section(journal):
             continue
         link = f"[#{item.get('pull_request')}]({URL}/pull/{item.get('pull_request')})"
         head = str(item.get('head', ''))[:11]
+        if path.name.startswith('blocked-'):
+            if recent(item.get('at')):
+                events.append((item['at'], f"- {item['at']} {link} `{head}` **blocked**: {item.get('reason', 'screen unreadable')}"))
+            continue
         if path.name.startswith('escalated-'):
             if recent(item.get('at')):
                 events.append((item['at'], f"- {item['at']} {link} `{head}` **escalated**: {', '.join(item.get('paths', []))}"))

@@ -1,6 +1,6 @@
 ---
 created: 2026-05-13
-updated: 2026-09-28
+updated: 2026-10-07
 author: liaison, gardener
 ---
 
@@ -112,10 +112,12 @@ isolated project checkout. The spine checks scope before any mutation, rebases,
 re-checks CI on the rebased head, and requires an attestation for the
 **post-rebase** head. `merge blocked: awaiting re-screen` means the rebase moved
 the head: finish and report it, because the proxy screens the new head and posts a
-fresh conductor. Never request maintainer approval on this path, never fall back to
+fresh conductor. A frozen `main-<sha>` base is unfrozen before rebase; a PR still
+based on a parent head is blocked until the parent merges and a weaver restacks it,
+and the final policy read requires live `main`. Never request maintainer approval on this path, never fall back to
 an ordinary merge, and never queue `--auto`. A human `CHANGES_REQUESTED` still
 blocks. The ordinary "stall `merge blocked: no maintainer approval`" rule is
-unchanged for every other repository, and for minion.town PRs the screen escalated.
+unchanged for every other repository.
 
 ## Operating norms
 

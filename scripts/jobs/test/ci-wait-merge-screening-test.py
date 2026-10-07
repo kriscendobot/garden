@@ -39,7 +39,8 @@ class ScreenedMerge(unittest.TestCase):
         (self.journal / 'maintainers/allowlist').write_text('kriskowal\n')
         control.seed(self.journal)
         write_json(policy.attestation_path(self.journal, 17, HEAD),
-                   dict(schema=1, repository=policy.REPOSITORY, pull_request=17, head=HEAD, heal=None))
+                   dict(schema=2, repository=policy.REPOSITORY, pull_request=17, head=HEAD,
+                        base='main', heal=None))
         self.git('init', '-q', '-b', 'journal2')
         self.git('config', 'user.name', 'test')
         self.git('config', 'user.email', 'test@example.invalid')
@@ -75,14 +76,19 @@ if arguments[1] == 'merge':
     if configuration.get('merge_fail'):
         print('not mergeable; required status'); sys.exit(1)
     sys.exit()
+if arguments[1] == 'edit':
+    (root / 'unfrozen').touch(); sys.exit()
 if arguments[1] == 'list':
     print(configuration['downstream']); sys.exit()
 columns = arguments[arguments.index('--json') + 1]
 if columns == 'baseRefName,author,body,state,headRefOid,isDraft,reviewDecision':
     if configuration.get('unreadable_metadata'): sys.exit(1)
-    print(json.dumps(configuration['metadata']))
+    metadata = dict(configuration['metadata'])
+    if (root / 'unfrozen').exists(): metadata['baseRefName'] = 'main'
+    print(json.dumps(metadata))
 elif columns == 'state,baseRefName,headRefName':
-    print(json.dumps(dict(state='OPEN', baseRefName='main', headRefName='crank')))
+    base = 'main' if (root / 'unfrozen').exists() else configuration['metadata']['baseRefName']
+    print(json.dumps(dict(state='OPEN', baseRefName=base, headRefName='crank')))
 elif columns == 'state,mergeable,statusCheckRollup,reviewDecision,headRefOid':
     head = configuration['head']
     if configuration['mode'] == 'rebase' and (root / 'rebased').exists(): head = 'c'*40
@@ -155,11 +161,24 @@ else: print(configuration['head'])
         self.assertIn('outside screening delegation', result.stdout)
         self.assertFalse((self.directory / 'count').exists())
 
-    def test_wrong_author_or_base(self):
-        for key, value in (('author', {'login': 'someone'}), ('baseRefName', 'develop')):
+    def test_wrong_author_or_stacked_base(self):
+        for key, value in (('author', {'login': 'someone'}), ('baseRefName', 'parent-feature')):
             with self.subTest(key=key):
                 original = self.information[key]; self.information[key] = value
                 self.run_merge()
+                self.information[key] = original
+
+    def test_frozen_main_base_is_unfrozen_and_merges(self):
+        self.information['baseRefName'] = 'main-1234abcd'
+        self.run_merge(0)
+        self.assertTrue((self.directory / 'unfrozen').exists())
+
+    def test_draft_or_probe_is_never_mutated(self):
+        for key, value in (('isDraft', True), ('body', 'gap-revealing prototype')):
+            with self.subTest(key=key):
+                original = self.information[key]; self.information[key] = value
+                self.run_merge()
+                self.assertFalse((self.directory / 'count').exists())
                 self.information[key] = original
 
     def test_missing_delegation(self):
@@ -170,6 +189,10 @@ else: print(configuration['head'])
         (self.journal / policy.AUTHORIZATION).write_text('tampered'); self.publish()
         self.run_merge()
 
+    def test_old_delegation_schema_does_not_gain_new_scope(self):
+        self.delegation(schema=1); self.publish()
+        self.run_merge()
+
     def test_paused(self):
         self.delegation(status='paused', paused_by='maintainer'); self.publish()
         self.run_merge()
@@ -177,7 +200,8 @@ else: print(configuration['head'])
     def test_paused_heal_pr_merges(self):
         self.delegation(status='paused', paused_by='proxy:screen', healing=[HEAL])
         write_json(policy.attestation_path(self.journal, 17, HEAD),
-                   dict(schema=1, repository=policy.REPOSITORY, pull_request=17, head=HEAD, heal=HEAL))
+                   dict(schema=2, repository=policy.REPOSITORY, pull_request=17, head=HEAD,
+                        base='main', heal=HEAL))
         self.publish()
         self.information['body'] = f'revert\n<!-- garden-heal: {HEAL} -->\n'
         self.run_merge(0)

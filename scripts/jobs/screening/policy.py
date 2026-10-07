@@ -16,59 +16,70 @@ from pathlib import Path
 
 IDENTITY = 'minion-town-pr-screening'
 REPOSITORY = 'kriscendobot/minion.town'
-BASE = 'main'
+BASE = '*'
+LIVE_BASE = 'main'
 AUTHOR = 'kriscendobot'
-REVIEW_URL = ('https://github.com/kriscendobot/minion.town/pull/139'
-              '#pullrequestreview-5358570484')
-AUTHORIZATION = 'entries/2026/09/29/205400Z-message-gardener-mtpr139.md'
+AUTHORIZATION = 'entries/2026/10/07/203746Z-message-gardener-a253b1.md'
 CONFIGURATION = f'config/delegations/{IDENTITY}'
 TOMBSTONE = f'{CONFIGURATION}.revoked'
 SCREENINGS = 'screenings/kriscendobot-minion.town'
 HEAL_MARKER = re.compile(r'^<!-- garden-heal: ([0-9a-f]{40}) -->$', re.M)
+PROBE_MARKER = re.compile(
+    r'gap[- ]revealing|<!--\s*garden-probe\s*-->|^\s*(?:kind|verb):\s*probe\s*$',
+    re.I | re.M)
 # The heartbeat ticks every 10 minutes; "fresh" is under three ticks.
 HEARTBEAT_MAX_AGE = 1800
 # How long a merged PR has for its deploy and a healthy watchdog tick.
 VALIDATION_WINDOW = 1800
 
-# Derived from the repository at build time (2026-09-29): .github/workflows/deploy.yml
-# runs exactly the scripts in ESCALATE_EXCEPT; every other deploy/aws/scripts/ file
-# is a one-time provisioning or operator script that DEPLOYMENT.md reserves as a
-# deliberate maintainer act (IAM, Cognito IdPs, DynamoDB tables, secret creates,
-# deploy-cd-iam.mjs). Workflows change what CD itself may do.
-ESCALATE_PATHS = ['.github/workflows/**', 'deploy/aws/scripts/**']
-ESCALATE_EXCEPT = [f'deploy/aws/scripts/{name}' for name in (
-    'common.sh', 'deploy-endo-daemon.sh', 'deploy-app.sh', 'deploy-endo-gateway.sh',
-    'deploy-git-remote.sh', 'deploy-oauth2-proxy.sh', 'deploy-caddy-route53.sh',
-    'deploy-caddy.sh', 'deploy-www.sh')]
-ESCALATE_SECTIONS = [dict(path='DEPLOYMENT.md', heading='## Continuous deployment (GitHub Actions)')]
+ESCALATE_PATHS = []
+ESCALATE_EXCEPT = []
+ESCALATE_SECTIONS = []
 
 AUTHORIZATION_TEXT = f'''---
 kind: message
 role: gardener
-host: endolin-garden2-5bcdff64
-at: 2026-09-29T20:54:00Z
+host: endolin-garden-ece02cb4
+at: 2026-10-07T20:37:52Z
 ---
-# Maintainer authorization: the proxy screens and merges kriscendobot/minion.town PRs
+# Maintainer directive: invert review on minion.town (2026-10-07, liaison session)
 
-Authorized by: kriskowal (maintainer), APPROVED review on
-{REVIEW_URL}
-2026-09-29.
+Recorded by the liaison from the maintainer's own words in a liaison session on
+2026-10-07. Journal push access is the authority boundary; this entry is the
+authorization record the delegation binds to.
 
-Maintainer's words: "This is beneath maintainer attention. Please arrange for the
-proxy or a mentat supervisor to screen minion.town pull requests. The purpose of
-minion.town is to validate in production and to get to a point where the garden
-can supervise and self-heal the production system."
+The maintainer (kriskowal) said:
 
-Scope (designs/minion-town-pr-screening.md; the implementation must not widen it):
-- Repository kriscendobot/minion.town, base `main`, author kriscendobot only.
-- The proxy's deterministic screen (no LLM) substitutes an exact-head attestation
-  for the per-PR maintainer APPROVED signature. It never overrides CI freshness or
-  any human CHANGES_REQUESTED review.
-- Provisioning scripts, workflows, and the DEPLOYMENT.md continuous-deployment
-  section escalate to the maintainer instead of merging.
-- A failed post-merge deploy or a down MCP watchdog pauses the delegation and
-  posts a heal job. `scripts/jobs/minion-town-screening.sh pause|revoke` stops it.
-- Delegation record: {CONFIGURATION}.
+> There are a lot of open pull requests on minion.town waiting for maintainer review. I
+> would like to turn that on its head. I am interested in reviewing minion.town as a whole
+> when the minion.town and claude-on-minion.town objectives are satisfied and validated
+> automatically in production. I can provide corrections later. Please arrange for
+> supervisors for these arcs to carry these pull requests through review as needed to make
+> progress on the objectives. I will continue to review all changes to endo necessitated by
+> work on minion.town.
+
+Asked how far the supervisors' authority should go, with the option of keeping the
+existing escalation paths offered and recommended, the maintainer chose: **"Everything,
+no escalations."** Asked where the minion.town objectives come from, the maintainer said
+the arc issues already exist: https://github.com/kriscendobot/garden/issues/58
+(minion.town) and https://github.com/kriscendobot/garden/issues/89 (claude-on-minion.town).
+
+## Scope this authorizes
+
+- Repository `kriscendobot/minion.town` only. Supervisors of the two arcs may carry its
+  pull requests through review (gauntlet, fixes, un-draft, weave and restack, merge) as
+  needed to advance the arc objectives, including draft PRs and PRs on frozen/stacked
+  bases, and with NO path or section escalation to the maintainer (workflows, deploy
+  scripts, and CD docs are included).
+- Post-merge production validation, pause-and-heal, and the maintainer's pause/revoke
+  controls remain in force; they are safety mechanisms, not escalations.
+
+## Not authorized
+
+- Any change to `endojs/endo-but-for-bots` or any other repository: the maintainer keeps
+  reviewing every endo change that minion.town work necessitates.
+- Upstream `agoric/agoric-sdk` interaction, the ferry, or any identity switch.
+- Gap-revealing probes stay draft by their own contract.
 '''
 
 
@@ -108,15 +119,17 @@ def record(journal):
     journal = Path(journal)
     require(not (journal / TOMBSTONE).exists(), 'delegation revoked')
     value = read_json(journal / CONFIGURATION)
-    expected = dict(schema=1, authorized_by='kriskowal', authorization=AUTHORIZATION,
+    expected = dict(schema=2, authorized_by='kriskowal', authorization=AUTHORIZATION,
                     repository=REPOSITORY, base=BASE, author=AUTHOR)
     require(all(value.get(key) == item for key, item in expected.items()),
             'delegation malformed or outside scope')
     require(value.get('status') in ('active', 'paused'), 'delegation status is not active or paused')
     require(value.get('authorization_sha256') == digest((journal / AUTHORIZATION).read_bytes()),
             'authorization entry missing or changed')
-    for key in ('escalate_paths', 'escalate_except', 'escalate_sections'):
-        require(isinstance(value.get(key), list), f'{key} unreadable')
+    for key, expected_items in (('escalate_paths', ESCALATE_PATHS),
+                                ('escalate_except', ESCALATE_EXCEPT),
+                                ('escalate_sections', ESCALATE_SECTIONS)):
+        require(value.get(key) == expected_items, f'{key} must be empty')
     return value
 
 
@@ -132,70 +145,6 @@ def active(journal):
     value = record(journal)
     require(value['status'] == 'active', 'delegation paused')
     return value
-
-
-def glob_regex(pattern):
-    out = ''
-    index = 0
-    while index < len(pattern):
-        if pattern.startswith('**/', index):
-            out += '(?:.*/)?'; index += 3
-        elif pattern.startswith('**', index):
-            out += '.*'; index += 2
-        elif pattern[index] == '*':
-            out += '[^/]*'; index += 1
-        elif pattern[index] == '?':
-            out += '[^/]'; index += 1
-        else:
-            out += re.escape(pattern[index]); index += 1
-    return re.compile(out + r'\Z')
-
-
-def path_escalates(value, path):
-    return (any(glob_regex(item).match(path) for item in value['escalate_paths']) and
-            not any(glob_regex(item).match(path) for item in value['escalate_except']))
-
-
-def section_range(text, heading):
-    """[first, last] 1-based lines of a Markdown section, or None when absent."""
-    lines = text.splitlines()
-    level = len(heading) - len(heading.lstrip('#'))
-    for index, line in enumerate(lines):
-        if line.strip() == heading:
-            end = len(lines)
-            for later in range(index + 1, len(lines)):
-                match = re.match(r'^(#+)\s', lines[later])
-                if match and len(match.group(1)) <= level:
-                    end = later
-                    break
-            return index + 1, end
-    return None
-
-
-def hunks(patch):
-    """(old_start, old_count, new_start, new_count) for each hunk of a unified patch."""
-    found = []
-    for match in re.finditer(r'^@@ -(\d+)(?:,(\d+))? \+(\d+)(?:,(\d+))? @@', patch, re.M):
-        old, old_count, new, new_count = match.groups()
-        found.append((int(old), int(old_count or 1), int(new), int(new_count or 1)))
-    return found
-
-
-def overlaps(span, start, count):
-    if span is None:
-        return False
-    first, last = span
-    return start <= last and start + max(count, 1) - 1 >= first
-
-
-def section_escalates(item, patch, base_text, head_text):
-    """A hunk touching the named section on either side escalates; unreadable fails closed."""
-    if patch is None or base_text is None or head_text is None:
-        return True
-    old_span = section_range(base_text, item['heading'])
-    new_span = section_range(head_text, item['heading'])
-    return any(overlaps(old_span, old, old_count) or overlaps(new_span, new, new_count)
-               for old, old_count, new, new_count in hunks(patch))
 
 
 def canonical_login(login):
@@ -220,14 +169,21 @@ def heal_target(body):
     return match.group(1) if match else None
 
 
+def probe_body(body):
+    return bool(PROBE_MARKER.search(body or ''))
+
+
 def attestation_path(journal, number, head):
     return Path(journal) / SCREENINGS / str(int(number)) / f'{head}.json'
 
 
 def scope(metadata):
-    require(metadata['baseRefName'] == BASE, 'wrong base')
+    require(isinstance(metadata.get('baseRefName'), str) and metadata['baseRefName'],
+            'base unreadable')
     require(canonical_login(metadata['author']['login']) == AUTHOR, 'wrong author')
     require(re.fullmatch(r'[0-9a-f]{40}', metadata['headRefOid']), 'head unreadable')
+    require(metadata.get('isDraft') is False, 'PR is draft')
+    require(not probe_body(metadata.get('body')), 'gap-revealing probe')
 
 
 def merge_gate(journal, repository, number, head, metadata, reviews):
@@ -237,6 +193,8 @@ def merge_gate(journal, repository, number, head, metadata, reviews):
     scope(metadata)
     require(metadata['state'] == 'OPEN', 'PR is not open')
     require(metadata['isDraft'] is False, 'PR is draft')
+    require(metadata['baseRefName'] == LIVE_BASE,
+            'stacked PR must be woven onto the live base')
     require(metadata['headRefOid'] == head, 'head changed')
     require(metadata.get('reviewDecision') != 'CHANGES_REQUESTED', 'changes requested')
     require(isinstance(reviews, list) and all(isinstance(page, list) for page in reviews),
@@ -245,7 +203,7 @@ def merge_gate(journal, repository, number, head, metadata, reviews):
     path = attestation_path(journal, number, head)
     require(path.is_file(), 'awaiting re-screen')
     attested = read_json(path)
-    require(attested.get('schema') == 1 and attested.get('repository') == REPOSITORY and
+    require(attested.get('schema') == 2 and attested.get('repository') == REPOSITORY and
             attested.get('pull_request') == int(number) and attested.get('head') == head,
             'attestation does not cover this head')
     if value['status'] != 'active':

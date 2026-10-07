@@ -142,26 +142,27 @@ maintainer.
 
 ## Screened-merge delegation
 
-The proxy screens and merges `kriscendobot/minion.town` pull requests, under the
-maintainer's APPROVED review on
-[kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139#pullrequestreview-5358570484)
-("arrange for the proxy or a mentat supervisor to screen minion.town pull
-requests"). That review is the authorization your § Boundary asks for, and it
-covers that one repository only. The work is a deterministic **pre-pass 1d**
+The proxy screens and merges `kriscendobot/minion.town` pull requests under the
+maintainer's 2026-10-07 “Everything, no escalations” directive recorded at
+`entries/2026/10/07/203746Z-message-gardener-a253b1.md` on `journal2`.
+That directive is the authorization your § Boundary asks for, and it covers that
+one repository only. The work is a deterministic **pre-pass 1d**
 (`scripts/jobs/screen-delegated-prs.sh`, plain code, **no `claude -p`**), after the
 PR-comment auto-clear and before the gating enumeration. It is inert until the
 delegation record `config/delegations/minion-town-pr-screening` is seeded, and a
 failed tick is logged without blocking the rest of the proxy tick.
 
-For each open PR by `kriscendobot` against `main`, at its exact head, the screen
-passes only when: the PR is ready (not draft); CI is terminal-green with at least
-one check; no human's latest review is `CHANGES_REQUESTED`; the diff avoids the
-record's escalation paths; a completed gauntlet's panel passed at this head (or at
-a head with the identical patch, the rebase-equivalence case); and production is
-healthy (last `main` deploy green, MCP watchdog heartbeat `ok` and fresh). A pass
+For each open PR by `kriscendobot` on any base, at its exact head, the screen
+passes only when: the PR is ready (not draft or probe); CI is terminal-green with at least
+one check; no human's latest review is `CHANGES_REQUESTED`; a completed gauntlet's
+panel passed at this head (or at a head with the identical patch, the
+rebase-equivalence case); the compare is below GitHub's 300-file completeness
+limit; the PR is on `main` or a frozen `main-<sha>` base rather than a still-live
+parent head; and production is healthy (last `main` deploy green, MCP watchdog
+heartbeat `ok` and fresh). A pass
 writes `screenings/kriscendobot-minion.town/<N>/<head>.json` and posts a delegated
-conductor. A stale panel verdict posts a head-keyed gauntlet instead. An escalated
-PR gets one maintainer notice and a review request for kriskowal.
+conductor. A stale panel verdict posts a head-keyed gauntlet instead. Workflow,
+deployment, and CD-document paths do not escalate.
 
 After each merge the screen watches `deploy.yml` for the merge commit and the MCP
 watchdog. A failed deploy, or a down watchdog after a green deploy, **pauses** the

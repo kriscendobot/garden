@@ -1,23 +1,26 @@
 #!/usr/bin/env python3
 """One screener tick over kriscendobot/minion.town (proxy pre-pass 1d, no LLM).
 
-Reads GitHub metadata, CI rollups, diff paths, and journal records only; it never
-feeds PR or comment text anywhere. Journal writes (attestations, escalation and
+Reads GitHub metadata, CI rollups, diff paths, and journal records only; fixed
+heal/probe markers are the only PR-body matches, and no text reaches an LLM.
+Journal writes (attestations, comparison blocks, and
 validation records, the delegation's pause/resume, maintainer notices) land in the
 working tree; the shell wrapper commits them with one CAS push and then performs
-the printed actions (job posts, gauntlet records, review requests). Every action
+the printed actions (job posts and gauntlet records). Every action
 is keyed by a deterministic name, so a lost push or a re-tick repeats nothing.
 """
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import quote
 
-from policy import (AUTHOR, BASE, CONFIGURATION, HEARTBEAT_MAX_AGE, IDENTITY, REPOSITORY,
-                    SCREENINGS, VALIDATION_WINDOW, attestation_path, canonical_login,
-                    heal_target, human_veto, iso, now, parse_time, path_escalates, read_json,
-                    record, section_escalates, write_json, digest)
+from policy import (AUTHOR, CONFIGURATION, HEARTBEAT_MAX_AGE, IDENTITY, LIVE_BASE,
+                    REPOSITORY, SCREENINGS, VALIDATION_WINDOW, attestation_path,
+                    canonical_login, digest, heal_target, human_veto, iso, now,
+                    parse_time, probe_body, read_json, record, write_json)
 
 JOURNAL = Path(sys.argv[1])
 NOW = now()
@@ -79,34 +82,69 @@ def matches(values, number):
     return values.get('repo') == REPOSITORY and values.get('pr_number') == str(number)
 
 
+def probe_jobs():
+    """PR numbers durably marked as probes by associated board/report records."""
+    paths = list(TADA.values())
+    for kind in ('todo', 'doin', 'plan', 'withdrawn', 'gauntlet'):
+        root = JOURNAL / f'jobs/{kind}'
+        if root.is_dir():
+            paths.extend(root.glob('*.md'))
+    found = set()
+    url = re.compile(rf'https://github\.com/{re.escape(REPOSITORY)}/pull/(\d+)')
+    marker = re.compile(r'(?im)^\s*(?:kind|verb):\s*probe\s*$|gap[- ]revealing')
+    for path in paths:
+        try:
+            body = path.read_text(errors='replace')
+        except OSError:
+            continue
+        if not marker.search(body):
+            continue
+        values = fields(path)
+        if values.get('repo') == REPOSITORY and values.get('pr_number', '').isdigit():
+            found.add(int(values['pr_number']))
+        found.update(int(match.group(1)) for match in url.finditer(body))
+    return found
+
+
+PROBE_PRS = probe_jobs()
+
+
 def gauntlets(number):
-    """(in_flight, [panel heads of completed feature gauntlets])."""
+    """(in_flight, completed panel heads, probe-marked job exists)."""
     live = JOURNAL / 'jobs/gauntlet'
-    in_flight = live.is_dir() and any(matches(fields(path), number) for path in live.glob('*.md'))
+    live_records = [(path, fields(path)) for path in live.glob('*.md')] if live.is_dir() else []
+    in_flight = any(matches(values, number) for _, values in live_records)
+    probe = number in PROBE_PRS or any(
+        matches(values, number) and values.get('kind') == 'probe'
+        for _, values in live_records)
     heads = []
     for stem, path in TADA.items():
         if 'gauntlet' in stem:
             values = fields(path)
+            if matches(values, number) and values.get('kind') == 'probe':
+                probe = True
             if (values.get('gauntlet-status') == 'complete' and matches(values, number)
+                    and values.get('kind', 'feature') != 'probe'
                     and len(values.get('panel_head', '')) == 40):
                 heads.append((values['panel_head'], str(path.relative_to(JOURNAL))))
-    return in_flight, heads
+    return in_flight, heads, probe
 
 
 # --- GitHub reads, cached per tick ----------------------------------------------
 COMPARISONS = {}
 
 
-def compare(head):
-    if head not in COMPARISONS:
-        COMPARISONS[head] = gh('api', f'repos/{REPOSITORY}/compare/{BASE}...{head}')
-    return COMPARISONS[head]
+def compare(base, head):
+    key = (base, head)
+    if key not in COMPARISONS:
+        COMPARISONS[key] = gh('api', f'repos/{REPOSITORY}/compare/{quote(base, safe="")}...{head}')
+    return COMPARISONS[key]
 
 
-def patch_fingerprint(head):
+def patch_fingerprint(base, head):
     """The PR's own change (merge-base..head) with hunk offsets erased, or None."""
     items = []
-    for item in compare(head).get('files', []):
+    for item in compare(base, head).get('files', []):
         if 'patch' not in item and item.get('changes', 0):
             return None
         patch = '\n'.join(line for line in item.get('patch', '').splitlines() if not line.startswith('@@'))
@@ -114,31 +152,8 @@ def patch_fingerprint(head):
     return digest(json.dumps(sorted(items, key=str)).encode())
 
 
-def content(path, ref):
-    try:
-        return gh('api', '-H', 'Accept: application/vnd.github.raw+json',
-                  f'repos/{REPOSITORY}/contents/{path}?ref={ref}', raw=True)
-    except subprocess.CalledProcessError:
-        return None
-
-
-def escalations(value, head):
-    comparison = compare(head)
-    files = comparison.get('files', [])
-    if len(files) >= 300:
-        return ['(diff exceeds the 300-file compare limit)']
-    hits = []
-    for item in files:
-        for path in filter(None, (item['filename'], item.get('previous_filename'))):
-            if path_escalates(value, path):
-                hits.append(path)
-        for section in value['escalate_sections']:
-            if item['filename'] == section['path']:
-                base = comparison.get('merge_base_commit', {}).get('sha')
-                if section_escalates(section, item.get('patch'), content(section['path'], base) if base else None,
-                                     content(section['path'], head)):
-                    hits.append(f"{section['path']} § {section['heading'].lstrip('# ')}")
-    return sorted(set(hits))
+def compare_limit_exceeded(base, head):
+    return len(compare(base, head).get('files', [])) >= 300
 
 
 LATEST = {}
@@ -146,7 +161,7 @@ LATEST = {}
 
 def latest_main_deploy():
     if 'run' not in LATEST:
-        runs = gh('run', 'list', '-R', REPOSITORY, '--workflow', 'deploy.yml', '--branch', BASE,
+        runs = gh('run', 'list', '-R', REPOSITORY, '--workflow', 'deploy.yml', '--branch', LIVE_BASE,
                   '--limit', '1', '--json', 'databaseId,status,conclusion,headSha,url,createdAt,updatedAt')
         LATEST['run'] = runs[0] if runs else None
     return LATEST['run']
@@ -231,10 +246,15 @@ PR: {URL}/pull/{number}
 
 
 def screen(value, pull):
-    number, head = pull['number'], pull['headRefOid']
-    if (pull.get('baseRefName') != BASE or canonical_login(pull['author']['login']) != AUTHOR
-            or pull.get('isDraft') or pull.get('state', 'OPEN') != 'OPEN'):
+    number, head, pr_base = pull['number'], pull['headRefOid'], pull.get('baseRefName')
+    if (not isinstance(pr_base, str) or not pr_base
+            or canonical_login(pull['author']['login']) != AUTHOR
+            or pull.get('isDraft') or pull.get('state', 'OPEN') != 'OPEN'
+            or probe_body(pull.get('body'))):
         return
+    in_flight, heads, probe = gauntlets(number)
+    if probe:
+        return note(f'#{number}: gap-revealing probe stays draft')
     heal = heal_target(pull.get('body'))
     heal = heal if heal in value.get('healing', []) else None
     if value['status'] != 'active' and not heal:
@@ -242,7 +262,8 @@ def screen(value, pull):
     target = attestation_path(JOURNAL, number, head)
     if target.is_file():
         return conductor(number, head, read_json(target).get('heal'))
-    if (target.parent / f'escalated-{head}.json').is_file():
+    if any((target.parent / f'{kind}-{head}.json').is_file()
+           for kind in ('escalated', 'blocked')):
         return
     state, checks = ci_state(pull.get('statusCheckRollup'))
     if state != 'green':
@@ -250,36 +271,38 @@ def screen(value, pull):
     if pull.get('reviewDecision') == 'CHANGES_REQUESTED' or human_veto(
             pages(f'repos/{REPOSITORY}/pulls/{number}/reviews?per_page=100')):
         return note(f'#{number}: human changes requested')
-    hits = escalations(value, head)
-    if hits:
-        write_json(target.parent / f'escalated-{head}.json',
-                   dict(schema=1, repository=REPOSITORY, pull_request=number, head=head,
-                        paths=hits, at=iso(NOW)))
-        notify(f'escalated-pr{number}-{head[:7]}',
-               f'minion.town screen ESCALATED {URL}/pull/{number} (head {head[:11]}): it touches '
-               f'{", ".join(hits)}, which the delegation reserves for the maintainer. It will not '
-               'be merged by the proxy; review it (an APPROVED review triggers the ordinary merge).')
-        actions.append(dict(kind='request-review', number=number))
+    if compare_limit_exceeded(pr_base, head):
+        write_json(target.parent / f'blocked-{head}.json',
+                   dict(schema=2, repository=REPOSITORY, pull_request=number, head=head,
+                        base=pr_base, reason='diff exceeds the 300-file compare limit', at=iso(NOW)))
+        notify(f'compare-limit-pr{number}-{head[:7]}',
+               f'minion.town screen BLOCKED {URL}/pull/{number} (head {head[:11]}): '
+               'the GitHub compare reached its 300-file response limit, so the screen cannot '
+               'prove it inspected the complete diff. This is a correctness refusal, not a '
+               'policy escalation; split the change or otherwise bring it below the limit.')
         return
-    in_flight, heads = gauntlets(number)
     verdict = next(((panel, path, 'exact') for panel, path in heads if panel == head), None)
     if verdict is None and heads:
-        fingerprint = patch_fingerprint(head)
+        fingerprint = patch_fingerprint(pr_base, head)
         verdict = next(((panel, path, 'rebase') for panel, path in heads
-                        if fingerprint and patch_fingerprint(panel) == fingerprint), None)
+                        if fingerprint and patch_fingerprint(pr_base, panel) == fingerprint), None)
     if verdict is None:
         if in_flight:
             return note(f'#{number}: gauntlet in flight')
-        base = f'kriscendobot-minion-town-pr{number}-screen-{head[:8]}-gauntlet'
-        if not on_board(base) and not (JOURNAL / f'jobs/gauntlet/{base}.md').is_file():
-            actions.append(dict(kind='gauntlet', base=base, url=f'{URL}/pull/{number}'))
+        gauntlet_base = f'kriscendobot-minion-town-pr{number}-screen-{head[:8]}-gauntlet'
+        if not on_board(gauntlet_base) and not (JOURNAL / f'jobs/gauntlet/{gauntlet_base}.md').is_file():
+            actions.append(dict(kind='gauntlet', base=gauntlet_base, url=f'{URL}/pull/{number}'))
         return note(f'#{number}: no panel verdict at this head')
+    if pr_base != LIVE_BASE and not re.fullmatch(
+            rf'{re.escape(LIVE_BASE)}-[0-9a-f]{{4,40}}', pr_base):
+        return note(f'#{number}: stacked on {pr_base}; awaiting parent merge and weave onto {LIVE_BASE}')
     production = dict(deploy_run=None, heartbeat_at=None)
     if not heal:
         production, why = baseline()
         if production is None:
             return note(f'#{number}: {why}')
-    write_json(target, dict(schema=1, repository=REPOSITORY, pull_request=number, head=head,
+    write_json(target, dict(schema=2, repository=REPOSITORY, pull_request=number, head=head,
+                            base=pr_base,
                             screened_at=iso(NOW), gauntlet=verdict[1], panel_head=verdict[0],
                             panel_match=verdict[2], ci=checks, heal=heal, **production))
     note(f'#{number}: screened at {head[:11]}')
@@ -320,7 +343,7 @@ push to main directly and never force-revert main.
 def track(value, open_heads):
     views = {}
     for path in sorted((JOURNAL / SCREENINGS).glob('*/*.json')):
-        if path.name.startswith('escalated-'):
+        if path.name.startswith(('escalated-', 'blocked-')):
             continue
         attested = read_json(path)
         if attested.get('closed'):
@@ -395,8 +418,8 @@ def main():
         print(json.dumps(dict(actions=[], notes=[f'inert: {error}'])))
         return
     before = json.dumps(value, sort_keys=True)
-    pulls = gh('pr', 'list', '-R', REPOSITORY, '--state', 'open', '--base', BASE, '--limit', '100',
-               '--json', 'number,state,isDraft,baseRefName,author,headRefOid,reviewDecision,statusCheckRollup,body')
+    pulls = gh('pr', 'list', '-R', REPOSITORY, '--state', 'open', '--limit', '1000',
+               '--json', 'number,state,isDraft,baseRefName,headRefName,author,headRefOid,reviewDecision,statusCheckRollup,body')
     track(value, {pull['number']: pull['headRefOid'] for pull in pulls})
     resume(value)
     for pull in sorted(pulls, key=lambda item: item['number']):

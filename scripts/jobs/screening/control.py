@@ -23,7 +23,7 @@ def seed(journal):
         entry.parent.mkdir(parents=True, exist_ok=True)
         entry.write_text(AUTHORIZATION_TEXT)
     write_json(journal / CONFIGURATION, dict(
-        schema=1, status='active', authorized_by='kriskowal', authorization=AUTHORIZATION,
+        schema=2, status='active', authorized_by='kriskowal', authorization=AUTHORIZATION,
         authorization_sha256=digest(entry.read_bytes()), repository=REPOSITORY, base=BASE,
         author=AUTHOR, escalate_paths=ESCALATE_PATHS, escalate_except=ESCALATE_EXCEPT,
         escalate_sections=ESCALATE_SECTIONS, healing=[], seeded_at=iso(now())))

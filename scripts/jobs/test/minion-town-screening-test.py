@@ -144,7 +144,7 @@ class Screening(unittest.TestCase):
     def gauntlet(self, head, name='kriscendobot-minion-town-pr17-gauntlet'):
         path = self.journal / f'jobs/tada/2026/09/29/{name}.md'
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(f'gauntlet-status: complete\nrepo: {policy.REPOSITORY}\npr_number: 17\n'
+        path.write_text(f'gauntlet-status: complete\nrepo: {policy.REPOSITORY}\npr_number: 17\nkind: feature\n'
                         f'panel_head: {head}\n# gauntlet {name} — complete\n')
 
     def beat(self, state, minutes=0):
@@ -184,6 +184,14 @@ class Screening(unittest.TestCase):
 
     def test_digest_mismatch_denies(self):
         (self.journal / policy.AUTHORIZATION).write_text('tampered'); self.publish()
+        self.refused()
+
+    def test_old_schema_denies_instead_of_inheriting_widened_semantics(self):
+        self.delegation(schema=1); self.publish()
+        self.refused()
+
+    def test_nonempty_escalation_lists_deny_the_record(self):
+        self.delegation(escalate_paths=['.github/workflows/**']); self.publish()
         self.refused()
 
     def test_revoked_denies(self):
@@ -254,13 +262,54 @@ class Screening(unittest.TestCase):
         self.refused()
         self.assertEqual(self.posts(), [])
 
-    def test_scope_refusals(self):
-        for key, value in (('author', dict(login='someone')), ('baseRefName', 'develop'), ('isDraft', True)):
+    def test_author_and_draft_refusals(self):
+        for key, value in (('author', dict(login='someone')), ('isDraft', True)):
             with self.subTest(key=key):
                 original = self.pull[key]
                 self.pull[key] = value
                 self.refused()
                 self.pull[key] = original
+
+    def test_frozen_base_is_screened(self):
+        self.pull['baseRefName'] = 'main-1234abcd'
+        self.tick()
+        self.assertTrue(self.attested())
+        record = json.loads((self.journal / policy.SCREENINGS / '17' / f'{HEAD}.json').read_text())
+        self.assertEqual(record['base'], 'main-1234abcd')
+
+    def test_stacked_base_gets_reviewed_but_not_attested_until_restacked(self):
+        self.pull['baseRefName'] = 'parent-feature'
+        result = self.tick()
+        self.assertFalse(self.attested())
+        self.assertFalse(any('conduct' in post for post in self.posts()), self.posts())
+        self.assertIn('awaiting parent merge and weave', result.stderr)
+
+    def test_stacked_base_without_a_verdict_is_admitted_to_the_gauntlet(self):
+        (self.journal / 'jobs/tada/2026/09/29/kriscendobot-minion-town-pr17-gauntlet.md').unlink()
+        self.publish()
+        self.pull['baseRefName'] = 'parent-feature'
+        self.refused()
+        self.assertEqual(self.posts(), [
+            f'post-gauntlet kriscendobot-minion-town-pr17-screen-{HEAD[:8]}-gauntlet'])
+
+    def test_probe_body_or_probe_gauntlet_is_never_screened(self):
+        for marker in ('This is a gap-revealing prototype.', '<!-- garden-probe -->', None):
+            with self.subTest(marker=marker):
+                if marker:
+                    self.pull['body'] = marker
+                else:
+                    path = self.journal / 'jobs/tada/2026/09/29/kriscendobot-minion-town-pr17-gauntlet.md'
+                    path.write_text(path.read_text().replace('kind: feature', 'kind: probe'))
+                    self.publish()
+                self.refused()
+                self.pull['body'] = ''
+
+    def test_gap_revealing_job_marker_is_never_screened(self):
+        path = self.journal / 'jobs/tada/2026/09/29/build-gap-report.md'
+        path.write_text(f'repo: {policy.REPOSITORY}\npr_number: 17\n'
+                        'skill: gap-revealing-build\n# Probe result\n')
+        self.publish()
+        self.refused()
 
     def test_ci_refusals(self):
         for rollup in ([], [dict(status='IN_PROGRESS')], [dict(status='COMPLETED', conclusion='FAILURE')]):
@@ -288,32 +337,28 @@ class Screening(unittest.TestCase):
                 change()
                 self.refused()
 
-    def test_escalated_path_notifies_once_and_requests_review(self):
-        self.configuration['compare'][HEAD] = dict(files=[
-            dict(filename='deploy/aws/scripts/deploy-cognito-github-idp.sh', status='modified', patch=PATCH)])
-        self.refused()
-        self.refused()
-        notices = list((self.journal / 'inbox/maintainer/unread').glob('minion-town-pr-screening-escalated-*'))
-        self.assertEqual(len(notices), 1)
-        self.assertIn('from: proxy:screen', notices[0].read_text())
-        self.assertEqual((self.directory / 'review-requests').read_text().count('\n'), 1)
-
-    def test_ci_deploy_script_is_not_escalated(self):
-        self.configuration['compare'][HEAD] = dict(files=[
-            dict(filename='deploy/aws/scripts/deploy-app.sh', status='modified', patch=PATCH)])
-        self.tick()
-        self.assertTrue(self.attested())
-
-    def test_deployment_section_escalates_only_inside_the_section(self):
-        text = '# Deploy\n' + 'x\n' * 10 + '## Continuous deployment (GitHub Actions)\nrule\nrule\n## Later\ny\n'
-        self.configuration['contents'] = {'d' * 40: text, HEAD: text}
-        for hunk, escalates in (('@@ -3 +3 @@\n-x\n+z', False), ('@@ -13 +13 @@\n-rule\n+ruled', True)):
-            with self.subTest(escalates=escalates):
-                self.configuration['compare'][HEAD] = dict(merge_base_commit=dict(sha='d' * 40), files=[
-                    dict(filename='DEPLOYMENT.md', status='modified', patch=hunk)])
+    def test_no_path_or_section_escalations(self):
+        self.assertEqual((policy.ESCALATE_PATHS, policy.ESCALATE_EXCEPT,
+                          policy.ESCALATE_SECTIONS), ([], [], []))
+        for filename in ('.github/workflows/deploy.yml',
+                         'deploy/aws/scripts/deploy-cognito-github-idp.sh',
+                         'DEPLOYMENT.md'):
+            with self.subTest(filename=filename):
+                self.configuration['compare'][HEAD] = dict(files=[
+                    dict(filename=filename, status='modified', patch=PATCH)])
                 self.tick()
-                self.assertEqual(self.attested(), not escalates)
+                self.assertTrue(self.attested())
                 self.git('rm', '-rq', policy.SCREENINGS); self.publish()
+
+    def test_300_file_compare_limit_blocks_without_policy_escalation(self):
+        self.configuration['compare'][HEAD] = dict(files=[
+            dict(filename=f'src/{index}.js', status='modified', patch=PATCH)
+            for index in range(300)])
+        self.refused()
+        blocked = list((self.journal / policy.SCREENINGS / '17').glob('blocked-*.json'))
+        self.assertEqual(len(blocked), 1)
+        self.assertIn('300-file', json.loads(blocked[0].read_text())['reason'])
+        self.assertFalse((self.directory / 'review-requests').exists())
 
     # --- post-merge validation --------------------------------------------------------
     def merged(self, conclusion):
@@ -397,7 +442,7 @@ class Screening(unittest.TestCase):
                    dict(pull_request=18, head=HEAD, paths=['.github/workflows/test.yml'], at=stamp()))
         result = subprocess.run(['python3', str(JOBS / 'screening/report.py'), 'parked-filter', str(self.journal)],
                                 input=''.join(rows), capture_output=True, text=True, check=True)
-        self.assertEqual(result.stdout, rows[1] + rows[2])
+        self.assertEqual(result.stdout, rows[2])
         section = subprocess.run(['python3', str(JOBS / 'screening/report.py'), 'section', str(self.journal)],
                                  capture_output=True, text=True, check=True).stdout
         self.assertIn('Delegation: **active**', section)

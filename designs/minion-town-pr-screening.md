@@ -2,23 +2,20 @@
 
 | Created | 2026-09-29 |
 | Author  | gardener (designer, job `design-minion-town-pr-screening-by-proxy`) |
-| Status  | Accepted |
+| Status  | Accepted; widened 2026-10-07 |
 
 ## Mandate
 
-kriskowal, APPROVED review on
-[kriscendobot/minion.town#139](https://github.com/kriscendobot/minion.town/pull/139#pullrequestreview-5358570484),
-2026-09-29:
-
-> This is beneath maintainer attention. Please arrange for the proxy or a mentat
-> supervisor to screen minion.town pull requests. The purpose of minion.town is to
-> validate in production and to get to a point where the garden can supervise and
-> self-heal the production system.
-
-The directive is the maintainer authorization the proxy's boundary asks for
-(`roles/proxy/AGENT.md` § Boundary: "merging or closing where not already
-authorized"). It covers exactly one repository, `kriscendobot/minion.town`. Every
-other repository keeps maintainer review.
+The binding authorization is the maintainer's 2026-10-07 directive in
+`entries/2026/10/07/203746Z-message-gardener-a253b1.md` on `journal2`.
+The maintainer delegated the whole `kriscendobot/minion.town` review-and-merge
+surface to the supervisors for the
+[minion.town objective](https://github.com/kriscendobot/garden/issues/58) and the
+[claude-on-minion.town objective](https://github.com/kriscendobot/garden/issues/89),
+choosing “Everything, no escalations.”
+The authorization includes gauntlet, fixes, un-draft, weave, restack, and merge
+for that repository only.
+Endo changes retain maintainer review.
 
 ## Where the maintainer is pulled in today
 
@@ -32,12 +29,12 @@ minion.town-only redirect:
 | 3 | **Fixer re-request.** `roles/fixer/AGENT.md` re-requests maintainer review via `requested_reviewers` after CI goes green. | Puts the PR on kriskowal's review-requested list, and so in the bulletin's parked section. | On minion.town the fixer re-requests **only** a human whose review is a live `CHANGES_REQUESTED`. Otherwise it skips the re-request; the head change already invalidates the old screen and the proxy re-screens. |
 | 4 | **Bulletin parked listing.** `bulletin.sh` `fetch_parked_rows` lists `--review-requested kriskowal` PRs. | A minion.town PR appears whenever touchpoint 3 fires. | Delegated repositories are excluded from the parked query. A new **Screened by proxy** section lists the last 24 h of screen verdicts, merges, and deploy outcomes. |
 
-The gauntlet's terminal `undraft` stage (`scripts/jobs/gauntlet.sh`) is **unchanged**.
-It still runs `gh pr ready`. Un-drafting is the "panel passed" signal that the
-screener, the design-PR gauntlet audit, and the conductor all key on. Keeping a
-delegated PR in draft until merge would fork that invariant for one repository.
-The GitHub notification that un-drafting triggers is ambient repo-watch noise, not
-a review request, and the maintainer can mute it by unwatching the repository.
+The gauntlet's terminal `undraft` stage (`scripts/jobs/gauntlet.sh`) is unchanged.
+Supervisors un-draft after a passing feature gauntlet; the screen never merges a
+PR that remains draft.
+A probe gauntlet has `kind: probe`, never reaches that stage, and stays draft.
+The screen also rejects a PR body marked `gap-revealing`, so accidentally
+un-drafting a probe cannot turn it into a merge candidate.
 
 ## Choice: the proxy, not a mentat supervisor
 
@@ -65,9 +62,8 @@ Considered and rejected: a mentat supervisor job per PR, posted via
 `post-manual-job.sh`. Reason: a human would have to post each one, which
 reintroduces the maintainer gate the directive removes.
 
-Considered and rejected: an LLM risk judgment inside the screen. Reason: the risk
-classes that matter (see § Escalation) are path-decidable. A deterministic
-denylist is auditable, and a prompt-injectable PR body cannot argue past it.
+Considered and rejected: an LLM judgment inside the screen. The remaining gates
+are deterministic, and PR body text cannot argue past them.
 
 ## Delegation record
 
@@ -75,15 +71,15 @@ This design reuses the Ironhorse delegated-ratchet shape
 (`context/operations/ironhorse-ratchet.md`, `scripts/jobs/ratchet/policy.py`)
 rather than inventing a new one:
 
-- A journal `message` entry records the authorization and cites the review URL
-  above.
+- The journal `message` entry named in § Mandate records the authorization.
 - `config/delegations/minion-town-pr-screening` is JSON. It binds the entry's
   SHA-256 and these fields:
+  - `schema: 2` (schema 1 names the narrower #139 semantics and is rejected)
   - `repository: kriscendobot/minion.town`
-  - `base: main`
+  - `base: "*"` (all bases are admitted for supervision)
   - `author: kriscendobot`
   - `status: active|paused|revoked`
-  - `escalate_paths` (§ Escalation)
+  - empty `escalate_paths`, `escalate_except`, and `escalate_sections`
 - `config/delegations/minion-town-pr-screening.revoked` is a permanent tombstone.
 
 A missing, unreadable, digest-mismatched, paused, or revoked record **denies**
@@ -100,16 +96,19 @@ deployed root.
 
 `scripts/jobs/screen-delegated-prs.sh` is invoked from `proxy.sh` as pre-pass 1d,
 after the PR-comment auto-clear and before the gating enumeration. It exits
-immediately when the delegation is not `active`. Otherwise it lists the open
-non-draft PRs on the delegated repository and evaluates each at its **current
-`headRefOid`**. It reads only GitHub metadata, CI rollups, and journal records,
-never PR body or comment text, so it is injection-safe by construction, like the
-CI watcher.
+immediately when the delegation is not `active`. Otherwise it lists every open
+PR on the delegated repository, including frozen and stacked bases, and evaluates
+each at its current `headRefOid`.
+It reads GitHub metadata, CI rollups, diff metadata, and journal records.
+The only PR-body matches are the exact heal marker and fixed probe markers
+(`gap-revealing`, `kind: probe`, `verb: probe`, or `<!-- garden-probe -->`);
+no PR or comment text reaches an LLM.
 
 A PR **passes** only when every gate holds on that exact head:
 
-1. **Scope.** The repository, the live base `main`, and the author `kriscendobot`
-   all match the delegation. The PR is OPEN and not draft.
+1. **Scope.** The repository and author `kriscendobot` match the delegation.
+   Any readable base is admitted for supervision.
+   The PR is OPEN, not draft, and not a probe by body or gauntlet-job marker.
 2. **Panel verdict.** The staged gauntlet for this PR has a terminal
    `undraft=done` record in `jobs/gauntlet/`, and the panel's last verdict was a
    pass. The gauntlet's last pushed head must equal the current head. A later push
@@ -120,12 +119,18 @@ A PR **passes** only when every gate holds on that exact head:
    one check (`test.yml`). A PR with no checks does not pass.
 4. **No human veto.** No live `CHANGES_REQUESTED` review from any human. A
    maintainer who objects keeps the veto they have today on every repository.
-5. **Production health baseline.** The most recent `deploy.yml` run on `main`
+5. **Landing base.** A stacked PR waits after review until its parent has merged
+   and a weaver has restacked it onto `main` or a frozen `main-<sha>` snapshot.
+   The conductor may unfreeze a `main-<sha>` base, rebases the head onto live
+   `main`, and the final policy check requires `baseRefName: main`.
+   It can therefore never merge a child into its parent branch or a stale snapshot.
+6. **Production health baseline.** The most recent `deploy.yml` run on `main`
    succeeded, and the `garden-minion-mcp-watchdog` heartbeat on the leader is
    `ok` and fresh (under 3 ticks old). The screener does not merge onto a
    production system that is already broken, because a failed post-merge deploy
    could not then be attributed to this PR.
-6. **Not escalated** (§ Escalation).
+7. **Complete comparison.** The GitHub compare has fewer than 300 files.
+   Reaching the API limit is a correctness refusal, not a policy escalation.
 
 On pass, the screener writes an attestation to
 `screenings/kriscendobot-minion.town/<pr>/<head-sha>.json`. The record holds the
@@ -144,9 +149,12 @@ no state beyond the attestation files.
 `ci-wait-merge.sh --screened-delegated-merge` is a sibling of
 `--ratchet-delegated-merge` and runs the same stages:
 
-- **Scope gate before any mutation.** Delegation active, and repository, base,
-  and author match. Anything else exits 1 with `merge blocked: outside
+- **Scope gate before any mutation.** Delegation active, repository and author
+  match, the base is readable, and the PR is not a probe. Anything else exits 1 with `merge blocked: outside
   screening delegation`.
+- **Stacked-base gate.** Frozen `main-<sha>` bases are retargeted to live `main`
+  by the existing unfreeze step. A child still based on a parent head cannot pass
+  the final policy gate; it waits for the parent merge and a weave/restack.
 - **Rebase through `safe-rebase.sh`, then CI freshness on the rebased head.** This
   step is unchanged from the ordinary path.
 - **Attestation gate at merge time.** An attestation file must exist for the
@@ -192,29 +200,22 @@ and `health: ok|down`:
 The screener never force-reverts `main` directly. Every change to production goes
 through a PR and CI.
 
-## Escalation (to the maintainer, not merged)
+## No policy escalations; comparison still fails closed
 
-The screen escalates, never passes, a PR whose diff touches a path in
-`escalate_paths`. The defaults are the surfaces that `deploy.yml` and
-`DEPLOYMENT.md` reserve as a deliberate maintainer act:
-
-- the one-time provisioning scripts under `deploy/aws/scripts/`: IAM, Cognito
-  IdPs, DynamoDB tables, secret creates, and `deploy-cd-iam.mjs`
-- `.github/workflows/**`, since these change what CD itself may do
-- `DEPLOYMENT.md` § Continuous deployment preconditions
-
-The builder derives the concrete glob list from the repository at build time and
-seeds it into the delegation record. After that, the list changes only by a
-journal edit. An escalated PR gets one maintainer-inbox message and a
-`review_requested` for kriskowal, so it appears in the bulletin's parked section.
-That is the one path that still pulls the maintainer in, by design.
+The schema-2 record requires all three escalation lists to be empty.
+Workflows, deployment scripts, provisioning scripts, and continuous-deployment
+documentation are inside the delegation.
+The screen still refuses a compare response with 300 files because GitHub may
+have truncated it; that limit means the screen lacks evidence about the complete
+diff.
+It records a `blocked-<head>.json` event and does not request maintainer review.
 
 ## Keeping the maintainer informed
 
 - **Bulletin section *Screened by proxy (minion.town)*.** It lists, for the last
-  24 h, each screen pass, each merge, each deploy outcome, each escalation, and
+  24 h, each screen pass, each merge, each deploy outcome, each comparison block, and
   the delegation status. Each entry carries links.
-- **Maintainer inbox.** Only pause, heal, and escalation events go to the inbox.
+- **Maintainer inbox.** Pause, heal, comparison-limit, and stalled-conductor events go to the inbox.
   Routine passes and merges do not; the bulletin is their record. Each inbox
   message is sent as `from: proxy:screen`, so the proxy's own PR-comment
   auto-clear does **not** sweep it (it carries a real PR reference, so it is
@@ -229,10 +230,9 @@ The build is one builder job on `kriscendobot/garden` `main2`. Every step lands
 with tests under `scripts/jobs/test/`, using the existing fake-`gh` harnesses:
 
 1. **Delegation record and operator command.** `minion-town-screening.sh`, with a
-   policy module under `scripts/jobs/screening/`, reusing `ratchet/policy.py`
-   helpers by import or extraction where it is clean. Seed the journal `message`
-   entry citing the #139 review and the delegation record.
-2. **Screener pre-pass.** `screen-delegated-prs.sh`, gates 1–6, attestation
+   policy module under `scripts/jobs/screening/`, binds the journal authorization
+   entry and the delegation record.
+2. **Screener pre-pass.** `screen-delegated-prs.sh`, gates 1–7, attestation
    writes, the conductor post, and the proxy wiring as pre-pass 1d. Document it in
    `roles/proxy/AGENT.md` as a new § Screened-merge delegation, next to the two
    auto-clear exceptions.
@@ -253,10 +253,14 @@ is the arming act, and until then the screener is inert.
 
 - A delegation that is missing, digest-mismatched, paused, or revoked denies
   both the screen and the merge. The ordinary approval path is unchanged.
-- The screener refuses a PR in each of these cases: a non-minion repository, a
-  non-bot author, a non-`main` base, draft state, a stale gauntlet head, red or
-  pending or no-check CI, a human `CHANGES_REQUESTED`, a red last deploy, a
-  down or stale watchdog, or an escalated path.
+- The screener admits live, frozen, and stacked bases, but refuses a non-bot
+  author, draft or probe state, a stale gauntlet head, red/pending/no-check CI, a
+  human `CHANGES_REQUESTED`, a red last deploy, a down or stale watchdog, or a
+  300-file comparison.
+- Workflow, deployment-script, and deployment-document changes do not escalate.
+- A stacked child does not receive a merge conductor until its parent has merged
+  and it has been woven onto the live-base line; the final merge gate independently
+  requires live `main`.
 - An attestation exists and a conductor is posted on a full pass. A re-tick does
   not create a duplicate conductor.
 - The spine refuses a merge when the post-rebase head has no attestation, and

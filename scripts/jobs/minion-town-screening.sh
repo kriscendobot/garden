@@ -4,7 +4,7 @@
 # context/operations/minion-town-screening.md).
 #
 # Usage: minion-town-screening.sh seed|pause [reason-file]|resume|revoke <reason-file>|status
-#   seed    write the #139 authorization entry and the delegation record (the arming
+#   seed    bind the 2026-10-07 maintainer directive and write the delegation record (the arming
 #           act; a no-op when already seeded, refused after a revocation)
 #   pause   stop screening and delegated merges (paused_by: maintainer; never auto-resumed)
 #   resume  return a paused delegation to active
@@ -31,7 +31,7 @@ for attempt in $(seq 1 50); do
     clone_unlock "$journal"; exit 0
   fi
   python3 "$HERE/screening/control.py" "$action" "$journal" "$@" || { clone_unlock "$journal"; exit 1; }
-  for path in config/delegations entries/2026/09/29; do
+  for path in config/delegations entries/2026/10/07; do
     [ -e "$journal/$path" ] && git -C "$journal" add -A -- "$path"
   done
   result=0
