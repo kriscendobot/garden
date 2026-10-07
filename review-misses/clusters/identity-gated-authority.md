@@ -1,13 +1,15 @@
 ---
 slug: identity-gated-authority
 category: security-hardening
-status: improvement-dispatched
+status: closed
 count: 1
 members:
   - kriscendobot-minion.town-pr85-review-9f17a419
 prs: [85]
 improvement_job: review-improve-identity-gated-authority
+improved_by: 2782d6294d86452b1b2bb3181c1e1d514a96461d: roles/builder/AGENT.md, roles/designer/AGENT.md, roles/jurors/locksmith/AGENT.md, skills/panel-hints/SKILL.md, skills/panel-hints/probes/C-locksmith.sh, scripts/jobs/test/identity-gated-authority-probe-test.sh
 ---
+
 
 
 A per-action authorization decides by asking WHO the caller is (an owner/identity equality check such as record.owner === caller) instead of by possession of a transferable, attenuable capability, contrary to the ocap premise.
