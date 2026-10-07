@@ -1,0 +1,2 @@
+base: improve-panel-item-reference-gate
+identity: mentor:scripts/jobs/check-issue-refs.sh
