@@ -82,3 +82,13 @@ the cluster:
 
 Commit with explicit pathspecs and push to main2 with the rebase CAS loop under
 `garden_repo_lock`, as the gardener preamble says.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T07:52:18Z
