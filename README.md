@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T13:30:24Z_
+_As of 2026-10-07T13:45:23Z_
 
 ## Latest
 
@@ -1558,6 +1558,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/1016](https://github.com/endojs/endo-but-for-bots/pull/1016) ([endojs/endo-but-for-bots#1016](https://github.com/endojs/endo-but-for-bots/issues/1016)) is in the mergeable queue with NO gauntlet review staged (head 4dc235600b87a0a0a05e7e81ad7415bfb0b48f91). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #1016'; otherwise no action is needed. This audit never re-drafts a PR.
 
+- `endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached` — from gauntlet:endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/endojs-endo-but-for-bots-pr1398-gauntlet-review-budget-reached.md)
+
+> INFO: Gauntlet endojs-endo-but-for-bots-pr1398-gauntlet review budget reached: Applied 6 panel/fix round(s); fix round 6 completed with its changes pushed and CI green. The subjective review did not converge within max_iterations=6, so the PR is left improved for a human merge/review decision.
+
 - `kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-halted` — from orchestrator:kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-halted, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/kriscendobot-minion-town-pr165-conduct-deploy-validate-5436814684-halted.md)
 
 > orchestration-event: orchestration-terminal
@@ -1797,7 +1801,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 174.8M | $2036.19 _(notional, rate-card)_ | 109% of 160.0M (backoff) |
+| Claude | 174.6M | $2033.33 _(notional, rate-card)_ | 109% of 160.0M (backoff) |
 | Codex | 10.8M _(+272.3M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1809,16 +1813,16 @@ worst fetch p95 3.079671s/45s (/home/kris/garden2/.garden-state/state-clone-keep
 ### todo (0)
 (none)
 
-### doin (1)
-- [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-6.md) — Gauntlet stage: FIX round 6 — endojs/endo-but-for-bots PR #1398
+### doin (0)
+(none)
 
-### tada (11371)
+### tada (11373)
+- [`endojs-endo-but-for-bots-pr1398-gauntlet`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet.md) — gauntlet endojs-endo-but-for-bots-pr1398-gauntlet — review budget reached
+- [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-fix-6.md) — Fix round 6: endojs/endo-but-for-bots PR #1398
 - [`canary-probe-endolin-garden-ece02cb4-7ece247af521`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-7ece247af521.md) — rolling-deploy canary probe — round trip OK
 - [`improve-auth-gated-orchestration-parking`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-auth-gated-orchestration-parking.md) — Completion report: improve-auth-gated-orchestration-parking
 - [`improve-panel-item-reference-gate`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/improve-panel-item-reference-gate.md) — Cost
-- [`endojs-endo-but-for-bots-pr1398-gauntlet-panel-6`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/endojs-endo-but-for-bots-pr1398-gauntlet-panel-6.md) — Cost
-- [`canary-probe-endolin-garden-ece02cb4-fa76a688ed73`](https://github.com/kriscendobot/garden/blob/journal2/jobs/tada/2026/10/07/canary-probe-endolin-garden-ece02cb4-fa76a688ed73.md) — rolling-deploy canary probe — round trip OK
-- … and 11366 more
+- … and 11368 more
 
 ## Plan queue (parked — not claimable until promoted)
 ### awaiting go-ahead (maintainer authorization)
