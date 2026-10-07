@@ -1,4 +1,26 @@
 ---
+gate: go-ahead
+priority: normal
+gauntlet: endojs-endo-but-for-bots-pr1430-gauntlet
+role: gardener
+tier: mentor
+handler-budget-role: shepherd
+handler-timeout: 7200
+token-budget: 250000
+doomed: true
+doom_signature: requeue-exhausted
+doom_count: 1
+failure_classification: unknown
+requeue_cycles: 1
+deadline_overruns: 0
+elapsed_constancy_confirmations: 0
+doomed_at: 2026-10-07T19:03:17Z
+doomed_on: endolin-garden2-5bcdff64
+posted_by: reaper:endolin-garden2-5bcdff64
+posted_at: 2026-10-07T19:03:17Z
+---
+
+---
 role: gardener
 arc: endo-ocapn-background
 handler-budget-role: shepherd
@@ -49,13 +71,3 @@ END your completion report with EXACTLY ONE of these marker lines (last line):
   <!-- gauntlet-stage-result: clean=done -->            (coverage clean, CI green)
   <!-- gauntlet-stage-result: clean=still-pending -->   (CI still pending at deadline)
   <!-- gauntlet-stage-result: clean=ci-billing-blocked -->  (ci-wait-merge rc 5)
-
----
-claim:
-  host: endolin-garden2-5bcdff64
-  gardener: 1
-  worker_kind: monk
-  tier: 
-  provider: anthropic
-  model: 
-  claimed_at: 2026-10-07T14:56:51Z
