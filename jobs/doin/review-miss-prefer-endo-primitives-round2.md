@@ -16,3 +16,13 @@ dispatch: automatic
 - **Close the cluster** in `review-misses/` with this round's improvements recorded, so the recorder flags any later miss as a recurrence. Reconcile the three misses since 08-04: endojs/endo-but-for-bots#1336, kriscendobot/minion.town#140 and kriscendobot/minion.town#146.
 
 Add or adjust tests for (b), and run the affected suites. Note that `/tmp` is noexec on this host, so set `TMPDIR` to an exec-capable dir.
+
+---
+claim:
+  host: endolin-garden2-5bcdff64
+  gardener: 3
+  worker_kind: monk
+  tier: 
+  provider: anthropic
+  model: 
+  claimed_at: 2026-10-07T22:01:49Z
