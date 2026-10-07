@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T13:45:23Z_
+_As of 2026-10-07T14:08:01Z_
 
 ## Latest
 
@@ -617,6 +617,10 @@ _Showing top 10 of 26 parked PRs (ranked by recency + roadmap relevance)._
 - `watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr389-c7307a12a9b0` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-endojs-endo-but-for-bots-pr389-c7307a12a9b0.md)
 
 > Readiness audit: bot-authored OPEN NON-DRAFT PR [https://github.com/endojs/endo-but-for-bots/pull/389](https://github.com/endojs/endo-but-for-bots/pull/389) ([endojs/endo-but-for-bots#389](https://github.com/endojs/endo-but-for-bots/issues/389)) is in the mergeable queue with NO gauntlet review staged (head c7307a12a9b0a117332370f7d6c5d8b0d2e2cb13). Producer jobs normally stage their gauntlet at completion. The audit keeps historical backlog alert-only and stages only post-arm PRs within its per-tick bound; this PR was not staged. If you want it reviewed, reply with 'run the gauntlet #389'; otherwise no action is needed. This audit never re-drafts a PR.
+
+- `watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal` — from watchdog:journal-contention-watch, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-journal-push-contention-_home_kris_garden2__garden_state_cursors_journal.md)
+
+> Journal push contention on endolin-garden2-5bcdff64 for /home/kris/garden2/.garden-state/cursors/journal: attempts p95=5.000000 max=5.000000 (cap 50), classes cas=7 server-reject=0 definite-fail=0.
 
 - `watchdog-pr-gauntlet-readiness-kriscendobot-endo-but-for-bots-pr1-979641659a4d` — from watchdog:design-pr-gauntlet-coverage-audit, reply_to `?` · [open message](https://github.com/kriscendobot/garden/blob/journal2/inbox/maintainer/unread/watchdog-pr-gauntlet-readiness-kriscendobot-endo-but-for-bots-pr1-979641659a4d.md)
 
@@ -1807,7 +1811,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
 
 ## Journal contention (this host)
-worst fetch p95 3.079671s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 4 open notice(s); checker healthy
+worst fetch p95 3.079671s/45s (/home/kris/garden2/.garden-state/state-clone-keeper/journal); 5 open notice(s); checker healthy
 
 ## Board
 ### todo (0)
