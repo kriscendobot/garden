@@ -1,6 +1,6 @@
 # Garden bulletin
 
-_As of 2026-10-07T06:43:55Z_
+_As of 2026-10-07T06:46:09Z_
 
 ## Latest
 
@@ -1732,7 +1732,7 @@ _Since claude-endolin2 reset; billable tokens (cache reads excluded). Leader-hos
 
 | Provider | Token spend | Dollar spend | % of quota |
 | --- | --- | --- | --- |
-| Claude | 167.4M | $1988.69 _(notional, rate-card)_ | 105% of 160.0M (backoff) |
+| Claude | 167.5M | $1990.18 _(notional, rate-card)_ | 105% of 160.0M (backoff) |
 | Codex | 9.6M _(+245.0M cached)_ | n/a _(ChatGPT prolite plan — no per-token $; plan-metered)_ | 74% _(plan; codex-reported)_ |
 
 _Fleet token-unlock pace: 76299895 tokens/day lower bound._
@@ -1744,7 +1744,8 @@ worst fetch p95 4.521654s/45s (/home/kris/garden2/.garden-state/design-pr-gauntl
 ### todo (0)
 (none)
 
-### doin (1)
+### doin (2)
+- [`endojs-endo-but-for-bots-pr1398-gauntlet-fix-1`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/endojs-endo-but-for-bots-pr1398-gauntlet-fix-1.md) — Gauntlet stage: FIX round 1 — endojs/endo-but-for-bots PR #1398
 - [`review-improve-design-bespoke-mechanism-over-existing-path`](https://github.com/kriscendobot/garden/blob/journal2/jobs/doin/review-improve-design-bespoke-mechanism-over-existing-path.md) — review-improve-design-bespoke-mechanism-over-existing-path
 
 ### tada (11319)
