@@ -49,3 +49,13 @@ Code: `scripts/jobs/screening/{policy,driver,control,report}.py`,
 
 Land on `main2` directly (the garden's own repo takes no PR workflow). The maintainer's
 `pause`/`revoke` controls must work on the widened record exactly as before.
+
+---
+claim:
+  host: endolin-garden-ece02cb4
+  gardener: 1
+  worker_kind: cleric
+  tier: 
+  provider: openai
+  model: 
+  claimed_at: 2026-10-07T20:39:08Z
