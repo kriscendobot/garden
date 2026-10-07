@@ -1,4 +1,5 @@
 ---
+child-build-minion-town-oauth-bonds-host: endolin-garden-ece02cb4
 child-build-minion-town-oauth-bonds-reap-count: 0
 child-design-minion-town-oauth-bonds-host: endolin-garden2-5bcdff64
 child-design-minion-town-oauth-bonds-reap-count: 0
