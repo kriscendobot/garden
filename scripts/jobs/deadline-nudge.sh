@@ -18,6 +18,9 @@ export GARDEN_TAG="deadline-nudge"
 : "${GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS:=5}"
 : "${GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS:=3}"
 : "${GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS:=3}"
+# Consecutive ambiguous push failures (across ticks) before the edge-latched
+# repair alert fires. One ambiguous failure is usually a blip; a streak is not.
+: "${GARDEN_DEADLINE_NUDGE_AMBIGUOUS_ALERT_AFTER:=3}"
 # Seconds the prerequisite clone/sync stages wait for this scanner's clone lock.
 # This is a courtesy timer, so a live peer holding the lock (typically a slow
 # previous tick) defers the tick instead of paying the hard 3x60s wait ladder
@@ -25,6 +28,8 @@ export GARDEN_TAG="deadline-nudge"
 : "${GARDEN_DEADLINE_NUDGE_LOCK_WAIT:=$GARDEN_LOCK_SOFT_WAIT}"
 
 DIR="${GARDEN_DEADLINE_NUDGE_CLONE:-$GARDEN_STATE/deadline-nudge/journal}"
+# Host-local count of consecutive ticks whose push failed ambiguously.
+AMBIGUOUS_STREAK="${GARDEN_DEADLINE_NUDGE_AMBIGUOUS_STREAK:-$GARDEN_STATE/deadline-nudge/ambiguous-push-streak}"
 # Host-local, reconstructible record of the current tick's stage and, on a
 # failing exit, its command and breadcrumbs. The tick subshell writes it; the
 # parent reads it into the final WARN (see tick_stage / tick_fault_summary).
@@ -380,12 +385,59 @@ push_rejected() {
   fi
 }
 
+# push_ambiguous: commit_and_push failed without a recognized class — either the
+# push itself failed with stderr none of the shared classifiers recognize
+# ("unclassified"), or it reported success but could not be confirmed on origin
+# ("unconfirmed": a failed verify fetch or a silent loss). Neither is evidence of
+# a lost CAS, so do not spend the retry bound on it. Log the preserved push
+# stderr, reset the private clone to its synced tip (the next tick re-syncs and
+# recomputes every still-due warning; a push that did land is then seen as
+# delivered), count the streak host-locally, and once it reaches
+# GARDEN_DEADLINE_NUDGE_AMBIGUOUS_ALERT_AFTER consecutive ticks raise ONE
+# edge-latched repair alert, cleared by the next successful push.
+PUSH_AMBIGUOUS_ALERT_KEY="deadline-nudge-push-ambiguous:$GARDEN"
+push_ambiguous() {
+  local kind detail streak=0
+  if [ "${GARDEN_COMMIT_PUSH_REJECTED:-0}" = 1 ]; then
+    kind=unclassified
+    detail="$(tick_trace_squash "${GARDEN_PUSH_STDERR:-}")"
+    detail="push stderr: ${detail:-<empty>}"
+  else
+    kind=unconfirmed
+    detail="push reported success but did not verify on origin/$JOURNAL_BRANCH (verify fetch rc=${GARDEN_VERIFY_FETCH_RC:-unknown})"
+  fi
+  [ ! -r "$AMBIGUOUS_STREAK" ] || streak="$(head -1 "$AMBIGUOUS_STREAK" 2>/dev/null || true)"
+  [[ "$streak" =~ ^[0-9]+$ ]] || streak=0
+  streak=$((streak + 1))
+  { mkdir -p "${AMBIGUOUS_STREAK%/*}" && printf '%s\n' "$streak" > "$AMBIGUOUS_STREAK"; } 2>/dev/null || true
+  log "ERROR: deadline-nudge push stage failed ambiguously ($kind, not a classified lost race; streak $streak/$GARDEN_DEADLINE_NUDGE_AMBIGUOUS_ALERT_AFTER); discarding staged nudges and deferring to next timer tick: $detail"
+  tick_fault_detail "ambiguous push ($kind, streak $streak): $detail"
+  clone_lock "$DIR"
+  git -C "$DIR" reset -q --hard "origin/$JOURNAL_BRANCH" 2>/dev/null || true
+  git -C "$DIR" clean -qfd inbox 2>/dev/null || true
+  clone_unlock "$DIR"
+  [ "$streak" -ge "$GARDEN_DEADLINE_NUDGE_AMBIGUOUS_ALERT_AFTER" ] || return 0
+  if alert_maintainer_edge "$PUSH_AMBIGUOUS_ALERT_KEY" "$kind" \
+      "deadline-nudge on $GARDEN has failed to push to $JOURNAL_BRANCH ambiguously ($kind) on $streak consecutive ticks: $detail. Deadline warnings are not being delivered; the failure matches no known lost-race or rejection class, so inspect the push path (and teach journal_push_is_* the diagnostic if it is a known shape)."; then
+    log "deadline-nudge raised ambiguous-push repair alert ($kind, streak $streak)"
+  fi
+  return 0
+}
+
+push_ambiguous_clear() {
+  rm -f "$AMBIGUOUS_STREAK" 2>/dev/null || true
+  alert_maintainer_edge_clear "$PUSH_AMBIGUOUS_ALERT_KEY" \
+    "deadline-nudge on $GARDEN pushed to $JOURNAL_BRANCH again; the ambiguous push failures have cleared." \
+    && log "deadline-nudge ambiguous push failures cleared"
+  return 0
+}
+
 deadline_nudge_tick() {
   local now attempt rc stage_rc
   for value in "$GARDEN_DEADLINE_NUDGE_INTERVAL" "$GARDEN_DEADLINE_NUDGE_FRACTION" \
                "$GARDEN_DEADLINE_NUDGE_CAP" "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS" \
                "$GARDEN_DEADLINE_NUDGE_CLONE_ATTEMPTS" "$GARDEN_DEADLINE_NUDGE_SYNC_ATTEMPTS" \
-               "$GARDEN_DEADLINE_NUDGE_LOCK_WAIT"; do
+               "$GARDEN_DEADLINE_NUDGE_LOCK_WAIT" "$GARDEN_DEADLINE_NUDGE_AMBIGUOUS_ALERT_AFTER"; do
     if ! positive_integer "$value"; then
       log "invalid deadline-nudge timing/retry value '$value'; disabling this tick"
       return 0
@@ -462,18 +514,28 @@ deadline_nudge_tick() {
         alert_maintainer_edge_clear "$PUSH_REJECT_ALERT_KEY" \
           "deadline-nudge on $GARDEN pushed to $JOURNAL_BRANCH again; the push rejection has cleared." \
           && log "deadline-nudge push rejection cleared"
+        push_ambiguous_clear
         return 0 ;;
       2) return 0 ;;
     esac
-    # Only a lost CAS (or an unclassified, ambiguous failure) is worth another
-    # sync-and-retry. A definite or server-side rejection (auth drift, a gone
-    # upstream, a hook/policy wall) fails identically on every attempt, so
-    # retrying only repeats the same "exhausted" warning; give up at once.
+    # Only a classified lost CAS is worth another sync-and-retry. A definite or
+    # server-side rejection (auth drift, a gone upstream, a hook/policy wall)
+    # fails identically on every attempt, so retrying only repeats the same
+    # "exhausted" warning; give up at once. An unclassified failure, or a push
+    # that could not be confirmed on origin, is not evidence of contention:
+    # retrying it as a race burned all five attempts in seconds on
+    # 2026-10-07T16:22:33Z with no diagnostic. Defer it with its stderr instead.
     case "${GARDEN_COMMIT_PUSH_CLASS:-}" in
       definite-fail|server-reject)
         push_rejected "$GARDEN_COMMIT_PUSH_CLASS"
         return 0 ;;
+      cas) ;;
+      *)
+        push_ambiguous
+        return 0 ;;
     esac
+    # A classified race proves the push path works, so it ends any ambiguous streak.
+    rm -f "$AMBIGUOUS_STREAK" 2>/dev/null || true
     log "deadline-nudge push stage lost a race (attempt $attempt/$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS); recomputing claims"
     [ "$attempt" -ge "$GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS" ] || backoff "$attempt"
   done

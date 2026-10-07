@@ -462,17 +462,65 @@ else
   bad 'completion race created a warning or dead mail'
 fi
 
+# An unclassified push failure (here: a push that exits non-zero with unknown
+# stderr) is not a lost CAS. It must not burn the retry bound as contention
+# (2026-10-07T16:22:33Z): the tick logs the preserved stderr, resets its clone,
+# defers, and only a streak of such ticks raises one edge-latched alert.
+ambig_stub="$TEST_ROOT/ambiguous-push-stub.sh"
+ambig_count="$TEST_ROOT/ambiguous.count"
+cat > "$ambig_stub" <<'STUB'
+#!/bin/bash
+printf 'x\n' >> "$GARDEN_NUDGE_AMBIG_COUNT"
+printf 'fatal: the remote end hung up unexpectedly (weird-transport-xyzzy)\n' >&2
+exit 1
+STUB
+chmod +x "$ambig_stub"
+ambig_fp="$STATE/alerts/deadline-nudge-push-ambiguous_leader-one.fingerprint"
 add_claim_at_tip pushfail 300
-run_nudge pushfail-scan env GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS=1 \
-  GARDEN_PUSH_CMD=/bin/false > "$TEST_ROOT/pushfail.out" 2>&1
-if [ -z "$(nudge_paths pushfail)" ] \
-  && grep -q 'failed locally' "$TEST_ROOT/pushfail.out" \
-  && grep -q 'tick exited rc=1 in stage push (attempt 1/1) during' "$TEST_ROOT/pushfail.out" \
-  && grep -qE 'failed locally \(rc=1; stage=push \(attempt 1/1\); detail=push stage exhausted after 1 attempt\(s\) \(last commit_and_push rc=[0-9]+\); command=`' "$TEST_ROOT/pushfail.out"; then
-  ok 'exhausted push retry names its stage and detail in the WARN, and fails open without changing the board'
+run_ambig() {
+  run_nudge pushfail-scan env GARDEN_DEADLINE_NUDGE_PUSH_ATTEMPTS=5 \
+    GARDEN_DEADLINE_NUDGE_AMBIGUOUS_ALERT_AFTER=2 \
+    GARDEN_NUDGE_AMBIG_COUNT="$ambig_count" GARDEN_PUSH_CMD="$ambig_stub" > "$1" 2>&1
+}
+run_ambig "$TEST_ROOT/pushfail.out"
+pushfail_rc=$?
+pushfail_clone="$STATE/pushfail-scan/journal"
+if [ "$pushfail_rc" -eq 0 ] && [ -z "$(nudge_paths pushfail)" ] \
+  && [ "$(wc -l < "$ambig_count")" -eq 1 ] \
+  && ! grep -q 'lost a race' "$TEST_ROOT/pushfail.out" \
+  && ! grep -q 'exhausted' "$TEST_ROOT/pushfail.out" \
+  && ! grep -q 'failed locally' "$TEST_ROOT/pushfail.out" \
+  && grep -q 'failed ambiguously (unclassified, not a classified lost race; streak 1/2)' "$TEST_ROOT/pushfail.out" \
+  && grep -q 'weird-transport-xyzzy' "$TEST_ROOT/pushfail.out" \
+  && ! grep -q 'ambiguous-push repair alert' "$TEST_ROOT/pushfail.out" \
+  && [ ! -e "$ambig_fp" ] \
+  && [ "$(git -C "$pushfail_clone" rev-parse HEAD)" = "$(git -C "$pushfail_clone" rev-parse "origin/$BRANCH")" ] \
+  && [ -z "$(git -C "$pushfail_clone" status --porcelain)" ]; then
+  ok 'an unclassified push failure is not retried as a race, preserves stderr, resets the clone, and defers'
 else
-  bad 'push exhaustion changed the board, was opaque, or escaped fail-open handling'
-  sed 's/^/    /' "$TEST_ROOT/pushfail.out" | tail -5
+  bad 'an unclassified push failure was retried as contention, lost its stderr, or left staged state'
+  sed 's/^/    /' "$TEST_ROOT/pushfail.out" | tail -8
+fi
+run_ambig "$TEST_ROOT/pushfail-2.out"
+run_ambig "$TEST_ROOT/pushfail-3.out"
+if [ "$(wc -l < "$ambig_count")" -eq 3 ] \
+  && grep -q 'raised ambiguous-push repair alert (unclassified, streak 2)' "$TEST_ROOT/pushfail-2.out" \
+  && grep -q 'streak 3/2' "$TEST_ROOT/pushfail-3.out" \
+  && ! grep -q 'repair alert' "$TEST_ROOT/pushfail-3.out" \
+  && [ "$(cat "$ambig_fp" 2>/dev/null)" = unclassified ]; then
+  ok 'repeated ambiguous push failures raise one edge-latched alert at the streak threshold'
+else
+  bad 'repeated ambiguous push failures did not edge-alert once'
+  sed 's/^/    /' "$TEST_ROOT/pushfail-3.out" | tail -5
+fi
+run_nudge pushfail-scan > "$TEST_ROOT/pushfail-clear.out" 2>&1
+if [ -n "$(nudge_paths pushfail)" ] && [ ! -e "$ambig_fp" ] \
+  && [ ! -e "$STATE/deadline-nudge/ambiguous-push-streak" ] \
+  && grep -q 'ambiguous push failures cleared' "$TEST_ROOT/pushfail-clear.out"; then
+  ok 'the next successful push delivers the warning and clears the ambiguous streak and latch'
+else
+  bad 'recovery did not deliver the warning or clear the ambiguous latch'
+  sed 's/^/    /' "$TEST_ROOT/pushfail-clear.out" | tail -5
 fi
 
 reject_stub="$HERE/deadline-nudge-reject-push-stub.sh"

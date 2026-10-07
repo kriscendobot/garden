@@ -1,6 +1,7 @@
 #!/bin/bash
 # First invocation advances the fixture origin to a changed claim/completion and
-# rejects the scanner's stale push. Later invocations perform the real push.
+# rejects the scanner's stale push with a lost-CAS diagnostic. Later invocations
+# perform the real push.
 
 set -euo pipefail
 : "${GARDEN_PUSH_DIR:?}"
@@ -35,6 +36,8 @@ if [ ! -e "$GARDEN_NUDGE_RACE_MARKER" ]; then
     commit -q -m "race fixture: $GARDEN_NUDGE_RACE_ACTION $GARDEN_NUDGE_RACE_BASE"
   git -C "$update" push -q origin HEAD:journal2
   touch "$GARDEN_NUDGE_RACE_MARKER"
+  # The real lost-CAS diagnostic, so the scanner classifies it as a race.
+  printf ' ! [rejected]        HEAD -> journal2 (fetch first)\n' >&2
   exit 1
 fi
 
